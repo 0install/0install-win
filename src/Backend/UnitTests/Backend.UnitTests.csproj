@@ -156,7 +156,6 @@
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.gem" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.msi" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar" />
-    <EmbeddedResource Include="Store\Implementations\Archives\testArchiveHardlink.tar" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.bz2" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.gz" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.lzma" />

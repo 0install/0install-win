@@ -25,6 +25,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -107,17 +108,17 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             switch (mimeType)
             {
-                case Model.Archive.MimeTypeZip:
-                case Model.Archive.MimeTypeTar:
-                case Model.Archive.MimeTypeTarGzip:
-                case Model.Archive.MimeTypeTarBzip:
-                case Model.Archive.MimeTypeTarLzma:
-                case Model.Archive.MimeTypeRubyGem:
+                case Archive.MimeTypeZip:
+                case Archive.MimeTypeTar:
+                case Archive.MimeTypeTarGzip:
+                case Archive.MimeTypeTarBzip:
+                case Archive.MimeTypeTarLzma:
+                case Archive.MimeTypeRubyGem:
                     return;
 
-                case Model.Archive.MimeType7Z:
-                case Model.Archive.MimeTypeCab:
-                case Model.Archive.MimeTypeMsi:
+                case Archive.MimeType7Z:
+                case Archive.MimeTypeCab:
+                case Archive.MimeTypeMsi:
                     if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.ExtractionOnlyOnWindows);
                     return;
 
@@ -147,31 +148,31 @@ namespace ZeroInstall.Store.Implementations.Archives
             Extractor extractor;
             switch (mimeType)
             {
-                case Model.Archive.MimeTypeZip:
+                case Archive.MimeTypeZip:
                     extractor = new ZipExtractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeTar:
+                case Archive.MimeTypeTar:
                     extractor = new TarExtractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeTarGzip:
+                case Archive.MimeTypeTarGzip:
                     extractor = new TarGzExtractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeTarBzip:
+                case Archive.MimeTypeTarBzip:
                     extractor = new TarBz2Extractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeTarLzma:
+                case Archive.MimeTypeTarLzma:
                     extractor = new TarLzmaExtractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeRubyGem:
+                case Archive.MimeTypeRubyGem:
                     extractor = new RubyGemExtractor(stream, target);
                     break;
-                case Model.Archive.MimeType7Z:
+                case Archive.MimeType7Z:
                     extractor = new SevenZipExtractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeCab:
+                case Archive.MimeTypeCab:
                     extractor = new CabExtractor(stream, target);
                     break;
-                case Model.Archive.MimeTypeMsi:
+                case Archive.MimeTypeMsi:
                     throw new NotSupportedException("MSIs can only be accessed as local files, not as streams!");
 
                 default:
@@ -194,10 +195,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         [NotNull]
         public static Extractor FromFile([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
         {
-            if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
+            if (string.IsNullOrEmpty(mimeType)) mimeType = Archive.GuessMimeType(path);
 
             // MSI Extractor does not support Stream-based access
-            if (mimeType == Model.Archive.MimeTypeMsi) return new MsiExtractor(path, target);
+            if (mimeType == Archive.MimeTypeMsi) return new MsiExtractor(path, target);
 
             Stream stream = File.OpenRead(path);
             if (startOffset != 0) stream = new OffsetStream(stream, startOffset);
@@ -216,12 +217,12 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         //--------------------//
 
-        #region Relative path
         /// <summary>
-        /// Returns the path of an archive entry trimmed by the selected sub-directory prefix.
+        /// Returns the path of an archive entry relative to <see cref="SubDir"/>.
         /// </summary>
         /// <param name="entryName">The Unix-style path of the archive entry relative to the archive's root.</param>
-        /// <returns>The trimmed path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
+        /// <returns>The relative path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
+        [CanBeNull]
         protected virtual string GetRelativePath([NotNull] string entryName)
         {
             entryName = FileUtils.UnifySlashes(entryName);
@@ -244,18 +245,13 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             return entryName;
         }
-        #endregion
 
-        #region Write entries
-        /// <summary>
-        /// Stores the last write times for directories so they can be set by <see cref="SetDirectoryWriteTimes"/>.
-        /// </summary>
         private readonly List<KeyValuePair<string, DateTime>> _directoryWriteTimes = new List<KeyValuePair<string, DateTime>>();
 
         /// <summary>
         /// Creates a directory in the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         protected void CreateDirectory([NotNull] string relativePath, DateTime lastWriteTime)
         {
@@ -270,9 +266,35 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
+        /// Combines the extraction <see cref="TargetDir"/> path with the relative path inside the archive (ensuring only valid paths are returned).
+        /// </summary>
+        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <returns>The combined path as an absolute path.</returns>
+        /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
+        protected string CombinePath([NotNull] string relativePath)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            #endregion
+
+            if (FileUtils.IsBreakoutPath(relativePath)) throw new IOException(string.Format(Resources.ArchiveInvalidPath, relativePath));
+
+            try
+            {
+                return Path.GetFullPath(Path.Combine(EffectiveTargetDir, relativePath));
+            }
+                #region Error handling
+            catch (ArgumentException ex)
+            {
+                throw new IOException(Resources.ArchiveInvalidPath, ex);
+            }
+            #endregion
+        }
+
+        /// <summary>
         /// Writes a file to the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
         /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
@@ -293,7 +315,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a stream for writing an extracted file to the filesystem.
         /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
         /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
         /// <returns>A stream for writing the extracted file.</returns>
         protected FileStream OpenFileWriteStream([NotNull] string relativePath, bool executable = false)
@@ -321,128 +343,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Creates a symbolic link in the filesystem if possible; stores it in a <see cref="FlagUtils.SymlinkFile"/> otherwise.
-        /// </summary>
-        /// <param name="source">A path relative to the archive's root.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
-        protected void CreateSymlink([NotNull] string source, [NotNull] string target)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
-            string sourceAbsolute = CombinePath(source);
-            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
-            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
-
-            if (_isUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
-                // NOTE: NTFS symbolic links require admin privileges; do not use them here
-                //else if (WindowsUtils.IsWindowsNT) {...}
-            else
-            {
-                // Write link data as a normal file
-                File.WriteAllText(sourceAbsolute, target);
-
-                // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
-                FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
-            }
-        }
-
-        /// <summary>
-        /// Creates a hard link in the filesystem if possible; creates a copy otherwise.
-        /// </summary>
-        /// <param name="source">A path relative to the archive's root.</param>
-        /// <param name="target">The target the hard link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
-        protected void CreateHardlink([NotNull] string source, [NotNull] string target)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
-            string sourceAbsolute = CombinePath(source);
-            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
-            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
-            string targetAbsolute = CombinePath(FileUtils.UnifySlashes(target));
-
-            try
-            {
-                FileUtils.CreateHardlink(sourceAbsolute, targetAbsolute);
-            }
-                #region Sanity checks
-            catch (PlatformNotSupportedException)
-            {
-                File.Copy(targetAbsolute, sourceAbsolute);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                File.Copy(targetAbsolute, sourceAbsolute);
-            }
-            #endregion
-        }
-
-        #region Helpers
-        /// <summary>
-        /// Helper method for <see cref="WriteFile"/>.
-        /// </summary>
-        /// <param name="stream">The stream to write to a file.</param>
-        /// <param name="fileStream">Stream access to the file to write.</param>
-        /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
-        protected virtual void StreamToFile([NotNull] Stream stream, [NotNull] FileStream fileStream)
-        {
-            stream.CopyTo(fileStream, cancellationToken: CancellationToken);
-        }
-
-        /// <summary>
-        /// Combines the extraction <see cref="TargetDir"/> path with the relative path inside the archive (ensuring only valid paths are returned).
-        /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
-        /// <returns>The combined path as an absolute path.</returns>
-        /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
-        protected string CombinePath([NotNull] string relativePath)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
-            #endregion
-
-            if (FileUtils.IsBreakoutPath(relativePath)) throw new IOException(string.Format(Resources.ArchiveInvalidPath, relativePath));
-
-            try
-            {
-                return Path.GetFullPath(Path.Combine(EffectiveTargetDir, relativePath));
-            }
-                #region Error handling
-            catch (ArgumentException ex)
-            {
-                throw new IOException(Resources.ArchiveInvalidPath, ex);
-            }
-            #endregion
-        }
-
-        /// <summary>
-        /// Sets the last write times of the directories that were recorded during extraction.
-        /// </summary>
-        /// <remarks>This must be done in a separate step, since changing anything within a directory will affect its last write time.</remarks>
-        protected void SetDirectoryWriteTimes()
-        {
-            // Run through list backwards to ensure directories are handled "from the inside out"
-            for (int index = _directoryWriteTimes.Count - 1; index >= 0; index--)
-            {
-                var pair = _directoryWriteTimes[index];
-                Directory.SetLastWriteTimeUtc(pair.Key, pair.Value);
-            }
-        }
-        #endregion
-
-        #endregion
-
-        #region Executable flag
-        /// <summary>
         /// Marks a file as executable using the filesystem if possible; stores it in a <see cref="FlagUtils.XbitFile"/> otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
         private void SetExecutableBit(string relativePath)
         {
             #region Sanity checks
@@ -461,7 +364,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Marks a file as no longer executable using the filesystem if possible, an <see cref="FlagUtils.XbitFile"/> file otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
         private void RemoveExecutableBit(string relativePath)
         {
             #region Sanity checks
@@ -476,7 +379,125 @@ namespace ZeroInstall.Store.Implementations.Archives
                 FlagUtils.Remove(Path.Combine(TargetDir, FlagUtils.XbitFile), flagRelativePath);
             }
         }
-        #endregion
+
+        private struct PendingHardlink
+        {
+            public string Source, Target;
+            public bool Executable;
+        }
+
+        private readonly List<PendingHardlink> _pendingHardlinks = new List<PendingHardlink>();
+
+        /// <summary>
+        /// Queues a hardlink for creation at the end of the extracton process. This enables handling links to files that have not been extracted yet.
+        /// </summary>
+        /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="target">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="executable"><see langword="true"/> if the hardlink's executable bit is set; <see langword="false"/> otherwise.</param>
+        protected void QueueHardlink([NotNull] string source, [NotNull] string target, bool executable = false)
+        {
+            _pendingHardlinks.Add(new PendingHardlink {Source = source, Target = target, Executable = executable});
+        }
+
+        /// <summary>
+        /// Creates a symbolic link in the filesystem if possible; stores it in a <see cref="FlagUtils.SymlinkFile"/> otherwise.
+        /// </summary>
+        /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
+        protected void CreateSymlink([NotNull] string source, [NotNull] string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            string sourceAbsolute = CombinePath(source);
+            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
+            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
+
+            if (_isUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
+            // NOTE: NTFS symbolic links require admin privileges; do not use them here
+            //else if (WindowsUtils.IsWindowsNT) {...}
+            else
+            {
+                // Write link data as a normal file
+                File.WriteAllText(sourceAbsolute, target);
+
+                // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
+                string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
+                FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
+            }
+        }
+
+        /// <summary>
+        /// Helper method for <see cref="WriteFile"/>.
+        /// </summary>
+        /// <param name="stream">The stream to write to a file.</param>
+        /// <param name="fileStream">Stream access to the file to write.</param>
+        /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
+        protected virtual void StreamToFile([NotNull] Stream stream, [NotNull] FileStream fileStream)
+        {
+            stream.CopyTo(fileStream, cancellationToken: CancellationToken);
+        }
+
+        /// <summary>
+        /// Performs any tasks that were deferred to the end of the extraction process.
+        /// </summary>
+        protected void Finish()
+        {
+            foreach (var hardlink in _pendingHardlinks)
+            {
+                CreateHardlink(hardlink.Source, hardlink.Target);
+                if (hardlink.Executable) SetExecutableBit(hardlink.Source);
+            }
+
+            SetDirectoryWriteTimes();
+        }
+
+        /// <summary>
+        /// Creates a hardlink in the filesystem if possible; creates a copy otherwise.
+        /// </summary>
+        /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="target">A path relative to <see cref="SubDir"/>.</param>
+        private void CreateHardlink([NotNull] string source, [NotNull] string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            string sourceAbsolute = CombinePath(source);
+            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
+            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
+            string targetAbsolute = CombinePath(target);
+
+            try
+            {
+                FileUtils.CreateHardlink(sourceAbsolute, targetAbsolute);
+            }
+            catch (PlatformNotSupportedException)
+            {
+                File.Copy(targetAbsolute, sourceAbsolute);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                File.Copy(targetAbsolute, sourceAbsolute);
+            }
+        }
+
+        /// <summary>
+        /// Sets the last write times of the directories that were recorded during extraction.
+        /// </summary>
+        /// <remarks>This must be done in a separate step, since changing anything within a directory will affect its last write time.</remarks>
+        private void SetDirectoryWriteTimes()
+        {
+            // Run through list backwards to ensure directories are handled "from the inside out"
+            for (int index = _directoryWriteTimes.Count - 1; index >= 0; index--)
+            {
+                var pair = _directoryWriteTimes[index];
+                Directory.SetLastWriteTimeUtc(pair.Key, pair.Value);
+            }
+        }
 
         //--------------------//
 

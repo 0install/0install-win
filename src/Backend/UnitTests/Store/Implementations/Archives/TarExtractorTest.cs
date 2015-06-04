@@ -124,17 +124,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             Assert.IsTrue(File.Exists("subdir2/executable"), "Should extract file 'executable'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir2/executable"), "Correct last write time for file 'executable' should be set");
         }
-
-        [Test]
-        public void TestHardlink()
-        {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchiveHardlink.tar"))
-            using (var extractor = Extractor.FromStream(stream, _sandbox, Model.Archive.MimeTypeTar))
-                extractor.Run();
-
-            Assert.AreEqual("data", File.ReadAllText("file1"));
-            Assert.AreEqual("data", File.ReadAllText("file2"));
-        }
     }
 
     [TestFixture]
@@ -193,6 +182,21 @@ namespace ZeroInstall.Store.Implementations.Archives
                 target = File.ReadAllText(Path.Combine(_sandbox, "symlink"));
             }
             Assert.AreEqual("subdir1/regular", target, "Symlink should point to 'regular'");
+        }
+
+        /// <summary>
+        /// Tests whether the extractor creates an on-disk hardlink for a sample TAR archive containing a hardlink.
+        /// </summary>
+        [Test]
+        public void TestExtractUnixArchiveWithHardlink()
+        {
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
+            using (var extractor = new TarExtractor(stream, _sandbox))
+                extractor.Run();
+
+            Assert.IsTrue(
+                FileUtils.AreHardlinked(Path.Combine(_sandbox, "subdir1", "regular"), Path.Combine(_sandbox, "hardlink")),
+                "'regular' and 'hardlink' should be hardlinked together");
         }
     }
 }

@@ -81,14 +81,14 @@ namespace ZeroInstall.Store.Implementations.Archives
                     if (string.IsNullOrEmpty(relativePath)) continue;
 
                     if (entry.IsDirectory) CreateDirectory(relativePath, entry.TarHeader.ModTime);
-                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) CreateHardlink(relativePath, entry.TarHeader.LinkName);
+                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) QueueHardlink(relativePath, GetRelativePath(entry.TarHeader.LinkName), IsExecutable(entry));
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(relativePath, entry.TarHeader.LinkName);
                     else WriteFile(relativePath, entry.Size, entry.TarHeader.ModTime, _tarStream, IsExecutable(entry));
 
                     UpdateProgress();
                 }
 
-                SetDirectoryWriteTimes();
+                Finish();
             }
                 #region Error handling
             catch (SharpZipBaseException ex)

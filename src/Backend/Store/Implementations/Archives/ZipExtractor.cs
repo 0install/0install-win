@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                     UnitsProcessed += centralEntry.CompressedSize;
                 }
 
-                SetDirectoryWriteTimes();
+                Finish();
             }
                 #region Error handling
             catch (SharpZipBaseException ex)

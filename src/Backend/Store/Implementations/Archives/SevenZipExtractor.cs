@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                     UnitsProcessed += (long)entry.Size;
                 }
             }
-            SetDirectoryWriteTimes();
+            Finish();
         }
     }
 }
