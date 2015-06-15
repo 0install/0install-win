@@ -93,7 +93,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
-            switch (AdditionalArgs[0])
+            string mode = AdditionalArgs[0];
+            switch (mode)
             {
                 case "add":
                     return Add();
@@ -140,14 +141,14 @@ namespace ZeroInstall.Commands.CliCommands
                     return Verify();
 
                 default:
-                    throw new OptionException(Resources.UnknownMode, "");
+                    throw new OptionException(Resources.UnknownMode, mode);
             }
         }
 
         #region Subcommands
         private ExitCode Add()
         {
-            if (AdditionalArgs.Count < 3) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
+            if (AdditionalArgs.Count < 3) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", null);
 
             var manifestDigest = new ManifestDigest(AdditionalArgs[1]);
             string path = AdditionalArgs[2];
@@ -160,7 +161,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
                 else if (Directory.Exists(path))
                 { // A single directory
-                    if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
+                    if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", AdditionalArgs[3]);
                     Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
                     return ExitCode.OK;
                 }
@@ -183,8 +184,8 @@ namespace ZeroInstall.Commands.CliCommands
 
         private ExitCode Copy()
         {
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
-            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", null);
+            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", AdditionalArgs[3]);
 
             var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
 
@@ -204,8 +205,8 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void Find()
         {
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "find DIGEST", "");
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST", "");
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "find DIGEST", null);
+            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST", AdditionalArgs[2]);
 
             string path = Store.GetPath(new ManifestDigest(AdditionalArgs[1]));
             if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[1]));
@@ -214,7 +215,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void List()
         {
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[1]);
 
             var composite = Store as CompositeStore;
             Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] {Store} : composite.Stores);
@@ -222,7 +223,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void ListImplementations()
         {
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
+            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[2]);
 
             var nodeBuilder = new CacheNodeBuilder(Store, FeedCache);
             nodeBuilder.Run();
@@ -254,7 +255,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void Remove()
         {
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", "");
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", null);
 
             foreach (var digest in AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x)))
             {
@@ -270,7 +271,7 @@ namespace ZeroInstall.Commands.CliCommands
                 switch (AdditionalArgs.Count)
                 {
                     case 1:
-                        throw new OptionException(Resources.MissingArguments + Environment.NewLine + "verify [DIRECTORY] DIGEST" + Environment.NewLine + Resources.StoreVerfiyTryAuditInstead, "");
+                        throw new OptionException(Resources.MissingArguments + Environment.NewLine + "verify [DIRECTORY] DIGEST" + Environment.NewLine + Resources.StoreVerfiyTryAuditInstead, null);
 
                     case 2:
                         // Verify a directory inside the store

@@ -74,13 +74,13 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (_resolve || _remove)
             {
-                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[1]);
                 return ResolveOrRemove(
                     aliasName: AdditionalArgs[0]);
             }
             else
             {
-                if (AdditionalArgs.Count < 2 || string.IsNullOrEmpty(AdditionalArgs[1])) throw new OptionException(Resources.MissingArguments, "");
+                if (AdditionalArgs.Count < 2 || string.IsNullOrEmpty(AdditionalArgs[1])) throw new OptionException(Resources.MissingArguments, null);
                 return CreateAlias(
                     aliasName: AdditionalArgs[0],
                     interfaceUri: GetCanonicalUri(AdditionalArgs[1]),

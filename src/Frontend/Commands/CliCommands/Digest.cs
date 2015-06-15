@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands.CliCommands
                     catch (ArgumentException ex)
                     {
                         // Wrap exception since only certain exception types are allowed
-                        throw new OptionException(ex.Message, "algorithm");
+                        throw new OptionException(ex.Message, algorithm);
                     }
                     #endregion
                 });
@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (Directory.Exists(path))
             {
-                if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
+                if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, subdir);
 
                 var generator = new ManifestGenerator(path, _algorithm);
                 Handler.RunTask(generator);

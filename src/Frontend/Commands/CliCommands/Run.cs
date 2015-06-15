@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands.CliCommands
         [CanBeNull]
         protected Process LaunchImplementation()
         {
-            if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
+            if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "command");
 
             using (CreateRunHook())
             {

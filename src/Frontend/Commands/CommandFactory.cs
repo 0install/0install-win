@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands
                 case StoreMan.Name:
                     return new StoreMan(handler);
                 default:
-                    throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
+                    throw new OptionException(string.Format(Resources.UnknownCommand, commandName), commandName);
             }
         }
         #endregion

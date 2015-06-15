@@ -75,7 +75,8 @@ namespace ZeroInstall.Commands.CliCommands
         {
             // NOTE: Does not call base method
 
-            if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
+            var additionalArgs = Options.Parse(args);
+            if (additionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), additionalArgs[0]);
 
             SetInterfaceUri(Config.SelfUpdateUri);
 

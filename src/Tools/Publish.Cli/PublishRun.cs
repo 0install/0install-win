@@ -125,7 +125,7 @@ namespace ZeroInstall.Publish.Cli
             catch (FileNotFoundException ex)
             {
                 // Report as an invalid command-line argument
-                throw new OptionException(ex.Message, "");
+                throw new OptionException(ex.Message, ex.FileName);
             }
             #endregion
         }
