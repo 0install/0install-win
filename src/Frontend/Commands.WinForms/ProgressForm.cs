@@ -115,7 +115,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             Visible = true;
-            HideTrayIcon();
+            notifyIcon.Visible = false;
 
             _modifySelectionsWaitHandle = waitHandle;
 
@@ -251,30 +251,16 @@ namespace ZeroInstall.Commands.WinForms
             if (!string.IsNullOrEmpty(information)) notifyIcon.ShowBalloonTip(7500, "Zero Install", information, messageType);
         }
 
-        /// <summary>
-        /// Hides the tray icon.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
-        public void HideTrayIcon()
-        {
-            #region Sanity checks
-            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
-
-            notifyIcon.Visible = false;
-        }
-
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Visible = true;
-            HideTrayIcon();
+            notifyIcon.Visible = false;
         }
 
         private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
         {
             Visible = true;
-            HideTrayIcon();
+            notifyIcon.Visible = false;
         }
 
         private void buttonHide_Click(object sender, EventArgs e)
@@ -294,9 +280,7 @@ namespace ZeroInstall.Commands.WinForms
             // Start proper cancellation instead
             Cancel();
         }
-        #endregion
 
-        #region Cancelling
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Cancel();
@@ -308,12 +292,26 @@ namespace ZeroInstall.Commands.WinForms
         private void Cancel()
         {
             Hide();
-            HideTrayIcon();
 
             _cancellationTokenSource.Cancel();
 
             // Unblock any waiting thread
             if (_modifySelectionsWaitHandle != null) _modifySelectionsWaitHandle.Set();
+        }
+
+        /// <summary>
+        /// Hides the form and the tray icon.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        public new void Hide()
+        {
+            #region Sanity checks
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
+
+            Visible = false;
+            notifyIcon.Visible = false;
         }
         #endregion
     }

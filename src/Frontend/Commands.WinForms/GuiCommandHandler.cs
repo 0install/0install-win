@@ -159,13 +159,13 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Messages
+        #region Output
         /// <inheritdoc/>
         public override void Output(string title, string message)
         {
             DisableUI();
 
-            if (Background) ShowBalloonMessage(title, message);
+            if (Background) OutputBalloon(title, message);
             else base.Output(title, message);
         }
 
@@ -177,21 +177,18 @@ namespace ZeroInstall.Commands.WinForms
             if (Background)
             {
                 string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
-                ShowBalloonMessage(title, message);
+                OutputBalloon(title, message);
             }
             else base.Output(title, data);
         }
 
         /// <summary>
-        /// Displays a tray icon with balloon message detached from the main GUI (will stick around even after the process ends).
+        /// Displays a tray icon with balloon message detached from the main GUI. Will stick around even after the process ends until the user mouses over.
         /// </summary>
         /// <param name="title">The title of the balloon message.</param>
         /// <param name="message">The balloon message text.</param>
-        private void ShowBalloonMessage(string title, string message)
+        private static void OutputBalloon(string title, string message)
         {
-            // Remove existing tray icon to give new balloon priority
-            _wrapper.Post(form => form.HideTrayIcon());
-
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
         }
@@ -209,8 +206,8 @@ namespace ZeroInstall.Commands.WinForms
             {
                 var integrationForm = new IntegrateAppForm(state);
 
-                form.Visible = false;
-                form.HideTrayIcon();
+                // The progress form and integration form take turns in being visible
+                form.Hide();
 
                 return integrationForm.ShowDialog();
             });
