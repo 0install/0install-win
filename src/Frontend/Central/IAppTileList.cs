@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
@@ -30,20 +29,15 @@ namespace ZeroInstall.Central
     public interface IAppTileList
     {
         /// <summary>
-        /// The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons.
-        /// </summary>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        IIconCache IconCache { get; set; }
-
-        /// <summary>
-        /// Prepares a new application tile to be added to the list. Will be added in bulk when <see cref="IAppTileList.AddQueuedTiles"/> is called.
+        /// Prepares a new <see cref="IAppTile"/> to be added to the list. Will be added in bulk when <see cref="IAppTileList.AddQueuedTiles"/> is called.
         /// </summary>
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
+        /// <param name="iconCache">The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons; can be <see langword="null"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="InvalidOperationException">The list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
-        IAppTile QueueNewTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, bool machineWide);
+        IAppTile QueueNewTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false);
 
         /// <summary>
         /// Adds all new tiles queued by <see cref="IAppTileList.QueueNewTile"/> calls.

@@ -60,6 +60,32 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Properties
+        /// <inheritdoc/>
+        public FeedUri InterfaceUri { get; private set; }
+
+        /// <inheritdoc/>
+        public string AppName { get { return labelName.Text; } }
+
+        private AppStatus _status;
+
+        /// <inheritdoc/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public AppStatus Status
+        {
+            get { return _status; }
+            set
+            {
+                #region Sanity checks
+                if (value < AppStatus.Candidate || value > AppStatus.Integrated) throw new InvalidEnumArgumentException("value", (int)value, typeof(AppStatus));
+                if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
+                #endregion
+
+                _status = value;
+
+                UpdateButtons();
+            }
+        }
+
         private Feed _feed;
 
         /// <inheritdoc/>
@@ -91,32 +117,6 @@ namespace ZeroInstall.Central.WinForms
                     else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
                 }
                 else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
-            }
-        }
-
-        /// <inheritdoc/>
-        public FeedUri InterfaceUri { get; private set; }
-
-        /// <inheritdoc/>
-        public string AppName { get { return labelName.Text; } }
-
-        private AppStatus _status;
-
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public AppStatus Status
-        {
-            get { return _status; }
-            set
-            {
-                #region Sanity checks
-                if (value < AppStatus.Candidate || value > AppStatus.Integrated) throw new InvalidEnumArgumentException("value", (int)value, typeof(AppStatus));
-                if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
-                #endregion
-
-                _status = value;
-
-                UpdateButtons();
             }
         }
         #endregion

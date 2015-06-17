@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="CentralUtils.cs" />
     <Compile Include="AppTileManagement.cs" />
     <Compile Include="AppStatus.cs" />
     <Compile Include="GlobalSuppressions.cs" />

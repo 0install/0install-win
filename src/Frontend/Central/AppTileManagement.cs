@@ -27,6 +27,7 @@ using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -37,12 +38,6 @@ namespace ZeroInstall.Central
     /// </summary>
     public class AppTileManagement
     {
-        #region Variables
-        private readonly IAppTileList _tileListMyApps, _tileListCatalog;
-        private readonly bool _machineWide;
-        #endregion
-
-        #region Properties
         private AppList _appList = new AppList();
 
         /// <summary>
@@ -58,31 +53,37 @@ namespace ZeroInstall.Central
         /// Used for comparison/merging when updating the list.
         /// </summary>
         public Catalog Catalog { get { return _catalog; } }
-        #endregion
 
         #region Dependencies
         private readonly IFeedManager _feedManager;
         private readonly ICatalogManager _catalogManager;
+        private readonly IIconCache _iconCache;
+
+        private readonly IAppTileList _tileListMyApps, _tileListCatalog;
+        private readonly bool _machineWide;
 
         /// <summary>
         /// Creates a new tile manager.
         /// </summary>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="catalogManager">Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.</param>
+        /// <param name="iconCache">The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons.</param>
         /// <param name="tileListMyApps">The <see cref="IAppTileList"/> used to represent the "my apps" <see cref="AppList"/>.</param>
         /// <param name="tileListCatalog">The <see cref="IAppTileList"/> used to represent the merged <see cref="Catalog"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
+        public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IIconCache iconCache, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
         {
             #region Sanity checks
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (catalogManager == null) throw new ArgumentNullException("catalogManager");
+            if (iconCache == null) throw new ArgumentNullException("iconCache");
             if (tileListMyApps == null) throw new ArgumentNullException("tileListMyApps");
             if (tileListCatalog == null) throw new ArgumentNullException("tileListCatalog");
             #endregion
 
             _feedManager = feedManager;
             _catalogManager = catalogManager;
+            _iconCache = iconCache;
 
             _tileListMyApps = tileListMyApps;
             _tileListCatalog = tileListCatalog;
@@ -112,7 +113,7 @@ namespace ZeroInstall.Central
                     try
                     {
                         var status = (entry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
-                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceUri, entry.Name, status, _machineWide);
+                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceUri, entry.Name, status, _iconCache, _machineWide);
                         tiles.Add(tile);
 
                         // Update "added" status of tile in catalog list
@@ -246,7 +247,7 @@ namespace ZeroInstall.Central
                 var status = (appEntry == null)
                     ? AppStatus.Candidate
                     : ((appEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
-                var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _machineWide);
+                var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _iconCache, _machineWide);
                 tile.Feed = feed;
             }
                 #region Error handling

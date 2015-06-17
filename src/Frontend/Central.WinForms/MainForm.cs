@@ -72,7 +72,7 @@ namespace ZeroInstall.Central.WinForms
 
             var services = new ServiceLocator(new MinimalTaskHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager,
+                services.FeedManager, services.CatalogManager, IconCacheProvider.GetInstance(),
                 tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion
@@ -99,8 +99,6 @@ namespace ZeroInstall.Central.WinForms
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (_machineWide) Text += @" - " + Resources.MachineWideMode;
             labelVersion.Text = @"v" + AppInfo.Current.Version;
-
-            tileListMyApps.IconCache = tileListCatalog.IconCache = IconCacheProvider.GetInstance();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -111,7 +109,7 @@ namespace ZeroInstall.Central.WinForms
             _tileManagement.LoadCachedCatalog();
             LoadCatalogAsync();
 
-            bool firstRun = CentralUtils.OnFirstRun();
+            bool firstRun = OnFirstRun();
             if (_tileManagement.AppList.Entries.Count == 0)
             {
                 if (firstRun) using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
@@ -121,6 +119,32 @@ namespace ZeroInstall.Central.WinForms
             }
 
             if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked) selfUpdateWorker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Returns <see langword="true"/> the first time it is called and then always <see langword="false"/>.
+        /// </summary>
+        private static bool OnFirstRun()
+        {
+            bool firstRun = false;
+            try
+            {
+                string firstRunFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
+                if (!File.Exists(firstRunFlag)) firstRun = true;
+                FileUtils.Touch(firstRunFlag);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
+
+            return firstRun;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

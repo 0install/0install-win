@@ -60,10 +60,6 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Properties
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IIconCache IconCache { get; set; }
-
         private Color _tileColorLight = SystemColors.Window;
 
         /// <summary>
@@ -136,7 +132,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region Access
         /// <inheritdoc/>
-        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, bool machineWide = false)
+        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconCache iconCache = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -144,7 +140,7 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.ContainsKey(interfaceUri)) throw new InvalidOperationException("Duplicate interface URI");
             #endregion
 
-            var tile = new AppTile(interfaceUri, appName, status, IconCache, machineWide) {Width = _flowLayout.Width};
+            var tile = new AppTile(interfaceUri, appName, status, iconCache, machineWide) {Width = _flowLayout.Width};
 
             if (appName.ContainsIgnoreCase(TextSearch.Text))
             {

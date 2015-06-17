@@ -29,13 +29,6 @@ namespace ZeroInstall.Central
     public interface IAppTile
     {
         /// <summary>
-        /// A <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries and icons.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
-        Feed Feed { get; set; }
-
-        /// <summary>
         /// The interface URI of the application this tile represents.
         /// </summary>
         FeedUri InterfaceUri { get; }
@@ -52,5 +45,12 @@ namespace ZeroInstall.Central
         /// <remarks>This method must not be called from a background thread.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         AppStatus Status { get; set; }
+
+        /// <summary>
+        /// A <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries and icons.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        Feed Feed { get; set; }
     }
 }
