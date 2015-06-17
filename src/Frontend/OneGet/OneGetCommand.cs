@@ -224,9 +224,9 @@ namespace ZeroInstall.OneGet
             var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
 
-            if (Config.NetworkUse == NetworkLevel.Full && !DownloadLater) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
             ApplyIntegration(requirements);
             ApplyVersionRestrictions(requirements, selections);
+            if (!DownloadLater) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
 
             SelfUpdateCheck();
         }
