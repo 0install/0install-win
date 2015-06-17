@@ -231,6 +231,9 @@ namespace ZeroInstall.Commands.CliCommands
             if (AdditionalArgs.Count == 2)
             {
                 var uri = GetCanonicalUri(AdditionalArgs[1]);
+                if (uri.IsFile && !File.Exists(uri.LocalPath))
+                    throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, uri.LocalPath), uri.LocalPath);
+
                 var nodes = nodeBuilder.Nodes.OfType<OwnedImplementationNode>().Where(x => x.FeedUri == uri);
                 Handler.Output(Resources.CachedImplementations, nodes);
             }
