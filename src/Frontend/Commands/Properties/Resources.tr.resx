@@ -326,9 +326,6 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Masaüstü tümleştirmesi</value>
   </data>
-  <data name="DirectoryNotFound" xml:space="preserve">
-    <value>&apos;{0}&apos; dizini bulunamıyor.</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Tamamlandı</value>
   </data>
@@ -440,9 +437,6 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   </data>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Belge seçimleri yerine, yalnız akış İnternet adresleri kullanılarak güncelleştirilebilir.</value>
-  </data>
-  <data name="NoSuchFileOrDirectory" xml:space="preserve">
-    <value>Böyle bir dosya ya da dizin yok: {0}</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Bu işlem taşınabilir kipte kullanılamaz.</value>

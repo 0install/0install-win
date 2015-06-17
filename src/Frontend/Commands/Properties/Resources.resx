@@ -326,9 +326,6 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
   </data>
-  <data name="DirectoryNotFound" xml:space="preserve">
-    <value>The directory '{0}' was not found.</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
   </data>
@@ -440,9 +437,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed URIs, not with selections documents.</value>
-  </data>
-  <data name="NoSuchFileOrDirectory" xml:space="preserve">
-    <value>No such file or directory: {0}</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>This operation is not available in portable mode.</value>

@@ -321,9 +321,6 @@ Additional arguments specify custom cache locations.</value>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Ενσωμάτωση επιφάνειας εργασίας</value>
   </data>
-  <data name="DirectoryNotFound" xml:space="preserve">
-    <value>Ο κατάλογος &apos;{0}&apos; δεν μπορεσε να βρεθεί.</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Ολοκληρώθηκε</value>
   </data>
@@ -432,9 +429,6 @@ Additional arguments specify custom cache locations.</value>
   </data>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Μπορεί να ανανεώνετε μόνο με URIs τροφοδοσίας, όχι με επιλογές εγγράφων.</value>
-  </data>
-  <data name="NoSuchFileOrDirectory" xml:space="preserve">
-    <value>Δεν υπάρχει τέτοιο αρχείο ή κατάλογος: {0}</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Αυτή η λειτουργία δεν είναι διαθέσιμη σε φορητή λειτουργία.</value>

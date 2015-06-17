@@ -326,9 +326,6 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktopintegration</value>
   </data>
-  <data name="DirectoryNotFound" xml:space="preserve">
-    <value>Das Verzeichnis '{0}' wurde nicht gefunden.</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Fertig</value>
   </data>
@@ -440,9 +437,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Kann nur mit Feed URIs aktualisieren, nicht mit Selections Dokumenten.</value>
-  </data>
-  <data name="NoSuchFileOrDirectory" xml:space="preserve">
-    <value>Keine Datei oder Verzeichnis unter diesem Namen: {0}</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Dieser Vorgang steht im Portablen Modus nicht zur Verfügung.</value>

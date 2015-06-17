@@ -654,15 +654,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The directory &apos;{0}&apos; was not found..
-        /// </summary>
-        public static string DirectoryNotFound {
-            get {
-                return ResourceManager.GetString("DirectoryNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string Done {
@@ -987,15 +978,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string NoSelectionsDocumentUpdate {
             get {
                 return ResourceManager.GetString("NoSelectionsDocumentUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No such file or directory: {0}.
-        /// </summary>
-        public static string NoSuchFileOrDirectory {
-            get {
-                return ResourceManager.GetString("NoSuchFileOrDirectory", resourceCulture);
             }
         }
         

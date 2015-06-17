@@ -165,7 +165,7 @@ namespace ZeroInstall.Commands.CliCommands
                     Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
                     return ExitCode.OK;
                 }
-                else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
+                else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path), path);
             }
             catch (ImplementationAlreadyInStoreException ex)
             {
