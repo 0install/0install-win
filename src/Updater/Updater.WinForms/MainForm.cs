@@ -90,11 +90,13 @@ namespace ZeroInstall.Updater.WinForms
             {
                 if (e.Error is UnauthorizedAccessException || e.Error is IOException || e.Error is InvalidOperationException)
                 { // Expected exception type
-                    Msg.Inform(null, (e.Error.InnerException ?? e.Error).Message, MsgSeverity.Error);
+                    Log.Error(e.Error);
+                    if (Environment.UserName != "SYSTEM") Msg.Inform(this, (e.Error.InnerException ?? e.Error).Message, MsgSeverity.Error);
                 }
                 else
                 { // Unexpected exception type
-                    ErrorReportForm.Report(e.Error, new Uri("https://0install.de/error-report/"));
+                    if (Environment.UserName == "SYSTEM") e.Error.Rethrow();
+                    else ErrorReportForm.Report(e.Error, new Uri("https://0install.de/error-report/"));
                 }
             }
 

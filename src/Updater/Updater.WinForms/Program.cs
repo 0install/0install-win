@@ -57,17 +57,15 @@ namespace ZeroInstall.Updater.WinForms
                 Application.Run(new MainForm(updateProcess, rerun, restartCentral));
             }
                 #region Error handling
+            catch (ArgumentException ex)
+            {
+                Log.Error(ex);
+                if (Environment.UserName != "SYSTEM") Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
             catch (IOException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-            }
-            catch (NotSupportedException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                Log.Error(ex);
+                if (Environment.UserName != "SYSTEM") Msg.Inform(null, ex.Message, MsgSeverity.Error);
             }
             #endregion
         }

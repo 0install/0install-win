@@ -62,8 +62,8 @@ namespace ZeroInstall.Updater
         /// <param name="source">The directory containing the new/updated version.</param>
         /// <param name="newVersion">The version number of the new/updated version.</param>
         /// <param name="target">The directory containing the old version to be updated.</param>
+        /// <exception cref="ArgumentException">One of the directory paths or the version number is invalid.</exception>
         /// <exception cref="IOException">There was a problem accessing one of the directories.</exception>
-        /// <exception cref="NotSupportedException">One of the directory paths or the version number is invalid.</exception>
         public UpdateProcess([NotNull] string source, [NotNull] string newVersion, [NotNull] string target)
         {
             #region Sanity checks
@@ -79,20 +79,15 @@ namespace ZeroInstall.Updater
                 Target = Path.GetFullPath(target);
             }
                 #region Error handling
-            catch (ArgumentException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new NotSupportedException(ex.Message, ex);
-            }
             catch (FormatException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new NotSupportedException(ex.Message, ex);
+                throw new ArgumentException(ex.Message, ex);
             }
             catch (OverflowException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new NotSupportedException(ex.Message, ex);
+                throw new ArgumentException(ex.Message, ex);
             }
             #endregion
 
