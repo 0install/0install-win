@@ -15,16 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
 using Gtk;
 
 namespace ZeroInstall.Central.Gtk
 {
     public partial class MainWindow : Window
     {
-        public MainWindow() : base(WindowType.Toplevel)
+        /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
+        private readonly bool _machineWide;
+
+        /// <summary>
+        /// Initializes the main GUI.
+        /// </summary>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Failed to read a config file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        /// <exception cref="InvalidDataException">The config data is damaged.</exception>
+        public MainWindow(bool machineWide) : base(WindowType.Toplevel)
         {
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             Build();
+
+            _machineWide = machineWide;
         }
     }
 }

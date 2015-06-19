@@ -121,15 +121,21 @@ namespace ZeroInstall.Updater.WinForms
         {
             try
             {
-                ProcessUtils.Assembly("0update-win", _updateProcess.Source, _updateProcess.NewVersion.ToString(), _updateProcess.Target, "--rerun").AsAdmin().Run();
+                ProcessUtils.Assembly(Program.ExeName, _updateProcess.Source, _updateProcess.NewVersion.ToString(), _updateProcess.Target, "--rerun").AsAdmin().Run();
             }
                 #region Error handling
             catch (OperationCanceledException)
-            {}
+            {
+                Log.Info("User cancelled elevation");
+            }
+            catch (PlatformNotSupportedException)
+            {
+                Log.Error("UAC not available");
+            }
             catch (IOException ex)
             {
-                Log.Warn("Rerunning elevated failed");
-                Log.Warn(ex);
+                Log.Error("Rerunning elevated failed");
+                Log.Error(ex);
             }
             #endregion
         }

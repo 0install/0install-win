@@ -66,29 +66,9 @@ namespace ZeroInstall.Central.WinForms
         [STAThread] // Required for WinForms
         public static int Run(string[] args)
         {
-            bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
-            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator)
-            {
-                try
-                {
-                    return ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
-                }
-                    #region Error handling
-                catch (OperationCanceledException)
-                {
-                    return (int)ExitCode.UserCanceled;
-                }
-                catch (IOException ex)
-                {
-                    Log.Error(ex);
-                    return (int)ExitCode.IOError;
-                }
-                #endregion
-            }
-
             try
             {
-                Application.Run(new MainForm(machineWide));
+                Application.Run(new MainForm(machineWide: args.Contains("-m") || args.Contains("--machine")));
             }
                 #region Error handling
             catch (IOException ex)

@@ -56,11 +56,10 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
-            string assembly = WindowsUtils.IsWindows ? "ZeroInstall" : "ZeroInstall-gtk";
-            var startInfo = _machineWide
-                ? ProcessUtils.Assembly(assembly, "-m").AsAdmin()
-                : ProcessUtils.Assembly(assembly);
-            return (ExitCode)startInfo.Run();
+            if (_machineWide && !WindowsUtils.IsAdministrator)
+                throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+
+            return (ExitCode)ProcessUtils.Assembly(WindowsUtils.IsWindows ? "ZeroInstall" : "ZeroInstall-gtk").Run();
         }
     }
 }

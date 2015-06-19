@@ -88,25 +88,21 @@ namespace ZeroInstall.Commands.WinForms
                 catch (NotAdminException ex)
                 {
                     handler.DisableUI();
-                    if (WindowsUtils.IsWindowsNT)
+                    try
                     {
-                        try
-                        {
-                            return (ExitCode)ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
-                        }
-                            #region Error handling
-                        catch (OperationCanceledException)
-                        {
-                            return ExitCode.UserCanceled;
-                        }
-                        catch (IOException ex2)
-                        {
-                            Log.Error(ex2);
-                            return ExitCode.IOError;
-                        }
-                        #endregion
+                        return (ExitCode)ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
                     }
-                    else
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
+                    catch (PlatformNotSupportedException)
+                    {
+                        Log.Error(ex);
+                        Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                        return ExitCode.AccessDenied;
+                    }
+                    catch (IOException)
                     {
                         Log.Error(ex);
                         Msg.Inform(null, ex.Message, MsgSeverity.Warn);

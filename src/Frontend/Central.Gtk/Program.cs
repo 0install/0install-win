@@ -20,7 +20,6 @@ using System.IO;
 using System.Linq;
 using Gtk;
 using NanoByte.Common;
-using NanoByte.Common.Native;
 using ZeroInstall.Commands;
 
 namespace ZeroInstall.Central.Gtk
@@ -50,30 +49,34 @@ namespace ZeroInstall.Central.Gtk
         /// </summary>
         public static int Run(string[] args)
         {
-            bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
-            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator)
+            try
             {
-                try
-                {
-                    return ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
-                }
-                    #region Error handling
-                catch (OperationCanceledException)
-                {
-                    return (int)ExitCode.UserCanceled;
-                }
-                catch (IOException ex)
-                {
-                    Log.Error(ex);
-                    return (int)ExitCode.IOError;
-                }
-                #endregion
+                var window = new MainWindow(machineWide: args.Contains("-m") || args.Contains("--machine"));
+                window.DeleteEvent += delegate { Application.Quit(); };
+                window.Show();
+                Application.Run();
             }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return -1;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return -1;
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return -1;
+            }
+            #endregion
 
-            var window = new MainWindow();
-            window.DeleteEvent += delegate { Application.Quit(); };
-            window.Show();
-            Application.Run();
             return 0;
         }
     }

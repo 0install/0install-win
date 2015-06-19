@@ -20,7 +20,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using NanoByte.Common;
-using NanoByte.Common.Native;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -95,25 +94,20 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (NotAdminException ex)
             {
-                if (WindowsUtils.IsWindowsNT)
+                try
                 {
-                    try
-                    {
-                        return (ExitCode)ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName ?? ExeName, args).AsAdmin().Run();
-                    }
-                        #region Error handling
-                    catch (OperationCanceledException)
-                    {
-                        return ExitCode.UserCanceled;
-                    }
-                    catch (IOException ex2)
-                    {
-                        Log.Error(ex2);
-                        return ExitCode.IOError;
-                    }
-                    #endregion
+                    return (ExitCode)ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName ?? ExeName, args).AsAdmin().Run();
                 }
-                else
+                catch (OperationCanceledException)
+                {
+                    return ExitCode.UserCanceled;
+                }
+                catch (PlatformNotSupportedException)
+                {
+                    Log.Error(ex);
+                    return ExitCode.AccessDenied;
+                }
+                catch (IOException)
                 {
                     Log.Error(ex);
                     return ExitCode.AccessDenied;

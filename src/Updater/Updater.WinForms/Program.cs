@@ -32,6 +32,11 @@ namespace ZeroInstall.Updater.WinForms
     public static class Program
     {
         /// <summary>
+        /// The canonical EXE name (without the file ending) for this binary.
+        /// </summary>
+        public const string ExeName = "0update-win";
+
+        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread] // Required for WinForms
@@ -45,7 +50,7 @@ namespace ZeroInstall.Updater.WinForms
             if (args == null) args = new string[0];
             if (args.Length < 3 || args.Length > 4)
             {
-                Msg.Inform(null, string.Format(Resources.WrongNoArguments, "0update-win SOURCE-PATH NEW-VERSION TARGET-PATH [--rerun|--restart-central]"), MsgSeverity.Error);
+                Msg.Inform(null, string.Format(Resources.WrongNoArguments, ExeName + " SOURCE-PATH NEW-VERSION TARGET-PATH [--rerun|--restart-central]"), MsgSeverity.Error);
                 return;
             }
             bool rerun = args.Contains("--rerun");
