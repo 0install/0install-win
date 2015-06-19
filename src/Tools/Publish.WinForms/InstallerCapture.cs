@@ -27,7 +27,7 @@ using ZeroInstall.Publish.Capture;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Publish.WinForms.Wizards
+namespace ZeroInstall.Publish.WinForms
 {
     /// <summary>
     /// Holds state shared between Wizard pages when capturing an installer.

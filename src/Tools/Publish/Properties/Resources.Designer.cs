@@ -97,7 +97,7 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you skip capturing?
+        ///   Looks up a localized string similar to Are you sure you want to skip capturing?
         ///Information about the application&apos;s desktop integration (e.g. file associations) will not be added to the feed..
         /// </summary>
         public static string AskSkipCapture {

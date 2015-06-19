@@ -112,7 +112,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 AskForChangeSave();
 
-                var result = Wizards.NewFeedWizard.Run(_openPgp, this);
+                var result = NewFeedWizard.Run(_openPgp, this);
                 if (result != null) FeedEditing = new FeedEditing(result);
             }
             catch (OperationCanceledException)

@@ -53,7 +53,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonNewWizard_Click(object sender, EventArgs e)
         {
-            var result = Wizards.NewFeedWizard.Run(_openPgp, this);
+            var result = NewFeedWizard.Run(_openPgp, this);
             if (result != null) SwitchToMain(new FeedEditing(result));
         }
 
