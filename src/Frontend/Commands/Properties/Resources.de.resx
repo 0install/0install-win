@@ -432,6 +432,15 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
+  <data name="NoPerUserMachineWide" xml:space="preserve">
+    <value>Zero Install läuft derzeit in einem benutzerspezifischen Verzeichnis, das nicht für andere Benutzer zugänglich ist.</value>
+  </data>
+  <data name="NoPerUserMachineWideInstall" xml:space="preserve">
+    <value>Bitte installieren Sie http://0install.de/files/zero-install.exe, um maschinenweite Operationen durchführen zu können.</value>
+  </data>
+  <data name="NoPerUserMachineWideUse" xml:space="preserve">
+    <value>Bitte verwenden Sie stattdessen diesen Befehl für die maschinenweite Operation: {0}</value>
+  </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Beim Ausführen einer Implementierung darf der Command nicht leer sein.</value>
   </data>

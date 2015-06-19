@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -42,7 +45,21 @@ namespace ZeroInstall.Commands.CliCommands
         {
             base.Parse(args);
 
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+            if (MachineWide)
+            {
+                if (Locations.IsInstalledPerUser)
+                {
+                    string machineWideInstallBase = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation");
+                    string hint = (machineWideInstallBase != Locations.InstallBase && !string.IsNullOrEmpty(machineWideInstallBase))
+                        // Recommend using existing machine-wide instance
+                        ? string.Format(Resources.NoPerUserMachineWideUse, new[] {Path.Combine(machineWideInstallBase, "0install.exe"), Name}.Concat(args).JoinEscapeArguments())
+                        // Recommend downloading machine-wide installer
+                        : Resources.NoPerUserMachineWideInstall;
+                    throw new NotSupportedException(Resources.NoPerUserMachineWide + Environment.NewLine + hint);
+                }
+
+                if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+            }
         }
 
         #region Helpers

@@ -432,6 +432,15 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>The graphical policy editor is not available in command-line mode.</value>
   </data>
+  <data name="NoPerUserMachineWide" xml:space="preserve">
+    <value>Zero Install is currently running from a user-specific directory that cannot be access by other users.</value>
+  </data>
+  <data name="NoPerUserMachineWideInstall" xml:space="preserve">
+    <value>Please install http://0install.de/files/zero-install.exe to enable machine-wide operations.</value>
+  </data>
+  <data name="NoPerUserMachineWideUse" xml:space="preserve">
+    <value>Please use this command instead for the machine-wide operation: {0}</value>
+  </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>When running an implementation the command may not be empty.</value>
   </data>

@@ -964,6 +964,33 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zero Install is currently running from a user-specific directory that cannot be access by other users..
+        /// </summary>
+        public static string NoPerUserMachineWide {
+            get {
+                return ResourceManager.GetString("NoPerUserMachineWide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please install http://0install.de/files/zero-install.exe to enable machine-wide operations..
+        /// </summary>
+        public static string NoPerUserMachineWideInstall {
+            get {
+                return ResourceManager.GetString("NoPerUserMachineWideInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please use this command instead for the machine-wide operation: {0}.
+        /// </summary>
+        public static string NoPerUserMachineWideUse {
+            get {
+                return ResourceManager.GetString("NoPerUserMachineWideUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When running an implementation the command may not be empty..
         /// </summary>
         public static string NoRunWithEmptyCommand {
