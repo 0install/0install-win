@@ -284,17 +284,20 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         private void FilesCopy()
         {
-            try
+            ExceptionUtils.Retry<IOException>(delegate
             {
-                new CopyDirectory(Source, Target, preserveDirectoryTimestamps: false, overwrite: true).Run();
-            }
-                #region Error handling
-            catch (ArgumentException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new UnauthorizedAccessException(ex.Message, ex);
-            }
-            #endregion
+                try
+                {
+                    new CopyDirectory(Source, Target, preserveDirectoryTimestamps: false, overwrite: true).Run();
+                }
+                    #region Error handling
+                catch (ArgumentException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new UnauthorizedAccessException(ex.Message, ex);
+                }
+                #endregion
+            });
         }
 
         private string[] GetFilesToWrite()
@@ -313,8 +316,11 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         private void FilesDelete()
         {
-            foreach (string file in GetFilesToDelete())
-                File.Delete(file);
+            ExceptionUtils.Retry<IOException>(delegate
+            {
+                foreach (string file in GetFilesToDelete())
+                    File.Delete(file);
+            });
         }
 
         private string[] GetFilesToDelete()
