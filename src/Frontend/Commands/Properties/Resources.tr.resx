@@ -438,6 +438,9 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   <data name="NoPerUserMachineWideInstall" xml:space="preserve">
     <value>Lütfen http://0install.de/files/zero-install.exe adresinden makine çapında tüm kullanıcılar için işlem yapabilen sürümü yükleyin.</value>
   </data>
+  <data name="NoPerUserMachineWideUse" xml:space="preserve">
+    <value>Makine çapında işlem yapmak yerine şu komutu kullanın: {0}</value>
+  </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Uygulama çalıştırılırken komut boş olamaz.</value>
   </data>
