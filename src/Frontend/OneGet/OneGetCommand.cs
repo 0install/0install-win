@@ -39,19 +39,23 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// Provides functionality for implementing a OneGet provider. Used as a backend by <see cref="PackageProvider"/>. Once instance per <see cref="Request"/>.
+    /// Provides functionality for implementing a OneGet provider. Used as a backend by <see cref="PackageProviderBase"/>. Once instance per <see cref="Request"/>.
     /// </summary>
     public sealed class OneGetCommand : CommandBase, IDisposable
     {
         private readonly Request _request;
+        private readonly bool _machineWide;
 
         /// <summary>
         /// Creates a new OneGet command.
         /// </summary>
         /// <param name="request">The OneGet request callback object.</param>
-        public OneGetCommand([NotNull] Request request) : base(new OneGetHandler(request))
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        public OneGetCommand([NotNull] Request request, bool machineWide = false)
+            : base(new OneGetHandler(request))
         {
             _request = request;
+            _machineWide = machineWide;
         }
 
         /// <inheritdoc/>
@@ -63,7 +67,6 @@ namespace ZeroInstall.OneGet
         #region Options
         private const string
             RefreshKey = "Refresh",
-            MachineWideKey = "MachineWide",
             DownloadLaterKey = "DownloadLater",
             SearchMirrorKey = "SearchMirror",
             AllVersionsKey = "AllVersions";
@@ -82,7 +85,6 @@ namespace ZeroInstall.OneGet
 
                 case "install":
                     _request.YieldDynamicOption(RefreshKey, Constants.OptionType.Switch, false);
-                    _request.YieldDynamicOption(MachineWideKey, Constants.OptionType.Switch, false);
                     _request.YieldDynamicOption(DownloadLaterKey, Constants.OptionType.Switch, false);
                     break;
             }
@@ -91,8 +93,6 @@ namespace ZeroInstall.OneGet
         private bool Refresh { get { return _request.OptionKeys.Contains(RefreshKey); } }
 
         private bool DownloadLater { get { return _request.OptionKeys.Contains(DownloadLaterKey); } }
-
-        private bool MachineWide { get { return _request.OptionKeys.Contains(MachineWideKey); } }
 
         private bool SearchMirror { get { return _request.OptionKeys.Contains(SearchMirrorKey); } }
 
@@ -250,7 +250,7 @@ namespace ZeroInstall.OneGet
         {
             Log.Info("Applying desktop integration");
             var feed = FeedManager.GetFeed(requirements.InterfaceUri);
-            using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
+            using (var integrationManager = new CategoryIntegrationManager(Handler, _machineWide))
             {
                 var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
                 integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
@@ -281,13 +281,13 @@ namespace ZeroInstall.OneGet
         {
             var requirements = ParseReference(fastPackageReference);
 
-            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
+            using (var integrationManager = new IntegrationManager(Handler, _machineWide))
                 integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
         }
 
         public void GetInstalledPackages([CanBeNull] string name)
         {
-            var appList = AppList.LoadSafe(MachineWide);
+            var appList = AppList.LoadSafe(_machineWide);
             foreach (var entry in appList.Search(name))
                 Yield(entry.EffectiveRequirements);
         }
