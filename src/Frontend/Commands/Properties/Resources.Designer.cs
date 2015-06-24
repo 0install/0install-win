@@ -552,7 +552,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays a list of all implementation cache directories..
+        ///   Looks up a localized string similar to Lists all implementation cache directories..
         /// </summary>
         public static string DescriptionStoreList {
             get {
@@ -561,7 +561,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays a list of all cached implementations..
+        ///   Looks up a localized string similar to Lists all cached implementations. If a feed URI is specified only implementations for that particular feed are listed..
         /// </summary>
         public static string DescriptionStoreListImplementations {
             get {

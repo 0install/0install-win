@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands.CliCommands
                     {"copy DIRECTORY [CACHE]", Resources.DescriptionStoreCopy},
                     {"find DIGEST", Resources.DescriptionStoreFind},
                     {"list", Resources.DescriptionStoreList},
-                    {"list-implementations", Resources.DescriptionStoreListImplementations},
+                    {"list-implementations [FEED-URI]", Resources.DescriptionStoreListImplementations},
                     {"manage", Resources.DescriptionStoreManage},
                     {"optimise [CACHE+]", Resources.DescriptionStoreOptimise},
                     {"purge [CACHE+]", Resources.DescriptionStorePurge},
