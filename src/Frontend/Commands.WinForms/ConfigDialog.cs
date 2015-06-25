@@ -270,6 +270,8 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 var uri = new FeedUri(input);
+                if (listBoxCatalogSources.Items.Contains(uri)) return;
+
                 using (var handler = new GuiTaskHandler(this))
                 {
                     var services = new ServiceLocator(handler);

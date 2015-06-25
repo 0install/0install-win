@@ -64,6 +64,7 @@
     <Compile Include="CliCommands\AddFeed.cs" />
     <Compile Include="CliCommands\AddRemoveFeedCommand.cs" />
     <Compile Include="CliCommands\AppCommand.cs" />
+    <Compile Include="CliCommands\CatalogMan.cs" />
     <Compile Include="CliCommands\Central.cs" />
     <Compile Include="CliCommands\CliCommand.cs" />
     <Compile Include="CliCommands\Configure.cs" />

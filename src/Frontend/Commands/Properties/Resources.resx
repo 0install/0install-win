@@ -156,6 +156,15 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="CapabilitiesChanged" xml:space="preserve">
     <value>The capabilities of the application '{0}' have changed.</value>
   </data>
+  <data name="CatalogAlreadyRegistered" xml:space="preserve">
+    <value>The catalog URI {0} is already registered.</value>
+  </data>
+  <data name="CatalogNotRegistered" xml:space="preserve">
+    <value>The catalog URI {0} is not registered.</value>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Catalog sources</value>
+  </data>
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
@@ -216,6 +225,24 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Register an additional source of implementations (versions) of a program.</value>
+  </data>
+  <data name="DescriptionCatalogAdd" xml:space="preserve">
+    <value>Adds an URI to the list of catalogs.</value>
+  </data>
+  <data name="DescriptionCatalogList" xml:space="preserve">
+    <value>Lists all registered catalogs.</value>
+  </data>
+  <data name="DescriptionCatalogRefresh" xml:space="preserve">
+    <value>Refreshes (downloads) all registered catalogs.</value>
+  </data>
+  <data name="DescriptionCatalogRemove" xml:space="preserve">
+    <value>Removes an URI from the list of catalogs.</value>
+  </data>
+  <data name="DescriptionCatalogReset" xml:space="preserve">
+    <value>Resets the list of catalogs to the default source.</value>
+  </data>
+  <data name="DescriptionCatalogSearch" xml:space="preserve">
+    <value>Searches registered catalogs for applications that match the specified query. If no query is given all applications in the catalogs are listed.</value>
   </data>
   <data name="DescriptionCentral" xml:space="preserve">
     <value>Opens the central graphical user interface for launching and managing applications.</value>
@@ -476,6 +503,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program.</value>
+  </data>
+  <data name="OptionCatalogAddSkipVerify" xml:space="preserve">
+    <value>Skip downloading the catalog to verify it is valid before adding it to the list.</value>
   </data>
   <data name="OptionClean" xml:space="preserve">
     <value>Remove implementations no longer required after the update.</value>

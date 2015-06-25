@@ -172,6 +172,33 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The catalog URI {0} is already registered..
+        /// </summary>
+        public static string CatalogAlreadyRegistered {
+            get {
+                return ResourceManager.GetString("CatalogAlreadyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The catalog URI {0} is not registered..
+        /// </summary>
+        public static string CatalogNotRegistered {
+            get {
+                return ResourceManager.GetString("CatalogNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catalog sources.
+        /// </summary>
+        public static string CatalogSources {
+            get {
+                return ResourceManager.GetString("CatalogSources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string Change {
@@ -343,6 +370,60 @@ namespace ZeroInstall.Commands.Properties {
         public static string DescriptionAddFeed {
             get {
                 return ResourceManager.GetString("DescriptionAddFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds an URI to the list of catalogs..
+        /// </summary>
+        public static string DescriptionCatalogAdd {
+            get {
+                return ResourceManager.GetString("DescriptionCatalogAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lists all registered catalogs..
+        /// </summary>
+        public static string DescriptionCatalogList {
+            get {
+                return ResourceManager.GetString("DescriptionCatalogList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refreshes (downloads) all registered catalogs..
+        /// </summary>
+        public static string DescriptionCatalogRefresh {
+            get {
+                return ResourceManager.GetString("DescriptionCatalogRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes an URI from the list of catalogs..
+        /// </summary>
+        public static string DescriptionCatalogRemove {
+            get {
+                return ResourceManager.GetString("DescriptionCatalogRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resets the list of catalogs to the default source..
+        /// </summary>
+        public static string DescriptionCatalogReset {
+            get {
+                return ResourceManager.GetString("DescriptionCatalogReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searches registered catalogs for applications that match the specified query. If no query is given all applications in the catalogs are listed..
+        /// </summary>
+        public static string DescriptionCatalogSearch {
+            get {
+                return ResourceManager.GetString("DescriptionCatalogSearch", resourceCulture);
             }
         }
         
@@ -1095,6 +1176,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string OptionBefore {
             get {
                 return ResourceManager.GetString("OptionBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip downloading the catalog to verify it is valid before adding it to the list..
+        /// </summary>
+        public static string OptionCatalogAddSkipVerify {
+            get {
+                return ResourceManager.GetString("OptionCatalogAddSkipVerify", resourceCulture);
             }
         }
         

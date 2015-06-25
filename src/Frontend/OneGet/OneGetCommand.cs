@@ -26,6 +26,7 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Streams;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
@@ -67,8 +68,9 @@ namespace ZeroInstall.OneGet
         #region Options
         private const string
             RefreshKey = "Refresh",
-            DownloadLaterKey = "DownloadLater",
             SearchMirrorKey = "SearchMirror",
+            SkipVerifyKey = "SkipVerify",
+            DownloadLaterKey = "DownloadLater",
             AllVersionsKey = "AllVersions";
 
         public void GetDynamicOptions(string category)
@@ -81,6 +83,7 @@ namespace ZeroInstall.OneGet
                     break;
 
                 case "source":
+                    _request.YieldDynamicOption(SkipVerifyKey, Constants.OptionType.Switch, false);
                     break;
 
                 case "install":
@@ -92,9 +95,11 @@ namespace ZeroInstall.OneGet
 
         private bool Refresh { get { return _request.OptionKeys.Contains(RefreshKey); } }
 
-        private bool DownloadLater { get { return _request.OptionKeys.Contains(DownloadLaterKey); } }
-
         private bool SearchMirror { get { return _request.OptionKeys.Contains(SearchMirrorKey); } }
+
+        private bool SkipVerify { get { return _request.OptionKeys.Contains(SkipVerifyKey); } }
+
+        private bool DownloadLater { get { return _request.OptionKeys.Contains(DownloadLaterKey); } }
 
         private bool AllVersions { get { return _request.OptionKeys.Contains(AllVersionsKey); } }
         #endregion
@@ -118,14 +123,22 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        public void AddPackageSource([NotNull] FeedUri location)
+        public void AddPackageSource([NotNull] FeedUri uri)
         {
-            CatalogManager.AddSource(location);
+            if (!SkipVerify) CatalogManager.DownloadCatalog(uri);
+
+            if (CatalogManager.AddSource(uri))
+            {
+                if (!SkipVerify) CatalogManager.GetOnlineSafe();
+            }
+            else
+                Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, uri.ToStringRfc()));
         }
 
-        public void RemovePackageSource([NotNull] FeedUri location)
+        public void RemovePackageSource([NotNull] FeedUri uri)
         {
-            CatalogManager.RemoveSource(location);
+            if (!CatalogManager.RemoveSource(uri))
+                Log.Warn(string.Format(Resources.CatalogNotRegistered, uri.ToStringRfc()));
         }
 
         public void FindPackage([CanBeNull] string name, [CanBeNull] ImplementationVersion requiredVersion, [CanBeNull] ImplementationVersion minimumVersion, [CanBeNull] ImplementationVersion maximumVersion)

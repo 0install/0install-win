@@ -156,6 +156,15 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="CapabilitiesChanged" xml:space="preserve">
     <value>Die Fähigkeiten der Anwendung '{0}' haben sich geändert.</value>
   </data>
+  <data name="CatalogAlreadyRegistered" xml:space="preserve">
+    <value>Die Katalog URI {0} ist bereits registriert.</value>
+  </data>
+  <data name="CatalogNotRegistered" xml:space="preserve">
+    <value>Die Katalog URI {0} ist nicht registriert.</value>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Katalogquellen</value>
+  </data>
   <data name="Change" xml:space="preserve">
     <value>Ändern</value>
   </data>
@@ -216,6 +225,24 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Registriert eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
+  </data>
+  <data name="DescriptionCatalogAdd" xml:space="preserve">
+    <value>Fügt eine URI zur Liste der Kataloge hinzu.</value>
+  </data>
+  <data name="DescriptionCatalogList" xml:space="preserve">
+    <value>Listet alle registrierten Katalog auf.</value>
+  </data>
+  <data name="DescriptionCatalogRefresh" xml:space="preserve">
+    <value>Aktualisiert alle registrierten Kataloge.</value>
+  </data>
+  <data name="DescriptionCatalogRemove" xml:space="preserve">
+    <value>Entfernt eine URI aus der Liste der Kataloge.</value>
+  </data>
+  <data name="DescriptionCatalogReset" xml:space="preserve">
+    <value>Setzt die Liste der Kataloge auf die Standardquelle zurück.</value>
+  </data>
+  <data name="DescriptionCatalogSearch" xml:space="preserve">
+    <value>Durchsucht die registrierten Kataloge nach Anwendungen, die zu einem Suchbegriff passen. Wird kein Suchbegriff angegeben, werden alle Anwendungen im Katalog aufgelistet.</value>
   </data>
   <data name="DescriptionCentral" xml:space="preserve">
     <value>Öffnet die zentrale grafische Benutzerschnittstelle zum Starten und Verwalten von Anwendungen.</value>
@@ -477,6 +504,9 @@ Traysymbol im grafischen Modus verwenden.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss vor {VERSION} liegen. Zum Beispiel können Sie damit die Verwendung einer älteren Version des Programmes erzwingen.</value>
+  </data>
+  <data name="OptionCatalogAddSkipVerify" xml:space="preserve">
+    <value>Runterladen des Katalogs, zur Überprüfung der Gültigkeit bevor er zur Liste hinzugefügt wird, überspringen.</value>
   </data>
   <data name="OptionClean" xml:space="preserve">
     <value>Entferne Implementierungen die nach dem Update nicht mehr benötigt werden.</value>
