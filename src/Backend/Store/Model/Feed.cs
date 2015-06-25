@@ -70,13 +70,6 @@ namespace ZeroInstall.Store.Model
         #endregion
 
         /// <summary>
-        /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
-        /// </summary>
-        [Category("Feed"), Description("This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.")]
-        [XmlIgnore]
-        public ImplementationVersion MinInjectorVersion { get; set; }
-
-        /// <summary>
         /// This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
         /// </summary>
         [XmlIgnore, Browsable(false)]
@@ -87,6 +80,14 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public FeedUri CatalogUri { get; set; }
+
+        /// <summary>
+        /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
+        /// </summary>
+        [Browsable(false)]
+        //[Category("Feed"), Description("This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.")]
+        [XmlIgnore]
+        public ImplementationVersion MinInjectorVersion { get; set; }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -136,16 +137,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// If <see langword="true"/>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
         /// </summary>
-        [Category("Interface"), Description("If true, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
+        //[Category("Interface"), Description("If true, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
+        [Browsable(false)]
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
         #region XML serialization
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="MinInjectorVersion"/>
-        [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string MinInjectorVersionString { get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
-
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
@@ -159,6 +156,11 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlAttribute("catalog-uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string CatalogUriString { get { return (CatalogUri == null ? null : CatalogUri.ToStringRfc()); } set { CatalogUri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="MinInjectorVersion"/>
+        [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string MinInjectorVersionString { get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Homepage"/>
@@ -469,8 +471,8 @@ namespace ZeroInstall.Store.Model
         {
             if (other == null) return false;
             if (!base.Equals(other)) return false;
-            if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Uri != other.Uri) return false;
+            if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Name != other.Name) return false;
             if (!Summaries.SequencedEquals(other.Summaries)) return false;
             if (!Descriptions.SequencedEquals(other.Descriptions)) return false;
@@ -499,8 +501,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (MinInjectorVersion != null) result = (result * 397) ^ MinInjectorVersion.GetHashCode();
                 if (Uri != null) result = (result * 397) ^ Uri.GetHashCode();
+                if (MinInjectorVersion != null) result = (result * 397) ^ MinInjectorVersion.GetHashCode();
                 if (Name != null) result = (result * 397) ^ Name.GetHashCode();
                 result = (result * 397) ^ Summaries.GetSequencedHashCode();
                 result = (result * 397) ^ Descriptions.GetSequencedHashCode();
