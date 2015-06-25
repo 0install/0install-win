@@ -678,9 +678,6 @@ Keep this key secret and use something different for your password. This way nob
   <data name="UnknownConfigKey" xml:space="preserve">
     <value>Unknown config key '{0}'.</value>
   </data>
-  <data name="UnknownMode" xml:space="preserve">
-    <value>Unknown operation mode.</value>
-  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unknown option.</value>
   </data>

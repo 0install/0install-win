@@ -78,6 +78,7 @@
     <Compile Include="CliCommands\List.cs" />
     <Compile Include="CliCommands\ListApps.cs" />
     <Compile Include="CliCommands\ListFeeds.cs" />
+    <Compile Include="CliCommands\MultiCommand.cs" />
     <Compile Include="CliCommands\RemoveAllApps.cs" />
     <Compile Include="CliCommands\RemoveApp.cs" />
     <Compile Include="CliCommands\RemoveFeed.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="CliCommands\Selection.cs" />
     <Compile Include="CliCommands\SelfUpdate.cs" />
     <Compile Include="CliCommands\StoreMan.cs" />
+    <Compile Include="CliCommands\SubCommand.cs" />
     <Compile Include="CliCommands\SyncApps.cs" />
     <Compile Include="CliCommands\Update.cs" />
     <Compile Include="CliCommands\UpdateApps.cs" />

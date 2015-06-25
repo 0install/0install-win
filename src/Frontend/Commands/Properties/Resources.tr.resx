@@ -678,9 +678,6 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
   <data name="UnknownConfigKey" xml:space="preserve">
     <value>Bilinmeyen yapılandırma anahtarı &apos;{0}&apos;.</value>
   </data>
-  <data name="UnknownMode" xml:space="preserve">
-    <value>Bilinmeyen işlem kipi.</value>
-  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Bilinmeyen seçenek.</value>
   </data>

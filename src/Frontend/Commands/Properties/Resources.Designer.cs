@@ -1678,15 +1678,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown operation mode..
-        /// </summary>
-        public static string UnknownMode {
-            get {
-                return ResourceManager.GetString("UnknownMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unknown option..
         /// </summary>
         public static string UnknownOption {

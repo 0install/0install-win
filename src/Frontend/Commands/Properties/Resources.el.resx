@@ -657,9 +657,6 @@ Additional arguments specify custom cache locations.</value>
   <data name="UnknownConfigKey" xml:space="preserve">
     <value>Άγνωστο κλειδί config &apos;{0}&apos;.</value>
   </data>
-  <data name="UnknownMode" xml:space="preserve">
-    <value>Άγνωστος τυπος λειτουργίας.</value>
-  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Άγνωστη επιλογή.</value>
   </data>

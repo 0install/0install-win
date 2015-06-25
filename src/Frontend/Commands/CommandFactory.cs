@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands
         internal static readonly string[] CommandNames = {Central.Name, SelfUpdate.Name, Selection.Name, Download.Name, Update.Name, Run.Name, Search.Name, List.Name, Import.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, AddApp.Name, RemoveApp.Name, RemoveAllApps.Name, IntegrateApp.Name, AddAlias.Name, ListApps.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name, ImportApps.Name, Digest.Name, StoreMan.Name};
 
         /// <summary>
-        /// Creates a nw <see cref="CliCommand"/> based on a name.
+        /// Creates a new <see cref="CliCommand"/> based on a name.
         /// </summary>
         /// <param name="commandName">The command name to look for; case-insensitive; can be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
@@ -141,27 +141,28 @@ namespace ZeroInstall.Commands
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var arguments = new LinkedList<String>(args);
-            CliCommand command = GetCommand(GetCommandName(arguments), handler);
-
-            command.Parse(arguments);
+            var command = GetCommand(GetCommandName(ref args), handler);
+            command.Parse(args);
             return command;
         }
 
         /// <summary>
         /// Determines the command name specified in the command-line arguments.
         /// </summary>
-        /// <param name="arguments">The command-line arguments to search for a command name. If a command is found it is removed from the collection.</param>
+        /// <param name="args">The command-line arguments to search for a command name. If a command is found it is removed from the collection.</param>
         /// <returns>The name of the command that was found or <see langword="null"/> if none was specified.</returns>
         [CanBeNull]
-        private static string GetCommandName([NotNull, ItemNotNull] ICollection<string> arguments)
+        public static string GetCommandName([NotNull, ItemNotNull] ref IEnumerable<string> args)
         {
             #region Sanity checks
-            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (args == null) throw new ArgumentNullException("args");
             #endregion
 
+            var arguments = new LinkedList<string>(args);
             string commandName = arguments.FirstOrDefault(argument => !argument.StartsWith("-") && !argument.StartsWith("/"));
             if (commandName != null) arguments.Remove(commandName);
+
+            args = arguments;
             return commandName;
         }
         #endregion

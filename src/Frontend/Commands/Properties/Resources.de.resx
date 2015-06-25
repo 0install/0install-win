@@ -679,9 +679,6 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
   <data name="UnknownConfigKey" xml:space="preserve">
     <value>Unbekannter Config-Schlüssel '{0}'.</value>
   </data>
-  <data name="UnknownMode" xml:space="preserve">
-    <value>Unbekannter Betriebsmodus.</value>
-  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unbekannte Option.</value>
   </data>

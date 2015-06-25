@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
@@ -39,51 +38,11 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Manages the contents of the <see cref="IStore"/>s.
     /// </summary>
-    [CLSCompliant(false)]
-    public sealed class StoreMan : CliCommand
+    public sealed class StoreMan : MultiCommand
     {
         #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "store";
-
-        /// <inheritdoc/>
-        protected override string Description
-        {
-            get
-            {
-                string[,] subcommands =
-                {
-                    {"add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", Resources.DescriptionStoreAdd},
-                    {"audit [CACHE+]", Resources.DescriptionStoreAudit},
-                    {"copy DIRECTORY [CACHE]", Resources.DescriptionStoreCopy},
-                    {"find DIGEST", Resources.DescriptionStoreFind},
-                    {"list", Resources.DescriptionStoreList},
-                    {"list-implementations [FEED-URI]", Resources.DescriptionStoreListImplementations},
-                    {"manage", Resources.DescriptionStoreManage},
-                    {"optimise [CACHE+]", Resources.DescriptionStoreOptimise},
-                    {"purge [CACHE+]", Resources.DescriptionStorePurge},
-                    {"remove DIGEST+", Resources.DescriptionStoreRemove},
-                    {"verify [DIRECTORY] DIGEST", Resources.DescriptionStoreVerify}
-                };
-
-                var builder = new StringBuilder();
-                for (int i = 0; i < subcommands.GetLength(0); i++)
-                {
-                    builder.AppendLine();
-                    builder.Append("0install store ");
-                    builder.AppendLine(subcommands[i, 0]);
-                    builder.AppendLine(subcommands[i, 1]);
-                }
-
-                return builder.ToString();
-            }
-        }
-
-        /// <inheritdoc/>
-        protected override string Usage { get { return "SUBCOMMAND"; } }
-
-        /// <inheritdoc/>
-        protected override int AdditionalArgsMin { get { return 1; } }
 
         /// <inheritdoc/>
         public StoreMan([NotNull] ICommandHandler handler) : base(handler)
@@ -91,240 +50,407 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override ExitCode Execute()
+        protected override IEnumerable<string> SubCommandNames { get { return new[] {Add.Name, Audit.Name, Copy.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name}; } }
+
+        /// <inheritdoc/>
+        protected override SubCommand GetCommand(string commandName)
         {
-            string mode = AdditionalArgs[0];
-            switch (mode)
+            #region Sanity checks
+            if (commandName == null) throw new ArgumentNullException("commandName");
+            #endregion
+
+            switch (commandName)
             {
-                case "add":
-                    return Add();
-
-                case "audit":
-                    return Audit();
-
-                case "copy":
-                    return Copy();
-
-                case "find":
-                    Find();
-                    return ExitCode.OK;
-
-                case "list":
-                    List();
-                    return ExitCode.OK;
-
-                case "list-implementations":
-                    ListImplementations();
-                    return ExitCode.OK;
-
-                case "manage":
-                    Handler.ManageStore(Store, FeedCache);
-                    return ExitCode.OK;
-
+                case Add.Name:
+                    return new Add(Handler);
+                case Audit.Name:
+                    return new Audit(Handler);
+                case Copy.Name:
+                    return new Copy(Handler);
+                case Find.Name:
+                    return new Find(Handler);
+                case List.Name:
+                    return new List(Handler);
+                case ListImplementations.Name:
+                    return new ListImplementations(Handler);
+                case Manage.Name:
+                    return new Manage(Handler);
                 case "manifest":
                     throw new NotSupportedException(string.Format(Resources.UseInstead, "0install digest --manifest"));
-
-                case "optimise":
-                case "optimize":
-                    Optimise();
-                    return ExitCode.OK;
-
-                case "purge":
-                    Purge();
-                    return ExitCode.OK;
-
-                case "remove":
-                    Remove();
-                    return ExitCode.OK;
-
-                case "verify":
-                    return Verify();
-
+                case Optimise.Name:
+                case Optimise.AltName:
+                    return new Optimise(Handler);
+                case Purge.Name:
+                    return new Purge(Handler);
+                case Remove.Name:
+                    return new Remove(Handler);
+                case Verify.Name:
+                    return new Verify(Handler);
                 default:
-                    throw new OptionException(Resources.UnknownMode, mode);
+                    throw new OptionException(Resources.UnknownOption, commandName);
             }
         }
 
-        #region Subcommands
-        private ExitCode Add()
+        internal abstract class StoreSubCommand : SubCommand
         {
-            if (AdditionalArgs.Count < 3) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", null);
+            protected override string ParentName { get { return StoreMan.Name; } }
 
-            var manifestDigest = new ManifestDigest(AdditionalArgs[1]);
-            string path = AdditionalArgs[2];
-            try
+            protected StoreSubCommand([NotNull] ICommandHandler handler) : base(handler)
+            {}
+
+            /// <summary>
+            /// Returns the default <see cref="IStore"/> or a <see cref="CompositeStore"/> as specifief by the <see cref="CliCommand.AdditionalArgs"/>.
+            /// </summary>
+            protected IStore GetEffectiveStore()
             {
-                if (File.Exists(path))
-                { // One or more archives (combined/overlayed)
-                    Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Handler);
-                    return ExitCode.OK;
+                return (AdditionalArgs.Count == 0)
+                    ? Store
+                    : new CompositeStore(AdditionalArgs.Select(arg => (IStore)new DirectoryStore(arg)));
+            }
+        }
+
+        // ReSharper disable MemberHidesStaticFromOuterClass
+
+        internal class Add : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "add";
+
+            protected override string Description { get { return Resources.DescriptionStoreAdd; } }
+
+            protected override string Usage { get { return "DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))"; } }
+
+            protected override int AdditionalArgsMin { get { return 2; } }
+
+            public Add([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                var manifestDigest = new ManifestDigest(AdditionalArgs[0]);
+                string path = AdditionalArgs[1];
+                try
+                {
+                    if (File.Exists(path))
+                    { // One or more archives (combined/overlayed)
+                        Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Handler);
+                        return ExitCode.OK;
+                    }
+                    else if (Directory.Exists(path))
+                    { // A single directory
+                        if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", AdditionalArgs[3]);
+                        Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
+                        return ExitCode.OK;
+                    }
+                    else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path), path);
                 }
-                else if (Directory.Exists(path))
-                { // A single directory
-                    if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", AdditionalArgs[3]);
-                    Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
-                    return ExitCode.OK;
+                catch (ImplementationAlreadyInStoreException ex)
+                {
+                    Log.Warn(ex);
+                    return ExitCode.NoChanges;
                 }
-                else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path), path);
             }
-            catch (ImplementationAlreadyInStoreException ex)
+
+            private IEnumerable<ArchiveFileInfo> GetArchiveFileInfos()
             {
-                Log.Warn(ex);
-                return ExitCode.NoChanges;
+                var archives = new ArchiveFileInfo[(AdditionalArgs.Count + 1) / 3];
+                for (int i = 0; i < archives.Length; i++)
+                {
+                    archives[i] = new ArchiveFileInfo
+                    {
+                        Path = Path.GetFullPath(AdditionalArgs[i * 3 + 1]),
+                        SubDir = (AdditionalArgs.Count > i * 3 + 2) ? AdditionalArgs[i * 3 + 2] : null,
+                        MimeType = (AdditionalArgs.Count > i * 3 + 3) ? AdditionalArgs[i * 3 + 3] : Archive.GuessMimeType(AdditionalArgs[i * 3 + 1])
+                    };
+                }
+                return archives;
             }
         }
 
-        private ExitCode Audit()
+        internal class Audit : StoreSubCommand
         {
-            var store = GetStore();
-            foreach (var manifestDigest in store.ListAll())
-                store.Verify(manifestDigest, Handler);
-            return ExitCode.OK;
-        }
+            #region Metadata
+            public new const string Name = "audit";
 
-        private ExitCode Copy()
-        {
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", null);
-            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", AdditionalArgs[3]);
+            protected override string Description { get { return Resources.DescriptionStoreAudit; } }
 
-            var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
+            protected override string Usage { get { return "[CACHE-DIR+]"; } }
 
-            string path = AdditionalArgs[1];
-            Debug.Assert(path != null);
-            try
+            public Audit([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
             {
-                store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
+                var store = GetEffectiveStore();
+                foreach (var manifestDigest in store.ListAll())
+                    store.Verify(manifestDigest, Handler);
                 return ExitCode.OK;
             }
-            catch (ImplementationAlreadyInStoreException ex)
+        }
+
+        internal class Copy : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "copy";
+
+            protected override string Description { get { return Resources.DescriptionStoreCopy; } }
+
+            protected override string Usage { get { return "DIRECTORY [CACHE]"; } }
+
+            protected override int AdditionalArgsMin { get { return 1; } }
+
+            protected override int AdditionalArgsMax { get { return 2; } }
+
+            public Copy([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
             {
-                Log.Warn(ex);
-                return ExitCode.NoChanges;
-            }
-        }
+                var store = (AdditionalArgs.Count == 2) ? new DirectoryStore(AdditionalArgs[1]) : Store;
 
-        private void Find()
-        {
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "find DIGEST", null);
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST", AdditionalArgs[2]);
-
-            string path = Store.GetPath(new ManifestDigest(AdditionalArgs[1]));
-            if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[1]));
-            Handler.Output(string.Format(Resources.LocalPathOf, AdditionalArgs[1]), path);
-        }
-
-        private void List()
-        {
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[1]);
-
-            var composite = Store as CompositeStore;
-            Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] {Store} : composite.Stores);
-        }
-
-        private void ListImplementations()
-        {
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[2]);
-
-            var nodeBuilder = new CacheNodeBuilder(Store, FeedCache);
-            nodeBuilder.Run();
-
-            if (AdditionalArgs.Count == 2)
-            {
-                var uri = GetCanonicalUri(AdditionalArgs[1]);
-                if (uri.IsFile && !File.Exists(uri.LocalPath))
-                    throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, uri.LocalPath), uri.LocalPath);
-
-                var nodes = nodeBuilder.Nodes.OfType<OwnedImplementationNode>().Where(x => x.FeedUri == uri);
-                Handler.Output(Resources.CachedImplementations, nodes);
-            }
-            else
-            {
-                var nodes = nodeBuilder.Nodes.OfType<ImplementationNode>();
-                Handler.Output(Resources.CachedImplementations, nodes);
-            }
-        }
-
-        private void Optimise()
-        {
-            long savedBytes = GetStore().Optimise(Handler);
-            Handler.OutputLow(Resources.OptimiseComplete, string.Format(Resources.StorageReclaimed, savedBytes.FormatBytes(CultureInfo.CurrentCulture)));
-        }
-
-        private void Purge()
-        {
-            if (Handler.Ask(Resources.ConfirmPurge, defaultAnswer: true)) GetStore().Purge(Handler);
-            else throw new OperationCanceledException();
-        }
-
-        private void Remove()
-        {
-            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", null);
-
-            foreach (var digest in AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x)))
-            {
-                if (!Store.Remove(digest, Handler))
-                    throw new ImplementationNotFoundException(digest);
-            }
-        }
-
-        private ExitCode Verify()
-        {
-            try
-            {
-                switch (AdditionalArgs.Count)
+                string path = AdditionalArgs[0];
+                Debug.Assert(path != null);
+                try
                 {
-                    case 1:
-                        throw new OptionException(Resources.MissingArguments + Environment.NewLine + "verify [DIRECTORY] DIGEST" + Environment.NewLine + Resources.StoreVerfiyTryAuditInstead, null);
-
-                    case 2:
-                        // Verify a directory inside the store
-                        Store.Verify(new ManifestDigest(AdditionalArgs[1]), Handler);
-                        break;
-
-                    case 3:
-                        // Verify an arbitrary directory
-                        DirectoryStore.VerifyDirectory(AdditionalArgs[1], new ManifestDigest(AdditionalArgs[2]), Handler);
-                        break;
-
-                    default:
-                        throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "verify [DIRECTORY] DIGEST", "");
+                    store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
+                    return ExitCode.OK;
+                }
+                catch (ImplementationAlreadyInStoreException ex)
+                {
+                    Log.Warn(ex);
+                    return ExitCode.NoChanges;
                 }
             }
-            catch (DigestMismatchException ex)
-            {
-                Handler.Output(Resources.VerifyImplementation, ex.Message);
-                return ExitCode.DigestMismatch;
-            }
-
-            return ExitCode.OK;
         }
-        #endregion
 
-        #region Helpers
-        private IEnumerable<ArchiveFileInfo> GetArchiveFileInfos()
+        internal class Find : StoreSubCommand
         {
-            var archives = new ArchiveFileInfo[AdditionalArgs.Count / 3];
-            for (int i = 0; i < archives.Length; i++)
+            #region Metadata
+            public new const string Name = "find";
+
+            protected override string Description { get { return Resources.DescriptionStoreFind; } }
+
+            protected override string Usage { get { return "DIGEST"; } }
+
+            protected override int AdditionalArgsMin { get { return 1; } }
+
+            protected override int AdditionalArgsMax { get { return 1; } }
+
+            public Find([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
             {
-                archives[i] = new ArchiveFileInfo
+                string path = Store.GetPath(new ManifestDigest(AdditionalArgs[0]));
+                if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[0]));
+                Handler.Output(string.Format(Resources.LocalPathOf, AdditionalArgs[0]), path);
+                return ExitCode.OK;
+            }
+        }
+
+        internal class List : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "list";
+
+            protected override string Description { get { return Resources.DescriptionStoreList; } }
+
+            protected override string Usage { get { return ""; } }
+
+            protected override int AdditionalArgsMax { get { return 0; } }
+
+            public List([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                var composite = Store as CompositeStore;
+                Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] {Store} : composite.Stores);
+                return ExitCode.OK;
+            }
+        }
+
+        internal class ListImplementations : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "list-implementations";
+
+            protected override string Description { get { return Resources.DescriptionStoreListImplementations; } }
+
+            protected override string Usage { get { return "[FEED-URI]"; } }
+
+            protected override int AdditionalArgsMax { get { return 1; } }
+
+            public ListImplementations([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                var nodeBuilder = new CacheNodeBuilder(Store, FeedCache);
+                nodeBuilder.Run();
+
+                if (AdditionalArgs.Count == 1)
                 {
-                    Path = Path.GetFullPath(AdditionalArgs[i * 3 + 2]),
-                    SubDir = (AdditionalArgs.Count > i * 3 + 3) ? AdditionalArgs[i * 3 + 3] : null,
-                    MimeType = (AdditionalArgs.Count > i * 3 + 4) ? AdditionalArgs[i * 3 + 4] : Archive.GuessMimeType(AdditionalArgs[i * 3 + 2])
-                };
+                    var uri = GetCanonicalUri(AdditionalArgs[0]);
+                    if (uri.IsFile && !File.Exists(uri.LocalPath))
+                        throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, uri.LocalPath), uri.LocalPath);
+
+                    var nodes = nodeBuilder.Nodes.OfType<OwnedImplementationNode>().Where(x => x.FeedUri == uri);
+                    Handler.Output(Resources.CachedImplementations, nodes);
+                }
+                else
+                {
+                    var nodes = nodeBuilder.Nodes.OfType<ImplementationNode>();
+                    Handler.Output(Resources.CachedImplementations, nodes);
+                }
+
+                return ExitCode.OK;
             }
-            return archives;
         }
 
-        /// <summary>
-        /// Returns the default <see cref="IStore"/> or a <see cref="CompositeStore"/> as specifief by the <see cref="CliCommand.AdditionalArgs"/>.
-        /// </summary>
-        private IStore GetStore()
+        private class Manage : StoreSubCommand
         {
-            return (AdditionalArgs.Count == 1)
-                ? Store
-                : new CompositeStore(AdditionalArgs.Skip(1).Select(arg => (IStore)new DirectoryStore(arg)));
+            #region Metadata
+            public new const string Name = "manage";
+
+            protected override string Description { get { return Resources.DescriptionStoreManage; } }
+
+            protected override string Usage { get { return ""; } }
+
+            protected override int AdditionalArgsMax { get { return 0; } }
+
+            public Manage([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                Handler.ManageStore(Store, FeedCache);
+                return ExitCode.OK;
+            }
         }
-        #endregion
+
+        internal class Optimise : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "optimise";
+
+            public const string AltName = "optimize";
+
+            protected override string Description { get { return Resources.DescriptionStoreOptimise; } }
+
+            protected override string Usage { get { return "[CACHE-DIR+]"; } }
+
+            public Optimise([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                long savedBytes = GetEffectiveStore().Optimise(Handler);
+                Handler.OutputLow(Resources.OptimiseComplete, string.Format(Resources.StorageReclaimed, savedBytes.FormatBytes(CultureInfo.CurrentCulture)));
+                return ExitCode.OK;
+            }
+        }
+
+        internal class Purge : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "purge";
+
+            protected override string Description { get { return Resources.DescriptionStorePurge; } }
+
+            protected override string Usage { get { return "[CACHE-DIR+]"; } }
+
+            public Purge([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                if (Handler.Ask(Resources.ConfirmPurge, defaultAnswer: true))
+                {
+                    GetEffectiveStore().Purge(Handler);
+                    return ExitCode.OK;
+                }
+                else throw new OperationCanceledException();
+            }
+        }
+
+        internal class Remove : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "remove";
+
+            protected override string Description { get { return Resources.DescriptionStoreRemove; } }
+
+            protected override string Usage { get { return "DIGEST+"; } }
+
+            protected override int AdditionalArgsMax { get { return 1; } }
+
+            public Remove([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                foreach (var digest in AdditionalArgs.Select(x => new ManifestDigest(x)))
+                {
+                    if (!Store.Remove(digest, Handler))
+                        throw new ImplementationNotFoundException(digest);
+                }
+                return ExitCode.OK;
+            }
+        }
+
+        internal class Verify : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "verify";
+
+            protected override string Description { get { return Resources.DescriptionStoreVerify; } }
+
+            protected override string Usage { get { return "[DIRECTORY] DIGEST"; } }
+
+            protected override int AdditionalArgsMin { get { return 1; } }
+
+            protected override int AdditionalArgsMax { get { return 2; } }
+
+            public Verify([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                try
+                {
+                    switch (AdditionalArgs.Count)
+                    {
+                        case 1:
+                            // Verify a directory inside the store
+                            Store.Verify(new ManifestDigest(AdditionalArgs[0]), Handler);
+                            break;
+
+                        case 2:
+                            // Verify an arbitrary directory
+                            DirectoryStore.VerifyDirectory(AdditionalArgs[0], new ManifestDigest(AdditionalArgs[1]), Handler);
+                            break;
+                    }
+                }
+                catch (DigestMismatchException ex)
+                {
+                    Handler.Output(Resources.VerifyImplementation, ex.Message);
+                    return ExitCode.DigestMismatch;
+                }
+
+                return ExitCode.OK;
+            }
+        }
     }
 }

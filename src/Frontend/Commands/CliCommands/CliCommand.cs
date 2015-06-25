@@ -48,7 +48,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// The name of this command as used in command-line arguments in lower-case.
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -87,13 +87,18 @@ namespace ZeroInstall.Commands.CliCommands
                 using (var buffer = new MemoryStream())
                 {
                     var writer = new StreamWriter(buffer);
-                    Options.WriteOptionDescriptions(writer);
+                    writer.WriteLine(Resources.Usage + " 0install " + Name + " " + Usage);
+                    writer.WriteLine();
+                    writer.WriteLine(Description);
+                    if (Options.Count != 0)
+                    {
+                        writer.WriteLine();
+                        writer.WriteLine(Resources.Options);
+                        Options.WriteOptionDescriptions(writer);
+                    }
                     writer.Flush();
 
-                    // TODO: Add flow formatting for better readability on console
-                    return Resources.Usage + " 0install " + Name + " " + Usage + Environment.NewLine + Environment.NewLine +
-                           Description + Environment.NewLine + Environment.NewLine +
-                           Resources.Options + Environment.NewLine + buffer.ReadToString();
+                    return buffer.ReadToString();
                 }
             }
         }
