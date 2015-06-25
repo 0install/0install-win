@@ -26,7 +26,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Downloads a set of <see cref="Implementation"/>s piped in as XML via stdin. Only for IPC-use.
     /// </summary>
-    [CLSCompliant(false)]
     public class Fetch : CliCommand
     {
         #region Metadata

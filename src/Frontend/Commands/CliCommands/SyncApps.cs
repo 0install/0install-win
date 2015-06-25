@@ -26,7 +26,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Synchronize the <see cref="AppList"/> with the server.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class SyncApps : IntegrationCommand
     {
         #region Metadata

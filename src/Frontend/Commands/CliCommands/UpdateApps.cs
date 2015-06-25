@@ -32,7 +32,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Updates all applications in the <see cref="AppList"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class UpdateApps : IntegrationCommand
     {
         #region Metadata

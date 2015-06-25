@@ -26,7 +26,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// List all known feed URIs for a specific interface.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class ListFeeds : CliCommand
     {
         #region Metadata

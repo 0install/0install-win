@@ -28,7 +28,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Remove an application from the <see cref="AppList"/> and undoes any desktop environment integration.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class RemoveApp : AppCommand
     {
         #region Metadata

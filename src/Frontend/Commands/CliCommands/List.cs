@@ -27,7 +27,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// List all known interface (program) URIs.
     /// </summary>
     /// <remarks>If a search term is given, only URIs containing that string are shown (case insensitive).</remarks>
-    [CLSCompliant(false)]
     public sealed class List : CliCommand
     {
         #region Metadata

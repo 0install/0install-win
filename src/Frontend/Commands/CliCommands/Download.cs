@@ -32,7 +32,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// This behaves similarly to <see cref="Selection"/>, except that it also downloads the selected versions if they are not already cached.
     /// </summary>
-    [CLSCompliant(false)]
     public class Download : Selection
     {
         #region Metadata

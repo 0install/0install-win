@@ -33,7 +33,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Common base class for <see cref="AddFeed"/> and <see cref="RemoveFeed"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public abstract class AddRemoveFeedCommand : CliCommand
     {
         #region Metadata

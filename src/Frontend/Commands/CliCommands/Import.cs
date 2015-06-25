@@ -30,7 +30,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// Import a feed from a local file, as if it had been downloaded from the network.
     /// </summary>
     /// <remarks>This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</remarks>
-    [CLSCompliant(false)]
     public sealed class Import : CliCommand
     {
         #region Metadata

@@ -27,7 +27,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// View or change <see cref="Config"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class Configure : CliCommand
     {
         #region Metadata

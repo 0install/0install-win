@@ -28,7 +28,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Un-register a feed, reversing the effect of <see cref="AddFeed"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class RemoveFeed : AddRemoveFeedCommand
     {
         #region Metadata

@@ -29,7 +29,6 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// Handles the creation of <see cref="CliCommand"/> instances for handling of commands like "0install COMMAND [OPTIONS]".
     /// </summary>
-    [CLSCompliant(false)]
     public static class CommandFactory
     {
         #region Command list

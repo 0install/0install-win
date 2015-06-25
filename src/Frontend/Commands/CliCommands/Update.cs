@@ -31,7 +31,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Check for updates to the program and download them if found.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class Update : Download
     {
         #region Metadata

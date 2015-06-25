@@ -33,7 +33,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Updates Zero Install itself to the most recent version.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class SelfUpdate : Run
     {
         #region Metadata

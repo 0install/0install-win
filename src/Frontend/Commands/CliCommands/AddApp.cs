@@ -28,7 +28,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Add an application to the <see cref="AppList"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class AddApp : AppCommand
     {
         #region Metadata

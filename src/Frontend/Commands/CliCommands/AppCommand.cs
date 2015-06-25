@@ -25,7 +25,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Common base class for commands that manage an <see cref="AppList"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public abstract class AppCommand : IntegrationCommand
     {
         #region Metadata

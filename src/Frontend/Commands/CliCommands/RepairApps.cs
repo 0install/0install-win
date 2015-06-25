@@ -25,7 +25,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Reintegrate all applications in the <see cref="AppList"/> into the desktop environment.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class RepairApps : IntegrationCommand
     {
         #region Metadata

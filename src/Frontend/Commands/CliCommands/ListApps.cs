@@ -28,7 +28,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// List all current <see cref="AppEntry"/>s in the <see cref="AppList"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class ListApps : IntegrationCommand
     {
         #region Metadata

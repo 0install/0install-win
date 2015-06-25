@@ -27,7 +27,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// The default command used when no command is explicitly specified.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class DefaultCommand : CliCommand
     {
         #region Metadata

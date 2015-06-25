@@ -26,7 +26,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Imports a set of applications and desktop integrations from an existing <see cref="AppList"/> file.
     /// </summary>
-    [CLSCompliant(false)]
     public class ImportApps : IntegrationCommand
     {
         #region Metadata

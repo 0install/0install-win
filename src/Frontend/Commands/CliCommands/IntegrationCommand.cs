@@ -20,7 +20,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Common base class for commands that manage <see cref="DesktopIntegration"/>.
     /// </summary>
-    [CLSCompliant(false)]
     public abstract class IntegrationCommand : CliCommand
     {
         #region State

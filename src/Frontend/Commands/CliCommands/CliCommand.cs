@@ -42,7 +42,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// Represents a command issued via the command-line. Not to be confused with <see cref="Command"/>!
     /// </summary>
     /// <remarks>Specific sub-classes of this class are used to handle a commands like "0install COMMAND [OPTIONS]".</remarks>
-    [CLSCompliant(false)]
     public abstract class CliCommand : CommandBase
     {
         #region Metadata

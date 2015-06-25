@@ -38,7 +38,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// This behaves similarly to <see cref="Download"/>, except that it also runs the program after ensuring it is in the cache.
     /// </summary>
-    [CLSCompliant(false)]
     public class Run : Download
     {
         #region Metadata

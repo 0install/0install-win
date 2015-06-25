@@ -26,7 +26,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Opens the central graphical user interface for launching and managing applications.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class Central : CliCommand
     {
         #region Metadata

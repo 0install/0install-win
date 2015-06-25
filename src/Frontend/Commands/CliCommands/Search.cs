@@ -26,7 +26,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Searches for feeds indexed by the mirror server.
     /// </summary>
-    [CLSCompliant(false)]
     public class Search : CliCommand
     {
         #region Metadata

@@ -39,7 +39,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Select a version of the program identified by URI, and compatible versions of all of its dependencies.
     /// </summary>
-    [CLSCompliant(false)]
     public class Selection : CliCommand
     {
         #region Metadata

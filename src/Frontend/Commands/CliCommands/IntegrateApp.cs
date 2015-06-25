@@ -36,7 +36,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Add an application to the <see cref="AppList"/> (if missing) and integrate it into the desktop environment.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand
     {
         #region Metadata

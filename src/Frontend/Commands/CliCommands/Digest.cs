@@ -29,7 +29,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Calculate the manifest digest of a directory or archive.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class Digest : CliCommand
     {
         #region Metadata

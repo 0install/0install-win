@@ -32,7 +32,6 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Create an alias for a <see cref="Run"/> command.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class AddAlias : IntegrationCommand
     {
         #region Metadata
