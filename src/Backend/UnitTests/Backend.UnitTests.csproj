@@ -81,6 +81,7 @@
     <Compile Include="DesktopIntegration\Windows\StubBuilderTest.cs" />
     <Compile Include="MoqExtensions.cs" />
     <Compile Include="PackageBuilder.cs" />
+    <Compile Include="Services\Feeds\CatalogManagerTest.cs" />
     <Compile Include="Services\Feeds\FeedManagerTest.cs" />
     <Compile Include="Services\Feeds\TrustManagerTest.cs" />
     <Compile Include="Services\Fetchers\FetcherTest.cs" />
