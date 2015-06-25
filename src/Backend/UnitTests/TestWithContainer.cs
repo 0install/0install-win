@@ -56,12 +56,12 @@ namespace ZeroInstall
         {
             base.SetUp();
 
+            _redirect = new LocationsRedirect("0install-unit-tests");
+
             _container = new AutoMockContainer(MockRepository);
             Register(_container);
 
             Target = _container.Create<TTarget>();
-
-            _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
         /// <summary>
