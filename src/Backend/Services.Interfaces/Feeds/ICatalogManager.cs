@@ -35,6 +35,9 @@ namespace ZeroInstall.Services.Feeds
         /// Loads the last result of <see cref="GetOnline"/>.
         /// </summary>
         /// <returns>A <see cref="Catalog"/>; <see langword="null"/> if there is no cached data.</returns>
+        /// <exception cref="IOException">A problem occured while reading the cache file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache file was not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "File system access")]
         [CanBeNull]
         Catalog GetCached();
@@ -44,6 +47,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <returns>A <see cref="Catalog"/>.</returns>
         /// <exception cref="IOException">A problem occured while reading a local catalog file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a local catalog file was not permitted.</exception>
         /// <exception cref="WebException">A problem occured while fetching a remote catalog file.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
@@ -67,18 +71,20 @@ namespace ZeroInstall.Services.Feeds
         /// Adds a new source to download <see cref="Catalog"/> files from.
         /// </summary>
         /// <param name="uri">The URI of the source to add.</param>
+        /// <returns><see langword="true"/> if the source was add; <see langword="false"/> if the source was already in the list.</returns>
         /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
-        void AddSource([NotNull] FeedUri uri);
+        bool AddSource([NotNull] FeedUri uri);
 
         /// <summary>
         /// Removes an existing source of <see cref="Catalog"/> files.
         /// </summary>
         /// <param name="uri">The URI of the source to remove.</param>
+        /// <returns><see langword="true"/> if the source was removed; <see langword="false"/> if the source was not in the current list.</returns>
         /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
-        void RemoveSource([NotNull] FeedUri uri);
+        bool RemoveSource([NotNull] FeedUri uri);
     }
 }

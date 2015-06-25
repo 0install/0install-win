@@ -85,6 +85,31 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
+        /// <summary>
+        /// Saves a merged <see cref="Catalog"/> to the cache file for later retrieval by <see cref="GetCached"/>.
+        /// </summary>
+        private void SaveCache([NotNull] Catalog catalog)
+        {
+            try
+            {
+                Log.Debug("Caching Catalog in: " + _cacheFilePath);
+                using (new MutexLock(CacheMutexName))
+                    catalog.SaveXml(_cacheFilePath);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Warn(Resources.UnableToCacheCatalog);
+                Log.Warn(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn(Resources.UnableToCacheCatalog);
+                Log.Warn(ex.Message);
+            }
+            #endregion
+        }
+
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetOnline()
@@ -101,25 +126,7 @@ namespace ZeroInstall.Services.Feeds
             }
             mergedCatalog.Normalize();
 
-            // Cache
-            try
-            {
-                Log.Debug("Caching merged Catalog in: " + _cacheFilePath);
-                using (new MutexLock(CacheMutexName))
-                    mergedCatalog.SaveXml(_cacheFilePath);
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Log.Warn(Resources.UnableToCacheCatalog);
-                Log.Warn(ex.Message);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn(Resources.UnableToCacheCatalog);
-                Log.Warn(ex.Message);
-            }
-            #endregion
+            SaveCache(mergedCatalog);
 
             return mergedCatalog;
         }
@@ -144,19 +151,30 @@ namespace ZeroInstall.Services.Feeds
         }
 
         /// <inheritdoc/>
-        public void AddSource(FeedUri uri)
+        public bool AddSource(FeedUri uri)
         {
             var sources = GetSources().ToList();
-            sources.AddIfNew(uri);
+            if (!sources.AddIfNew(uri)) return false;
             SetSources(sources);
+            return true;
         }
 
         /// <inheritdoc/>
-        public void RemoveSource(FeedUri uri)
+        public bool RemoveSource(FeedUri uri)
         {
             var sources = GetSources().ToList();
-            sources.Remove(uri);
+            if (!sources.Remove(uri)) return false;
             SetSources(sources);
+
+            // Remove relevant entries from cache
+            var cached = GetCached();
+            if (cached != null)
+            {
+                cached.Feeds.RemoveAll(x => x.CatalogUri == uri);
+                SaveCache(cached);
+            }
+
+            return true;
         }
 
         /// <summary>
