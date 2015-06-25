@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -73,7 +74,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (_resolve || _remove)
             {
-                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[1]);
+                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + AdditionalArgs[1].EscapeArgument(), null);
                 return ResolveOrRemove(
                     aliasName: AdditionalArgs[0]);
             }

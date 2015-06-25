@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -93,7 +94,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (Directory.Exists(path))
             {
-                if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, subdir);
+                if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + subdir.EscapeArgument(), null);
 
                 var generator = new ManifestGenerator(path, _algorithm);
                 Handler.RunTask(generator);

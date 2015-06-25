@@ -139,7 +139,7 @@ namespace ZeroInstall.Commands.CliCommands
                     }
                     else if (Directory.Exists(path))
                     { // A single directory
-                        if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", AdditionalArgs[3]);
+                        if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + AdditionalArgs.Skip(2).JoinEscapeArguments(), null);
                         Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
                         return ExitCode.OK;
                     }

@@ -171,7 +171,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (AdditionalArgs.Count < AdditionalArgsMin) throw new OptionException(Resources.MissingArguments, null);
             if (AdditionalArgsMin == 1 && string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, null);
 
-            if (AdditionalArgs.Count > AdditionalArgsMax) throw new OptionException(Resources.TooManyArguments, AdditionalArgs[AdditionalArgsMax]);
+            if (AdditionalArgs.Count > AdditionalArgsMax) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + AdditionalArgs.Skip(AdditionalArgsMax).JoinEscapeArguments(), null);
         }
 
         /// <summary>
