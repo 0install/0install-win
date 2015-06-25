@@ -103,9 +103,15 @@ namespace ZeroInstall.Commands.CliCommands
             /// </summary>
             protected IStore GetEffectiveStore()
             {
-                return (AdditionalArgs.Count == 0)
-                    ? Store
-                    : new CompositeStore(AdditionalArgs.Select(arg => (IStore)new DirectoryStore(arg)));
+                if (AdditionalArgs.Count == 0) return Store;
+                else
+                {
+                    foreach (string path in AdditionalArgs)
+                        if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
+
+                    return new CompositeStore(
+                        AdditionalArgs.Select(x => (IStore)new DirectoryStore(x, useWriteProtection: false)));
+                }
             }
         }
 
