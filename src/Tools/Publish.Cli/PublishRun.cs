@@ -318,7 +318,7 @@ namespace ZeroInstall.Publish.Cli
                     }
 
                     // Ask for passphrase to unlock secret key if we were unable to save without it
-                    _openPgpPassphrase = CliUtils.ReadPassword(string.Format(Publish.Properties.Resources.AskForPassphrase, signedCatalog.SecretKey));
+                    _openPgpPassphrase = CliUtils.ReadPassword(string.Format(Resources.AskForPassphrase, signedCatalog.SecretKey));
                 }
             }
             else catalog.SaveXml(_catalogFile);

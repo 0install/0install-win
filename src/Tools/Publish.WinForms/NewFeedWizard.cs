@@ -503,8 +503,6 @@ namespace ZeroInstall.Publish.WinForms
 
         private void installerAltDownloadPage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            var fileName = checkAltLocalCopy.Checked ? textBoxAltLocalPath.Text : textBoxAltDownloadUrl.Text;
-
             try
             {
                 Retrieve(

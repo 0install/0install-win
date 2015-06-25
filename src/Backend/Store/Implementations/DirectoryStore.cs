@@ -533,7 +533,7 @@ namespace ZeroInstall.Store.Implementations
                 {
                     restartManager.RegisterResources(FileUtils.GetFilesRecursive(path));
                     var apps = restartManager.ListApps(handler);
-                
+
                     if (apps.Length != 0)
                     {
                         string appsList = string.Join(Environment.NewLine, apps);
