@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
@@ -56,8 +57,22 @@ namespace ZeroInstall.Store.Model
             // Apply if-0install-version filter
             _retrievalMethods.RemoveAll(FilterMismatch);
 
+            var toRemove = new List<RetrievalMethod>();
             foreach (var retrievalMethod in _retrievalMethods)
-                retrievalMethod.Normalize(feedUri);
+            {
+                try
+                {
+                    retrievalMethod.Normalize(feedUri);
+                }
+                    #region Error handling
+                catch (UriFormatException ex)
+                {
+                    Log.Error(ex);
+                    toRemove.Add(retrievalMethod);
+                }
+                #endregion
+            }
+            _retrievalMethods.RemoveRange(toRemove);
         }
         #endregion
 

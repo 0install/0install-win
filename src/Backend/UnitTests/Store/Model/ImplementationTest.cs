@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using NanoByte.Common.Native;
 using NUnit.Framework;
 
@@ -137,13 +136,30 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Implementation.Normalize"/> throws <see cref="IOException"/> for relative paths in non-local feeds.
+        /// Ensures that <see cref="Implementation.Normalize"/> rejects local paths in non-local feeds.
         /// </summary>
         [Test]
-        public void TestNormalizeRemotePath()
+        public void TestNormalizeRejectLocalPath()
         {
-            Assert.Throws<IOException>(() => new Implementation {ID = "./subdir"}.Normalize(FeedTest.Test1Uri));
-            Assert.Throws<IOException>(() => new Implementation {LocalPath = "subdir"}.Normalize(FeedTest.Test1Uri));
+            var implmementation = new Implementation {LocalPath = "subdir"};
+            implmementation.Normalize(FeedTest.Test1Uri);
+            Assert.IsNull(implmementation.LocalPath);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Implementation.Normalize"/> rejects relative <see cref="DownloadRetrievalMethod.Href"/>s in non-local feeds.
+        /// </summary>
+        [Test]
+        public void TestNormalizeRejectRelativeHref()
+        {
+            var relative = new Archive {Href = new Uri("relative", UriKind.Relative)};
+            var absolute = new Archive {Href = new Uri("http://server/absolute.zip", UriKind.Absolute)};
+            var implmementation = new Implementation {RetrievalMethods = {relative, absolute}};
+
+            implmementation.Normalize(FeedTest.Test1Uri);
+            CollectionAssert.AreEqual(
+                expected: new[] {absolute},
+                actual: implmementation.RetrievalMethods);
         }
 
         /// <summary>

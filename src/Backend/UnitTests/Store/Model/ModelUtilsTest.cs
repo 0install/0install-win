@@ -37,8 +37,8 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestGetAbsolutePathException()
         {
-            Assert.Throws<IOException>(() => ModelUtils.GetAbsolutePath("subdir/file"));
-            Assert.Throws<IOException>(() => ModelUtils.GetAbsolutePath("subdir/file", new FeedUri("http://remote/")));
+            Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsolutePath("subdir/file"));
+            Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsolutePath("subdir/file", new FeedUri("http://remote/")));
         }
 
         [Test]
@@ -56,8 +56,8 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestGetAbsoluteHrefException()
         {
-            Assert.Throws<IOException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative)));
-            Assert.Throws<IOException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), new FeedUri("http://remote/")));
+            Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative)));
+            Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), new FeedUri("http://remote/")));
         }
     }
 }

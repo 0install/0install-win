@@ -81,10 +81,20 @@ namespace ZeroInstall.Store.Model
             if (Stability == Stability.Unset) Stability = Stability.Testing;
 
             // Make local paths absolute
-            if (!string.IsNullOrEmpty(LocalPath))
-                LocalPath = ModelUtils.GetAbsolutePath(LocalPath, feedUri);
-            else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID
-                LocalPath = ID = ModelUtils.GetAbsolutePath(ID, feedUri);
+            try
+            {
+                if (!string.IsNullOrEmpty(LocalPath))
+                    LocalPath = ModelUtils.GetAbsolutePath(LocalPath, feedUri);
+                else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID
+                    LocalPath = ID = ModelUtils.GetAbsolutePath(ID, feedUri);
+            }
+                #region Error handling
+            catch (UriFormatException ex)
+            {
+                Log.Error(ex);
+                LocalPath = null;
+            }
+            #endregion
 
             // Parse manifest digest from ID if missing
             if (!string.IsNullOrEmpty(ID)) _manifestDigest.ParseID(ID);

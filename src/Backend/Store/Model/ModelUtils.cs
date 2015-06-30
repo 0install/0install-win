@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="path">The potentially relative path; will remain untouched if absolute.</param>
         /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
         /// <returns>An absolute path.</returns>
-        /// <exception cref="IOException"><paramref name="path"/> is relative and <paramref name="source"/> is a remote URI.</exception>
+        /// <exception cref="UriFormatException"><paramref name="path"/> is relative and <paramref name="source"/> is a remote URI.</exception>
         [NotNull]
         public static string GetAbsolutePath([NotNull] string path, [CanBeNull] FeedUri source = null)
         {
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             if (Path.IsPathRooted(path)) return path;
-            if (source == null || !source.IsFile) throw new IOException(string.Format(Resources.RelativePathInRemoteFeed, path));
+            if (source == null || !source.IsFile) throw new UriFormatException(string.Format(Resources.RelativePathInRemoteFeed, path));
             return Path.Combine(Path.GetDirectoryName(source.LocalPath) ?? "", FileUtils.UnifySlashes(path));
         }
 
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
         /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
         /// <returns>An absolute HREF.</returns>
-        /// <exception cref="IOException"><paramref name="href"/> is relative and <paramref name="source"/> is a remote URI.</exception>
+        /// <exception cref="UriFormatException"><paramref name="href"/> is relative and <paramref name="source"/> is a remote URI.</exception>
         [NotNull]
         public static Uri GetAbsoluteHref([NotNull] Uri href, [CanBeNull] FeedUri source = null)
         {
@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             if (href.IsAbsoluteUri) return href;
-            if (source == null || !source.IsFile) throw new IOException(string.Format(Resources.RelativeUriInRemoteFeed, href));
+            if (source == null || !source.IsFile) throw new UriFormatException(string.Format(Resources.RelativeUriInRemoteFeed, href));
             return new Uri(new Uri(source.LocalPath, UriKind.Absolute), href);
         }
     }
