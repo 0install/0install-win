@@ -62,6 +62,7 @@ namespace ZeroInstall.Commands
                 else if (uri.StartsWith("file:/")) throw new UriFormatException(Resources.FilePrefixAbsoluteUsage);
                 else if (uri.StartsWith("file:")) return new FeedUri(Path.GetFullPath(uri.Substring("file:".Length)));
                 else if (uri.StartsWith("http:") || uri.StartsWith("https:")) return new FeedUri(uri);
+                if (Path.IsPathRooted(uri)) return new FeedUri(uri);
 
                 string path = Path.GetFullPath(WindowsUtils.IsWindows ? Environment.ExpandEnvironmentVariables(uri) : uri);
                 if (File.Exists(path)) return new FeedUri(path);
