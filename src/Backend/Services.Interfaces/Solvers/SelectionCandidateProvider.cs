@@ -126,7 +126,21 @@ namespace ZeroInstall.Services.Solvers
                 AddFeed(dictionary, uri, requirements);
 
             foreach (var reference in _interfacePreferences[requirements.InterfaceUri].Feeds)
-                AddFeed(dictionary, reference.Source, requirements);
+            {
+                try
+                {
+                    AddFeed(dictionary, reference.Source, requirements);
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new IOException(
+                        string.Format("Failed to load feed {1} manually registered for interface {0}. Try '0install remove-feed {0} {1}.", requirements.InterfaceUri.ToStringRfc(), reference.Source.ToStringRfc()),
+                        ex);
+                }
+                #endregion
+            }
 
             return dictionary;
         }
