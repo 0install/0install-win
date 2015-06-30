@@ -74,16 +74,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
-        #region Conversion
-        /// <summary>
-        /// Returns the access point in the form "DesktopIcon: Name". Not safe for parsing!
-        /// </summary>
-        public override string ToString()
-        {
-            return string.Format("DesktopIcon: {0}", Name);
-        }
-        #endregion
-
         #region Clone
         /// <inheritdoc/>
         public override AccessPoint Clone()

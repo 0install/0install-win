@@ -76,16 +76,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
-        #region Conversion
-        /// <summary>
-        /// Returns the access point in the form "AppAlias: Name (Command)". Not safe for parsing!
-        /// </summary>
-        public override string ToString()
-        {
-            return string.Format("AppAlias: {0} ({1})", Name, Command);
-        }
-        #endregion
-
         #region Clone
         /// <inheritdoc/>
         public override AccessPoint Clone()

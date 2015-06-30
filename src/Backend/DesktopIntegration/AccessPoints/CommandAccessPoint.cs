@@ -45,6 +45,18 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
+        #region Conversion
+        /// <summary>
+        /// Returns the access point in the form "AccessPointType: Name (Command)". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            string result = GetType().Name + ": " + Name;
+            if (!string.IsNullOrEmpty(Command)) result += " (" + Command + ")";
+            return result;
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         protected bool Equals(CommandAccessPoint other)

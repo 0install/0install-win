@@ -86,16 +86,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
-        #region Conversion
-        /// <summary>
-        /// Returns the access point in the form "MenuEntry: Category/Name". Not safe for parsing!
-        /// </summary>
-        public override string ToString()
-        {
-            return string.Format("MenuEntry: {0}/{1}", Category, Name);
-        }
-        #endregion
-
         #region Clone
         /// <inheritdoc/>
         public override AccessPoint Clone()

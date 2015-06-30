@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} = {1}", Name, Command);
+            return string.Format("{0} = {1}", Name, Command ?? Model.Command.NameRun);
         }
         #endregion
 

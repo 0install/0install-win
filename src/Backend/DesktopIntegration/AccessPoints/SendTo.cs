@@ -72,16 +72,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
-        #region Conversion
-        /// <summary>
-        /// Returns the access point in the form "SendTo". Not safe for parsing!
-        /// </summary>
-        public override string ToString()
-        {
-            return "SendTo";
-        }
-        #endregion
-
         #region Clone
         /// <inheritdoc/>
         public override AccessPoint Clone()

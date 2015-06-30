@@ -65,16 +65,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         //--------------------//
 
-        #region Conversion
-        /// <summary>
-        /// Returns the access point in the form "QuickLaunch". Not safe for parsing!
-        /// </summary>
-        public override string ToString()
-        {
-            return "QuickLaunch";
-        }
-        #endregion
-
         #region Clone
         /// <inheritdoc/>
         public override AccessPoint Clone()
