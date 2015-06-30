@@ -74,6 +74,10 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Backend\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Backend\Services\Services.csproj">
       <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
       <Name>Services</Name>

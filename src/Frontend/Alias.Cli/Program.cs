@@ -25,6 +25,7 @@ using NDesk.Options;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
@@ -168,6 +169,11 @@ namespace ZeroInstall.Alias.Cli
             {
                 Log.Error(ex);
                 return ExitCode.SolverError;
+            }
+            catch (ConflictException ex)
+            {
+                Log.Error(ex);
+                return ExitCode.Conflict;
             }
                 #endregion
 
