@@ -68,12 +68,18 @@ namespace ZeroInstall.Services.Solvers
             _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
 
+        /// <summary>
+        /// Returns a predicate that checks whether a given <see cref="Implementation"/> is cached in the <paramref name="store"/>
+        /// (or has an <see cref="ImplementationBase.LocalPath"/> or <see cref="ExternalImplementation.IsInstalled"/>).
+        /// </summary>
         private static Predicate<Implementation> BuildCacheChecker(IStore store)
         {
             var storeContainsCache = new TransparentCache<ManifestDigest, bool>(store.Contains);
 
             return implementation =>
             {
+                if (!string.IsNullOrEmpty(implementation.LocalPath)) return true;
+
                 var externalImplementation = implementation as ExternalImplementation;
                 if (externalImplementation != null) return externalImplementation.IsInstalled;
 
