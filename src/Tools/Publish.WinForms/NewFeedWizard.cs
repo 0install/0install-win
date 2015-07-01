@@ -71,12 +71,12 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>Shared between installer-specific wizard pages.</summary>
         private readonly InstallerCapture _installerCapture = new InstallerCapture();
 
-        #region downloadPage
+        #region pageDownload
         private void downloadPage_ToggleControls(object sender, EventArgs e)
         {
             groupLocalCopy.Enabled = checkLocalCopy.Checked;
 
-            downloadPage.AllowNext =
+            pageDownload.AllowNext =
                 (textBoxDownloadUrl.Text.Length > 0) && textBoxDownloadUrl.IsValid &&
                 (!checkLocalCopy.Checked || textBoxLocalPath.Text.Length > 0);
         }
@@ -175,7 +175,7 @@ namespace ZeroInstall.Publish.WinForms
             else
             {
                 _feedBuilder.GenerateCommands();
-                downloadPage.NextPage = detailsPage;
+                pageDownload.NextPage = pageDetails;
             }
         }
 
@@ -184,7 +184,7 @@ namespace ZeroInstall.Publish.WinForms
             Retrieve(
                 new Archive {Href = textBoxDownloadUrl.Uri},
                 checkLocalCopy.Checked ? textBoxLocalPath.Text : null);
-            downloadPage.NextPage = archiveExtractPage;
+            pageDownload.NextPage = pageArchiveExtract;
         }
 
         private void OnInstaller()
@@ -197,7 +197,7 @@ namespace ZeroInstall.Publish.WinForms
                     _installerCapture.Download(textBoxDownloadUrl.Uri, handler);
             }
 
-            downloadPage.NextPage = installerCaptureStartPage;
+            pageDownload.NextPage = pageIstallerCaptureStart;
         }
 
         private void Retrieve(DownloadRetrievalMethod retrievalMethod, string localPath)
@@ -213,7 +213,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region archiveExtractPage
+        #region pageArchiveExtract
         private Archive _archive;
 
         private void archiveExtractPage_Initialize(object sender, WizardPageInitEventArgs e)
@@ -292,7 +292,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region installerCaptureStartPage
+        #region pageInstallerCaptureStart
         private void installerCaptureStartPage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             try
@@ -353,11 +353,11 @@ namespace ZeroInstall.Publish.WinForms
             }
             #endregion
 
-            wizardControl.NextPage(archiveExtractPage, skipCommit: true);
+            wizardControl.NextPage(pageArchiveExtract, skipCommit: true);
         }
         #endregion
 
-        #region installerCaptureDiffPage
+        #region pageInstallerCaptureDiff
         private void buttonSelectInstallationDir_Click(object sender, EventArgs e)
         {
             using (var folderBrowserDialog = new FolderBrowserDialog
@@ -408,12 +408,12 @@ namespace ZeroInstall.Publish.WinForms
                 using (var handler = new GuiTaskHandler(this))
                     _installerCapture.ExtractInstallerAsArchive(_feedBuilder, handler);
 
-                installerCaptureDiffPage.NextPage = archiveExtractPage;
+                pageInstallerCaptureDiff.NextPage = pageArchiveExtract;
             }
             catch (IOException)
             {
                 Msg.Inform(this, Resources.InstallerExtractFailed + Environment.NewLine + Resources.InstallerNeedAltSource, MsgSeverity.Info);
-                installerCaptureDiffPage.NextPage = installerCollectFilesPage;
+                pageInstallerCaptureDiff.NextPage = pageInstallerCollectFiles;
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -434,7 +434,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region installerCollectFilesPage
+        #region pageInstallerCollectFiles
         private void installerCollectFilesPage_ToggleControls(object sender, EventArgs e)
         {
             buttonCreateArchive.Enabled = (textBoxUploadUrl.Text.Length > 0) && textBoxUploadUrl.IsValid && (textBoxArchivePath.Text.Length > 0);
@@ -473,7 +473,7 @@ namespace ZeroInstall.Publish.WinForms
             }
             #endregion
 
-            wizardControl.NextPage(entryPointPage);
+            wizardControl.NextPage(pageEntryPoint);
         }
 
         private void buttonExistingArchive_Click(object sender, EventArgs e)
@@ -482,7 +482,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region installerAltDownloadPage
+        #region pageInstallerAltDownload
         private void installerAltDownloadPage_ToggleControls(object sender, EventArgs e)
         {
             groupAltLocalCopy.Enabled = checkAltLocalCopy.Checked;
@@ -508,7 +508,7 @@ namespace ZeroInstall.Publish.WinForms
                 Retrieve(
                     new Archive {Href = textBoxAltDownloadUrl.Uri},
                     checkAltLocalCopy.Checked ? textBoxAltLocalPath.Text : null);
-                installerAltDownloadPage.NextPage = archiveExtractPage;
+                installerAltDownloadPage.NextPage = pageArchiveExtract;
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -544,7 +544,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region entryPointPage
+        #region pageEntryPoint
         private void entryPointPage_Initialize(object sender, WizardPageInitEventArgs e)
         {
             listBoxEntryPoint.Items.Clear();
@@ -569,7 +569,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region detailsPage
+        #region pageDetails
         private void detailsPage_Initialize(object sender, WizardPageInitEventArgs e)
         {
             propertyGridCandidate.SelectedObject = _feedBuilder.MainCandidate;
@@ -585,7 +585,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region iconPage
+        #region pageIcon
         private Icon _icon;
 
         private void iconPage_Initialize(object sender, WizardPageInitEventArgs e)
@@ -644,7 +644,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region securityPage
+        #region pageSecurity
         /// <summary>Used to get a list of <see cref="OpenPgpSecretKey"/>s.</summary>
         private readonly IOpenPgp _openPgp;
 
@@ -722,7 +722,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region donePage
+        #region pageDone
         /// <summary>The result retrurned by <see cref="Run"/>.</summary>
         private SignedFeed _signedFeed;
 

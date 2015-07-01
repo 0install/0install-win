@@ -33,23 +33,23 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewFeedWizard));
             this.wizardControl = new AeroWizard.WizardControl();
-            this.downloadPage = new AeroWizard.WizardPage();
+            this.pageDownload = new AeroWizard.WizardPage();
             this.checkLocalCopy = new System.Windows.Forms.CheckBox();
             this.groupLocalCopy = new System.Windows.Forms.GroupBox();
             this.buttonSelectLocalPath = new System.Windows.Forms.Button();
             this.textBoxLocalPath = new NanoByte.Common.Controls.HintTextBox();
             this.textBoxDownloadUrl = new NanoByte.Common.Controls.UriTextBox();
             this.labelDownloadUrl = new System.Windows.Forms.Label();
-            this.archiveExtractPage = new AeroWizard.WizardPage();
+            this.pageArchiveExtract = new AeroWizard.WizardPage();
             this.listBoxExtract = new System.Windows.Forms.ListBox();
             this.labelExtract = new System.Windows.Forms.Label();
-            this.entryPointPage = new AeroWizard.WizardPage();
+            this.pageEntryPoint = new AeroWizard.WizardPage();
             this.listBoxEntryPoint = new System.Windows.Forms.ListBox();
             this.labelEntyPoint = new System.Windows.Forms.Label();
-            this.detailsPage = new AeroWizard.WizardPage();
+            this.pageDetails = new AeroWizard.WizardPage();
             this.labelDetails = new System.Windows.Forms.Label();
             this.propertyGridCandidate = new NanoByte.Common.Controls.ResettablePropertyGrid();
-            this.iconPage = new AeroWizard.WizardPage();
+            this.pageIcon = new AeroWizard.WizardPage();
             this.textBoxHrefPng = new NanoByte.Common.Controls.UriTextBox();
             this.labelIconStep4 = new System.Windows.Forms.Label();
             this.buttonSavePng = new System.Windows.Forms.Button();
@@ -60,25 +60,25 @@
             this.labelIconStep1 = new System.Windows.Forms.Label();
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.labelIcon = new System.Windows.Forms.Label();
-            this.securityPage = new AeroWizard.WizardPage();
+            this.pageSecurity = new AeroWizard.WizardPage();
             this.buttonNewKey = new System.Windows.Forms.Button();
             this.comboBoxKeys = new System.Windows.Forms.ComboBox();
             this.labelInfoSignature = new System.Windows.Forms.Label();
             this.labelInterfaceUri = new System.Windows.Forms.Label();
             this.textBoxInterfaceUri = new NanoByte.Common.Controls.UriTextBox();
-            this.donePage = new AeroWizard.WizardPage();
+            this.pageDone = new AeroWizard.WizardPage();
             this.labelDone2 = new System.Windows.Forms.Label();
             this.labelDone = new System.Windows.Forms.Label();
-            this.installerCaptureStartPage = new AeroWizard.WizardPage();
+            this.pageIstallerCaptureStart = new AeroWizard.WizardPage();
             this.buttonSkipCapture = new System.Windows.Forms.Button();
             this.labelCaptureStart2 = new System.Windows.Forms.Label();
             this.labelCaptureStart = new System.Windows.Forms.Label();
-            this.installerCaptureDiffPage = new AeroWizard.WizardPage();
+            this.pageInstallerCaptureDiff = new AeroWizard.WizardPage();
             this.groupInstallationDir = new System.Windows.Forms.GroupBox();
             this.buttonSelectInstallationDir = new System.Windows.Forms.Button();
             this.textBoxInstallationDir = new NanoByte.Common.Controls.HintTextBox();
             this.labelCaptureDiff = new System.Windows.Forms.Label();
-            this.installerCollectFilesPage = new AeroWizard.WizardPage();
+            this.pageInstallerCollectFiles = new AeroWizard.WizardPage();
             this.buttonExistingArchive = new System.Windows.Forms.Button();
             this.buttonCreateArchive = new System.Windows.Forms.Button();
             this.groupCreateArchive = new System.Windows.Forms.GroupBox();
@@ -95,19 +95,19 @@
             this.textBoxAltDownloadUrl = new NanoByte.Common.Controls.UriTextBox();
             this.labelAltDownloadUrl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl)).BeginInit();
-            this.downloadPage.SuspendLayout();
+            this.pageDownload.SuspendLayout();
             this.groupLocalCopy.SuspendLayout();
-            this.archiveExtractPage.SuspendLayout();
-            this.entryPointPage.SuspendLayout();
-            this.detailsPage.SuspendLayout();
-            this.iconPage.SuspendLayout();
+            this.pageArchiveExtract.SuspendLayout();
+            this.pageEntryPoint.SuspendLayout();
+            this.pageDetails.SuspendLayout();
+            this.pageIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
-            this.securityPage.SuspendLayout();
-            this.donePage.SuspendLayout();
-            this.installerCaptureStartPage.SuspendLayout();
-            this.installerCaptureDiffPage.SuspendLayout();
+            this.pageSecurity.SuspendLayout();
+            this.pageDone.SuspendLayout();
+            this.pageIstallerCaptureStart.SuspendLayout();
+            this.pageInstallerCaptureDiff.SuspendLayout();
             this.groupInstallationDir.SuspendLayout();
-            this.installerCollectFilesPage.SuspendLayout();
+            this.pageInstallerCollectFiles.SuspendLayout();
             this.groupCreateArchive.SuspendLayout();
             this.installerAltDownloadPage.SuspendLayout();
             this.groupAltLocalCopy.SuspendLayout();
@@ -117,33 +117,33 @@
             // 
             this.wizardControl.Location = new System.Drawing.Point(0, 0);
             this.wizardControl.Name = "wizardControl";
-            this.wizardControl.Pages.Add(this.downloadPage);
-            this.wizardControl.Pages.Add(this.archiveExtractPage);
-            this.wizardControl.Pages.Add(this.installerCaptureStartPage);
-            this.wizardControl.Pages.Add(this.installerCaptureDiffPage);
-            this.wizardControl.Pages.Add(this.installerCollectFilesPage);
+            this.wizardControl.Pages.Add(this.pageDownload);
+            this.wizardControl.Pages.Add(this.pageArchiveExtract);
+            this.wizardControl.Pages.Add(this.pageIstallerCaptureStart);
+            this.wizardControl.Pages.Add(this.pageInstallerCaptureDiff);
+            this.wizardControl.Pages.Add(this.pageInstallerCollectFiles);
             this.wizardControl.Pages.Add(this.installerAltDownloadPage);
-            this.wizardControl.Pages.Add(this.entryPointPage);
-            this.wizardControl.Pages.Add(this.detailsPage);
-            this.wizardControl.Pages.Add(this.iconPage);
-            this.wizardControl.Pages.Add(this.securityPage);
-            this.wizardControl.Pages.Add(this.donePage);
+            this.wizardControl.Pages.Add(this.pageEntryPoint);
+            this.wizardControl.Pages.Add(this.pageDetails);
+            this.wizardControl.Pages.Add(this.pageIcon);
+            this.wizardControl.Pages.Add(this.pageSecurity);
+            this.wizardControl.Pages.Add(this.pageDone);
             this.wizardControl.Size = new System.Drawing.Size(574, 415);
             this.wizardControl.TabIndex = 0;
             this.wizardControl.Title = "New Feed";
             // 
-            // downloadPage
+            // pageDownload
             // 
-            this.downloadPage.AllowNext = false;
-            this.downloadPage.Controls.Add(this.checkLocalCopy);
-            this.downloadPage.Controls.Add(this.groupLocalCopy);
-            this.downloadPage.Controls.Add(this.textBoxDownloadUrl);
-            this.downloadPage.Controls.Add(this.labelDownloadUrl);
-            this.downloadPage.Name = "downloadPage";
-            this.downloadPage.Size = new System.Drawing.Size(527, 262);
-            this.downloadPage.TabIndex = 0;
-            this.downloadPage.Text = "Download";
-            this.downloadPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.downloadPage_Commit);
+            this.pageDownload.AllowNext = false;
+            this.pageDownload.Controls.Add(this.checkLocalCopy);
+            this.pageDownload.Controls.Add(this.groupLocalCopy);
+            this.pageDownload.Controls.Add(this.textBoxDownloadUrl);
+            this.pageDownload.Controls.Add(this.labelDownloadUrl);
+            this.pageDownload.Name = "pageDownload";
+            this.pageDownload.Size = new System.Drawing.Size(527, 261);
+            this.pageDownload.TabIndex = 0;
+            this.pageDownload.Text = "Download";
+            this.pageDownload.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.downloadPage_Commit);
             // 
             // checkLocalCopy
             // 
@@ -215,17 +215,17 @@
             this.labelDownloadUrl.Text = "Where can the current version of the application be downloaded? (.zip, .tar.gz, ." +
     "msi, .exe, .jar, ...)";
             // 
-            // archiveExtractPage
+            // pageArchiveExtract
             // 
-            this.archiveExtractPage.Controls.Add(this.listBoxExtract);
-            this.archiveExtractPage.Controls.Add(this.labelExtract);
-            this.archiveExtractPage.Name = "archiveExtractPage";
-            this.archiveExtractPage.NextPage = this.entryPointPage;
-            this.archiveExtractPage.Size = new System.Drawing.Size(527, 262);
-            this.archiveExtractPage.TabIndex = 1;
-            this.archiveExtractPage.Text = "Archive";
-            this.archiveExtractPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.archiveExtractPage_Commit);
-            this.archiveExtractPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.archiveExtractPage_Initialize);
+            this.pageArchiveExtract.Controls.Add(this.listBoxExtract);
+            this.pageArchiveExtract.Controls.Add(this.labelExtract);
+            this.pageArchiveExtract.Name = "pageArchiveExtract";
+            this.pageArchiveExtract.NextPage = this.pageEntryPoint;
+            this.pageArchiveExtract.Size = new System.Drawing.Size(527, 262);
+            this.pageArchiveExtract.TabIndex = 1;
+            this.pageArchiveExtract.Text = "Archive";
+            this.pageArchiveExtract.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.archiveExtractPage_Commit);
+            this.pageArchiveExtract.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.archiveExtractPage_Initialize);
             // 
             // listBoxExtract
             // 
@@ -251,17 +251,17 @@
             this.labelExtract.Text = "What is the top-level directory of the application in the archive? (Just leave th" +
     "e default if you are not sure.)";
             // 
-            // entryPointPage
+            // pageEntryPoint
             // 
-            this.entryPointPage.Controls.Add(this.listBoxEntryPoint);
-            this.entryPointPage.Controls.Add(this.labelEntyPoint);
-            this.entryPointPage.Name = "entryPointPage";
-            this.entryPointPage.NextPage = this.detailsPage;
-            this.entryPointPage.Size = new System.Drawing.Size(527, 262);
-            this.entryPointPage.TabIndex = 2;
-            this.entryPointPage.Text = "Entry point";
-            this.entryPointPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.entryPointPage_Commit);
-            this.entryPointPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.entryPointPage_Initialize);
+            this.pageEntryPoint.Controls.Add(this.listBoxEntryPoint);
+            this.pageEntryPoint.Controls.Add(this.labelEntyPoint);
+            this.pageEntryPoint.Name = "pageEntryPoint";
+            this.pageEntryPoint.NextPage = this.pageDetails;
+            this.pageEntryPoint.Size = new System.Drawing.Size(527, 262);
+            this.pageEntryPoint.TabIndex = 2;
+            this.pageEntryPoint.Text = "Entry point";
+            this.pageEntryPoint.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.entryPointPage_Commit);
+            this.pageEntryPoint.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.entryPointPage_Initialize);
             // 
             // listBoxEntryPoint
             // 
@@ -286,17 +286,17 @@
             this.labelEntyPoint.TabIndex = 0;
             this.labelEntyPoint.Text = "Which file starts the main application?";
             // 
-            // detailsPage
+            // pageDetails
             // 
-            this.detailsPage.Controls.Add(this.labelDetails);
-            this.detailsPage.Controls.Add(this.propertyGridCandidate);
-            this.detailsPage.Name = "detailsPage";
-            this.detailsPage.NextPage = this.iconPage;
-            this.detailsPage.Size = new System.Drawing.Size(527, 262);
-            this.detailsPage.TabIndex = 6;
-            this.detailsPage.Text = "Details";
-            this.detailsPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.detailsPage_Commit);
-            this.detailsPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.detailsPage_Initialize);
+            this.pageDetails.Controls.Add(this.labelDetails);
+            this.pageDetails.Controls.Add(this.propertyGridCandidate);
+            this.pageDetails.Name = "pageDetails";
+            this.pageDetails.NextPage = this.pageIcon;
+            this.pageDetails.Size = new System.Drawing.Size(527, 262);
+            this.pageDetails.TabIndex = 6;
+            this.pageDetails.Text = "Details";
+            this.pageDetails.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.detailsPage_Commit);
+            this.pageDetails.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.detailsPage_Initialize);
             // 
             // labelDetails
             // 
@@ -321,25 +321,25 @@
             this.propertyGridCandidate.TabIndex = 1;
             this.propertyGridCandidate.ToolbarVisible = false;
             // 
-            // iconPage
+            // pageIcon
             // 
-            this.iconPage.Controls.Add(this.textBoxHrefPng);
-            this.iconPage.Controls.Add(this.labelIconStep4);
-            this.iconPage.Controls.Add(this.buttonSavePng);
-            this.iconPage.Controls.Add(this.labelIconStep3);
-            this.iconPage.Controls.Add(this.textBoxHrefIco);
-            this.iconPage.Controls.Add(this.labelIconStep2);
-            this.iconPage.Controls.Add(this.buttonSaveIco);
-            this.iconPage.Controls.Add(this.labelIconStep1);
-            this.iconPage.Controls.Add(this.pictureBoxIcon);
-            this.iconPage.Controls.Add(this.labelIcon);
-            this.iconPage.Name = "iconPage";
-            this.iconPage.NextPage = this.securityPage;
-            this.iconPage.Size = new System.Drawing.Size(527, 262);
-            this.iconPage.TabIndex = 7;
-            this.iconPage.Text = "Icon";
-            this.iconPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.iconPage_Commit);
-            this.iconPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.iconPage_Initialize);
+            this.pageIcon.Controls.Add(this.textBoxHrefPng);
+            this.pageIcon.Controls.Add(this.labelIconStep4);
+            this.pageIcon.Controls.Add(this.buttonSavePng);
+            this.pageIcon.Controls.Add(this.labelIconStep3);
+            this.pageIcon.Controls.Add(this.textBoxHrefIco);
+            this.pageIcon.Controls.Add(this.labelIconStep2);
+            this.pageIcon.Controls.Add(this.buttonSaveIco);
+            this.pageIcon.Controls.Add(this.labelIconStep1);
+            this.pageIcon.Controls.Add(this.pictureBoxIcon);
+            this.pageIcon.Controls.Add(this.labelIcon);
+            this.pageIcon.Name = "pageIcon";
+            this.pageIcon.NextPage = this.pageSecurity;
+            this.pageIcon.Size = new System.Drawing.Size(527, 262);
+            this.pageIcon.TabIndex = 7;
+            this.pageIcon.Text = "Icon";
+            this.pageIcon.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.iconPage_Commit);
+            this.pageIcon.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.iconPage_Initialize);
             // 
             // textBoxHrefPng
             // 
@@ -444,20 +444,20 @@
             this.labelIcon.Text = "Icons need to be extracted from the application and uploaded separately as both a" +
     "n ICO and a PNG.";
             // 
-            // securityPage
+            // pageSecurity
             // 
-            this.securityPage.Controls.Add(this.buttonNewKey);
-            this.securityPage.Controls.Add(this.comboBoxKeys);
-            this.securityPage.Controls.Add(this.labelInfoSignature);
-            this.securityPage.Controls.Add(this.labelInterfaceUri);
-            this.securityPage.Controls.Add(this.textBoxInterfaceUri);
-            this.securityPage.Name = "securityPage";
-            this.securityPage.NextPage = this.donePage;
-            this.securityPage.Size = new System.Drawing.Size(527, 262);
-            this.securityPage.TabIndex = 8;
-            this.securityPage.Text = "Security";
-            this.securityPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.securityPage_Commit);
-            this.securityPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.securityPage_Initialize);
+            this.pageSecurity.Controls.Add(this.buttonNewKey);
+            this.pageSecurity.Controls.Add(this.comboBoxKeys);
+            this.pageSecurity.Controls.Add(this.labelInfoSignature);
+            this.pageSecurity.Controls.Add(this.labelInterfaceUri);
+            this.pageSecurity.Controls.Add(this.textBoxInterfaceUri);
+            this.pageSecurity.Name = "pageSecurity";
+            this.pageSecurity.NextPage = this.pageDone;
+            this.pageSecurity.Size = new System.Drawing.Size(527, 262);
+            this.pageSecurity.TabIndex = 8;
+            this.pageSecurity.Text = "Security";
+            this.pageSecurity.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.securityPage_Commit);
+            this.pageSecurity.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.securityPage_Initialize);
             // 
             // buttonNewKey
             // 
@@ -518,16 +518,16 @@
             this.textBoxInterfaceUri.Size = new System.Drawing.Size(474, 23);
             this.textBoxInterfaceUri.TabIndex = 10;
             // 
-            // donePage
+            // pageDone
             // 
-            this.donePage.Controls.Add(this.labelDone2);
-            this.donePage.Controls.Add(this.labelDone);
-            this.donePage.IsFinishPage = true;
-            this.donePage.Name = "donePage";
-            this.donePage.Size = new System.Drawing.Size(527, 262);
-            this.donePage.TabIndex = 9;
-            this.donePage.Text = "Done";
-            this.donePage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.donePage_Commit);
+            this.pageDone.Controls.Add(this.labelDone2);
+            this.pageDone.Controls.Add(this.labelDone);
+            this.pageDone.IsFinishPage = true;
+            this.pageDone.Name = "pageDone";
+            this.pageDone.Size = new System.Drawing.Size(527, 262);
+            this.pageDone.TabIndex = 9;
+            this.pageDone.Text = "Done";
+            this.pageDone.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.donePage_Commit);
             // 
             // labelDone2
             // 
@@ -551,17 +551,17 @@
             this.labelDone.Text = "The wizard is done! We will now open the feed in the editor so you can look every" +
     "thing over, make any changes you like and save the feed as a file afterwards.";
             // 
-            // installerCaptureStartPage
+            // pageIstallerCaptureStart
             // 
-            this.installerCaptureStartPage.Controls.Add(this.buttonSkipCapture);
-            this.installerCaptureStartPage.Controls.Add(this.labelCaptureStart2);
-            this.installerCaptureStartPage.Controls.Add(this.labelCaptureStart);
-            this.installerCaptureStartPage.Name = "installerCaptureStartPage";
-            this.installerCaptureStartPage.NextPage = this.installerCaptureDiffPage;
-            this.installerCaptureStartPage.Size = new System.Drawing.Size(527, 262);
-            this.installerCaptureStartPage.TabIndex = 3;
-            this.installerCaptureStartPage.Text = "Installer Capture";
-            this.installerCaptureStartPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureStartPage_Commit);
+            this.pageIstallerCaptureStart.Controls.Add(this.buttonSkipCapture);
+            this.pageIstallerCaptureStart.Controls.Add(this.labelCaptureStart2);
+            this.pageIstallerCaptureStart.Controls.Add(this.labelCaptureStart);
+            this.pageIstallerCaptureStart.Name = "pageIstallerCaptureStart";
+            this.pageIstallerCaptureStart.NextPage = this.pageInstallerCaptureDiff;
+            this.pageIstallerCaptureStart.Size = new System.Drawing.Size(527, 262);
+            this.pageIstallerCaptureStart.TabIndex = 3;
+            this.pageIstallerCaptureStart.Text = "Installer Capture";
+            this.pageIstallerCaptureStart.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureStartPage_Commit);
             // 
             // buttonSkipCapture
             // 
@@ -599,16 +599,16 @@
     "nstaller we will create another snapshot and compare to the two in order to dete" +
     "rmine what changes the installer made.";
             // 
-            // installerCaptureDiffPage
+            // pageInstallerCaptureDiff
             // 
-            this.installerCaptureDiffPage.Controls.Add(this.groupInstallationDir);
-            this.installerCaptureDiffPage.Controls.Add(this.labelCaptureDiff);
-            this.installerCaptureDiffPage.Name = "installerCaptureDiffPage";
-            this.installerCaptureDiffPage.Size = new System.Drawing.Size(527, 262);
-            this.installerCaptureDiffPage.TabIndex = 4;
-            this.installerCaptureDiffPage.Text = "Installer Capture";
-            this.installerCaptureDiffPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureDiffPage_Commit);
-            this.installerCaptureDiffPage.Rollback += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureDiffPage_Rollback);
+            this.pageInstallerCaptureDiff.Controls.Add(this.groupInstallationDir);
+            this.pageInstallerCaptureDiff.Controls.Add(this.labelCaptureDiff);
+            this.pageInstallerCaptureDiff.Name = "pageInstallerCaptureDiff";
+            this.pageInstallerCaptureDiff.Size = new System.Drawing.Size(527, 262);
+            this.pageInstallerCaptureDiff.TabIndex = 4;
+            this.pageInstallerCaptureDiff.Text = "Installer Capture";
+            this.pageInstallerCaptureDiff.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureDiffPage_Commit);
+            this.pageInstallerCaptureDiff.Rollback += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureDiffPage_Rollback);
             // 
             // groupInstallationDir
             // 
@@ -655,16 +655,16 @@
             this.labelCaptureDiff.Text = "Make sure the installer has finished installing the application. When you are rea" +
     "dy, continue to capture a second snapshot.";
             // 
-            // installerCollectFilesPage
+            // pageInstallerCollectFiles
             // 
-            this.installerCollectFilesPage.Controls.Add(this.buttonExistingArchive);
-            this.installerCollectFilesPage.Controls.Add(this.buttonCreateArchive);
-            this.installerCollectFilesPage.Controls.Add(this.groupCreateArchive);
-            this.installerCollectFilesPage.Name = "installerCollectFilesPage";
-            this.installerCollectFilesPage.ShowNext = false;
-            this.installerCollectFilesPage.Size = new System.Drawing.Size(527, 262);
-            this.installerCollectFilesPage.TabIndex = 5;
-            this.installerCollectFilesPage.Text = "Collect files";
+            this.pageInstallerCollectFiles.Controls.Add(this.buttonExistingArchive);
+            this.pageInstallerCollectFiles.Controls.Add(this.buttonCreateArchive);
+            this.pageInstallerCollectFiles.Controls.Add(this.groupCreateArchive);
+            this.pageInstallerCollectFiles.Name = "pageInstallerCollectFiles";
+            this.pageInstallerCollectFiles.ShowNext = false;
+            this.pageInstallerCollectFiles.Size = new System.Drawing.Size(527, 262);
+            this.pageInstallerCollectFiles.TabIndex = 5;
+            this.pageInstallerCollectFiles.Text = "Collect files";
             // 
             // buttonExistingArchive
             // 
@@ -852,26 +852,27 @@
             this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "NewFeedWizard";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Feed";
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl)).EndInit();
-            this.downloadPage.ResumeLayout(false);
-            this.downloadPage.PerformLayout();
+            this.pageDownload.ResumeLayout(false);
+            this.pageDownload.PerformLayout();
             this.groupLocalCopy.ResumeLayout(false);
             this.groupLocalCopy.PerformLayout();
-            this.archiveExtractPage.ResumeLayout(false);
-            this.entryPointPage.ResumeLayout(false);
-            this.detailsPage.ResumeLayout(false);
-            this.iconPage.ResumeLayout(false);
-            this.iconPage.PerformLayout();
+            this.pageArchiveExtract.ResumeLayout(false);
+            this.pageEntryPoint.ResumeLayout(false);
+            this.pageDetails.ResumeLayout(false);
+            this.pageIcon.ResumeLayout(false);
+            this.pageIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
-            this.securityPage.ResumeLayout(false);
-            this.securityPage.PerformLayout();
-            this.donePage.ResumeLayout(false);
-            this.installerCaptureStartPage.ResumeLayout(false);
-            this.installerCaptureDiffPage.ResumeLayout(false);
+            this.pageSecurity.ResumeLayout(false);
+            this.pageSecurity.PerformLayout();
+            this.pageDone.ResumeLayout(false);
+            this.pageIstallerCaptureStart.ResumeLayout(false);
+            this.pageInstallerCaptureDiff.ResumeLayout(false);
             this.groupInstallationDir.ResumeLayout(false);
             this.groupInstallationDir.PerformLayout();
-            this.installerCollectFilesPage.ResumeLayout(false);
+            this.pageInstallerCollectFiles.ResumeLayout(false);
             this.groupCreateArchive.ResumeLayout(false);
             this.groupCreateArchive.PerformLayout();
             this.installerAltDownloadPage.ResumeLayout(false);
@@ -885,16 +886,16 @@
         #endregion
 
         private AeroWizard.WizardControl wizardControl;
-        private AeroWizard.WizardPage downloadPage;
-        private AeroWizard.WizardPage archiveExtractPage;
-        private AeroWizard.WizardPage entryPointPage;
-        private AeroWizard.WizardPage installerCaptureStartPage;
-        private AeroWizard.WizardPage installerCaptureDiffPage;
-        private AeroWizard.WizardPage installerCollectFilesPage;
-        private AeroWizard.WizardPage detailsPage;
-        private AeroWizard.WizardPage iconPage;
-        private AeroWizard.WizardPage securityPage;
-        private AeroWizard.WizardPage donePage;
+        private AeroWizard.WizardPage pageDownload;
+        private AeroWizard.WizardPage pageArchiveExtract;
+        private AeroWizard.WizardPage pageEntryPoint;
+        private AeroWizard.WizardPage pageIstallerCaptureStart;
+        private AeroWizard.WizardPage pageInstallerCaptureDiff;
+        private AeroWizard.WizardPage pageInstallerCollectFiles;
+        private AeroWizard.WizardPage pageDetails;
+        private AeroWizard.WizardPage pageIcon;
+        private AeroWizard.WizardPage pageSecurity;
+        private AeroWizard.WizardPage pageDone;
         private System.Windows.Forms.GroupBox groupLocalCopy;
         private System.Windows.Forms.CheckBox checkLocalCopy;
         private System.Windows.Forms.Button buttonSelectLocalPath;
