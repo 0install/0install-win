@@ -378,7 +378,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxSyncServer.IsValid) _config.SyncServer = textBoxSyncServer.Uri;
+            _config.SyncServer = (!textBoxSyncServer.IsValid || string.IsNullOrEmpty(textBoxSyncServer.Text)) ? new Uri(Config.DefaultSyncServer) : textBoxSyncServer.Uri;
             propertyGridAdvanced.Refresh();
         }
 
