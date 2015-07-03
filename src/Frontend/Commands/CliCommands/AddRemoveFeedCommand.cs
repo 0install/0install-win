@@ -15,13 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Tasks;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
@@ -59,60 +57,48 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             FeedUri feedUri;
-            var interfaces = GetInterfaces(out feedUri);
-            if (!interfaces.Any())
-            {
-                Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedUri));
-                return ExitCode.InvalidArguments;
-            }
-
-            var modifiedInterfaces = ApplyFeedToInterfaces(feedUri, interfaces);
-
-            if (modifiedInterfaces.Count == 0)
-            {
-                Handler.OutputLow(Resources.FeedManagement, NoneModifiedMessage);
-                return ExitCode.OK;
-            }
-            else
-            {
-                Handler.OutputLow(Resources.FeedManagement, string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modifiedInterfaces.Select(x => x.ToStringRfc()))));
-                return ExitCode.NoChanges;
-            }
-        }
-
-        /// <summary>
-        /// Adds/removes a <see cref="FeedReference"/> to/from one or more <see cref="InterfacePreferences"/>.
-        /// </summary>
-        /// <returns>The interfaces that were actually affected.</returns>
-        [NotNull, ItemNotNull]
-        protected abstract ICollection<FeedUri> ApplyFeedToInterfaces([NotNull] FeedUri feedUri, [NotNull, ItemNotNull] IEnumerable<FeedUri> interfaces);
-
-        /// <summary>Message to be displayed if the command resulted in an action.</summary>
-        protected abstract string ModifiedMessage { get; }
-
-        /// <summary>Message to be displayed if the command resulted in no changes.</summary>
-        protected abstract string NoneModifiedMessage { get; }
-
-        #region Helpers
-        /// <summary>
-        /// Determines which <see cref="InterfacePreferences.Feeds"/> are to be updated.
-        /// </summary>
-        /// <param name="feedUri">Returns the new feed being added/removed.</param>
-        /// <returns>A list of interfaces IDs to be updated.</returns>
-        private IEnumerable<FeedUri> GetInterfaces(out FeedUri feedUri)
-        {
+            IEnumerable<FeedUri> interfaces;
+            Stability suggestedStabilityPolicy = Stability.Unset;
             if (AdditionalArgs.Count == 2)
             { // Main interface for feed specified explicitly
                 feedUri = GetCanonicalUri(AdditionalArgs[1]);
-                return new[] {GetCanonicalUri(AdditionalArgs[0])};
+                interfaces = new[] {GetCanonicalUri(AdditionalArgs[0])};
             }
             else
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedUri = GetCanonicalUri(AdditionalArgs[0]);
-                var feed = FeedManager.GetFeedFresh(feedUri);
-                return feed.FeedFor.Select(reference => reference.Target).WhereNotNull();
+                interfaces = GetInterfaces(feedUri, ref suggestedStabilityPolicy);
             }
+
+            return ExecuteHelper(interfaces, new FeedReference {Source = feedUri}, suggestedStabilityPolicy);
         }
-        #endregion
+
+        /// <summary>
+        /// Returns a list of all interface URIs a given feed can be registered for.
+        /// </summary>
+        /// <param name="feedUri">The URI of the feed to register.</param>
+        /// <param name="suggestedStabilityPolicy">Returns the suggested value for <see cref="InterfacePreferences.StabilityPolicy"/>.</param>
+        /// <returns>A set of interface URIs.</returns>
+        private IEnumerable<FeedUri> GetInterfaces(FeedUri feedUri, ref Stability suggestedStabilityPolicy)
+        {
+            var feed = FeedManager.GetFeedFresh(feedUri);
+            var interfaces = feed.FeedFor.Select(reference => reference.Target).WhereNotNull().ToList();
+            if (interfaces.Count == 0)
+                throw new OptionException(string.Format(Resources.MissingFeedFor, feedUri), null);
+
+            var singletonImplementation = feed.Elements.OfType<Implementation>().SingleOrDefault();
+            if (singletonImplementation != null) suggestedStabilityPolicy = singletonImplementation.Stability;
+
+            return interfaces;
+        }
+
+        /// <summary>
+        /// Registers or unregisters an additional feed source for a set of interfaces.
+        /// </summary>
+        /// <param name="interfaces">The set of interface URIs to register the feed <paramref name="source"/> for.</param>
+        /// <param name="source">The feed reference to register for the <paramref name="interfaces"/>.</param>
+        /// <param name="suggestedStabilityPolicy">The suggested value for <see cref="InterfacePreferences.StabilityPolicy"/>. Will be <see cref="Stability.Unset"/> unless there is exactly one <see cref="Implementation"/> in the <see cref="Feed"/>.</param>
+        /// <returns></returns>
+        protected abstract ExitCode ExecuteHelper(IEnumerable<FeedUri> interfaces, FeedReference source, Stability suggestedStabilityPolicy);
     }
 }

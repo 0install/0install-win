@@ -816,8 +816,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed was successfully registered for the following interfaces:
-        ///{0}.
+        ///   Looks up a localized string similar to The feed was successfully registered for the following interfaces:.
         /// </summary>
         public static string FeedRegistered {
             get {
@@ -1637,6 +1636,33 @@ namespace ZeroInstall.Commands.Properties {
         public static string SelfUpdateBlocked {
             get {
                 return ResourceManager.GetString("SelfUpdateBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set stability policy for {0} to match?.
+        /// </summary>
+        public static string StabilityPolicyAutoSet {
+            get {
+                return ResourceManager.GetString("StabilityPolicyAutoSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset stability policy for {0} to default?.
+        /// </summary>
+        public static string StabilityPolicyReset {
+            get {
+                return ResourceManager.GetString("StabilityPolicyReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is only a single implementation in the feed. It has a stability rating of &apos;{0}&apos;..
+        /// </summary>
+        public static string StabilityPolicySingleImplementation {
+            get {
+                return ResourceManager.GetString("StabilityPolicySingleImplementation", resourceCulture);
             }
         }
         

@@ -17,7 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -42,36 +46,43 @@ namespace ZeroInstall.Commands.CliCommands
         public AddFeed([NotNull] ICommandHandler handler) : base(handler)
         {}
 
-        /// <summary>
-        /// Adds a <see cref="FeedReference"/> to one or more <see cref="InterfacePreferences"/>.
-        /// </summary>
-        /// <returns>The interfaces that were actually affected.</returns>
-        protected override ICollection<FeedUri> ApplyFeedToInterfaces(FeedUri feedUri, IEnumerable<FeedUri> interfaces)
+        /// <inheritdoc/>
+        protected override ExitCode ExecuteHelper(IEnumerable<FeedUri> interfaces, FeedReference source, Stability suggestedStabilityPolicy)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (interfaces == null) throw new ArgumentNullException("interfaces");
+            if (source == null) throw new ArgumentNullException("source");
             #endregion
 
-            var modified = new List<FeedUri>();
+            var modifiedInterfaces = new List<FeedUri>();
             foreach (var interfaceUri in interfaces)
             {
                 var preferences = InterfacePreferences.LoadFor(interfaceUri);
-                var reference = new FeedReference {Source = feedUri};
-                if (!preferences.Feeds.Contains(reference)) // Prevent duplicate entries
+                if (preferences.Feeds.AddIfNew(source))
+                    modifiedInterfaces.Add(interfaceUri);
+                if (preferences.StabilityPolicy < suggestedStabilityPolicy)
                 {
-                    preferences.Feeds.Add(reference);
-                    modified.Add(interfaceUri);
+                    string stabilityMessage = string.Format(Resources.StabilityPolicySingleImplementation, suggestedStabilityPolicy);
+                    if (Handler.Ask(
+                        stabilityMessage + Environment.NewLine + string.Format(Resources.StabilityPolicyAutoSet, interfaceUri.ToStringRfc()),
+                        defaultAnswer: false, alternateMessage: stabilityMessage))
+                        preferences.StabilityPolicy = suggestedStabilityPolicy;
                 }
                 preferences.SaveFor(interfaceUri);
             }
-            return modified;
+
+            if (modifiedInterfaces.Count == 0)
+            {
+                Handler.OutputLow(Resources.FeedManagement, Resources.FeedAlreadyRegistered);
+                return ExitCode.NoChanges;
+            }
+            else
+            {
+                Handler.OutputLow(Resources.FeedManagement,
+                    Resources.FeedRegistered + Environment.NewLine +
+                    StringUtils.Join(Environment.NewLine, modifiedInterfaces.Select(x => x.ToStringRfc())));
+                return ExitCode.OK;
+            }
         }
-
-        /// <inheritdoc/>
-        protected override string ModifiedMessage { get { return Resources.FeedRegistered; } }
-
-        /// <inheritdoc/>
-        protected override string NoneModifiedMessage { get { return Resources.FeedAlreadyRegistered; } }
     }
 }

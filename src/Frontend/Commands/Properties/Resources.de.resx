@@ -381,8 +381,7 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
     <value>Der Feed war für kein Interface registriert.</value>
   </data>
   <data name="FeedRegistered" xml:space="preserve">
-    <value>Der Feed wurde erfolgreich für die folgenden Interfaces registriert:
-{0}</value>
+    <value>Der Feed wurde erfolgreich für die folgenden Interfaces registriert:</value>
   </data>
   <data name="FeedReplaced" xml:space="preserve">
     <value>'{0}' wurde durch '{1}' ersetzt. Bitte ziehen Sie eine Aktualisierung in Betracht.</value>
@@ -665,6 +664,15 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
+  </data>
+  <data name="StabilityPolicyAutoSet" xml:space="preserve">
+    <value>Stabilitäts-Policy für {0} entsprechend setzten?</value>
+  </data>
+  <data name="StabilityPolicyReset" xml:space="preserve">
+    <value>Stabilitäts-Policy für {0} auf Default zurücksetzen?</value>
+  </data>
+  <data name="StabilityPolicySingleImplementation" xml:space="preserve">
+    <value>Es befindet sich nur eine einzelne Implementierung im Feed. Sie hat einen Stabilitätsbewertung von '{0}'.</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} Speicherplatz zurückgewonnen.</value>

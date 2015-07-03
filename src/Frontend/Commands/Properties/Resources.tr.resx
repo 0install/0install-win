@@ -354,8 +354,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>Akış hiçbir arabirim için kaydedilmemiş.</value>
   </data>
   <data name="FeedRegistered" xml:space="preserve">
-    <value>Akış aşağıdaki arabirimler için başarıyla kaydedildi:
-{0}</value>
+    <value>Akış aşağıdaki arabirimler için başarıyla kaydedildi:</value>
   </data>
   <data name="FeedReplaced" xml:space="preserve">
     <value>&apos;{0}&apos; yerine &apos;{1}&apos; yayınlandı. Güncelleştirmeyi düşünün.</value>
@@ -634,6 +633,15 @@ Komut satırı değişkenleri bulunabilir. Boşluklardan kaçınılmalıdır.</v
   </data>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>Bu Zero Install kopyası uygulama olarak başka bir Zero Install kopyasını başlattı. Bu nedenle kendini güncelleştiremedi.</value>
+  </data>
+  <data name="StabilityPolicyAutoSet" xml:space="preserve">
+    <value>{0} için kararlılık ilkesi eşleşecek şekilde ayarlansın mı?</value>
+  </data>
+  <data name="StabilityPolicyReset" xml:space="preserve">
+    <value>{0} için kararlılık ilkesi varsayılanlara sıfırlansın mı?</value>
+  </data>
+  <data name="StabilityPolicySingleImplementation" xml:space="preserve">
+    <value>Akışta yalnız tek bir uyarlama var ve kararlılık düzeyi &apos;{0}&apos;.</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} depolama alanı kazanıldı.</value>

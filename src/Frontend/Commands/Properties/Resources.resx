@@ -381,8 +381,7 @@ This is similar to '0install download --refresh', except that it prints informat
     <value>The feed was not registered for any interfaces.</value>
   </data>
   <data name="FeedRegistered" xml:space="preserve">
-    <value>The feed was successfully registered for the following interfaces:
-{0}</value>
+    <value>The feed was successfully registered for the following interfaces:</value>
   </data>
   <data name="FeedReplaced" xml:space="preserve">
     <value>'{0}' has been replaced by '{1}'. Consider updating.</value>
@@ -664,6 +663,15 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
+  </data>
+  <data name="StabilityPolicyAutoSet" xml:space="preserve">
+    <value>Set stability policy for {0} to match?</value>
+  </data>
+  <data name="StabilityPolicyReset" xml:space="preserve">
+    <value>Reset stability policy for {0} to default?</value>
+  </data>
+  <data name="StabilityPolicySingleImplementation" xml:space="preserve">
+    <value>There is only a single implementation in the feed. It has a stability rating of '{0}'.</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} storage space reclaimed.</value>

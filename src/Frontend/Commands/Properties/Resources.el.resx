@@ -349,8 +349,7 @@ Additional arguments specify custom cache locations.</value>
     <value>Η τροφοδοσία δεν είχε καταχωρηθεί για τυχόν διασυνδέσεις.</value>
   </data>
   <data name="FeedRegistered" xml:space="preserve">
-    <value>Η τροφοδοσία καταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:
-{0}</value>
+    <value>Η τροφοδοσία καταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:</value>
   </data>
   <data name="FeedReplaced" xml:space="preserve">
     <value>&apos;{0}&apos; έχει αντικατασταθεί από &apos;{1}&apos;. Εξετάστε την ενημέρωση.</value>
