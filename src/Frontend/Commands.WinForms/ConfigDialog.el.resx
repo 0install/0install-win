@@ -207,6 +207,9 @@
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Προχωρημένη</value>
   </data>
+  <data name="tabLanguage.Text" xml:space="preserve">
+    <value>γλώσσα</value>
+  </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
     <value>Επιλέξτε ή δημιουργήστε ένα κατάλογο που θα χρησιμοποιηθεί σαν κρυφή μνήμη της εφαρμογής.</value>
   </data>

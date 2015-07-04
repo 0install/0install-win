@@ -256,7 +256,7 @@
     <value>Başlat menüsü</value>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Bir ya da bir kaç kayıt başlat menüsünde</value>
+    <value>Bir ya da birkaç kayıt başlat menüsünde</value>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
     <value>Masaüstü</value>
@@ -268,7 +268,7 @@
     <value>Gönder</value>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>&quot;Gönder&quot; menüsünde bir öge</value>
+    <value>&quot;Gönder&quot; menüsünde bir öğe</value>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Komut satırı kısaltmaları</value>

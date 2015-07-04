@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -145,7 +145,7 @@ Yapılan işlemin geçerli olması için terminalinizi kapatıp yeniden açmanı
 &apos;Hayır&apos; seçilirse, Zero Install eski yetenekleri ile çalışmayı sürdürecektir.</value>
   </data>
   <data name="CachedImplementations" xml:space="preserve">
-    <value>Önbelleklenmiş uygulamalar</value>
+    <value>Önbellekteki uygulamalar</value>
   </data>
   <data name="CachedInterfaces" xml:space="preserve">
     <value>Önbellekteki arabirimler</value>
@@ -155,6 +155,15 @@ Yapılan işlemin geçerli olması için terminalinizi kapatıp yeniden açmanı
   </data>
   <data name="CapabilitiesChanged" xml:space="preserve">
     <value>&apos;{0}&apos; uygulamasının yetenekleri değiştirildi.</value>
+  </data>
+  <data name="CatalogAlreadyRegistered" xml:space="preserve">
+    <value>{0} katalog İnternet adresi zaten kaydedilmiş.</value>
+  </data>
+  <data name="CatalogNotRegistered" xml:space="preserve">
+    <value>{0} katalog İnternet adresi kaydedilmemiş.</value>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Katalog kaynakları</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Değiştir</value>
@@ -183,7 +192,7 @@ Eğer daha sonra gerekirse bu dosyalar yeniden indirilebilir.</value>
   </data>
   <data name="ConfirmRemoveAll" xml:space="preserve">
     <value>Tüm uygulamaları &apos;Uygulamalarım&apos; listesinden kaldırmak ister misiniz? Bu ayrıca Zero Install kurulumunuzdan artakalan menü girişlerini de kaldırır.
-Bu listeyi yedeklemek için &apos;0install sync&apos; kullanın.</value>
+Bu listeyi yedeklemek için &apos;0install sync&apos; komutunu kullanın.</value>
   </data>
   <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
     <value>Yeni bir kayıt oluşturmak için son satıra metin girmeye başlayın.
@@ -194,7 +203,7 @@ Tüm satırı seçmek için ilk sütunu tıklatın ve sonra bir girişi kaldırm
 Varsayılan olmasını istemediğiniz özelliğin ilgili onay kutusunu işaretlemeyin (özellikler varsayılan durumda kapalıdır).</value>
   </data>
   <data name="DeleteCheckedEntries" xml:space="preserve">
-    <value>İşaretlenmiş bu {0} öğeyi önbellekten silmek ister misiniz?</value>
+    <value>İşaretlenmiş {0} öğeyi önbellekten silmek ister misiniz?</value>
   </data>
   <data name="DeleteEntry" xml:space="preserve">
     <value>Bu kayıtları önbellekten silmek ister misiniz?</value>
@@ -216,6 +225,24 @@ Varsayılan olmasını istemediğiniz özelliğin ilgili onay kutusunu işaretle
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Bir programın ek kaynak uygulamalarını (sürümlerini) kaydedin.</value>
+  </data>
+  <data name="DescriptionCatalogAdd" xml:space="preserve">
+    <value>Katalog listesine bir İnternet adresi ekler.</value>
+  </data>
+  <data name="DescriptionCatalogList" xml:space="preserve">
+    <value>Tüm kayıtlı katalogları listeler.</value>
+  </data>
+  <data name="DescriptionCatalogRefresh" xml:space="preserve">
+    <value>Tüm kayıtlı katalogları yeniler (indirir).</value>
+  </data>
+  <data name="DescriptionCatalogRemove" xml:space="preserve">
+    <value>Katalog listesinden bir İnternet adresini çıkarır.</value>
+  </data>
+  <data name="DescriptionCatalogReset" xml:space="preserve">
+    <value>Katalog listesini varsayılan kaynağa göre sıfırlar.</value>
+  </data>
+  <data name="DescriptionCatalogSearch" xml:space="preserve">
+    <value>Kayıtlı katalogları tarayarak belirtilen sorguya uyan sonuçları görüntüler. Bir sorgu belirtilmediğinde kataloglardaki tüm uygulamalar listelenir.</value>
   </data>
   <data name="DescriptionCentral" xml:space="preserve">
     <value>Uygulamaları çalıştırmak ve yönetmek için görsel bir arabirim açar.</value>
@@ -294,7 +321,7 @@ Ek bir değişken ile özel hedef önbellek konumu olarak belirtilebilir.</value
     <value>Tüm uygulama önbelleği dizinlerini bir listede görüntüler.</value>
   </data>
   <data name="DescriptionStoreListImplementations" xml:space="preserve">
-    <value>Tüm önbelleklenmiş uygulamaları bir listede görüntüler.</value>
+    <value>Önbelleğe alınmış uygulamalar listelenir. Eğer bir akış Internet adresi belirtilmişse yalnızca o akışa ait uygulamalar listelenir.</value>
   </data>
   <data name="DescriptionStoreManage" xml:space="preserve">
     <value>Önbellekte bulunan uygulamaların yönetilebileceği bir görsel arabirim açar. Önbellekteki akışların ilişkilerini görüntüler.</value>
@@ -363,7 +390,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>&apos;{0}&apos; için akış &apos;{2}&apos; tarafından ({1}) olarak değiştirildi. Yeni akışı eski akışla değiştirerek kullanmak ister misiniz?</value>
   </data>
   <data name="FeedsCached" xml:space="preserve">
-    <value>Önbelleklenmiş akışlar</value>
+    <value>Önbelleğe alınmış akışlar</value>
   </data>
   <data name="FeedsRegistered" xml:space="preserve">
     <value>&apos;{0}&apos; için akış kaydedildi</value>
@@ -399,6 +426,9 @@ Akış uyumluluğu için bir &lt;feed-for&gt; kodu bulunmalıdır.</value>
   </data>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Lütfen Zero Install görsel arabirimini ya da komut satırı değişkenlerini kullanarak tümleştirme seçeneklerinizi açık olarak belirtin.</value>
+  </data>
+  <data name="InvalidArgument" xml:space="preserve">
+    <value>Geçersiz değişken &apos;{0}&apos;.</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Bu yazılım yasaların izin verdiği ölçüde KESİNLİKLE GARANTİSİZ olarak gelir.
@@ -459,7 +489,7 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
     <value>Bakım tamamlandı</value>
   </data>
   <data name="OptionAlgorithm" xml:space="preserve">
-    <value>Düzenleme için kullanılacak karma {HASH} algoritması.</value>
+    <value>Özet için kullanılacak karma {HASH} algoritması.</value>
   </data>
   <data name="OptionAliasRemove" xml:space="preserve">
     <value>Varolan bir kısaltmayı kaldırın.</value>
@@ -475,6 +505,9 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Ana yazılımın daha önceki bir sürümü {VERSION} istenir. Örneğin bir yazılımın eski sürümü kullanılmak istendiğinde.</value>
+  </data>
+  <data name="OptionCatalogAddSkipVerify" xml:space="preserve">
+    <value>Listeye eklemeden önce doğrulamak için kataloğun indirilmesini atla.</value>
   </data>
   <data name="OptionClean" xml:space="preserve">
     <value>Güncelleştirme sonrası gerekli olmayan uygulamaları siler.</value>
@@ -503,7 +536,7 @@ Metin kipinde bir etkisi yoktur.</value>
     <value>Yerleşik yardım metnini görün.</value>
   </data>
   <data name="OptionIntegrateAdd" xml:space="preserve">
-    <value>Belirli bir kategori {CATEGORY} için tüm erişim noktalarını ekler.</value>
+    <value>Belirli bir kategori {CATEGORY} için tüm erişim noktalarını ekleyin.</value>
   </data>
   <data name="OptionIntegrateAddAll" xml:space="preserve">
     <value>Tüm kullanılabilir erişim noktalarını ekleyin.</value>
@@ -512,7 +545,7 @@ Metin kipinde bir etkisi yoktur.</value>
     <value>Önerilen klasik erişim noktalarını ekleyin.</value>
   </data>
   <data name="OptionIntegrateRemove" xml:space="preserve">
-    <value>Belirli bir kategori {CATEGORY} için tüm erişim noktalarını siler.</value>
+    <value>Belirli bir kategori {CATEGORY} için tüm erişim noktalarını silin.</value>
   </data>
   <data name="OptionIntegrateRemoveAll" xml:space="preserve">
     <value>Tüm erişim noktalarını kaldırın.</value>
@@ -677,20 +710,8 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>&apos;{0}&apos; akışı yüklenemedi; atlanıyor.</value>
   </data>
-  <data name="UnknownCategory" xml:space="preserve">
-    <value>Bilinmeyen kategori: {0}</value>
-  </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Bilinmeyen komut &apos;{0}&apos;.</value>
-  </data>
-  <data name="UnknownConfigKey" xml:space="preserve">
-    <value>Bilinmeyen yapılandırma anahtarı &apos;{0}&apos;.</value>
-  </data>
-  <data name="UnknownOption" xml:space="preserve">
-    <value>Bilinmeyen seçenek.</value>
-  </data>
-  <data name="UnknownResetMode" xml:space="preserve">
-    <value>Bilinmeyen eşitleme geri yükleme kipi.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Kullanım:</value>

@@ -224,10 +224,10 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
     <value>&apos;{0}&apos; uygulaması bozuk.</value>
   </data>
   <data name="ImplementationDamagedAskRemove" xml:space="preserve">
-    <value>Kaldırmak ister misiniz? Daha sonra gerekirse yeni bir kopya otomatik olarak indirilir.</value>
+    <value>Kaldırmak ister misiniz? Gerekirse daha sonra yeni bir kopya otomatik olarak indirilir.</value>
   </data>
   <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
-    <value>Kaldırmak için &apos;0install store remove {0}&apos; kullanın. Daha sonra gerekirse bir kopya otomatik olarak indirilir.</value>
+    <value>Kaldırmak için &apos;0install store remove {0}&apos; kullanın. Gerekirse daha sonra bir kopya otomatik olarak indirilir.</value>
   </data>
   <data name="ImplementationMissingID" xml:space="preserve">
     <value>{1} &apos;{0}&apos; kimliği içermiyor.</value>
@@ -249,7 +249,7 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
     <value>&apos;{0}&apos; geçerli bir &apos;HTTP(S):&apos; ağ iletişim kuralı ya da geçerli bir yerel hedef değil.</value>
   </data>
   <data name="InvalidLinesInManifest" xml:space="preserve">
-    <value>Bildirim dosyası geçersiz satırlar içeriyor.</value>
+    <value>Özet dosyası geçersiz satırlar içeriyor.</value>
   </data>
   <data name="InvalidNumberOfLineParts" xml:space="preserve">
     <value>Satırda geçersiz kısım numaraları var.</value>

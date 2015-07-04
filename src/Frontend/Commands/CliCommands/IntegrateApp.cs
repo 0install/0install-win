@@ -72,14 +72,14 @@ namespace ZeroInstall.Commands.CliCommands
             Options.Add("add=", () => Resources.OptionIntegrateAdd + "\n" + SupportedValues(CategoryIntegrationManager.AllCategories), category =>
             {
                 category = category.ToLower();
-                if (!CategoryIntegrationManager.AllCategories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
+                if (!CategoryIntegrationManager.AllCategories.Contains(category)) throw new OptionException(string.Format(Resources.InvalidArgument, category), "add");
                 _addCategories.Add(category);
             });
             Options.Add("remove-all", () => Resources.OptionIntegrateRemoveAll, _ => _removeCategories.AddRange(CategoryIntegrationManager.AllCategories));
             Options.Add("remove=", () => Resources.OptionIntegrateRemove + "\n" + SupportedValues(CategoryIntegrationManager.AllCategories), category =>
             {
                 category = category.ToLower();
-                if (!CategoryIntegrationManager.AllCategories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
+                if (!CategoryIntegrationManager.AllCategories.Contains(category)) throw new OptionException(string.Format(Resources.InvalidArgument, category), "remove");
                 _removeCategories.Add(category);
             });
         }

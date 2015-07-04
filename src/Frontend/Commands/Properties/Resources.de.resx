@@ -427,6 +427,9 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
   </data>
+  <data name="InvalidArgument" xml:space="preserve">
+    <value>Ungültiges Argument '{0}'.</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
 Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
@@ -708,20 +711,8 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
   </data>
-  <data name="UnknownCategory" xml:space="preserve">
-    <value>Unbekannte Kategorie: {0}</value>
-  </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
-  </data>
-  <data name="UnknownConfigKey" xml:space="preserve">
-    <value>Unbekannter Config-Schlüssel '{0}'.</value>
-  </data>
-  <data name="UnknownOption" xml:space="preserve">
-    <value>Unbekannte Option.</value>
-  </data>
-  <data name="UnknownResetMode" xml:space="preserve">
-    <value>Unbekannter Synchronisations-Reset Modus.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>

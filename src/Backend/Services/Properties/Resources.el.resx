@@ -135,6 +135,9 @@
   <data name="CommandNotSpecified" xml:space="preserve">
     <value>Εντολή για &apos;{0}&apos; δεν έχει καθοριστεί.</value>
   </data>
+  <data name="DownloadingCatalog" xml:space="preserve">
+    <value>Λήψη κατάλογος {0}</value>
+  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;περιβάλλον&gt; συνδέσεις πρέπει να περιέχουν είτε μια «αξία» ή ένα «ένθετο» χαρακτηριστικό.</value>
   </data>

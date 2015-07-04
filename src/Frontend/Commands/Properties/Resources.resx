@@ -427,6 +427,9 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
   </data>
+  <data name="InvalidArgument" xml:space="preserve">
+    <value>Invalid argument '{0}'.</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
 You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
@@ -707,20 +710,8 @@ Keep this key secret and use something different for your password. This way nob
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Unable to load feed '{0}'; skipping.</value>
   </data>
-  <data name="UnknownCategory" xml:space="preserve">
-    <value>Unknown category: {0}</value>
-  </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command '{0}'.</value>
-  </data>
-  <data name="UnknownConfigKey" xml:space="preserve">
-    <value>Unknown config key '{0}'.</value>
-  </data>
-  <data name="UnknownOption" xml:space="preserve">
-    <value>Unknown option.</value>
-  </data>
-  <data name="UnknownResetMode" xml:space="preserve">
-    <value>Unknown synchronization reset mode.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>

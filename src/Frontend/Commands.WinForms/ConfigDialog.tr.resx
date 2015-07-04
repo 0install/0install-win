@@ -139,7 +139,7 @@
     <value>Çe&amp;vrimdışı kip (hiçbir şey indirilmesin)</value>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>En &amp;küçük kip (yalnız mutlaka gerekenler indirilsin)</value>
+    <value>En &amp;küçük kip (yalnız kesinlikle gerekenler indirilsin)</value>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
     <value>&amp;Tam kip (her zaman en iyi sürüm indirilsin)</value>
@@ -196,7 +196,7 @@
     <value>Güven</value>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Eşitleme</value>
+    <value>Eşitle</value>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
     <value>Gelişmiş &amp;seçenekleri görüntüle</value>

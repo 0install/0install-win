@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.CliCommands
                 case Verify.Name:
                     return new Verify(Handler);
                 default:
-                    throw new OptionException(Resources.UnknownOption, commandName);
+                    throw new OptionException(string.Format(Resources.UnknownCommand, commandName), commandName);
             }
         }
 

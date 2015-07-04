@@ -953,6 +953,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid argument &apos;{0}&apos;..
+        /// </summary>
+        public static string InvalidArgument {
+            get {
+                return ResourceManager.GetString("InvalidArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
         ///You may redistribute copies of this program under the terms of the GNU Lesser General Public License..
         /// </summary>
@@ -1767,47 +1776,11 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown category: {0}.
-        /// </summary>
-        public static string UnknownCategory {
-            get {
-                return ResourceManager.GetString("UnknownCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unknown command &apos;{0}&apos;..
         /// </summary>
         public static string UnknownCommand {
             get {
                 return ResourceManager.GetString("UnknownCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown config key &apos;{0}&apos;..
-        /// </summary>
-        public static string UnknownConfigKey {
-            get {
-                return ResourceManager.GetString("UnknownConfigKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown option..
-        /// </summary>
-        public static string UnknownOption {
-            get {
-                return ResourceManager.GetString("UnknownOption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown synchronization reset mode..
-        /// </summary>
-        public static string UnknownResetMode {
-            get {
-                return ResourceManager.GetString("UnknownResetMode", resourceCulture);
             }
         }
         

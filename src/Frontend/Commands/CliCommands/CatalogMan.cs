@@ -67,7 +67,7 @@ namespace ZeroInstall.Commands.CliCommands
                 case List.Name:
                     return new List(Handler);
                 default:
-                    throw new OptionException(Resources.UnknownOption, commandName);
+                    throw new OptionException(string.Format(Resources.UnknownCommand, commandName), commandName);
             }
         }
 

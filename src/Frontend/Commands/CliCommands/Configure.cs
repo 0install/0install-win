@@ -85,7 +85,7 @@ namespace ZeroInstall.Commands.CliCommands
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                throw new OptionException(string.Format(Resources.UnknownConfigKey, key), key);
+                throw new OptionException(string.Format(Resources.InvalidArgument, key), key);
             }
             #endregion
         }
@@ -100,7 +100,7 @@ namespace ZeroInstall.Commands.CliCommands
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                throw new OptionException(string.Format(Resources.UnknownConfigKey, key), key);
+                throw new OptionException(string.Format(Resources.InvalidArgument, key), key);
             }
             catch (FormatException ex)
             {
