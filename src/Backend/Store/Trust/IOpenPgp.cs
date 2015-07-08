@@ -61,13 +61,6 @@ namespace ZeroInstall.Store.Trust
         string GetPublicKey([NotNull] string keySpecifier);
 
         /// <summary>
-        /// Launches an interactive process for generating a new keypair.
-        /// </summary>
-        /// <returns>A handle that can be used to wait for the process to finish.</returns>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        Process GenerateKey();
-
-        /// <summary>
         /// Creates a detached signature for a stream using a specific secret key.
         /// </summary>
         /// <param name="stream">The data to sign.</param>

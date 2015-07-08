@@ -115,8 +115,12 @@ namespace ZeroInstall.Store.Trust
             return new CliControl().Execute(arguments);
         }
 
-        /// <inheritdoc/>
-        public Process GenerateKey()
+        /// <summary>
+        /// Launches an interactive process for generating a new keypair.
+        /// </summary>
+        /// <returns>A handle that can be used to wait for the process to finish.</returns>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        public static Process GenerateKey()
         {
             return new CliControl().StartInteractive("--gen-key");
         }

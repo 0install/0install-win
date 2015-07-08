@@ -672,7 +672,7 @@ namespace ZeroInstall.Publish.WinForms
             Process process;
             try
             {
-                process = _openPgp.GenerateKey();
+                process = GnuPG.GenerateKey();
             }
                 #region Error handling
             catch (IOException ex)
