@@ -37,7 +37,7 @@
             this.buttonUpdateAllClean = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSync = new NanoByte.Common.Controls.SplitButton();
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.butonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
             this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
@@ -128,16 +128,16 @@
             // menuSync
             // 
             this.menuSync.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.butonSyncSetup,
+            this.buttonSyncSetup,
             this.buttonSyncTroubleshoot});
             this.menuSync.Name = "menuSync";
             resources.ApplyResources(this.menuSync, "menuSync");
             // 
             // butonSyncSetup
             // 
-            this.butonSyncSetup.Name = "butonSyncSetup";
-            resources.ApplyResources(this.butonSyncSetup, "butonSyncSetup");
-            this.butonSyncSetup.Click += new System.EventHandler(this.butonSyncSetup_Click);
+            this.buttonSyncSetup.Name = "buttonSyncSetup";
+            resources.ApplyResources(this.buttonSyncSetup, "buttonSyncSetup");
+            this.buttonSyncSetup.Click += new System.EventHandler(this.buttonSyncSetup_Click);
             // 
             // buttonSyncTroubleshoot
             // 
@@ -363,7 +363,7 @@
         private System.Windows.Forms.ContextMenuStrip menuHelp;
         private System.Windows.Forms.ToolStripMenuItem buttonIntro;
         private System.Windows.Forms.ContextMenuStrip menuSync;
-        private System.Windows.Forms.ToolStripMenuItem butonSyncSetup;
+        private System.Windows.Forms.ToolStripMenuItem buttonSyncSetup;
         private System.Windows.Forms.ToolStripMenuItem buttonSyncTroubleshoot;
         private System.Windows.Forms.Button buttonOptions;
         private System.Windows.Forms.Label labelSelfUpdateMessage;

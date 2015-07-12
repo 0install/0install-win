@@ -156,7 +156,7 @@
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
   </data>
-  <data name="butonSyncSetup.Text" xml:space="preserve">
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>&amp;Einrichten</value>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">

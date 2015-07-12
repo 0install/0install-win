@@ -167,7 +167,7 @@
   <data name="&gt;&gt;labelLastCatalogError.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;butonSyncSetup.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonSyncSetup.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tabPageAppList.Size" type="System.Drawing.Size, System.Drawing">
@@ -222,7 +222,7 @@
   <data name="&gt;&gt;tabPageCatalog.Parent" xml:space="preserve">
     <value>tabControlApps</value>
   </data>
-  <data name="butonSyncSetup.Text" xml:space="preserve">
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>&amp;Setup</value>
   </data>
   <data name="&gt;&gt;labelSelfUpdateMessage.Name" xml:space="preserve">
@@ -934,8 +934,8 @@
   <data name="tileListMyApps.Size" type="System.Drawing.Size, System.Drawing">
     <value>490, 348</value>
   </data>
-  <data name="&gt;&gt;butonSyncSetup.Name" xml:space="preserve">
-    <value>butonSyncSetup</value>
+  <data name="&gt;&gt;buttonSyncSetup.Name" xml:space="preserve">
+    <value>buttonSyncSetup</value>
   </data>
   <data name="&gt;&gt;rootTable.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -1072,7 +1072,7 @@
   <data name="labelLastCatalogError.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="butonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 22</value>
   </data>
   <data name="&gt;&gt;menuSync.Name" xml:space="preserve">

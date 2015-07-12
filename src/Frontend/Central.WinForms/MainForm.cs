@@ -258,7 +258,7 @@ namespace ZeroInstall.Central.WinForms
             else Program.RunCommand(_machineWide, SyncApps.Name);
         }
 
-        private void butonSyncSetup_Click(object sender, EventArgs e)
+        private void buttonSyncSetup_Click(object sender, EventArgs e)
         {
             Config config;
             try
