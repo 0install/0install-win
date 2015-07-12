@@ -252,7 +252,7 @@ namespace ZeroInstall.DesktopIntegration
             using (var appListServerFile = File.OpenRead(_appListPath + ".zip"))
             using (var syncServer = new MicroServer("app-list", appListServerFile))
             {
-                using (var integrationManager = new SyncIntegrationManager(_appListPath, new SyncServer {Uri = syncServer.ServerUri}, interfaceId => new Feed(), new SilentTaskHandler()))
+                using (var integrationManager = new SyncIntegrationManager(_appListPath, new SyncServer {Uri = syncServer.ServerUri, Username = "user", Password = "pass"}, interfaceId => new Feed(), new SilentTaskHandler()))
                     integrationManager.Sync(resetMode);
 
                 appListServer = AppList.LoadXmlZip(syncServer.FileContent);

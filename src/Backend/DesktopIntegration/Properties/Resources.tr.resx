@@ -141,6 +141,9 @@
   <data name="NameInvalidChars" xml:space="preserve">
     <value>&apos;{0}&apos; adında geçersiz karakterler var.</value>
   </data>
+  <data name="PleaseConfigSync" xml:space="preserve">
+    <value>Lütfen eşitlemeyi ayarlamak için &apos;0install central&apos; ya da &apos;0install config&apos; kullanın.</value>
+  </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>&apos;{0}&apos; yüklenirken bir sorun oluştu.</value>
   </data>

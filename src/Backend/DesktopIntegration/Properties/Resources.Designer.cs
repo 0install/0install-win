@@ -133,6 +133,15 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please use &apos;0install central&apos; or &apos;0install config&apos; to set up Sync..
+        /// </summary>
+        internal static string PleaseConfigSync {
+            get {
+                return ResourceManager.GetString("PleaseConfigSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was a problem loading &apos;{0}&apos;..
         /// </summary>
         internal static string ProblemLoading {

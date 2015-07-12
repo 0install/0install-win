@@ -141,6 +141,9 @@
   <data name="NameInvalidChars" xml:space="preserve">
     <value>The name '{0}' contains invalid characters.</value>
   </data>
+  <data name="PleaseConfigSync" xml:space="preserve">
+    <value>Please use '0install central' or '0install config' to set up Sync.</value>
+  </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>There was a problem loading '{0}'.</value>
   </data>

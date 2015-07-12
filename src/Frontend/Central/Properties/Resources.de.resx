@@ -244,8 +244,16 @@ Update installieren</value>
     <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
 Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie auswählen, dass Sie sich nicht an den Crypto-Schlüssel erinnern.</value>
   </data>
-  <data name="SyncWillReplaceConfig" xml:space="preserve">
-    <value>Dies ersetzt alle bestehenden Sync Einstellung mit neuen. Fortsetzen?</value>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Möchten Sie die bestehenden Sync-Einstellungen zurücksetzen und von vorne anfangen?</value>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Nein
+bestehende Einstellungen bearbeiten</value>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Ja
+von vorne anfangen</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Konnte Anwendungskatalog nicht runterladen.</value>

@@ -241,12 +241,20 @@ Install update</value>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>The Crypto key you entered is incorrect.</value>
   </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Do you wish to reset the Sync settings and start from scratch?</value>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>No
+edit the existing settings</value>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Yes
+start from scratch</value>
+  </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
 You can replace the data stored on the server by choosing that you don't remember the Crypto key.</value>
-  </data>
-  <data name="SyncWillReplaceConfig" xml:space="preserve">
-    <value>This will replace any existing Sync settings with new ones. Continue?</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Unable to download application catalog.</value>

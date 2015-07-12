@@ -230,94 +230,54 @@ namespace ZeroInstall.Central.WinForms
         #region Buttons
         private void buttonSync_Click(object sender, EventArgs e)
         {
-            Config config;
-            try
-            {
-                config = Config.Load();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                return;
-            }
-            #endregion
-
-            if (!config.SyncServer.IsFile && (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey)))
-                SyncWizard.Setup(_machineWide, this);
-            else Program.RunCommand(_machineWide, SyncApps.Name);
+            if (IsSyncConfigValid()) Program.RunCommand(_machineWide, SyncApps.Name);
+            else SyncWizard.Setup(_machineWide, this);
         }
 
         private void buttonSyncSetup_Click(object sender, EventArgs e)
         {
-            Config config;
-            try
+            if (IsSyncConfigValid())
             {
-                config = Config.Load();
+                if (!Msg.YesNo(this, Resources.SyncReplaceConfigAsk, MsgSeverity.Warn, Resources.SyncReplaceConfigYes, Resources.SyncReplaceConfigNo))
+                {
+                    Program.RunCommand(Configure.Name, "--tab=sync");
+                    return;
+                }
             }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                return;
-            }
-            #endregion
-
-            if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
-                if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
             SyncWizard.Setup(_machineWide, this);
         }
 
         private void buttonSyncTroubleshoot_Click(object sender, EventArgs e)
         {
-            Config config;
+            if (IsSyncConfigValid()) SyncWizard.Troubleshooting(_machineWide, this);
+            else Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
+        }
+
+        private bool IsSyncConfigValid()
+        {
             try
             {
-                config = Config.Load();
+                var config = Config.Load();
+                return config.ToSyncServer().IsValid && !string.IsNullOrEmpty(config.SyncCryptoKey);
             }
                 #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
+                return true;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
+                return true;
             }
             catch (InvalidDataException ex)
             {
                 Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                return;
+                return true;
             }
             #endregion
-
-            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
-                Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
-            else
-                SyncWizard.Troubleshooting(_machineWide, this);
         }
 
         private void buttonUpdateAll_Click(object sender, EventArgs e)

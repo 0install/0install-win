@@ -241,12 +241,20 @@ Güncelleştirmeyi kur</value>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>Yazdığınız şifreleme anahtarı hatalı.</value>
   </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Sync ayarlarınızı sıfırlamak ve baştan başlamak ister misiniz?</value>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Hayır
+varolan ayarları düzenle</value>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Evet
+baştan başla</value>
+  </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Sync sunucusundaki kayıtlı veri bozulmuş.
 Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum seçeneğini kullanın.</value>
-  </data>
-  <data name="SyncWillReplaceConfig" xml:space="preserve">
-    <value>Böylece eski Sync ayarları yenileri ile değiştirilir. Devam etmek ister misiniz?</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Uygulama kataloğu indirilemedi.</value>

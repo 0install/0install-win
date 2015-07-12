@@ -165,6 +165,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         public void Sync(SyncResetMode resetMode)
         {
+            if (!_server.IsValid) throw new InvalidDataException(Resources.PleaseConfigSync);
+
             var appListUri = new Uri(_server.Uri, new Uri(MachineWide ? "app-list-machine" : "app-list", UriKind.Relative));
             using (var webClient = new WebClientTimeout
             {

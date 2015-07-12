@@ -419,21 +419,41 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you wish to reset the Sync settings and use the wizard to start from scratch?.
+        /// </summary>
+        public static string SyncReplaceConfigAsk {
+            get {
+                return ResourceManager.GetString("SyncReplaceConfigAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No
+        ///edit the existing settings.
+        /// </summary>
+        public static string SyncReplaceConfigNo {
+            get {
+                return ResourceManager.GetString("SyncReplaceConfigNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes
+        ///start from scratch.
+        /// </summary>
+        public static string SyncReplaceConfigYes {
+            get {
+                return ResourceManager.GetString("SyncReplaceConfigYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
         ///You can replace the data stored on the server by choosing that you don&apos;t remember the Crypto key..
         /// </summary>
         public static string SyncServerDataDamaged {
             get {
                 return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This will replace any existing Sync settings with new ones. Continue?.
-        /// </summary>
-        public static string SyncWillReplaceConfig {
-            get {
-                return ResourceManager.GetString("SyncWillReplaceConfig", resourceCulture);
             }
         }
         
