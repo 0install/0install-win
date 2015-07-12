@@ -36,12 +36,17 @@
             this.labelUsedBefore = new System.Windows.Forms.Label();
             this.labelSetupWelcome = new System.Windows.Forms.Label();
             this.pageServer = new AeroWizard.WizardPage();
-            this.linkCustomServer = new System.Windows.Forms.LinkLabel();
-            this.textBoxCustomServer = new NanoByte.Common.Controls.UriTextBox();
+            this.optionFileShare = new System.Windows.Forms.RadioButton();
             this.optionCustomServer = new System.Windows.Forms.RadioButton();
             this.optionOfficalServer = new System.Windows.Forms.RadioButton();
             this.labelServerType = new System.Windows.Forms.Label();
             this.labelServer = new System.Windows.Forms.Label();
+            this.groupCustomServer = new System.Windows.Forms.GroupBox();
+            this.textBoxCustomServer = new NanoByte.Common.Controls.UriTextBox();
+            this.linkCustomServer = new System.Windows.Forms.LinkLabel();
+            this.groupFileShare = new System.Windows.Forms.GroupBox();
+            this.buttonFileShareBrowse = new System.Windows.Forms.Button();
+            this.textBoxFileShare = new NanoByte.Common.Controls.HintTextBox();
             this.pageRegister = new AeroWizard.WizardPage();
             this.labelRegister2 = new System.Windows.Forms.Label();
             this.linkRegister = new System.Windows.Forms.LinkLabel();
@@ -92,6 +97,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl)).BeginInit();
             this.pageSetupWelcome.SuspendLayout();
             this.pageServer.SuspendLayout();
+            this.groupCustomServer.SuspendLayout();
+            this.groupFileShare.SuspendLayout();
             this.pageRegister.SuspendLayout();
             this.pageCredentials.SuspendLayout();
             this.pageExistingCryptoKey.SuspendLayout();
@@ -129,7 +136,6 @@
             // 
             // pageSetupWelcome
             // 
-            resources.ApplyResources(this.pageSetupWelcome, "pageSetupWelcome");
             this.pageSetupWelcome.AllowBack = false;
             this.pageSetupWelcome.Controls.Add(this.buttonUsedBeforeNo);
             this.pageSetupWelcome.Controls.Add(this.buttonUsedBeforeYes);
@@ -138,6 +144,7 @@
             this.pageSetupWelcome.Name = "pageSetupWelcome";
             this.pageSetupWelcome.NextPage = this.pageServer;
             this.pageSetupWelcome.ShowNext = false;
+            resources.ApplyResources(this.pageSetupWelcome, "pageSetupWelcome");
             // 
             // buttonUsedBeforeNo
             // 
@@ -165,30 +172,23 @@
             // 
             // pageServer
             // 
-            resources.ApplyResources(this.pageServer, "pageServer");
-            this.pageServer.Controls.Add(this.linkCustomServer);
-            this.pageServer.Controls.Add(this.textBoxCustomServer);
+            this.pageServer.Controls.Add(this.optionFileShare);
             this.pageServer.Controls.Add(this.optionCustomServer);
             this.pageServer.Controls.Add(this.optionOfficalServer);
             this.pageServer.Controls.Add(this.labelServerType);
             this.pageServer.Controls.Add(this.labelServer);
+            this.pageServer.Controls.Add(this.groupCustomServer);
+            this.pageServer.Controls.Add(this.groupFileShare);
             this.pageServer.Name = "pageServer";
+            resources.ApplyResources(this.pageServer, "pageServer");
             this.pageServer.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageServer_Commit);
             // 
-            // linkCustomServer
+            // optionFileShare
             // 
-            resources.ApplyResources(this.linkCustomServer, "linkCustomServer");
-            this.linkCustomServer.Name = "linkCustomServer";
-            this.linkCustomServer.TabStop = true;
-            this.linkCustomServer.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCustomServer_LinkClicked);
-            // 
-            // textBoxCustomServer
-            // 
-            resources.ApplyResources(this.textBoxCustomServer, "textBoxCustomServer");
-            this.textBoxCustomServer.AllowDrop = true;
-            this.textBoxCustomServer.HttpOnly = true;
-            this.textBoxCustomServer.Name = "textBoxCustomServer";
-            this.textBoxCustomServer.TextChanged += new System.EventHandler(this.pageServer_InputChanged);
+            resources.ApplyResources(this.optionFileShare, "optionFileShare");
+            this.optionFileShare.Name = "optionFileShare";
+            this.optionFileShare.UseVisualStyleBackColor = true;
+            this.optionFileShare.CheckedChanged += new System.EventHandler(this.pageServer_InputChanged);
             // 
             // optionCustomServer
             // 
@@ -216,14 +216,58 @@
             resources.ApplyResources(this.labelServer, "labelServer");
             this.labelServer.Name = "labelServer";
             // 
+            // groupCustomServer
+            // 
+            resources.ApplyResources(this.groupCustomServer, "groupCustomServer");
+            this.groupCustomServer.Controls.Add(this.textBoxCustomServer);
+            this.groupCustomServer.Controls.Add(this.linkCustomServer);
+            this.groupCustomServer.Name = "groupCustomServer";
+            this.groupCustomServer.TabStop = false;
+            // 
+            // textBoxCustomServer
+            // 
+            this.textBoxCustomServer.AllowDrop = true;
+            resources.ApplyResources(this.textBoxCustomServer, "textBoxCustomServer");
+            this.textBoxCustomServer.HttpOnly = true;
+            this.textBoxCustomServer.Name = "textBoxCustomServer";
+            this.textBoxCustomServer.TextChanged += new System.EventHandler(this.pageServer_InputChanged);
+            // 
+            // linkCustomServer
+            // 
+            resources.ApplyResources(this.linkCustomServer, "linkCustomServer");
+            this.linkCustomServer.Name = "linkCustomServer";
+            this.linkCustomServer.TabStop = true;
+            this.linkCustomServer.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCustomServer_LinkClicked);
+            // 
+            // groupFileShare
+            // 
+            resources.ApplyResources(this.groupFileShare, "groupFileShare");
+            this.groupFileShare.Controls.Add(this.buttonFileShareBrowse);
+            this.groupFileShare.Controls.Add(this.textBoxFileShare);
+            this.groupFileShare.Name = "groupFileShare";
+            this.groupFileShare.TabStop = false;
+            // 
+            // buttonFileShareBrowse
+            // 
+            resources.ApplyResources(this.buttonFileShareBrowse, "buttonFileShareBrowse");
+            this.buttonFileShareBrowse.Name = "buttonFileShareBrowse";
+            this.buttonFileShareBrowse.UseVisualStyleBackColor = true;
+            this.buttonFileShareBrowse.Click += new System.EventHandler(this.buttonFileShareBrowse_Click);
+            // 
+            // textBoxFileShare
+            // 
+            resources.ApplyResources(this.textBoxFileShare, "textBoxFileShare");
+            this.textBoxFileShare.Name = "textBoxFileShare";
+            this.textBoxFileShare.TextChanged += new System.EventHandler(this.pageServer_InputChanged);
+            // 
             // pageRegister
             // 
-            resources.ApplyResources(this.pageRegister, "pageRegister");
             this.pageRegister.Controls.Add(this.labelRegister2);
             this.pageRegister.Controls.Add(this.linkRegister);
             this.pageRegister.Controls.Add(this.labelRegister);
             this.pageRegister.Name = "pageRegister";
             this.pageRegister.NextPage = this.pageCredentials;
+            resources.ApplyResources(this.pageRegister, "pageRegister");
             // 
             // labelRegister2
             // 
@@ -244,7 +288,6 @@
             // 
             // pageCredentials
             // 
-            resources.ApplyResources(this.pageCredentials, "pageCredentials");
             this.pageCredentials.AllowNext = false;
             this.pageCredentials.Controls.Add(this.textBoxPassword);
             this.pageCredentials.Controls.Add(this.labelPassword);
@@ -252,6 +295,7 @@
             this.pageCredentials.Controls.Add(this.labelUsername);
             this.pageCredentials.Controls.Add(this.labelCredentials);
             this.pageCredentials.Name = "pageCredentials";
+            resources.ApplyResources(this.pageCredentials, "pageCredentials");
             this.pageCredentials.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageCredentials_Commit);
             // 
             // textBoxPassword
@@ -284,13 +328,13 @@
             // 
             // pageExistingCryptoKey
             // 
-            resources.ApplyResources(this.pageExistingCryptoKey, "pageExistingCryptoKey");
             this.pageExistingCryptoKey.AllowNext = false;
             this.pageExistingCryptoKey.Controls.Add(this.buttonForgotKey);
             this.pageExistingCryptoKey.Controls.Add(this.textBoxCryptoKey);
             this.pageExistingCryptoKey.Controls.Add(this.labelCryptoKey);
             this.pageExistingCryptoKey.Controls.Add(this.labelExistingCryptoKey);
             this.pageExistingCryptoKey.Name = "pageExistingCryptoKey";
+            resources.ApplyResources(this.pageExistingCryptoKey, "pageExistingCryptoKey");
             this.pageExistingCryptoKey.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageExistingCryptoKey_Commit);
             this.pageExistingCryptoKey.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageExistingCryptoKey_Initialize);
             // 
@@ -319,13 +363,13 @@
             // 
             // pageResetCryptoKey
             // 
-            resources.ApplyResources(this.pageResetCryptoKey, "pageResetCryptoKey");
             this.pageResetCryptoKey.AllowNext = false;
             this.pageResetCryptoKey.Controls.Add(this.labelResetCryptoKey);
             this.pageResetCryptoKey.Controls.Add(this.textBoxCryptoKeyReset);
             this.pageResetCryptoKey.Controls.Add(this.labelCryptoKeyReset);
             this.pageResetCryptoKey.Name = "pageResetCryptoKey";
             this.pageResetCryptoKey.NextPage = this.pageCryptoKeyChanged;
+            resources.ApplyResources(this.pageResetCryptoKey, "pageResetCryptoKey");
             this.pageResetCryptoKey.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageResetCryptoKey_Commit);
             this.pageResetCryptoKey.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageResetCryptoKey_Initialize);
             // 
@@ -347,11 +391,11 @@
             // 
             // pageCryptoKeyChanged
             // 
-            resources.ApplyResources(this.pageCryptoKeyChanged, "pageCryptoKeyChanged");
             this.pageCryptoKeyChanged.AllowBack = false;
             this.pageCryptoKeyChanged.Controls.Add(this.labelCryptoKeyChangedHint);
             this.pageCryptoKeyChanged.Controls.Add(this.labelCryptoKeyChanged);
             this.pageCryptoKeyChanged.Name = "pageCryptoKeyChanged";
+            resources.ApplyResources(this.pageCryptoKeyChanged, "pageCryptoKeyChanged");
             this.pageCryptoKeyChanged.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageCryptoKeyChanged_Initialize);
             // 
             // labelCryptoKeyChangedHint
@@ -366,7 +410,6 @@
             // 
             // pageNewCryptoKey
             // 
-            resources.ApplyResources(this.pageNewCryptoKey, "pageNewCryptoKey");
             this.pageNewCryptoKey.AllowNext = false;
             this.pageNewCryptoKey.Controls.Add(this.labelNewCryptoKeyHint);
             this.pageNewCryptoKey.Controls.Add(this.textBoxCryptoKeyNew);
@@ -374,6 +417,7 @@
             this.pageNewCryptoKey.Controls.Add(this.labelNewCryptoKey);
             this.pageNewCryptoKey.Name = "pageNewCryptoKey";
             this.pageNewCryptoKey.NextPage = this.pageSetupFinished;
+            resources.ApplyResources(this.pageNewCryptoKey, "pageNewCryptoKey");
             this.pageNewCryptoKey.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageNewCryptoKey_Commit);
             this.pageNewCryptoKey.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageNewCryptoKey_Initialize);
             // 
@@ -400,10 +444,10 @@
             // 
             // pageSetupFinished
             // 
-            resources.ApplyResources(this.pageSetupFinished, "pageSetupFinished");
             this.pageSetupFinished.Controls.Add(this.labelSetupFinished);
             this.pageSetupFinished.IsFinishPage = true;
             this.pageSetupFinished.Name = "pageSetupFinished";
+            resources.ApplyResources(this.pageSetupFinished, "pageSetupFinished");
             this.pageSetupFinished.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageSetupFinished_Commit);
             // 
             // labelSetupFinished
@@ -413,7 +457,6 @@
             // 
             // pageResetWelcome
             // 
-            resources.ApplyResources(this.pageResetWelcome, "pageResetWelcome");
             this.pageResetWelcome.AllowBack = false;
             this.pageResetWelcome.Controls.Add(this.buttonResetClient);
             this.pageResetWelcome.Controls.Add(this.buttonResetServer);
@@ -421,6 +464,7 @@
             this.pageResetWelcome.Controls.Add(this.labelResetWelcome);
             this.pageResetWelcome.Name = "pageResetWelcome";
             this.pageResetWelcome.ShowNext = false;
+            resources.ApplyResources(this.pageResetWelcome, "pageResetWelcome");
             this.pageResetWelcome.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageResetWelcome_Initialize);
             // 
             // buttonResetClient
@@ -451,13 +495,13 @@
             // 
             // pageChangeCryptoKey
             // 
-            resources.ApplyResources(this.pageChangeCryptoKey, "pageChangeCryptoKey");
             this.pageChangeCryptoKey.AllowNext = false;
             this.pageChangeCryptoKey.Controls.Add(this.labelChangeCryptoKey);
             this.pageChangeCryptoKey.Controls.Add(this.textBoxCryptoKeyChange);
             this.pageChangeCryptoKey.Controls.Add(this.labelCryptoKeyChange);
             this.pageChangeCryptoKey.Name = "pageChangeCryptoKey";
             this.pageChangeCryptoKey.NextPage = this.pageCryptoKeyChanged;
+            resources.ApplyResources(this.pageChangeCryptoKey, "pageChangeCryptoKey");
             this.pageChangeCryptoKey.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageChangeCryptoKey_Commit);
             this.pageChangeCryptoKey.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageChangeCryptoKey_Initialize);
             // 
@@ -479,10 +523,10 @@
             // 
             // pageResetServer
             // 
-            resources.ApplyResources(this.pageResetServer, "pageResetServer");
             this.pageResetServer.Controls.Add(this.labelResetServer);
             this.pageResetServer.Name = "pageResetServer";
             this.pageResetServer.NextPage = this.pageResetServerFinished;
+            resources.ApplyResources(this.pageResetServer, "pageResetServer");
             this.pageResetServer.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageResetServer_Commit);
             // 
             // labelResetServer
@@ -492,13 +536,13 @@
             // 
             // pageResetServerFinished
             // 
-            resources.ApplyResources(this.pageResetServerFinished, "pageResetServerFinished");
             this.pageResetServerFinished.AllowBack = false;
             this.pageResetServerFinished.Controls.Add(this.labelResetServerFinishedHint);
             this.pageResetServerFinished.Controls.Add(this.labelResetServerFinished);
             this.pageResetServerFinished.IsFinishPage = true;
             this.pageResetServerFinished.Name = "pageResetServerFinished";
             this.pageResetServerFinished.ShowCancel = false;
+            resources.ApplyResources(this.pageResetServerFinished, "pageResetServerFinished");
             // 
             // labelResetServerFinishedHint
             // 
@@ -512,10 +556,10 @@
             // 
             // pageResetClient
             // 
-            resources.ApplyResources(this.pageResetClient, "pageResetClient");
             this.pageResetClient.Controls.Add(this.labelResetClient);
             this.pageResetClient.Name = "pageResetClient";
             this.pageResetClient.NextPage = this.pageResetClientFinished;
+            resources.ApplyResources(this.pageResetClient, "pageResetClient");
             this.pageResetClient.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageResetClient_Commit);
             // 
             // labelResetClient
@@ -525,12 +569,12 @@
             // 
             // pageResetClientFinished
             // 
-            resources.ApplyResources(this.pageResetClientFinished, "pageResetClientFinished");
             this.pageResetClientFinished.AllowBack = false;
             this.pageResetClientFinished.Controls.Add(this.labelResetClientFinished);
             this.pageResetClientFinished.IsFinishPage = true;
             this.pageResetClientFinished.Name = "pageResetClientFinished";
             this.pageResetClientFinished.ShowCancel = false;
+            resources.ApplyResources(this.pageResetClientFinished, "pageResetClientFinished");
             // 
             // labelResetClientFinished
             // 
@@ -549,6 +593,10 @@
             this.pageSetupWelcome.ResumeLayout(false);
             this.pageServer.ResumeLayout(false);
             this.pageServer.PerformLayout();
+            this.groupCustomServer.ResumeLayout(false);
+            this.groupCustomServer.PerformLayout();
+            this.groupFileShare.ResumeLayout(false);
+            this.groupFileShare.PerformLayout();
             this.pageRegister.ResumeLayout(false);
             this.pageRegister.PerformLayout();
             this.pageCredentials.ResumeLayout(false);
@@ -634,5 +682,10 @@
         private System.Windows.Forms.Label labelResetClientFinished;
         private System.Windows.Forms.Button buttonForgotKey;
         private System.Windows.Forms.LinkLabel linkCustomServer;
+        private System.Windows.Forms.Button buttonFileShareBrowse;
+        private NanoByte.Common.Controls.HintTextBox textBoxFileShare;
+        private System.Windows.Forms.RadioButton optionFileShare;
+        private System.Windows.Forms.GroupBox groupCustomServer;
+        private System.Windows.Forms.GroupBox groupFileShare;
     }
 }

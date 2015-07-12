@@ -167,7 +167,12 @@ namespace ZeroInstall.Central.WinForms
         private void pageServer_InputChanged(object sender, EventArgs e)
         {
             textBoxCustomServer.Enabled = optionCustomServer.Checked;
-            pageServer.AllowNext = optionOfficalServer.Checked || (!string.IsNullOrEmpty(textBoxCustomServer.Text) && textBoxCustomServer.IsValid);
+            textBoxFileShare.Enabled = buttonFileShareBrowse.Enabled = optionFileShare.Checked;
+
+            pageServer.AllowNext =
+                optionOfficalServer.Checked ||
+                (optionCustomServer.Checked && !string.IsNullOrEmpty(textBoxCustomServer.Text) && textBoxCustomServer.IsValid) ||
+                (optionFileShare.Checked && !string.IsNullOrEmpty(textBoxFileShare.Text) && Path.IsPathRooted(textBoxFileShare.Text));
         }
 
         private void linkCustomServer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -186,9 +191,23 @@ namespace ZeroInstall.Central.WinForms
             #endregion
         }
 
+        private void buttonFileShareBrowse_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new FolderBrowserDialog {RootFolder = Environment.SpecialFolder.MyComputer})
+            {
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                    textBoxFileShare.Text = openFileDialog.SelectedPath;
+            }
+        }
+
         private void pageServer_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            if (optionCustomServer.Checked)
+            if (optionOfficalServer.Checked)
+            {
+                _server.Uri = new Uri(Config.DefaultSyncServer);
+                pageServer.NextPage = _existingAccount ? pageCredentials : pageRegister;
+            }
+            else if (optionCustomServer.Checked)
             {
                 if (textBoxCustomServer.Uri.Scheme != "https")
                 {
@@ -202,11 +221,26 @@ namespace ZeroInstall.Central.WinForms
                 _server.Uri = textBoxCustomServer.Uri;
                 pageServer.NextPage = pageCredentials;
             }
-            else
+            else if (optionFileShare.Checked)
             {
-                _server.Uri = new Uri(Config.DefaultSyncServer);
-                pageServer.NextPage = _existingAccount ? pageCredentials : pageRegister;
+                try
+                {
+                    _server.Uri = new Uri(textBoxFileShare.Text);
+                }
+                    #region Sanity checks
+                catch (UriFormatException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    e.Cancel = true;
+                    return;
+                }
+                #endregion
+
+                _server.Username = null;
+                _server.Password = null;
+                pageServer.NextPage = _existingAccount ? pageExistingCryptoKey : pageNewCryptoKey;
             }
+            else e.Cancel = true;
         }
         #endregion
 

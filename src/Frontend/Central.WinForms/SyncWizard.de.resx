@@ -135,7 +135,12 @@
   <data name="labelSetupWelcome.Text" xml:space="preserve">
     <value>Zero Install Sync nimmt Ihre Anwendungsliste und Desktopintegrationen und gleicht diese automatisch mit Ihren anderen Rechnern ab.</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Verwende Windows &amp;Dateifreigabe:</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Verzeichnispfad</value>
+  </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
     <value>Wie richte ich meinen eigenen Sync Server ein?</value>
   </data>

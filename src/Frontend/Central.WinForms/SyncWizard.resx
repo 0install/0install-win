@@ -117,611 +117,1509 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelCredentials.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChangedHint.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKey.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonResetServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 120</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelNewCryptoKeyHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="pageCryptoKeyChanged.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="linkRegister.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;pageResetWelcome.Name" xml:space="preserve">
-    <value>pageResetWelcome</value>
-  </data>
-  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>New crypto &amp;key:</value>
-  </data>
-  <data name="&gt;&gt;pageResetClientFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="&gt;&gt;optionCustomServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelExistingCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyChange.Parent" xml:space="preserve">
-    <value>pageChangeCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelServer.Name" xml:space="preserve">
-    <value>labelServer</value>
-  </data>
-  <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Crypto key</value>
-  </data>
-  <data name="&gt;&gt;pageCryptoKeyChanged.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="&gt;&gt;pageRegister.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKey.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelPassword.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>I want to &amp;change my crypto key</value>
-  </data>
-  <data name="labelExistingCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="labelResetClient.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 89</value>
-  </data>
-  <data name="&gt;&gt;labelServer.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyNew.Name" xml:space="preserve">
-    <value>labelCryptoKeyNew</value>
-  </data>
-  <data name="labelCredentials.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelUsername.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync takes your application list and desktop integrations and automatically transfers them to your other computers.</value>
-  </data>
-  <data name="labelResetServer.Text" xml:space="preserve">
-    <value>You are about to replace the data stored on the Sync server with your local application list. Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
-  </data>
-  <data name="labelUsedBefore.Text" xml:space="preserve">
-    <value>Have you already used Zero Install Sync before?</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyNew.Parent" xml:space="preserve">
-    <value>pageNewCryptoKey</value>
-  </data>
-  <data name="labelResetWelcome.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;buttonResetServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelResetServerFinishedHint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;textBoxPassword.Parent" xml:space="preserve">
-    <value>pageCredentials</value>
-  </data>
-  <data name="&gt;&gt;linkRegister.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
-  </data>
-  <data name="&gt;&gt;labelRegister2.Name" xml:space="preserve">
-    <value>labelRegister2</value>
-  </data>
-  <data name="labelCryptoKeyReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 10</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyNew.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBoxCryptoKeyNew.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;linkCustomServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxUsername.Name" xml:space="preserve">
-    <value>textBoxUsername</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKey.Parent" xml:space="preserve">
-    <value>pageNewCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;wizardControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelNewCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelRegister2.Parent" xml:space="preserve">
-    <value>pageRegister</value>
-  </data>
   <data name="wizardControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="labelResetWelcome.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonUsedBeforeNo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="labelPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 15</value>
+  <data name="buttonUsedBeforeNo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 171</value>
   </data>
-  <data name="&gt;&gt;labelCryptoKeyChangedHint.Name" xml:space="preserve">
-    <value>labelCryptoKeyChangedHint</value>
+  <data name="buttonUsedBeforeNo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 35</value>
   </data>
-  <data name="&gt;&gt;linkCustomServer.Name" xml:space="preserve">
-    <value>linkCustomServer</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonUsedBeforeNo.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="labelCryptoKey.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="buttonUsedBeforeNo.Text" xml:space="preserve">
+    <value>&amp;No, I am setting up Sync for the first time</value>
+  </data>
+  <data name="&gt;&gt;buttonUsedBeforeNo.Name" xml:space="preserve">
+    <value>buttonUsedBeforeNo</value>
   </data>
   <data name="&gt;&gt;buttonUsedBeforeNo.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;buttonUsedBeforeNo.Parent" xml:space="preserve">
+    <value>pageSetupWelcome</value>
+  </data>
+  <data name="&gt;&gt;buttonUsedBeforeNo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonUsedBeforeYes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;textBoxCustomServer.Name" xml:space="preserve">
-    <value>textBoxCustomServer</value>
-  </data>
-  <data name="linkRegister.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 15</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKey.Name" xml:space="preserve">
-    <value>labelNewCryptoKey</value>
-  </data>
-  <data name="optionOfficalServer.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 95</value>
-  </data>
-  <data name="textBoxCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>119, 64</value>
-  </data>
-  <data name="&gt;&gt;labelServer.Parent" xml:space="preserve">
-    <value>pageServer</value>
+  <data name="buttonUsedBeforeYes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 130</value>
   </data>
   <data name="buttonUsedBeforeYes.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 35</value>
   </data>
-  <data name="labelServerType.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;labelRegister2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyReset.Parent" xml:space="preserve">
-    <value>pageResetCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyNew.Name" xml:space="preserve">
-    <value>textBoxCryptoKeyNew</value>
-  </data>
-  <data name="pageServer.Text" xml:space="preserve">
-    <value>Sync Server</value>
-  </data>
-  <data name="&gt;&gt;pageResetServerFinished.Name" xml:space="preserve">
-    <value>pageResetServerFinished</value>
-  </data>
-  <data name="labelResetServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="&gt;&gt;pageResetClient.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="&gt;&gt;pageExistingCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="labelServerType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;labelUsedBefore.ZOrder" xml:space="preserve">
+  <data name="buttonUsedBeforeYes.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="&gt;&gt;pageExistingCryptoKey.Name" xml:space="preserve">
-    <value>pageExistingCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKey.Parent" xml:space="preserve">
-    <value>pageExistingCryptoKey</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install Sync</value>
-  </data>
-  <data name="&gt;&gt;pageResetCryptoKey.Name" xml:space="preserve">
-    <value>pageResetCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;pageRegister.Name" xml:space="preserve">
-    <value>pageRegister</value>
-  </data>
-  <data name="&gt;&gt;pageSetupWelcome.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="buttonResetClient.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 35</value>
-  </data>
-  <data name="&gt;&gt;labelSetupFinished.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelUsedBefore.Parent" xml:space="preserve">
-    <value>pageSetupWelcome</value>
-  </data>
-  <data name="labelUsedBefore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;buttonForgotKey.Name" xml:space="preserve">
-    <value>buttonForgotKey</value>
-  </data>
-  <data name="pageSetupFinished.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="labelSetupWelcome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelResetWelcome.Name" xml:space="preserve">
-    <value>labelResetWelcome</value>
-  </data>
-  <data name="labelRegister.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;optionOfficalServer.Parent" xml:space="preserve">
-    <value>pageServer</value>
-  </data>
-  <data name="&gt;&gt;labelResetCryptoKey.Name" xml:space="preserve">
-    <value>labelResetCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelResetClient.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChange.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sync account</value>
-  </data>
-  <data name="&gt;&gt;pageSetupFinished.Name" xml:space="preserve">
-    <value>pageSetupFinished</value>
-  </data>
-  <data name="&gt;&gt;labelResetServerFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 15</value>
-  </data>
-  <data name="&gt;&gt;labelUsername.Parent" xml:space="preserve">
-    <value>pageCredentials</value>
-  </data>
-  <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Sync Setup</value>
-  </data>
-  <data name="&gt;&gt;wizardControl.Type" xml:space="preserve">
-    <value>AeroWizard.WizardControl, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="buttonResetClient.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelRegister.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pageChangeCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="labelSetupWelcome.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChanged.Name" xml:space="preserve">
-    <value>labelCryptoKeyChanged</value>
-  </data>
-  <data name="labelResetServerFinished.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 80</value>
-  </data>
-  <data name="textBoxUsername.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelResetClientFinished.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;linkCustomServer.Parent" xml:space="preserve">
-    <value>pageServer</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChangedHint.Parent" xml:space="preserve">
-    <value>pageCryptoKeyChanged</value>
-  </data>
-  <data name="&gt;&gt;labelResetServerFinished.Name" xml:space="preserve">
-    <value>labelResetServerFinished</value>
-  </data>
-  <data name="linkCustomServer.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="labelCryptoKeyNew.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="wizardControl.Title" xml:space="preserve">
-    <value>Zero Install Sync</value>
-  </data>
-  <data name="&gt;&gt;labelSetupWelcome.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxCryptoKeyReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 7</value>
-  </data>
-  <data name="labelResetServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelExistingCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="buttonResetServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyChange.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="pageRegister.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Sync troubleshooting</value>
-  </data>
-  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Please enter the crypto key you used previously on this and/or other computers:</value>
-  </data>
-  <data name="&gt;&gt;labelResetCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="optionOfficalServer.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="textBoxCustomServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 169</value>
-  </data>
-  <data name="labelUsedBefore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 23</value>
-  </data>
-  <data name="labelCredentials.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 43</value>
-  </data>
-  <data name="labelCredentials.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 66</value>
-  </data>
-  <data name="labelRegister2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 109</value>
-  </data>
-  <data name="labelResetClientFinished.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 10</value>
-  </data>
-  <data name="&gt;&gt;labelSetupWelcome.Name" xml:space="preserve">
-    <value>labelSetupWelcome</value>
-  </data>
-  <data name="labelResetClientFinished.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyReset.Parent" xml:space="preserve">
-    <value>pageResetCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
   </data>
   <data name="buttonUsedBeforeYes.Text" xml:space="preserve">
     <value>&amp;Yes, I have already used Sync before</value>
   </data>
-  <data name="&gt;&gt;labelResetServer.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonUsedBeforeYes.Name" xml:space="preserve">
+    <value>buttonUsedBeforeYes</value>
+  </data>
+  <data name="&gt;&gt;buttonUsedBeforeYes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUsedBeforeYes.Parent" xml:space="preserve">
+    <value>pageSetupWelcome</value>
+  </data>
+  <data name="&gt;&gt;buttonUsedBeforeYes.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelUsedBefore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelUsedBefore.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelUsedBefore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 104</value>
+  </data>
+  <data name="labelUsedBefore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 23</value>
+  </data>
+  <data name="labelUsedBefore.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelUsedBefore.Text" xml:space="preserve">
+    <value>Have you already used Zero Install Sync before?</value>
+  </data>
+  <data name="&gt;&gt;labelUsedBefore.Name" xml:space="preserve">
+    <value>labelUsedBefore</value>
+  </data>
+  <data name="&gt;&gt;labelUsedBefore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelUsedBefore.Parent" xml:space="preserve">
+    <value>pageSetupWelcome</value>
+  </data>
+  <data name="&gt;&gt;labelUsedBefore.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelSetupWelcome.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelSetupWelcome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelSetupWelcome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelSetupWelcome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 82</value>
+  </data>
+  <data name="labelSetupWelcome.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync takes your application list and desktop integrations and automatically transfers them to your other computers.</value>
+  </data>
+  <data name="&gt;&gt;labelSetupWelcome.Name" xml:space="preserve">
+    <value>labelSetupWelcome</value>
+  </data>
+  <data name="&gt;&gt;labelSetupWelcome.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSetupWelcome.Parent" xml:space="preserve">
+    <value>pageSetupWelcome</value>
+  </data>
+  <data name="&gt;&gt;labelSetupWelcome.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="optionFileShare.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="optionFileShare.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="optionFileShare.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 195</value>
+  </data>
+  <data name="optionFileShare.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 19</value>
+  </data>
+  <data name="optionFileShare.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Use a Windows &amp;file share:</value>
+  </data>
+  <data name="&gt;&gt;optionFileShare.Name" xml:space="preserve">
+    <value>optionFileShare</value>
+  </data>
+  <data name="&gt;&gt;optionFileShare.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;optionFileShare.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;optionFileShare.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="optionCustomServer.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="optionCustomServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="optionCustomServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 119</value>
+  </data>
+  <data name="optionCustomServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 19</value>
+  </data>
+  <data name="optionCustomServer.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>Use a c&amp;ustom server:</value>
+  </data>
+  <data name="&gt;&gt;optionCustomServer.Name" xml:space="preserve">
+    <value>optionCustomServer</value>
+  </data>
+  <data name="&gt;&gt;optionCustomServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;optionCustomServer.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;optionCustomServer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="optionOfficalServer.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="optionOfficalServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="optionOfficalServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 95</value>
+  </data>
+  <data name="optionOfficalServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 19</value>
+  </data>
+  <data name="optionOfficalServer.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="optionOfficalServer.Text" xml:space="preserve">
+    <value>Use the &amp;0install.de server</value>
+  </data>
+  <data name="&gt;&gt;optionOfficalServer.Name" xml:space="preserve">
+    <value>optionOfficalServer</value>
+  </data>
+  <data name="&gt;&gt;optionOfficalServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;optionOfficalServer.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;optionOfficalServer.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelServerType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelServerType.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelServerType.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelServerType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 75</value>
+  </data>
+  <data name="labelServerType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 15</value>
+  </data>
+  <data name="labelServerType.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Which server do you want to use?</value>
+  </data>
+  <data name="&gt;&gt;labelServerType.Name" xml:space="preserve">
+    <value>labelServerType</value>
+  </data>
+  <data name="&gt;&gt;labelServerType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelServerType.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;labelServerType.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 64</value>
+  </data>
+  <data name="labelServer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>0install.de provides free accounts for storing Sync data. All data is encrypted locally before it is transmitted to the server. You can use your own server for storage instead if you wish.</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Name" xml:space="preserve">
+    <value>labelServer</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelServer.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;labelServer.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupCustomServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCustomServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCustomServer.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Server URI</value>
+  </data>
+  <data name="textBoxCustomServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 22</value>
+  </data>
+  <data name="textBoxCustomServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 23</value>
+  </data>
+  <data name="textBoxCustomServer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomServer.Name" xml:space="preserve">
+    <value>textBoxCustomServer</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomServer.Type" xml:space="preserve">
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomServer.Parent" xml:space="preserve">
+    <value>groupCustomServer</value>
+  </data>
+  <data name="&gt;&gt;textBoxCustomServer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="linkCustomServer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;pageSetupFinished.Type" xml:space="preserve">
+  <data name="linkCustomServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 48</value>
+  </data>
+  <data name="linkCustomServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 15</value>
+  </data>
+  <data name="linkCustomServer.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>How do I set up my own Sync server?</value>
+  </data>
+  <data name="&gt;&gt;linkCustomServer.Name" xml:space="preserve">
+    <value>linkCustomServer</value>
+  </data>
+  <data name="&gt;&gt;linkCustomServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkCustomServer.Parent" xml:space="preserve">
+    <value>groupCustomServer</value>
+  </data>
+  <data name="&gt;&gt;linkCustomServer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupCustomServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 121</value>
+  </data>
+  <data name="groupCustomServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 70</value>
+  </data>
+  <data name="groupCustomServer.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;groupCustomServer.Name" xml:space="preserve">
+    <value>groupCustomServer</value>
+  </data>
+  <data name="&gt;&gt;groupCustomServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupCustomServer.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;groupCustomServer.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="groupFileShare.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="buttonFileShareBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonFileShareBrowse.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonFileShareBrowse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>393, 21</value>
+  </data>
+  <data name="buttonFileShareBrowse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 24</value>
+  </data>
+  <data name="buttonFileShareBrowse.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="buttonFileShareBrowse.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;buttonFileShareBrowse.Name" xml:space="preserve">
+    <value>buttonFileShareBrowse</value>
+  </data>
+  <data name="&gt;&gt;buttonFileShareBrowse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonFileShareBrowse.Parent" xml:space="preserve">
+    <value>groupFileShare</value>
+  </data>
+  <data name="&gt;&gt;buttonFileShareBrowse.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxFileShare.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxFileShare.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Directory path</value>
+  </data>
+  <data name="textBoxFileShare.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 22</value>
+  </data>
+  <data name="textBoxFileShare.Size" type="System.Drawing.Size, System.Drawing">
+    <value>376, 23</value>
+  </data>
+  <data name="textBoxFileShare.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;textBoxFileShare.Name" xml:space="preserve">
+    <value>textBoxFileShare</value>
+  </data>
+  <data name="&gt;&gt;textBoxFileShare.Type" xml:space="preserve">
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  </data>
+  <data name="&gt;&gt;textBoxFileShare.Parent" xml:space="preserve">
+    <value>groupFileShare</value>
+  </data>
+  <data name="&gt;&gt;textBoxFileShare.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupFileShare.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 198</value>
+  </data>
+  <data name="groupFileShare.Size" type="System.Drawing.Size, System.Drawing">
+    <value>423, 54</value>
+  </data>
+  <data name="groupFileShare.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;groupFileShare.Name" xml:space="preserve">
+    <value>groupFileShare</value>
+  </data>
+  <data name="&gt;&gt;groupFileShare.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupFileShare.Parent" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;groupFileShare.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="pageServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageServer.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Sync Server</value>
+  </data>
+  <data name="&gt;&gt;pageServer.Name" xml:space="preserve">
+    <value>pageServer</value>
+  </data>
+  <data name="&gt;&gt;pageServer.Type" xml:space="preserve">
     <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
-  <data name="labelCryptoKeyChange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 15</value>
-  </data>
-  <data name="pageNewCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="pageSetupWelcome.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
   </data>
-  <data name="&gt;&gt;labelResetServerFinishedHint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pageSetupWelcome.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;labelChangeCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Sync Setup</value>
   </data>
-  <data name="pageResetClient.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
+  <data name="&gt;&gt;pageSetupWelcome.Name" xml:space="preserve">
+    <value>pageSetupWelcome</value>
   </data>
-  <data name="&gt;&gt;textBoxCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelUsername.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChange.Name" xml:space="preserve">
-    <value>labelCryptoKeyChange</value>
-  </data>
-  <data name="&gt;&gt;labelPassword.Name" xml:space="preserve">
-    <value>labelPassword</value>
-  </data>
-  <data name="buttonUsedBeforeNo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 35</value>
-  </data>
-  <data name="labelCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pageNewCryptoKey.Name" xml:space="preserve">
-    <value>pageNewCryptoKey</value>
+  <data name="&gt;&gt;pageSetupWelcome.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelRegister2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="textBoxCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 23</value>
-  </data>
-  <data name="wizardControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelSetupFinished.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelResetWelcome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 67</value>
-  </data>
-  <data name="&gt;&gt;labelUsername.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkRegister.Parent" xml:space="preserve">
-    <value>pageRegister</value>
+  <data name="labelRegister2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 109</value>
   </data>
   <data name="labelRegister2.Size" type="System.Drawing.Size, System.Drawing">
     <value>477, 61</value>
   </data>
-  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Crypto &amp;key:</value>
+  <data name="labelRegister2.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="labelUsername.Text" xml:space="preserve">
-    <value>&amp;Username:</value>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Once you have created an account, verified your e-mail address and noted your login credentials, click on 'Next'.
+</value>
+  </data>
+  <data name="&gt;&gt;labelRegister2.Name" xml:space="preserve">
+    <value>labelRegister2</value>
+  </data>
+  <data name="&gt;&gt;labelRegister2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelRegister2.Parent" xml:space="preserve">
+    <value>pageRegister</value>
+  </data>
+  <data name="&gt;&gt;labelRegister2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="linkRegister.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkRegister.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkRegister.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 61</value>
+  </data>
+  <data name="linkRegister.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 15</value>
+  </data>
+  <data name="linkRegister.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="&gt;&gt;linkRegister.Name" xml:space="preserve">
+    <value>linkRegister</value>
+  </data>
+  <data name="&gt;&gt;linkRegister.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkRegister.Parent" xml:space="preserve">
+    <value>pageRegister</value>
+  </data>
+  <data name="&gt;&gt;linkRegister.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelRegister.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelRegister.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelRegister.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 43</value>
+  </data>
+  <data name="labelRegister.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Click on the following link to create a new Sync account in your browser:</value>
+  </data>
+  <data name="&gt;&gt;labelRegister.Name" xml:space="preserve">
+    <value>labelRegister</value>
+  </data>
+  <data name="&gt;&gt;labelRegister.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelRegister.Parent" xml:space="preserve">
+    <value>pageRegister</value>
+  </data>
+  <data name="&gt;&gt;labelRegister.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBoxPassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>96, 95</value>
+  </data>
+  <data name="textBoxPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 23</value>
+  </data>
+  <data name="textBoxPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;textBoxPassword.Name" xml:space="preserve">
+    <value>textBoxPassword</value>
   </data>
   <data name="&gt;&gt;textBoxPassword.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="wizardControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>574, 415</value>
+  <data name="&gt;&gt;textBoxPassword.Parent" xml:space="preserve">
+    <value>pageCredentials</value>
   </data>
-  <data name="&gt;&gt;labelSetupWelcome.Parent" xml:space="preserve">
-    <value>pageSetupWelcome</value>
-  </data>
-  <data name="labelServerType.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelUsedBefore.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelResetServerFinishedHint.Name" xml:space="preserve">
-    <value>labelResetServerFinishedHint</value>
-  </data>
-  <data name="pageResetServerFinished.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="labelCryptoKeyChanged.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;textBoxPassword.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="pageResetClientFinished.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelPassword.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelPassword.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 98</value>
+  </data>
+  <data name="labelPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 15</value>
+  </data>
+  <data name="labelPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>&amp;Password:</value>
+  </data>
+  <data name="&gt;&gt;labelPassword.Name" xml:space="preserve">
+    <value>labelPassword</value>
+  </data>
+  <data name="&gt;&gt;labelPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPassword.Parent" xml:space="preserve">
+    <value>pageCredentials</value>
+  </data>
+  <data name="&gt;&gt;labelPassword.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxUsername.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>96, 63</value>
+  </data>
+  <data name="textBoxUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 23</value>
+  </data>
+  <data name="textBoxUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxUsername.Name" xml:space="preserve">
+    <value>textBoxUsername</value>
+  </data>
+  <data name="&gt;&gt;textBoxUsername.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxUsername.Parent" xml:space="preserve">
+    <value>pageCredentials</value>
+  </data>
+  <data name="&gt;&gt;textBoxUsername.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelUsername.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelUsername.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelUsername.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 66</value>
+  </data>
+  <data name="labelUsername.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 15</value>
+  </data>
+  <data name="labelUsername.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>&amp;Username:</value>
+  </data>
+  <data name="&gt;&gt;labelUsername.Name" xml:space="preserve">
+    <value>labelUsername</value>
+  </data>
+  <data name="&gt;&gt;labelUsername.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelUsername.Parent" xml:space="preserve">
+    <value>pageCredentials</value>
+  </data>
+  <data name="&gt;&gt;labelUsername.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelCredentials.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelCredentials.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCredentials.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelCredentials.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 43</value>
+  </data>
+  <data name="labelCredentials.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Please enter your login credentials for the Sync server below:</value>
+  </data>
+  <data name="&gt;&gt;labelCredentials.Name" xml:space="preserve">
+    <value>labelCredentials</value>
+  </data>
+  <data name="&gt;&gt;labelCredentials.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCredentials.Parent" xml:space="preserve">
+    <value>pageCredentials</value>
+  </data>
+  <data name="&gt;&gt;labelCredentials.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="pageCredentials.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
   </data>
-  <data name="buttonUsedBeforeNo.TabIndex" type="System.Int32, mscorlib">
+  <data name="pageCredentials.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
     <value>Sync account</value>
   </data>
-  <data name="&gt;&gt;labelServerType.Parent" xml:space="preserve">
-    <value>pageServer</value>
+  <data name="&gt;&gt;pageCredentials.Name" xml:space="preserve">
+    <value>pageCredentials</value>
   </data>
-  <data name="&gt;&gt;pageResetWelcome.Type" xml:space="preserve">
+  <data name="&gt;&gt;pageCredentials.Type" xml:space="preserve">
     <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="pageRegister.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageRegister.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Sync account</value>
+  </data>
+  <data name="&gt;&gt;pageRegister.Name" xml:space="preserve">
+    <value>pageRegister</value>
+  </data>
+  <data name="&gt;&gt;pageRegister.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="buttonForgotKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonForgotKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 93</value>
   </data>
   <data name="buttonForgotKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>140, 23</value>
   </data>
-  <data name="buttonResetServer.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonForgotKey.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>&amp;Forgot key</value>
+  </data>
+  <data name="&gt;&gt;buttonForgotKey.Name" xml:space="preserve">
+    <value>buttonForgotKey</value>
+  </data>
+  <data name="&gt;&gt;buttonForgotKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonForgotKey.Parent" xml:space="preserve">
+    <value>pageExistingCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;buttonForgotKey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 64</value>
+  </data>
+  <data name="textBoxCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 23</value>
+  </data>
+  <data name="textBoxCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>400, 400</value>
+  <data name="&gt;&gt;textBoxCryptoKey.Name" xml:space="preserve">
+    <value>textBoxCryptoKey</value>
   </data>
-  <data name="labelResetClient.Text" xml:space="preserve">
-    <value>You are about to replace your local application list with the data stored on the Sync server. Any changes you have made locally but not synchronized yet will be lost!</value>
+  <data name="&gt;&gt;textBoxCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKey.Parent" xml:space="preserve">
+    <value>pageExistingCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKey.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelCryptoKey.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 67</value>
+  </data>
+  <data name="labelCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
+  </data>
+  <data name="labelCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Crypto &amp;key:</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKey.Name" xml:space="preserve">
+    <value>labelCryptoKey</value>
   </data>
   <data name="&gt;&gt;labelCryptoKey.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonResetClient.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 161</value>
+  <data name="&gt;&gt;labelCryptoKey.Parent" xml:space="preserve">
+    <value>pageExistingCryptoKey</value>
   </data>
-  <data name="labelUsedBefore.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;labelCryptoKey.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelExistingCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelExistingCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelExistingCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelExistingCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 43</value>
+  </data>
+  <data name="labelExistingCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Please enter the crypto key you used previously on this and/or other computers:</value>
+  </data>
+  <data name="&gt;&gt;labelExistingCryptoKey.Name" xml:space="preserve">
+    <value>labelExistingCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelExistingCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelExistingCryptoKey.Parent" xml:space="preserve">
+    <value>pageExistingCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelExistingCryptoKey.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="pageExistingCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageExistingCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Crypto key</value>
+  </data>
+  <data name="&gt;&gt;pageExistingCryptoKey.Name" xml:space="preserve">
+    <value>pageExistingCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;pageExistingCryptoKey.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="labelResetCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelResetCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelResetCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 67</value>
+  </data>
+  <data name="labelResetCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 60</value>
+  </data>
+  <data name="labelResetCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
+  </data>
+  <data name="&gt;&gt;labelResetCryptoKey.Name" xml:space="preserve">
+    <value>labelResetCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelResetCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelResetCryptoKey.Parent" xml:space="preserve">
+    <value>pageResetCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelResetCryptoKey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxCryptoKeyReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCryptoKeyReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 7</value>
+  </data>
+  <data name="textBoxCryptoKeyReset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 23</value>
+  </data>
+  <data name="textBoxCryptoKeyReset.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyReset.Name" xml:space="preserve">
+    <value>textBoxCryptoKeyReset</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyReset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyReset.Parent" xml:space="preserve">
+    <value>pageResetCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyReset.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelCryptoKeyReset.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCryptoKeyReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCryptoKeyReset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 10</value>
+  </data>
+  <data name="labelCryptoKeyReset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 15</value>
+  </data>
+  <data name="labelCryptoKeyReset.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>New crypto &amp;key:</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyReset.Name" xml:space="preserve">
+    <value>labelCryptoKeyReset</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyReset.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelResetClient.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;labelCryptoKeyReset.Parent" xml:space="preserve">
+    <value>pageResetCryptoKey</value>
   </data>
-  <data name="&gt;&gt;buttonResetServer.Name" xml:space="preserve">
-    <value>buttonResetServer</value>
+  <data name="&gt;&gt;labelCryptoKeyReset.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="labelResetServerFinishedHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelCryptoKeyChangedHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="textBoxCryptoKeyChange.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelCryptoKeyChangedHint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 89</value>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 80</value>
+  </data>
+  <data name="labelCryptoKeyChangedHint.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;labelCryptoKeyChanged.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Enter the key on other computers using the 'Options' window. Do not use this wizard there since it is only required to perform the initial change.</value>
   </data>
-  <data name="labelResetServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 128</value>
+  <data name="&gt;&gt;labelCryptoKeyChangedHint.Name" xml:space="preserve">
+    <value>labelCryptoKeyChangedHint</value>
   </data>
-  <data name="&gt;&gt;pageSetupWelcome.Name" xml:space="preserve">
-    <value>pageSetupWelcome</value>
+  <data name="&gt;&gt;labelCryptoKeyChangedHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>You should not run Zero Install Sync on other computers while this process is running.</value>
+  <data name="&gt;&gt;labelCryptoKeyChangedHint.Parent" xml:space="preserve">
+    <value>pageCryptoKeyChanged</value>
   </data>
-  <data name="labelServerType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 84</value>
+  <data name="&gt;&gt;labelCryptoKeyChangedHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelCryptoKeyChanged.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelCryptoKeyChanged.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCryptoKeyChanged.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
   </data>
   <data name="labelCryptoKeyChanged.Size" type="System.Drawing.Size, System.Drawing">
     <value>477, 80</value>
   </data>
-  <data name="&gt;&gt;labelResetServerFinishedHint.ZOrder" xml:space="preserve">
+  <data name="labelCryptoKeyChanged.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>The crypto key has been changed. Now you will need to enter the new key on all other computers you have already set up for Zero Install Sync.</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChanged.Name" xml:space="preserve">
+    <value>labelCryptoKeyChanged</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChanged.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChanged.Parent" xml:space="preserve">
+    <value>pageCryptoKeyChanged</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChanged.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pageCryptoKeyChanged.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageCryptoKeyChanged.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Crypto key changed</value>
+  </data>
+  <data name="&gt;&gt;pageCryptoKeyChanged.Name" xml:space="preserve">
+    <value>pageCryptoKeyChanged</value>
+  </data>
+  <data name="&gt;&gt;pageCryptoKeyChanged.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="pageResetCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageResetCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Reset crypto key</value>
+  </data>
+  <data name="&gt;&gt;pageResetCryptoKey.Name" xml:space="preserve">
+    <value>pageResetCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;pageResetCryptoKey.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 107</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 66</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKeyHint.Name" xml:space="preserve">
+    <value>labelNewCryptoKeyHint</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKeyHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKeyHint.Parent" xml:space="preserve">
+    <value>pageNewCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKeyHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxCryptoKeyNew.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCryptoKeyNew.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 78</value>
+  </data>
+  <data name="textBoxCryptoKeyNew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 23</value>
+  </data>
+  <data name="textBoxCryptoKeyNew.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyNew.Name" xml:space="preserve">
+    <value>textBoxCryptoKeyNew</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyNew.Parent" xml:space="preserve">
+    <value>pageNewCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyNew.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelCryptoKeyNew.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCryptoKeyNew.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCryptoKeyNew.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 81</value>
+  </data>
+  <data name="labelCryptoKeyNew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
+  </data>
+  <data name="labelCryptoKeyNew.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Crypto &amp;key:</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyNew.Name" xml:space="preserve">
+    <value>labelCryptoKeyNew</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyNew.Parent" xml:space="preserve">
+    <value>pageNewCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyNew.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelNewCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelNewCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelNewCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelNewCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 65</value>
+  </data>
+  <data name="labelNewCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>The crypto key is used to encrypt your data locally before transmitting it to the server. Write down the suggested one or choose your own.</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKey.Name" xml:space="preserve">
+    <value>labelNewCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKey.Parent" xml:space="preserve">
+    <value>pageNewCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelNewCryptoKey.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelSetupFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelSetupFinished.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelSetupFinished.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelSetupFinished.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 81</value>
+  </data>
+  <data name="labelSetupFinished.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Zero Install Sync is now set up and ready to use. Run this wizard on any other computers you wish to keep synchronized with this one.</value>
+  </data>
+  <data name="&gt;&gt;labelSetupFinished.Name" xml:space="preserve">
+    <value>labelSetupFinished</value>
+  </data>
+  <data name="&gt;&gt;labelSetupFinished.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSetupFinished.Parent" xml:space="preserve">
+    <value>pageSetupFinished</value>
+  </data>
+  <data name="&gt;&gt;labelSetupFinished.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pageSetupFinished.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageSetupFinished.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Sync Setup complete</value>
+  </data>
+  <data name="&gt;&gt;pageSetupFinished.Name" xml:space="preserve">
+    <value>pageSetupFinished</value>
+  </data>
+  <data name="&gt;&gt;pageSetupFinished.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="pageNewCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageNewCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Crypto key</value>
+  </data>
+  <data name="&gt;&gt;pageNewCryptoKey.Name" xml:space="preserve">
+    <value>pageNewCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;pageNewCryptoKey.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="buttonResetClient.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonResetClient.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 161</value>
+  </data>
+  <data name="buttonResetClient.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 35</value>
+  </data>
+  <data name="buttonResetClient.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value>I want to replace my &amp;local data</value>
+  </data>
+  <data name="&gt;&gt;buttonResetClient.Name" xml:space="preserve">
+    <value>buttonResetClient</value>
+  </data>
+  <data name="&gt;&gt;buttonResetClient.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonResetClient.Parent" xml:space="preserve">
+    <value>pageResetWelcome</value>
+  </data>
+  <data name="&gt;&gt;buttonResetClient.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonResetServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonResetServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 120</value>
+  </data>
+  <data name="buttonResetServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 35</value>
+  </data>
+  <data name="buttonResetServer.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value>The data stored on the &amp;server is damaged</value>
+  </data>
+  <data name="&gt;&gt;buttonResetServer.Name" xml:space="preserve">
+    <value>buttonResetServer</value>
+  </data>
+  <data name="&gt;&gt;buttonResetServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonResetServer.Parent" xml:space="preserve">
+    <value>pageResetWelcome</value>
+  </data>
+  <data name="&gt;&gt;buttonResetServer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonChangeCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonChangeCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 79</value>
+  </data>
+  <data name="buttonChangeCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 35</value>
+  </data>
+  <data name="buttonChangeCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>I want to &amp;change my crypto key</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeCryptoKey.Name" xml:space="preserve">
+    <value>buttonChangeCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeCryptoKey.Parent" xml:space="preserve">
+    <value>pageResetWelcome</value>
+  </data>
+  <data name="&gt;&gt;buttonChangeCryptoKey.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelResetWelcome.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelResetWelcome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelResetWelcome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelResetWelcome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 67</value>
+  </data>
+  <data name="labelResetWelcome.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>This wizard can help you solve a number of possible Sync problems. What issue do you wish to resolve?</value>
+  </data>
+  <data name="&gt;&gt;labelResetWelcome.Name" xml:space="preserve">
+    <value>labelResetWelcome</value>
+  </data>
+  <data name="&gt;&gt;labelResetWelcome.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelResetWelcome.Parent" xml:space="preserve">
+    <value>pageResetWelcome</value>
+  </data>
+  <data name="&gt;&gt;labelResetWelcome.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="pageResetWelcome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageResetWelcome.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Sync troubleshooting</value>
+  </data>
+  <data name="&gt;&gt;pageResetWelcome.Name" xml:space="preserve">
+    <value>pageResetWelcome</value>
+  </data>
+  <data name="&gt;&gt;pageResetWelcome.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="labelChangeCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelChangeCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelChangeCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 77</value>
+  </data>
+  <data name="labelChangeCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 60</value>
   </data>
   <data name="labelChangeCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="labelResetClientFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value>You should not run Zero Install Sync on other computers while this process is running.</value>
+  </data>
+  <data name="&gt;&gt;labelChangeCryptoKey.Name" xml:space="preserve">
+    <value>labelChangeCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelChangeCryptoKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChangeCryptoKey.Parent" xml:space="preserve">
+    <value>pageChangeCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelChangeCryptoKey.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxCryptoKeyChange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCryptoKeyChange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 7</value>
+  </data>
+  <data name="textBoxCryptoKeyChange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 23</value>
+  </data>
+  <data name="textBoxCryptoKeyChange.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyChange.Name" xml:space="preserve">
+    <value>textBoxCryptoKeyChange</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyChange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyChange.Parent" xml:space="preserve">
+    <value>pageChangeCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;textBoxCryptoKeyChange.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelCryptoKeyChange.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelCryptoKeyChange.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelCryptoKeyChange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 10</value>
+  </data>
+  <data name="labelCryptoKeyChange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 15</value>
+  </data>
+  <data name="labelCryptoKeyChange.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value>New crypto &amp;key:</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChange.Name" xml:space="preserve">
+    <value>labelCryptoKeyChange</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChange.Parent" xml:space="preserve">
+    <value>pageChangeCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;labelCryptoKeyChange.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pageChangeCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageChangeCryptoKey.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Change crypto key</value>
+  </data>
+  <data name="&gt;&gt;pageChangeCryptoKey.Name" xml:space="preserve">
+    <value>pageChangeCryptoKey</value>
+  </data>
+  <data name="&gt;&gt;pageChangeCryptoKey.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="labelResetServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelResetServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelResetServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelResetServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 128</value>
+  </data>
+  <data name="labelResetServer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>You are about to replace the data stored on the Sync server with your local application list. Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
+  </data>
+  <data name="&gt;&gt;labelResetServer.Name" xml:space="preserve">
+    <value>labelResetServer</value>
+  </data>
+  <data name="&gt;&gt;labelResetServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelResetServer.Parent" xml:space="preserve">
+    <value>pageResetServer</value>
+  </data>
+  <data name="&gt;&gt;labelResetServer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelResetServerFinishedHint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 78</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 60</value>
+  </data>
+  <data name="labelResetServerFinishedHint.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>You may also wish to reset the local data on other computers you are using Zero Install Sync on.</value>
+  </data>
+  <data name="&gt;&gt;labelResetServerFinishedHint.Name" xml:space="preserve">
+    <value>labelResetServerFinishedHint</value>
+  </data>
+  <data name="&gt;&gt;labelResetServerFinishedHint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelResetServerFinishedHint.Parent" xml:space="preserve">
+    <value>pageResetServerFinished</value>
+  </data>
+  <data name="&gt;&gt;labelResetServerFinishedHint.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelResetServerFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelResetServerFinished.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelResetServerFinished.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 9</value>
+  </data>
+  <data name="labelResetServerFinished.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 60</value>
+  </data>
+  <data name="labelResetServerFinished.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>The server data is being reset. You can now continue using Zero Install.</value>
+  </data>
+  <data name="&gt;&gt;labelResetServerFinished.Name" xml:space="preserve">
+    <value>labelResetServerFinished</value>
+  </data>
+  <data name="&gt;&gt;labelResetServerFinished.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetServerFinished.Parent" xml:space="preserve">
     <value>pageResetServerFinished</value>
@@ -729,926 +1627,169 @@
   <data name="&gt;&gt;labelResetServerFinished.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="pageResetServerFinished.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
+  </data>
+  <data name="pageResetServerFinished.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
     <value>Reset Sync server</value>
   </data>
-  <data name="labelResetCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 60</value>
+  <data name="&gt;&gt;pageResetServerFinished.Name" xml:space="preserve">
+    <value>pageResetServerFinished</value>
   </data>
-  <data name="labelPassword.Text" xml:space="preserve">
-    <value>&amp;Password:</value>
-  </data>
-  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>You may also wish to reset the local data on other computers you are using Zero Install Sync on.</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyReset.Name" xml:space="preserve">
-    <value>labelCryptoKeyReset</value>
-  </data>
-  <data name="buttonChangeCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="textBoxCryptoKeyReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelChangeCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;pageServer.Name" xml:space="preserve">
-    <value>pageServer</value>
-  </data>
-  <data name="&gt;&gt;labelResetClient.Parent" xml:space="preserve">
-    <value>pageResetClient</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelServerType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 23</value>
-  </data>
-  <data name="pageResetCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;buttonResetClient.Parent" xml:space="preserve">
-    <value>pageResetWelcome</value>
-  </data>
-  <data name="&gt;&gt;labelUsedBefore.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="optionCustomServer.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="pageSetupFinished.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="&gt;&gt;textBoxUsername.Parent" xml:space="preserve">
-    <value>pageCredentials</value>
-  </data>
-  <data name="labelCryptoKeyReset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyReset.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyNew.Parent" xml:space="preserve">
-    <value>pageNewCryptoKey</value>
-  </data>
-  <data name="labelExistingCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelResetServerFinishedHint.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Reset local data</value>
-  </data>
-  <data name="&gt;&gt;labelCredentials.Name" xml:space="preserve">
-    <value>labelCredentials</value>
-  </data>
-  <data name="&gt;&gt;wizardControl.Name" xml:space="preserve">
-    <value>wizardControl</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChanged.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="linkCustomServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 195</value>
-  </data>
-  <data name="&gt;&gt;buttonForgotKey.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelResetWelcome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>The crypto key is used to encrypt your data locally before transmitting it to the server. Write down the suggested one or choose your own.</value>
-  </data>
-  <data name="linkRegister.Text" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="&gt;&gt;labelExistingCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxPassword.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;labelResetClientFinished.Name" xml:space="preserve">
-    <value>labelResetClientFinished</value>
-  </data>
-  <data name="labelResetCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 67</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKey.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;buttonResetClient.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomServer.Parent" xml:space="preserve">
-    <value>pageServer</value>
-  </data>
-  <data name="&gt;&gt;labelResetCryptoKey.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelChangeCryptoKey.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;optionOfficalServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCredentials.Parent" xml:space="preserve">
-    <value>pageCredentials</value>
-  </data>
-  <data name="labelSetupFinished.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyReset.Name" xml:space="preserve">
-    <value>textBoxCryptoKeyReset</value>
-  </data>
-  <data name="buttonUsedBeforeNo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelServerType.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;optionCustomServer.Parent" xml:space="preserve">
-    <value>pageServer</value>
-  </data>
-  <data name="textBoxCryptoKeyNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>119, 78</value>
-  </data>
-  <data name="buttonResetServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 35</value>
-  </data>
-  <data name="labelResetWelcome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelResetServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeNo.Name" xml:space="preserve">
-    <value>buttonUsedBeforeNo</value>
-  </data>
-  <data name="buttonUsedBeforeYes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 130</value>
-  </data>
-  <data name="labelResetClient.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;linkRegister.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxUsername.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pageChangeCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="pageResetWelcome.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="labelCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 67</value>
-  </data>
-  <data name="textBoxCustomServer.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;linkCustomServer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonForgotKey.Parent" xml:space="preserve">
-    <value>pageExistingCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelExistingCryptoKey.Parent" xml:space="preserve">
-    <value>pageExistingCryptoKey</value>
-  </data>
-  <data name="pageNewCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="labelCryptoKeyChanged.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyChange.Name" xml:space="preserve">
-    <value>textBoxCryptoKeyChange</value>
-  </data>
-  <data name="pageResetClientFinished.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="labelCryptoKeyChange.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="pageResetCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="&gt;&gt;labelPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelSetupWelcome.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;labelRegister.Name" xml:space="preserve">
-    <value>labelRegister</value>
-  </data>
-  <data name="&gt;&gt;buttonChangeCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelCryptoKeyNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 81</value>
-  </data>
-  <data name="&gt;&gt;labelServerType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pageResetWelcome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="buttonChangeCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelResetWelcome.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeYes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelCryptoKeyChange.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelResetCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;optionCustomServer.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelRegister.Text" xml:space="preserve">
-    <value>Click on the following link to create a new Sync account in your browser:</value>
-  </data>
-  <data name="labelSetupWelcome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="&gt;&gt;pageServer.Type" xml:space="preserve">
+  <data name="&gt;&gt;pageResetServerFinished.Type" xml:space="preserve">
     <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="&gt;&gt;pageResetClientFinished.Name" xml:space="preserve">
-    <value>pageResetClientFinished</value>
-  </data>
-  <data name="&gt;&gt;labelSetupFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxCryptoKeyNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 23</value>
-  </data>
-  <data name="&gt;&gt;textBoxPassword.Name" xml:space="preserve">
-    <value>textBoxPassword</value>
-  </data>
-  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Crypto key</value>
-  </data>
-  <data name="labelUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 66</value>
-  </data>
-  <data name="buttonChangeCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 79</value>
-  </data>
-  <data name="&gt;&gt;wizardControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="labelCryptoKeyReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;buttonForgotKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="optionOfficalServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 110</value>
-  </data>
-  <data name="textBoxCryptoKeyChange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 23</value>
-  </data>
-  <data name="&gt;&gt;pageResetCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="textBoxCustomServer.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;pageResetClient.Name" xml:space="preserve">
-    <value>pageResetClient</value>
-  </data>
-  <data name="optionOfficalServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="pageResetServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="labelCryptoKeyChanged.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>I want to replace my &amp;local data</value>
-  </data>
-  <data name="&gt;&gt;labelCredentials.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelNewCryptoKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonForgotKey.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="pageExistingCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="&gt;&gt;buttonChangeCryptoKey.Parent" xml:space="preserve">
-    <value>pageResetWelcome</value>
-  </data>
-  <data name="textBoxCryptoKeyReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 23</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyNew.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelCryptoKeyChange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 10</value>
-  </data>
-  <data name="labelChangeCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 77</value>
-  </data>
-  <data name="&gt;&gt;labelResetServer.Name" xml:space="preserve">
-    <value>labelResetServer</value>
-  </data>
-  <data name="labelServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="optionCustomServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;optionOfficalServer.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChange.Parent" xml:space="preserve">
-    <value>pageChangeCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeNo.Parent" xml:space="preserve">
-    <value>pageSetupWelcome</value>
-  </data>
-  <data name="labelPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 98</value>
-  </data>
-  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>The crypto key has been changed. Now you will need to enter the new key on all other computers you have already set up for Zero Install Sync.</value>
-  </data>
-  <data name="buttonForgotKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>119, 93</value>
-  </data>
-  <data name="labelCryptoKeyChanged.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="labelSetupFinished.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 81</value>
-  </data>
-  <data name="labelRegister2.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="pageResetClient.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKey.Name" xml:space="preserve">
-    <value>labelCryptoKey</value>
-  </data>
-  <data name="textBoxCustomServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="optionCustomServer.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelCryptoKeyNew.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="labelRegister.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="pageResetServerFinished.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
   </data>
   <data name="pageResetServer.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="&gt;&gt;pageCryptoKeyChanged.Name" xml:space="preserve">
-    <value>pageCryptoKeyChanged</value>
-  </data>
-  <data name="&gt;&gt;labelResetClientFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="optionOfficalServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 19</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKeyHint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
-  </data>
-  <data name="labelNewCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 65</value>
-  </data>
-  <data name="linkCustomServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 15</value>
-  </data>
-  <data name="&gt;&gt;textBoxCustomServer.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 75</value>
-  </data>
-  <data name="optionOfficalServer.Text" xml:space="preserve">
-    <value>Use the &amp;0install.de server</value>
-  </data>
-  <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>&amp;Forgot key</value>
-  </data>
-  <data name="labelCryptoKeyChange.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pageSetupWelcome.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;linkRegister.Name" xml:space="preserve">
-    <value>linkRegister</value>
-  </data>
-  <data name="labelResetServerFinished.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Please enter your login credentials for the Sync server below:</value>
-  </data>
-  <data name="buttonResetClient.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;pageResetServer.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="textBoxUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 63</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKeyHint.Name" xml:space="preserve">
-    <value>labelNewCryptoKeyHint</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyChange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>How do I set up my own Sync server?</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 107</value>
-  </data>
-  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>New crypto &amp;key:</value>
-  </data>
-  <data name="labelResetClientFinished.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 60</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeYes.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;labelPassword.Parent" xml:space="preserve">
-    <value>pageCredentials</value>
-  </data>
-  <data name="&gt;&gt;labelUsername.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelSetupFinished.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="labelSetupWelcome.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 23</value>
-  </data>
-  <data name="&gt;&gt;pageCredentials.Name" xml:space="preserve">
-    <value>pageCredentials</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>SyncWizard</value>
-  </data>
-  <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>The server data is being reset. You can now continue using Zero Install.</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelResetClient.Name" xml:space="preserve">
-    <value>labelResetClient</value>
-  </data>
-  <data name="labelCryptoKeyNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 15</value>
-  </data>
-  <data name="labelCryptoKeyReset.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonResetClient.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelNewCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="textBoxCryptoKeyReset.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="textBoxCryptoKeyChange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="pageResetClient.Text" xml:space="preserve">
-    <value>Reset local data</value>
-  </data>
-  <data name="buttonUsedBeforeYes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;labelResetCryptoKey.Parent" xml:space="preserve">
-    <value>pageResetCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;optionOfficalServer.Name" xml:space="preserve">
-    <value>optionOfficalServer</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeNo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelRegister.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;labelResetServer.Parent" xml:space="preserve">
-    <value>pageResetServer</value>
-  </data>
-  <data name="pageCryptoKeyChanged.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="buttonUsedBeforeNo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 171</value>
-  </data>
-  <data name="&gt;&gt;optionCustomServer.Name" xml:space="preserve">
-    <value>optionCustomServer</value>
-  </data>
-  <data name="&gt;&gt;labelChangeCryptoKey.Parent" xml:space="preserve">
-    <value>pageChangeCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelResetClientFinished.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pageCredentials.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="pageServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="buttonUsedBeforeYes.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="labelResetServerFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;labelResetClientFinished.Parent" xml:space="preserve">
-    <value>pageResetClientFinished</value>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Reset Sync server</value>
   </data>
   <data name="&gt;&gt;pageResetServer.Name" xml:space="preserve">
     <value>pageResetServer</value>
   </data>
-  <data name="textBoxCryptoKeyChange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 7</value>
-  </data>
-  <data name="labelCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeYes.Name" xml:space="preserve">
-    <value>buttonUsedBeforeYes</value>
-  </data>
-  <data name="&gt;&gt;labelUsername.Name" xml:space="preserve">
-    <value>labelUsername</value>
-  </data>
-  <data name="labelUsedBefore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 104</value>
-  </data>
-  <data name="textBoxCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKeyReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelServerType.Name" xml:space="preserve">
-    <value>labelServerType</value>
-  </data>
-  <data name="labelResetCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>Server URI</value>
-  </data>
-  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Crypto key changed</value>
-  </data>
-  <data name="pageCredentials.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="textBoxCryptoKeyNew.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="pageChangeCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelRegister2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="labelSetupWelcome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 82</value>
-  </data>
-  <data name="&gt;&gt;labelExistingCryptoKey.Name" xml:space="preserve">
-    <value>labelExistingCryptoKey</value>
-  </data>
-  <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Reset Sync server</value>
-  </data>
-  <data name="&gt;&gt;labelRegister.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 89</value>
-  </data>
-  <data name="linkRegister.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBoxCryptoKey.Parent" xml:space="preserve">
-    <value>pageExistingCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;pageResetServerFinished.Type" xml:space="preserve">
+  <data name="&gt;&gt;pageResetServer.Type" xml:space="preserve">
     <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="linkRegister.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 61</value>
-  </data>
-  <data name="labelCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 15</value>
-  </data>
-  <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Sync Setup complete</value>
-  </data>
-  <data name="&gt;&gt;buttonChangeCryptoKey.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;labelCredentials.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="optionCustomServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 19</value>
-  </data>
-  <data name="&gt;&gt;textBoxPassword.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="textBoxPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 23</value>
-  </data>
-  <data name="labelResetServerFinished.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
-  </data>
-  <data name="pageSetupWelcome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 261</value>
-  </data>
-  <data name="&gt;&gt;buttonChangeCryptoKey.Name" xml:space="preserve">
-    <value>buttonChangeCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelResetWelcome.Parent" xml:space="preserve">
-    <value>pageResetWelcome</value>
-  </data>
-  <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de provides free accounts for storing Sync data. All data is encrypted locally before it is transmitted to the server. You can use your own server for storage instead if you wish.</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>574, 415</value>
-  </data>
-  <data name="pageServer.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChangedHint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelSetupFinished.Parent" xml:space="preserve">
-    <value>pageSetupFinished</value>
-  </data>
-  <data name="linkRegister.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelChangeCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="labelResetServerFinishedHint.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 78</value>
-  </data>
-  <data name="&gt;&gt;labelPassword.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;labelRegister.Parent" xml:space="preserve">
-    <value>pageRegister</value>
-  </data>
-  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Change crypto key</value>
-  </data>
-  <data name="&gt;&gt;buttonUsedBeforeYes.Parent" xml:space="preserve">
-    <value>pageSetupWelcome</value>
-  </data>
-  <data name="textBoxCustomServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 23</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKeyHint.Parent" xml:space="preserve">
-    <value>pageNewCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelSetupFinished.Name" xml:space="preserve">
-    <value>labelSetupFinished</value>
-  </data>
-  <data name="optionCustomServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 144</value>
-  </data>
-  <data name="&gt;&gt;labelResetWelcome.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;buttonResetServer.Parent" xml:space="preserve">
-    <value>pageResetWelcome</value>
-  </data>
-  <data name="labelCryptoKeyNew.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelServer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelResetServer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelRegister.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 43</value>
-  </data>
-  <data name="&gt;&gt;pageNewCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
-  </data>
-  <data name="pageRegister.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyReset.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;labelNewCryptoKeyHint.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelResetClient.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonChangeCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 35</value>
-  </data>
-  <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>This wizard can help you solve a number of possible Sync problems. What issue do you wish to resolve?</value>
-  </data>
-  <data name="labelResetServerFinishedHint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 60</value>
-  </data>
-  <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>The data stored on the &amp;server is damaged</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Enter the key on other computers using the 'Options' window. Do not use this wizard there since it is only required to perform the initial change.</value>
-  </data>
-  <data name="&gt;&gt;labelChangeCryptoKey.Name" xml:space="preserve">
-    <value>labelChangeCryptoKey</value>
-  </data>
-  <data name="&gt;&gt;labelResetServerFinishedHint.Parent" xml:space="preserve">
-    <value>pageResetServerFinished</value>
-  </data>
-  <data name="labelResetServerFinished.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 60</value>
   </data>
   <data name="labelResetClient.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Reset crypto key</value>
-  </data>
-  <data name="labelUsername.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="labelNewCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxUsername.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;labelCryptoKeyChanged.Parent" xml:space="preserve">
-    <value>pageCryptoKeyChanged</value>
-  </data>
-  <data name="&gt;&gt;buttonResetServer.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Crypto &amp;key:</value>
-  </data>
-  <data name="labelChangeCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 60</value>
-  </data>
-  <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync is now set up and ready to use. Run this wizard on any other computers you wish to keep synchronized with this one.</value>
-  </data>
-  <data name="labelCredentials.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 9</value>
+  <data name="labelResetClient.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelResetClient.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 9</value>
   </data>
-  <data name="labelSetupFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelResetClient.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 89</value>
+  </data>
+  <data name="labelResetClient.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value>You are about to replace your local application list with the data stored on the Sync server. Any changes you have made locally but not synchronized yet will be lost!</value>
+  </data>
+  <data name="&gt;&gt;labelResetClient.Name" xml:space="preserve">
+    <value>labelResetClient</value>
+  </data>
+  <data name="&gt;&gt;labelResetClient.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelResetClient.Parent" xml:space="preserve">
+    <value>pageResetClient</value>
+  </data>
+  <data name="&gt;&gt;labelResetClient.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelResetClientFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="labelResetServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelResetClientFinished.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="pageExistingCryptoKey.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="labelResetClientFinished.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 10</value>
   </data>
-  <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Once you have created an account, verified your e-mail address and noted your login credentials, click on 'Next'.
-</value>
+  <data name="labelResetClientFinished.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 60</value>
   </data>
-  <data name="&gt;&gt;labelUsedBefore.Name" xml:space="preserve">
-    <value>labelUsedBefore</value>
-  </data>
-  <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Use a c&amp;ustom server:</value>
-  </data>
-  <data name="pageCredentials.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="buttonForgotKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="textBoxPassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;pageChangeCryptoKey.Name" xml:space="preserve">
-    <value>pageChangeCryptoKey</value>
+  <data name="labelResetClientFinished.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
     <value>The local application list is being reset. You can now continue using Zero Install.</value>
   </data>
-  <data name="&gt;&gt;buttonResetClient.Name" xml:space="preserve">
-    <value>buttonResetClient</value>
+  <data name="&gt;&gt;labelResetClientFinished.Name" xml:space="preserve">
+    <value>labelResetClientFinished</value>
   </data>
-  <data name="labelCryptoKeyReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 15</value>
+  <data name="&gt;&gt;labelResetClientFinished.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonUsedBeforeNo.Text" xml:space="preserve">
-    <value>&amp;No, I am setting up Sync for the first time</value>
+  <data name="&gt;&gt;labelResetClientFinished.Parent" xml:space="preserve">
+    <value>pageResetClientFinished</value>
   </data>
-  <data name="&gt;&gt;labelExistingCryptoKey.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;labelResetClientFinished.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="labelServerType.Text" xml:space="preserve">
-    <value>Which server do you want to use?</value>
+  <data name="pageResetClientFinished.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
   </data>
-  <data name="labelExistingCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 43</value>
+  <data name="pageResetClientFinished.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
-  <data name="labelPassword.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Reset local data</value>
   </data>
-  <data name="&gt;&gt;textBoxCryptoKey.Name" xml:space="preserve">
-    <value>textBoxCryptoKey</value>
+  <data name="&gt;&gt;pageResetClientFinished.Name" xml:space="preserve">
+    <value>pageResetClientFinished</value>
   </data>
-  <data name="labelPassword.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;pageResetClientFinished.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
-  <data name="labelResetCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="pageResetClient.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 261</value>
   </data>
-  <data name="&gt;&gt;textBoxUsername.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="pageResetClient.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value>Reset local data</value>
+  </data>
+  <data name="&gt;&gt;pageResetClient.Name" xml:space="preserve">
+    <value>pageResetClient</value>
+  </data>
+  <data name="&gt;&gt;pageResetClient.Type" xml:space="preserve">
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="wizardControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 415</value>
+  </data>
+  <data name="wizardControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="wizardControl.Title" xml:space="preserve">
+    <value>Zero Install Sync</value>
+  </data>
+  <data name="&gt;&gt;wizardControl.Name" xml:space="preserve">
+    <value>wizardControl</value>
+  </data>
+  <data name="&gt;&gt;wizardControl.Type" xml:space="preserve">
+    <value>AeroWizard.WizardControl, AeroWizard, Version=2.0.12.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+  </data>
+  <data name="&gt;&gt;wizardControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;wizardControl.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>574, 415</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>400, 400</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install Sync</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>SyncWizard</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
