@@ -146,7 +146,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (!NoDownload && Config.NetworkUse == NetworkLevel.Full)
             {
                 Log.Info("Starting background download for later use");
-                RunCommandBackground(Download.Name, "--batch", interfaceUri.ToStringRfc());
+                StartCommandBackground(Download.Name, "--batch", interfaceUri.ToStringRfc());
             }
         }
         #endregion

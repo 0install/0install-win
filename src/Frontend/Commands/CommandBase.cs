@@ -18,9 +18,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
@@ -135,17 +135,17 @@ namespace ZeroInstall.Commands
                 if (FeedManager.IsStale(Config.SelfUpdateUri))
                 {
                     Log.Info("Starting periodic background self-update check");
-                    RunCommandBackground(SelfUpdate.Name);
+                    StartCommandBackground(SelfUpdate.Name);
                 }
             }
         }
 
         /// <summary>
-        /// Executes a "0install" command in a new background process. Returns immediately.
+        /// Starts executing a "0install" command in a background process. Returns immediately.
         /// </summary>
         /// <param name="command">The <see cref="CliCommand.Name"/> of the command to execute.</param>
         /// <param name="args">Additional arguments to pass to the command.</param>
-        protected static void RunCommandBackground([NotNull] string command, [NotNull] params string[] args)
+        protected static void StartCommandBackground([NotNull] string command, [NotNull] params string[] args)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
@@ -159,7 +159,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, args.Prepend("--background").Prepend(command)).Start();
+                ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, new[] {command, "--background"}.Concat(args).ToArray()).Start();
             }
                 #region Error handling
             catch (OperationCanceledException)

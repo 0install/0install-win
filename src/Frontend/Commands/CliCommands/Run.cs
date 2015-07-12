@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -182,7 +181,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (FeedManager.ShouldRefresh)
             {
                 Log.Info("Starting background update because feeds have become stale");
-                RunCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Append("--batch").ToArray());
+                StartCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Prepend("--batch"));
             }
         }
         #endregion
