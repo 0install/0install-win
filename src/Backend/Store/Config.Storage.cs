@@ -248,7 +248,7 @@ namespace ZeroInstall.Store
                 string key = property.Key;
                 if (property.Value.NeedsEncoding) key += Base64Suffix;
 
-                if (property.Value.IsDefaultValue) global.RemoveKey(key);
+                if (property.Value.IsDefaultValue || property.Value.Value == null) global.RemoveKey(key);
                 else global[key] = property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value;
             }
         }
