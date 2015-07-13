@@ -177,7 +177,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), handler.ErrorLog);
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.SolverError;
                 }
                 catch (ExecutorException ex)
