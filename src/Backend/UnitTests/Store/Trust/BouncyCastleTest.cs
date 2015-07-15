@@ -15,22 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using NUnit.Framework;
+
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
-    /// Creates <see cref="IOpenPgp"/> instances.
+    /// Runs test methods for <see cref="BouncyCastle"/>.
     /// </summary>
-    public static class OpenPgpFactory
-    {
-        /// <summary>Singleton pattern.</summary>
-        private static readonly BouncyCastle _bouncyCastle = new BouncyCastle();
-
-        /// <summary>
-        /// Creates an <see cref="IOpenPgp"/> instance.
-        /// </summary>
-        public static IOpenPgp CreateDefault()
-        {
-            return _bouncyCastle;
-        }
-    }
+    [TestFixture]
+    public class BouncyCastleTest : OpenPgpTest<BouncyCastle>
+    {}
 }

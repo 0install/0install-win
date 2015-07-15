@@ -38,6 +38,11 @@ http://james.newtonking.com/json
 MIT license: http://opensource.org/licenses/MIT
 NuGet package: Newtonsoft.Json
 
+Bouncy Castle
+http://www.bouncycastle.org/csharp/
+Bouncy Castle license: http://www.bouncycastle.org/csharp/licence.html
+NuGet package: BouncyCastle
+
 Task Scheduler Managed Wrapper
 http://taskscheduler.codeplex.com/
 MIT license: http://opensource.org/licenses/MIT

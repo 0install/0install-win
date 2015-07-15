@@ -146,6 +146,7 @@
     <Compile Include="Store\Model\SingleFileTest.cs" />
     <Compile Include="Store\Model\VersionRangeTest.cs" />
     <Compile Include="Store\Model\XmlUnknownTest.cs" />
+    <Compile Include="Store\Trust\BouncyCastleTest.cs" />
     <Compile Include="Store\Trust\GnuPGTest.cs" />
     <Compile Include="Store\Trust\OpenPgpTest.cs" />
     <Compile Include="Store\Trust\OpenPgpUtilsTest.cs" />

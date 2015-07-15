@@ -15,6 +15,7 @@ This API provides a common basis for the packages ZeroInstall.Services and ZeroI
             <dependency id="ICSharpCode.SharpZipLib.Patched" version="0.86.4" />
             <dependency id="SevenZipSharp" version="0.64" />
             <dependency id="Newtonsoft.Json" version="7.0.1" />
+            <dependency id="BouncyCastle" version="1.7.0" />
         </dependencies>
         <references>
             <reference file="ZeroInstall.Store.dll" />
