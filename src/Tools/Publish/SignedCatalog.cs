@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Storage;
@@ -85,7 +86,8 @@ namespace ZeroInstall.Publish
         /// <param name="passphrase">The passphrase to use to unlock the secret key; can be <see langword="null"/> if <see cref="SecretKey"/> is <see langword="null"/>.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
+        /// <exception cref="KeyNotFoundException">The specified <see cref="SecretKey"/> could not be found on the system.</exception>
+        /// <exception cref="WrongPassphraseException"><paramref name="passphrase"/> was incorrect.</exception>
         public void Save([NotNull] string path, [CanBeNull] string passphrase = null)
         {
             #region Sanity checks

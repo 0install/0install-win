@@ -36,6 +36,8 @@ namespace ZeroInstall.Services.Feeds
     [TestFixture]
     public class FeedManagerTest : TestWithContainer<FeedManager>
     {
+        private static readonly ValidSignature _signature = new ValidSignature("fingerprint", new DateTime(2000, 1, 1));
+
         private Mock<IFeedCache> _feedCacheMock;
         private Mock<ITrustManager> _trustManagerMock;
 
@@ -91,8 +93,7 @@ namespace ZeroInstall.Services.Feeds
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
 
                 // ReSharper disable once AccessToDisposedClosure
-                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, null))
-                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, null)).Returns(_signature);
 
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
             }
@@ -114,8 +115,7 @@ namespace ZeroInstall.Services.Feeds
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, new FeedUri(mirrorServer.FileUri)))
-                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, new FeedUri(mirrorServer.FileUri))).Returns(_signature);
 
                 Resolve<Config>().FeedMirror = mirrorServer.ServerUri;
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
@@ -149,11 +149,10 @@ namespace ZeroInstall.Services.Feeds
 
                 _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature("fingerprint", new DateTime(200, 1, 1))});
+                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {_signature});
 
                 // ReSharper disable once AccessToDisposedClosure
-                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, null))
-                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, null)).Returns(_signature);
 
                 Target.Refresh = true;
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
@@ -196,8 +195,7 @@ namespace ZeroInstall.Services.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = feed.ToXmlString().ToStream().ToArray();
 
-            _trustManagerMock.Setup(x => x.CheckTrust(data, new FeedUri("http://invalid/"), null))
-                .Returns(new ValidSignature("a", new DateTime(2000, 1, 1)));
+            _trustManagerMock.Setup(x => x.CheckTrust(data, new FeedUri("http://invalid/"), null)).Returns(_signature);
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
@@ -212,7 +210,7 @@ namespace ZeroInstall.Services.Feeds
             var data = SignFeed(feed);
 
             // Newer signautre present => replay attack
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))});
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature(_signature.Fingerprint, new DateTime(2002, 1, 1))});
 
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
@@ -229,8 +227,7 @@ namespace ZeroInstall.Services.Feeds
         private byte[] SignFeed(Feed feed)
         {
             var data = feed.ToXmlString().ToStream().ToArray();
-            _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, null)).
-                Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+            _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, null)).Returns(_signature);
             return data;
         }
     }

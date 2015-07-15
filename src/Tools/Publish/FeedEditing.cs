@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Undo;
@@ -106,7 +107,8 @@ namespace ZeroInstall.Publish
         /// <param name="path">The file to save in.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
+        /// <exception cref="KeyNotFoundException">The specified <see cref="Publish.SignedFeed.SecretKey"/> could not be found on the system.</exception>
+        /// <exception cref="WrongPassphraseException"><see cref="Passphrase"/> was incorrect.</exception>
         public void Save([NotNull] string path)
         {
             SignedFeed.Save(path, Passphrase);

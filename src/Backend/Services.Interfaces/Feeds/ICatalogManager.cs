@@ -62,7 +62,6 @@ namespace ZeroInstall.Services.Feeds
         /// <returns>The parsed <see cref="Catalog"/>.</returns>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         [NotNull]
         Catalog DownloadCatalog([NotNull] FeedUri source);

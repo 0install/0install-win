@@ -111,7 +111,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="secretKey">The private key to use for signing the files.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="IOException">The feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the feed file is not permitted.</exception>
         private void SignFiles(OpenPgpSecretKey secretKey, string passphrase)
         {
@@ -142,6 +142,11 @@ namespace ZeroInstall.Publish.WinForms
                 }
                     #region Error handling
                 catch (UnauthorizedAccessException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new IOException(ex.Message, ex);
+                }
+                catch (KeyNotFoundException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
                     throw new IOException(ex.Message, ex);

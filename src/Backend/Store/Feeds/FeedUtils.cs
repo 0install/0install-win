@@ -95,8 +95,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <param name="feedData">The feed data containing an embedded signature.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="SignatureException">The signature data could not be handled.</exception>
+        /// <exception cref="SignatureException">There is no valid signature data embedded in the <paramref name="feedData"/>.</exception>
         public static IEnumerable<OpenPgpSignature> GetSignatures([NotNull] IOpenPgp openPgp, [NotNull] byte[] feedData)
         {
             #region Sanity checks
@@ -109,9 +108,18 @@ namespace ZeroInstall.Store.Feeds
             int signatureStartIndex = GetSignatureStartIndex(feedData);
             if (signatureStartIndex == -1) return Enumerable.Empty<OpenPgpSignature>();
 
-            return openPgp.Verify(
-                IsolateFeed(feedData, signatureStartIndex),
-                IsolateAndDecodeSignature(feedData, signatureStartIndex));
+            var data = IsolateFeed(feedData, signatureStartIndex);
+            var signature = IsolateAndDecodeSignature(feedData, signatureStartIndex);
+            try
+            {
+                return openPgp.Verify(data, signature);
+            }
+                #region Error handling
+            catch (InvalidDataException ex)
+            {
+                throw new SignatureException(Resources.InvalidSignature, ex);
+            }
+            #endregion
         }
 
         /// <summary>
@@ -178,7 +186,6 @@ namespace ZeroInstall.Store.Feeds
                 #region Error handling
             catch (FormatException ex)
             {
-                // Wrap exception since only certain exception types are allowed
                 throw new SignatureException(Resources.XmlSignatureNotBase64 + ex.Message, ex);
             }
             #endregion

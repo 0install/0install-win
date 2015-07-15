@@ -279,10 +279,11 @@ namespace ZeroInstall.Publish.Cli
                 {
                     Debug.Assert(feedEditing.Path != null);
                     feedEditing.SignedFeed.Save(feedEditing.Path, _openPgpPassphrase);
-                    break;
+                    break; // Exit loop if passphrase is correct
                 }
                 catch (WrongPassphraseException ex)
                 {
+                    // Continue loop if passhrase is incorrect
                     if (!string.IsNullOrEmpty(_openPgpPassphrase)) Log.Error(ex);
                 }
 
@@ -310,10 +311,11 @@ namespace ZeroInstall.Publish.Cli
                     try
                     {
                         signedCatalog.Save(_catalogFile, _openPgpPassphrase);
-                        break;
+                        break; // Exit loop if passphrase is correct
                     }
                     catch (WrongPassphraseException ex)
                     {
+                        // Continue loop if passhrase is incorrect
                         if (!string.IsNullOrEmpty(_openPgpPassphrase)) Log.Error(ex);
                     }
 

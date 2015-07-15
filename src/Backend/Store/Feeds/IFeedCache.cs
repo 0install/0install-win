@@ -55,8 +55,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="SignatureException">The signature data could not be handled.</exception>
+        /// <exception cref="SignatureException">There is no valid signature data embedded in the feed data.</exception>
         IEnumerable<OpenPgpSignature> GetSignatures([NotNull] FeedUri feedUri);
 
         /// <summary>

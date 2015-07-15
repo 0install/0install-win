@@ -19,12 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
-using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Trust
 {
@@ -34,32 +31,119 @@ namespace ZeroInstall.Store.Trust
     /// <remarks>This class is immutable and thread-safe.</remarks>
     public partial class GnuPG : IOpenPgp
     {
-        #region Keys
         /// <inheritdoc/>
-        public void ImportKey(byte[] data)
+        public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
         {
-            new CliControlData(data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            if (signature == null) throw new ArgumentNullException("signature");
+            #endregion
+
+            string result;
+            using (var signatureFile = new TemporaryFile("0install-sig"))
+            {
+                File.WriteAllBytes(signatureFile, signature);
+                result = new CliControl(data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
+            }
+            string[] lines = result.SplitMultilineText();
+
+            // Each signature is represented by one line of encoded information
+            var signatures = new List<OpenPgpSignature>(lines.Length);
+            foreach (var line in lines)
+            {
+                try
+                {
+                    var parsedSignature = ParseSignatureLine(line);
+                    if (parsedSignature != null) signatures.Add(parsedSignature);
+                }
+                    #region Error handling
+                catch (FormatException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new IOException(ex.Message, ex);
+                }
+                #endregion
+            }
+
+            return signatures;
+        }
+
+        /// <summary>
+        /// Parses information about a signature from a console line.
+        /// </summary>
+        /// <param name="line">The console line containing the signature information.</param>
+        /// <returns>The parsed signature representation; <see langword="null"/> if <paramref name="line"/> did not contain any signature information.</returns>
+        /// <exception cref="FormatException"><paramref name="line"/> contains incorrectly formatted signature information.</exception>
+        [CanBeNull]
+        private static OpenPgpSignature ParseSignatureLine([NotNull] string line)
+        {
+            const int signatureTypeIndex = 1, fingerprintIndex = 2, timestampIndex = 4, keyIDIndex = 2, errorCodeIndex = 7;
+
+            string[] signatureParts = line.Split(' ');
+            if (signatureParts.Length < signatureTypeIndex + 1) return null;
+            switch (signatureParts[signatureTypeIndex])
+            {
+                case "VALIDSIG":
+                    if (signatureParts.Length != 12) throw new FormatException("Incorrect number of columns in VALIDSIG line.");
+                    return new ValidSignature(
+                        signatureParts[fingerprintIndex],
+                        FileUtils.FromUnixTime(Int64.Parse(signatureParts[timestampIndex])));
+
+                case "BADSIG":
+                    if (signatureParts.Length < 3) throw new FormatException("Incorrect number of columns in BADSIG line.");
+                    return new BadSignature(signatureParts[keyIDIndex]);
+
+                case "ERRSIG":
+                    if (signatureParts.Length != 8) throw new FormatException("Incorrect number of columns in ERRSIG line.");
+                    int errorCode = Int32.Parse(signatureParts[errorCodeIndex]);
+                    switch (errorCode)
+                    {
+                        case 9:
+                            return new MissingKeySignature(signatureParts[keyIDIndex]);
+                        default:
+                            return new ErrorSignature(signatureParts[keyIDIndex]);
+                    }
+
+                default:
+                    return null;
+            }
         }
 
         /// <inheritdoc/>
-        public OpenPgpSecretKey GetSecretKey(string keySpecifier = null)
+        public byte[] Sign(byte[] data, OpenPgpSecretKey secretKey, string passphrase = null)
         {
-            // Get all available secret keys
-            var secretKeys = ListSecretKeys();
-
-            // Find the first secret key that matches the key specifier
-            try
-            {
-                return string.IsNullOrEmpty(keySpecifier)
-                    ? secretKeys.First()
-                    : secretKeys.First(key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier));
-            }
-                #region Error handling
-            catch
-            {
-                throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
-            }
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
+
+            string output = new CliControl(passphrase ?? "", data).Execute("--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
+            string signatureBase64 = output
+                .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
+                .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")
+                .Replace(Environment.NewLine, "\n");
+            return Convert.FromBase64String(signatureBase64);
+        }
+
+        /// <inheritdoc/>
+        public void ImportKey(byte[] data)
+        {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            #endregion
+
+            new CliControl(data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
+        }
+
+        /// <inheritdoc/>
+        public string ExportKey(OpenPgpSecretKey secretKey)
+        {
+            #region Sanity checks
+            if (secretKey == null) throw new ArgumentNullException("secretKey");
+            #endregion
+
+            return new CliControl().Execute("--batch", "--no-secmem-warning", "--armor", "--export", secretKey.KeyID)
+                .Replace(Environment.NewLine, "\n") + "\n";
         }
 
         /// <inheritdoc/>
@@ -75,7 +159,8 @@ namespace ZeroInstall.Store.Trust
                 {
                     case "sec":
                         // New element starting
-                        if (sec != null && fpr != null && uid != null) yield return ParseSecretKey(sec, fpr, uid);
+                        if (sec != null && fpr != null && uid != null)
+                            yield return ParseSecretKey(sec, fpr, uid);
                         sec = parts;
                         fpr = null;
                         uid = null;
@@ -91,28 +176,13 @@ namespace ZeroInstall.Store.Trust
                 }
             }
 
-            if (sec != null && fpr != null && uid != null) yield return ParseSecretKey(sec, fpr, uid);
+            if (sec != null && fpr != null && uid != null)
+                yield return ParseSecretKey(sec, fpr, uid);
         }
 
-        [NotNull]
-        private static OpenPgpSecretKey ParseSecretKey([NotNull] string[] sec, [NotNull] string[] fpr, [NotNull] string[] uid)
+        private static OpenPgpSecretKey ParseSecretKey(string[] sec, string[] fpr, string[] uid)
         {
-            return new OpenPgpSecretKey(
-                fpr[9], sec[4], uid[9],
-                FileUtils.FromUnixTime(long.Parse(sec[5])), (OpenPgpAlgorithm)int.Parse(sec[3]), int.Parse(sec[2]));
-        }
-
-        /// <inheritdoc/>
-        public string GetPublicKey(string keySpecifier)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
-            #endregion
-
-            var arguments = new[] {"--batch", "--no-secmem-warning", "--armor", "--export"};
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments = arguments.Append(keySpecifier);
-
-            return new CliControl().Execute(arguments);
+            return new OpenPgpSecretKey(keyID: sec[4], fingerprint: fpr[9], userID: uid[9]);
         }
 
         /// <summary>
@@ -124,67 +194,5 @@ namespace ZeroInstall.Store.Trust
         {
             return new CliControl().StartInteractive("--gen-key");
         }
-        #endregion
-
-        #region Sign
-        /// <inheritdoc/>
-        public string DetachSign(Stream stream, string keySpecifier, string passphrase = null)
-        {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
-            #endregion
-
-            var arguments = string.IsNullOrEmpty(keySpecifier)
-                ? new[] {"--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--detach-sign", "--armor", "--output", "-", "-"}
-                : new[] {"--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--local-user", keySpecifier, "--detach-sign", "--armor", "--output", "-", "-"};
-
-            string output = new CliControlStream(passphrase, stream).Execute(arguments);
-
-            return output
-                .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
-                .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")
-                .Replace(Environment.NewLine, "\n");
-        }
-        #endregion
-
-        #region Verify
-        /// <inheritdoc/>
-        public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
-        {
-            #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (signature == null) throw new ArgumentNullException("signature");
-            #endregion
-
-            string result;
-            using (var signatureFile = new TemporaryFile("0install-sig"))
-            {
-                File.WriteAllBytes(signatureFile, signature);
-                result = new CliControlData(data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
-            }
-            string[] lines = result.SplitMultilineText();
-
-            // Each signature is represented by one line of encoded information
-            var signatures = new List<OpenPgpSignature>(lines.Length);
-            foreach (var line in lines)
-            {
-                try
-                {
-                    var parsedSignature = OpenPgpSignature.Parse(line);
-                    if (parsedSignature != null) signatures.Add(parsedSignature);
-                }
-                    #region Error handling
-                catch (FormatException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new IOException(ex.Message, ex);
-                }
-                #endregion
-            }
-
-            return signatures;
-        }
-        #endregion
     }
 }

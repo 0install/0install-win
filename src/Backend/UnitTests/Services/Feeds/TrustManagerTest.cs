@@ -40,8 +40,9 @@ namespace ZeroInstall.Services.Feeds
         private static readonly string _signatureBase64 = Convert.ToBase64String(_signatureBytes).Insert(10, "\n");
         private static readonly byte[] _combinedBytes = Encoding.UTF8.GetBytes(FeedText + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd);
 
-        private static readonly ValidSignature _signature = new ValidSignature("123abc", new DateTime(2000, 1, 1));
-        private static readonly byte[] _keyData = {16, 32, 64};
+        private static readonly byte[] _keyData = Encoding.ASCII.GetBytes("key");
+        private static readonly ValidSignature _signature = new ValidSignature("0123456789ABCDEF0123456789ABCDEF01234567", new DateTime(2000, 1, 1));
+        private const string KeyID = "89ABCDEF01234567";
 
         private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
         #endregion
@@ -73,7 +74,7 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void BadSignature()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(_signature.Fingerprint)});
+            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123)});
 
             Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
@@ -82,7 +83,7 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void MultipleSignatures()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature("xyz"), _signature});
+            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123), _signature});
             TrustKey();
 
             Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
@@ -143,7 +144,7 @@ namespace ZeroInstall.Services.Feeds
             ExpectKeyImport();
             MockHandler.AnswerQuestionWith = false;
 
-            using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
+            using (var server = new MicroServer(KeyID + ".gpg", new MemoryStream(_keyData)))
                 Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
         }
@@ -154,7 +155,7 @@ namespace ZeroInstall.Services.Feeds
             ExpectKeyImport();
             MockHandler.AnswerQuestionWith = true;
 
-            using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
+            using (var server = new MicroServer(KeyID + ".gpg", new MemoryStream(_keyData)))
                 Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
@@ -165,7 +166,7 @@ namespace ZeroInstall.Services.Feeds
             ExpectKeyImport();
             MockHandler.AnswerQuestionWith = true;
 
-            using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
+            using (var server = new MicroServer(KeyID + ".gpg", new MemoryStream(_keyData)))
                 Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml"), mirrorUrl: new FeedUri(server.ServerUri.AbsoluteUri + "test.xml")));
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
@@ -177,7 +178,17 @@ namespace ZeroInstall.Services.Feeds
 
         private static void TrustKey()
         {
-            new TrustDB {Keys = {new Key {Domains = {new Domain("localhost")}, Fingerprint = _signature.Fingerprint}}}.Save();
+            new TrustDB
+            {
+                Keys =
+                {
+                    new Key
+                    {
+                        Domains = {new Domain("localhost")},
+                        Fingerprint = _signature.Fingerprint
+                    }
+                }
+            }.Save();
         }
 
         private static bool IsKeyTrusted { get { return TrustDB.LoadSafe().IsTrusted(_signature.Fingerprint, new Domain {Value = "localhost"}); } }
@@ -185,7 +196,7 @@ namespace ZeroInstall.Services.Feeds
         private void ExpectKeyImport()
         {
             _openPgpMock.SetupSequence(x => x.Verify(_feedBytes, _signatureBytes))
-                .Returns(new OpenPgpSignature[] {new MissingKeySignature(_signature.Fingerprint)})
+                .Returns(new OpenPgpSignature[] {new MissingKeySignature(KeyID)})
                 .Returns(new OpenPgpSignature[] {_signature});
             _openPgpMock.Setup(x => x.ImportKey(_keyData));
         }

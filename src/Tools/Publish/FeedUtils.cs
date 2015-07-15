@@ -61,14 +61,16 @@ namespace ZeroInstall.Publish
         /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read or written.</exception>
-        /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
+        /// <exception cref="IOException">The file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
+        /// <exception cref="WrongPassphraseException"><paramref name="passphrase"/> was incorrect.</exception>
         /// <remarks>
         /// The file is not parsed before signing; invalid XML files are signed as well.
         /// The existing file must end with a line break.
         /// Old signatures are not removed.
         /// </remarks>
-        public static void SignFeed([NotNull] Stream stream, [NotNull] OpenPgpSecretKey secretKey, string passphrase, [NotNull] IOpenPgp openPgp)
+        public static void SignFeed([NotNull] Stream stream, [NotNull] OpenPgpSecretKey secretKey, [CanBeNull] string passphrase, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -77,12 +79,12 @@ namespace ZeroInstall.Publish
             #endregion
 
             // Calculate the signature in-memory
-            string signature = openPgp.DetachSign(stream, secretKey.Fingerprint, passphrase);
+            var signature = openPgp.Sign(stream.ReadAll(), secretKey, passphrase);
 
             // Add the signature to the end of the file
-            var writer = new StreamWriter(stream, encoding: Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"};
+            var writer = new StreamWriter(stream, Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"};
             writer.Write(Store.Feeds.FeedUtils.SignatureBlockStart);
-            writer.WriteLine(signature);
+            writer.WriteLine(Convert.ToBase64String(signature));
             writer.Write(Store.Feeds.FeedUtils.SignatureBlockEnd);
             writer.Flush();
         }
@@ -93,8 +95,9 @@ namespace ZeroInstall.Publish
         /// <param name="path">The directory to write the key file to.</param>
         /// <param name="secretKey">The secret key to get the public kyey for.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read or written.</exception>
+        /// <exception cref="IOException">The file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
         public static void DeployPublicKey([NotNull] string path, [NotNull] OpenPgpSecretKey secretKey, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
@@ -105,7 +108,7 @@ namespace ZeroInstall.Publish
 
             File.WriteAllText(
                 path: Path.Combine(path, secretKey.KeyID + ".gpg"),
-                contents: openPgp.GetPublicKey(secretKey.Fingerprint),
+                contents: openPgp.ExportKey(secretKey),
                 encoding: Encoding.ASCII);
         }
 
@@ -116,7 +119,7 @@ namespace ZeroInstall.Publish
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <returns>The key used to sign the file; <see langword="null"/> if the file was not signed.</returns>
         /// <exception cref="FileNotFoundException">The file file could not be found.</exception>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read.</exception>
+        /// <exception cref="IOException">The file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         [CanBeNull]
         public static OpenPgpSecretKey GetKey([NotNull] string path, [NotNull] IOpenPgp openPgp)
@@ -128,24 +131,25 @@ namespace ZeroInstall.Publish
 
             try
             {
-                var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
+                var signature = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path))
+                    .OfType<ValidSignature>().FirstOrDefault();
+                if (signature == null) return null;
 
-                foreach (var signature in signatures.OfType<ValidSignature>())
-                    return openPgp.GetSecretKey(signature.Fingerprint);
+                return openPgp.GetSecretKey(signature.Fingerprint);
             }
                 #region Error handling
             catch (KeyNotFoundException)
             {
                 Log.Info(Resources.SecretKeyNotInKeyring);
+                return null;
             }
             catch (SignatureException ex)
             {
                 // Unable to parse the signature
                 Log.Error(ex);
+                return null;
             }
             #endregion
-
-            return null;
         }
     }
 }

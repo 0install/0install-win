@@ -16,98 +16,78 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Trust
 {
-
-    #region Enumerations
-    /// <seealso cref="OpenPgpSecretKey.Algorithm"/>
-    [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
-    public enum OpenPgpAlgorithm
-    {
-        ///<summary>The algorithm used is unknown.</summary>
-        Unknown = 0,
-
-        /// <summary>RSA crypto system</summary>
-        Rsa = 1,
-
-        /// <summary>Elgamal crypto system</summary>
-        Elgamal = 16,
-
-        /// <summary>DAS crypto system</summary>
-        Dsa = 17
-    }
-    #endregion
-
     /// <summary>
     /// Represents a secret key stored in a local <see cref="IOpenPgp"/> profile.
     /// </summary>
-    /// <seealso cref="IOpenPgp.GetSecretKey"/>
     /// <seealso cref="IOpenPgp.ListSecretKeys"/>
     public sealed class OpenPgpSecretKey : IEquatable<OpenPgpSecretKey>
     {
         /// <summary>
-        /// A unique identifier string for the key.
-        /// </summary>
-        [NotNull]
-        public string Fingerprint { get; private set; }
-
-        /// <summary>
-        /// A short identifier string for the key.
+        /// A short identifier for the key.
         /// </summary>
         [NotNull]
         public string KeyID { get; private set; }
 
         /// <summary>
-        /// The user's name, e-mail address, etc.
+        /// A short identifier for the key.
+        /// </summary>
+        internal readonly long KeyIDParsed;
+
+        /// <summary>
+        /// A long identifier for the key.
+        /// </summary>
+        [NotNull]
+        internal readonly byte[] Fingerprint;
+
+        /// <summary>
+        /// The user's name, e-mail address, etc. of the key owner.
         /// </summary>
         [NotNull]
         public string UserID { get; private set; }
 
         /// <summary>
-        /// The point in time when the key was created in UTC.
+        /// Creates a new <see cref="IOpenPgp"/> secret key representation.
         /// </summary>
-        public DateTime CreationTime { get; private set; }
+        /// <param name="keyID">A short identifier for the key.</param>
+        /// <param name="fingerprint">A long identifier for the key.</param>
+        /// <param name="userID">The user's name, e-mail address, etc. of the key owner.</param>
+        public OpenPgpSecretKey(long keyID, [NotNull] byte[] fingerprint, [NotNull] string userID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(userID)) throw new ArgumentNullException("userID");
+            if (fingerprint == null) throw new ArgumentNullException("fingerprint");
+            #endregion
 
-        /// <summary>
-        /// The encryption algorithm used.
-        /// </summary>
-        public OpenPgpAlgorithm Algorithm { get; private set; }
-
-        /// <summary>
-        /// The length of key in bits.
-        /// </summary>
-        public int BitLength { get; private set; }
+            KeyIDParsed = keyID;
+            KeyID = OpenPgpUtils.FormatKeyID(keyID);
+            Fingerprint = fingerprint;
+            UserID = userID;
+        }
 
         /// <summary>
         /// Creates a new <see cref="IOpenPgp"/> secret key representation.
         /// </summary>
-        /// <param name="fingerprint"> A unique identifier string for the key.</param>
-        /// <param name="keyID">A short identifier string for the key.</param>
-        /// <param name="userID">The user's name, e-mail address, etc.</param>
-        /// <param name="creationTime">The point in time when the key was created in UTC.</param>
-        /// <param name="algorithm">The encryption algorithm used.</param>
-        /// <param name="bitLength">The length of key in bits.</param>
-        public OpenPgpSecretKey([NotNull] string fingerprint, [NotNull] string keyID, [NotNull] string userID, DateTime creationTime, OpenPgpAlgorithm algorithm, int bitLength)
+        /// <param name="keyID">A short identifier for the key.</param>
+        /// <param name="fingerprint">A long identifier for the key.</param>
+        /// <param name="userID">The user's name, e-mail address, etc. of the key owner.</param>
+        /// <exception cref="FormatException">The string format of <paramref name="keyID"/> or <paramref name="fingerprint"/> is not valid.</exception>
+        public OpenPgpSecretKey([NotNull] string keyID, [NotNull] string fingerprint, [NotNull] string userID)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
-            if (string.IsNullOrEmpty(keyID)) throw new ArgumentNullException("keyID");
-            if (string.IsNullOrEmpty(userID)) throw new ArgumentNullException("userID");
-            #endregion
-
-            Fingerprint = fingerprint;
+            KeyIDParsed = OpenPgpUtils.ParseKeyID(keyID);
             KeyID = keyID;
+            Fingerprint = OpenPgpUtils.ParseFingerpint(fingerprint);
             UserID = userID;
-            CreationTime = creationTime;
-            Algorithm = algorithm;
-            BitLength = bitLength;
         }
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the secret key in the form "UserID". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
             return UserID;
@@ -119,7 +99,7 @@ namespace ZeroInstall.Store.Trust
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Fingerprint == other.Fingerprint && KeyID == other.KeyID && UserID == other.UserID && CreationTime == other.CreationTime && Algorithm == other.Algorithm && BitLength == other.BitLength;
+            return KeyIDParsed == other.KeyIDParsed && Fingerprint.SequencedEquals(other.Fingerprint) && UserID == other.UserID;
         }
 
         public override bool Equals(object obj)
@@ -133,12 +113,9 @@ namespace ZeroInstall.Store.Trust
         {
             unchecked
             {
-                var hashCode = Fingerprint.GetHashCode();
-                hashCode = (hashCode * 397) ^ KeyID.GetHashCode();
+                var hashCode = KeyIDParsed.GetHashCode();
+                hashCode = (hashCode * 397) ^ Fingerprint.GetSequencedHashCode();
                 hashCode = (hashCode * 397) ^ UserID.GetHashCode();
-                hashCode = (hashCode * 397) ^ CreationTime.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int)Algorithm;
-                hashCode = (hashCode * 397) ^ BitLength;
                 return hashCode;
             }
         }

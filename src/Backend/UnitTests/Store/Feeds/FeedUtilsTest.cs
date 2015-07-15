@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignatures()
         {
             var openPgpMock = MockRepository.Create<IOpenPgp>();
-            var result = new OpenPgpSignature[] {new ValidSignature("123", new DateTime(2000, 1, 1))};
+            var result = new OpenPgpSignature[] {new ValidSignature("fingerprint", new DateTime(2000, 1, 1))};
             openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(result);
 
             string input = FeedText + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd;

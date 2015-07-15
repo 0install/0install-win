@@ -35,7 +35,6 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="uri">The URI the feed or catalog file originally came from.</param>
         /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <exception cref="SignatureException">No trusted signature was found.</exception>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UriFormatException"><paramref name="uri"/> is a local file.</exception>
         [NotNull]
         ValidSignature CheckTrust([NotNull] byte[] data, [NotNull] FeedUri uri, [CanBeNull] FeedUri mirrorUrl = null);

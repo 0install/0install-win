@@ -16,8 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
@@ -41,6 +43,35 @@ namespace ZeroInstall.Store.Trust
 
             private static readonly object _gpgLock = new object();
 
+            [CanBeNull]
+            private readonly string _stdinLine;
+
+            [CanBeNull]
+            private readonly byte[] _stdinBytes;
+
+            /// <summary>
+            /// Does not write anything to stdin.
+            /// </summary>
+            public CliControl()
+            {}
+
+            /// <summary>
+            /// Writes a set of bytes to stdin.
+            /// </summary>
+            public CliControl([NotNull] byte[] stdinBytes)
+            {
+                _stdinBytes = stdinBytes;
+            }
+
+            /// <summary>
+            /// Writes a string terminating with a newline followed by a set of bytes to stdin.
+            /// </summary>
+            public CliControl([NotNull] string stdinLine, [NotNull] byte[] stdinBytes)
+            {
+                _stdinLine = stdinLine;
+                _stdinBytes = stdinBytes;
+            }
+
             /// <inheritdoc/>
             public override string Execute(params string[] arguments)
             {
@@ -59,12 +90,36 @@ namespace ZeroInstall.Store.Trust
                 return startInfo;
             }
 
+            protected override void InitStdin(StreamWriter writer)
+            {
+                #region Sanity checks
+                if (writer == null) throw new ArgumentNullException("writer");
+                #endregion
+
+                if (_stdinLine != null)
+                {
+                    writer.WriteLine(_stdinLine);
+                    writer.Flush();
+                }
+                if (_stdinBytes != null)
+                {
+                    writer.BaseStream.Write(_stdinBytes);
+                    writer.BaseStream.Flush();
+                }
+                writer.Close();
+            }
+
             /// <inheritdoc/>
             protected override string HandleStderr(string line)
             {
                 #region Sanity checks
                 if (line == null) throw new ArgumentNullException("line");
                 #endregion
+
+                if (line == "gpg: no valid OpenPGP data found.")
+                    throw new InvalidDataException(line);
+                if (line == "gpg: signing failed: secret key not available" || line == "gpg: WARNING: nothing exported")
+                    throw new KeyNotFoundException(line);
 
                 if (line.StartsWith("gpg: Signature made ") ||
                     line.StartsWith("gpg: Good signature from ") ||
@@ -102,55 +157,6 @@ namespace ZeroInstall.Store.Trust
                 // Unknown GnuPG message
                 Log.Warn(line);
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Manages the interaction with the command-line interface of the external process. Writes a data array to stdin.
-        /// </summary>
-        private class CliControlData : CliControl
-        {
-            private readonly byte[] _stdinData;
-
-            public CliControlData(byte[] stdinData)
-            {
-                _stdinData = stdinData;
-            }
-
-            protected override void InitStdin(StreamWriter writer)
-            {
-                #region Sanity checks
-                if (writer == null) throw new ArgumentNullException("writer");
-                #endregion
-
-                writer.BaseStream.Write(_stdinData, 0, _stdinData.Length);
-                writer.Close();
-            }
-        }
-
-        /// <summary>
-        /// Manages the interaction with the command-line interface of the external process. Writes a text-line and a stream to stdin.
-        /// </summary>
-        private class CliControlStream : CliControl
-        {
-            private readonly string _stdinLine;
-            private readonly Stream _stdinStream;
-
-            public CliControlStream(string stdinLine, Stream stdinStream)
-            {
-                _stdinLine = stdinLine;
-                _stdinStream = stdinStream;
-            }
-
-            protected override void InitStdin(StreamWriter writer)
-            {
-                #region Sanity checks
-                if (writer == null) throw new ArgumentNullException("writer");
-                #endregion
-
-                writer.WriteLine(_stdinLine ?? "");
-                _stdinStream.CopyTo(writer.BaseStream);
-                writer.Close();
             }
         }
     }

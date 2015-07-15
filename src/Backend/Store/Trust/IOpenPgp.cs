@@ -16,7 +16,6 @@
  */
 
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 
@@ -25,61 +24,57 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Provides access to an encryption/signature system compatible with the OpenPGP standard.
     /// </summary>
-    /// <remarks>Implementations of this interface are immutable and thread-safe.</remarks>
+    /// <remarks>Implementations of this interface are thread-safe.</remarks>
     public interface IOpenPgp
     {
         /// <summary>
-        /// Imports a key into the keyring.
+        /// Verifys a detached OpenPGP signature.
         /// </summary>
-        /// <param name="data">The key data to be imported.</param>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        /// <param name="data">The data the signature is for.</param>
+        /// <param name="signature">The signature in binary format.</param>
+        /// <returns>A list of signatures found, both valid and invalid. <seealso cref="MissingKeySignature"/> results indicate you need to use <seealso cref="ImportKey"/>.</returns>
+        /// <exception cref="InvalidDataException"><paramref name="signature"/> does not contain valid signature data.</exception>
+        /// <seealso cref="Sign"/>
+        [NotNull, ItemNotNull]
+        IEnumerable<OpenPgpSignature> Verify([NotNull] byte[] data, [NotNull] byte[] signature);
+
+        /// <summary>
+        /// Creates a detached OpenPGP signature using a specific secret key.
+        /// </summary>
+        /// <param name="data">The data to sign.</param>
+        /// <param name="secretKey">The secret key to use for signing.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
+        /// <returns>The signature in binary format).</returns>
+        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
+        /// <exception cref="WrongPassphraseException"><paramref name="passphrase"/> was incorrect.</exception>
+        /// <seealso cref="Verify"/>
+        [NotNull]
+        byte[] Sign([NotNull] byte[] data, [NotNull] OpenPgpSecretKey secretKey, [CanBeNull] string passphrase = null);
+
+        /// <summary>
+        /// Imports a public key into the keyring.
+        /// </summary>
+        /// <param name="data">The public key in binary or ASCII Armored format.</param>
+        /// <exception cref="InvalidDataException"><paramref name="data"/> does not contain a valid public key.</exception>
+        /// <seealso cref="ExportKey"/>
         void ImportKey([NotNull] byte[] data);
 
         /// <summary>
-        /// Returns information about the secret key for specific keypair.
+        /// Exports the public key for a specific secret key in the keyring.
         /// </summary>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
-        /// <exception cref="KeyNotFoundException">The specified key could not be found on the system.</exception>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        /// <param name="secretKey">The secret key to the get the public key for.</param>
+        /// <returns>The public key in ASCII Armored format. Always uses Unix-style linebreaks.</returns>
+        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
+        /// <seealso cref="ImportKey"/>
         [NotNull]
-        OpenPgpSecretKey GetSecretKey([CanBeNull] string keySpecifier = null);
+        string ExportKey([NotNull] OpenPgpSecretKey secretKey);
 
         /// <summary>
-        /// Returns a list of information about available secret keys.
+        /// Returns a list of secret keys in the keyring.
         /// </summary>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        /// <seealso cref="Sign"/>
+        /// <seealso cref="ExportKey"/>
         [NotNull, ItemNotNull]
         IEnumerable<OpenPgpSecretKey> ListSecretKeys();
-
-        /// <summary>
-        /// Returns the public key for specific keypair.
-        /// </summary>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
-        /// <returns>The public key in ASCII Armored format.</returns>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        [NotNull]
-        string GetPublicKey([NotNull] string keySpecifier);
-
-        /// <summary>
-        /// Creates a detached signature for a stream using a specific secret key.
-        /// </summary>
-        /// <param name="stream">The data to sign.</param>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
-        /// <returns>The signature as a Base64 encoded string.</returns>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
-        [NotNull]
-        string DetachSign([NotNull] Stream stream, [NotNull] string keySpecifier, [CanBeNull] string passphrase = null);
-
-        /// <summary>
-        /// Validates data signed by one or more keys.
-        /// </summary>
-        /// <param name="data">The data that is signed as a byte array.</param>
-        /// <param name="signature">The signature data as a byte array.</param>
-        /// <returns>A list of signatures found, both valid and invalid.</returns>
-        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        [NotNull, ItemNotNull]
-        IEnumerable<OpenPgpSignature> Verify([NotNull] byte[] data, [NotNull] byte[] signature);
     }
 }

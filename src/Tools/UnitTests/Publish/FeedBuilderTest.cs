@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish
             _builder.Uri = new FeedUri("http://0install.de/feeds/test/test1.xml");
             _builder.Icons.Add(new Icon {MimeType = Icon.MimeTypePng, Href = new Uri("http://0install.de/test.png")});
             _builder.Icons.Add(new Icon {MimeType = Icon.MimeTypeIco, Href = new Uri("http://0install.de/test.ico")});
-            _builder.SecretKey = new OpenPgpSecretKey("fingerprint", "key", "user", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 1024);
+            _builder.SecretKey = new OpenPgpSecretKey(keyID: 123, fingerprint: new byte[] {1, 2, 3}, userID: "user");
             var signedFeed = _builder.Build();
 
             Assert.AreEqual(expected: _builder.MainCandidate.Name, actual: signedFeed.Feed.Name);

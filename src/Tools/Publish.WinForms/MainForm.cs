@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -230,10 +231,13 @@ namespace ZeroInstall.Publish.WinForms
                     try
                     {
                         FeedEditing.Save(path);
-                        break;
+                        break; // Exit loop if passphrase is correct
                     }
-                    catch (WrongPassphraseException)
-                    {}
+                    catch (WrongPassphraseException ex)
+                    {
+                        // Continue loop if passhrase is incorrect
+                        Log.Error(ex);
+                    }
 
                     // Ask for passphrase to unlock secret key if we were unable to save without it
                     FeedEditing.Passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, FeedEditing.SignedFeed.SecretKey), password: true);
@@ -251,6 +255,11 @@ namespace ZeroInstall.Publish.WinForms
                     throw new OperationCanceledException();
                 }
                 catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    throw new OperationCanceledException();
+                }
+                catch (KeyNotFoundException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     throw new OperationCanceledException();

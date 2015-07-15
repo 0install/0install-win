@@ -15,45 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
-using System.Linq;
-using NanoByte.Common.Storage;
-using NanoByte.Common.Streams;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
-    /// Contains test methods for <see cref="GnuPG"/>.
+    /// Runs test methods for <see cref="GnuPG"/>.
     /// </summary>
     [TestFixture]
-    public class GnuPGTest : TestWithContainer<GnuPG>
-    {
-        [Test]
-        public void TestImportExport()
-        {
-            const string testKeyID = "5B5CB97421BAA5DC";
-            using (var stream = typeof(GnuPGTest).GetEmbeddedStream(testKeyID + ".gpg"))
-                Target.ImportKey(stream.ReadAll());
-            Assert.IsTrue(Target.GetPublicKey(testKeyID).StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
-        }
-
-        [Test]
-        public void TestDetachSignAndVerify()
-        {
-            const string testKeyID = "E91FE1CBFCCF315543F6CB13DEED44B49BE24661";
-            var data = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-            var stream = new MemoryStream(data);
-
-            typeof(GnuPGTest).WriteEmbeddedFile("pubring.gpg", Locations.GetSaveConfigPath("0install.net", true, "gnupg", "pubring.gpg"));
-            typeof(GnuPGTest).WriteEmbeddedFile("secring.gpg", Locations.GetSaveConfigPath("0install.net", true, "gnupg", "secring.gpg"));
-
-            var signatureData = Convert.FromBase64String(Target.DetachSign(stream, "test@0install.de"));
-            Assert.That(signatureData.Length, Is.GreaterThan(10));
-
-            var signatures = Target.Verify(data, signatureData);
-            Assert.AreEqual(testKeyID, ((ValidSignature)signatures.Single()).Fingerprint);
-        }
-    }
+    public class GnuPGTest : OpenPgpTest<GnuPG>
+    {}
 }

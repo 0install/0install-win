@@ -234,9 +234,11 @@
     <Compile Include="Trust\GnuPG.CliControl.cs" />
     <Compile Include="Trust\IOpenPgp.cs" />
     <Compile Include="Trust\Key.cs" />
+    <Compile Include="Trust\OpenPgpExtensions.cs" />
     <Compile Include="Trust\OpenPgpFactory.cs" />
     <Compile Include="Trust\OpenPgpSecretKey.cs" />
     <Compile Include="Trust\OpenPgpSignature.cs" />
+    <Compile Include="Trust\OpenPgpUtils.cs" />
     <Compile Include="Trust\SignatureException.cs" />
     <Compile Include="Trust\TrustDB.cs" />
     <Compile Include="Trust\WrongPassphraseException.cs" />
