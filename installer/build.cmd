@@ -14,7 +14,10 @@ if not exist "%INNOSETUP_DIR%" (
   pause
   goto end
 )
-if "%WIX_DIR%" == "" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v3.9
+if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v4.0" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v4.0
+if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v3.10" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v3.10
+if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v3.9" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v3.9
+
 if not exist "%WIX_DIR%" (
   echo ERROR: No WiX Toolset installation found. >&2
   echo Download here: http://www.wixtoolset.org/releases/ >&2
