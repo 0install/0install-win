@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Model
             if (version == null) throw new ArgumentNullException("version");
             #endregion
 
-            _parts = new VersionRangePart[] { new VersionRangeExact(version) };
+            _parts = new VersionRangePart[] {new VersionRangeExact(version)};
         }
 
         /// <summary>

@@ -23,7 +23,6 @@ using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store
 {
