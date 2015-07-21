@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
+using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Trust
@@ -24,5 +27,12 @@ namespace ZeroInstall.Store.Trust
     /// </summary>
     [TestFixture]
     public class GnuPGTest : OpenPgpTest<GnuPG>
-    {}
+    {
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            if (WindowsUtils.IsWindows && !File.Exists(Path.Combine(Locations.InstallBase, "..", "..", "..", "bundled", "GnuPG", "gpg.exe")))
+                Assert.Ignore("GnuPG Windows executable not bundled");
+        }
+    }
 }

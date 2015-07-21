@@ -7,7 +7,7 @@ Directory structure
 - The directory `modeling` contains UML and other diagrams.
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
 - The directory `installer` contains scripts for creating a Windows installer for Zero Install.
-- The directory `bundled` contains a portable GnuPG distribution (Windows only) and an external solver (all platforms).
+- The directory `bundled` contains an external solver (all platforms).
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
   - Debug: Contains Debug builds produced from the source code.
   - Release: Contains Release builds produced from the source code.

@@ -320,6 +320,9 @@ namespace ZeroInstall.Updater
             {
                 foreach (string file in GetFilesToDelete())
                     File.Delete(file);
+
+                if (NewVersion >= new Version("2.9"))
+                    Directory.Delete(Path.Combine(Target, "GnuPG"));
             });
         }
 
@@ -358,6 +361,9 @@ namespace ZeroInstall.Updater
                 };
                 paths.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
             }
+
+            if (NewVersion >= new Version("2.9"))
+                paths.AddRange(FileUtils.GetFilesRecursive(Path.Combine(Target, "GnuPG")));
 
             return paths.Where(File.Exists).ToArray();
         }

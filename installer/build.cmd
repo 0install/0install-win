@@ -39,7 +39,7 @@ zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" . --exclude *.xml *.pdb 
 if errorlevel 1 pause
 
 cd /d "%~dp0..\bundled"
-zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" GnuPG Solver
+zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" Solver
 if errorlevel 1 pause
 
 
