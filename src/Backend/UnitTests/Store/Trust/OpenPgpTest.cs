@@ -31,6 +31,24 @@ namespace ZeroInstall.Store.Trust
     /// </summary>
     public abstract class OpenPgpTest<T> : TestWithContainer<T> where T : class, IOpenPgp
     {
+        private TemporaryDirectory _homeDir;
+
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+
+            Target.HomeDir = _homeDir = new TemporaryDirectory("0install-unit-test");
+        }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            if (_homeDir != null) _homeDir.Dispose();
+        }
+
         private readonly OpenPgpSecretKey _secretKey = new OpenPgpSecretKey(
             keyID: "DEED44B49BE24661",
             fingerprint: "E91FE1CBFCCF315543F6CB13DEED44B49BE24661",
@@ -82,6 +100,7 @@ namespace ZeroInstall.Store.Trust
             var signatureData = Target.Sign(_referenceData, _secretKey, "passphrase");
             Assert.That(signatureData.Length, Is.GreaterThan(10));
 
+            TestImportKey();
             var signatures = Target.Verify(_referenceData, signatureData);
             CollectionAssert.AreEqual(
                 expected: OpenPgpUtils.FormatFingerprint(_secretKey.Fingerprint),
@@ -156,12 +175,10 @@ namespace ZeroInstall.Store.Trust
             Assert.Throws<KeyNotFoundException>(() => Target.GetSecretKey("unknown@user.com"));
         }
 
-        private static void DeployKeyRings()
+        private void DeployKeyRings()
         {
-            typeof(OpenPgpTest<T>).WriteEmbeddedFile("pubring.gpg", Path.Combine(HomeDir, "pubring.gpg"));
-            typeof(OpenPgpTest<T>).WriteEmbeddedFile("secring.gpg", Path.Combine(HomeDir, "secring.gpg"));
+            typeof(OpenPgpTest<T>).WriteEmbeddedFile("pubring.gpg", Path.Combine(Target.HomeDir, "pubring.gpg"));
+            typeof(OpenPgpTest<T>).WriteEmbeddedFile("secring.gpg", Path.Combine(Target.HomeDir, "secring.gpg"));
         }
-
-        private static string HomeDir { get { return Locations.GetSaveConfigPath("0install.net", false, "gnupg"); } }
     }
 }

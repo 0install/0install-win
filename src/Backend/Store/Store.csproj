@@ -233,6 +233,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Trust\BouncyCastle.cs" />
+    <Compile Include="Trust\BouncyCastle.Storage.cs" />
     <Compile Include="Trust\Domain.cs" />
     <Compile Include="Trust\GnuPG.cs" />
     <Compile Include="Trust\GnuPG.CliControl.cs" />

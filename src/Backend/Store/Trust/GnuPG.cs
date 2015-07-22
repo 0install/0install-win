@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Store.Trust
@@ -43,7 +44,7 @@ namespace ZeroInstall.Store.Trust
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
                 File.WriteAllBytes(signatureFile, signature);
-                result = new CliControl(data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
+                result = new CliControl(_homeDir, data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
             }
             string[] lines = result.SplitMultilineText();
 
@@ -117,7 +118,7 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            string output = new CliControl(passphrase ?? "", data).Execute("--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
+            string output = new CliControl(_homeDir, passphrase ?? "", data).Execute("--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
             string signatureBase64 = output
                 .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
                 .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")
@@ -132,7 +133,7 @@ namespace ZeroInstall.Store.Trust
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            new CliControl(data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
+            new CliControl(_homeDir, data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
         }
 
         /// <inheritdoc/>
@@ -142,14 +143,14 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            return new CliControl().Execute("--batch", "--no-secmem-warning", "--armor", "--export", secretKey.KeyID)
+            return new CliControl(_homeDir).Execute("--batch", "--no-secmem-warning", "--armor", "--export", secretKey.KeyID)
                 .Replace(Environment.NewLine, "\n") + "\n";
         }
 
         /// <inheritdoc/>
         public IEnumerable<OpenPgpSecretKey> ListSecretKeys()
         {
-            string result = new CliControl().Execute("--batch", "--no-secmem-warning", "--list-secret-keys", "--with-colons", "--fixed-list-mode", "--fingerprint");
+            string result = new CliControl(_homeDir).Execute("--batch", "--no-secmem-warning", "--list-secret-keys", "--with-colons", "--fixed-list-mode", "--fingerprint");
 
             string[] sec = null, fpr = null, uid = null;
             foreach (string line in result.SplitMultilineText())
@@ -183,6 +184,25 @@ namespace ZeroInstall.Store.Trust
         private static OpenPgpSecretKey ParseSecretKey(string[] sec, string[] fpr, string[] uid)
         {
             return new OpenPgpSecretKey(keyID: sec[4], fingerprint: fpr[9], userID: uid[9]);
+        }
+
+        private string _homeDir = DefaultHomeDir;
+
+        /// <inheritdoc/>
+        public string HomeDir { get { return _homeDir; } set { _homeDir = value; } }
+
+        /// <summary>
+        /// The default value for <see cref="IOpenPgp.HomeDir"/> based on the current operating system and environment variables.
+        /// </summary>
+        public static string DefaultHomeDir
+        {
+            get
+            {
+                return Environment.GetEnvironmentVariable("GNUPGHOME") ??
+                       (WindowsUtils.IsWindows
+                           ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "gnupg")
+                           : Path.Combine(Locations.HomeDir, ".gnupg"));
+            }
         }
 
         /// <summary>

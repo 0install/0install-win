@@ -22,7 +22,6 @@ using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store.Properties;
 
@@ -44,6 +43,9 @@ namespace ZeroInstall.Store.Trust
             private static readonly object _gpgLock = new object();
 
             [CanBeNull]
+            private readonly string _homeDir;
+
+            [CanBeNull]
             private readonly string _stdinLine;
 
             [CanBeNull]
@@ -52,22 +54,26 @@ namespace ZeroInstall.Store.Trust
             /// <summary>
             /// Does not write anything to stdin.
             /// </summary>
-            public CliControl()
-            {}
+            public CliControl([CanBeNull] string homeDir = null)
+            {
+                _homeDir = homeDir;
+            }
 
             /// <summary>
             /// Writes a set of bytes to stdin.
             /// </summary>
-            public CliControl([NotNull] byte[] stdinBytes)
+            public CliControl([NotNull] string homeDir, [NotNull] byte[] stdinBytes)
             {
+                _homeDir = homeDir;
                 _stdinBytes = stdinBytes;
             }
 
             /// <summary>
             /// Writes a string terminating with a newline followed by a set of bytes to stdin.
             /// </summary>
-            public CliControl([NotNull] string stdinLine, [NotNull] byte[] stdinBytes)
+            public CliControl([NotNull] string homeDir, [NotNull] string stdinLine, [NotNull] byte[] stdinBytes)
             {
+                _homeDir = homeDir;
                 _stdinLine = stdinLine;
                 _stdinBytes = stdinBytes;
             }
@@ -86,7 +92,7 @@ namespace ZeroInstall.Store.Trust
             protected override ProcessStartInfo GetStartInfo(params string[] arguments)
             {
                 var startInfo = base.GetStartInfo(arguments);
-                if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
+                if (_homeDir != null) startInfo.EnvironmentVariables["GNUPGHOME"] = _homeDir;
                 return startInfo;
             }
 

@@ -22,8 +22,6 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using Org.BouncyCastle.Bcpg;
 using Org.BouncyCastle.Bcpg.OpenPgp;
@@ -34,7 +32,7 @@ namespace ZeroInstall.Store.Trust
     /// Provides access to the OpenPGP signature functions of Bouncy Castle.
     /// </summary>
     /// <remarks>This class is thread-safe.</remarks>
-    public class BouncyCastle : IOpenPgp
+    public partial class BouncyCastle : IOpenPgp
     {
         /// <inheritdoc/>
         public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
@@ -65,7 +63,7 @@ namespace ZeroInstall.Store.Trust
                 signature.Update(data);
 
                 if (signature.Verify())
-                    return new ValidSignature(PublicBundle.GetPublicKey(signature.KeyId).GetFingerprint(), signature.CreationTime);
+                    return new ValidSignature(key.GetFingerprint(), signature.CreationTime);
                 else
                 {
                     var badSig = new BadSignature(signature.KeyId);
@@ -125,12 +123,12 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            var key = PublicBundle.GetPublicKey(secretKey.KeyIDParsed);
+            var key = SecretBundle.GetSecretKey(secretKey.KeyIDParsed);
             if (key == null) throw new KeyNotFoundException("Specified OpenPGP key not found on system");
 
             var output = new MemoryStream();
             using (var armored = new ArmoredOutputStream(output))
-                key.Encode(armored);
+                key.PublicKey.Encode(armored);
             return output.ReadToString(Encoding.ASCII).Replace(Environment.NewLine, "\n");
         }
 
@@ -186,72 +184,9 @@ namespace ZeroInstall.Store.Trust
             }
         }
 
-        [CanBeNull]
-        private PgpPublicKeyRingBundle _publicBundle;
+        private string _homeDir = GnuPG.DefaultHomeDir;
 
-        [NotNull]
-        private PgpPublicKeyRingBundle PublicBundle
-        {
-            get
-            {
-                if (_publicBundle != null) return _publicBundle;
-
-                try
-                {
-                    using (var stream = File.OpenRead(Path.Combine(HomeDir, "pubring.gpg")))
-                        return _publicBundle = new PgpPublicKeyRingBundle(PgpUtilities.GetDecoderStream(stream));
-                }
-                    #region Error handling
-                catch (FileNotFoundException)
-                {
-                    return new PgpPublicKeyRingBundle(Enumerable.Empty<PgpPublicKeyRing>());
-                }
-                catch (IOException ex)
-                {
-                    Log.Warn(ex);
-                    return new PgpPublicKeyRingBundle(Enumerable.Empty<PgpPublicKeyRing>());
-                }
-                #endregion
-            }
-            set { _publicBundle = value; }
-        }
-
-        private PgpSecretKeyRingBundle _secretBundle;
-
-        [NotNull]
-        private PgpSecretKeyRingBundle SecretBundle
-        {
-            get
-            {
-                if (_secretBundle != null) return _secretBundle;
-
-                try
-                {
-                    using (var stream = File.OpenRead(Path.Combine(HomeDir, "secring.gpg")))
-                        return _secretBundle = new PgpSecretKeyRingBundle(PgpUtilities.GetDecoderStream(stream));
-                }
-                    #region Error handling
-                catch (FileNotFoundException)
-                {
-                    return new PgpSecretKeyRingBundle(Enumerable.Empty<PgpSecretKeyRing>());
-                }
-                catch (IOException ex)
-                {
-                    Log.Warn(ex);
-                    return new PgpSecretKeyRingBundle(Enumerable.Empty<PgpSecretKeyRing>());
-                }
-                #endregion
-            }
-        }
-
-        private static string HomeDir
-        {
-            get
-            {
-                return Locations.IsPortable
-                    ? Locations.GetSaveConfigPath("0install.net", false, "gnupg")
-                    : (WindowsUtils.IsWindows ? Locations.GetSaveConfigPath("gnupg", false) : Path.Combine(Locations.HomeDir, ".gnupg"));
-            }
-        }
+        /// <inheritdoc/>
+        public string HomeDir { get { return _homeDir; } set { _homeDir = value; } }
     }
 }

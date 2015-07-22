@@ -22,15 +22,12 @@ namespace ZeroInstall.Store.Trust
     /// </summary>
     public static class OpenPgpFactory
     {
-        /// <summary>Singleton pattern.</summary>
-        private static readonly BouncyCastle _bouncyCastle = new BouncyCastle();
-
         /// <summary>
         /// Creates an <see cref="IOpenPgp"/> instance.
         /// </summary>
         public static IOpenPgp CreateDefault()
         {
-            return _bouncyCastle;
+            return new BouncyCastle();
         }
     }
 }
