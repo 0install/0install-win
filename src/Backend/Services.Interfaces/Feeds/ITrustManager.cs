@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.IO;
+using System.Net;
 using JetBrains.Annotations;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Trust;
@@ -31,11 +33,16 @@ namespace ZeroInstall.Services.Feeds
         /// Checks whether a remote feed or catalog file has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to approve new keys.
         /// </summary>
         /// <param name="data">The data of the file.</param>
-        /// <param name="uri">The URI the feed or catalog file originally came from.</param>
-        /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
-        /// <exception cref="SignatureException">No trusted signature was found.</exception>
+        /// <param name="uri">The URI the <paramref name="data"/> originally came from.</param>
+        /// <param name="localPath">The local file path the <paramref name="data"/> came from. Used to locate key files. May be <see langword="null"/> for in-memory data.</param>
+        /// <returns>The first valid and trusted signature found on the feed.</returns>
         /// <exception cref="UriFormatException"><paramref name="uri"/> is a local file.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="WebException">A key file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">No trusted signature was found.</exception>
+        /// <exception cref="IOException">A problem occurs while writing trust configuration.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the trust configuration is not permitted.</exception>
         [NotNull]
-        ValidSignature CheckTrust([NotNull] byte[] data, [NotNull] FeedUri uri, [CanBeNull] FeedUri mirrorUrl = null);
+        ValidSignature CheckTrust([NotNull] byte[] data, [NotNull] FeedUri uri, [CanBeNull] string localPath = null);
     }
 }

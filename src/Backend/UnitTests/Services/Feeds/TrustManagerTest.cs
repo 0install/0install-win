@@ -49,6 +49,7 @@ namespace ZeroInstall.Services.Feeds
 
         private Mock<IOpenPgp> _openPgpMock;
         private Mock<IFeedCache> _feedCacheMock;
+        private Config _config;
 
         protected override void Register(AutoMockContainer container)
         {
@@ -57,9 +58,9 @@ namespace ZeroInstall.Services.Feeds
             _openPgpMock = container.GetMock<IOpenPgp>();
             _feedCacheMock = container.GetMock<IFeedCache>();
 
-            var config = Resolve<Config>();
-            config.KeyInfoServer = null;
-            config.AutoApproveKeys = false;
+            _config = Resolve<Config>();
+            _config.KeyInfoServer = null;
+            _config.AutoApproveKeys = false;
         }
 
         [Test]
@@ -166,8 +167,11 @@ namespace ZeroInstall.Services.Feeds
             ExpectKeyImport();
             MockHandler.AnswerQuestionWith = true;
 
-            using (var server = new MicroServer(KeyID + ".gpg", new MemoryStream(_keyData)))
-                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml"), mirrorUrl: new FeedUri(server.ServerUri.AbsoluteUri + "test.xml")));
+            using (var server = new MicroServer("keys/" + KeyID + ".gpg", new MemoryStream(_keyData)))
+            {
+                _config.FeedMirror = server.ServerUri;
+                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test/feed.xml")));
+            }
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
 

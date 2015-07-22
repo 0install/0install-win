@@ -23,6 +23,7 @@ using System.Net;
 using System.Xml;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
@@ -69,8 +70,7 @@ namespace ZeroInstall.Services.Feeds
 
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
-        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        public ValidSignature CheckTrust(byte[] data, FeedUri uri, FeedUri mirrorUrl = null)
+        public ValidSignature CheckTrust(byte[] data, FeedUri uri, string localPath = null)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -82,38 +82,55 @@ namespace ZeroInstall.Services.Feeds
             var domain = new Domain(uri.Host);
             KeyImported:
             var trustDB = TrustDB.LoadSafe();
-            var signatures = FeedUtils.GetSignatures(_openPgp, data);
+            var signatures = FeedUtils.GetSignatures(_openPgp, data).ToList();
 
             foreach (var signature in signatures.OfType<ValidSignature>())
                 if (trustDB.IsTrusted(signature.Fingerprint, domain)) return signature;
 
             foreach (var signature in signatures.OfType<ValidSignature>())
-                if (TrustNew(trustDB, uri, signature, domain)) return signature;
+                if (HandleNewKey(trustDB, uri, signature.Fingerprint, domain)) return signature;
 
             foreach (var signature in signatures.OfType<MissingKeySignature>())
             {
-                DownloadMissingKey(uri, mirrorUrl, signature);
+                AcquireMissingKey(signature, uri, localPath);
                 goto KeyImported;
             }
 
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
         }
 
-        private bool TrustNew(TrustDB trustDB, FeedUri uri, ValidSignature signature, Domain domain)
+        /// <summary>
+        /// Handles new keys that have not been trusted yet.
+        /// </summary>
+        /// <param name="trustDB">The trust database used to store user decisions.</param>
+        /// <param name="uri">The URI the signed file originally came from.</param>
+        /// <param name="fingerprint">The fingerprint of the key to trust.</param>
+        /// <param name="domain">The domain to trust the key for.</param>
+        /// <returns><see langword="true"/> if the user decided to trust the key, <see langword="false"/> if they decided not to trust the key.</returns>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        private bool HandleNewKey([NotNull] TrustDB trustDB, [NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
         {
-            if (AskKeyApproval(uri, signature, domain))
+            if (AskKeyApproval(uri, fingerprint, domain))
             {
-                trustDB.TrustKey(signature.Fingerprint, domain);
+                trustDB.TrustKey(fingerprint, domain);
                 trustDB.Save();
                 return true;
             }
             else return false;
         }
 
-        private bool AskKeyApproval(FeedUri uri, ValidSignature signature, Domain domain)
+        /// <summary>
+        /// Asks the user whether they trust a given key for a specific domain. May automatically accept based on policy.
+        /// </summary>
+        /// <param name="uri">The URI the signed file originally came from.</param>
+        /// <param name="fingerprint">The fingerprint of the key to trust.</param>
+        /// <param name="domain">The domain to trust the key for.</param>
+        /// <returns><see langword="true"/> if the user decided to trust the key, <see langword="false"/> if they decided not to trust the key.</returns>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        private bool AskKeyApproval([NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
         {
             bool goodVote;
-            var keyInformation = GetKeyInformation(signature.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
+            var keyInformation = GetKeyInformation(fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
 
             // Automatically trust key for _new_ feeds if voted good by key server
             if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri))
@@ -124,39 +141,8 @@ namespace ZeroInstall.Services.Feeds
 
             // Otherwise ask user
             return _handler.Ask(
-                string.Format(Resources.AskKeyTrust, uri.ToStringRfc(), signature.Fingerprint, keyInformation, domain),
+                string.Format(Resources.AskKeyTrust, uri.ToStringRfc(), fingerprint, keyInformation, domain),
                 defaultAnswer: false, alternateMessage: Resources.UntrustedKeys);
-        }
-
-        private void DownloadMissingKey(FeedUri uri, FeedUri mirrorUrl, MissingKeySignature signature)
-        {
-            var keyUri = new Uri(mirrorUrl ?? uri, signature.KeyID + ".gpg");
-            byte[] keyData;
-            if (keyUri.IsFile)
-            { // Load key file from local file
-                keyData = File.ReadAllBytes(keyUri.LocalPath);
-            }
-            else
-            { // Load key file from server
-                try
-                {
-                    using (var keyFile = new TemporaryFile("0install-key"))
-                    {
-                        _handler.RunTask(new DownloadFile(keyUri, keyFile));
-                        keyData = File.ReadAllBytes(keyFile);
-                    }
-                }
-                    #region Error handling
-                catch (WebException ex)
-                {
-                    // Wrap exception to add context information
-                    throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri), ex);
-                }
-                #endregion
-            }
-
-            Log.Info("Importing OpenPGP public key for " + signature.KeyID);
-            _openPgp.ImportKey(keyData);
         }
 
         /// <summary>
@@ -206,6 +192,80 @@ namespace ZeroInstall.Services.Feeds
                 return null;
             }
             #endregion
+        }
+
+        /// <summary>
+        /// Acquires the OpenPGP key file required to verify the given signature.
+        /// </summary>
+        /// <param name="signature">The signature that could not be verified yet.</param>
+        /// <param name="uri">The URI the signed data originally came from.</param>
+        /// <param name="localPath">The local file path the signed data came from. May be <see langword="null"/> for in-memory data.</param>
+        /// <exception cref="WebException">A key file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">A downloaded key file is damaged.</exception>
+        /// <exception cref="IOException">A problem occurs while writing trust configuration.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the trust configuration is not permitted.</exception>
+        private void AcquireMissingKey([NotNull] MissingKeySignature signature, [NotNull] Uri uri, [CanBeNull] string localPath = null)
+        {
+            if (!string.IsNullOrEmpty(localPath))
+            {
+                string keyFile = Path.Combine(localPath, signature.KeyID + ".gpg");
+                if (File.Exists(keyFile))
+                {
+                    _openPgp.ImportKey(File.ReadAllBytes(keyFile));
+                    return;
+                }
+            }
+
+            try
+            {
+                DownloadKey(new Uri(uri, signature.KeyID + ".gpg"));
+            }
+            catch (WebException ex)
+            {
+                Log.Warn(string.Format(Resources.UnableToLoadKeyFile, uri));
+                Log.Info(Resources.TryingFeedMirror);
+                try
+                {
+                    DownloadKey(GetMirrorUrl(signature));
+                }
+                catch (WebException)
+                {
+                    // Report the original problem instead of mirror errors
+                    ex.Rethrow();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Downloads and imports a remote key file.
+        /// </summary>
+        /// <exception cref="WebException">The key file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">The downloaded key file is damaged.</exception>
+        /// <exception cref="IOException">A problem occurs while writing trust configuration.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the trust configuration is not permitted.</exception>
+        private void DownloadKey([NotNull] Uri keyUri)
+        {
+            using (var keyFile = new TemporaryFile("0install-key"))
+            {
+                _handler.RunTask(new DownloadFile(keyUri, keyFile));
+                try
+                {
+                    _openPgp.ImportKey(File.ReadAllBytes(keyFile));
+                }
+                    #region Error handling
+                catch (InvalidDataException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new SignatureException(ex.Message, ex);
+                }
+                #endregion
+            }
+        }
+
+        [NotNull]
+        private Uri GetMirrorUrl([NotNull] MissingKeySignature signature)
+        {
+            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.KeyID + ".gpg");
         }
     }
 }

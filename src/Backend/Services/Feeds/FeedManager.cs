@@ -193,100 +193,130 @@ namespace ZeroInstall.Services.Feeds
             TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedUri);
             return (lastChecked > _config.Freshness && lastCheckAttempt > _failedCheckDelay);
         }
+
+        /// <summary>
+        /// Minimum amount of time between stale feed update attempts.
+        /// </summary>
+        private static readonly TimeSpan _failedCheckDelay = new TimeSpan(1, 0, 0);
+
+        /// <summary>
+        /// Determines the most recent point in time an attempt was made to download a particular feed.
+        /// </summary>
+        private static DateTime GetLastCheckAttempt(FeedUri feedUri)
+        {
+            // Determine timestamp file path
+            var file = new FileInfo(Path.Combine(
+                Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
+                feedUri.PrettyEscape()));
+
+            // Check last modification time
+            return file.Exists ? file.LastWriteTimeUtc : new DateTime();
+        }
         #endregion
 
         #region Download
         /// <summary>
-        /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures.
+        /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures. Automatically falls back to the mirror server.
         /// </summary>
-        /// <param name="url">The URL of download the feed from.</param>
+        /// <param name="feedUri">The URL of the feed to download.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="IOException">A problem occured while writing the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        /// <exception cref="UriFormatException"><paramref name="url"/> is an invalid interface URI.</exception>
+        /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/> or <paramref name="feedUri"/> is a local file.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails", Justification = "Rethrow the outer instead of the inner exception")]
-        private void Download(FeedUri url)
+        private void Download(FeedUri feedUri)
         {
-            SetLastCheckAttempt(url);
+            SetLastCheckAttempt(feedUri);
 
-            using (var feedFile = new TemporaryFile("0install-feed"))
+            try
             {
+                DownloadFeed(feedUri);
+            }
+            catch (WebException ex)
+            {
+                Log.Warn(string.Format(Resources.FeedDownloadError, feedUri));
+                if (feedUri.IsLoopback) throw;
+                Log.Info(Resources.TryingFeedMirror);
                 try
                 {
-                    _handler.RunTask(new DownloadFile(url, feedFile));
-                    ImportFeed(feedFile, url);
+                    DownloadFeed(feedUri, downloadUrl: GetMirrorUrl(feedUri));
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
-                    Log.Info(string.Format(Resources.FeedDownloadError, url));
-
-                    if (url.IsLoopback) throw;
-                    Log.Info(Resources.TryingFeedMirror);
-                    try
-                    {
-                        DownloadMirror(url);
-                    }
-                    catch (WebException)
-                    {
-                        // Report the original problem instead of mirror errors
-                        throw ex;
-                    }
+                    // Report the original problem instead of mirror errors
+                    ex.Rethrow();
                 }
             }
         }
 
-        /// <summary>
-        /// Downloads a <see cref="Feed"/> from the <see cref="Config.FeedMirror"/>.
-        /// </summary>
-        /// <param name="url">The URL of download the feed from.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        /// <exception cref="UriFormatException"><paramref name="url"/> is an invalid interface URI.</exception>
-        private void DownloadMirror(FeedUri url)
+        [NotNull]
+        private Uri GetMirrorUrl([NotNull] FeedUri feedUri)
         {
-            var mirrorUrl = new FeedUri(string.Format(
-                "{0}feeds/{1}/{2}/{3}/latest.xml",
-                _config.FeedMirror.EnsureTrailingSlash().AbsoluteUri,
-                url.Scheme,
-                url.Host,
-                string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
+            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "feeds/" + feedUri.Scheme + "/" + feedUri.Host + "/" + string.Concat(feedUri.Segments).TrimStart('/').Replace("/", "%23") + "/latest.xml");
+        }
+
+        /// <summary>
+        /// Notes the current time as an attempt to download a particular feed.
+        /// </summary>
+        private static void SetLastCheckAttempt(FeedUri feedUri)
+        {
+            // Determine timestamp file path
+            string path = Path.Combine(
+                Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
+                feedUri.PrettyEscape());
+
+            // Set modification time to now
+            FileUtils.Touch(path);
+        }
+
+        /// <summary>
+        /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures.
+        /// </summary>
+        /// <param name="feedUri">The original URL the feed came from.</param>
+        /// <param name="downloadUrl">The URL to download the fed from. Leave <see langword="null"/> to use <paramref name="feedUri"/>.</param>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="IOException">A problem occured while writing the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/> or <paramref name="feedUri"/> is a local file.</exception>
+        private void DownloadFeed([NotNull] FeedUri feedUri, [CanBeNull] Uri downloadUrl = null)
+        {
+            if (downloadUrl == null) downloadUrl = feedUri;
 
             using (var feedFile = new TemporaryFile("0install-feed"))
             {
-                _handler.RunTask(new DownloadFile(mirrorUrl, feedFile));
-                ImportFeed(feedFile, url, mirrorUrl);
+                _handler.RunTask(new DownloadFile(downloadUrl, feedFile));
+                ImportFeed(feedFile, feedUri);
             }
         }
         #endregion
 
         #region Import feed
         /// <inheritdoc/>
-        public void ImportFeed(string path, FeedUri uri, FeedUri mirrorUrl = null)
+        public void ImportFeed(string path, FeedUri feedUri)
         {
             #region Sanity checks
-            if (uri == null) throw new ArgumentNullException("uri");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            if (uri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);
-            Log.Debug("Importing feed " + uri.ToStringRfc() + " from: " + path);
+            if (feedUri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);
+            Log.Debug("Importing feed " + feedUri.ToStringRfc() + " from: " + path);
 
             var data = File.ReadAllBytes(path);
 
-            var newSignature = _trustManager.CheckTrust(data, uri, mirrorUrl);
-            DetectAttacks(data, uri, newSignature);
+            var newSignature = _trustManager.CheckTrust(data, feedUri, path);
+            DetectAttacks(data, feedUri, newSignature);
 
             // Add to cache and remember time
-            _feedCache.Add(uri, data);
-            var preferences = FeedPreferences.LoadForSafe(uri);
+            _feedCache.Add(feedUri, data);
+            var preferences = FeedPreferences.LoadForSafe(feedUri);
             preferences.LastChecked = DateTime.UtcNow;
             preferences.Normalize();
-            preferences.SaveFor(uri);
+            preferences.SaveFor(feedUri);
         }
 
         /// <summary>
@@ -314,41 +344,6 @@ namespace ZeroInstall.Services.Feeds
             {
                 // No existing feed to be replaced
             }
-        }
-        #endregion
-
-        #region Check attempt
-        /// <summary>
-        /// Minimum amount of time between stale feed update attempts.
-        /// </summary>
-        private static readonly TimeSpan _failedCheckDelay = new TimeSpan(1, 0, 0);
-
-        /// <summary>
-        /// Determines the most recent point in time an attempt was made to download a particular feed.
-        /// </summary>
-        private static DateTime GetLastCheckAttempt(FeedUri feedUri)
-        {
-            // Determine timestamp file path
-            var file = new FileInfo(Path.Combine(
-                Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
-                feedUri.PrettyEscape()));
-
-            // Check last modification time
-            return file.Exists ? file.LastWriteTimeUtc : new DateTime();
-        }
-
-        /// <summary>
-        /// Notes the current time as an attempt to download a particular feed.
-        /// </summary>
-        private static void SetLastCheckAttempt(FeedUri feedUri)
-        {
-            // Determine timestamp file path
-            string path = Path.Combine(
-                Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
-                feedUri.PrettyEscape());
-
-            // Set modification time to now
-            FileUtils.Touch(path);
         }
         #endregion
     }

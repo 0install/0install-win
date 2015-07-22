@@ -20,7 +20,6 @@ using JetBrains.Annotations;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -58,7 +57,6 @@ namespace ZeroInstall.Commands.CliCommands
             return ExitCode.OK;
         }
 
-        #region Helpers
         /// <summary>
         /// Import a feed from a local file, as if it had been downloaded from the network.
         /// </summary>
@@ -69,8 +67,7 @@ namespace ZeroInstall.Commands.CliCommands
             var feed = XmlStorage.LoadXml<Feed>(path);
 
             if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
-            FeedManager.ImportFeed(path, feed.Uri, mirrorUrl: new FeedUri(path));
+            FeedManager.ImportFeed(path, feed.Uri);
         }
-        #endregion
     }
 }
