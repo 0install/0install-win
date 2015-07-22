@@ -17,7 +17,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -62,7 +64,13 @@ namespace ZeroInstall.Services.Fetchers
         /// Downloads a single <see cref="Implementation"/> to the <see cref="IStore"/>. Detects concurrent downloads in other processes.
         /// </summary>
         /// <param name="implementation">The implementation to download.</param>
-        private void FetchOne(Implementation implementation)
+        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        private void FetchOne([NotNull] Implementation implementation)
         {
             // Use mutex to detect in-progress download of same implementation in other processes
             using (var mutex = new Mutex(false, "0install-fetcher-" + GetDownloadID(implementation)))
@@ -98,7 +106,12 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        private static string GetDownloadID(Implementation implementation)
+        /// <summary>
+        /// Returns a unique identifier for an <see cref="Implementation"/>. Usually based on <see cref="ImplementationBase.ManifestDigest"/>.
+        /// </summary>
+        /// <exception cref="NotSupportedException"><paramref name="implementation"/> does not specify manifest digests in any known formats.</exception>
+        [NotNull]
+        private static string GetDownloadID([NotNull] Implementation implementation)
         {
             if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return implementation.ID;
             else

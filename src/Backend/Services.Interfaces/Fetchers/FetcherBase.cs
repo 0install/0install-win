@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
@@ -66,7 +68,7 @@ namespace ZeroInstall.Services.Fetchers
         /// Determines whether an <see cref="Implementation"/> is already cached.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method only operates on original Implementations (not Selections).")]
-        protected bool IsCached(Implementation implementation)
+        protected bool IsCached([NotNull] Implementation implementation)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -83,7 +85,13 @@ namespace ZeroInstall.Services.Fetchers
         /// </summary>
         /// <param name="implementation">The implementation to be retrieved.</param>
         /// <remarks>Make sure <see cref="Implementation.RetrievalMethods"/> is not empty before calling this!</remarks>
-        protected void Retrieve(Implementation implementation)
+        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        protected void Retrieve([NotNull] Implementation implementation)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -99,7 +107,13 @@ namespace ZeroInstall.Services.Fetchers
         /// </summary>
         /// <param name="retrievalMethod">The retrieval method to execute.</param>
         /// <param name="manifestDigest">The digest the result of the retrieval method should produce.</param>
-        private void Retrieve(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
+        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        private void Retrieve([NotNull] RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
             var externalRetrievalMethod = retrievalMethod as ExternalRetrievalMethod;
             if (externalRetrievalMethod != null)
@@ -114,14 +128,21 @@ namespace ZeroInstall.Services.Fetchers
             {
                 Cook(recipe, manifestDigest);
             }
+                #region Error handling
             catch (ImplementationAlreadyInStoreException)
             {}
+            catch (DigestMismatchException ex)
+            {
+                // Wrap exception to add context information
+                throw new DigestMismatchException("Damaged download: " + retrievalMethod, ex);
+            }
+            #endregion
         }
 
         /// <summary>
         /// Handles the execution of <see cref="ExternalRetrievalMethod.Install"/>.
         /// </summary>
-        private void RunNative(ExternalRetrievalMethod externalRetrievalMethod)
+        private void RunNative([NotNull] ExternalRetrievalMethod externalRetrievalMethod)
         {
             if (!string.IsNullOrEmpty(externalRetrievalMethod.ConfirmationQuestion))
             {
@@ -137,7 +158,14 @@ namespace ZeroInstall.Services.Fetchers
         /// </summary>
         /// <param name="recipe">The recipe to execute.</param>
         /// <param name="manifestDigest">The digest the result of the recipe should produce.</param>
-        private void Cook(Recipe recipe, ManifestDigest manifestDigest)
+        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        private void Cook([NotNull] Recipe recipe, ManifestDigest manifestDigest)
         {
             Handler.CancellationToken.ThrowIfCancellationRequested();
 
@@ -168,7 +196,11 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="retrievalMethod">The file to download.</param>
         /// <param name="tag">The <see cref="ITask.Tag"/> to set for the download process.</param>
         /// <returns>The downloaded temporary file.</returns>
-        protected virtual TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, [CanBeNull] object tag = null)
+        /// <exception cref="OperationCanceledException">A download was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        protected virtual TemporaryFile Download([NotNull] DownloadRetrievalMethod retrievalMethod, [CanBeNull] object tag = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -195,7 +227,13 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="archives">The archives to extract over each other in order.</param>
         /// <param name="files">The downloaded archive files, indexes matching those in <paramref name="archives"/>.</param>
         /// <param name="manifestDigest">The digest the extracted archives should produce.</param>
-        private void ApplyArchives(IList<Archive> archives, IList<TemporaryFile> files, ManifestDigest manifestDigest)
+        /// <exception cref="OperationCanceledException">An IO task was canceled from another thread.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        private void ApplyArchives([NotNull, ItemNotNull] IList<Archive> archives, [NotNull, ItemNotNull] IList<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             var archiveFileInfos = new ArchiveFileInfo[archives.Count];
             for (int i = 0; i < archiveFileInfos.Length; i++)
@@ -220,7 +258,13 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="recipe">The recipe to apply.</param>
         /// <param name="files">The files downloaded for the <paramref name="recipe"/> steps, order matching the <see cref="DownloadRetrievalMethod"/> steps in <see cref="Recipe.Steps"/>.</param>
         /// <param name="manifestDigest">The digest the result of the recipe should produce.</param>
-        private void ApplyRecipe(Recipe recipe, IEnumerable<TemporaryFile> files, ManifestDigest manifestDigest)
+        /// <exception cref="OperationCanceledException">An IO task was canceled from another thread.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        private void ApplyRecipe([NotNull] Recipe recipe, [NotNull, ItemNotNull] IEnumerable<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             using (var recipeDir = recipe.Apply(files, Handler, manifestDigest))
                 _store.AddDirectory(recipeDir, manifestDigest, Handler);
