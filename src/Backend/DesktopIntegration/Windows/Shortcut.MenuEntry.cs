@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static string GetStartMenuCategoryPath(string category, bool machineWide)
         {
             const Environment.SpecialFolder commonPrograms = (Environment.SpecialFolder)0x0017;
-            string menuDir = Environment.GetFolderPath(machineWide ? commonPrograms: Environment.SpecialFolder.Programs);
+            string menuDir = Environment.GetFolderPath(machineWide ? commonPrograms : Environment.SpecialFolder.Programs);
             return (string.IsNullOrEmpty(category) ? menuDir : Path.Combine(menuDir, FileUtils.UnifySlashes(category)));
         }
 

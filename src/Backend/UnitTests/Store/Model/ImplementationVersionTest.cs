@@ -95,15 +95,12 @@ namespace ZeroInstall.Store.Model
         public void TestSort()
         {
             var sortedVersions = new[] {"0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.2", "1.2.10", "3"};
-            for (int i = 1; i < sortedVersions.Length; i++)
+            for (int i = 0; i < sortedVersions.Length - 1; i++)
             {
-                var v1 = new ImplementationVersion(sortedVersions[i - 1]);
-                var v2 = new ImplementationVersion(sortedVersions[i]);
-                string operands = sortedVersions[i - 1] + " and " + sortedVersions[i];
-                Assert.IsTrue(v1 < v2, "operator < should return true for " + operands);
-                Assert.IsTrue(v2 > v1, "operator > should be consistent with <");
-                Assert.IsFalse(v1 > v2, "operator > should return false for " + operands);
-                Assert.IsFalse(v2 < v1, "operator < should be consistent with <");
+                var v1 = new ImplementationVersion(sortedVersions[i]);
+                var v2 = new ImplementationVersion(sortedVersions[i + 1]);
+                Assert.That(v1, Is.LessThan(v2));
+                Assert.That(v2, Is.GreaterThan(v1));
             }
         }
     }

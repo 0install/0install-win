@@ -67,7 +67,7 @@ namespace ZeroInstall.Commands
         /// Checks if updates for Zero Install itself are available without using the usual command infrastructure.
         /// </summary>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>

@@ -21,7 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -47,7 +46,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
@@ -76,7 +75,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
@@ -121,7 +120,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
@@ -158,7 +157,7 @@ namespace ZeroInstall.Publish
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A downloaded file.</returns>
         /// <exception cref="ArgumentException"><see cref="DownloadRetrievalMethod.Href"/> on <paramref name="retrievalMethod"/> is missing.</exception>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
@@ -219,7 +218,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         [NotNull]

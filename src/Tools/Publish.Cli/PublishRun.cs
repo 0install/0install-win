@@ -184,7 +184,7 @@ namespace ZeroInstall.Publish.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="OptionException">The specified feed file paths were invalid.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="InvalidDataException">A feed file is damaged.</exception>
@@ -334,7 +334,7 @@ namespace ZeroInstall.Publish.Cli
         /// Applies user-selected modifications to a feed.
         /// </summary>
         /// <param name="feedEditing">The feed to modify.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>

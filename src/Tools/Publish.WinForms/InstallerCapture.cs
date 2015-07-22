@@ -105,7 +105,7 @@ namespace ZeroInstall.Publish.WinForms
         /// Runs the installer and waits for it to exit.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public void RunInstaller([NotNull] ITaskHandler handler)
@@ -122,7 +122,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="feedBuilder">All collected data is stored into this builder.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">The installer could not be extracted as an archive.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public void ExtractInstallerAsArchive([NotNull] FeedBuilder feedBuilder, [NotNull] ITaskHandler handler)

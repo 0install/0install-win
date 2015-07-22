@@ -37,7 +37,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="ArgumentException"><paramref name="requirements"/> is incomplete.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>

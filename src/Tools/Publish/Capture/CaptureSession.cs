@@ -72,7 +72,7 @@ namespace ZeroInstall.Publish.Capture
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
         /// <exception cref="InvalidOperationException">No installation directory was detected.</exception>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the registry or file system was not permitted.</exception>
         public void Diff([NotNull] ITaskHandler handler)
@@ -133,7 +133,7 @@ namespace ZeroInstall.Publish.Capture
         /// <param name="archiveUrl">The URL where the ZIP file will be uploaded.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
         /// <exception cref="InvalidOperationException"><see cref="Diff"/> was not called or <see cref="FeedBuilder.MainCandidate"/> is not set.</exception>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was an error reading the installation files or writing the ZIP archive.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the file system was not permitted.</exception>
         public void CollectFiles([NotNull] string archivePath, [NotNull] Uri archiveUrl, [NotNull] ITaskHandler handler)

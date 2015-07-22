@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
@@ -143,7 +143,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
@@ -164,7 +164,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <returns>The newly generated digest.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public static ManifestDigest GenerateDigest([NotNull] string path, [NotNull] ITaskHandler handler, bool keepDownloads = false)

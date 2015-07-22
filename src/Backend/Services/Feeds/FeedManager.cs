@@ -206,7 +206,7 @@ namespace ZeroInstall.Services.Feeds
         /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures.
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>

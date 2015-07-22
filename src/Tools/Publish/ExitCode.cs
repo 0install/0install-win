@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish
         /// <seealso cref="FormatException"/>
         InvalidArguments = 99,
 
-        /// <summary>The user canceled the operation.</summary>
+        /// <summary>The user canceled the task.</summary>
         /// <seealso cref="OperationCanceledException"/>
         UserCanceled = 100
     }

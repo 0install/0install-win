@@ -178,7 +178,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// Executes the commands specified by the command-line arguments. Must call <see cref="Parse"/> first!
         /// </summary>
         /// <returns>The exit status code to end the process with.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="OptionException">The number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>

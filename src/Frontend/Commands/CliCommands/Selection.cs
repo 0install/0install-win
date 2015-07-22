@@ -182,7 +182,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">An external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">The <see cref="ISolver"/> was unable to provide a set of <see cref="Selections"/> that fulfill the <see cref="Requirements"/>.</exception>

@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.IO;
 using JetBrains.Annotations;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Trust;

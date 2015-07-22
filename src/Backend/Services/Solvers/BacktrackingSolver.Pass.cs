@@ -29,7 +29,6 @@ using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Solvers
 {
-
     partial class BacktrackingSolver
     {
         /// <summary>
