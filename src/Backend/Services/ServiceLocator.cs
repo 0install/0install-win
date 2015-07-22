@@ -135,7 +135,7 @@ namespace ZeroInstall.Services
             {
                 return Get(ref _solver, () => new FallbackSolver(
                     new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler),
-                    new PythonSolver(Config, FeedManager, Handler)));
+                    new PythonSolver(Config, FeedManager, FeedCache, Handler)));
             }
             set { _solver = value; }
         }

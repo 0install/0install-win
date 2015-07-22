@@ -80,10 +80,5 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
         /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/> or <paramref name="uri"/> is a local file.</exception>
         void ImportFeed([NotNull] string path, [NotNull] FeedUri uri, [CanBeNull] FeedUri mirrorUrl = null);
-
-        /// <summary>
-        /// Calls <see cref="IFeedCache.Flush"/> on the underlying <see cref="IFeedCache"/>.
-        /// </summary>
-        void Flush();
     }
 }

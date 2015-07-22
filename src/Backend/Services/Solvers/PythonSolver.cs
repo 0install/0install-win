@@ -27,6 +27,7 @@ using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Services.Solvers.Python;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -41,24 +42,28 @@ namespace ZeroInstall.Services.Solvers
         #region Dependencies
         private readonly Config _config;
         private readonly IFeedManager _feedManager;
+        private readonly IFeedCache _feedCache;
         private readonly ITaskHandler _handler;
 
         /// <summary>
         /// Creates a new Python solver.
         /// </summary>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
+        /// <param name="feedCache">The underlying cache backing the <paramref name="feedManager"/>.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public PythonSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] ITaskHandler handler)
+        public PythonSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IFeedCache feedCache, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             _config = config;
             _feedManager = feedManager;
+            _feedCache = feedCache;
             _handler = handler;
         }
         #endregion
@@ -83,7 +88,7 @@ namespace ZeroInstall.Services.Solvers
             _handler.RunTask(new SimpleTask(Resources.ExternalSolverRunning, () => { result = control.Execute(arguments); }));
 
             // Flush in-memory cache in case external solver updated something on-disk
-            _feedManager.Flush();
+            _feedCache.Flush();
 
             // Detect when feeds get out-of-date
             _feedManager.Stale = result.Contains("<!-- STALE_FEEDS -->");
