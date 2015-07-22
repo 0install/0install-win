@@ -359,9 +359,6 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>
   </data>
-  <data name="DownloadDamaged" xml:space="preserve">
-    <value>A downloaded file is damaged or invalid.</value>
-  </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
     <value>Please enter the URL or local file path of the feed catalog to add:</value>
   </data>

@@ -119,10 +119,8 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (OptionException ex)
             {
-                var builder = new StringBuilder(ex.Message);
-                if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
-                builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                Log.Error(builder.ToString());
+                Log.Error(ex);
+                Log.Error(string.Format(Resources.TryHelp, ExeName));
                 return ExitCode.InvalidArguments;
             }
             catch (FormatException ex)

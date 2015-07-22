@@ -217,7 +217,7 @@ namespace ZeroInstall.OneGet
         public void DownloadPackage([NotNull] string fastPackageReference, [NotNull] string location)
         {
             Directory.CreateDirectory(location);
-            typeof(OneGetCommand).WriteEmbeddedFile("import.bat", Path.Combine(location, "import.bat"));
+            this.GetEmbedded("import.bat").CopyToFile(Path.Combine(location, "import.bat"));
 
             FeedCache = new DiskFeedCache(Path.Combine(location, "interfaces"), OpenPgp);
             Store = new DirectoryStore(Path.Combine(location, "implementations"), useWriteProtection: false);

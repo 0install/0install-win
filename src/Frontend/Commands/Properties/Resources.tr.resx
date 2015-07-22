@@ -359,9 +359,6 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   <data name="DownloadComplete" xml:space="preserve">
     <value>İndirme tamamlandı</value>
   </data>
-  <data name="DownloadDamaged" xml:space="preserve">
-    <value>İndirilen dosya geçersiz ya da bozuk.</value>
-  </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
     <value>Akış kataloğuna eklemek için bir Internet adresi ya da bir yerel dosya yolu girin:</value>
   </data>

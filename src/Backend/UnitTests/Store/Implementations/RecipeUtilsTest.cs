@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.zip", archiveFile);
+                typeof(ExtractorTest).GetEmbedded("testArchive.zip").CopyToFile(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip, Destination = "subDir"}}};
@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementations
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllText(singleFile, "data");
-                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.zip", archiveFile);
+                typeof(ExtractorTest).GetEmbedded("testArchive.zip").CopyToFile(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile, singleFile};
                 var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.zip", archiveFile);
+                typeof(ExtractorTest).GetEmbedded("testArchive.zip").CopyToFile(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.zip", archiveFile);
+                typeof(ExtractorTest).GetEmbedded("testArchive.zip").CopyToFile(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe

@@ -111,87 +111,77 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (OptionException ex)
                 {
-                    var builder = new StringBuilder(ex.Message);
-                    if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
-                    builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                    Msg.Inform(null, builder.ToString(), MsgSeverity.Warn);
+                    handler.DisableUI();
+                    var message = new StringBuilder(ex.Message);
+                    if (ex.InnerException != null) message.Append("\n" + ex.InnerException.Message);
+                    message.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                    Msg.Inform(null, message.ToString(), MsgSeverity.Warn);
                     return ExitCode.InvalidArguments;
                 }
                 catch (FormatException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.InvalidArguments;
                 }
                 catch (WebException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.WebError;
                 }
                 catch (NotSupportedException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.NotSupported;
                 }
                 catch (IOException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.IOError;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.AccessDenied;
                 }
                 catch (InvalidDataException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.InvalidData;
                 }
                 catch (SignatureException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.InvalidSignature;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    Log.Info(ex); // Log the exception before disabling the UI because we display a higher level error message
                     handler.DisableUI();
-                    ErrorBox.Show(null, Resources.DownloadDamaged, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.DigestMismatch;
                 }
                 catch (SolverException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.SolverError;
                 }
                 catch (ExecutorException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.ExecutorError;
                 }
                 catch (ConflictException ex)
                 {
                     handler.DisableUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
+                    ThreadUtils.RunSta(() => ErrorBox.Show(null, ex, handler.ErrorLog));
                     return ExitCode.Conflict;
                 }
                     #endregion

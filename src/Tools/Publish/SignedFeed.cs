@@ -107,7 +107,7 @@ namespace ZeroInstall.Publish
                 stream.Position = 0;
 
                 FeedUtils.SignFeed(stream, SecretKey, passphrase, openPgp);
-                stream.WriteTo(path);
+                stream.CopyToFile(path);
             }
             string directory = Path.GetDirectoryName(path);
             if (directory != null)

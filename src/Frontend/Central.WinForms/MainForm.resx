@@ -131,7 +131,7 @@
     <value>Zero Install</value>
   </data>
   <data name="&gt;&gt;buttonHelp.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonUpdateAll.Location" type="System.Drawing.Point, System.Drawing">
@@ -947,7 +947,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="buttonStoreOptimise.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 22</value>
@@ -1037,7 +1037,7 @@
     <value>156, 0</value>
   </data>
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -1091,7 +1091,7 @@
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;buttonStoreManage.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="panelBottom.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>

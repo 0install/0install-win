@@ -33,8 +33,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("MSI extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.msi"))
-            using (var tempFile = Deploy(stream))
+            using (var tempFile = Deploy(this.GetEmbedded("testArchive.msi")))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
             using (var extractor = Extractor.FromFile(tempFile, sandbox, Archive.MimeTypeMsi))
             {

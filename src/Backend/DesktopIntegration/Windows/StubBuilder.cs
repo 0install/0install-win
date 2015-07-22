@@ -165,7 +165,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             compilerParameters.CompileCSharp(
                 GetRunStubCode(target, needsTerminal, command),
-                typeof(StubBuilder).GetEmbeddedString("Stub.manifest"));
+                typeof(StubBuilder).GetEmbedded("Stub.manifest").ReadToString());
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             args += target.Uri.ToStringRfc().EscapeArgument();
 
             // Load the template code and insert variables
-            var code = typeof(StubBuilder).GetEmbeddedString("stub.template.cs")
+            var code = typeof(StubBuilder).GetEmbedded("stub.template.cs").ReadToString()
                 .Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe")
                     .Replace(@"\", @"\\"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));

@@ -73,8 +73,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
         public void TestFileExtract()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
-            using (var extractor = Extractor.FromStream(stream, _sandbox, Model.Archive.MimeTypeZip))
+            using (var extractor = Extractor.FromStream(this.GetEmbedded("testArchive.zip"), _sandbox, Model.Archive.MimeTypeZip))
                 extractor.Run();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
@@ -189,8 +188,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
-            using (var extractor = new ZipExtractor(stream, _sandbox))
+            using (var extractor = new ZipExtractor(this.GetEmbedded("testArchive.zip"), _sandbox))
                 extractor.Run();
 
             if (UnixUtils.IsUnix)
@@ -208,8 +206,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
-            using (var extractor = new ZipExtractor(stream, _sandbox))
+            using (var extractor = new ZipExtractor(this.GetEmbedded("testArchive.zip"), _sandbox))
                 extractor.Run();
 
             string target;

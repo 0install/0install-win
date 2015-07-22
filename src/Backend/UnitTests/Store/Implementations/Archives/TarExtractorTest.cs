@@ -45,8 +45,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestPlain()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
-                TestExtract(Model.Archive.MimeTypeTar, stream);
+            TestExtract(Model.Archive.MimeTypeTar, this.GetEmbedded("testArchive.tar"));
         }
 
         [Test]
@@ -58,8 +57,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestGzCompressed()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar.gz"))
-                TestExtract(Model.Archive.MimeTypeTarGzip, stream);
+            TestExtract(Model.Archive.MimeTypeTarGzip, this.GetEmbedded("testArchive.tar.gz"));
         }
 
         [Test]
@@ -71,8 +69,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestBz2Compressed()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar.bz2"))
-                TestExtract(Model.Archive.MimeTypeTarBzip, stream);
+            TestExtract(Model.Archive.MimeTypeTarBzip, this.GetEmbedded("testArchive.tar.bz2"));
         }
 
         [Test]
@@ -84,8 +81,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestLzmaCompressed()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar.lzma"))
-                TestExtract(Model.Archive.MimeTypeTarLzma, stream);
+            TestExtract(Model.Archive.MimeTypeTarLzma, this.GetEmbedded("testArchive.tar.lzma"));
         }
 
         [Test]
@@ -93,7 +89,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.tar.lzma", tempFile);
+                this.GetEmbedded("testArchive.tar.lzma").CopyToFile(tempFile);
 
                 using (var stream = File.OpenRead(tempFile))
                     TestExtract(Model.Archive.MimeTypeTarLzma, stream);
@@ -109,8 +105,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestRubyGem()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.gem"))
-                TestExtract(Model.Archive.MimeTypeRubyGem, stream);
+            TestExtract(Model.Archive.MimeTypeRubyGem, this.GetEmbedded("testArchive.gem"));
         }
 
         private void TestExtract(string mimeType, Stream archive)
@@ -149,8 +144,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
-            using (var extractor = new TarExtractor(stream, _sandbox))
+            using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
                 extractor.Run();
 
             if (UnixUtils.IsUnix)
@@ -168,8 +162,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
-            using (var extractor = new TarExtractor(stream, _sandbox))
+            using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
                 extractor.Run();
 
             string target;
@@ -190,8 +183,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithHardlink()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
-            using (var extractor = new TarExtractor(stream, _sandbox))
+            using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
                 extractor.Run();
 
             Assert.IsTrue(

@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;

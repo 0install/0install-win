@@ -753,15 +753,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A downloaded file is damaged or invalid..
-        /// </summary>
-        public static string DownloadDamaged {
-            get {
-                return ResourceManager.GetString("DownloadDamaged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL or local file path of the feed catalog to add:.
         /// </summary>
         public static string EnterCatalogUrl {

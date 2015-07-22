@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Trust
 
         private readonly byte[] _referenceData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-        private readonly byte[] _signatureData = typeof(OpenPgpTest<T>).GetEmbeddedStream("signature.dat").ReadAll();
+        private readonly byte[] _signatureData = typeof(OpenPgpTest<T>).GetEmbedded("signature.dat").ToArray();
 
         [Test]
         public void TestVerifyValidSignature()
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Trust
         [Test]
         public void TestImportKey()
         {
-            Target.ImportKey(typeof(OpenPgpTest<T>).GetEmbeddedStream("pubkey.gpg").ReadAll());
+            Target.ImportKey(this.GetEmbedded("pubkey.gpg").ToArray());
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Trust
             DeployKeyRings();
 
             string exportedKey = Target.ExportKey(_secretKey);
-            string referenceKeyData = typeof(OpenPgpTest<T>).GetEmbeddedString("pubkey.gpg")
+            string referenceKeyData = this.GetEmbedded("pubkey.gpg").ReadToString()
                 .GetRightPartAtFirstOccurrence("\n\n").GetLeftPartAtLastOccurrence("+");
 
             Assert.That(exportedKey, Is.StringStarting("-----BEGIN PGP PUBLIC KEY BLOCK-----\n"));
@@ -177,8 +177,8 @@ namespace ZeroInstall.Store.Trust
 
         private void DeployKeyRings()
         {
-            typeof(OpenPgpTest<T>).WriteEmbeddedFile("pubring.gpg", Path.Combine(Target.HomeDir, "pubring.gpg"));
-            typeof(OpenPgpTest<T>).WriteEmbeddedFile("secring.gpg", Path.Combine(Target.HomeDir, "secring.gpg"));
+            this.GetEmbedded("pubring.gpg").CopyToFile(Path.Combine(Target.HomeDir, "pubring.gpg"));
+            this.GetEmbedded("secring.gpg").CopyToFile(Path.Combine(Target.HomeDir, "secring.gpg"));
         }
     }
 }

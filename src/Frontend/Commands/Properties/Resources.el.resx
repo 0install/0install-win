@@ -330,9 +330,6 @@ Additional arguments specify custom cache locations.</value>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Η λήψη ολοκληρώθηκε</value>
   </data>
-  <data name="DownloadDamaged" xml:space="preserve">
-    <value>Ένα αρχείο λήψης έχει καταστραφεί ή δεν είναι έγκυρο</value>
-  </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
     <value>Παρακαλούμε εισάγετε το URL ή τοπική διαδρομή αρχείου του καταλόγου τροφοδοσίας για να προστεθεί:</value>
   </data>

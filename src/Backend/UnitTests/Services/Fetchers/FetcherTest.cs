@@ -61,7 +61,7 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                TestData.ZipArchiveStream.WriteTo(tempFile);
+                TestData.ZipArchiveStream.CopyToFile(tempFile);
                 TestDownloadArchives(
                     new Archive {Href = new Uri(tempFile), MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
             }

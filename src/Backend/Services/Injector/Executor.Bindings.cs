@@ -265,7 +265,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
-        private static string DeployRunEnvExecutable(string name)
+        private string DeployRunEnvExecutable(string name)
         {
             string templatePath = GetRunEnvTemplate();
             string deployedPath = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
@@ -304,7 +304,7 @@ namespace ZeroInstall.Services.Injector
         /// Deploys an appropriate runenv binary template for the current operating system.
         /// </summary>
         /// <returns>The path to the deployed executable file.</returns>
-        private static string GetRunEnvTemplate()
+        private string GetRunEnvTemplate()
         {
             string templateName;
             if (WindowsUtils.IsWindows)
@@ -320,7 +320,7 @@ namespace ZeroInstall.Services.Injector
             Log.Info("Writing run-environment template to: " + path);
             try
             {
-                typeof(Executor).WriteEmbeddedFile(templateName, path);
+                this.GetEmbedded(templateName).CopyToFile(path);
             }
                 #region Error handling
             catch (IOException ex)

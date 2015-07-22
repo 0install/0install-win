@@ -41,7 +41,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplyArchive()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var stream = typeof(ExtractorTest).GetEmbedded("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplyRecipe()
         {
-            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var stream = typeof(ExtractorTest).GetEmbedded("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
@@ -95,7 +95,7 @@ namespace ZeroInstall.Publish
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 string tempFile = Path.Combine(tempDir, "archive.zip");
-                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.zip", tempFile);
+                typeof(ExtractorTest).GetEmbedded("testArchive.zip").CopyToFile(tempFile);
 
                 var archive = new Archive();
                 using (var extractedDir = archive.LocalApply(tempFile, new SilentTaskHandler()))

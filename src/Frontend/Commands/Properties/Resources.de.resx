@@ -359,9 +359,6 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
   </data>
-  <data name="DownloadDamaged" xml:space="preserve">
-    <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
-  </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
     <value>Bitte geben Sie dir URL oder den lokalen Dateipfad des hinzuzufügenden Feedkatalogs ein:</value>
   </data>

@@ -49,8 +49,8 @@ namespace ZeroInstall.Publish
 
             if (!File.Exists(Path.Combine(path, name + ".xsl")))
             {
-                typeof(FeedUtils).WriteEmbeddedFile(name + ".xsl", Path.Combine(path, name + ".xsl"));
-                typeof(FeedUtils).WriteEmbeddedFile(name + ".css", Path.Combine(path, name + ".css"));
+                typeof(FeedUtils).GetEmbedded(name + ".xsl").CopyToFile(Path.Combine(path, name + ".xsl"));
+                typeof(FeedUtils).GetEmbedded(name + ".css").CopyToFile(Path.Combine(path, name + ".css"));
             }
         }
 
@@ -79,7 +79,7 @@ namespace ZeroInstall.Publish
             #endregion
 
             // Calculate the signature in-memory
-            var signature = openPgp.Sign(stream.ReadAll(), secretKey, passphrase);
+            var signature = openPgp.Sign(stream.ToArray(), secretKey, passphrase);
 
             // Add the signature to the end of the file
             var writer = new StreamWriter(stream, Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"};
