@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands
         [CanBeNull]
         public static readonly string GuiAssemblyName =
             WindowsUtils.IsWindows
-                ? "0install-win"
-                : UnixUtils.HasGui ? "0install-gtk" : null;
+                ? (WindowsUtils.IsInteractive ? "0install-win" : null)
+                : (UnixUtils.HasGui ? "0install-gtk" : null);
     }
 }
