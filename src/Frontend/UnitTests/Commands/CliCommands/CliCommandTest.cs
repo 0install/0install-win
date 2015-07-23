@@ -25,7 +25,6 @@ using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
@@ -40,27 +39,22 @@ namespace ZeroInstall.Commands.CliCommands
         where TCommand : CliCommand
     {
         // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
-        protected new MockCommandHandler MockHandler { get; private set; }
+        protected new MockCommandHandler Handler { get; private set; }
 
         protected Mock<IFeedCache> FeedCacheMock { get; private set; }
         protected Mock<ICatalogManager> CatalogManagerMock { get; private set; }
         protected Mock<IStore> StoreMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
-        protected Mock<IPackageManager> PackageManagerMock { get; private set; }
         protected Mock<IExecutor> ExecutorMock { get; private set; }
 
         protected override void Register(AutoMockContainer container)
         {
-            MockHandler = new MockCommandHandler();
-            container.Register<ICommandHandler>(MockHandler);
-
-            container.Register(new Config());
+            container.Register<ICommandHandler>(Handler = new MockCommandHandler());
 
             FeedCacheMock = container.GetMock<IFeedCache>();
             CatalogManagerMock = container.GetMock<ICatalogManager>();
             StoreMock = container.GetMock<IStore>();
-            PackageManagerMock = container.GetMock<IPackageManager>();
             SolverMock = container.GetMock<ISolver>();
             FetcherMock = container.GetMock<IFetcher>();
             ExecutorMock = container.GetMock<IExecutor>();
@@ -71,12 +65,12 @@ namespace ZeroInstall.Commands.CliCommands
         {
             base.SetUp();
 
-            Target.Config = Resolve<Config>();
+            Target.Config = Config;
             Target.FeedCache = FeedCacheMock.Object;
             Target.CatalogManager = CatalogManagerMock.Object;
             Target.OpenPgp = Resolve<IOpenPgp>();
             Target.Store = StoreMock.Object;
-            Target.PackageManager = PackageManagerMock.Object;
+            Target.PackageManager = Resolve<IPackageManager>();
             Target.Solver = SolverMock.Object;
             Target.Fetcher = FetcherMock.Object;
             Target.Executor = ExecutorMock.Object;
@@ -94,7 +88,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             Target.Parse(args);
             Assert.AreEqual(expectedExitCode, Target.Execute());
-            Assert.AreEqual(expectedOutput, MockHandler.LastOutput);
+            Assert.AreEqual(expectedOutput, Handler.LastOutput);
         }
 
         /// <summary>
@@ -107,7 +101,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             Target.Parse(args);
             Assert.AreEqual(expectedExitCode, Target.Execute());
-            CollectionAssert.AreEqual(expectedOutput, MockHandler.LastOutputObjects);
+            CollectionAssert.AreEqual(expectedOutput, Handler.LastOutputObjects);
         }
     }
 }

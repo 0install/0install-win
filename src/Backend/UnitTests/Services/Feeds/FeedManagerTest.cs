@@ -117,7 +117,7 @@ namespace ZeroInstall.Services.Feeds
                 // ReSharper disable once AccessToDisposedClosure
                 _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
 
-                Resolve<Config>().FeedMirror = mirrorServer.ServerUri;
+                Config.FeedMirror = mirrorServer.ServerUri;
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
             }
         }
@@ -165,7 +165,7 @@ namespace ZeroInstall.Services.Feeds
             var feed = new Feed();
             _feedCacheMock.Setup(x => x.Contains(FeedTest.Test1Uri)).Returns(true);
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
-            new FeedPreferences {LastChecked = DateTime.UtcNow - Resolve<Config>().Freshness}.SaveFor(FeedTest.Test1Uri);
+            new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor(FeedTest.Test1Uri);
 
             Assert.IsTrue(Target.IsStale(FeedTest.Test1Uri));
             Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));

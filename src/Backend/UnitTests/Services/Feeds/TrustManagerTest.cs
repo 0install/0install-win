@@ -49,7 +49,6 @@ namespace ZeroInstall.Services.Feeds
 
         private Mock<IOpenPgp> _openPgpMock;
         private Mock<IFeedCache> _feedCacheMock;
-        private Config _config;
 
         protected override void Register(AutoMockContainer container)
         {
@@ -58,9 +57,8 @@ namespace ZeroInstall.Services.Feeds
             _openPgpMock = container.GetMock<IOpenPgp>();
             _feedCacheMock = container.GetMock<IFeedCache>();
 
-            _config = Resolve<Config>();
-            _config.KeyInfoServer = null;
-            _config.AutoApproveKeys = false;
+            Config.KeyInfoServer = null;
+            Config.AutoApproveKeys = false;
         }
 
         [Test]
@@ -78,7 +76,7 @@ namespace ZeroInstall.Services.Feeds
             _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123)});
 
             Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
-            Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
+            Assert.IsFalse(IsKeyTrusted(), "Key should not be trusted");
         }
 
         [Test]
@@ -94,20 +92,20 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndReject()
         {
             RegisterKey();
-            MockHandler.AnswerQuestionWith = false;
+            Handler.AnswerQuestionWith = false;
 
             Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
-            Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
+            Assert.IsFalse(IsKeyTrusted(), "Key should not be trusted");
         }
 
         [Test]
         public void ExistingKeyAndApprove()
         {
             RegisterKey();
-            MockHandler.AnswerQuestionWith = true;
+            Handler.AnswerQuestionWith = true;
 
             Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
-            Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
+            Assert.IsTrue(IsKeyTrusted(), "Key should be trusted");
         }
 
         [Test]
@@ -115,14 +113,14 @@ namespace ZeroInstall.Services.Feeds
         {
             RegisterKey();
             _feedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(true);
-            MockHandler.AnswerQuestionWith = false;
+            Handler.AnswerQuestionWith = false;
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
             {
                 UseKeyInfoServer(keyInfoServer);
                 Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             }
-            Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
+            Assert.IsFalse(IsKeyTrusted(), "Key should not be trusted");
         }
 
         [Test]
@@ -136,43 +134,43 @@ namespace ZeroInstall.Services.Feeds
                 UseKeyInfoServer(keyInfoServer);
                 Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             }
-            Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
+            Assert.IsTrue(IsKeyTrusted(), "Key should be trusted");
         }
 
         [Test]
         public void DownloadKeyAndReject()
         {
             ExpectKeyImport();
-            MockHandler.AnswerQuestionWith = false;
+            Handler.AnswerQuestionWith = false;
 
             using (var server = new MicroServer(KeyID + ".gpg", new MemoryStream(_keyData)))
                 Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
-            Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
+            Assert.IsFalse(IsKeyTrusted(), "Key should not be trusted");
         }
 
         [Test]
         public void DownloadKeyAndApprove()
         {
             ExpectKeyImport();
-            MockHandler.AnswerQuestionWith = true;
+            Handler.AnswerQuestionWith = true;
 
             using (var server = new MicroServer(KeyID + ".gpg", new MemoryStream(_keyData)))
                 Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
-            Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
+            Assert.IsTrue(IsKeyTrusted(), "Key should be trusted");
         }
 
         [Test]
         public void DownloadKeyFromMirrorAndApprove()
         {
             ExpectKeyImport();
-            MockHandler.AnswerQuestionWith = true;
+            Handler.AnswerQuestionWith = true;
 
             using (var server = new MicroServer("keys/" + KeyID + ".gpg", new MemoryStream(_keyData)))
             {
-                _config.FeedMirror = server.ServerUri;
+                Config.FeedMirror = server.ServerUri;
                 Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test/feed.xml")));
             }
-            Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
+            Assert.IsTrue(IsKeyTrusted(), "Key should be trusted");
         }
 
         private void RegisterKey()
@@ -195,7 +193,10 @@ namespace ZeroInstall.Services.Feeds
             }.Save();
         }
 
-        private static bool IsKeyTrusted { get { return TrustDB.LoadSafe().IsTrusted(_signature.Fingerprint, new Domain {Value = "localhost"}); } }
+        private static bool IsKeyTrusted()
+        {
+            return TrustDB.LoadSafe().IsTrusted(_signature.Fingerprint, new Domain {Value = "localhost"});
+        }
 
         private void ExpectKeyImport()
         {
@@ -207,9 +208,8 @@ namespace ZeroInstall.Services.Feeds
 
         private void UseKeyInfoServer(MicroServer keyInfoServer)
         {
-            var config = Resolve<Config>();
-            config.AutoApproveKeys = true;
-            config.KeyInfoServer = keyInfoServer.ServerUri;
+            Config.AutoApproveKeys = true;
+            Config.KeyInfoServer = keyInfoServer.ServerUri;
         }
     }
 }

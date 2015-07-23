@@ -21,6 +21,7 @@ using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall
 {
@@ -34,7 +35,8 @@ namespace ZeroInstall
         private LocationsRedirect _redirect;
         private AutoMockContainer _container;
 
-        protected MockTaskHandler MockHandler { get; private set; }
+        protected MockTaskHandler Handler { get; private set; }
+        protected Config Config { get; private set; }
 
         /// <summary>
         /// The object to be tested.
@@ -46,9 +48,8 @@ namespace ZeroInstall
         /// </summary>
         protected virtual void Register(AutoMockContainer container)
         {
-            container.Register<ITaskHandler>(MockHandler = new MockTaskHandler());
-
-            container.Register(new Config());
+            container.Register<ITaskHandler>(Handler = new MockTaskHandler());
+            container.Register(Config = new Config());
         }
 
         [SetUp]

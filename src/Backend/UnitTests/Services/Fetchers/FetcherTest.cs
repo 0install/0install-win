@@ -21,7 +21,6 @@ using System.Linq;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Implementations;
@@ -142,7 +141,7 @@ namespace ZeroInstall.Services.Fetchers
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Resolve<ITaskHandler>())).Returns("");
+            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Handler)).Returns("");
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -165,7 +164,7 @@ namespace ZeroInstall.Services.Fetchers
             testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Resolve<ITaskHandler>())).Returns("");
+            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Handler)).Returns("");
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -175,7 +174,7 @@ namespace ZeroInstall.Services.Fetchers
         public void RunExternalConfirm()
         {
             bool installInvoked = false;
-            MockHandler.AnswerQuestionWith = true;
+            Handler.AnswerQuestionWith = true;
             Target.Fetch(new[]
             {
                 new Implementation
@@ -198,7 +197,7 @@ namespace ZeroInstall.Services.Fetchers
         public void RunExternalDeny()
         {
             bool installInvoked = false;
-            MockHandler.AnswerQuestionWith = false;
+            Handler.AnswerQuestionWith = false;
             Assert.Throws<OperationCanceledException>(() => Target.Fetch(new[]
             {
                 new Implementation
