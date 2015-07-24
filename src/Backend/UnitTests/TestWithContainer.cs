@@ -37,6 +37,7 @@ namespace ZeroInstall
 
         protected MockTaskHandler Handler { get; private set; }
         protected Config Config { get; private set; }
+        protected TrustDB TrustDB { get; private set; }
 
         /// <summary>
         /// The object to be tested.
@@ -50,6 +51,7 @@ namespace ZeroInstall
         {
             container.Register<ITaskHandler>(Handler = new MockTaskHandler());
             container.Register(Config = new Config());
+            container.Register(TrustDB = new TrustDB());
         }
 
         [SetUp]

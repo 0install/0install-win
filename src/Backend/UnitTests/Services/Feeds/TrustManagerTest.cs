@@ -178,24 +178,14 @@ namespace ZeroInstall.Services.Feeds
             _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {_signature});
         }
 
-        private static void TrustKey()
+        private void TrustKey()
         {
-            new TrustDB
-            {
-                Keys =
-                {
-                    new Key
-                    {
-                        Domains = {new Domain("localhost")},
-                        Fingerprint = _signature.Fingerprint
-                    }
-                }
-            }.Save();
+            TrustDB.TrustKey(_signature.Fingerprint, new Domain("localhost"));
         }
 
-        private static bool IsKeyTrusted()
+        private bool IsKeyTrusted()
         {
-            return TrustDB.LoadSafe().IsTrusted(_signature.Fingerprint, new Domain {Value = "localhost"});
+            return TrustDB.IsTrusted(_signature.Fingerprint, new Domain {Value = "localhost"});
         }
 
         private void ExpectKeyImport()

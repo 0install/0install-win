@@ -69,6 +69,7 @@ namespace ZeroInstall.Commands.CliCommands
             Target.FeedCache = FeedCacheMock.Object;
             Target.CatalogManager = CatalogManagerMock.Object;
             Target.OpenPgp = Resolve<IOpenPgp>();
+            Target.TrustDB = TrustDB;
             Target.Store = StoreMock.Object;
             Target.PackageManager = Resolve<IPackageManager>();
             Target.Solver = SolverMock.Object;

@@ -42,6 +42,7 @@ namespace ZeroInstall.Services.Feeds
         #region Dependencies
         private readonly Config _config;
         private readonly IOpenPgp _openPgp;
+        private readonly TrustDB _trustDB;
         private readonly IFeedCache _feedCache;
         private readonly ITaskHandler _handler;
 
@@ -50,19 +51,22 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
+        /// <param name="trustDB">A database of OpenPGP signature fingerprints the users trusts to sign <see cref="Feed"/>s coming from specific domains.</param>
         /// <param name="feedCache">Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions.</param>
-        public TrustManager([NotNull] Config config, [NotNull] IOpenPgp openPgp, [NotNull] IFeedCache feedCache, [NotNull] ITaskHandler handler)
+        public TrustManager([NotNull] Config config, [NotNull] IOpenPgp openPgp, [NotNull] TrustDB trustDB, [NotNull] IFeedCache feedCache, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (trustDB == null) throw new ArgumentNullException("trustDB");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             _config = config;
             _openPgp = openPgp;
+            _trustDB = trustDB;
             _feedCache = feedCache;
             _handler = handler;
         }
@@ -81,14 +85,13 @@ namespace ZeroInstall.Services.Feeds
 
             var domain = new Domain(uri.Host);
             KeyImported:
-            var trustDB = TrustDB.LoadSafe();
             var signatures = FeedUtils.GetSignatures(_openPgp, data).ToList();
 
             foreach (var signature in signatures.OfType<ValidSignature>())
-                if (trustDB.IsTrusted(signature.Fingerprint, domain)) return signature;
+                if (_trustDB.IsTrusted(signature.Fingerprint, domain)) return signature;
 
             foreach (var signature in signatures.OfType<ValidSignature>())
-                if (HandleNewKey(trustDB, uri, signature.Fingerprint, domain)) return signature;
+                if (HandleNewKey(uri, signature.Fingerprint, domain)) return signature;
 
             foreach (var signature in signatures.OfType<MissingKeySignature>())
             {
@@ -102,18 +105,17 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Handles new keys that have not been trusted yet.
         /// </summary>
-        /// <param name="trustDB">The trust database used to store user decisions.</param>
         /// <param name="uri">The URI the signed file originally came from.</param>
         /// <param name="fingerprint">The fingerprint of the key to trust.</param>
         /// <param name="domain">The domain to trust the key for.</param>
         /// <returns><see langword="true"/> if the user decided to trust the key, <see langword="false"/> if they decided not to trust the key.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        private bool HandleNewKey([NotNull] TrustDB trustDB, [NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
+        private bool HandleNewKey([NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
         {
             if (AskKeyApproval(uri, fingerprint, domain))
             {
-                trustDB.TrustKey(fingerprint, domain);
-                trustDB.Save();
+                _trustDB.TrustKey(fingerprint, domain);
+                _trustDB.Save();
                 return true;
             }
             else return false;

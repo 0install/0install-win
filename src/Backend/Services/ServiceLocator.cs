@@ -91,13 +91,21 @@ namespace ZeroInstall.Services
         [NotNull]
         public IFeedCache FeedCache { get { return Get(ref _feedCache, () => FeedCacheFactory.CreateDefault(OpenPgp)); } set { _feedCache = value; } }
 
+        private TrustDB _trustDB;
+
+        /// <summary>
+        /// A database of OpenPGP signature fingerprints the users trusts to sign <see cref="Feed"/>s coming from specific domains.
+        /// </summary>
+        [NotNull]
+        public TrustDB TrustDB { get { return Get(ref _trustDB, TrustDB.LoadSafe); } set { _trustDB = value; } }
+
         private ITrustManager _trustManager;
 
         /// <summary>
         /// Methods for verifying signatures and user trust.
         /// </summary>
         [NotNull]
-        public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, FeedCache, Handler)); } set { _trustManager = value; } }
+        public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, TrustDB, FeedCache, Handler)); } set { _trustManager = value; } }
 
         private IFeedManager _feedManager;
 
