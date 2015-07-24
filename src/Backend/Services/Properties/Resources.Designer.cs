@@ -236,6 +236,15 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feeds must specify the URI they originated from in order to be importable..
+        /// </summary>
+        internal static string ImportNoSource {
+            get {
+                return ResourceManager.GetString("ImportNoSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing name in {0} binding..
         /// </summary>
         internal static string MissingBindingName {

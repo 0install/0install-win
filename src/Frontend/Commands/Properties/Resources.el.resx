@@ -383,9 +383,6 @@ Additional arguments specify custom cache locations.</value>
     <value>Αυτή η τροφοδοσία δεν φαίνεται να είναι για την ίδια εφαρμογή. Να προστεθει ούτως ή άλλως;
 Μια &lt;feed-για&gt; ετικέτα υποδεικνύει την συμβατότητα τροφοδοσίας.</value>
   </data>
-  <data name="ImportNoSource" xml:space="preserve">
-    <value>Τροφοδοσίες πρέπει να καθορίζουν το URI απο που προέρχονται προκειμένου να εισάγονται</value>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Ενσωμάτωση {0}</value>
   </data>

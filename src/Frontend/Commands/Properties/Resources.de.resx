@@ -412,9 +412,6 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
     <value>Dieser Feed scheint nicht für die gleiche Anwendung zu sein. Trotzdem hinzufügen?
 Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   </data>
-  <data name="ImportNoSource" xml:space="preserve">
-    <value>Feeds müssen ihre Quell-URI angeben um importierbar zu sein.</value>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integriere {0}</value>
   </data>

@@ -412,9 +412,6 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>Bu akış aynı uygulama için değil gibi görünüyor. Yine de eklensin mi?
 Akış uyumluluğu için bir &lt;feed-for&gt; kodu bulunmalıdır.</value>
   </data>
-  <data name="ImportNoSource" xml:space="preserve">
-    <value>Akışların alınabilmesi için kaynak İnternet adresleri belirtilmelidir.</value>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>{0} tümleştirmesi</value>
   </data>

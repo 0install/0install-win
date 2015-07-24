@@ -289,56 +289,69 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-feed"))
             {
                 _handler.RunTask(new DownloadFile(downloadUrl, feedFile));
-                ImportFeed(feedFile, feedUri);
+                ImportFeed(File.ReadAllBytes(feedFile), feedUri);
             }
         }
         #endregion
 
         #region Import feed
         /// <inheritdoc/>
-        public void ImportFeed(string path, FeedUri feedUri)
+        public void ImportFeed(string path)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            if (feedUri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);
-            Log.Debug("Importing feed " + feedUri.ToStringRfc() + " from: " + path);
+            var feed = XmlStorage.LoadXml<Feed>(path);
+            if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
+            ImportFeed(File.ReadAllBytes(path), feed.Uri, path);
+        }
 
-            var data = File.ReadAllBytes(path);
+        /// <summary>
+        /// Imports a <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
+        /// </summary>
+        /// <param name="data">The content of the feed.</param>
+        /// <param name="feedUri">The URI the feed originally came from.</param>
+        /// <param name="localPath">The local file path the feed data came from. May be <see langword="null"/> for in-memory data.</param>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the feed file or the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/> or <paramref name="feedUri"/> is a local file.</exception>
+        private void ImportFeed([NotNull] byte[] data, [NotNull] FeedUri feedUri, [CanBeNull] string localPath = null)
+        {
+            Log.Debug("Importing feed " + feedUri.ToStringRfc() + " from " + (localPath ?? "web"));
 
-            var newSignature = _trustManager.CheckTrust(data, feedUri, path);
-            DetectAttacks(data, feedUri, newSignature);
+            CheckFeed(data, feedUri);
+            CheckTrust(data, feedUri, localPath);
+            AddToCache(data, feedUri);
+        }
 
-            // Add to cache and remember time
+        private void AddToCache(byte[] data, FeedUri feedUri)
+        {
             _feedCache.Add(feedUri, data);
+
             var preferences = FeedPreferences.LoadForSafe(feedUri);
             preferences.LastChecked = DateTime.UtcNow;
             preferences.Normalize();
             preferences.SaveFor(feedUri);
         }
 
-        /// <summary>
-        /// Detects attacks such as feed substitution or replay attacks.
-        /// </summary>
-        /// <param name="data">The content of the feed file as a byte array.</param>
-        /// <param name="uri">The URI the feed originally came from.</param>
-        /// <param name="signature">The first trusted signature for the feed.</param>
-        /// <exception cref="ReplayAttackException">A replay attack was detected.</exception>
-        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/>.</exception>
-        private void DetectAttacks(byte[] data, FeedUri uri, ValidSignature signature)
+        private static void CheckFeed(byte[] data, FeedUri feedUri)
         {
             // Detect feed substitution
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
-            if (feed.Uri == null) throw new UriFormatException(string.Format(Resources.FeedUriMissing, uri));
-            if (feed.Uri != uri) throw new UriFormatException(string.Format(Resources.FeedUriMismatch, feed.Uri, uri));
+            if (feed.Uri == null) throw new InvalidDataException(string.Format(Resources.FeedUriMissing, feedUri));
+            if (feed.Uri != feedUri) throw new InvalidDataException(string.Format(Resources.FeedUriMismatch, feed.Uri, feedUri));
+        }
 
+        private void CheckTrust(byte[] data, FeedUri feedUri, string localPath)
+        {
             // Detect replay attacks
+            var newSignature = _trustManager.CheckTrust(data, feedUri, localPath);
             try
             {
-                var oldSignature = _feedCache.GetSignatures(uri).OfType<ValidSignature>().FirstOrDefault();
-                if (oldSignature != null && signature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(uri, oldSignature.Timestamp, signature.Timestamp);
+                var oldSignature = _feedCache.GetSignatures(feedUri).OfType<ValidSignature>().FirstOrDefault();
+                if (oldSignature != null && newSignature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(feedUri, oldSignature.Timestamp, newSignature.Timestamp);
             }
             catch (KeyNotFoundException)
             {

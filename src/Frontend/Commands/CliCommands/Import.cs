@@ -15,12 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Cli;
-using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -52,22 +49,9 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
-                ImportFile(file.FullName);
+                FeedManager.ImportFeed(file.FullName);
 
             return ExitCode.OK;
-        }
-
-        /// <summary>
-        /// Import a feed from a local file, as if it had been downloaded from the network.
-        /// </summary>
-        /// <param name="path">The local path of the feed file to import.</param>
-        /// <exception cref="InvalidDataException">The feed specifies no <see cref="Feed.Uri"/>.</exception>
-        private void ImportFile([NotNull] string path)
-        {
-            var feed = XmlStorage.LoadXml<Feed>(path);
-
-            if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
-            FeedManager.ImportFeed(path, feed.Uri);
         }
     }
 }

@@ -180,6 +180,9 @@
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Παράνομος χαρακτήρας στο {0} όνομα σύνδεσης.</value>
   </data>
+  <data name="ImportNoSource" xml:space="preserve">
+    <value>Τροφοδοσίες πρέπει να καθορίζουν το URI απο που προέρχονται προκειμένου να εισάγονται</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Όνομα στην {0} δεσμευτική λείπει.</value>
   </data>

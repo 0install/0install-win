@@ -908,15 +908,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feeds must specify the URI they originated from in order to be importable..
-        /// </summary>
-        public static string ImportNoSource {
-            get {
-                return ResourceManager.GetString("ImportNoSource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Integrate {0}.
         /// </summary>
         public static string Integrate {

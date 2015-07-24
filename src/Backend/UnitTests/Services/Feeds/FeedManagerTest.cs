@@ -92,10 +92,28 @@ namespace ZeroInstall.Services.Feeds
                 _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
 
-                // ReSharper disable once AccessToDisposedClosure
                 _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
 
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
+            }
+        }
+
+        [Test]
+        public void DownloadIncorrectUri()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            var feedStream = new MemoryStream();
+            feed.SaveXml(feedStream);
+            feedStream.Position = 0;
+
+            using (var server = new MicroServer("feed.xml", feedStream))
+            {
+                var feedUri = new FeedUri(server.FileUri);
+
+                // No previous feed
+                _feedCacheMock.Setup(x => x.Contains(feedUri)).Returns(false);
+
+                Assert.Throws<InvalidDataException>(() => Target.GetFeed(feedUri));
             }
         }
 
@@ -185,21 +203,7 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Target.ImportFeed(feedFile, feed.Uri);
-            }
-        }
-
-        [Test(Description = "Ensures feeds with incorrect URIs are rejected.")]
-        public void ImportIncorrectUri()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            var data = feed.ToXmlString().ToStream().ToArray();
-
-            _trustManagerMock.Setup(x => x.CheckTrust(data, new FeedUri("http://invalid/"), It.IsAny<string>())).Returns(_signature);
-            using (var feedFile = new TemporaryFile("0install-unit-tests"))
-            {
-                File.WriteAllBytes(feedFile, data);
-                Assert.Throws<UriFormatException>(() => Target.ImportFeed(feedFile, new FeedUri("http://invalid/")));
+                Target.ImportFeed(feedFile);
             }
         }
 
@@ -215,7 +219,7 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Assert.Throws<ReplayAttackException>(() => Target.ImportFeed(feedFile, feed.Uri));
+                Assert.Throws<ReplayAttackException>(() => Target.ImportFeed(feedFile));
             }
         }
 

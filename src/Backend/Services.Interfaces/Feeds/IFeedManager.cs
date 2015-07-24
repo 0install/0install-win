@@ -58,7 +58,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
-        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
+        /// <exception cref="InvalidDataException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
         [NotNull]
         Feed GetFeed([NotNull] FeedUri feedUri);
 
@@ -73,11 +73,10 @@ namespace ZeroInstall.Services.Feeds
         /// Imports a remote <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
         /// </summary>
         /// <param name="path">The path of a local copy of the feed.</param>
-        /// <param name="feedUri">The URI the feed originally came from.</param>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
-        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/> or <paramref name="feedUri"/> is a local file.</exception>
-        void ImportFeed([NotNull] string path, [NotNull] FeedUri feedUri);
+        /// <exception cref="InvalidDataException"><see cref="Feed.Uri"/> is missing.</exception>
+        void ImportFeed([NotNull] string path);
     }
 }

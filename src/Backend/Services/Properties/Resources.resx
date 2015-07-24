@@ -178,6 +178,9 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Illegal character in {0} binding name.</value>
   </data>
+  <data name="ImportNoSource" xml:space="preserve">
+    <value>Feeds must specify the URI they originated from in order to be importable.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Missing name in {0} binding.</value>
   </data>

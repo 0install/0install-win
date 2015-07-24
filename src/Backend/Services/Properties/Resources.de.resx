@@ -178,6 +178,9 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Ungültiges Zeichen im {0} Binding Namen.</value>
   </data>
+  <data name="ImportNoSource" xml:space="preserve">
+    <value>Feeds müssen ihre Quell-URI angeben um importierbar zu sein.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Fehlender Name in {0} Binding.</value>
   </data>

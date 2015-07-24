@@ -412,9 +412,6 @@ This is similar to '0install download --refresh', except that it prints informat
     <value>This feed does not seem to be for the same application. Add it anyway?
 A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   </data>
-  <data name="ImportNoSource" xml:space="preserve">
-    <value>Feeds must specify the URI they originated from in order to be importable.</value>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate {0}</value>
   </data>

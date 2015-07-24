@@ -178,6 +178,9 @@
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>{0} bağlantı adında geçersiz karakter var.</value>
   </data>
+  <data name="ImportNoSource" xml:space="preserve">
+    <value>Akışların alınabilmesi için kaynak İnternet adresleri belirtilmelidir.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>{0} bağlantısında ad eksik.</value>
   </data>
