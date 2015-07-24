@@ -15,7 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Fetchers
 {
@@ -24,5 +27,17 @@ namespace ZeroInstall.Services.Fetchers
     /// </summary>
     [TestFixture]
     public class SequentialFetcherTest : FetcherTest<SequentialFetcher>
-    {}
+    {
+        [Test]
+        public void DownloadSingleArchiveMirror()
+        {
+            StoreMock.Setup(x => x.Flush());
+            using (var mirrorServer = new MicroServer("archive/http/invalid/directory%23archive.zip", TestData.ZipArchiveStream))
+            {
+                Config.FeedMirror = mirrorServer.ServerUri;
+                TestDownloadArchives(
+                    new Archive {Href = new Uri("http://invalid/directory/archive.zip"), MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
+            }
+        }
+    }
 }

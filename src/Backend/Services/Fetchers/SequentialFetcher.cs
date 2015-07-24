@@ -23,9 +23,12 @@ using System.Net;
 using System.Threading;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Net;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -37,13 +40,23 @@ namespace ZeroInstall.Services.Fetchers
     public class SequentialFetcher : FetcherBase
     {
         #region Dependencies
+        private readonly Config _config;
+
         /// <summary>
         /// Creates a new sequential download fetcher.
         /// </summary>
+        /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Store.Model.Implementation"/>s in.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        public SequentialFetcher([NotNull] IStore store, [NotNull] ITaskHandler handler) : base(store, handler)
-        {}
+        public SequentialFetcher([NotNull] Config config, [NotNull] IStore store, [NotNull] ITaskHandler handler)
+            : base(store, handler)
+        {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            #endregion
+
+            _config = config;
+        }
         #endregion
 
         /// <inheritdoc/>
@@ -127,6 +140,44 @@ namespace ZeroInstall.Services.Fetchers
                 }
                 #endregion
             }
+        }
+
+        /// <inheritdoc/>
+        protected override TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, object tag = null)
+        {
+            #region Sanity checks
+            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            #endregion
+
+            try
+            {
+                return base.Download(retrievalMethod, tag);
+            }
+            catch (WebException ex)
+            {
+                Log.Warn(ex);
+                if (retrievalMethod.Href.IsLoopback) throw;
+                Log.Info("Trying mirror");
+
+                try
+                {
+                    var mirrored = (DownloadRetrievalMethod)retrievalMethod.CloneRecipeStep();
+                    mirrored.Href = GetMirrorUrl(retrievalMethod.Href);
+                    return Download(mirrored, tag);
+                }
+                catch (WebException)
+                {
+                    // Report the original problem instead of mirror errors
+                    ex.Rethrow();
+                    throw ex;
+                }
+            }
+        }
+
+        [NotNull]
+        private Uri GetMirrorUrl([NotNull] Uri url)
+        {
+            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "archive/" + url.Scheme + "/" + url.Host + "/" + string.Concat(url.Segments).TrimStart('/').Replace("/", "%23"));
         }
     }
 }

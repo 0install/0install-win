@@ -35,19 +35,19 @@ namespace ZeroInstall.Services.Fetchers
     public abstract class FetcherTest<TFetcher> : TestWithContainer<TFetcher>
         where TFetcher : class, IFetcher
     {
-        private Mock<IStore> _storeMock;
+        protected Mock<IStore> StoreMock;
 
         protected override void Register(AutoMockContainer container)
         {
             base.Register(container);
 
-            _storeMock = container.GetMock<IStore>();
+            StoreMock = container.GetMock<IStore>();
         }
 
         [Test]
         public void DownloadSingleArchive()
         {
-            _storeMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Flush());
             using (var server = new MicroServer("archive.zip", TestData.ZipArchiveStream))
             {
                 TestDownloadArchives(
@@ -58,7 +58,7 @@ namespace ZeroInstall.Services.Fetchers
         [Test]
         public void DownloadLocalArchive()
         {
-            _storeMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Flush());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 TestData.ZipArchiveStream.WriteTo(tempFile);
@@ -70,7 +70,7 @@ namespace ZeroInstall.Services.Fetchers
         [Test]
         public void DownloadMultipleArchives()
         {
-            _storeMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Flush());
             using (var server1 = new MicroServer("archive.zip", TestData.ZipArchiveStream))
             using (var server2 = new MicroServer("archive.zip", TestData.ZipArchiveStream))
             {
@@ -83,7 +83,7 @@ namespace ZeroInstall.Services.Fetchers
         [Test]
         public void DownloadSingleFile()
         {
-            _storeMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Flush());
             using (var server = new MicroServer("regular", TestData.RegularString.ToStream()))
             {
                 TestDownload(
@@ -95,7 +95,7 @@ namespace ZeroInstall.Services.Fetchers
         [Test]
         public void DownloadRecipe()
         {
-            _storeMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Flush());
             using (var serverArchive = new MicroServer("archive.zip", TestData.ZipArchiveStream))
             using (var serverSingleFile = new MicroServer("regular", TestData.RegularString.ToStream()))
             {
@@ -118,7 +118,7 @@ namespace ZeroInstall.Services.Fetchers
         [Test]
         public void SkipBroken()
         {
-            _storeMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Flush());
             using (var serverArchive = new MicroServer("archive.zip", TestData.ZipArchiveStream))
             using (var serverSingleFile = new MicroServer("regular", TestData.RegularString.ToStream()))
             {
@@ -134,14 +134,14 @@ namespace ZeroInstall.Services.Fetchers
         }
 
         #region Helpers
-        private void TestDownloadArchives(params Archive[] archives)
+        protected void TestDownloadArchives(params Archive[] archives)
         {
             var digest = new ManifestDigest(sha256New: "test123");
             var archiveInfos = archives.Select(archive => new ArchiveFileInfo {SubDir = archive.Extract, Destination = archive.Destination, MimeType = archive.MimeType, StartOffset = archive.StartOffset, OriginalSource = archive.Href});
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
-            _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Handler)).Returns("");
+            StoreMock.Setup(x => x.Contains(digest)).Returns(false);
+            StoreMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Handler)).Returns("");
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -163,8 +163,8 @@ namespace ZeroInstall.Services.Fetchers
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest};
             testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
-            _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Handler)).Returns("");
+            StoreMock.Setup(x => x.Contains(digest)).Returns(false);
+            StoreMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Handler)).Returns("");
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -221,8 +221,8 @@ namespace ZeroInstall.Services.Fetchers
         {
             var digest = new ManifestDigest(sha256New: "test123");
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest, RetrievalMethods = {new Recipe()}};
-            _storeMock.Setup(x => x.Flush());
-            _storeMock.Setup(x => x.Contains(digest)).Returns(true);
+            StoreMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Contains(digest)).Returns(true);
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -231,8 +231,8 @@ namespace ZeroInstall.Services.Fetchers
         public void NoSuitableMethod()
         {
             var implementation = new Implementation {ID = "test", ManifestDigest = new ManifestDigest(sha256New: "test123")};
-            _storeMock.Setup(x => x.Flush());
-            _storeMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
+            StoreMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
             Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
         }
@@ -246,8 +246,8 @@ namespace ZeroInstall.Services.Fetchers
                 ManifestDigest = new ManifestDigest(sha256New: "test123"),
                 RetrievalMethods = {new Archive {MimeType = "test/format"}}
             };
-            _storeMock.Setup(x => x.Flush());
-            _storeMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
+            StoreMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
             Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
         }
@@ -261,8 +261,8 @@ namespace ZeroInstall.Services.Fetchers
                 ManifestDigest = new ManifestDigest(sha256New: "test123"),
                 RetrievalMethods = {new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip}, new Archive {MimeType = "test/format"}}}}
             };
-            _storeMock.Setup(x => x.Flush());
-            _storeMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
+            StoreMock.Setup(x => x.Flush());
+            StoreMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
             Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
         }
