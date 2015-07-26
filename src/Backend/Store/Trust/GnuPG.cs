@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            string output = new CliControl(_homeDir, passphrase ?? "", data).Execute("--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
+            string output = new CliControl(_homeDir, data).Execute("--batch", "--no-secmem-warning", "--passphrase", passphrase ?? "", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
             string signatureBase64 = output
                 .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
                 .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")

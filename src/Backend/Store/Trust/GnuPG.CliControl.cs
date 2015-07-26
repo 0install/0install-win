@@ -46,35 +46,11 @@ namespace ZeroInstall.Store.Trust
             private readonly string _homeDir;
 
             [CanBeNull]
-            private readonly string _stdinLine;
-
-            [CanBeNull]
             private readonly byte[] _stdinBytes;
 
-            /// <summary>
-            /// Does not write anything to stdin.
-            /// </summary>
-            public CliControl([CanBeNull] string homeDir = null)
+            public CliControl([CanBeNull] string homeDir = null, [CanBeNull] byte[] stdinBytes = null)
             {
                 _homeDir = homeDir;
-            }
-
-            /// <summary>
-            /// Writes a set of bytes to stdin.
-            /// </summary>
-            public CliControl([NotNull] string homeDir, [NotNull] byte[] stdinBytes)
-            {
-                _homeDir = homeDir;
-                _stdinBytes = stdinBytes;
-            }
-
-            /// <summary>
-            /// Writes a string terminating with a newline followed by a set of bytes to stdin.
-            /// </summary>
-            public CliControl([NotNull] string homeDir, [NotNull] string stdinLine, [NotNull] byte[] stdinBytes)
-            {
-                _homeDir = homeDir;
-                _stdinLine = stdinLine;
                 _stdinBytes = stdinBytes;
             }
 
@@ -102,11 +78,6 @@ namespace ZeroInstall.Store.Trust
                 if (writer == null) throw new ArgumentNullException("writer");
                 #endregion
 
-                if (_stdinLine != null)
-                {
-                    writer.WriteLine(_stdinLine);
-                    writer.Flush();
-                }
                 if (_stdinBytes != null)
                 {
                     writer.BaseStream.Write(_stdinBytes);
