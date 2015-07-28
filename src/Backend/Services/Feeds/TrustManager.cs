@@ -224,8 +224,7 @@ namespace ZeroInstall.Services.Feeds
             }
             catch (WebException ex)
             {
-                Log.Warn(string.Format(Resources.UnableToLoadKeyFile, uri));
-                Log.Info(Resources.TryingFeedMirror);
+                Log.Warn(string.Format(Resources.UnableToLoadKeyFile, uri) + " " + Resources.TryingFeedMirror);
                 try
                 {
                     DownloadKey(GetMirrorUrl(signature));

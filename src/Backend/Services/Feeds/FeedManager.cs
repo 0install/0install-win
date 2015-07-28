@@ -236,9 +236,8 @@ namespace ZeroInstall.Services.Feeds
             }
             catch (WebException ex)
             {
-                Log.Warn(string.Format(Resources.FeedDownloadError, feedUri));
                 if (feedUri.IsLoopback) throw;
-                Log.Info(Resources.TryingFeedMirror);
+                Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 try
                 {
                     DownloadFeed(feedUri, downloadUrl: GetMirrorUrl(feedUri));
