@@ -350,22 +350,12 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Finish
-        private static readonly Random _random = new Random();
-
         /// <inheritdoc/>
         protected override void Finish()
         {
-            try
-            {
-                Log.Debug("Saving AppList to: " + AppListPath);
-                AppList.SaveXml(AppListPath);
-            }
-            catch (IOException)
-            {
-                Log.Info("Race condition encountered while saving AppList. Waiting for a moment and then retrying.");
-                Thread.Sleep(_random.Next(250, 1500));
-                AppList.SaveXml(AppListPath);
-            }
+            Log.Debug("Saving AppList to: " + AppListPath);
+            // Retry to handle race conditions with read-only access to the file
+            ExceptionUtils.Retry<IOException>(delegate { AppList.SaveXml(AppListPath); });
 
             WindowsUtils.NotifyAssocChanged(); // Notify Windows Explorer of changes
             WindowsUtils.BroadcastMessage(ChangedWindowMessageID); // Notify Zero Install GUIs of changes
