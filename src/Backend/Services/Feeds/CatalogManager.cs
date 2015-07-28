@@ -140,12 +140,9 @@ namespace ZeroInstall.Services.Feeds
 
             if (source.IsFile) return XmlStorage.LoadXml<Catalog>(source.LocalPath);
 
-            byte[] data = null;
-            _handler.RunTask(new SimpleTask(string.Format(Resources.DownloadingCatalog, source.ToStringRfc()), () =>
-            {
-                using (var webClient = new WebClientTimeout())
-                    data = webClient.DownloadData(source);
-            }));
+            var download = new DownloadMemory(source);
+            _handler.RunTask(download);
+            var data = download.GetData();
             _trustManager.CheckTrust(data, source);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }

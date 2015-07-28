@@ -133,9 +133,6 @@
   <data name="CommandNotSpecified" xml:space="preserve">
     <value>&apos;{0}&apos; için komut belirtilmemiş.</value>
   </data>
-  <data name="DownloadingCatalog" xml:space="preserve">
-    <value>{0} kataloğu indiriliyor</value>
-  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; bağlantılarında bir &apos;value&apos; değer ya da &apos;insert&apos; ekleme özniteliği bulunmalıdır.</value>
   </data>

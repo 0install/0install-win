@@ -232,7 +232,9 @@ namespace ZeroInstall.Services.Feeds
 
             try
             {
-                DownloadFeed(feedUri);
+                var download = new DownloadMemory(feedUri);
+                _handler.RunTask(download);
+                ImportFeed(download.GetData(), feedUri);
             }
             catch (WebException ex)
             {
@@ -240,7 +242,9 @@ namespace ZeroInstall.Services.Feeds
                 Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 try
                 {
-                    DownloadFeed(feedUri, downloadUrl: GetMirrorUrl(feedUri));
+                    var download = new DownloadMemory(GetMirrorUrl(feedUri));
+                    _handler.RunTask(download);
+                    ImportFeed(download.GetData(), feedUri);
                 }
                 catch (WebException)
                 {
@@ -268,28 +272,6 @@ namespace ZeroInstall.Services.Feeds
 
             // Set modification time to now
             FileUtils.Touch(path);
-        }
-
-        /// <summary>
-        /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures.
-        /// </summary>
-        /// <param name="feedUri">The original URL the feed came from.</param>
-        /// <param name="downloadUrl">The URL to download the fed from. Leave <see langword="null"/> to use <paramref name="feedUri"/>.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
-        /// <exception cref="IOException">A problem occured while writing the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
-        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/> or <paramref name="feedUri"/> is a local file.</exception>
-        private void DownloadFeed([NotNull] FeedUri feedUri, [CanBeNull] Uri downloadUrl = null)
-        {
-            if (downloadUrl == null) downloadUrl = feedUri;
-
-            using (var feedFile = new TemporaryFile("0install-feed"))
-            {
-                _handler.RunTask(new DownloadFile(downloadUrl, feedFile));
-                ImportFeed(File.ReadAllBytes(feedFile), feedUri);
-            }
         }
         #endregion
 

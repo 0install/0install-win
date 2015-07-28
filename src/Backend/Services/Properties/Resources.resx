@@ -133,9 +133,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="CommandNotSpecified" xml:space="preserve">
     <value>Command for '{0}' not specified.</value>
   </data>
-  <data name="DownloadingCatalog" xml:space="preserve">
-    <value>Downloading catalog {0}</value>
-  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; bindings must contain either a 'value' or an 'insert' attribute.</value>
   </data>

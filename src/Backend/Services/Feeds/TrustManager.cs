@@ -24,7 +24,6 @@ using System.Xml;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Net;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
@@ -246,21 +245,19 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UnauthorizedAccessException">Write access to the trust configuration is not permitted.</exception>
         private void DownloadKey([NotNull] Uri keyUri)
         {
-            using (var keyFile = new TemporaryFile("0install-key"))
+            var download = new DownloadMemory(keyUri);
+            _handler.RunTask(download);
+            try
             {
-                _handler.RunTask(new DownloadFile(keyUri, keyFile));
-                try
-                {
-                    _openPgp.ImportKey(File.ReadAllBytes(keyFile));
-                }
-                    #region Error handling
-                catch (InvalidDataException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new SignatureException(ex.Message, ex);
-                }
-                #endregion
+                _openPgp.ImportKey(download.GetData());
             }
+                #region Error handling
+            catch (InvalidDataException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new SignatureException(ex.Message, ex);
+            }
+            #endregion
         }
 
         [NotNull]

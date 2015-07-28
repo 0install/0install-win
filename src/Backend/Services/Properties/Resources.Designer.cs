@@ -101,15 +101,6 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloading catalog {0}.
-        /// </summary>
-        internal static string DownloadingCatalog {
-            get {
-                return ResourceManager.GetString("DownloadingCatalog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;environment&gt; bindings must contain either a &apos;value&apos; or an &apos;insert&apos; attribute..
         /// </summary>
         internal static string EnvironmentBindingValueInvalid {
