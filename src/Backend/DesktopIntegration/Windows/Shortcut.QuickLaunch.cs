@@ -20,7 +20,6 @@ using System.IO;
 using System.Linq;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -60,10 +59,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         private static string GetQuickLaunchPath(string name)
         {
-            if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(string.Format(Resources.NameInvalidChars, name));
+            CheckName(name);
 
-            return new[] {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch", name + ".lnk"}.Aggregate(Path.Combine);
+            string quickLaunchDir = new[] {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch"}.Aggregate(Path.Combine);
+            return Path.Combine(quickLaunchDir, name + ".lnk");
         }
     }
 }

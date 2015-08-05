@@ -69,19 +69,31 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 Directory.Delete(dirPath, recursive: false);
         }
 
-        private static string GetStartMenuCategoryPath(string category, bool machineWide)
+        private static string GetStartMenuPath(string category, string name, bool machineWide)
+        {
+            CheckName(name);
+
+            return Path.Combine(GetStartMenuCategoryPath(category, machineWide), name + ".lnk");
+        }
+
+        /// <summary>
+        /// Retrurns the start menu programs folder path, optionally appending a category.
+        /// </summary>
+        /// <exception cref="IOException"><paramref name="category"/> contains invalid characters.</exception>
+        private static string GetStartMenuCategoryPath([CanBeNull] string category, bool machineWide)
         {
             const Environment.SpecialFolder commonPrograms = (Environment.SpecialFolder)0x0017;
             string menuDir = Environment.GetFolderPath(machineWide ? commonPrograms : Environment.SpecialFolder.Programs);
-            return (string.IsNullOrEmpty(category) ? menuDir : Path.Combine(menuDir, FileUtils.UnifySlashes(category)));
-        }
 
-        private static string GetStartMenuPath(string category, string name, bool machineWide)
-        {
-            if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(string.Format(Resources.NameInvalidChars, name));
+            if (string.IsNullOrEmpty(category)) return menuDir;
+            else
+            {
+                string categoryDir = FileUtils.UnifySlashes(category);
+                if (categoryDir.IndexOfAny(Path.GetInvalidPathChars()) != -1 || FileUtils.IsBreakoutPath(categoryDir))
+                    throw new IOException(string.Format(Resources.NameInvalidChars, category));
 
-            return Path.Combine(GetStartMenuCategoryPath(category, machineWide), name + ".lnk");
+                return Path.Combine(menuDir, categoryDir);
+            }
         }
     }
 }

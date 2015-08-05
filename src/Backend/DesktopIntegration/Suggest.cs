@@ -42,8 +42,9 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var category = feed.Categories.FirstOrDefault();
-            string categoryString = (category == null) ? "" : category.ToString();
-            if (feed.EntryPoints.Count > 1) categoryString += "/" + feed.Name;
+            string categoryString = (category == null)
+                ? (feed.EntryPoints.Count > 1 ? feed.Name : "")
+                : (feed.EntryPoints.Count > 1 ? category.ToString() + "/" + feed.Name : category.ToString());
 
             return (from entryPoint in feed.EntryPoints
                 select new MenuEntry

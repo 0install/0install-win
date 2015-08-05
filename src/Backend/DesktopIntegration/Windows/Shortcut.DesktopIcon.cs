@@ -20,7 +20,6 @@ using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -62,8 +61,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         private static string GetDesktopPath(string name, bool machineWide)
         {
-            if (String.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(String.Format(Resources.NameInvalidChars, name));
+            CheckName(name);
 
             const Environment.SpecialFolder commonDesktopDirectory = (Environment.SpecialFolder)0x0019;
             string desktopDir = Environment.GetFolderPath(machineWide ? commonDesktopDirectory : Environment.SpecialFolder.DesktopDirectory);

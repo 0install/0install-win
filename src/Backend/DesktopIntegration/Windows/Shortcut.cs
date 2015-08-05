@@ -22,6 +22,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
@@ -79,6 +80,16 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             shortcut.Save();
 #endif
+        }
+
+        /// <summary>
+        /// Ensures that the given name can be used as a file name.
+        /// </summary>
+        /// <exception cref="IOException"><paramref name="name"/> contains invalid characters.</exception>
+        private static void CheckName([CanBeNull] string name)
+        {
+            if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                throw new IOException(string.Format(Resources.NameInvalidChars, name));
         }
     }
 }

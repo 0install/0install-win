@@ -61,8 +61,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         private static string GetStartupPath(string name, bool machineWide)
         {
-            if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(string.Format(Resources.NameInvalidChars, name));
+            CheckName(name);
 
             const Environment.SpecialFolder commonStartup = (Environment.SpecialFolder)0x0018;
             string startupDir = Environment.GetFolderPath(machineWide ? commonStartup : Environment.SpecialFolder.Startup);

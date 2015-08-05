@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -59,8 +58,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         private static string GetSendToPath(string name)
         {
-            if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(string.Format(Resources.NameInvalidChars, name));
+            CheckName(name);
 
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo), name + ".lnk");
         }
