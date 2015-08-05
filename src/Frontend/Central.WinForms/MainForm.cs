@@ -447,6 +447,8 @@ namespace ZeroInstall.Central.WinForms
         {
             if (m.Msg == IntegrationManager.ChangedWindowMessageID)
                 BeginInvoke(new Action(UpdateAppListAsync));
+            else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
+                tabControlApps.SelectedTab = tabPageAppList;
 
             base.WndProc(ref m);
         }
