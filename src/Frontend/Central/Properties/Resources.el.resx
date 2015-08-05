@@ -241,6 +241,17 @@
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>Το κλειδί Κρυπτογραφίας που εισαγατε είναι λάθος.</value>
   </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Θέλετε να επαναφέρετε τις ρυθμίσεις και να αρχίσει από το μηδέν;</value>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>όχι
+επεξεργαστείτε τις υπάρχουσες ρυθμίσεις</value>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>ναί
+να ξεκινήσει από το μηδέν</value>
+  </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Τα δεδομένα που είναι σήμερα αποθηκευμένα στο διακομιστή Συγχρονισμός είναι κατεστραμμένα.
 Μπορείτε να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή, επιλέγοντας το κλειδί Κρυπτογραφίας.</value>

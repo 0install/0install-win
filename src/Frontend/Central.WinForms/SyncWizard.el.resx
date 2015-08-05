@@ -129,6 +129,9 @@
   <data name="labelSetupWelcome.Text" xml:space="preserve">
     <value>Zero Install Sync παίρνει λίστα εφαρμογών σας και του επιτραπέζιου εντάξεις και αυτόματα τα μεταφέρει σε άλλους υπολογιστές σας.</value>
   </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Windows μερίδιο αρχείο:</value>
+  </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="labelServer.Text" xml:space="preserve">
     <value>Το 0install.de παρέχει δωρεάν λογαριασμούς για την αποθήκευση δεδομένων συγχρονισμού. Όλα τα δεδομένα είναι κρυπτογραφημένα τοπικά προτού μεταδοθούν στο διακομιστή. Μπορείτε να χρησιμοποιήσετε το δικό σας διακομιστή για την αποθήκευση αν το επιθυμείτε.</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Διαδρομή καταλόγου</value>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Εγκατάσταση συγχρονισμού</value>

@@ -141,6 +141,9 @@
   <data name="NameInvalidChars" xml:space="preserve">
     <value>Το όνομα &apos;{0}&apos; περιέχει μη έγκυρους χαρακτήρες.</value>
   </data>
+  <data name="PleaseConfigSync" xml:space="preserve">
+    <value>Παρακαλούμε χρησιμοποιήστε «0install central» ή «0install config» για να δημιουργήσει XXX.</value>
+  </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>Υπήρξε ένα πρόβλημα φόρτωσης &apos;{0}&apos;.</value>
   </data>

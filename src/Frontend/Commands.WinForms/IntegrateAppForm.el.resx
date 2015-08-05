@@ -240,8 +240,14 @@
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>Εγγραφή δυνατοτήτων</value>
   </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>Λέει το λειτουργικό σύστημα σχετικά με τις δυνατότητες της εφαρμογής, όπως τους τύπους αρχείων που μπορεί να χειριστεί.</value>
+  </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
     <value>Αυτόματη ενημέρωση</value>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Περιλαμβάνει αυτή η εφαρμογή &quot;Ενημέρωση όλων&quot; ελέγχων.</value>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>Προηγμένες ρυθμίσεις</value>
