@@ -169,7 +169,7 @@ namespace ZeroInstall.Services.Fetchers
                 {
                     // Report the original problem instead of mirror errors
                     ex.Rethrow();
-                    throw ex;
+                    throw;
                 }
             }
         }
