@@ -26,7 +26,7 @@ und der New Feed Wizard (leitet Sie durch den kompletten Feed-Erstellungsprozess
 		<command name="0capture" path="0capture.exe">
 			<runner interface="http://0install.de/feeds/cli/cli.xml" />
 		</command>
-		<implementation version="2.8.4-post-1" stability="testing" id="local-release" local-path="build/Release/Tools" />
-		<implementation version="2.8.4-post-2" stability="developer" id="local-debug" local-path="build/Debug/Tools" />
+		<implementation version="2.9.0-post-1" stability="testing" id="local-release" local-path="build/Release/Tools" />
+		<implementation version="2.9.0-post-2" stability="developer" id="local-debug" local-path="build/Debug/Tools" />
 	</group>
 </interface>
