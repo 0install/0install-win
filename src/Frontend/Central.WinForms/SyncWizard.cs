@@ -150,15 +150,15 @@ namespace ZeroInstall.Central.WinForms
         #region pageSetupWelcome
         private bool _existingAccount;
 
-        private void buttonUsedBeforeYes_Click(object sender, EventArgs e)
+        private void buttonSetupFirst_Click(object sender, EventArgs e)
         {
-            _existingAccount = true;
+            _existingAccount = false;
             wizardControl.NextPage();
         }
 
-        private void buttonUsedBeforeNo_Click(object sender, EventArgs e)
+        private void buttonSetupSubsequent_Click(object sender, EventArgs e)
         {
-            _existingAccount = false;
+            _existingAccount = true;
             wizardControl.NextPage();
         }
         #endregion

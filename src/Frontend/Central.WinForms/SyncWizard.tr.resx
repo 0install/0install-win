@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonUsedBeforeNo.Text" xml:space="preserve">
-    <value>&amp;Hayır, ilk defa Sync kullanacağım</value>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Hayır, diğer bilgisayarlarda zaten ayarlamıştım</value>
   </data>
-  <data name="buttonUsedBeforeYes.Text" xml:space="preserve">
-    <value>&amp;Evet, zaten Sync kullanıyorum</value>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Evet, bu ilk bilgisayar</value>
   </data>
-  <data name="labelUsedBefore.Text" xml:space="preserve">
-    <value>Zero Install Sync kullanıyor musunuz?</value>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Zero Install Sync ilk kez bu bilgisayarda mı ayarlanacak?</value>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
     <value>Zero Install Sync uygulama listenizi ve Masaüstü tümleştirmelerinizi alır ve diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
@@ -136,7 +136,7 @@
     <value>Ö&amp;zel bir sunucu kullanacağım:</value>
   </data>
   <data name="optionOfficalServer.Text" xml:space="preserve">
-    <value>&amp;0install.de sunucusunu kullanacağım</value>
+    <value>&amp;0install.de sunucusunu kullan (önerilir)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
     <value>Hangi sunucuyu kullanmak istiyorsunuz?</value>

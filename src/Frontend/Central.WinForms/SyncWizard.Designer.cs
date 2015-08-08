@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SyncWizard));
             this.wizardControl = new AeroWizard.WizardControl();
             this.pageSetupWelcome = new AeroWizard.WizardPage();
-            this.buttonUsedBeforeNo = new System.Windows.Forms.Button();
-            this.buttonUsedBeforeYes = new System.Windows.Forms.Button();
-            this.labelUsedBefore = new System.Windows.Forms.Label();
+            this.buttonSetupSubsequent = new System.Windows.Forms.Button();
+            this.buttonSetupFirst = new System.Windows.Forms.Button();
+            this.labelSetup = new System.Windows.Forms.Label();
             this.labelSetupWelcome = new System.Windows.Forms.Label();
             this.pageServer = new AeroWizard.WizardPage();
             this.optionFileShare = new System.Windows.Forms.RadioButton();
@@ -137,33 +137,33 @@
             // pageSetupWelcome
             // 
             this.pageSetupWelcome.AllowBack = false;
-            this.pageSetupWelcome.Controls.Add(this.buttonUsedBeforeNo);
-            this.pageSetupWelcome.Controls.Add(this.buttonUsedBeforeYes);
-            this.pageSetupWelcome.Controls.Add(this.labelUsedBefore);
+            this.pageSetupWelcome.Controls.Add(this.buttonSetupSubsequent);
+            this.pageSetupWelcome.Controls.Add(this.buttonSetupFirst);
+            this.pageSetupWelcome.Controls.Add(this.labelSetup);
             this.pageSetupWelcome.Controls.Add(this.labelSetupWelcome);
             this.pageSetupWelcome.Name = "pageSetupWelcome";
             this.pageSetupWelcome.NextPage = this.pageServer;
             this.pageSetupWelcome.ShowNext = false;
             resources.ApplyResources(this.pageSetupWelcome, "pageSetupWelcome");
             // 
-            // buttonUsedBeforeNo
+            // buttonSetupSubsequent
             // 
-            resources.ApplyResources(this.buttonUsedBeforeNo, "buttonUsedBeforeNo");
-            this.buttonUsedBeforeNo.Name = "buttonUsedBeforeNo";
-            this.buttonUsedBeforeNo.UseVisualStyleBackColor = true;
-            this.buttonUsedBeforeNo.Click += new System.EventHandler(this.buttonUsedBeforeNo_Click);
+            resources.ApplyResources(this.buttonSetupSubsequent, "buttonSetupSubsequent");
+            this.buttonSetupSubsequent.Name = "buttonSetupSubsequent";
+            this.buttonSetupSubsequent.UseVisualStyleBackColor = true;
+            this.buttonSetupSubsequent.Click += new System.EventHandler(this.buttonSetupSubsequent_Click);
             // 
-            // buttonUsedBeforeYes
+            // buttonSetupFirst
             // 
-            resources.ApplyResources(this.buttonUsedBeforeYes, "buttonUsedBeforeYes");
-            this.buttonUsedBeforeYes.Name = "buttonUsedBeforeYes";
-            this.buttonUsedBeforeYes.UseVisualStyleBackColor = true;
-            this.buttonUsedBeforeYes.Click += new System.EventHandler(this.buttonUsedBeforeYes_Click);
+            resources.ApplyResources(this.buttonSetupFirst, "buttonSetupFirst");
+            this.buttonSetupFirst.Name = "buttonSetupFirst";
+            this.buttonSetupFirst.UseVisualStyleBackColor = true;
+            this.buttonSetupFirst.Click += new System.EventHandler(this.buttonSetupFirst_Click);
             // 
-            // labelUsedBefore
+            // labelSetup
             // 
-            resources.ApplyResources(this.labelUsedBefore, "labelUsedBefore");
-            this.labelUsedBefore.Name = "labelUsedBefore";
+            resources.ApplyResources(this.labelSetup, "labelSetup");
+            this.labelSetup.Name = "labelSetup";
             // 
             // labelSetupWelcome
             // 
@@ -638,9 +638,9 @@
         private AeroWizard.WizardPage pageResetServerFinished;
         private AeroWizard.WizardPage pageResetClient;
         private AeroWizard.WizardPage pageResetClientFinished;
-        private System.Windows.Forms.Button buttonUsedBeforeNo;
-        private System.Windows.Forms.Button buttonUsedBeforeYes;
-        private System.Windows.Forms.Label labelUsedBefore;
+        private System.Windows.Forms.Button buttonSetupSubsequent;
+        private System.Windows.Forms.Button buttonSetupFirst;
+        private System.Windows.Forms.Label labelSetup;
         private System.Windows.Forms.Label labelSetupWelcome;
         private NanoByte.Common.Controls.UriTextBox textBoxCustomServer;
         private System.Windows.Forms.RadioButton optionCustomServer;

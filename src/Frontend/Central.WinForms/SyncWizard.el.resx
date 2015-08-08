@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonUsedBeforeNo.Text" xml:space="preserve">
-    <value>Όχι, δεν είμαι στην Ρύθμιση συγχρονισμού για πρώτη φορά</value>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Όχι, δεν έχω συστήσει σε άλλους υπολογιστές</value>
   </data>
-  <data name="buttonUsedBeforeYes.Text" xml:space="preserve">
-    <value>Εχετε χρησιμοποιηση στο παρελθον του το </value>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Ναι, αυτό είναι ο πρώτος υπολογιστής</value>
   </data>
-  <data name="labelUsedBefore.Text" xml:space="preserve">
-    <value>Εχετε χρησιμιποιηση ξανα στο παρελθον?</value>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Είναι αυτό το πρώτο υπολογιστή που εγκαθίστανται για Zero Install Sync;</value>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
     <value>Zero Install Sync παίρνει λίστα εφαρμογών σας και του επιτραπέζιου εντάξεις και αυτόματα τα μεταφέρει σε άλλους υπολογιστές σας.</value>
@@ -136,13 +136,16 @@
     <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
   </data>
   <data name="optionOfficalServer.Text" xml:space="preserve">
-    <value>χρησιμοποιήστε το διακομιστή 0install.de</value>
+    <value>χρησιμοποιήστε το διακομιστή 0install.de (συνιστάται)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
     <value>Θέλετε να χρησιμοποιήσετε τον διακομιστή 0install.de;</value>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
     <value>Το 0install.de παρέχει δωρεάν λογαριασμούς για την αποθήκευση δεδομένων συγχρονισμού. Όλα τα δεδομένα είναι κρυπτογραφημένα τοπικά προτού μεταδοθούν στο διακομιστή. Μπορείτε να χρησιμοποιήσετε το δικό σας διακομιστή για την αποθήκευση αν το επιθυμείτε.</value>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>Πώς μπορώ να δημιουργήσει ένα διακομιστή Sync;</value>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
     <value>Διαδρομή καταλόγου</value>

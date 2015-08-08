@@ -123,14 +123,14 @@
   <data name="wizardControl.NextButtonText" xml:space="preserve">
     <value>&amp;Weiter</value>
   </data>
-  <data name="buttonUsedBeforeNo.Text" xml:space="preserve">
-    <value>&amp;Nein, ich richte Sync zum ersten Mal ein</value>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Ja, dies ist der &amp;erste Rechner</value>
   </data>
-  <data name="buttonUsedBeforeYes.Text" xml:space="preserve">
-    <value>&amp;Ja, ich habe Sync bereits verwendet</value>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Nein, ich habe bereits &amp;andere Rechner eingerichtet</value>
   </data>
-  <data name="labelUsedBefore.Text" xml:space="preserve">
-    <value>Haben Sie Zero Install Sync schon einmal verwendet?</value>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Ist dies der erste Rechner, den Sie für Zero Install Sync einrichten?</value>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
     <value>Zero Install Sync nimmt Ihre Anwendungsliste und Desktopintegrationen und gleicht diese automatisch mit Ihren anderen Rechnern ab.</value>
@@ -148,7 +148,7 @@
     <value>Verwende &amp;eigenen Server:</value>
   </data>
   <data name="optionOfficalServer.Text" xml:space="preserve">
-    <value>Verwende den &amp;0install.de Server</value>
+    <value>Verwende den &amp;0install.de Server (empfohlen)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
     <value>Welchen Server möchten Sie verwenden?</value>
