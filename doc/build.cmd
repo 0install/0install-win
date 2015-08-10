@@ -2,6 +2,11 @@
 ::Compiles the source documentation. Assumes "..\src\build.cmd Debug" has already been executed.
 
 rem Determine VS version
+if defined VS140COMNTOOLS (
+  ::Visual Studio 2015
+  call "%VS140COMNTOOLS%vsvars32.bat"
+  goto compile
+)
 if defined VS120COMNTOOLS (
   ::Visual Studio 2013
   call "%VS120COMNTOOLS%vsvars32.bat"

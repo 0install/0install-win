@@ -10,6 +10,7 @@ attrib -h "%~dp0src\*.suo" > NUL 2>&1
 del "%~dp0src\*.suo" > NUL 2>&1
 del "%~dp0src\*.user" > NUL 2>&1
 del "%~dp0src\*.cache" > NUL 2>&1
+rd /s /q "src\.vs" > NUL 2>&1
 rd /s /q "src\obj" > NUL 2>&1
 
 rem Per-project
