@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\App.config" />
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
