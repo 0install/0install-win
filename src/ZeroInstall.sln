@@ -78,6 +78,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{25F5FD
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Versions", "_Versions", "{C2FB8C50-7EB8-4C24-B3EA-8A535C0E63C8}"
+	ProjectSection(SolutionItems) = preProject
+		..\VERSION = ..\VERSION
+		..\VERSION_UPDATER = ..\VERSION_UPDATER
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
