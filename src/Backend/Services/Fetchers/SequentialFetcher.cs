@@ -155,15 +155,16 @@ namespace ZeroInstall.Services.Fetchers
             }
             catch (WebException ex)
             {
-                Log.Warn(ex);
                 if (retrievalMethod.Href.IsLoopback) throw;
+
+                Log.Warn(ex);
                 Log.Info("Trying mirror");
 
                 try
                 {
                     var mirrored = (DownloadRetrievalMethod)retrievalMethod.CloneRecipeStep();
                     mirrored.Href = GetMirrorUrl(retrievalMethod.Href);
-                    return Download(mirrored, tag);
+                    return base.Download(mirrored, tag);
                 }
                 catch (WebException)
                 {
