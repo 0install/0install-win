@@ -146,7 +146,7 @@ namespace ZeroInstall.Central
         }
 
         /// <summary>
-        /// Calls <see cref="IFeedManager.GetFeed"/>.
+        /// Calls <see cref="FeedManagerExtensions.GetFresh"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Feed"/>; <see langword="null"/> on error.</returns>
         [CanBeNull]
@@ -154,7 +154,7 @@ namespace ZeroInstall.Central
         {
             try
             {
-                return _feedManager.GetFeedFresh(feedUri);
+                return _feedManager.GetFresh(feedUri);
             }
                 #region Error handling
             catch (OperationCanceledException)

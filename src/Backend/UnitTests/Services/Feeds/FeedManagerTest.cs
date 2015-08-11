@@ -59,7 +59,7 @@ namespace ZeroInstall.Services.Feeds
                 // ReSharper disable once AccessToDisposedClosure
                 _feedCacheMock.Setup(x => x.GetFeed(new FeedUri(feedFile))).Returns(feed);
 
-                Assert.AreSame(feed, Target.GetFeed(new FeedUri(feedFile)));
+                Assert.AreSame(feed, Target[new FeedUri(feedFile)]);
                 Assert.IsFalse(Target.Stale);
             }
         }
@@ -68,7 +68,8 @@ namespace ZeroInstall.Services.Feeds
         public void LocalMissing()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-                Assert.Throws<FileNotFoundException>(() => Target.GetFeed(new FeedUri(Path.Combine(tempDir, "invalid"))));
+                // ReSharper disable once UnusedVariable
+                Assert.Throws<FileNotFoundException>(() => { var _ = Target[new FeedUri(Path.Combine(tempDir, "invalid"))]; });
         }
 
         [Test]
@@ -94,7 +95,7 @@ namespace ZeroInstall.Services.Feeds
 
                 _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
 
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
+                Assert.AreEqual(feed, Target[feed.Uri]);
             }
         }
 
@@ -113,7 +114,8 @@ namespace ZeroInstall.Services.Feeds
                 // No previous feed
                 _feedCacheMock.Setup(x => x.Contains(feedUri)).Returns(false);
 
-                Assert.Throws<InvalidDataException>(() => Target.GetFeed(feedUri));
+                // ReSharper disable once UnusedVariable
+                Assert.Throws<InvalidDataException>(() => { var _ = Target[feedUri]; });
             }
         }
 
@@ -136,7 +138,7 @@ namespace ZeroInstall.Services.Feeds
                 _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
 
                 Config.FeedMirror = mirrorServer.ServerUri;
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
+                Assert.AreEqual(feed, Target[feed.Uri]);
             }
         }
 
@@ -149,8 +151,20 @@ namespace ZeroInstall.Services.Feeds
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor(FeedTest.Test1Uri);
 
             Assert.IsFalse(Target.IsStale(FeedTest.Test1Uri));
-            Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));
+            Assert.AreSame(feed, Target[FeedTest.Test1Uri]);
             Assert.IsFalse(Target.Stale);
+        }
+
+        [Test]
+        public void ServeFromInMemoryCache()
+        {
+            DetectFreshCached();
+
+            // ReSharper disable once UnusedVariable
+            var _ = Target[FeedTest.Test1Uri];
+
+            _feedCacheMock.Verify(x => x.GetFeed(FeedTest.Test1Uri), Times.Once(),
+                failMessage: "Underlying cache was accessed more than once instead of being handled by the in-memory cache.");
         }
 
         [Test]
@@ -162,19 +176,45 @@ namespace ZeroInstall.Services.Feeds
             {
                 feed.Uri = new FeedUri(server.FileUri);
                 feed.SaveXml(feedStream);
-                var data = feedStream.ToArray();
+                var feedData = feedStream.ToArray();
                 feedStream.Position = 0;
 
-                _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
-                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {_signature});
-
-                // ReSharper disable once AccessToDisposedClosure
-                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
-
-                Target.Refresh = true;
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
+                AssertRefreshData(feed, feedData);
             }
+        }
+
+        [Test]
+        public void RefreshClearsInMemoryCache()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            var feedStream = new MemoryStream();
+            using (var server = new MicroServer("feed.xml", feedStream))
+            {
+                feed.Uri = new FeedUri(server.FileUri);
+                feed.SaveXml(feedStream);
+                var feedData = feedStream.ToArray();
+                feedStream.Position = 0;
+
+                // Cause feed to become in-memory cached
+                _feedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(true);
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
+                Assert.AreEqual(feed, Target[feed.Uri]);
+
+                AssertRefreshData(feed, feedData);
+            }
+        }
+
+        private void AssertRefreshData(Feed feed, byte[] feedData)
+        {
+            _feedCacheMock.Setup(x => x.Add(feed.Uri, feedData));
+            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {_signature});
+
+            // ReSharper disable once AccessToDisposedClosure
+            _trustManagerMock.Setup(x => x.CheckTrust(feedData, feed.Uri, It.IsAny<string>())).Returns(_signature);
+
+            Target.Refresh = true;
+            Assert.AreEqual(feed, Target[feed.Uri]);
         }
 
         [Test]
@@ -186,7 +226,7 @@ namespace ZeroInstall.Services.Feeds
             new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor(FeedTest.Test1Uri);
 
             Assert.IsTrue(Target.IsStale(FeedTest.Test1Uri));
-            Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));
+            Assert.AreSame(feed, Target[FeedTest.Test1Uri]);
             Assert.IsTrue(Target.Stale);
         }
 

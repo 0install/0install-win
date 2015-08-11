@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             try
             {
-                using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFeedFresh, Handler, MachineWide))
+                using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFresh, Handler, MachineWide))
                     syncManager.Sync(_syncResetMode);
             }
                 #region Error handling

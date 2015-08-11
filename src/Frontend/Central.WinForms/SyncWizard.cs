@@ -80,7 +80,7 @@ namespace ZeroInstall.Central.WinForms
         private SyncIntegrationManager CreateSync(string cryptoKey)
         {
             var services = new ServiceLocator(new GuiTaskHandler(this));
-            return new SyncIntegrationManager(_server, cryptoKey, services.FeedManager.GetFeedFresh, services.Handler, _machineWide);
+            return new SyncIntegrationManager(_server, cryptoKey, services.FeedManager.GetFresh, services.Handler, _machineWide);
         }
 
         private string _cryptoKey;

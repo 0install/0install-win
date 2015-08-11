@@ -140,7 +140,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                 // Apply the new alias
                 var alias = new AppAlias {Name = aliasName, Command = command};
-                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeed(interfaceUri), new AccessPoint[] {alias});
+                integrationManager.AddAccessPoints(appEntry, FeedManager[interfaceUri], new AccessPoint[] {alias});
 
                 Handler.OutputLow(
                     Resources.DesktopIntegration,

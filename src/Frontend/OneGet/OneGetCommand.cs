@@ -170,7 +170,7 @@ namespace ZeroInstall.OneGet
             {
                 if (AllVersions)
                 {
-                    foreach (var implementation in FeedManager.GetFeedFresh(feed.Uri).Elements.OfType<Implementation>())
+                    foreach (var implementation in FeedManager.GetFresh(feed.Uri).Elements.OfType<Implementation>())
                     {
                         var requirements = new Requirements(feed.Uri) {ExtraRestrictions = {{feed.Uri, new VersionRange(implementation.Version)}}};
                         Yield(requirements, feed, implementation);
@@ -262,7 +262,7 @@ namespace ZeroInstall.OneGet
         private void ApplyIntegration(Requirements requirements)
         {
             Log.Info("Applying desktop integration");
-            var feed = FeedManager.GetFeed(requirements.InterfaceUri);
+            var feed = FeedManager[requirements.InterfaceUri];
             using (var integrationManager = new CategoryIntegrationManager(Handler, _machineWide))
             {
                 var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
@@ -325,7 +325,7 @@ namespace ZeroInstall.OneGet
                 var selections = Solver.TrySolve(requirements);
                 if (selections != null) implementation = selections.Implementations[0];
             }
-            if (feed == null) feed = FeedManager.GetFeed(requirements.InterfaceUri);
+            if (feed == null) feed = FeedManager[requirements.InterfaceUri];
 
             var sourceUri = feed.CatalogUri ?? feed.Uri;
             _request.YieldSoftwareIdentity(

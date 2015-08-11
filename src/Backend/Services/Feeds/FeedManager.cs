@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -38,7 +39,8 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public class FeedManager : IFeedManager
+    /// <remarks>Provides an in-memory cache in addition to the (usually disk-backed <see cref="IFeedCache"/>).</remarks>
+    public class FeedManager : TransparentCacheBase<FeedUri, Feed>, IFeedManager
     {
         #region Dependencies
         private readonly Config _config;
@@ -70,8 +72,21 @@ namespace ZeroInstall.Services.Feeds
         #endregion
 
         #region Properties
-        /// <inheritdoc/>
-        public bool Refresh { get; set; }
+        private bool _refresh;
+
+        /// <summary>
+        /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="IFeedCache"/>.
+        /// </summary>
+        /// <remarks>Setting this to <see langword="true"/> implicity also flushes the in-memory cache.</remarks>
+        public bool Refresh
+        {
+            get { return _refresh; }
+            set
+            {
+                _refresh = value;
+                if (Refresh) Clear();
+            }
+        }
 
         /// <inheritdoc/>
         public bool Stale { get; set; }
@@ -83,8 +98,7 @@ namespace ZeroInstall.Services.Feeds
         //--------------------//
 
         #region Get feed
-        /// <inheritdoc/>
-        public Feed GetFeed(FeedUri feedUri)
+        protected override Feed Retrieve(FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");

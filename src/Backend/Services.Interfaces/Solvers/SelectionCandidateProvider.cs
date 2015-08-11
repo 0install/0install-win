@@ -170,7 +170,7 @@ namespace ZeroInstall.Services.Solvers
         {
             if (feedUri == null || dictionary.ContainsKey(feedUri)) return;
 
-            var feed = _feedManager.GetFeed(feedUri);
+            var feed = _feedManager[feedUri];
             if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
             {
                 Log.Warn(string.Format("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.", feedUri, feed.MinInjectorVersion, AppInfo.Current.Version));
@@ -225,7 +225,7 @@ namespace ZeroInstall.Services.Solvers
 
             return implemenationSelection.ID.StartsWith(ExternalImplementation.PackagePrefix)
                 ? _externalImplementations[implemenationSelection.ID]
-                : _feedManager.GetFeed(implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri)[implemenationSelection.ID];
+                : _feedManager[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri][implemenationSelection.ID];
         }
     }
 }

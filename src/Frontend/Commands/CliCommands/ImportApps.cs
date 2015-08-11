@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                     if (importEntry.AccessPoints != null)
                     {
-                        var feed = FeedManager.GetFeed(interfaceUri);
+                        var feed = FeedManager[interfaceUri];
                         integrationManager.AddAccessPoints(appEntry, feed, importEntry.AccessPoints.Entries);
                     }
                 }

@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            var target = new FeedTarget(interfaceUri, FeedManager.GetFeedFresh(interfaceUri));
+            var target = new FeedTarget(interfaceUri, FeedManager.GetFresh(interfaceUri));
             DetectReplacement(ref target);
 
             Log.Info("Creating app entry for " + target.Uri.ToStringRfc());
@@ -134,7 +134,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 target = new FeedTarget(
                     target.Feed.ReplacedBy.Target,
-                    FeedManager.GetFeedFresh(target.Feed.ReplacedBy.Target));
+                    FeedManager.GetFresh(target.Feed.ReplacedBy.Target));
             }
         }
 

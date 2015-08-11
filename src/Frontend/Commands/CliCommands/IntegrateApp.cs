@@ -100,7 +100,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
-            var feed = FeedManager.GetFeed(interfaceUri);
+            var feed = FeedManager[interfaceUri];
 
             if (NoSpecifiedIntegrations())
             {
@@ -185,7 +185,7 @@ namespace ZeroInstall.Commands.CliCommands
             #endregion
 
             var appEntry = base.GetAppEntry(integrationManager, ref interfaceUri);
-            var feed = FeedManager.GetFeedFresh(interfaceUri);
+            var feed = FeedManager.GetFresh(interfaceUri);
 
             // Detect feed changes that may make an AppEntry update necessary
             if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))

@@ -429,7 +429,7 @@ namespace ZeroInstall.Services.Solvers
         protected void RunAndAssert(IEnumerable<KeyValuePair<string, string>> feeds, Requirements requirements, string expectedSelections)
         {
             var parsedFeeds = ParseFeeds(feeds);
-            _feedManagerMock.Setup(x => x.GetFeed(It.IsAny<FeedUri>())).Returns((FeedUri feedUri) => parsedFeeds[feedUri]);
+            _feedManagerMock.Setup(x => x[It.IsAny<FeedUri>()]).Returns((FeedUri feedUri) => parsedFeeds[feedUri]);
 
             var expected = ParseExpectedSelections(expectedSelections, requirements);
             var actual = Target.Solve(requirements);

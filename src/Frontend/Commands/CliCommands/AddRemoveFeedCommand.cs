@@ -81,7 +81,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <returns>A set of interface URIs.</returns>
         private IEnumerable<FeedUri> GetInterfaces(FeedUri feedUri, ref Stability suggestedStabilityPolicy)
         {
-            var feed = FeedManager.GetFeedFresh(feedUri);
+            var feed = FeedManager.GetFresh(feedUri);
             var interfaces = feed.FeedFor.Select(reference => reference.Target).WhereNotNull().ToList();
             if (interfaces.Count == 0)
                 throw new OptionException(string.Format(Resources.MissingFeedFor, feedUri), null);

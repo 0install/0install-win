@@ -85,7 +85,7 @@ namespace ZeroInstall.Commands.WinForms
             dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer);
 
             _interfaceUri = interfaceUri;
-            _mainFeed = feedManager.GetFeed(_interfaceUri);
+            _mainFeed = feedManager[_interfaceUri];
             _solveCallback = solveCallback;
             _feedManager = feedManager;
         }
@@ -181,7 +181,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                var feed = _feedManager.GetFeed(feedUri);
+                var feed = _feedManager[feedUri];
                 var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
                 return feed.Elements.OfType<Implementation>().Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
             }

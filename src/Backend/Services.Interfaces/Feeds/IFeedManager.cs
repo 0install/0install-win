@@ -37,7 +37,7 @@ namespace ZeroInstall.Services.Feeds
         bool Refresh { get; set; }
 
         /// <summary>
-        /// Is set to <see langword="true"/> if any <see cref="Feed"/> returned by <see cref="GetFeed"/> is getting stale and should be updated by setting <see cref="Refresh"/> to <see langword="true"/>.
+        /// Is set to <see langword="true"/> if any <see cref="Feed"/> returned by <see cref="this"/> is getting stale and should be updated by setting <see cref="Refresh"/> to <see langword="true"/>.
         /// </summary>
         /// <remarks><see cref="Config.Freshness"/> controls the time span after which a feed is considered stale.</remarks>
         bool Stale { get; set; }
@@ -60,7 +60,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
         /// <exception cref="InvalidDataException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
         [NotNull]
-        Feed GetFeed([NotNull] FeedUri feedUri);
+        Feed this[[NotNull] FeedUri feedUri] { get; }
 
         /// <summary>
         /// Determines whether there is a stale cached copy of a particular feed.
