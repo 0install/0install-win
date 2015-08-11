@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
-                var feed = _feedManager[implementation.FromFeed ?? implementation.InterfaceUri];
+                var feed = _feedManager[implementation.InterfaceUri];
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);

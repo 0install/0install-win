@@ -104,6 +104,8 @@ namespace ZeroInstall.Services.Feeds
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
+            if (feedUri.IsFromDistribution)
+                throw new ArgumentException(string.Format("{0} is a virtual feed URI and therefore cannot be downloaded.", feedUri.ToStringRfc()));
             if (feedUri.IsFile) return LoadLocal(feedUri);
             else
             {
@@ -253,6 +255,7 @@ namespace ZeroInstall.Services.Feeds
             catch (WebException ex)
             {
                 if (feedUri.IsLoopback) throw;
+
                 Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 try
                 {
