@@ -84,7 +84,6 @@
     <Compile Include="Feeds\FeedCacheFactory.cs" />
     <Compile Include="Feeds\FeedUtils.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
-    <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="FeedUri.cs" />
     <Compile Include="FeedUriExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />

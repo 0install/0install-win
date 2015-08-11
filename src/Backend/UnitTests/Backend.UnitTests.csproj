@@ -97,7 +97,6 @@
     <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
     <Compile Include="Store\ConfigTest.cs" />
     <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
-    <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Store\FeedUriTest.cs" />
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
     <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />

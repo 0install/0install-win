@@ -35,10 +35,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         public static IFeedCache CreateDefault(IOpenPgp openPgp)
         {
-            var cache = new DiskFeedCache(Locations.GetCacheDirPath("0install.net", machineWide: false, resource: "interfaces"), openPgp);
-
-            // Note: Recreate memory-caching layer for each call to prevent long-running caches from getting out of sync with disk because of changes made by other processes
-            return new MemoryFeedCache(cache);
+            return new DiskFeedCache(Locations.GetCacheDirPath("0install.net", machineWide: false, resource: "interfaces"), openPgp);
         }
     }
 }
