@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestTryCreate()
         {
-            var validVersions = new[] {"0.1", "1", "1.0", "1.1", "1.1-", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2--0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.2", "1.2.10", "3"};
+            var validVersions = new[] {"0.1", "1", "1.0", "1.1", "1.1-", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2--0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.3", "1.2.10", "3"};
             foreach (string version in validVersions)
             {
                 ImplementationVersion result;
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestSort()
         {
-            var sortedVersions = new[] {"0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.2", "1.2.10", "3"};
+            var sortedVersions = new[] {"0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.3", "1.2.10", "3"};
             for (int i = 0; i < sortedVersions.Length - 1; i++)
             {
                 var v1 = new ImplementationVersion(sortedVersions[i]);

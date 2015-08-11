@@ -160,7 +160,7 @@ namespace ZeroInstall.Commands.WinForms
             if (_selectionsShown) selectionsControl.Hide();
 
             trackingControl.TaskName = taskName;
-            return new Progress<TaskSnapshot>(trackingControl.Report);
+            return trackingControl;
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 var control = selectionsControl.TrackingControls[tag];
                 control.TaskName = taskName;
-                return new Progress<TaskSnapshot>(control.Report);
+                return control;
             }
             else return SetupProgress(taskName);
         }
