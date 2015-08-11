@@ -66,13 +66,15 @@ namespace ZeroInstall.Services.PackageManagers
                 case "netfx":
                     return new[]
                     {
+                        // See: https://msdn.microsoft.com/en-us/library/hh925568
                         FindNetFx(new ImplementationVersion("2.0"), WindowsUtils.NetFx20, WindowsUtils.NetFx20),
                         FindNetFx(new ImplementationVersion("3.0"), WindowsUtils.NetFx20, WindowsUtils.NetFx30),
                         FindNetFx(new ImplementationVersion("3.5"), WindowsUtils.NetFx20, WindowsUtils.NetFx35),
                         FindNetFx(new ImplementationVersion("4.0"), WindowsUtils.NetFx40, @"v4\Full"),
                         FindNetFx(new ImplementationVersion("4.5"), WindowsUtils.NetFx40, @"v4\Full", 378389),
-                        FindNetFx(new ImplementationVersion("4.5.1"), WindowsUtils.NetFx40, @"v4\Full", 378675),
-                        FindNetFx(new ImplementationVersion("4.5.2"), WindowsUtils.NetFx40, @"v4\Full", 379893)
+                        FindNetFx(new ImplementationVersion("4.5.1"), WindowsUtils.NetFx40, @"v4\Full", 378675), // also covers 378758
+                        FindNetFx(new ImplementationVersion("4.5.2"), WindowsUtils.NetFx40, @"v4\Full", 379893),
+                        FindNetFx(new ImplementationVersion("4.6"), WindowsUtils.NetFx40, @"v4\Full", 393295) // also covers 393297
                     }.Flatten();
                 case "netfx-client":
                     return FindNetFx(new ImplementationVersion("4.0"), WindowsUtils.NetFx40, @"v4\Client");
