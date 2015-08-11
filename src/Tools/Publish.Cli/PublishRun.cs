@@ -136,7 +136,7 @@ namespace ZeroInstall.Publish.Cli
             {
                 // Version information
                 {
-                    "V|version", () => Resources.OptionVersion, unused =>
+                    "V|version", () => Resources.OptionVersion, _ =>
                     {
                         Console.WriteLine(AppInfo.Current.Name + @" " + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
@@ -154,16 +154,16 @@ namespace ZeroInstall.Publish.Cli
                 },
 
                 // Modifications
-                {"add-missing", () => Resources.OptionAddMissing, unused => _addMissing = true},
-                {"keep-downloads", () => Resources.OptionsKeepDownloads, unused => _keepDownloads = true},
+                {"add-missing", () => Resources.OptionAddMissing, _ => _addMissing = true},
+                {"keep-downloads", () => Resources.OptionsKeepDownloads, _ => _keepDownloads = true},
 
                 // Signatures
-                {"x|xmlsign", () => Resources.OptionXmlSign, unused => _xmlSign = true},
-                {"u|unsign", () => Resources.OptionUnsign, unused => _unsign = true},
+                {"x|xmlsign", () => Resources.OptionXmlSign, _ => _xmlSign = true},
+                {"u|unsign", () => Resources.OptionUnsign, _ => _unsign = true},
                 {"k|key=", () => Resources.OptionKey, user => _key = user},
                 {"gpg-passphrase=", () => Resources.OptionGnuPGPassphrase, passphrase => _openPgpPassphrase = passphrase}
             };
-            options.Add("h|help|?", () => Resources.OptionHelp, unused =>
+            options.Add("h|help|?", () => Resources.OptionHelp, _ =>
             {
                 Console.WriteLine(Resources.Usage);
                 // ReSharper disable once LocalizableElement
