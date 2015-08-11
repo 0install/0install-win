@@ -42,6 +42,7 @@ namespace ZeroInstall.Services.Solvers
     {
         #region Depdendencies
         private readonly Config _config;
+        private readonly IFeedManager _feedManager;
         private readonly IPackageManager _packageManager;
 
         /// <summary>
@@ -62,10 +63,10 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             _config = config;
+            _feedManager = feedManager;
             _isCached = BuildCacheChecker(store);
             _packageManager = packageManager;
             _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy, languages));
-            _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
 
         /// <summary>
@@ -94,9 +95,6 @@ namespace ZeroInstall.Services.Solvers
 
         /// <summary>Maps interface URIs to <see cref="SelectionCandidateComparer"/>s.</summary>
         private readonly TransparentCache<FeedUri, SelectionCandidateComparer> _comparer;
-
-        /// <summary>Maps feed URIs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
-        private readonly TransparentCache<FeedUri, Feed> _feeds;
 
         /// <summary>
         /// Maps <see cref="ImplementationBase.ID"/>s to <see cref="Implementation"/>s provided by <see cref="IPackageManager.Query"/>.
@@ -172,7 +170,7 @@ namespace ZeroInstall.Services.Solvers
         {
             if (feedUri == null || dictionary.ContainsKey(feedUri)) return;
 
-            var feed = _feeds[feedUri];
+            var feed = _feedManager.GetFeed(feedUri);
             if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
             {
                 Log.Warn(string.Format("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.", feedUri, feed.MinInjectorVersion, AppInfo.Current.Version));
@@ -227,7 +225,7 @@ namespace ZeroInstall.Services.Solvers
 
             return implemenationSelection.ID.StartsWith(ExternalImplementation.PackagePrefix)
                 ? _externalImplementations[implemenationSelection.ID]
-                : _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri][implemenationSelection.ID];
+                : _feedManager.GetFeed(implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri)[implemenationSelection.ID];
         }
     }
 }
