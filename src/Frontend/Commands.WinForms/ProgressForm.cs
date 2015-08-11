@@ -26,8 +26,8 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;
@@ -84,19 +84,20 @@ namespace ZeroInstall.Commands.WinForms
         /// Returns immediately.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
+        /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
         /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
             trackingControl.Visible = false;
             _selectionsShown = selectionsControl.Visible = true;
-            selectionsControl.SetSelections(selections, feedCache);
+            selectionsControl.SetSelections(selections, feedManager);
         }
 
         /// <summary>

@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Fakes showing <see cref="Selections"/> to the user.
         /// </summary>
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             LastSelections = selections;
         }

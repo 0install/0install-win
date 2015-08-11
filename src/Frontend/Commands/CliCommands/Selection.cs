@@ -224,7 +224,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         protected void ShowSelections()
         {
-            Handler.ShowSelections(Selections, FeedCache);
+            Handler.ShowSelections(Selections, FeedManager);
             if (CustomizeSelections && !SelectionsDocument) Handler.CustomizeSelections(SolveCallback);
             Handler.CancellationToken.ThrowIfCancellationRequested();
         }
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands.CliCommands
                 FeedManager.Refresh = backupRefresh;
             }
 
-            Handler.ShowSelections(Selections, FeedCache);
+            Handler.ShowSelections(Selections, FeedManager);
             return Selections;
         }
 

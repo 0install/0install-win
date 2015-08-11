@@ -125,14 +125,14 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Selections UI
         /// <inheritdoc/>
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             #endregion
 
-            _wrapper.Post(form => form.ShowSelections(selections, feedCache));
+            _wrapper.Post(form => form.ShowSelections(selections, feedManager));
         }
 
         /// <summary>A wait handle used by <see cref="CustomizeSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>

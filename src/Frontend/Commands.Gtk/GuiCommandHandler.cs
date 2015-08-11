@@ -54,11 +54,11 @@ namespace ZeroInstall.Commands.Gtk
 
         #region Selections UI
         /// <inheritdoc/>
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             #endregion
 
             // TODO: Implement

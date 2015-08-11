@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (uncachedImplementations.Count == 0) return;
 
             // Only show implementations in the UI that need to be downloaded
-            Handler.ShowSelections(new Selections(uncachedImplementations), FeedCache);
+            Handler.ShowSelections(new Selections(uncachedImplementations), FeedManager);
 
             try
             {

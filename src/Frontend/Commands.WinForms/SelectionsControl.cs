@@ -22,9 +22,9 @@ using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;
@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands.WinForms
         private Selections _selections;
 
         /// <summary>The feed cache used to retrieve feeds for additional information about implementations.</summary>
-        private IFeedCache _feedCache;
+        private IFeedManager _feedManager;
         #endregion
 
         #region Constructor
@@ -64,12 +64,12 @@ namespace ZeroInstall.Commands.WinForms
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
+        /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
         /// <remarks>
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void SetSelections([NotNull] Selections selections, [NotNull] IFeedCache feedCache)
+        public void SetSelections([NotNull] Selections selections, [NotNull] IFeedManager feedManager)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -77,7 +77,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             _selections = selections;
-            _feedCache = feedCache;
+            _feedManager = feedManager;
 
             BuildTable();
             if (_solveCallback != null) CreateLinkLabels();
@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
-                var feed = _feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceUri);
+                var feed = _feedManager.GetFeed(implementation.FromFeed ?? implementation.InterfaceUri);
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
@@ -140,7 +140,7 @@ namespace ZeroInstall.Commands.WinForms
         private LinkLabel CreateLinkLabel(FeedUri interfaceUri)
         {
             var linkLabel = new LinkLabel {Text = Resources.Change, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
-            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceUri, _solveCallback, _feedCache); };
+            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceUri, _solveCallback, _feedManager); };
             return linkLabel;
         }
 

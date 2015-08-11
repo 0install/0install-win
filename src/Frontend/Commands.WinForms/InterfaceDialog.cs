@@ -30,6 +30,7 @@ using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -52,7 +53,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly Feed _mainFeed;
 
         /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>
-        private readonly IFeedCache _feedCache;
+        private readonly IFeedManager _feedManager;
 
         /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
         private readonly Func<Selections> _solveCallback;
@@ -70,13 +71,13 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        private InterfaceDialog([NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedCache feedCache)
+        /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
+        private InterfaceDialog([NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedManager feedManager)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             #endregion
 
             InitializeComponent();
@@ -84,9 +85,9 @@ namespace ZeroInstall.Commands.WinForms
             dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer);
 
             _interfaceUri = interfaceUri;
-            _mainFeed = feedCache.GetFeed(_interfaceUri);
+            _mainFeed = feedManager.GetFeed(_interfaceUri);
             _solveCallback = solveCallback;
-            _feedCache = feedCache;
+            _feedManager = feedManager;
         }
 
         private void InterfaceDialog_Load(object sender, EventArgs e)
@@ -109,17 +110,17 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        public static void Show([CanBeNull] IWin32Window owner, [NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedCache feedCache)
+        /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
+        public static void Show([CanBeNull] IWin32Window owner, [NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedManager feedManager)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (owner == null) throw new ArgumentNullException("owner");
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             #endregion
 
-            using (var dialog = new InterfaceDialog(interfaceUri, solveCallback, feedCache))
+            using (var dialog = new InterfaceDialog(interfaceUri, solveCallback, feedManager))
                 dialog.ShowDialog(owner);
         }
         #endregion
@@ -180,7 +181,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                var feed = _feedCache.GetFeed(feedUri);
+                var feed = _feedManager.GetFeed(feedUri);
                 var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
                 return feed.Elements.OfType<Implementation>().Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
             }

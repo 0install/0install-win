@@ -54,8 +54,8 @@ namespace ZeroInstall.Commands
         /// Returns immediately. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the solver.</param>
-        /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        void ShowSelections([NotNull] Selections selections, [NotNull] IFeedCache feedCache);
+        /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
+        void ShowSelections([NotNull] Selections selections, [NotNull] IFeedManager feedManager);
 
         /// <summary>
         /// Allows the user to customize the interface preferences and rerun the solver if desired.

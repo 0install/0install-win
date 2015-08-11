@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             // Stub to be overriden
         }
