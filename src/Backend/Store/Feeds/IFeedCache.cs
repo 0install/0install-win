@@ -36,6 +36,7 @@ namespace ZeroInstall.Store.Feeds
         /// </returns>
         /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
+        [NotNull, ItemNotNull]
         IEnumerable<FeedUri> ListAll();
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
+        [NotNull]
         Feed GetFeed([NotNull] FeedUri feedUri);
 
         /// <summary>
@@ -56,6 +58,7 @@ namespace ZeroInstall.Store.Feeds
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="SignatureException">There is no valid signature data embedded in the feed data.</exception>
+        [NotNull, ItemNotNull]
         IEnumerable<OpenPgpSignature> GetSignatures([NotNull] FeedUri feedUri);
 
         /// <summary>
