@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementations
         private ImplementationAlreadyInStoreException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             ManifestDigest = (ManifestDigest)info.GetValue("ManifestDigest", typeof(ManifestDigest));
@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Implementations
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             info.AddValue("ManifestDigest", ManifestDigest);

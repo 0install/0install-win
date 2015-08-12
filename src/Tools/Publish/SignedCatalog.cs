@@ -53,7 +53,7 @@ namespace ZeroInstall.Publish
         public SignedCatalog([NotNull] Catalog catalog, [CanBeNull] OpenPgpSecretKey secretKey)
         {
             #region Sanity checks
-            if (catalog == null) throw new ArgumentNullException("catalog");
+            if (catalog == null) throw new ArgumentNullException(nameof(catalog));
             #endregion
 
             Catalog = catalog;
@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish
         public static SignedCatalog Load([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             return new SignedCatalog(XmlStorage.LoadXml<Catalog>(path), FeedUtils.GetKey(path, OpenPgpFactory.CreateDefault()));
@@ -92,7 +92,7 @@ namespace ZeroInstall.Publish
         public void Save([NotNull] string path, [CanBeNull] string passphrase = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             if (SecretKey == null)

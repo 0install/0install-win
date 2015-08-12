@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Implementations
         private DigestMismatchException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             ExpectedDigest = info.GetString("ExpectedDigest");
@@ -126,7 +126,7 @@ namespace ZeroInstall.Store.Implementations
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             info.AddValue("ExpectedDigest", ExpectedDigest);

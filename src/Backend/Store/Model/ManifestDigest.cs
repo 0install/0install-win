@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Model
         public ManifestDigest([NotNull] string id) : this()
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             #endregion
 
             if (id.StartsWith("sha1=")) Sha1 = id.Substring("sha1=".Length);
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Model
         public void ParseID([NotNull] string id)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             #endregion
 
             // Check for known prefixes (and don't overwrite existing values)

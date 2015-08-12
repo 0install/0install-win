@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Implementations
         public CompositeStore([NotNull, ItemNotNull] IEnumerable<IStore> stores)
         {
             #region Sanity checks
-            if (stores == null) throw new ArgumentNullException("stores");
+            if (stores == null) throw new ArgumentNullException(nameof(stores));
             #endregion
 
             _stores = stores.ToArray();
@@ -128,8 +128,8 @@ namespace ZeroInstall.Store.Implementations
         public string AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             Flush();
@@ -172,8 +172,8 @@ namespace ZeroInstall.Store.Implementations
         public string AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (archiveInfos == null) throw new ArgumentNullException(nameof(archiveInfos));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             Flush();
@@ -216,7 +216,7 @@ namespace ZeroInstall.Store.Implementations
         public bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             Flush();
@@ -235,7 +235,7 @@ namespace ZeroInstall.Store.Implementations
         public long Optimise(ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             // Try to optimize all contained stores
@@ -248,7 +248,7 @@ namespace ZeroInstall.Store.Implementations
         public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             // Verify in every store that contains the implementation

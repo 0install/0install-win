@@ -39,8 +39,8 @@ namespace ZeroInstall.Publish.Capture
         public void CollectDefaultPrograms([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities, ref string appName)
         {
             #region Sanity checks
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             // Ambiguity warnings
@@ -82,8 +82,8 @@ namespace ZeroInstall.Publish.Capture
         private static InstallCommands GetInstallCommands([NotNull] RegistryKey clientKey, [NotNull] string installationDir)
         {
             #region Sanity checks
-            if (clientKey == null) throw new ArgumentNullException("clientKey");
-            if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
+            if (clientKey == null) throw new ArgumentNullException(nameof(clientKey));
+            if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException(nameof(installationDir));
             #endregion
 
             using (var installInfoKey = clientKey.OpenSubKey(DesktopIntegration.Windows.DefaultProgram.RegSubKeyInstallInfo))

@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         public WelcomeForm([NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
             #endregion
 
             InitializeComponent();

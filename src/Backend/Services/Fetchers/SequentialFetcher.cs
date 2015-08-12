@@ -52,7 +52,7 @@ namespace ZeroInstall.Services.Fetchers
             : base(store, handler)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             _config = config;
@@ -63,7 +63,7 @@ namespace ZeroInstall.Services.Fetchers
         public override void Fetch(IEnumerable<Implementation> implementations)
         {
             #region Sanity checks
-            if (implementations == null) throw new ArgumentNullException("implementations");
+            if (implementations == null) throw new ArgumentNullException(nameof(implementations));
             #endregion
 
             foreach (var implementation in implementations)
@@ -147,7 +147,7 @@ namespace ZeroInstall.Services.Fetchers
         protected override TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, object tag = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
             #endregion
 
             retrievalMethod.Validate();

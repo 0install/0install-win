@@ -70,8 +70,8 @@ namespace ZeroInstall.Commands.Utils
             : base(handler, machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(targetDir)) throw new ArgumentNullException("targetDir");
-            if (machineWide && portable) throw new ArgumentException("Cannot combine portable and machineWide flags.", "machineWide");
+            if (string.IsNullOrEmpty(targetDir)) throw new ArgumentNullException(nameof(targetDir));
+            if (machineWide && portable) throw new ArgumentException("Cannot combine portable and machineWide flags.", nameof(machineWide));
             #endregion
 
             TargetDir = targetDir;

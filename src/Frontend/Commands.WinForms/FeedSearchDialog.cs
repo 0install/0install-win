@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands.WinForms
         public FeedSearchDialog([NotNull] SearchQuery query)
         {
             #region Sanity checks
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             #endregion
 
             InitializeComponent();

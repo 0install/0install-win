@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.EntryPoints
         protected override bool Parse(PEHeader peHeader)
         {
             #region Sanity checks
-            if (peHeader == null) throw new ArgumentNullException("peHeader");
+            if (peHeader == null) throw new ArgumentNullException(nameof(peHeader));
             #endregion
 
             Architecture = new Architecture(OS.All, GetCpu(peHeader.FileHeader.Machine));

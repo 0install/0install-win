@@ -40,7 +40,7 @@ namespace ZeroInstall.Services.Feeds
         public static Catalog GetCachedSafe([NotNull] this ICatalogManager manager)
         {
             #region Sanity checks
-            if (manager == null) throw new ArgumentNullException("manager");
+            if (manager == null) throw new ArgumentNullException(nameof(manager));
             #endregion
 
             try
@@ -75,7 +75,7 @@ namespace ZeroInstall.Services.Feeds
         public static Catalog GetOnlineSafe([NotNull] this ICatalogManager manager)
         {
             #region Sanity checks
-            if (manager == null) throw new ArgumentNullException("manager");
+            if (manager == null) throw new ArgumentNullException(nameof(manager));
             #endregion
 
             try

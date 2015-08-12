@@ -36,8 +36,8 @@ namespace ZeroInstall.Publish.Capture
         public void CollectContextMenus([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesFiles))

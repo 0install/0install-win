@@ -74,9 +74,9 @@ namespace ZeroInstall.Commands.WinForms
         private InterfaceDialog([NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedManager feedManager)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
+            if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
             #endregion
 
             InitializeComponent();
@@ -113,10 +113,10 @@ namespace ZeroInstall.Commands.WinForms
         public static void Show([CanBeNull] IWin32Window owner, [NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedManager feedManager)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (owner == null) throw new ArgumentNullException("owner");
-            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
+            if (owner == null) throw new ArgumentNullException(nameof(owner));
+            if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
             #endregion
 
             using (var dialog = new InterfaceDialog(interfaceUri, solveCallback, feedManager))

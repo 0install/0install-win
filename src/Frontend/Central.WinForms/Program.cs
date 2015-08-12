@@ -149,8 +149,8 @@ namespace ZeroInstall.Central.WinForms
         internal static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name)
         {
             #region Sanity checks
-            if (form == null) throw new ArgumentNullException("form");
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (form == null) throw new ArgumentNullException(nameof(form));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             #endregion
 
             if (Locations.IsPortable || ProgramUtils.IsRunningFromCache)

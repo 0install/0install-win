@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.ViewModel
             : base(store)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             _digest = digest;

@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration
             : base(handler, machineWide)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             try
@@ -126,8 +126,8 @@ namespace ZeroInstall.DesktopIntegration
             : base(handler, machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(appListPath)) throw new ArgumentNullException("appListPath");
-            if (appListPath == null) throw new ArgumentNullException("appListPath");
+            if (string.IsNullOrEmpty(appListPath)) throw new ArgumentNullException(nameof(appListPath));
+            if (appListPath == null) throw new ArgumentNullException(nameof(appListPath));
             #endregion
 
             AppListPath = appListPath;
@@ -157,9 +157,9 @@ namespace ZeroInstall.DesktopIntegration
         protected override AppEntry AddAppInternal(string petName, Requirements requirements, Feed feed)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException("petName");
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException(nameof(petName));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             throw new NotImplementedException();
@@ -181,8 +181,8 @@ namespace ZeroInstall.DesktopIntegration
         protected override void AddAppInternal(AppEntry prototype, Converter<FeedUri, Feed> feedRetriever)
         {
             #region Sanity checks
-            if (prototype == null) throw new ArgumentNullException("prototype");
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
+            if (prototype == null) throw new ArgumentNullException(nameof(prototype));
+            if (feedRetriever == null) throw new ArgumentNullException(nameof(feedRetriever));
             #endregion
 
             var appEntry = prototype.Clone();
@@ -197,7 +197,7 @@ namespace ZeroInstall.DesktopIntegration
         protected override void RemoveAppInternal(AppEntry appEntry)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             DeleteAppDir(appEntry);
@@ -216,8 +216,8 @@ namespace ZeroInstall.DesktopIntegration
         protected override void UpdateAppInternal(AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             // Temporarily remove capability-based access points but remember them for later reapplication
@@ -256,10 +256,10 @@ namespace ZeroInstall.DesktopIntegration
         protected override void AddAccessPointsInternal(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            if (appEntry.AccessPoints != null && ReferenceEquals(appEntry.AccessPoints.Entries, accessPoints)) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", "accessPoints");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
+            if (accessPoints == null) throw new ArgumentNullException(nameof(accessPoints));
+            if (appEntry.AccessPoints != null && ReferenceEquals(appEntry.AccessPoints.Entries, accessPoints)) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", nameof(accessPoints));
             #endregion
 
             // Skip entries with mismatching hostname
@@ -287,8 +287,8 @@ namespace ZeroInstall.DesktopIntegration
         protected override void RemoveAccessPointsInternal(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (accessPoints == null) throw new ArgumentNullException(nameof(accessPoints));
             #endregion
 
             if (appEntry.AccessPoints == null) return;
@@ -305,8 +305,8 @@ namespace ZeroInstall.DesktopIntegration
         protected override void RepairAppInternal(AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             var toReAdd = (appEntry.AccessPoints == null)

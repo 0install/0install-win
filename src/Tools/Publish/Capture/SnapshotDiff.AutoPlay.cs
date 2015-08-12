@@ -39,8 +39,8 @@ namespace ZeroInstall.Publish.Capture
         public void CollectAutoPlays([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             capabilities.Entries.AddRange(AutoPlayHandlersUser
@@ -65,10 +65,10 @@ namespace ZeroInstall.Publish.Capture
         private static Capability GetAutoPlay([NotNull] string handler, [NotNull] RegistryKey hive, [NotNull, ItemNotNull] IEnumerable<ComparableTuple<string>> autoPlayAssocs, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            if (hive == null) throw new ArgumentNullException("hive");
-            if (autoPlayAssocs == null) throw new ArgumentNullException("autoPlayAssocs");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+            if (hive == null) throw new ArgumentNullException(nameof(hive));
+            if (autoPlayAssocs == null) throw new ArgumentNullException(nameof(autoPlayAssocs));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             using (var handlerKey = hive.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyHandlers + @"\" + handler))

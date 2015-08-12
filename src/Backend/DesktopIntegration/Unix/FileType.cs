@@ -46,8 +46,8 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.FileType fileType, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
-            if (fileType == null) throw new ArgumentNullException("fileType");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (fileType == null) throw new ArgumentNullException(nameof(fileType));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Unregister([NotNull] Store.Model.Capabilities.FileType fileType, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
-            if (fileType == null) throw new ArgumentNullException("fileType");
+            if (fileType == null) throw new ArgumentNullException(nameof(fileType));
             #endregion
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");

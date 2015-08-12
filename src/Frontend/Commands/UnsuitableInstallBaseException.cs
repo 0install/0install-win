@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
         private UnsuitableInstallBaseException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             NeedsMachineWide = info.GetBoolean("NeedsMachineWide");
@@ -73,7 +73,7 @@ namespace ZeroInstall.Commands
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             info.AddValue("NeedsMachineWide", NeedsMachineWide);

@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementations
         public ManifestGenerator([NotNull] string sourceDirectory, [NotNull] ManifestFormat format) : base(sourceDirectory)
         {
             #region Sanity checks
-            if (format == null) throw new ArgumentNullException("format");
+            if (format == null) throw new ArgumentNullException(nameof(format));
             #endregion
 
             Format = format;
@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Implementations
         protected override void HandleFile(FileInfo file, bool executable = false)
         {
             #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
+            if (file == null) throw new ArgumentNullException(nameof(file));
             #endregion
 
             using (var stream = file.OpenRead())
@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Implementations
         protected override void HandleSymlink(FileSystemInfo symlink, byte[] data)
         {
             #region Sanity checks
-            if (symlink == null) throw new ArgumentNullException("symlink");
+            if (symlink == null) throw new ArgumentNullException(nameof(symlink));
             #endregion
 
             _nodes.Add(new ManifestSymlink(Format.DigestContent(data), data.Length, symlink.Name));
@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Implementations
         protected override void HandleDirectory(DirectoryInfo directory)
         {
             #region Sanity checks
-            if (directory == null) throw new ArgumentNullException("directory");
+            if (directory == null) throw new ArgumentNullException(nameof(directory));
             #endregion
 
             _nodes.Add(new ManifestDirectory("/" + directory.RelativeTo(SourceDirectory)));

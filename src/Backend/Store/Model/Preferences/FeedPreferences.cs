@@ -104,7 +104,7 @@ namespace ZeroInstall.Store.Model.Preferences
         public static FeedPreferences LoadFor([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", feedUri.PrettyEscape()).FirstOrDefault();
@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Model.Preferences
         public static FeedPreferences LoadForSafe([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             try
@@ -161,7 +161,7 @@ namespace ZeroInstall.Store.Model.Preferences
         public void SaveFor([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             Normalize();

@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.Injector
         public Executor([NotNull] IStore store)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             _store = store;
@@ -63,8 +63,8 @@ namespace ZeroInstall.Services.Injector
         public Process Start(Selections selections, params string[] arguments)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (arguments == null) throw new ArgumentNullException(nameof(arguments));
             #endregion
 
             return GetStartInfo(selections, arguments).Start();
@@ -74,8 +74,8 @@ namespace ZeroInstall.Services.Injector
         public ProcessStartInfo GetStartInfo(Selections selections, params string[] arguments)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (arguments == null) throw new ArgumentNullException(nameof(arguments));
             #endregion
 
             if (string.IsNullOrEmpty(selections.Command)) throw new ExecutorException("The Selections document does not specify a start command.");
@@ -107,7 +107,7 @@ namespace ZeroInstall.Services.Injector
         public string GetImplementationPath(ImplementationSelection implementation)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
             #endregion
 
             if (string.IsNullOrEmpty(implementation.LocalPath))

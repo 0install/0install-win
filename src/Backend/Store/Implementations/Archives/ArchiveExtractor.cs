@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected ArchiveExtractor([NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             TargetDir = target;
@@ -131,8 +131,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         public static ArchiveExtractor Create([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             ArchiveExtractor extractor;
@@ -261,7 +261,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected void CreateDirectory([NotNull] string relativePath, DateTime lastWriteTime)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
             #endregion
 
             string fullPath = CombinePath(relativePath);
@@ -279,7 +279,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected string CombinePath([NotNull] string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
             #endregion
 
             if (FileUtils.IsBreakoutPath(relativePath)) throw new IOException(string.Format(Resources.ArchiveInvalidPath, relativePath));
@@ -307,8 +307,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected void WriteFile([NotNull] string relativePath, long fileSize, DateTime lastWriteTime, [NotNull] Stream stream, bool executable = false)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             using (var fileStream = OpenFileWriteStream(relativePath, executable: executable))
@@ -354,7 +354,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         private void SetExecutableBit(string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
             #endregion
 
             if (_isUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), true);
@@ -373,7 +373,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         private void RemoveExecutableBit(string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
             #endregion
 
             if (_isUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), false);
@@ -412,8 +412,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected void CreateSymlink([NotNull] string source, [NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException(nameof(source));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             string sourceAbsolute = CombinePath(source);
@@ -470,8 +470,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         private void CreateHardlink([NotNull] string source, [NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException(nameof(source));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             string sourceAbsolute = CombinePath(source);

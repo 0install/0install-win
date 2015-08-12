@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementations
         public static bool PathInAStore([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             return ManifestFormat.All.Any(format => path.Contains(format.Prefix + format.Separator));
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementations
         public static IEnumerable<ManifestDigest> ListAllSafe([NotNull] this IStore store)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             try
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementations
         public static IEnumerable<string> ListAllTempSafe([NotNull] this IStore store)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             try
@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Implementations
         public static string GetPathSafe([NotNull] this IStore store, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             try

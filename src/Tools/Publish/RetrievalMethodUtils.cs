@@ -54,8 +54,8 @@ namespace ZeroInstall.Publish
         public static TemporaryDirectory DownloadAndApply([NotNull] this RetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var download = retrievalMethod as DownloadRetrievalMethod;
@@ -83,8 +83,8 @@ namespace ZeroInstall.Publish
         public static TemporaryDirectory DownloadAndApply([NotNull] this DownloadRetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             using (var downloadedFile = retrievalMethod.Download(handler, executor))
@@ -128,8 +128,8 @@ namespace ZeroInstall.Publish
         public static TemporaryDirectory DownloadAndApply([NotNull] this Recipe recipe, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
-            if (recipe == null) throw new ArgumentNullException("recipe");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var downloadedFiles = new List<TemporaryFile>();
@@ -164,8 +164,8 @@ namespace ZeroInstall.Publish
         public static TemporaryFile Download([NotNull] this DownloadRetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             retrievalMethod.Validate();
@@ -225,9 +225,9 @@ namespace ZeroInstall.Publish
         public static TemporaryDirectory LocalApply([NotNull] this DownloadRetrievalMethod retrievalMethod, string localPath, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
-            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
+            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException(nameof(localPath));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (executor == null) executor = new SimpleCommandExecutor();

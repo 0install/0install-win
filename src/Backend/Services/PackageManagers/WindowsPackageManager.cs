@@ -44,7 +44,7 @@ namespace ZeroInstall.Services.PackageManagers
         protected override IEnumerable<ExternalImplementation> GetImplementations(string packageName)
         {
             #region Sanity checks
-            if (packageName == null) throw new ArgumentNullException("packageName");
+            if (packageName == null) throw new ArgumentNullException(nameof(packageName));
             #endregion
 
             switch (packageName)

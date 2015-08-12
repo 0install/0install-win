@@ -54,8 +54,8 @@ namespace ZeroInstall.Store.Trust
         public OpenPgpSecretKey(long keyID, [NotNull] byte[] fingerprint, [NotNull] string userID)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(userID)) throw new ArgumentNullException("userID");
-            if (fingerprint == null) throw new ArgumentNullException("fingerprint");
+            if (string.IsNullOrEmpty(userID)) throw new ArgumentNullException(nameof(userID));
+            if (fingerprint == null) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             KeyID = keyID;

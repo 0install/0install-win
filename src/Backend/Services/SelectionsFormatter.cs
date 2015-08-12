@@ -41,8 +41,8 @@ namespace ZeroInstall.Services
         public static string GetHumanReadable([NotNull] this Selections selections, [NotNull] IStore store)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (store == null) throw new ArgumentNullException("store");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             var builder = new StringBuilder();

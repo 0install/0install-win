@@ -235,7 +235,7 @@ namespace ZeroInstall.Store.Model
         public bool ContainsCommand(string name)
         {
             #region Sanity checks
-            if (name == null) throw new ArgumentNullException("name");
+            if (name == null) throw new ArgumentNullException(nameof(name));
             #endregion
 
             if (name.Length == 0) return true;
@@ -255,7 +255,7 @@ namespace ZeroInstall.Store.Model
             get
             {
                 #region Sanity checks
-                if (name == null) throw new ArgumentNullException("name");
+                if (name == null) throw new ArgumentNullException(nameof(name));
                 #endregion
 
                 if (name.Length == 0) return null;
@@ -297,7 +297,7 @@ namespace ZeroInstall.Store.Model
         public virtual void Normalize([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             // Apply if-0install-version filter
@@ -323,7 +323,7 @@ namespace ZeroInstall.Store.Model
         internal void InheritFrom([NotNull] Element parent)
         {
             #region Sanity checks
-            if (parent == null) throw new ArgumentNullException("parent");
+            if (parent == null) throw new ArgumentNullException(nameof(parent));
             #endregion
 
             // Check if values are unset and need inheritance)
@@ -364,8 +364,8 @@ namespace ZeroInstall.Store.Model
         protected static void CloneFromTo([NotNull] Element from, [NotNull] Element to)
         {
             #region Sanity checks
-            if (from == null) throw new ArgumentNullException("from");
-            if (to == null) throw new ArgumentNullException("to");
+            if (from == null) throw new ArgumentNullException(nameof(@from));
+            if (to == null) throw new ArgumentNullException(nameof(to));
             #endregion
 
             TargetBase.CloneFromTo(from, to);

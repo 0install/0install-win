@@ -50,9 +50,9 @@ namespace ZeroInstall.Store.ViewModel
             : base(digest, store)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
-            if (parent == null) throw new ArgumentNullException("parent");
-            if (store == null) throw new ArgumentNullException("store");
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+            if (parent == null) throw new ArgumentNullException(nameof(parent));
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             _parent = parent;

@@ -89,8 +89,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected override ExitCode ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
+            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
             #endregion
 
             if (RemoveOnly())
@@ -182,8 +182,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected override AppEntry GetAppEntry(IIntegrationManager integrationManager, ref FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             var appEntry = base.GetAppEntry(integrationManager, ref interfaceUri);

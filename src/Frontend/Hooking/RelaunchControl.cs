@@ -52,9 +52,9 @@ namespace ZeroInstall.Hooking
         public RelaunchControl(IEnumerable<RelaunchEntry> entries, string commandPathGui, string commandPathCli)
         {
             #region Sanity checks
-            if (entries == null) throw new ArgumentNullException("entries");
-            if (string.IsNullOrEmpty(commandPathGui)) throw new ArgumentNullException("commandPathGui");
-            if (string.IsNullOrEmpty(commandPathCli)) throw new ArgumentNullException("commandPathCli");
+            if (entries == null) throw new ArgumentNullException(nameof(entries));
+            if (string.IsNullOrEmpty(commandPathGui)) throw new ArgumentNullException(nameof(commandPathGui));
+            if (string.IsNullOrEmpty(commandPathCli)) throw new ArgumentNullException(nameof(commandPathCli));
             #endregion
 
             _entries = new List<RelaunchEntry>(entries);

@@ -19,8 +19,8 @@ namespace ZeroInstall.Publish.Capture
         public static string[] GetValueNames([NotNull] RegistryKey root, [NotNull] string key)
         {
             #region Sanity checks
-            if (root == null) throw new ArgumentNullException("root");
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+            if (root == null) throw new ArgumentNullException(nameof(root));
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
             #endregion
 
             using (var contextMenuExtendedKey = root.OpenSubKey(key))
@@ -37,8 +37,8 @@ namespace ZeroInstall.Publish.Capture
         public static string[] GetSubKeyNames([NotNull] RegistryKey root, [NotNull] string key)
         {
             #region Sanity checks
-            if (root == null) throw new ArgumentNullException("root");
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+            if (root == null) throw new ArgumentNullException(nameof(root));
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
             #endregion
 
             using (var contextMenuExtendedKey = root.OpenSubKey(key))

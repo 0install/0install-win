@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Model
         public override void Normalize(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             base.Normalize(feedUri);
@@ -108,8 +108,8 @@ namespace ZeroInstall.Store.Model
         protected static void CloneFromTo([NotNull] ImplementationBase from, [NotNull] ImplementationBase to)
         {
             #region Sanity checks
-            if (from == null) throw new ArgumentNullException("from");
-            if (to == null) throw new ArgumentNullException("to");
+            if (from == null) throw new ArgumentNullException(nameof(@from));
+            if (to == null) throw new ArgumentNullException(nameof(to));
             #endregion
 
             Element.CloneFromTo(from, to);

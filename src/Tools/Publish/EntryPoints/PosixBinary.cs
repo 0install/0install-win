@@ -105,7 +105,7 @@ namespace ZeroInstall.Publish.EntryPoints
             get { return Architecture.OS; }
             set
             {
-                if (value < OS.Linux || value >= OS.Cygwin) throw new ArgumentOutOfRangeException("value", "Must be a specific POSIX OS!");
+                if (value < OS.Linux || value >= OS.Cygwin) throw new ArgumentOutOfRangeException(nameof(value), "Must be a specific POSIX OS!");
                 Architecture = new Architecture(value, Architecture.Cpu);
             }
         }

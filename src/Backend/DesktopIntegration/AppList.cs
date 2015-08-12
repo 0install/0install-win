@@ -76,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration
         public bool ContainsEntry([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             return Entries.Any(entry => entry.InterfaceUri == interfaceUri);
@@ -94,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration
             get
             {
                 #region Sanity checks
-                if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+                if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
                 #endregion
 
                 try
@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration
         public AppEntry GetEntry([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             return Entries.FirstOrDefault(entry => entry.InterfaceUri == interfaceUri);
@@ -208,7 +208,7 @@ namespace ZeroInstall.DesktopIntegration
         public static AppList LoadXmlZip([NotNull] Stream stream, [CanBeNull] string password = null)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             using (var zipFile = new ZipFile(stream) {IsStreamOwner = false, Password = password})
@@ -234,7 +234,7 @@ namespace ZeroInstall.DesktopIntegration
         public void SaveXmlZip([NotNull] Stream stream, [CanBeNull] string password = null)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             if (stream.CanSeek) stream.Position = 0;

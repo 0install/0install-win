@@ -138,8 +138,8 @@ namespace ZeroInstall.Central.WinForms
         public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconCache iconCache = null, bool machineWide = false)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (appName == null) throw new ArgumentNullException("appName");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
+            if (appName == null) throw new ArgumentNullException(nameof(appName));
             if (_tileDictionary.ContainsKey(interfaceUri)) throw new InvalidOperationException("Duplicate interface URI");
             #endregion
 
@@ -174,7 +174,7 @@ namespace ZeroInstall.Central.WinForms
         public IAppTile GetTile(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             return _tileDictionary.ContainsKey(interfaceUri) ? _tileDictionary[interfaceUri] : null;
@@ -184,7 +184,7 @@ namespace ZeroInstall.Central.WinForms
         public void RemoveTile(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             RemoveTile(_tileDictionary[interfaceUri]);
@@ -198,7 +198,7 @@ namespace ZeroInstall.Central.WinForms
         private void RemoveTile(AppTile tile)
         {
             #region Sanity checks
-            if (tile == null) throw new ArgumentNullException("tile");
+            if (tile == null) throw new ArgumentNullException(nameof(tile));
             #endregion
 
             // Flush queue first, to allow propper recoloring

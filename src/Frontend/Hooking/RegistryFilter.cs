@@ -39,7 +39,7 @@ namespace ZeroInstall.Hooking
         public RegistryFilter(ICollection<RegistryFilterRule> rules)
         {
             #region Sanity checks
-            if (rules == null) throw new ArgumentNullException("rules");
+            if (rules == null) throw new ArgumentNullException(nameof(rules));
             #endregion
 
             _rules = new RegistryFilterRule[rules.Count];

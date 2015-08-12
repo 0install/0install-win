@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementations
         protected DirectoryWalkTask([NotNull] string sourceDirectory)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException("sourceDirectory");
+            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException(nameof(sourceDirectory));
             #endregion
 
             SourceDirectory = new DirectoryInfo(Path.GetFullPath(sourceDirectory));
@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Implementations
         private static FileSystemInfo[] GetSortedDirectoryEntries([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             // Get separated lists for files and directories
@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Implementations
         protected virtual void HandleEntries([NotNull] IEnumerable<FileSystemInfo> entries)
         {
             #region Sanity checks
-            if (entries == null) throw new ArgumentNullException("entries");
+            if (entries == null) throw new ArgumentNullException(nameof(entries));
             #endregion
 
             var externalXbits = FlagUtils.GetFiles(FlagUtils.XbitFile, SourceDirectory.FullName);

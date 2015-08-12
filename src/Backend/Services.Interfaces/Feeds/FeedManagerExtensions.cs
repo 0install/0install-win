@@ -48,8 +48,8 @@ namespace ZeroInstall.Services.Feeds
         public static Feed GetFresh([NotNull] this IFeedManager feedManager, [NotNull] FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             var feed = feedManager[feedUri];

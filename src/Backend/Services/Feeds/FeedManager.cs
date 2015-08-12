@@ -58,10 +58,10 @@ namespace ZeroInstall.Services.Feeds
         public FeedManager([NotNull] Config config, [NotNull] IFeedCache feedCache, [NotNull] ITrustManager trustManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
-            if (trustManager == null) throw new ArgumentNullException("trustManager");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
+            if (trustManager == null) throw new ArgumentNullException(nameof(trustManager));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             _config = config;
@@ -96,7 +96,7 @@ namespace ZeroInstall.Services.Feeds
         protected override Feed Retrieve(FeedUri key)
         {
             #region Sanity checks
-            if (key == null) throw new ArgumentNullException("key");
+            if (key == null) throw new ArgumentNullException(nameof(key));
             #endregion
 
             var feed = GetFeed(key);
@@ -183,7 +183,7 @@ namespace ZeroInstall.Services.Feeds
         public bool IsStale(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             var preferences = FeedPreferences.LoadForSafe(feedUri);
@@ -278,7 +278,7 @@ namespace ZeroInstall.Services.Feeds
         public void ImportFeed(string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             var feed = XmlStorage.LoadXml<Feed>(path);

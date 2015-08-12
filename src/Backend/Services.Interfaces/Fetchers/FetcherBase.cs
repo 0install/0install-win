@@ -53,8 +53,8 @@ namespace ZeroInstall.Services.Fetchers
         protected FetcherBase([NotNull] IStore store, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             _store = store;
@@ -72,7 +72,7 @@ namespace ZeroInstall.Services.Fetchers
         protected bool IsCached([NotNull] Implementation implementation)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
             #endregion
 
             if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return false;
@@ -95,7 +95,7 @@ namespace ZeroInstall.Services.Fetchers
         protected void Retrieve([NotNull] Implementation implementation)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
             #endregion
 
             implementation.RetrievalMethods
@@ -205,7 +205,7 @@ namespace ZeroInstall.Services.Fetchers
         protected virtual TemporaryFile Download([NotNull] DownloadRetrievalMethod retrievalMethod, [CanBeNull] object tag = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
             #endregion
 
             retrievalMethod.Validate();

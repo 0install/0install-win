@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Trust
         public static string FormatKeyID([NotNull] this IKeyIDContainer keyIDContainer)
         {
             #region Sanity checks
-            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
+            if (keyIDContainer == null) throw new ArgumentNullException(nameof(keyIDContainer));
             #endregion
 
             return keyIDContainer.KeyID.ToString("x16").ToUpperInvariant();
@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Trust
         public static string FormatFingerprint([NotNull] this IFingerprintContainer fingerprintContainer)
         {
             #region Sanity checks
-            if (fingerprintContainer == null) throw new ArgumentNullException("fingerprintContainer");
+            if (fingerprintContainer == null) throw new ArgumentNullException(nameof(fingerprintContainer));
             #endregion
 
             return BitConverter.ToString(fingerprintContainer.GetFingerprint()).Replace("-", "");
@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Trust
         internal static long ParseKeyID([NotNull] string keyID)
         {
             #region Sanity checks
-            if (keyID == null) throw new ArgumentNullException("keyID");
+            if (keyID == null) throw new ArgumentNullException(nameof(keyID));
             #endregion
 
             if (keyID.Length != 16) throw new FormatException("OpenPGP key ID string representation must be 16 characters long.");
@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Trust
         internal static byte[] ParseFingerpint([NotNull] string fingerprint)
         {
             #region Sanity checks
-            if (fingerprint == null) throw new ArgumentNullException("fingerprint");
+            if (fingerprint == null) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             var result = new byte[fingerprint.Length / 2];
@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Trust
         internal static long FingerprintToKeyID([NotNull] byte[] fingerprint)
         {
             #region Sanity checks
-            if (fingerprint == null) throw new ArgumentNullException("fingerprint");
+            if (fingerprint == null) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             // Extract lower 64 bits and treat as Big Endian
@@ -113,9 +113,9 @@ namespace ZeroInstall.Store.Trust
         public static void DeployPublicKey([NotNull] this IOpenPgp openPgp, [NotNull] IKeyIDContainer keyID, [NotNull] string path)
         {
             #region Sanity checks
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
-            if (keyID == null) throw new ArgumentNullException("keyID");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
+            if (keyID == null) throw new ArgumentNullException(nameof(keyID));
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             File.WriteAllText(

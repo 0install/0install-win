@@ -79,8 +79,8 @@ namespace ZeroInstall.Store.Implementations
         public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] IEnumerable<ManifestNode> nodes)
         {
             #region Sanity checks
-            if (nodes == null) throw new ArgumentNullException("nodes");
-            if (format == null) throw new ArgumentNullException("format");
+            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
+            if (format == null) throw new ArgumentNullException(nameof(format));
             #endregion
 
             Format = format;
@@ -95,8 +95,8 @@ namespace ZeroInstall.Store.Implementations
         public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] params ManifestNode[] nodes)
         {
             #region Sanity checks
-            if (nodes == null) throw new ArgumentNullException("nodes");
-            if (format == null) throw new ArgumentNullException("format");
+            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
+            if (format == null) throw new ArgumentNullException(nameof(format));
             #endregion
 
             Format = format;
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementations
         public string Save([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             using (var stream = File.Create(path))
@@ -173,7 +173,7 @@ namespace ZeroInstall.Store.Implementations
         public void Save([NotNull] Stream stream)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             // Use UTF-8 without BOM and Unix-stlye line breaks to ensure correct digest values
@@ -211,8 +211,8 @@ namespace ZeroInstall.Store.Implementations
         public static Manifest Load([NotNull] Stream stream, [NotNull] ManifestFormat format)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (format == null) throw new ArgumentNullException("format");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            if (format == null) throw new ArgumentNullException(nameof(format));
             #endregion
 
             var nodes = new List<ManifestNode>();
@@ -248,8 +248,8 @@ namespace ZeroInstall.Store.Implementations
         public static Manifest Load([NotNull] string path, [NotNull] ManifestFormat format)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (format == null) throw new ArgumentNullException("format");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (format == null) throw new ArgumentNullException(nameof(format));
             #endregion
 
             using (var stream = File.OpenRead(path))

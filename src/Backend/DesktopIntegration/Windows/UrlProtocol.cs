@@ -58,8 +58,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
-            if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (urlProtocol == null) throw new ArgumentNullException(nameof(urlProtocol));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(urlProtocol.ID)) throw new InvalidDataException("Missing ID");
@@ -118,7 +118,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Unregister([NotNull] Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
-            if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");
+            if (urlProtocol == null) throw new ArgumentNullException(nameof(urlProtocol));
             #endregion
 
             if (string.IsNullOrEmpty(urlProtocol.ID)) throw new InvalidDataException("Missing ID");

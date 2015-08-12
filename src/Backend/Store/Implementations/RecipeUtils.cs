@@ -48,9 +48,9 @@ namespace ZeroInstall.Store.Implementations
         public static TemporaryDirectory Apply([NotNull] this Recipe recipe, [NotNull, ItemNotNull] IEnumerable<TemporaryFile> downloadedFiles, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
             #region Sanity checks
-            if (recipe == null) throw new ArgumentNullException("recipe");
-            if (downloadedFiles == null) throw new ArgumentNullException("downloadedFiles");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+            if (downloadedFiles == null) throw new ArgumentNullException(nameof(downloadedFiles));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (recipe.UnknownElements != null && recipe.UnknownElements.Length != 0)
@@ -67,13 +67,13 @@ namespace ZeroInstall.Store.Implementations
                     (Archive step) =>
                     {
                         downloadedEnum.MoveNext();
-                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, "downloadedFiles");
+                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
                         step.Apply(downloadedEnum.Current, workingDir, handler, tag);
                     },
                     (SingleFile step) =>
                     {
                         downloadedEnum.MoveNext();
-                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, "downloadedFiles");
+                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
                         step.Apply(downloadedEnum.Current, workingDir);
                     },
                     (RemoveStep step) => step.Apply(workingDir),
@@ -103,10 +103,10 @@ namespace ZeroInstall.Store.Implementations
         public static void Apply([NotNull] this Archive step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
             #region Sanity checks
-            if (step == null) throw new ArgumentNullException("step");
-            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
-            if (workingDir == null) throw new ArgumentNullException("workingDir");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException(nameof(localPath));
+            if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             #region Path validation
@@ -139,10 +139,10 @@ namespace ZeroInstall.Store.Implementations
         public static void Apply([NotNull] this SingleFile step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (step == null) throw new ArgumentNullException("step");
-            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
-            if (workingDir == null) throw new ArgumentNullException("workingDir");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException(nameof(localPath));
+            if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             // Use a copy of the original file because the source file is moved
@@ -165,9 +165,9 @@ namespace ZeroInstall.Store.Implementations
         public static void Apply([NotNull] this SingleFile step, [NotNull] TemporaryFile downloadedFile, [NotNull] TemporaryDirectory workingDir)
         {
             #region Sanity checks
-            if (step == null) throw new ArgumentNullException("step");
-            if (downloadedFile == null) throw new ArgumentNullException("downloadedFile");
-            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (downloadedFile == null) throw new ArgumentNullException(nameof(downloadedFile));
+            if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
             #endregion
 
             #region Path validation
@@ -196,8 +196,8 @@ namespace ZeroInstall.Store.Implementations
         public static void Apply([NotNull] this RemoveStep step, [NotNull] TemporaryDirectory workingDir)
         {
             #region Sanity checks
-            if (step == null) throw new ArgumentNullException("step");
-            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
             #endregion
 
             #region Path validation
@@ -224,8 +224,8 @@ namespace ZeroInstall.Store.Implementations
         public static void Apply([NotNull] this RenameStep step, [NotNull] TemporaryDirectory workingDir)
         {
             #region Sanity checks
-            if (step == null) throw new ArgumentNullException("step");
-            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
             #endregion
 
             #region Path validation

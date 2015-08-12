@@ -143,7 +143,7 @@ namespace ZeroInstall.DesktopIntegration
         public T LookupCapability<T>([NotNull] string id) where T : Capability
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             #endregion
 
             try

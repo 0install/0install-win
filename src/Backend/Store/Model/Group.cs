@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Model
         public override void Normalize(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             // Apply if-0install-version filter

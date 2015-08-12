@@ -17,7 +17,7 @@ namespace ZeroInstall.Store.Model
         public static bool ContainsTemplateVariables([NotNull] string value)
         {
             #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
+            if (value == null) throw new ArgumentNullException(nameof(value));
             #endregion
 
             int openingBracket = value.IndexOf('{');
@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Model
         public static string GetAbsolutePath([NotNull] string path, [CanBeNull] FeedUri source = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             if (Path.IsPathRooted(path)) return path;
@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Model
         public static Uri GetAbsoluteHref([NotNull] Uri href, [CanBeNull] FeedUri source = null)
         {
             #region Sanity checks
-            if (href == null) throw new ArgumentNullException("href");
+            if (href == null) throw new ArgumentNullException(nameof(href));
             #endregion
 
             if (href.IsAbsoluteUri) return href;

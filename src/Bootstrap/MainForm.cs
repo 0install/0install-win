@@ -55,7 +55,7 @@ namespace ZeroInstall.Bootstrap
         public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
+            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
             #endregion
 
             taskControl.TaskName = taskName;

@@ -59,7 +59,7 @@ namespace ZeroInstall.Publish.Capture
         public static CaptureSession Start([NotNull] FeedBuilder feedBuilder)
         {
             #region Sanity checks
-            if (feedBuilder == null) throw new ArgumentNullException("feedBuilder");
+            if (feedBuilder == null) throw new ArgumentNullException(nameof(feedBuilder));
             #endregion
 
             return new CaptureSession(Snapshot.Take(), feedBuilder);
@@ -79,7 +79,7 @@ namespace ZeroInstall.Publish.Capture
         public void Diff([NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             _diff = new SnapshotDiff(before: _snapshot, after: Snapshot.Take());
@@ -140,9 +140,9 @@ namespace ZeroInstall.Publish.Capture
         public void CollectFiles([NotNull] string archivePath, [NotNull] Uri archiveUrl, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(archivePath)) throw new ArgumentNullException("archivePath");
-            if (archiveUrl == null) throw new ArgumentNullException("archiveUrl");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(archivePath)) throw new ArgumentNullException(nameof(archivePath));
+            if (archiveUrl == null) throw new ArgumentNullException(nameof(archiveUrl));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (InstallationDir == null) throw new InvalidOperationException("Diff() must be called first.");
@@ -169,8 +169,8 @@ namespace ZeroInstall.Publish.Capture
         public static CaptureSession Load([NotNull] string path, [NotNull] FeedBuilder feedBuilder)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (feedBuilder == null) throw new ArgumentNullException("feedBuilder");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (feedBuilder == null) throw new ArgumentNullException(nameof(feedBuilder));
             #endregion
 
             return new CaptureSession(BinaryStorage.LoadBinary<Snapshot>(path), feedBuilder);
@@ -185,7 +185,7 @@ namespace ZeroInstall.Publish.Capture
         public void Save([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             _snapshot.SaveBinary(path);

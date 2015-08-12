@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Model
         public static VersionRangePart FromString([NotNull] string value)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
             #endregion
 
             if (value.Contains(".."))
@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Model
         public VersionRangeExact(ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             _version = version;
@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Model
         public override VersionRangePart Intersects(Constraint constraint)
         {
             #region Sanity checks
-            if (constraint == null) throw new ArgumentNullException("constraint");
+            if (constraint == null) throw new ArgumentNullException(nameof(constraint));
             #endregion
 
             // If the exact version lies within the constraint, the exact version remains
@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Model
         public override bool Match(ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             return _version.Equals(version);
@@ -146,7 +146,7 @@ namespace ZeroInstall.Store.Model
         public VersionRangeExclude(ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             _version = version;
@@ -155,7 +155,7 @@ namespace ZeroInstall.Store.Model
         public override VersionRangePart Intersects(Constraint constraint)
         {
             #region Sanity checks
-            if (constraint == null) throw new ArgumentNullException("constraint");
+            if (constraint == null) throw new ArgumentNullException(nameof(constraint));
             #endregion
 
             // If the exclude version lies outside the constraint, the constraint remains
@@ -167,7 +167,7 @@ namespace ZeroInstall.Store.Model
         public override bool Match(ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             return !_version.Equals(version);
@@ -211,7 +211,7 @@ namespace ZeroInstall.Store.Model
         public override VersionRangePart Intersects(Constraint constraint)
         {
             #region Sanity checks
-            if (constraint == null) throw new ArgumentNullException("constraint");
+            if (constraint == null) throw new ArgumentNullException(nameof(constraint));
             #endregion
 
             // Keep the highest lower bound
@@ -232,7 +232,7 @@ namespace ZeroInstall.Store.Model
         public override bool Match(ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             if (_startVersion != null && version < _startVersion) return false;

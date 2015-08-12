@@ -50,8 +50,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.ComServer comServer, bool machineWide, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (comServer == null) throw new ArgumentNullException("comServer");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (comServer == null) throw new ArgumentNullException(nameof(comServer));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(comServer.ID)) throw new InvalidDataException("Missing ID");
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Unregister([NotNull] Store.Model.Capabilities.ComServer comServer, bool machineWide)
         {
             #region Sanity checks
-            if (comServer == null) throw new ArgumentNullException("comServer");
+            if (comServer == null) throw new ArgumentNullException(nameof(comServer));
             #endregion
 
             if (string.IsNullOrEmpty(comServer.ID)) throw new InvalidDataException("Missing ID");

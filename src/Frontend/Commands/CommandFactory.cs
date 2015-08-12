@@ -143,8 +143,8 @@ namespace ZeroInstall.Commands
         public static CliCommand CreateAndParse([NotNull, ItemNotNull] IEnumerable<string> args, [NotNull] ICommandHandler handler)
         {
             #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (args == null) throw new ArgumentNullException(nameof(args));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var command = GetCommand(GetCommandName(ref args), handler);
@@ -161,7 +161,7 @@ namespace ZeroInstall.Commands
         public static string GetCommandName([NotNull, ItemNotNull] ref IEnumerable<string> args)
         {
             #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
             #endregion
 
             var arguments = new LinkedList<string>(args);

@@ -56,8 +56,8 @@ namespace ZeroInstall.Commands.Gtk
         public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
             #endregion
 
             // TODO: Implement
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands.Gtk
         public void CustomizeSelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
-            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
+            if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
             #endregion
 
             // TODO: Implement
@@ -84,7 +84,7 @@ namespace ZeroInstall.Commands.Gtk
         public void ShowFeedSearch(SearchQuery query)
         {
             #region Sanity checks
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             #endregion
 
             Output(query.ToString(), query.Results);
@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands.Gtk
         public void ShowIntegrateApp(IntegrationState state)
         {
             #region Sanity checks
-            if (state == null) throw new ArgumentNullException("state");
+            if (state == null) throw new ArgumentNullException(nameof(state));
             #endregion
 
             // TODO: Implement
@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands.Gtk
         public void ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             // TODO: Implement
@@ -114,8 +114,8 @@ namespace ZeroInstall.Commands.Gtk
         public void ManageStore(IStore store, IFeedCache feedCache)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
             #endregion
 
             // TODO: Implement

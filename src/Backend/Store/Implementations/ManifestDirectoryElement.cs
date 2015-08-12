@@ -55,8 +55,8 @@ namespace ZeroInstall.Store.Implementations
         protected ManifestDirectoryElement(string digest, long size, string name)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(digest)) throw new ArgumentNullException("digest");
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(digest)) throw new ArgumentNullException(nameof(digest));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (name.Contains("\n")) throw new NotSupportedException(Resources.NewlineInName);
             #endregion
 

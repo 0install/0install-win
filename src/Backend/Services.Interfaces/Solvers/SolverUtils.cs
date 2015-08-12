@@ -45,7 +45,7 @@ namespace ZeroInstall.Services.Solvers
         public static IEnumerable<Requirements> GetEffective([NotNull] this Requirements requirements)
         {
             #region Sanity checks
-            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
             #endregion
 
             var effectiveRequirements = requirements.Clone();
@@ -74,9 +74,9 @@ namespace ZeroInstall.Services.Solvers
         public static ImplementationSelection ToSelection([NotNull] this SelectionCandidate candidate, [NotNull, ItemNotNull] IEnumerable<SelectionCandidate> allCandidates, [NotNull] Requirements requirements)
         {
             #region Sanity checks
-            if (candidate == null) throw new ArgumentNullException("candidate");
-            if (allCandidates == null) throw new ArgumentNullException("allCandidates");
-            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (candidate == null) throw new ArgumentNullException(nameof(candidate));
+            if (allCandidates == null) throw new ArgumentNullException(nameof(allCandidates));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
             #endregion
 
             var implementation = candidate.Implementation;
@@ -113,9 +113,9 @@ namespace ZeroInstall.Services.Solvers
         public static void AddDependencies([NotNull] this IDependencyContainer target, [NotNull] Requirements requirements, [NotNull] IDependencyContainer from)
         {
             #region Sanity checks
-            if (target == null) throw new ArgumentNullException("target");
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            if (from == null) throw new ArgumentNullException("from");
+            if (target == null) throw new ArgumentNullException(nameof(target));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
+            if (from == null) throw new ArgumentNullException(nameof(@from));
             #endregion
 
             target.Dependencies.AddRange(from.Dependencies.Where(x => x.IsApplicable(requirements)).CloneElements());
@@ -134,9 +134,9 @@ namespace ZeroInstall.Services.Solvers
         public static Command AddCommand([NotNull] this ImplementationSelection selection, [NotNull] Requirements requirements, [NotNull] Implementation @from)
         {
             #region Sanity checks
-            if (selection == null) throw new ArgumentNullException("selection");
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            if (from == null) throw new ArgumentNullException("from");
+            if (selection == null) throw new ArgumentNullException(nameof(selection));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
+            if (from == null) throw new ArgumentNullException(nameof(@from));
             #endregion
 
             Debug.Assert(requirements.Command != null);
@@ -163,8 +163,8 @@ namespace ZeroInstall.Services.Solvers
         public static Requirements ToRequirements([NotNull] this Restriction dependency, [NotNull] Requirements topLevelRequirements)
         {
             #region Sanity checks
-            if (dependency == null) throw new ArgumentNullException("dependency");
-            if (topLevelRequirements == null) throw new ArgumentNullException("topLevelRequirements");
+            if (dependency == null) throw new ArgumentNullException(nameof(dependency));
+            if (topLevelRequirements == null) throw new ArgumentNullException(nameof(topLevelRequirements));
             #endregion
 
             var requirements = new Requirements(dependency.InterfaceUri, "", topLevelRequirements.Architecture);
@@ -183,8 +183,8 @@ namespace ZeroInstall.Services.Solvers
         public static Requirements ToRequirements([NotNull] this Runner runner, [NotNull] Requirements topLevelRequirements)
         {
             #region Sanity checks
-            if (runner == null) throw new ArgumentNullException("runner");
-            if (topLevelRequirements == null) throw new ArgumentNullException("topLevelRequirements");
+            if (runner == null) throw new ArgumentNullException(nameof(runner));
+            if (topLevelRequirements == null) throw new ArgumentNullException(nameof(topLevelRequirements));
             #endregion
 
             var requirements = new Requirements(runner.InterfaceUri, runner.Command ?? Command.NameRun, topLevelRequirements.Architecture);
@@ -212,8 +212,8 @@ namespace ZeroInstall.Services.Solvers
         public static IEnumerable<Requirements> ToBindingRequirements([NotNull] this IBindingContainer bindingContainer, [NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (bindingContainer == null) throw new ArgumentNullException("bindingContainer");
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (bindingContainer == null) throw new ArgumentNullException(nameof(bindingContainer));
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             return bindingContainer.Bindings.OfType<ExecutableInBinding>()
@@ -227,8 +227,8 @@ namespace ZeroInstall.Services.Solvers
         public static bool Contains([NotNull] this IEnumerable<SelectionCandidate> candidates, [NotNull] ImplementationSelection implementation)
         {
             #region Sanity checks
-            if (candidates == null) throw new ArgumentNullException("candidates");
-            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (candidates == null) throw new ArgumentNullException(nameof(candidates));
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
             #endregion
 
             return candidates.Select(x => x.Implementation.ID).Contains(implementation.ID);
@@ -240,7 +240,7 @@ namespace ZeroInstall.Services.Solvers
         public static void PurgeRestrictions([NotNull] this Selections selections)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
             #endregion
 
             foreach (var implementation in selections.Implementations)

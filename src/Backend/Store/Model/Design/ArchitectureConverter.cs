@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Model.Design
         protected override Architecture GetObject(string[] values, CultureInfo culture)
         {
             #region Sanity checks
-            if (values == null) throw new ArgumentNullException("values");
+            if (values == null) throw new ArgumentNullException(nameof(values));
             #endregion
 
             return new Architecture(
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Model.Design
         protected override Architecture GetObject(IDictionary propertyValues)
         {
             #region Sanity checks
-            if (propertyValues == null) throw new ArgumentNullException("propertyValues");
+            if (propertyValues == null) throw new ArgumentNullException(nameof(propertyValues));
             #endregion
 
             return new Architecture(

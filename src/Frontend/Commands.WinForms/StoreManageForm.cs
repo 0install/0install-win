@@ -59,8 +59,8 @@ namespace ZeroInstall.Commands.WinForms
         public StoreManageForm([NotNull] IStore store, [NotNull] IFeedCache feedCache)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
             #endregion
 
             _store = store;

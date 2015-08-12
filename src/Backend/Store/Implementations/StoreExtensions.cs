@@ -38,8 +38,8 @@ namespace ZeroInstall.Store.Implementations
         public static void Purge([NotNull] this IStore store, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             foreach (var manifestDigest in store.ListAll())

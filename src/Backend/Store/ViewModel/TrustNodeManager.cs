@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.ViewModel
         public static NamedCollection<TrustNode> ToNodes([NotNull] this TrustDB trustDB)
         {
             #region Sanity checks
-            if (trustDB == null) throw new ArgumentNullException("trustDB");
+            if (trustDB == null) throw new ArgumentNullException(nameof(trustDB));
             #endregion
 
             var nodes = new NamedCollection<TrustNode>();
@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.ViewModel
         public static TrustDB ToTrustDB([NotNull] this IEnumerable<TrustNode> nodes)
         {
             #region Sanity checks
-            if (nodes == null) throw new ArgumentNullException("nodes");
+            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
             #endregion
 
             var trustDB = new TrustDB();

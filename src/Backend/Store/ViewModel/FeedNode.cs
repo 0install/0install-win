@@ -46,8 +46,8 @@ namespace ZeroInstall.Store.ViewModel
         public FeedNode([NotNull] Feed feed, [NotNull] IFeedCache cache)
         {
             #region Sanity checks
-            if (cache == null) throw new ArgumentNullException("cache");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (cache == null) throw new ArgumentNullException(nameof(cache));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             _cache = cache;

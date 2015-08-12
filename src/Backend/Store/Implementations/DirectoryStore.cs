@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Implementations
         public DirectoryStore([NotNull] string path, bool useWriteProtection = true)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             try
@@ -176,7 +176,7 @@ namespace ZeroInstall.Store.Implementations
         public static void EnableWriteProtection([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             try
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Implementations
         public static void DisableWriteProtection([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             try
@@ -251,8 +251,8 @@ namespace ZeroInstall.Store.Implementations
         protected virtual string VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException(nameof(tempID));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             // Determine the digest method to use
@@ -307,8 +307,8 @@ namespace ZeroInstall.Store.Implementations
         public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException(nameof(directory));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string expectedDigestValue = expectedDigest.Best;
@@ -408,9 +408,9 @@ namespace ZeroInstall.Store.Implementations
         public string AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (handler == null) throw new ArgumentNullException("handler");
-            if (manifestDigest.Best == null) throw new ArgumentException("No known digest method", "manifestDigest");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+            if (manifestDigest.Best == null) throw new ArgumentException("No known digest method", nameof(manifestDigest));
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
@@ -449,9 +449,9 @@ namespace ZeroInstall.Store.Implementations
         public string AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
-            if (handler == null) throw new ArgumentNullException("handler");
-            if (manifestDigest.Best == null) throw new ArgumentException("No known digest method", "manifestDigest");
+            if (archiveInfos == null) throw new ArgumentNullException(nameof(archiveInfos));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+            if (manifestDigest.Best == null) throw new ArgumentException("No known digest method", nameof(manifestDigest));
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
@@ -497,7 +497,7 @@ namespace ZeroInstall.Store.Implementations
         public virtual bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string path = GetPath(manifestDigest);
@@ -568,7 +568,7 @@ namespace ZeroInstall.Store.Implementations
         public virtual long Optimise(ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (!Directory.Exists(DirectoryPath)) return 0;
@@ -591,7 +591,7 @@ namespace ZeroInstall.Store.Implementations
         public virtual void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);

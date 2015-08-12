@@ -41,8 +41,8 @@ namespace ZeroInstall.Publish.Capture
         public AppRegistration GetAppRegistration([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities, ref string appName, ref string appDescription)
         {
             #region Sanity checks
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             // Ambiguity warnings
@@ -87,9 +87,9 @@ namespace ZeroInstall.Publish.Capture
         private static void CollectProtocolAssocsEx([NotNull] RegistryKey capsKey, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (capsKey == null) throw new ArgumentNullException("capsKey");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            if (capsKey == null) throw new ArgumentNullException(nameof(capsKey));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
             #endregion
 
             using (var urlAssocKey = capsKey.OpenSubKey(DesktopIntegration.Windows.AppRegistration.RegSubKeyUrlAssocs))
@@ -134,8 +134,8 @@ namespace ZeroInstall.Publish.Capture
         private static void CollectFileAssocsEx([NotNull] RegistryKey capsKey, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (capsKey == null) throw new ArgumentNullException("capsKey");
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            if (capsKey == null) throw new ArgumentNullException(nameof(capsKey));
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
             #endregion
 
             using (var fileAssocKey = capsKey.OpenSubKey(DesktopIntegration.Windows.AppRegistration.RegSubKeyFileAssocs))
@@ -159,9 +159,9 @@ namespace ZeroInstall.Publish.Capture
         private static void AddExtensionToFileType([NotNull] string extension, [NotNull] string progID, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
-            if (string.IsNullOrEmpty(extension)) throw new ArgumentNullException("extension");
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
+            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException(nameof(progID));
+            if (string.IsNullOrEmpty(extension)) throw new ArgumentNullException(nameof(extension));
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
             #endregion
 
             // Find the matching existing file type

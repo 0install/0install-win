@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
             : base(sourcePath, sourceManifest, handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
+            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException(nameof(destinationPath));
             #endregion
 
             DestinationPath = destinationPath;

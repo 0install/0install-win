@@ -39,8 +39,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create([NotNull] MenuEntry menuEntry, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (menuEntry == null) throw new ArgumentNullException("menuEntry");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (menuEntry == null) throw new ArgumentNullException(nameof(menuEntry));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string dirPath = GetStartMenuCategoryPath(menuEntry.Category, machineWide);
@@ -58,7 +58,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove([NotNull] MenuEntry menuEntry, bool machineWide)
         {
             #region Sanity checks
-            if (menuEntry == null) throw new ArgumentNullException("menuEntry");
+            if (menuEntry == null) throw new ArgumentNullException(nameof(menuEntry));
             #endregion
 
             string filePath = GetStartMenuPath(menuEntry.Category, menuEntry.Name, machineWide);

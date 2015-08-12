@@ -64,8 +64,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected override ExitCode ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             try

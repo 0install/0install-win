@@ -51,8 +51,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static string GetIconPath([NotNull] Icon icon, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (icon == null) throw new ArgumentNullException("icon");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (icon == null) throw new ArgumentNullException(nameof(icon));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string iconDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "icons");

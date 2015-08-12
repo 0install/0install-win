@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Model.Selection
             get
             {
                 #region Sanity checks
-                if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+                if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
                 #endregion
 
                 try
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Model.Selection
         public ImplementationSelection GetImplementation([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             return Implementations.FirstOrDefault(implementation => implementation.InterfaceUri == interfaceUri);

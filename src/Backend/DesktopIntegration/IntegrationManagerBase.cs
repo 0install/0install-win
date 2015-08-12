@@ -63,9 +63,9 @@ namespace ZeroInstall.DesktopIntegration
         public AppEntry AddApp(string petName, Requirements requirements, Feed feed)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException("petName");
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException(nameof(petName));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             var appEntry = AddAppInternal(petName, requirements, feed);
@@ -77,7 +77,7 @@ namespace ZeroInstall.DesktopIntegration
         public void RemoveApp(AppEntry appEntry)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             try
@@ -99,8 +99,8 @@ namespace ZeroInstall.DesktopIntegration
         public void UpdateApp(AppEntry appEntry, Feed feed)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             try
@@ -122,9 +122,9 @@ namespace ZeroInstall.DesktopIntegration
         public void UpdateApp(AppEntry appEntry, Feed feed, Requirements requirements)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
             #endregion
 
             try
@@ -147,9 +147,9 @@ namespace ZeroInstall.DesktopIntegration
         public void AddAccessPoints(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
+            if (accessPoints == null) throw new ArgumentNullException(nameof(accessPoints));
             #endregion
 
             try
@@ -171,8 +171,8 @@ namespace ZeroInstall.DesktopIntegration
         public void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (accessPoints == null) throw new ArgumentNullException(nameof(accessPoints));
             #endregion
 
             try
@@ -194,7 +194,7 @@ namespace ZeroInstall.DesktopIntegration
         public void Repair(Converter<FeedUri, Feed> feedRetriever)
         {
             #region Sanity checks
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
+            if (feedRetriever == null) throw new ArgumentNullException(nameof(feedRetriever));
             #endregion
 
             try

@@ -34,8 +34,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create(SendTo sendTo, FeedTarget target, ITaskHandler handler)
         {
             #region Sanity checks
-            if (sendTo == null) throw new ArgumentNullException("sendTo");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (sendTo == null) throw new ArgumentNullException(nameof(sendTo));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string filePath = GetSendToPath(sendTo.Name);
@@ -49,7 +49,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove(SendTo sendTo)
         {
             #region Sanity checks
-            if (sendTo == null) throw new ArgumentNullException("sendTo");
+            if (sendTo == null) throw new ArgumentNullException(nameof(sendTo));
             #endregion
 
             string filePath = GetSendToPath(sendTo.Name);

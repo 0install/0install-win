@@ -38,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void AddDir([NotNull] string directory, bool machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException(nameof(directory));
             #endregion
 
             var currentPath = Get(machineWide);
@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void RemoveDir([NotNull] string directory, bool machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException(nameof(directory));
             #endregion
 
             var currentPath = Get(machineWide);
@@ -82,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Set([NotNull, ItemNotNull] string[] directories, bool machineWide)
         {
             #region Sanity checks
-            if (directories == null) throw new ArgumentNullException("directories");
+            if (directories == null) throw new ArgumentNullException(nameof(directories));
             #endregion
 
             Environment.SetEnvironmentVariable(

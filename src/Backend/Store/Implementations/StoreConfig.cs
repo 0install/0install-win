@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Implementations
         private static IEnumerable<string> GetImplementationDirs([NotNull] string configPath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(configPath)) throw new ArgumentNullException("configPath");
+            if (string.IsNullOrEmpty(configPath)) throw new ArgumentNullException(nameof(configPath));
             #endregion
 
             if (!File.Exists(configPath)) yield break;
@@ -180,8 +180,8 @@ namespace ZeroInstall.Store.Implementations
         private static void SetImplementationDirs([NotNull] string configPath, [NotNull, ItemNotNull, InstantHandle] IEnumerable<string> paths)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(configPath)) throw new ArgumentNullException("configPath");
-            if (paths == null) throw new ArgumentNullException("paths");
+            if (string.IsNullOrEmpty(configPath)) throw new ArgumentNullException(nameof(configPath));
+            if (paths == null) throw new ArgumentNullException(nameof(paths));
             #endregion
 
             using (var atomic = new AtomicWrite(configPath))

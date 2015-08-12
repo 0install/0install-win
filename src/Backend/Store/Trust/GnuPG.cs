@@ -36,8 +36,8 @@ namespace ZeroInstall.Store.Trust
         public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (signature == null) throw new ArgumentNullException("signature");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (signature == null) throw new ArgumentNullException(nameof(signature));
             #endregion
 
             string result;
@@ -116,8 +116,8 @@ namespace ZeroInstall.Store.Trust
         public byte[] Sign(byte[] data, OpenPgpSecretKey secretKey, string passphrase = null)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (secretKey == null) throw new ArgumentNullException("secretKey");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (secretKey == null) throw new ArgumentNullException(nameof(secretKey));
             #endregion
 
             string output = new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--passphrase", passphrase ?? "", "--local-user", secretKey.FormatKeyID(), "--detach-sign", "--armor", "--output", "-", "-");
@@ -132,7 +132,7 @@ namespace ZeroInstall.Store.Trust
         public void ImportKey(byte[] data)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Trust
         public string ExportKey(IKeyIDContainer keyIDContainer)
         {
             #region Sanity checks
-            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
+            if (keyIDContainer == null) throw new ArgumentNullException(nameof(keyIDContainer));
             #endregion
 
             return new CliControl(HomeDir).Execute("--batch", "--no-secmem-warning", "--armor", "--export", keyIDContainer.FormatKeyID())

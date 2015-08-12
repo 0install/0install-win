@@ -35,7 +35,7 @@ namespace ZeroInstall.DesktopIntegration
         public static AccessPoint ToAcessPoint([NotNull] this Store.Model.Capabilities.DefaultCapability capability)
         {
             #region Sanity checks
-            if (capability == null) throw new ArgumentNullException("capability");
+            if (capability == null) throw new ArgumentNullException(nameof(capability));
             #endregion
 
             return new PerTypeDispatcher<Store.Model.Capabilities.DefaultCapability, DefaultAccessPoint>(ignoreMissing: false)

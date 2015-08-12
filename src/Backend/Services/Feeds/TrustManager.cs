@@ -56,11 +56,11 @@ namespace ZeroInstall.Services.Feeds
         public TrustManager([NotNull] Config config, [NotNull] IOpenPgp openPgp, [NotNull] TrustDB trustDB, [NotNull] IFeedCache feedCache, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
-            if (trustDB == null) throw new ArgumentNullException("trustDB");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
+            if (trustDB == null) throw new ArgumentNullException(nameof(trustDB));
+            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             _config = config;
@@ -76,8 +76,8 @@ namespace ZeroInstall.Services.Feeds
         public ValidSignature CheckTrust(byte[] data, FeedUri uri, string localPath = null)
         {
             #region Sanity checks
-            if (uri == null) throw new ArgumentNullException("uri");
-            if (data == null) throw new ArgumentNullException("data");
+            if (uri == null) throw new ArgumentNullException(nameof(uri));
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             if (uri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);

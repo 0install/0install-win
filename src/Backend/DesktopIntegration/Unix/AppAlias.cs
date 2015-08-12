@@ -46,8 +46,8 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Create(FeedTarget target, [CanBeNull] string command, [NotNull] string aliasName, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException(nameof(aliasName));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(aliasName) || aliasName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
@@ -70,7 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Remove(string aliasName, bool machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException(nameof(aliasName));
             #endregion
 
             // TODO: Find directory in search PATH

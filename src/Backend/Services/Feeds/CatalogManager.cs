@@ -60,7 +60,7 @@ namespace ZeroInstall.Services.Feeds
         public CatalogManager([NotNull] ITrustManager trustManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (trustManager == null) throw new ArgumentNullException("trustManager");
+            if (trustManager == null) throw new ArgumentNullException(nameof(trustManager));
             #endregion
 
             _trustManager = trustManager;
@@ -135,7 +135,7 @@ namespace ZeroInstall.Services.Feeds
         public Catalog DownloadCatalog(FeedUri source)
         {
             #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             #endregion
 
             if (source.IsFile) return XmlStorage.LoadXml<Catalog>(source.LocalPath);
@@ -204,7 +204,7 @@ namespace ZeroInstall.Services.Feeds
         public static void SetSources([NotNull, ItemNotNull, InstantHandle] IEnumerable<FeedUri> uris)
         {
             #region Sanity checks
-            if (uris == null) throw new ArgumentNullException("uris");
+            if (uris == null) throw new ArgumentNullException(nameof(uris));
             #endregion
 
             using (var atomic = new AtomicWrite(Locations.GetSaveConfigPath("0install.net", true, "catalog-sources")))

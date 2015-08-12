@@ -42,8 +42,8 @@ namespace ZeroInstall.Services.PackageManagers
         public IEnumerable<ExternalImplementation> Query(PackageImplementation package, params string[] distributions)
         {
             #region Sanity checks
-            if (package == null) throw new ArgumentNullException("package");
-            if (distributions == null) throw new ArgumentNullException("distributions");
+            if (package == null) throw new ArgumentNullException(nameof(package));
+            if (distributions == null) throw new ArgumentNullException(nameof(distributions));
             #endregion
 
             if (!distributions.ContainsOrEmpty(DistributionName) || !package.Distributions.ContainsOrEmpty(DistributionName) || string.IsNullOrEmpty(package.Package)) yield break;
@@ -59,7 +59,7 @@ namespace ZeroInstall.Services.PackageManagers
         public ExternalImplementation Lookup(ImplementationSelection selection)
         {
             #region Sanity checks
-            if (selection == null) throw new ArgumentNullException("selection");
+            if (selection == null) throw new ArgumentNullException(nameof(selection));
             #endregion
 
             try

@@ -76,7 +76,7 @@ namespace ZeroInstall.Central.WinForms
             set
             {
                 #region Sanity checks
-                if (value < AppStatus.Candidate || value > AppStatus.Integrated) throw new InvalidEnumArgumentException("value", (int)value, typeof(AppStatus));
+                if (value < AppStatus.Candidate || value > AppStatus.Integrated) throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(AppStatus));
                 if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
                 #endregion
 
@@ -133,8 +133,8 @@ namespace ZeroInstall.Central.WinForms
         public AppTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (appName == null) throw new ArgumentNullException("appName");
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
+            if (appName == null) throw new ArgumentNullException(nameof(appName));
             #endregion
 
             _machineWide = machineWide;

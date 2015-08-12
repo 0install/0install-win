@@ -162,7 +162,7 @@ namespace ZeroInstall.Commands.CliCommands
         public virtual void Parse([NotNull, ItemNotNull] IEnumerable<string> args)
         {
             #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
             #endregion
 
             // Automatically show help for missing args

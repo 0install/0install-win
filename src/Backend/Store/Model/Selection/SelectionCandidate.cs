@@ -114,10 +114,10 @@ namespace ZeroInstall.Store.Model.Selection
         public SelectionCandidate([NotNull] FeedUri feedUri, [NotNull] FeedPreferences feedPreferences, [NotNull] Implementation implementation, [NotNull] Requirements requirements, bool offlineUncached = false)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
-            if (feedPreferences == null) throw new ArgumentNullException("feedPreferences");
-            if (implementation == null) throw new ArgumentNullException("implementation");
-            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
+            if (feedPreferences == null) throw new ArgumentNullException(nameof(feedPreferences));
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
             #endregion
 
             if (string.IsNullOrEmpty(implementation.ID)) throw new InvalidDataException(string.Format(Resources.ImplementationMissingID, implementation, feedUri));

@@ -44,8 +44,8 @@ namespace ZeroInstall.Publish.EntryPoints
         internal virtual bool Analyze([NotNull] DirectoryInfo baseDirectory, [NotNull] FileInfo file)
         {
             #region Sanity checks
-            if (baseDirectory == null) throw new ArgumentNullException("baseDirectory");
-            if (file == null) throw new ArgumentNullException("file");
+            if (baseDirectory == null) throw new ArgumentNullException(nameof(baseDirectory));
+            if (file == null) throw new ArgumentNullException(nameof(file));
             #endregion
 
             BaseDirectory = baseDirectory;
@@ -59,7 +59,7 @@ namespace ZeroInstall.Publish.EntryPoints
         protected bool IsExecutable([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             return

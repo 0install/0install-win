@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             if (!string.IsNullOrEmpty(ID))
@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             if (!string.IsNullOrEmpty(ID))

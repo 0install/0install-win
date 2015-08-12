@@ -105,8 +105,8 @@ namespace ZeroInstall.DesktopIntegration
             : base(handler, machineWide)
         {
             #region Sanity checks
-            if (server.Uri == null) throw new ArgumentNullException("server");
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
+            if (server.Uri == null) throw new ArgumentNullException(nameof(server));
+            if (feedRetriever == null) throw new ArgumentNullException(nameof(feedRetriever));
             #endregion
 
             _server = server;
@@ -136,8 +136,8 @@ namespace ZeroInstall.DesktopIntegration
             : base(appListPath, handler, machineWide)
         {
             #region Sanity checks
-            if (server.Uri == null) throw new ArgumentNullException("server");
-            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
+            if (server.Uri == null) throw new ArgumentNullException(nameof(server));
+            if (feedRetriever == null) throw new ArgumentNullException(nameof(feedRetriever));
             #endregion
 
             _server = server;
@@ -328,7 +328,7 @@ namespace ZeroInstall.DesktopIntegration
         private void MergeData([NotNull] AppList remoteAppList, bool resetClient)
         {
             #region Sanity checks
-            if (remoteAppList == null) throw new ArgumentNullException("remoteAppList");
+            if (remoteAppList == null) throw new ArgumentNullException(nameof(remoteAppList));
             #endregion
 
             var toAdd = new List<AppEntry>();

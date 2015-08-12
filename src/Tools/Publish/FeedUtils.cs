@@ -44,7 +44,7 @@ namespace ZeroInstall.Publish
         public static void DeployStylesheet([NotNull] string path, [NotNull] string name)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             if (!File.Exists(Path.Combine(path, name + ".xsl")))
@@ -73,9 +73,9 @@ namespace ZeroInstall.Publish
         public static void SignFeed([NotNull] Stream stream, [NotNull] OpenPgpSecretKey secretKey, [CanBeNull] string passphrase, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (secretKey == null) throw new ArgumentNullException("secretKey");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            if (secretKey == null) throw new ArgumentNullException(nameof(secretKey));
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
             #endregion
 
             // Calculate the signature in-memory
@@ -102,8 +102,8 @@ namespace ZeroInstall.Publish
         public static OpenPgpSecretKey GetKey([NotNull] string path, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
             #endregion
 
             try

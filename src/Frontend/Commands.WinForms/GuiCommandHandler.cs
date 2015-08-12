@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands.WinForms
         public override void RunTask(ITask task)
         {
             #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
+            if (task == null) throw new ArgumentNullException(nameof(task));
             #endregion
 
             Log.Debug("Task: " + task.Name);
@@ -119,7 +119,7 @@ namespace ZeroInstall.Commands.WinForms
         public override bool Ask(string question)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
+            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException(nameof(question));
             #endregion
 
             Log.Debug("Question: " + question);
@@ -147,8 +147,8 @@ namespace ZeroInstall.Commands.WinForms
         public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
             #endregion
 
             _wrapper.Post(form => form.ShowSelections(selections, feedManager));
@@ -158,7 +158,7 @@ namespace ZeroInstall.Commands.WinForms
         public void CustomizeSelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
-            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
+            if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
             #endregion
 
             // Show "modify selections" screen and then asynchronously wait until it's done
@@ -223,7 +223,7 @@ namespace ZeroInstall.Commands.WinForms
         public void ShowIntegrateApp(IntegrationState state)
         {
             #region Sanity checks
-            if (state == null) throw new ArgumentNullException("state");
+            if (state == null) throw new ArgumentNullException(nameof(state));
             #endregion
 
             var result = _wrapper.Post(form =>
@@ -244,7 +244,7 @@ namespace ZeroInstall.Commands.WinForms
         public void ShowFeedSearch(SearchQuery query)
         {
             #region Sanity checks
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             #endregion
 
             ThreadUtils.RunSta(() =>
@@ -258,7 +258,7 @@ namespace ZeroInstall.Commands.WinForms
         public void ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             ThreadUtils.RunSta(() =>
@@ -275,8 +275,8 @@ namespace ZeroInstall.Commands.WinForms
         public void ManageStore(IStore store, IFeedCache feedCache)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
             #endregion
 
             ThreadUtils.RunSta(() =>

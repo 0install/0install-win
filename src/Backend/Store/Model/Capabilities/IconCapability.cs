@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public Icon GetIcon([NotNull] string mimeType)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException(nameof(mimeType));
             #endregion
 
             return Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);

@@ -242,8 +242,8 @@ namespace ZeroInstall.Central.WinForms
         public void ShowNotificactionBar([NotNull] string message, [NotNull] Action clickHandler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
-            if (clickHandler == null) throw new ArgumentNullException("clickHandler");
+            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException(nameof(message));
+            if (clickHandler == null) throw new ArgumentNullException(nameof(clickHandler));
             #endregion
 
             var targetLocation = labelNotificationBar.Location;

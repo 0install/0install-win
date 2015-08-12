@@ -69,8 +69,8 @@ namespace ZeroInstall.Publish.Capture
         public CommandMapper([NotNull] string installationDir, [NotNull, ItemNotNull] IEnumerable<Command> commmands)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
-            if (commmands == null) throw new ArgumentNullException("commmands");
+            if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException(nameof(installationDir));
+            if (commmands == null) throw new ArgumentNullException(nameof(commmands));
             #endregion
 
             InstallationDir = installationDir;
@@ -112,7 +112,7 @@ namespace ZeroInstall.Publish.Capture
         public Command GetCommand([NotNull] string commandLine, [CanBeNull] out string additionalArgs)
         {
             #region Sanity checks
-            if (commandLine == null) throw new ArgumentNullException("commandLine");
+            if (commandLine == null) throw new ArgumentNullException(nameof(commandLine));
             #endregion
 
             foreach (var tuple in _commmands.Where(tuple => commandLine.StartsWithIgnoreCase(tuple.CommandLine)))

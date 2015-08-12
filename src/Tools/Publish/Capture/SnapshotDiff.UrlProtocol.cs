@@ -38,8 +38,8 @@ namespace ZeroInstall.Publish.Capture
         public void CollectProtocolAssocs([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             foreach (string protocol in ProtocolAssocs.Select(protocolAssoc => protocolAssoc.Key))

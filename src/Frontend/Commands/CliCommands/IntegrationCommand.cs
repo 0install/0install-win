@@ -83,8 +83,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected virtual AppEntry GetAppEntry([NotNull] IIntegrationManager integrationManager, [NotNull] ref FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             try
@@ -121,8 +121,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected AppEntry CreateAppEntry([NotNull] IIntegrationManager integrationManager, [NotNull] ref FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
+            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
             var target = new FeedTarget(interfaceUri, FeedManager.GetFresh(interfaceUri));

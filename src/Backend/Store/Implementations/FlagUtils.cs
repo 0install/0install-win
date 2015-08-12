@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementations
         public static bool IsUnixFS([NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             // Move up one level to avoid write-protection within implementation directories
@@ -98,8 +98,8 @@ namespace ZeroInstall.Store.Implementations
         public static ICollection<string> GetFiles([NotNull] string flagName, [NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException(nameof(flagName));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             string flagDir = FindRootDir(flagName, target);
@@ -133,8 +133,8 @@ namespace ZeroInstall.Store.Implementations
         private static string FindRootDir([NotNull] string flagName, [NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException(nameof(flagName));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             // Start searching for the flag file in the target directory and then move upwards
@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Implementations
         public static void MarkAsNoUnixFS([NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             FileUtils.Touch(Path.Combine(target, NoUnixFSFile));
@@ -180,9 +180,9 @@ namespace ZeroInstall.Store.Implementations
         public static void Set([NotNull] string path, [NotNull] string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
-            if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, "relativePath");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
+            if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, nameof(relativePath));
             #endregion
 
             // Convert path to rooted Unix-style
@@ -203,9 +203,9 @@ namespace ZeroInstall.Store.Implementations
         public static void Remove([NotNull] string path, [NotNull] string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
-            if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, "relativePath");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
+            if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, nameof(relativePath));
             #endregion
 
             if (!File.Exists(path)) return;
@@ -244,11 +244,11 @@ namespace ZeroInstall.Store.Implementations
         public static void Rename([NotNull] string path, [NotNull] string source, [NotNull] string destination)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (Path.IsPathRooted(source)) throw new ArgumentException(Resources.PathNotRelative, "source");
-            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
-            if (Path.IsPathRooted(destination)) throw new ArgumentException(Resources.PathNotRelative, "destination");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException(nameof(source));
+            if (Path.IsPathRooted(source)) throw new ArgumentException(Resources.PathNotRelative, nameof(source));
+            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException(nameof(destination));
+            if (Path.IsPathRooted(destination)) throw new ArgumentException(Resources.PathNotRelative, nameof(destination));
             #endregion
 
             if (!File.Exists(path)) return;

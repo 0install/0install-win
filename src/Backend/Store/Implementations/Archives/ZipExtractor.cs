@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         internal ZipExtractor([NotNull] Stream stream, [NotNull] string target) : base(target)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             UnitsTotal = stream.Length;

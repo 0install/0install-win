@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Model.Design
         protected override InstallCommands GetObject(string[] values, CultureInfo culture)
         {
             #region Sanity checks
-            if (values == null) throw new ArgumentNullException("values");
+            if (values == null) throw new ArgumentNullException(nameof(values));
             #endregion
 
             return new InstallCommands
@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Model.Design
         protected override InstallCommands GetObject(IDictionary propertyValues)
         {
             #region Sanity checks
-            if (propertyValues == null) throw new ArgumentNullException("propertyValues");
+            if (propertyValues == null) throw new ArgumentNullException(nameof(propertyValues));
             #endregion
 
             return new InstallCommands

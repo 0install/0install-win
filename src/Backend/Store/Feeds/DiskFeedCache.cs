@@ -50,8 +50,8 @@ namespace ZeroInstall.Store.Feeds
         public DiskFeedCache([NotNull] string path, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
             #endregion
 
             DirectoryPath = path;
@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Feeds
         public bool Contains(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             // Local files are passed through directly
@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Feeds
         public Feed GetFeed(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             string path = GetPath(feedUri);
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Feeds
         public IEnumerable<OpenPgpSignature> GetSignatures(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             return FeedUtils.GetSignatures(_openPgp, File.ReadAllBytes(GetPath(feedUri)));
@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Feeds
         public string GetPath(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             if (feedUri.IsFile) throw new KeyNotFoundException("Feed cache does not handle local files: " + feedUri.ToStringRfc());
@@ -130,8 +130,8 @@ namespace ZeroInstall.Store.Feeds
         public void Add(FeedUri feedUri, byte[] data)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
-            if (data == null) throw new ArgumentNullException("data");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             if (!Directory.Exists(DirectoryPath)) Directory.CreateDirectory(DirectoryPath);
@@ -170,7 +170,7 @@ namespace ZeroInstall.Store.Feeds
         public void Remove(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             string path = GetPath(feedUri);

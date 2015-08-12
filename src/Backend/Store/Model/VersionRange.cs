@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Model
         private VersionRange([NotNull] params VersionRangePart[] parts)
         {
             #region Sanity checks
-            if (parts == null) throw new ArgumentNullException("parts");
+            if (parts == null) throw new ArgumentNullException(nameof(parts));
             #endregion
 
             _parts = parts;
@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Model
         public VersionRange([NotNull] string value)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
             #endregion
 
             // Iterate through all parts
@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Model
         public VersionRange([NotNull] ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             _parts = new VersionRangePart[] {new VersionRangeExact(version)};
@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Model
         public VersionRange Intersect(Constraint constraint)
         {
             #region Sanity checks
-            if (constraint == null) throw new ArgumentNullException("constraint");
+            if (constraint == null) throw new ArgumentNullException(nameof(constraint));
             #endregion
 
             if (_parts.Length == 0) return new VersionRange(new VersionRangeRange(constraint.NotBefore, constraint.Before));
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Model
         public bool Match(ImplementationVersion version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             if (_parts.Length == 0) return true;

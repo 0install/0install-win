@@ -63,13 +63,13 @@ namespace ZeroInstall.Services.Solvers
         public ExternalSolver([NotNull] ISolver backingSolver, [NotNull] ISelectionsManager selectionsManager, [NotNull] IFetcher fetcher, [NotNull] IExecutor executor, [NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (backingSolver == null) throw new ArgumentNullException("backingSolver");
-            if (selectionsManager == null) throw new ArgumentNullException("selectionsManager");
-            if (fetcher == null) throw new ArgumentNullException("fetcher");
-            if (executor == null) throw new ArgumentNullException("executor");
-            if (config == null) throw new ArgumentNullException("config");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (backingSolver == null) throw new ArgumentNullException(nameof(backingSolver));
+            if (selectionsManager == null) throw new ArgumentNullException(nameof(selectionsManager));
+            if (fetcher == null) throw new ArgumentNullException(nameof(fetcher));
+            if (executor == null) throw new ArgumentNullException(nameof(executor));
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             _backingSolver = backingSolver;
@@ -87,8 +87,8 @@ namespace ZeroInstall.Services.Solvers
         public Selections Solve(Requirements requirements)
         {
             #region Sanity checks
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, "requirements");
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
+            if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, nameof(requirements));
             #endregion
 
             Selections selections = null;

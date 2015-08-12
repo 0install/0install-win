@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.Model.Design
         protected override ManifestDigest GetObject(string[] values, CultureInfo culture)
         {
             #region Sanity checks
-            if (values == null) throw new ArgumentNullException("values");
+            if (values == null) throw new ArgumentNullException(nameof(values));
             #endregion
 
             return new ManifestDigest(values[0], values[1], values[2], values[3]);
@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Model.Design
         protected override ManifestDigest GetObject(IDictionary propertyValues)
         {
             #region Sanity checks
-            if (propertyValues == null) throw new ArgumentNullException("propertyValues");
+            if (propertyValues == null) throw new ArgumentNullException(nameof(propertyValues));
             #endregion
 
             return new ManifestDigest((string)propertyValues["Sha1"], (string)propertyValues["Sha1New"], (string)propertyValues["Sha256"], (string)propertyValues["Sha256New"]);

@@ -176,8 +176,8 @@ namespace ZeroInstall.Commands.CliCommands
         internal static AppAlias GetAppAlias([NotNull] AppList appList, [NotNull] string aliasName, out AppEntry foundAppEntry)
         {
             #region Sanity checks
-            if (appList == null) throw new ArgumentNullException("appList");
-            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
+            if (appList == null) throw new ArgumentNullException(nameof(appList));
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException(nameof(aliasName));
             #endregion
 
             var results =

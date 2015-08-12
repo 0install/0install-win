@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public T GetCapability<T>([NotNull] string id) where T : Capability
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             #endregion
 
             return Entries.OfType<T>().FirstOrDefault(specificCapability => specificCapability.ID == id);

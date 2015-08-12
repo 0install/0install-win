@@ -247,7 +247,7 @@ namespace ZeroInstall.Store.Model
             get
             {
                 #region Sanity checks
-                if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+                if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
                 #endregion
 
                 try
@@ -286,7 +286,7 @@ namespace ZeroInstall.Store.Model
         public string GetBestName([NotNull] CultureInfo language, [CanBeNull] string command = null)
         {
             #region Sanity checks
-            if (language == null) throw new ArgumentNullException("language");
+            if (language == null) throw new ArgumentNullException(nameof(language));
             #endregion
 
             if (command == null) command = Command.NameRun;
@@ -311,7 +311,7 @@ namespace ZeroInstall.Store.Model
         public string GetBestSummary([NotNull] CultureInfo language, [CanBeNull] string command = null)
         {
             #region Sanity checks
-            if (language == null) throw new ArgumentNullException("language");
+            if (language == null) throw new ArgumentNullException(nameof(language));
             #endregion
 
             if (command == null) command = Command.NameRun;
@@ -336,7 +336,7 @@ namespace ZeroInstall.Store.Model
         public Icon GetIcon([NotNull] string mimeType, [CanBeNull] string command = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException(nameof(mimeType));
             #endregion
 
             if (command == null) command = Command.NameRun;
@@ -361,7 +361,7 @@ namespace ZeroInstall.Store.Model
         public void Normalize([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             if (Name == null) throw new InvalidDataException(string.Format(Resources.MissingNameTagInFeed, feedUri));

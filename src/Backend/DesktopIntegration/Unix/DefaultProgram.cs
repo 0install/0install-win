@@ -46,8 +46,8 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.DefaultProgram defaultProgram, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
-            if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (defaultProgram == null) throw new ArgumentNullException(nameof(defaultProgram));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
@@ -70,7 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Unregister([NotNull] Store.Model.Capabilities.DefaultProgram defaultProgram, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
-            if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
+            if (defaultProgram == null) throw new ArgumentNullException(nameof(defaultProgram));
             #endregion
 
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");

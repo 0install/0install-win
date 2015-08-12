@@ -58,9 +58,9 @@ namespace ZeroInstall.Store.Service
         public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity, [NotNull] EventLog eventLog) : base(path)
         {
             #region Sanity checks
-            if (eventLog == null) throw new ArgumentNullException("eventLog");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (eventLog == null) throw new ArgumentNullException("eventLog");
+            if (eventLog == null) throw new ArgumentNullException(nameof(eventLog));
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (eventLog == null) throw new ArgumentNullException(nameof(eventLog));
             #endregion
 
             _serviceIdentity = serviceIdentity;
@@ -143,7 +143,7 @@ namespace ZeroInstall.Store.Service
         protected override string VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var callingIdentity = WindowsIdentity.GetCurrent();
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Service
         public override bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (!Contains(manifestDigest)) return false;

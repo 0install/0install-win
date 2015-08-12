@@ -38,8 +38,8 @@ namespace ZeroInstall.Store.Trust
         public IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (signature == null) throw new ArgumentNullException("signature");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (signature == null) throw new ArgumentNullException(nameof(signature));
             #endregion
 
             var signatureList = ParseObject<PgpSignatureList>(new MemoryStream(signature));
@@ -77,8 +77,8 @@ namespace ZeroInstall.Store.Trust
         public byte[] Sign(byte[] data, OpenPgpSecretKey secretKey, string passphrase = null)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (secretKey == null) throw new ArgumentNullException("secretKey");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (secretKey == null) throw new ArgumentNullException(nameof(secretKey));
             #endregion
 
             var pgpSecretKey = SecretBundle.GetSecretKey(secretKey.KeyID);
@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Trust
         public void ImportKey(byte[] data)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             var stream = PgpUtilities.GetDecoderStream(new MemoryStream(data));
@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Trust
         public string ExportKey(IKeyIDContainer keyIDContainer)
         {
             #region Sanity checks
-            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
+            if (keyIDContainer == null) throw new ArgumentNullException(nameof(keyIDContainer));
             #endregion
 
             var publicKey = ((SecretBundle.GetSecretKey(keyIDContainer.KeyID) != null) ? SecretBundle.GetSecretKey(keyIDContainer.KeyID).PublicKey : null)

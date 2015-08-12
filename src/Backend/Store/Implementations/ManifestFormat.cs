@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Implementations
         public static ManifestFormat FromPrefix([NotNull] string id)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             #endregion
 
             if (id.StartsWith(Sha256New.Prefix)) return Sha256New;
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Implementations
         public string DigestContent([NotNull] Stream stream)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             return SerializeContentDigest(GetHashAlgorithm().ComputeHash(stream));
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementations
         public string DigestContent([NotNull] byte[] data)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             return SerializeContentDigest(GetHashAlgorithm().ComputeHash(data));
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Implementations
         public string DigestManifest([NotNull] Stream stream)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             return SerializeManifestDigest(GetHashAlgorithm().ComputeHash(stream));

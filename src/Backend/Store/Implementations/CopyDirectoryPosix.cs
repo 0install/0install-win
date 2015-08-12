@@ -44,8 +44,8 @@ namespace ZeroInstall.Store.Implementations
         protected override void CopyFile(FileInfo sourceFile, FileInfo destinationFile)
         {
             #region Sanity checks
-            if (sourceFile == null) throw new ArgumentNullException("sourceFile");
-            if (destinationFile == null) throw new ArgumentNullException("destinationFile");
+            if (sourceFile == null) throw new ArgumentNullException(nameof(sourceFile));
+            if (destinationFile == null) throw new ArgumentNullException(nameof(destinationFile));
             #endregion
 
             base.CopyFile(sourceFile, destinationFile);

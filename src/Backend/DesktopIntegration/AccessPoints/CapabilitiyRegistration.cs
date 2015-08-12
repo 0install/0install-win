@@ -46,7 +46,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             return appEntry.CapabilityLists.CompatibleCapabilities().SelectMany(x => x.ConflictIDs);
@@ -56,8 +56,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var capabilities = appEntry.CapabilityLists.CompatibleCapabilities().ToList();
@@ -89,7 +89,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);

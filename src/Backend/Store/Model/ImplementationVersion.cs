@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Model
         public ImplementationVersion(Version version)
         {
             #region Sanity checks
-            if (version == null) throw new ArgumentNullException("version");
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             _firstPart = new VersionDottedList(version.ToString());
@@ -191,7 +191,7 @@ namespace ZeroInstall.Store.Model
         public int CompareTo(ImplementationVersion other)
         {
             #region Sanity checks
-            if (ReferenceEquals(null, other)) throw new ArgumentNullException("other");
+            if (ReferenceEquals(null, other)) throw new ArgumentNullException(nameof(other));
             #endregion
 
             int firstPartCompared = _firstPart.CompareTo(other._firstPart);
@@ -213,8 +213,8 @@ namespace ZeroInstall.Store.Model
         public static bool operator <(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
-            if (left == null) throw new ArgumentNullException("left");
-            if (right == null) throw new ArgumentNullException("right");
+            if (left == null) throw new ArgumentNullException(nameof(left));
+            if (right == null) throw new ArgumentNullException(nameof(right));
             #endregion
 
             return left.CompareTo(right) < 0;
@@ -224,8 +224,8 @@ namespace ZeroInstall.Store.Model
         public static bool operator >(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
-            if (left == null) throw new ArgumentNullException("left");
-            if (right == null) throw new ArgumentNullException("right");
+            if (left == null) throw new ArgumentNullException(nameof(left));
+            if (right == null) throw new ArgumentNullException(nameof(right));
             #endregion
 
             return left.CompareTo(right) > 0;
@@ -235,8 +235,8 @@ namespace ZeroInstall.Store.Model
         public static bool operator <=(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
-            if (left == null) throw new ArgumentNullException("left");
-            if (right == null) throw new ArgumentNullException("right");
+            if (left == null) throw new ArgumentNullException(nameof(left));
+            if (right == null) throw new ArgumentNullException(nameof(right));
             #endregion
 
             return left.CompareTo(right) <= 0;
@@ -246,8 +246,8 @@ namespace ZeroInstall.Store.Model
         public static bool operator >=(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
-            if (left == null) throw new ArgumentNullException("left");
-            if (right == null) throw new ArgumentNullException("right");
+            if (left == null) throw new ArgumentNullException(nameof(left));
+            if (right == null) throw new ArgumentNullException(nameof(right));
             #endregion
 
             return left.CompareTo(right) >= 0;

@@ -53,8 +53,8 @@ namespace ZeroInstall.Publish
         public static Implementation Build([NotNull] RetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] IStore keepDownloads = null)
         {
             #region Sanity checks
-            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (retrievalMethod == null) throw new ArgumentNullException(nameof(retrievalMethod));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var implementationDir = retrievalMethod.DownloadAndApply(handler);
@@ -86,8 +86,8 @@ namespace ZeroInstall.Publish
         public static void AddMissing([NotNull] this Implementation implementation, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null, [CanBeNull] IStore keepDownloads = null)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (executor == null) executor = new SimpleCommandExecutor();
@@ -203,8 +203,8 @@ namespace ZeroInstall.Publish
         public static ManifestDigest GenerateDigest([NotNull] string path, [NotNull] ITaskHandler handler, [CanBeNull] IStore keepDownloads = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var digest = new ManifestDigest();

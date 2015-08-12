@@ -46,9 +46,9 @@ namespace ZeroInstall.Services
         public SelectionsManager([NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager)
         {
             #region Sanity checks
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (store == null) throw new ArgumentNullException("store");
-            if (packageManager == null) throw new ArgumentNullException("packageManager");
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (packageManager == null) throw new ArgumentNullException(nameof(packageManager));
             #endregion
 
             _feedManager = feedManager;
@@ -61,7 +61,7 @@ namespace ZeroInstall.Services
         public IEnumerable<ImplementationSelection> GetUncachedSelections(Selections selections)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
             #endregion
 
             foreach (ImplementationSelection implementation in selections.Implementations)
@@ -86,7 +86,7 @@ namespace ZeroInstall.Services
         public IEnumerable<Implementation> GetImplementations(IEnumerable<ImplementationSelection> selections)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
             #endregion
 
             foreach (var selection in selections)

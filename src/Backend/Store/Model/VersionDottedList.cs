@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Model
         public VersionDottedList(string value)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
             #endregion
 
             string[] parts = value.Split('.');

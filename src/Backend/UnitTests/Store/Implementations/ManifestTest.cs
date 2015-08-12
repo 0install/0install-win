@@ -58,9 +58,9 @@ namespace ZeroInstall.Store.Implementations
         public static string CreateDotFile([NotNull] string path, [NotNull] ManifestFormat format, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (format == null) throw new ArgumentNullException("format");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (format == null) throw new ArgumentNullException(nameof(format));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var generator = new ManifestGenerator(path, format);

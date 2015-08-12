@@ -51,8 +51,8 @@ namespace ZeroInstall.Hooking
         public RegistryFilterRule(string processValue, string registryValue)
         {
             #region Sanity checks
-            if (processValue == null) throw new ArgumentNullException("processValue");
-            if (registryValue == null) throw new ArgumentNullException("registryValue");
+            if (processValue == null) throw new ArgumentNullException(nameof(processValue));
+            if (registryValue == null) throw new ArgumentNullException(nameof(registryValue));
             #endregion
 
             ProcessValue = processValue;

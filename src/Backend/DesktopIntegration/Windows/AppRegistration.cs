@@ -80,9 +80,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (appRegistration == null) throw new ArgumentNullException("appRegistration");
-            if (verbCapabilities == null) throw new ArgumentNullException("verbCapabilities");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (appRegistration == null) throw new ArgumentNullException(nameof(appRegistration));
+            if (verbCapabilities == null) throw new ArgumentNullException(nameof(verbCapabilities));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");
@@ -142,7 +142,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Unregister([NotNull] Store.Model.Capabilities.AppRegistration appRegistration, bool machineWide)
         {
             #region Sanity checks
-            if (appRegistration == null) throw new ArgumentNullException("appRegistration");
+            if (appRegistration == null) throw new ArgumentNullException(nameof(appRegistration));
             #endregion
 
             if (string.IsNullOrEmpty(appRegistration.ID)) throw new InvalidDataException("Missing ID");

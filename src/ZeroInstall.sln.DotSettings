@@ -152,7 +152,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=299D99D819247C479D9EF156F7B811A6/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=299D99D819247C479D9EF156F7B811A6/Shortcut/@EntryValue">argn</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=299D99D819247C479D9EF156F7B811A6/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=299D99D819247C479D9EF156F7B811A6/Text/@EntryValue">if ($ARGNAME$ == null) throw new System.ArgumentNullException("$ARGNAME$");</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=299D99D819247C479D9EF156F7B811A6/Text/@EntryValue">if ($ARGNAME$ == null) throw new System.ArgumentNullException(nameof($ARGNAME$));</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/Description/@EntryValue">string argument null or empty chck</s:String>
@@ -165,7 +165,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/Shortcut/@EntryValue">args</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/Text/@EntryValue">if (string.IsNullOrEmpty($ARGNAME$)) throw new System.ArgumentNullException("$ARGNAME$");</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=30137E793F46904EB3B51374BFF9AEBE/Text/@EntryValue">if (string.IsNullOrEmpty($ARGNAME$)) throw new System.ArgumentNullException(nameof($ARGNAME$));</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A8AA9566E8A6F747B0E66FA36FEFEB38/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A8AA9566E8A6F747B0E66FA36FEFEB38/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A8AA9566E8A6F747B0E66FA36FEFEB38/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>

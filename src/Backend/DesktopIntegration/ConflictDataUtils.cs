@@ -38,9 +38,9 @@ namespace ZeroInstall.DesktopIntegration
         public static void CheckForConflicts([NotNull] this AppList appList, [NotNull, ItemNotNull, InstantHandle] IEnumerable<AccessPoint> accessPoints, [NotNull] AppEntry appEntry)
         {
             #region Sanity checks
-            if (appList == null) throw new ArgumentNullException("appList");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appList == null) throw new ArgumentNullException(nameof(appList));
+            if (accessPoints == null) throw new ArgumentNullException(nameof(accessPoints));
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             var newConflictData = accessPoints.GetConflictData(appEntry);
@@ -68,8 +68,8 @@ namespace ZeroInstall.DesktopIntegration
         public static IDictionary<string, ConflictData> GetConflictData([NotNull, ItemNotNull, InstantHandle] this IEnumerable<AccessPoint> accessPoints, [NotNull] AppEntry appEntry)
         {
             #region Sanity checks
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (accessPoints == null) throw new ArgumentNullException(nameof(accessPoints));
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             var newConflictIDs = new Dictionary<string, ConflictData>();
@@ -103,7 +103,7 @@ namespace ZeroInstall.DesktopIntegration
         public static IDictionary<string, ConflictData> GetConflictData([NotNull] this IEnumerable<AppEntry> appEntries)
         {
             #region Sanity checks
-            if (appEntries == null) throw new ArgumentNullException("appEntries");
+            if (appEntries == null) throw new ArgumentNullException(nameof(appEntries));
             #endregion
 
             var conflictIDs = new Dictionary<string, ConflictData>();

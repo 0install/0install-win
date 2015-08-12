@@ -37,8 +37,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create([NotNull] DesktopIcon desktopIcon, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (desktopIcon == null) throw new ArgumentNullException(nameof(desktopIcon));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string filePath = GetDesktopPath(desktopIcon.Name, machineWide);
@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove([NotNull] DesktopIcon desktopIcon, bool machineWide)
         {
             #region Sanity checks
-            if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
+            if (desktopIcon == null) throw new ArgumentNullException(nameof(desktopIcon));
             #endregion
 
             string filePath = GetDesktopPath(desktopIcon.Name, machineWide);

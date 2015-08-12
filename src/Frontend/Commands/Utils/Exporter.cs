@@ -53,8 +53,8 @@ namespace ZeroInstall.Commands.Utils
         public Exporter([NotNull] Selections selections, Architecture architecture, [NotNull] string destination)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException(nameof(destination));
             #endregion
 
             _selections = selections;
@@ -87,8 +87,8 @@ namespace ZeroInstall.Commands.Utils
         public void ExportFeeds([NotNull] IFeedCache feedCache, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
             #endregion
 
             string contentDir = Path.Combine(_destination, "content");
@@ -124,8 +124,8 @@ namespace ZeroInstall.Commands.Utils
         public void ExportImplementations([NotNull] IStore store, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string contentDir = Path.Combine(_destination, "content");
@@ -165,7 +165,7 @@ namespace ZeroInstall.Commands.Utils
         public void DeployBootstrapRun([NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             DeployBootstrap(handler, mode: "run");
@@ -178,7 +178,7 @@ namespace ZeroInstall.Commands.Utils
         public void DeployBootstrapIntegrate([NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             DeployBootstrap(handler, mode: "integrate");

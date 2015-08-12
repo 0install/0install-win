@@ -38,8 +38,8 @@ namespace ZeroInstall.Publish.Capture
         public void CollectFileTypes([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (capabilities == null) throw new ArgumentNullException("capabilities");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (capabilities == null) throw new ArgumentNullException(nameof(capabilities));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             capabilities.Entries.AddRange((
@@ -60,8 +60,8 @@ namespace ZeroInstall.Publish.Capture
         private VerbCapability GetFileType([NotNull] string progID, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException(nameof(progID));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))

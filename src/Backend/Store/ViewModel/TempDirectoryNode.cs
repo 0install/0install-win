@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.ViewModel
             : base(store)
         {
             #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
+            if (store == null) throw new ArgumentNullException(nameof(store));
             #endregion
 
             _path = path;
@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.ViewModel
         public override void Delete(ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             handler.RunTask(new SimpleTask(string.Format(Resources.DeletingDirectory, _path), () =>

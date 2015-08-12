@@ -134,7 +134,7 @@ namespace ZeroInstall.Store
         public static string Escape([NotNull] string value)
         {
             #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
+            if (value == null) throw new ArgumentNullException(nameof(value));
             #endregion
 
             var builder = new StringBuilder();
@@ -179,7 +179,7 @@ namespace ZeroInstall.Store
         public new static FeedUri Unescape([NotNull] string escaped)
         {
             #region Sanity checks
-            if (escaped == null) throw new ArgumentNullException("escaped");
+            if (escaped == null) throw new ArgumentNullException(nameof(escaped));
             #endregion
 
             var builder = new StringBuilder();
@@ -210,7 +210,7 @@ namespace ZeroInstall.Store
         public static string PrettyEscape([NotNull] string value)
         {
             #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
+            if (value == null) throw new ArgumentNullException(nameof(value));
             #endregion
 
             var builder = new StringBuilder();
@@ -263,7 +263,7 @@ namespace ZeroInstall.Store
         public static FeedUri PrettyUnescape([NotNull] string escaped)
         {
             #region Sanity checks
-            if (escaped == null) throw new ArgumentNullException("escaped");
+            if (escaped == null) throw new ArgumentNullException(nameof(escaped));
             #endregion
 
             var builder = new StringBuilder();
@@ -368,7 +368,7 @@ namespace ZeroInstall.Store
         void ISerializable.GetObjectData(SerializationInfo serializationInfo, StreamingContext streamingContext)
         {
             #region Sanity checks
-            if (serializationInfo == null) throw new ArgumentNullException("serializationInfo");
+            if (serializationInfo == null) throw new ArgumentNullException(nameof(serializationInfo));
             #endregion
 
             GetObjectData(serializationInfo, streamingContext);

@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish
         public SignedFeed([NotNull] Feed feed, [CanBeNull] OpenPgpSecretKey secretKey = null)
         {
             #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             Feed = feed;
@@ -72,7 +72,7 @@ namespace ZeroInstall.Publish
         public static SignedFeed Load([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             return new SignedFeed(XmlStorage.LoadXml<Feed>(path), FeedUtils.GetKey(path, OpenPgpFactory.CreateDefault()));
@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish
         public void Save([NotNull] string path, [CanBeNull] string passphrase = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             if (SecretKey == null)

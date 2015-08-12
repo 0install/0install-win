@@ -55,11 +55,11 @@ namespace ZeroInstall.Services.Solvers
         public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] LanguageSet languages)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (store == null) throw new ArgumentNullException("store");
-            if (packageManager == null) throw new ArgumentNullException("packageManager");
-            if (languages == null) throw new ArgumentNullException("languages");
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (packageManager == null) throw new ArgumentNullException(nameof(packageManager));
+            if (languages == null) throw new ArgumentNullException(nameof(languages));
             #endregion
 
             _config = config;
@@ -220,7 +220,7 @@ namespace ZeroInstall.Services.Solvers
         public Implementation LookupOriginalImplementation(ImplementationSelection implemenationSelection)
         {
             #region Sanity checks
-            if (implemenationSelection == null) throw new ArgumentNullException("implemenationSelection");
+            if (implemenationSelection == null) throw new ArgumentNullException(nameof(implemenationSelection));
             #endregion
 
             return implemenationSelection.ID.StartsWith(ExternalImplementation.PackagePrefix)

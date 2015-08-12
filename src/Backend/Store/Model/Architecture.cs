@@ -165,7 +165,7 @@ namespace ZeroInstall.Store.Model
         public Architecture([NotNull] string architecture) : this()
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(architecture)) throw new ArgumentNullException("architecture");
+            if (string.IsNullOrEmpty(architecture)) throw new ArgumentNullException(nameof(architecture));
             #endregion
 
             var architectureArray = architecture.Split('-');

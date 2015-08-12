@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands.Utils
         public static SyncServer ToSyncServer([NotNull] this Config config)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             return new SyncServer {Uri = config.SyncServer, Username = config.SyncServerUsername, Password = config.SyncServerPassword};
@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.Utils
         public static void FromSyncServer([NotNull] this Config config, SyncServer syncServer)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             config.SyncServer = syncServer.Uri;

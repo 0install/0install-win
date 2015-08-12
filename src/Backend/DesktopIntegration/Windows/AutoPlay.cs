@@ -78,8 +78,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.AutoPlay autoPlay, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
-            if (autoPlay == null) throw new ArgumentNullException("autoPlay");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (autoPlay == null) throw new ArgumentNullException(nameof(autoPlay));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
@@ -134,7 +134,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Unregister([NotNull] Store.Model.Capabilities.AutoPlay autoPlay, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
-            if (autoPlay == null) throw new ArgumentNullException("autoPlay");
+            if (autoPlay == null) throw new ArgumentNullException(nameof(autoPlay));
             #endregion
 
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");

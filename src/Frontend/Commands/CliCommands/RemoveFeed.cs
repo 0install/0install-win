@@ -49,8 +49,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected override ExitCode ExecuteHelper(IEnumerable<FeedUri> interfaces, FeedReference source, Stability suggestedStabilityPolicy)
         {
             #region Sanity checks
-            if (interfaces == null) throw new ArgumentNullException("interfaces");
-            if (source == null) throw new ArgumentNullException("source");
+            if (interfaces == null) throw new ArgumentNullException(nameof(interfaces));
+            if (source == null) throw new ArgumentNullException(nameof(source));
             #endregion
 
             var modifiedInterfaces = new List<FeedUri>();

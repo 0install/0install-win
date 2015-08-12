@@ -61,8 +61,8 @@ namespace ZeroInstall.Store.Feeds
         public static IEnumerable<OpenPgpSignature> GetSignatures([NotNull] IOpenPgp openPgp, [NotNull] byte[] feedData)
         {
             #region Sanity checks
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
-            if (feedData == null) throw new ArgumentNullException("feedData");
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
+            if (feedData == null) throw new ArgumentNullException(nameof(feedData));
             #endregion
 
             if (feedData.Length == 0) return Enumerable.Empty<OpenPgpSignature>();

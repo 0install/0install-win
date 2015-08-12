@@ -114,7 +114,7 @@ namespace ZeroInstall.Publish.Cli
         public PublishRun(IEnumerable<string> args)
         {
             #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
             #endregion
 
             var additionalArgs = BuildOptions().Parse(args);

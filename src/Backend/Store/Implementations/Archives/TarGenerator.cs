@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             : base(sourceDirectory)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             _tarStream = new TarOutputStream(stream);
@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected override void HandleFile(FileInfo file, bool executable = false)
         {
             #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
+            if (file == null) throw new ArgumentNullException(nameof(file));
             #endregion
 
             var entry = new TarEntry(new TarHeader
@@ -94,8 +94,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected override void HandleSymlink(FileSystemInfo symlink, byte[] data)
         {
             #region Sanity checks
-            if (symlink == null) throw new ArgumentNullException("symlink");
-            if (data == null) throw new ArgumentNullException("data");
+            if (symlink == null) throw new ArgumentNullException(nameof(symlink));
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             _tarStream.PutNextEntry(new TarEntry(new TarHeader
@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected override void HandleDirectory(DirectoryInfo directory)
         {
             #region Sanity checks
-            if (directory == null) throw new ArgumentNullException("directory");
+            if (directory == null) throw new ArgumentNullException(nameof(directory));
             #endregion
 
             _tarStream.PutNextEntry(new TarEntry(new TarHeader

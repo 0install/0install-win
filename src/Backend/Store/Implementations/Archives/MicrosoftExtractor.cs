@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         Stream IUnpackStreamContext.OpenFileWriteStream(string path, long fileSize, DateTime lastWriteTime)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             CancellationToken.ThrowIfCancellationRequested();
@@ -67,8 +67,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         void IUnpackStreamContext.CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             stream.Dispose();

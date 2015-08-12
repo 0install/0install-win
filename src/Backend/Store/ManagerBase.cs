@@ -48,7 +48,7 @@ namespace ZeroInstall.Store
         protected ManagerBase([NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             Handler = handler;

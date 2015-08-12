@@ -167,7 +167,7 @@ namespace ZeroInstall.Store.Model.Selection
         public int CompareTo(ImplementationSelection other)
         {
             #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
+            if (other == null) throw new ArgumentNullException(nameof(other));
             #endregion
 
             return StringComparer.Ordinal.Compare(InterfaceUri.ToStringRfc(), other.InterfaceUri.ToStringRfc());

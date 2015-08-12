@@ -55,7 +55,7 @@ namespace ZeroInstall.Services.Feeds
         public static SearchQuery Perform([NotNull] Config config, [CanBeNull] string keywords)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             if (string.IsNullOrEmpty(keywords)) return new SearchQuery();

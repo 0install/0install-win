@@ -47,7 +47,7 @@ namespace ZeroInstall.Services
         public ServiceLocator([NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             Handler = handler;

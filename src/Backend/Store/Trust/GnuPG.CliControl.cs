@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Trust
             protected override void InitStdin(StreamWriter writer)
             {
                 #region Sanity checks
-                if (writer == null) throw new ArgumentNullException("writer");
+                if (writer == null) throw new ArgumentNullException(nameof(writer));
                 #endregion
 
                 if (_stdinBytes != null)
@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Trust
             protected override string HandleStderr(string line)
             {
                 #region Sanity checks
-                if (line == null) throw new ArgumentNullException("line");
+                if (line == null) throw new ArgumentNullException(nameof(line));
                 #endregion
 
                 if (line == "gpg: no valid OpenPGP data found.")

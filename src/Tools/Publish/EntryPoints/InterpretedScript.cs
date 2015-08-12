@@ -74,8 +74,8 @@ namespace ZeroInstall.Publish.EntryPoints
         protected bool HasShebang([NotNull] FileInfo file, [NotNull, Localizable(false)] string interpreter)
         {
             #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            if (string.IsNullOrEmpty(interpreter)) throw new ArgumentNullException("interpreter");
+            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (string.IsNullOrEmpty(interpreter)) throw new ArgumentNullException(nameof(interpreter));
             #endregion
 
             if (!IsExecutable(file.FullName)) return false;

@@ -48,7 +48,7 @@ namespace ZeroInstall.Commands.WinForms
         public ProgressForm([NotNull] CancellationTokenSource cancellationTokenSource)
         {
             #region Sanity checks
-            if (cancellationTokenSource == null) throw new ArgumentNullException("cancellationTokenSource");
+            if (cancellationTokenSource == null) throw new ArgumentNullException(nameof(cancellationTokenSource));
             #endregion
 
             _cancellationTokenSource = cancellationTokenSource;
@@ -86,8 +86,8 @@ namespace ZeroInstall.Commands.WinForms
         public void ShowSelections(Selections selections, IFeedManager feedManager)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
@@ -107,8 +107,8 @@ namespace ZeroInstall.Commands.WinForms
         public void ModifySelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
         {
             #region Sanity checks
-            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
-            if (waitHandle == null) throw new ArgumentNullException("waitHandle");
+            if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
+            if (waitHandle == null) throw new ArgumentNullException(nameof(waitHandle));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
@@ -146,7 +146,7 @@ namespace ZeroInstall.Commands.WinForms
         public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
+            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
@@ -168,7 +168,7 @@ namespace ZeroInstall.Commands.WinForms
         public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName, ManifestDigest tag)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
+            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
@@ -205,7 +205,7 @@ namespace ZeroInstall.Commands.WinForms
         public Future<DialogResult> Ask(string question)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
+            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException(nameof(question));
             #endregion
 
             if (Visible)

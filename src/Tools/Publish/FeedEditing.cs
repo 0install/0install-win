@@ -57,8 +57,8 @@ namespace ZeroInstall.Publish
         public FeedEditing([NotNull] SignedFeed signedFeed, [NotNull] string path)
         {
             #region Sanity checks
-            if (signedFeed == null) throw new ArgumentNullException("signedFeed");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (signedFeed == null) throw new ArgumentNullException(nameof(signedFeed));
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             Path = path;
@@ -72,7 +72,7 @@ namespace ZeroInstall.Publish
         public FeedEditing([NotNull] SignedFeed signedFeed)
         {
             #region Sanity checks
-            if (signedFeed == null) throw new ArgumentNullException("signedFeed");
+            if (signedFeed == null) throw new ArgumentNullException(nameof(signedFeed));
             #endregion
 
             Changed = true; // Makes sure remind the user to save before closing

@@ -37,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             where T : CapabilityModel
         {
             #region Sanity checks
-            if (model == null) throw new ArgumentNullException("model");
+            if (model == null) throw new ArgumentNullException(nameof(model));
             #endregion
 
             foreach (var element in model.Except(element => element.Capability.ExplicitOnly))

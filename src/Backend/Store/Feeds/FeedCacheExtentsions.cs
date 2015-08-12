@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Feeds
         public static IEnumerable<Feed> GetAll([NotNull] this IFeedCache cache)
         {
             #region Sanity checks
-            if (cache == null) throw new ArgumentNullException("cache");
+            if (cache == null) throw new ArgumentNullException(nameof(cache));
             #endregion
 
             var feeds = new List<Feed>();

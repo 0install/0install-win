@@ -44,7 +44,7 @@ namespace ZeroInstall.Services.Solvers
         public static Selections TrySolve(this ISolver solver, [NotNull] Requirements requirements)
         {
             #region Sanity checks
-            if (solver == null) throw new ArgumentNullException("solver");
+            if (solver == null) throw new ArgumentNullException(nameof(solver));
             #endregion
 
             try

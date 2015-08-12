@@ -65,8 +65,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         public static ArchiveGenerator Create([NotNull] string sourceDirectory, [NotNull] Stream stream, string mimeType)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException("sourceDirectory");
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException(nameof(sourceDirectory));
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             switch (mimeType)
@@ -99,8 +99,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         public static ArchiveGenerator Create([NotNull] string sourceDirectory, [NotNull] string path, [CanBeNull] string mimeType = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException("sourceDirectory");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException(nameof(sourceDirectory));
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             var generator = Create(sourceDirectory, File.Create(path), mimeType ?? Archive.GuessMimeType(path));

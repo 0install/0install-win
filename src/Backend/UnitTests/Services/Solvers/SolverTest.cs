@@ -40,7 +40,7 @@ namespace ZeroInstall.Services.Solvers
             var _ = SolverTestCases.Xml.ToList();
         }
 
-        [Test, TestCaseSource(typeof(SolverTestCases), "Xml")]
+        [Test, TestCaseSource(typeof(SolverTestCases), nameof(SolverTestCases.Xml))]
         public Selections TestCase(IEnumerable<Feed> feeds, Requirements requirements)
         {
             var feedLookup = feeds.ToDictionary(x => x.Uri, x => x);

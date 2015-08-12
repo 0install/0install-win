@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Model
         public bool ContainsFeed([NotNull] FeedUri uri)
         {
             #region Sanity checks
-            if (uri == null) throw new ArgumentNullException("uri");
+            if (uri == null) throw new ArgumentNullException(nameof(uri));
             #endregion
 
             return Feeds.Any(feed => feed.Uri == uri);
@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Model
             get
             {
                 #region Sanity checks
-                if (uri == null) throw new ArgumentNullException("uri");
+                if (uri == null) throw new ArgumentNullException(nameof(uri));
                 #endregion
 
                 try
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Model
         public Feed GetFeed([NotNull] FeedUri uri)
         {
             #region Sanity checks
-            if (uri == null) throw new ArgumentNullException("uri");
+            if (uri == null) throw new ArgumentNullException(nameof(uri));
             #endregion
 
             return Feeds.FirstOrDefault(feed => feed.Uri == uri);

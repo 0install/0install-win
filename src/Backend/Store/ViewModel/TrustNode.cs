@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.ViewModel
         public TrustNode([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
+            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             Fingerprint = fingerprint;
@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.ViewModel
         int IComparable<TrustNode>.CompareTo(TrustNode other)
         {
             #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
+            if (other == null) throw new ArgumentNullException(nameof(other));
             #endregion
 
             int fingerprintCompare = string.CompareOrdinal(Fingerprint, other.Fingerprint);

@@ -104,8 +104,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.FileType fileType, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
-            if (fileType == null) throw new ArgumentNullException("fileType");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (fileType == null) throw new ArgumentNullException(nameof(fileType));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
@@ -187,7 +187,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Unregister([NotNull] Store.Model.Capabilities.FileType fileType, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
-            if (fileType == null) throw new ArgumentNullException("fileType");
+            if (fileType == null) throw new ArgumentNullException(nameof(fileType));
             #endregion
 
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
@@ -287,8 +287,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         internal static void RegisterVerbCapability(RegistryKey registryKey, FeedTarget target, Store.Model.Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (capability == null) throw new ArgumentNullException("capability");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (capability == null) throw new ArgumentNullException(nameof(capability));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (capability is Store.Model.Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");

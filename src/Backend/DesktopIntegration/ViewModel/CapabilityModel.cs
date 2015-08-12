@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         protected CapabilityModel([NotNull] DefaultCapability capability, bool used)
         {
             #region Sanity Checks
-            if (capability == null) throw new ArgumentNullException("capability");
+            if (capability == null) throw new ArgumentNullException(nameof(capability));
             #endregion
 
             Capability = capability;

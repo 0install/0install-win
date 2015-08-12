@@ -66,7 +66,7 @@ namespace ZeroInstall.Publish.EntryPoints
         protected virtual bool Parse([NotNull] PEHeader peHeader)
         {
             #region Sanity checks
-            if (peHeader == null) throw new ArgumentNullException("peHeader");
+            if (peHeader == null) throw new ArgumentNullException(nameof(peHeader));
             #endregion
 
             Architecture = new Architecture(OS.Windows, GetCpu(peHeader.FileHeader.Machine));

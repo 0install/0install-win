@@ -48,8 +48,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
@@ -61,7 +61,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public override void Unapply(AppEntry appEntry, bool machineWide)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             if (WindowsUtils.IsWindows) Windows.AppAlias.Remove(Name, machineWide);

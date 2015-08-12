@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Icons
         public DiskIconCache([NotNull] string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             DirectoryPath = path;
@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Icons
         public bool Contains(Uri iconUrl)
         {
             #region Sanity checks
-            if (iconUrl == null) throw new ArgumentNullException("iconUrl");
+            if (iconUrl == null) throw new ArgumentNullException(nameof(iconUrl));
             #endregion
 
             string path = Path.Combine(DirectoryPath, new FeedUri(iconUrl).Escape());
@@ -67,8 +67,8 @@ namespace ZeroInstall.Store.Icons
         public string GetIcon(Uri iconUrl, ITaskHandler handler)
         {
             #region Sanity checks
-            if (iconUrl == null) throw new ArgumentNullException("iconUrl");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (iconUrl == null) throw new ArgumentNullException(nameof(iconUrl));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string path = Path.Combine(DirectoryPath, new FeedUri(iconUrl).Escape());
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Icons
         public void Remove(Uri iconUrl)
         {
             #region Sanity checks
-            if (iconUrl == null) throw new ArgumentNullException("iconUrl");
+            if (iconUrl == null) throw new ArgumentNullException(nameof(iconUrl));
             #endregion
 
             string path = Path.Combine(DirectoryPath, new FeedUri(iconUrl).Escape());

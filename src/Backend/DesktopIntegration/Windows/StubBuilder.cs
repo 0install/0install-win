@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static string GetRunStub(FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var entryPoint = target.Feed.GetEntryPoint(command);
@@ -140,8 +140,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         internal static void BuildRunStub(FeedTarget target, [NotNull] string path, [NotNull] ITaskHandler handler, bool needsTerminal, [CanBeNull] string command = null)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             var compilerParameters = new CompilerParameters

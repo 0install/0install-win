@@ -66,7 +66,7 @@ namespace ZeroInstall.Publish.WinForms
         public static void Show([NotNull, ItemNotNull] IEnumerable<FileInfo> files)
         {
             #region Sanity checks
-            if (files == null) throw new ArgumentNullException("files");
+            if (files == null) throw new ArgumentNullException(nameof(files));
             #endregion
 
             using (var dialog = new MassSignForm(files))

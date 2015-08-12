@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
             set
             {
                 #region Sanity checks
-                if (value == null) throw new ArgumentNullException("value");
+                if (value == null) throw new ArgumentNullException(nameof(value));
                 #endregion
 
                 _languages = value;
@@ -83,8 +83,8 @@ namespace ZeroInstall.Store.Model
         protected static void CloneFromTo([NotNull] TargetBase from, [NotNull] TargetBase to)
         {
             #region Sanity checks
-            if (from == null) throw new ArgumentNullException("from");
-            if (to == null) throw new ArgumentNullException("to");
+            if (from == null) throw new ArgumentNullException(nameof(@from));
+            if (to == null) throw new ArgumentNullException(nameof(to));
             #endregion
 
             to.UnknownElements = from.UnknownElements;

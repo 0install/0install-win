@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands.WinForms
         public IntegrateAppForm([NotNull] IntegrationState state)
         {
             #region Sanity checks
-            if (state == null) throw new ArgumentNullException("state");
+            if (state == null) throw new ArgumentNullException(nameof(state));
             #endregion
 
             InitializeComponent();

@@ -58,11 +58,11 @@ namespace ZeroInstall.Central
         public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IIconCache iconCache, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
         {
             #region Sanity checks
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (catalogManager == null) throw new ArgumentNullException("catalogManager");
-            if (iconCache == null) throw new ArgumentNullException("iconCache");
-            if (tileListMyApps == null) throw new ArgumentNullException("tileListMyApps");
-            if (tileListCatalog == null) throw new ArgumentNullException("tileListCatalog");
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
+            if (catalogManager == null) throw new ArgumentNullException(nameof(catalogManager));
+            if (iconCache == null) throw new ArgumentNullException(nameof(iconCache));
+            if (tileListMyApps == null) throw new ArgumentNullException(nameof(tileListMyApps));
+            if (tileListCatalog == null) throw new ArgumentNullException(nameof(tileListCatalog));
             #endregion
 
             _feedManager = feedManager;
@@ -217,7 +217,7 @@ namespace ZeroInstall.Central
         public void SetCatalog([NotNull] Catalog newCatalog)
         {
             #region Sanity checks
-            if (newCatalog == null) throw new ArgumentNullException("newCatalog");
+            if (newCatalog == null) throw new ArgumentNullException(nameof(newCatalog));
             #endregion
 
             Merge.TwoWay(

@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Model
         public virtual bool IsApplicable([NotNull] Requirements requirements)
         {
             #region Sanity checks
-            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
             #endregion
 
             return OS.IsCompatible(requirements.Architecture.OS);

@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration
         public static ConflictException InnerConflict([NotNull] params ConflictData[] entries)
         {
             #region Sanity checks
-            if (entries == null) throw new ArgumentNullException("entries");
+            if (entries == null) throw new ArgumentNullException(nameof(entries));
             #endregion
 
             string message = string.Format(Resources.AccessPointInnerConflict, entries[0].AppEntry) + Environment.NewLine +
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration
         public static ConflictException ExistingConflict([NotNull] params ConflictData[] entries)
         {
             #region Sanity checks
-            if (entries == null) throw new ArgumentNullException("entries");
+            if (entries == null) throw new ArgumentNullException(nameof(entries));
             #endregion
 
             string message = Resources.AccessPointExistingConflict + Environment.NewLine +

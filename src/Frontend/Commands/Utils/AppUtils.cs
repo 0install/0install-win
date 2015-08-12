@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands.Utils
         public static void RemoveAllApps(ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             using (var integrationManager = new IntegrationManager(handler, machineWide))

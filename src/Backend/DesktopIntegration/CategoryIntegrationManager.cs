@@ -63,9 +63,9 @@ namespace ZeroInstall.DesktopIntegration
         public void AddAccessPointCategories(AppEntry appEntry, Feed feed, params string[] categories)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (categories == null) throw new ArgumentNullException("categories");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
+            if (categories == null) throw new ArgumentNullException(nameof(categories));
             #endregion
 
             // Parse categories list
@@ -117,8 +117,8 @@ namespace ZeroInstall.DesktopIntegration
         public void RemoveAccessPointCategories(AppEntry appEntry, params string[] categories)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (categories == null) throw new ArgumentNullException("categories");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (categories == null) throw new ArgumentNullException(nameof(categories));
             #endregion
 
             if (appEntry.AccessPoints == null) return;
@@ -169,7 +169,7 @@ namespace ZeroInstall.DesktopIntegration
         private static void ToggleIconsVisible(AppEntry appEntry, bool iconsVisible)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
             foreach (var defaultProgram in appEntry.CapabilityLists.CompatibleCapabilities().OfType<Store.Model.Capabilities.DefaultProgram>())

@@ -37,8 +37,8 @@ namespace ZeroInstall.Services
         public static ICollection<Implementation> GetUncachedImplementations([NotNull] this ISelectionsManager selectionsManager, [NotNull] Selections selections)
         {
             #region Sanity checks
-            if (selectionsManager == null) throw new ArgumentNullException("selectionsManager");
-            if (selections == null) throw new ArgumentNullException("selections");
+            if (selectionsManager == null) throw new ArgumentNullException(nameof(selectionsManager));
+            if (selections == null) throw new ArgumentNullException(nameof(selections));
             #endregion
 
             return selectionsManager.GetImplementations(selectionsManager.GetUncachedSelections(selections)).ToList();

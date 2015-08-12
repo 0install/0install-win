@@ -70,8 +70,8 @@ namespace ZeroInstall.Commands.WinForms
         public static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name, [CanBeNull] string subCommand = null, [CanBeNull] string arguments = null)
         {
             #region Sanity checks
-            if (form == null) throw new ArgumentNullException("form");
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (form == null) throw new ArgumentNullException(nameof(form));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             #endregion
 
             if (Locations.IsPortable || ProgramUtils.IsRunningFromCache)

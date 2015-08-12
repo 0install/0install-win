@@ -32,7 +32,7 @@ namespace ZeroInstall.Store
         public static PropertyPointer<string> ToStringPointer([NotNull] this PropertyPointer<FeedUri> pointer)
         {
             #region Sanity checks
-            if (pointer == null) throw new ArgumentNullException("pointer");
+            if (pointer == null) throw new ArgumentNullException(nameof(pointer));
             #endregion
 
             return new PropertyPointer<string>(

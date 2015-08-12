@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Model
         public override bool IsApplicable(Requirements requirements)
         {
             #region Sanity checks
-            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
             #endregion
 
             return string.IsNullOrEmpty(Use) && base.IsApplicable(requirements);

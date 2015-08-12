@@ -49,7 +49,7 @@ namespace ZeroInstall.Store
         public static T FromJsonString<T>([NotNull] string data)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
+            if (data == null) throw new ArgumentNullException(nameof(data));
             #endregion
 
             return JsonConvert.DeserializeObject<T>(data);
@@ -66,8 +66,8 @@ namespace ZeroInstall.Store
         public static T FromJsonString<T>([NotNull] string data, [NotNull] T anonymousType)
         {
             #region Sanity checks
-            if (data == null) throw new ArgumentNullException("data");
-            if (anonymousType == null) throw new ArgumentNullException("anonymousType");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (anonymousType == null) throw new ArgumentNullException(nameof(anonymousType));
             #endregion
 
             return JsonConvert.DeserializeAnonymousType(data, anonymousType);

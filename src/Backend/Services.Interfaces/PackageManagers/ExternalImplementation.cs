@@ -72,9 +72,9 @@ namespace ZeroInstall.Services.PackageManagers
         public ExternalImplementation([NotNull] string distribution, [NotNull] string package, [NotNull] ImplementationVersion version, Cpu cpu = Cpu.All)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(distribution)) throw new ArgumentNullException("distribution");
-            if (string.IsNullOrEmpty(package)) throw new ArgumentNullException("package");
-            if (version == null) throw new ArgumentNullException("version");
+            if (string.IsNullOrEmpty(distribution)) throw new ArgumentNullException(nameof(distribution));
+            if (string.IsNullOrEmpty(package)) throw new ArgumentNullException(nameof(package));
+            if (version == null) throw new ArgumentNullException(nameof(version));
             #endregion
 
             ID = PackagePrefix + distribution.ToLowerInvariant() + ":" + package + ":" + version;
@@ -99,7 +99,7 @@ namespace ZeroInstall.Services.PackageManagers
         public static ExternalImplementation FromID([NotNull] string id)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             #endregion
 
             var parts = id.Split(':');

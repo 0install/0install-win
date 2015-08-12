@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Model
         public static string GuessMimeType([NotNull] string fileName)
         {
             #region Sanity checks
-            if (fileName == null) throw new ArgumentNullException("fileName");
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             #endregion
 
             if (fileName.EndsWithIgnoreCase(".zip")) return MimeTypeZip;
@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Model
         public static string GetDefaultExtension([NotNull] string mimeType)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException(nameof(mimeType));
             #endregion
 
             switch (mimeType)
@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Model
         public override void Normalize(FeedUri feedUri)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (feedUri == null) throw new ArgumentNullException(nameof(feedUri));
             #endregion
 
             base.Normalize(feedUri);

@@ -50,7 +50,7 @@ namespace ZeroInstall.Services.Solvers
             public Pass([NotNull] Requirements requirements, CancellationToken cancellationToken, [NotNull] SelectionCandidateProvider candidateProvider)
             {
                 #region Sanity checks
-                if (requirements == null) throw new ArgumentNullException("requirements");
+                if (requirements == null) throw new ArgumentNullException(nameof(requirements));
                 #endregion
 
                 _cancellationToken = cancellationToken;

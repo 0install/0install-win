@@ -52,8 +52,8 @@ namespace ZeroInstall.Commands.WinForms
         public StoreManageNode([NotNull] CacheNode backingNode, [NotNull] StoreManageForm manageForm)
         {
             #region Sanity checks
-            if (backingNode == null) throw new ArgumentNullException("backingNode");
-            if (manageForm == null) throw new ArgumentNullException("manageForm");
+            if (backingNode == null) throw new ArgumentNullException(nameof(backingNode));
+            if (manageForm == null) throw new ArgumentNullException(nameof(manageForm));
             #endregion
 
             BackingNode = backingNode;
@@ -145,7 +145,7 @@ namespace ZeroInstall.Commands.WinForms
         public int CompareTo(StoreManageNode other)
         {
             #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
+            if (other == null) throw new ArgumentNullException(nameof(other));
             #endregion
 
             return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);

@@ -62,9 +62,9 @@ namespace ZeroInstall.Hooking
         public EntryPoint(RemoteHooking.IContext inContext, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(implentationDir)) throw new ArgumentNullException("implentationDir");
-            if (registryFilter == null) throw new ArgumentNullException("registryFilter");
-            if (relaunchControl == null) throw new ArgumentNullException("relaunchControl");
+            if (string.IsNullOrEmpty(implentationDir)) throw new ArgumentNullException(nameof(implentationDir));
+            if (registryFilter == null) throw new ArgumentNullException(nameof(registryFilter));
+            if (relaunchControl == null) throw new ArgumentNullException(nameof(relaunchControl));
             #endregion
 
             _implementationDir = implentationDir;

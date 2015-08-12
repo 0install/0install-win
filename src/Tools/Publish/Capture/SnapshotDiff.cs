@@ -44,8 +44,8 @@ namespace ZeroInstall.Publish.Capture
         public SnapshotDiff([NotNull] Snapshot before, [NotNull] Snapshot after)
         {
             #region Sanity checks
-            if (before == null) throw new ArgumentNullException("before");
-            if (after == null) throw new ArgumentNullException("after");
+            if (before == null) throw new ArgumentNullException(nameof(before));
+            if (after == null) throw new ArgumentNullException(nameof(after));
             #endregion
 
             ServiceAssocs = after.ServiceAssocs.GetAddedElements(before.ServiceAssocs);
@@ -96,8 +96,8 @@ namespace ZeroInstall.Publish.Capture
         private static IEnumerable<Verb> GetVerbs([NotNull] RegistryKey typeKey, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
-            if (typeKey == null) throw new ArgumentNullException("typeKey");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (typeKey == null) throw new ArgumentNullException(nameof(typeKey));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             return RegUtils.GetSubKeyNames(typeKey, "shell").
@@ -115,9 +115,9 @@ namespace ZeroInstall.Publish.Capture
         private static Verb GetVerb([NotNull] RegistryKey typeKey, [NotNull] CommandMapper commandMapper, [NotNull] string verbName)
         {
             #region Sanity checks
-            if (typeKey == null) throw new ArgumentNullException("typeKey");
-            if (string.IsNullOrEmpty(verbName)) throw new ArgumentNullException("verbName");
-            if (commandMapper == null) throw new ArgumentNullException("commandMapper");
+            if (typeKey == null) throw new ArgumentNullException(nameof(typeKey));
+            if (string.IsNullOrEmpty(verbName)) throw new ArgumentNullException(nameof(verbName));
+            if (commandMapper == null) throw new ArgumentNullException(nameof(commandMapper));
             #endregion
 
             using (var verbKey = typeKey.OpenSubKey(@"shell\" + verbName))

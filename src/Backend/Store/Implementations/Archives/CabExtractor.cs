@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             : base(target)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             CabStream = stream;

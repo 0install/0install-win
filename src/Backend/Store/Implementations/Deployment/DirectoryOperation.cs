@@ -65,9 +65,9 @@ namespace ZeroInstall.Store.Implementations.Deployment
         protected DirectoryOperation([NotNull] string path, [NotNull] Manifest manifest, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (manifest == null) throw new ArgumentNullException("manifest");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (manifest == null) throw new ArgumentNullException(nameof(manifest));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             Path = path;

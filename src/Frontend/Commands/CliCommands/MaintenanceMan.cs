@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands.CliCommands
         protected override SubCommand GetCommand(string commandName)
         {
             #region Sanity checks
-            if (commandName == null) throw new ArgumentNullException("commandName");
+            if (commandName == null) throw new ArgumentNullException(nameof(commandName));
             #endregion
 
             switch (commandName)

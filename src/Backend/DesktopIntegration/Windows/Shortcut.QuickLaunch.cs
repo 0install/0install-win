@@ -35,8 +35,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create(QuickLaunch quickLaunch, FeedTarget target, ITaskHandler handler)
         {
             #region Sanity checks
-            if (quickLaunch == null) throw new ArgumentNullException("quickLaunch");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (quickLaunch == null) throw new ArgumentNullException(nameof(quickLaunch));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string filePath = GetQuickLaunchPath(quickLaunch.Name);
@@ -50,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove(QuickLaunch quickLaunch)
         {
             #region Sanity checks
-            if (quickLaunch == null) throw new ArgumentNullException("quickLaunch");
+            if (quickLaunch == null) throw new ArgumentNullException(nameof(quickLaunch));
             #endregion
 
             string filePath = GetQuickLaunchPath(quickLaunch.Name);

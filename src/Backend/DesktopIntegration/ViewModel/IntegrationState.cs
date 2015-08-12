@@ -56,9 +56,9 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         public IntegrationState([NotNull] IIntegrationManager integrationManager, [NotNull] AppEntry appEntry, [NotNull] Feed feed)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
+            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             _integrationManager = integrationManager;

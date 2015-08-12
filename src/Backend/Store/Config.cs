@@ -76,7 +76,7 @@ namespace ZeroInstall.Store
             set
             {
                 #region Sanity checks
-                if (!Enum.IsDefined(typeof(NetworkLevel), value)) throw new ArgumentOutOfRangeException("value");
+                if (!Enum.IsDefined(typeof(NetworkLevel), value)) throw new ArgumentOutOfRangeException(nameof(value));
                 #endregion
 
                 _networkLevel = value;

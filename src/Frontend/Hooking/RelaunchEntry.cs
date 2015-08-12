@@ -77,8 +77,8 @@ namespace ZeroInstall.Hooking
         public RelaunchEntry(string binaryName, string name, string target, bool needsTerminal, string iconPath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
             #endregion
 
             BinaryName = binaryName;

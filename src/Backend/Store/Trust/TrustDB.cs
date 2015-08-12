@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Trust
         public bool IsTrusted([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
+            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             return Keys.Any(key => key.Fingerprint == fingerprint && key.Domains.Contains(domain));
@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Trust
         public void TrustKey([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
+            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             Log.Debug("Trusting " + fingerprint + " for " + domain);
@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Trust
         public void UntrustKey([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
+            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             Log.Debug("Untrusting " + fingerprint + " for " + domain);

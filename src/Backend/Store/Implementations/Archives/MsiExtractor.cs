@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             : base(target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             try

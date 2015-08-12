@@ -113,9 +113,9 @@ namespace ZeroInstall.Commands
         public static ExitCode Run([NotNull] string exeName, [NotNull] string[] args, [NotNull] ICommandHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(exeName)) throw new ArgumentNullException("exeName");
-            if (args == null) throw new ArgumentNullException("args");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(exeName)) throw new ArgumentNullException(nameof(exeName));
+            if (args == null) throw new ArgumentNullException(nameof(args));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             try

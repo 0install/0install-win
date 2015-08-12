@@ -87,8 +87,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Apply(FeedTarget target, Store.Model.Capabilities.ContextMenu contextMenu, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (contextMenu == null) throw new ArgumentNullException("contextMenu");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (contextMenu == null) throw new ArgumentNullException(nameof(contextMenu));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (contextMenu.Verb == null) throw new InvalidDataException("Missing verb");
@@ -122,7 +122,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove(Store.Model.Capabilities.ContextMenu contextMenu, bool machineWide)
         {
             #region Sanity checks
-            if (contextMenu == null) throw new ArgumentNullException("contextMenu");
+            if (contextMenu == null) throw new ArgumentNullException(nameof(contextMenu));
             #endregion
 
             if (contextMenu.Verb == null) throw new InvalidDataException("Missing verb");

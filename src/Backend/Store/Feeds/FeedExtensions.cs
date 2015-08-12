@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Feeds
         public static Implementation GetImplementation([NotNull] this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
         {
             #region Sanity checks
-            if (feeds == null) throw new ArgumentNullException("feeds");
+            if (feeds == null) throw new ArgumentNullException(nameof(feeds));
             #endregion
 
             foreach (var curFeed in feeds)

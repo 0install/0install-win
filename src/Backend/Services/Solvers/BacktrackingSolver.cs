@@ -54,11 +54,11 @@ namespace ZeroInstall.Services.Solvers
         public BacktrackingSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
-            if (feedManager == null) throw new ArgumentNullException("feedManager");
-            if (store == null) throw new ArgumentNullException("store");
-            if (packageManager == null) throw new ArgumentNullException("packageManager");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (packageManager == null) throw new ArgumentNullException(nameof(packageManager));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             _config = config;
@@ -73,8 +73,8 @@ namespace ZeroInstall.Services.Solvers
         public Selections Solve(Requirements requirements)
         {
             #region Sanity checks
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, "requirements");
+            if (requirements == null) throw new ArgumentNullException(nameof(requirements));
+            if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, nameof(requirements));
             #endregion
 
             Log.Info("Running Backtracking Solver for: " + requirements);

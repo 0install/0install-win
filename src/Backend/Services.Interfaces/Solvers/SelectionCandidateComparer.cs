@@ -46,9 +46,9 @@ namespace ZeroInstall.Services.Solvers
         public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy, [NotNull] LanguageSet languages)
         {
             #region Sanity check
-            if (config == null) throw new ArgumentNullException("config");
-            if (isCached == null) throw new ArgumentNullException("isCached");
-            if (languages == null) throw new ArgumentNullException("languages");
+            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (isCached == null) throw new ArgumentNullException(nameof(isCached));
+            if (languages == null) throw new ArgumentNullException(nameof(languages));
             #endregion
 
             _networkUse = config.NetworkUse;
@@ -63,8 +63,8 @@ namespace ZeroInstall.Services.Solvers
         public int Compare(SelectionCandidate x, SelectionCandidate y)
         {
             #region Sanity checks
-            if (x == null) throw new ArgumentNullException("x");
-            if (y == null) throw new ArgumentNullException("y");
+            if (x == null) throw new ArgumentNullException(nameof(x));
+            if (y == null) throw new ArgumentNullException(nameof(y));
             #endregion
 
             if (ReferenceEquals(x, y)) return 0;

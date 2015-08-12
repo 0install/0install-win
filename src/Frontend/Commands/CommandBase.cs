@@ -117,7 +117,7 @@ namespace ZeroInstall.Commands
         protected Feed FindByShortName([NotNull] string shortName)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException("shortName");
+            if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException(nameof(shortName));
             #endregion
 
             return
@@ -149,7 +149,7 @@ namespace ZeroInstall.Commands
         protected static void StartCommandBackground([NotNull] string command, [NotNull] params string[] args)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
+            if (string.IsNullOrEmpty(command)) throw new ArgumentNullException(nameof(command));
             #endregion
 
             if (ProgramUtils.GuiAssemblyName == null)

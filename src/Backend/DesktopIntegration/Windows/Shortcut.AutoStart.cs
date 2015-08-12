@@ -36,8 +36,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create(AutoStart autoStart, FeedTarget target, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
-            if (autoStart == null) throw new ArgumentNullException("autoStart");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (autoStart == null) throw new ArgumentNullException(nameof(autoStart));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             string filePath = GetStartupPath(autoStart.Name, machineWide);
@@ -52,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove(AutoStart autoStart, bool machineWide)
         {
             #region Sanity checks
-            if (autoStart == null) throw new ArgumentNullException("autoStart");
+            if (autoStart == null) throw new ArgumentNullException(nameof(autoStart));
             #endregion
 
             string filePath = GetStartupPath(autoStart.Name, machineWide);

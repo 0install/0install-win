@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
         public void ShowFeedSearch(SearchQuery query)
         {
             #region Sanity checks
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             #endregion
 
             Output(query.ToString(), query.Results);
@@ -85,7 +85,7 @@ namespace ZeroInstall.Commands
         public void ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
-            if (config == null) throw new ArgumentNullException("config");
+            if (config == null) throw new ArgumentNullException(nameof(config));
             #endregion
 
             Console.Write(config.ToString());

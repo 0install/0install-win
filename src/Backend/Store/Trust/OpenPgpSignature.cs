@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Trust
         protected bool Equals(OpenPgpSignature other)
         {
             #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
+            if (other == null) throw new ArgumentNullException(nameof(other));
             #endregion
 
             return KeyID == other.KeyID;
@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Trust
         public ValidSignature(long keyID, [NotNull] byte[] fingerprint, DateTime timestamp) : base(keyID)
         {
             #region Sanity checks
-            if (fingerprint == null) throw new ArgumentNullException("fingerprint");
+            if (fingerprint == null) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
             _fingerprint = fingerprint;

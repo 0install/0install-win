@@ -41,8 +41,8 @@ namespace ZeroInstall.Store.Trust
         public static OpenPgpSecretKey GetSecretKey([NotNull] this IOpenPgp openPgp, [NotNull] IKeyIDContainer keyIDContainer)
         {
             #region Sanity checks
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
-            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
+            if (keyIDContainer == null) throw new ArgumentNullException(nameof(keyIDContainer));
             #endregion
 
             var secretKeys = openPgp.ListSecretKeys().ToList();
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Trust
         public static OpenPgpSecretKey GetSecretKey([NotNull] this IOpenPgp openPgp, [CanBeNull] string keySpecifier = null)
         {
             #region Sanity checks
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
             #endregion
 
             var secretKeys = openPgp.ListSecretKeys().ToList();

@@ -38,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration
         public static IEnumerable<MenuEntry> MenuEntries([NotNull] Feed feed)
         {
             #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             var category = feed.Categories.FirstOrDefault();
@@ -62,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration
         public static IEnumerable<DesktopIcon> DesktopIcons([NotNull] Feed feed)
         {
             #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             return (from entryPoint in feed.EntryPoints
@@ -81,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration
         public static IEnumerable<SendTo> SendTo([NotNull] Feed feed)
         {
             #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             return (from entryPoint in feed.EntryPoints
@@ -100,7 +100,7 @@ namespace ZeroInstall.DesktopIntegration
         public static IEnumerable<AppAlias> Aliases([NotNull] Feed feed)
         {
             #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             return (from entryPoint in feed.EntryPoints
@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration
         public static IEnumerable<AutoStart> AutoStart([NotNull] Feed feed)
         {
             #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (feed == null) throw new ArgumentNullException(nameof(feed));
             #endregion
 
             return (from entryPoint in feed.EntryPoints

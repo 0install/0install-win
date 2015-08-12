@@ -81,7 +81,7 @@ namespace ZeroInstall.Services.Feeds
         private ReplayAttackException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             FeedUrl = new Uri(info.GetString("FeedUrl"));
@@ -94,7 +94,7 @@ namespace ZeroInstall.Services.Feeds
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
+            if (info == null) throw new ArgumentNullException(nameof(info));
             #endregion
 
             info.AddValue("FeedUrl", FeedUrl.OriginalString);

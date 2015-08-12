@@ -92,9 +92,9 @@ namespace ZeroInstall.Services.Injector
         private List<ArgBase> GetCommandLine([NotNull] ImplementationSelection implementation, [NotNull] string commandName, [NotNull] ProcessStartInfo startInfo)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
-            if (startInfo == null) throw new ArgumentNullException("startInfo");
-            if (commandName == null) throw new ArgumentNullException("commandName");
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+            if (startInfo == null) throw new ArgumentNullException(nameof(startInfo));
+            if (commandName == null) throw new ArgumentNullException(nameof(commandName));
             #endregion
 
             if (commandName.Length == 0) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceUri));

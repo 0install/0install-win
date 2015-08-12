@@ -56,8 +56,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create(FeedTarget target, [CanBeNull] string command, [NotNull] string aliasName, bool machineWide, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException(nameof(aliasName));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             if (string.IsNullOrEmpty(aliasName) || aliasName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
@@ -100,7 +100,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Remove(string aliasName, bool machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException(nameof(aliasName));
             #endregion
 
             RemoveFromAppPaths(aliasName + ".exe", machineWide);
