@@ -45,10 +45,10 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "SUBCOMMAND"; } }
+        protected override string Usage => "SUBCOMMAND";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMin { get { return 1; } }
+        protected override int AdditionalArgsMin => 1;
         #endregion
 
         /// <inheritdoc/>

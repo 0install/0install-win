@@ -28,10 +28,10 @@ namespace ZeroInstall.Commands.CliCommands
     {
         #region Metadata
         /// <inheritdoc/>
-        protected override int AdditionalArgsMin { get { return 1; } }
+        protected override int AdditionalArgsMin => 1;
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 1; } }
+        protected override int AdditionalArgsMax => 1;
         #endregion
 
         /// <inheritdoc/>

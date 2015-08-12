@@ -35,10 +35,10 @@ namespace ZeroInstall.Store.Trust
         private class CliControl : BundledCliAppControl
         {
             /// <inheritdoc/>
-            protected override string AppBinary { get { return "gpg"; } }
+            protected override string AppBinary => "gpg";
 
             /// <inheritdoc/>
-            protected override string AppDirName { get { return "GnuPG"; } }
+            protected override string AppDirName => "GnuPG";
 
             private static readonly object _gpgLock = new object();
 

@@ -46,7 +46,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// The name of the cross-process mutex used to signal that a desktop integration process class is currently active.
         /// </summary>
-        protected override string MutexName { get { return "ZeroInstall.DesktopIntegration"; } }
+        protected override string MutexName => "ZeroInstall.DesktopIntegration";
 
         /// <summary>
         /// The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals integration changes to interested observers.

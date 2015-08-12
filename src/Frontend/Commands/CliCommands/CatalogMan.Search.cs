@@ -29,9 +29,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "search";
 
-            protected override string Description { get { return Resources.DescriptionCatalogSearch; } }
+            protected override string Description => Resources.DescriptionCatalogSearch;
 
-            protected override string Usage { get { return "[QUERY]"; } }
+            protected override string Usage => "[QUERY]";
 
             public Search([NotNull] ICommandHandler handler) : base(handler)
             {}

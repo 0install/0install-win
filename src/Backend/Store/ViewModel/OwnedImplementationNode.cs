@@ -66,28 +66,28 @@ namespace ZeroInstall.Store.ViewModel
         /// The URI of the feed describing the implementation.
         /// </summary>
         [Description("The URI of the feed describing the implementation.")]
-        public FeedUri FeedUri { get { return _parent.Uri; } }
+        public FeedUri FeedUri => _parent.Uri;
 
         /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Description("The version number of the implementation.")]
         [NotNull]
-        public ImplementationVersion Version { get { return _implementation.Version; } }
+        public ImplementationVersion Version => _implementation.Version;
 
         /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Description("The version number of the implementation.")]
         [TypeConverter(typeof(StringConstructorConverter<Architecture>))]
-        public Architecture Architecture { get { return _implementation.Architecture; } }
+        public Architecture Architecture => _implementation.Architecture;
 
         /// <summary>
         /// A unique identifier for the implementation. Used when storing implementation-specific user preferences.
         /// </summary>
         [Description("A unique identifier for the implementation. Used when storing implementation-specific user preferences.")]
         [NotNull]
-        public string ID { get { return _implementation.ID; } }
+        public string ID => _implementation.ID;
 
         /// <summary>
         /// Returns the Node in the form "Digest URI Version Architecture". Safe for parsing!

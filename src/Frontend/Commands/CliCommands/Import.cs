@@ -32,13 +32,13 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "import";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionImport; } }
+        protected override string Description => Resources.DescriptionImport;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "FEED-FILE [...]"; } }
+        protected override string Usage => "FEED-FILE [...]";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMin { get { return 1; } }
+        protected override int AdditionalArgsMin => 1;
         #endregion
 
         /// <inheritdoc/>

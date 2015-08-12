@@ -42,23 +42,11 @@ namespace ZeroInstall.Commands.CliCommands
             [NotNull]
             protected abstract string TargetDir { get; }
 
-            protected bool Portable
-            {
-                get
-                {
-                    // Auto-detect portable targets by looking for flag file
-                    return File.Exists(Path.Combine(TargetDir, Locations.PortableFlagName));
-                }
-            }
+            // Auto-detect portable targets by looking for flag file
+            protected bool Portable => File.Exists(Path.Combine(TargetDir, Locations.PortableFlagName));
 
-            protected bool MachineWide
-            {
-                get
-                {
-                    // Auto-detect machine-wide targets by comparing path with registry entry
-                    return !Portable && (TargetDir == FindExistingInstance(machineWide: true));
-                }
-            }
+            // Auto-detect machine-wide targets by comparing path with registry entry
+            protected bool MachineWide => !Portable && (TargetDir == FindExistingInstance(machineWide: true));
 
             protected void PerformRemove()
             {
@@ -79,17 +67,17 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove";
 
-            protected override string Description { get { return Resources.DescriptionMaintenanceRemove; } }
+            protected override string Description => Resources.DescriptionMaintenanceRemove;
 
-            protected override string Usage { get { return ""; } }
+            protected override string Usage => "";
 
-            protected override int AdditionalArgsMax { get { return 0; } }
+            protected override int AdditionalArgsMax => 0;
 
             public Remove([NotNull] ICommandHandler handler) : base(handler)
             {}
             #endregion
 
-            protected override string TargetDir { get { return Locations.InstallBase; } }
+            protected override string TargetDir => Locations.InstallBase;
 
             public override ExitCode Execute()
             {
@@ -159,19 +147,19 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove-helper";
 
-            protected override string Description { get { return "Internal helper for '0install maintenance remove' used to support self-removal on Windows."; } }
+            protected override string Description => "Internal helper for '0install maintenance remove' used to support self-removal on Windows.";
 
-            protected override string Usage { get { return "TARGET"; } }
+            protected override string Usage => "TARGET";
 
-            protected override int AdditionalArgsMin { get { return 1; } }
+            protected override int AdditionalArgsMin => 1;
 
-            protected override int AdditionalArgsMax { get { return 1; } }
+            protected override int AdditionalArgsMax => 1;
 
             public RemoveHelper([NotNull] ICommandHandler handler) : base(handler)
             {}
             #endregion
 
-            protected override string TargetDir { get { return AdditionalArgs[0]; } }
+            protected override string TargetDir => AdditionalArgs[0];
 
             public override ExitCode Execute()
             {

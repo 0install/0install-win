@@ -199,16 +199,11 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// The default value for <see cref="IOpenPgp.HomeDir"/> based on the current operating system and environment variables.
         /// </summary>
-        public static string DefaultHomeDir
-        {
-            get
-            {
-                return Environment.GetEnvironmentVariable("GNUPGHOME") ??
-                       (WindowsUtils.IsWindows
-                           ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "gnupg")
-                           : Path.Combine(Locations.HomeDir, ".gnupg"));
-            }
-        }
+        public static string DefaultHomeDir =>
+            Environment.GetEnvironmentVariable("GNUPGHOME") ??
+            (WindowsUtils.IsWindows
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "gnupg")
+                : Path.Combine(Locations.HomeDir, ".gnupg"));
 
         /// <summary>
         /// Launches an interactive process for generating a new keypair.

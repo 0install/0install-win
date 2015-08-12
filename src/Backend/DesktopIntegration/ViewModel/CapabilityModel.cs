@@ -48,7 +48,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// Indicates whether the <see cref="Use" /> of the <see cref="CapabilityModel.Capability" /> has been changed.
         /// </summary>
         [Browsable(false)]
-        public bool Changed { get { return _wasUsed != Use; } }
+        public bool Changed => (_wasUsed != Use);
         #endregion
 
         /// <summary>

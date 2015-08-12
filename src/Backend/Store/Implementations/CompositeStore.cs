@@ -45,13 +45,13 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The <see cref="IStore"/>s this store is internally composed of.
         /// </summary>
-        public IEnumerable<IStore> Stores { get { return new ReadOnlyCollection<IStore>(_stores); } }
+        public IEnumerable<IStore> Stores => new ReadOnlyCollection<IStore>(_stores);
 
         /// <inheritdoc/>
-        public StoreKind Kind { get { return StoreKind.ReadWrite; } }
+        public StoreKind Kind => StoreKind.ReadWrite;
 
         /// <inheritdoc/>
-        public string DirectoryPath { get { return null; } }
+        public string DirectoryPath => null;
         #endregion
 
         #region Constructor

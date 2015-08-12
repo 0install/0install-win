@@ -38,8 +38,8 @@ namespace ZeroInstall.Commands.CliCommands
     [TestFixture]
     public class RunTest : SelectionTestBase<Run>
     {
-        private Mock<ICatalogManager> CatalogManagerMock { get { return GetMock<ICatalogManager>(); } }
-        private Mock<IExecutor> ExecutorMock { get { return GetMock<IExecutor>(); } }
+        private Mock<ICatalogManager> CatalogManagerMock => GetMock<ICatalogManager>();
+        private Mock<IExecutor> ExecutorMock => GetMock<IExecutor>();
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public void TestNormal()

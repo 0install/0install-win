@@ -92,15 +92,15 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        private bool Refresh { get { return _request.OptionKeys.Contains(RefreshKey); } }
+        private bool Refresh => _request.OptionKeys.Contains(RefreshKey);
 
-        private bool SearchMirror { get { return _request.OptionKeys.Contains(SearchMirrorKey); } }
+        private bool SearchMirror => _request.OptionKeys.Contains(SearchMirrorKey);
 
-        private bool SkipVerify { get { return _request.OptionKeys.Contains(SkipVerifyKey); } }
+        private bool SkipVerify => _request.OptionKeys.Contains(SkipVerifyKey);
 
-        private bool DownloadLater { get { return _request.OptionKeys.Contains(DownloadLaterKey); } }
+        private bool DownloadLater => _request.OptionKeys.Contains(DownloadLaterKey);
 
-        private bool AllVersions { get { return _request.OptionKeys.Contains(AllVersionsKey); } }
+        private bool AllVersions => _request.OptionKeys.Contains(AllVersionsKey);
         #endregion
 
         public void ResolvePackageSources()

@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementations
     public partial class IpcStore : IStore
     {
         /// <inheritdoc/>
-        public StoreKind Kind { get { return StoreKind.Service; } }
+        public StoreKind Kind => StoreKind.Service;
 
         /// <inheritdoc/>
         public string DirectoryPath

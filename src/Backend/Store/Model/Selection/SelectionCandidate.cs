@@ -54,19 +54,19 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Description("The version number of the implementation.")]
         [NotNull]
-        public ImplementationVersion Version { get { return Implementation.Version; } }
+        public ImplementationVersion Version => Implementation.Version;
 
         /// <summary>
         /// The date this implementation was made available. For development versions checked out from version control this attribute should not be present.
         /// </summary>
         [Description("The date this implementation was made available. For development versions checked out from version control this attribute should not be present.")]
-        public DateTime Released { get { return Implementation.Released; } }
+        public DateTime Released => Implementation.Released;
 
         /// <summary>
         /// The default stability rating for this implementation.
         /// </summary>
         [Description("The default stability rating for this implementation.")]
-        public Stability Stability { get { return Implementation.Stability; } }
+        public Stability Stability => Implementation.Stability;
 
         /// <summary>The preferences controlling how the solver evaluates this candidate.</summary>
         [NotNull]
@@ -82,13 +82,13 @@ namespace ZeroInstall.Store.Model.Selection
         /// The <see cref="UserStability"/> if it is set, otherwise <see cref="Stability"/>.
         /// </summary>
         [Browsable(false)]
-        public Stability EffectiveStability { get { return (UserStability == Stability.Unset) ? Stability : UserStability; } }
+        public Stability EffectiveStability => (UserStability == Stability.Unset) ? Stability : UserStability;
 
         /// <summary>
         /// For platform-specific binaries, the platform for which an <see cref="Store.Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
         /// </summary>
         [Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.")]
-        public string Architecture { get { return Implementation.Architecture.ToString(); } }
+        public string Architecture => Implementation.Architecture.ToString();
 
         /// <summary>
         /// Human-readable notes about the implementation, e.g. "not suitable for this architecture".

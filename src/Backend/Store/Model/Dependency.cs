@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public List<Binding> Bindings { get { return _bindings; } }
+        public List<Binding> Bindings => _bindings;
 
         /// <inheritdoc/>
         public override bool IsApplicable(Requirements requirements)
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Model
         }
 
         #region Normalize
-        protected override string XmlTagName { get { return "requires"; } }
+        protected override string XmlTagName => "requires";
 
         /// <inheritdoc/>
         public override void Normalize()

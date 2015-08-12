@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     {
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsMachineWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly => false;
 
         private readonly List<FileTypeExtension> _extensions = new List<FileTypeExtension>();
 
@@ -42,11 +42,11 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         [Browsable(false)]
         [XmlElement("extension"), NotNull]
-        public List<FileTypeExtension> Extensions { get { return _extensions; } }
+        public List<FileTypeExtension> Extensions => _extensions;
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"progid:" + ID}; } }
+        public override IEnumerable<string> ConflictIDs => new[] {"progid:" + ID};
 
         #region Conversion
         /// <summary>

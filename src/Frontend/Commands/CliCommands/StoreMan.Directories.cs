@@ -32,11 +32,11 @@ namespace ZeroInstall.Commands.CliCommands
         private abstract class DirCommand : StoreSubCommand
         {
             #region Metadata
-            protected override string Usage { get { return "PATH"; } }
+            protected override string Usage => "PATH";
 
-            protected override int AdditionalArgsMin { get { return 1; } }
+            protected override int AdditionalArgsMin => 1;
 
-            protected override int AdditionalArgsMax { get { return 1; } }
+            protected override int AdditionalArgsMax => 1;
 
             /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
             protected bool MachineWide { get; private set; }
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "add-dir";
 
-            protected override string Description { get { return Resources.DescriptionStoreAddDir; } }
+            protected override string Description => Resources.DescriptionStoreAddDir;
 
             public AddDir([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove-dir";
 
-            protected override string Description { get { return Resources.DescriptionStoreRemoveDir; } }
+            protected override string Description => Resources.DescriptionStoreRemoveDir;
 
             public RemoveDir([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -134,11 +134,11 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "list";
 
-            protected override string Description { get { return Resources.DescriptionStoreList; } }
+            protected override string Description => Resources.DescriptionStoreList;
 
-            protected override string Usage { get { return ""; } }
+            protected override string Usage => "";
 
-            protected override int AdditionalArgsMax { get { return 0; } }
+            protected override int AdditionalArgsMax => 0;
 
             public List([NotNull] ICommandHandler handler) : base(handler)
             {}

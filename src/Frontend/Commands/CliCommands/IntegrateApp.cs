@@ -49,10 +49,10 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName2 = "desktop";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionIntegrateApp; } }
+        protected override string Description => Resources.DescriptionIntegrateApp;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
+        protected override string Usage => "[OPTIONS] (PET-NAME|INTERFACE)";
         #endregion
 
         #region State

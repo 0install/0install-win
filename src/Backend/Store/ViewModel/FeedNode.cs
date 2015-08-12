@@ -76,21 +76,21 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         [Description("The URI indentifying this feed.")]
         [NotNull]
-        public FeedUri Uri { get { return _feed.Uri; } }
+        public FeedUri Uri => _feed.Uri;
 
         /// <summary>
         /// The main website of the application.
         /// </summary>
         [Description("The main website of the application.")]
         [CanBeNull]
-        public Uri Homepage { get { return _feed.Homepage; } }
+        public Uri Homepage => _feed.Homepage;
 
         /// <summary>
         /// A short one-line description of the application.
         /// </summary>
         [Description("A short one-line description of the application.")]
         [CanBeNull]
-        public string Summary { get { return _feed.GetBestSummary(CultureInfo.CurrentUICulture); } }
+        public string Summary => _feed.GetBestSummary(CultureInfo.CurrentUICulture);
 
         /// <summary>
         /// A comma-separated list of categories the applications fits into.

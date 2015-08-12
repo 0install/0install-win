@@ -36,8 +36,8 @@ namespace ZeroInstall.Services.Solvers
     [TestFixture]
     public class SelectionCandidateProviderTest : TestWithContainer<SelectionCandidateProvider>
     {
-        private Mock<IFeedManager> FeedManagerMock { get { return GetMock<IFeedManager>(); } }
-        private Mock<IPackageManager> PackageManagerMock { get { return GetMock<IPackageManager>(); } }
+        private Mock<IFeedManager> FeedManagerMock => GetMock<IFeedManager>();
+        private Mock<IPackageManager> PackageManagerMock => GetMock<IPackageManager>();
 
         protected override void Register(AutoMockContainer container)
         {

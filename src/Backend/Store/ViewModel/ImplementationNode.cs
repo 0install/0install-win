@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         [Description("The digest identifying the implementation in the store.")]
         [NotNull]
-        public string Digest { get { return _digest.AvailableDigests.First(); } }
+        public string Digest => _digest.AvailableDigests.First();
 
         /// <summary>
         /// The total size of the implementation in bytes.
@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.ViewModel
         public long Size { get; private set; }
 
         /// <inheritdoc/>
-        public override string Path { get { return Store.GetPath(_digest); } }
+        public override string Path => Store.GetPath(_digest);
 
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.

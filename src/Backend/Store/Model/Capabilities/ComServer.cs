@@ -31,11 +31,11 @@ namespace ZeroInstall.Store.Model.Capabilities
     {
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsMachineWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly => false;
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"classes:" + ID}; } }
+        public override IEnumerable<string> ConflictIDs => new[] {"classes:" + ID};
 
         #region Conversion
         /// <summary>

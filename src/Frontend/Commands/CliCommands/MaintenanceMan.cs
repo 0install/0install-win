@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override IEnumerable<string> SubCommandNames { get { return new[] {Deploy.Name, Remove.Name}; } }
+        protected override IEnumerable<string> SubCommandNames => new[] {Deploy.Name, Remove.Name};
 
         /// <inheritdoc/>
         protected override SubCommand GetCommand(string commandName)
@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         internal abstract class MaintenanceSubCommand : SubCommand
         {
-            protected override string ParentName { get { return MaintenanceMan.Name; } }
+            protected override string ParentName => MaintenanceMan.Name;
 
             protected MaintenanceSubCommand([NotNull] ICommandHandler handler) : base(handler)
             {}

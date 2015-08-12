@@ -41,10 +41,10 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName = "add-app";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionAddApp; } }
+        protected override string Description => Resources.DescriptionAddApp;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
+        protected override string Usage => "[OPTIONS] INTERFACE";
         #endregion
 
         #region State

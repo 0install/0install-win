@@ -40,11 +40,11 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "deploy";
 
-            protected override string Description { get { return Resources.DescriptionMaintenanceDeploy; } }
+            protected override string Description => Resources.DescriptionMaintenanceDeploy;
 
-            protected override string Usage { get { return "[TARGET]"; } }
+            protected override string Usage => "[TARGET]";
 
-            protected override int AdditionalArgsMax { get { return 1; } }
+            protected override int AdditionalArgsMax => 1;
             #endregion
 
             #region State

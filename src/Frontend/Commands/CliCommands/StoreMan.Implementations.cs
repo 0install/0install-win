@@ -39,11 +39,11 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "add";
 
-            protected override string Description { get { return Resources.DescriptionStoreAdd; } }
+            protected override string Description => Resources.DescriptionStoreAdd;
 
-            protected override string Usage { get { return "DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))"; } }
+            protected override string Usage => "DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))";
 
-            protected override int AdditionalArgsMin { get { return 2; } }
+            protected override int AdditionalArgsMin => 2;
 
             public Add([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -96,13 +96,13 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "copy";
 
-            protected override string Description { get { return Resources.DescriptionStoreCopy; } }
+            protected override string Description => Resources.DescriptionStoreCopy;
 
-            protected override string Usage { get { return "DIRECTORY [CACHE]"; } }
+            protected override string Usage => "DIRECTORY [CACHE]";
 
-            protected override int AdditionalArgsMin { get { return 1; } }
+            protected override int AdditionalArgsMin => 1;
 
-            protected override int AdditionalArgsMax { get { return 2; } }
+            protected override int AdditionalArgsMax => 2;
 
             public Copy([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -133,13 +133,13 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "export";
 
-            protected override string Description { get { return Resources.DescriptionStoreExport; } }
+            protected override string Description => Resources.DescriptionStoreExport;
 
-            protected override string Usage { get { return "DIGEST OUTPUT-ARCHIVE [MIME-TYPE]"; } }
+            protected override string Usage => "DIGEST OUTPUT-ARCHIVE [MIME-TYPE]";
 
-            protected override int AdditionalArgsMin { get { return 2; } }
+            protected override int AdditionalArgsMin => 2;
 
-            protected override int AdditionalArgsMax { get { return 3; } }
+            protected override int AdditionalArgsMax => 3;
 
             public Export([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -169,13 +169,13 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "find";
 
-            protected override string Description { get { return Resources.DescriptionStoreFind; } }
+            protected override string Description => Resources.DescriptionStoreFind;
 
-            protected override string Usage { get { return "DIGEST"; } }
+            protected override string Usage => "DIGEST";
 
-            protected override int AdditionalArgsMin { get { return 1; } }
+            protected override int AdditionalArgsMin => 1;
 
-            protected override int AdditionalArgsMax { get { return 1; } }
+            protected override int AdditionalArgsMax => 1;
 
             public Find([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -197,11 +197,11 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "remove";
 
-            protected override string Description { get { return Resources.DescriptionStoreRemove; } }
+            protected override string Description => Resources.DescriptionStoreRemove;
 
-            protected override string Usage { get { return "DIGEST+"; } }
+            protected override string Usage => "DIGEST+";
 
-            protected override int AdditionalArgsMin { get { return 1; } }
+            protected override int AdditionalArgsMin => 1;
 
             public Remove([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -223,13 +223,13 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "verify";
 
-            protected override string Description { get { return Resources.DescriptionStoreVerify; } }
+            protected override string Description => Resources.DescriptionStoreVerify;
 
-            protected override string Usage { get { return "[DIRECTORY] DIGEST"; } }
+            protected override string Usage => "[DIRECTORY] DIGEST";
 
-            protected override int AdditionalArgsMin { get { return 1; } }
+            protected override int AdditionalArgsMin => 1;
 
-            protected override int AdditionalArgsMax { get { return 2; } }
+            protected override int AdditionalArgsMax => 2;
 
             public Verify([NotNull] ICommandHandler handler) : base(handler)
             {}

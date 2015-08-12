@@ -39,16 +39,16 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "export";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionExport; } }
+        protected override string Description => Resources.DescriptionExport;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] URI DIRECTORY"; } }
+        protected override string Usage => "[OPTIONS] URI DIRECTORY";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMin { get { return 2; } }
+        protected override int AdditionalArgsMin => 2;
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 2; } }
+        protected override int AdditionalArgsMax => 2;
         #endregion
 
         #region State

@@ -37,13 +37,13 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName = "remove-all-apps";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionRemoveAllApps; } }
+        protected override string Description => Resources.DescriptionRemoveAllApps;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS]"; } }
+        protected override string Usage => "[OPTIONS]";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 0; } }
+        protected override int AdditionalArgsMax => 0;
         #endregion
 
         /// <inheritdoc/>

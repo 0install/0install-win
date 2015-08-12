@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.Solvers
         /// A list of input <see cref="Feed"/>s for the solver.
         /// </summary>
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace), NotNull]
-        public List<Feed> Feeds { get { return _feeds; } }
+        public List<Feed> Feeds => _feeds;
 
         /// <summary>
         /// The input requirements for the solver.

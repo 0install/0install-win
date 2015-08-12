@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementations
     public abstract class DirectoryWalkTask : TaskBase
     {
         /// <inheritdoc/>
-        protected override bool UnitsByte { get { return true; } }
+        protected override bool UnitsByte => true;
 
         /// <summary>Indicates whether <see cref="SourceDirectory"/> is located on a filesystem with support for Unixoid features such as executable bits.</summary>
         private readonly bool _isUnixFS;
@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementations
         /// The directory to walk.
         /// </summary>
         [NotNull]
-        public DirectoryInfo SourceDirectory { get; private set; }
+        public DirectoryInfo SourceDirectory { get; }
 
         /// <summary>
         /// Creates a new directory walking task.

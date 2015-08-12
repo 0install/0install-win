@@ -85,7 +85,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Lists auto-detected candidates for <see cref="EntryPoint"/>s.
         /// </summary>
-        public IEnumerable<Candidate> Candidates { get { return _candidates; } }
+        public IEnumerable<Candidate> Candidates => _candidates;
 
         /// <summary>
         /// Set the main entry point. Provides meta-data and startup instructions for the application.
@@ -124,7 +124,7 @@ namespace ZeroInstall.Publish
         /// Lists the <see cref="Command"/> derived from <see cref="Candidates"/> and <see cref="MainCandidate"/>.
         /// </summary>
         [NotNull]
-        public List<Command> Commands { get { return _commands; } }
+        public List<Command> Commands => _commands;
 
         private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
 
@@ -132,7 +132,7 @@ namespace ZeroInstall.Publish
         /// Lists the <see cref="EntryPoint"/>s accompanying <see cref="Commands"/>.
         /// </summary>
         [NotNull]
-        public List<EntryPoint> EntryPoints { get { return _entryPoints; } }
+        public List<EntryPoint> EntryPoints => _entryPoints;
 
         /// <summary>
         /// Generates <see cref="Commands"/> and <see cref="EntryPoints"/> bases on <see cref="Candidates"/> and <see cref="MainCandidate"/>.
@@ -219,7 +219,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Set to configure <see cref="Feed.Icons"/>.
         /// </summary>
-        public ICollection<Icon> Icons { get { return _icons; } }
+        public ICollection<Icon> Icons => _icons;
 
         /// <summary>
         /// Set to configure <see cref="Implementation.RetrievalMethods"/>.

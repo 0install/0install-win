@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     {
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsMachineWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly => false;
 
         private readonly List<KnownProtocolPrefix> _knownPrefixes = new List<KnownProtocolPrefix>();
 
@@ -42,11 +42,11 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         [Browsable(false)]
         [XmlElement("known-prefix"), NotNull]
-        public List<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
+        public List<KnownProtocolPrefix> KnownPrefixes => _knownPrefixes;
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"progid:" + ID}; } }
+        public override IEnumerable<string> ConflictIDs => new[] {"progid:" + ID};
 
         #region Conversion
         /// <summary>

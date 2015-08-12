@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override IEnumerable<string> SubCommandNames { get { return new[] {Search.Name, Refresh.Name, Add.Name, Remove.Name, Reset.Name, List.Name}; } }
+        protected override IEnumerable<string> SubCommandNames => new[] {Search.Name, Refresh.Name, Add.Name, Remove.Name, Reset.Name, List.Name};
 
         /// <inheritdoc/>
         protected override SubCommand GetCommand(string commandName)
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private abstract class CatalogSubCommand : SubCommand
         {
-            protected override string ParentName { get { return CatalogMan.Name; } }
+            protected override string ParentName => CatalogMan.Name;
 
             protected CatalogSubCommand([NotNull] ICommandHandler handler) : base(handler)
             {}

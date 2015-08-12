@@ -70,7 +70,7 @@ namespace ZeroInstall.Bootstrap
         /// <c>true</c> if <see cref="_exeName"/> file name indicates unattended installations should be per-user; <c>false</c> if they should be machine-wide.
         /// </summary>
         /// <remarks>Old installers were seperated into per-user and machine-wide. We now emulate this by looking at the EXE file name.</remarks>
-        private static bool IsPerUser { get { return _exeName == "zero-install-per-user.exe"; } }
+        private static bool IsPerUser => (_exeName == "zero-install-per-user.exe");
 
         private string HelpText
         {

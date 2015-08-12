@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         /// <inheritdoc/>
         [NotNull]
-        public override string Name { get { return ParentName + " " + base.Name; } }
+        public override string Name => ParentName + " " + base.Name;
 
         /// <inheritdoc/>
         protected SubCommand([NotNull] ICommandHandler handler) : base(handler)

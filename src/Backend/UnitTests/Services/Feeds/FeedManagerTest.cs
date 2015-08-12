@@ -38,8 +38,8 @@ namespace ZeroInstall.Services.Feeds
     [TestFixture]
     public class FeedManagerTest : TestWithContainer<FeedManager>
     {
-        private Mock<IFeedCache> FeedCacheMock { get { return GetMock<IFeedCache>(); } }
-        private Mock<ITrustManager> TrustManagerMock { get { return GetMock<ITrustManager>(); } }
+        private Mock<IFeedCache> FeedCacheMock => GetMock<IFeedCache>();
+        private Mock<ITrustManager> TrustManagerMock => GetMock<ITrustManager>();
 
         private Feed _feedPreNormalize;
         private Feed _feedPostNormalize;

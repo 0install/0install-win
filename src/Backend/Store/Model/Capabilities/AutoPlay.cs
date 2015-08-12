@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     {
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsMachineWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly => false;
 
         /// <summary>
         /// The name of the application as shown in the AutoPlay selection list.
@@ -56,11 +56,11 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         [Browsable(false)]
         [XmlElement("event"), NotNull]
-        public List<AutoPlayEvent> Events { get { return _events; } }
+        public List<AutoPlayEvent> Events => _events;
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"autoplay:" + ID}; } }
+        public override IEnumerable<string> ConflictIDs => new[] {"autoplay:" + ID};
 
         #region Conversion
         /// <summary>

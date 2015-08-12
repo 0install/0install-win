@@ -57,10 +57,7 @@ namespace ZeroInstall.Store.Model.Preferences
         [Description("A list of implementation-specific user-overrides.")]
         [XmlElement("implementation"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<ImplementationPreferences> Implementations
-        {
-            get { return _implementations; }
-        }
+        public List<ImplementationPreferences> Implementations => _implementations;
 
         /// <summary>
         /// Retrieves an existing entry from <see cref="Implementations"/> by ID or creates a new one if no appropriate one exists.

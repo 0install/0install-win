@@ -24,7 +24,7 @@ namespace ZeroInstall.OneGet
     /// </summary>
     public class PackageProvider : PackageProviderBase
     {
-        public override string PackageProviderName { get { return "0install"; } }
+        public override string PackageProviderName => "0install";
 
         protected override OneGetCommand BuildCommand(Request request)
         {

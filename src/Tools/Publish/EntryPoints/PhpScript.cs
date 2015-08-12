@@ -36,6 +36,6 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <inheritdoc/>
-        protected override FeedUri InterpreterInterface { get { return new FeedUri("http://0install.de/feeds/PHP.xml"); } }
+        protected override FeedUri InterpreterInterface => new FeedUri("http://0install.de/feeds/PHP.xml");
     }
 }

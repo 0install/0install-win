@@ -48,10 +48,10 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
-        public List<ArgBase> Arguments { get { return _arguments; } }
+        public List<ArgBase> Arguments => _arguments;
 
         #region Normalize
-        protected override string XmlTagName { get { return "runner"; } }
+        protected override string XmlTagName => "runner";
 
         /// <inheritdoc/>
         public override void Normalize()

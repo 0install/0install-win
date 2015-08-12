@@ -42,7 +42,7 @@ namespace ZeroInstall.Commands.Utils
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string NoAutoCheckFlagName = "_no_self_update_check";
 
-        private static string NoAutoCheckFlagFile { get { return Path.Combine(Locations.PortableBase, NoAutoCheckFlagName); } }
+        private static string NoAutoCheckFlagFile => Path.Combine(Locations.PortableBase, NoAutoCheckFlagName);
 
         /// <summary>
         /// <c>true</c> if automatic check for updates are disabled.

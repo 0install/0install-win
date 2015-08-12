@@ -36,11 +36,11 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "manage";
 
-            protected override string Description { get { return Resources.DescriptionStoreManage; } }
+            protected override string Description => Resources.DescriptionStoreManage;
 
-            protected override string Usage { get { return ""; } }
+            protected override string Usage => "";
 
-            protected override int AdditionalArgsMax { get { return 0; } }
+            protected override int AdditionalArgsMax => 0;
 
             public Manage([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -59,11 +59,11 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "list-implementations";
 
-            protected override string Description { get { return Resources.DescriptionStoreListImplementations; } }
+            protected override string Description => Resources.DescriptionStoreListImplementations;
 
-            protected override string Usage { get { return "[FEED-URI]"; } }
+            protected override string Usage => "[FEED-URI]";
 
-            protected override int AdditionalArgsMax { get { return 1; } }
+            protected override int AdditionalArgsMax => 1;
 
             public ListImplementations([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -99,9 +99,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "audit";
 
-            protected override string Description { get { return Resources.DescriptionStoreAudit; } }
+            protected override string Description => Resources.DescriptionStoreAudit;
 
-            protected override string Usage { get { return "[CACHE-DIR+]"; } }
+            protected override string Usage => "[CACHE-DIR+]";
 
             public Audit([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -124,9 +124,9 @@ namespace ZeroInstall.Commands.CliCommands
 
             public const string AltName = "optimize";
 
-            protected override string Description { get { return Resources.DescriptionStoreOptimise; } }
+            protected override string Description => Resources.DescriptionStoreOptimise;
 
-            protected override string Usage { get { return "[CACHE-DIR+]"; } }
+            protected override string Usage => "[CACHE-DIR+]";
 
             public Optimise([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -146,9 +146,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "purge";
 
-            protected override string Description { get { return Resources.DescriptionStorePurge; } }
+            protected override string Description => Resources.DescriptionStorePurge;
 
-            protected override string Usage { get { return "[CACHE-DIR+]"; } }
+            protected override string Usage => "[CACHE-DIR+]";
 
             public Purge([NotNull] ICommandHandler handler) : base(handler)
             {}

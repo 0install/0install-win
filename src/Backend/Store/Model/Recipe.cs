@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlIgnore, NotNull]
-        public List<IRecipeStep> Steps { get { return _steps; } }
+        public List<IRecipeStep> Steps => _steps;
 
         #region XML serialization
         /// <summary>Used for XML serialization.</summary>
@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlIgnore]
-        public bool ContainsUnknownSteps { get { return UnknownElements != null && UnknownElements.Length > 0; } }
+        public bool ContainsUnknownSteps => (UnknownElements != null) && (UnknownElements.Length > 0);
 
         #region Normalize
         /// <summary>

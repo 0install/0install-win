@@ -32,14 +32,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     public sealed class AppRegistration : Capability, IEquatable<AppRegistration>
     {
         /// <inheritdoc/>
-        public override bool WindowsMachineWideOnly
-        {
-            get
-            {
-                // Per-user registration only possible on Windows 8
-                return !WindowsUtils.IsWindows8;
-            }
-        }
+        public override bool WindowsMachineWideOnly => !WindowsUtils.IsWindows8;
 
         /// <summary>
         /// The registry path relative to HKEY_LOCAL_MACHINE which is used to store the application's capability registration information.
@@ -50,7 +43,7 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath}; } }
+        public override IEnumerable<string> ConflictIDs => new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath};
 
         #region Conversion
         /// <summary>

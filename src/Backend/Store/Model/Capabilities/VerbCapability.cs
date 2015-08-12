@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         [Browsable(false)]
         [XmlElement("verb"), NotNull]
-        public List<Verb> Verbs { get { return _verbs; } }
+        public List<Verb> Verbs => _verbs;
 
         #region Equality
         /// <inheritdoc/>

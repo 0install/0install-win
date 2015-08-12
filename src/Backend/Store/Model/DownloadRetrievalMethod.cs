@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model
         /// The effective size of the file on the server.
         /// </summary>
         [XmlIgnore, Browsable(false)]
-        public virtual long DownloadSize { get { return Size; } }
+        public virtual long DownloadSize => Size;
 
         #region Normalize
         /// <inheritdoc/>

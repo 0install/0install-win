@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Model.Design
     internal class InstallCommandsConverter : ValueTypeConverter<InstallCommands>
     {
         /// <summary>The number of arguments <see cref="InstallCommands"/> has.</summary>
-        protected override int NoArguments { get { return 6; } }
+        protected override int NoArguments => 6;
 
         /// <returns>The constructor used to create new instances of <see cref="InstallCommands"/> (deserialization).</returns>
         protected override ConstructorInfo GetConstructor()

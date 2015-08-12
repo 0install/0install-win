@@ -47,8 +47,8 @@ namespace ZeroInstall.Services.Feeds
         private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
         #endregion
 
-        private Mock<IOpenPgp> OpenPgpMock { get { return GetMock<IOpenPgp>(); } }
-        private Mock<IFeedCache> FeedCacheMock {  get { return GetMock<IFeedCache>(); } }
+        private Mock<IOpenPgp> OpenPgpMock => GetMock<IOpenPgp>();
+        private Mock<IFeedCache> FeedCacheMock => GetMock<IFeedCache>();
 
         protected override void Register(AutoMockContainer container)
         {

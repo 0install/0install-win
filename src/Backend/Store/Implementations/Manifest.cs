@@ -287,7 +287,7 @@ namespace ZeroInstall.Store.Implementations
         /// Retreives a specific <see cref="ManifestNode"/>.
         /// </summary>
         /// <param name="i">The index of the node to retreive.</param>
-        public ManifestNode this[int i] { get { return _nodes[i]; } }
+        public ManifestNode this[int i] => _nodes[i];
         #endregion
 
         #region Equality

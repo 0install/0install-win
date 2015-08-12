@@ -130,7 +130,7 @@ namespace ZeroInstall.Publish.EntryPoints
         public abstract Command CreateCommand();
 
         /// <summary>The <see cref="Command.Name"/> used by <see cref="CreateCommand"/>.</summary>
-        protected string CommandName { get { return (Path.GetFileNameWithoutExtension(RelativePath) ?? "unknown").Replace(" ", "-"); } }
+        protected string CommandName => (Path.GetFileNameWithoutExtension(RelativePath) ?? "unknown").Replace(" ", "-");
 
         public override string ToString()
         {

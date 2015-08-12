@@ -46,19 +46,13 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Combines <see cref="Username"/> and <see cref="Password"/>.
         /// </summary>
-        public NetworkCredential Credentials { get { return new NetworkCredential(Username, Password); } }
+        public NetworkCredential Credentials => new NetworkCredential(Username, Password);
 
         /// <summary>
         /// Indicates whether the current settings are semantically valid.
         /// </summary>
-        public bool IsValid
-        {
-            get
-            {
-                return
-                    (Uri.IsFile && Uri.IsAbsoluteUri) ||
-                    ((Uri.Scheme == Uri.UriSchemeHttp || Uri.Scheme == Uri.UriSchemeHttps) && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password));
-            }
-        }
+        public bool IsValid =>
+            (Uri.IsFile && Uri.IsAbsoluteUri) ||
+            ((Uri.Scheme == Uri.UriSchemeHttp || Uri.Scheme == Uri.UriSchemeHttps) && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password));
     }
 }

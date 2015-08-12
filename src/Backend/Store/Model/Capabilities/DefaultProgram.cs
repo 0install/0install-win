@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsMachineWideOnly { get { return true; } }
+        public override bool WindowsMachineWideOnly => true;
 
         /// <summary>
         /// The name of the service (e.g. "StartMenuInternet", "Mail", "Media"). Always use a canonical name when possible.
@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"clients:" + Service + @"\" + ID}; } }
+        public override IEnumerable<string> ConflictIDs => new[] {"clients:" + Service + @"\" + ID};
 
         #region Conversion
         /// <summary>

@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override IEnumerable<string> SubCommandNames { get { return new[] {Add.Name, Audit.Name, Copy.Name, Export.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name, AddDir.Name, RemoveDir.Name}; } }
+        protected override IEnumerable<string> SubCommandNames => new[] {Add.Name, Audit.Name, Copy.Name, Export.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name, AddDir.Name, RemoveDir.Name};
 
         /// <inheritdoc/>
         protected override SubCommand GetCommand(string commandName)
@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         internal abstract class StoreSubCommand : SubCommand
         {
-            protected override string ParentName { get { return StoreMan.Name; } }
+            protected override string ParentName => StoreMan.Name;
 
             protected StoreSubCommand([NotNull] ICommandHandler handler) : base(handler)
             {}

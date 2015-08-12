@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Model.Design
     internal class ManifestDigestConverter : ValueTypeConverter<ManifestDigest>
     {
         /// <summary>The number of arguments <see cref="ManifestDigest"/> has.</summary>
-        protected override int NoArguments { get { return 4; } }
+        protected override int NoArguments => 4;
 
         /// <returns>The constructor used to create new instances of <see cref="ManifestDigest"/> (deserialization).</returns>
         protected override ConstructorInfo GetConstructor()

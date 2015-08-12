@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public static readonly string[] SupportedMimeTypes = {Archive.MimeTypeZip, Archive.MimeTypeTar, Archive.MimeTypeTarGzip, Archive.MimeTypeTarBzip, Archive.MimeTypeTarLzma};
 
         /// <inheritdoc/>
-        public override string Name { get { return string.Format(Resources.CreatingArchive, OutputArchive); } }
+        public override string Name => string.Format(Resources.CreatingArchive, OutputArchive);
 
         /// <summary>
         /// The path of the file to create.

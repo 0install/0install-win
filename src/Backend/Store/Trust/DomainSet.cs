@@ -16,10 +16,7 @@ namespace ZeroInstall.Store.Trust
         public DomainSet() : base(new DomainComparer())
         {}
 
-        public Domain this[int index]
-        {
-            get { return this.Skip(index).First(); }
-        }
+        public Domain this[int index] => this.Skip(index).First();
 
         protected DomainSet(SerializationInfo info, StreamingContext context)
             : base(info, context)

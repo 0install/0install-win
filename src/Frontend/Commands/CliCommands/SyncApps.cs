@@ -33,13 +33,13 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "sync";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionSync; } }
+        protected override string Description => Resources.DescriptionSync;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS]"; } }
+        protected override string Usage => "[OPTIONS]";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 0; } }
+        protected override int AdditionalArgsMax => 0;
         #endregion
 
         #region State

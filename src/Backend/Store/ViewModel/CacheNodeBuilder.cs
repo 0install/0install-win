@@ -55,10 +55,10 @@ namespace ZeroInstall.Store.ViewModel
         #endregion
 
         /// <inheritdoc/>
-        public override string Name { get { return "Loading"; } }
+        public override string Name => "Loading";
 
         /// <inheritdoc/>
-        protected override bool UnitsByte { get { return false; } }
+        protected override bool UnitsByte => false;
 
         /// <summary>
         /// All generated nodes.

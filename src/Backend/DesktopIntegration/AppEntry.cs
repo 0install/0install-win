@@ -46,7 +46,7 @@ namespace ZeroInstall.DesktopIntegration
         [XmlIgnore]
         public FeedUri InterfaceUri { get; set; }
 
-        string IMergeable<AppEntry>.MergeID { get { return InterfaceUri.ToStringRfc(); } }
+        string IMergeable<AppEntry>.MergeID => InterfaceUri.ToStringRfc();
 
         /// <summary>
         /// The name of the application. Usually equal to <see cref="Feed.Name"/>.
@@ -83,7 +83,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         [Browsable(false)]
         [XmlIgnore, NotNull]
-        public Requirements EffectiveRequirements { get { return Requirements ?? new Requirements(InterfaceUri); } }
+        public Requirements EffectiveRequirements => Requirements ?? new Requirements(InterfaceUri);
 
         #region XML serialization
         /// <summary>Used for XML serialization.</summary>
@@ -107,10 +107,7 @@ namespace ZeroInstall.DesktopIntegration
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         [NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<CapabilityList> CapabilityLists
-        {
-            get { return _capabilityLists; }
-        }
+        public List<CapabilityList> CapabilityLists => _capabilityLists;
 
         /// <summary>
         /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment. Is <c>null</c> if no desktop integration has been performed yet.

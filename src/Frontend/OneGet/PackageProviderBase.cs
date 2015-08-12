@@ -42,7 +42,7 @@ namespace ZeroInstall.OneGet
         public abstract string PackageProviderName { get; }
 
         [PublicAPI]
-        public string ProviderVersion { get { return AppInfo.CurrentLibrary.Version.ToString(); } }
+        public string ProviderVersion => AppInfo.CurrentLibrary.Version.ToString();
 
         [PublicAPI]
         public void OnUnhandledException(string methodName, Exception exception)

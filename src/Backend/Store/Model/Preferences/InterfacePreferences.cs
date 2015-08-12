@@ -69,10 +69,7 @@ namespace ZeroInstall.Store.Model.Preferences
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<FeedReference> Feeds
-        {
-            get { return _feeds; }
-        }
+        public List<FeedReference> Feeds => _feeds;
 
         #region Storage
         /// <summary>

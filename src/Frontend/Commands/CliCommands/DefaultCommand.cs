@@ -43,10 +43,10 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "COMMAND"; } }
+        protected override string Usage => "COMMAND";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 0; } }
+        protected override int AdditionalArgsMax => 0;
         #endregion
 
         /// <inheritdoc/>

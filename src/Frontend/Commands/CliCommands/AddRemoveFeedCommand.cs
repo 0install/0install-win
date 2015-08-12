@@ -35,13 +35,13 @@ namespace ZeroInstall.Commands.CliCommands
     {
         #region Metadata
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] [INTERFACE] FEED"; } }
+        protected override string Usage => "[OPTIONS] [INTERFACE] FEED";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMin { get { return 1; } }
+        protected override int AdditionalArgsMin => 1;
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 2; } }
+        protected override int AdditionalArgsMax => 2;
         #endregion
 
         #region State

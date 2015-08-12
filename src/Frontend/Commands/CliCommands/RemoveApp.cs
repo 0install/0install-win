@@ -41,10 +41,10 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName2 = "destory";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionRemoveApp; } }
+        protected override string Description => Resources.DescriptionRemoveApp;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
+        protected override string Usage => "[OPTIONS] (PET-NAME|INTERFACE)";
         #endregion
 
         /// <inheritdoc/>

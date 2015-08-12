@@ -70,7 +70,7 @@ namespace ZeroInstall
     {
         private readonly MemoryStream _content;
 
-        public byte[] Content { get { return _content.ToArray(); } }
+        public byte[] Content => _content.ToArray();
 
         internal FileEntry(string name, byte[] content, EntryContainer parent, DateTime lastWrite)
             : base(name, parent, lastWrite)
@@ -106,7 +106,7 @@ namespace ZeroInstall
             Entries.Sort((left, right) => StringComparer.OrdinalIgnoreCase.Compare(left.Name, right.Name));
         }
 
-        public IEnumerable<HierarchyEntry> Children { get { return Entries; } }
+        public IEnumerable<HierarchyEntry> Children => Entries;
     }
 
     public class FolderEntry : EntryContainer
@@ -275,7 +275,7 @@ namespace ZeroInstall
         private readonly EntryContainer _currentSubhierarchy;
         private readonly RootEntry _packageRoot;
 
-        public EntryContainer Hierarchy { get { return _packageRoot; } }
+        public EntryContainer Hierarchy => _packageRoot;
 
         public PackageBuilder()
         {

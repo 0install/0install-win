@@ -33,13 +33,13 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "fetch";
 
         /// <inheritdoc/>
-        protected override string Description { get { return "Downloads a set of implementations piped in as XML via stdin. Only for IPC-use."; } }
+        protected override string Description => "Downloads a set of implementations piped in as XML via stdin. Only for IPC-use.";
 
         /// <inheritdoc/>
-        protected override string Usage { get { return ""; } }
+        protected override string Usage => "";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 0; } }
+        protected override int AdditionalArgsMax => 0;
         #endregion
 
         /// <inheritdoc/>

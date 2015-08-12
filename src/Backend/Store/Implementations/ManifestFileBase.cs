@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The time this file was last modified.
         /// </summary>
-        public DateTime ModifiedTime { get { return FileUtils.FromUnixTime(ModifiedTimeUnix); } }
+        public DateTime ModifiedTime => FileUtils.FromUnixTime(ModifiedTimeUnix);
 
         /// <summary>
         /// Creates a new file entry.

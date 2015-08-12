@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     {
         /// <inheritdoc/>
         [XmlIgnore]
-        public override bool WindowsMachineWideOnly { get { return false; } }
+        public override bool WindowsMachineWideOnly => false;
 
         /// <summary>
         /// Controls which file system object types this context menu entry is displayed for.
@@ -76,11 +76,7 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs
-        {
-            // Note: Context menu entries are only created via AccessPoints, the capability itself does nothing
-            get { return Enumerable.Empty<string>(); }
-        }
+        public override IEnumerable<string> ConflictIDs => Enumerable.Empty<string>();
 
         #region Conversion
         /// <summary>

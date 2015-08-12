@@ -91,7 +91,7 @@ namespace ZeroInstall.Services.Feeds
         public bool Stale { get; set; }
 
         /// <inheritdoc/>
-        public bool ShouldRefresh { get { return Stale && _config.NetworkUse == NetworkLevel.Full; } }
+        public bool ShouldRefresh => Stale && _config.NetworkUse == NetworkLevel.Full;
 
         protected override Feed Retrieve(FeedUri key)
         {

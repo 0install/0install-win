@@ -28,11 +28,11 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "list";
 
-            protected override string Description { get { return Resources.DescriptionCatalogList; } }
+            protected override string Description => Resources.DescriptionCatalogList;
 
-            protected override string Usage { get { return ""; } }
+            protected override string Usage => "";
 
-            protected override int AdditionalArgsMax { get { return 0; } }
+            protected override int AdditionalArgsMax => 0;
 
             public List([NotNull] ICommandHandler handler) : base(handler)
             {}

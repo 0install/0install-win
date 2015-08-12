@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands.Utils
         }
 
         private static readonly string _installUtilExe = Path.Combine(_runtimeDir, "InstallUtil.exe");
-        private string ServiceExe { get { return Path.Combine(TargetDir, "0store-service.exe"); } }
+        private string ServiceExe => Path.Combine(TargetDir, "0store-service.exe");
 
         /// <summary>
         /// Installs the Zero Install Store Service.

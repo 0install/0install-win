@@ -36,10 +36,10 @@ namespace ZeroInstall.Store.Implementations.Archives
     public abstract class ArchiveExtractor : TaskBase, IDisposable
     {
         /// <inheritdoc/>
-        public override string Name { get { return Resources.ExtractingArchive; } }
+        public override string Name => Resources.ExtractingArchive;
 
         /// <inheritdoc/>
-        protected override bool UnitsByte { get { return true; } }
+        protected override bool UnitsByte => true;
 
         /// <summary>
         /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <c>null</c> to extract entire archive.
@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <see cref="TargetDir"/> and <see cref="Destination"/> combined.
         /// </summary>
         [NotNull]
-        protected string EffectiveTargetDir { get { return string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination); } }
+        protected string EffectiveTargetDir => string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination);
 
         /// <summary>
         /// Indicates whether <see cref="TargetDir"/> is located on a filesystem with support for Unixoid features such as executable bits.

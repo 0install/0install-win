@@ -72,12 +72,12 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// The minimum number of <see cref="AdditionalArgs"/> allowed. Checked in <see cref="Parse"/>.
         /// </summary>
-        protected virtual int AdditionalArgsMin { get { return 0; } }
+        protected virtual int AdditionalArgsMin => 0;
 
         /// <summary>
         /// The maximum number of <see cref="AdditionalArgs"/> allowed. Checked in <see cref="Parse"/>.
         /// </summary>
-        protected virtual int AdditionalArgsMax { get { return int.MaxValue; } }
+        protected virtual int AdditionalArgsMax => int.MaxValue;
 
         /// <summary>
         /// The help text describing the available command-line options and their effects.

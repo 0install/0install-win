@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Model
         }
 
         #region Normalize
-        protected virtual string XmlTagName { get { return "restricts"; } }
+        protected virtual string XmlTagName => "restricts";
 
         /// <summary>
         /// Handles legacy elements (converts <see cref="Constraints"/> to <see cref="Versions"/>).

@@ -62,10 +62,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         [XmlElement("key"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<Key> Keys
-        {
-            get { return _keys; }
-        }
+        public List<Key> Keys => _keys;
 
         /// <summary>
         /// Determines whether a key is trusted for a specific domain.

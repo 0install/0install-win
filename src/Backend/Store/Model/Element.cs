@@ -197,7 +197,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("requires")]
-        public List<Dependency> Dependencies { get { return _dependencies; } }
+        public List<Dependency> Dependencies => _dependencies;
 
         private readonly List<Restriction> _restrictions = new List<Restriction>();
 
@@ -206,7 +206,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("restricts")]
-        public List<Restriction> Restrictions { get { return _restrictions; } }
+        public List<Restriction> Restrictions => _restrictions;
 
         private readonly List<Binding> _bindings = new List<Binding>();
 
@@ -215,7 +215,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public List<Binding> Bindings { get { return _bindings; } }
+        public List<Binding> Bindings => _bindings;
 
         private readonly List<Command> _commands = new List<Command>();
 
@@ -225,7 +225,7 @@ namespace ZeroInstall.Store.Model
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
         [Browsable(false)]
         [XmlElement("command"), NotNull]
-        public List<Command> Commands { get { return _commands; } }
+        public List<Command> Commands => _commands;
 
         /// <summary>
         /// Determines whether <see cref="Commands"/> contains a <see cref="Command"/> with a specific name.

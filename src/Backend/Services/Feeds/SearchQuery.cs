@@ -45,7 +45,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         [XmlElement("result")]
         [NotNull, ItemNotNull]
-        public List<SearchResult> Results { get { return _results; } }
+        public List<SearchResult> Results => _results;
 
         /// <summary>
         /// Performs a feed search query using the <see cref="Config.FeedMirror"/>.

@@ -83,7 +83,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Browsable(false)]
         [XmlIgnore, CanBeNull]
-        public IEnumerable<SelectionCandidate> Candidates { get { return _candidates; } }
+        public IEnumerable<SelectionCandidate> Candidates => _candidates;
 
         /// <summary>
         /// Creates a new implemenetation selection.

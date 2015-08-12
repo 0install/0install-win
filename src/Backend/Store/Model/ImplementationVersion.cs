@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Model
         /// Indicates whether this version number contains a template variable (a substring enclosed in curly brackets, e.g {var}) .
         /// </summary>
         /// <remarks>This must be <c>false</c> in regular feeds; <c>true</c> is only valid for templates.</remarks>
-        public bool ContainsTemplateVariables { get { return _verbatimString != null; } }
+        public bool ContainsTemplateVariables => _verbatimString != null;
 
         /// <summary>
         /// Creates a new implementation version from a a string.

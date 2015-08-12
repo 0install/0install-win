@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         [Browsable(false)]
         [XmlIgnore]
-        public bool IsSuperflous { get { return UserStability == Stability.Unset; } }
+        public bool IsSuperflous => (UserStability == Stability.Unset);
 
         #region Clone
         /// <summary>

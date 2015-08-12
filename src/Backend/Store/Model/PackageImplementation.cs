@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlIgnore, NotNull]
-        public List<string> Distributions { get { return _distributions; } }
+        public List<string> Distributions => _distributions;
 
         /// <summary>
         /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies. Applies everywhere if empty.

@@ -64,7 +64,7 @@ namespace ZeroInstall.Central.WinForms
         public FeedUri InterfaceUri { get; private set; }
 
         /// <inheritdoc/>
-        public string AppName { get { return labelName.Text; } }
+        public string AppName => labelName.Text;
 
         private AppStatus _status;
 

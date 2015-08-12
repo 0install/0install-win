@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("arg"), NotNull]
-        public List<Arg> Arguments { get { return _arguments; } }
+        public List<Arg> Arguments => _arguments;
 
         #region Normalize
         /// <inheritdoc/>

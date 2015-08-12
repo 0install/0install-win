@@ -34,9 +34,9 @@ namespace ZeroInstall.Services
     [TestFixture]
     public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
-        private Mock<IFeedManager> FeedManagereMock { get { return GetMock<IFeedManager>(); } }
-        private Mock<IPackageManager> PackageManagerMock { get { return GetMock<IPackageManager>(); } }
-        private Mock<IStore> StoreMock { get { return GetMock<IStore>(); } }
+        private Mock<IFeedManager> FeedManagereMock => GetMock<IFeedManager>();
+        private Mock<IPackageManager> PackageManagerMock => GetMock<IPackageManager>();
+        private Mock<IStore> StoreMock => GetMock<IStore>();
 
         [Test]
         public void TestGetUncachedSelections()

@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands.CliCommands
     [TestFixture]
     public class ListTest : CliCommandTest<List>
     {
-        private Mock<IFeedCache> FeedCacheMock { get { return GetMock<IFeedCache>(); } }
+        private Mock<IFeedCache> FeedCacheMock => GetMock<IFeedCache>();
 
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]
         public void TestNoArgs()

@@ -104,14 +104,14 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("summary")]
-        public LocalizableStringCollection Summaries { get { return _summaries; } }
+        public LocalizableStringCollection Summaries => _summaries;
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
+        public LocalizableStringCollection Descriptions => _descriptions;
 
         /// <summary>
         /// The main website of the application.
@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon"), NotNull]
-        public List<Icon> Icons { get { return _icons; } }
+        public List<Icon> Icons => _icons;
 
         private readonly List<Category> _categories = new List<Category>();
 
@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("category"), NotNull]
-        public List<Category> Categories { get { return _categories; } }
+        public List<Category> Categories => _categories;
 
         /// <summary>
         /// If <c>true</c>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -185,7 +185,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("feed"), NotNull]
-        public List<FeedReference> Feeds { get { return _feeds; } }
+        public List<FeedReference> Feeds => _feeds;
 
         private readonly List<InterfaceReference> _feedFor = new List<InterfaceReference>();
 
@@ -194,7 +194,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("feed-for"), NotNull]
-        public List<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public List<InterfaceReference> FeedFor => _feedFor;
 
         /// <summary>
         /// This feed's interface <see cref="Uri"/> has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
@@ -211,7 +211,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public List<Element> Elements { get { return _elements; } }
+        public List<Element> Elements => _elements;
 
         private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
 
@@ -220,7 +220,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("entry-point"), NotNull]
-        public List<EntryPoint> EntryPoints { get { return _entryPoints; } }
+        public List<EntryPoint> EntryPoints => _entryPoints;
 
         private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
 
@@ -230,10 +230,7 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<CapabilityList> CapabilityLists
-        {
-            get { return _capabilityLists; }
-        }
+        public List<CapabilityList> CapabilityLists => _capabilityLists;
 
         /// <summary>
         /// Returns the <see cref="Implementation"/> with a specific ID string.

@@ -75,7 +75,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         [Browsable(false)]
         [XmlElement("category"), NotNull]
-        public List<Category> Categories { get { return _categories; } }
+        public List<Category> Categories => _categories;
 
         /// <summary>Used for DataGrid rendering.</summary>
         /// <seealso cref="Categories"/>

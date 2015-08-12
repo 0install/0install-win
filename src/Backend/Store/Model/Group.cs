@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public List<Element> Elements { get { return _elements; } }
+        public List<Element> Elements => _elements;
 
         #region Normalize
         /// <summary>

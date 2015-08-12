@@ -37,6 +37,6 @@ namespace ZeroInstall.Services.Solvers
         /// A list of input <see cref="Feed"/>s for the solver.
         /// </summary>
         [XmlElement("test", typeof(TestCase), Namespace = Feed.XmlNamespace), NotNull]
-        public List<TestCase> TestCases { get { return _testCases; } }
+        public List<TestCase> TestCases => _testCases;
     }
 }

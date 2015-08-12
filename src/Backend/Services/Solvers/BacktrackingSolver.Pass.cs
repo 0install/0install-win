@@ -70,7 +70,7 @@ namespace ZeroInstall.Services.Solvers
             /// The implementations selected by the solver run.
             /// </summary>
             [NotNull]
-            public Selections Selections { get { return _selections; } }
+            public Selections Selections => _selections;
 
             /// <summary>
             /// Try to satisfy the <see cref="_topLevelRequirements"/>. If successful the result can be retrieved from <see cref="Selections"/>.

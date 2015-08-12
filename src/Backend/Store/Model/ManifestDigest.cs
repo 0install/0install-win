@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [CanBeNull]
-        public string Best { get { return AvailableDigests.FirstOrDefault(); } }
+        public string Best => AvailableDigests.FirstOrDefault();
 
         /// <summary>
         /// Contains any unknown hash algorithms specified as pure XML attributes.

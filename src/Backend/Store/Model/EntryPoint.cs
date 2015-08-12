@@ -94,21 +94,21 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("name"), NotNull]
-        public LocalizableStringCollection Names { get { return _names; } }
+        public LocalizableStringCollection Names => _names;
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
 
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("summary")]
-        public LocalizableStringCollection Summaries { get { return _summaries; } }
+        public LocalizableStringCollection Summaries => _summaries;
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
+        public LocalizableStringCollection Descriptions => _descriptions;
 
         private readonly List<Icon> _icons = new List<Icon>();
 
@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon"), NotNull]
-        public List<Icon> Icons { get { return _icons; } }
+        public List<Icon> Icons => _icons;
 
         #region Conversion
         /// <summary>

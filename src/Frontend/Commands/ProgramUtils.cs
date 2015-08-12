@@ -46,12 +46,12 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Indicates whether the application is running from an implementation cache.
         /// </summary>
-        public static bool IsRunningFromCache { get { return StoreUtils.PathInAStore(Locations.InstallBase); } }
+        public static bool IsRunningFromCache => StoreUtils.PathInAStore(Locations.InstallBase);
 
         /// <summary>
         /// Indicates whether the application is running from a user-specific location.
         /// </summary>
-        public static bool IsRunningFromPerUserDir { get { return Locations.InstallBase.StartsWith(Locations.HomeDir); } }
+        public static bool IsRunningFromPerUserDir => Locations.InstallBase.StartsWith(Locations.HomeDir);
 
         /// <summary>
         /// The current UI language; <c>null</c> to use system default.

@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(UrlProtocol))]
-        public List<Capability> Entries { get { return _entries; } }
+        public List<Capability> Entries => _entries;
 
         /// <summary>
         /// Retrieves the first <see cref="Capability"/> that matches a specific type and ID. Safe for missing elements.

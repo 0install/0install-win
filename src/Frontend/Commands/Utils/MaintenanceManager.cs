@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.Utils
         /// <summary>
         /// The name of the cross-process mutex used to signal that a maintenance operation is currently in progress.
         /// </summary>
-        protected override string MutexName { get { return "ZeroInstall.Commands.MaintenanceManager"; } }
+        protected override string MutexName => "ZeroInstall.Commands.MaintenanceManager";
 
         /// <summary>
         /// The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals that a maintenance operation has been performed.

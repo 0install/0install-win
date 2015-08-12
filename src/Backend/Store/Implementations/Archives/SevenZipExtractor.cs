@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         private bool _unitsByte;
 
         /// <inheritdoc/>
-        protected override bool UnitsByte { get { return _unitsByte; } }
+        protected override bool UnitsByte => _unitsByte;
 
         /// <inheritdoc/>
         protected override void Execute()

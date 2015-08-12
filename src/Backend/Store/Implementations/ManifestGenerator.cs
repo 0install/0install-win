@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Implementations
     {
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return string.Format(Resources.GeneratingManifest, Format); } }
+        public override string Name => string.Format(Resources.GeneratingManifest, Format);
 
         /// <summary>
         /// The format of the manifest to generate.
@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Implementations.Manifest"/>; otherwise it's <c>null</c>.
         /// </summary>
-        public Manifest Manifest { get { return new Manifest(Format, _nodes);} }
+        public Manifest Manifest => new Manifest(Format, _nodes);
         #endregion
 
         #region Constructor

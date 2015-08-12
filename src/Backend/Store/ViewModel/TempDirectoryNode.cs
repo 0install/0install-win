@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.ViewModel
         private readonly string _path;
 
         /// <inheritdoc/>
-        public override string Path { get { return _path; } }
+        public override string Path => _path;
 
         /// <summary>
         /// Deletes this temporary directory from the <see cref="IStore"/> it is located in.

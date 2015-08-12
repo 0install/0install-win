@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands.CliCommands
         internal abstract class StoreSubCommand<T> : CliCommandTest<T>
             where T:StoreMan.StoreSubCommand
         {
-            protected Mock<IStore> StoreMock { get { return GetMock<IStore>(); } }
+            protected Mock<IStore> StoreMock => GetMock<IStore>();
         }
 
         [TestFixture]

@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Model
         public long StartOffset { get; set; }
 
         /// <inheritdoc/>
-        public override long DownloadSize { get { return Size + StartOffset; } }
+        public override long DownloadSize => Size + StartOffset;
 
         /// <summary>
         /// The name of the subdirectory in the archive to extract; <c>null</c> or <see cref="string.Empty"/> for entire archive.
@@ -174,7 +174,7 @@ namespace ZeroInstall.Store.Model
             MimeType = GuessMimeType(Href.OriginalString);
         }
 
-        protected override string XmlTagName { get { return "archive"; } }
+        protected override string XmlTagName => "archive";
         #endregion
 
         #region Conversion

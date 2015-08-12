@@ -25,14 +25,14 @@ namespace ZeroInstall.Store.Implementations
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1New"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public static ManifestFormat Sha1New { get { return _sha1New; } }
+        public static ManifestFormat Sha1New => _sha1New;
 
         private static readonly ManifestFormat _sha256 = new Sha256Format();
 
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256"/>.
         /// </summary>
-        public static ManifestFormat Sha256 { get { return _sha256; } }
+        public static ManifestFormat Sha256 => _sha256;
 
         private static readonly ManifestFormat _sha256New = new Sha256NewFormat();
 
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256New"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public static ManifestFormat Sha256New { get { return _sha256New; } }
+        public static ManifestFormat Sha256New => _sha256New;
 
         /// <summary>
         /// All currently supported <see cref="ManifestFormat"/>s listed from best (safest) to worst.
@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementations
         /// The separator placed between the <see cref="Prefix"/> and the actual digest.
         /// </summary>
         [NotNull]
-        public virtual string Separator { get { return "="; } }
+        public virtual string Separator => "=";
 
         /// <inheritdoc/>
         public override string ToString()
@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Implementations
         [Serializable]
         private class Sha1NewFormat : ManifestFormat
         {
-            public override string Prefix { get { return "sha1new"; } }
+            public override string Prefix => "sha1new";
 
             protected override HashAlgorithm GetHashAlgorithm()
             {
@@ -176,7 +176,7 @@ namespace ZeroInstall.Store.Implementations
         [Serializable]
         private class Sha256Format : ManifestFormat
         {
-            public override string Prefix { get { return "sha256"; } }
+            public override string Prefix => "sha256";
 
             protected override HashAlgorithm GetHashAlgorithm()
             {
@@ -190,9 +190,9 @@ namespace ZeroInstall.Store.Implementations
         [Serializable]
         private class Sha256NewFormat : ManifestFormat
         {
-            public override string Prefix { get { return "sha256new"; } }
+            public override string Prefix => "sha256new";
 
-            public override string Separator { get { return "_"; } }
+            public override string Separator => "_";
 
             protected override HashAlgorithm GetHashAlgorithm()
             {

@@ -38,7 +38,7 @@ namespace ZeroInstall.Services.PackageManagers
         }
 
         /// <inheritdoc/>
-        protected override string DistributionName { get { return "Windows"; } }
+        protected override string DistributionName => "Windows";
 
         /// <inheritdoc/>
         protected override IEnumerable<ExternalImplementation> GetImplementations(string packageName)

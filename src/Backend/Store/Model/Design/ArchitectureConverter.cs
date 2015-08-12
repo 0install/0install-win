@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Model.Design
         }
 
         /// <inheritdoc/>
-        protected override int NoArguments { get { return 2; } }
+        protected override int NoArguments => 2;
 
         /// <inheritdoc/>
         protected override ConstructorInfo GetConstructor()

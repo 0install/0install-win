@@ -300,10 +300,6 @@ namespace PackageManagement.Sdk {
             }
         }
 
-        public IEnumerable<string> PackageSources {
-            get {
-                return _packageSources ?? (_packageSources = (Sources ?? new string[0]).ToArray());
-            }
-        }
+        public IEnumerable<string> PackageSources => _packageSources ?? (_packageSources = (Sources ?? new string[0]).ToArray());
     }
 }

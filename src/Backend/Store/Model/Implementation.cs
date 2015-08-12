@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(Recipe))]
         [NotNull]
-        public List<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
+        public List<RetrievalMethod> RetrievalMethods => _retrievalMethods;
 
         #region Normalize
         /// <summary>

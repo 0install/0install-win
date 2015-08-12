@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
+        public LocalizableStringCollection Descriptions => _descriptions;
 
         #region Conversion
         /// <summary>

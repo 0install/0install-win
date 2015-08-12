@@ -29,7 +29,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <summary>
         /// Returns <see cref="DefaultProgram.Service"/>.
         /// </summary>
-        public string Service { get { return _defaultProgram.Service; } }
+        public string Service => _defaultProgram.Service;
 
         /// <inheritdoc/>
         public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)

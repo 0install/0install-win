@@ -78,14 +78,14 @@ namespace ZeroInstall.Store.Model.Selection
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Used for XML serialization")]
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection"), NotNull]
-        public List<ImplementationSelection> Implementations { get { return _implementations; } }
+        public List<ImplementationSelection> Implementations => _implementations;
 
         /// <summary>
         /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceUri"/>.
         /// </summary>
         /// <exception cref="KeyNotFoundException">No <see cref="ImplementationSelection"/> matching <see cref="InterfaceUri"/> was found in <see cref="Implementations"/>.</exception>
         [XmlIgnore]
-        public ImplementationSelection MainImplementation { get { return this[InterfaceUri]; } }
+        public ImplementationSelection MainImplementation => this[InterfaceUri];
 
         /// <summary>
         /// Creates an empty selections document.

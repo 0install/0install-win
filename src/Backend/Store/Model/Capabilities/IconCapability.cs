@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
+        public LocalizableStringCollection Descriptions => _descriptions;
 
         private readonly List<Icon> _icons = new List<Icon>();
 
@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon", Namespace = Feed.XmlNamespace), NotNull]
-        public List<Icon> Icons { get { return _icons; } }
+        public List<Icon> Icons => _icons;
 
         /// <summary>
         /// Returns the first icon with a specific MIME type.

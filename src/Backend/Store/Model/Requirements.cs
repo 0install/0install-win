@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
         [Description("The preferred languages for the implementation.")]
         [XmlIgnore, JsonIgnore]
-        public LanguageSet Languages { get { return _languages; } }
+        public LanguageSet Languages => _languages;
 
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
         [XmlIgnore, JsonProperty("extra_restrictions"), NotNull]
-        public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
+        public Dictionary<FeedUri, VersionRange> ExtraRestrictions => _extraRestrictions;
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
         private readonly List<string> _distributions = new List<string>();

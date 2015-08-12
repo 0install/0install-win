@@ -32,20 +32,13 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "search";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionSearch; } }
+        protected override string Description => Resources.DescriptionSearch;
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "QUERY"; } }
+        protected override string Usage => "QUERY";
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMin
-        {
-            get
-            {
-                // GUI handlers may allow the user to enter search queries after launching
-                return (Handler is CliCommandHandler) ? 1 : 0;
-            }
-        }
+        protected override int AdditionalArgsMin => (Handler is CliCommandHandler) ? 1 : 0;
         #endregion
 
         /// <inheritdoc/>
