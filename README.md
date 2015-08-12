@@ -1,6 +1,15 @@
-Directory structure
-===================
+Zero Install
+============
+Zero Install is a decentralized cross-platform software-installation system available under the LGPL. Visit http://0install.de/ for more information.
 
+
+Developer information
+---------------------
+See http://0install.de/dev/ for information development tools, build servers, API docs, etc..
+
+
+Source directory structure
+--------------------------
 - The directory `src` contains the Visual Studio solution with the actual source code.
 - The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code and developer documentation.
@@ -25,10 +34,8 @@ Directory structure
 Keep in sync with the version numbers in `ZeroInstall.xml`, `ZeroInstall_Tools.xml`, `ZeroInstall_Updater.xml`, `src/AssemblyInfo.Global.cs`, `src/Updater/AssemblyInfo.Updater.cs` and `src/Frontend/OneGet/oneget.manifest`!
 
 
-
-Windows
-=======
-
+Building on Windows
+-------------------
 The external solver (required) is not included in the repository. To get it run `bundled/download-solver.ps1`.
 
 `build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
@@ -37,10 +44,8 @@ Note: Please read `installer/readme.txt` as well for information about required 
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 
 
-
-Linux
-=====
-
+Building on Linux
+-----------------
 The external solver (required) is not included in the repository. To get it run `bundled/download-solver.sh`.
 
 `build.sh` will perform a partial debug compilation using Mono's xbuild. A installer package will not be built.
@@ -51,10 +56,8 @@ The external solver (required) is not included in the repository. To get it run 
 Note: You must perform a Debug build first (using `src/build.sh`) before you can run the unit tests.
 
 
-
 Environment variables
-=====================
-
+---------------------
 - `ZEROINSTALL_PORTABLE_BASE`: Set by the C# code to to inform the Python code of Portable mode.
 - `ZEROINSTALL_EXTERNAL_FETCHER`: Set by the C# code to make the Python code delegate downloading files back to the C# implementation.
 - `ZEROINSTALL_EXTERNAL_STORE`: Set by the C# code to make the Python code delegate extracting archives back to the C# implementation.
