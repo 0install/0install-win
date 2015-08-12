@@ -117,11 +117,11 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = (Reinstall ?? "").GetHashCode();
-                result = (result * 397) ^ (ReinstallArgs ?? "").GetHashCode();
-                result = (result * 397) ^ (ShowIcons ?? "").GetHashCode();
-                result = (result * 397) ^ (ShowIconsArgs ?? "").GetHashCode();
-                result = (result * 397) ^ (HideIcons ?? "").GetHashCode();
-                result = (result * 397) ^ (HideIconsArgs ?? "").GetHashCode();
+                result = (result * 397) ^ ReinstallArgs?.GetHashCode() ?? 0;
+                result = (result * 397) ^ ShowIcons?.GetHashCode() ?? 0;
+                result = (result * 397) ^ ShowIconsArgs?.GetHashCode() ?? 0;
+                result = (result * 397) ^ HideIcons?.GetHashCode() ?? 0;
+                result = (result * 397) ^ HideIconsArgs?.GetHashCode() ?? 0;
                 return result;
             }
         }

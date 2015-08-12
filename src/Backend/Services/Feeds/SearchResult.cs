@@ -47,7 +47,7 @@ namespace ZeroInstall.Services.Feeds
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [Browsable(false)]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public string UriString { get { return Uri?.ToStringRfc(); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
         #endregion
 
         /// <summary>

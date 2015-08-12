@@ -152,25 +152,25 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public string UriString { get { return Uri?.ToStringRfc(); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="CatalogUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [Browsable(false)]
         [XmlAttribute("catalog-uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string CatalogUriString { get { return (CatalogUri == null ? null : CatalogUri.ToStringRfc()); } set { CatalogUri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public string CatalogUriString { get { return CatalogUri?.ToStringRfc(); } set { CatalogUri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="MinInjectorVersion"/>
         [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string MinInjectorVersionString { get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        public string MinInjectorVersionString { get { return MinInjectorVersion?.ToString(); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Homepage"/>
         [DisplayName(@"Homepage"), Category("Interface"), Description("The main website of the application.")]
         [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HomepageString { get { return Homepage != null ? Homepage.ToStringRfc() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
+        public string HomepageString { get { return Homepage?.ToStringRfc(); } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NeedsTerminal"/>
@@ -292,11 +292,8 @@ namespace ZeroInstall.Store.Model
             if (command == null) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
-            if (entryPoint != null)
-            {
-                string name = entryPoint.Names.GetBestLanguage(language);
-                if (!string.IsNullOrEmpty(name)) return name;
-            }
+            string name = entryPoint?.Names.GetBestLanguage(language);
+            if (!string.IsNullOrEmpty(name)) return name;
 
             return (command == Command.NameRun) ? Name : Name + " " + command;
         }
@@ -317,11 +314,8 @@ namespace ZeroInstall.Store.Model
             if (command == null) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
-            if (entryPoint != null)
-            {
-                string summary = entryPoint.Summaries.GetBestLanguage(language);
-                if (!string.IsNullOrEmpty(summary)) return summary;
-            }
+            string summary = entryPoint?.Summaries.GetBestLanguage(language);
+            if (!string.IsNullOrEmpty(summary)) return summary;
 
             return Summaries.GetBestLanguage(language);
         }
@@ -342,11 +336,8 @@ namespace ZeroInstall.Store.Model
             if (command == null) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
-            if (entryPoint != null)
-            {
-                var commandIcon = entryPoint.Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-                if (commandIcon != null) return commandIcon;
-            }
+            var commandIcon = entryPoint?.Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
+            if (commandIcon != null) return commandIcon;
 
             return Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
         }
@@ -506,12 +497,12 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Uri != null) result = (result * 397) ^ Uri.GetHashCode();
-                if (MinInjectorVersion != null) result = (result * 397) ^ MinInjectorVersion.GetHashCode();
-                if (Name != null) result = (result * 397) ^ Name.GetHashCode();
+                result = (result * 397) ^ Uri?.GetHashCode() ?? 0;
+                result = (result * 397) ^ MinInjectorVersion?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Name?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Summaries.GetUnsequencedHashCode();
                 result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
-                if (Homepage != null) result = (result * 397) ^ Homepage.GetHashCode();
+                result = (result * 397) ^ Homepage?.GetHashCode() ?? 0;
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
                 result = (result * 397) ^ Categories.GetUnsequencedHashCode();

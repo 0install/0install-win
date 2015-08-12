@@ -139,7 +139,7 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (MinimumRuntimeVersion != null ? MinimumRuntimeVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (MinimumRuntimeVersion?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (int)RuntimeType;
                 hashCode = (hashCode * 397) ^ ExternalDependencies.GetHashCode();
                 return hashCode;

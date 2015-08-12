@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
         #endregion
 
         /// <summary>
@@ -223,8 +223,8 @@ namespace ZeroInstall.Store.Model.Selection
             unchecked
             {
                 int result = base.GetHashCode();
-                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
-                if (Command != null) result = (result * 397) ^ Command.GetHashCode();
+                result = (result * 397) ^ InterfaceUri?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Command?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
                 return result;
             }

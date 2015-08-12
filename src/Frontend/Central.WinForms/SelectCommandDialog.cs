@@ -105,7 +105,7 @@ namespace ZeroInstall.Central.WinForms
         {
             // Differentiate between entry point describing a command and a direct command
             var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            string command = (entryPoint == null) ? comboBoxCommand.Text : entryPoint.GetCommand();
+            string command = entryPoint?.GetCommand() ?? comboBoxCommand.Text;
 
             try
             {

@@ -245,7 +245,7 @@ namespace ZeroInstall.DesktopIntegration
         private void TestSync(SyncResetMode resetMode, AppList appListLocal, AppList appListLast, AppList appListServer)
         {
             appListLocal.SaveXml(_appListPath);
-            if (appListLast != null) appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
+            appListLast?.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
 
             using (var stream = File.Create(_appListPath + ".zip"))
                 appListServer.SaveXmlZip(stream);

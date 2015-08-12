@@ -69,8 +69,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Command != null ? Command.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Command?.GetHashCode() ?? 0);
                 return hashCode;
             }
         }

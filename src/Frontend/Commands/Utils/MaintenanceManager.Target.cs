@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands.Utils
         /// </summary>
         private void TargetMutexRelease()
         {
-            if (_targetMutex != null) _targetMutex.Close();
+            _targetMutex?.Close();
         }
 
         private void DeleteObsoleteInstallerFiles()

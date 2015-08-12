@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands
                 }
                 return null;
             }
-            set { RegistryUtils.SetSoftwareString("Zero Install", "Language", (value == null) ? "" : value.ToString()); }
+            set { RegistryUtils.SetSoftwareString("Zero Install", "Language", value?.ToString() ?? ""); }
         }
 
         /// <summary>

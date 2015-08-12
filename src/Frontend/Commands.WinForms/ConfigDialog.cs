@@ -456,7 +456,7 @@ namespace ZeroInstall.Commands.WinForms
         private void SaveLanguage()
         {
             var lang = comboBoxLanguage.SelectedItem as LanguageWrapper;
-            ProgramUtils.UILanguage = (lang == null ? null : lang.Culture);
+            ProgramUtils.UILanguage = lang?.Culture;
         }
         #endregion
     }

@@ -106,7 +106,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Category ?? "").GetHashCode();
+                result = (result * 397) ^ Category?.GetHashCode() ?? 0;
                 return result;
             }
         }

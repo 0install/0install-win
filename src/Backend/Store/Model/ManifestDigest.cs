@@ -247,10 +247,10 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                int result = (Sha1 != null ? Sha1.GetHashCode() : 0);
-                result = (result * 397) ^ (Sha1New != null ? Sha1New.GetHashCode() : 0);
-                result = (result * 397) ^ (Sha256 != null ? Sha256.GetHashCode() : 0);
-                result = (result * 397) ^ (Sha256New != null ? Sha256New.GetHashCode() : 0);
+                int result = Sha1?.GetHashCode() ?? 0;
+                result = (result * 397) ^ (Sha1New?.GetHashCode() ?? 0);
+                result = (result * 397) ^ (Sha256?.GetHashCode() ?? 0);
+                result = (result * 397) ^ (Sha256New?.GetHashCode() ?? 0);
                 return result;
             }
         }

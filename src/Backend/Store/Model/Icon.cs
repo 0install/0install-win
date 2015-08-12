@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Href"), Description("The URL used to locate the icon.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return (Href == null ? null : Href.ToStringRfc()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
+        public string HrefString { get { return Href?.ToStringRfc(); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
         #endregion
 
         /// <summary>
@@ -136,8 +136,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Href != null) result = (result * 397) ^ Href.GetHashCode();
-                if (MimeType != null) result = (result * 397) ^ MimeType.GetHashCode();
+                result = (result * 397) ^ Href?.GetHashCode() ?? 0;
+                result = (result * 397) ^ MimeType?.GetHashCode() ?? 0;
                 return result;
             }
         }

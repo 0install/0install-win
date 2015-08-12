@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Trust
         {
             try
             {
-                return secretKey.ExtractPrivateKey((passphrase == null) ? null : passphrase.ToCharArray());
+                return secretKey.ExtractPrivateKey(passphrase?.ToCharArray());
             }
             catch (PgpException)
             {

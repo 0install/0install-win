@@ -55,12 +55,12 @@ namespace ZeroInstall.Store.Model.Selection
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="FromFeed"/>
         [XmlAttribute("from-feed"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string FromFeedString { get { return (FromFeed == null) ? null : FromFeed.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
+        public string FromFeedString { get { return FromFeed?.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// Used for XML serialization.
@@ -154,9 +154,9 @@ namespace ZeroInstall.Store.Model.Selection
             unchecked
             {
                 int result = base.GetHashCode();
-                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
-                if (FromFeed != null) result = (result * 397) ^ FromFeed.GetHashCode();
-                if (QuickTestFile != null) result = (result * 397) ^ QuickTestFile.GetHashCode();
+                result = (result * 397) ^ InterfaceUri?.GetHashCode() ?? 0;
+                result = (result * 397) ^ FromFeed?.GetHashCode() ?? 0;
+                result = (result * 397) ^ QuickTestFile?.GetHashCode() ?? 0;
                 return result;
             }
         }

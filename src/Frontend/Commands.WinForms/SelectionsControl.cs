@@ -101,7 +101,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
-                tableLayout.Controls.Add(new Label {Text = (implementation.Version == null ? null : implementation.Version.ToString()), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
+                tableLayout.Controls.Add(new Label {Text = implementation.Version?.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
             }
         }
         #endregion

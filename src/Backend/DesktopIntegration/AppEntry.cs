@@ -90,12 +90,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
 
         /// <summary>Used for XML+JSON serialization.</summary>
         /// <seealso cref="Requirements"/>
         [XmlElement("requirements-json"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string RequirementsJson { get { return (Requirements == null) ? null : Requirements.ToJsonString(); } set { Requirements = JsonStorage.FromJsonString<Requirements>(value); } }
+        public string RequirementsJson { get { return Requirements?.ToJsonString(); } set { Requirements = JsonStorage.FromJsonString<Requirements>(value); } }
         #endregion
 
         private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
@@ -219,12 +219,12 @@ namespace ZeroInstall.DesktopIntegration
             unchecked
             {
                 int result = base.GetHashCode();
-                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
-                if (Name != null) result = (result * 397) ^ Name.GetHashCode();
+                result = (result * 397) ^ InterfaceUri?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Name?.GetHashCode() ?? 0;
                 result = (result * 397) ^ AutoUpdate.GetHashCode();
-                if (Requirements != null) result = (result * 397) ^ Requirements.GetHashCode();
+                result = (result * 397) ^ Requirements?.GetHashCode() ?? 0;
                 result = (result * 397) ^ CapabilityLists.GetUnsequencedHashCode();
-                if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
+                result = (result * 397) ^ AccessPoints?.GetHashCode() ?? 0;
                 return result;
             }
         }

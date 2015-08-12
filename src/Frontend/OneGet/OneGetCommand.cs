@@ -331,10 +331,10 @@ namespace ZeroInstall.OneGet
             _request.YieldSoftwareIdentity(
                 fastPath: requirements.ToJsonString(),
                 name: feed.Name,
-                version: (implementation == null || implementation.Version == null) ? null : implementation.Version.ToString(),
+                version: implementation?.Version?.ToString(),
                 versionScheme: null,
                 summary: feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture),
-                source: (sourceUri == null) ? null : sourceUri.ToStringRfc(),
+                source: sourceUri?.ToStringRfc(),
                 searchKey: feed.Name,
                 fullPath: null,
                 packageFileName: feed.Name);

@@ -97,10 +97,10 @@ namespace ZeroInstall.Services.PackageManagers
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Distro != null) result = (result * 397) ^ Distro.GetHashCode();
-                if (PackageID != null) result = (result * 397) ^ PackageID.GetHashCode();
+                result = (result * 397) ^ Distro?.GetHashCode() ?? 0;
+                result = (result * 397) ^ PackageID?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Size.GetHashCode();
-                if (ConfirmationQuestion != null) result = (result * 397) ^ ConfirmationQuestion.GetHashCode();
+                result = (result * 397) ^ ConfirmationQuestion?.GetHashCode() ?? 0;
                 return result;
             }
         }

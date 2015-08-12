@@ -296,7 +296,7 @@ namespace ZeroInstall.Commands.WinForms
             _cancellationTokenSource.Cancel();
 
             // Unblock any waiting thread
-            if (_modifySelectionsWaitHandle != null) _modifySelectionsWaitHandle.Set();
+            _modifySelectionsWaitHandle?.Set();
         }
 
         /// <summary>

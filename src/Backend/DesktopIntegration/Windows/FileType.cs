@@ -227,8 +227,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         {
                             using (var openWithKey = extensionKey.OpenSubKey(RegSubKeyOpenWith, writable: true))
                             {
-                                if (openWithKey != null)
-                                    openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);
+                                openWithKey?.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);
                             }
                         }
 

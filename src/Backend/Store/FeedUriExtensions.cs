@@ -36,9 +36,9 @@ namespace ZeroInstall.Store
             #endregion
 
             return new PropertyPointer<string>(
-                getValue: () => (pointer.Value == null) ? null : pointer.Value.ToStringRfc(),
+                getValue: () => pointer.Value?.ToStringRfc(),
                 setValue: value => pointer.Value = (value == null) ? null : new FeedUri(value),
-                defaultValue: (pointer.DefaultValue == null) ? null : pointer.DefaultValue.ToStringRfc());
+                defaultValue: pointer.DefaultValue?.ToStringRfc());
         }
     }
 }

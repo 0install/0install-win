@@ -90,7 +90,7 @@ namespace ZeroInstall.DesktopIntegration
             unchecked
             {
                 int result = AccessPoint.GetHashCode();
-                if (AppEntry != null && AppEntry.InterfaceUri != null) result = (result * 397) ^ AppEntry.InterfaceUri.GetHashCode();
+                result = (result * 397) ^ AppEntry?.InterfaceUri?.GetHashCode() ?? 0;
                 return result;
             }
         }

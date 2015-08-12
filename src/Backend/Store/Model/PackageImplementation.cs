@@ -172,7 +172,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Package != null) result = (result * 397) ^ Package.GetHashCode();
+                result = (result * 397) ^ Package?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
                 return result;
             }

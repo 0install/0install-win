@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                result = (result * 397) ^ Name?.GetHashCode() ?? 0;
                 return result;
             }
         }

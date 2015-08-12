@@ -50,7 +50,7 @@ namespace ZeroInstall.Publish
             get { return _temporaryDirectory; }
             set
             {
-                if (_temporaryDirectory != null) _temporaryDirectory.Dispose();
+                _temporaryDirectory?.Dispose();
                 _temporaryDirectory = value;
             }
         }
@@ -69,7 +69,7 @@ namespace ZeroInstall.Publish
             // Do not trigger via GC
             if (!disposing) return;
 
-            if (_temporaryDirectory != null) _temporaryDirectory.Dispose();
+            _temporaryDirectory?.Dispose();
         }
 
         /// <summary>

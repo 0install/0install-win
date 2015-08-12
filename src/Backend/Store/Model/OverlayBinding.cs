@@ -94,8 +94,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Source ?? "").GetHashCode();
-                result = (result * 397) ^ (MountPoint ?? "").GetHashCode();
+                result = (result * 397) ^ Source?.GetHashCode() ?? 0;
+                result = (result * 397) ^ MountPoint?.GetHashCode() ?? 0;
                 return result;
             }
         }

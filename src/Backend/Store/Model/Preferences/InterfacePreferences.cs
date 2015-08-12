@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model.Preferences
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Description("The URI of the interface to be configured.")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public String UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public String UriString { get { return Uri?.ToStringRfc(); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
         #endregion
 
         private Stability _stabilityPolicy = Stability.Unset;
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Model.Preferences
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Uri != null) result = (result * 397) ^ Uri.GetHashCode();
+                result = (result * 397) ^ Uri?.GetHashCode() ?? 0;
                 result = (result * 397) ^ StabilityPolicy.GetHashCode();
                 result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
                 return result;

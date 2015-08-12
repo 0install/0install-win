@@ -165,8 +165,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     using (var eventKey = hive.OpenSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name, writable: true))
                     {
-                        if (eventKey != null)
-                            eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
+                        eventKey?.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
                     }
                 }
 

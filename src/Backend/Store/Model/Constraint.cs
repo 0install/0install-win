@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Before"/>
         [XmlAttribute("before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string BeforeString { get { return (Before == null ? null : Before.ToString()); } set { Before = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        public string BeforeString { get { return Before?.ToString(); } set { Before = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
         #endregion
 
         #region Conversion
@@ -103,8 +103,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (NotBefore != null) result = (result * 397) ^ NotBefore.GetHashCode();
-                if (Before != null) result = (result * 397) ^ Before.GetHashCode();
+                result = (result * 397) ^ NotBefore?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Before?.GetHashCode() ?? 0;
                 return result;
             }
         }

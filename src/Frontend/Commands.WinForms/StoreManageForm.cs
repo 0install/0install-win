@@ -117,7 +117,7 @@ namespace ZeroInstall.Commands.WinForms
                 Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
                 Close();
             }
-            else if (ex != null) ex.Rethrow();
+            else ex?.Rethrow();
             #endregion
 
             var nodeListBuilder = (CacheNodeBuilder)e.Result;
@@ -135,12 +135,12 @@ namespace ZeroInstall.Commands.WinForms
         #region Event handlers
         private void OnSelectedEntryChanged(object sender, EventArgs e)
         {
-            var node = (_treeView.SelectedEntry == null) ? null : _treeView.SelectedEntry.BackingNode;
+            var node = _treeView.SelectedEntry?.BackingNode;
             propertyGrid.SelectedObject = node;
 
             // Update current entry size
             var implementationEntry = node as ImplementationNode;
-            textCurrentSize.Text = (implementationEntry != null) ? implementationEntry.Size.FormatBytes(CultureInfo.CurrentCulture) : "-";
+            textCurrentSize.Text = implementationEntry?.Size.FormatBytes(CultureInfo.CurrentCulture) ?? "-";
         }
 
         private void OnCheckedEntriesChanged(object sender, EventArgs e)

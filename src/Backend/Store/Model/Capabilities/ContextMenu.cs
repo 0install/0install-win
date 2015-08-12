@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ Target.GetHashCode();
-                if (Verb != null) result = (result * 397) ^ Verb.GetHashCode();
+                result = (result * 397) ^ Verb?.GetHashCode() ?? 0;
                 return result;
             }
         }

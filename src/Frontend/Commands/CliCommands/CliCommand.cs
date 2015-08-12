@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands.CliCommands
             get
             {
                 var field = GetType().GetField("Name", BindingFlags.Public | BindingFlags.Static);
-                return (field == null) ? null : field.GetValue(null).ToString();
+                return field?.GetValue(null).ToString();
             }
         }
 

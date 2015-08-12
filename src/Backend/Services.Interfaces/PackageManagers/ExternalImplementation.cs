@@ -137,7 +137,7 @@ namespace ZeroInstall.Services.PackageManagers
                 int result = base.GetHashCode();
                 result = (result * 397) ^ Distribution.GetHashCode();
                 result = (result * 397) ^ Package.GetHashCode();
-                if (QuickTestFile != null) result = (result * 397) ^ QuickTestFile.GetHashCode();
+                result = (result * 397) ^ QuickTestFile?.GetHashCode() ?? 0;
                 return result;
             }
         }

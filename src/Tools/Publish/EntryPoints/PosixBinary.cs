@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.EntryPoints
             {}
             finally
             {
-                if (elfData != null) elfData.Dispose();
+                elfData?.Dispose();
             }
 
             return true;

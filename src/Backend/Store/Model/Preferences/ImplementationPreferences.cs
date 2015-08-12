@@ -98,7 +98,7 @@ namespace ZeroInstall.Store.Model.Preferences
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (ID ?? "").GetHashCode();
+                result = (result * 397) ^ ID?.GetHashCode() ?? 0;
                 result = (result * 397) ^ (int)UserStability;
                 return result;
             }

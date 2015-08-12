@@ -246,7 +246,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
 
             // Remove leading slashes left over after trimming away the SubDir
-            if (entryName != null) entryName = entryName.TrimStart(Path.DirectorySeparatorChar);
+            entryName = entryName?.TrimStart(Path.DirectorySeparatorChar);
 
             return entryName;
         }

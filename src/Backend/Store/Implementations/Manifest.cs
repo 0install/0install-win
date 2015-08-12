@@ -294,9 +294,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public bool Equals(Manifest other)
         {
-            if (other == null) return false;
-
-            if (_nodes.Length != other._nodes.Length) return false;
+            if (_nodes.Length != other?._nodes.Length) return false;
 
             // If any node pair does not match, the manifests are not equal
             for (int i = 0; i < _nodes.Length; i++)

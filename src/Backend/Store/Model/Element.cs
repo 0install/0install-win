@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string VersionString { get { return (Version == null ? null : Version.ToString()); } set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        public string VersionString { get { return Version?.ToString(); } set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
         #endregion
 
         /// <seealso cref="VersionString"/>
@@ -401,14 +401,14 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Version != null ? Version.GetHashCode() : 0);
-                result = (result * 397) ^ (VersionModifier != null ? VersionModifier.GetHashCode() : 0);
+                result = (result * 397) ^ (Version?.GetHashCode() ?? 0);
+                result = (result * 397) ^ (VersionModifier?.GetHashCode() ?? 0);
                 result = (result * 397) ^ Released.GetHashCode();
-                if (ReleasedVerbatim != null) result = (result * 397) ^ ReleasedVerbatim.GetHashCode();
-                result = (result * 397) ^ (License ?? "").GetHashCode();
-                result = (result * 397) ^ (Main ?? "").GetHashCode();
-                result = (result * 397) ^ (SelfTest ?? "").GetHashCode();
-                result = (result * 397) ^ (DocDir ?? "").GetHashCode();
+                result = (result * 397) ^ ReleasedVerbatim?.GetHashCode() ?? 0;
+                result = (result * 397) ^ License?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Main?.GetHashCode() ?? 0;
+                result = (result * 397) ^ SelfTest?.GetHashCode() ?? 0;
+                result = (result * 397) ^ DocDir?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Commands.GetUnsequencedHashCode();
                 result = (result * 397) ^ Dependencies.GetUnsequencedHashCode();
                 result = (result * 397) ^ Restrictions.GetUnsequencedHashCode();

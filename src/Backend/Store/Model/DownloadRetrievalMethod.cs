@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Href"/>
         [DisplayName(@"Href"), Description("The URL to download the file from. Relative URLs are only allowed in local feed files.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return (Href == null ? null : Href.ToStringRfc()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute)); } }
+        public string HrefString { get { return Href?.ToStringRfc(); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute)); } }
         #endregion
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Href != null) result = (result * 397) ^ Href.GetHashCode();
+                result = (result * 397) ^ Href?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Size.GetHashCode();
                 return result;
             }

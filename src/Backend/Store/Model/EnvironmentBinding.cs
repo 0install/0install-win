@@ -140,12 +140,12 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (Value ?? "").GetHashCode();
-                result = (result * 397) ^ (Insert ?? "").GetHashCode();
+                result = (result * 397) ^ Name?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Value?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Insert?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Mode.GetHashCode();
-                result = (result * 397) ^ (Separator ?? "").GetHashCode();
-                result = (result * 397) ^ (Default ?? "").GetHashCode();
+                result = (result * 397) ^ Separator?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Default?.GetHashCode() ?? 0;
                 return result;
             }
         }

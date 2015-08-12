@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Model
 
         public override int GetHashCode()
         {
-            return (_decimals != null ? _decimals.GetSequencedHashCode() : 0);
+            return _decimals?.GetSequencedHashCode() ?? 0;
         }
         #endregion
 

@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands
 
             AppEntry appEntry;
             AddAlias.GetAppAlias(appList, aliasName, out appEntry);
-            if (appEntry == null || appEntry.InterfaceUri == null) throw new UriFormatException(string.Format(Resources.AliasNotFound, aliasName));
+            if (appEntry?.InterfaceUri == null) throw new UriFormatException(string.Format(Resources.AliasNotFound, aliasName));
             return appEntry.InterfaceUri;
         }
 

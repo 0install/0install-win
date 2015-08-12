@@ -93,8 +93,7 @@ namespace ZeroInstall
         {
             _redirect.Dispose();
 
-            var diposable = Target as IDisposable;
-            if (diposable != null) diposable.Dispose();
+            (Target as IDisposable)?.Dispose();
 
             base.TearDown();
         }

@@ -265,7 +265,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void labelNotificationBar_Click(object sender, EventArgs e)
         {
-            if (_notificationBarClickHandler != null) _notificationBarClickHandler();
+            _notificationBarClickHandler?.Invoke();
         }
         #endregion
 

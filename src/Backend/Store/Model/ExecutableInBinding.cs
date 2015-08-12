@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Command != null) result = (result * 397) ^ Command.GetHashCode();
+                result = (result * 397) ^ Command?.GetHashCode() ?? 0;
                 return result;
             }
         }

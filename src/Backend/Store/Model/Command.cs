@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Model
             if (FilterMismatch(WorkingDir)) WorkingDir = null;
 
             foreach (var argument in Arguments) argument.Normalize();
-            if (Runner != null) Runner.Normalize();
+            Runner?.Normalize();
             foreach (var dependency in Dependencies) dependency.Normalize();
             foreach (var restriction in Restrictions) restriction.Normalize();
         }
@@ -206,14 +206,14 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (Path ?? "").GetHashCode();
+                result = (result * 397) ^ Name?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Path?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Arguments.GetSequencedHashCode();
                 result = (result * 397) ^ Bindings.GetUnsequencedHashCode();
-                if (WorkingDir != null) result = (result * 397) ^ WorkingDir.GetHashCode();
+                result = (result * 397) ^ WorkingDir?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Dependencies.GetUnsequencedHashCode();
                 result = (result * 397) ^ Restrictions.GetUnsequencedHashCode();
-                if (Runner != null) result = (result * 397) ^ Runner.GetHashCode();
+                result = (result * 397) ^ Runner?.GetHashCode() ?? 0;
                 return result;
             }
         }

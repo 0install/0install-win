@@ -262,7 +262,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return ((_startVersion != null ? _startVersion.GetHashCode() : 0) * 397) ^ (_endVersion != null ? _endVersion.GetHashCode() : 0);
+                return ((_startVersion?.GetHashCode() ?? 0) * 397) ^ (_endVersion?.GetHashCode() ?? 0);
             }
         }
         #endregion

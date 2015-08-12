@@ -108,7 +108,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (InterpreterVersions != null ? InterpreterVersions.GetHashCode() : 0);
+                return (base.GetHashCode() * 397) ^ (InterpreterVersions?.GetHashCode() ?? 0);
             }
         }
         #endregion

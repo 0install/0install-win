@@ -144,8 +144,7 @@ namespace ZeroInstall.Store.Model
                 if (StringUtils.EqualsIgnoreCase(feed.Name.Replace(' ', '-'), shortName)) return feed;
 
                 var entryPoint = feed.GetEntryPoint();
-                if (entryPoint != null && !string.IsNullOrEmpty(entryPoint.BinaryName) &&
-                    StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName))
+                if (!string.IsNullOrEmpty(entryPoint?.BinaryName) && StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName))
                     return feed;
             }
 

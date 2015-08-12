@@ -98,11 +98,11 @@ namespace ZeroInstall.Store.Implementations.Archives
             unchecked
             {
                 // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
-                int hashCode = (SubDir != null ? SubDir.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Destination != null ? Destination.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
+                int hashCode = SubDir?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ (Destination?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (MimeType?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ StartOffset.GetHashCode();
-                hashCode = (hashCode * 397) ^ (OriginalSource != null ? OriginalSource.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (OriginalSource?.GetHashCode() ?? 0);
                 return hashCode;
             }
         }

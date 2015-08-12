@@ -104,9 +104,9 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Value ?? "").GetHashCode();
-                result = (result * 397) ^ (MimeType ?? "").GetHashCode();
-                result = (result * 397) ^ (PerceivedType ?? "").GetHashCode();
+                result = (result * 397) ^ Value?.GetHashCode() ?? 0;
+                result = (result * 397) ^ MimeType?.GetHashCode() ?? 0;
+                result = (result * 397) ^ PerceivedType?.GetHashCode() ?? 0;
                 return result;
             }
         }

@@ -118,8 +118,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (ItemFrom != null) result = (result * 397) ^ ItemFrom.GetHashCode();
-                if (Separator != null) result = (result * 397) ^ Separator.GetHashCode();
+                result = (result * 397) ^ ItemFrom?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Separator?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Arguments.GetSequencedHashCode();
                 return result;
             }

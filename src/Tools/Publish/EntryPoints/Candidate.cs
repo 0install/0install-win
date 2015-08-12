@@ -163,11 +163,11 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                int hashCode = (RelativePath != null ? RelativePath.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Summary != null ? Summary.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Category != null ? Category.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Version != null ? Version.GetHashCode() : 0);
+                int hashCode = RelativePath?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Summary?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Category?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Version?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ Architecture.GetHashCode();
                 hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();
                 return hashCode;

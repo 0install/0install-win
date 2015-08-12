@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("interface"), JsonIgnore]
-        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>Used for XML and JSON serialization.</summary>
         /// <seealso cref="Languages"/>
@@ -245,8 +245,8 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                int result = (InterfaceUri != null ? InterfaceUri.GetHashCode() : 0);
-                result = (result * 397) ^ (Command != null ? Command.GetHashCode() : 0);
+                int result = InterfaceUri?.GetHashCode() ?? 0;
+                result = (result * 397) ^ (Command?.GetHashCode() ?? 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
                 result = (result * 397) ^ Languages.GetSequencedHashCode();
                 result = (result * 397) ^ ExtraRestrictions.GetUnsequencedHashCode();

@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Trust
         {
             base.TearDown();
 
-            if (_homeDir != null) _homeDir.Dispose();
+            _homeDir?.Dispose();
         }
 
         private readonly OpenPgpSecretKey _secretKey = new OpenPgpSecretKey(

@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Path ?? "").GetHashCode();
+                result = (result * 397) ^ Path?.GetHashCode() ?? 0;
                 return result;
             }
         }

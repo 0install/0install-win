@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             _url = url;
 
-            if (_tempDir != null) _tempDir.Dispose();
+            _tempDir?.Dispose();
             _tempDir = new TemporaryDirectory("0publish");
 
             try
@@ -98,7 +98,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         public void Dispose()
         {
-            if (_tempDir != null) _tempDir.Dispose();
+            _tempDir?.Dispose();
         }
 
         /// <summary>

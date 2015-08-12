@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Destination != null) result = (result * 397) ^ Destination.GetHashCode();
+                result = (result * 397) ^ Destination?.GetHashCode() ?? 0;
                 return result;
             }
         }

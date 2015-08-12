@@ -157,9 +157,9 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (Command ?? "").GetHashCode();
-                result = (result * 397) ^ (Arguments ?? "").GetHashCode();
+                result = (result * 397) ^ Name?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Command?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Arguments?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Extended.GetHashCode();
                 result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
                 return result;

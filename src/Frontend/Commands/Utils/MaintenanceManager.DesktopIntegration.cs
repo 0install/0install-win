@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands.Utils
 
             var hive = MachineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var uninsKey = hive.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
-                if (uninsKey != null) uninsKey.DeleteSubKey("Zero Install_is1", throwOnMissingSubKey: false);
+                uninsKey?.DeleteSubKey("Zero Install_is1", throwOnMissingSubKey: false);
         }
     }
 }

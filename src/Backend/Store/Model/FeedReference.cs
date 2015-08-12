@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Source"/>
         [XmlAttribute("src"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string SourceString { get { return (Source == null) ? null : Source.ToStringRfc(); } set { Source = (value == null) ? null : new FeedUri(value); } }
+        public string SourceString { get { return Source?.ToStringRfc(); } set { Source = (value == null) ? null : new FeedUri(value); } }
         #endregion
 
         #region Normalize
@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Source != null) result = (result * 397) ^ Source.GetHashCode();
+                result = (result * 397) ^ Source?.GetHashCode() ?? 0;
                 return result;
             }
         }

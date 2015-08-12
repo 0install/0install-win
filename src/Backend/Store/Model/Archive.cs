@@ -242,8 +242,8 @@ namespace ZeroInstall.Store.Model
                 int result = base.GetHashCode();
                 if (MimeType != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(MimeType);
                 result = (result * 397) ^ StartOffset.GetHashCode();
-                if (Extract != null) result = (result * 397) ^ Extract.GetHashCode();
-                if (Destination != null) result = (result * 397) ^ Destination.GetHashCode();
+                result = (result * 397) ^ Extract?.GetHashCode() ?? 0;
+                result = (result * 397) ^ Destination?.GetHashCode() ?? 0;
                 return result;
             }
         }
