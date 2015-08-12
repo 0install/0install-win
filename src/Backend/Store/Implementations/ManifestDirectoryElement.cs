@@ -32,18 +32,18 @@ namespace ZeroInstall.Store.Implementations
         /// The digest of the content of the file calculated using the selected digest algorithm.
         /// </summary>
         [NotNull]
-        public string Digest { get; private set; }
+        public string Digest { get; }
 
         /// <summary>
         /// The size of the file in bytes.
         /// </summary>
-        public long Size { get; private set; }
+        public long Size { get; }
 
         /// <summary>
         /// The name of the file without the containing directory.
         /// </summary>
         [NotNull]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Creates a new directory element entry.

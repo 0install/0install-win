@@ -49,14 +49,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlElement("verb"), CanBeNull]
         public Verb Verb { get; set; }
 
-        private readonly List<AutoPlayEvent> _events = new List<AutoPlayEvent>();
-
         /// <summary>
         /// The IDs of the events this action can handle.
         /// </summary>
         [Browsable(false)]
         [XmlElement("event"), NotNull]
-        public List<AutoPlayEvent> Events => _events;
+        public List<AutoPlayEvent> Events { get; } = new List<AutoPlayEvent>();
 
         /// <inheritdoc/>
         [XmlIgnore]

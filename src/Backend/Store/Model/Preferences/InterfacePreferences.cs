@@ -52,16 +52,12 @@ namespace ZeroInstall.Store.Model.Preferences
         public String UriString { get { return Uri?.ToStringRfc(); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
         #endregion
 
-        private Stability _stabilityPolicy = Stability.Unset;
-
         /// <summary>
         /// Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice.
         /// </summary>
         [Description("Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice.")]
         [XmlAttribute("stability-policy"), DefaultValue(typeof(Stability), "Unset")]
-        public Stability StabilityPolicy { get { return _stabilityPolicy; } set { _stabilityPolicy = value; } }
-
-        private readonly List<FeedReference> _feeds = new List<FeedReference>();
+        public Stability StabilityPolicy { get; set; } = Stability.Unset;
 
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
@@ -69,7 +65,7 @@ namespace ZeroInstall.Store.Model.Preferences
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<FeedReference> Feeds => _feeds;
+        public List<FeedReference> Feeds { get; } = new List<FeedReference>();
 
         #region Storage
         /// <summary>

@@ -35,14 +35,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlIgnore]
         public override bool WindowsMachineWideOnly => false;
 
-        private readonly List<KnownProtocolPrefix> _knownPrefixes = new List<KnownProtocolPrefix>();
-
         /// <summary>
         /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
         [Browsable(false)]
         [XmlElement("known-prefix"), NotNull]
-        public List<KnownProtocolPrefix> KnownPrefixes => _knownPrefixes;
+        public List<KnownProtocolPrefix> KnownPrefixes { get; } = new List<KnownProtocolPrefix>();
 
         /// <inheritdoc/>
         [XmlIgnore]

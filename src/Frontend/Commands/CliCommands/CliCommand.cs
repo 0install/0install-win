@@ -115,7 +115,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         // Type covariance: ServiceLocator -> FrontendCommand, ITaskHandler -> ICommandHandler
         [NotNull]
-        public new ICommandHandler Handler { get; private set; }
+        public new ICommandHandler Handler { get; }
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]

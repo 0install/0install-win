@@ -34,13 +34,12 @@ namespace ZeroInstall.Store.Trust
         [XmlAttribute("fingerprint")]
         public string Fingerprint { get; set; }
 
-        private readonly DomainSet _domains = new DomainSet();
-
+        // Note: Can not use ICollection<T> interface with XML Serialization
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
         [XmlElement("domain"), NotNull]
-        public DomainSet Domains => _domains;
+        public DomainSet Domains { get; } = new DomainSet();
 
         #region Conversion
         /// <inheritdoc/>

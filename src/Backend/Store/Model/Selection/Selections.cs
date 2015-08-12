@@ -70,15 +70,13 @@ namespace ZeroInstall.Store.Model.Selection
         [XmlAttribute("command")]
         public string Command { get; set; }
 
-        private readonly List<ImplementationSelection> _implementations = new List<ImplementationSelection>();
-
         /// <summary>
         /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Used for XML serialization")]
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection"), NotNull]
-        public List<ImplementationSelection> Implementations => _implementations;
+        public List<ImplementationSelection> Implementations { get; } = new List<ImplementationSelection>();
 
         /// <summary>
         /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceUri"/>.

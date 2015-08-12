@@ -32,21 +32,17 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class IconCapability : DefaultCapability, IIconContainer, IDescriptionContainer
     {
-        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
-
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions => _descriptions;
-
-        private readonly List<Icon> _icons = new List<Icon>();
+        public LocalizableStringCollection Descriptions { get; } = new LocalizableStringCollection();
 
         /// <summary>
         /// Zero or more icons to represent the capability. Used for things like file icons.
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon", Namespace = Feed.XmlNamespace), NotNull]
-        public List<Icon> Icons => _icons;
+        public List<Icon> Icons { get; } = new List<Icon>();
 
         /// <summary>
         /// Returns the first icon with a specific MIME type.

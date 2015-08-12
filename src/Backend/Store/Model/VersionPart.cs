@@ -57,12 +57,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The modifier part of the version part.
         /// </summary>
-        public VersionModifier Modifier { get; private set; }
+        public VersionModifier Modifier { get; }
 
         /// <summary>
         /// The dotted list part of the version part.
         /// </summary>
-        public VersionDottedList DottedList { get; private set; }
+        public VersionDottedList DottedList { get; }
 
         /// <summary>
         /// Creates a new dotted-list from a a string.

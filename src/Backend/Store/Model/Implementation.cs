@@ -33,15 +33,13 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("implementation", Namespace = Feed.XmlNamespace), XmlType("implementation", Namespace = Feed.XmlNamespace)]
     public class Implementation : ImplementationBase, IEquatable<Implementation>
     {
-        private readonly List<RetrievalMethod> _retrievalMethods = new List<RetrievalMethod>();
-
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(Recipe))]
         [NotNull]
-        public List<RetrievalMethod> RetrievalMethods => _retrievalMethods;
+        public List<RetrievalMethod> RetrievalMethods { get; } = new List<RetrievalMethod>();
 
         #region Normalize
         /// <summary>

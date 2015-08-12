@@ -42,11 +42,11 @@ namespace ZeroInstall.Store.Implementations
     public class DirectoryStore : MarshalNoTimeout, IStore, IEquatable<DirectoryStore>
     {
         /// <inheritdoc/>
-        public StoreKind Kind { get; private set; }
+        public StoreKind Kind { get; }
 
         /// <inheritdoc/>
         [NotNull]
-        public string DirectoryPath { get; private set; }
+        public string DirectoryPath { get; }
 
         /// <summary>Controls whether implementation directories are made write-protected once added to the cache to prevent unintentional modification (which would invalidate the manifest digests).</summary>
         private readonly bool _useWriteProtection;

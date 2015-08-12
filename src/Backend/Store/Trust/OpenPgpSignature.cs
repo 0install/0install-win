@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Trust
     public abstract class OpenPgpSignature : IKeyIDContainer
     {
         /// <inheritdoc/>
-        public long KeyID { get; private set; }
+        public long KeyID { get; }
 
         /// <summary>
         /// Creates a new signature.

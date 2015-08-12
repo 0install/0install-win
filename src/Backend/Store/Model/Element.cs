@@ -142,14 +142,12 @@ namespace ZeroInstall.Store.Model
             }
         }
 
-        private Stability _stability = Stability.Unset;
-
         /// <summary>
         /// The default stability rating for this implementation.
         /// </summary>
         [Category("Release"), Description("The default stability rating for this implementation.")]
         [XmlAttribute("stability"), DefaultValue(typeof(Stability), "Unset")]
-        public virtual Stability Stability { get { return _stability; } set { _stability = value; } }
+        public virtual Stability Stability { get; set; } = Stability.Unset;
 
         /// <summary>
         /// License terms (typically a Trove category, as used on freshmeat.net).
@@ -190,34 +188,26 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("doc-dir"), DefaultValue("")]
         public string DocDir { get; set; }
 
-        private readonly List<Dependency> _dependencies = new List<Dependency>();
-
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
         [Browsable(false)]
         [XmlElement("requires")]
-        public List<Dependency> Dependencies => _dependencies;
-
-        private readonly List<Restriction> _restrictions = new List<Restriction>();
+        public List<Dependency> Dependencies { get; } = new List<Dependency>();
 
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
         [Browsable(false)]
         [XmlElement("restricts")]
-        public List<Restriction> Restrictions => _restrictions;
-
-        private readonly List<Binding> _bindings = new List<Binding>();
+        public List<Restriction> Restrictions { get; } = new List<Restriction>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public List<Binding> Bindings => _bindings;
-
-        private readonly List<Command> _commands = new List<Command>();
+        public List<Binding> Bindings { get; } = new List<Binding>();
 
         /// <summary>
         /// A list of commands that can be used to launch this implementation.
@@ -225,7 +215,7 @@ namespace ZeroInstall.Store.Model
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
         [Browsable(false)]
         [XmlElement("command"), NotNull]
-        public List<Command> Commands => _commands;
+        public List<Command> Commands { get; } = new List<Command>();
 
         /// <summary>
         /// Determines whether <see cref="Commands"/> contains a <see cref="Command"/> with a specific name.

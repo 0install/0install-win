@@ -51,14 +51,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
         public OS OS { get; set; }
 
-        private readonly List<Capability> _entries = new List<Capability>();
-
         /// <summary>
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(UrlProtocol))]
-        public List<Capability> Entries => _entries;
+        public List<Capability> Entries { get; } = new List<Capability>();
 
         /// <summary>
         /// Retrieves the first <see cref="Capability"/> that matches a specific type and ID. Safe for missing elements.

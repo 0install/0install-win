@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.WinForms
         /// The underlying <see cref="CacheNode"/> containing the cache information.
         /// </summary>
         [NotNull]
-        public CacheNode BackingNode { get; private set; }
+        public CacheNode BackingNode { get; }
 
         private readonly StoreManageForm _manageForm;
 

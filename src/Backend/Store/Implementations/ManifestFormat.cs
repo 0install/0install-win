@@ -19,33 +19,27 @@ namespace ZeroInstall.Store.Implementations
     public abstract class ManifestFormat
     {
         #region Static
-        private static readonly ManifestFormat _sha1New = new Sha1NewFormat();
-
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1New"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public static ManifestFormat Sha1New => _sha1New;
-
-        private static readonly ManifestFormat _sha256 = new Sha256Format();
+        public static ManifestFormat Sha1New { get; } = new Sha1NewFormat();
 
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256"/>.
         /// </summary>
-        public static ManifestFormat Sha256 => _sha256;
-
-        private static readonly ManifestFormat _sha256New = new Sha256NewFormat();
+        public static ManifestFormat Sha256 { get; } = new Sha256Format();
 
         /// <summary>
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256New"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
-        public static ManifestFormat Sha256New => _sha256New;
+        public static ManifestFormat Sha256New { get; } = new Sha256NewFormat();
 
         /// <summary>
         /// All currently supported <see cref="ManifestFormat"/>s listed from best (safest) to worst.
         /// </summary>
-        public static readonly ManifestFormat[] All = {_sha256New, _sha256, _sha1New};
+        public static readonly ManifestFormat[] All = {Sha256New, Sha256, Sha1New};
 
         /// <summary>
         /// Selects the correct <see cref="ManifestFormat"/> based on the digest prefix.

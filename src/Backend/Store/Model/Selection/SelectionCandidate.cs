@@ -34,13 +34,13 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Browsable(false)]
         [NotNull]
-        public Implementation Implementation { get; private set; }
+        public Implementation Implementation { get; }
 
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
         /// </summary>
         [NotNull]
-        public FeedUri FeedUri { get; private set; }
+        public FeedUri FeedUri { get; }
 
         /// <summary>
         /// The <see cref="FeedPreferences"/> for <see cref="FeedUri"/>.

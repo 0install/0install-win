@@ -61,7 +61,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region Properties
         /// <inheritdoc/>
-        public FeedUri InterfaceUri { get; private set; }
+        public FeedUri InterfaceUri { get; }
 
         /// <inheritdoc/>
         public string AppName => labelName.Text;

@@ -35,17 +35,17 @@ namespace ZeroInstall.Services.Feeds
         /// The URL of the feed file to be added to the cache.
         /// </summary>
         [CanBeNull]
-        public Uri FeedUrl { get; private set; }
+        public Uri FeedUrl { get; }
 
         /// <summary>
         /// The last changed time stamp of the existing file in the cache.
         /// </summary>
-        public DateTime OldTime { get; private set; }
+        public DateTime OldTime { get; }
 
         /// <summary>
         /// The last changed time stamp of the new file to be added.
         /// </summary>
-        public DateTime NewTime { get; private set; }
+        public DateTime NewTime { get; }
         
         /// <summary>
         /// Creates a new replay attack exception.

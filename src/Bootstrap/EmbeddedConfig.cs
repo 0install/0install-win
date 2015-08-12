@@ -32,18 +32,18 @@ namespace ZeroInstall.Bootstrap
         /// The name of the target application to bootstrap.
         /// Only relevant if <see cref="AppMode"/> is not <see cref="BootstrapMode.None"/>.
         /// </summary>
-        public string AppName { get; private set; }
+        public string AppName { get; }
 
         /// <summary>
         /// The feed URI of the target application to bootstrap.
         /// Only relevant if <see cref="AppMode"/> is not <see cref="BootstrapMode.None"/>.
         /// </summary>
-        public FeedUri AppUri { get; private set; }
+        public FeedUri AppUri { get; }
 
         /// <summary>
         /// The application bootstrapping mode to use.
         /// </summary>
-        public BootstrapMode AppMode { get; private set; }
+        public BootstrapMode AppMode { get; }
 
         /// <summary>
         /// Loads the embedded configuration.

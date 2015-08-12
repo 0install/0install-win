@@ -55,14 +55,12 @@ namespace ZeroInstall.DesktopIntegration
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        private bool _autoUpdate = true;
-
         /// <summary>
         /// Set to <c>true</c> to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to <c>false</c>.
         /// </summary>
         [Description("Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.")]
         [XmlAttribute("auto-update"), DefaultValue(true)]
-        public bool AutoUpdate { get { return _autoUpdate; } set { _autoUpdate = value; } }
+        public bool AutoUpdate { get; set; } = true;
 
         /// <summary>
         /// A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific entry filtering.
@@ -98,8 +96,6 @@ namespace ZeroInstall.DesktopIntegration
         public string RequirementsJson { get { return Requirements?.ToJsonString(); } set { Requirements = JsonStorage.FromJsonString<Requirements>(value); } }
         #endregion
 
-        private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
-
         /// <summary>
         /// A set of <see cref="Capability"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
         /// </summary>
@@ -107,7 +103,7 @@ namespace ZeroInstall.DesktopIntegration
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         [NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<CapabilityList> CapabilityLists => _capabilityLists;
+        public List<CapabilityList> CapabilityLists { get; } = new List<CapabilityList>();
 
         /// <summary>
         /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment. Is <c>null</c> if no desktop integration has been performed yet.

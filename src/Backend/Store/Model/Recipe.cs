@@ -33,14 +33,12 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("recipe", Namespace = Feed.XmlNamespace), XmlType("recipe", Namespace = Feed.XmlNamespace)]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
-        private readonly List<IRecipeStep> _steps = new List<IRecipeStep>();
-
         /// <summary>
         /// An ordered list of <see cref="IRecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlIgnore, NotNull]
-        public List<IRecipeStep> Steps => _steps;
+        public List<IRecipeStep> Steps { get; } = new List<IRecipeStep>();
 
         #region XML serialization
         /// <summary>Used for XML serialization.</summary>
@@ -53,13 +51,13 @@ namespace ZeroInstall.Store.Model
             get
             {
                 // ReSharper disable CoVariantArrayConversion
-                return _steps.ToArray();
+                return Steps.ToArray();
                 // ReSharper restore CoVariantArrayConversion
             }
             set
             {
-                _steps.Clear();
-                if (value != null && value.Length > 0) _steps.AddRange(value.OfType<IRecipeStep>());
+                Steps.Clear();
+                if (value != null && value.Length > 0) Steps.AddRange(value.OfType<IRecipeStep>());
             }
         }
         #endregion

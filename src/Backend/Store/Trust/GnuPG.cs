@@ -191,10 +191,8 @@ namespace ZeroInstall.Store.Trust
                 userID: uid[9]);
         }
 
-        private string _homeDir = DefaultHomeDir;
-
         /// <inheritdoc/>
-        public string HomeDir { get { return _homeDir; } set { _homeDir = value; } }
+        public string HomeDir { get; set; } = DefaultHomeDir;
 
         /// <summary>
         /// The default value for <see cref="IOpenPgp.HomeDir"/> based on the current operating system and environment variables.

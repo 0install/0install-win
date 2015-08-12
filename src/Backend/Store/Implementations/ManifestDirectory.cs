@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementations
         /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
         /// </summary>
         [NotNull]
-        public string FullPath { get; private set; }
+        public string FullPath { get; }
 
         /// <summary>
         /// Creates a new directory-entry.

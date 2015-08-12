@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Feeds
         /// The directory containing the cached <see cref="Feed"/>s.
         /// </summary>
         [NotNull]
-        public string DirectoryPath { get; private set; }
+        public string DirectoryPath { get; }
 
         /// <inheritdoc/>
         public bool Contains(FeedUri feedUri)

@@ -38,14 +38,12 @@ namespace ZeroInstall.Services.Feeds
         [XmlIgnore, CanBeNull]
         public string Keywords { get; private set; }
 
-        private readonly List<SearchResult> _results = new List<SearchResult>();
-
         /// <summary>
         /// A list of results matching the <see cref="Keywords"/>.
         /// </summary>
         [XmlElement("result")]
         [NotNull, ItemNotNull]
-        public List<SearchResult> Results => _results;
+        public List<SearchResult> Results { get; } = new List<SearchResult>();
 
         /// <summary>
         /// Performs a feed search query using the <see cref="Config.FeedMirror"/>.

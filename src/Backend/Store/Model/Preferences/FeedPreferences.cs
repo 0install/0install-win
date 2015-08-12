@@ -49,15 +49,13 @@ namespace ZeroInstall.Store.Model.Preferences
         public long LastCheckedUnix { get { return LastChecked.ToUnixTime(); } set { LastChecked = FileUtils.FromUnixTime(value); } }
         #endregion
 
-        private readonly List<ImplementationPreferences> _implementations = new List<ImplementationPreferences>();
-
         /// <summary>
         /// A list of implementation-specific user-overrides.
         /// </summary>
         [Description("A list of implementation-specific user-overrides.")]
         [XmlElement("implementation"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<ImplementationPreferences> Implementations => _implementations;
+        public List<ImplementationPreferences> Implementations { get; } = new List<ImplementationPreferences>();
 
         /// <summary>
         /// Retrieves an existing entry from <see cref="Implementations"/> by ID or creates a new one if no appropriate one exists.

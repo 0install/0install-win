@@ -118,21 +118,17 @@ namespace ZeroInstall.Publish
         #endregion
 
         #region Commands
-        private readonly List<Command> _commands = new List<Command>();
-
         /// <summary>
         /// Lists the <see cref="Command"/> derived from <see cref="Candidates"/> and <see cref="MainCandidate"/>.
         /// </summary>
         [NotNull]
-        public List<Command> Commands => _commands;
-
-        private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
+        public List<Command> Commands { get; } = new List<Command>();
 
         /// <summary>
         /// Lists the <see cref="EntryPoint"/>s accompanying <see cref="Commands"/>.
         /// </summary>
         [NotNull]
-        public List<EntryPoint> EntryPoints => _entryPoints;
+        public List<EntryPoint> EntryPoints { get; } = new List<EntryPoint>();
 
         /// <summary>
         /// Generates <see cref="Commands"/> and <see cref="EntryPoints"/> bases on <see cref="Candidates"/> and <see cref="MainCandidate"/>.

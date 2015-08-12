@@ -41,14 +41,12 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("command"), DefaultValue(""), CanBeNull]
         public string Command { get; set; }
 
-        private readonly List<ArgBase> _arguments = new List<ArgBase>();
-
         /// <summary>
         /// A list of command-line arguments to be passed to the runner before the path of the implementation.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
-        public List<ArgBase> Arguments => _arguments;
+        public List<ArgBase> Arguments { get; } = new List<ArgBase>();
 
         #region Normalize
         protected override string XmlTagName => "runner";

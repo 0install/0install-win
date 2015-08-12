@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The time this file was last modified as Unix time.
         /// </summary>
-        protected long ModifiedTimeUnix { get; private set; }
+        protected long ModifiedTimeUnix { get; }
 
         /// <summary>
         /// The time this file was last modified.

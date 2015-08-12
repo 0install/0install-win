@@ -87,37 +87,29 @@ namespace ZeroInstall.Store.Model
         public string SuggestSendToString { get { return (SuggestSendTo ? "" : null); } set { SuggestSendTo = (value != null); } }
         #endregion
 
-        private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
-
         /// <summary>
         /// User-friendly names for the command. If not present, <see cref="Command"/> is used instead.
         /// </summary>
         [Browsable(false)]
         [XmlElement("name"), NotNull]
-        public LocalizableStringCollection Names => _names;
-
-        private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
+        public LocalizableStringCollection Names { get; } = new LocalizableStringCollection();
 
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("summary")]
-        public LocalizableStringCollection Summaries => _summaries;
-
-        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+        public LocalizableStringCollection Summaries { get; } = new LocalizableStringCollection();
 
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions => _descriptions;
-
-        private readonly List<Icon> _icons = new List<Icon>();
+        public LocalizableStringCollection Descriptions { get; } = new LocalizableStringCollection();
 
         /// <summary>
         /// Zero or more icons representing the command. Used for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon"), NotNull]
-        public List<Icon> Icons => _icons;
+        public List<Icon> Icons { get; } = new List<Icon>();
 
         #region Conversion
         /// <summary>

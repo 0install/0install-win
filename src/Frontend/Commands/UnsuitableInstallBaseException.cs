@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// <c>true</c> if a machine-wide install location is required; <c>false</c> if a user-specific location will also do.
         /// </summary>
-        public bool NeedsMachineWide { get; private set; }
+        public bool NeedsMachineWide { get; }
 
         /// <inheritdoc/>
         public UnsuitableInstallBaseException()

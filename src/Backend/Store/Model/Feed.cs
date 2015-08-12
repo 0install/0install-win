@@ -99,19 +99,15 @@ namespace ZeroInstall.Store.Model
         [XmlElement("name")]
         public string Name { get; set; }
 
-        private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
-
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("summary")]
-        public LocalizableStringCollection Summaries => _summaries;
-
-        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
+        public LocalizableStringCollection Summaries { get; } = new LocalizableStringCollection();
 
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions => _descriptions;
+        public LocalizableStringCollection Descriptions { get; } = new LocalizableStringCollection();
 
         /// <summary>
         /// The main website of the application.
@@ -120,23 +116,19 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, CanBeNull]
         public Uri Homepage { get; set; }
 
-        private readonly List<Icon> _icons = new List<Icon>();
-
         /// <summary>
         /// Zero or more icons representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon"), NotNull]
-        public List<Icon> Icons => _icons;
-
-        private readonly List<Category> _categories = new List<Category>();
+        public List<Icon> Icons { get; } = new List<Icon>();
 
         /// <summary>
         /// A list of well-known categories the applications fits into. May influence the placement in the application menu.
         /// </summary>
         [Browsable(false)]
         [XmlElement("category"), NotNull]
-        public List<Category> Categories => _categories;
+        public List<Category> Categories { get; } = new List<Category>();
 
         /// <summary>
         /// If <c>true</c>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -178,23 +170,19 @@ namespace ZeroInstall.Store.Model
         public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
         #endregion
 
-        private readonly List<FeedReference> _feeds = new List<FeedReference>();
-
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement("feed"), NotNull]
-        public List<FeedReference> Feeds => _feeds;
-
-        private readonly List<InterfaceReference> _feedFor = new List<InterfaceReference>();
+        public List<FeedReference> Feeds { get; } = new List<FeedReference>();
 
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Browsable(false)]
         [XmlElement("feed-for"), NotNull]
-        public List<InterfaceReference> FeedFor => _feedFor;
+        public List<InterfaceReference> FeedFor { get; } = new List<InterfaceReference>();
 
         /// <summary>
         /// This feed's interface <see cref="Uri"/> has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
@@ -204,25 +192,19 @@ namespace ZeroInstall.Store.Model
         [XmlElement("replaced-by")]
         public InterfaceReference ReplacedBy { get; set; }
 
-        private readonly List<Element> _elements = new List<Element>();
-
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public List<Element> Elements => _elements;
-
-        private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
+        public List<Element> Elements { get; } = new List<Element>();
 
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement("entry-point"), NotNull]
-        public List<EntryPoint> EntryPoints => _entryPoints;
-
-        private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
+        public List<EntryPoint> EntryPoints { get; } = new List<EntryPoint>();
 
         /// <summary>
         /// A set of <see cref="Capability"/> lists for different architectures.
@@ -230,7 +212,7 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<CapabilityList> CapabilityLists => _capabilityLists;
+        public List<CapabilityList> CapabilityLists { get; } = new List<CapabilityList>();
 
         /// <summary>
         /// Returns the <see cref="Implementation"/> with a specific ID string.

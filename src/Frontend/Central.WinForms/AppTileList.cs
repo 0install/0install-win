@@ -61,8 +61,6 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Properties
-        private Color _tileColorLight = SystemColors.Window;
-
         /// <summary>
         /// The light background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
@@ -70,9 +68,7 @@ namespace ZeroInstall.Central.WinForms
         [Category("Appearance"), Description("The light background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "Window")]
         [PublicAPI]
-        public Color TileColorLight { get { return _tileColorLight; } set { _tileColorLight = value; } }
-
-        private Color _tileColorDark = SystemColors.Control;
+        public Color TileColorLight { get; set; } = SystemColors.Window;
 
         /// <summary>
         /// The dark background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
@@ -81,7 +77,7 @@ namespace ZeroInstall.Central.WinForms
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "Control")]
         [PublicAPI]
-        public Color TileColorDark { get { return _tileColorDark; } set { _tileColorDark = value; } }
+        public Color TileColorDark { get; set; } = SystemColors.Control;
         #endregion
 
         #region Constructor

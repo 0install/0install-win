@@ -35,7 +35,7 @@ namespace ZeroInstall.Publish
         /// The (optionally signed) feed being edited.
         /// </summary>
         [NotNull]
-        public SignedFeed SignedFeed { get; private set; }
+        public SignedFeed SignedFeed { get; }
 
         /// <summary>
         /// The passphrase to use to unlock <see cref="Publish.SignedFeed.SecretKey"/> (if specified).

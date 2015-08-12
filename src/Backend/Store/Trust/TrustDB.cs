@@ -55,14 +55,13 @@ namespace ZeroInstall.Store.Trust
         #endregion
 
         // Order is preserved, but ignore it when comparing
-        private readonly List<Key> _keys = new List<Key>();
 
         /// <summary>
         /// A list of known <see cref="Key"/>s.
         /// </summary>
         [XmlElement("key"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<Key> Keys => _keys;
+        public List<Key> Keys { get; } = new List<Key>();
 
         /// <summary>
         /// Determines whether a key is trusted for a specific domain.

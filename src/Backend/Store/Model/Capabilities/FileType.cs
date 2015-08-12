@@ -35,14 +35,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlIgnore]
         public override bool WindowsMachineWideOnly => false;
 
-        private readonly List<FileTypeExtension> _extensions = new List<FileTypeExtension>();
-
         /// <summary>
         /// A list of all file extensions associated with this file type.
         /// </summary>
         [Browsable(false)]
         [XmlElement("extension"), NotNull]
-        public List<FileTypeExtension> Extensions => _extensions;
+        public List<FileTypeExtension> Extensions { get; } = new List<FileTypeExtension>();
 
         /// <inheritdoc/>
         [XmlIgnore]

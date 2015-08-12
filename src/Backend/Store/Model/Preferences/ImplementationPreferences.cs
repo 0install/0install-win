@@ -34,14 +34,12 @@ namespace ZeroInstall.Store.Model.Preferences
         [XmlAttribute("id")]
         public string ID { get; set; }
 
-        private Stability _userStability = Stability.Unset;
-
         /// <summary>
         /// A user-specified override for <see cref="Element.Stability"/> specified in the feed.
         /// </summary>
         [Description("A user-specified override for the implementation stability specified in the feed.")]
         [XmlAttribute("user-stability"), DefaultValue(typeof(Stability), "Unset")]
-        public Stability UserStability { get { return _userStability; } set { _userStability = value; } }
+        public Stability UserStability { get; set; } = Stability.Unset;
 
         /// <summary>
         /// Indicates whether this configuration object stores no information other than the <see cref="ID"/> and is thus superflous.

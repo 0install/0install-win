@@ -102,17 +102,14 @@ namespace ZeroInstall.Store.Model
         public string CpuString { get { return Architecture.Cpu.ConvertToString(); } set { Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); } }
         #endregion
 
-        private readonly Dictionary<FeedUri, VersionRange> _extraRestrictions = new Dictionary<FeedUri, VersionRange>();
-
         /// <summary>
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
         [XmlIgnore, JsonProperty("extra_restrictions"), NotNull]
-        public Dictionary<FeedUri, VersionRange> ExtraRestrictions => _extraRestrictions;
+        public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get; } = new Dictionary<FeedUri, VersionRange>();
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
-        private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
         /// Specifies that the selected implementations must be from one of the given distributions (e.g. Debian, RPM).
@@ -121,7 +118,7 @@ namespace ZeroInstall.Store.Model
         /// <remarks>Used internally by solvers, copied from <see cref="Restriction.Distributions"/>, not set directly by user, not serialized.</remarks>
         [Browsable(false)]
         [XmlIgnore, JsonIgnore, NotNull]
-        public ICollection<string> Distributions { get { return _distributions; } }
+        public ICollection<string> Distributions { get; } = new List<string>();
 
         /// <summary>
         /// Cretes an empty requirements object. Use this to fill in values incrementally, e.g. when parsing command-line arguments.

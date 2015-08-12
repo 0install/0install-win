@@ -29,14 +29,12 @@ namespace ZeroInstall.Store.Model.Capabilities
     [XmlType("verb-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class VerbCapability : IconCapability
     {
-        private readonly List<Verb> _verbs = new List<Verb>();
-
         /// <summary>
         /// A list of all available operations for the element.
         /// </summary>
         [Browsable(false)]
         [XmlElement("verb"), NotNull]
-        public List<Verb> Verbs => _verbs;
+        public List<Verb> Verbs { get; } = new List<Verb>();
 
         #region Equality
         /// <inheritdoc/>

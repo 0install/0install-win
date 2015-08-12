@@ -192,9 +192,7 @@ namespace ZeroInstall.Store.Trust
             }
         }
 
-        private string _homeDir = GnuPG.DefaultHomeDir;
-
         /// <inheritdoc/>
-        public string HomeDir { get { return _homeDir; } set { _homeDir = value; } }
+        public string HomeDir { get; set; } = GnuPG.DefaultHomeDir;
     }
 }

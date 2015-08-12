@@ -33,8 +33,7 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// The directory containing the cached <see cref="Icon"/>s.
         /// </summary>
-        [NotNull]
-        public string DirectoryPath { get; private set; }
+        public string DirectoryPath { get; }
 
         /// <summary>
         /// Creates a new disk-based cache.

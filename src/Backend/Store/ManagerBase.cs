@@ -38,7 +38,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Apply operations machine-wide instead of just for the current user.
         /// </summary>
-        public bool MachineWide { get; private set; }
+        public bool MachineWide { get; }
 
         /// <summary>
         /// Creates a new manager.

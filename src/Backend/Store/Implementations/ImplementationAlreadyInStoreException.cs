@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
-        public ManifestDigest ManifestDigest { get; private set; }
+        public ManifestDigest ManifestDigest { get; }
         #endregion
 
         #region Constructor

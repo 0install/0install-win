@@ -36,7 +36,7 @@ namespace ZeroInstall.Publish
         /// The wrapped <see cref="Catalog"/>.
         /// </summary>
         [NotNull]
-        public Catalog Catalog { get; private set; }
+        public Catalog Catalog { get; }
 
         /// <summary>
         /// The secret key used to sign the <see cref="Catalog"/>; <c>null</c> for no signature.

@@ -100,12 +100,10 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlAttribute("extended"), DefaultValue(false)]
         public bool Extended { get; set; }
 
-        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
-
         /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
-        public LocalizableStringCollection Descriptions => _descriptions;
+        public LocalizableStringCollection Descriptions { get; } = new LocalizableStringCollection();
 
         #region Conversion
         /// <summary>

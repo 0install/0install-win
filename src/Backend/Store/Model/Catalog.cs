@@ -62,14 +62,12 @@ namespace ZeroInstall.Store.Model
         public string SchemaLocation = XsiSchemaLocation;
         #endregion
 
-        private readonly List<Feed> _feeds = new List<Feed>();
-
         /// <summary>
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
         [Browsable(false)]
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace), NotNull]
-        public List<Feed> Feeds => _feeds;
+        public List<Feed> Feeds { get; } = new List<Feed>();
 
         /// <summary>
         /// Determines whether this catalog contains a <see cref="Feed"/> with a specific URI.

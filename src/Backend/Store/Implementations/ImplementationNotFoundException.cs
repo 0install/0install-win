@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The <see cref="ManifestDigest"/> of the <see cref="Store.Model.Implementation"/> to be found.
         /// </summary>
-        public ManifestDigest ManifestDigest { get; private set; }
+        public ManifestDigest ManifestDigest { get; }
         #endregion
 
         #region Constructor

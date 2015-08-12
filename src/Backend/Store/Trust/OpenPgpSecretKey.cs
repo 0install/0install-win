@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Trust
     public sealed class OpenPgpSecretKey : IFingerprintContainer, IEquatable<OpenPgpSecretKey>
     {
         /// <inheritdoc/>
-        public long KeyID { get; private set; }
+        public long KeyID { get; }
 
         private readonly byte[] _fingerprint;
 
@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Trust
         /// The user's name, e-mail address, etc. of the key owner.
         /// </summary>
         [NotNull]
-        public string UserID { get; private set; }
+        public string UserID { get; }
 
         /// <summary>
         /// Creates a new <see cref="IOpenPgp"/> secret key representation.

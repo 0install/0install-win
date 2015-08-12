@@ -62,7 +62,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
         /// </summary>
-        protected Requirements Requirements { get; private set; }
+        [NotNull]
+        protected Requirements Requirements { get; } = new Requirements();
 
         // Intermediate variables, transferred to Requirements after parsing
         private VersionRange _version;
@@ -80,7 +81,6 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public Selection([NotNull] ICommandHandler handler) : base(handler)
         {
-            Requirements = new Requirements();
             Options.Add("customize", () => Resources.OptionCustomize, _ => CustomizeSelections = true);
 
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);

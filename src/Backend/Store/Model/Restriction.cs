@@ -72,17 +72,15 @@ namespace ZeroInstall.Store.Model
         #endregion
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
-        private readonly List<Constraint> _constraints = new List<Constraint>();
 
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
         [Browsable(false)]
         [XmlElement("version"), NotNull]
-        public List<Constraint> Constraints { get { return _constraints; } }
+        public List<Constraint> Constraints { get; } = new List<Constraint>();
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
-        private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
         /// Special value for <see cref="Distributions"/> that requires require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
@@ -95,7 +93,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlIgnore, NotNull]
-        public List<string> Distributions { get { return _distributions; } }
+        public List<string> Distributions { get; } = new List<string>();
 
         /// <summary>
         /// Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).

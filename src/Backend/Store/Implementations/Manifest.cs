@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Implementations
         /// The format of the manifest (which file details are listed, which digest method is used, etc.).
         /// </summary>
         [NotNull]
-        public ManifestFormat Format { get; private set; }
+        public ManifestFormat Format { get; }
 
         private readonly ManifestNode[] _nodes;
 

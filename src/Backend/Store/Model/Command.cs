@@ -70,23 +70,19 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("path")]
         public string Path { get; set; }
 
-        private readonly List<ArgBase> _arguments = new List<ArgBase>();
-
         /// <summary>
         /// A list of command-line arguments to be passed to an implementation executable.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
-        public List<ArgBase> Arguments => _arguments;
-
-        private readonly List<Binding> _bindings = new List<Binding>();
+        public List<ArgBase> Arguments { get; } = new List<ArgBase>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public List<Binding> Bindings => _bindings;
+        public List<Binding> Bindings { get; } = new List<Binding>();
 
         /// <summary>
         /// Switches the working directory of a process on startup to a location within an implementation.
@@ -95,23 +91,19 @@ namespace ZeroInstall.Store.Model
         [XmlElement("working-dir"), CanBeNull]
         public WorkingDir WorkingDir { get; set; }
 
-        private readonly List<Dependency> _dependencies = new List<Dependency>();
-
         /// <summary>
         /// A list of interfaces this command depends upon.
         /// </summary>
         [Browsable(false)]
         [XmlElement("requires")]
-        public List<Dependency> Dependencies => _dependencies;
-
-        private readonly List<Restriction> _restrictions = new List<Restriction>();
+        public List<Dependency> Dependencies { get; } = new List<Dependency>();
 
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
         [Browsable(false)]
         [XmlElement("restricts")]
-        public List<Restriction> Restrictions => _restrictions;
+        public List<Restriction> Restrictions { get; } = new List<Restriction>();
 
         /// <summary>
         /// A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.

@@ -68,19 +68,17 @@ namespace ZeroInstall.Services.Feeds
         [XmlElement("summary")]
         public string Summary { get; set; }
 
-        private readonly List<Category> _categories = new List<Category>();
-
         /// <summary>
         /// A list of well-known categories the applications fits into.
         /// </summary>
         [Browsable(false)]
         [XmlElement("category"), NotNull]
-        public List<Category> Categories => _categories;
+        public List<Category> Categories { get; } = new List<Category>();
 
         /// <summary>Used for DataGrid rendering.</summary>
         /// <seealso cref="Categories"/>
         [XmlIgnore, DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string CategoriesString { get { return StringUtils.Join(", ", _categories.Select(x => x.Name)); } }
+        public string CategoriesString { get { return StringUtils.Join(", ", Categories.Select(x => x.Name)); } }
 
         /// <summary>
         /// Generates a pseudo-<see cref="Feed"/> using the information from this result.

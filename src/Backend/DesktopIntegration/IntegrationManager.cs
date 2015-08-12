@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// The storage location of the <see cref="AppList"/> file.
         /// </summary>
-        public string AppListPath { get; private set; }
+        public string AppListPath { get; }
 
         #region Constructor
         /// <summary>

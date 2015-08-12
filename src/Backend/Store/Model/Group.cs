@@ -34,14 +34,12 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
-        private readonly List<Element> _elements = new List<Element>();
-
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public List<Element> Elements => _elements;
+        public List<Element> Elements { get; } = new List<Element>();
 
         #region Normalize
         /// <summary>

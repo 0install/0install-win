@@ -52,12 +52,12 @@ namespace ZeroInstall.Commands.Utils
         /// The full path to the directory containing the Zero Install instance.
         /// </summary>
         [NotNull]
-        public string TargetDir { get; private set; }
+        public string TargetDir { get; }
 
         /// <summary>
         /// Controls whether the Zero Install instance at <see cref="TargetDir"/> should be a portable instance.
         /// </summary>
-        public bool Portable { get; private set; }
+        public bool Portable { get; }
 
         /// <summary>
         /// Creates a new maintenance manager.

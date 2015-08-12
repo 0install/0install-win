@@ -36,25 +36,25 @@ namespace ZeroInstall.Store.Implementations
         /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
         [CanBeNull]
-        public string ExpectedDigest { get; private set; }
+        public string ExpectedDigest { get; }
 
         /// <summary>
         /// The <see cref="Manifest"/> that resulted in the <see cref="ExpectedDigest"/>.
         /// </summary>
         [CanBeNull]
-        public Manifest ExpectedManifest { get; private set; }
+        public Manifest ExpectedManifest { get; }
 
         /// <summary>
         /// The hash value that was actually calculated.
         /// </summary>
         [CanBeNull]
-        public string ActualDigest { get; private set; }
+        public string ActualDigest { get; }
 
         /// <summary>
         /// The <see cref="Manifest"/> that resulted in the <see cref="ActualDigest"/>.
         /// </summary>
         [CanBeNull]
-        public Manifest ActualManifest { get; private set; }
+        public Manifest ActualManifest { get; }
 
         /// <summary>
         /// Creates a new digest mismatch exception.

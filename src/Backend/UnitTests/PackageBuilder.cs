@@ -33,8 +33,8 @@ namespace ZeroInstall
     {
         private readonly EntryContainer _parent;
 
-        public string Name { get; private set; }
-        public DateTime LastWriteTime { get; private set; }
+        public string Name { get; }
+        public DateTime LastWriteTime { get; }
 
         public string RelativePath
         {

@@ -59,14 +59,12 @@ namespace ZeroInstall.DesktopIntegration
         public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
         #endregion
 
-        private readonly List<AppEntry> _entries = new List<AppEntry>();
-
         /// <summary>
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
         [XmlElement("app"), NotNull]
-        public List<AppEntry> Entries => _entries;
+        public List<AppEntry> Entries { get; } = new List<AppEntry>();
 
         /// <summary>
         /// Checks whether an <see cref="AppEntry"/> for a specific interface URI exists.

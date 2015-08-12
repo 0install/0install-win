@@ -61,14 +61,12 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("use"), DefaultValue("")]
         public string Use { get; set; }
 
-        private readonly List<Binding> _bindings = new List<Binding>();
-
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public List<Binding> Bindings => _bindings;
+        public List<Binding> Bindings { get; } = new List<Binding>();
 
         /// <inheritdoc/>
         public override bool IsApplicable(Requirements requirements)

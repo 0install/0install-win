@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Implementations
         /// The format of the manifest to generate.
         /// </summary>
         [NotNull]
-        public ManifestFormat Format { get; private set; }
+        public ManifestFormat Format { get; }
 
         private readonly List<ManifestNode> _nodes = new List<ManifestNode>();
 

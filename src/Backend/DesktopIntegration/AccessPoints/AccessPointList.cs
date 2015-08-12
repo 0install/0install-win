@@ -33,8 +33,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [Serializable, XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
     public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>
     {
-        private readonly List<AccessPoint> _accessPoints = new List<AccessPoint>();
-
         /// <summary>
         /// A list of <see cref="AccessPoint"/>s.
         /// </summary>
@@ -42,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         [XmlElement(typeof(AppAlias)), XmlElement(typeof(AutoStart)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(CapabilityRegistration)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(DesktopIcon)), XmlElement(typeof(FileType)), XmlElement(typeof(MenuEntry)), XmlElement(typeof(SendTo)), XmlElement(typeof(UrlProtocol)), XmlElement(typeof(QuickLaunch)), XmlElement(typeof(MockAccessPoint))]
         [NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public List<AccessPoint> Entries => _accessPoints;
+        public List<AccessPoint> Entries { get; } = new List<AccessPoint>();
 
         #region Clone
         /// <summary>

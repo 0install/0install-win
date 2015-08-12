@@ -56,12 +56,12 @@ namespace ZeroInstall.Store.ViewModel
         /// The <see cref="Key.Fingerprint"/>.
         /// </summary>
         [NotNull]
-        public string Fingerprint { get; private set; }
+        public string Fingerprint { get; }
 
         /// <summary>
         /// The domain the fingerprint is valid for.
         /// </summary>
-        public Domain Domain { get; private set; }
+        public Domain Domain { get; }
 
         #region Equality
         /// <inheritdoc/>

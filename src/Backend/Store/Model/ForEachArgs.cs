@@ -46,14 +46,12 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("separator"), DefaultValue(""), CanBeNull]
         public string Separator { get; set; }
 
-        private readonly List<Arg> _arguments = new List<Arg>();
-
         /// <summary>
         /// A list of command-line arguments to be passed to an executable. "${item}" will be substituted with each for-each value.
         /// </summary>
         [Browsable(false)]
         [XmlElement("arg"), NotNull]
-        public List<Arg> Arguments => _arguments;
+        public List<Arg> Arguments { get; } = new List<Arg>();
 
         #region Normalize
         /// <inheritdoc/>

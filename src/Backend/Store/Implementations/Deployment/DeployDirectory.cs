@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
         /// The path of the destination directory. May already exist.
         /// </summary>
         [NotNull]
-        public string DestinationPath { get; private set; }
+        public string DestinationPath { get; }
 
         /// <summary>
         /// Creates a new directory deployment task.

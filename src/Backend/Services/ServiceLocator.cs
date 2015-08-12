@@ -57,7 +57,7 @@ namespace ZeroInstall.Services
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
         [NotNull]
-        public ITaskHandler Handler { get; private set; }
+        public ITaskHandler Handler { get; }
 
         private Config _config;
 
