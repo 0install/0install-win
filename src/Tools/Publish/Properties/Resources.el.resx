@@ -178,9 +178,6 @@
   <data name="FeedNotValid" xml:space="preserve">
     <value>Η τροφοδοσία δεν έχει τη σωστή μορφή.</value>
   </data>
-  <data name="FileDialogFilter" xml:space="preserve">
-    <value>Feed files (*.xml)|*.xml|Template files (*.xml.template)|*.xml.template|All files|*</value>
-  </data>
   <data name="FileNotFound" xml:space="preserve">
     <value>Το αρχείο &apos;{0}&apos; δεν θα μπορεσε να βρεθεί.</value>
   </data>

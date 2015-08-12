@@ -107,7 +107,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Remove
         /// <summary>
-        /// Removes an application alias from the current system. 
+        /// Removes an application alias from the current system.
         /// </summary>
         /// <param name="aliasName">The name of the alias to be removed.</param>
         /// <param name="machineWide">The alias was created machine-wide instead of just for the current user.</param>

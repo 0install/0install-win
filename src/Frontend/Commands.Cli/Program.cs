@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Text;
 using NanoByte.Common;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;

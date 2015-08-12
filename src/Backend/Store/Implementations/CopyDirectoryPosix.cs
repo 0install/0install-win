@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Text;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Store.Implementations
 {

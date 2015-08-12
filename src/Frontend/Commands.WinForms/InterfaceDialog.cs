@@ -33,7 +33,6 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;

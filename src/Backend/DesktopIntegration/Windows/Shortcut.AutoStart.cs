@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows

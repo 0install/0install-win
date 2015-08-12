@@ -219,9 +219,6 @@
   <data name="SolverProblem" xml:space="preserve">
     <value>Ο επιλυτής αντιμετώπισε ένα μη αναμενόμενο πρόβλημα.</value>
   </data>
-  <data name="TryingFeedMirror" xml:space="preserve">
-    <value>Trying feed mirror server</value>
-  </data>
   <data name="UnableToCacheCatalog" xml:space="preserve">
     <value>Δεν είναι δυνατή η προσωρινή αποθήκευση του κατάλογου της εφαρμογής.</value>
   </data>

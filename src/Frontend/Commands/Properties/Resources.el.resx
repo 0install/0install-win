@@ -301,10 +301,6 @@
     <value>Εξοικονομεί χώρο στο δίσκο με τη συγχώνευση ίδιων αρχείων με hardlinks.
 Πρόσθετα επιχειρήματα καθορισμού θέσεων της προσαρμοσμένης μνήμης cache.</value>
   </data>
-  <data name="DescriptionStorePurge" xml:space="preserve">
-    <value>Removes all implementations from the cache. Use this command to clean up the system before removing Zero Install. Deleting cache directories manually may be difficult due to the NTFS ACLs employed to protect implementations against modification.
-Additional arguments specify custom cache locations.</value>
-  </data>
   <data name="DescriptionStoreRemove" xml:space="preserve">
     <value>Αφαιρεί μια εφαρμογή από την προσωρινή μνήμη.</value>
   </data>
