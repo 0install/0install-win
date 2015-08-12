@@ -153,7 +153,7 @@ namespace ZeroInstall.DesktopIntegration
 
             try
             {
-                return _capabilityLists.CompatibleCapabilities().OfType<T>()
+                return CapabilityLists.CompatibleCapabilities().OfType<T>()
                     .First(specificCapability => specificCapability.ID == id);
             }
                 #region Error handling

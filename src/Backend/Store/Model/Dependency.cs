@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Model
             base.Normalize();
 
             // Apply if-0install-version filter
-            _bindings.RemoveAll(FilterMismatch);
+            Bindings.RemoveAll(FilterMismatch);
         }
         #endregion
 

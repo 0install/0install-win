@@ -140,14 +140,14 @@ namespace ZeroInstall.Publish
         {
             if (MainCandidate == null) throw new InvalidOperationException(Resources.EntryPointNotFound);
 
-            _commands.Clear();
-            _entryPoints.Clear();
+            Commands.Clear();
+            EntryPoints.Clear();
 
             var mainCommand = MainCandidate.CreateCommand();
             mainCommand.Name = Command.NameRun;
-            _commands.Add(mainCommand);
+            Commands.Add(mainCommand);
 
-            _entryPoints.Add(new EntryPoint
+            EntryPoints.Add(new EntryPoint
             {
                 Command = Command.NameRun,
                 BinaryName = Path.GetFileNameWithoutExtension(MainCandidate.RelativePath)
@@ -156,7 +156,7 @@ namespace ZeroInstall.Publish
             foreach (var candidate in _candidates.Except(MainCandidate))
             {
                 var command = candidate.CreateCommand();
-                _commands.Add(command);
+                Commands.Add(command);
 
                 var entryPoint = new EntryPoint
                 {
@@ -166,7 +166,7 @@ namespace ZeroInstall.Publish
                 };
                 if (!string.IsNullOrEmpty(candidate.Name)) entryPoint.Names.Add(candidate.Name);
                 if (!string.IsNullOrEmpty(candidate.Summary)) entryPoint.Summaries.Add(candidate.Summary);
-                _entryPoints.Add(entryPoint);
+                EntryPoints.Add(entryPoint);
             }
         }
         #endregion
@@ -252,7 +252,7 @@ namespace ZeroInstall.Publish
                 Version = MainCandidate.Version,
                 Architecture = MainCandidate.Architecture
             };
-            implementation.Commands.AddRange(_commands);
+            implementation.Commands.AddRange(Commands);
             if (RetrievalMethod != null) implementation.RetrievalMethods.Add(RetrievalMethod);
 
             var feed = new Feed
@@ -265,7 +265,7 @@ namespace ZeroInstall.Publish
             };
             feed.Icons.AddRange(_icons);
             if (!string.IsNullOrEmpty(MainCandidate.Category)) feed.Categories.Add(new Category {Name = MainCandidate.Category});
-            feed.EntryPoints.AddRange(_entryPoints);
+            feed.EntryPoints.AddRange(EntryPoints);
             if (CapabilityList != null && CapabilityList.Entries.Count != 0) feed.CapabilityLists.Add(CapabilityList);
 
             return new SignedFeed(feed, SecretKey);

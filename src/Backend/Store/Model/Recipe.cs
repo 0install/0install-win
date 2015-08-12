@@ -84,9 +84,9 @@ namespace ZeroInstall.Store.Model
             base.Normalize(feedUri);
 
             // Apply if-0install-version filter
-            _steps.RemoveAll(FilterMismatch);
+            Steps.RemoveAll(FilterMismatch);
 
-            foreach (var step in _steps)
+            foreach (var step in Steps)
                 step.Normalize(feedUri);
         }
         #endregion

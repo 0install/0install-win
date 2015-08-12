@@ -106,7 +106,7 @@ namespace ZeroInstall.Central
 
             // Update the displayed AppList based on changes detected between the current and the new AppList
             Merge.TwoWay(
-                theirs: newAppList.Entries, mine: _appList.Entries,
+                theirs: newAppList.Entries, mine: AppList.Entries,
                 added: entry =>
                 {
                     if (entry.InterfaceUri == null || entry.Name == null) return;
@@ -226,7 +226,7 @@ namespace ZeroInstall.Central
             #endregion
 
             Merge.TwoWay(
-                theirs: newCatalog.Feeds, mine: _catalog.Feeds,
+                theirs: newCatalog.Feeds, mine: Catalog.Feeds,
                 added: QueueCatalogTile,
                 removed: feed => _tileListCatalog.RemoveTile(feed.Uri));
             _tileListCatalog.AddQueuedTiles();
@@ -243,7 +243,7 @@ namespace ZeroInstall.Central
             if (string.IsNullOrEmpty(feed.UriString) || feed.Name == null) return;
             try
             {
-                var appEntry = _appList.GetEntry(feed.Uri);
+                var appEntry = AppList.GetEntry(feed.Uri);
 
                 var status = (appEntry == null)
                     ? AppStatus.Candidate

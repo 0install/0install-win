@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         [Description("The path to the directory to extract into.")]
         [NotNull]
-        public string TargetDir { get; protected set; }
+        public string TargetDir { get; private set; }
 
         /// <summary>
         /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files; <see langword="null"/> for none.

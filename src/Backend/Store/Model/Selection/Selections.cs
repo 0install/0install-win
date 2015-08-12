@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
         public bool ContainsImplementation([NotNull] FeedUri interfaceUri)
         {
-            return _implementations.Any(implementation => implementation.InterfaceUri == interfaceUri);
+            return Implementations.Any(implementation => implementation.InterfaceUri == interfaceUri);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Model.Selection
 
                 try
                 {
-                    return _implementations.First(implementation => implementation.InterfaceUri == interfaceUri);
+                    return Implementations.First(implementation => implementation.InterfaceUri == interfaceUri);
                 }
                     #region Error handling
                 catch (InvalidOperationException)
@@ -152,7 +152,7 @@ namespace ZeroInstall.Store.Model.Selection
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            return _implementations.FirstOrDefault(implementation => implementation.InterfaceUri == interfaceUri);
+            return Implementations.FirstOrDefault(implementation => implementation.InterfaceUri == interfaceUri);
         }
         #endregion
 

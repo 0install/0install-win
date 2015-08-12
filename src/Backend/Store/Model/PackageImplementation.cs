@@ -108,12 +108,12 @@ namespace ZeroInstall.Store.Model
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString
         {
-            get { return StringUtils.Join(" ", _distributions); }
+            get { return StringUtils.Join(" ", Distributions); }
             set
             {
-                _distributions.Clear();
+                Distributions.Clear();
                 if (string.IsNullOrEmpty(value)) return;
-                _distributions.AddRange(value.Split(' '));
+                Distributions.AddRange(value.Split(' '));
             }
         }
         #endregion

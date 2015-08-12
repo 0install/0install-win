@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Trust
 
                 try
                 {
-                    using (var stream = File.OpenRead(Path.Combine(_homeDir, "secring.gpg")))
+                    using (var stream = File.OpenRead(Path.Combine(HomeDir, "secring.gpg")))
                         return _secretBundle = new PgpSecretKeyRingBundle(PgpUtilities.GetDecoderStream(stream));
                 }
                     #region Error handling

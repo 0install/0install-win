@@ -132,10 +132,10 @@ namespace ZeroInstall.Store.Model
         public virtual void Normalize()
         {
             // Apply if-0install-version filter
-            _arguments.RemoveAll(FilterMismatch);
-            _dependencies.RemoveAll(FilterMismatch);
-            _restrictions.RemoveAll(FilterMismatch);
-            _bindings.RemoveAll(FilterMismatch);
+            Arguments.RemoveAll(FilterMismatch);
+            Dependencies.RemoveAll(FilterMismatch);
+            Restrictions.RemoveAll(FilterMismatch);
+            Bindings.RemoveAll(FilterMismatch);
             if (FilterMismatch(WorkingDir)) WorkingDir = null;
 
             if (Runner != null) Runner.Normalize();

@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Trust
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
                 File.WriteAllBytes(signatureFile, signature);
-                result = new CliControl(_homeDir, data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
+                result = new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
             }
             string[] lines = result.SplitMultilineText();
 
@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            string output = new CliControl(_homeDir, data).Execute("--batch", "--no-secmem-warning", "--passphrase", passphrase ?? "", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
+            string output = new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--passphrase", passphrase ?? "", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
             string signatureBase64 = output
                 .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
                 .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")
@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Trust
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            new CliControl(_homeDir, data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
+            new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
         }
 
         /// <inheritdoc/>
@@ -143,14 +143,14 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            return new CliControl(_homeDir).Execute("--batch", "--no-secmem-warning", "--armor", "--export", secretKey.KeyID)
+            return new CliControl(HomeDir).Execute("--batch", "--no-secmem-warning", "--armor", "--export", secretKey.KeyID)
                 .Replace(Environment.NewLine, "\n") + "\n";
         }
 
         /// <inheritdoc/>
         public IEnumerable<OpenPgpSecretKey> ListSecretKeys()
         {
-            string result = new CliControl(_homeDir).Execute("--batch", "--no-secmem-warning", "--list-secret-keys", "--with-colons", "--fixed-list-mode", "--fingerprint");
+            string result = new CliControl(HomeDir).Execute("--batch", "--no-secmem-warning", "--list-secret-keys", "--with-colons", "--fixed-list-mode", "--fingerprint");
 
             string[] sec = null, fpr = null, uid = null;
             foreach (string line in result.SplitMultilineText())

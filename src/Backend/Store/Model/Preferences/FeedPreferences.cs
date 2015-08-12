@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         public void Normalize()
         {
-            _implementations.RemoveAll(implementation => implementation.IsSuperflous);
+            Implementations.RemoveAll(implementation => implementation.IsSuperflous);
         }
         #endregion
 

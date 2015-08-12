@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
             #endregion
 
-            return _entries.OfType<T>().FirstOrDefault(specificCapability => specificCapability.ID == id);
+            return Entries.OfType<T>().FirstOrDefault(specificCapability => specificCapability.ID == id);
         }
 
         //--------------------//

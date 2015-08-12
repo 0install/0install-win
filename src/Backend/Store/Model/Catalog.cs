@@ -192,7 +192,7 @@ namespace ZeroInstall.Store.Model
         /// <remarks>This method should be called to prepare a <see cref="Catalog"/> for solver processing. Do not call it if you plan on serializing the catalog again since it may loose some of its structure.</remarks>
         public void Normalize()
         {
-            foreach (var feed in _feeds)
+            foreach (var feed in Feeds)
                 feed.Normalize(feed.Uri);
         }
         #endregion

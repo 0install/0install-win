@@ -246,12 +246,12 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             // Apply if-0install-version filter
-            _elements.RemoveAll(FeedElement.FilterMismatch);
-            _icons.RemoveAll(FeedElement.FilterMismatch);
-            _categories.RemoveAll(FeedElement.FilterMismatch);
-            _feeds.RemoveAll(FeedElement.FilterMismatch);
-            _feedFor.RemoveAll(FeedElement.FilterMismatch);
-            _entryPoints.RemoveAll(FeedElement.FilterMismatch);
+            Elements.RemoveAll(FeedElement.FilterMismatch);
+            Icons.RemoveAll(FeedElement.FilterMismatch);
+            Categories.RemoveAll(FeedElement.FilterMismatch);
+            Feeds.RemoveAll(FeedElement.FilterMismatch);
+            FeedFor.RemoveAll(FeedElement.FilterMismatch);
+            EntryPoints.RemoveAll(FeedElement.FilterMismatch);
 
             NormalizeElements(feedUri);
             NormalizeEntryPoints();
@@ -260,7 +260,7 @@ namespace ZeroInstall.Store.Model
         private void NormalizeElements([CanBeNull] FeedUri feedUri = null)
         {
             var collapsedElements = new List<Element>();
-            foreach (var element in _elements)
+            foreach (var element in Elements)
             {
                 // Flatten structure in groups, set missing default values in implementations
                 element.Normalize(feedUri);
@@ -274,19 +274,19 @@ namespace ZeroInstall.Store.Model
                 else collapsedElements.Add(element);
             }
 
-            _elements.Clear();
-            _elements.AddRange(collapsedElements);
+            Elements.Clear();
+            Elements.AddRange(collapsedElements);
         }
 
         private void NormalizeEntryPoints()
         {
             // Remove invalid entry points
-            _entryPoints.RemoveAll(x => string.IsNullOrEmpty(x.Command));
+            EntryPoints.RemoveAll(x => string.IsNullOrEmpty(x.Command));
 
             // Ensure an entry point for the "run" command exists
             var mainEntryPoint = GetEntryPoint();
             if (mainEntryPoint == null)
-                _entryPoints.Add(mainEntryPoint = new EntryPoint {Names = {Name}, Command = Command.NameRun});
+                EntryPoints.Add(mainEntryPoint = new EntryPoint {Names = {Name}, Command = Command.NameRun});
 
             // Copy the needs-terminal flag from the feed to the main entry point if present
             if (NeedsTerminal) mainEntryPoint.NeedsTerminal = true;

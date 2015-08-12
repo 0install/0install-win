@@ -55,10 +55,10 @@ namespace ZeroInstall.Store.Model
             base.Normalize(feedUri);
 
             // Apply if-0install-version filter
-            _retrievalMethods.RemoveAll(FilterMismatch);
+            RetrievalMethods.RemoveAll(FilterMismatch);
 
             var toRemove = new List<RetrievalMethod>();
-            foreach (var retrievalMethod in _retrievalMethods)
+            foreach (var retrievalMethod in RetrievalMethods)
             {
                 try
                 {
@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Model
                 }
                 #endregion
             }
-            _retrievalMethods.RemoveRange(toRemove);
+            RetrievalMethods.RemoveRange(toRemove);
         }
         #endregion
 
