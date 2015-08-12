@@ -188,7 +188,7 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         public override string ToString()
         {
-            return "DiskFeedCache: " + DirectoryPath;
+            return $"DiskFeedCache: {DirectoryPath}";
         }
         #endregion
     }

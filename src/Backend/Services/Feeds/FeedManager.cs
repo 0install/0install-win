@@ -119,7 +119,7 @@ namespace ZeroInstall.Services.Feeds
         private Feed GetFeed([NotNull] FeedUri feedUri)
         {
             if (feedUri.IsFromDistribution)
-                throw new ArgumentException(string.Format("{0} is a virtual feed URI and therefore cannot be downloaded.", feedUri.ToStringRfc()));
+                throw new ArgumentException($"{feedUri.ToStringRfc()} is a virtual feed URI and therefore cannot be downloaded.");
             if (feedUri.IsFile) return XmlStorage.LoadXml<Feed>(feedUri.LocalPath);
             else
             {

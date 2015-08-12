@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ImplementationPreferences: {0}", ID);
+            return $"ImplementationPreferences: {ID}";
         }
         #endregion
 

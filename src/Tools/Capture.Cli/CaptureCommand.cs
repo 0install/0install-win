@@ -179,7 +179,7 @@ namespace ZeroInstall.Capture.Cli
         {
             if (File.Exists(path) && !_force)
             {
-                Log.Error(string.Format("The file '{0}' already exists. Use --force to overwrite.", Path.GetFullPath(path)));
+                Log.Error($"The file '{Path.GetFullPath(path)}' already exists. Use --force to overwrite.");
                 return true;
             }
             else return false;

@@ -241,7 +241,7 @@ namespace ZeroInstall.DesktopIntegration
                     #region Error handling
                 catch (KeyNotFoundException)
                 {
-                    Log.Warn(string.Format("Access point '{0}' no longer compatible with interface '{1}'.", accessPoint, appEntry.InterfaceUri));
+                    Log.Warn($"Access point '{accessPoint}' no longer compatible with interface '{appEntry.InterfaceUri}'.");
                 }
                 #endregion
             }

@@ -101,7 +101,7 @@ namespace ZeroInstall.Commands.Utils
                 string filePath = Path.Combine(contentDir, feedUri.PrettyEscape());
                 if (!filePath.EndsWith(".xml")) filePath += ".xml";
 
-                Log.Info("Exporting feed " + feedUri);
+                Log.Info("Exporting feed " + feedUri.ToStringRfc());
                 File.Copy(feedCache.GetPath(feedUri), filePath, overwrite: true);
             }
 

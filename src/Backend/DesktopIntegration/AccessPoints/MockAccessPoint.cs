@@ -93,7 +93,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MockAccessPoint: {0} (ApplyFlagPath: {1}, UnapplyFlagPath: {2})", ID, ApplyFlagPath, UnapplyFlagPath);
+            return $"MockAccessPoint: {ID} (ApplyFlagPath: {ApplyFlagPath}, UnapplyFlagPath: {UnapplyFlagPath})";
         }
         #endregion
 

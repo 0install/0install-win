@@ -184,17 +184,17 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (IOException ex)
             {
-                Log.Warn("Failed to store icon from " + uri);
+                Log.Warn($"Failed to store icon from {uri}");
                 Log.Warn(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Failed to store icon from " + uri);
+                Log.Warn($"Failed to store icon from {uri}");
                 Log.Warn(ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Warn("Failed to parse icon from " + uri);
+                Log.Warn($"Failed to parse icon from {uri}");
                 Log.Warn(ex);
             }
             #endregion

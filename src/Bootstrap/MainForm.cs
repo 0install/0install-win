@@ -36,11 +36,11 @@ namespace ZeroInstall.Bootstrap
             switch (EmbeddedConfig.Instance.AppMode)
             {
                 case BootstrapMode.Run:
-                    labelLoading.Text = string.Format("Preparing to run {0}...", EmbeddedConfig.Instance.AppName);
+                    labelLoading.Text = $"Preparing to run {EmbeddedConfig.Instance.AppName}...";
                     break;
 
                 case BootstrapMode.Integrate:
-                    labelLoading.Text = string.Format("Preparing to integrate {0}...", EmbeddedConfig.Instance.AppName);
+                    labelLoading.Text = $"Preparing to integrate {EmbeddedConfig.Instance.AppName}...";
                     break;
             }
 

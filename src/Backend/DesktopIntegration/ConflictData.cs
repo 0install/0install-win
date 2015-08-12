@@ -51,7 +51,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} in {1}", AccessPoint, AppEntry);
+            return $"{AccessPoint} in {AppEntry}";
         }
 
         #region Equality

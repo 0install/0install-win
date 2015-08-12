@@ -74,7 +74,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("FileType: {0}", Capability);
+            return $"FileType: {Capability}";
         }
         #endregion
 

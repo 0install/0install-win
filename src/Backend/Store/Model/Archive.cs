@@ -183,7 +183,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            string result = String.Format("{0} ({1}, {2} + {3}, {4})", Href, MimeType, Size, StartOffset, Extract);
+            string result = $"{Href} ({MimeType}, {Size} + {StartOffset}, {Extract})";
             if (!String.IsNullOrEmpty(Destination)) result += " => " + Destination;
             return result;
         }

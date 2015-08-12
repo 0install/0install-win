@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 using (var manager = new MaintenanceManager(TargetDir, Handler, MachineWide, Portable))
                 {
-                    Log.Info(string.Format("Using Zero Install instance at '{0}' to remove '{1}'", Locations.InstallBase, TargetDir));
+                    Log.Info($"Using Zero Install instance at '{Locations.InstallBase}' to remove '{TargetDir}'");
                     manager.Remove();
                 }
             }

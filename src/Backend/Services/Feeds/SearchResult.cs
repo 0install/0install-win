@@ -98,7 +98,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         public override string ToString()
         {
-            return Uri.ToStringRfc() + Environment.NewLine + string.Format("{0} - {1} [{2}%]", Name, Summary, Score);
+            return Uri.ToStringRfc() + Environment.NewLine + $"{Name} - {Summary} [{Score}%]";
         }
     }
 }

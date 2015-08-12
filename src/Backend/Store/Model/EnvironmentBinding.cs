@@ -102,8 +102,8 @@ namespace ZeroInstall.Store.Model
         public override string ToString()
         {
             return (string.IsNullOrEmpty(Insert))
-                ? string.Format("{0} = {1} ({2})", Name, Value, Mode)
-                : string.Format("{0} = Impl+{1} ({2})", Name, Insert, Mode);
+                ? $"{Name} = {Value} ({Mode})"
+                : $"{Name} = Impl+{Insert} ({Mode})";
         }
         #endregion
 

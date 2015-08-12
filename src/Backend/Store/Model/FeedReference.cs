@@ -63,8 +63,8 @@ namespace ZeroInstall.Store.Model
         public override string ToString()
         {
             return Languages.Count == 0
-                ? string.Format("{0} ({1})", Source, Architecture)
-                : string.Format("{0} ({1}, {2})", Source, Architecture, Languages);
+                ? $"{Source} ({Architecture})"
+                : $"{Source} ({Architecture}, {Languages})";
         }
         #endregion
 

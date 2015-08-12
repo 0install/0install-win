@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("UrlProtocol: {0}", Capability);
+            return $"UrlProtocol: {Capability}";
         }
         #endregion
 

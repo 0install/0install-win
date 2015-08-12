@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} steps", Steps.Count);
+            return $"{Steps.Count} steps";
         }
         #endregion
 

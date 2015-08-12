@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0}", Target);
+            return $"{Target}";
         }
         #endregion
 

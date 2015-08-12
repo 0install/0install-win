@@ -101,7 +101,7 @@ namespace ZeroInstall.Hooking
         /// </summary>
         public override string ToString()
         {
-            return string.Format("RelaunchEntry ({0}): {1}", Name, Target);
+            return $"RelaunchEntry ({Name}): {Target}";
         }
         #endregion
     }

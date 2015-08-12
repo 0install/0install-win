@@ -173,7 +173,7 @@ namespace ZeroInstall.Services.Solvers
             var feed = _feedManager[feedUri];
             if (feed.MinInjectorVersion != null && FeedElement.ZeroInstallVersion < feed.MinInjectorVersion)
             {
-                Log.Warn(string.Format("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.", feedUri, feed.MinInjectorVersion, FeedElement.ZeroInstallVersion));
+                Log.Warn($"The solver version is too old. The feed '{feedUri}' requires at least version {feed.MinInjectorVersion} but the installed version is {FeedElement.ZeroInstallVersion}. Try updating Zero Install.");
                 return;
             }
 

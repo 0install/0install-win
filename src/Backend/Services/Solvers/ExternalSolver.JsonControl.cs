@@ -90,7 +90,7 @@ namespace ZeroInstall.Services.Solvers
 
             private void SendChunk(byte[] data)
             {
-                _stdin.Write(Encoding.UTF8.GetBytes(string.Format("0x{0:x8}\n", data.Length)));
+                _stdin.Write(Encoding.UTF8.GetBytes($"0x{data.Length:x8}\n"));
                 _stdin.Write(data);
                 _stdin.Flush();
             }

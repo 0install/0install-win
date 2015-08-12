@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", InterfaceUri, Command ?? Model.Command.NameRun);
+            return $"{InterfaceUri} ({Command ?? Model.Command.NameRun})";
         }
         #endregion
 

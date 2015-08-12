@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         public override string ToString()
         {
-            return "SelectionCandidate: " + Implementation + " from " + FeedUri;
+            return $"SelectionCandidate: {Implementation} from {FeedUri}";
         }
         #endregion
 

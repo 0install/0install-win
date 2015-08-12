@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ValidSignature: {0} ({1})", this.FormatFingerprint(), Timestamp);
+            return $"ValidSignature: {this.FormatFingerprint()} ({Timestamp})";
         }
         #endregion
 
@@ -159,7 +159,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ErrorSignature: {0}", this.FormatKeyID());
+            return $"ErrorSignature: {this.FormatKeyID()}";
         }
         #endregion
 
@@ -199,7 +199,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("BadSignature: {0}", this.FormatKeyID());
+            return $"BadSignature: {this.FormatKeyID()}";
         }
         #endregion
 
@@ -240,7 +240,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MissingKeySignature: {0}", this.FormatKeyID());
+            return $"MissingKeySignature: {this.FormatKeyID()}";
         }
         #endregion
 

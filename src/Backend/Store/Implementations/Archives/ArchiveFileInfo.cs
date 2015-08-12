@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         public override string ToString()
         {
-            string result = string.Format("ArchiveFileInfo: {0} ({1}, + {2}, {3})", Path, MimeType, StartOffset, SubDir);
+            string result = $"ArchiveFileInfo: {Path} ({MimeType}, + {StartOffset}, {SubDir})";
             if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
             if (OriginalSource != null) result += ", originally from: " + OriginalSource.ToStringRfc();
             return result;

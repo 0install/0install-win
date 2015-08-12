@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
-            Log.Debug("Trusting " + fingerprint + " for " + domain);
+            Log.Debug($"Trusting {fingerprint} for {domain}");
 
             Key targetKey = Keys.FirstOrDefault(key => key.Fingerprint == fingerprint);
             if (targetKey == null)
@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException(nameof(fingerprint));
             #endregion
 
-            Log.Debug("Untrusting " + fingerprint + " for " + domain);
+            Log.Debug($"Untrusting {fingerprint} for {domain}");
 
             foreach (Key key in Keys.Where(key => key.Fingerprint == fingerprint))
                 key.Domains.Remove(domain);

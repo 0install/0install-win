@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} =< Ver < {1}", NotBefore, Before);
+            return $"{NotBefore} =< Ver < {Before}";
         }
         #endregion
 

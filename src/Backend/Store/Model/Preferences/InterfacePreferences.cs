@@ -179,7 +179,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         public override string ToString()
         {
-            return string.Format("InterfacePreferences: {0}", Uri);
+            return $"InterfacePreferences: {Uri}";
         }
         #endregion
 

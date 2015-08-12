@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Package, DistributionsString);
+            return $"{Package} ({DistributionsString})";
         }
         #endregion
 

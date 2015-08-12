@@ -215,7 +215,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                         streamsView.Execute();
                         using (var record = streamsView.Fetch())
                         {
-                            if (record == null) throw new IOException(Resources.ArchiveInvalid + Environment.NewLine + string.Format("Cabinet stream '{0}' missing", cabinet));
+                            if (record == null) throw new IOException(Resources.ArchiveInvalid + Environment.NewLine + $"Cabinet stream '{cabinet}' missing");
 
                             using (var stream = record.GetStream("Data"))
                                 ExtractCab(stream);

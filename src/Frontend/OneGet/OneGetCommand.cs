@@ -275,7 +275,7 @@ namespace ZeroInstall.OneGet
             if (requirements.ExtraRestrictions.Count == 0) return;
 
             // TODO
-            Log.Warn(string.Format("You have applied a version restriction to this app. Zero Install will continue to apply this restriction to any future updates. You will need to run '0install select --customize {0}' to undo this.", requirements.InterfaceUri));
+            Log.Warn($"You have applied a version restriction to this app. Zero Install will continue to apply this restriction to any future updates. You will need to run '0install select --customize {requirements.InterfaceUri}' to undo this.");
 
             foreach (var restriction in requirements.ExtraRestrictions)
             {

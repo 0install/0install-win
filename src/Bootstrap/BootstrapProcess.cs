@@ -175,7 +175,7 @@ namespace ZeroInstall.Bootstrap
                 {
                     "content-dir=", () => "Specifies a {DIRECTORY} to search for feeds and archives to import. The default is a directory called 'content'.", path =>
                     {
-                        if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format("Directory '{0}' not found.", path));
+                        if (!Directory.Exists(path)) throw new DirectoryNotFoundException($"Directory '{path}' not found.");
                         _contentDir = path;
                     }
                 },

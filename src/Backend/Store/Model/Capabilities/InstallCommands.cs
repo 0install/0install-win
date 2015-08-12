@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} {1}, {2} {3}, {4} {5}", Reinstall, ReinstallArgs, ShowIcons, ShowIconsArgs, HideIcons, HideIconsArgs);
+            return $"{Reinstall} {ReinstallArgs}, {ShowIcons} {ShowIconsArgs}, {HideIcons} {HideIconsArgs}";
         }
         #endregion
 

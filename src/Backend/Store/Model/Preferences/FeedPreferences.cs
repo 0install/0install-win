@@ -198,7 +198,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         public override string ToString()
         {
-            return string.Format("FeedPreferences: {0}", LastChecked);
+            return $"FeedPreferences: {LastChecked}";
         }
         #endregion
 

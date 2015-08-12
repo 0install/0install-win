@@ -111,17 +111,17 @@ namespace ZeroInstall.Store.ViewModel
                 #region Error handling
             catch (FormatException ex)
             {
-                Log.Error(string.Format("Problem processing the manifest file for '{0}'.", digest));
+                Log.Error($"Problem processing the manifest file for '{digest}'.");
                 Log.Error(ex);
             }
             catch (IOException ex)
             {
-                Log.Error(string.Format("Problem processing '{0}'.", digest));
+                Log.Error($"Problem processing '{digest}'.");
                 Log.Error(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(string.Format("Problem processing '{0}'.", digest));
+                Log.Error($"Problem processing '{digest}'.");
                 Log.Error(ex);
             }
             #endregion

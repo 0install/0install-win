@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1}) => {2}", Href, Size, Destination);
+            return $"{Href} ({Size}) => {Destination}";
         }
         #endregion
 

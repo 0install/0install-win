@@ -133,7 +133,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                 if (File.Exists(Path.Combine(targetDir, Locations.PortableFlagName)))
                 {
-                    Log.Info(string.Format("Detected that '{0}' is an existing portable instance of Zero Install.", targetDir));
+                    Log.Info($"Detected that '{targetDir}' is an existing portable instance of Zero Install.");
                     _portable = true;
                 }
 
@@ -146,7 +146,7 @@ namespace ZeroInstall.Commands.CliCommands
                 {
                     if (FindExistingInstance(machineWide: true) == targetDir)
                     {
-                        Log.Info(string.Format("Detected that '{0}' is an existing machine-wide instance of Zero Install.", targetDir));
+                        Log.Info($"Detected that '{targetDir}' is an existing machine-wide instance of Zero Install.");
                         _machineWide = true;
                     }
                     else if (!targetDir.StartsWith(Locations.HomeDir))
@@ -163,7 +163,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 using (var manager = new MaintenanceManager(targetDir, Handler, _machineWide, _portable))
                 {
-                    Log.Info(string.Format("Deploying Zero Install from '{0}' to '{1}'", Locations.InstallBase, targetDir));
+                    Log.Info($"Deploying Zero Install from '{Locations.InstallBase}' to '{targetDir}'");
                     manager.Deploy();
                 }
             }

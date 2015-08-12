@@ -257,7 +257,7 @@ namespace ZeroInstall.Store.Model
                     #region Error handling
                 catch (InvalidOperationException)
                 {
-                    throw new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", id, Name));
+                    throw new KeyNotFoundException($"Unable to find implementation '{id}' in feed '{Name}'.");
                 }
                 #endregion
             }
@@ -466,7 +466,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Name, Uri);
+            return $"{Name} ({Uri})";
         }
         #endregion
 
