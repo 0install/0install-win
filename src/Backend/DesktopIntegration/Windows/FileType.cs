@@ -121,7 +121,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 RegisterVerbCapability(progIDKey, target, fileType, machineWide, handler);
             }
 
-            using (var classesKey = hive.OpenSubKey(RegKeyClasses, writable: true))
+            using (var classesKey = hive.OpenSubKeyChecked(RegKeyClasses, writable: true))
             {
                 foreach (var extension in fileType.Extensions.Except(x => string.IsNullOrEmpty(x.Value)))
                 {

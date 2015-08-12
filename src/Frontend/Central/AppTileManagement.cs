@@ -133,6 +133,7 @@ namespace ZeroInstall.Central
                 },
                 removed: entry =>
                 {
+                    if (entry.InterfaceUri == null) return;
                     _tileListMyApps.RemoveTile(entry.InterfaceUri);
 
                     // Update "added" status of tile in catalog list

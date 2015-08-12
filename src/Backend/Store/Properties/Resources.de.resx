@@ -214,6 +214,9 @@ Alternativ können Sie auch die grafische Oberfläche zur Verwaltung der Caches 
   <data name="GeneratingManifest" xml:space="preserve">
     <value>Generiere {0} Manifest</value>
   </data>
+  <data name="HardlinkTargetMissing" xml:space="preserve">
+    <value>Der Hardlink '{0}' im Archiv zeigt auf eine nicht existierende Datei '{1}'.</value>
+  </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>Die Datei '{0}' ist weder ein symbolischer Link noch eine reguläre Datei.</value>
   </data>

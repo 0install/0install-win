@@ -81,7 +81,12 @@ namespace ZeroInstall.Store.Implementations.Archives
                     if (string.IsNullOrEmpty(relativePath)) continue;
 
                     if (entry.IsDirectory) CreateDirectory(relativePath, entry.TarHeader.ModTime);
-                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) QueueHardlink(relativePath, GetRelativePath(entry.TarHeader.LinkName), IsExecutable(entry));
+                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK)
+                    {
+                        string targetPath = GetRelativePath(entry.TarHeader.LinkName);
+                        if (string.IsNullOrEmpty(targetPath)) throw new IOException(string.Format(Resources.HardlinkTargetMissing, relativePath, entry.TarHeader.LinkName));
+                        QueueHardlink(relativePath, targetPath, IsExecutable(entry));
+                    }
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(relativePath, entry.TarHeader.LinkName);
                     else WriteFile(relativePath, entry.Size, entry.TarHeader.ModTime, _tarStream, IsExecutable(entry));
 

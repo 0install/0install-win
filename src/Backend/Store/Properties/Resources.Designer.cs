@@ -332,6 +332,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The hardlink &apos;{0}&apos; in the archive points to a non-existant file &apos;{1}&apos;..
+        /// </summary>
+        internal static string HardlinkTargetMissing {
+            get {
+                return ResourceManager.GetString("HardlinkTargetMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file &apos;{0}&apos; is neither a symbolic link nor a regular file..
         /// </summary>
         internal static string IllegalFileType {

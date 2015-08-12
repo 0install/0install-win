@@ -214,6 +214,9 @@ Alternatively you can use the graphical user interface for managing the caches:
   <data name="GeneratingManifest" xml:space="preserve">
     <value>Generating {0} manifest</value>
   </data>
+  <data name="HardlinkTargetMissing" xml:space="preserve">
+    <value>The hardlink '{0}' in the archive points to a non-existant file '{1}'.</value>
+  </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>The file '{0}' is neither a symbolic link nor a regular file.</value>
   </data>

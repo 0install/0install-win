@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return Name;
+            return Name ?? "unset";
         }
         #endregion
 

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using Microsoft.Deployment.Compression;
 using Microsoft.Deployment.Compression.Cab;
@@ -71,7 +72,9 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
 
             stream.Dispose();
-            File.SetLastWriteTimeUtc(CombinePath(GetRelativePath(path)), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
+            string fullPath = GetRelativePath(path);
+            Debug.Assert(fullPath != null);
+            File.SetLastWriteTimeUtc(CombinePath(fullPath), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
 
             UnitsProcessed += _bytesStaged;
         }

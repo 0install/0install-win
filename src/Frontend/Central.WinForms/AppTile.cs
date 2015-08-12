@@ -254,7 +254,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonSelectCommand_Click(object sender, EventArgs e)
         {
-            if (InterfaceUri.IsFake) return;
+            if (InterfaceUri.IsFake || Feed == null) return;
             new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
         }
 

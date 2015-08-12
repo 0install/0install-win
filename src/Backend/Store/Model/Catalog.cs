@@ -173,10 +173,13 @@ namespace ZeroInstall.Store.Model
             }
             else
             {
-                foreach (var feed in Feeds.Where(x => x.Uri != null && !string.IsNullOrEmpty(x.Name)))
+                foreach (var feed in Feeds)
                 {
-                    if (feed.Name.ContainsIgnoreCase(query)) yield return feed;
-                    else if (feed.Name.Replace(' ', '-').ContainsIgnoreCase(query)) yield return feed;
+                    if (feed.Uri != null && !string.IsNullOrEmpty(feed.Name))
+                    {
+                        if (feed.Name.ContainsIgnoreCase(query)) yield return feed;
+                        else if (feed.Name.Replace(' ', '-').ContainsIgnoreCase(query)) yield return feed;
+                    }
                 }
             }
         }
