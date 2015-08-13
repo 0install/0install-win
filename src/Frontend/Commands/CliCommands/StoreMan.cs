@@ -398,7 +398,7 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override string Usage { get { return "DIGEST+"; } }
 
-            protected override int AdditionalArgsMax { get { return 1; } }
+            protected override int AdditionalArgsMin { get { return 1; } }
 
             public Remove([NotNull] ICommandHandler handler) : base(handler)
             {}
