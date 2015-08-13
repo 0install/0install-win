@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -25,15 +26,14 @@ namespace ZeroInstall.Store.Model
     /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>.
     /// </summary>
     [Description("Restricts the set of versions from which the injector may choose an implementation.")]
-    [Serializable]
-    [XmlRoot("constraint", Namespace = Feed.XmlNamespace), XmlType("constraint", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("constraint", Namespace = Feed.XmlNamespace), XmlType("constraint", Namespace = Feed.XmlNamespace)]
     public class Constraint : FeedElement, ICloneable, IEquatable<Constraint>
     {
         /// <summary>
         /// This is the lowest-numbered version that can be chosen.
         /// </summary>
         [Description("This is the lowest-numbered version that can be chosen.")]
-        [XmlIgnore]
+        [XmlIgnore, CanBeNull]
         public ImplementationVersion NotBefore { get; set; }
 
         #region XML serialization
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
         /// This version and all later versions are unsuitable.
         /// </summary>
         [Description("This version and all later versions are unsuitable.")]
-        [XmlIgnore]
+        [XmlIgnore, CanBeNull]
         public ImplementationVersion Before { get; set; }
 
         /// <summary>Used for XML serialization.</summary>

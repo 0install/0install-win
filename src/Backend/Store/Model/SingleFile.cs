@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -25,8 +26,7 @@ namespace ZeroInstall.Store.Model
     /// Retrieves an implementation by downloading a single file.
     /// </summary>
     [Description("Retrieves an implementation by downloading a single file.")]
-    [Serializable]
-    [XmlRoot("file", Namespace = Feed.XmlNamespace), XmlType("file", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("file", Namespace = Feed.XmlNamespace), XmlType("file", Namespace = Feed.XmlNamespace)]
     public sealed class SingleFile : DownloadRetrievalMethod, IEquatable<SingleFile>
     {
         #region Properties
@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Model
         /// The file's target path relative to the implementation root as a Unix-style path.
         /// </summary>
         [Description("The file's target path relative to the implementation root as a Unix-style path.")]
-        [XmlAttribute("dest")]
+        [XmlAttribute("dest"), CanBeNull]
         public string Destination { get; set; }
         #endregion
 

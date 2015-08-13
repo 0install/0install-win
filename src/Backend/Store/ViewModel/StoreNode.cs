@@ -43,6 +43,7 @@ namespace ZeroInstall.Store.ViewModel
         /// The file system path of the element.
         /// </summary>
         [Description("The file system path of the element.")]
+        [CanBeNull]
         public abstract string Path { get; }
     }
 }

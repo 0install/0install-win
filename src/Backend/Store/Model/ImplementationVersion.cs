@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Model
     /// <para>This class is immutable.</para>
     /// <para>
     ///   This is the syntax for valid version strings:
-    ///   <code> 
+    ///   <code>
     ///   Version := DottedList ("-" Modifier? DottedList?)*
     ///   DottedList := (Integer ("." Integer)*)
     ///   Modifier := "pre" | "rc" | "post"
@@ -40,8 +40,8 @@ namespace ZeroInstall.Store.Model
     ///   If the string <see cref="ModelUtils.ContainsTemplateVariables"/> the entire string is stored verbatimed and not parsed.
     /// </para>
     /// </remarks>
-    [Serializable]
     [TypeConverter(typeof(StringConstructorConverter<ImplementationVersion>))]
+    [Serializable]
     public sealed class ImplementationVersion : IEquatable<ImplementationVersion>, IComparable<ImplementationVersion>
     {
         #region Variables
@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Model
         #region Conversion
         /// <summary>
         /// Returns a string representation of the version. Safe for parsing!
-        /// </summary>        
+        /// </summary>
         public override string ToString()
         {
             if (_verbatimString != null) return _verbatimString;

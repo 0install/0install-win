@@ -15,9 +15,8 @@ namespace ZeroInstall.Store.Model
         /// The name of the <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the implementation to launch; leave empty for 'run'.")]
-        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
-        [CanBeNull]
+        [XmlAttribute("command"), DefaultValue(""), CanBeNull]
         public string Command { get; set; }
 
         #region Equality

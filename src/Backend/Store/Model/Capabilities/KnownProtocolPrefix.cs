@@ -26,8 +26,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// </summary>
     /// <seealso cref="UrlProtocol.KnownPrefixes"/>
     [Description("Names a well-known protocol prefix. Used for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.")]
-    [Serializable]
-    [XmlRoot("known-prefix", Namespace = CapabilityList.XmlNamespace), XmlType("known-prefix", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("known-prefix", Namespace = CapabilityList.XmlNamespace), XmlType("known-prefix", Namespace = CapabilityList.XmlNamespace)]
     public class KnownProtocolPrefix : XmlUnknown, ICloneable, IEquatable<KnownProtocolPrefix>
     {
         #region Properties

@@ -30,8 +30,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Model.Command.Runner"/>
     [Description("A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.")]
-    [Serializable]
-    [XmlRoot("runner", Namespace = Feed.XmlNamespace), XmlType("runner", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("runner", Namespace = Feed.XmlNamespace), XmlType("runner", Namespace = Feed.XmlNamespace)]
     public class Runner : Dependency, IArgBaseContainer, IEquatable<Runner>
     {
         #region Properties
@@ -39,9 +38,8 @@ namespace ZeroInstall.Store.Model
         /// The name of the command in the <see cref="Restriction.InterfaceUri"/> to use; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the interface to use; leave empty for 'run'.")]
-        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
-        [CanBeNull]
+        [XmlAttribute("command"), DefaultValue(""), CanBeNull]
         public string Command { get; set; }
 
         private readonly List<ArgBase> _arguments = new List<ArgBase>();

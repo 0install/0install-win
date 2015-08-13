@@ -26,8 +26,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
     [Description("Make a chosen Implementation available by overlaying it onto another part of the file-system.")]
-    [Serializable]
-    [XmlRoot("overlay", Namespace = Feed.XmlNamespace), XmlType("overlay", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("overlay", Namespace = Feed.XmlNamespace), XmlType("overlay", Namespace = Feed.XmlNamespace)]
     public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {
         #region Properties

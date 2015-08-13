@@ -19,6 +19,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
@@ -35,21 +36,25 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
+        [CanBeNull]
         public string ExpectedDigest { get; private set; }
 
         /// <summary>
         /// The <see cref="Manifest"/> that resulted in the <see cref="ExpectedDigest"/>.
         /// </summary>
+        [CanBeNull]
         public Manifest ExpectedManifest { get; private set; }
 
         /// <summary>
         /// The hash value that was actually calculated.
         /// </summary>
+        [CanBeNull]
         public string ActualDigest { get; private set; }
 
         /// <summary>
         /// The <see cref="Manifest"/> that resulted in the <see cref="ActualDigest"/>.
         /// </summary>
+        [CanBeNull]
         public Manifest ActualManifest { get; private set; }
         #endregion
 

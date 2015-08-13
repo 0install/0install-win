@@ -36,9 +36,8 @@ namespace ZeroInstall.Store.Model
     /// <remarks>Stores digests of the <see cref="Manifest"/> file using various hashing algorithms.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
     [Description("A manifest digest is a means of uniquely identifying an Implementation and verifying its contents.")]
-    [Serializable]
     [TypeConverter(typeof(ManifestDigestConverter))]
-    [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
     public struct ManifestDigest : IEquatable<ManifestDigest>
     {
         #region Constants
@@ -53,8 +52,7 @@ namespace ZeroInstall.Store.Model
         /// A SHA-1 hash of the old manifest format.
         /// </summary>
         [Description("A SHA-1 hash of the old manifest format.")]
-        [XmlAttribute("sha1"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("sha1"), DefaultValue(""), CanBeNull]
         public string Sha1 { get; set; }
 
         /// <summary>
@@ -62,16 +60,14 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         [Description("A SHA-1 hash of the new manifest format.")]
-        [XmlAttribute("sha1new"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("sha1new"), DefaultValue(""), CanBeNull]
         public string Sha1New { get; set; }
 
         /// <summary>
         /// A SHA-256 hash of the new manifest format. (most secure)
         /// </summary>
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
-        [XmlAttribute("sha256"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("sha256"), DefaultValue(""), CanBeNull]
         public string Sha256 { get; set; }
 
         /// <summary>
@@ -79,8 +75,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         [Description("A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.")]
-        [XmlAttribute("sha256new"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("sha256new"), DefaultValue(""), CanBeNull]
         public string Sha256New { get; set; }
 
         /// <summary>

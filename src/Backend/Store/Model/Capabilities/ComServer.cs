@@ -26,8 +26,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// An application's ability to act as a COM server.
     /// </summary>
     [Description("An application's ability to act as a COM server.")]
-    [Serializable]
-    [XmlRoot("com-server", Namespace = CapabilityList.XmlNamespace), XmlType("com-server", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("com-server", Namespace = CapabilityList.XmlNamespace), XmlType("com-server", Namespace = CapabilityList.XmlNamespace)]
     public sealed class ComServer : Capability, IEquatable<ComServer>
     {
         #region Properties

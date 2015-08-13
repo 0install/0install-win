@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -26,8 +27,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Feed.Feeds"/>
     [Description("A linked feed that contains more implementations of this feed's interface. Is treated by the solver as if it were part of the main feed.")]
-    [Serializable]
-    [XmlRoot("feed-reference", Namespace = Feed.XmlNamespace), XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("feed-reference", Namespace = Feed.XmlNamespace), XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         /// <summary>

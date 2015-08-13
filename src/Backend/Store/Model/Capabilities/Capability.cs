@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
@@ -50,7 +51,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <remarks>These identifiers are not guaranteed to stay the same between versions. They should not be stored in files but instead always generated on demand.</remarks>
         [Browsable(false)]
-        [XmlIgnore]
+        [XmlIgnore, NotNull, ItemNotNull]
         public abstract IEnumerable<string> ConflictIDs { get; }
         #endregion
 

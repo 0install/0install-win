@@ -18,6 +18,7 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Info;
 
 namespace ZeroInstall.Store.Model
@@ -32,7 +33,7 @@ namespace ZeroInstall.Store.Model
         /// Only process this element if the current Zero Install version matches the range.
         /// </summary>
         [Browsable(false)]
-        [XmlIgnore]
+        [XmlIgnore, CanBeNull]
         public VersionRange IfZeroInstallVersion { get; set; }
 
         #region XML serialization

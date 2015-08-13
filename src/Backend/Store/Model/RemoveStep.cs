@@ -25,8 +25,7 @@ namespace ZeroInstall.Store.Model
     /// Removes or moves a file or directory. It is an error if the path is outside the implementation.
     /// </summary>
     [Description("Removes or moves a file or directory. It is an error if the path is outside the implementation.")]
-    [Serializable]
-    [XmlRoot("remove", Namespace = Feed.XmlNamespace), XmlType("remove", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("remove", Namespace = Feed.XmlNamespace), XmlType("remove", Namespace = Feed.XmlNamespace)]
     public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>, ICloneable
     {
         #region Properties

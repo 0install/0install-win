@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -29,8 +30,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Element.Commands"/>
     [Description("A command says how to run an implementation as a program.")]
-    [Serializable]
-    [XmlRoot("command", Namespace = Feed.XmlNamespace), XmlType("command", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("command", Namespace = Feed.XmlNamespace), XmlType("command", Namespace = Feed.XmlNamespace)]
     public class Command : FeedElement, IArgBaseContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
     {
         #region Constants
@@ -60,8 +60,8 @@ namespace ZeroInstall.Store.Model
         /// The name of the command. Well-known names are <see cref="NameRun"/>, <see cref="NameTest"/> and <see cref="NameCompile"/>.
         /// </summary>
         [Description("The name of the command.")]
-        [XmlAttribute("name")]
         [TypeConverter(typeof(CommandNameConverter))]
+        [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Model
         /// Switches the working directory of a process on startup to a location within an implementation.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("working-dir")]
+        [XmlElement("working-dir"), CanBeNull]
         public WorkingDir WorkingDir { get; set; }
 
         private readonly List<Dependency> _dependencies = new List<Dependency>();
@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Model
         /// A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("runner")]
+        [XmlElement("runner"), CanBeNull]
         public Runner Runner { get; set; }
         #endregion
 

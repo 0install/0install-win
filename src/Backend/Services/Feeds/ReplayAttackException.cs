@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using JetBrains.Annotations;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -34,6 +35,7 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// The URL of the feed file to be added to the cache.
         /// </summary>
+        [CanBeNull]
         public Uri FeedUrl { get; private set; }
 
         /// <summary>

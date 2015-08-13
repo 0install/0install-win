@@ -25,8 +25,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// A specific file extension used to identify a file type.
     /// </summary>
     [Description("A specific file extension used to identify a file type.")]
-    [Serializable]
-    [XmlRoot("extension", Namespace = CapabilityList.XmlNamespace), XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("extension", Namespace = CapabilityList.XmlNamespace), XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
     public class FileTypeExtension : XmlUnknown, ICloneable, IEquatable<FileTypeExtension>
     {
         #region Constants

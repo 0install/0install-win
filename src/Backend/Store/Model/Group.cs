@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 
@@ -31,8 +32,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Feed.Elements"/>
     [Description("All attributes of a group are inherited by any child Groups and Implementations as defaults, but can be overridden there.\r\nAll Dependencies and Bindings are inherited (sub-groups may add more Dependencies and Bindings to the list, but cannot remove any).")]
-    [Serializable]
-    [XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
         #region Properties

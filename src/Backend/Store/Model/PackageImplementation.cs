@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
@@ -30,8 +31,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <remarks>Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Feed"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.</remarks>
     [Description("An implementation provided by a distribution-specific package manager instead of Zero Install.")]
-    [Serializable]
-    [XmlRoot("package-implementation", Namespace = Feed.XmlNamespace), XmlType("package-implementation", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("package-implementation", Namespace = Feed.XmlNamespace), XmlType("package-implementation", Namespace = Feed.XmlNamespace)]
     public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>
     {
         #region Constants
@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Model
         /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies. Applies everywhere if empty.
         /// </summary>
         [Browsable(false)]
-        [XmlIgnore]
+        [XmlIgnore, NotNull]
         public List<string> Distributions { get { return _distributions; } }
 
         /// <summary>
@@ -104,8 +104,8 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <seealso cref="Distributions"/>
         [Category("Identity"), DisplayName(@"Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies. Applies everywhere if empty.")]
-        [XmlAttribute("distributions"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
+        [XmlAttribute("distributions"), DefaultValue("")]
         public string DistributionsString
         {
             get { return StringUtils.Join(" ", Distributions); }

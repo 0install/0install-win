@@ -42,6 +42,7 @@ namespace ZeroInstall.Publish
         /// The secret key used to sign the <see cref="Catalog"/>; <see langword="null"/> for no signature.
         /// </summary>
         [CanBeNull]
+        [PublicAPI]
         public OpenPgpSecretKey SecretKey { get; set; }
 
         /// <summary>

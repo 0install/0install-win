@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         [Category("Details (Script)"), DisplayName(@"Interpreter versions"), Description("The range of versions of the script interpreter supported by the application.")]
         [DefaultValue("")]
-        [UsedImplicitly]
+        [UsedImplicitly, CanBeNull]
         public VersionRange InterpreterVersions { get; set; }
 
         /// <inheritdoc/>

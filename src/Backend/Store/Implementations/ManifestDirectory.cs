@@ -39,6 +39,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
         /// </summary>
+        [NotNull]
         public string FullPath { get; private set; }
         #endregion
 
@@ -156,7 +157,7 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                return (ModifiedTime.GetHashCode() * 397) ^ (FullPath != null ? FullPath.GetHashCode() : 0);
+                return (ModifiedTime.GetHashCode() * 397) ^ FullPath.GetHashCode();
             }
         }
         #endregion

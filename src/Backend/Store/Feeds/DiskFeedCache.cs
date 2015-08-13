@@ -63,6 +63,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// The directory containing the cached <see cref="Feed"/>s.
         /// </summary>
+        [NotNull]
         public string DirectoryPath { get; private set; }
         #endregion
 

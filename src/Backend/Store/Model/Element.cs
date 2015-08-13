@@ -106,7 +106,7 @@ namespace ZeroInstall.Store.Model
         /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
         /// </summary>
         [Category("Release"), Description("A string to be appended to the version. The purpose of this is to allow complex version numbers (such as \"1.0-rc2\") in older versions of the injector.")]
-        [XmlAttribute("version-modifier"), DefaultValue("")]
+        [XmlAttribute("version-modifier"), DefaultValue(""), CanBeNull]
         public string VersionModifier { get; set; }
 
         /// <summary>
@@ -119,6 +119,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Used to store the unparsed release date string (instead of <see cref="Released"/>) if it <see cref="ModelUtils.ContainsTemplateVariables"/>.
         /// </summary>
+        [CanBeNull]
         protected string ReleasedVerbatim;
 
         /// <summary>
@@ -154,8 +155,8 @@ namespace ZeroInstall.Store.Model
         /// License terms (typically a Trove category, as used on freshmeat.net).
         /// </summary>
         [Category("Release"), Description("License terms (typically a Trove category, as used on freshmeat.net).")]
-        [XmlAttribute("license"), DefaultValue("")]
         [TypeConverter(typeof(LicenseNameConverter))]
+        [XmlAttribute("license"), DefaultValue("")]
         public string License { get; set; }
 
         /// <summary>
@@ -167,8 +168,7 @@ namespace ZeroInstall.Store.Model
         /// An empty string corresponds to a <see cref="Command"/> with no <see cref="Command.Path"/>.
         /// </remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
-        [XmlAttribute("main"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("main"), DefaultValue(""), CanBeNull]
         public string Main { get; set; }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
         [Browsable(false)]
-        [XmlElement("command")]
+        [XmlElement("command"), NotNull]
         public List<Command> Commands { get { return _commands; } }
 
         //--------------------//

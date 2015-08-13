@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -28,13 +29,13 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
-        [XmlElement("requires")]
+        [XmlElement("requires"), NotNull]
         List<Dependency> Dependencies { get; }
 
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
-        [XmlElement("restricts")]
+        [XmlElement("restricts"), NotNull]
         List<Restriction> Restrictions { get; }
     }
 }

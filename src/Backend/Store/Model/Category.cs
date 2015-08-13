@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -26,8 +27,7 @@ namespace ZeroInstall.Store.Model
     /// An application category (e.g. Game or Office). Used for organizing application menus.
     /// </summary>
     [Description("An application category (e.g. Game or Office). Used for organizing application menus.")]
-    [Serializable]
-    [XmlRoot("category", Namespace = Feed.XmlNamespace), XmlType("category", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("category", Namespace = Feed.XmlNamespace), XmlType("category", Namespace = Feed.XmlNamespace)]
     public sealed class Category : FeedElement, IEquatable<Category>, ICloneable
     {
         #region Constants
@@ -42,15 +42,15 @@ namespace ZeroInstall.Store.Model
         /// The category name as specified by the <see cref="TypeNamespace"/>.
         /// </summary>
         [Description("The category name as specified by the TypeNamespace.")]
-        [XmlText]
         [TypeConverter(typeof(CategoryNameConverter))]
+        [XmlText]
         public string Name { get; set; }
 
         /// <summary>
         /// If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification (http://standards.freedesktop.org/menu-spec/latest/apa.html). Otherwise, it is a URI giving the namespace for the category.
         /// </summary>
         [Description("If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification. Otherwise, it is a URI giving the namespace for the category.")]
-        [XmlAttribute("type"), DefaultValue("")]
+        [XmlAttribute("type"), DefaultValue(""), CanBeNull]
         public string TypeNamespace { get; set; }
         #endregion
 

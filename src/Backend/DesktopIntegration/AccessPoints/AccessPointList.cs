@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
@@ -29,8 +30,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// <summary>
     /// Contains a set of <see cref="AccessPoint"/>s to be registered in a desktop environment.
     /// </summary>
-    [Serializable]
-    [XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
+    [Serializable, XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
     public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>
     {
         #region Properties
@@ -41,6 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         [Description("A list of access points.")]
         [XmlElement(typeof(AppAlias)), XmlElement(typeof(AutoStart)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(CapabilityRegistration)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(DesktopIcon)), XmlElement(typeof(FileType)), XmlElement(typeof(MenuEntry)), XmlElement(typeof(SendTo)), XmlElement(typeof(UrlProtocol)), XmlElement(typeof(QuickLaunch)), XmlElement(typeof(MockAccessPoint))]
+        [NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<AccessPoint> Entries
         {

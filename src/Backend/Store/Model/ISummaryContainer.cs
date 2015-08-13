@@ -17,6 +17,7 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
@@ -31,6 +32,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement("summary")]
+        [NotNull]
         LocalizableStringCollection Summaries { get; }
     }
 }

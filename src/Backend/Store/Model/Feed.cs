@@ -38,8 +38,7 @@ namespace ZeroInstall.Store.Model
     /// Feeds downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
     [Description("A feed contains all the information required to download and execute an application.")]
-    [Serializable]
-    [XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
+    [Serializable, XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
     public sealed class Feed : XmlUnknown, IElementContainer, ISummaryContainer, IIconContainer, ICloneable, IEquatable<Feed>
@@ -72,21 +71,23 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [Browsable(false)]
+        [XmlIgnore]
         public FeedUri Uri { get; set; }
 
         /// <summary>
         /// The URI of the <see cref="Catalog"/> this feed was stored within. Used as an implementation detail; not part of the official feed format!
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [Browsable(false)]
+        [XmlIgnore, CanBeNull]
         public FeedUri CatalogUri { get; set; }
 
         /// <summary>
         /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
         /// </summary>
-        [Browsable(false)]
         //[Category("Feed"), Description("This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.")]
-        [XmlIgnore]
+        [Browsable(false)]
+        [XmlIgnore, CanBeNull]
         public ImplementationVersion MinInjectorVersion { get; set; }
 
         /// <summary>
@@ -113,7 +114,8 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The main website of the application.
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [Browsable(false)]
+        [XmlIgnore, CanBeNull]
         public Uri Homepage { get; set; }
 
         private readonly List<Icon> _icons = new List<Icon>();
@@ -122,7 +124,7 @@ namespace ZeroInstall.Store.Model
         /// Zero or more icons representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
-        [XmlElement("icon")]
+        [XmlElement("icon"), NotNull]
         public List<Icon> Icons { get { return _icons; } }
 
         private readonly List<Category> _categories = new List<Category>();
@@ -131,7 +133,7 @@ namespace ZeroInstall.Store.Model
         /// A list of well-known categories the applications fits into. May influence the placement in the application menu.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("category")]
+        [XmlElement("category"), NotNull]
         public List<Category> Categories { get { return _categories; } }
 
         /// <summary>
@@ -180,7 +182,7 @@ namespace ZeroInstall.Store.Model
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("feed")]
+        [XmlElement("feed"), NotNull]
         public List<FeedReference> Feeds { get { return _feeds; } }
 
         private readonly List<InterfaceReference> _feedFor = new List<InterfaceReference>();
@@ -189,7 +191,7 @@ namespace ZeroInstall.Store.Model
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("feed-for")]
+        [XmlElement("feed-for"), NotNull]
         public List<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
@@ -215,7 +217,7 @@ namespace ZeroInstall.Store.Model
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("entry-point")]
+        [XmlElement("entry-point"), NotNull]
         public List<EntryPoint> EntryPoints { get { return _entryPoints; } }
 
         private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
@@ -224,7 +226,7 @@ namespace ZeroInstall.Store.Model
         /// A set of <see cref="Capability"/> lists for different architectures.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
+        [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<CapabilityList> CapabilityLists
         {

@@ -39,7 +39,8 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// The URI of the interface to be configured.
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [Browsable(false)]
+        [XmlIgnore, CanBeNull]
         public FeedUri Uri { get; set; }
 
         #region XML serialization
@@ -66,7 +67,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
-        [XmlElement("feed")]
+        [XmlElement("feed"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<FeedReference> Feeds
         {

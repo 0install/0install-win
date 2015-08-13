@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
@@ -52,8 +53,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// An entry in the file manager's context menu for all file types.
     /// </summary>
     [Description("An entry in the file manager's context menu for all file types.")]
-    [Serializable]
-    [XmlRoot("context-menu", Namespace = CapabilityList.XmlNamespace), XmlType("context-menu", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("context-menu", Namespace = CapabilityList.XmlNamespace), XmlType("context-menu", Namespace = CapabilityList.XmlNamespace)]
     public sealed class ContextMenu : DefaultCapability, ISingleVerb, IEquatable<ContextMenu>
     {
         #region Properties
@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// The command to execute when the context menu entry is clicked.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("verb")]
+        [XmlElement("verb"), CanBeNull]
         public Verb Verb { get; set; }
 
         /// <inheritdoc/>

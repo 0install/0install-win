@@ -68,23 +68,21 @@ namespace ZeroInstall.DesktopIntegration
         /// A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific entry filtering.
         /// </summary>
         [Description("A regular expression a computer's hostname must match for this entry to be applied. Enables machine-specific entry filtering.")]
-        [XmlAttribute("hostname"), DefaultValue("")]
+        [XmlAttribute("hostname"), DefaultValue(""), CanBeNull]
         public string Hostname { get; set; }
 
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process.
         /// </summary>
         [Description("A set of requirements/restrictions imposed by the user on the implementation selection process.")]
-        [XmlIgnore]
-        [CanBeNull]
+        [XmlIgnore, CanBeNull]
         public Requirements Requirements { get; set; }
 
         /// <summary>
         /// The <see cref="Requirements"/> if it is set, otherwise a basic reference to <see cref="InterfaceUri"/>.
         /// </summary>
         [Browsable(false)]
-        [XmlIgnore]
-        [NotNull]
+        [XmlIgnore, NotNull]
         public Requirements EffectiveRequirements { get { return Requirements ?? new Requirements(InterfaceUri); } }
 
         #region XML serialization
@@ -107,6 +105,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         [Browsable(false)]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
+        [NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<CapabilityList> CapabilityLists
         {
@@ -117,8 +116,7 @@ namespace ZeroInstall.DesktopIntegration
         /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment. Is <see langword="null"/> if no desktop integration has been performed yet.
         /// </summary>
         [Description("A set of AccessPoints to be registered in the desktop environment. Is null if no desktop integration has been performed yet.")]
-        [XmlElement("access-points")]
-        [CanBeNull]
+        [XmlElement("access-points"), CanBeNull]
         public AccessPointList AccessPoints { get; set; }
 
         /// <inheritdoc/>

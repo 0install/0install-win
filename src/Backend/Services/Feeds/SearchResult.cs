@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store;
@@ -31,8 +32,7 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// A single result of a feed search.
     /// </summary>
-    [Serializable]
-    [XmlType("result")]
+    [Serializable, XmlType("result")]
     public class SearchResult
     {
         /// <summary>
@@ -74,7 +74,7 @@ namespace ZeroInstall.Services.Feeds
         /// A list of well-known categories the applications fits into.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("category")]
+        [XmlElement("category"), NotNull]
         public List<Category> Categories { get { return _categories; } }
 
         /// <summary>Used for DataGrid rendering.</summary>

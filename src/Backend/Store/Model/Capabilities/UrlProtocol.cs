@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -27,8 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// An application's ability to handle a certain URL protocol such as HTTP.
     /// </summary>
     [Description("An application's ability to handle a certain URL protocol such as HTTP.")]
-    [Serializable]
-    [XmlRoot("url-protocol", Namespace = CapabilityList.XmlNamespace), XmlType("url-protocol", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("url-protocol", Namespace = CapabilityList.XmlNamespace), XmlType("url-protocol", Namespace = CapabilityList.XmlNamespace)]
     public sealed class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
     {
         #region Properties
@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("known-prefix")]
+        [XmlElement("known-prefix"), NotNull]
         public List<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
 
         /// <inheritdoc/>

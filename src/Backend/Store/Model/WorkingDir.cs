@@ -28,8 +28,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Command.WorkingDir"/>
     [Description("Switches the working directory of a process on startup to a location within an implementation.\r\nUseful for supporting legacy Windows applications which do not properly locate their installation directory.")]
-    [Serializable]
-    [XmlRoot("working-dir", Namespace = Feed.XmlNamespace), XmlType("working-dir", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("working-dir", Namespace = Feed.XmlNamespace), XmlType("working-dir", Namespace = Feed.XmlNamespace)]
     public sealed class WorkingDir : FeedElement, ICloneable, IEquatable<WorkingDir>
     {
         #region Properties

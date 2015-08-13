@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 
@@ -29,8 +30,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Feed.Elements"/>
     [Description("An implementation is a specific version of an application that can be downloaded and executed (e.g. Firefox 3.6 for Windows).")]
-    [Serializable]
-    [XmlRoot("implementation", Namespace = Feed.XmlNamespace), XmlType("implementation", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("implementation", Namespace = Feed.XmlNamespace), XmlType("implementation", Namespace = Feed.XmlNamespace)]
     public class Implementation : ImplementationBase, IEquatable<Implementation>
     {
         private readonly List<RetrievalMethod> _retrievalMethods = new List<RetrievalMethod>();
@@ -40,6 +40,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(Recipe))]
+        [NotNull]
         public List<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
 
         //--------------------//

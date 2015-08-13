@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -25,8 +26,7 @@ namespace ZeroInstall.Store.Model
     /// A single command-line arguments to be passed to an executable.
     /// </summary>
     [Description("A single command-line arguments to be passed to an executable.")]
-    [Serializable]
-    [XmlRoot("arg", Namespace = Feed.XmlNamespace), XmlType("arg", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("arg", Namespace = Feed.XmlNamespace), XmlType("arg", Namespace = Feed.XmlNamespace)]
     public class Arg : ArgBase, IEquatable<Arg>
     {
         /// <summary>
@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return Value;
+            return Value ?? "(empty)";
         }
         #endregion
 

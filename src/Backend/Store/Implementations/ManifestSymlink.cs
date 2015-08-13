@@ -33,6 +33,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The hash of the link target path.
         /// </summary>
+        [NotNull]
         public string Hash { get; private set; }
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The name of the symlink without the containing directory.
         /// </summary>
+        [NotNull]
         public string SymlinkName { get; private set; }
         #endregion
 
@@ -127,9 +129,9 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                int result = (Hash != null ? Hash.GetHashCode() : 0);
+                int result = Hash.GetHashCode();
                 result = (result * 397) ^ Size.GetHashCode();
-                result = (result * 397) ^ (SymlinkName != null ? SymlinkName.GetHashCode() : 0);
+                result = (result * 397) ^ SymlinkName.GetHashCode();
                 return result;
             }
         }

@@ -38,11 +38,13 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <summary>
         /// The application being integrated.
         /// </summary>
+        [NotNull]
         public AppEntry AppEntry { get; private set; }
 
         /// <summary>
         /// The feed providing additional metadata, icons, etc. for the application.
         /// </summary>
+        [NotNull]
         public Feed Feed { get; private set; }
 
         /// <summary>

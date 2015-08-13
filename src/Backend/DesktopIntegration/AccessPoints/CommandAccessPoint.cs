@@ -17,6 +17,7 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -40,6 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         [Description("The name of the Command to use when launching via this access point. Leave empty to use default.")]
         [XmlAttribute("command")]
+        [CanBeNull]
         public string Command { get; set; }
         #endregion
 

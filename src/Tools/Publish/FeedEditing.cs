@@ -34,14 +34,17 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// The (optionally signed) feed being edited.
         /// </summary>
+        [NotNull]
         public SignedFeed SignedFeed { get; private set; }
 
         /// <summary>
         /// The passphrase to use to unlock <see cref="Publish.SignedFeed.SecretKey"/> (if specified).
         /// </summary>
+        [CanBeNull]
         public string Passphrase { get; set; }
 
         /// <inheritdoc/>
+        [NotNull]
         public override Feed Target { get { return SignedFeed.Feed; } set { SignedFeed.Feed = value; } }
         #endregion
 

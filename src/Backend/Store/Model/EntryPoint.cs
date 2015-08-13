@@ -30,16 +30,15 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Feed.EntryPoints"/>
     [Description("Associates a command with a user-friendly name and description.")]
-    [Serializable]
-    [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
     public sealed class EntryPoint : FeedElement, IIconContainer, ISummaryContainer, ICloneable, IEquatable<EntryPoint>
     {
         /// <summary>
         /// The name of the <see cref="Command"/> this entry point represents.
         /// </summary>
         [Description("The name of the command this entry point represents.")]
-        [XmlAttribute("command")]
         [TypeConverter(typeof(CommandNameConverter))]
+        [XmlAttribute("command")]
         public string Command { get; set; }
 
         /// <summary>
@@ -47,8 +46,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>Will default to <see cref="Command"/> when left <see langword="null"/>.</remarks>
         [Description("The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.")]
-        [XmlAttribute("binary-name"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("binary-name"), DefaultValue(""), CanBeNull]
         public string BinaryName { get; set; }
 
         /// <summary>
@@ -95,7 +93,7 @@ namespace ZeroInstall.Store.Model
         /// User-friendly names for the command. If not present, <see cref="Command"/> is used instead.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("name")]
+        [XmlElement("name"), NotNull]
         public LocalizableStringCollection Names { get { return _names; } }
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
@@ -118,7 +116,7 @@ namespace ZeroInstall.Store.Model
         /// Zero or more icons representing the command. Used for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
-        [XmlElement("icon")]
+        [XmlElement("icon"), NotNull]
         public List<Icon> Icons { get { return _icons; } }
 
         //--------------------//

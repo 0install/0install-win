@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -35,7 +36,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// A list of all available operations for the element.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("verb")]
+        [XmlElement("verb"), NotNull]
         public List<Verb> Verbs { get { return _verbs; } }
         #endregion
 

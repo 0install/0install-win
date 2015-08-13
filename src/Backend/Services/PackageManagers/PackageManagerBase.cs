@@ -35,6 +35,7 @@ namespace ZeroInstall.Services.PackageManagers
         /// <summary>
         /// The name of the <see cref="PackageImplementation.Distributions"/> this package manager provides packages for.
         /// </summary>
+        [NotNull]
         protected abstract string DistributionName { get; }
 
         /// <inheritdoc/>

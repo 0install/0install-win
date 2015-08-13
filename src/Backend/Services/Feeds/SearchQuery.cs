@@ -29,15 +29,13 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// Performs a feed search query and stores the response.
     /// </summary>
-    [Serializable]
-    [XmlRoot("results"), XmlType("results")]
+    [Serializable, XmlRoot("results"), XmlType("results")]
     public class SearchQuery
     {
         /// <summary>
         /// The keywords the search was performed for.
         /// </summary>
-        [XmlIgnore]
-        [CanBeNull]
+        [XmlIgnore, CanBeNull]
         public string Keywords { get; private set; }
 
         private readonly List<SearchResult> _results = new List<SearchResult>();

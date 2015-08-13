@@ -17,6 +17,7 @@
 
 using System;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Trust
@@ -41,7 +42,7 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
-        [XmlElement("domain")]
+        [XmlElement("domain"), NotNull]
         public SortedSet<Domain> Domains { get { return _domains; } }
         #endregion
 

@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -25,8 +26,7 @@ namespace ZeroInstall.Store.Model
     /// Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.
     /// </summary>
     [Description("Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.")]
-    [Serializable]
-    [XmlRoot("rename", Namespace = Feed.XmlNamespace), XmlType("rename", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("rename", Namespace = Feed.XmlNamespace), XmlType("rename", Namespace = Feed.XmlNamespace)]
     public sealed class RenameStep : FeedElement, IRecipeStep, IEquatable<RenameStep>, ICloneable
     {
         #region Properties
@@ -34,14 +34,14 @@ namespace ZeroInstall.Store.Model
         /// The source file or directory relative to the implementation root as a Unix-style path.
         /// </summary>
         [Description("The source file or directory relative to the implementation root as a Unix-style path.")]
-        [XmlAttribute("source"), DefaultValue("")]
+        [XmlAttribute("source"), DefaultValue(""), CanBeNull]
         public string Source { get; set; }
 
         /// <summary>
         /// The destination file or directory relative to the implementation root as a Unix-style path.
         /// </summary>
         [Description("The destination file or directory relative to the implementation root as a Unix-style path.")]
-        [XmlAttribute("dest"), DefaultValue("")]
+        [XmlAttribute("dest"), DefaultValue(""), CanBeNull]
         public string Destination { get; set; }
         #endregion
 

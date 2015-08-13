@@ -43,9 +43,8 @@ namespace ZeroInstall.Store.Model
         /// The name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.
         /// </summary>
         [Description("The name of the command in the implementation to execute. Will default to 'run' or 'compile' if null. Will not try to find any command if set to ''.")]
-        [JsonProperty("command")]
         [TypeConverter(typeof(CommandNameConverter))]
-        [CanBeNull]
+        [JsonProperty("command"), CanBeNull]
         public string Command { get; set; }
 
         /// <summary>
@@ -97,7 +96,7 @@ namespace ZeroInstall.Store.Model
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
-        [JsonProperty("extra_restrictions")]
+        [JsonProperty("extra_restrictions"), NotNull]
         public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
@@ -107,7 +106,7 @@ namespace ZeroInstall.Store.Model
         /// Specifies that the selected implementations must be from one of the given distributions (e.g. Debian, RPM).
         /// The special value '0install' may be used to require implementations provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
-        [JsonIgnore]
+        [JsonIgnore, NotNull]
         public List<string> Distributions { get { return _distributions; } }
 
         #region Constructor

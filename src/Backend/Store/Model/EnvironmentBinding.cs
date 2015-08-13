@@ -47,8 +47,7 @@ namespace ZeroInstall.Store.Model
     /// Make a chosen <see cref="Implementation"/> available by setting environment variables.
     /// </summary>
     [Description("Make a chosen implementation available by setting environment variables.")]
-    [Serializable]
-    [XmlRoot("environment", Namespace = Feed.XmlNamespace), XmlType("environment", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("environment", Namespace = Feed.XmlNamespace), XmlType("environment", Namespace = Feed.XmlNamespace)]
     public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {
         #region Properties
@@ -65,8 +64,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>If this is set <see cref="Insert"/> must be <see langword="null"/>.</remarks>
         [Description("A static value to set the variable to. If this is set 'Insert' must be empty.")]
-        [XmlAttribute("value")]
-        [CanBeNull]
+        [XmlAttribute("value"), CanBeNull]
         public string Value { get; set; }
 
         /// <summary>
@@ -74,8 +72,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>If this is set <see cref="Value"/> must be <see langword="null"/>.</remarks>
         [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory. If this is set 'Value' must be empty.")]
-        [XmlAttribute("insert")]
-        [CanBeNull]
+        [XmlAttribute("insert"), CanBeNull]
         public string Insert { get; set; }
 
         /// <summary>

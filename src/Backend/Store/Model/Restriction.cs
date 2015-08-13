@@ -32,8 +32,7 @@ namespace ZeroInstall.Store.Model
     /// Restricts the versions of an <see cref="Implementation"/> that are allowed without creating a dependency on the implementation if its was not already chosen.
     /// </summary>
     [Description("Restricts the versions of an Implementation that are allowed without creating a dependency on the implementation if its was not already chosen.")]
-    [Serializable]
-    [XmlRoot("restricts", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("restricts", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
     public class Restriction : FeedElement, IInterfaceUri, ICloneable, IEquatable<Restriction>
     {
         /// <summary>
@@ -55,8 +54,7 @@ namespace ZeroInstall.Store.Model
         /// Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
         /// </summary>
         [Description("A more flexible alternative to Constraints.\r\nEach range is in the form \"START..!END\". The range matches versions where START < VERSION < END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.")]
-        [XmlIgnore]
-        [CanBeNull]
+        [XmlIgnore, CanBeNull]
         public VersionRange Versions { get; set; }
 
         #region XML serialization
@@ -79,7 +77,7 @@ namespace ZeroInstall.Store.Model
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("version")]
+        [XmlElement("version"), NotNull]
         public List<Constraint> Constraints { get { return _constraints; } }
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
@@ -90,7 +88,7 @@ namespace ZeroInstall.Store.Model
         /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
         [Browsable(false)]
-        [XmlIgnore]
+        [XmlIgnore, NotNull]
         public List<string> Distributions { get { return _distributions; } }
 
         /// <summary>
@@ -99,8 +97,8 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <seealso cref="Distributions"/>
         [DisplayName(@"Distributions"), Description("Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).\r\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
-        [XmlAttribute("distribution"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
+        [XmlAttribute("distribution"), DefaultValue("")]
         public string DistributionsString
         {
             get { return StringUtils.Join(" ", Distributions); }

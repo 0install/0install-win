@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Used for XML serialization")]
         [Description("A list of implementations chosen in this selection.")]
-        [XmlElement("selection")]
+        [XmlElement("selection"), NotNull]
         public List<ImplementationSelection> Implementations { get { return _implementations; } }
 
         /// <summary>

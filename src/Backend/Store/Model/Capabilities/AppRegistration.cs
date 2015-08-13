@@ -28,8 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// </summary>
     /// <remarks>The actual integration information is pulled from the other <see cref="Capability"/>s.</remarks>
     [Description("Indicates that an application should be listed in the \"Set your Default Programs\" UI (Windows Vista and later).")]
-    [Serializable]
-    [XmlRoot("registration", Namespace = CapabilityList.XmlNamespace), XmlType("registration", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("registration", Namespace = CapabilityList.XmlNamespace), XmlType("registration", Namespace = CapabilityList.XmlNamespace)]
     public sealed class AppRegistration : Capability, IEquatable<AppRegistration>
     {
         #region Properties

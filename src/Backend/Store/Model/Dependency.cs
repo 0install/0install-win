@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -45,8 +46,7 @@ namespace ZeroInstall.Store.Model
     /// A reference to an interface that is required as dependency.
     /// </summary>
     [Description("A reference to an interface that is required as dependency.")]
-    [Serializable]
-    [XmlRoot("requires", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("requires", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
     public class Dependency : Restriction, IInterfaceUriBindingContainer, IEquatable<Dependency>
     {
         #region Constants
@@ -68,8 +68,8 @@ namespace ZeroInstall.Store.Model
         /// This can be used to indicate that this dependency is only needed in some cases.
         /// </summary>
         [Description("This can be used to indicate that this dependency is only needed in some cases.")]
-        [XmlAttribute("use"), DefaultValue("")]
         [TypeConverter(typeof(UseConverter))]
+        [XmlAttribute("use"), DefaultValue("")]
         public string Use { get; set; }
 
         private readonly List<Binding> _bindings = new List<Binding>();

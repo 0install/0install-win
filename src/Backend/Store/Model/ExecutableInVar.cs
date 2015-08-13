@@ -25,8 +25,7 @@ namespace ZeroInstall.Store.Model
     /// Make a chosen <see cref="Implementation"/> available as an executable path in an environment variable.
     /// </summary>
     [Description("Make a chosen implementation available as an executable path in an environment variable.")]
-    [Serializable]
-    [XmlRoot("executable-in-var", Namespace = Feed.XmlNamespace), XmlType("executable-in-var", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("executable-in-var", Namespace = Feed.XmlNamespace), XmlType("executable-in-var", Namespace = Feed.XmlNamespace)]
     public sealed class ExecutableInVar : ExecutableInBinding, IEquatable<ExecutableInVar>
     {
         #region Properties

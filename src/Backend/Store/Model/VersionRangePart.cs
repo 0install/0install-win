@@ -196,7 +196,10 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     internal sealed class VersionRangeRange : VersionRangePart
     {
+        [CanBeNull]
         private readonly ImplementationVersion _startVersion;
+
+        [CanBeNull]
         private readonly ImplementationVersion _endVersion;
 
         public VersionRangeRange(ImplementationVersion startVersion, ImplementationVersion endVersion)

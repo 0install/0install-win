@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -31,6 +32,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The digest of the content of the file calculated using the selected digest algorithm.
         /// </summary>
+        [NotNull]
         public string Digest { get; private set; }
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The name of the file without the containing directory.
         /// </summary>
+        [NotNull]
         public string FileName { get; private set; }
         #endregion
 
@@ -88,10 +91,10 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                int result = (Digest != null ? Digest.GetHashCode() : 0);
+                int result = Digest.GetHashCode();
                 result = (result * 397) ^ ModifiedTime.GetHashCode();
                 result = (result * 397) ^ Size.GetHashCode();
-                result = (result * 397) ^ (FileName != null ? FileName.GetHashCode() : 0);
+                result = (result * 397) ^ FileName.GetHashCode();
                 return result;
             }
         }

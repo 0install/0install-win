@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -27,8 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// An application's ability to open a certain file type.
     /// </summary>
     [Description("An application's ability to open a certain file type.")]
-    [Serializable]
-    [XmlRoot("file-type", Namespace = CapabilityList.XmlNamespace), XmlType("file-type", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("file-type", Namespace = CapabilityList.XmlNamespace), XmlType("file-type", Namespace = CapabilityList.XmlNamespace)]
     public sealed class FileType : VerbCapability, IEquatable<FileType>
     {
         #region Properties
@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// A list of all file extensions associated with this file type.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("extension")]
+        [XmlElement("extension"), NotNull]
         public List<FileTypeExtension> Extensions { get { return _extensions; } }
 
         /// <inheritdoc/>

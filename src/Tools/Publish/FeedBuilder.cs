@@ -123,6 +123,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Lists the <see cref="Command"/> derived from <see cref="Candidates"/> and <see cref="MainCandidate"/>.
         /// </summary>
+        [NotNull]
         public List<Command> Commands { get { return _commands; } }
 
         private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
@@ -130,6 +131,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Lists the <see cref="EntryPoint"/>s accompanying <see cref="Commands"/>.
         /// </summary>
+        [NotNull]
         public List<EntryPoint> EntryPoints { get { return _entryPoints; } }
 
         /// <summary>

@@ -29,8 +29,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// The mapping of an action/verb (e.g. open, edit) to a <see cref="Store.Model.Command"/>.
     /// </summary>
     [Description("The mapping of an action/verb (e.g. open, edit) to a Command.")]
-    [Serializable]
-    [XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
     public sealed class Verb : XmlUnknown, IDescriptionContainer, ICloneable, IEquatable<Verb>
     {
         #region Constants
@@ -76,17 +75,16 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// The name of the verb. Use canonical names to get automatic localization; specify <see cref="Descriptions"/> otherwise.
         /// </summary>
         [Description("The name of the verb. Use canonical names to get automatic localization; specify Descriptions otherwise.")]
-        [XmlAttribute("name")]
         [TypeConverter(typeof(VerbNameConverter))]
+        [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the feed to use when launching via this capability; leave empty for 'run'.")]
-        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
-        [CanBeNull]
+        [XmlAttribute("command"), DefaultValue(""), CanBeNull]
         public string Command { get; set; }
 
         /// <summary>

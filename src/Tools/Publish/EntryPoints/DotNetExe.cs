@@ -56,7 +56,7 @@ namespace ZeroInstall.Publish.EntryPoints
         [Category("Details (.NET)"), DisplayName(@"Minimum .NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(DotNetVersionConverter))]
-        [UsedImplicitly]
+        [UsedImplicitly, CanBeNull]
         public ImplementationVersion MinimumRuntimeVersion { get; set; }
 
         /// <summary>

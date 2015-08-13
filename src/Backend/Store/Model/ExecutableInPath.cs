@@ -25,8 +25,7 @@ namespace ZeroInstall.Store.Model
     /// Make a chosen <see cref="Implementation"/> available as an executable in the search PATH.
     /// </summary>
     [Description("Make a chosen implementation available as an executable in the search PATH.")]
-    [Serializable]
-    [XmlRoot("executable-in-path", Namespace = Feed.XmlNamespace), XmlType("executable-in-path", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("executable-in-path", Namespace = Feed.XmlNamespace), XmlType("executable-in-path", Namespace = Feed.XmlNamespace)]
     public sealed class ExecutableInPath : ExecutableInBinding, IEquatable<ExecutableInPath>
     {
         #region Properties

@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store.Model
@@ -31,7 +32,8 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The URL to download the file from. Relative URLs are only allowed in local feed files.
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [Browsable(false)]
+        [XmlIgnore]
         public Uri Href { get; set; }
 
         #region XML serialization

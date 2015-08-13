@@ -28,8 +28,7 @@ namespace ZeroInstall.Store.Model
     /// Retrieves an implementation by downloading and extracting an archive.
     /// </summary>
     [Description("Retrieves an implementation by downloading and extracting an archive.")]
-    [Serializable]
-    [XmlRoot("archive", Namespace = Feed.XmlNamespace), XmlType("archive", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("archive", Namespace = Feed.XmlNamespace), XmlType("archive", Namespace = Feed.XmlNamespace)]
     public sealed class Archive : DownloadRetrievalMethod, IEquatable<Archive>
     {
         #region Constants
@@ -89,12 +88,12 @@ namespace ZeroInstall.Store.Model
         /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="DownloadRetrievalMethod.Href"/> attribute. This value is case-insensitive.
         /// </summary>
         [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute. This value is case-insensitive.")]
-        [XmlAttribute("type"), DefaultValue("")]
         [TypeConverter(typeof(ArchiveMimeTypeConverter))]
+        [XmlAttribute("type"), DefaultValue("")]
         public string MimeType { get; set; }
 
         /// <summary>
-        /// The number of bytes at the beginning of the file which should be ignored. The value in <see cref="DownloadRetrievalMethod.Size"/> does not include the skipped bytes. 
+        /// The number of bytes at the beginning of the file which should be ignored. The value in <see cref="DownloadRetrievalMethod.Size"/> does not include the skipped bytes.
         /// </summary>
         /// <remarks>This is useful for some self-extracting archives which are made up of a shell script followed by a normal archive in a single file.</remarks>
         [Description("The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.")]
@@ -108,16 +107,14 @@ namespace ZeroInstall.Store.Model
         /// The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.
         /// </summary>
         [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
-        [XmlAttribute("extract"), DefaultValue("")]
-        [CanBeNull]
+        [XmlAttribute("extract"), DefaultValue(""), CanBeNull]
         public string Extract { get; set; }
 
         /// <summary>
         /// The subdirectory within the implementation directory to extract this archive to; can be <see langword="null"/>.
         /// </summary>
         [Description("The subdirectory within the implementation directory to extract this archive to; can be null.")]
-        [XmlAttribute("dest")]
-        [CanBeNull]
+        [XmlAttribute("dest"), CanBeNull]
         public string Destination { get; set; }
         #endregion
 

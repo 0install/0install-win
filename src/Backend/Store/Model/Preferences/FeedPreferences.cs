@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// A list of implementation-specific user-overrides.
         /// </summary>
         [Description("A list of implementation-specific user-overrides.")]
-        [XmlElement("implementation")]
+        [XmlElement("implementation"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<ImplementationPreferences> Implementations
         {

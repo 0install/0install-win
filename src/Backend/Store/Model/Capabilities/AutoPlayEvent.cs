@@ -25,8 +25,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// A specific <see cref="AutoPlay"/> event such as "Audio CD inserted".
     /// </summary>
     [Description("A specific AutoPlay event such as \"Audio CD inserted\".")]
-    [Serializable]
-    [XmlRoot("event", Namespace = CapabilityList.XmlNamespace), XmlType("event", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("event", Namespace = CapabilityList.XmlNamespace), XmlType("event", Namespace = CapabilityList.XmlNamespace)]
     public class AutoPlayEvent : XmlUnknown, ICloneable, IEquatable<AutoPlayEvent>
     {
         #region Constants

@@ -33,7 +33,7 @@ namespace ZeroInstall.Publish.EntryPoints
         [Category("Details (Java)"), DisplayName(@"Minimum Java version"), Description("The minimum version of the Java Runtime Environment required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(JavaVersionConverter))]
-        [UsedImplicitly]
+        [UsedImplicitly, CanBeNull]
         public ImplementationVersion MinimumRuntimeVersion { get; set; }
 
         /// <summary>

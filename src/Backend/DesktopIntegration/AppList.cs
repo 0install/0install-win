@@ -66,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
-        [XmlElement("app")]
+        [XmlElement("app"), NotNull]
         public List<AppEntry> Entries { get { return _entries; } }
         #endregion
 

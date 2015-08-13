@@ -60,11 +60,13 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// A short description of what this command does.
         /// </summary>
+        [NotNull]
         protected abstract string Description { get; }
 
         /// <summary>
         /// The additional arguments to be displayed after the command name in the help text.
         /// </summary>
+        [NotNull]
         protected abstract string Usage { get; }
 
         /// <summary>

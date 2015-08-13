@@ -27,9 +27,11 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// The <see cref="CliCommand.Name"/> of the <see cref="MultiCommand"/> this command is a sub-command of.
         /// </summary>
+        [NotNull]
         protected abstract string ParentName { get; }
 
         /// <inheritdoc/>
+        [NotNull]
         public override string Name { get { return ParentName + " " + base.Name; } }
 
         /// <inheritdoc/>

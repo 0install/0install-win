@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// A list of known <see cref="Key"/>s.
         /// </summary>
-        [XmlElement("key")]
+        [XmlElement("key"), NotNull]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<Key> Keys
         {

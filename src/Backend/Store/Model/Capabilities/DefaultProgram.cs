@@ -27,8 +27,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// Can act as the default provider for a well-known service such web-browser, e-mail client.
     /// </summary>
     [Description("Can act as the default provider for a well-known service such web-browser, e-mail client.")]
-    [Serializable]
-    [XmlType("default-program", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlType("default-program", Namespace = CapabilityList.XmlNamespace)]
     public sealed class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
     {
         #region Constants

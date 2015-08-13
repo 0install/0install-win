@@ -42,11 +42,13 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// The full path to the directory containing the new/updated version.
         /// </summary>
+        [NotNull]
         public string Source { get; private set; }
 
         /// <summary>
         /// The full path to the directory containing the old version to be updated.
         /// </summary>
+        [NotNull]
         public string Target { get; private set; }
 
         private bool IsPortable { get { return File.Exists(Path.Combine(Target, Locations.PortableFlagName)); } }
@@ -54,6 +56,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// The version number of the new/updated version.
         /// </summary>
+        [NotNull]
         public Version NewVersion { get; private set; }
 
         /// <summary>

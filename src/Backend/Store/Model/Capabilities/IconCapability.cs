@@ -29,8 +29,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// <summary>
     /// Abstract base class for capabilities that can have multiple <see cref="Icon"/>s and descriptions.
     /// </summary>
-    [Serializable]
-    [XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class IconCapability : DefaultCapability, IIconContainer, IDescriptionContainer
     {
         #region Properties
@@ -47,7 +46,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// Zero or more icons to represent the capability. Used for things like file icons.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("icon", Namespace = Feed.XmlNamespace)]
+        [XmlElement("icon", Namespace = Feed.XmlNamespace), NotNull]
         public List<Icon> Icons { get { return _icons; } }
         #endregion
 

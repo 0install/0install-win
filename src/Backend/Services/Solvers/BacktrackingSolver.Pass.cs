@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Tasks;
@@ -68,6 +69,7 @@ namespace ZeroInstall.Services.Solvers
             /// <summary>
             /// The implementations selected by the solver run.
             /// </summary>
+            [NotNull]
             public Selections Selections { get { return _selections; } }
 
             /// <summary>

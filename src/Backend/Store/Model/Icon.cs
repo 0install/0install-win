@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Net;
 using ZeroInstall.Store.Model.Design;
 
@@ -30,8 +31,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Feed.Icons"/>
     /// <seealso cref="EntryPoint.Icons"/>
     [Description("An icon representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..")]
-    [Serializable]
-    [XmlRoot("icon", Namespace = Feed.XmlNamespace), XmlType("icon", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("icon", Namespace = Feed.XmlNamespace), XmlType("icon", Namespace = Feed.XmlNamespace)]
     public class Icon : FeedElement, ICloneable, IEquatable<Icon>
     {
         #region Constants
@@ -54,7 +54,8 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The URL used to locate the icon.
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [Browsable(false)]
+        [XmlIgnore]
         public Uri Href { get; set; }
 
         #region XML serialization
@@ -70,8 +71,8 @@ namespace ZeroInstall.Store.Model
         /// The MIME type of the icon. This value is case-insensitive.
         /// </summary>
         [Description("The MIME type of the icon. This value is case-insensitive.")]
-        [XmlAttribute("type"), DefaultValue("")]
         [TypeConverter(typeof(IconMimeTypeConverter))]
+        [XmlAttribute("type"), DefaultValue(""), CanBeNull]
         public string MimeType { get; set; }
 
         //--------------------//

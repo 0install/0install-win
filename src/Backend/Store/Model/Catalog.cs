@@ -34,8 +34,7 @@ namespace ZeroInstall.Store.Model
     /// Catalogs downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
     [Description("Contains a list of feeds, reduced to only contain information relevant for overview lists.")]
-    [Serializable]
-    [XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]
+    [Serializable, XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("feed", Feed.XmlNamespace)]
     public class Catalog : XmlUnknown, ICloneable, IEquatable<Catalog>
@@ -70,7 +69,7 @@ namespace ZeroInstall.Store.Model
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
+        [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace), NotNull]
         public List<Feed> Feeds { get { return _feeds; } }
         #endregion
 

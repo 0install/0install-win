@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
@@ -29,8 +30,7 @@ namespace ZeroInstall.Store.Model
     /// Retrieves an implementation by applying a list of <see cref="IRecipeStep"/>s, such as downloading and combining multiple archives.
     /// </summary>
     [Description("Retrieves an implementation by applying a list of recipe steps, such as downloading and combining multiple archives.")]
-    [Serializable]
-    [XmlRoot("recipe", Namespace = Feed.XmlNamespace), XmlType("recipe", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("recipe", Namespace = Feed.XmlNamespace), XmlType("recipe", Namespace = Feed.XmlNamespace)]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
         private readonly List<IRecipeStep> _steps = new List<IRecipeStep>();
@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Model
         /// An ordered list of <see cref="IRecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
-        [XmlIgnore]
+        [XmlIgnore, NotNull]
         public List<IRecipeStep> Steps { get { return _steps; } }
 
         #region XML serialization

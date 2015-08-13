@@ -84,6 +84,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         /// <remarks>A suggestion for <see cref="Feed.Name"/>.</remarks>
         [Category("Basic (required)"), Description("The application's name.")]
+        [CanBeNull]
         public string Name { get; set; }
 
         /// <summary>
@@ -91,6 +92,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         /// <remarks>A suggestion for <see cref="Feed.Summaries"/>.</remarks>
         [Category("Basic (required)"), Description("Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
+        [CanBeNull]
         public string Summary { get; set; }
 
         /// <summary>
@@ -104,6 +106,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         /// <remarks>A suggestion for <see cref="Element.Version"/>.</remarks>
         [Category("Basic (required)"), Description("The application's current version.")]
+        [CanBeNull]
         public ImplementationVersion Version { get; set; }
 
         /// <summary>
@@ -117,6 +120,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         [Category("Details"), Description("The main category of the application. May influence the placement in the start menu.")]
         [TypeConverter(typeof(CategoryNameConverter))]
+        [CanBeNull]
         public string Category { get; set; }
 
         /// <summary>

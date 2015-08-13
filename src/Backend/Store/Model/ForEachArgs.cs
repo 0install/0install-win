@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
@@ -28,8 +29,7 @@ namespace ZeroInstall.Store.Model
     /// The variable specified in <see cref="ItemFrom"/> is split using <see cref="Separator"/> and the <see cref="Arguments"/> are added once for each item.
     /// </summary>
     [Description("Expands an environment variable to multiple arguments.\r\nThe variable specified in ItemFrom is split using Separator and the arguments are added once for each item.")]
-    [Serializable]
-    [XmlRoot("for-each", Namespace = Feed.XmlNamespace), XmlType("for-each", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("for-each", Namespace = Feed.XmlNamespace), XmlType("for-each", Namespace = Feed.XmlNamespace)]
     public class ForEachArgs : ArgBase, IEquatable<ForEachArgs>
     {
         /// <summary>
@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Model
         /// Overrides the default separator character (":" on POSIX and ";" on Windows).
         /// </summary>
         [Description("Overrides the default separator character (\":\" on POSIX and \";\" on Windows).")]
-        [XmlAttribute("separator"), DefaultValue("")]
+        [XmlAttribute("separator"), DefaultValue(""), CanBeNull]
         public string Separator { get; set; }
 
         private readonly List<Arg> _arguments = new List<Arg>();
@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Model
         /// A list of command-line arguments to be passed to an executable. "${item}" will be substituted with each for-each value.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("arg")]
+        [XmlElement("arg"), NotNull]
         public List<Arg> Arguments { get { return _arguments; } }
 
         //--------------------//
@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return ItemFrom;
+            return ItemFrom ?? "(empty)";
         }
         #endregion
 

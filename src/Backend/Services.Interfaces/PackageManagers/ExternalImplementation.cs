@@ -40,11 +40,13 @@ namespace ZeroInstall.Services.PackageManagers
         /// <summary>
         /// The name of the distribution (e.g. Debian, RPM) where this implementation comes from.
         /// </summary>
+        [NotNull]
         public string Distribution { get; set; }
 
         /// <summary>
         /// The name of the package in the <see cref="Distribution"/>.
         /// </summary>
+        [NotNull]
         public string Package { get; set; }
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace ZeroInstall.Services.PackageManagers
         /// </summary>
         /// <remarks>This makes it possible to avoid <see cref="IPackageManager.Lookup"/> calls for better performance.</remarks>
         /// <seealso cref="ImplementationSelection.QuickTestFile"/>
+        [CanBeNull]
         public string QuickTestFile { get; set; }
 
         /// <summary>
@@ -134,8 +137,8 @@ namespace ZeroInstall.Services.PackageManagers
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Distribution != null) result = (result * 397) ^ Distribution.GetHashCode();
-                if (Package != null) result = (result * 397) ^ Package.GetHashCode();
+                result = (result * 397) ^ Distribution.GetHashCode();
+                result = (result * 397) ^ Package.GetHashCode();
                 if (QuickTestFile != null) result = (result * 397) ^ QuickTestFile.GetHashCode();
                 return result;
             }

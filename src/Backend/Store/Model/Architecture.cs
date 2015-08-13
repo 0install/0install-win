@@ -128,8 +128,8 @@ namespace ZeroInstall.Store.Model
     /// Describes a combination of an operating system and a CPU architecture.
     /// </summary>
     [Description("Describes a combination of an operating system and a CPU architecture.")]
-    [Serializable]
     [TypeConverter(typeof(ArchitectureConverter))]
+    [Serializable]
     public struct Architecture : IEquatable<Architecture>
     {
         #region Constants
@@ -145,12 +145,14 @@ namespace ZeroInstall.Store.Model
         /// Determines which operating systems are supported.
         /// </summary>
         [Description("Determines which operating systems are supported.")]
+        [UsedImplicitly]
         public OS OS { get; set; }
 
         /// <summary>
         /// Determines which CPU-architectures are supported.
         /// </summary>
         [Description("Determines which CPU-architectures are supported.")]
+        [UsedImplicitly]
         public Cpu Cpu { get; set; }
 
         /// <summary>

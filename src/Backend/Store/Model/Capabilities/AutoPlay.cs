@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -27,8 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// An application's ability to handle one or more AutoPlay events.
     /// </summary>
     [Description("An application's ability to handle one or more AutoPlay events.")]
-    [Serializable]
-    [XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
+    [Serializable, XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
     public sealed class AutoPlay : IconCapability, ISingleVerb, IEquatable<AutoPlay>
     {
         #region Properties
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// The command to execute when the handler gets called.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("verb")]
+        [XmlElement("verb"), CanBeNull]
         public Verb Verb { get; set; }
 
         private readonly List<AutoPlayEvent> _events = new List<AutoPlayEvent>();
@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// The IDs of the events this action can handle.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("event")]
+        [XmlElement("event"), NotNull]
         public List<AutoPlayEvent> Events { get { return _events; } }
 
         /// <inheritdoc/>

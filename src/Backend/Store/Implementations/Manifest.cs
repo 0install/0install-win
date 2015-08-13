@@ -45,6 +45,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The format of the manifest (which file details are listed, which digest method is used, etc.).
         /// </summary>
+        [NotNull]
         public ManifestFormat Format { get; private set; }
 
         private readonly ManifestNode[] _nodes;
@@ -293,7 +294,7 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                int result = (Format != null ? Format.GetHashCode() : 0);
+                int result = Format.GetHashCode();
                 foreach (ManifestNode node in _nodes)
                     result = (result * 397) ^ node.GetHashCode();
                 return result;
