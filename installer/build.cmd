@@ -2,29 +2,23 @@
 ::Creates a portable ZIP archive, an Inno Setup installer and an MSI wrapper. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
 call "%~dp0..\version.cmd" > NUL
 
+rem Bundled tool executables (e.g. "zip")
+path %~dp0utils;%path%
+
 rem Handle WOW
 if %PROCESSOR_ARCHITECTURE%==x86 set ProgramFiles_temp=%ProgramFiles%
 if not %PROCESSOR_ARCHITECTURE%==x86 set ProgramFiles_temp=%ProgramFiles(x86)%
 
-rem Prerequisites
+rem Check Inno Setup installation
 if "%INNOSETUP_DIR%" == "" set INNOSETUP_DIR=%ProgramFiles_temp%\Inno Setup 5
-if not exist "%INNOSETUP_DIR%" (
-  echo ERROR: No Inno Setup 5 installation found. >&2
-  echo Download here: http://www.jrsoftware.org/isdl.php >&2
-  pause
-  goto end
-)
+if not exist "%INNOSETUP_DIR%" goto err_no_innosetup
+
+rem Find Wix installation
 if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v4.0" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v4.0
 if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v3.10" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v3.10
 if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v3.9" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v3.9
+if not exist "%WIX_DIR%" goto err_no_wix
 
-if not exist "%WIX_DIR%" (
-  echo ERROR: No WiX Toolset installation found. >&2
-  echo Download here: http://www.wixtoolset.org/releases/ >&2
-  pause
-  goto end
-)
-path %~dp0utils;%path%
 
 
 echo Building portable ZIP archive...
@@ -74,5 +68,21 @@ if errorlevel 1 pause
 if errorlevel 1 pause
 del zero-install-per-user.wixobj
 
+
+
+goto end
+rem Error messages
+
+:err_no_innosetup
+echo ERROR: No Inno Setup 5 installation found. >&2
+echo Download here: http://www.jrsoftware.org/isdl.php >&2
+pause
+goto end
+
+:err_no_wix
+echo ERROR: No WiX Toolset installation found. >&2
+echo Download here: http://www.wixtoolset.org/releases/ >&2
+pause
+goto end
 
 :end
