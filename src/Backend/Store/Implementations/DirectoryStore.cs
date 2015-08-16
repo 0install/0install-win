@@ -321,14 +321,7 @@ namespace ZeroInstall.Store.Implementations
             var expectedManifest = File.Exists(manifestFilePath) ? Manifest.Load(manifestFilePath, format) : null;
 
             if (actualDigestValue != expectedDigestValue)
-            {
-                throw new DigestMismatchException(
-                    expectedDigestValue,
-                    actualDigestValue,
-                    // Only log the complete manifests in verbose mode
-                    (handler.Verbosity > 0) ? expectedManifest : null,
-                    (handler.Verbosity > 0) ? actualManifest : null);
-            }
+                throw new DigestMismatchException(expectedDigestValue, actualDigestValue, expectedManifest, actualManifest);
 
             return actualManifest;
         }
