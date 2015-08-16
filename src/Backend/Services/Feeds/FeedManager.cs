@@ -98,31 +98,31 @@ namespace ZeroInstall.Services.Feeds
         //--------------------//
 
         #region Get feed
-        protected override Feed Retrieve(FeedUri feedUri)
+        protected override Feed Retrieve(FeedUri key)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (key == null) throw new ArgumentNullException("key");
             #endregion
 
-            if (feedUri.IsFromDistribution)
-                throw new ArgumentException(string.Format("{0} is a virtual feed URI and therefore cannot be downloaded.", feedUri.ToStringRfc()));
-            if (feedUri.IsFile) return LoadLocal(feedUri);
+            if (key.IsFromDistribution)
+                throw new ArgumentException(string.Format("{0} is a virtual feed URI and therefore cannot be downloaded.", key.ToStringRfc()));
+            if (key.IsFile) return LoadLocal(key);
             else
             {
                 try
                 {
-                    if (Refresh) Download(feedUri);
-                    else if (!_feedCache.Contains(feedUri))
+                    if (Refresh) Download(key);
+                    else if (!_feedCache.Contains(key))
                     {
                         // Do not download in offline mode
                         if (_config.NetworkUse == NetworkLevel.Offline)
-                            throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedUri));
+                            throw new IOException(string.Format(Resources.FeedNotCachedOffline, key));
 
                         // Try to download missing feed
-                        Download(feedUri);
+                        Download(key);
                     }
 
-                    return LoadCached(feedUri);
+                    return LoadCached(key);
                 }
                     #region Error handling
                 catch (KeyNotFoundException ex)

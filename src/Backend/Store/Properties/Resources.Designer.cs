@@ -332,7 +332,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The hardlink &apos;{0}&apos; in the archive points to a non-existant file &apos;{1}&apos;..
+        ///   Looks up a localized string similar to The hardlink &apos;{0}&apos; in the archive points to a non-existent file &apos;{1}&apos;..
         /// </summary>
         internal static string HardlinkTargetMissing {
             get {
