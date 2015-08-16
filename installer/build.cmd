@@ -19,6 +19,30 @@ if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v3.10" set WIX_DI
 if "%WIX_DIR%" == "" if exist "%ProgramFiles_temp%\WiX Toolset v3.9" set WIX_DIR=%ProgramFiles_temp%\WiX Toolset v3.9
 if not exist "%WIX_DIR%" goto err_no_wix
 
+rem Determine VS version
+if defined VS140COMNTOOLS (
+  ::Visual Studio 2015
+  call "%VS140COMNTOOLS%vsvars32.bat"
+  goto vs_ok
+)
+if defined VS120COMNTOOLS (
+  ::Visual Studio 2013
+  call "%VS120COMNTOOLS%vsvars32.bat"
+  goto vs_ok
+)
+if defined VS110COMNTOOLS (
+  ::Visual Studio 2012
+  call "%VS110COMNTOOLS%vsvars32.bat"
+  goto vs_ok
+)
+if defined VS100COMNTOOLS (
+  ::Visual Studio 2010
+  call "%VS100COMNTOOLS%vsvars32.bat"
+  goto vs_ok
+)
+goto err_no_vs
+:vs_ok
+
 
 
 echo Building portable ZIP archive...
@@ -69,6 +93,15 @@ if errorlevel 1 pause
 del zero-install-per-user.wixobj
 
 
+if not "%PfxPath%" == "" (
+echo Signing installers...
+FOR %%A IN ("%~dp0..\build\Installer\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
+if errorlevel 1 pause
+FOR %%A IN ("%~dp0..\build\Installer\*.msi") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
+if errorlevel 1 pause
+)
+
+
 
 goto end
 rem Error messages
@@ -82,6 +115,11 @@ goto end
 :err_no_wix
 echo ERROR: No WiX Toolset installation found. >&2
 echo Download here: http://www.wixtoolset.org/releases/ >&2
+pause
+goto end
+
+:err_no_vs
+echo ERROR: No Visual Studio installation found. >&2
 pause
 goto end
 

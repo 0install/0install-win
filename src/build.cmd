@@ -44,6 +44,9 @@ msbuild %SOLUTION_FILE% /nologo /v:q /t:Rebuild /p:Configuration=%config%
 if errorlevel 1 pause
 
 
+call "%~dp0sign.cmd"
+
+
 
 goto end
 rem Error messages
