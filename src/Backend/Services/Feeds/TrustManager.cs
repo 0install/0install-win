@@ -87,10 +87,10 @@ namespace ZeroInstall.Services.Feeds
             var signatures = FeedUtils.GetSignatures(_openPgp, data).ToList();
 
             foreach (var signature in signatures.OfType<ValidSignature>())
-                if (_trustDB.IsTrusted(signature.Fingerprint, domain)) return signature;
+                if (_trustDB.IsTrusted(signature.FormatFingerprint(), domain)) return signature;
 
             foreach (var signature in signatures.OfType<ValidSignature>())
-                if (HandleNewKey(uri, signature.Fingerprint, domain)) return signature;
+                if (HandleNewKey(uri, signature.FormatFingerprint(), domain)) return signature;
 
             foreach (var signature in signatures.OfType<MissingKeySignature>())
             {
@@ -209,7 +209,7 @@ namespace ZeroInstall.Services.Feeds
         {
             if (!string.IsNullOrEmpty(localPath))
             {
-                string keyFile = Path.Combine(localPath, signature.KeyID + ".gpg");
+                string keyFile = Path.Combine(localPath, signature.FormatKeyID() + ".gpg");
                 if (File.Exists(keyFile))
                 {
                     _openPgp.ImportKey(File.ReadAllBytes(keyFile));
@@ -219,7 +219,7 @@ namespace ZeroInstall.Services.Feeds
 
             try
             {
-                DownloadKey(new Uri(uri, signature.KeyID + ".gpg"));
+                DownloadKey(new Uri(uri, signature.FormatKeyID() + ".gpg"));
             }
             catch (WebException ex)
             {
@@ -263,7 +263,7 @@ namespace ZeroInstall.Services.Feeds
         [NotNull]
         private Uri GetMirrorUrl([NotNull] MissingKeySignature signature)
         {
-            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.KeyID + ".gpg");
+            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.FormatKeyID() + ".gpg");
         }
     }
 }

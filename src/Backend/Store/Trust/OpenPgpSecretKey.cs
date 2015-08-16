@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
@@ -25,24 +26,18 @@ namespace ZeroInstall.Store.Trust
     /// Represents a secret key stored in a local <see cref="IOpenPgp"/> profile.
     /// </summary>
     /// <seealso cref="IOpenPgp.ListSecretKeys"/>
-    public sealed class OpenPgpSecretKey : IEquatable<OpenPgpSecretKey>
+    public sealed class OpenPgpSecretKey : IFingerprintContainer, IEquatable<OpenPgpSecretKey>
     {
-        /// <summary>
-        /// A short identifier for the key.
-        /// </summary>
-        [NotNull]
-        public string KeyID { get; private set; }
+        /// <inheritdoc/>
+        public long KeyID { get; private set; }
 
-        /// <summary>
-        /// A short identifier for the key.
-        /// </summary>
-        internal readonly long KeyIDParsed;
+        private readonly byte[] _fingerprint;
 
-        /// <summary>
-        /// A long identifier for the key.
-        /// </summary>
-        [NotNull]
-        internal readonly byte[] Fingerprint;
+        /// <inheritdoc/>
+        public byte[] GetFingerprint()
+        {
+            return _fingerprint.ToArray();
+        }
 
         /// <summary>
         /// The user's name, e-mail address, etc. of the key owner.
@@ -63,24 +58,8 @@ namespace ZeroInstall.Store.Trust
             if (fingerprint == null) throw new ArgumentNullException("fingerprint");
             #endregion
 
-            KeyIDParsed = keyID;
-            KeyID = OpenPgpUtils.FormatKeyID(keyID);
-            Fingerprint = fingerprint;
-            UserID = userID;
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="IOpenPgp"/> secret key representation.
-        /// </summary>
-        /// <param name="keyID">A short identifier for the key.</param>
-        /// <param name="fingerprint">A long identifier for the key.</param>
-        /// <param name="userID">The user's name, e-mail address, etc. of the key owner.</param>
-        /// <exception cref="FormatException">The string format of <paramref name="keyID"/> or <paramref name="fingerprint"/> is not valid.</exception>
-        public OpenPgpSecretKey([NotNull] string keyID, [NotNull] string fingerprint, [NotNull] string userID)
-        {
-            KeyIDParsed = OpenPgpUtils.ParseKeyID(keyID);
             KeyID = keyID;
-            Fingerprint = OpenPgpUtils.ParseFingerpint(fingerprint);
+            _fingerprint = fingerprint;
             UserID = userID;
         }
 
@@ -99,7 +78,7 @@ namespace ZeroInstall.Store.Trust
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return KeyIDParsed == other.KeyIDParsed && Fingerprint.SequencedEquals(other.Fingerprint) && UserID == other.UserID;
+            return KeyID == other.KeyID && _fingerprint.SequencedEquals(other._fingerprint) && UserID == other.UserID;
         }
 
         public override bool Equals(object obj)
@@ -113,8 +92,8 @@ namespace ZeroInstall.Store.Trust
         {
             unchecked
             {
-                var hashCode = KeyIDParsed.GetHashCode();
-                hashCode = (hashCode * 397) ^ Fingerprint.GetSequencedHashCode();
+                var hashCode = KeyID.GetHashCode();
+                hashCode = (hashCode * 397) ^ _fingerprint.GetSequencedHashCode();
                 hashCode = (hashCode * 397) ^ UserID.GetHashCode();
                 return hashCode;
             }

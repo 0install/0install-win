@@ -50,8 +50,8 @@ namespace ZeroInstall.Store.Trust
         }
 
         private readonly OpenPgpSecretKey _secretKey = new OpenPgpSecretKey(
-            keyID: "DEED44B49BE24661",
-            fingerprint: "E91FE1CBFCCF315543F6CB13DEED44B49BE24661",
+            keyID: OpenPgpUtils.ParseKeyID("DEED44B49BE24661"),
+            fingerprint: OpenPgpUtils.ParseFingerpint("E91FE1CBFCCF315543F6CB13DEED44B49BE24661"),
             userID: "Test User <test@0install.de>");
 
         private readonly byte[] _referenceData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Trust
             TestImportKey();
 
             CollectionAssert.AreEqual(
-                expected: new[] {new ValidSignature(_secretKey.Fingerprint, new DateTime(2015, 7, 16, 17, 20, 7))},
+                expected: new[] {new ValidSignature(_secretKey.KeyID, _secretKey.GetFingerprint(), new DateTime(2015, 7, 16, 17, 20, 7))},
                 actual: Target.Verify(_referenceData, _signatureData));
         }
 
@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Trust
             TestImportKey();
 
             CollectionAssert.AreEqual(
-                expected: new[] {new BadSignature(_secretKey.KeyIDParsed)},
+                expected: new[] {new BadSignature(_secretKey.KeyID)},
                 actual: Target.Verify(new byte[] {1, 2, 3}, _signatureData));
         }
 
@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Trust
         public void TestVerifyMissingKeySignature()
         {
             CollectionAssert.AreEqual(
-                expected: new[] {new MissingKeySignature(_secretKey.KeyIDParsed)},
+                expected: new[] {new MissingKeySignature(_secretKey.KeyID)},
                 actual: Target.Verify(_referenceData, _signatureData));
         }
 
@@ -103,8 +103,8 @@ namespace ZeroInstall.Store.Trust
             TestImportKey();
             var signatures = Target.Verify(_referenceData, signatureData);
             CollectionAssert.AreEqual(
-                expected: OpenPgpUtils.FormatFingerprint(_secretKey.Fingerprint),
-                actual: ((ValidSignature)signatures.Single()).Fingerprint);
+                expected: _secretKey.GetFingerprint(),
+                actual: ((ValidSignature)signatures.Single()).GetFingerprint());
         }
 
         [Test]
@@ -168,10 +168,14 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            Assert.AreEqual(_secretKey, Target.GetSecretKey());
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.KeyID));
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.UserID));
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(OpenPgpUtils.FormatFingerprint(_secretKey.Fingerprint)));
+            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey), "Should get secret key using parsed id source");
+
+            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.UserID), "Should get secret key using user id");
+            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.FormatKeyID()), "Should get secret key using key id string");
+            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.FormatFingerprint()), "Should get secret key using fingerprint string");
+
+            Assert.AreEqual(_secretKey, Target.GetSecretKey(), "Should get default secret key");
+
             Assert.Throws<KeyNotFoundException>(() => Target.GetSecretKey("unknown@user.com"));
         }
 

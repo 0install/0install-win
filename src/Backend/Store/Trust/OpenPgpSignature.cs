@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Trust
 {
@@ -24,21 +26,60 @@ namespace ZeroInstall.Store.Trust
     /// Represents a signature checked by an <see cref="IOpenPgp"/> implementation.
     /// </summary>
     /// <seealso cref="IOpenPgp.Verify"/>
-    public abstract class OpenPgpSignature
-    {}
+    public abstract class OpenPgpSignature : IKeyIDContainer
+    {
+        /// <inheritdoc/>
+        public long KeyID { get; private set; }
+
+        /// <summary>
+        /// Creates a new signature.
+        /// </summary>
+        /// <param name="keyID">The key ID of the key used to create this signature.</param>
+        protected OpenPgpSignature(long keyID)
+        {
+            KeyID = keyID;
+        }
+
+        #region Equality
+        protected bool Equals(OpenPgpSignature other)
+        {
+            #region Sanity checks
+            if (other == null) throw new ArgumentNullException("other");
+            #endregion
+
+            return KeyID == other.KeyID;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((OpenPgpSignature)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return KeyID.GetHashCode();
+        }
+        #endregion
+    }
 
     /// <summary>
     /// Represents a valid signature.
     /// </summary>
     /// <seealso cref="IOpenPgp.Verify"/>
-    public sealed class ValidSignature : OpenPgpSignature
+    public sealed class ValidSignature : OpenPgpSignature, IFingerprintContainer
     {
-        /// <summary>
-        /// The fingerprint of the key used to create this signature.
-        /// </summary>
-        /// <seealso cref="OpenPgpSecretKey.Fingerprint"/>
-        [NotNull]
-        public string Fingerprint { get; private set; }
+        private readonly byte[] _fingerprint;
+
+        /// <inheritdoc/>
+        public byte[] GetFingerprint()
+        {
+            return _fingerprint.ToArray();
+        }
 
         /// <summary>
         /// The point in time when the signature was created in UTC.
@@ -48,26 +89,18 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// Creates a new valid signature.
         /// </summary>
+        /// <param name="keyID">The key ID of the key used to create this signature.</param>
         /// <param name="fingerprint">The fingerprint of the key used to create this signature.</param>
         /// <param name="timestamp">The point in time when the signature was created in UTC.</param>
-        public ValidSignature([NotNull] string fingerprint, DateTime timestamp)
+        public ValidSignature(long keyID, [NotNull] byte[] fingerprint, DateTime timestamp) : base(keyID)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
+            if (fingerprint == null) throw new ArgumentNullException("fingerprint");
             #endregion
 
-            Fingerprint = fingerprint;
+            _fingerprint = fingerprint;
             Timestamp = timestamp;
         }
-
-        /// <summary>
-        /// Creates a new valid signature.
-        /// </summary>
-        /// <param name="fingerprint">The fingerprint of the key used to create this signature.</param>
-        /// <param name="timestamp">The point in time when the signature was created in UTC.</param>
-        public ValidSignature([NotNull] byte[] fingerprint, DateTime timestamp)
-            : this(OpenPgpUtils.FormatFingerprint(fingerprint), timestamp)
-        {}
 
         #region Conversion
         /// <summary>
@@ -75,14 +108,14 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ValidSignature: {0} ({1})", Fingerprint, Timestamp);
+            return string.Format("ValidSignature: {0} ({1})", this.FormatFingerprint(), Timestamp);
         }
         #endregion
 
         #region Equality
         private bool Equals(ValidSignature other)
         {
-            return Timestamp.Equals(other.Timestamp) && string.Equals(Fingerprint, other.Fingerprint);
+            return base.Equals(other) && _fingerprint.SequencedEquals(other._fingerprint) && Timestamp == other.Timestamp;
         }
 
         /// <inheritdoc/>
@@ -98,7 +131,10 @@ namespace ZeroInstall.Store.Trust
         {
             unchecked
             {
-                return (Timestamp.GetHashCode() * 397) ^ Fingerprint.GetHashCode();
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ _fingerprint.GetSequencedHashCode();
+                hashCode = (hashCode * 397) ^ Timestamp.GetHashCode();
+                return hashCode;
             }
         }
         #endregion
@@ -111,27 +147,10 @@ namespace ZeroInstall.Store.Trust
     public class ErrorSignature : OpenPgpSignature
     {
         /// <summary>
-        /// The key ID of the key used to create this signature.
-        /// </summary>
-        /// <seealso cref="OpenPgpSecretKey.KeyID"/>
-        [NotNull]
-        public string KeyID { get; private set; }
-
-        /// <summary>
         /// Creates a new signature error.
         /// </summary>
         /// <param name="keyID">The key ID of the key used to create this signature.</param>
-        public ErrorSignature([NotNull] string keyID)
-        {
-            KeyID = keyID;
-        }
-
-        /// <summary>
-        /// Creates a new signature error.
-        /// </summary>
-        /// <param name="keyID">The key ID of the key used to create this signature.</param>
-        public ErrorSignature(long keyID)
-            : this(OpenPgpUtils.FormatKeyID(keyID))
+        public ErrorSignature(long keyID) : base(keyID)
         {}
 
         #region Conversion
@@ -140,33 +159,23 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ErrorSignature: {0}", KeyID);
+            return string.Format("ErrorSignature: {0}", this.FormatKeyID());
         }
         #endregion
 
         #region Equality
-        protected bool Equals(ErrorSignature other)
-        {
-            #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
-            #endregion
-
-            return string.Equals(KeyID, other.KeyID);
-        }
-
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((ErrorSignature)obj);
+            return obj is ErrorSignature && Equals((ErrorSignature)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return KeyID.GetHashCode();
+            return base.GetHashCode();
         }
         #endregion
     }
@@ -181,13 +190,6 @@ namespace ZeroInstall.Store.Trust
         /// Creates a new bad signature.
         /// </summary>
         /// <param name="keyID">The key ID of the key used to create this signature.</param>
-        public BadSignature([NotNull] string keyID) : base(keyID)
-        {}
-
-        /// <summary>
-        /// Creates a new bad signature.
-        /// </summary>
-        /// <param name="keyID">The key ID of the key used to create this signature.</param>
         public BadSignature(long keyID) : base(keyID)
         {}
 
@@ -197,7 +199,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("BadSignature: {0}", KeyID);
+            return string.Format("BadSignature: {0}", this.FormatKeyID());
         }
         #endregion
 
@@ -229,13 +231,6 @@ namespace ZeroInstall.Store.Trust
         /// Creates a new missing key error.
         /// </summary>
         /// <param name="keyID">The key ID of the key used to create this signature.</param>
-        public MissingKeySignature([NotNull] string keyID) : base(keyID)
-        {}
-
-        /// <summary>
-        /// Creates a new missing key error.
-        /// </summary>
-        /// <param name="keyID">The key ID of the key used to create this signature.</param>
         public MissingKeySignature(long keyID) : base(keyID)
         {}
 
@@ -245,7 +240,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MissingKeySignature: {0}", KeyID);
+            return string.Format("MissingKeySignature: {0}", this.FormatKeyID());
         }
         #endregion
 

@@ -57,8 +57,7 @@ namespace ZeroInstall.Services.Feeds
             {
                 var uri = new FeedUri(server.FileUri);
                 CatalogManager.SetSources(new[] {uri});
-                _trustManagerMock.Setup(x => x.CheckTrust(array, uri, null))
-                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                _trustManagerMock.Setup(x => x.CheckTrust(array, uri, null)).Returns(OpenPgpUtilsTest.TestSignature);
 
                 Assert.AreEqual(
                     expected: catalog,

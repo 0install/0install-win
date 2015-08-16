@@ -107,7 +107,7 @@ namespace ZeroInstall.Publish
             #endregion
 
             File.WriteAllText(
-                path: Path.Combine(path, secretKey.KeyID + ".gpg"),
+                path: Path.Combine(path, secretKey.FormatKeyID() + ".gpg"),
                 contents: openPgp.ExportKey(secretKey),
                 encoding: Encoding.ASCII);
         }
@@ -135,7 +135,7 @@ namespace ZeroInstall.Publish
                     .OfType<ValidSignature>().FirstOrDefault();
                 if (signature == null) return null;
 
-                return openPgp.GetSecretKey(signature.Fingerprint);
+                return openPgp.GetSecretKey(signature);
             }
                 #region Error handling
             catch (KeyNotFoundException)

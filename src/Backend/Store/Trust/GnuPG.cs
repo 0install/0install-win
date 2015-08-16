@@ -86,13 +86,15 @@ namespace ZeroInstall.Store.Trust
             {
                 case "VALIDSIG":
                     if (signatureParts.Length != 12) throw new FormatException("Incorrect number of columns in VALIDSIG line.");
+                    var fingerprint = OpenPgpUtils.ParseFingerpint(signatureParts[fingerprintIndex]);
                     return new ValidSignature(
-                        signatureParts[fingerprintIndex],
-                        FileUtils.FromUnixTime(Int64.Parse(signatureParts[timestampIndex])));
+                        keyID: OpenPgpUtils.FingerprintToKeyID(fingerprint),
+                        fingerprint: fingerprint,
+                        timestamp: FileUtils.FromUnixTime(Int64.Parse(signatureParts[timestampIndex])));
 
                 case "BADSIG":
                     if (signatureParts.Length < 3) throw new FormatException("Incorrect number of columns in BADSIG line.");
-                    return new BadSignature(signatureParts[keyIDIndex]);
+                    return new BadSignature(OpenPgpUtils.ParseKeyID(signatureParts[keyIDIndex]));
 
                 case "ERRSIG":
                     if (signatureParts.Length != 8) throw new FormatException("Incorrect number of columns in ERRSIG line.");
@@ -100,9 +102,9 @@ namespace ZeroInstall.Store.Trust
                     switch (errorCode)
                     {
                         case 9:
-                            return new MissingKeySignature(signatureParts[keyIDIndex]);
+                            return new MissingKeySignature(OpenPgpUtils.ParseKeyID(signatureParts[keyIDIndex]));
                         default:
-                            return new ErrorSignature(signatureParts[keyIDIndex]);
+                            return new ErrorSignature(OpenPgpUtils.ParseKeyID(signatureParts[keyIDIndex]));
                     }
 
                 default:
@@ -118,7 +120,7 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            string output = new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--passphrase", passphrase ?? "", "--local-user", secretKey.KeyID, "--detach-sign", "--armor", "--output", "-", "-");
+            string output = new CliControl(HomeDir, data).Execute("--batch", "--no-secmem-warning", "--passphrase", passphrase ?? "", "--local-user", secretKey.FormatKeyID(), "--detach-sign", "--armor", "--output", "-", "-");
             string signatureBase64 = output
                 .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
                 .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")
@@ -137,13 +139,13 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public string ExportKey(OpenPgpSecretKey secretKey)
+        public string ExportKey(IKeyIDContainer keyIDContainer)
         {
             #region Sanity checks
-            if (secretKey == null) throw new ArgumentNullException("secretKey");
+            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
             #endregion
 
-            return new CliControl(HomeDir).Execute("--batch", "--no-secmem-warning", "--armor", "--export", secretKey.KeyID)
+            return new CliControl(HomeDir).Execute("--batch", "--no-secmem-warning", "--armor", "--export", keyIDContainer.FormatKeyID())
                 .Replace(Environment.NewLine, "\n") + "\n";
         }
 
@@ -183,7 +185,10 @@ namespace ZeroInstall.Store.Trust
 
         private static OpenPgpSecretKey ParseSecretKey(string[] sec, string[] fpr, string[] uid)
         {
-            return new OpenPgpSecretKey(keyID: sec[4], fingerprint: fpr[9], userID: uid[9]);
+            return new OpenPgpSecretKey(
+                keyID: OpenPgpUtils.ParseKeyID(sec[4]),
+                fingerprint: OpenPgpUtils.ParseFingerpint(fpr[9]),
+                userID: uid[9]);
         }
 
         private string _homeDir = DefaultHomeDir;

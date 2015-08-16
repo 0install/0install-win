@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish
                 openPgpMock.Setup(x => x.ExportKey(_secretKey)).Returns(publicKey);
                 FeedUtils.DeployPublicKey(tempDir.Path, _secretKey, openPgpMock.Object);
 
-                Assert.AreEqual(publicKey, File.ReadAllText(tempDir + Path.DirectorySeparatorChar + _secretKey.KeyID + ".gpg"),
+                Assert.AreEqual(publicKey, File.ReadAllText(tempDir + Path.DirectorySeparatorChar + _secretKey.FormatKeyID() + ".gpg"),
                     "Public key should be written to parallel file in directory");
             }
         }

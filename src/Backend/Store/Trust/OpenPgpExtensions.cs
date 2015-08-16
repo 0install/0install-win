@@ -33,6 +33,36 @@ namespace ZeroInstall.Store.Trust
         /// Returns a specific secret key in the keyring.
         /// </summary>
         /// <param name="openPgp">The <see cref="IOpenPgp"/> implementation.</param>
+        /// <param name="keyIDContainer">An object containing the key ID that identifies the keypair.</param>
+        /// <exception cref="KeyNotFoundException">The specified key could not be found on the system.</exception>
+        /// <seealso cref="IOpenPgp.Sign"/>
+        /// <seealso cref="IOpenPgp.ExportKey"/>
+        [NotNull]
+        public static OpenPgpSecretKey GetSecretKey([NotNull] this IOpenPgp openPgp, [NotNull] IKeyIDContainer keyIDContainer)
+        {
+            #region Sanity checks
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
+            #endregion
+
+            var secretKeys = openPgp.ListSecretKeys().ToList();
+            if (secretKeys.Count == 0)
+                throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
+
+            try
+            {
+                return secretKeys.First(x => x.KeyID == keyIDContainer.KeyID);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
+            }
+        }
+
+        /// <summary>
+        /// Returns a specific secret key in the keyring.
+        /// </summary>
+        /// <param name="openPgp">The <see cref="IOpenPgp"/> implementation.</param>
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
         /// <exception cref="KeyNotFoundException">The specified key could not be found on the system.</exception>
         /// <seealso cref="IOpenPgp.Sign"/>
@@ -54,7 +84,7 @@ namespace ZeroInstall.Store.Trust
             try
             {
                 var keyID = OpenPgpUtils.ParseKeyID(keySpecifier);
-                return secretKeys.First(x => x.KeyIDParsed == keyID);
+                return secretKeys.First(x => x.KeyID == keyID);
             }
             catch (FormatException)
             {}
@@ -64,7 +94,7 @@ namespace ZeroInstall.Store.Trust
             try
             {
                 var fingerprint = OpenPgpUtils.ParseFingerpint(keySpecifier);
-                return secretKeys.First(x => x.Fingerprint.SequenceEqual(fingerprint));
+                return secretKeys.First(x => x.GetFingerprint().SequenceEqual(fingerprint));
             }
             catch (FormatException)
             {}

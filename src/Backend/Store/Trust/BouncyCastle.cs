@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Trust
                 signature.Update(data);
 
                 if (signature.Verify())
-                    return new ValidSignature(key.GetFingerprint(), signature.CreationTime);
+                    return new ValidSignature(key.KeyId, key.GetFingerprint(), signature.CreationTime);
                 else
                 {
                     var badSig = new BadSignature(signature.KeyId);
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Trust
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             #endregion
 
-            var pgpSecretKey = SecretBundle.GetSecretKey(secretKey.KeyIDParsed);
+            var pgpSecretKey = SecretBundle.GetSecretKey(secretKey.KeyID);
             if (pgpSecretKey == null) throw new KeyNotFoundException("Specified OpenPGP key not found on system");
             var pgpPrivateKey = GetPrivateKey(pgpSecretKey, passphrase);
 
@@ -117,13 +117,13 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public string ExportKey(OpenPgpSecretKey secretKey)
+        public string ExportKey(IKeyIDContainer keyIDContainer)
         {
             #region Sanity checks
-            if (secretKey == null) throw new ArgumentNullException("secretKey");
+            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
             #endregion
 
-            var key = SecretBundle.GetSecretKey(secretKey.KeyIDParsed);
+            var key = SecretBundle.GetSecretKey(keyIDContainer.KeyID);
             if (key == null) throw new KeyNotFoundException("Specified OpenPGP key not found on system");
 
             var output = new MemoryStream();

@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Trust
         /// <param name="secretKey">The secret key to use for signing.</param>
         /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
         /// <returns>The signature in binary format).</returns>
-        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
+        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found in the keyring.</exception>
         /// <exception cref="WrongPassphraseException"><paramref name="passphrase"/> was incorrect.</exception>
         /// <seealso cref="Verify"/>
         [NotNull]
@@ -60,14 +60,14 @@ namespace ZeroInstall.Store.Trust
         void ImportKey([NotNull] byte[] data);
 
         /// <summary>
-        /// Exports the public key for a specific secret key in the keyring.
+        /// Exports the public key for a specific key in the keyring.
         /// </summary>
-        /// <param name="secretKey">The secret key to the get the public key for.</param>
+        /// <param name="keyIDContainer">An object containing the key ID of the public key to export.</param>
         /// <returns>The public key in ASCII Armored format. Always uses Unix-style linebreaks.</returns>
-        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
+        /// <exception cref="KeyNotFoundException">The specified <paramref name="keyIDContainer"/> could not be found in the keyring.</exception>
         /// <seealso cref="ImportKey"/>
         [NotNull]
-        string ExportKey([NotNull] OpenPgpSecretKey secretKey);
+        string ExportKey([NotNull] IKeyIDContainer keyIDContainer);
 
         /// <summary>
         /// Returns a list of secret keys in the keyring.

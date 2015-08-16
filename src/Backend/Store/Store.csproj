@@ -236,6 +236,8 @@
     <Compile Include="Trust\Domain.cs" />
     <Compile Include="Trust\GnuPG.cs" />
     <Compile Include="Trust\GnuPG.CliControl.cs" />
+    <Compile Include="Trust\IFingerprintContainer.cs" />
+    <Compile Include="Trust\IKeyIDContainer.cs" />
     <Compile Include="Trust\IOpenPgp.cs" />
     <Compile Include="Trust\Key.cs" />
     <Compile Include="Trust\OpenPgpExtensions.cs" />

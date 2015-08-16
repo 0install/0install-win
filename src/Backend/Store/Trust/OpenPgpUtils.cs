@@ -21,15 +21,39 @@ using JetBrains.Annotations;
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
-    /// Helper methods for <see cref="OpenPgpSecretKey"/>s and <see cref="OpenPgpSignature"/>s.
+    /// Helper methods for <see cref="IKeyIDContainer"/> and <see cref="IFingerprintContainer"/>.
     /// </summary>
-    internal static class OpenPgpUtils
+    public static class OpenPgpUtils
     {
+        /// <summary>
+        /// Formats a key ID as a canonical string.
+        /// </summary>
+        public static string FormatKeyID([NotNull] this IKeyIDContainer keyIDContainer)
+        {
+            #region Sanity checks
+            if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
+            #endregion
+
+            return keyIDContainer.KeyID.ToString("x16").ToUpperInvariant();
+        }
+
+        /// <summary>
+        /// Formats a key fingerprint as a canonical string.
+        /// </summary>
+        public static string FormatFingerprint([NotNull] this IFingerprintContainer fingerprintContainer)
+        {
+            #region Sanity checks
+            if (fingerprintContainer == null) throw new ArgumentNullException("fingerprintContainer");
+            #endregion
+
+            return BitConverter.ToString(fingerprintContainer.GetFingerprint()).Replace("-", "");
+        }
+
         /// <summary>
         /// Parses a canonical string formatting of a key ID.
         /// </summary>
         /// <exception cref="FormatException">The string format is not valid.</exception>
-        public static long ParseKeyID([NotNull] string keyID)
+        internal static long ParseKeyID([NotNull] string keyID)
         {
             #region Sanity checks
             if (keyID == null) throw new ArgumentNullException("keyID");
@@ -37,15 +61,7 @@ namespace ZeroInstall.Store.Trust
 
             if (keyID.Length != 16) throw new FormatException("OpenPGP key ID string representation must be 16 characters long.");
 
-            return Convert.ToInt64(keyID, 16);
-        }
-
-        /// <summary>
-        /// Formats a key ID as a canonical string.
-        /// </summary>
-        public static string FormatKeyID(long id)
-        {
-            return id.ToString("x16").ToUpperInvariant();
+            return Convert.ToInt64(keyID, fromBase: 16);
         }
 
         /// <summary>
@@ -53,7 +69,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <exception cref="FormatException">The string format is not valid.</exception>
         [NotNull]
-        public static byte[] ParseFingerpint([NotNull] string fingerprint)
+        internal static byte[] ParseFingerpint([NotNull] string fingerprint)
         {
             #region Sanity checks
             if (fingerprint == null) throw new ArgumentNullException("fingerprint");
@@ -66,15 +82,21 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <summary>
-        /// Formats a key fingerprint as a canonical string.
+        /// Extracts the key ID from a key fingerprint.
         /// </summary>
-        public static string FormatFingerprint([NotNull] byte[] fingerprint)
+        internal static long FingerprintToKeyID([NotNull] byte[] fingerprint)
         {
             #region Sanity checks
             if (fingerprint == null) throw new ArgumentNullException("fingerprint");
             #endregion
 
-            return BitConverter.ToString(fingerprint).Replace("-", "");
+            // Extract lower 64 bits and treat as Big Endian
+            unchecked
+            {
+                int i1 = (fingerprint[fingerprint.Length - 8] << 24) | (fingerprint[fingerprint.Length - 7] << 16) | (fingerprint[fingerprint.Length - 6] << 8) | fingerprint[fingerprint.Length - 5];
+                int i2 = (fingerprint[fingerprint.Length - 4] << 24) | (fingerprint[fingerprint.Length - 3] << 16) | (fingerprint[fingerprint.Length - 2] << 8) | fingerprint[fingerprint.Length - 1];
+                return ((long)i1 << 32) | (uint)i2;
+            }
         }
     }
 }

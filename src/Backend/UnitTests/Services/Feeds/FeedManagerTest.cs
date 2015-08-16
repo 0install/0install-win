@@ -36,8 +36,6 @@ namespace ZeroInstall.Services.Feeds
     [TestFixture]
     public class FeedManagerTest : TestWithContainer<FeedManager>
     {
-        private static readonly ValidSignature _signature = new ValidSignature("fingerprint", new DateTime(2000, 1, 1));
-
         private Mock<IFeedCache> _feedCacheMock;
         private Mock<ITrustManager> _trustManagerMock;
 
@@ -93,7 +91,7 @@ namespace ZeroInstall.Services.Feeds
                 _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
 
-                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
+                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
                 Assert.AreEqual(feed, Target[feed.Uri]);
             }
@@ -135,7 +133,7 @@ namespace ZeroInstall.Services.Feeds
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
+                _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
                 Config.FeedMirror = mirrorServer.ServerUri;
                 Assert.AreEqual(feed, Target[feed.Uri]);
@@ -208,10 +206,10 @@ namespace ZeroInstall.Services.Feeds
         {
             _feedCacheMock.Setup(x => x.Add(feed.Uri, feedData));
             _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {_signature});
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {OpenPgpUtilsTest.TestSignature});
 
             // ReSharper disable once AccessToDisposedClosure
-            _trustManagerMock.Setup(x => x.CheckTrust(feedData, feed.Uri, It.IsAny<string>())).Returns(_signature);
+            _trustManagerMock.Setup(x => x.CheckTrust(feedData, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
             Target.Refresh = true;
             Assert.AreEqual(feed, Target[feed.Uri]);
@@ -254,7 +252,7 @@ namespace ZeroInstall.Services.Feeds
             var data = SignFeed(feed);
 
             // Newer signautre present => replay attack
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature(_signature.Fingerprint, new DateTime(2002, 1, 1))});
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature(OpenPgpUtilsTest.TestKeyID, OpenPgpUtilsTest.TestFingerprint, new DateTime(2002, 1, 1))});
 
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
@@ -271,7 +269,7 @@ namespace ZeroInstall.Services.Feeds
         private byte[] SignFeed(Feed feed)
         {
             var data = feed.ToXmlString().ToStream().ToArray();
-            _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(_signature);
+            _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
             return data;
         }
     }

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Trust
@@ -25,36 +26,50 @@ namespace ZeroInstall.Store.Trust
     [TestFixture]
     public class OpenPgpUtilsTest
     {
+        public const string TestKeyIDString = "00000000000000FF";
+        public static readonly long TestKeyID = 255;
+        public static readonly byte[] TestFingerprint = {170, 170, 0, 0, 0, 0, 0, 0, 0, 255};
+        public const string TestFingerprintString = "AAAA00000000000000FF";
+        public static readonly ValidSignature TestSignature = new ValidSignature(TestKeyID, TestFingerprint, new DateTime(2000, 1, 1));
+
         [Test]
         public void TestParseKeyID()
         {
             Assert.AreEqual(
-                expected: 255,
-                actual: OpenPgpUtils.ParseKeyID("00000000000000FF"));
-        }
-
-        [Test]
-        public void TestFormatKeyID()
-        {
-            Assert.AreEqual(
-                expected: "00000000000000FF",
-                actual: OpenPgpUtils.FormatKeyID(255));
+                expected: TestKeyID,
+                actual: OpenPgpUtils.ParseKeyID(TestKeyIDString));
         }
 
         [Test]
         public void TestParseFingerrpint()
         {
             CollectionAssert.AreEqual(
-                expected: new byte[] {0, 255},
-                actual: OpenPgpUtils.ParseFingerpint("00FF"));
+                expected: TestFingerprint,
+                actual: OpenPgpUtils.ParseFingerpint(TestFingerprintString));
+        }
+
+        [Test]
+        public void TestFormatKeyID()
+        {
+            Assert.AreEqual(
+                expected: TestKeyIDString,
+                actual: new ErrorSignature(TestKeyID).FormatKeyID());
         }
 
         [Test]
         public void TestFormatFingerprint()
         {
             Assert.AreEqual(
-                expected: "00FF",
-                actual: OpenPgpUtils.FormatFingerprint(new byte[] {0, 255}));
+                expected: TestFingerprintString,
+                actual: new OpenPgpSecretKey(TestKeyID, TestFingerprint, "a@b.com").FormatFingerprint());
+        }
+
+        [Test]
+        public void TestFingerprintToKeyID()
+        {
+            Assert.AreEqual(
+                expected: OpenPgpUtils.ParseKeyID("DEED44B49BE24661"),
+                actual: OpenPgpUtils.FingerprintToKeyID(OpenPgpUtils.ParseFingerpint("E91FE1CBFCCF315543F6CB13DEED44B49BE24661")));
         }
     }
 }
