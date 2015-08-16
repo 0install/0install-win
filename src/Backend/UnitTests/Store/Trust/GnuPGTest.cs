@@ -25,7 +25,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Runs test methods for <see cref="GnuPG"/>.
     /// </summary>
-    [TestFixture]
+    [TestFixture, Ignore("No longer used and potentially buggy on some Mono 4.x releases")]
     public class GnuPGTest : OpenPgpTest<GnuPG>
     {
         [TestFixtureSetUp]
