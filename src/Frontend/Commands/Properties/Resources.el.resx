@@ -155,6 +155,12 @@
   <data name="CapabilitiesChanged" xml:space="preserve">
     <value>Οι δυνατότητες της εφαρμογής &quot;{0}&quot; άλλαξαν.</value>
   </data>
+  <data name="CatalogAlreadyRegistered" xml:space="preserve">
+    <value>Το URI ο κατάλογος {0} έχει ήδη καταχωρηθεί.</value>
+  </data>
+  <data name="CatalogNotRegistered" xml:space="preserve">
+    <value>Το URI ο κατάλογος {0} δεν έχει καταχωρηθεί.</value>
+  </data>
   <data name="CatalogSources" xml:space="preserve">
     <value>Κατάλογος και πηγές</value>
   </data>
@@ -218,6 +224,18 @@
   </data>
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Καταχωρήση μιας πρόσθετης πηγής των εφαρμογών (εκδόσεις) του προγράμματος.</value>
+  </data>
+  <data name="DescriptionCatalogAdd" xml:space="preserve">
+    <value>Προσθέτει ένα URI στη λίστα των καταλόγων.</value>
+  </data>
+  <data name="DescriptionCatalogList" xml:space="preserve">
+    <value>Παραθέτει σε λίστα όλους τους εγγεγραμμένους καταλόγους.</value>
+  </data>
+  <data name="DescriptionCatalogRefresh" xml:space="preserve">
+    <value>Ανανεώνει όλες τις καταχωρημένες καταλόγους.</value>
+  </data>
+  <data name="DescriptionCatalogRemove" xml:space="preserve">
+    <value>Καταργεί ένα URI από τη λίστα των καταλόγων.</value>
   </data>
   <data name="DescriptionCentral" xml:space="preserve">
     <value>Άνοιγμα του κεντρικού γραφικου διεπαφής χρήστη για τη δρομολόγηση και τη διαχείριση εφαρμογών.</value>
@@ -614,6 +632,12 @@
   </data>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>Αυτή η Zero Install περίπτωση ξεκίνησε ως εφαρμογή από άλλη Zero Install περίπτωση. Ως εκ τούτου, δεν μπορεί να ενημερωθεί.</value>
+  </data>
+  <data name="StabilityPolicyAutoSet" xml:space="preserve">
+    <value>Ρυθμίστε τη σταθερότητα ρύθμιση για {0} αναλόγως;</value>
+  </data>
+  <data name="StabilityPolicyReset" xml:space="preserve">
+    <value>Επαναφορά της σταθερότητας ρύθμιση για {0} στην προεπιλογή;</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} χώρος αποθήκευσης ποιοτική αποκατάσταση.</value>

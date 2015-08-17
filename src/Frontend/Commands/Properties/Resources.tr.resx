@@ -321,7 +321,7 @@ Ek bir değişken ile özel hedef önbellek konumu olarak belirtilebilir.</value
     <value>Tüm uygulama önbelleği dizinlerini bir listede görüntüler.</value>
   </data>
   <data name="DescriptionStoreListImplementations" xml:space="preserve">
-    <value>Önbelleğe alınmış uygulamalar listelenir. Eğer bir akış Internet adresi belirtilmişse yalnızca o akışa ait uygulamalar listelenir.</value>
+    <value>Önbelleğe alınmış uygulamalar listelenir. Eğer bir akış İnternet adresi belirtilmişse yalnızca o akışa ait uygulamalar listelenir.</value>
   </data>
   <data name="DescriptionStoreManage" xml:space="preserve">
     <value>Önbellekte bulunan uygulamaların yönetilebileceği bir görsel arabirim açar. Önbellekteki akışların ilişkilerini görüntüler.</value>
@@ -360,10 +360,10 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>İndirme tamamlandı</value>
   </data>
   <data name="EnterCatalogUrl" xml:space="preserve">
-    <value>Akış kataloğuna eklemek için bir Internet adresi ya da bir yerel dosya yolu girin:</value>
+    <value>Akış kataloğuna eklemek için bir İnternet adresi ya da bir yerel dosya yolu yazın:</value>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Bu arabirim için uygulamaların yeni kaynaklarının Internet adresini girin:</value>
+    <value>Bu arabirim için uygulamaların yeni kaynaklarının İnternet adresini girin:</value>
   </data>
   <data name="ExclusiveOptions" xml:space="preserve">
     <value>{0} ve {1} seçenekleri birlikte kullanılamaz.</value>
@@ -387,7 +387,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>&apos;{0}&apos; için akış &apos;{2}&apos; tarafından ({1}) olarak değiştirildi. Yeni akışı eski akışla değiştirerek kullanmak ister misiniz?</value>
   </data>
   <data name="FeedsCached" xml:space="preserve">
-    <value>Önbelleğe alınmış akışlar</value>
+    <value>Önbellekteki akışlar</value>
   </data>
   <data name="FeedsRegistered" xml:space="preserve">
     <value>&apos;{0}&apos; için akış kaydedildi</value>
@@ -536,7 +536,7 @@ Metin kipinde bir etkisi yoktur.</value>
     <value>Tüm kullanılabilir erişim noktalarını ekleyin.</value>
   </data>
   <data name="OptionIntegrateAddStandard" xml:space="preserve">
-    <value>Önerilen klasik erişim noktalarını ekleyin.</value>
+    <value>Önerilen standart erişim noktalarını ekleyin.</value>
   </data>
   <data name="OptionIntegrateRemove" xml:space="preserve">
     <value>Belirli bir kategori {CATEGORY} için tüm erişim noktalarını silin.</value>
@@ -572,7 +572,7 @@ Komut satırı değişkenleri bulunamaz! Boşluklardan kaçınılması gerekmez.
   </data>
   <data name="OptionOffline" xml:space="preserve">
     <value>Varsayılan ayarların yerine geçerek çevrimdışı kipte çalışır.
-Çevrimdışı kipte, arabirimler güncelliğini kaybetse bile yinelenmez ve yazılımların yeni sürümleri olduğu algılansa bile indirilmez (önceki bir yenilemede algılanmış olsa da).</value>
+Çevrimdışı kipte, arabirimler güncelliğini kaybetse bile yenilenmez ve yazılımların yeni sürümleri olduğu algılansa bile indirilmez (önceki bir yenilemede algılanmış olsa bile).</value>
   </data>
   <data name="OptionOS" xml:space="preserve">
     <value>Çözümleyicinin belirli bir işletim sistemini {OS} hedeflemesini sağlar.</value>
@@ -674,10 +674,10 @@ Komut satırı değişkenleri bulunabilir. Boşluklardan kaçınılmalıdır.</v
     <value>{0} depolama alanı kazanıldı.</value>
   </data>
   <data name="StoreAudit" xml:space="preserve">
-    <value>Depo denetimi</value>
+    <value>Bellek denetimi</value>
   </data>
   <data name="StoreVerfiyTryAuditInstead" xml:space="preserve">
-    <value>Depodaki tüm uygulamaları denetlemek yerine &quot;0store audit&quot; kullanın.</value>
+    <value>Bellekteki tüm uygulamaları denetlemek yerine &quot;0store audit&quot; kullanın.</value>
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>{0} başarıyla kaldırıldı.</value>
@@ -720,7 +720,7 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
     <value>Sistem dili kullanılsın</value>
   </data>
   <data name="Verify" xml:space="preserve">
-    <value>Onayla</value>
+    <value>Doğrula</value>
   </data>
   <data name="VerifyImplementation" xml:space="preserve">
     <value>Uygulamayı doğrula</value>

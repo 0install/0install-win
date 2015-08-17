@@ -130,7 +130,7 @@
     <value>Zero Install Sync uygulama listenizi ve Masaüstü tümleştirmelerinizi alır ve diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Windows &amp;dosya paylaşımı kullanılsın:</value>
+    <value>Windows &amp;dosya paylaşımı kullan:</value>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>Ö&amp;zel bir sunucu kullanacağım:</value>
@@ -265,7 +265,7 @@
     <value>Sync sunucusunu sıfırla</value>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Yerel uygulama listesini Sync sunucusu üzerindeki veriler ile değiştirmek üzeresiniz. Yerel bilgisayarlarda yapılmış ve eşitlenmemiş değişiklikler kaybolacak!</value>
+    <value>Sync sunucusundaki verileri yerel uygulama listeniz ile eşitlemek üzeresiniz. Yerel olarak yaptığınız ve sunucu ile eşitlemediğiniz değişiklikler kaybolacak!</value>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
     <value>Yerel uygulama listesi sıfırlandı. Zero Install kullanmaya devam edebilirsiniz.</value>

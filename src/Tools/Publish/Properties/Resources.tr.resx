@@ -188,7 +188,7 @@ Giriş noktalarını el ile belirtmeyi deneyin.</value>
     <value>Büyük olasılıkla çok satırlı tam bir açıklama</value>
   </data>
   <data name="HrefMissing" xml:space="preserve">
-    <value>İndirme akışı eksik.</value>
+    <value>İndirme adresi eksik.</value>
   </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Görsel dosyası Zero Install tarafından desteklenmiyor.</value>

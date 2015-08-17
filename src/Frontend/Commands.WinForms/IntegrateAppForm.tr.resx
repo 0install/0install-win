@@ -193,7 +193,7 @@
     <value>İletişim kuralları</value>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>Internet adresi iletişim kuralları</value>
+    <value>İnternet adresi iletişim kuralları</value>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
     <value>Tümünü &amp;seç</value>
@@ -247,7 +247,7 @@
     <value>Otomatik &amp;Güncelleştir</value>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Bu uygulama &quot;Tümünü güncelleştir&quot; denetimlerine katılsın.</value>
+    <value>Bu uygulama &quot;Tümünü güncelleştir&quot; denetimlerine katılır.</value>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>Gelişmiş a&amp;yarlar</value>
@@ -298,7 +298,7 @@
     <value>Otomatik Oynat</value>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Uygun ortam takıldığında kendiliğinden oynatılır (DVD, USB sürücü vb.)</value>
+    <value>Uygun ortam takıldığında kendiliğinden oynatılsın (DVD, USB sürücü vb.)</value>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
     <value>İçerik menüsü</value>

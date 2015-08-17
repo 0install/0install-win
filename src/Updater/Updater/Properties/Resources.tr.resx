@@ -145,7 +145,7 @@
     <value>Zero Install Bellek Hizmeti durduruluyor...</value>
   </data>
   <data name="UpdateRegistry" xml:space="preserve">
-    <value>Kayıt güncelleştiriliyor...</value>
+    <value>Kayıt defteri güncelleştiriliyor...</value>
   </data>
   <data name="WrongNoArguments" xml:space="preserve">
     <value>Değişken sayısı yanlış.

@@ -210,7 +210,7 @@
   </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>Olası bir yeniden oynatma saldırısı algılandı. Yeni akışın değişiklik zamanı eski sürümden önce.
-Akışın Internet adresi: {0}
+Akışın İnternet adresi: {0}
 Eski zaman: {1}
 Yeni zaman: {2}</value>
   </data>

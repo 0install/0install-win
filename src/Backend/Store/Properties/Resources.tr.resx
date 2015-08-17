@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArchitectureStringFormat" xml:space="preserve">
-    <value>&quot;os-cpu&quot; dize biçiminde olmalı.</value>
+    <value>Dizge formda &quot;os-cpu&quot; biçiminde olmalı.</value>
   </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>Arşiv dosyası geçersiz ya da bozuk.</value>
   </data>
   <data name="ArchiveInvalidPath" xml:space="preserve">
-    <value>Arşiv geçersiz bir yol içeriyor (olası güvenlik açığı): {0}</value>
+    <value>Arşiv geçersiz bir yol içeriyor (olası bir güvenlik açığı): {0}</value>
   </data>
   <data name="CommandNotFound" xml:space="preserve">
     <value>&apos;{0}&apos; komutu tanınmıyor.</value>
@@ -182,7 +182,7 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
     <value>Güvenli veritabanı yüklenirken hata. Varsayılan ayarlara geri dönün.</value>
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
-    <value>Arşiv çıkartılıyor</value>
+    <value>Arşiv ayıklanıyor</value>
   </data>
   <data name="ExtractionOnlyOnWindows" xml:space="preserve">
     <value>Ayıklanan bu arşiv tipi yalnız Windows üzerinde desteklenir.</value>
@@ -214,6 +214,9 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
   <data name="GeneratingManifest" xml:space="preserve">
     <value>{0} özeti oluşturuluyor</value>
   </data>
+  <data name="HardlinkTargetMissing" xml:space="preserve">
+    <value>&apos;{0}&apos; sabit bağlantısı arşiv noktalarında bir &apos;{1}&apos; dosyası içermiyor.</value>
+  </data>
   <data name="IllegalFileType" xml:space="preserve">
     <value>&apos;{0}&apos; dosyası bir sayısal bağlantı ya da normal bir dosya değil.</value>
   </data>
@@ -227,7 +230,7 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
     <value>Kaldırmak ister misiniz? Gerekirse daha sonra yeni bir kopya otomatik olarak indirilir.</value>
   </data>
   <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
-    <value>Kaldırmak için &apos;0install store remove {0}&apos; kullanın. Gerekirse daha sonra bir kopya otomatik olarak indirilir.</value>
+    <value>Kaldırmak için &apos;0install store remove {0}&apos; kullanın. Gerekirse daha sonra yeni bir kopya otomatik olarak indirilir.</value>
   </data>
   <data name="ImplementationMissingID" xml:space="preserve">
     <value>{1} &apos;{0}&apos; kimliği içermiyor.</value>
@@ -322,7 +325,7 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
     <value>&lt;recipe&gt; içinde belirtilen bir dosya indirilemedi.</value>
   </data>
   <data name="RecipeInvalidPath" xml:space="preserve">
-    <value>Bir tarif adımı geçersiz yol içeriyor (olası güvenlik açığı): {0}</value>
+    <value>Bir tarif adımı geçersiz yol içeriyor (olası bir güvenlik açığı): {0}</value>
   </data>
   <data name="RelativePathInRemoteFeed" xml:space="preserve">
     <value>Uzak akış için &apos;{0}&apos; bağıl yolu belirtilmiş. Bağıl yollar yalnız yerel akışlarda kullanılabilir.</value>

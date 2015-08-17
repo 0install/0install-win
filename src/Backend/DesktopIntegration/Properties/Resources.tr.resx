@@ -142,7 +142,7 @@
     <value>&apos;{0}&apos; adında geçersiz karakterler var.</value>
   </data>
   <data name="PleaseConfigSync" xml:space="preserve">
-    <value>Lütfen eşitlemeyi ayarlamak için &apos;0install central&apos; ya da &apos;0install config&apos; kullanın.</value>
+    <value>Lütfen Sync&apos;i ayarlamak için &apos;0install central&apos; ya da &apos;0install config&apos; kullanın.</value>
   </data>
   <data name="ProblemLoading" xml:space="preserve">
     <value>&apos;{0}&apos; yüklenirken bir sorun oluştu.</value>
@@ -171,7 +171,7 @@ Sunucudaki veriyi değiştirmek için sorun giderme yardımcısını(&quot;Sync&
     <value>Eşitleme verisi gönderiliyor</value>
   </data>
   <data name="UnableToFindTypeID" xml:space="preserve">
-    <value>{0} kimliği ile &apos;{1}&apos; bulunamadı.</value>
+    <value>&apos;{1}&apos; kimliği ile {0} bulunamadı.</value>
   </data>
   <data name="UnableToReplaceStub" xml:space="preserve">
     <value>Yürütülebilir eski &apos;{0}&apos; taslağı değiştirilemedi.</value>
