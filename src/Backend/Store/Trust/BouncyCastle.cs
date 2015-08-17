@@ -123,12 +123,13 @@ namespace ZeroInstall.Store.Trust
             if (keyIDContainer == null) throw new ArgumentNullException("keyIDContainer");
             #endregion
 
-            var key = SecretBundle.GetSecretKey(keyIDContainer.KeyID);
-            if (key == null) throw new KeyNotFoundException("Specified OpenPGP key not found on system");
+            var publicKey = ((SecretBundle.GetSecretKey(keyIDContainer.KeyID) != null) ? SecretBundle.GetSecretKey(keyIDContainer.KeyID).PublicKey : null)
+                ?? PublicBundle.GetPublicKey(keyIDContainer.KeyID);
+            if (publicKey == null) throw new KeyNotFoundException("Specified OpenPGP key not found on system");
 
             var output = new MemoryStream();
             using (var armored = new ArmoredOutputStream(output))
-                key.PublicKey.Encode(armored);
+                publicKey.Encode(armored);
             return output.ReadToString(Encoding.ASCII).Replace(Environment.NewLine, "\n");
         }
 
