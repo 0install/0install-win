@@ -538,9 +538,13 @@ namespace ZeroInstall.Store.Implementations
                 }
             }
                 #region Error handling
-            catch (TimeoutException)
+            catch (Win32Exception ex)
             {
-                // If the Restart Manager is unavailable just continue
+                Log.Error(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                Log.Warn(ex);
             }
             #endregion
         }
