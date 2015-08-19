@@ -35,6 +35,14 @@ FOR %%A IN ("%~dp0..\build\Release\Tools\*.exe") DO signtool sign /t http://time
 if errorlevel 1 pause
 FOR %%A IN ("%~dp0..\build\Release\Updater\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
 if errorlevel 1 pause
+
+echo Signing libraries...
+FOR %%A IN ("%~dp0..\build\Release\Frontend\*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
+if errorlevel 1 pause
+FOR %%A IN ("%~dp0..\build\Release\Tools\*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
+if errorlevel 1 pause
+FOR %%A IN ("%~dp0..\build\Release\Updater\*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
+if errorlevel 1 pause
 )
 
 
