@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -524,9 +525,12 @@ namespace ZeroInstall.Store.Implementations
             {
                 using (var restartManager = new WindowsRestartManager())
                 {
-                    restartManager.RegisterResources(FileUtils.GetFilesRecursive(path));
-                    var apps = restartManager.ListApps(handler);
+                    // Look for handles to well-known executable types in the top-level directory
+                    // Searching for all file types and/or in subdirectories takes too long
+                    restartManager.RegisterResources(Directory.GetFiles(path, "*.exe"));
+                    restartManager.RegisterResources(Directory.GetFiles(path, "*.dll"));
 
+                    var apps = restartManager.ListApps(handler);
                     if (apps.Length != 0)
                     {
                         string appsList = string.Join(Environment.NewLine, apps);
