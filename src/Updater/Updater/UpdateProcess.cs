@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -252,10 +253,25 @@ namespace ZeroInstall.Updater
         {
             if (!WindowsUtils.IsWindowsVista) return;
 
-            _restartManager = new WindowsRestartManager();
-            _restartManager.RegisterResources(GetFilesToWrite());
-            _restartManager.RegisterResources(GetFilesToDelete());
-            _restartManager.ShutdownApps(new SilentTaskHandler());
+            try
+            {
+                _restartManager = new WindowsRestartManager();
+                _restartManager.RegisterResources(GetFilesToWrite());
+                _restartManager.RegisterResources(GetFilesToDelete());
+                _restartManager.ShutdownApps(new SilentTaskHandler());
+            }
+                #region Error handling
+            catch (Win32Exception ex)
+            {
+                Log.Error(ex);
+                _restartManager = null;
+            }
+            catch (System.TimeoutException ex)
+            {
+                Log.Warn(ex);
+                _restartManager = null;
+            }
+            #endregion
         }
 
         /// <summary>
