@@ -31,7 +31,8 @@ Source directory structure
 - The top-level directory contains local Zero Install feeds referencing the contents of the `build` directory. They can be registered with `0install add-feed` in order to replace the online versions of Zero Install and its tools with your local builds.
 
 `VERSION` and `VERSION_UPDATER` contain the version numbers used by build scripts.
-Keep in sync with the version numbers in `ZeroInstall.xml`, `ZeroInstall_Tools.xml`, `ZeroInstall_Updater.xml`, `src/AssemblyInfo.Global.cs`, `src/Updater/AssemblyInfo.Updater.cs` and `src/Frontend/OneGet/oneget.manifest`!
+Use `Set-Version.ps1 X.Y.Z` and `Set-Version.ps1 updater X.Y.Z` to change the version numbers. This ensures that the version also gets set in other locations (e.g. AssemblyInfo).
+`Get-Version.cmd` and `Get-Version.sh` read the current version numbers to the console and environment variables. This is used by our build server.
 
 
 Building on Windows

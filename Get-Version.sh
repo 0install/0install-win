@@ -1,5 +1,5 @@
 #!/bin/sh
-#Sets the current version number as an environment variable
+#Reads the current version numbers to the console and environment variables
 cd `dirname $0`
 
 export VERSION=`cat VERSION`
