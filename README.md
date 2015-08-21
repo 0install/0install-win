@@ -42,6 +42,14 @@ The external solver (required) is not included in the repository. To get it run 
 `build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
 Note: Please read `installer/readme.txt` as well for information about required tools.
 
+If you wish to add an AuthentiCode signature to the compiled binaries set the `signing_cert_path` environment variable to the certificate's file path and `signing_cert_pass` to the password used to decrypt the file before executing the build scripts.
+For example:
+```
+set signing_cert_path=C:\mycert.pfx
+set signing_cert_pass=mypass
+build.cmd
+```
+
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 
 

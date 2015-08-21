@@ -1,9 +1,6 @@
 @echo off
-::Compiles the Visual Studio solution.
-cd /d "%~dp0"
-
-rem Project settings
-set SOLUTION_FILE=ZeroInstall.sln
+::Adds AuthentiCode signatures to all installers. Assumes "build.cmd" has already been executed.
+if not "%1" == "" set signing_cert_path=%*
 
 rem Determine VS version
 if defined VS140COMNTOOLS (
@@ -31,16 +28,10 @@ goto err_no_vs
 
 
 
-set config=%1
-if "%config%"=="" set config=Debug
-
-echo Restoring NuGet packages...
-.nuget\NuGet.exe restore %SOLUTION_FILE%
-echo.
-
-echo Compiling Visual Studio solution (%config%)...
-if exist ..\build\%config% rd /s /q ..\build\%config%
-msbuild %SOLUTION_FILE% /nologo /v:q /t:Rebuild /p:Configuration=%config%
+echo Signing installers with "%signing_cert_path%"...
+FOR %%A IN ("%~dp0..\build\Installer\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Installer\*.msi") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
 if errorlevel 1 exit /b %errorlevel%
 
 

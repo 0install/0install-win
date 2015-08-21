@@ -50,26 +50,26 @@ if exist "%~dp0..\build\Installer\zero-install.zip" del "%~dp0..\build\Installer
 if not exist "%~dp0..\build\Installer" mkdir "%~dp0..\build\Installer"
 
 zip -q -9 -j "%~dp0..\build\Installer\zero-install.zip" "%~dp0_portable" "%~dp0..\COPYING.txt" "%~dp0..\3rd party code.txt"
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 
 cd /d "%~dp0..\build\Release\Frontend"
 zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" . --exclude *.xml *.pdb *.mdb *.vshost.exe
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 
 cd /d "%~dp0..\bundled"
 zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" Solver
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 
 
 echo Building machine-wide installer...
 cd /d "%~dp0"
 "%INNOSETUP_DIR%\iscc.exe" /q "/dVersion=%version%" zero-install.iss
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 
 echo Building per-user installer...
 cd /d "%~dp0"
 "%INNOSETUP_DIR%\iscc.exe" /q "/dVersion=%version%" /dPerUser=1 zero-install.iss
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 
 if "%1"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!desktopicon,!ngen
 if "%2"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!desktopicon,!ngen
@@ -81,46 +81,32 @@ echo Building MSI wrappers for EXE installers...
 cd /d "%~dp0"
 
 "%WIX_DIR%\bin\candle.exe" -nologo zero-install.wxs
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 "%WIX_DIR%\bin\light.exe" -nologo zero-install.wixobj -sval -out "..\build\Installer\zero-install.msi" -spdb
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 del zero-install.wixobj
 
 "%WIX_DIR%\bin\candle.exe" -nologo zero-install-per-user.wxs
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 "%WIX_DIR%\bin\light.exe" -nologo zero-install-per-user.wixobj -sval -out "..\build\Installer\zero-install-per-user.msi" -spdb
-if errorlevel 1 pause
+if errorlevel 1 exit /b %errorlevel%
 del zero-install-per-user.wixobj
 
 
-if not "%PfxPath%" == "" (
-echo Signing installers...
-FOR %%A IN ("%~dp0..\build\Installer\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-FOR %%A IN ("%~dp0..\build\Installer\*.msi") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-)
 
-
-
-goto end
+exit /b 0
 rem Error messages
 
 :err_no_innosetup
 echo ERROR: No Inno Setup 5 installation found. >&2
 echo Download here: http://www.jrsoftware.org/isdl.php >&2
-pause
-goto end
+exit /b 1
 
 :err_no_wix
 echo ERROR: No WiX Toolset installation found. >&2
 echo Download here: http://www.wixtoolset.org/releases/ >&2
-pause
-goto end
+exit /b 1
 
 :err_no_vs
 echo ERROR: No Visual Studio installation found. >&2
-pause
-goto end
-
-:end
+exit /b 1

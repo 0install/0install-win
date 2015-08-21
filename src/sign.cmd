@@ -1,5 +1,6 @@
 @echo off
-::Adds AuthentiCode signatures to all compiled EXEs. Assumes "build.cmd Release" has already been executed.
+::Adds AuthentiCode signatures to all binaries. Assumes "build.cmd Release" has already been executed.
+if not "%1" == "" set signing_cert_path=%*
 
 rem Determine VS version
 if defined VS140COMNTOOLS (
@@ -27,32 +28,25 @@ goto err_no_vs
 
 
 
-if not "%PfxPath%" == "" (
-echo Signing executables...
-FOR %%A IN ("%~dp0..\build\Release\Frontend\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-FOR %%A IN ("%~dp0..\build\Release\Tools\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-FOR %%A IN ("%~dp0..\build\Release\Updater\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-
-echo Signing libraries...
-FOR %%A IN ("%~dp0..\build\Release\Frontend\*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-FOR %%A IN ("%~dp0..\build\Release\Tools\*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-FOR %%A IN ("%~dp0..\build\Release\Updater\*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%PfxPath%" /p %PfxPassword% /v "%%A" > NUL
-if errorlevel 1 pause
-)
+echo Signing binaries with "%signing_cert_path%"...
+FOR %%A IN ("%~dp0..\build\Release\Frontend\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Release\Tools\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Release\Updater\*.exe") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Release\Frontend\ZeroInstall.*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Release\Tools\ZeroInstall.*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Release\Updater\ZeroInstall.*.dll") DO signtool sign /t http://timestamp.comodoca.com/authenticode /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
 
 
 
-goto end
+exit /b 0
 rem Error messages
 
 :err_no_vs
 echo ERROR: No Visual Studio installation found. >&2
-pause
-goto end
-
-:end
+exit /b 1

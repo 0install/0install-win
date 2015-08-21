@@ -31,17 +31,14 @@ echo Building source documentation...
 if exist "%~dp0..\build\Documentation" rd /s /q "%~dp0..\build\Documentation"
 FOR %%A IN ("%~dp0*.shfbproj") DO (
   msbuild "%%A" /p:Configuration=Debug /v:q /nologo
-  if errorlevel 1 pause
+  if errorlevel 1 exit /b %errorlevel%
 )
 
 
 
-goto end
+exit /b 0
 rem Error messages
 
 :err_no_vs
 echo ERROR: No Visual Studio installation found. >&2
-pause
-goto end
-
-:end
+exit /b 1

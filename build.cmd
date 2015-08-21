@@ -8,6 +8,13 @@ if "%4"=="+doc" set BUILD_DOC=TRUE
 
 echo.
 call "%~dp0src\build.cmd" Release
+if errorlevel 1 pause
+
+if defined signing_cert_path (
+echo.
+call "%~dp0src\sign.cmd"
+if errorlevel 1 pause
+)
 
 ::Auto-download solver if missing
 if not exist "%~dp0bundled\Solver" (
@@ -19,13 +26,25 @@ if not exist "%~dp0bundled\Solver" (
 
 echo.
 call "%~dp0nuget\build.cmd" %*
+if errorlevel 1 pause
+
 echo.
 call "%~dp0installer\build.cmd" %*
+if errorlevel 1 pause
+
+if defined signing_cert_path (
+echo.
+call "%~dp0installer\sign.cmd"
+if errorlevel 1 pause
+)
 
 ::Optionally create debug build and documentation
 if "%BUILD_DOC%"=="TRUE" (
   echo.
   call "%~dp0src\build.cmd" DebugWithGtk
+  if errorlevel 1 pause
+
   echo.
   call "%~dp0doc\build.cmd"
+  if errorlevel 1 pause
 )
