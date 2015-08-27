@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Trust
         /// <param name="data">The data to sign.</param>
         /// <param name="secretKey">The secret key to use for signing.</param>
         /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
-        /// <returns>The signature in binary format).</returns>
+        /// <returns>The signature in binary format.</returns>
         /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found in the keyring.</exception>
         /// <exception cref="WrongPassphraseException"><paramref name="passphrase"/> was incorrect.</exception>
         /// <seealso cref="Verify"/>
