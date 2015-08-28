@@ -256,7 +256,10 @@ namespace ZeroInstall.Services.Feeds
             {
                 if (feedUri.IsLoopback) throw;
 
-                Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
+                if (_handler.Verbosity == Verbosity.Batch)
+                    Log.Info(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
+                else
+                    Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 try
                 {
                     var download = new DownloadMemory(GetMirrorUrl(feedUri));
