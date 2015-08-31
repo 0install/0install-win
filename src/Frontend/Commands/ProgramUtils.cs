@@ -35,6 +35,16 @@ namespace ZeroInstall.Commands
     public static class ProgramUtils
     {
         /// <summary>
+        /// Indicates whether the application is installed in a user-specific location.
+        /// </summary>
+        public static bool PerUserInstall { get { return Locations.InstallBase.StartsWith(Locations.HomeDir); } }
+
+        /// <summary>
+        /// Indicates whether the application's current location is prone to change, e.g. because this is a portable installation or executed from a cache directory.
+        /// </summary>
+        public static bool TransientInstall { get { return Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase); } }
+
+        /// <summary>
         /// Common initialization code to be called by every Frontend executable right after startup.
         /// </summary>
         public static void Init()
@@ -48,7 +58,7 @@ namespace ZeroInstall.Commands
             {
                 if (UILanguage != null) Languages.SetUI(UILanguage);
 
-                if (!Locations.IsPortable && !StoreUtils.PathInAStore(Locations.InstallBase))
+                if (!TransientInstall)
                 {
                     try
                     {

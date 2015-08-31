@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands.CliCommands
 
             if (MachineWide)
             {
-                if (Locations.IsInstalledPerUser)
+                if (ProgramUtils.PerUserInstall)
                 {
                     string machineWideInstallBase = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation");
                     string hint = (machineWideInstallBase != Locations.InstallBase && !string.IsNullOrEmpty(machineWideInstallBase))

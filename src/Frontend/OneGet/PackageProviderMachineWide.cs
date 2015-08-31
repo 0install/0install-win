@@ -18,8 +18,8 @@
 using System.Collections.Generic;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
+using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.OneGet
@@ -29,7 +29,7 @@ namespace ZeroInstall.OneGet
     /// </summary>
     public class PackageProviderMachineWide : PackageProviderBase
     {
-        private bool IsDisabled { get { return Locations.IsInstalledPerUser; } }
+        private bool IsDisabled { get { return ProgramUtils.PerUserInstall; } }
 
         public override string PackageProviderName { get { return IsDisabled ? "0install-Machine-disabled" : "0install-Machine"; } }
 
