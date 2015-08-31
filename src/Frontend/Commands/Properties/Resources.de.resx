@@ -449,6 +449,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>
+  <data name="NoIntegrationFromTransientInstall" xml:space="preserve">
+    <value>Zero Install läuft derzeit im Portable Modus oder wurde von einem Cacheverzeichnis aus gestartet. Dies macht es unmöglich Desktopintergationseinträge zu erstellen, da Sie auf einen permanenten Zero Install Speicherort zeigen müssen.</value>
+  </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
   </data>
@@ -457,9 +460,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoPerUserMachineWide" xml:space="preserve">
     <value>Zero Install läuft derzeit in einem benutzerspezifischen Verzeichnis, das nicht für andere Benutzer zugänglich ist.</value>
-  </data>
-  <data name="NoPerUserMachineWideInstall" xml:space="preserve">
-    <value>Bitte installieren Sie http://0install.de/files/zero-install.exe, um maschinenweite Operationen durchführen zu können.</value>
   </data>
   <data name="NoPerUserMachineWideUse" xml:space="preserve">
     <value>Bitte verwenden Sie stattdessen diesen Befehl für die maschinenweite Operation: {0}</value>
@@ -622,6 +622,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="OptionXml" xml:space="preserve">
     <value>Scheibe ausgewählte Versionen auf die Konsole als Maschinen-lesbares XML.</value>
+  </data>
+  <data name="PleaseRunInstaller" xml:space="preserve">
+    <value>Bitte führen Sie http://0install.de/files/zero-install.exe aus um das Problem zu lösen.</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>

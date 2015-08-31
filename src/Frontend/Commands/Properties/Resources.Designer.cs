@@ -1017,6 +1017,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zero Install is currently running in portable mode or was launched from a cache directory. This makes it impossible to create desktop integration entries because they need to point to a permanent Zero Install location..
+        /// </summary>
+        public static string NoIntegrationFromTransientInstall {
+            get {
+                return ResourceManager.GetString("NoIntegrationFromTransientInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No longer used: .
         /// </summary>
         public static string NoLongerUsed {
@@ -1040,15 +1049,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string NoPerUserMachineWide {
             get {
                 return ResourceManager.GetString("NoPerUserMachineWide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please install http://0install.de/files/zero-install.exe to enable machine-wide operations..
-        /// </summary>
-        public static string NoPerUserMachineWideInstall {
-            get {
-                return ResourceManager.GetString("NoPerUserMachineWideInstall", resourceCulture);
             }
         }
         
@@ -1510,6 +1510,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string OptionXml {
             get {
                 return ResourceManager.GetString("OptionXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please run http://0install.de/files/zero-install.exe to fix the issue..
+        /// </summary>
+        public static string PleaseRunInstaller {
+            get {
+                return ResourceManager.GetString("PleaseRunInstaller", resourceCulture);
             }
         }
         

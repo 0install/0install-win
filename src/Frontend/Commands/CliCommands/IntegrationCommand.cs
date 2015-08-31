@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands.CliCommands
                         // Recommend using existing machine-wide instance
                         ? string.Format(Resources.NoPerUserMachineWideUse, new[] {Path.Combine(machineWideInstallBase, "0install.exe"), Name}.Concat(args).JoinEscapeArguments())
                         // Recommend downloading machine-wide installer
-                        : Resources.NoPerUserMachineWideInstall;
+                        : Resources.PleaseRunInstaller;
                     throw new NotSupportedException(Resources.NoPerUserMachineWide + Environment.NewLine + hint);
                 }
 

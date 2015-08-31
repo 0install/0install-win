@@ -131,6 +131,9 @@ namespace ZeroInstall.Commands.CliCommands
         /// <returns>The exit status code to end the process with.</returns>
         private ExitCode CreateAlias(string aliasName, FeedUri interfaceUri, string command = null)
         {
+            if (ProgramUtils.TransientInstall)
+                throw new NotSupportedException(Resources.NoIntegrationFromTransientInstall + Environment.NewLine + Resources.PleaseRunInstaller);
+
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
                 // Check this before modifying the environment
