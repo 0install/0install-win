@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestGetPathSecond()
         {
-            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null);
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns<string>(null);
             _mockStore2.Setup(x => x.GetPath(_digest1)).Returns("path");
             Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from second mock");
         }
@@ -148,8 +148,8 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestGetPathFail()
         {
-            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null);
-            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns((string)null);
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns<string>(null);
+            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns<string>(null);
             Assert.IsNull(_testStore.GetPath(_digest1));
         }
         #endregion

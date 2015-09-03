@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands.CliCommands
 
             ExecutorMock.SetupSet(x => x.Main = "Main");
             ExecutorMock.SetupSet(x => x.Wrapper = "Wrapper");
-            ExecutorMock.Setup(x => x.Start(selections, "--arg1", "--arg2")).Returns((Process)null);
+            ExecutorMock.Setup(x => x.Start(selections, "--arg1", "--arg2")).Returns<Process>(null);
 
             RunAndAssert(null, 0, selections,
                 "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0",
@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands.CliCommands
             StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
             FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
 
-            ExecutorMock.Setup(x => x.Start(It.IsAny<Selections>(), "--arg1", "--arg2")).Returns((Process)null);
+            ExecutorMock.Setup(x => x.Start(It.IsAny<Selections>(), "--arg1", "--arg2")).Returns<Process>(null);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
