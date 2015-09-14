@@ -113,7 +113,14 @@ namespace ZeroInstall.Store.Trust
 
             var stream = PgpUtilities.GetDecoderStream(new MemoryStream(data));
             var ring = ParseObject<PgpPublicKeyRing>(stream);
-            PublicBundle = PgpPublicKeyRingBundle.AddPublicKeyRing(PublicBundle, ring);
+            try
+            {
+                PublicBundle = PgpPublicKeyRingBundle.AddPublicKeyRing(PublicBundle, ring);
+            }
+            catch (ArgumentException)
+            {
+                // Bundle already contains key
+            }
         }
 
         /// <inheritdoc/>
@@ -124,7 +131,7 @@ namespace ZeroInstall.Store.Trust
             #endregion
 
             var publicKey = ((SecretBundle.GetSecretKey(keyIDContainer.KeyID) != null) ? SecretBundle.GetSecretKey(keyIDContainer.KeyID).PublicKey : null)
-                ?? PublicBundle.GetPublicKey(keyIDContainer.KeyID);
+                            ?? PublicBundle.GetPublicKey(keyIDContainer.KeyID);
             if (publicKey == null) throw new KeyNotFoundException("Specified OpenPGP key not found on system");
 
             var output = new MemoryStream();
