@@ -315,7 +315,7 @@ namespace ZeroInstall.Store.Implementations
 
             var generator = new ManifestGenerator(directory, format) {Tag = expectedDigest};
             handler.RunTask(generator);
-            var actualManifest = generator.Result;
+            var actualManifest = generator.Manifest;
             string actualDigestValue = actualManifest.CalculateDigest();
 
             string manifestFilePath = Path.Combine(directory, Manifest.ManifestFile);

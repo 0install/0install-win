@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementations
 
             // Write one line for each node
             foreach (ManifestNode node in _nodes)
-                writer.WriteLine(Format.GenerateEntryForNode(node));
+                writer.WriteLine(node.ToString());
 
             writer.Flush();
         }
@@ -184,7 +184,7 @@ namespace ZeroInstall.Store.Implementations
                 if (line.StartsWith("F")) nodes.Add(ManifestNormalFile.FromString(line));
                 else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
                 else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
-                else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromEntry(line));
+                else if (line.StartsWith("D")) nodes.Add(ManifestDirectory.FromString(line));
                 else throw new FormatException(Resources.InvalidLinesInManifest);
             }
 
@@ -260,7 +260,7 @@ namespace ZeroInstall.Store.Implementations
             // Use the same format as the file
             var output = new StringBuilder();
             foreach (var node in _nodes)
-                output.AppendLine(Format.GenerateEntryForNode(node));
+                output.AppendLine(node.ToString());
             return output.ToString();
         }
         #endregion

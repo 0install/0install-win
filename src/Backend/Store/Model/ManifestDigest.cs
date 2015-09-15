@@ -49,9 +49,9 @@ namespace ZeroInstall.Store.Model
 
         #region Properties
         /// <summary>
-        /// A SHA-1 hash of the old manifest format.
+        /// A SHA-1 hash of the old manifest format. Not supported anymore!
         /// </summary>
-        [Description("A SHA-1 hash of the old manifest format.")]
+        [Description("A SHA-1 hash of the old manifest format. Not supported anymore!")]
         [XmlAttribute("sha1"), DefaultValue(""), CanBeNull]
         public string Sha1 { get; set; }
 

@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                 var generator = new ManifestGenerator(path, _algorithm);
                 Handler.RunTask(generator);
-                return generator.Result;
+                return generator.Manifest;
             }
             else if (File.Exists(path))
             {
@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                     var generator = new ManifestGenerator(tempDir, _algorithm);
                     Handler.RunTask(generator);
-                    return generator.Result;
+                    return generator.Manifest;
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));

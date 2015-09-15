@@ -31,12 +31,6 @@ namespace ZeroInstall.Store.Implementations
     {
         #region Properties
         /// <summary>
-        /// The time this directory was last modified encoded as Unix time (number of seconds since the epoch).
-        /// </summary>
-        /// <remarks>Only used for old manifest format.</remarks>
-        public long ModifiedTime { get; private set; }
-
-        /// <summary>
         /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
         /// </summary>
         [NotNull]
@@ -47,26 +41,17 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new directory-entry.
         /// </summary>
-        /// <param name="modifiedTime">The time this directory was last modified in the number of seconds since the epoch.</param>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
         /// <exception cref="ArgumentException"><paramref name="fullPath"/> contains a newline character.</exception>
-        public ManifestDirectory(long modifiedTime, string fullPath)
+        public ManifestDirectory(string fullPath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(fullPath)) throw new ArgumentNullException("fullPath");
             if (fullPath.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fullPath");
             #endregion
 
-            ModifiedTime = modifiedTime;
             FullPath = fullPath;
         }
-
-        /// <summary>
-        /// Creates a new directory-entry (old format).
-        /// </summary>
-        /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
-        internal ManifestDirectory(string fullPath) : this(0, fullPath)
-        {}
         #endregion
 
         #region Factory methods
@@ -84,31 +69,6 @@ namespace ZeroInstall.Store.Implementations
             if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
             return new ManifestDirectory(parts[1]);
-        }
-
-        /// <summary>
-        /// Creates a new node from a string representation as created by <see cref="ToStringOld"/>.
-        /// </summary>
-        /// <param name="line">The string representation to parse.</param>
-        /// <returns>The newly created node.</returns>
-        /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
-        [NotNull]
-        internal static ManifestDirectory FromStringOld([NotNull] string line)
-        {
-            const int numberOfParts = 3;
-            string[] parts = line.Split(new[] {' '}, numberOfParts);
-            if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
-
-            try
-            {
-                return new ManifestDirectory(long.Parse(parts[1]), parts[2]);
-            }
-                #region Error handling
-            catch (OverflowException ex)
-            {
-                throw new FormatException(Resources.NumberTooLarge, ex);
-            }
-            #endregion
         }
         #endregion
 
@@ -130,7 +90,7 @@ namespace ZeroInstall.Store.Implementations
         /// <returns><code>"D", space, mtime, space, full path name, newline</code></returns>
         public override string ToStringOld()
         {
-            return string.Format(CultureInfo.InvariantCulture, "D {0} {1}", ModifiedTime, FullPath);
+            return string.Format(CultureInfo.InvariantCulture, "D {0}", FullPath);
         }
         #endregion
 
@@ -157,7 +117,7 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                return (ModifiedTime.GetHashCode() * 397) ^ FullPath.GetHashCode();
+                return FullPath.GetHashCode();
             }
         }
         #endregion

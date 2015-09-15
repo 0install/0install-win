@@ -197,11 +197,11 @@ namespace ZeroInstall.Publish
             var newDigest = new ManifestDigest();
 
             // Generate manifest for each available format...
-            foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(ImplementationDirectory, format)))
+            foreach (var generator in ManifestFormat.All.Select(format => new ManifestGenerator(ImplementationDirectory, format)))
             {
                 // ... and add the resulting digest to the return value
                 handler.RunTask(generator);
-                newDigest.ParseID(generator.Result.CalculateDigest());
+                newDigest.ParseID(generator.Manifest.CalculateDigest());
             }
 
             ManifestDigest = newDigest;

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2015 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2010-2015 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -18,8 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -28,22 +26,13 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Generates a <see cref="Manifest"/> for a directory in the filesystem as a background task.
+    /// Generates a <see cref="Implementations.Manifest"/> for a directory.
     /// </summary>
-    public class ManifestGenerator : TaskBase
+    public class ManifestGenerator : DirectoryWalkTask
     {
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return string.Format(Resources.GeneratingManifest, Format); } }
-
-        /// <inheritdoc/>
-        protected override bool UnitsByte { get { return true; } }
-
-        /// <summary>
-        /// The path of the directory to analyze. No trailing <see cref="Path.DirectorySeparatorChar"/>!
-        /// </summary>
-        [NotNull]
-        public string TargetDir { get; private set; }
 
         /// <summary>
         /// The format of the manifest to generate.
@@ -51,160 +40,58 @@ namespace ZeroInstall.Store.Implementations
         [NotNull]
         public ManifestFormat Format { get; private set; }
 
+        private readonly List<ManifestNode> _nodes = new List<ManifestNode>();
+
         /// <summary>
-        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Implementations.Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
-        public Manifest Result { get; private set; }
+        public Manifest Manifest { get { return new Manifest(Format, _nodes);} }
         #endregion
 
         #region Constructor
-        /// <summary>Indicates whether <see cref="TargetDir"/> is located on a filesystem with support for Unixoid features such as executable bits.</summary>
-        private readonly bool _isUnixFS;
-
         /// <summary>
         /// Prepares to generate a manifest for a directory in the filesystem.
         /// </summary>
-        /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="sourceDirectory">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest to generate.</param>
-        public ManifestGenerator([NotNull] string path, [NotNull] ManifestFormat format)
+        public ManifestGenerator([NotNull] string sourceDirectory, [NotNull] ManifestFormat format) : base(sourceDirectory)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (format == null) throw new ArgumentNullException("format");
-            #endregion
-
-            TargetDir = path.TrimEnd(Path.DirectorySeparatorChar);
             Format = format;
-
-            _isUnixFS = FlagUtils.IsUnixFS(TargetDir);
         }
         #endregion
 
         /// <inheritdoc/>
-        protected override void Execute()
+        protected override void HandleFile(FileInfo file, bool executable = false)
         {
-            State = TaskState.Header;
-            var entries = Format.GetSortedDirectoryEntries(TargetDir);
-            UnitsTotal = entries.OfType<FileInfo>().Sum(file => file.Length);
+            #region Sanity checks
+            if (file == null) throw new ArgumentNullException("file");
+            #endregion
 
-            State = TaskState.Data;
-            Result = new Manifest(Format, GetNodes(entries));
-
-            State = TaskState.Complete;
+            using (var stream = file.OpenRead())
+            {
+                if (executable) _nodes.Add(new ManifestExecutableFile(Format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name));
+                else _nodes.Add(new ManifestNormalFile(Format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name));
+            }
         }
 
-        /// <summary>
-        /// Creates manifest nodes for a set of file system elements.
-        /// </summary>
-        /// <param name="entries">The file system elements to create nodes for.</param>
-        /// <returns>The nodes for the elements.</returns>
-        private IEnumerable<ManifestNode> GetNodes(IEnumerable<FileSystemInfo> entries)
+        /// <inheritdoc/>
+        protected override void HandleSymlink(FileSystemInfo symlink, byte[] data)
         {
-            var externalXbits = FlagUtils.GetFiles(FlagUtils.XbitFile, TargetDir);
-            var externalSymlinks = FlagUtils.GetFiles(FlagUtils.SymlinkFile, TargetDir);
+            #region Sanity checks
+            if (symlink == null) throw new ArgumentNullException("symlink");
+            #endregion
 
-            // Iterate through the directory listing to build a list of manifets entries
-            var nodes = new List<ManifestNode>();
-            foreach (var entry in entries)
-            {
-                CancellationToken.ThrowIfCancellationRequested();
-
-                var file = entry as FileInfo;
-                if (file != null)
-                {
-                    // Don't include manifest management files in manifest
-                    if (file.Name == Manifest.ManifestFile || file.Name == FlagUtils.XbitFile || file.Name == FlagUtils.SymlinkFile) continue;
-
-                    nodes.Add(GetFileNode(file, Format, externalXbits, externalSymlinks));
-                    UnitsProcessed += file.Length;
-                }
-                else
-                {
-                    var directory = entry as DirectoryInfo;
-                    if (directory != null) nodes.Add(GetDirectoryNode(directory, Format, Path.GetFullPath(TargetDir)));
-                }
-            }
-            return nodes;
+            _nodes.Add(new ManifestSymlink(Format.DigestContent(data), data.Length, symlink.Name));
         }
 
-        /// <summary>
-        /// Creates a manifest node for a file.
-        /// </summary>
-        /// <param name="file">The file object to create a node for.</param>
-        /// <param name="format">The manifest format containing digest rules.</param>
-        /// <param name="externalXbits">A list of fully qualified paths of files that are named in the <see cref="FlagUtils.SymlinkFile"/>.</param>
-        /// <param name="externalSymlinks">A list of fully qualified paths of files that are named in the <see cref="FlagUtils.SymlinkFile"/>.</param>
-        /// <returns>The node for the list.</returns>
-        /// <exception cref="NotSupportedException">The <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
-        /// <exception cref="IOException">There was an error reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the file.</exception>
-        private ManifestNode GetFileNode(FileInfo file, ManifestFormat format, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
+        /// <inheritdoc/>
+        protected override void HandleDirectory(DirectoryInfo directory)
         {
-            if (_isUnixFS)
-            {
-                // Symlink
-                string symlinkContents;
-                if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
-                {
-                    var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
-                    return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, file.Name);
-                }
+            #region Sanity checks
+            if (directory == null) throw new ArgumentNullException("directory");
+            #endregion
 
-                // Executable file
-                if (FileUtils.IsExecutable(file.FullName))
-                {
-                    using (var stream = File.OpenRead(file.FullName))
-                        return new ManifestExecutableFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
-                }
-
-                // Invalid file type
-                if (!FileUtils.IsRegularFile(file.FullName))
-                    throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
-            }
-            else
-            {
-                // External symlink
-                if (externalSymlinks.Contains(file.FullName))
-                {
-                    using (var stream = File.OpenRead(file.FullName))
-                        return new ManifestSymlink(format.DigestContent(stream), file.Length, file.Name);
-                }
-
-                // External executable file
-                if (externalXbits.Contains(file.FullName))
-                {
-                    using (var stream = File.OpenRead(file.FullName))
-                        return new ManifestExecutableFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
-                }
-            }
-
-            // Normal file
-            using (var stream = File.OpenRead(file.FullName))
-                return new ManifestNormalFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
-        }
-
-        /// <summary>
-        /// Creates a manifest node for a directory.
-        /// </summary>
-        /// <param name="directory">The directory object to create a node for.</param>
-        /// <param name="format">The manifest format containing digest rules.</param>
-        /// <param name="rootPath">The fully qualified path of the root directory the manifest is being generated for.</param>
-        /// <returns>The node for the list.</returns>
-        /// <exception cref="IOException">There was an error reading the directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the directory.</exception>
-        private ManifestNode GetDirectoryNode(DirectoryInfo directory, ManifestFormat format, string rootPath)
-        {
-            // Directory symlinks
-            string symlinkContents;
-            if (_isUnixFS && FileUtils.IsSymlink(directory.FullName, out symlinkContents))
-            {
-                var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
-                return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, directory.Name);
-            }
-
-            // Remove leading portion of path and use Unix slashes
-            string trimmedName = directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/');
-            return new ManifestDirectory(directory.LastWriteTime.ToUnixTime(), trimmedName);
+            _nodes.Add(new ManifestDirectory("/" + directory.RelativeTo(SourceDirectory)));
         }
     }
 }

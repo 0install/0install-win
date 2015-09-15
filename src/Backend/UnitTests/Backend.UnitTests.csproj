@@ -107,6 +107,7 @@
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
     <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
+    <Compile Include="Store\Implementations\DirectoryWalkTest.cs" />
     <Compile Include="Store\Implementations\FlagUtilsTest.cs" />
     <Compile Include="Store\Implementations\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementations\ManifestGeneratorTest.cs" />

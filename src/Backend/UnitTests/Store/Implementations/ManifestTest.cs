@@ -35,25 +35,11 @@ namespace ZeroInstall.Store.Implementations
     public class ManifestTest : TestWithMocks
     {
         #region Helpers
-        /// <summary>
-        /// Creates a <see cref="Manifest"/> from a temporary directory.
-        /// </summary>
-        private static Manifest CreateTestManifest()
-        {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
-            {
-                new PackageBuilder().AddFolder("subdir")
-                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
-                    .WritePackageInto(packageDir);
-                return GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler());
-            }
-        }
-
         private static Manifest GenerateManifest(string path, ManifestFormat format, ITaskHandler handler)
         {
             var generator = new ManifestGenerator(path, format);
             handler.RunTask(generator);
-            return generator.Result;
+            return generator.Manifest;
         }
 
         /// <summary>
@@ -77,14 +63,17 @@ namespace ZeroInstall.Store.Implementations
 
             var generator = new ManifestGenerator(path, format);
             handler.RunTask(generator);
-            return generator.Result.Save(Path.Combine(path, Manifest.ManifestFile));
+            return generator.Manifest.Save(Path.Combine(path, Manifest.ManifestFile));
         }
         #endregion
 
         [Test(Description = "Ensures that Manifest is correctly generated, serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            Manifest manifest1 = CreateTestManifest(), manifest2;
+            var manifest1 = new Manifest(ManifestFormat.Sha1New,
+                new ManifestDirectory("subdir"),
+                new ManifestNormalFile("abc123", new DateTime(2000, 1, 1).ToUnixTime(), 3, "file"));
+            Manifest manifest2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Generate manifest, write it to a file and read the file again
@@ -99,22 +88,17 @@ namespace ZeroInstall.Store.Implementations
         [Test(Description = "Ensures damaged manifest lines are correctly identified.")]
         public void TestLoadException()
         {
-            Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha1));
             Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha256));
             Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha256New));
-
-            Assert.Throws<FormatException>(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha1));
             Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha1New));
             Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256));
             Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256New));
 
-            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha1));
             Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha1New));
             Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256));
             Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256New));
 
-            Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha1));
             Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha256));
             Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha256New));
@@ -129,10 +113,6 @@ namespace ZeroInstall.Store.Implementations
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
 
-                Assert.AreEqual(
-                    CreateDotFile(packageDir, ManifestFormat.Sha1, new MockTaskHandler()),
-                    GenerateManifest(packageDir, ManifestFormat.Sha1, new MockTaskHandler()).CalculateDigest(),
-                    "sha1 dot file and digest should match");
                 Assert.AreEqual(
                     CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()),
                     GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()).CalculateDigest(),
@@ -265,34 +245,6 @@ namespace ZeroInstall.Store.Implementations
                 {
                     string currentLine = manifestFile.ReadLine();
                     Assert.True(Regex.IsMatch(currentLine, @"^D /inner$"), "Manifest didn't match expected format:\n" + currentLine);
-                    currentLine = manifestFile.ReadLine();
-                    Assert.True(Regex.IsMatch(currentLine, @"^X \w+ \w+ \d+ inner.exe$"), "Manifest didn't match expected format:\n" + currentLine);
-                }
-            }
-        }
-
-        [Test]
-        public void ShouldHandleSha1()
-        {
-            using (var package = new TemporaryDirectory("0install-unit-tests"))
-            {
-                string innerPath = Path.Combine(package, "inner");
-                Directory.CreateDirectory(innerPath);
-
-                string manifestPath = Path.Combine(package, Manifest.ManifestFile);
-                string innerExePath = Path.Combine(innerPath, "inner.exe");
-                File.WriteAllText(innerExePath, @"xxxxxxx");
-                if (WindowsUtils.IsWindows)
-                {
-                    string flagPath = Path.Combine(package, FlagUtils.XbitFile);
-                    File.WriteAllText(flagPath, @"/inner/inner.exe");
-                }
-                else FileUtils.SetExecutable(innerExePath, true);
-                CreateDotFile(package, ManifestFormat.Sha1, new MockTaskHandler());
-                using (var manifestFile = File.OpenText(manifestPath))
-                {
-                    string currentLine = manifestFile.ReadLine();
-                    Assert.True(Regex.IsMatch(currentLine, @"^D \w+ /inner$"), "Manifest didn't match expected format:\n" + currentLine);
                     currentLine = manifestFile.ReadLine();
                     Assert.True(Regex.IsMatch(currentLine, @"^X \w+ \w+ \d+ inner.exe$"), "Manifest didn't match expected format:\n" + currentLine);
                 }

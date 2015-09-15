@@ -177,12 +177,12 @@ namespace ZeroInstall.Publish
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
-            foreach (var format in ManifestFormat.Recommended)
+            foreach (var format in ManifestFormat.All)
                 // ... and add the resulting digest to the return value
             {
                 var generator = new ManifestGenerator(path, format);
                 handler.RunTask(generator);
-                digest.ParseID(generator.Result.CalculateDigest());
+                digest.ParseID(generator.Manifest.CalculateDigest());
             }
 
             if (digest.PartialEquals(ManifestDigest.Empty))

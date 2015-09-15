@@ -91,6 +91,7 @@
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
     <Compile Include="Implementations\CopyDirectoryPosix.cs" />
+    <Compile Include="Implementations\DirectoryWalkTask.cs" />
     <Compile Include="Implementations\OptimiseRun.cs" />
     <Compile Include="ImplementationUtils.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
