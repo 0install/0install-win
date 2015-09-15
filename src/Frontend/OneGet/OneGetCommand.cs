@@ -232,7 +232,7 @@ namespace ZeroInstall.OneGet
 
         public void InstallPackage([NotNull] string fastPackageReference)
         {
-            FeedManager.Refresh = Refresh;
+            FeedManager.Refresh = Refresh || !DownloadLater;
 
             var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
