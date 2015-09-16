@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {

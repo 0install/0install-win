@@ -98,7 +98,6 @@
     <Compile Include="EntryPoints\WindowsBatch.cs" />
     <Compile Include="ExitCode.cs" />
     <Compile Include="FeedBuilder.cs" />
-    <Compile Include="RetrievalMethodUtils.cs" />
     <Compile Include="FeedEditing.cs" />
     <Compile Include="FeedUtils.cs" />
     <Compile Include="ImplementationUtils.cs" />
@@ -108,6 +107,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="RetrievalMethodUtils.cs" />
     <Compile Include="SignedCatalog.cs" />
     <Compile Include="SignedFeed.cs" />
   </ItemGroup>

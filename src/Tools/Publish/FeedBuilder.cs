@@ -185,7 +185,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
         /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <see langword="null"/> or empty.</exception>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
+        /// <exception cref="IOException">There was a problem generating the manifest.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
         public void CalculateDigest(ITaskHandler handler)
         {
