@@ -449,6 +449,9 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API çengellemesi önbelleklenmemiş uygulama nedeniyle olanaksız.</value>
   </data>
+  <data name="NoIntegrationFromTransientInstall" xml:space="preserve">
+    <value>Zero Install şu anda taşınabilir kipte çalışıyor ya da bir önbellek dizininden başlatılmış. Bu durumda masaüstü tümleştirme değerlerini oluşturmak olanaksız çünkü kalıcı bir Zero Install konumu gereklidir.</value>
+  </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Artık kullanılmıyor:</value>
   </data>
@@ -618,6 +621,9 @@ Komut satırı değişkenleri bulunabilir. Boşluklardan kaçınılmalıdır.</v
   </data>
   <data name="OptionXml" xml:space="preserve">
     <value>Seçilmiş sürümleri makine tarafından okunabilen bir XML dosyasına yazın.</value>
+  </data>
+  <data name="PleaseRunInstaller" xml:space="preserve">
+    <value>Lütfen sorunu düzeltmek için http://0install.de/files/zero-install.exe dosyasını çalıştırın.</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Taşınabilir kip</value>
