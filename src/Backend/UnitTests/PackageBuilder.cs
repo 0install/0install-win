@@ -69,12 +69,10 @@ namespace ZeroInstall
     public class FileEntry : HierarchyEntry
     {
         private readonly MemoryStream _content;
-        private readonly bool _executable;
-        public bool IsExecutable { get { return _executable; } }
 
         public byte[] Content { get { return _content.ToArray(); } }
 
-        internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable, DateTime lastWrite)
+        internal FileEntry(string name, byte[] content, EntryContainer parent, DateTime lastWrite)
             : base(name, parent, lastWrite)
         {
             #region Preconditions
@@ -86,7 +84,6 @@ namespace ZeroInstall
             _content = new MemoryStream(content.Length);
             _content.Write(content, 0, content.Length);
             _content.Seek(0, SeekOrigin.Begin);
-            _executable = executable;
         }
 
         public override void AcceptVisitor(HierarchyVisitor visitor)
@@ -316,7 +313,7 @@ namespace ZeroInstall
 
         public PackageBuilder AddFile(string name, byte[] content, DateTime lastWrite)
         {
-            _currentSubhierarchy.Add(new FileEntry(name, content, _currentSubhierarchy, false, lastWrite));
+            _currentSubhierarchy.Add(new FileEntry(name, content, _currentSubhierarchy, lastWrite));
             return this;
         }
 
@@ -324,17 +321,6 @@ namespace ZeroInstall
         {
             byte[] contentData = Encoding.UTF8.GetBytes(content);
             return AddFile(name, contentData, lastWrite);
-        }
-
-        public PackageBuilder AddExecutable(string name, byte[] content)
-        {
-            return AddExecutable(name, content, DefaultDate);
-        }
-
-        public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWrite)
-        {
-            _currentSubhierarchy.Add(new FileEntry(name, content, _currentSubhierarchy, true, lastWrite));
-            return this;
         }
 
         public void WritePackageInto(string packageDirectory)
