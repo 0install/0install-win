@@ -166,14 +166,11 @@ namespace ZeroInstall.Store.Implementations.Archives
                 extractor.Run();
 
             string target;
-            if (UnixUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsSymlink(Path.Combine(_sandbox, "symlink"), out target));
-            else
-            {
-                string symlinkFileContent = File.ReadAllText(Path.Combine(_sandbox, FlagUtils.SymlinkFile)).Trim();
-                Assert.AreEqual("/symlink", symlinkFileContent);
-                target = File.ReadAllText(Path.Combine(_sandbox, "symlink"));
-            }
+            string source = Path.Combine(_sandbox, "symlink");
+            Assert.IsTrue(UnixUtils.IsUnix
+                ? FileUtils.IsSymlink(source, out target)
+                : CygwinUtils.IsSymlink(source, out target));
+
             Assert.AreEqual("subdir1/regular", target, "Symlink should point to 'regular'");
         }
 

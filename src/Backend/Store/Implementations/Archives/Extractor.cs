@@ -412,14 +412,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
 
             if (_isUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
-            // NOTE: NTFS symbolic links require admin privileges; do not use them here
-            //else if (WindowsUtils.IsWindowsNT) {...}
+            else if (WindowsUtils.IsWindowsNT)
+            {
+                // NOTE: NTFS symbolic links require admin privileges; use Cygwin symlinks instead
+                CygwinUtils.CreateSymlink(sourceAbsolute, target);
+            }
             else
             {
                 // Write link data as a normal file
                 File.WriteAllText(sourceAbsolute, target);
 
-                // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
+                // Some OSes can't store the symlink flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
                 FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
             }

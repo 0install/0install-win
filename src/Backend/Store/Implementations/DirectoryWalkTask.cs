@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
@@ -159,7 +160,10 @@ namespace ZeroInstall.Store.Implementations
             }
             else
             {
-                if (externalSymlinks.Contains(entry.FullName))
+                string symlinkTarget;
+                if (CygwinUtils.IsSymlink(entry.FullName, out symlinkTarget))
+                    HandleSymlink(entry, Encoding.UTF8.GetBytes(symlinkTarget));
+                else if (externalSymlinks.Contains(entry.FullName))
                     HandleSymlink(entry, File.ReadAllBytes(entry.FullName));
                 else if (externalXbits.Contains(entry.FullName))
                     HandleFile(entry, executable: true);

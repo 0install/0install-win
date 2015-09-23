@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementations
                     // /dest/symlink [S]
                     string path = new[] {recipeDir, "subDir", "symlink"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir));
+                    Assert.IsTrue(UnixUtils.IsUnix ? FileUtils.IsSymlink(path) : CygwinUtils.IsSymlink(path));
 
                     // /dest/subdir2/executable [deleted]
                     path = new[] {recipeDir, "subDir", "subdir2", "executable"}.Aggregate(Path.Combine);
@@ -145,9 +145,6 @@ namespace ZeroInstall.Store.Implementations
                         CollectionAssert.AreEquivalent(
                             new[] {new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine)},
                             FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
-                        CollectionAssert.AreEquivalent(
-                            new[] {new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine)},
-                            FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir));
                     }
 
                     // /symlink [deleted]
@@ -157,7 +154,7 @@ namespace ZeroInstall.Store.Implementations
                     // /subdir3/symlink2 [S]
                     path = new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (UnixUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
+                    Assert.IsTrue(UnixUtils.IsUnix ? FileUtils.IsSymlink(path) : CygwinUtils.IsSymlink(path));
 
                     // /subdir2/executable [deleted]
                     path = new[] {recipeDir, "subdir2", "executable"}.Aggregate(Path.Combine);
