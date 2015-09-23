@@ -442,7 +442,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonSelectArchivePath_Click(object sender, EventArgs e)
         {
-            using (var saveFileDialog = new SaveFileDialog {Filter = "ZIP archive (*.zip)|*.zip", FileName = textBoxArchivePath.Text})
+            using (var saveFileDialog = new SaveFileDialog {Filter = "ZIP archive (*.zip)|*.zip|TAR archive (*.tar)|*.tar|TAR.GZ archive (*.tar.gz)|*.tar.gz|TAR.BZ2 archive (*.tar.bz2)|*.tar.bz2", FileName = textBoxArchivePath.Text})
             {
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     textBoxArchivePath.Text = saveFileDialog.FileName;

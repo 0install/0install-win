@@ -99,8 +99,11 @@
     <Compile Include="Implementations\Archives\RubyGemExtractor.cs" />
     <Compile Include="Implementations\Archives\SevenZipExtractor.cs" />
     <Compile Include="Implementations\Archives\TarBz2Extractor.cs" />
+    <Compile Include="Implementations\Archives\TarBz2Generator.cs" />
     <Compile Include="Implementations\Archives\TarExtractor.cs" />
+    <Compile Include="Implementations\Archives\TarGenerator.cs" />
     <Compile Include="Implementations\Archives\TarGzExtractor.cs" />
+    <Compile Include="Implementations\Archives\TarGzGenerator.cs" />
     <Compile Include="Implementations\Archives\TarLzmaExtractor.cs" />
     <Compile Include="Implementations\Archives\ZipExtractor.cs" />
     <Compile Include="Implementations\Archives\ZipGenerator.cs" />

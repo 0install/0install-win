@@ -105,6 +105,7 @@
     <Compile Include="Store\Implementations\Archives\MsiExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\TarGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipGeneratorTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />

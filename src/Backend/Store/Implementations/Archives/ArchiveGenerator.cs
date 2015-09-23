@@ -65,6 +65,12 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 case Archive.MimeTypeZip:
                     return new ZipGenerator(sourceDirectory, stream);
+                case Archive.MimeTypeTar:
+                    return new TarGenerator(sourceDirectory, stream);
+                case Archive.MimeTypeTarGzip:
+                    return new TarGzGenerator(sourceDirectory, stream);
+                case Archive.MimeTypeTarBzip:
+                    return new TarBz2Generator(sourceDirectory, stream);
                 default:
                     throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
             }

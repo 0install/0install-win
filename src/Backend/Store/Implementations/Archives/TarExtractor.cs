@@ -124,10 +124,16 @@ namespace ZeroInstall.Store.Implementations.Archives
             UnitsProcessed = _tarStream.Position;
         }
 
+
+        /// <summary>
+        /// The default <see cref="TarHeader.Mode"/>.
+        /// </summary>
+        public const int DefaultMode = (6 << 6) + (4 << 3) + 4; // Octal: 644
+
         /// <summary>
         /// The <see cref="TarHeader.Mode"/> that indicate a TAR entry is an executable.
         /// </summary>
-        public const int ExecuteMode = 1 + 8 + 64;
+        public const int ExecuteMode = (1 << 6) + (1 << 3) + 1; // Octal: 111
 
         /// <summary>
         /// Determines whether a <see cref="TarEntry"/> was created with the executable flag set.

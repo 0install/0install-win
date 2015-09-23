@@ -87,7 +87,7 @@ namespace ZeroInstall.Store.Implementations
 
         protected const string Contents = "abc";
 
-        private void WriteFile(string name, bool executable = false)
+        protected void WriteFile(string name, bool executable = false)
         {
             string path = Path.Combine(_sourceDirectory, name);
             File.WriteAllText(path, Contents);
@@ -100,13 +100,13 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        private void CreateDir(string name)
+        protected void CreateDir(string name)
         {
             string path = Path.Combine(_sourceDirectory, name);
             Directory.CreateDirectory(path);
         }
 
-        private void CreateSymlink(string name)
+        protected void CreateSymlink(string name)
         {
             if (WindowsUtils.IsWindows)
             {
@@ -120,6 +120,13 @@ namespace ZeroInstall.Store.Implementations
                     sourcePath: Path.Combine(_sourceDirectory, name),
                     targetPath: Contents);
             }
+        }
+
+        protected void CreateHardlink(string name, string target)
+        {
+            FileUtils.CreateHardlink(
+                sourcePath: Path.Combine(_sourceDirectory, name),
+                targetPath: Path.Combine(_sourceDirectory, target));
         }
 
         protected abstract void VerifyFileTypes();
