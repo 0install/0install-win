@@ -59,11 +59,15 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Assert.AreEqual(expected: Timestamp, actual: normal.DateTime);
                 Assert.IsFalse(normal.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes));
 
-                var directory = archive[2];
+                var symlink = archive[2];
+                Assert.AreEqual(expected: "symlink", actual: symlink.Name);
+                Assert.IsTrue(symlink.ExternalFileAttributes.HasFlag(ZipExtractor.SymlinkAttributes));
+
+                var directory = archive[3];
                 Assert.AreEqual(expected: "dir/", actual: directory.Name);
                 Assert.IsTrue(directory.IsDirectory);
 
-                var sub = archive[3];
+                var sub = archive[4];
                 Assert.AreEqual(expected: "dir/sub", actual: sub.Name);
                 Assert.IsTrue(sub.IsFile);
                 Assert.AreEqual(expected: Timestamp, actual: sub.DateTime);

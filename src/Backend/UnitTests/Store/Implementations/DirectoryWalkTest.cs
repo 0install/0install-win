@@ -67,6 +67,7 @@ namespace ZeroInstall.Store.Implementations
         {
             WriteFile("executable", executable: true);
             WriteFile("normal");
+            CreateSymlink("symlink");
             CreateDir("dir");
             WriteFile(Path.Combine("dir", "sub"));
 
@@ -103,6 +104,22 @@ namespace ZeroInstall.Store.Implementations
         {
             string path = Path.Combine(_sourceDirectory, name);
             Directory.CreateDirectory(path);
+        }
+
+        private void CreateSymlink(string name)
+        {
+            if (WindowsUtils.IsWindows)
+            {
+                CygwinUtils.CreateSymlink(
+                    sourcePath: Path.Combine(_sourceDirectory, name),
+                    targetPath: Contents);
+            }
+            else
+            {
+                FileUtils.CreateSymlink(
+                    sourcePath: Path.Combine(_sourceDirectory, name),
+                    targetPath: Contents);
+            }
         }
 
         protected abstract void VerifyFileTypes();

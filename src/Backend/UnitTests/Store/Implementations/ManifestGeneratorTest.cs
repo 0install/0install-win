@@ -55,6 +55,7 @@ namespace ZeroInstall.Store.Implementations
                 {
                     new ManifestExecutableFile(_hash, _timestamp, Contents.Length, "executable"),
                     new ManifestNormalFile(_hash, _timestamp, Contents.Length, "normal"),
+                    new ManifestSymlink(_hash, Contents.Length, "symlink"),
                     new ManifestDirectory("/dir"),
                     new ManifestNormalFile(_hash, _timestamp, Contents.Length, "sub")
                 },
