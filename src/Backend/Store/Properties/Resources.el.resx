@@ -132,6 +132,9 @@
   <data name="CopyFiles" xml:space="preserve">
     <value>Αντιγραφή αρχείων</value>
   </data>
+  <data name="CreatingArchive" xml:space="preserve">
+    <value>Δημιουργία αρχείο {0}</value>
+  </data>
   <data name="DeleteInfoFileContent" xml:space="preserve">
     <value>Οι υποκαταλόγοοι σε αυτό το χώρο προσωρινής αποθήκευσης προστατεύονται από ακούσια τροποποίηση χρησιμοποιώντας δικαιώματα NTFS.
 Ως παρενέργεια αυτό τους εμποδίζει από το να διαγράφονται χρησιμοποιώντας το Windows Explorer.

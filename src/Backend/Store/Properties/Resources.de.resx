@@ -132,6 +132,9 @@
   <data name="CopyFiles" xml:space="preserve">
     <value>Kopiere Dateien</value>
   </data>
+  <data name="CreatingArchive" xml:space="preserve">
+    <value>Erstelle Archiv {0}</value>
+  </data>
   <data name="DeleteInfoFileContent" xml:space="preserve">
     <value>Die Unterverzeichnisse in diesem Cache werden durch NTFS Berechtigungen vor unerwünschten Veränderungen geschützt.
 Als ein Nebeneffekt verhindert dies das Löschen mit dem Windows Explorer.

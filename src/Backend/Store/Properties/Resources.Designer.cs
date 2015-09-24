@@ -106,6 +106,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating archive {0}.
+        /// </summary>
+        internal static string CreatingArchive {
+            get {
+                return ResourceManager.GetString("CreatingArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The subdirectories in this cache are protected from unintended modification using NTFS Permissions.
         ///As a side-effect this prevents them from being deleted using the Windows Explorer.
         ///

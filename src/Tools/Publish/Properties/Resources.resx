@@ -141,9 +141,6 @@ Zero Install will only be able to display a generic placeholder icon in the cata
     <value>Are you sure you want to continue without completing these settings?
 Your feed will only work locally and not online.</value>
   </data>
-  <data name="CreatingZip" xml:space="preserve">
-    <value>Creating ZIP archive {0}</value>
-  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Searching for executable files</value>
   </data>

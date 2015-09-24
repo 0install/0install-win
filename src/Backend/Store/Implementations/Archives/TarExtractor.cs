@@ -125,12 +125,16 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
+        /// The <see cref="TarHeader.Mode"/> that indicate a TAR entry is an executable.
+        /// </summary>
+        public const int ExecuteMode = 1 + 8 + 64;
+
+        /// <summary>
         /// Determines whether a <see cref="TarEntry"/> was created with the executable flag set.
         /// </summary>
         private static bool IsExecutable(TarEntry entry)
         {
-            const int executeFlags = 1 + 8 + 64; // Octal: 111
-            return (entry.TarHeader.Mode & executeFlags) > 0; // Check if anybody is allowed to execute
+            return (entry.TarHeader.Mode & ExecuteMode) > 0; // Check if anybody is allowed to execute
         }
 
         /// <summary>

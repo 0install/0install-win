@@ -132,6 +132,9 @@
   <data name="CopyFiles" xml:space="preserve">
     <value>Copying files</value>
   </data>
+  <data name="CreatingArchive" xml:space="preserve">
+    <value>Creating archive {0}</value>
+  </data>
   <data name="DeleteInfoFileContent" xml:space="preserve">
     <value>The subdirectories in this cache are protected from unintended modification using NTFS Permissions.
 As a side-effect this prevents them from being deleted using the Windows Explorer.

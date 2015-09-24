@@ -25,7 +25,7 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Contains test methods for <see cref="DirectoryWalkTask"/>.
+    /// Common test cases for <see cref="DirectoryWalkTask"/> sub-classes.
     /// </summary>
     public abstract class DirectoryWalkTest<T>
         where T : DirectoryWalkTask

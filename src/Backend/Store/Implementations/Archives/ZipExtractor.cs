@@ -133,25 +133,39 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
+        /// The default <see cref="ZipEntry.ExternalFileAttributes"/>.
+        /// </summary>
+        public const int DefaultAttributes = (6 << 22) + (4 << 19) + (4 << 16); // Octal: 644
+
+        /// <summary>
+        /// The <see cref="ZipEntry.ExternalFileAttributes"/> that indicate a ZIP entry is a symlink.
+        /// </summary>
+        public const int SymlinkAttributes = 4 << 27; // Octal: 40000
+
+        /// <summary>
         /// Determines whether a <see cref="ZipEntry"/> was created on a Unix-system with the symlink flag set.
         /// </summary>
         private static bool IsSymlink(ZipEntry entry)
         {
-            if (entry.HostSystem != HostSystemID.Unix) return false;
-
-            const int symlinkFlag = (1 << 13) << 16;
-            return entry.ExternalFileAttributes.HasFlag(symlinkFlag);
+            return
+                (entry.HostSystem == HostSystemID.Unix) &&
+                entry.ExternalFileAttributes.HasFlag(SymlinkAttributes);
         }
+
+        /// <summary>
+        /// The <see cref="ZipEntry.ExternalFileAttributes"/> that indicate a ZIP entry is an executable file.
+        /// </summary>
+        public const int ExecuteAttributes = (1 << 22) + (1 << 19) + (1 << 16); // Octal: 111
 
         /// <summary>
         /// Determines whether a <see cref="ZipEntry"/> was created on a Unix-system with the executable flag set.
         /// </summary>
         private static bool IsExecutable(ZipEntry entry)
         {
-            if (entry.HostSystem != HostSystemID.Unix) return false;
-
-            const int executeFlags = (1 + 8 + 64) << 16; // Octal: 111
-            return (entry.ExternalFileAttributes & executeFlags) > 0; // Check if anybody is allowed to execute
+            return
+                (entry.HostSystem == HostSystemID.Unix) &&
+                // Check if anybody is allowed to execute
+                (entry.ExternalFileAttributes & ExecuteAttributes) > 0;
         }
     }
 }

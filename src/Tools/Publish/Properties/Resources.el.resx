@@ -141,9 +141,6 @@
     <value>Είστε σίγουροι ότι θέλετε να συνεχίσετε χωρίς να ολοκληρώσετε αυτές τις ρυθμίσεις;
 Η τροφοδοσία σας θα λειτουργήσει μόνο σε τοπικό επίπεδο και όχι σε απευθείας σύνδεση.</value>
   </data>
-  <data name="CreatingZip" xml:space="preserve">
-    <value>Δημιουργία ZIP αρχείο {0}</value>
-  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Αναζήτηση για τα εκτελέσιμα αρχεία</value>
   </data>

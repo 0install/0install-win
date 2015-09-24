@@ -157,7 +157,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Tests whether the extractor generates a correct <see cref="FlagUtils.SymlinkFile"/> file for a sample TAR archive containing a symbolic link.
+        /// Tests whether the extractor generates a <see cref="FileUtils.IsSymlink(string)"/> entry for a sample TAR archive containing a symbolic link.
         /// </summary>
         [Test]
         public void TestExtractUnixArchiveWithSymlink()

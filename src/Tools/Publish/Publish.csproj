@@ -72,7 +72,6 @@
     <Compile Include="Capture\SnapshotDiff.DefaultProgram.cs" />
     <Compile Include="Capture\SnapshotDiff.FileType.cs" />
     <Compile Include="Capture\SnapshotDiff.UrlProtocol.cs" />
-    <Compile Include="CreateZip.cs" />
     <Compile Include="EntryPoints\Candidate.cs" />
     <Compile Include="EntryPoints\Design\DotNetVersionConverter.cs" />
     <Compile Include="EntryPoints\Design\JavaVersionConverter.cs" />

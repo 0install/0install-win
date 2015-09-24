@@ -99,12 +99,14 @@
     <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
     <Compile Include="Store\FeedUriTest.cs" />
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
+    <Compile Include="Store\Implementations\Archives\ArchiveGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\MsiExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\ZipGeneratorTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
     <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
     <Compile Include="Store\Implementations\DirectoryWalkTest.cs" />
