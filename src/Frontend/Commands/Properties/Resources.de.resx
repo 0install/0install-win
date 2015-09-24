@@ -314,6 +314,9 @@ Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
     <value>Kopiert eine Implementierung in den Cache. Ähnlich zu '0install store add', aber der Digest wird aus dem Verzeichnisnamen ermittelt.
 Ein zusätzliches Argument spezifiziert ein alternatives Cache-Zielverzeichnis.</value>
   </data>
+  <data name="DescriptionStoreExport" xml:space="preserve">
+    <value>Exportiert eine gecachte Implementierung als ein Archiv (ZIP, TAR, etc.). Das Ergebnis kann auf einem anderen Rechner mit '0install store add' importiert werden.</value>
+  </data>
   <data name="DescriptionStoreFind" xml:space="preserve">
     <value>Bestimmt den lokalen Pfad einer gecachten Implementierung.</value>
   </data>

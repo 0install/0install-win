@@ -314,6 +314,9 @@ Additional arguments specify custom cache locations.</value>
     <value>Copies an implementation into the cache. Similar to '0install store add', but the digest is extracted from the directory name.
 An additional arguments specifies a custom target cache location.</value>
   </data>
+  <data name="DescriptionStoreExport" xml:space="preserve">
+    <value>Exports a cached implementation as an archive (ZIP, TAR, etc.). The result can be imported on another machine using '0install store add'.</value>
+  </data>
   <data name="DescriptionStoreFind" xml:space="preserve">
     <value>Determines the local path of a cached implementation.</value>
   </data>

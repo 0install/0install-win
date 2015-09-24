@@ -624,6 +624,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exports a cached implementation as an archive (ZIP, TAR, etc.). The result can be imported on another machine using &apos;0install store add&apos;..
+        /// </summary>
+        public static string DescriptionStoreExport {
+            get {
+                return ResourceManager.GetString("DescriptionStoreExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Determines the local path of a cached implementation..
         /// </summary>
         public static string DescriptionStoreFind {

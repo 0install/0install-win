@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override IEnumerable<string> SubCommandNames { get { return new[] {Add.Name, Audit.Name, Copy.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name}; } }
+        protected override IEnumerable<string> SubCommandNames { get { return new[] {Add.Name, Audit.Name, Copy.Name, Export.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name}; } }
 
         /// <inheritdoc/>
         protected override SubCommand GetCommand(string commandName)
@@ -67,6 +67,8 @@ namespace ZeroInstall.Commands.CliCommands
                     return new Audit(Handler);
                 case Copy.Name:
                     return new Copy(Handler);
+                case Export.Name:
+                    return new Export(Handler);
                 case Find.Name:
                     return new Find(Handler);
                 case List.Name:
@@ -229,6 +231,42 @@ namespace ZeroInstall.Commands.CliCommands
                     Log.Warn(ex);
                     return ExitCode.NoChanges;
                 }
+            }
+        }
+
+        internal class Export : StoreSubCommand
+        {
+            #region Metadata
+            public new const string Name = "export";
+
+            protected override string Description { get { return Resources.DescriptionStoreExport; } }
+
+            protected override string Usage { get { return "DIGEST OUTPUT-ARCHIVE [MIME-TYPE]"; } }
+
+            protected override int AdditionalArgsMin { get { return 2; } }
+
+            protected override int AdditionalArgsMax { get { return 3; } }
+
+            public Export([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                var manifestDigest = new ManifestDigest(AdditionalArgs[0]);
+
+                string outputArchive = AdditionalArgs[1];
+                Debug.Assert(outputArchive != null);
+
+                string sourceDirectory = Store.GetPath(manifestDigest);
+                if (sourceDirectory == null)
+                    throw new ImplementationNotFoundException(manifestDigest);
+
+                string mimeType = (AdditionalArgs.Count == 3) ? AdditionalArgs[3] : null;
+
+                using (var generator = ArchiveGenerator.Create(sourceDirectory, outputArchive, mimeType))
+                    Handler.RunTask(generator);
+                return ExitCode.OK;
             }
         }
 
