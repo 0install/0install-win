@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 using (var tempDir = new TemporaryDirectory("0install"))
                 {
-                    using (var extractor = Extractor.FromFile(path, tempDir))
+                    using (var extractor = Extractor.Create(path, tempDir))
                     {
                         extractor.SubDir = subdir;
                         Handler.RunTask(extractor);

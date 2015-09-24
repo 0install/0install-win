@@ -462,7 +462,7 @@ namespace ZeroInstall.Store.Implementations
                 {
                     try
                     {
-                        using (var extractor = Extractor.FromFile(archiveInfo.Path, tempDir, archiveInfo.MimeType, archiveInfo.StartOffset))
+                        using (var extractor = Extractor.Create(archiveInfo.Path, tempDir, archiveInfo.MimeType, archiveInfo.StartOffset))
                         {
                             extractor.SubDir = archiveInfo.SubDir;
                             extractor.Destination = archiveInfo.Destination;

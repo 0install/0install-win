@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         private void TestExtract(string mimeType, Stream archive)
         {
-            using (var extractor = Extractor.FromStream(archive, _sandbox, mimeType))
+            using (var extractor = Extractor.Create(archive, _sandbox, mimeType))
                 extractor.Run();
 
             Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");

@@ -132,18 +132,16 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
-        /// <returns>The newly created <see cref="Extractor"/>.</returns>
-        /// <exception cref="IOException">The archive is damaged.</exception>
-        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type or is <see langword="null"/>.</exception>
+        /// <exception cref="IOException">Failed to read the archive file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the archive file was denied.</exception>
         [NotNull]
-        public static Extractor FromStream([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
+        public static Extractor Create([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            // Select the correct extractor based on the MIME type
             Extractor extractor;
             switch (mimeType)
             {
@@ -173,7 +171,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                     break;
                 case Archive.MimeTypeMsi:
                     throw new NotSupportedException("MSIs can only be accessed as local files, not as streams!");
-
                 default:
                     throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
             }
@@ -192,7 +189,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <exception cref="IOException">The archive is damaged.</exception>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         [NotNull]
-        public static Extractor FromFile([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
+        public static Extractor Create([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
         {
             if (string.IsNullOrEmpty(mimeType)) mimeType = Archive.GuessMimeType(path);
 
@@ -204,7 +201,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
-                return FromStream(stream, target, mimeType);
+                return Create(stream, target, mimeType);
             }
             catch
             {
