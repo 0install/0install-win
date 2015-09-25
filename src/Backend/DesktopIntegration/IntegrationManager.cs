@@ -290,7 +290,7 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (feed == null) throw new ArgumentNullException("feed");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            if (appEntry.AccessPoints != null && appEntry.AccessPoints.Entries == accessPoints) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", "accessPoints");
+            if (appEntry.AccessPoints != null && ReferenceEquals(appEntry.AccessPoints.Entries, accessPoints)) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", "accessPoints");
             #endregion
 
             // Skip entries with mismatching hostname

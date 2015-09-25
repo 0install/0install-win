@@ -56,6 +56,10 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="format">The format of the manifest to generate.</param>
         public ManifestGenerator([NotNull] string sourceDirectory, [NotNull] ManifestFormat format) : base(sourceDirectory)
         {
+            #region Sanity checks
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
             Format = format;
         }
         #endregion

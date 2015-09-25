@@ -315,7 +315,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
 Ek bir değişken ile özel hedef önbellek konumu olarak belirtilebilir.</value>
   </data>
   <data name="DescriptionStoreExport" xml:space="preserve">
-    <value>Önbelleğe alınmış bir uygulama bir arşivi olarak dışa aktarılır. &apos;0install store add&apos; ile sonuç farklı makinelerde içe aktarılabilir.</value>
+    <value>Önbelleğe alınmış bir uygulama bir arşiv olarak (ZIP, TAR, vb.) dışa aktarılır. &apos;0install store add&apos; kullanılarak sonuç diğer makinelerde içe aktarılabilir.</value>
   </data>
   <data name="DescriptionStoreFind" xml:space="preserve">
     <value>Önbelleğe alınmış bir uygulamanın yolu belirlenir.</value>
