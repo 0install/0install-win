@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NDesk.Options;
 using NUnit.Framework;
 using ZeroInstall.Commands.CliCommands;
@@ -36,7 +37,7 @@ namespace ZeroInstall.Commands
             foreach (string name in CommandFactory.CommandNames)
             {
                 var command = CreateCommand(name);
-                Assert.AreEqual(name, command.Name);
+                command.Name.Should().Be(name);
             }
         }
 

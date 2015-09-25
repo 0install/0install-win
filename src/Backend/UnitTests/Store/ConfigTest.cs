@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -47,9 +48,9 @@ namespace ZeroInstall.Store
             var config2 = config1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(config1, config2, "Cloned objects should be equal.");
-            Assert.AreEqual(config1.GetHashCode(), config2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(config1, config2), "Cloning should not return the same reference.");
+            config2.Should().Be(config1, because: "Cloned objects should be equal.");
+            config2.GetHashCode().Should().Be(config1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            config2.Should().NotBeSameAs(config1, because: "Cloning should not return the same reference.");
         }
 
         /// <summary>
@@ -68,9 +69,9 @@ namespace ZeroInstall.Store
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(config1, config2, "Serialized objects should be equal.");
-            Assert.AreEqual(config1.GetHashCode(), config2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(config1, config2), "Serialized objects should not return the same reference.");
+            config2.Should().Be(config1, because: "Serialized objects should be equal.");
+            config2.GetHashCode().Should().Be(config1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            config2.Should().NotBeSameAs(config1, because: "Serialized objects should not return the same reference.");
         }
 
         /// <summary>
@@ -80,18 +81,18 @@ namespace ZeroInstall.Store
         public void TestGetSetValue()
         {
             var config = new Config();
-            Assert.Throws<KeyNotFoundException>(() => config.SetOption("Test", "Test"));
+            config.Invoking(x => x.SetOption("Test", "Test")).ShouldThrow<KeyNotFoundException>();
 
-            Assert.IsFalse(config.HelpWithTesting);
-            Assert.AreEqual("False", config.GetOption("help_with_testing"));
+            config.HelpWithTesting.Should().BeFalse();
+            config.GetOption("help_with_testing").Should().Be("False");
             config.SetOption("help_with_testing", "True");
-            Assert.Throws<FormatException>(() => config.SetOption("help_with_testing", "Test"));
-            Assert.IsTrue(config.HelpWithTesting);
-            Assert.AreEqual("True", config.GetOption("help_with_testing"));
+            config.Invoking(x => x.SetOption("help_with_testing", "Test")).ShouldThrow<FormatException>();
+            config.HelpWithTesting.Should().BeTrue();
+            config.GetOption("help_with_testing").Should().Be("True");
 
             config.SetOption("freshness", "10");
-            Assert.AreEqual(TimeSpan.FromSeconds(10), config.Freshness);
-            Assert.AreEqual("10", config.GetOption("freshness"));
+            config.Freshness.Should().Be(TimeSpan.FromSeconds(10));
+            config.GetOption("freshness").Should().Be("10");
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace ZeroInstall.Store
             {
                 File.WriteAllText(tempFile, testIniData);
                 Config.Load(tempFile).Save(tempFile);
-                Assert.AreEqual(testIniData, File.ReadAllText(tempFile));
+                File.ReadAllText(tempFile).Should().Be(testIniData);
             }
         }
 

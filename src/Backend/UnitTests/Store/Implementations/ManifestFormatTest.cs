@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations
@@ -28,9 +29,9 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestFromPrefix()
         {
-            Assert.AreSame(ManifestFormat.Sha1New, ManifestFormat.FromPrefix("sha1new=abc"));
-            Assert.AreSame(ManifestFormat.Sha256, ManifestFormat.FromPrefix("sha256=abc"));
-            Assert.AreSame(ManifestFormat.Sha256New, ManifestFormat.FromPrefix("sha256new_abc"));
+            ManifestFormat.FromPrefix("sha1new=abc").Should().BeSameAs(ManifestFormat.Sha1New);
+            ManifestFormat.FromPrefix("sha256=abc").Should().BeSameAs(ManifestFormat.Sha256);
+            ManifestFormat.FromPrefix("sha256new_abc").Should().BeSameAs(ManifestFormat.Sha256New);
         }
     }
 }

@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -53,10 +54,8 @@ namespace ZeroInstall.Publish.EntryPoints
         protected void TestAnalyze<T>(T reference, bool executable = false) where T : Candidate, new()
         {
             var candidate = new T();
-            Assert.IsTrue(candidate.Analyze(
-                baseDirectory: Directory,
-                file: Deploy(reference, executable)));
-            Assert.AreEqual(reference, candidate);
+            candidate.Analyze(baseDirectory: Directory, file: Deploy(reference, executable)).Should().BeTrue();
+            candidate.Should().Be(reference);
         }
 
         /// <summary>

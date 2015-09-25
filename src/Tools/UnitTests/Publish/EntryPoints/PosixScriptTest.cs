@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -43,19 +44,15 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotExecutable()
         {
-            var candidate = new PosixScript();
-            Assert.IsFalse(candidate.Analyze(
-                baseDirectory: Directory,
-                file: Deploy(Reference, xbit: false)));
+            new PosixScript().Analyze(baseDirectory: Directory, file: Deploy(Reference, xbit: false))
+                .Should().BeFalse();
         }
 
         [Test]
         public void NoShebang()
         {
-            var candidate = new PosixScript();
-            Assert.IsFalse(candidate.Analyze(
-                baseDirectory: Directory,
-                file: Deploy(PosixBinaryTest.Reference32, xbit: true)));
+            new PosixScript().Analyze(baseDirectory: Directory, file: Deploy(PosixBinaryTest.Reference32, xbit: true))
+                .Should().BeFalse();
         }
     }
 }

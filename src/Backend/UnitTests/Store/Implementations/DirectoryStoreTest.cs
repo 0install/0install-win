@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services;
@@ -55,8 +56,8 @@ namespace ZeroInstall.Store.Implementations
         public void TestContains()
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha256new_123ABC"));
-            Assert.IsTrue(_store.Contains(new ManifestDigest(sha256New: "123ABC")));
-            Assert.IsFalse(_store.Contains(new ManifestDigest(sha256New: "456XYZ")));
+            _store.Contains(new ManifestDigest(sha256New: "123ABC")).Should().BeTrue();
+            _store.Contains(new ManifestDigest(sha256New: "456XYZ")).Should().BeFalse();
         }
 
         [Test]
@@ -67,13 +68,11 @@ namespace ZeroInstall.Store.Implementations
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha256=test3"));
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha256new_test4"));
             Directory.CreateDirectory(Path.Combine(_tempDir, "temp=stuff"));
-            CollectionAssert.AreEqual(new[]
-            {
+            _store.ListAll().Should().Equal(
                 new ManifestDigest(sha1: "test1"),
                 new ManifestDigest(sha1New: "test2"),
                 new ManifestDigest(sha256: "test3"),
-                new ManifestDigest(sha256New: "test4")
-            }, _store.ListAll());
+                new ManifestDigest(sha256New: "test4"));
         }
 
         [Test]
@@ -81,7 +80,7 @@ namespace ZeroInstall.Store.Implementations
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1=test"));
             Directory.CreateDirectory(Path.Combine(_tempDir, "temp=stuff"));
-            CollectionAssert.AreEqual(new[] {Path.Combine(_tempDir, "temp=stuff")}, _store.ListAllTemp());
+            _store.ListAllTemp().Should().Equal(Path.Combine(_tempDir, "temp=stuff"));
         }
 
         private string DeployPackage(string id, PackageBuilder builder)
@@ -100,11 +99,11 @@ namespace ZeroInstall.Store.Implementations
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
                 .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(3, _store.Optimise(_handler));
-            Assert.AreEqual(0, _store.Optimise(_handler));
-            Assert.IsTrue(FileUtils.AreHardlinked(
+            _store.Optimise(_handler).Should().Be(3);
+            _store.Optimise(_handler).Should().Be(0);
+            FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package1Path, "dir", "fileB")));
+                Path.Combine(package1Path, "dir", "fileB")).Should().BeTrue();
         }
 
         [Test]
@@ -115,11 +114,11 @@ namespace ZeroInstall.Store.Implementations
             string package2Path = DeployPackage("sha256=2", new PackageBuilder()
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(3, _store.Optimise(_handler));
-            Assert.AreEqual(0, _store.Optimise(_handler));
-            Assert.IsTrue(FileUtils.AreHardlinked(
+            _store.Optimise(_handler).Should().Be(3);
+            _store.Optimise(_handler).Should().Be(0);
+            FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package2Path, "fileA")));
+                Path.Combine(package2Path, "fileA")).Should().BeTrue();
         }
 
         [Test]
@@ -129,10 +128,10 @@ namespace ZeroInstall.Store.Implementations
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
                 .AddFile("fileX", "abc", new DateTime(2000, 2, 2)));
 
-            Assert.AreEqual(0, _store.Optimise(_handler));
-            Assert.IsFalse(FileUtils.AreHardlinked(
+            _store.Optimise(_handler).Should().Be(0);
+            FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package1Path, "fileX")));
+                Path.Combine(package1Path, "fileX")).Should().BeFalse();
         }
 
         [Test]
@@ -143,10 +142,10 @@ namespace ZeroInstall.Store.Implementations
             string package2Path = DeployPackage("sha256=2", new PackageBuilder()
                 .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(0, _store.Optimise(_handler));
-            Assert.IsFalse(FileUtils.AreHardlinked(
+            _store.Optimise(_handler).Should().Be(0);
+            FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "dir", "fileB"),
-                Path.Combine(package2Path, "dir", "fileB")));
+                Path.Combine(package2Path, "dir", "fileB")).Should().BeFalse();
         }
 
         [Test]
@@ -157,10 +156,10 @@ namespace ZeroInstall.Store.Implementations
             string package2Path = DeployPackage("sha256new_2", new PackageBuilder()
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(0, _store.Optimise(_handler));
-            Assert.IsFalse(FileUtils.AreHardlinked(
+            _store.Optimise(_handler).Should().Be(0);
+            FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package2Path, "fileA")));
+                Path.Combine(package2Path, "fileA")).Should().BeFalse();
         }
 
         [Test]
@@ -171,8 +170,8 @@ namespace ZeroInstall.Store.Implementations
                 var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
                 _store.AddDirectory(packageDir, digest, _handler);
 
-                Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-                CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
+                _store.Contains(digest).Should().BeTrue(because: "After adding, Store must contain the added package");
+                _store.ListAll().Should().Equal(new[] {digest}, because: "After adding, Store must show the added package in the complete list");
             }
         }
 
@@ -186,10 +185,10 @@ namespace ZeroInstall.Store.Implementations
                 var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
                 _store.AddDirectory(packageDir, digest, _handler);
 
-                Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-                CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
+                _store.Contains(digest).Should().BeTrue(because: "After adding, Store must contain the added package");
+                _store.ListAll().Should().Equal(new[] {digest}, because: "After adding, Store must show the added package in the complete list");
 
-                Assert.IsTrue(Directory.Exists(_tempDir), "Store directory should have been recreated");
+                Directory.Exists(_tempDir).Should().BeTrue(because: "Store directory should have been recreated");
             }
         }
 
@@ -219,7 +218,7 @@ namespace ZeroInstall.Store.Implementations
             Directory.CreateDirectory(implPath);
 
             _store.Remove(new ManifestDigest(sha256New: "123ABC"), _handler);
-            Assert.IsFalse(Directory.Exists(implPath), "After remove, Store may no longer contain the added package");
+            Directory.Exists(implPath).Should().BeFalse(because: "After remove, Store may no longer contain the added package");
         }
 
         [Test]
@@ -227,13 +226,14 @@ namespace ZeroInstall.Store.Implementations
         {
             string implPath = Path.Combine(_tempDir, "sha256new_123ABC");
             Directory.CreateDirectory(implPath);
-            Assert.AreEqual(implPath, _store.GetPath(new ManifestDigest(sha256New: "123ABC")), "Store must return the correct path for Implementations it contains");
+            _store.GetPath(new ManifestDigest(sha256New: "123ABC"))
+                .Should().Be(implPath, because: "Store must return the correct path for Implementations it contains");
         }
 
         [Test]
         public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
         {
-            Assert.IsNull(_store.GetPath(new ManifestDigest(sha256: "123")));
+            _store.GetPath(new ManifestDigest(sha256: "123")).Should().BeNull();
         }
 
         [Test]
@@ -248,7 +248,7 @@ namespace ZeroInstall.Store.Implementations
                 _store.AddDirectory(packageDir, digest, _handler);
 
                 _store.Verify(digest, _handler);
-                Assert.IsNull(_handler.LastQuestion);
+                _handler.LastQuestion.Should().BeNull();
             }
         }
 
@@ -256,15 +256,14 @@ namespace ZeroInstall.Store.Implementations
         public void TestAuditFail()
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
-            Assert.IsTrue(_store.Contains(new ManifestDigest(sha1New: "abc")));
+            _store.Contains(new ManifestDigest(sha1New: "abc")).Should().BeTrue();
 
             _handler.AnswerQuestionWith = true;
             _store.Verify(new ManifestDigest(sha1New: "abc"), _handler);
-            Assert.AreEqual(
-                expected: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, "sha1new=abc"),
-                actual: _handler.LastQuestion);
+            _handler.LastQuestion.Should().Be(
+                string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, "sha1new=abc"));
 
-            Assert.IsFalse(_store.Contains(new ManifestDigest(sha1New: "abc")));
+            _store.Contains(new ManifestDigest(sha1New: "abc")).Should().BeFalse();
         }
 
         [Test]
@@ -307,7 +306,7 @@ namespace ZeroInstall.Store.Implementations
                 if (exception != null)
                     Assert.Fail(exception.ToString());
 
-                Assert.IsFalse(_store.Contains(digest));
+                _store.Contains(digest).Should().BeFalse();
             }
         }
     }

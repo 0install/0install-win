@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -36,15 +37,15 @@ namespace ZeroInstall.Store.Model
             foreach (string version in validVersions)
             {
                 ImplementationVersion result;
-                Assert.IsTrue(ImplementationVersion.TryCreate(version, out result), version);
-                Assert.AreEqual(version, result.ToString());
+                ImplementationVersion.TryCreate(version, out result).Should().BeTrue(because: version);
+                result.ToString().Should().Be(version);
             }
 
             var invalidVersions = new[] {"", "a", "pre-1", "1.0-1post"};
             foreach (string version in invalidVersions)
             {
                 ImplementationVersion result;
-                Assert.IsFalse(ImplementationVersion.TryCreate(version, out result), version);
+                ImplementationVersion.TryCreate(version, out result).Should().BeFalse(because: version);
             }
         }
 
@@ -54,9 +55,9 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestVersionConstructor()
         {
-            Assert.AreEqual(new ImplementationVersion("1.2"), new ImplementationVersion(new Version(1, 2)));
-            Assert.AreEqual(new ImplementationVersion("1.2.3"), new ImplementationVersion(new Version(1, 2, 3)));
-            Assert.AreEqual(new ImplementationVersion("1.2.3.4"), new ImplementationVersion(new Version(1, 2, 3, 4)));
+            new ImplementationVersion(new Version(1, 2)).Should().Be(new ImplementationVersion("1.2"));
+            new ImplementationVersion(new Version(1, 2, 3)).Should().Be(new ImplementationVersion("1.2.3"));
+            new ImplementationVersion(new Version(1, 2, 3, 4)).Should().Be(new ImplementationVersion("1.2.3.4"));
         }
 
         /// <summary>
@@ -66,12 +67,12 @@ namespace ZeroInstall.Store.Model
         public void TestTemplateVariable()
         {
             var version = new ImplementationVersion("1-pre{var}");
-            Assert.IsTrue(version.ContainsTemplateVariables);
-            Assert.AreEqual("1-pre{var}", version.ToString());
+            version.ContainsTemplateVariables.Should().BeTrue();
+            version.ToString().Should().Be("1-pre{var}");
 
             version = new ImplementationVersion("{var}");
-            Assert.IsTrue(version.ContainsTemplateVariables);
-            Assert.AreEqual("{var}", version.ToString());
+            version.ContainsTemplateVariables.Should().BeTrue();
+            version.ToString().Should().Be("{var}");
         }
 
         /// <summary>
@@ -80,12 +81,12 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestEquals()
         {
-            Assert.AreEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre-3"));
-            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1-pre-3"));
-            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-post-3"));
-            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre-4"));
-            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre--3"));
-            Assert.AreNotEqual(new ImplementationVersion("1.2-pre-3"), new ImplementationVersion("1.2-pre"));
+            new ImplementationVersion("1.2-pre-3").Should().Be(new ImplementationVersion("1.2-pre-3"));
+            new ImplementationVersion("1-pre-3").Should().NotBe(new ImplementationVersion("1.2-pre-3"));
+            new ImplementationVersion("1.2-post-3").Should().NotBe(new ImplementationVersion("1.2-pre-3"));
+            new ImplementationVersion("1.2-pre-4").Should().NotBe(new ImplementationVersion("1.2-pre-3"));
+            new ImplementationVersion("1.2-pre--3").Should().NotBe(new ImplementationVersion("1.2-pre-3"));
+            new ImplementationVersion("1.2-pre").Should().NotBe(new ImplementationVersion("1.2-pre-3"));
         }
 
         /// <summary>
@@ -99,8 +100,8 @@ namespace ZeroInstall.Store.Model
             {
                 var v1 = new ImplementationVersion(sortedVersions[i]);
                 var v2 = new ImplementationVersion(sortedVersions[i + 1]);
-                Assert.That(v1, Is.LessThan(v2));
-                Assert.That(v2, Is.GreaterThan(v1));
+                v1.Should().BeLessThan(v2);
+                v2.Should().BeGreaterThan(v1);
             }
         }
     }

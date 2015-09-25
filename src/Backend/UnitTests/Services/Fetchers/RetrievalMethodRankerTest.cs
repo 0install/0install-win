@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -56,8 +57,8 @@ namespace ZeroInstall.Services.Fetchers
         [Test]
         public void ArchiveAndSingleFileEqual()
         {
-            Assert.AreEqual(0, RetrievalMethodRanker.Instance.Compare(new Archive(), new SingleFile()));
-            Assert.AreEqual(0, RetrievalMethodRanker.Instance.Compare(new SingleFile(), new Archive()));
+            RetrievalMethodRanker.Instance.Compare(new Archive(), new SingleFile()).Should().Be(0);
+            RetrievalMethodRanker.Instance.Compare(new SingleFile(), new Archive()).Should().Be(0);
         }
 
         [Test]

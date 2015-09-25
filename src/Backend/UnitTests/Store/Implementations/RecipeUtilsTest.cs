@@ -16,7 +16,7 @@
  */
 
 using System.IO;
-using System.Linq;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -47,14 +47,15 @@ namespace ZeroInstall.Store.Implementations
                 using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
                     // /dest/symlink [S]
-                    string path = new[] {recipeDir, "subDir", "symlink"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    Assert.IsTrue(UnixUtils.IsUnix ? FileUtils.IsSymlink(path) : CygwinUtils.IsSymlink(path));
+                    string path = Path.Combine(recipeDir, "subDir", "symlink");
+                    File.Exists(path).Should().BeTrue(because: "File should exist: " + path);
+                    if (UnixUtils.IsUnix) FileUtils.IsSymlink(path).Should().BeTrue();
+                    else CygwinUtils.IsSymlink(path).Should().BeTrue();
 
                     // /dest/subdir2/executable [deleted]
-                    path = new[] {recipeDir, "subDir", "subdir2", "executable"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
+                    path = Path.Combine(recipeDir, "subDir", "subdir2", "executable");
+                    File.Exists(path).Should().BeTrue(because: "File should exist: " + path);
+                    if (!UnixUtils.IsUnix) FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir).Should().BeEquivalentTo(path);
                 }
             }
         }
@@ -74,11 +75,12 @@ namespace ZeroInstall.Store.Implementations
                 using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
                     // /subdir2/executable [!X]
-                    string path = new[] {recipeDir, "subdir2", "executable"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    Assert.AreEqual("data", File.ReadAllText(path));
-                    Assert.AreEqual(0, File.GetLastWriteTimeUtc(path).ToUnixTime(), "Single files should be set to Unix epoch");
-                    if (!UnixUtils.IsUnix) Assert.IsEmpty(FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
+                    string path = Path.Combine(recipeDir, "subdir2", "executable");
+                    File.Exists(path).Should().BeTrue(because: "File should exist: " + path);
+                    File.ReadAllText(path).Should().Be("data");
+                    File.GetLastWriteTimeUtc(path).ToUnixTime()
+                        .Should().Be(0, because: "Single files should be set to Unix epoch");
+                    if (!UnixUtils.IsUnix) FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir).Should().BeEmpty();
                 }
             }
         }
@@ -105,17 +107,17 @@ namespace ZeroInstall.Store.Implementations
                 {
                     if (!UnixUtils.IsUnix)
                     {
-                        Assert.IsEmpty(FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
-                        Assert.IsEmpty(FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir));
+                        FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir).Should().BeEmpty();
+                        FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir).Should().BeEmpty();
                     }
 
                     // /symlink [deleted]
                     string path = Path.Combine(recipeDir, "symlink");
-                    Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
+                    File.Exists(path).Should().BeFalse(because: "File should not exist: " + path);
 
                     // /subdir2 [deleted]
                     path = Path.Combine(recipeDir, "subdir2");
-                    Assert.IsFalse(Directory.Exists(path), "Directory should not exist: " + path);
+                    Directory.Exists(path).Should().BeFalse(because: "Directory should not exist: " + path);
                 }
             }
         }
@@ -142,28 +144,28 @@ namespace ZeroInstall.Store.Implementations
                 {
                     if (!UnixUtils.IsUnix)
                     {
-                        CollectionAssert.AreEquivalent(
-                            new[] {new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine)},
-                            FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
+                        FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir)
+                            .Should().BeEquivalentTo(Path.Combine(recipeDir, "subdir2", "executable2"));
                     }
 
                     // /symlink [deleted]
                     string path = Path.Combine(recipeDir, "symlink");
-                    Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
+                    File.Exists(path).Should().BeFalse(because: "File should not exist: " + path);
 
                     // /subdir3/symlink2 [S]
-                    path = new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    Assert.IsTrue(UnixUtils.IsUnix ? FileUtils.IsSymlink(path) : CygwinUtils.IsSymlink(path));
+                    path = Path.Combine(recipeDir, "subdir3", "symlink2");
+                    File.Exists(path).Should().BeTrue(because: "Missing file: " + path);
+                    if (UnixUtils.IsUnix) FileUtils.IsSymlink(path).Should().BeTrue();
+                    else CygwinUtils.IsSymlink(path).Should().BeTrue();
 
                     // /subdir2/executable [deleted]
-                    path = new[] {recipeDir, "subdir2", "executable"}.Aggregate(Path.Combine);
-                    Assert.IsFalse(File.Exists(path), "File should not exist: " + path);
+                    path = Path.Combine(recipeDir, "subdir2", "executable");
+                    File.Exists(path).Should().BeFalse(because: "File should not exist: " + path);
 
                     // /subdir2/executable2 [X]
-                    path = new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine);
-                    Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (UnixUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
+                    path = Path.Combine(recipeDir, "subdir2", "executable2");
+                    File.Exists(path).Should().BeTrue(because: "Missing file: " + path);
+                    if (UnixUtils.IsUnix) FileUtils.IsExecutable(path).Should().BeTrue(because: "Not executable: " + path);
                 }
             }
         }
@@ -173,23 +175,28 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var tempArchive = new TemporaryFile("0install-unit-tests"))
             {
-                Assert.Throws<IOException>(() => new Recipe {Steps = {new Archive {Destination = "../destination"}}}.Apply(new[] {tempArchive}, new SilentTaskHandler()),
-                    "Should reject breakout path in Archive.Destination");
+                new Recipe {Steps = {new Archive {Destination = "../destination"}}}
+                    .Invoking(x => x.Apply(new[] {tempArchive}, new SilentTaskHandler()))
+                    .ShouldThrow<IOException>(because: "Should reject breakout path in Archive.Destination");
             }
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                Assert.Throws<IOException>(() => new Recipe {Steps = {new SingleFile {Destination = "../file"}}}.Apply(new[] {tempFile}, new SilentTaskHandler()),
-                    "Should reject breakout path in SingleFile.Destination");
+                new Recipe {Steps = {new SingleFile {Destination = "../file"}}}
+                    .Invoking(x => x.Apply(new[] {tempFile}, new SilentTaskHandler()))
+                    .ShouldThrow<IOException>(because: "Should reject breakout path in SingleFile.Destination");
             }
 
-            Assert.Throws<IOException>(() => new Recipe {Steps = {new RemoveStep {Path = "../file"}}}.Apply(new TemporaryFile[0], new SilentTaskHandler()),
-                "Should reject breakout path in RemoveStep.Path");
+            new Recipe {Steps = {new RemoveStep {Path = "../file"}}}
+                .Invoking(x => x.Apply(new TemporaryFile[0], new SilentTaskHandler()))
+                .ShouldThrow<IOException>(because: "Should reject breakout path in RemoveStep.Path");
 
-            Assert.Throws<IOException>(() => new Recipe {Steps = {new RenameStep {Source = "../source", Destination = "destination"}}}.Apply(new TemporaryFile[0], new SilentTaskHandler()),
-                "Should reject breakout path in RenameStep.Source");
-            Assert.Throws<IOException>(() => new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}.Apply(new TemporaryFile[0], new SilentTaskHandler()),
-                "Should reject breakout path in RenameStep.Destination");
+            new Recipe {Steps = {new RenameStep {Source = "../source", Destination = "destination"}}}
+                .Invoking(x => x.Apply(new TemporaryFile[0], new SilentTaskHandler()))
+                .ShouldThrow<IOException>(because: "Should reject breakout path in RenameStep.Source");
+            new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}
+                .Invoking(x => x.Apply(new TemporaryFile[0], new SilentTaskHandler()))
+                .ShouldThrow<IOException>(because: "Should reject breakout path in RenameStep.Destination");
         }
 
         [Test]
@@ -202,8 +209,8 @@ namespace ZeroInstall.Store.Implementations
 
                 new SingleFile {Destination = "file"}.Apply(tempFile.Path, workingDir, new MockTaskHandler());
 
-                Assert.IsTrue(File.Exists(tempFile), "Files passed in as string paths should be copied");
-                Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));
+                File.Exists(tempFile).Should().BeTrue(because: "Files passed in as string paths should be copied");
+                File.Exists(Path.Combine(workingDir, "file")).Should().BeTrue();
             }
         }
 
@@ -217,8 +224,8 @@ namespace ZeroInstall.Store.Implementations
 
                 new SingleFile {Destination = "file"}.Apply(tempFile, workingDir, new MockTaskHandler());
 
-                Assert.IsFalse(File.Exists(tempFile), "Files passed in as temp objects should be moved");
-                Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));
+                File.Exists(tempFile).Should().BeFalse(because: "Files passed in as temp objects should be moved");
+                File.Exists(Path.Combine(workingDir, "file")).Should().BeTrue();
             }
         }
     }

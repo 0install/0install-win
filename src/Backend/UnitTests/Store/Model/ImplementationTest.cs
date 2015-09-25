@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NUnit.Framework;
 
@@ -54,8 +55,8 @@ namespace ZeroInstall.Store.Model
         public void TestContainsCommand()
         {
             var implementation = CreateTestImplementation();
-            Assert.IsTrue(implementation.ContainsCommand(Command.NameRun));
-            Assert.IsFalse(implementation.ContainsCommand("other-command"));
+            implementation.ContainsCommand(Command.NameRun).Should().BeTrue();
+            implementation.ContainsCommand("other-command").Should().BeFalse();
         }
 
         /// <summary>
@@ -67,14 +68,14 @@ namespace ZeroInstall.Store.Model
         {
             var implementation = CreateTestImplementation();
 
-            Assert.AreEqual(implementation.Commands[0], implementation.GetCommand(Command.NameRun));
-            Assert.AreEqual(implementation.Commands[0], implementation[Command.NameRun]);
+            implementation.GetCommand(Command.NameRun).Should().Be(implementation.Commands[0]);
+            implementation[Command.NameRun].Should().Be(implementation.Commands[0]);
 
-            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation.GetCommand(""); });
-            Assert.IsNull(implementation[""]);
+            implementation.Invoking(x => x.GetCommand("")).ShouldThrow<ArgumentNullException>();
+            implementation[""].Should().BeNull();
 
-            Assert.IsNull(implementation.GetCommand("invalid"));
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation["invalid"]; });
+            implementation.GetCommand("invalid").Should().BeNull();
+            implementation.Invoking(x => { var _ = x["invalid"]; }).ShouldThrow<KeyNotFoundException>();
         }
 
         /// <summary>
@@ -85,11 +86,11 @@ namespace ZeroInstall.Store.Model
         {
             var implementation = new Implementation {ID = "sha256=123"};
             implementation.Normalize(FeedTest.Test1Uri);
-            Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
+            implementation.ManifestDigest.Sha256.Should().Be("123");
 
             implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest(sha256: "correct")};
             implementation.Normalize(FeedTest.Test1Uri);
-            Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
+            implementation.ManifestDigest.Sha256.Should().Be("correct");
 
             implementation = new Implementation {ID = "abc"};
             implementation.Normalize(FeedTest.Test1Uri);
@@ -104,8 +105,8 @@ namespace ZeroInstall.Store.Model
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};
             implementation.Normalize(FeedTest.Test1Uri);
-            Assert.AreEqual("main", implementation[Command.NameRun].Path);
-            Assert.AreEqual("test", implementation[Command.NameTest].Path);
+            implementation[Command.NameRun].Path.Should().Be("main");
+            implementation[Command.NameTest].Path.Should().Be("test");
         }
 
         /// <summary>
@@ -118,21 +119,16 @@ namespace ZeroInstall.Store.Model
 
             var implementation1 = new Implementation {ID = "./subdir"};
             implementation1.Normalize(localUri);
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\local\.\subdir" : "/local/./subdir",
-                actual: implementation1.ID);
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\local\.\subdir" : "/local/./subdir",
-                actual: implementation1.LocalPath);
+            implementation1.ID
+                .Should().Be(WindowsUtils.IsWindows ? @"C:\local\.\subdir" : "/local/./subdir");
+            implementation1.LocalPath
+                .Should().Be(WindowsUtils.IsWindows ? @"C:\local\.\subdir" : "/local/./subdir");
 
             var implementation2 = new Implementation {ID = "./wrong", LocalPath = "subdir"};
             implementation2.Normalize(localUri);
-            Assert.AreEqual(
-                expected: "./wrong",
-                actual: implementation2.ID);
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\local\subdir" : "/local/subdir",
-                actual: implementation2.LocalPath);
+            implementation2.ID.Should().Be("./wrong");
+            implementation2.LocalPath
+                .Should().Be(WindowsUtils.IsWindows ? @"C:\local\subdir" : "/local/subdir");
         }
 
         /// <summary>
@@ -143,7 +139,7 @@ namespace ZeroInstall.Store.Model
         {
             var implmementation = new Implementation {LocalPath = "subdir"};
             implmementation.Normalize(FeedTest.Test1Uri);
-            Assert.IsNull(implmementation.LocalPath);
+            implmementation.LocalPath.Should().BeNull();
         }
 
         /// <summary>
@@ -157,9 +153,7 @@ namespace ZeroInstall.Store.Model
             var implmementation = new Implementation {RetrievalMethods = {relative, absolute}};
 
             implmementation.Normalize(FeedTest.Test1Uri);
-            CollectionAssert.AreEqual(
-                expected: new[] {absolute},
-                actual: implmementation.RetrievalMethods);
+            implmementation.RetrievalMethods.Should().Equal(absolute);
         }
 
         /// <summary>
@@ -172,9 +166,9 @@ namespace ZeroInstall.Store.Model
             var implementation2 = implementation1.CloneImplementation();
 
             // Ensure data stayed the same
-            Assert.AreEqual(implementation1, implementation2, "Cloned objects should be equal.");
-            Assert.AreEqual(implementation1.GetHashCode(), implementation2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(implementation1, implementation2), "Cloning should not return the same reference.");
+            implementation2.Should().Be(implementation1, because: "Cloned objects should be equal.");
+            implementation2.GetHashCode().Should().Be(implementation1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            implementation2.Should().NotBeSameAs(implementation1, because: "Cloning should not return the same reference.");
         }
     }
 }

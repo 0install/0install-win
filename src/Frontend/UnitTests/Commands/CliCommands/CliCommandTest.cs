@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using FluentAssertions;
 using JetBrains.Annotations;
 using Moq;
 using NanoByte.Common.Tasks;
@@ -88,8 +89,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected void RunAndAssert([CanBeNull] string expectedOutput, ExitCode expectedExitCode, params string[] args)
         {
             Target.Parse(args);
-            Assert.AreEqual(expectedExitCode, Target.Execute());
-            Assert.AreEqual(expectedOutput, Handler.LastOutput);
+            Target.Execute().Should().Be(expectedExitCode);
+            Handler.LastOutput.Should().Be(expectedOutput);
         }
 
         /// <summary>
@@ -101,8 +102,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected void RunAndAssert<T>(IEnumerable<T> expectedOutput, ExitCode expectedExitCode, params string[] args)
         {
             Target.Parse(args);
-            Assert.AreEqual(expectedExitCode, Target.Execute());
-            CollectionAssert.AreEqual(expectedOutput, Handler.LastOutputObjects);
+            Target.Execute().Should().Be(expectedExitCode);
+            Handler.LastOutputObjects.Should().Equal(expectedOutput);
         }
     }
 }

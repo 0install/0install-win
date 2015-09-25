@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -54,9 +55,9 @@ namespace ZeroInstall.Store.Model.Preferences
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(preferences1, preferences2, "Serialized objects should be equal.");
-            Assert.AreEqual(preferences1.GetHashCode(), preferences2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(preferences1, preferences2), "Serialized objects should not return the same reference.");
+            preferences2.Should().Be(preferences1, because: "Serialized objects should be equal.");
+            preferences2.GetHashCode().Should().Be(preferences1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            preferences2.Should().NotBeSameAs(preferences1, because: "Serialized objects should not return the same reference.");
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]
@@ -66,9 +67,9 @@ namespace ZeroInstall.Store.Model.Preferences
             var preferences2 = preferences1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(preferences1, preferences2, "Cloned objects should be equal.");
-            Assert.AreEqual(preferences1.GetHashCode(), preferences2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(preferences1, preferences2), "Cloning should not return the same reference.");
+            preferences2.Should().Be(preferences1, because: "Cloned objects should be equal.");
+            preferences2.GetHashCode().Should().Be(preferences1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            preferences2.Should().NotBeSameAs(preferences1, because: "Cloning should not return the same reference.");
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace ZeroInstall.Store.Model.Preferences
             var preferences = new FeedPreferences {Implementations = {keep, superflous}};
 
             preferences.Normalize();
-            CollectionAssert.AreEquivalent(new[] {keep}, preferences.Implementations);
+            preferences.Implementations.Should().BeEquivalentTo(keep);
         }
 
         [Test]
@@ -90,13 +91,13 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             var preferences = new FeedPreferences();
             var prefs1 = preferences["id1"];
-            Assert.AreSame(prefs1, preferences["id1"], "Second call with same ID should return same reference");
+            preferences["id1"].Should().BeSameAs(prefs1, because: "Second call with same ID should return same reference");
 
             var prefs2 = new ImplementationPreferences {ID = "id2"};
             preferences.Implementations.Add(prefs2);
-            Assert.AreSame(prefs2, preferences["id2"], "Call with pre-existing ID should return existing reference");
+            preferences["id2"].Should().BeSameAs(prefs2, because: "Call with pre-existing ID should return existing reference");
 
-            CollectionAssert.AreEquivalent(new[] {prefs1, prefs2}, preferences.Implementations);
+            preferences.Implementations.Should().BeEquivalentTo(prefs1, prefs2);
         }
     }
 }

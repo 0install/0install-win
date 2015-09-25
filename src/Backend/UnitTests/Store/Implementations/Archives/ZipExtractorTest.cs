@@ -17,11 +17,12 @@
 
 using System;
 using System.IO;
-using System.Linq;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
@@ -73,23 +74,23 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
         public void TestFileExtract()
         {
-            using (var extractor = Extractor.Create(this.GetEmbedded("testArchive.zip"), _sandbox, Model.Archive.MimeTypeZip))
+            using (var extractor = Extractor.Create(this.GetEmbedded("testArchive.zip"), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
-            Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
-            Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
+            File.Exists(Path.Combine(_sandbox, "subdir1/regular")).Should().BeTrue(because: "Should extract file 'regular'");
+            File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")).Should().Be(new DateTime(2000, 1, 1, 13, 0, 0), because: "Correct last write time for file 'regular' should be set");
 
-            Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir2/executable")), "Should extract file 'executable'");
-            Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir2/executable")), "Correct last write time for file 'executable' should be set");
+            File.Exists(Path.Combine(_sandbox, "subdir2/executable")).Should().BeTrue(because: "Should extract file 'executable'");
+            File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir2/executable")).Should().Be(new DateTime(2000, 1, 1, 13, 0, 0), because: "Correct last write time for file 'executable' should be set");
         }
 
         [Test]
         public void ExtractionIntoFolder()
         {
-            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
-            Assert.IsTrue(Directory.Exists(_sandbox));
+            Directory.Exists(_sandbox).Should().BeTrue();
             var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
             _package.AcceptVisitor(comparer);
         }
@@ -106,15 +107,15 @@ namespace ZeroInstall.Store.Implementations.Archives
             public override void VisitFile(FileEntry entry)
             {
                 string extractedPosition = Path.Combine(_folder, entry.RelativePath);
-                Assert.IsTrue(File.Exists(extractedPosition), "File " + extractedPosition + " does not exist.");
+                File.Exists(extractedPosition).Should().BeTrue(because: "File " + extractedPosition + " does not exist.");
                 byte[] fileData = File.ReadAllBytes(extractedPosition);
-                Assert.AreEqual(entry.Content, fileData, "Different content in file " + extractedPosition);
+                fileData.Should().Equal(entry.Content, because: "Different content in file " + extractedPosition);
             }
 
             public override void VisitFolder(FolderEntry entry)
             {
                 string extractedPosition = Path.Combine(_folder, entry.RelativePath);
-                Assert.IsTrue(Directory.Exists(extractedPosition), "Directory " + extractedPosition + " does not exist.");
+                Directory.Exists(extractedPosition).Should().BeTrue(because: "Directory " + extractedPosition + " does not exist.");
                 VisitChildren(entry);
             }
         }
@@ -122,30 +123,30 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void ExtractionOfSubDir()
         {
-            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
             {
                 extractor.SubDir = "/sub/folder/";
                 extractor.Run();
             }
 
-            Assert.IsTrue(Directory.Exists(Path.Combine(_sandbox, "nestedFolder")));
-            Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine(_sandbox, "nestedFolder")));
-            Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "nestedFile")));
-            Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "file1")));
-            Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "file2")));
+            Directory.Exists(Path.Combine(_sandbox, "nestedFolder")).Should().BeTrue();
+            Directory.GetLastWriteTimeUtc(Path.Combine(_sandbox, "nestedFolder")).Should().Be(PackageBuilder.DefaultDate);
+            File.Exists(Path.Combine(_sandbox, "nestedFile")).Should().BeTrue();
+            File.Exists(Path.Combine(_sandbox, "file1")).Should().BeFalse();
+            File.Exists(Path.Combine(_sandbox, "file2")).Should().BeFalse();
         }
 
         [Test]
         public void EnsureSubDirDoesNotTouchFileNames()
         {
-            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
             {
                 extractor.SubDir = "/sub/folder/nested";
                 extractor.Run();
             }
 
-            Assert.IsFalse(Directory.Exists(Path.Combine(_sandbox, "Folder")), "Should not apply subdir matching to part of filename");
-            Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "File")), "Should not apply subdir matching to part of filename");
+            Directory.Exists(Path.Combine(_sandbox, "Folder")).Should().BeFalse(because: "Should not apply subdir matching to part of filename");
+            File.Exists(Path.Combine(_sandbox, "File")).Should().BeFalse(because: "Should not apply subdir matching to part of filename");
         }
 
         [Test]
@@ -154,12 +155,12 @@ namespace ZeroInstall.Store.Implementations.Archives
             File.WriteAllText(Path.Combine(_sandbox, "file1"), @"Wrong content");
             File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
 
-            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+            using (var extractor = Extractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
-            Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "file0")), "Extractor cleaned directory.");
+            File.Exists(Path.Combine(_sandbox, "file0")).Should().BeTrue(because: "Extractor cleaned directory.");
             string file0Content = File.ReadAllText(Path.Combine(_sandbox, "file0"));
-            Assert.AreEqual("This file should not be touched", file0Content);
+            file0Content.Should().Be("This file should not be touched");
             var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
             _package.AcceptVisitor(comparer);
         }
@@ -192,11 +193,11 @@ namespace ZeroInstall.Store.Implementations.Archives
                 extractor.Run();
 
             if (UnixUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
+                FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")).Should().BeTrue(because: "File 'executable' should be marked as executable");
             else
             {
                 string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox, FlagUtils.XbitFile)).Trim();
-                Assert.AreEqual("/subdir2/executable", xbitFileContent);
+                xbitFileContent.Should().Be("/subdir2/executable");
             }
         }
 
@@ -211,11 +212,10 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             string target;
             string source = Path.Combine(_sandbox, "symlink");
-            Assert.IsTrue(UnixUtils.IsUnix
-                ? FileUtils.IsSymlink(source, out target)
-                : CygwinUtils.IsSymlink(source, out target));
+            if (UnixUtils.IsUnix) FileUtils.IsSymlink(source, out target).Should().BeTrue();
+            else CygwinUtils.IsSymlink(source, out target).Should().BeTrue();
 
-            Assert.AreEqual("subdir1/regular", target, "Symlink should point to 'regular'");
+            target.Should().Be("subdir1/regular", because: "Symlink should point to 'regular'");
         }
 
         [Test]
@@ -229,7 +229,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
                 using (var extractor = new ZipExtractor(archiveStream, _sandbox))
-                    Assert.Throws<IOException>(() => extractor.Run(), "ZipExtractor must not accept archives with '..' as entry");
+                    extractor.Invoking(x => x.Run()).ShouldThrow<IOException>(because: "ZipExtractor must not accept archives with '..' as entry");
             }
         }
 
@@ -246,9 +246,9 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
                 using (var extractor = new ZipExtractor(archiveStream, _sandbox))
-                    Assert.DoesNotThrow(() => extractor.Run());
-                Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "emptyFile")), message);
-                Assert.AreEqual(new byte[] {}, File.ReadAllBytes(Path.Combine(_sandbox, "emptyFile")), message);
+                    extractor.Invoking(x => x.Run()).ShouldNotThrow();
+                File.Exists(Path.Combine(_sandbox, "emptyFile")).Should().BeTrue(because: message);
+                File.ReadAllBytes(Path.Combine(_sandbox, "emptyFile")).Should().BeEmpty(because: message);
             }
         }
 
@@ -265,9 +265,9 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive to custom destination";
                 using (var extractor = new ZipExtractor(archiveStream, _sandbox) {Destination = "custom"})
-                    Assert.DoesNotThrow(() => extractor.Run());
-                Assert.IsTrue(File.Exists(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
-                Assert.AreEqual(new byte[] {}, File.ReadAllBytes(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
+                    extractor.Invoking(x => x.Run()).ShouldNotThrow();
+                File.Exists(Path.Combine(_sandbox, "custom", "emptyFile")).Should().BeTrue(because: message);
+                File.ReadAllBytes(Path.Combine(_sandbox, "custom", "emptyFile")).Should().BeEmpty(because: message);
             }
         }
     }

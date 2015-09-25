@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -75,10 +76,8 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotDotNet()
         {
-            var candidate = new DotNetExe();
-            Assert.IsFalse(candidate.Analyze(
-                baseDirectory: Directory,
-                file: Deploy(WindowsExeTest.Reference32, xbit: false)));
+            new DotNetExe().Analyze(baseDirectory: Directory, file: Deploy(WindowsExeTest.Reference32, xbit: false))
+                .Should().BeFalse();
         }
     }
 }

@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NUnit.Framework;
 
@@ -48,9 +49,9 @@ namespace ZeroInstall.Store.Model
             var archive2 = archive1.CloneRecipeStep();
 
             // Ensure data stayed the same
-            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
-            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+            archive2.Should().Be(archive1, because: "Cloned objects should be equal.");
+            archive2.GetHashCode().Should().Be(archive1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            archive2.Should().NotBeSameAs(archive1, because: "Cloning should not return the same reference.");
         }
 
         [Test]
@@ -58,7 +59,7 @@ namespace ZeroInstall.Store.Model
         {
             var archive = new Archive {Href = new Uri("http://0install.de/files/test/test.tar.gz"), Size = 128};
             archive.Normalize(new FeedUri("http://0install.de/feeds/test/"));
-            Assert.AreEqual(Archive.MimeTypeTarGzip, archive.MimeType, "Normalize() should guess missing MIME type");
+            archive.MimeType.Should().Be(Archive.MimeTypeTarGzip, because: "Normalize() should guess missing MIME type");
         }
 
         [Test]
@@ -66,7 +67,9 @@ namespace ZeroInstall.Store.Model
         {
             var archive = new Archive {Href = new Uri("test.zip", UriKind.Relative), MimeType = Archive.MimeTypeZip, Size = 128};
             archive.Normalize(new FeedUri(Path.Combine(WindowsUtils.IsWindows ? @"C:\some\dir" : "/some/dir", "feed.xml")));
-            Assert.AreEqual(new Uri(WindowsUtils.IsWindows ? "file:///C:/some/dir/test.zip" : "file:///some/dir/test.zip"), archive.Href, "Normalize() should make relative local paths absolute");
+            archive.Href.Should().Be(
+                new Uri(WindowsUtils.IsWindows ? "file:///C:/some/dir/test.zip" : "file:///some/dir/test.zip"),
+                because: "Normalize() should make relative local paths absolute");
         }
     }
 }

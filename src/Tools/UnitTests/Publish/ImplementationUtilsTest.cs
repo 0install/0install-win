@@ -17,6 +17,7 @@
 
 using System;
 using System.Security.Cryptography;
+using FluentAssertions;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -53,11 +54,11 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = ImplementationUtils.Build(new Archive {Href = microServer.FileUri}, new SilentTaskHandler());
-                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
+                implementation.ManifestDigest.Sha256New.Should().Be(ArchiveSha256Digest);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(stream.Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(stream.Length);
             }
         }
 
@@ -71,10 +72,10 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer(SingleFileName, originalStream))
             {
                 var implementation = ImplementationUtils.Build(new SingleFile {Href = microServer.FileUri, Destination = SingleFileName}, new SilentTaskHandler());
-                Assert.AreEqual(_singleFileSha256Digest, "sha256new_" + implementation.ManifestDigest.Sha256New);
+                ("sha256new_" + implementation.ManifestDigest.Sha256New).Should().Be(_singleFileSha256Digest);
 
                 var file = (SingleFile)implementation.RetrievalMethods[0];
-                Assert.AreEqual(originalStream.Length, file.Size);
+                file.Size.Should().Be(originalStream.Length);
             }
         }
 
@@ -88,11 +89,11 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}, new SilentTaskHandler());
-                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
+                implementation.ManifestDigest.Sha256New.Should().Be(ArchiveSha256Digest);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(stream.Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(stream.Length);
             }
         }
 
@@ -107,11 +108,11 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
                 implementation.AddMissing(new SilentTaskHandler());
-                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
+                implementation.ManifestDigest.Sha256New.Should().Be(ArchiveSha256Digest);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(stream.Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(stream.Length);
             }
         }
 
@@ -126,11 +127,11 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {RetrievalMethods = {new SingleFile {Href = microServer.FileUri}}};
                 implementation.AddMissing(new SilentTaskHandler());
-                Assert.AreEqual(_singleFileSha256Digest, "sha256new_" + implementation.ManifestDigest.Sha256New);
+                ("sha256new_" + implementation.ManifestDigest.Sha256New).Should().Be(_singleFileSha256Digest);
 
                 var file = (SingleFile)implementation.RetrievalMethods[0];
-                Assert.AreEqual(originalStream.Length, file.Size);
-                Assert.AreEqual(SingleFileName, file.Destination);
+                file.Size.Should().Be(originalStream.Length);
+                file.Destination.Should().Be(SingleFileName);
             }
         }
 
@@ -145,11 +146,11 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}}};
                 implementation.AddMissing(new SilentTaskHandler());
-                Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
+                implementation.ManifestDigest.Sha256New.Should().Be(ArchiveSha256Digest);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(stream.Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(stream.Length);
             }
         }
 
@@ -163,7 +164,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
-                Assert.Throws<DigestMismatchException>(() => implementation.AddMissing(new SilentTaskHandler()));
+                implementation.Invoking(x => x.AddMissing(new SilentTaskHandler())).ShouldThrow<DigestMismatchException>();
             }
         }
 
@@ -177,13 +178,13 @@ namespace ZeroInstall.Publish
                     .WritePackageInto(packageDir);
 
                 ManifestDigest digest1 = ImplementationUtils.GenerateDigest(packageDir, new MockTaskHandler());
-                Assert.IsNullOrEmpty(digest1.Sha1); // sha1 is deprecated
-                Assert.IsNotNullOrEmpty(digest1.Sha1New);
-                Assert.IsNotNullOrEmpty(digest1.Sha256);
-                Assert.IsNotNullOrEmpty(digest1.Sha256New);
+                digest1.Sha1.Should().BeNullOrEmpty(because: "sha1 is deprecated");
+                digest1.Sha1New.Should().NotBeNullOrEmpty();
+                digest1.Sha256.Should().NotBeNullOrEmpty();
+                digest1.Sha256New.Should().NotBeNullOrEmpty();
 
                 ManifestDigest digest2 = ImplementationUtils.GenerateDigest(packageDir, new MockTaskHandler());
-                Assert.AreEqual(digest1, digest2);
+                digest2.Should().Be(digest1);
             }
         }
     }

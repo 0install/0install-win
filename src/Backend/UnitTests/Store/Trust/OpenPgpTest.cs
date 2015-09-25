@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FluentAssertions;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -63,9 +64,8 @@ namespace ZeroInstall.Store.Trust
         {
             TestImportKey();
 
-            CollectionAssert.AreEqual(
-                expected: new[] {new ValidSignature(_secretKey.KeyID, _secretKey.GetFingerprint(), new DateTime(2015, 7, 16, 17, 20, 7))},
-                actual: Target.Verify(_referenceData, _signatureData));
+            Target.Verify(_referenceData, _signatureData).Should().Equal(
+                new ValidSignature(_secretKey.KeyID, _secretKey.GetFingerprint(), new DateTime(2015, 7, 16, 17, 20, 7)));
         }
 
         [Test]
@@ -73,23 +73,22 @@ namespace ZeroInstall.Store.Trust
         {
             TestImportKey();
 
-            CollectionAssert.AreEqual(
-                expected: new[] {new BadSignature(_secretKey.KeyID)},
-                actual: Target.Verify(new byte[] {1, 2, 3}, _signatureData));
+            Target.Verify(new byte[] {1, 2, 3}, _signatureData).Should().Equal(
+                new BadSignature(_secretKey.KeyID));
         }
 
         [Test]
         public void TestVerifyMissingKeySignature()
         {
-            CollectionAssert.AreEqual(
-                expected: new[] {new MissingKeySignature(_secretKey.KeyID)},
-                actual: Target.Verify(_referenceData, _signatureData));
+            Target.Verify(_referenceData, _signatureData).Should().Equal(
+                new MissingKeySignature(_secretKey.KeyID));
         }
 
         [Test]
         public void TestVerifyInvalidData()
         {
-            Assert.Throws<InvalidDataException>(() => Target.Verify(new byte[] {1, 2, 3}, new byte[] {1, 2, 3}));
+            Target.Invoking(x => x.Verify(new byte[] {1, 2, 3}, new byte[] {1, 2, 3}))
+                .ShouldThrow<InvalidDataException>();
         }
 
         [Test]
@@ -101,16 +100,14 @@ namespace ZeroInstall.Store.Trust
             Assert.That(signatureData.Length, Is.GreaterThan(10));
 
             TestImportKey();
-            var signatures = Target.Verify(_referenceData, signatureData);
-            CollectionAssert.AreEqual(
-                expected: _secretKey.GetFingerprint(),
-                actual: ((ValidSignature)signatures.Single()).GetFingerprint());
+            var signature = (ValidSignature)Target.Verify(_referenceData, signatureData).Single();
+            signature.GetFingerprint().Should().Equal(_secretKey.GetFingerprint());
         }
 
         [Test]
         public void TestSignMissingKey()
         {
-            Assert.Throws<KeyNotFoundException>(() => Target.Sign(_referenceData, _secretKey));
+            Target.Invoking(x => x.Sign(_referenceData, _secretKey)).ShouldThrow<KeyNotFoundException>();
         }
 
         [Test]
@@ -118,7 +115,7 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            Assert.Throws<WrongPassphraseException>(() => Target.Sign(_referenceData, _secretKey, "wrong-passphrase"));
+            Target.Invoking(x => x.Sign(_referenceData, _secretKey, "wrong-passphrase")).ShouldThrow<WrongPassphraseException>();
         }
 
         [Test]
@@ -130,7 +127,7 @@ namespace ZeroInstall.Store.Trust
         [Test]
         public void TestImportKeyInvalidData()
         {
-            Assert.Throws<InvalidDataException>(() => Target.ImportKey(new byte[] {1, 2, 3}));
+            Target.Invoking(x => x.ImportKey(new byte[] {1, 2, 3})).ShouldThrow<InvalidDataException>();
         }
 
         [Test]
@@ -150,7 +147,7 @@ namespace ZeroInstall.Store.Trust
         [Test]
         public void TestExportKeyMissingKey()
         {
-            Assert.Throws<KeyNotFoundException>(() => Target.ExportKey(_secretKey));
+            Target.Invoking(x => x.ExportKey(_secretKey)).ShouldThrow<KeyNotFoundException>();
         }
 
         [Test]
@@ -158,9 +155,7 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            CollectionAssert.AreEqual(
-                expected: new[] {_secretKey},
-                actual: Target.ListSecretKeys());
+            Target.ListSecretKeys().Should().Equal(_secretKey);
         }
 
         [Test]
@@ -168,15 +163,15 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey), "Should get secret key using parsed id source");
+            Target.GetSecretKey(_secretKey).Should().Be(_secretKey, because: "Should get secret key using parsed id source");
 
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.UserID), "Should get secret key using user id");
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.FormatKeyID()), "Should get secret key using key id string");
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(_secretKey.FormatFingerprint()), "Should get secret key using fingerprint string");
+            Target.GetSecretKey(_secretKey.UserID).Should().Be(_secretKey, because: "Should get secret key using user id");
+            Target.GetSecretKey(_secretKey.FormatKeyID()).Should().Be(_secretKey, because: "Should get secret key using key id string");
+            Target.GetSecretKey(_secretKey.FormatFingerprint()).Should().Be(_secretKey, because: "Should get secret key using fingerprint string");
 
-            Assert.AreEqual(_secretKey, Target.GetSecretKey(), "Should get default secret key");
+            Target.GetSecretKey().Should().Be(_secretKey, because: "Should get default secret key");
 
-            Assert.Throws<KeyNotFoundException>(() => Target.GetSecretKey("unknown@user.com"));
+            Target.Invoking(x => x.GetSecretKey("unknown@user.com")).ShouldThrow<KeyNotFoundException>();
         }
 
         private void DeployKeyRings()

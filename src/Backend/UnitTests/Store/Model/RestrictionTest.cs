@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -48,17 +49,16 @@ namespace ZeroInstall.Store.Model
         public void TestCloneEquals()
         {
             var restriction1 = CreateTestRestriction();
-            Assert.AreEqual(restriction1, restriction1, "Equals() should be reflexive.");
-            Assert.AreEqual(restriction1.GetHashCode(), restriction1.GetHashCode(), "GetHashCode() should be reflexive.");
+            restriction1.Should().Be(restriction1, because: "Equals() should be reflexive.");
+            restriction1.GetHashCode().Should().Be(restriction1.GetHashCode(), because: "GetHashCode() should be reflexive.");
 
             var restriction2 = restriction1.Clone();
-            Assert.AreEqual(restriction1, restriction2, "Cloned objects should be equal.");
-            Assert.AreEqual(restriction1.GetHashCode(), restriction2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(restriction1, restriction2), "Cloning should not return the same reference.");
+            restriction2.Should().Be(restriction1, because: "Cloned objects should be equal.");
+            restriction2.GetHashCode().Should().Be(restriction1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            restriction2.Should().NotBeSameAs(restriction1, because: "Cloning should not return the same reference.");
 
             restriction2.Constraints.Add(new Constraint());
-            Assert.AreNotEqual(restriction1, restriction2, "Modified objects should no longer be equal");
-            //Assert.AreNotEqual(Restriction1.GetHashCode(), Restriction2.GetHashCode(), "Modified objects' hashes should no longer be equal");
+            restriction2.Should().NotBe(restriction1, because: "Modified objects should no longer be equal");
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Model
         {
             var restriction = new Restriction {Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0")}}};
             restriction.Normalize();
-            Assert.AreEqual(new VersionRange("1.0.."), restriction.Versions);
+            restriction.Versions.Should().Be(new VersionRange("1.0.."));
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Model
         {
             var restriction = new Restriction {Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}};
             restriction.Normalize();
-            Assert.AreEqual(new VersionRange("..!2.0"), restriction.Versions);
+            restriction.Versions.Should().Be(new VersionRange("..!2.0"));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Model
         {
             var restriction = new Restriction {Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}};
             restriction.Normalize();
-            Assert.AreEqual(new VersionRange("1.0..!2.0"), restriction.Versions);
+            restriction.Versions.Should().Be(new VersionRange("1.0..!2.0"));
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Model
                 }
             };
             restriction.Normalize();
-            Assert.AreEqual(new VersionRange("1.0..!1.9"), restriction.Versions);
+            restriction.Versions.Should().Be(new VersionRange("1.0..!1.9"));
         }
     }
 }

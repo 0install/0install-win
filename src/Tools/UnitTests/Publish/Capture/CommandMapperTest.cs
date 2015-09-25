@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -40,19 +41,24 @@ namespace ZeroInstall.Publish.Capture
 
             string additionalArgs;
 
-            Assert.AreSame(commandNoArgs, provider.GetCommand("installation directory" + Path.DirectorySeparatorChar + "entry.exe", out additionalArgs));
-            Assert.AreEqual("", additionalArgs);
+            provider.GetCommand("installation directory" + Path.DirectorySeparatorChar + "entry.exe", out additionalArgs)
+                .Should().BeSameAs(commandNoArgs);
+            additionalArgs.Should().Be("");
 
-            Assert.AreSame(commandNoArgs, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1", out additionalArgs));
-            Assert.AreEqual("--arg1", additionalArgs);
+            provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1", out additionalArgs)
+                .Should().BeSameAs(commandNoArgs);
+            additionalArgs.Should().Be("--arg1");
 
-            Assert.AreSame(commandArgs1, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1 \"long argument\" bla", out additionalArgs));
-            Assert.AreEqual("bla", additionalArgs);
+            provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg1 \"long argument\" bla", out additionalArgs)
+                .Should().BeSameAs(commandArgs1);
+            additionalArgs.Should().Be("bla");
 
-            Assert.AreSame(commandArgs2, provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg2 \"long argument\" bla", out additionalArgs));
-            Assert.AreEqual("bla", additionalArgs);
+            provider.GetCommand("\"installation directory" + Path.DirectorySeparatorChar + "entry.exe\" --arg2 \"long argument\" bla", out additionalArgs)
+                .Should().BeSameAs(commandArgs2);
+            additionalArgs.Should().Be("bla");
 
-            Assert.IsNull(provider.GetCommand("Something" + Path.DirectorySeparatorChar + "else.exe", out additionalArgs));
+            provider.GetCommand("Something" + Path.DirectorySeparatorChar + "else.exe", out additionalArgs)
+                .Should().BeNull();
         }
     }
 }

@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -45,7 +46,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 }
 
                 using (var extractor = Extractor.Create(File.OpenRead(path), tempDir, Model.Archive.MimeTypeZip))
-                    Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
+                    extractor.Should().BeOfType<ZipExtractor>();
             }
         }
 

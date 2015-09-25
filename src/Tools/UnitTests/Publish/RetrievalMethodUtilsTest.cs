@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
@@ -47,8 +48,8 @@ namespace ZeroInstall.Publish
                 var archive = new Archive {Href = microServer.FileUri};
                 archive.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(stream.Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(stream.Length);
             }
         }
 
@@ -64,7 +65,7 @@ namespace ZeroInstall.Publish
                 var file = new SingleFile {Href = microServer.FileUri, Destination = SingleFileName};
                 file.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
-                Assert.AreEqual(stream.Length, file.Size);
+                file.Size.Should().Be(stream.Length);
             }
         }
 
@@ -81,8 +82,8 @@ namespace ZeroInstall.Publish
                 var recipe = new Recipe {Steps = {archive}};
                 recipe.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(stream.Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(stream.Length);
             }
         }
 
@@ -99,12 +100,12 @@ namespace ZeroInstall.Publish
 
                 var archive = new Archive();
                 using (var extractedDir = archive.LocalApply(tempFile, new SilentTaskHandler()))
-                    Assert.IsTrue(File.Exists(Path.Combine(extractedDir, "symlink")));
+                    File.Exists(Path.Combine(extractedDir, "symlink")).Should().BeTrue();
 
-                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(new FileInfo(tempFile).Length, archive.Size);
+                archive.MimeType.Should().Be(Archive.MimeTypeZip);
+                archive.Size.Should().Be(new FileInfo(tempFile).Length);
 
-                Assert.IsTrue(File.Exists(tempFile), "Local reference file should not be removed");
+                File.Exists(tempFile).Should().BeTrue(because: "Local reference file should not be removed");
             }
         }
 
@@ -121,12 +122,12 @@ namespace ZeroInstall.Publish
 
                 var file = new SingleFile();
                 using (var extractedDir = file.LocalApply(tempFile, new SilentTaskHandler()))
-                    Assert.IsTrue(File.Exists(Path.Combine(extractedDir, "file")));
+                    File.Exists(Path.Combine(extractedDir, "file")).Should().BeTrue();
 
-                Assert.AreEqual("file", file.Destination);
-                Assert.AreEqual(3, file.Size);
+                file.Destination.Should().Be("file");
+                file.Size.Should().Be(3);
 
-                Assert.IsTrue(File.Exists(tempFile), "Local reference file should not be removed");
+                File.Exists(tempFile).Should().BeTrue(because: "Local reference file should not be removed");
             }
         }
     }

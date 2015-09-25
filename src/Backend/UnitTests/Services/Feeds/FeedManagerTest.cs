@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -57,8 +58,8 @@ namespace ZeroInstall.Services.Feeds
                 // ReSharper disable once AccessToDisposedClosure
                 _feedCacheMock.Setup(x => x.GetFeed(new FeedUri(feedFile))).Returns(feed);
 
-                Assert.AreSame(feed, Target[new FeedUri(feedFile)]);
-                Assert.IsFalse(Target.Stale);
+                Target[new FeedUri(feedFile)].Should().BeSameAs(feed);
+                Target.Stale.Should().BeFalse();
             }
         }
 
@@ -82,7 +83,7 @@ namespace ZeroInstall.Services.Feeds
                 var data = feedStream.ToArray();
                 feedStream.Position = 0;
 
-                Assert.IsTrue(Target.IsStale(feed.Uri), "Non-cached feeds should be reported as stale");
+                Target.IsStale(feed.Uri).Should().BeTrue(because: "Non-cached feeds should be reported as stale");
 
                 // No previous feed
                 _feedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(false);
@@ -93,7 +94,7 @@ namespace ZeroInstall.Services.Feeds
 
                 _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
-                Assert.AreEqual(feed, Target[feed.Uri]);
+                Target[feed.Uri].Should().Be(feed);
             }
         }
 
@@ -136,7 +137,7 @@ namespace ZeroInstall.Services.Feeds
                 _trustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
                 Config.FeedMirror = mirrorServer.ServerUri;
-                Assert.AreEqual(feed, Target[feed.Uri]);
+                Target[feed.Uri].Should().Be(feed);
             }
         }
 
@@ -148,9 +149,9 @@ namespace ZeroInstall.Services.Feeds
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor(FeedTest.Test1Uri);
 
-            Assert.IsFalse(Target.IsStale(FeedTest.Test1Uri));
-            Assert.AreSame(feed, Target[FeedTest.Test1Uri]);
-            Assert.IsFalse(Target.Stale);
+            Target.IsStale(FeedTest.Test1Uri).Should().BeFalse();
+            Target[FeedTest.Test1Uri].Should().BeSameAs(feed);
+            Target.Stale.Should().BeFalse();
         }
 
         [Test]
@@ -196,7 +197,7 @@ namespace ZeroInstall.Services.Feeds
                 // Cause feed to become in-memory cached
                 _feedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(true);
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
-                Assert.AreEqual(feed, Target[feed.Uri]);
+                Target[feed.Uri].Should().Be(feed);
 
                 AssertRefreshData(feed, feedData);
             }
@@ -212,7 +213,7 @@ namespace ZeroInstall.Services.Feeds
             _trustManagerMock.Setup(x => x.CheckTrust(feedData, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
             Target.Refresh = true;
-            Assert.AreEqual(feed, Target[feed.Uri]);
+            Target[feed.Uri].Should().Be(feed);
         }
 
         [Test]
@@ -223,9 +224,9 @@ namespace ZeroInstall.Services.Feeds
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor(FeedTest.Test1Uri);
 
-            Assert.IsTrue(Target.IsStale(FeedTest.Test1Uri));
-            Assert.AreSame(feed, Target[FeedTest.Test1Uri]);
-            Assert.IsTrue(Target.Stale);
+            Target.IsStale(FeedTest.Test1Uri).Should().BeTrue();
+            Target[FeedTest.Test1Uri].Should().BeSameAs(feed);
+            Target.Stale.Should().BeTrue();
         }
 
         [Test(Description = "Ensures valid feeds are correctly imported.")]
@@ -257,7 +258,7 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Assert.Throws<ReplayAttackException>(() => Target.ImportFeed(feedFile));
+                Target.Invoking(x => x.ImportFeed(feedFile)).ShouldThrow<ReplayAttackException>();
             }
         }
 

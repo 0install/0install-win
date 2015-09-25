@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
@@ -76,111 +77,83 @@ namespace ZeroInstall.Store
         [Test]
         public void TestToString()
         {
-            Assert.AreEqual("http://0install.de/", new FeedUri("http://0install.de").ToStringRfc());
-            Assert.AreEqual("http://0install.de/", new FeedUri("http://0install.de/").ToStringRfc());
-            Assert.AreEqual("http://0install.de/feeds/test1.xml", new FeedUri("http://0install.de/feeds/test1.xml").ToStringRfc());
-            Assert.AreEqual("https://0install.de/feeds/test1.xml", new FeedUri("https://0install.de/feeds/test1.xml").ToStringRfc());
+            new FeedUri("http://0install.de").ToStringRfc().Should().Be("http://0install.de/");
+            new FeedUri("http://0install.de/").ToStringRfc().Should().Be("http://0install.de/");
+            new FeedUri("http://0install.de/feeds/test1.xml").ToStringRfc().Should().Be("http://0install.de/feeds/test1.xml");
+            new FeedUri("https://0install.de/feeds/test1.xml").ToStringRfc().Should().Be("https://0install.de/feeds/test1.xml");
 
-            Assert.AreEqual("http://0install.de/feeds/my feed.xml", new FeedUri("http://0install.de/feeds/my feed.xml").ToString());
-            Assert.AreEqual("http://0install.de/feeds/my feed.xml", new FeedUri("http://0install.de/feeds/my%20feed.xml").ToString());
-            Assert.AreEqual("http://0install.de/feeds/my%20feed.xml", new FeedUri("http://0install.de/feeds/my feed.xml").ToStringRfc());
-            Assert.AreEqual("http://0install.de/feeds/my%20feed.xml", new FeedUri("http://0install.de/feeds/my%20feed.xml").ToStringRfc());
+            new FeedUri("http://0install.de/feeds/my feed.xml").ToString().Should().Be("http://0install.de/feeds/my feed.xml");
+            new FeedUri("http://0install.de/feeds/my%20feed.xml").ToString().Should().Be("http://0install.de/feeds/my feed.xml");
+            new FeedUri("http://0install.de/feeds/my feed.xml").ToStringRfc().Should().Be("http://0install.de/feeds/my%20feed.xml");
+            new FeedUri("http://0install.de/feeds/my%20feed.xml").ToStringRfc().Should().Be("http://0install.de/feeds/my%20feed.xml");
 
             var absoluteUri = new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
-                actual: absoluteUri.LocalPath);
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
-                actual: absoluteUri.ToString());
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
-                actual: absoluteUri.ToStringRfc());
+            absoluteUri.LocalPath.Should().Be(
+                WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
+            absoluteUri.ToString().Should().Be(
+                WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
+            absoluteUri.ToStringRfc().Should().Be(
+                WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
 
             absoluteUri = new FeedUri(WindowsUtils.IsWindows ? "file:///C:/my%20feed.xml" : "file:///root/my%20feed.xml");
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
-                actual: absoluteUri.LocalPath);
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
-                actual: absoluteUri.ToString());
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
-                actual: absoluteUri.ToStringRfc());
+            absoluteUri.LocalPath.Should().Be(
+                WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
+            absoluteUri.ToString().Should().Be(
+                WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
+            absoluteUri.ToStringRfc().Should().Be(
+                WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
 
             if (WindowsUtils.IsWindows)
             {
                 absoluteUri = new FeedUri(@"\\SERVER\C$\my feed.xml");
-                Assert.AreEqual(
-                    expected: @"\\server\C$\my feed.xml",
-                    actual: absoluteUri.ToString());
-                Assert.AreEqual(
-                    expected: @"\\server\C$\my feed.xml",
-                    actual: absoluteUri.ToStringRfc());
+                absoluteUri.ToString().Should().Be(
+                    @"\\server\C$\my feed.xml");
+                absoluteUri.ToStringRfc().Should().Be(
+                    @"\\server\C$\my feed.xml");
 
                 absoluteUri = new FeedUri("file://SERVER/C$/my%20feed.xml");
-                Assert.AreEqual(
-                    expected: @"\\server\C$\my feed.xml",
-                    actual: absoluteUri.ToString());
-                Assert.AreEqual(
-                    expected: @"\\server\C$\my feed.xml",
-                    actual: absoluteUri.ToStringRfc());
+                absoluteUri.ToString().Should().Be(
+                    @"\\server\C$\my feed.xml");
+                absoluteUri.ToStringRfc().Should().Be(
+                    @"\\server\C$\my feed.xml");
             }
         }
 
         [Test]
         public void TestEscape()
         {
-            Assert.AreEqual("http%3a%2f%2f0install.de%2ffeeds%2ftest%2ftest1.xml", FeedTest.Test1Uri.Escape());
+            FeedTest.Test1Uri.Escape().Should().Be("http%3a%2f%2f0install.de%2ffeeds%2ftest%2ftest1.xml");
         }
 
         [Test]
         public void TestUnescape()
         {
-            Assert.AreEqual(
-                FeedTest.Test1Uri,
-                FeedUri.Unescape("http%3A%2F%2F0install.de%2Ffeeds%2Ftest%2Ftest1.xml"));
+            FeedUri.Unescape("http%3A%2F%2F0install.de%2Ffeeds%2Ftest%2Ftest1.xml").Should().Be(FeedTest.Test1Uri);
         }
 
         [Test]
         public void TestPrettyEscape()
         {
-            Assert.AreEqual(
+            FeedTest.Test1Uri.PrettyEscape().Should().Be(
                 // Colon is preserved on POSIX systems but not on other OSes
-                UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml",
-                FeedTest.Test1Uri.PrettyEscape());
+                UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml");
         }
 
         [Test]
         public void TestPrettyUnescape()
         {
-            Assert.AreEqual(
-                FeedTest.Test1Uri,
-                // Colon is preserved on POSIX systems but not on other OSes
-                FeedUri.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml"));
+            FeedUri.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml").Should().Be(
+                FeedTest.Test1Uri);
         }
 
         [Test]
         public void TestEscapeComponent()
         {
-            CollectionAssert.AreEqual(
-                expected: new[] {"http", "example.com", "foo__bar.xml"},
-                actual: new FeedUri("http://example.com/foo/bar.xml").EscapeComponent());
-
-            CollectionAssert.AreEqual(
-                expected: new[] {"http", "example.com", ""},
-                actual: new FeedUri("http://example.com/").EscapeComponent());
-
-            CollectionAssert.AreEqual(
-                expected: new[] {"file", WindowsUtils.IsWindows ? "C_3a___my_20_feed.xml" : "root__my_20_feed.xml"},
-                actual: new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml").EscapeComponent());
-
+            new FeedUri("http://example.com/foo/bar.xml").EscapeComponent().Should().Equal("http", "example.com", "foo__bar.xml");
+            new FeedUri("http://example.com/").EscapeComponent().Should().Equal("http", "example.com", "");
+            new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml").EscapeComponent().Should().Equal("file", WindowsUtils.IsWindows ? "C_3a___my_20_feed.xml" : "root__my_20_feed.xml");
             if (WindowsUtils.IsWindows)
-            {
-                CollectionAssert.AreEqual(
-                    expected: new[] {"file", "____server__C_24___my_20_feed.xml"},
-                    actual: new FeedUri(@"\\SERVER\C$\my feed.xml").EscapeComponent());
-            }
+                new FeedUri(@"\\SERVER\C$\my feed.xml").EscapeComponent().Should().Equal("file", "____server__C_24___my_20_feed.xml");
         }
     }
 }

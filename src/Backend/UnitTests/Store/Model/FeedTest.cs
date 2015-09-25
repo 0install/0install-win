@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Store.Model.Capabilities;
@@ -181,9 +182,9 @@ namespace ZeroInstall.Store.Model
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(feed1, feed2, "Serialized objects should be equal.");
-            Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(feed1, feed2), "Serialized objects should not return the same reference.");
+            feed2.Should().Be(feed1, because: "Serialized objects should be equal.");
+            feed2.GetHashCode().Should().Be(feed1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            feed2.Should().NotBeSameAs(feed1, because: "Serialized objects should not return the same reference.");
         }
 
         /// <summary>
@@ -193,17 +194,16 @@ namespace ZeroInstall.Store.Model
         public void TestCloneEquals()
         {
             var feed1 = CreateTestFeed();
-            Assert.AreEqual(feed1, feed1, "Equals() should be reflexive.");
-            Assert.AreEqual(feed1.GetHashCode(), feed1.GetHashCode(), "GetHashCode() should be reflexive.");
+            feed1.Should().Be(feed1, because: "Equals() should be reflexive.");
+            feed1.GetHashCode().Should().Be(feed1.GetHashCode(), because: "GetHashCode() should be reflexive.");
 
             var feed2 = feed1.Clone();
-            Assert.AreEqual(feed1, feed2, "Cloned objects should be equal.");
-            Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(feed1, feed2), "Cloning should not return the same reference.");
+            feed2.Should().Be(feed1, because: "Cloned objects should be equal.");
+            feed2.GetHashCode().Should().Be(feed1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            feed2.Should().NotBeSameAs(feed1, because: "Cloning should not return the same reference.");
 
             feed2.Elements.Add(new Implementation {ID = "dummy"});
-            Assert.AreNotEqual(feed1, feed2, "Modified objects should no longer be equal");
-            //Assert.AreNotEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Modified objects' hashes should no longer be equal");
+            feed2.Should().NotBe(feed1, because: "Modified objects should no longer be equal");
         }
 
         /// <summary>
@@ -217,18 +217,18 @@ namespace ZeroInstall.Store.Model
             feed.Normalize(Test1Uri);
 
             var implementation = feed.Elements[0];
-            Assert.AreEqual(new Architecture(OS.FreeBsd, Cpu.I586), implementation.Architecture);
-            Assert.AreEqual("de", implementation.Languages.ToString());
-            Assert.AreEqual("GPL", implementation.License);
-            Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main1", implementation[Command.NameRun].Path);
+            implementation.Architecture.Should().Be(new Architecture(OS.FreeBsd, Cpu.I586));
+            implementation.Languages.ToString().Should().Be("de");
+            implementation.License.Should().Be("GPL");
+            implementation.Stability.Should().Be(Stability.Developer);
+            implementation[Command.NameRun].Path.Should().Be("main1");
 
             implementation = feed.Elements[1];
-            Assert.AreEqual(new Architecture(OS.FreeBsd, Cpu.I586), implementation.Architecture);
-            Assert.AreEqual("de", implementation.Languages.ToString());
-            Assert.AreEqual("GPL", implementation.License);
-            Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main2", implementation[Command.NameRun].Path);
+            implementation.Architecture.Should().Be(new Architecture(OS.FreeBsd, Cpu.I586));
+            implementation.Languages.ToString().Should().Be("de");
+            implementation.License.Should().Be("GPL");
+            implementation.Stability.Should().Be(Stability.Developer);
+            implementation[Command.NameRun].Path.Should().Be("main2");
         }
 
         /// <summary>
@@ -240,10 +240,10 @@ namespace ZeroInstall.Store.Model
             var feed = CreateTestFeed();
             feed.Strip();
 
-            Assert.IsEmpty(feed.Elements);
-            Assert.IsEmpty(feed.CapabilityLists);
-            Assert.IsEmpty(feed.UnknownAttributes);
-            Assert.IsEmpty(feed.UnknownElements);
+            feed.Elements.Should().BeEmpty();
+            feed.CapabilityLists.Should().BeEmpty();
+            feed.UnknownAttributes.Should().BeEmpty();
+            feed.UnknownElements.Should().BeEmpty();
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace ZeroInstall.Store.Model
 
                 feed.Normalize(new FeedUri(tempFile));
                 feedReload.Normalize(new FeedUri(tempFile));
-                Assert.AreEqual(feed.GetHashCode(), feedReload.GetHashCode());
+                feedReload.GetHashCode().Should().Be(feed.GetHashCode());
             }
         }
 
@@ -273,9 +273,9 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestImplementation(), feed["id1"]);
+            feed["id1"].Should().Be(CreateTestImplementation());
             // ReSharper disable once UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = feed["invalid"]; });
+            feed.Invoking(x => { var _ = x["invalid"]; }).ShouldThrow<KeyNotFoundException>();
         }
 
         /// <summary>
@@ -286,8 +286,8 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestFeed().EntryPoints[0], feed.GetEntryPoint());
-            Assert.IsNull(feed.GetEntryPoint("unknown"));
+            feed.GetEntryPoint().Should().Be(CreateTestFeed().EntryPoints[0]);
+            feed.GetEntryPoint("unknown").Should().BeNull();
         }
 
         /// <summary>
@@ -298,8 +298,8 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry name", feed.GetBestName(CultureInfo.InvariantCulture));
-            Assert.AreEqual(feed.Name + " unknown", feed.GetBestName(CultureInfo.InvariantCulture, "unknown"));
+            feed.GetBestName(CultureInfo.InvariantCulture).Should().Be("Entry name");
+            feed.GetBestName(CultureInfo.InvariantCulture, "unknown").Should().Be(feed.Name + " unknown");
         }
 
         /// <summary>
@@ -310,8 +310,8 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry summary", feed.GetBestSummary(CultureInfo.InvariantCulture));
-            Assert.AreEqual("Default summary", feed.GetBestSummary(CultureInfo.InvariantCulture, "unknown"));
+            feed.GetBestSummary(CultureInfo.InvariantCulture).Should().Be("Entry summary");
+            feed.GetBestSummary(CultureInfo.InvariantCulture, "unknown").Should().Be("Default summary");
         }
 
         /// <summary>
@@ -325,9 +325,9 @@ namespace ZeroInstall.Store.Model
             var feedIcon = new Icon {Href = new Uri("http://0install.de/feeds/images/test.png"), MimeType = Icon.MimeTypePng};
             var commandIcon = new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.png"), MimeType = Icon.MimeTypePng};
 
-            Assert.AreEqual(commandIcon, feed.GetIcon(Icon.MimeTypePng));
-            Assert.AreEqual(feedIcon, feed.GetIcon(Icon.MimeTypePng, "unknown"));
-            Assert.AreEqual(null, feed.GetIcon("wrong", "unknown"));
+            feed.GetIcon(Icon.MimeTypePng).Should().Be(commandIcon);
+            feed.GetIcon(Icon.MimeTypePng, "unknown").Should().Be(feedIcon);
+            feed.GetIcon("wrong", "unknown").Should().Be(null);
         }
     }
 }

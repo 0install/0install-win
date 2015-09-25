@@ -17,6 +17,7 @@
 
 using System.Globalization;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -32,9 +33,8 @@ namespace ZeroInstall.Services.Solvers
         [Test]
         public void GetEffectiveFillsInDefaultValues()
         {
-            Assert.AreEqual(
-                expected: new Requirements(new FeedUri("http://test/feed.xml"), Command.NameRun, Architecture.CurrentSystem) {Languages = {CultureInfo.CurrentUICulture}},
-                actual: new Requirements("http://test/feed.xml").GetEffective().First());
+            new Requirements("http://test/feed.xml").GetEffective().First()
+                .Should().Be(new Requirements(new FeedUri("http://test/feed.xml"), Command.NameRun, Architecture.CurrentSystem) {Languages = {CultureInfo.CurrentUICulture}});
         }
 
         [Test]
@@ -42,13 +42,10 @@ namespace ZeroInstall.Services.Solvers
         {
             if (Architecture.CurrentSystem.Cpu != Cpu.X64) Assert.Ignore("Can only test on X64 systems");
 
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}},
-                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.I686)) {Languages = {"fr"}}
-                },
-                actual: new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}}.GetEffective());
+            var requirements = new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}};
+            requirements.GetEffective().Should().Equal(
+                new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}},
+                new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.I686)) {Languages = {"fr"}});
         }
     }
 }

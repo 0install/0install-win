@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -66,9 +67,9 @@ namespace ZeroInstall.Store.Model.Capabilities
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(capabilityList1, capabilityList2, "Serialized objects should be equal.");
-            Assert.AreEqual(capabilityList1.GetHashCode(), capabilityList2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(capabilityList1, capabilityList2), "Serialized objects should not return the same reference.");
+            capabilityList2.Should().Be(capabilityList1, because: "Serialized objects should be equal.");
+            capabilityList2.GetHashCode().Should().Be(capabilityList1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            capabilityList2.Should().NotBeSameAs(capabilityList1, because: "Serialized objects should not return the same reference.");
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]
@@ -78,9 +79,9 @@ namespace ZeroInstall.Store.Model.Capabilities
             var capabilityList2 = capabilityList1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(capabilityList1, capabilityList2, "Cloned objects should be equal.");
-            Assert.AreEqual(capabilityList1.GetHashCode(), capabilityList2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(capabilityList1, capabilityList2), "Cloning should not return the same reference.");
+            capabilityList2.Should().Be(capabilityList1, because: "Cloned objects should be equal.");
+            capabilityList2.GetHashCode().Should().Be(capabilityList1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            capabilityList2.Should().NotBeSameAs(capabilityList1, because: "Cloning should not return the same reference.");
         }
     }
 }

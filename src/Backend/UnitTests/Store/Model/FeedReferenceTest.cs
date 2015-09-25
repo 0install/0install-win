@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -39,9 +40,9 @@ namespace ZeroInstall.Store.Model
             var reference2 = reference1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(reference1, reference2, "Cloned objects should be equal.");
-            Assert.AreEqual(reference1.GetHashCode(), reference2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(reference1, reference2), "Cloning should not return the same reference.");
+            reference2.Should().Be(reference1, because: "Cloned objects should be equal.");
+            reference2.GetHashCode().Should().Be(reference1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            ReferenceEquals(reference1, reference2).Should().BeFalse(because: "Cloning should not return the same reference.");
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace ZeroInstall.Store.Model
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = {"en-US"}
             };
-            Assert.AreEqual(reference1, reference2);
+            reference2.Should().Be(reference1);
 
             reference2 = new FeedReference
             {
@@ -70,14 +71,14 @@ namespace ZeroInstall.Store.Model
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = {"de-DE"}
             };
-            Assert.AreNotEqual(reference1, reference2);
+            reference2.Should().NotBe(reference1);
 
             reference2 = new FeedReference
             {
                 Source = FeedTest.Test1Uri,
                 Languages = {"en-US"}
             };
-            Assert.AreNotEqual(reference1, reference2);
+            reference2.Should().NotBe(reference1);
         }
     }
 }

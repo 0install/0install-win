@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -55,8 +56,7 @@ namespace ZeroInstall.Publish
                 string signedFeed = stream.ReadToString();
                 string expectedFeed = feed.ToXmlString() + Store.Feeds.FeedUtils.SignatureBlockStart +
                                       Convert.ToBase64String(signature) + "\n" + Store.Feeds.FeedUtils.SignatureBlockEnd;
-                Assert.AreEqual(expectedFeed, signedFeed,
-                    "Feed should remain unchanged except for appended XML signatre");
+                signedFeed.Should().Be(expectedFeed, because: "Feed should remain unchanged except for appended XML signatre");
             }
         }
 
@@ -74,8 +74,8 @@ namespace ZeroInstall.Publish
                 openPgpMock.Setup(x => x.ExportKey(_secretKey)).Returns(publicKey);
                 FeedUtils.DeployPublicKey(tempDir.Path, _secretKey, openPgpMock.Object);
 
-                Assert.AreEqual(publicKey, File.ReadAllText(tempDir + Path.DirectorySeparatorChar + _secretKey.FormatKeyID() + ".gpg"),
-                    "Public key should be written to parallel file in directory");
+                File.ReadAllText(tempDir + Path.DirectorySeparatorChar + _secretKey.FormatKeyID() + ".gpg")
+                    .Should().Be(publicKey, because: "Public key should be written to parallel file in directory");
             }
         }
     }

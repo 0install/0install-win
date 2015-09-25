@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -75,10 +76,8 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotExe()
         {
-            var candidate = new WindowsExe();
-            Assert.IsFalse(candidate.Analyze(
-                baseDirectory: Directory,
-                file: Deploy(PosixScriptTest.Reference, xbit: false)));
+            new WindowsExe().Analyze(baseDirectory: Directory, file: Deploy(PosixScriptTest.Reference, xbit: false))
+                .Should().BeFalse();
         }
     }
 }

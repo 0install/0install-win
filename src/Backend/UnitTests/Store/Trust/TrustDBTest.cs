@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -43,14 +44,14 @@ namespace ZeroInstall.Store.Trust
         public void TestAddRemoveTrust()
         {
             var trust = new TrustDB();
-            Assert.IsFalse(trust.IsTrusted("abc", new Domain("domain")));
+            trust.IsTrusted("abc", new Domain("domain")).Should().BeFalse();
 
             trust.TrustKey("abc", new Domain("domain"));
-            CollectionAssert.AreEqual(new[] {new Key {Fingerprint = "abc", Domains = {new Domain("domain")}}}, trust.Keys);
-            Assert.IsTrue(trust.IsTrusted("abc", new Domain("domain")));
+            trust.Keys.Should().Equal(new Key {Fingerprint = "abc", Domains = {new Domain("domain")}});
+            trust.IsTrusted("abc", new Domain("domain")).Should().BeTrue();
 
             trust.UntrustKey("abc", new Domain("domain"));
-            Assert.IsFalse(trust.IsTrusted("abc", new Domain("domain")));
+            trust.IsTrusted("abc", new Domain("domain")).Should().BeFalse();
         }
 
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
@@ -66,9 +67,9 @@ namespace ZeroInstall.Store.Trust
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(trust1, trust2, "Serialized objects should be equal.");
-            Assert.AreEqual(trust1.GetHashCode(), trust2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(trust1, trust2), "Serialized objects should not return the same reference.");
+            trust2.Should().Be(trust1, because: "Serialized objects should be equal.");
+            trust2.GetHashCode().Should().Be(trust1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            ReferenceEquals(trust1, trust2).Should().BeFalse(because: "Serialized objects should not return the same reference.");
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]
@@ -78,9 +79,9 @@ namespace ZeroInstall.Store.Trust
             var trust2 = trust1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(trust1, trust2, "Cloned objects should be equal.");
-            Assert.AreEqual(trust1.GetHashCode(), trust2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(trust1, trust2), "Cloning should not return the same reference.");
+            trust2.Should().Be(trust1, because: "Cloned objects should be equal.");
+            trust2.GetHashCode().Should().Be(trust1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            trust2.Should().NotBeSameAs(trust1, because: "Cloning should not return the same reference.");
         }
     }
 }

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -28,9 +29,9 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestFilterMismatch()
         {
-            Assert.IsFalse(FeedElement.FilterMismatch(new EntryPoint()));
-            Assert.IsFalse(FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}));
-            Assert.IsTrue(FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("..!0")}));
+            FeedElement.FilterMismatch(new EntryPoint()).Should().BeFalse();
+            FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}).Should().BeFalse();
+            FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("..!0")}).Should().BeTrue();
         }
     }
 }

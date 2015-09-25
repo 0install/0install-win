@@ -16,7 +16,7 @@
  */
 
 using System.IO;
-using System.Linq;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -39,12 +39,12 @@ namespace ZeroInstall.Store.Implementations
             {
                 if (UnixUtils.IsUnix)
                 {
-                    Assert.IsTrue(FlagUtils.IsUnixFS(tempDir));
+                    FlagUtils.IsUnixFS(tempDir).Should().BeTrue();
 
                     FlagUtils.MarkAsNoUnixFS(tempDir);
-                    Assert.IsFalse(FlagUtils.IsUnixFS(tempDir));
+                    FlagUtils.IsUnixFS(tempDir).Should().BeFalse();
                 }
-                else Assert.IsFalse(FlagUtils.IsUnixFS(tempDir));
+                else FlagUtils.IsUnixFS(tempDir).Should().BeFalse();
             }
         }
 
@@ -60,12 +60,14 @@ namespace ZeroInstall.Store.Implementations
 
                 var expectedResult = new[]
                 {
-                    new[] {flagDir, "dir1", "file1"}.Aggregate(Path.Combine),
-                    new[] {flagDir, "dir2", "file2"}.Aggregate(Path.Combine)
+                    Path.Combine(flagDir, "dir1", "file1"),
+                    Path.Combine(flagDir, "dir2", "file2")
                 };
 
-                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetFiles(FlagUtils.XbitFile, flagDir), "Should find .xbit file in same directory");
-                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetFiles(FlagUtils.XbitFile, Path.Combine(flagDir, "subdir")), "Should find .xbit file in parent directory");
+                FlagUtils.GetFiles(FlagUtils.XbitFile, flagDir)
+                    .Should().BeEquivalentTo(expectedResult, because: "Should find .xbit file in same directory");
+                FlagUtils.GetFiles(FlagUtils.XbitFile, Path.Combine(flagDir, "subdir"))
+                    .Should().BeEquivalentTo(expectedResult, because: "Should find .xbit file in parent directory");
             }
         }
 
@@ -78,10 +80,10 @@ namespace ZeroInstall.Store.Implementations
             using (var flagFile = new TemporaryFile("0install-unit-tests"))
             {
                 FlagUtils.Set(flagFile, Path.Combine("dir1", "file1"));
-                Assert.AreEqual("/dir1/file1\n", File.ReadAllText(flagFile));
+                File.ReadAllText(flagFile).Should().Be("/dir1/file1\n");
 
                 FlagUtils.Set(flagFile, Path.Combine("dir2", "file2"));
-                Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile));
+                File.ReadAllText(flagFile).Should().Be("/dir1/file1\n/dir2/file2\n");
             }
         }
 
@@ -96,13 +98,13 @@ namespace ZeroInstall.Store.Implementations
                 File.WriteAllText(flagFile, "/dir1/file1\n/dir2/file2\n");
 
                 FlagUtils.Remove(flagFile, "dir");
-                Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile), "Partial match should not change anything");
+                File.ReadAllText(flagFile).Should().Be("/dir1/file1\n/dir2/file2\n", because: "Partial match should not change anything");
 
                 FlagUtils.Remove(flagFile, Path.Combine("dir1", "file1"));
-                Assert.AreEqual("/dir2/file2\n", File.ReadAllText(flagFile));
+                File.ReadAllText(flagFile).Should().Be("/dir2/file2\n");
 
                 FlagUtils.Remove(flagFile, "dir2");
-                Assert.AreEqual("", File.ReadAllText(flagFile));
+                File.ReadAllText(flagFile).Should().Be("");
             }
         }
 
@@ -117,7 +119,7 @@ namespace ZeroInstall.Store.Implementations
                 File.WriteAllText(flagFile, "/dir/file1\n/dir/file2\n/dir2/file\n");
 
                 FlagUtils.Rename(flagFile, "dir", "new_dir");
-                Assert.AreEqual("/new_dir/file1\n/new_dir/file2\n/dir2/file\n", File.ReadAllText(flagFile));
+                File.ReadAllText(flagFile).Should().Be("/new_dir/file1\n/new_dir/file2\n/dir2/file\n");
             }
         }
     }

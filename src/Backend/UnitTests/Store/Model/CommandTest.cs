@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -96,17 +97,16 @@ namespace ZeroInstall.Store.Model
         public void TestCloneEquals()
         {
             var command1 = CreateTestCommand1();
-            Assert.AreEqual(command1, command1, "Equals() should be reflexive.");
-            Assert.AreEqual(command1.GetHashCode(), command1.GetHashCode(), "GetHashCode() should be reflexive.");
+            command1.Should().Be(command1, because: "Equals() should be reflexive.");
+            command1.GetHashCode().Should().Be(command1.GetHashCode(), because: "GetHashCode() should be reflexive.");
 
             var command2 = command1.Clone();
-            Assert.AreEqual(command1, command2, "Cloned objects should be equal.");
-            Assert.AreEqual(command1.GetHashCode(), command2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(command1, command2), "Cloning should not return the same reference.");
+            command2.Should().Be(command1, because: "Cloned objects should be equal.");
+            command2.GetHashCode().Should().Be(command1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            command2.Should().NotBeSameAs(command1, because: "Cloning should not return the same reference.");
 
             command2.Bindings.Add(new EnvironmentBinding());
-            Assert.AreNotEqual(command1, command2, "Modified objects should no longer be equal");
-            //Assert.AreNotEqual(command1.GetHashCode(), command2.GetHashCode(), "Modified objects' hashes should no longer be equal");
+            command2.Should().NotBe(command1, because: "Modified objects should no longer be equal");
         }
     }
 }

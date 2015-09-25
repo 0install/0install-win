@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using NUnit.Framework;
 
@@ -36,9 +37,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var archive = new TarInputStream(ArchiveReadStream))
             {
-                Assert.AreEqual(expected: "Z", actual: archive.GetNextEntry().Name);
-                Assert.AreEqual(expected: "x", actual: archive.GetNextEntry().Name);
-                Assert.AreEqual(expected: "y", actual: archive.GetNextEntry().Name);
+                archive.GetNextEntry().Name.Should().Be("Z");
+                archive.GetNextEntry().Name.Should().Be("x");
+                archive.GetNextEntry().Name.Should().Be("y");
             }
         }
 
@@ -47,27 +48,27 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = new TarInputStream(ArchiveReadStream))
             {
                 var executable = archive.GetNextEntry();
-                Assert.AreEqual(expected: "executable", actual: executable.Name);
-                Assert.AreEqual(expected: Timestamp, actual: executable.ModTime);
-                Assert.IsTrue((executable.TarHeader.Mode & TarExtractor.ExecuteMode) > 0);
+                executable.Name.Should().Be("executable");
+                executable.ModTime.Should().Be(Timestamp);
+                ((executable.TarHeader.Mode & TarExtractor.ExecuteMode) > 0).Should().BeTrue();
 
                 var normal = archive.GetNextEntry();
-                Assert.AreEqual(expected: "normal", actual: normal.Name);
-                Assert.AreEqual(expected: Timestamp, actual: normal.ModTime);
-                Assert.IsFalse((normal.TarHeader.Mode & TarExtractor.ExecuteMode) > 0);
+                normal.Name.Should().Be("normal");
+                normal.ModTime.Should().Be(Timestamp);
+                ((normal.TarHeader.Mode & TarExtractor.ExecuteMode) > 0).Should().BeFalse();
 
                 var symlink = archive.GetNextEntry();
-                Assert.AreEqual(expected: "symlink", actual: symlink.Name);
-                Assert.AreEqual(expected: TarHeader.LF_SYMLINK, actual: symlink.TarHeader.TypeFlag);
+                symlink.Name.Should().Be("symlink");
+                symlink.TarHeader.TypeFlag.Should().Be(TarHeader.LF_SYMLINK);
 
                 var directory = archive.GetNextEntry();
-                Assert.AreEqual(expected: "dir", actual: directory.Name);
-                Assert.IsTrue(directory.IsDirectory);
+                directory.Name.Should().Be("dir");
+                directory.IsDirectory.Should().BeTrue();
 
                 var sub = archive.GetNextEntry();
-                Assert.AreEqual(expected: "dir/sub", actual: sub.Name);
-                Assert.AreEqual(expected: Timestamp, actual: sub.ModTime);
-                Assert.IsFalse((sub.TarHeader.Mode & TarExtractor.ExecuteMode) > 0);
+                sub.Name.Should().Be("dir/sub");
+                sub.ModTime.Should().Be(Timestamp);
+                ((sub.TarHeader.Mode & TarExtractor.ExecuteMode) > 0).Should().BeFalse();
             }
         }
 
@@ -87,12 +88,12 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = new TarInputStream(ArchiveReadStream))
             {
                 var file = archive.GetNextEntry();
-                Assert.AreEqual(expected: "file", actual: file.Name);
+                file.Name.Should().Be("file");
 
                 var hardlink = archive.GetNextEntry();
-                Assert.AreEqual(expected: "hardlink", actual: hardlink.Name);
-                Assert.AreEqual(expected: TarHeader.LF_LINK, actual:hardlink.TarHeader.TypeFlag);
-                Assert.AreEqual(expected: "file", actual:hardlink.TarHeader.LinkName);
+                hardlink.Name.Should().Be("hardlink");
+                hardlink.TarHeader.TypeFlag.Should().Be(TarHeader.LF_LINK);
+                hardlink.TarHeader.LinkName.Should().Be("file");
             }
         }
     }

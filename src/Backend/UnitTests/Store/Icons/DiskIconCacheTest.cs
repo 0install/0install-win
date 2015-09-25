@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
@@ -55,9 +56,9 @@ namespace ZeroInstall.Store.Icons
         [Test]
         public void TestContains()
         {
-            Assert.IsTrue(_cache.Contains(new Uri("http://0install.de/feeds/images/test1.png")));
-            Assert.IsTrue(_cache.Contains(new Uri("http://0install.de/feeds/images/test2.png")));
-            Assert.IsFalse(_cache.Contains(new Uri("http://0install.de/feeds/test/test3.xml")));
+            _cache.Contains(new Uri("http://0install.de/feeds/images/test1.png")).Should().BeTrue();
+            _cache.Contains(new Uri("http://0install.de/feeds/images/test2.png")).Should().BeTrue();
+            _cache.Contains(new Uri("http://0install.de/feeds/test/test3.xml")).Should().BeFalse();
         }
 
         /// <summary>
@@ -67,7 +68,8 @@ namespace ZeroInstall.Store.Icons
         public void TestGetIconCached()
         {
             const string icon1 = "http://0install.de/feeds/images/test1.png";
-            Assert.AreEqual(Path.Combine(_tempDir, new FeedUri(icon1).Escape()), _cache.GetIcon(new Uri(icon1), new SilentTaskHandler()));
+            _cache.GetIcon(new Uri(icon1), new SilentTaskHandler())
+                .Should().Be(Path.Combine(_tempDir, new FeedUri(icon1).Escape()));
         }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace ZeroInstall.Store.Icons
             using (var server = new MicroServer("icon.png", iconData.ToStream()))
             {
                 string path = _cache.GetIcon(server.FileUri, new SilentTaskHandler());
-                Assert.AreEqual(iconData, File.ReadAllText(path));
+                File.ReadAllText(path).Should().Be(iconData);
             }
         }
 
@@ -99,7 +101,7 @@ namespace ZeroInstall.Store.Icons
                 File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));
 
                 string path = _cache.GetIcon(new Uri(server.FileUri + "-invalid"), new SilentTaskHandler());
-                Assert.AreEqual(iconData, File.ReadAllText(path));
+                File.ReadAllText(path).Should().Be(iconData);
             }
         }
 
@@ -110,8 +112,8 @@ namespace ZeroInstall.Store.Icons
         public void TestRemove()
         {
             _cache.Remove(new Uri("http://0install.de/feeds/images/test1.png"));
-            Assert.IsFalse(_cache.Contains(new Uri("http://0install.de/feeds/images/test1.png")));
-            Assert.IsTrue(_cache.Contains(new Uri("http://0install.de/feeds/images/test2.png")));
+            _cache.Contains(new Uri("http://0install.de/feeds/images/test1.png")).Should().BeFalse();
+            _cache.Contains(new Uri("http://0install.de/feeds/images/test2.png")).Should().BeTrue();
         }
     }
 }

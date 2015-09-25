@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -31,14 +32,14 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestToString()
         {
-            Assert.AreEqual("2.6", new VersionRange("2.6").ToString());
-            Assert.AreEqual("..!3", new VersionRange("..!3").ToString());
-            Assert.AreEqual("!3", new VersionRange("!3").ToString());
-            Assert.AreEqual("2.6..!3|3.2.2..", new VersionRange("2.6..!3 | 3.2.2..").ToString());
-            Assert.AreEqual("..!3|3.2.2..", new VersionRange("..!3 | 3.2.2..").ToString());
-            Assert.AreNotEqual("2.6..!3|3.2.2..", new VersionRange("2.6..!3|3.2.2..!3.3").ToString());
-            Assert.AreNotEqual("2.6..!3|3.2.2..", new VersionRange("2.6..|3.2.2..").ToString());
-            Assert.AreNotEqual("2.6..!3|3.2.2..", new VersionRange("..!3|3.2.2..").ToString());
+            new VersionRange("2.6").ToString().Should().Be("2.6");
+            new VersionRange("..!3").ToString().Should().Be("..!3");
+            new VersionRange("!3").ToString().Should().Be("!3");
+            new VersionRange("2.6..!3 | 3.2.2..").ToString().Should().Be("2.6..!3|3.2.2..");
+            new VersionRange("..!3 | 3.2.2..").ToString().Should().Be("..!3|3.2.2..");
+            new VersionRange("2.6..!3|3.2.2..!3.3").ToString().Should().NotBe("2.6..!3|3.2.2..");
+            new VersionRange("2.6..|3.2.2..").ToString().Should().NotBe("2.6..!3|3.2.2..");
+            new VersionRange("..!3|3.2.2..").ToString().Should().NotBe("2.6..!3|3.2.2..");
         }
 
         /// <summary>
@@ -47,14 +48,14 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestEquals()
         {
-            Assert.AreEqual(new VersionRange(new ImplementationVersion("2.6")), new VersionRange("2.6"));
-            Assert.AreEqual(new VersionRange(null, new ImplementationVersion("3")), new VersionRange("..!3"));
-            Assert.AreEqual(new VersionRange("!3"), new VersionRange("!3"));
-            Assert.AreEqual(new VersionRange("2.6..!3|3.2.2.."), new VersionRange("2.6..!3 | 3.2.2.."));
-            Assert.AreEqual(new VersionRange("..!3|3.2.2.."), new VersionRange("..!3 | 3.2.2.."));
-            Assert.AreNotEqual(new VersionRange("2.6..!3|3.2.2.."), new VersionRange("2.6..!3|3.2.2..!3.3"));
-            Assert.AreNotEqual(new VersionRange("2.6..!3|3.2.2.."), new VersionRange("2.6..|3.2.2.."));
-            Assert.AreNotEqual(new VersionRange("2.6..!3|3.2.2.."), new VersionRange("..!3|3.2.2.."));
+            new VersionRange("2.6").Should().Be(new VersionRange(new ImplementationVersion("2.6")));
+            new VersionRange("..!3").Should().Be(new VersionRange(null, new ImplementationVersion("3")));
+            new VersionRange("!3").Should().Be(new VersionRange("!3"));
+            new VersionRange("2.6..!3 | 3.2.2..").Should().Be(new VersionRange("2.6..!3|3.2.2.."));
+            new VersionRange("..!3 | 3.2.2..").Should().Be(new VersionRange("..!3|3.2.2.."));
+            new VersionRange("2.6..!3|3.2.2..!3.3").Should().NotBe(new VersionRange("2.6..!3|3.2.2.."));
+            new VersionRange("2.6..|3.2.2..").Should().NotBe(new VersionRange("2.6..!3|3.2.2.."));
+            new VersionRange("..!3|3.2.2..").Should().NotBe(new VersionRange("2.6..!3|3.2.2.."));
         }
 
         /// <summary>
@@ -63,18 +64,18 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestMatch()
         {
-            Assert.IsTrue(new VersionRange("1.2").Match(new ImplementationVersion("1.2")));
-            Assert.IsFalse(new VersionRange("1.2").Match(new ImplementationVersion("1.3")));
-            Assert.IsTrue(new VersionRange("!1.2").Match(new ImplementationVersion("1.3")));
-            Assert.IsFalse(new VersionRange("!1.2").Match(new ImplementationVersion("1.2")));
-            Assert.IsTrue(new VersionRange("1.2..").Match(new ImplementationVersion("1.2")));
-            Assert.IsFalse(new VersionRange("1.2..").Match(new ImplementationVersion("1.1")));
-            Assert.IsTrue(new VersionRange("..!1.2").Match(new ImplementationVersion("1.1")));
-            Assert.IsFalse(new VersionRange("..!1.2").Match(new ImplementationVersion("1.2")));
-            Assert.IsTrue(new VersionRange("1.0..!1.2").Match(new ImplementationVersion("1.0")));
-            Assert.IsTrue(new VersionRange("1.0..!1.2").Match(new ImplementationVersion("1.1")));
-            Assert.IsFalse(new VersionRange("1.0..!1.2").Match(new ImplementationVersion("0.9")));
-            Assert.IsFalse(new VersionRange("1.0..!1.2").Match(new ImplementationVersion("1.2")));
+            new VersionRange("1.2").Match(new ImplementationVersion("1.2")).Should().BeTrue();
+            new VersionRange("1.2").Match(new ImplementationVersion("1.3")).Should().BeFalse();
+            new VersionRange("!1.2").Match(new ImplementationVersion("1.3")).Should().BeTrue();
+            new VersionRange("!1.2").Match(new ImplementationVersion("1.2")).Should().BeFalse();
+            new VersionRange("1.2..").Match(new ImplementationVersion("1.2")).Should().BeTrue();
+            new VersionRange("1.2..").Match(new ImplementationVersion("1.1")).Should().BeFalse();
+            new VersionRange("..!1.2").Match(new ImplementationVersion("1.1")).Should().BeTrue();
+            new VersionRange("..!1.2").Match(new ImplementationVersion("1.2")).Should().BeFalse();
+            new VersionRange("1.0..!1.2").Match(new ImplementationVersion("1.0")).Should().BeTrue();
+            new VersionRange("1.0..!1.2").Match(new ImplementationVersion("1.1")).Should().BeTrue();
+            new VersionRange("1.0..!1.2").Match(new ImplementationVersion("0.9")).Should().BeFalse();
+            new VersionRange("1.0..!1.2").Match(new ImplementationVersion("1.2")).Should().BeFalse();
         }
 
         /// <summary>
@@ -84,37 +85,37 @@ namespace ZeroInstall.Store.Model
         public void TestIntersect()
         {
             var constraint = new Constraint {NotBefore = new ImplementationVersion("1"), Before = new ImplementationVersion("2")};
-            Assert.AreEqual(new VersionRange("1..!2"), new VersionRange().Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1..!2"), new VersionRange("..!3").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("2..!3").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1"), new VersionRange("1").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("3").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("2").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("0").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1..!2"), new VersionRange("!3").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1..!2"), new VersionRange("!2").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1..!2"), new VersionRange("!0").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("!1").Intersect(constraint));
+            new VersionRange().Intersect(constraint).Should().Be(new VersionRange("1..!2"));
+            new VersionRange("..!3").Intersect(constraint).Should().Be(new VersionRange("1..!2"));
+            new VersionRange("2..!3").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("1").Intersect(constraint).Should().Be(new VersionRange("1"));
+            new VersionRange("3").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("2").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("0").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("!3").Intersect(constraint).Should().Be(new VersionRange("1..!2"));
+            new VersionRange("!2").Intersect(constraint).Should().Be(new VersionRange("1..!2"));
+            new VersionRange("!0").Intersect(constraint).Should().Be(new VersionRange("1..!2"));
+            new VersionRange("!1").Intersect(constraint).Should().Be(VersionRange.None);
 
             constraint = new Constraint {Before = new ImplementationVersion("2")};
-            Assert.AreEqual(new VersionRange("..!2"), new VersionRange().Intersect(constraint));
-            Assert.AreEqual(new VersionRange("..!2"), new VersionRange("..!3").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("2..!3").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1"), new VersionRange("1").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("3").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("2").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("..!2"), new VersionRange("!3").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("..!2"), new VersionRange("!2").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("!1").Intersect(constraint));
+            new VersionRange().Intersect(constraint).Should().Be(new VersionRange("..!2"));
+            new VersionRange("..!3").Intersect(constraint).Should().Be(new VersionRange("..!2"));
+            new VersionRange("2..!3").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("1").Intersect(constraint).Should().Be(new VersionRange("1"));
+            new VersionRange("3").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("2").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("!3").Intersect(constraint).Should().Be(new VersionRange("..!2"));
+            new VersionRange("!2").Intersect(constraint).Should().Be(new VersionRange("..!2"));
+            new VersionRange("!1").Intersect(constraint).Should().Be(VersionRange.None);
 
             constraint = new Constraint {NotBefore = new ImplementationVersion("1")};
-            Assert.AreEqual(new VersionRange("1.."), new VersionRange().Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1..!3"), new VersionRange("..!3").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("2..!3"), new VersionRange("2..!3").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1"), new VersionRange("1").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("0").Intersect(constraint));
-            Assert.AreEqual(new VersionRange("1.."), new VersionRange("!0").Intersect(constraint));
-            Assert.AreEqual(VersionRange.None, new VersionRange("!1").Intersect(constraint));
+            new VersionRange().Intersect(constraint).Should().Be(new VersionRange("1.."));
+            new VersionRange("..!3").Intersect(constraint).Should().Be(new VersionRange("1..!3"));
+            new VersionRange("2..!3").Intersect(constraint).Should().Be(new VersionRange("2..!3"));
+            new VersionRange("1").Intersect(constraint).Should().Be(new VersionRange("1"));
+            new VersionRange("0").Intersect(constraint).Should().Be(VersionRange.None);
+            new VersionRange("!0").Intersect(constraint).Should().Be(new VersionRange("1.."));
+            new VersionRange("!1").Intersect(constraint).Should().Be(VersionRange.None);
         }
     }
 }

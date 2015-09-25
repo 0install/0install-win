@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Trust
@@ -35,41 +36,36 @@ namespace ZeroInstall.Store.Trust
         [Test]
         public void TestParseKeyID()
         {
-            Assert.AreEqual(
-                expected: TestKeyID,
-                actual: OpenPgpUtils.ParseKeyID(TestKeyIDString));
+            OpenPgpUtils.ParseKeyID(TestKeyIDString)
+                .Should().Be(TestKeyID);
         }
 
         [Test]
         public void TestParseFingerrpint()
         {
-            CollectionAssert.AreEqual(
-                expected: TestFingerprint,
-                actual: OpenPgpUtils.ParseFingerpint(TestFingerprintString));
+            OpenPgpUtils.ParseFingerpint(TestFingerprintString)
+                .Should().Equal(TestFingerprint);
         }
 
         [Test]
         public void TestFormatKeyID()
         {
-            Assert.AreEqual(
-                expected: TestKeyIDString,
-                actual: new ErrorSignature(TestKeyID).FormatKeyID());
+            new ErrorSignature(TestKeyID).FormatKeyID()
+                .Should().Be(TestKeyIDString);
         }
 
         [Test]
         public void TestFormatFingerprint()
         {
-            Assert.AreEqual(
-                expected: TestFingerprintString,
-                actual: new OpenPgpSecretKey(TestKeyID, TestFingerprint, "a@b.com").FormatFingerprint());
+            new OpenPgpSecretKey(TestKeyID, TestFingerprint, "a@b.com").FormatFingerprint()
+                .Should().Be(TestFingerprintString);
         }
 
         [Test]
         public void TestFingerprintToKeyID()
         {
-            Assert.AreEqual(
-                expected: OpenPgpUtils.ParseKeyID("DEED44B49BE24661"),
-                actual: OpenPgpUtils.FingerprintToKeyID(OpenPgpUtils.ParseFingerpint("E91FE1CBFCCF315543F6CB13DEED44B49BE24661")));
+            OpenPgpUtils.FingerprintToKeyID(OpenPgpUtils.ParseFingerpint("E91FE1CBFCCF315543F6CB13DEED44B49BE24661"))
+                .Should().Be(OpenPgpUtils.ParseKeyID("DEED44B49BE24661"));
         }
     }
 }

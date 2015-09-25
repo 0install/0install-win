@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -56,8 +57,7 @@ namespace ZeroInstall.Services
 
             var implementationSelections = Target.GetUncachedSelections(selections);
 
-            // Only the first implementation should be listed as uncached
-            CollectionAssert.AreEquivalent(new[] {selections.Implementations[0]}, implementationSelections);
+            implementationSelections.Should().BeEquivalentTo(new[] {selections.Implementations[0]}, because: "Only the first implementation should be listed as uncached");
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace ZeroInstall.Services
                 var implementationSelections = Target.GetUncachedSelections(selections);
 
                 // Only the first implementation should be listed as uncached
-                CollectionAssert.AreEquivalent(new[] {selections.Implementations[0]}, implementationSelections);
+                implementationSelections.Should().BeEquivalentTo(new[] {selections.Implementations[0]}, because: "Only the first implementation should be listed as uncached");
             }
         }
 
@@ -111,9 +111,8 @@ namespace ZeroInstall.Services
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Elements = {impl2}});
             _packageManagerMock.Setup(x => x.Lookup(implementationSelections[2])).Returns(impl3);
 
-            var implementations = Target.GetImplementations(implementationSelections);
-
-            CollectionAssert.AreEquivalent(new[] {impl1, impl2, impl3}, implementations);
+            Target.GetImplementations(implementationSelections)
+                .Should().BeEquivalentTo(impl1, impl2, impl3);
         }
     }
 }

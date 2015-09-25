@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -58,9 +59,8 @@ namespace ZeroInstall.Commands.CliCommands
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]
         public virtual void TestTooManyArgs()
         {
-            Assert.Throws<OptionException>(
-                () => Target.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}),
-                "Should reject more than one argument");
+            Target.Invoking(x => x.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}))
+                .ShouldThrow<OptionException>(because: "Should reject more than one argument");
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace ZeroInstall.Commands.CliCommands
             RunAndAssert(expectedOutput, expectedExitCode, args);
 
             var selections = Handler.LastSelections;
-            Assert.AreEqual(expectedSelections.InterfaceUri, selections.InterfaceUri);
-            Assert.AreEqual(expectedSelections.Command, selections.Command);
-            CollectionAssert.AreEqual(expectedSelections.Implementations, selections.Implementations);
+            selections.InterfaceUri.Should().Be(expectedSelections.InterfaceUri);
+            selections.Command.Should().Be(expectedSelections.Command);
+            selections.Implementations.Should().Equal(expectedSelections.Implementations);
         }
     }
 }

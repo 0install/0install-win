@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -31,15 +32,15 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestParseID()
         {
-            Assert.AreEqual("test", new ManifestDigest("sha1=test").Sha1);
-            Assert.AreEqual("test", new ManifestDigest("sha1new=test").Sha1New);
-            Assert.AreEqual("test", new ManifestDigest("sha256=test").Sha256);
-            Assert.AreEqual("test", new ManifestDigest("sha256new_test").Sha256New);
+            new ManifestDigest("sha1=test").Sha1.Should().Be("test");
+            new ManifestDigest("sha1new=test").Sha1New.Should().Be("test");
+            new ManifestDigest("sha256=test").Sha256.Should().Be("test");
+            new ManifestDigest("sha256new_test").Sha256New.Should().Be("test");
 
             // Once a digest value has been set, ID values shall not be able to overwrite it
             var digest = new ManifestDigest("sha1=test");
             digest.ParseID("sha1=test2");
-            Assert.AreEqual("test", digest.Sha1);
+            digest.Sha1.Should().Be("test");
         }
 
         /// <summary>
@@ -50,19 +51,19 @@ namespace ZeroInstall.Store.Model
         {
             var digest1 = new ManifestDigest(sha1: "test1");
             var digest2 = new ManifestDigest(sha1: "test1", sha1New: "test2");
-            Assert.IsTrue(digest1.PartialEquals(digest2));
+            digest1.PartialEquals(digest2).Should().BeTrue();
 
             digest1 = new ManifestDigest(sha1: "test1");
             digest2 = new ManifestDigest(sha1: "test2");
-            Assert.IsFalse(digest1.PartialEquals(digest2));
+            digest1.PartialEquals(digest2).Should().BeFalse();
 
             digest1 = new ManifestDigest(sha1: "test1");
             digest2 = new ManifestDigest(sha1New: "test2");
-            Assert.IsFalse(digest1.PartialEquals(digest2));
+            digest1.PartialEquals(digest2).Should().BeFalse();
 
             digest1 = new ManifestDigest(sha1New: "test1");
             digest2 = new ManifestDigest(sha256: "test2");
-            Assert.IsFalse(digest1.PartialEquals(digest2));
+            digest1.PartialEquals(digest2).Should().BeFalse();
         }
     }
 }

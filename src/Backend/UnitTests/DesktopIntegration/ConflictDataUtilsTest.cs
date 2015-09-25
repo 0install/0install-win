@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
@@ -71,7 +72,8 @@ namespace ZeroInstall.DesktopIntegration
             var appEntry2 = new AppEntry {Name = "App2", InterfaceUri = FeedTest.Test2Uri};
 
             var appList = new AppList {Entries = {appEntry1}};
-            Assert.Throws<ConflictException>(() => appList.CheckForConflicts(new[] {accessPointA}, appEntry2));
+            appList.Invoking(x => x.CheckForConflicts(new[] {accessPointA}, appEntry2))
+                .ShouldThrow<ConflictException>();
         }
 
         [Test]
@@ -80,13 +82,11 @@ namespace ZeroInstall.DesktopIntegration
             var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "b"}};
             var appEntry = new AppEntry {Name = "App"};
 
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new KeyValuePair<string, ConflictData>("mock:a", new ConflictData(accessPoints[0], appEntry)),
-                    new KeyValuePair<string, ConflictData>("mock:b", new ConflictData(accessPoints[1], appEntry))
-                },
-                actual: accessPoints.GetConflictData(appEntry));
+            accessPoints.GetConflictData(appEntry).Should().Equal(new Dictionary<string, ConflictData>()
+            {
+                {"mock:a", new ConflictData(accessPoints[0], appEntry)},
+                {"mock:b", new ConflictData(accessPoints[1], appEntry)}
+            });
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace ZeroInstall.DesktopIntegration
             var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "a"}};
             var appEntry = new AppEntry {Name = "App"};
 
-            Assert.Throws<ConflictException>(() => accessPoints.GetConflictData(appEntry));
+            accessPoints.Invoking(x => x.GetConflictData(appEntry)).ShouldThrow<ConflictException>();
         }
 
         [Test]
@@ -107,13 +107,11 @@ namespace ZeroInstall.DesktopIntegration
                 new AppEntry {Name = "App2", AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ID = "b"}}}}
             };
 
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new KeyValuePair<string, ConflictData>("mock:a", new ConflictData(appList[0].AccessPoints.Entries[0], appList[0])),
-                    new KeyValuePair<string, ConflictData>("mock:b", new ConflictData(appList[1].AccessPoints.Entries[0], appList[1]))
-                },
-                actual: appList.GetConflictData());
+            appList.GetConflictData().Should().Equal(new Dictionary<string, ConflictData>
+            {
+                {"mock:a", new ConflictData(appList[0].AccessPoints.Entries[0], appList[0])},
+                {"mock:b", new ConflictData(appList[1].AccessPoints.Entries[0], appList[1])}
+            });
         }
 
         [Test]
@@ -125,7 +123,7 @@ namespace ZeroInstall.DesktopIntegration
                 new AppEntry {Name = "App2", AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ID = "a"}}}}
             };
 
-            Assert.Throws<ConflictException>(() => appList.GetConflictData());
+            appList.Invoking(x => x.GetConflictData()).ShouldThrow<ConflictException>();
         }
     }
 }

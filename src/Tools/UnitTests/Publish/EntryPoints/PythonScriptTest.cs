@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -38,10 +39,8 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotExecutable()
         {
-            var candidate = new PythonScript();
-            Assert.IsFalse(candidate.Analyze(
-                baseDirectory: Directory,
-                file: Deploy(Reference, xbit: false)));
+            new PythonScript().Analyze(baseDirectory: Directory, file: Deploy(Reference, xbit: false))
+                .Should().BeFalse();
         }
 
         [Test]

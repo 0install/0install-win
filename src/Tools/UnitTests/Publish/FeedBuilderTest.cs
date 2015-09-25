@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -56,7 +57,7 @@ namespace ZeroInstall.Publish
         {
             _builder.ImplementationDirectory = _implementationDir;
             _builder.CalculateDigest(new SilentTaskHandler());
-            Assert.AreEqual(ManifestDigest.Empty, _builder.ManifestDigest);
+            _builder.ManifestDigest.Should().Be(ManifestDigest.Empty);
         }
 
         [Test]
@@ -94,28 +95,22 @@ namespace ZeroInstall.Publish
             _builder.SecretKey = new OpenPgpSecretKey(keyID: 123, fingerprint: new byte[] {1, 2, 3}, userID: "user");
             var signedFeed = _builder.Build();
 
-            Assert.AreEqual(expected: _builder.MainCandidate.Name, actual: signedFeed.Feed.Name);
-            Assert.AreEqual(expected: _builder.Uri, actual: signedFeed.Feed.Uri);
-            CollectionAssert.AreEqual(
-                expected: new LocalizableStringCollection {_builder.MainCandidate.Summary},
-                actual: signedFeed.Feed.Summaries);
-            Assert.AreEqual(expected: _builder.MainCandidate.NeedsTerminal, actual: signedFeed.Feed.NeedsTerminal);
-            CollectionAssert.AreEqual(
-                expected: new[]
+            signedFeed.Feed.Name.Should().Be(_builder.MainCandidate.Name);
+            signedFeed.Feed.Uri.Should().Be(_builder.Uri);
+            signedFeed.Feed.Summaries.Should().Equal(new LocalizableStringCollection {_builder.MainCandidate.Summary});
+            signedFeed.Feed.NeedsTerminal.Should().Be(_builder.MainCandidate.NeedsTerminal);
+            signedFeed.Feed.Elements.Should().Equal(
+                new Implementation
                 {
-                    new Implementation
-                    {
-                        ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
-                        ManifestDigest = ManifestDigest.Empty,
-                        Version = _builder.MainCandidate.Version,
-                        Architecture = _builder.MainCandidate.Architecture,
-                        Commands = {new Command {Name = Command.NameRun, Path = "test"}},
-                        RetrievalMethods = {_builder.RetrievalMethod}
-                    }
-                },
-                actual: signedFeed.Feed.Elements);
-            CollectionAssert.AreEqual(expected: _builder.Icons, actual: signedFeed.Feed.Icons);
-            Assert.AreEqual(expected: _builder.SecretKey, actual: signedFeed.SecretKey);
+                    ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
+                    ManifestDigest = ManifestDigest.Empty,
+                    Version = _builder.MainCandidate.Version,
+                    Architecture = _builder.MainCandidate.Architecture,
+                    Commands = {new Command {Name = Command.NameRun, Path = "test"}},
+                    RetrievalMethods = {_builder.RetrievalMethod}
+                });
+            signedFeed.Feed.Icons.Should().Equal(_builder.Icons);
+            signedFeed.SecretKey.Should().Be(_builder.SecretKey);
         }
 
         [Test]
@@ -125,14 +120,14 @@ namespace ZeroInstall.Publish
             var tempDir2 = new TemporaryDirectory("0install-unit-tests");
 
             _builder.TemporaryDirectory = tempDir1;
-            Assert.IsTrue(Directory.Exists(tempDir1), "Directory should exist");
+            Directory.Exists(tempDir1).Should().BeTrue(because: "Directory should exist");
 
             _builder.TemporaryDirectory = tempDir2;
-            Assert.IsFalse(Directory.Exists(tempDir1), "Directory should be auto-disposed when replaced with a new one");
-            Assert.IsTrue(Directory.Exists(tempDir2), "Directory should exist");
+            Directory.Exists(tempDir1).Should().BeFalse(because: "Directory should be auto-disposed when replaced with a new one");
+            Directory.Exists(tempDir2).Should().BeTrue(because: "Directory should exist");
 
             _builder.Dispose();
-            Assert.IsFalse(Directory.Exists(tempDir2), "Directory should be disposed together with FeedBuilder");
+            Directory.Exists(tempDir2).Should().BeFalse(because: "Directory should be disposed together with FeedBuilder");
         }
     }
 }

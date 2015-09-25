@@ -16,6 +16,7 @@
  */
 
 using System.Xml.Serialization;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -53,13 +54,13 @@ namespace ZeroInstall.Store.Model
             var dataChildAttibChange = XmlStorage.FromXmlString<XmlUnknownStub>("<root key1=\"value1\" key2=\"value2\"><element key=\"value\">text<child1 key=\"value\" /><child2 key=\"valueX\" /></element></root>");
             var dataTextChange = XmlStorage.FromXmlString<XmlUnknownStub>("<root key1=\"value1\" key2=\"value2\"><element key=\"value\">new text<child1 key=\"value\" /><child2 key=\"value\" /></element></root>");
 
-            Assert.AreEqual(dataBase, dataBase);
-            Assert.AreEqual(dataBase, dataAttribSwap);
-            Assert.AreEqual(dataBase.GetHashCode(), dataAttribSwap.GetHashCode());
-            Assert.AreNotEqual(dataBase, dataChildSwap);
-            Assert.AreNotEqual(dataBase, dataAttibChange);
-            Assert.AreNotEqual(dataBase, dataChildAttibChange);
-            Assert.AreNotEqual(dataBase, dataTextChange);
+            dataBase.Should().Be(dataBase);
+            dataAttribSwap.Should().Be(dataBase);
+            dataAttribSwap.GetHashCode().Should().Be(dataBase.GetHashCode());
+            dataChildSwap.Should().NotBe(dataBase);
+            dataAttibChange.Should().NotBe(dataBase);
+            dataChildAttibChange.Should().NotBe(dataBase);
+            dataTextChange.Should().NotBe(dataBase);
         }
     }
 }

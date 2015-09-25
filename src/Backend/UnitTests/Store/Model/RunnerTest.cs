@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -50,9 +51,9 @@ namespace ZeroInstall.Store.Model
             var runner2 = runner1.CloneRunner();
 
             // Ensure data stayed the same
-            Assert.AreEqual(runner1, runner2, "Cloned objects should be equal.");
-            Assert.AreEqual(runner1.GetHashCode(), runner2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(runner1, runner2), "Cloning should not return the same reference.");
+            runner2.Should().Be(runner1, because: "Cloned objects should be equal.");
+            runner2.GetHashCode().Should().Be(runner1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            runner2.Should().NotBeSameAs(runner1, because: "Cloning should not return the same reference.");
         }
     }
 }

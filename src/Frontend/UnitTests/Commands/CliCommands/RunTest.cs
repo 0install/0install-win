@@ -18,7 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -111,7 +111,8 @@ namespace ZeroInstall.Commands.CliCommands
         [Test]
         public void TestGetCanonicalUriRemote()
         {
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc());
+            Target.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc()
+                .Should().Be("http://0install.de/feeds/test/test1.xml");
         }
 
         [Test]
@@ -123,27 +124,25 @@ namespace ZeroInstall.Commands.CliCommands
             // Absolute paths
             if (WindowsUtils.IsWindows)
             {
-                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalUri(@"C:\test\file").ToStringRfc());
-                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc());
-                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc());
+                Target.GetCanonicalUri(@"C:\test\file").ToStringRfc().Should().Be(@"C:\test\file");
+                Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc().Should().Be(@"C:\test\file");
+                Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc().Should().Be(@"C:\test\file");
             }
             if (UnixUtils.IsUnix)
             {
-                Assert.AreEqual("/test/file", Target.GetCanonicalUri("/test/file").ToStringRfc());
-                Assert.AreEqual("/test/file", Target.GetCanonicalUri("file:///test/file").ToStringRfc());
+                Target.GetCanonicalUri("/test/file").ToStringRfc().Should().Be("/test/file");
+                Target.GetCanonicalUri("file:///test/file").ToStringRfc().Should().Be("/test/file");
             }
 
             // Relative paths
-            Assert.AreEqual(
-                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                actual: Target.GetCanonicalUri(Path.Combine("test", "file")).ToString());
-            Assert.AreEqual(
-                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                actual: Target.GetCanonicalUri("file:test/file").ToString());
+            Target.GetCanonicalUri(Path.Combine("test", "file")).ToString().Should().Be(
+                Path.Combine(Environment.CurrentDirectory, "test", "file"));
+            Target.GetCanonicalUri("file:test/file").ToString().Should().Be(
+                Path.Combine(Environment.CurrentDirectory, "test", "file"));
 
             // Invalid paths
-            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("file:/test/file"));
-            if (WindowsUtils.IsWindows) Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri(":::"));
+            Target.Invoking(x => x.GetCanonicalUri("file:/test/file")).ShouldThrow<UriFormatException>();
+            if (WindowsUtils.IsWindows) Target.Invoking(x => x.GetCanonicalUri(":::")).ShouldThrow<UriFormatException>();
         }
 
         [Test]
@@ -162,17 +161,15 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }.SaveXml(AppList.GetDefaultPath());
 
-            Assert.AreEqual(FeedTest.Test1Uri, Target.GetCanonicalUri("alias:test"));
-            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("alias:invalid"));
+            Target.GetCanonicalUri("alias:test").Should().Be(FeedTest.Test1Uri);
+            Target.Invoking(x => x.GetCanonicalUri("alias:invalid")).ShouldThrow<UriFormatException>();
         }
 
         [Test]
         public void TestGetCanonicalUriCatalogCached()
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
-            Assert.AreEqual(
-                expected: FeedTest.Test1Uri,
-                actual: Target.GetCanonicalUri("MyApp"));
+            Target.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
         }
 
         [Test]
@@ -180,9 +177,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog());
             CatalogManagerMock.Setup(x => x.GetOnline()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
-            Assert.AreEqual(
-                expected: FeedTest.Test1Uri,
-                actual: Target.GetCanonicalUri("MyApp"));
+            Target.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
         }
     }
 }

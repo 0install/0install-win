@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -41,14 +42,14 @@ namespace ZeroInstall.Store.Management
             var feeds = new[] {feed1, feed2};
 
             Feed feed;
-            Assert.AreEqual(implementation1, feeds.GetImplementation(digest1, out feed));
-            Assert.AreEqual(feed1, feed);
+            feeds.GetImplementation(digest1, out feed).Should().Be(implementation1);
+            feed.Should().Be(feed1);
 
-            Assert.AreEqual(implementation2, feeds.GetImplementation(digest2, out feed));
-            Assert.AreEqual(feed2, feed);
+            feeds.GetImplementation(digest2, out feed).Should().Be(implementation2);
+            feed.Should().Be(feed2);
 
-            Assert.IsNull(feeds.GetImplementation(new ManifestDigest(sha256: "invalid"), out feed), "No implementation should have been found");
-            Assert.IsNull(feed, "No feed should have been found");
+            feeds.GetImplementation(new ManifestDigest(sha256: "invalid"), out feed).Should().BeNull(because: "No implementation should have been found");
+            feed.Should().BeNull(because: "No feed should have been found");
         }
     }
 }

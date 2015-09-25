@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model.Selection
@@ -53,13 +54,13 @@ namespace ZeroInstall.Store.Model.Selection
         {
             var implementation = CreateTestSelections();
 
-            Assert.AreEqual(implementation.Implementations[0], implementation.GetImplementation(FeedTest.Test1Uri));
-            Assert.AreEqual(implementation.Implementations[0], implementation[FeedTest.Test1Uri]);
+            implementation.GetImplementation(FeedTest.Test1Uri).Should().Be(implementation.Implementations[0]);
+            implementation[FeedTest.Test1Uri].Should().Be(implementation.Implementations[0]);
 
-            // ReSharper disable UnusedVariable
-            Assert.IsNull(implementation.GetImplementation(new FeedUri("http://invalid/")));
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation[new FeedUri("http://invalid/")]; });
-            // ReSharper restore UnusedVariable
+            implementation.GetImplementation(new FeedUri("http://invalid/")).Should().BeNull();
+
+            // ReSharper disable once UnusedVariable
+            implementation.Invoking(x => { var _ = x[new FeedUri("http://invalid/")]; }).ShouldThrow<KeyNotFoundException>();
         }
     }
 }

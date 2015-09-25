@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -59,10 +60,11 @@ namespace ZeroInstall.DesktopIntegration
             var target = new FeedTarget(FeedTest.Test1Uri, new Feed {Name = "Test", CapabilityLists = {capabilityList}});
             _integrationManager.AddApp(target);
 
-            var expectedAppEntry = new AppEntry {InterfaceUri = FeedTest.Test1Uri, Name = target.Feed.Name, CapabilityLists = {capabilityList}};
-            CollectionAssert.AreEqual(new[] {expectedAppEntry}, _integrationManager.AppList.Entries);
+            _integrationManager.AppList.Entries
+                .Should().Equal(new AppEntry {InterfaceUri = FeedTest.Test1Uri, Name = target.Feed.Name, CapabilityLists = {capabilityList}});
 
-            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddApp(target), "Do not allow adding applications to AppList more than once.");
+            _integrationManager.Invoking(x => x.AddApp(target))
+                .ShouldThrow<InvalidOperationException>(because: "Do not allow adding applications to AppList more than once.");
         }
 
         [Test]
@@ -77,10 +79,11 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry.AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {UnapplyFlagPath = unapplyFlag}}};
 
                 _integrationManager.RemoveApp(appEntry);
-                Assert.IsEmpty(_integrationManager.AppList.Entries);
+                _integrationManager.AppList.Entries.Should().BeEmpty();
 
-                Assert.IsTrue(unapplyFlag.Set, "Access points should be unapplied when their AppEntry is removed");
-                Assert.DoesNotThrow(() => _integrationManager.RemoveApp(appEntry), "Allow multiple removals of applications.");
+                unapplyFlag.Set.Should().BeTrue(because: "Access points should be unapplied when their AppEntry is removed");
+                _integrationManager.Invoking(x => x.RemoveApp(appEntry))
+                    .ShouldNotThrow(because: "Allow multiple removals of applications.");
             }
         }
 
@@ -96,22 +99,24 @@ namespace ZeroInstall.DesktopIntegration
                 var accessPoints1 = new AccessPoint[] {new MockAccessPoint {ID = "id1", Capability = "my_ext1", ApplyFlagPath = applyFlag1}};
                 var accessPoints2 = new AccessPoint[] {new MockAccessPoint {ID = "id2", Capability = "my_ext2", ApplyFlagPath = applyFlag2}};
 
-                Assert.AreEqual(0, _integrationManager.AppList.Entries.Count);
+                _integrationManager.AppList.Entries.Count.Should().Be(0);
                 var appEntry1 = _integrationManager.AddApp(new FeedTarget(FeedTest.Test1Uri, feed1));
                 _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints1);
-                Assert.AreEqual(1, _integrationManager.AppList.Entries.Count, "Should implicitly create missing AppEntries");
-                Assert.IsTrue(applyFlag1.Set, "Should apply AccessPoint");
+                _integrationManager.AppList.Entries.Count.Should().Be(1, because: "Should implicitly create missing AppEntries");
+                applyFlag1.Set.Should().BeTrue(because: "Should apply AccessPoint");
                 applyFlag1.Set = false;
 
-                Assert.DoesNotThrow(() => _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints1), "Duplicate access points should be silently reapplied");
-                Assert.IsTrue(applyFlag1.Set, "Duplicate access points should be silently reapplied");
+                _integrationManager.Invoking(x => x.AddAccessPoints(appEntry1, feed1, accessPoints1))
+                    .ShouldNotThrow(because: "Duplicate access points should be silently reapplied");
+                applyFlag1.Set.Should().BeTrue(because: "Duplicate access points should be silently reapplied");
 
                 _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints2);
                 applyFlag2.Set = false;
 
                 var appEntry2 = _integrationManager.AddApp(new FeedTarget(FeedTest.Test2Uri, feed2));
-                Assert.Throws<ConflictException>(() => _integrationManager.AddAccessPoints(appEntry2, feed2, accessPoints2), "Should prevent access point conflicts");
-                Assert.IsFalse(applyFlag2.Set, "Should prevent access point conflicts");
+                _integrationManager.Invoking(x => x.AddAccessPoints(appEntry2, feed2, accessPoints2))
+                    .ShouldThrow<ConflictException>(because: "Should prevent access point conflicts");
+                applyFlag2.Set.Should().BeFalse(because: "Should prevent access point conflicts");
             }
         }
 
@@ -130,11 +135,12 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry.AccessPoints = new AccessPointList {Entries = {accessPoint}};
 
                 _integrationManager.RemoveAccessPoints(appEntry, new[] {accessPoint});
-                Assert.IsEmpty(_integrationManager.AppList.Entries[0].AccessPoints.Entries);
+                _integrationManager.AppList.Entries[0].AccessPoints.Entries.Should().BeEmpty();
 
-                Assert.IsTrue(unapplyFlag.Set, "Unapply() should be called");
+                unapplyFlag.Set.Should().BeTrue(because: "Unapply() should be called");
 
-                Assert.DoesNotThrow(() => _integrationManager.RemoveAccessPoints(appEntry, new[] {accessPoint}), "Allow multiple removals of access points.");
+                _integrationManager.Invoking(x => x.RemoveAccessPoints(appEntry, new[] {accessPoint}))
+                    .ShouldNotThrow(because: "Allow multiple removals of access points.");
             }
         }
 
@@ -151,15 +157,17 @@ namespace ZeroInstall.DesktopIntegration
 
             var appEntry = _integrationManager.AddApp(new FeedTarget(FeedTest.Test1Uri, feed));
             _integrationManager.AddAccessPoints(appEntry, feed, accessPoints);
-            CollectionAssert.AreEquivalent(accessPoints, _integrationManager.AppList.Entries[0].AccessPoints.Entries, "All access points should be applied.");
+            _integrationManager.AppList.Entries[0].AccessPoints.Entries
+                .Should().Equal(accessPoints, because: "All access points should be applied.");
 
             // Modify feed
             feed.Name = "Test 2";
             capabilitiyList.Entries.RemoveLast();
 
             _integrationManager.UpdateApp(appEntry, feed);
-            Assert.AreEqual("Test 2", appEntry.Name);
-            CollectionAssert.AreEquivalent(new[] {accessPoints[0]}, _integrationManager.AppList.Entries[0].AccessPoints.Entries, "Only the first access point should be left.");
+            appEntry.Name.Should().Be("Test 2");
+            _integrationManager.AppList.Entries[0].AccessPoints.Entries
+                .Should().Equal(new[] {accessPoints[0]}, because: "Only the first access point should be left.");
         }
 
         [Test]
@@ -174,7 +182,7 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry.AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = applyFlag}}};
                 _integrationManager.Repair(uri => new Feed());
 
-                Assert.IsTrue(applyFlag.Set, "Access points should be reapplied");
+                applyFlag.Set.Should().BeTrue(because: "Access points should be reapplied");
             }
         }
     }

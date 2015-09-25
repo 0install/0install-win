@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model.Capabilities;
 
@@ -39,9 +40,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 }
             };
 
-            CollectionAssert.AreEqual(
-                expected: new[] {"progid:test1", "progid:test2"},
-                actual: capabilityRegistration.GetConflictIDs(appEntry));
+            capabilityRegistration.GetConflictIDs(appEntry)
+                .Should().Equal("progid:test1", "progid:test2");
         }
     }
 }

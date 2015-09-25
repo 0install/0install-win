@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -28,72 +29,72 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestConstructor()
         {
-            Assert.AreEqual(new Architecture(OS.All, Cpu.All), new Architecture("*-*"));
-            Assert.AreEqual(new Architecture(OS.Linux, Cpu.All), new Architecture("Linux-*"));
-            Assert.AreEqual(new Architecture(OS.All, Cpu.I686), new Architecture("*-i686"));
-            Assert.AreEqual(new Architecture(OS.Linux, Cpu.I686), new Architecture("Linux-i686"));
+            new Architecture("*-*").Should().Be(new Architecture(OS.All, Cpu.All));
+            new Architecture("Linux-*").Should().Be(new Architecture(OS.Linux, Cpu.All));
+            new Architecture("*-i686").Should().Be(new Architecture(OS.All, Cpu.I686));
+            new Architecture("Linux-i686").Should().Be(new Architecture(OS.Linux, Cpu.I686));
         }
 
         [Test]
         public void TestIsCompatible()
         {
-            Assert.IsTrue(new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)));
-            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I586).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
-            Assert.IsTrue(new Architecture(OS.MacOSX, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.I686)));
+            new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)).Should().BeTrue();
+            new Architecture(OS.Linux, Cpu.I586).IsCompatible(new Architecture(OS.Linux, Cpu.I586)).Should().BeTrue();
+            new Architecture(OS.MacOSX, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.I686)).Should().BeTrue();
 
-            Assert.IsFalse(new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Linux, Cpu.I486)));
-            Assert.IsFalse(new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Linux, Cpu.Ppc)));
+            new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Linux, Cpu.I486)).Should().BeFalse();
+            new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Linux, Cpu.Ppc)).Should().BeFalse();
         }
 
         [Test]
         public void TestIsCompatibleOS()
         {
             // Wildcard
-            Assert.IsTrue(OS.All.IsCompatible(OS.Windows));
-            Assert.IsTrue(OS.All.IsCompatible(OS.Linux));
-            Assert.IsTrue(OS.All.IsCompatible(OS.MacOSX));
+            OS.All.IsCompatible(OS.Windows).Should().BeTrue();
+            OS.All.IsCompatible(OS.Linux).Should().BeTrue();
+            OS.All.IsCompatible(OS.MacOSX).Should().BeTrue();
 
             // Mismatch
-            Assert.IsFalse(OS.Windows.IsCompatible(OS.Linux));
-            Assert.IsFalse(OS.Linux.IsCompatible(OS.Windows));
-            Assert.IsFalse(OS.MacOSX.IsCompatible(OS.Linux));
-            Assert.IsFalse(OS.Linux.IsCompatible(OS.MacOSX));
+            OS.Windows.IsCompatible(OS.Linux).Should().BeFalse();
+            OS.Linux.IsCompatible(OS.Windows).Should().BeFalse();
+            OS.MacOSX.IsCompatible(OS.Linux).Should().BeFalse();
+            OS.Linux.IsCompatible(OS.MacOSX).Should().BeFalse();
 
             // Superset
-            Assert.IsTrue(OS.Windows.IsCompatible(OS.Cygwin));
-            Assert.IsFalse(OS.Cygwin.IsCompatible(OS.Windows));
-            Assert.IsTrue(OS.Darwin.IsCompatible(OS.MacOSX));
-            Assert.IsFalse(OS.MacOSX.IsCompatible(OS.Darwin));
-            Assert.IsTrue(OS.Posix.IsCompatible(OS.Linux));
-            Assert.IsTrue(OS.Posix.IsCompatible(OS.Solaris));
-            Assert.IsTrue(OS.Posix.IsCompatible(OS.FreeBsd));
-            Assert.IsTrue(OS.Posix.IsCompatible(OS.Darwin));
-            Assert.IsTrue(OS.Posix.IsCompatible(OS.MacOSX));
-            Assert.IsTrue(OS.Posix.IsCompatible(OS.Posix));
-            Assert.IsFalse(OS.Posix.IsCompatible(OS.Windows));
+            OS.Windows.IsCompatible(OS.Cygwin).Should().BeTrue();
+            OS.Cygwin.IsCompatible(OS.Windows).Should().BeFalse();
+            OS.Darwin.IsCompatible(OS.MacOSX).Should().BeTrue();
+            OS.MacOSX.IsCompatible(OS.Darwin).Should().BeFalse();
+            OS.Posix.IsCompatible(OS.Linux).Should().BeTrue();
+            OS.Posix.IsCompatible(OS.Solaris).Should().BeTrue();
+            OS.Posix.IsCompatible(OS.FreeBsd).Should().BeTrue();
+            OS.Posix.IsCompatible(OS.Darwin).Should().BeTrue();
+            OS.Posix.IsCompatible(OS.MacOSX).Should().BeTrue();
+            OS.Posix.IsCompatible(OS.Posix).Should().BeTrue();
+            OS.Posix.IsCompatible(OS.Windows).Should().BeFalse();
         }
 
         [Test]
         public void TestIsCompatibleCpu()
         {
             // Wildcard
-            Assert.IsTrue(Cpu.All.IsCompatible(Cpu.I486));
-            Assert.IsTrue(Cpu.All.IsCompatible(Cpu.I586));
-            Assert.IsTrue(Cpu.All.IsCompatible(Cpu.I686));
+            Cpu.All.IsCompatible(Cpu.I486).Should().BeTrue();
+            Cpu.All.IsCompatible(Cpu.I586).Should().BeTrue();
+            Cpu.All.IsCompatible(Cpu.I686).Should().BeTrue();
 
             // Mismatch
-            Assert.IsFalse(Cpu.I686.IsCompatible(Cpu.Ppc));
-            Assert.IsFalse(Cpu.Ppc.IsCompatible(Cpu.I586));
+            Cpu.I686.IsCompatible(Cpu.Ppc).Should().BeFalse();
+            Cpu.Ppc.IsCompatible(Cpu.I586).Should().BeFalse();
 
             // x86-series backwards-compatibility
-            Assert.IsTrue(Cpu.I386.IsCompatible(Cpu.I686));
-            Assert.IsFalse(Cpu.I686.IsCompatible(Cpu.I386));
+            Cpu.I386.IsCompatible(Cpu.I686).Should().BeTrue();
+            Cpu.I686.IsCompatible(Cpu.I386).Should().BeFalse();
 
             // 32bit/64bit exclusion
-            Assert.IsFalse(Cpu.I386.IsCompatible(Cpu.X64));
-            Assert.IsFalse(Cpu.X64.IsCompatible(Cpu.I686));
-            Assert.IsFalse(Cpu.Ppc.IsCompatible(Cpu.Ppc64));
-            Assert.IsFalse(Cpu.Ppc64.IsCompatible(Cpu.Ppc));
+            Cpu.I386.IsCompatible(Cpu.X64).Should().BeFalse();
+            Cpu.X64.IsCompatible(Cpu.I686).Should().BeFalse();
+            Cpu.Ppc.IsCompatible(Cpu.Ppc64).Should().BeFalse();
+            Cpu.Ppc64.IsCompatible(Cpu.Ppc).Should().BeFalse();
         }
     }
 }

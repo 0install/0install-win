@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -58,9 +59,7 @@ namespace ZeroInstall.Services.Feeds
                 CatalogManager.SetSources(new[] {uri});
                 _trustManagerMock.Setup(x => x.CheckTrust(array, uri, null)).Returns(OpenPgpUtilsTest.TestSignature);
 
-                Assert.AreEqual(
-                    expected: catalog,
-                    actual: Target.GetOnline());
+                Target.GetOnline().Should().Be(catalog);
             }
         }
 
@@ -70,11 +69,9 @@ namespace ZeroInstall.Services.Feeds
             var catalog = CatalogTest.CreateTestCatalog();
             catalog.Normalize();
 
-            Assert.IsNull(Target.GetCached());
+            Target.GetCached().Should().BeNull();
             TestGetOnline();
-            Assert.AreEqual(
-                expected: catalog,
-                actual: Target.GetCached());
+            Target.GetCached().Should().Be(catalog);
         }
 
         private static readonly FeedUri _testSource = new FeedUri("http://localhost/test/");
@@ -82,44 +79,36 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void TestAddSourceExisting()
         {
-            Assert.IsFalse(Target.AddSource(CatalogManager.DefaultSource));
-            CollectionAssert.AreEqual(
-                expected: new[] {CatalogManager.DefaultSource},
-                actual: CatalogManager.GetSources());
+            Target.AddSource(CatalogManager.DefaultSource).Should().BeFalse();
+            CatalogManager.GetSources().Should().Equal(CatalogManager.DefaultSource);
         }
 
         [Test]
         public void TestAddSourceNew()
         {
-            Assert.IsTrue(Target.AddSource(_testSource));
-            CollectionAssert.AreEqual(
-                expected: new[] {CatalogManager.DefaultSource, _testSource},
-                actual: CatalogManager.GetSources());
+            Target.AddSource(_testSource).Should().BeTrue();
+            CatalogManager.GetSources().Should().Equal(CatalogManager.DefaultSource, _testSource);
         }
 
         [Test]
         public void TestRemoveSource()
         {
-            Assert.IsTrue(Target.RemoveSource(CatalogManager.DefaultSource));
-            CollectionAssert.IsEmpty(CatalogManager.GetSources());
+            Target.RemoveSource(CatalogManager.DefaultSource).Should().BeTrue();
+            CatalogManager.GetSources().Should().BeEmpty();
         }
 
         [Test]
         public void TestRemoveSourceMissing()
         {
-            Assert.IsFalse(Target.RemoveSource(_testSource));
-            CollectionAssert.AreEqual(
-                expected: new[] {CatalogManager.DefaultSource},
-                actual: CatalogManager.GetSources());
+            Target.RemoveSource(_testSource).Should().BeFalse();
+            CatalogManager.GetSources().Should().Equal(CatalogManager.DefaultSource);
         }
 
         [Test]
         public void TestSetSources()
         {
             CatalogManager.SetSources(new[] {_testSource});
-            CollectionAssert.AreEqual(
-                expected: new[] {_testSource},
-                actual: CatalogManager.GetSources());
+            CatalogManager.GetSources().Should().Equal(_testSource);
         }
     }
 }

@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -46,9 +47,9 @@ namespace ZeroInstall.Store.Model
             var singleFile2 = singleFile1.CloneRecipeStep();
 
             // Ensure data stayed the same
-            Assert.AreEqual(singleFile1, singleFile2, "Cloned objects should be equal.");
-            Assert.AreEqual(singleFile1.GetHashCode(), singleFile2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(singleFile1, singleFile2), "Cloning should not return the same reference.");
+            singleFile2.Should().Be(singleFile1, because: "Cloned objects should be equal.");
+            singleFile2.GetHashCode().Should().Be(singleFile1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            singleFile2.Should().NotBeSameAs(singleFile1, because: "Cloning should not return the same reference.");
         }
     }
 }

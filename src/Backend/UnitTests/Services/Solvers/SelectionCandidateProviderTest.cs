@@ -16,6 +16,7 @@
  */
 
 using System.Linq;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -57,12 +58,8 @@ namespace ZeroInstall.Services.Solvers
             _packageManagerMock.Setup(x => x.Query((PackageImplementation)mainFeed.Elements[1])).Returns(Enumerable.Empty<ExternalImplementation>());
 
             var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
-                },
-                actual: Target.GetSortedCandidates(requirements));
+            Target.GetSortedCandidates(requirements).Should().Equal(
+                new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
         [Test]
@@ -78,13 +75,9 @@ namespace ZeroInstall.Services.Solvers
             _feedManagerMock.Setup(x => x[FeedTest.Sub1Uri]).Returns(subFeed);
 
             var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new SelectionCandidate(FeedTest.Sub1Uri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
-                    new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
-                },
-                actual: Target.GetSortedCandidates(requirements));
+            Target.GetSortedCandidates(requirements).Should().Equal(
+                new SelectionCandidate(FeedTest.Sub1Uri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
+                new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
         [Test]
@@ -103,13 +96,9 @@ namespace ZeroInstall.Services.Solvers
             _feedManagerMock.Setup(x => x[FeedTest.Sub1Uri]).Returns(subFeed);
 
             var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new SelectionCandidate(FeedTest.Sub1Uri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
-                    new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
-                },
-                actual: Target.GetSortedCandidates(requirements));
+            Target.GetSortedCandidates(requirements).Should().Equal(
+                new SelectionCandidate(FeedTest.Sub1Uri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
+                new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
         [Test]
@@ -131,13 +120,9 @@ namespace ZeroInstall.Services.Solvers
                 _feedManagerMock.Setup(x => x[localUri]).Returns(subFeed);
 
                 var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
-                CollectionAssert.AreEqual(
-                    expected: new[]
-                    {
-                        new SelectionCandidate(localUri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
-                        new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
-                    },
-                    actual: Target.GetSortedCandidates(requirements));
+                Target.GetSortedCandidates(requirements).Should().Equal(
+                    new SelectionCandidate(localUri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
+                    new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
             }
         }
 
@@ -163,13 +148,9 @@ namespace ZeroInstall.Services.Solvers
                 _packageManagerMock.Setup(x => x.Query((PackageImplementation)mainFeed.Elements[1])).Returns(Enumerable.Empty<ExternalImplementation>());
 
                 var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
-                CollectionAssert.AreEqual(
-                    expected: new[]
-                    {
-                        new SelectionCandidate(localUri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
-                        new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
-                    },
-                    actual: Target.GetSortedCandidates(requirements));
+                Target.GetSortedCandidates(requirements).Should().Equal(
+                    new SelectionCandidate(localUri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
+                    new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
             }
         }
 
@@ -185,13 +166,9 @@ namespace ZeroInstall.Services.Solvers
 
             var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
 
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new SelectionCandidate(new FeedUri(FeedUri.FromDistributionPrefix + FeedTest.Test1Uri), new FeedPreferences(), nativeImplementation, requirements),
-                    new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements),
-                },
-                actual: Target.GetSortedCandidates(requirements));
+            Target.GetSortedCandidates(requirements).Should().Equal(
+                new SelectionCandidate(new FeedUri(FeedUri.FromDistributionPrefix + FeedTest.Test1Uri), new FeedPreferences(), nativeImplementation, requirements),
+                new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
         [Test]
@@ -206,9 +183,8 @@ namespace ZeroInstall.Services.Solvers
             var candidates = Target.GetSortedCandidates(requirements);
             var candidate = candidates.Single().ToSelection(candidates, requirements);
 
-            Assert.AreEqual(
-                expected: mainFeed.Elements[0],
-                actual: Target.LookupOriginalImplementation(candidate));
+            Target.LookupOriginalImplementation(candidate)
+                .Should().Be(mainFeed.Elements[0]);
         }
     }
 }

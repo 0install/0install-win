@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -50,17 +51,16 @@ namespace ZeroInstall.Store.Model
         public void TestCloneEquals()
         {
             var dependency1 = CreateTestDependency();
-            Assert.AreEqual(dependency1, dependency1, "Equals() should be reflexive.");
-            Assert.AreEqual(dependency1.GetHashCode(), dependency1.GetHashCode(), "GetHashCode() should be reflexive.");
+            dependency1.Should().Be(dependency1, because: "Equals() should be reflexive.");
+            dependency1.GetHashCode().Should().Be(dependency1.GetHashCode(), because: "GetHashCode() should be reflexive.");
 
             var dependency2 = dependency1.CloneDependency();
-            Assert.AreEqual(dependency1, dependency2, "Cloned objects should be equal.");
-            Assert.AreEqual(dependency1.GetHashCode(), dependency2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(dependency1, dependency2), "Cloning should not return the same reference.");
+            dependency2.Should().Be(dependency1, because: "Cloned objects should be equal.");
+            dependency2.GetHashCode().Should().Be(dependency1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            ReferenceEquals(dependency1, dependency2).Should().BeFalse(because: "Cloning should not return the same reference.");
 
             dependency2.Bindings.Add(new EnvironmentBinding());
-            Assert.AreNotEqual(dependency1, dependency2, "Modified objects should no longer be equal");
-            //Assert.AreNotEqual(dependency1.GetHashCode(), dependency2.GetHashCode(), "Modified objects' hashes should no longer be equal");
+            dependency2.Should().NotBe(dependency1, because: "Modified objects should no longer be equal");
         }
     }
 }

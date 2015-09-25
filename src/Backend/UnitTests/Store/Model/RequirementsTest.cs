@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -51,25 +52,23 @@ namespace ZeroInstall.Store.Model
             var requirements2 = requirements1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(requirements1, requirements2, "Cloned objects should be equal.");
-            Assert.AreEqual(requirements1.GetHashCode(), requirements2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(requirements1, requirements2), "Cloning should not return the same reference.");
+            requirements2.Should().Be(requirements1, because: "Cloned objects should be equal.");
+            requirements2.GetHashCode().Should().Be(requirements1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            requirements2.Should().NotBeSameAs(requirements1, because: "Cloning should not return the same reference.");
         }
 
         [Test(Description = "Ensures that the class can be serialized to a command-line argument string")]
         public void TestToCommandLineArgs()
         {
-            CollectionAssert.AreEqual(
-                expected: new[] {"--command", "command", "--os", "Windows", "--cpu", "i586", "--version-for", "http://0install.de/feeds/test/test1.xml", "1.0..!2.0", "--version-for", "http://0install.de/feeds/test/test2.xml", "2.0..!3.0", "http://0install.de/feeds/test/test1.xml"},
-                actual: CreateTestRequirements().ToCommandLineArgs());
+            CreateTestRequirements().ToCommandLineArgs()
+                .Should().Equal("--command", "command", "--os", "Windows", "--cpu", "i586", "--version-for", "http://0install.de/feeds/test/test1.xml", "1.0..!2.0", "--version-for", "http://0install.de/feeds/test/test2.xml", "2.0..!3.0", "http://0install.de/feeds/test/test1.xml");
         }
 
         [Test]
         public void TestJson()
         {
-            Assert.AreEqual(
-                expected: "{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test1.xml\":\"1.0..!2.0\",\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}",
-                actual: CreateTestRequirements().ToJsonString());
+            CreateTestRequirements().ToJsonString()
+                .Should().Be("{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test1.xml\":\"1.0..!2.0\",\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}");
         }
     }
 }

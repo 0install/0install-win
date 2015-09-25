@@ -17,6 +17,7 @@
 
 using System.IO;
 using System.Linq;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -38,23 +39,19 @@ namespace ZeroInstall.Publish.EntryPoints
             Deploy(PosixBinaryTest.Reference32, xbit: true);
 
             var candidates = Detection.ListCandidates(Directory).ToList();
-            CollectionAssert.AreEquivalent(
-                new Candidate[]
-                {
-                    DotNetExeTest.Reference,
-                    WindowsExeTest.Reference32,
-                    PythonScriptTest.Reference,
-                    PosixScriptTest.Reference,
-                    PosixBinaryTest.Reference32
-                },
-                candidates);
+            candidates.Should().BeEquivalentTo(
+                DotNetExeTest.Reference,
+                WindowsExeTest.Reference32,
+                PythonScriptTest.Reference,
+                PosixScriptTest.Reference,
+                PosixBinaryTest.Reference32);
         }
 
         [Test(Description = "Should not fail on empty files")]
         public void TestEmpty()
         {
             FileUtils.Touch(Path.Combine(Directory.FullName, "empty"));
-            Assert.IsEmpty(Detection.ListCandidates(Directory).ToList());
+            Detection.ListCandidates(Directory).Should().BeEmpty();
         }
     }
 }

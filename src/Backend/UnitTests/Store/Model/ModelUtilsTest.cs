@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NUnit.Framework;
 
@@ -14,12 +15,12 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestContainsTemplateVariables()
         {
-            Assert.IsFalse(ModelUtils.ContainsTemplateVariables(""));
-            Assert.IsFalse(ModelUtils.ContainsTemplateVariables("x"));
-            Assert.IsFalse(ModelUtils.ContainsTemplateVariables("}{"));
-            Assert.IsTrue(ModelUtils.ContainsTemplateVariables("{}"));
-            Assert.IsTrue(ModelUtils.ContainsTemplateVariables("{var}"));
-            Assert.IsTrue(ModelUtils.ContainsTemplateVariables("x{var}x"));
+            ModelUtils.ContainsTemplateVariables("").Should().BeFalse();
+            ModelUtils.ContainsTemplateVariables("x").Should().BeFalse();
+            ModelUtils.ContainsTemplateVariables("}{").Should().BeFalse();
+            ModelUtils.ContainsTemplateVariables("{}").Should().BeTrue();
+            ModelUtils.ContainsTemplateVariables("{var}").Should().BeTrue();
+            ModelUtils.ContainsTemplateVariables("x{var}x").Should().BeTrue();
         }
 
         [Test]
@@ -28,10 +29,11 @@ namespace ZeroInstall.Store.Model
             string absolutePath = WindowsUtils.IsWindows ? @"C:\local\subdir\file" : "/local/subdir/file";
 
             string result = ModelUtils.GetAbsolutePath("subdir/file", new FeedUri(WindowsUtils.IsWindows ? @"C:\local\" : "/local/"));
-            Assert.IsTrue(Path.IsPathRooted(result));
-            Assert.AreEqual(absolutePath, result);
+            Path.IsPathRooted(result).Should().BeTrue();
+            result.Should().Be(absolutePath);
 
-            Assert.AreEqual(absolutePath, ModelUtils.GetAbsolutePath(absolutePath), "Should ignore source if path is already absolute.");
+            ModelUtils.GetAbsolutePath(absolutePath)
+                .Should().Be(absolutePath, because: "Should ignore source if path is already absolute.");
         }
 
         [Test]
@@ -47,10 +49,11 @@ namespace ZeroInstall.Store.Model
             Uri absoluteHref = WindowsUtils.IsWindows ? new Uri("file:///C:/local/subdir/file") : new Uri("file:///local/subdir/file");
 
             var result = ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), new FeedUri(WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml"));
-            Assert.IsTrue(result.IsAbsoluteUri);
-            Assert.AreEqual(absoluteHref, result);
+            result.IsAbsoluteUri.Should().BeTrue();
+            result.Should().Be(absoluteHref);
 
-            Assert.AreEqual(absoluteHref, ModelUtils.GetAbsoluteHref(absoluteHref), "Should ignore source if href is already absolute.");
+            ModelUtils.GetAbsoluteHref(absoluteHref)
+                .Should().Be(absoluteHref, because: "Should ignore source if href is already absolute.");
         }
 
         [Test]

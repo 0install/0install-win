@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using FluentAssertions;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Values;
 using NUnit.Framework;
@@ -37,9 +38,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var archive = new ZipFile(ArchiveReadStream))
             {
-                Assert.AreEqual(expected: "Z", actual: archive[0].Name);
-                Assert.AreEqual(expected: "x", actual: archive[1].Name);
-                Assert.AreEqual(expected: "y", actual: archive[2].Name);
+                archive[0].Name.Should().Be("Z");
+                archive[1].Name.Should().Be("x");
+                archive[2].Name.Should().Be("y");
             }
         }
 
@@ -48,30 +49,30 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = new ZipFile(ArchiveReadStream))
             {
                 var executable = archive[0];
-                Assert.AreEqual(expected: "executable", actual: executable.Name);
-                Assert.IsTrue(executable.IsFile);
-                Assert.AreEqual(expected: Timestamp, actual: executable.DateTime);
-                Assert.IsTrue(executable.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes));
+                executable.Name.Should().Be("executable");
+                executable.IsFile.Should().BeTrue();
+                executable.DateTime.Should().Be(Timestamp);
+                executable.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes).Should().BeTrue();
 
                 var normal = archive[1];
-                Assert.AreEqual(expected: "normal", actual: normal.Name);
-                Assert.IsTrue(normal.IsFile);
-                Assert.AreEqual(expected: Timestamp, actual: normal.DateTime);
-                Assert.IsFalse(normal.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes));
+                normal.Name.Should().Be("normal");
+                normal.IsFile.Should().BeTrue();
+                normal.DateTime.Should().Be(Timestamp);
+                normal.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes).Should().BeFalse();
 
                 var symlink = archive[2];
-                Assert.AreEqual(expected: "symlink", actual: symlink.Name);
-                Assert.IsTrue(symlink.ExternalFileAttributes.HasFlag(ZipExtractor.SymlinkAttributes));
+                symlink.Name.Should().Be("symlink");
+                symlink.ExternalFileAttributes.HasFlag(ZipExtractor.SymlinkAttributes).Should().BeTrue();
 
                 var directory = archive[3];
-                Assert.AreEqual(expected: "dir/", actual: directory.Name);
-                Assert.IsTrue(directory.IsDirectory);
+                directory.Name.Should().Be("dir/");
+                directory.IsDirectory.Should().BeTrue();
 
                 var sub = archive[4];
-                Assert.AreEqual(expected: "dir/sub", actual: sub.Name);
-                Assert.IsTrue(sub.IsFile);
-                Assert.AreEqual(expected: Timestamp, actual: sub.DateTime);
-                Assert.IsFalse(sub.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes));
+                sub.Name.Should().Be("dir/sub");
+                sub.IsFile.Should().BeTrue();
+                sub.DateTime.Should().Be(Timestamp);
+                sub.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes).Should().BeFalse();
             }
         }
     }

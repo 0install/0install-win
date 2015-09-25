@@ -16,6 +16,7 @@
  */
 
 using System;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -67,7 +68,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 selections.SaveXml(tempFile);
                 Target.Parse(new string[] {tempFile});
-                Assert.Throws<NotSupportedException>(() => Target.Execute());
+                Target.Invoking(x => x.Execute()).ShouldThrow<NotSupportedException>();
             }
         }
     }

@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
@@ -72,8 +73,8 @@ namespace ZeroInstall.DesktopIntegration
 
                 TestSync(SyncResetMode.None, appListLocal, new AppList(), new AppList());
 
-                Assert.IsFalse(apApplied.Set, "Locally existing access point should not be reapplied");
-                Assert.IsFalse(apUnapplied.Set, "Locally existing access point should not be removed");
+                apApplied.Set.Should().BeFalse(because: "Locally existing access point should not be reapplied");
+                apUnapplied.Set.Should().BeFalse(because: "Locally existing access point should not be removed");
             }
         }
 
@@ -97,8 +98,8 @@ namespace ZeroInstall.DesktopIntegration
 
                 TestSync(SyncResetMode.None, new AppList(), appListServer.Clone(), appListServer);
 
-                Assert.IsFalse(apApplied.Set, "Locally removed access point should not be reapplied");
-                Assert.IsFalse(apUnapplied.Set, "Locally removed access point should not be unapplied again");
+                apApplied.Set.Should().BeFalse(because: "Locally removed access point should not be reapplied");
+                apUnapplied.Set.Should().BeFalse(because: "Locally removed access point should not be unapplied again");
             }
         }
 
@@ -136,10 +137,10 @@ namespace ZeroInstall.DesktopIntegration
 
                 TestSync(SyncResetMode.None, appListLocal, null, appListServer);
 
-                Assert.IsFalse(apLocalApplied.Set, "Up-to-date access point should not be reapplied");
-                Assert.IsFalse(apLocalUnapplied.Set, "Up-to-date access point should not be removed");
-                Assert.IsFalse(apRemoteApplied.Set, "Outdated access point should not be reapplied");
-                Assert.IsFalse(apRemoteUnapplied.Set, "Outdated access point should not be removed");
+                apLocalApplied.Set.Should().BeFalse(because: "Up-to-date access point should not be reapplied");
+                apLocalUnapplied.Set.Should().BeFalse(because: "Up-to-date access point should not be removed");
+                apRemoteApplied.Set.Should().BeFalse(because: "Outdated access point should not be reapplied");
+                apRemoteUnapplied.Set.Should().BeFalse(because: "Outdated access point should not be removed");
             }
         }
 
@@ -163,8 +164,8 @@ namespace ZeroInstall.DesktopIntegration
 
                 TestSync(SyncResetMode.None, new AppList(), new AppList(), appListRemote);
 
-                Assert.IsTrue(apApplied.Set, "New access point should be applied");
-                Assert.IsFalse(apUnapplied.Set, "New access point should not be unapplied");
+                apApplied.Set.Should().BeTrue(because: "New access point should be applied");
+                apUnapplied.Set.Should().BeFalse(because: "New access point should not be unapplied");
             }
         }
 
@@ -188,8 +189,8 @@ namespace ZeroInstall.DesktopIntegration
 
                 TestSync(SyncResetMode.None, appListLocal, appListLocal.Clone(), new AppList());
 
-                Assert.IsFalse(apApplied.Set, "Removed access point should not be reapplied");
-                Assert.IsTrue(apUnapplied.Set, "Removed point should be unapplied");
+                apApplied.Set.Should().BeFalse(because: "Removed access point should not be reapplied");
+                apUnapplied.Set.Should().BeTrue(because: "Removed point should be unapplied");
             }
         }
 
@@ -227,10 +228,10 @@ namespace ZeroInstall.DesktopIntegration
 
                 TestSync(SyncResetMode.None, appListLocal, null, appListServer);
 
-                Assert.IsFalse(apLocalApplied.Set, "Outdated access point should not be reapplied");
-                Assert.IsTrue(apLocalUnapplied.Set, "Outdated access point should be removed");
-                Assert.IsTrue(apRemoteApplied.Set, "New access point should be applied");
-                Assert.IsFalse(apRemoteUnapplied.Set, "New access point should not be unapplied");
+                apLocalApplied.Set.Should().BeFalse(because: "Outdated access point should not be reapplied");
+                apLocalUnapplied.Set.Should().BeTrue(because: "Outdated access point should be removed");
+                apRemoteApplied.Set.Should().BeTrue(because: "New access point should be applied");
+                apRemoteUnapplied.Set.Should().BeFalse(because: "New access point should not be unapplied");
             }
         }
 
@@ -260,8 +261,8 @@ namespace ZeroInstall.DesktopIntegration
 
             appListLocal = XmlStorage.LoadXml<AppList>(_appListPath);
             appListLast = XmlStorage.LoadXml<AppList>(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
-            Assert.AreEqual(appListLocal, appListServer, "Server and local data should be equal after sync");
-            Assert.AreEqual(appListLocal, appListLast, "Last sync snapshot and local data should be equal after sync");
+            appListServer.Should().Be(appListLocal, because: "Server and local data should be equal after sync");
+            appListLast.Should().Be(appListLocal, because: "Last sync snapshot and local data should be equal after sync");
         }
         #endregion
 
@@ -279,14 +280,14 @@ namespace ZeroInstall.DesktopIntegration
             using (var ap4Unapplied = new TemporaryFlagFile("ap4-unapplied"))
             {
                 TestSync(SyncResetMode.None, ap1Applied, ap1Unapplied, ap2Applied, ap2Unapplied, ap3Applied, ap3Unapplied, ap4Applied, ap4Unapplied);
-                Assert.IsFalse(ap1Applied.Set);
-                Assert.IsFalse(ap1Unapplied.Set);
-                Assert.IsFalse(ap2Applied.Set);
-                Assert.IsFalse(ap2Unapplied.Set);
-                Assert.IsTrue(ap3Applied.Set, "remote add: appEntry3");
-                Assert.IsFalse(ap3Unapplied.Set);
-                Assert.IsFalse(ap4Applied.Set);
-                Assert.IsTrue(ap4Unapplied.Set, "remote remove: appEntry4");
+                ap1Applied.Set.Should().BeFalse();
+                ap1Unapplied.Set.Should().BeFalse();
+                ap2Applied.Set.Should().BeFalse();
+                ap2Unapplied.Set.Should().BeFalse();
+                ap3Applied.Set.Should().BeTrue(because: "remote add: appEntry3");
+                ap3Unapplied.Set.Should().BeFalse();
+                ap4Applied.Set.Should().BeFalse();
+                ap4Unapplied.Set.Should().BeTrue(because: "remote remove: appEntry4");
             }
         }
 
@@ -303,14 +304,14 @@ namespace ZeroInstall.DesktopIntegration
             using (var ap4Unapplied = new TemporaryFlagFile("ap4-unapplied"))
             {
                 TestSync(SyncResetMode.Client, ap1Applied, ap1Unapplied, ap2Applied, ap2Unapplied, ap3Applied, ap3Unapplied, ap4Applied, ap4Unapplied);
-                Assert.IsFalse(ap1Applied.Set);
-                Assert.IsTrue(ap1Unapplied.Set, "undo: local add: appEntry1");
-                Assert.IsTrue(ap2Applied.Set, "undo: local remove: appEntry2");
-                Assert.IsFalse(ap2Unapplied.Set);
-                Assert.IsTrue(ap3Applied.Set, "remote add: appEntry3");
-                Assert.IsFalse(ap3Unapplied.Set);
-                Assert.IsFalse(ap4Applied.Set);
-                Assert.IsTrue(ap4Unapplied.Set, "remote remove: appEntry4");
+                ap1Applied.Set.Should().BeFalse();
+                ap1Unapplied.Set.Should().BeTrue(because: "undo: local add: appEntry1");
+                ap2Applied.Set.Should().BeTrue(because: "undo: local remove: appEntry2");
+                ap2Unapplied.Set.Should().BeFalse();
+                ap3Applied.Set.Should().BeTrue(because: "remote add: appEntry3");
+                ap3Unapplied.Set.Should().BeFalse();
+                ap4Applied.Set.Should().BeFalse();
+                ap4Unapplied.Set.Should().BeTrue(because: "remote remove: appEntry4");
             }
         }
 
@@ -327,14 +328,14 @@ namespace ZeroInstall.DesktopIntegration
             using (var ap4Unapplied = new TemporaryFlagFile("ap4-unapplied"))
             {
                 TestSync(SyncResetMode.Server, ap1Applied, ap1Unapplied, ap2Applied, ap2Unapplied, ap3Applied, ap3Unapplied, ap4Applied, ap4Unapplied);
-                Assert.IsFalse(ap1Applied.Set);
-                Assert.IsFalse(ap1Unapplied.Set);
-                Assert.IsFalse(ap2Applied.Set);
-                Assert.IsFalse(ap2Unapplied.Set);
-                Assert.IsFalse(ap3Applied.Set);
-                Assert.IsFalse(ap3Unapplied.Set);
-                Assert.IsFalse(ap4Applied.Set);
-                Assert.IsFalse(ap4Unapplied.Set);
+                ap1Applied.Set.Should().BeFalse();
+                ap1Unapplied.Set.Should().BeFalse();
+                ap2Applied.Set.Should().BeFalse();
+                ap2Unapplied.Set.Should().BeFalse();
+                ap3Applied.Set.Should().BeFalse();
+                ap3Unapplied.Set.Should().BeFalse();
+                ap4Applied.Set.Should().BeFalse();
+                ap4Unapplied.Set.Should().BeFalse();
             }
         }
 

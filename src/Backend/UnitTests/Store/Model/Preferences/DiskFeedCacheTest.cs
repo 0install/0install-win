@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -68,64 +69,62 @@ namespace ZeroInstall.Store.Model.Preferences
         [Test]
         public void TestContains()
         {
-            Assert.IsTrue(_cache.Contains(FeedTest.Test1Uri));
-            Assert.IsTrue(_cache.Contains(FeedTest.Test2Uri));
-            Assert.IsFalse(_cache.Contains(FeedTest.Test3Uri));
+            _cache.Contains(FeedTest.Test1Uri).Should().BeTrue();
+            _cache.Contains(FeedTest.Test2Uri).Should().BeTrue();
+            _cache.Contains(FeedTest.Test3Uri).Should().BeFalse();
 
             using (var localFeed = new TemporaryFile("0install-unit-tests"))
             {
                 _feed1.SaveXml(localFeed);
-                Assert.IsTrue(_cache.Contains(new FeedUri(localFeed)), "Should detect local feed files without them actually being in the cache");
+                _cache.Contains(new FeedUri(localFeed))
+                    .Should().BeTrue(because: "Should detect local feed files without them actually being in the cache");
             }
 
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-                Assert.IsFalse(_cache.Contains(new FeedUri(Path.Combine(tempDir, "feed.xml"))), "Should not detect phantom local feed files");
+            {
+                _cache.Contains(new FeedUri(Path.Combine(tempDir, "feed.xml")))
+                    .Should().BeFalse(because: "Should not detect phantom local feed files");
+            }
         }
 
         [Test]
         public void TestContainsCaseSensitive()
         {
-            Assert.IsTrue(_cache.Contains(new FeedUri("http://0install.de/feeds/test/test1.xml")));
-            Assert.IsFalse(_cache.Contains(new FeedUri("http://0install.de/feeds/test/Test1.xml")), "Should not be case-sensitive");
+            _cache.Contains(new FeedUri("http://0install.de/feeds/test/test1.xml")).Should().BeTrue();
+            _cache.Contains(new FeedUri("http://0install.de/feeds/test/Test1.xml")).Should().BeFalse(because: "Should not be case-sensitive");
         }
 
         [Test]
         public void TestListAll()
         {
-            var feeds = _cache.ListAll();
-            CollectionAssert.AreEqual(
-                new[] {FeedTest.Test1Uri, FeedTest.Test2Uri},
-                feeds);
+            _cache.ListAll().Should().Equal(FeedTest.Test1Uri, FeedTest.Test2Uri);
         }
 
         [Test]
         public void TestGetFeed()
         {
             var feed = _cache.GetFeed(_feed1.Uri);
-            Assert.AreEqual(_feed1, feed);
+            feed.Should().Be(_feed1);
 
             using (var localFeed = new TemporaryFile("0install-unit-tests"))
             {
                 _feed1.SaveXml(localFeed);
-                Assert.AreEqual(_feed1, _cache.GetFeed(new FeedUri(localFeed)), "Should provide local feed files without them actually being in the cache");
+                _cache.GetFeed(new FeedUri(localFeed))
+                    .Should().Be(_feed1, because: "Should provide local feed files without them actually being in the cache");
             }
         }
 
         [Test]
         public void TestGetFeedCaseSensitive()
         {
-            Assert.DoesNotThrow(() => _cache.GetFeed(new FeedUri("http://0install.de/feeds/test/test1.xml")));
-            Assert.Throws<KeyNotFoundException>(() => _cache.GetFeed(new FeedUri("http://0install.de/feeds/test/Test1.xml")), "Should not be case-sensitive");
+            _cache.Invoking(x => x.GetFeed(new FeedUri("http://0install.de/feeds/test/test1.xml"))).ShouldNotThrow<KeyNotFoundException>();
+            _cache.Invoking(x => x.GetFeed(new FeedUri("http://0install.de/feeds/test/Test1.xml"))).ShouldThrow<KeyNotFoundException>(because: "Should be case-sensitive");
         }
 
         [Test]
         public void TestGetSignatures()
         {
-            var result = new OpenPgpSignature[0];
-
-            var signatures = _cache.GetSignatures(FeedTest.Test1Uri);
-
-            CollectionAssert.AreEqual(signatures, result);
+            _cache.GetSignatures(FeedTest.Test1Uri).Should().BeEmpty();
         }
 
         [Test]
@@ -137,23 +136,22 @@ namespace ZeroInstall.Store.Model.Preferences
             _cache.Add(feed.Uri, feed.ToArray());
 
             feed.Normalize(feed.Uri);
-            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri));
+            _cache.GetFeed(feed.Uri).Should().Be(feed);
         }
 
         [Test]
         public void TestRemove()
         {
-            Assert.IsTrue(_cache.Contains(FeedTest.Test1Uri));
+            _cache.Contains(FeedTest.Test1Uri).Should().BeTrue();
             _cache.Remove(FeedTest.Test1Uri);
-            Assert.IsFalse(_cache.Contains(FeedTest.Test1Uri));
-            Assert.IsTrue(_cache.Contains(FeedTest.Test2Uri));
+            _cache.Contains(FeedTest.Test1Uri).Should().BeFalse();
+            _cache.Contains(FeedTest.Test2Uri).Should().BeTrue();
         }
 
         /// <summary>
         /// Ensures <see cref="DiskFeedCache"/> can handle feed URIs longer than the OSes maximum supported file path length.
         /// </summary>
-        // This feature has been removed to improve performance
-        //[Test]
+        [Test, Ignore("Slow")]
         public void TestTooLongFilename()
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("Windows systems have a specific upper limit to file path lengths");
@@ -168,11 +166,11 @@ namespace ZeroInstall.Store.Model.Preferences
             _cache.Add(feed.Uri, feed.ToArray());
 
             feed.Normalize(feed.Uri);
-            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri));
+            _cache.GetFeed(feed.Uri).Should().Be(feed);
 
-            Assert.IsTrue(_cache.Contains(feed.Uri));
+            _cache.Contains(feed.Uri).Should().BeTrue();
             _cache.Remove(feed.Uri);
-            Assert.IsFalse(_cache.Contains(feed.Uri));
+            _cache.Contains(feed.Uri).Should().BeFalse();
         }
     }
 }

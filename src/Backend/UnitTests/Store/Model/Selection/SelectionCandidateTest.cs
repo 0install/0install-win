@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model.Preferences;
 
@@ -30,46 +31,42 @@ namespace ZeroInstall.Store.Model.Selection
         public void TestIsSuitable()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
-                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).IsSuitable);
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun))
+                .IsSuitable.Should().BeTrue();
         }
 
         [Test]
         public void TestIsSuitableArchitecture()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
-                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun, implementation.Architecture)).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
-                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun, new Architecture(OS.FreeBsd, Cpu.Ppc))).IsSuitable);
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun, implementation.Architecture))
+                .IsSuitable.Should().BeTrue();
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun, new Architecture(OS.FreeBsd, Cpu.Ppc)))
+                .IsSuitable.Should().BeFalse();
         }
 
         [Test]
         public void TestIsSuitableVersionMismatch()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation,
-                new Requirements(FeedTest.Test1Uri, Command.NameRun)
-                {
-                    ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.1")}}
-                }).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation,
-                new Requirements(FeedTest.Test1Uri, Command.NameRun)
-                {
-                    ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.0")}}
-                }).IsSuitable);
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)
+            {
+                ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.1")}}
+            }).IsSuitable.Should().BeTrue();
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)
+            {
+                ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.0")}}
+            }).IsSuitable.Should().BeFalse();
         }
 
         [Test]
         public void TestIsSuitableBuggyInsecure()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri,
-                new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Buggy}}},
-                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri,
-                new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Insecure}}},
-                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).IsSuitable);
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Buggy}}}, implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun))
+                .IsSuitable.Should().BeFalse();
+            new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Insecure}}}, implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).
+                IsSuitable.Should().BeFalse();
         }
     }
 }

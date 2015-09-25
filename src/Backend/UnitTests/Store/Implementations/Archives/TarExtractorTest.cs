@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -113,11 +114,11 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = Extractor.Create(archive, _sandbox, mimeType))
                 extractor.Run();
 
-            Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
-            Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir1/regular"), "Correct last write time for file 'regular' should be set");
+            File.Exists("subdir1/regular").Should().BeTrue(because: "Should extract file 'regular'");
+            File.GetLastWriteTimeUtc("subdir1/regular").Should().Be(new DateTime(2000, 1, 1, 12, 0, 0), because: "Correct last write time for file 'regular' should be set");
 
-            Assert.IsTrue(File.Exists("subdir2/executable"), "Should extract file 'executable'");
-            Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir2/executable"), "Correct last write time for file 'executable' should be set");
+            File.Exists("subdir2/executable").Should().BeTrue(because: "Should extract file 'executable'");
+            File.GetLastWriteTimeUtc("subdir2/executable").Should().Be(new DateTime(2000, 1, 1, 12, 0, 0), because: "Correct last write time for file 'executable' should be set");
         }
     }
 
@@ -148,11 +149,11 @@ namespace ZeroInstall.Store.Implementations.Archives
                 extractor.Run();
 
             if (UnixUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
+                FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")).Should().BeTrue(because: "File 'executable' should be marked as executable");
             else
             {
                 string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox, FlagUtils.XbitFile)).Trim();
-                Assert.AreEqual("/subdir2/executable", xbitFileContent);
+                xbitFileContent.Should().Be("/subdir2/executable");
             }
         }
 
@@ -167,11 +168,10 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             string target;
             string source = Path.Combine(_sandbox, "symlink");
-            Assert.IsTrue(UnixUtils.IsUnix
-                ? FileUtils.IsSymlink(source, out target)
-                : CygwinUtils.IsSymlink(source, out target));
+            if (UnixUtils.IsUnix) FileUtils.IsSymlink(source, out target).Should().BeTrue();
+            else CygwinUtils.IsSymlink(source, out target).Should().BeTrue();
 
-            Assert.AreEqual("subdir1/regular", target, "Symlink should point to 'regular'");
+            target.Should().Be("subdir1/regular", because: "Symlink should point to 'regular'");
         }
 
         /// <summary>
@@ -183,9 +183,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
                 extractor.Run();
 
-            Assert.IsTrue(
-                FileUtils.AreHardlinked(Path.Combine(_sandbox, "subdir1", "regular"), Path.Combine(_sandbox, "hardlink")),
-                "'regular' and 'hardlink' should be hardlinked together");
+            FileUtils.AreHardlinked(Path.Combine(_sandbox, "subdir1", "regular"), Path.Combine(_sandbox, "hardlink"))
+                .Should().BeTrue(because: "'regular' and 'hardlink' should be hardlinked together");
         }
     }
 }

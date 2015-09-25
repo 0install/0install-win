@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -190,7 +191,7 @@ namespace ZeroInstall.Services.Fetchers
                     }
                 }
             });
-            Assert.IsTrue(installInvoked);
+            installInvoked.Should().BeTrue();
         }
 
         [Test]
@@ -198,7 +199,7 @@ namespace ZeroInstall.Services.Fetchers
         {
             bool installInvoked = false;
             Handler.AnswerQuestionWith = false;
-            Assert.Throws<OperationCanceledException>(() => Target.Fetch(new[]
+            Target.Invoking(x => x.Fetch(new[]
             {
                 new Implementation
                 {
@@ -212,8 +213,8 @@ namespace ZeroInstall.Services.Fetchers
                         }
                     }
                 }
-            }));
-            Assert.IsFalse(installInvoked);
+            })).ShouldThrow<OperationCanceledException>();
+            installInvoked.Should().BeFalse();
         }
 
         [Test]
@@ -234,7 +235,7 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             StoreMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
-            Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
+            Target.Invoking(x => x.Fetch(new[] {implementation})).ShouldThrow<NotSupportedException>();
         }
 
         [Test]
@@ -249,7 +250,7 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             StoreMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
-            Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
+            Target.Invoking(x => x.Fetch(new[] {implementation})).ShouldThrow<NotSupportedException>();
         }
 
         [Test]
@@ -264,7 +265,7 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             StoreMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
-            Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
+            Target.Invoking(x => x.Fetch(new[] {implementation})).ShouldThrow<NotSupportedException>();
         }
     }
 }

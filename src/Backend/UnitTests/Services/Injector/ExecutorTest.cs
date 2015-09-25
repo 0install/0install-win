@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
+using FluentAssertions;
 using Moq;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -59,7 +59,9 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestExceptionEmpty()
         {
-            Assert.Throws<ArgumentException>(() => new Executor(new Mock<IStore>(MockBehavior.Loose).Object).Start(new Selections()), "Empty selections should be rejected");
+            new Executor(new Mock<IStore>(MockBehavior.Loose).Object)
+                .Invoking(x => x.Start(new Selections()))
+                .ShouldThrow<ArgumentException>(because: "Empty selections should be rejected");
         }
 
         [Test]
@@ -95,7 +97,8 @@ namespace ZeroInstall.Services.Injector
             var storeMock = new Mock<IStore>(MockBehavior.Loose);
             storeMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns("test path");
             var executor = new Executor(storeMock.Object);
-            Assert.Throws<ExecutorException>(() => executor.GetStartInfo(selections), "Invalid Selections should be rejected");
+            executor.Invoking(x => x.GetStartInfo(selections))
+                .ShouldThrow<ExecutorException>(because: "Invalid Selections should be rejected");
         }
 
         private static IStore GetMockStore(Selections selections)
@@ -108,15 +111,15 @@ namespace ZeroInstall.Services.Injector
 
         private static void VerifyEnvironment(ProcessStartInfo startInfo, Selections selections)
         {
-            Assert.AreEqual("default" + Path.PathSeparator + Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_SELF"], "Should append implementation path");
-            Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"], "Should directly set value");
-            Assert.AreEqual("", startInfo.EnvironmentVariables["TEST1_EMPTY"], "Should set empty environment variables");
-            Assert.AreEqual(Test2Path + Path.PathSeparator + "default", startInfo.EnvironmentVariables["TEST2_PATH_SELF"], "Should prepend implementation path");
-            Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"], "Should directly set value");
-            Assert.AreEqual("default" + Path.PathSeparator + Path.Combine(Test2Path, "sub"), startInfo.EnvironmentVariables["TEST2_PATH_SUB_DEP"], "Should append implementation sub-path");
-            Assert.AreEqual(Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND"], "Should set implementation path");
-            Assert.AreEqual(Test1Path + Path.PathSeparator + Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND_DEP"], "Should set implementation path for command dependency for each reference");
-            Assert.AreEqual(Path.Combine(Test1Path, "bin"), startInfo.WorkingDirectory, "Should set implementation path");
+            startInfo.EnvironmentVariables["TEST1_PATH_SELF"].Should().Be("default" + Path.PathSeparator + Test1Path, because: "Should append implementation path");
+            startInfo.EnvironmentVariables["TEST1_VALUE"].Should().Be("test1", because: "Should directly set value");
+            startInfo.EnvironmentVariables["TEST1_EMPTY"].Should().Be("", because: "Should set empty environment variables");
+            startInfo.EnvironmentVariables["TEST2_PATH_SELF"].Should().Be(Test2Path + Path.PathSeparator + "default", because: "Should prepend implementation path");
+            startInfo.EnvironmentVariables["TEST2_VALUE"].Should().Be("test2", because: "Should directly set value");
+            startInfo.EnvironmentVariables["TEST2_PATH_SUB_DEP"].Should().Be("default" + Path.PathSeparator + Path.Combine(Test2Path, "sub"), because: "Should append implementation sub-path");
+            startInfo.EnvironmentVariables["TEST1_PATH_COMMAND"].Should().Be(Test1Path, because: "Should set implementation path");
+            startInfo.EnvironmentVariables["TEST1_PATH_COMMAND_DEP"].Should().Be(Test1Path + Path.PathSeparator + Test1Path, because: "Should set implementation path for command dependency for each reference");
+            startInfo.WorkingDirectory.Should().Be(Path.Combine(Test1Path, "bin"), because: "Should set implementation path");
 
             string execFile = Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path));
             string execArgs = new[]
@@ -126,11 +129,11 @@ namespace ZeroInstall.Services.Injector
                 Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[1].Path)),
                 selections.Implementations[1].Commands[1].Arguments[0].ToString()
             }.JoinEscapeArguments();
-            Assert.AreEqual(execFile, startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-var"]);
-            Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-var"]);
-            Assert.AreEqual(execFile, startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-path"]);
-            Assert.AreEqual(execArgs, startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-path"]);
-            Assert.AreEqual(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", "exec-in-path") + Path.PathSeparator + new ProcessStartInfo().EnvironmentVariables["PATH"], startInfo.EnvironmentVariables["PATH"]);
+            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-var"].Should().Be(execFile);
+            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-var"].Should().Be(execArgs);
+            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-path"].Should().Be(execFile);
+            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-path"].Should().Be(execArgs);
+            startInfo.EnvironmentVariables["PATH"].Should().Be(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", "exec-in-path") + Path.PathSeparator + new ProcessStartInfo().EnvironmentVariables["PATH"]);
         }
 
         /// <summary>
@@ -144,11 +147,10 @@ namespace ZeroInstall.Services.Injector
 
             var executor = new Executor(GetMockStore(selections));
             var startInfo = executor.GetStartInfo(selections, "--custom");
-            Assert.AreEqual(
+            startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
-                startInfo.FileName,
-                "Should combine runner implementation directory with runner command path");
-            Assert.AreEqual(
+                because: "Should combine runner implementation directory with runner command path");
+            startInfo.Arguments.Should().Be(
                 new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0].ToString(),
@@ -157,8 +159,7 @@ namespace ZeroInstall.Services.Injector
                     selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "--custom"
                 }.JoinEscapeArguments(),
-                startInfo.Arguments,
-                "Should combine core and additional runner arguments with application implementation directory, command path and arguments");
+                because: "Should combine core and additional runner arguments with application implementation directory, command path and arguments");
 
             VerifyEnvironment(startInfo, selections);
         }
@@ -176,8 +177,8 @@ namespace ZeroInstall.Services.Injector
 
             var executor = new Executor(GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
             var startInfo = executor.GetStartInfo(selections, "--custom");
-            Assert.AreEqual("wrapper", startInfo.FileName);
-            Assert.AreEqual(
+            startInfo.FileName.Should().Be("wrapper");
+            startInfo.Arguments.Should().Be(
                 new[]
                 {
                     "--wrapper",
@@ -188,8 +189,7 @@ namespace ZeroInstall.Services.Injector
                     selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "--custom"
                 }.JoinEscapeArguments(),
-                startInfo.Arguments,
-                "Should combine wrapper arguments, runner and application");
+                because: "Should combine wrapper arguments, runner and application");
 
             VerifyEnvironment(startInfo, selections);
         }
@@ -205,20 +205,18 @@ namespace ZeroInstall.Services.Injector
 
             var executor = new Executor(GetMockStore(selections)) {Main = "main"};
             var startInfo = executor.GetStartInfo(selections, "--custom");
-            Assert.AreEqual(
+            startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
-                startInfo.FileName,
-                "Should combine runner implementation directory with runner command path");
-            Assert.AreEqual(
+                because: "Should combine runner implementation directory with runner command path");
+            startInfo.Arguments.Should().Be(
                 new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0].ToString(),
                     selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
-                    new[] {Test1Path, "dir 1", "main"}.Aggregate(Path.Combine),
+                    Path.Combine(Test1Path, "dir 1", "main"),
                     "--custom"
                 }.JoinEscapeArguments(),
-                startInfo.Arguments,
-                "Should combine core and additional runner arguments with application implementation directory, command directory and main binary override");
+                because: "Should combine core and additional runner arguments with application implementation directory, command directory and main binary override");
 
             VerifyEnvironment(startInfo, selections);
         }
@@ -234,11 +232,10 @@ namespace ZeroInstall.Services.Injector
 
             var executor = new Executor(GetMockStore(selections)) {Main = "/main"};
             var startInfo = executor.GetStartInfo(selections, "--custom");
-            Assert.AreEqual(
+            startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
-                startInfo.FileName,
-                "Should combine runner implementation directory with runner command path");
-            Assert.AreEqual(
+                because: "Should combine runner implementation directory with runner command path");
+            startInfo.Arguments.Should().Be(
                 new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0].ToString(),
@@ -246,8 +243,7 @@ namespace ZeroInstall.Services.Injector
                     Path.Combine(Test1Path, "main"),
                     "--custom"
                 }.JoinEscapeArguments(),
-                startInfo.Arguments,
-                "Should combine core and additional runner arguments with application implementation directory and main binary override");
+                because: "Should combine core and additional runner arguments with application implementation directory and main binary override");
 
             VerifyEnvironment(startInfo, selections);
         }
@@ -264,18 +260,16 @@ namespace ZeroInstall.Services.Injector
 
             var executor = new Executor(GetMockStore(selections));
             var startInfo = executor.GetStartInfo(selections, "--custom");
-            Assert.AreEqual(
-                Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
-                startInfo.FileName);
-            Assert.AreEqual(
+            startInfo.FileName.Should().Be(
+                Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)));
+            startInfo.Arguments.Should().Be(
                 new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0].ToString(),
                     selections.Implementations[1].Commands[0].Runner.Arguments[0].ToString(),
                     selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "--custom"
-                }.JoinEscapeArguments(),
-                startInfo.Arguments);
+                }.JoinEscapeArguments());
 
             VerifyEnvironment(startInfo, selections);
         }
@@ -298,11 +292,10 @@ namespace ZeroInstall.Services.Injector
 
             var executor = new Executor(GetMockStore(selections));
             var startInfo = executor.GetStartInfo(selections);
-            Assert.AreEqual(
+            startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
-                startInfo.FileName,
-                "Should combine runner implementation directory with runner command path");
-            Assert.AreEqual(
+                because: "Should combine runner implementation directory with runner command path");
+            startInfo.Arguments.Should().Be(
                 new[]
                 {
                     selections.Implementations[2].Commands[0].Arguments[0].ToString(),
@@ -311,8 +304,7 @@ namespace ZeroInstall.Services.Injector
                     selections.Implementations[1].Commands[0].Arguments[0].ToString(),
                     "pre1 split1 post1", "pre2 split1 post2", "pre1 split2 post1", "pre2 split2 post2"
                 }.JoinEscapeArguments(),
-                startInfo.Arguments,
-                "Should combine core and additional runner arguments with application implementation directory and command path");
+                because: "Should combine core and additional runner arguments with application implementation directory and command path");
 
             VerifyEnvironment(startInfo, selections);
         }

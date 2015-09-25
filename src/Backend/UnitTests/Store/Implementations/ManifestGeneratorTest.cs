@@ -16,6 +16,7 @@
  */
 
 using System.Security.Cryptography;
+using FluentAssertions;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -38,28 +39,20 @@ namespace ZeroInstall.Store.Implementations
 
         protected override void VerifyFileOrder()
         {
-            CollectionAssert.AreEqual(
-                expected: new ManifestNode[]
-                {
-                    new ManifestNormalFile(_hash, _timestamp, Contents.Length, "Z"),
-                    new ManifestNormalFile(_hash, _timestamp, Contents.Length, "x"),
-                    new ManifestNormalFile(_hash, _timestamp, Contents.Length, "y"),
-                },
-                actual: Target.Manifest);
+            Target.Manifest.Should().Equal(
+                new ManifestNormalFile(_hash, _timestamp, Contents.Length, "Z"),
+                new ManifestNormalFile(_hash, _timestamp, Contents.Length, "x"),
+                new ManifestNormalFile(_hash, _timestamp, Contents.Length, "y"));
         }
 
         protected override void VerifyFileTypes()
         {
-            CollectionAssert.AreEqual(
-                expected: new ManifestNode[]
-                {
-                    new ManifestExecutableFile(_hash, _timestamp, Contents.Length, "executable"),
-                    new ManifestNormalFile(_hash, _timestamp, Contents.Length, "normal"),
-                    new ManifestSymlink(_hash, Contents.Length, "symlink"),
-                    new ManifestDirectory("/dir"),
-                    new ManifestNormalFile(_hash, _timestamp, Contents.Length, "sub")
-                },
-                actual: Target.Manifest);
+            Target.Manifest.Should().Equal(
+                new ManifestExecutableFile(_hash, _timestamp, Contents.Length, "executable"),
+                new ManifestNormalFile(_hash, _timestamp, Contents.Length, "normal"),
+                new ManifestSymlink(_hash, Contents.Length, "symlink"),
+                new ManifestDirectory("/dir"),
+                new ManifestNormalFile(_hash, _timestamp, Contents.Length, "sub"));
         }
     }
 }

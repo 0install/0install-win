@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Store.Feeds
             cacheMock.Setup(x => x.GetFeed(FeedTest.Test2Uri)).Throws(new InvalidDataException("Fake exception for testing"));
             cacheMock.Setup(x => x.GetFeed(FeedTest.Test3Uri)).Returns(feed3);
 
-            CollectionAssert.AreEqual(new[] {feed1, feed3}, cacheMock.Object.GetAll());
+            cacheMock.Object.GetAll().Should().Equal(feed1, feed3);
         }
 
         private const string FeedText = "Feed data\n";
@@ -65,7 +66,7 @@ namespace ZeroInstall.Store.Feeds
             openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(result);
 
             string input = FeedText + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd;
-            CollectionAssert.AreEqual(result, FeedUtils.GetSignatures(openPgpMock.Object, Encoding.UTF8.GetBytes(input)));
+            FeedUtils.GetSignatures(openPgpMock.Object, Encoding.UTF8.GetBytes(input)).Should().Equal(result);
         }
 
         /// <summary>

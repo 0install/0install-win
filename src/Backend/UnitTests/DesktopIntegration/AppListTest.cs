@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -120,17 +121,17 @@ namespace ZeroInstall.DesktopIntegration
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(appList, appList2, "Serialized objects should be equal.");
-            Assert.AreEqual(appList.GetHashCode(), appList2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(appList, appList2), "Serialized objects should not return the same reference.");
+            appList2.Should().Be(appList, because: "Serialized objects should be equal.");
+            appList2.GetHashCode().Should().Be(appList.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            appList2.Should().NotBeSameAs(appList, because: "Serialized objects should not return the same reference.");
         }
 
         [Test]
         public void TestContainsEntry()
         {
             var appList = CreateTestAppListWithAPs();
-            Assert.IsTrue(appList.ContainsEntry(FeedTest.Test1Uri));
-            Assert.IsFalse(appList.ContainsEntry(FeedTest.Test2Uri));
+            appList.ContainsEntry(FeedTest.Test1Uri).Should().BeTrue();
+            appList.ContainsEntry(FeedTest.Test2Uri).Should().BeFalse();
         }
 
         [Test]
@@ -138,12 +139,12 @@ namespace ZeroInstall.DesktopIntegration
         {
             var appList = CreateTestAppListWithAPs();
 
-            Assert.AreEqual(appList.Entries[0], appList.GetEntry(FeedTest.Test1Uri));
-            Assert.AreEqual(appList.Entries[0], appList[FeedTest.Test1Uri]);
+            appList.GetEntry(FeedTest.Test1Uri).Should().Be(appList.Entries[0]);
+            appList[FeedTest.Test1Uri].Should().Be(appList.Entries[0]);
 
-            Assert.IsNull(appList.GetEntry(FeedTest.Test2Uri));
+            appList.GetEntry(FeedTest.Test2Uri).Should().BeNull();
             // ReSharper disable once UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = appList[FeedTest.Test2Uri]; });
+            appList.Invoking(x => { var _ = x[FeedTest.Test2Uri]; }).ShouldThrow<KeyNotFoundException>();
         }
 
         [Test]
@@ -154,10 +155,10 @@ namespace ZeroInstall.DesktopIntegration
             var lib = new AppEntry {InterfaceUri = FeedTest.Test3Uri, Name = "Lib"};
             var appList = new AppList {Entries = {appA, appB, lib}};
 
-            CollectionAssert.AreEqual(expected: new[] {appA, appB, lib}, actual: appList.Search(""));
-            CollectionAssert.AreEqual(expected: new[] {appA, appB}, actual: appList.Search("App"));
-            CollectionAssert.AreEqual(expected: new[] {appA}, actual: appList.Search("AppA"));
-            CollectionAssert.AreEqual(expected: new[] {appB}, actual: appList.Search("AppB"));
+            appList.Search("").Should().Equal(appA, appB, lib);
+            appList.Search("App").Should().Equal(appA, appB);
+            appList.Search("AppA").Should().Equal(appA);
+            appList.Search("AppB").Should().Equal(appB);
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]
@@ -177,9 +178,9 @@ namespace ZeroInstall.DesktopIntegration
             var appList2 = appList.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(appList, appList2, "Cloned objects should be equal.");
-            Assert.AreEqual(appList.GetHashCode(), appList2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(appList, appList2), "Cloning should not return the same reference.");
+            appList2.Should().Be(appList, because: "Cloned objects should be equal.");
+            appList2.GetHashCode().Should().Be(appList.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            appList2.Should().NotBeSameAs(appList, because: "Cloning should not return the same reference.");
         }
     }
 }

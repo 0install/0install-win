@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -45,12 +46,12 @@ namespace ZeroInstall.Store.Model
         {
             var catalog = CreateTestCatalog();
 
-            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog.GetFeed(FeedTest.Test1Uri));
-            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog[FeedTest.Test1Uri]);
+            catalog.GetFeed(FeedTest.Test1Uri).Should().Be(FeedTest.CreateTestFeed());
+            catalog[FeedTest.Test1Uri].Should().Be(FeedTest.CreateTestFeed());
 
-            Assert.IsNull(catalog.GetFeed(new FeedUri("http://invalid/")));
+            catalog.GetFeed(new FeedUri("http://invalid/")).Should().BeNull();
             // ReSharper disable once UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = catalog[new FeedUri("http://invalid/")]; });
+            catalog.Invoking(x => { var _ = x[new FeedUri("http://invalid/")]; }).ShouldThrow<KeyNotFoundException>();
         }
 
         /// <summary>
@@ -69,9 +70,9 @@ namespace ZeroInstall.Store.Model
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(catalog1, catalog2, "Serialized objects should be equal.");
-            Assert.AreEqual(catalog1.GetHashCode(), catalog2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(catalog1, catalog2), "Serialized objects should not return the same reference.");
+            catalog2.Should().Be(catalog1, because: "Serialized objects should be equal.");
+            catalog2.GetHashCode().Should().Be(catalog1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            catalog2.Should().NotBeSameAs(catalog1, because: "Serialized objects should not return the same reference.");
         }
 
         /// <summary>
@@ -84,9 +85,9 @@ namespace ZeroInstall.Store.Model
             var catalog2 = catalog1.Clone();
 
             // Ensure data stayed the same
-            Assert.AreEqual(catalog1, catalog2, "Cloned objects should be equal.");
-            Assert.AreEqual(catalog1.GetHashCode(), catalog2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(catalog1, catalog2), "Cloning should not return the same reference.");
+            catalog2.Should().Be(catalog1, because: "Cloned objects should be equal.");
+            catalog2.GetHashCode().Should().Be(catalog1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            catalog2.Should().NotBeSameAs(catalog1, because: "Cloning should not return the same reference.");
         }
 
         /// <summary>
@@ -107,11 +108,11 @@ namespace ZeroInstall.Store.Model
             };
             var catalog = new Catalog {Feeds = {appA, appA.Clone(), appB, appB.Clone()}};
 
-            Assert.IsNull(catalog.FindByShortName(""));
-            Assert.AreSame(expected: appA, actual: catalog.FindByShortName("AppA"));
-            Assert.AreSame(expected: appA, actual: catalog.FindByShortName("BinaryA"));
-            Assert.AreSame(expected: appB, actual: catalog.FindByShortName("AppB"));
-            Assert.AreSame(expected: appB, actual: catalog.FindByShortName("BinaryB"));
+            catalog.FindByShortName("").Should().BeNull();
+            catalog.FindByShortName("AppA").Should().BeSameAs(appA);
+            catalog.FindByShortName("BinaryA").Should().BeSameAs(appA);
+            catalog.FindByShortName("AppB").Should().BeSameAs(appB);
+            catalog.FindByShortName("BinaryB").Should().BeSameAs(appB);
         }
 
         /// <summary>
@@ -125,10 +126,10 @@ namespace ZeroInstall.Store.Model
             var lib = new Feed {Uri = FeedTest.Test3Uri, Name = "Lib"};
             var catalog = new Catalog {Feeds = {appA, appB, lib}};
 
-            CollectionAssert.AreEqual(expected: new[] {appA, appB, lib}, actual: catalog.Search(""));
-            CollectionAssert.AreEqual(expected: new[] {appA, appB}, actual: catalog.Search("App"));
-            CollectionAssert.AreEqual(expected: new[] {appA}, actual: catalog.Search("AppA"));
-            CollectionAssert.AreEqual(expected: new[] {appB}, actual: catalog.Search("AppB"));
+            catalog.Search("").Should().Equal(appA, appB, lib);
+            catalog.Search("App").Should().Equal(appA, appB);
+            catalog.Search("AppA").Should().Equal(appA);
+            catalog.Search("AppB").Should().Equal(appB);
         }
     }
 }

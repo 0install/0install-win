@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using FluentAssertions;
 using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -82,7 +83,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(manifest1, manifest2);
+            manifest2.Should().Equal(manifest1);
         }
 
         [Test(Description = "Ensures damaged manifest lines are correctly identified.")]
@@ -113,18 +114,15 @@ namespace ZeroInstall.Store.Implementations
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
 
-                Assert.AreEqual(
-                    CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()),
-                    GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()).CalculateDigest(),
-                    "sha1new dot file and digest should match");
-                Assert.AreEqual(
-                    CreateDotFile(packageDir, ManifestFormat.Sha256, new MockTaskHandler()),
-                    GenerateManifest(packageDir, ManifestFormat.Sha256, new MockTaskHandler()).CalculateDigest(),
-                    "sha256 dot file and digest should match");
-                Assert.AreEqual(
-                    CreateDotFile(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()),
-                    GenerateManifest(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()).CalculateDigest(),
-                    "sha256new dot file and digest should match");
+                GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()).CalculateDigest()
+                    .Should().Be(CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()),
+                        because: "sha1new dot file and digest should match");
+                GenerateManifest(packageDir, ManifestFormat.Sha256, new MockTaskHandler()).CalculateDigest()
+                    .Should().Be(CreateDotFile(packageDir, ManifestFormat.Sha256, new MockTaskHandler()),
+                        because: "sha256 dot file and digest should match");
+                GenerateManifest(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()).CalculateDigest()
+                    .Should().Be(CreateDotFile(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()),
+                        because: "sha256new dot file and digest should match");
             }
         }
 
@@ -138,7 +136,8 @@ namespace ZeroInstall.Store.Implementations
                     .WritePackageInto(packageDir);
 
                 var manifest = GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler());
-                Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file\n", manifest.ToString().Replace(Environment.NewLine, "\n"));
+                manifest.ToString().Replace(Environment.NewLine, "\n")
+                    .Should().Be("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file\n");
             }
         }
 
@@ -219,7 +218,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
                 using (var manifestFile = File.OpenRead(Path.Combine(package, Manifest.ManifestFile)))
-                    Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
+                    manifestFile.Length.Should().Be(0, because: "Empty package directory should make an empty manifest");
             }
         }
 
@@ -264,10 +263,10 @@ namespace ZeroInstall.Store.Implementations
                 FileUtils.CreateSymlink(Path.Combine(package, "source"), "target");
                 var manifest = GenerateManifest(package, ManifestFormat.Sha256New, new MockTaskHandler());
 
-                Assert.IsTrue(manifest[0] is ManifestSymlink, "Unexpected manifest:\n" + manifest);
-                Assert.AreEqual("source", ((ManifestSymlink)manifest[0]).SymlinkName, "Unexpected manifest:\n" + manifest);
-                Assert.IsTrue(manifest[1] is ManifestDirectory, "Unexpected manifest:\n" + manifest);
-                Assert.AreEqual("/target", ((ManifestDirectory)manifest[1]).FullPath, "Unexpected manifest:\n" + manifest);
+                (manifest[0] is ManifestSymlink).Should().BeTrue(because: "Unexpected manifest:\n" + manifest);
+                ((ManifestSymlink)manifest[0]).SymlinkName.Should().Be("source", because: "Unexpected manifest:\n" + manifest);
+                (manifest[1] is ManifestDirectory).Should().BeTrue(because: "Unexpected manifest:\n" + manifest);
+                ((ManifestDirectory)manifest[1]).FullPath.Should().Be("/target", because: "Unexpected manifest:\n" + manifest);
             }
         }
     }
