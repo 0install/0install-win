@@ -543,7 +543,7 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 using (var sync = CreateSync(oldKey))
-                    sync.Sync(SyncResetMode.None);
+                    sync.Sync();
                 using (var sync = CreateSync(newKey))
                     sync.Sync(SyncResetMode.Server);
             }

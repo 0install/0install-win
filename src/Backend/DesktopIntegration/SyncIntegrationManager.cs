@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Cache;
+using System.Runtime.Serialization;
 using ICSharpCode.SharpZipLib.Zip;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -160,10 +161,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="resetMode">Controls how synchronization data is reset.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
-        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="WebException">A problem occured while communicating with the sync server or while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        public void Sync(SyncResetMode resetMode)
+        public void Sync(SyncResetMode resetMode = SyncResetMode.None)
         {
             if (!_server.IsValid) throw new InvalidDataException(Resources.PleaseConfigSync);
 
@@ -174,7 +175,7 @@ namespace ZeroInstall.DesktopIntegration
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             })
             {
-                ExceptionUtils.Retry<TimeoutException>(delegate
+                ExceptionUtils.Retry<WebRaceConditionException>(delegate
                 {
                     Handler.CancellationToken.ThrowIfCancellationRequested();
 
@@ -186,22 +187,13 @@ namespace ZeroInstall.DesktopIntegration
                         #region Error handling
                     catch (WebException ex)
                     {
-                        switch (ex.Status)
+                        if (ex.Status == WebExceptionStatus.ProtocolError)
                         {
-                            case WebExceptionStatus.ProtocolError:
-                                var response = ex.Response as HttpWebResponse;
-                                if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                                    throw new WebException(Resources.SyncCredentialsInvalid, ex);
-                                else throw;
-
-                            case WebExceptionStatus.Timeout:
-                                throw new TimeoutException(ex.Message, ex);
-
-                            default:
-                                if (ex.InnerException != null && ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
-                                else throw;
-                                break;
+                            var response = ex.Response as HttpWebResponse;
+                            if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                                throw new WebException(Resources.SyncCredentialsInvalid, ex);
                         }
+                        throw;
                     }
                     #endregion
 
@@ -220,7 +212,7 @@ namespace ZeroInstall.DesktopIntegration
                             if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
                             {
                                 Handler.CancellationToken.ThrowIfCancellationRequested();
-                                throw new TimeoutException("Race condition encountered while syncing.");
+                                throw new WebRaceConditionException();
                             }
                         }
                         else throw;
@@ -233,6 +225,18 @@ namespace ZeroInstall.DesktopIntegration
             AppList.SaveXml(AppListPath + AppListLastSyncSuffix);
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
+        }
+
+        [Serializable]
+        private class WebRaceConditionException : WebException
+        {
+            public WebRaceConditionException()
+                : base("Race condition: Multiple computers are trying to Sync to the same account at the same time.")
+            {}
+
+            protected WebRaceConditionException([NotNull] SerializationInfo serializationInfo, StreamingContext streamingContext)
+                : base(serializationInfo, streamingContext)
+            {}
         }
         #endregion
 
