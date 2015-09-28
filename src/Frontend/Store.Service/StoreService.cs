@@ -47,10 +47,10 @@ namespace ZeroInstall.Store.Service
 
         #region Variables
         /// <summary>IPC channel for providing services to clients.</summary>
-        private readonly IChannelReceiver _serverChannel;
+        private IChannelReceiver _serverChannel;
 
         /// <summary>IPC channel for launching callbacks in clients.</summary>
-        private readonly IChannelSender _clientChannel;
+        private IChannelSender _clientChannel;
 
         /// <summary>The store to provide to clients as a service.</summary>
         private MarshalByRefObject _store;
@@ -66,25 +66,6 @@ namespace ZeroInstall.Store.Service
 
             // Ensure the event log accepts messages from this service
             if (!EventLog.SourceExists(eventLog.Source)) EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
-
-            _serverChannel = new IpcServerChannel(
-                new Hashtable
-                {
-                    {"name", IpcStore.IpcPortName},
-                    {"portName", IpcStore.IpcPortName},
-                    {"secure", true}, {"impersonate", true} // Use identity of client in server threads
-                },
-                new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
-#if !__MonoCS__
-                , IpcStore.IpcAcl
-#endif
-                );
-            _clientChannel = new IpcClientChannel(
-                new Hashtable
-                {
-                    {"name", IpcStore.IpcPortName + ".Callback"}
-                },
-                new BinaryClientFormatterSinkProvider());
         }
         #endregion
 
@@ -118,6 +99,25 @@ namespace ZeroInstall.Store.Service
 
             try
             {
+                _serverChannel = new IpcServerChannel(
+                    new Hashtable
+                    {
+                        {"name", IpcStore.IpcPortName},
+                        {"portName", IpcStore.IpcPortName},
+                        {"secure", true}, {"impersonate", true} // Use identity of client in server threads
+                    },
+                    new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
+#if !__MonoCS__
+                    , IpcStore.IpcAcl
+#endif
+                    );
+                _clientChannel = new IpcClientChannel(
+                    new Hashtable
+                    {
+                        {"name", IpcStore.IpcPortName + ".Callback"}
+                    },
+                    new BinaryClientFormatterSinkProvider());
+
                 ChannelServices.RegisterChannel(_serverChannel, ensureSecurity: false);
                 ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
                 _store = CreateStore();
@@ -161,6 +161,9 @@ namespace ZeroInstall.Store.Service
             }
             catch (RemotingException)
             {}
+
+            _serverChannel = null;
+            _clientChannel = null;
         }
         #endregion
     }
