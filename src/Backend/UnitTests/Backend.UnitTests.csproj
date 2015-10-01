@@ -117,6 +117,7 @@
     <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarGzGeneratorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\TarLzmaGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipGeneratorTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
