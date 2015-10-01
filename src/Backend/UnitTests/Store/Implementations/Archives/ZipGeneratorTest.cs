@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected override void VerifyFileOrder()
         {
-            using (var archive = new ZipFile(ArchiveReadStream))
+            using (var archive = new ZipFile(OpenArchive()))
             {
                 archive[0].Name.Should().Be("Z");
                 archive[1].Name.Should().Be("x");
@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected override void VerifyFileTypes()
         {
-            using (var archive = new ZipFile(ArchiveReadStream))
+            using (var archive = new ZipFile(OpenArchive()))
             {
                 var executable = archive[0];
                 executable.Name.Should().Be("executable");

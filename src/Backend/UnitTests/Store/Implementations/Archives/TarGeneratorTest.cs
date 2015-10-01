@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected override void VerifyFileOrder()
         {
-            using (var archive = new TarInputStream(ArchiveReadStream))
+            using (var archive = new TarInputStream(OpenArchive()))
             {
                 archive.GetNextEntry().Name.Should().Be("Z");
                 archive.GetNextEntry().Name.Should().Be("x");
@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected override void VerifyFileTypes()
         {
-            using (var archive = new TarInputStream(ArchiveReadStream))
+            using (var archive = new TarInputStream(OpenArchive()))
             {
                 var executable = archive.GetNextEntry();
                 executable.Name.Should().Be("executable");
@@ -85,7 +85,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         private void VerifyHardlink()
         {
-            using (var archive = new TarInputStream(ArchiveReadStream))
+            using (var archive = new TarInputStream(OpenArchive()))
             {
                 var file = archive.GetNextEntry();
                 file.Name.Should().Be("file");

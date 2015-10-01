@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="stream">The stream containing the GZip-compressed data.</param>
         /// <returns>A stream representing the uncompressed data.</returns>
         /// <exception cref="IOException">The compressed stream contains invalid data.</exception>
-        private static Stream GetDecompressionStream(Stream stream)
+        internal static Stream GetDecompressionStream(Stream stream)
         {
             try
             {

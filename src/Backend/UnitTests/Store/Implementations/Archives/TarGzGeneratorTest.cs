@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2010-2015 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,31 +20,18 @@ using System.IO;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Common test cases for <see cref="ArchiveGenerator"/> sub-classes.
+    /// Contains test methods for <see cref="TarGzGenerator"/>.
     /// </summary>
-    public abstract class ArchiveGeneratorTest<T> : DirectoryWalkTest<T>
-        where T : ArchiveGenerator
+    public class TarGzGeneratorTest : TarGeneratorTest
     {
-        private MemoryStream _archiveWriteStream;
-
-        protected override T CreateTarget(string sourceDirectory)
+        protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream)
         {
-            _archiveWriteStream = new MemoryStream();
-            return CreateGenerator(sourceDirectory, _archiveWriteStream);
+            return new TarGzGenerator(sourceDirectory, stream);
         }
 
-        protected abstract T CreateGenerator(string sourceDirectory, Stream stream);
-
-        protected virtual Stream OpenArchive()
+        protected override Stream OpenArchive()
         {
-            // NOTE: Must open new stream for reading because write stream gets closed
-            return new MemoryStream(_archiveWriteStream.ToArray(), writable: false);
-        }
-
-        protected override void Execute()
-        {
-            base.Execute();
-            Target.Dispose();
+            return TarGzExtractor.GetDecompressionStream(base.OpenArchive());
         }
     }
 }

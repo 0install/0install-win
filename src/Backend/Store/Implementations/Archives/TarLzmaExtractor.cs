@@ -46,6 +46,11 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
+        /// Magic number used by <see cref="SevenZip"/> to indicate the size of a data stream is unknown and should be determined on-the-fly (keep reading/writing to EOF).
+        /// </summary>
+        internal const long UnknownSize = -1;
+
+        /// <summary>
         /// Provides a filter for decompressing an LZMA encoded <see cref="Stream"/>.
         /// </summary>
         /// <param name="stream">The underlying <see cref="Stream"/> providing the compressed data.</param>
@@ -55,7 +60,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// This method internally uses multi-threading and a <see cref="CircularBufferStream"/>.
         /// The <paramref name="stream"/> may be closed with a delay.
         /// </remarks>
-        private static Stream GetDecompressionStream(Stream stream, int bufferSize = 128 * 1024)
+        internal static Stream GetDecompressionStream(Stream stream, int bufferSize = 128 * 1024)
         {
             var bufferStream = new CircularBufferStream(bufferSize);
             var decoder = new Decoder();
@@ -79,33 +84,24 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            // Detmerine uncompressed length
-            long uncompressedLength = 0;
-            if (BitConverter.IsLittleEndian)
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    int v = stream.ReadByte();
-                    if (v < 0) throw new IOException(Resources.ArchiveInvalid);
+            // Read "uncompressed length" header
+            var uncompressedLengthData = stream.Read(8);
+            if (!BitConverter.IsLittleEndian) Array.Reverse(uncompressedLengthData);
+            long uncompressedLength = BitConverter.ToInt64(uncompressedLengthData, startIndex: 0);
 
-                    uncompressedLength |= ((long)(byte)v) << (8 * i);
-                }
-            }
+            bufferStream.SetLength((uncompressedLength == UnknownSize)
+                ? (long)(stream.Length * 1.5)
+                : uncompressedLength);
 
-            // If the uncompressed length is unknown, use original size * 1.5 as an estimate
-            unchecked
-            {
-                bufferStream.SetLength(uncompressedLength == -1 ? stream.Length : (long)(uncompressedLength * 1.5));
-            }
-
-            // Initialize the producer thread that will deliver uncompressed data
-            var thread = new Thread(() =>
+            var producerThread = new Thread(() =>
             {
                 try
                 {
-                    decoder.Code(stream, bufferStream, stream.Length, uncompressedLength, null);
+                    decoder.Code(
+                        inStream: stream, outStream: bufferStream,
+                        inSize: UnknownSize, outSize: uncompressedLength,
+                        progress: null);
                 }
-                    #region Error handling
                 catch (ThreadAbortException)
                 {}
                 catch (ObjectDisposedException)
@@ -114,24 +110,19 @@ namespace ZeroInstall.Store.Implementations.Archives
                 }
                 catch (ApplicationException ex)
                 {
-                    // Wrap exception since only certain exception types are allowed
                     bufferStream.RelayErrorToReader(new IOException(ex.Message, ex));
                 }
-                    #endregion
-
                 finally
                 {
                     bufferStream.DoneWriting();
                 }
             }) {IsBackground = true};
-            thread.Start();
+            producerThread.Start();
 
-            return new DisposeWarpperStream(bufferStream, () =>
+            return new DisposeWarpperStream(bufferStream, disposeHandler: () =>
             {
-                // Stop producer thread when the buffer stream is closed
-                thread.Abort();
-                thread.Join();
-
+                producerThread.Abort();
+                producerThread.Join();
                 stream.Dispose();
             });
         }

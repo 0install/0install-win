@@ -20,31 +20,18 @@ using System.IO;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Common test cases for <see cref="ArchiveGenerator"/> sub-classes.
+    /// Contains test methods for <see cref="TarBz2Generator"/>.
     /// </summary>
-    public abstract class ArchiveGeneratorTest<T> : DirectoryWalkTest<T>
-        where T : ArchiveGenerator
+    public class TarBz2GeneratorTest : TarGeneratorTest
     {
-        private MemoryStream _archiveWriteStream;
-
-        protected override T CreateTarget(string sourceDirectory)
+        protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream)
         {
-            _archiveWriteStream = new MemoryStream();
-            return CreateGenerator(sourceDirectory, _archiveWriteStream);
+            return new TarBz2Generator(sourceDirectory, stream);
         }
 
-        protected abstract T CreateGenerator(string sourceDirectory, Stream stream);
-
-        protected virtual Stream OpenArchive()
+        protected override Stream OpenArchive()
         {
-            // NOTE: Must open new stream for reading because write stream gets closed
-            return new MemoryStream(_archiveWriteStream.ToArray(), writable: false);
-        }
-
-        protected override void Execute()
-        {
-            base.Execute();
-            Target.Dispose();
+            return TarBz2Extractor.GetDecompressionStream(base.OpenArchive());
         }
     }
 }
