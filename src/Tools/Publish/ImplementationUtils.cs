@@ -25,6 +25,7 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish
@@ -91,6 +92,7 @@ namespace ZeroInstall.Publish
             if (executor == null) executor = new SimpleCommandExecutor();
 
             ConvertSha256ToSha256New(implementation, executor);
+            ConvertLocalPathToArchive(implementation, handler, executor);
 
             foreach (var retrievalMethod in implementation.RetrievalMethods)
             {
@@ -102,6 +104,32 @@ namespace ZeroInstall.Publish
             }
 
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = @"sha1new=" + implementation.ManifestDigest.Sha1New;
+        }
+
+        private static void ConvertLocalPathToArchive([NotNull] Implementation implementation, [NotNull] ITaskHandler handler, [NotNull] ICommandExecutor executor)
+        {
+            if (string.IsNullOrEmpty(implementation.LocalPath) || implementation.RetrievalMethods.Count > 0 || string.IsNullOrEmpty(executor.Path)) return;
+
+            string feedDirectory = Path.GetDirectoryName(executor.Path) ?? "";
+            string sourceDirectory = Path.Combine(feedDirectory, implementation.LocalPath);
+            implementation.UpdateDigest(sourceDirectory, handler, executor);
+
+            string archiveName = Path.GetFileName(sourceDirectory) + ".zip";
+            string archivePath = Path.Combine(feedDirectory, archiveName);
+            const string archiveMimeType = Archive.MimeTypeZip;
+            using (var generator = ArchiveGenerator.Create(sourceDirectory, archivePath, archiveMimeType))
+                handler.RunTask(generator);
+
+            executor.Execute(new CompositeCommand(new IUndoCommand[]
+            {
+                new SetValueCommand<string>(() => implementation.LocalPath, value => implementation.LocalPath = value, null),
+                new AddToCollection<RetrievalMethod>(implementation.RetrievalMethods, new Archive
+                {
+                    Href = new Uri(archiveName, UriKind.Relative),
+                    Size = new FileInfo(archivePath).Length,
+                    MimeType = archiveMimeType
+                })
+            }));
         }
 
         private static void ConvertSha256ToSha256New([NotNull] Implementation implementation, [NotNull] ICommandExecutor executor)
