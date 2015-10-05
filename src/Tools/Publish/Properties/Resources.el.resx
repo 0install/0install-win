@@ -249,7 +249,7 @@
     <value>Συνδυάστε όλες τις καθορισμένες τροφοδοσίες σε ένα ενιαίο κατάλογο {ΑΡΧΕΙΟ}.</value>
   </data>
   <data name="OptionGnuPGPassphrase" xml:space="preserve">
-    <value>Χρήση {} PASS για να ξεκλειδώσετε το μυστικό κλειδί του GnuPG.</value>
+    <value>Χρήση {PASS} για να ξεκλειδώσετε το μυστικό κλειδί του GnuPG.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Εμφάνιση του ενσωματωμένου κειμένου βοήθειας.</value>
