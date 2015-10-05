@@ -104,6 +104,19 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = @"sha1new=" + implementation.ManifestDigest.Sha1New;
         }
 
+        private static void ConvertSha256ToSha256New([NotNull] Implementation implementation, [NotNull] ICommandExecutor executor)
+        {
+            if (string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) || !string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New)) return;
+
+            var digest = new ManifestDigest(
+                implementation.ManifestDigest.Sha1,
+                implementation.ManifestDigest.Sha1New,
+                implementation.ManifestDigest.Sha256,
+                implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
+
+            executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "We are explicitly looking for empty strings as opposed to null strings.")]
         private static bool IsManifestDigestMissing([NotNull] this Implementation implementation)
         {
@@ -118,19 +131,6 @@ namespace ZeroInstall.Publish
         {
             var downloadRetrievalMethod = retrievalMethod as DownloadRetrievalMethod;
             return downloadRetrievalMethod != null && downloadRetrievalMethod.Size == 0;
-        }
-
-        private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor executor)
-        {
-            if (string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) || !string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New)) return;
-
-            var digest = new ManifestDigest(
-                implementation.ManifestDigest.Sha1,
-                implementation.ManifestDigest.Sha1New,
-                implementation.ManifestDigest.Sha256,
-                implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
-
-            executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
         }
         #endregion
 
@@ -167,6 +167,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
+        [Pure]
         public static ManifestDigest GenerateDigest([NotNull] string path, [NotNull] ITaskHandler handler, bool keepDownloads = false)
         {
             #region Sanity checks
