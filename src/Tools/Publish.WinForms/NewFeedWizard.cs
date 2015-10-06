@@ -31,6 +31,7 @@ using ZeroInstall.Publish.Capture;
 using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 using Icon = System.Drawing.Icon;
@@ -442,7 +443,11 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonSelectArchivePath_Click(object sender, EventArgs e)
         {
-            using (var saveFileDialog = new SaveFileDialog {Filter = "ZIP archive (*.zip)|*.zip|Uncompressed TAR archive (*.tar)|*.tar|GZip-compressed TAR archive (*.tar.gz)|*.tar.gz|BZip2-compressed TAR archive (*.tar.bz2)|*.tar.bz2|LZMA-compressed archive (*.tar.lzma)|*.tar.lzma", FileName = textBoxArchivePath.Text})
+            string filter = StringUtils.Join(@"|",
+                ArchiveGenerator.SupportedMimeTypes.Select(x => string.Format(
+                    @"{0} archive (*{0})|*{0}",
+                    Archive.GetDefaultExtension(x))));
+            using (var saveFileDialog = new SaveFileDialog {Filter = filter, FileName = textBoxArchivePath.Text})
             {
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     textBoxArchivePath.Text = saveFileDialog.FileName;

@@ -713,9 +713,8 @@
             this.labelLocalPathArchive.Name = "labelLocalPathArchive";
             this.labelLocalPathArchive.Size = new System.Drawing.Size(455, 49);
             this.labelLocalPathArchive.TabIndex = 0;
-            this.labelLocalPathArchive.Text = "The wizard can create a ZIP archive containing the installation directory for you" +
-    ". Where do you want to place it?";
-            // 
+            this.labelLocalPathArchive.Text = "The wizard can create an archive containing the installation directory for you. W" +
+    "here do you want to place it?";
             // labelUploadUrl
             // 
             this.labelUploadUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -725,7 +724,7 @@
             this.labelUploadUrl.Name = "labelUploadUrl";
             this.labelUploadUrl.Size = new System.Drawing.Size(455, 19);
             this.labelUploadUrl.TabIndex = 3;
-            this.labelUploadUrl.Text = "Where will you upload this ZIP archive?";
+            this.labelUploadUrl.Text = "Where will you upload this archive?";
             // 
             // textBoxUploadUrl
             // 

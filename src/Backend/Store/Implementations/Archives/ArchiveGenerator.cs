@@ -28,6 +28,11 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public abstract class ArchiveGenerator : DirectoryWalkTask, IDisposable
     {
+        /// <summary>
+        /// All supported MIME types for creating archives. This is a subset of <see cref="Archive.KnownMimeTypes"/>
+        /// </summary>
+        public static readonly string[] SupportedMimeTypes = {Archive.MimeTypeZip, Archive.MimeTypeTar, Archive.MimeTypeTarGzip, Archive.MimeTypeTarBzip, Archive.MimeTypeTarLzma};
+
         /// <inheritdoc/>
         public override string Name { get { return string.Format(Resources.CreatingArchive, OutputArchive); } }
 

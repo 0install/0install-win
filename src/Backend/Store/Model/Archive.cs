@@ -21,6 +21,7 @@ using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model
 {
@@ -80,6 +81,44 @@ namespace ZeroInstall.Store.Model
             if (fileName.EndsWithIgnoreCase(".rpm")) return MimeTypeRpm;
             if (fileName.EndsWithIgnoreCase(".dmg")) return MimeTypeDmg;
             return null;
+        }
+
+        /// <summary>
+        /// Gets the default file extension for a particular archive MIME type.
+        /// </summary>
+        /// <param name="mimeType">The MIME type to get the extension for.</param>
+        /// <returns>The file extension including the leading dot, e.g. '.zip'.</returns>
+        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> is not in the list of <see cref="KnownMimeTypes"/>.</exception>
+        [NotNull]
+        public static string GetDefaultExtension([NotNull] string mimeType)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
+            #endregion
+
+            switch (mimeType)
+            {
+                case MimeTypeZip:
+                    return ".zip";
+                case MimeTypeTar:
+                    return ".tar";
+                case MimeTypeTarGzip:
+                    return ".tar.gz";
+                case MimeTypeTarBzip:
+                    return ".tar.bz2";
+                case MimeTypeTarLzma:
+                    return ".tar.lzma";
+                case MimeTypeRubyGem:
+                    return ".gem";
+                case MimeType7Z:
+                    return ".7z";
+                case MimeTypeCab:
+                    return ".cab";
+                case MimeTypeMsi:
+                    return ".msi";
+                default:
+                    throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
+            }
         }
         #endregion
 
