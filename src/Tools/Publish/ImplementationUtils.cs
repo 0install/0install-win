@@ -18,12 +18,14 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -92,7 +94,7 @@ namespace ZeroInstall.Publish
             if (executor == null) executor = new SimpleCommandExecutor();
 
             ConvertSha256ToSha256New(implementation, executor);
-            ConvertLocalPathToArchive(implementation, handler, executor);
+            GenerateMissingArchive(implementation, handler, executor);
 
             foreach (var retrievalMethod in implementation.RetrievalMethods)
             {
@@ -106,30 +108,33 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = @"sha1new=" + implementation.ManifestDigest.Sha1New;
         }
 
-        private static void ConvertLocalPathToArchive([NotNull] Implementation implementation, [NotNull] ITaskHandler handler, [NotNull] ICommandExecutor executor)
+        private static void GenerateMissingArchive([NotNull] Implementation implementation, [NotNull] ITaskHandler handler, [NotNull] ICommandExecutor executor)
         {
-            if (string.IsNullOrEmpty(implementation.LocalPath) || implementation.RetrievalMethods.Count > 0 || string.IsNullOrEmpty(executor.Path)) return;
+            var archive = implementation.RetrievalMethods.OfType<Archive>().SingleOrDefault();
+            if (archive == null) return;
 
-            string feedDirectory = Path.GetDirectoryName(executor.Path) ?? "";
-            string sourceDirectory = Path.Combine(feedDirectory, implementation.LocalPath);
-            implementation.UpdateDigest(sourceDirectory, handler, executor);
-
-            string archiveName = Path.GetFileName(sourceDirectory) + ".zip";
-            string archivePath = Path.Combine(feedDirectory, archiveName);
-            const string archiveMimeType = Archive.MimeTypeZip;
-            using (var generator = ArchiveGenerator.Create(sourceDirectory, archivePath, archiveMimeType))
-                handler.RunTask(generator);
-
-            executor.Execute(new CompositeCommand(new IUndoCommand[]
+            string directoryPath;
+            string archivePath;
+            try
             {
-                new SetValueCommand<string>(() => implementation.LocalPath, value => implementation.LocalPath = value, null),
-                new AddToCollection<RetrievalMethod>(implementation.RetrievalMethods, new Archive
-                {
-                    Href = new Uri(archiveName, UriKind.Relative),
-                    Size = new FileInfo(archivePath).Length,
-                    MimeType = archiveMimeType
-                })
-            }));
+                if (string.IsNullOrEmpty(implementation.LocalPath)) return;
+                directoryPath = ModelUtils.GetAbsolutePath(implementation.LocalPath, executor.Path);
+
+                if (archive.Href == null) return;
+                var archiveHref = ModelUtils.GetAbsoluteHref(archive.Href, executor.Path);
+                if (!archiveHref.IsFile) return;
+                archivePath = archiveHref.LocalPath;
+            }
+            catch (UriFormatException)
+            {
+                return;
+            }
+
+            implementation.UpdateDigest(directoryPath, handler, executor);
+            using (var generator = ArchiveGenerator.Create(directoryPath, archivePath, archive.MimeType))
+                handler.RunTask(generator);
+            executor.Execute(new SetValueCommand<long>(() => archive.Size, x => archive.Size = x, new FileInfo(archivePath).Length));
+            executor.Execute(new SetValueCommand<string>(() => implementation.LocalPath, x => implementation.LocalPath = x, null));
         }
 
         private static void ConvertSha256ToSha256New([NotNull] Implementation implementation, [NotNull] ICommandExecutor executor)

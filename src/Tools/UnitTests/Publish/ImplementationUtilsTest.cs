@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using FluentAssertions;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
+using NanoByte.Common.Undo;
 using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations;
@@ -155,6 +157,31 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
+        /// Ensures <see cref="ImplementationUtils.AddMissing"/> generates missing <see cref="Archive"/>s from <see cref="ImplementationBase.LocalPath"/>s.
+        /// </summary>
+        [Test]
+        public void GenerateMissingArchive()
+        {
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                string feedPath = Path.Combine(tempDir, "feed.xml");
+                Directory.CreateDirectory(Path.Combine(tempDir, "impl"));
+                FileUtils.Touch(Path.Combine(tempDir, "impl", "file"));
+
+                var archive = new Archive {Href = new Uri("archive.zip", UriKind.Relative)};
+                var implementation = new Implementation {LocalPath = "impl", RetrievalMethods = {archive}};
+
+                implementation.AddMissing(new SilentTaskHandler(), new SimpleCommandExecutor {Path = feedPath});
+
+                implementation.LocalPath.Should().BeNull();
+                implementation.ManifestDigest.Should().NotBe(default(ManifestDigest));
+                archive.Size.Should().NotBe(0);
+
+                File.Exists(Path.Combine(tempDir, "archive.zip")).Should().BeTrue();
+            }
+        }
+
+        /// <summary>
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> throws <see cref="DigestMismatchException"/>s when appropriate.
         /// </summary>
         [Test]
@@ -169,7 +196,7 @@ namespace ZeroInstall.Publish
         }
 
         [Test]
-        public void TestGenerateDigest()
+        public void GenerateDigest()
         {
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
