@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using FluentAssertions;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model.Selection
@@ -61,6 +62,46 @@ namespace ZeroInstall.Store.Model.Selection
 
             // ReSharper disable once UnusedVariable
             implementation.Invoking(x => { var _ = x[new FeedUri("http://invalid/")]; }).ShouldThrow<KeyNotFoundException>();
+        }
+
+        /// <summary>
+        /// Ensures that the class is correctly serialized and deserialized.
+        /// </summary>
+        [Test]
+        public void TestSaveLoad()
+        {
+            Selections selections1 = CreateTestSelections(), selections2;
+            Assert.That(selections1, Is.XmlSerializable);
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                // Write and read file
+                selections1.SaveXml(tempFile);
+                selections2 = XmlStorage.LoadXml<Selections>(tempFile);
+            }
+
+            // Ensure data stayed the same
+            selections2.Should().Be(selections1, because: "Serialized objects should be equal.");
+            selections2.GetHashCode().Should().Be(selections1.GetHashCode(), because: "Serialized objects' hashes should be equal.");
+            selections2.Should().NotBeSameAs(selections1, because: "Serialized objects should not return the same reference.");
+        }
+
+        /// <summary>
+        /// Ensures that the class can be correctly cloned and compared.
+        /// </summary>
+        [Test]
+        public void TestCloneEquals()
+        {
+            var selections1 = CreateTestSelections();
+            selections1.Should().Be(selections1, because: "Equals() should be reflexive.");
+            selections1.GetHashCode().Should().Be(selections1.GetHashCode(), because: "GetHashCode() should be reflexive.");
+
+            var selections2 = selections1.Clone();
+            selections2.Should().Be(selections1, because: "Cloned objects should be equal.");
+            selections2.GetHashCode().Should().Be(selections1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
+            selections2.Should().NotBeSameAs(selections1, because: "Cloning should not return the same reference.");
+
+            selections2.Implementations.Add(new ImplementationSelection {ID = "dummy"});
+            selections2.Should().NotBe(selections1, because: "Modified objects should no longer be equal");
         }
     }
 }

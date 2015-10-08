@@ -203,7 +203,7 @@ namespace ZeroInstall.Store.Model.Selection
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj is Feed && Equals((Feed)obj);
+            return obj is Selections && Equals((Selections)obj);
         }
 
         /// <inheritdoc/>
