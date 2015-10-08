@@ -170,7 +170,7 @@ namespace ZeroInstall.Services
         /// Contains helper methods for filtering <see cref="Selections"/>.
         /// </summary>
         [NotNull]
-        public ISelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedCache, Store, PackageManager)); } set { _selectionsManager = value; } }
+        public ISelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedManager, Store, PackageManager)); } set { _selectionsManager = value; } }
 
         private static T Get<T>(ref T value, Func<T> build) where T : class
         {

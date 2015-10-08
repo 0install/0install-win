@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -33,25 +33,25 @@ namespace ZeroInstall.Services
     public class SelectionsManager : ISelectionsManager
     {
         #region Dependencies
-        private readonly IFeedCache _feedCache;
+        private readonly IFeedManager _feedManager;
         private readonly IStore _store;
         private readonly IPackageManager _packageManager;
 
         /// <summary>
         /// Creates a new selections manager
         /// </summary>
-        /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
+        /// <param name="feedManager">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
         /// <param name="store">The locations to search for cached <see cref="Implementation"/>s.</param>
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
-        public SelectionsManager([NotNull] IFeedCache feedCache, [NotNull] IStore store, [NotNull] IPackageManager packageManager)
+        public SelectionsManager([NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager)
         {
             #region Sanity checks
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
             if (packageManager == null) throw new ArgumentNullException("packageManager");
             #endregion
 
-            _feedCache = feedCache;
+            _feedManager = feedManager;
             _store = store;
             _packageManager = packageManager;
         }
@@ -93,7 +93,7 @@ namespace ZeroInstall.Services
             {
                 yield return selection.ID.StartsWith(ExternalImplementation.PackagePrefix)
                     ? _packageManager.Lookup(selection)
-                    : _feedCache.GetFeed(selection.FromFeed ?? selection.InterfaceUri)[selection.ID].CloneImplementation();
+                    : _feedManager[selection.FromFeed ?? selection.InterfaceUri][selection.ID].CloneImplementation();
             }
         }
     }

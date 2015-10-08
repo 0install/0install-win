@@ -19,9 +19,9 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -34,13 +34,13 @@ namespace ZeroInstall.Services
     [TestFixture]
     public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
-        private Mock<IFeedCache> _feedCacheMock;
+        private Mock<IFeedManager> _feedManagereMock;
         private Mock<IPackageManager> _packageManagerMock;
         private Mock<IStore> _storeMock;
 
         protected override void Register(AutoMockContainer container)
         {
-            _feedCacheMock = container.GetMock<IFeedCache>();
+            _feedManagereMock = container.GetMock<IFeedManager>();
             _packageManagerMock = container.GetMock<IPackageManager>();
             _storeMock = container.GetMock<IStore>();
 
@@ -107,8 +107,8 @@ namespace ZeroInstall.Services
                 new ImplementationSelection {ID = impl3.ID, InterfaceUri = FeedTest.Test1Uri, FromFeed = new FeedUri(FeedUri.FromDistributionPrefix + FeedTest.Test1Uri)}
             };
 
-            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(new Feed {Elements = {impl1}});
-            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Elements = {impl2}});
+            _feedManagereMock.Setup(x => x[FeedTest.Test1Uri]).Returns(new Feed {Elements = {impl1}});
+            _feedManagereMock.Setup(x => x[FeedTest.Sub2Uri]).Returns(new Feed {Elements = {impl2}});
             _packageManagerMock.Setup(x => x.Lookup(implementationSelections[2])).Returns(impl3);
 
             Target.GetImplementations(implementationSelections)
