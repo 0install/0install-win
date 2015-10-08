@@ -45,6 +45,19 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
+        /// Turns a relative path into an absolute one, using the file containing the reference as the base.
+        /// </summary>
+        /// <param name="path">The potentially relative path; will remain untouched if absolute.</param>
+        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
+        /// <returns>An absolute path.</returns>
+        /// <exception cref="UriFormatException"><paramref name="path"/> is relative and <paramref name="source"/> is a remote URI.</exception>
+        [NotNull]
+        public static string GetAbsolutePath([NotNull] string path, [CanBeNull] string source)
+        {
+            return GetAbsolutePath(path, string.IsNullOrEmpty(source) ? null : new FeedUri(source));
+        }
+
+        /// <summary>
         /// Turns a relative HREF into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
@@ -61,6 +74,19 @@ namespace ZeroInstall.Store.Model
             if (href.IsAbsoluteUri) return href;
             if (source == null || !source.IsFile) throw new UriFormatException(string.Format(Resources.RelativeUriInRemoteFeed, href));
             return new Uri(new Uri(source.LocalPath, UriKind.Absolute), href);
+        }
+
+        /// <summary>
+        /// Turns a relative HREF into an absolute one, using the file containing the reference as the base.
+        /// </summary>
+        /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
+        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
+        /// <returns>An absolute HREF.</returns>
+        /// <exception cref="UriFormatException"><paramref name="href"/> is relative and <paramref name="source"/> is a remote URI.</exception>
+        [NotNull]
+        public static Uri GetAbsoluteHref([NotNull] Uri href, [CanBeNull] string source)
+        {
+            return GetAbsoluteHref(href, string.IsNullOrEmpty(source) ? null : new FeedUri(source));
         }
     }
 }

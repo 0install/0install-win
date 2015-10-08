@@ -196,7 +196,7 @@ namespace ZeroInstall.Publish
             }.Dispatch(retrievalMethod);
 
             // Download the file
-            var href = ModelUtils.GetAbsoluteHref(retrievalMethod.Href, string.IsNullOrEmpty(executor.Path) ? null : new FeedUri(executor.Path));
+            var href = ModelUtils.GetAbsoluteHref(retrievalMethod.Href, executor.Path);
             var downloadedFile = new TemporaryFile("0publish");
             handler.RunTask(new DownloadFile(href, downloadedFile)); // Defer task to handler
 
