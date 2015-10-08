@@ -170,6 +170,7 @@ namespace ZeroInstall.Commands.CliCommands
             try
             { // Try to parse as selections document
                 Selections = XmlStorage.LoadXml<Selections>(Requirements.InterfaceUri.LocalPath);
+                Selections.Normalize();
                 Requirements.InterfaceUri = Selections.InterfaceUri;
                 SelectionsDocument = true;
             }

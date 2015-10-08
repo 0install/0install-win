@@ -65,6 +65,8 @@ namespace ZeroInstall.Commands.CliCommands
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
+
+                selections.Normalize();
                 RunAndAssert(Resources.AllComponentsDownloaded, 0, selections, tempFile);
             }
         }
