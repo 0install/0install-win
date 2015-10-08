@@ -27,9 +27,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <param name="feedUri">The feed the data was originally loaded from; can be <see langword="null"/>.</param>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        void Normalize([CanBeNull] FeedUri feedUri = null);
+        void Normalize([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Creates a deep copy of this <see cref="IRecipeStep"/> instance.

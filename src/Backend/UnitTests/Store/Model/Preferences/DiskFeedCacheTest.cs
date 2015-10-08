@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Model.Preferences
     {
         private TemporaryDirectory _tempDir;
         private DiskFeedCache _cache;
-        private Feed _feed1, _feed2;
+        private Feed _feed1;
 
         [SetUp]
         public override void SetUp()
@@ -50,11 +50,10 @@ namespace ZeroInstall.Store.Model.Preferences
             _feed1 = FeedTest.CreateTestFeed();
             _feed1.Uri = FeedTest.Test1Uri;
             _feed1.SaveXml(Path.Combine(_tempDir, _feed1.Uri.Escape()));
-            _feed1.Normalize(_feed1.Uri);
-            _feed2 = FeedTest.CreateTestFeed();
-            _feed2.Uri = FeedTest.Test2Uri;
-            _feed2.SaveXml(Path.Combine(_tempDir, _feed2.Uri.Escape()));
-            _feed2.Normalize(_feed2.Uri);
+
+            var feed2 = FeedTest.CreateTestFeed();
+            feed2.Uri = FeedTest.Test2Uri;
+            feed2.SaveXml(Path.Combine(_tempDir, feed2.Uri.Escape()));
             File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
 
@@ -97,21 +96,15 @@ namespace ZeroInstall.Store.Model.Preferences
         [Test]
         public void TestListAll()
         {
-            _cache.ListAll().Should().Equal(FeedTest.Test1Uri, FeedTest.Test2Uri);
+            _cache.ListAll()
+                .Should().Equal(FeedTest.Test1Uri, FeedTest.Test2Uri);
         }
 
         [Test]
         public void TestGetFeed()
         {
-            var feed = _cache.GetFeed(_feed1.Uri);
-            feed.Should().Be(_feed1);
-
-            using (var localFeed = new TemporaryFile("0install-unit-tests"))
-            {
-                _feed1.SaveXml(localFeed);
-                _cache.GetFeed(new FeedUri(localFeed))
-                    .Should().Be(_feed1, because: "Should provide local feed files without them actually being in the cache");
-            }
+            _cache.GetFeed(_feed1.Uri)
+                .Should().Be(_feed1);
         }
 
         [Test]
@@ -124,7 +117,8 @@ namespace ZeroInstall.Store.Model.Preferences
         [Test]
         public void TestGetSignatures()
         {
-            _cache.GetSignatures(FeedTest.Test1Uri).Should().BeEmpty();
+            _cache.GetSignatures(FeedTest.Test1Uri)
+                .Should().BeEmpty();
         }
 
         [Test]
@@ -135,8 +129,8 @@ namespace ZeroInstall.Store.Model.Preferences
 
             _cache.Add(feed.Uri, feed.ToArray());
 
-            feed.Normalize(feed.Uri);
-            _cache.GetFeed(feed.Uri).Should().Be(feed);
+            _cache.GetFeed(feed.Uri)
+                .Should().Be(feed);
         }
 
         [Test]

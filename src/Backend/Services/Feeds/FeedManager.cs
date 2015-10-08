@@ -98,31 +98,50 @@ namespace ZeroInstall.Services.Feeds
         //--------------------//
 
         #region Get feed
-        protected override Feed Retrieve(FeedUri key)
+        protected override Feed Retrieve(FeedUri feedUri)
         {
             #region Sanity checks
-            if (key == null) throw new ArgumentNullException("key");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            if (key.IsFromDistribution)
-                throw new ArgumentException(string.Format("{0} is a virtual feed URI and therefore cannot be downloaded.", key.ToStringRfc()));
-            if (key.IsFile) return LoadLocal(key);
+            var feed = GetFeed(feedUri);
+            feed.Normalize(feedUri);
+            return feed;
+        }
+
+        /// <summary>
+        /// Returns a specific <see cref="Feed"/>. Automatically handles downloading and caching. Updates the <see cref="Stale"/> indicator.
+        /// </summary>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
+        /// <returns>The parsed <see cref="Feed"/> object.</returns>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
+        /// <exception cref="InvalidDataException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
+        private Feed GetFeed([NotNull] FeedUri feedUri)
+        {
+            if (feedUri.IsFromDistribution)
+                throw new ArgumentException(string.Format("{0} is a virtual feed URI and therefore cannot be downloaded.", feedUri.ToStringRfc()));
+            if (feedUri.IsFile) return XmlStorage.LoadXml<Feed>(feedUri.LocalPath);
             else
             {
                 try
                 {
-                    if (Refresh) Download(key);
-                    else if (!_feedCache.Contains(key))
+                    if (Refresh) Download(feedUri);
+                    else if (!_feedCache.Contains(feedUri))
                     {
                         // Do not download in offline mode
                         if (_config.NetworkUse == NetworkLevel.Offline)
-                            throw new IOException(string.Format(Resources.FeedNotCachedOffline, key));
+                            throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedUri));
 
                         // Try to download missing feed
-                        Download(key);
+                        Download(feedUri);
                     }
 
-                    return LoadCached(key);
+                    return LoadCached(feedUri);
                 }
                     #region Error handling
                 catch (KeyNotFoundException ex)
@@ -132,36 +151,6 @@ namespace ZeroInstall.Services.Feeds
                 }
                 #endregion
             }
-        }
-        #endregion
-
-        #region Local
-        /// <summary>
-        /// Loads a <see cref="Feed"/> from a local file.
-        /// </summary>
-        /// <param name="feedUri">The ID used to identify the feed. Must be an absolute local path.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        [NotNull]
-        private Feed LoadLocal(FeedUri feedUri)
-        {
-            if (File.Exists(feedUri.LocalPath))
-            {
-                // Use cache even for local files since there may be in-memory caching
-                try
-                {
-                    return _feedCache.GetFeed(feedUri);
-                }
-                    #region Error handling
-                catch (InvalidDataException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new IOException(ex.Message, ex);
-                }
-                #endregion
-            }
-            throw new FileNotFoundException(string.Format(Resources.FileNotFound, feedUri.LocalPath), feedUri.LocalPath);
         }
         #endregion
 

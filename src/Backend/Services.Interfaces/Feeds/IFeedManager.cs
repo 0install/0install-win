@@ -48,7 +48,7 @@ namespace ZeroInstall.Services.Feeds
         bool ShouldRefresh { get; }
 
         /// <summary>
-        /// Returns a specific <see cref="Feed"/>. Automatically handles downloading and caching. Updates the <see cref="Stale"/> indicator.
+        /// Returns a specific <see cref="Feed"/>. Automatically handles downloading, calling <see cref="Feed.Normalize"/> and caching. Updates the <see cref="Stale"/> indicator.
         /// </summary>
         /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>

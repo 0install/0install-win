@@ -80,7 +80,11 @@ namespace ZeroInstall.Store.ViewModel
             Nodes = new NamedCollection<CacheNode>();
             _feeds = _feedCache.GetAll();
 
-            foreach (var feed in _feeds) Add(feed);
+            foreach (var feed in _feeds)
+            {
+                feed.Normalize(feed.Uri);
+                Add(feed);
+            }
             foreach (var digest in _store.ListAll()) Add(digest);
             foreach (string path in _store.ListAllTemp()) Add(path);
 

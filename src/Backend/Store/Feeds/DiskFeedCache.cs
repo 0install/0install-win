@@ -107,9 +107,7 @@ namespace ZeroInstall.Store.Feeds
             string path = GetPath(feedUri);
             Log.Debug("Loading feed " + feedUri.ToStringRfc() + " from disk cache: " + path);
 
-            var feed = XmlStorage.LoadXml<Feed>(path);
-            feed.Normalize(feedUri);
-            return feed;
+            return XmlStorage.LoadXml<Feed>(path);
         }
 
         /// <inheritdoc/>
@@ -128,13 +126,12 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         private string GetPath(FeedUri feedUri)
         {
-            if (feedUri.IsFile) return feedUri.LocalPath;
-            {
-                string fileName = feedUri.Escape();
-                string path = Path.Combine(DirectoryPath, fileName);
-                if (FileUtils.ExistsCaseSensitive(path)) return path;
-                else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUri, path));
-            }
+            if (feedUri.IsFile) throw new UriFormatException("Feed URI must not point to a local file path when passed to the feed cache.");
+
+            string fileName = feedUri.Escape();
+            string path = Path.Combine(DirectoryPath, fileName);
+            if (FileUtils.ExistsCaseSensitive(path)) return path;
+            else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUri, path));
         }
         #endregion
 

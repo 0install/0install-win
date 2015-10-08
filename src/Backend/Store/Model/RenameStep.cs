@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model
 
         #region Normalize
         /// <inheritdoc/>
-        public void Normalize(FeedUri feedUri = null)
+        public void Normalize(FeedUri feedUri)
         {}
         #endregion
 

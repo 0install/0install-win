@@ -40,6 +40,20 @@ namespace ZeroInstall.Services.Feeds
         private Mock<IFeedCache> _feedCacheMock;
         private Mock<ITrustManager> _trustManagerMock;
 
+        private Feed _feedPreNormalize;
+        private Feed _feedPostNormalize;
+
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+
+            _feedPreNormalize = FeedTest.CreateTestFeed();;
+
+            _feedPostNormalize = _feedPreNormalize.Clone();
+            _feedPostNormalize.Normalize(_feedPreNormalize.Uri);
+        }
+
         protected override void Register(AutoMockContainer container)
         {
             base.Register(container);
@@ -51,14 +65,12 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void Local()
         {
-            var feed = new Feed();
-
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
-                // ReSharper disable once AccessToDisposedClosure
-                _feedCacheMock.Setup(x => x.GetFeed(new FeedUri(feedFile))).Returns(feed);
+                _feedPreNormalize.SaveXml(feedFile);
 
-                Target[new FeedUri(feedFile)].Should().BeSameAs(feed);
+                var result = Target[new FeedUri(feedFile)];
+                result.Should().Be(_feedPostNormalize);
                 Target.Stale.Should().BeFalse();
             }
         }
@@ -144,13 +156,12 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void DetectFreshCached()
         {
-            var feed = new Feed();
             _feedCacheMock.Setup(x => x.Contains(FeedTest.Test1Uri)).Returns(true);
-            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
+            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(_feedPreNormalize);
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor(FeedTest.Test1Uri);
 
             Target.IsStale(FeedTest.Test1Uri).Should().BeFalse();
-            Target[FeedTest.Test1Uri].Should().BeSameAs(feed);
+            Target[FeedTest.Test1Uri].Should().Be(_feedPostNormalize);
             Target.Stale.Should().BeFalse();
         }
 
