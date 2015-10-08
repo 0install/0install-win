@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
@@ -33,28 +32,17 @@ namespace ZeroInstall.Commands.CliCommands
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public override void TestNormal()
         {
+            var testImplementation1 = new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
+            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")};
+
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
-
-            var testFeed1 = FeedTest.CreateTestFeed();
-            testFeed1.Uri = FeedTest.Sub1Uri;
-            testFeed1.Name = "Sub 1";
-            var testImplementation1 = testFeed1[selections.Implementations[0].ID];
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(testFeed1);
-
-            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
-            var testFeed2 = new Feed
-            {
-                Uri = FeedTest.Sub2Uri,
-                Name = "Sub 2",
-                Elements = {testImplementation2}
-            };
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(testFeed2);
 
             SolverMock.Setup(x => x.Solve(requirements)).Returns(selections);
 
             // Download uncached implementations
-            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
+            SelectionsManagerMock.Setup(x => x.GetUncachedSelections(selections)).Returns(selections.Implementations);
+            SelectionsManagerMock.Setup(x => x.GetImplementations(selections.Implementations)).Returns(new[] {testImplementation1, testImplementation2});
             FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
 
             RunAndAssert(Resources.AllComponentsDownloaded, 0, selections,
@@ -64,25 +52,14 @@ namespace ZeroInstall.Commands.CliCommands
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
         public override void TestImportSelections()
         {
-            var testFeed1 = FeedTest.CreateTestFeed();
-            testFeed1.Uri = FeedTest.Sub1Uri;
-            testFeed1.Name = "Sub 1";
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(testFeed1);
-            var testImplementation1 = (Implementation)testFeed1.Elements[0];
-
-            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
-            var testFeed2 = new Feed
-            {
-                Uri = FeedTest.Sub2Uri,
-                Name = "Sub 2",
-                Elements = {testImplementation2}
-            };
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(testFeed2);
+            var testImplementation1 = new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
+            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")};
 
             var selections = SelectionsTest.CreateTestSelections();
 
             // Download uncached implementations
-            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
+            SelectionsManagerMock.Setup(x => x.GetUncachedSelections(selections)).Returns(selections.Implementations);
+            SelectionsManagerMock.Setup(x => x.GetImplementations(selections.Implementations)).Returns(new[] {testImplementation1, testImplementation2});
             FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

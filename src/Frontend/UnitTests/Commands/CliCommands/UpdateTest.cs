@@ -45,12 +45,10 @@ namespace ZeroInstall.Commands.CliCommands
             var impl1 = new Implementation {ID = "id1"};
             var impl2 = new Implementation {ID = "id2"};
             var impl3 = new Implementation {ID = "id3"};
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(new Feed {Uri = FeedTest.Sub1Uri, Elements = {impl1}});
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Uri = FeedTest.Sub2Uri, Elements = {impl2}});
-            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub3Uri)).Returns(new Feed {Uri = FeedTest.Sub3Uri, Elements = {impl3}});
 
             // Download uncached implementations
-            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
+            SelectionsManagerMock.Setup(x => x.GetUncachedSelections(selectionsNew)).Returns(selectionsNew.Implementations);
+            SelectionsManagerMock.Setup(x => x.GetImplementations(selectionsNew.Implementations)).Returns(new[] {impl1, impl2, impl3});
             FetcherMock.Setup(x => x.Fetch(new[] {impl1, impl2, impl3}.IsEquivalent()));
 
             // Check for <replaced-by>

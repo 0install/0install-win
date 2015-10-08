@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Feeds;
@@ -29,9 +28,9 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Services
 {
     /// <summary>
-    /// Contains helper methods for filtering <see cref="Selections"/>.
+    /// Provides methods for filtering <see cref="Selections"/>.
     /// </summary>
-    public class SelectionsManager
+    public class SelectionsManager : ISelectionsManager
     {
         #region Dependencies
         private readonly IFeedCache _feedCache;
@@ -58,17 +57,8 @@ namespace ZeroInstall.Services
         }
         #endregion
 
-        /// <summary>
-        /// Returns a list of any downloadable <see cref="ImplementationSelection"/>s that are missing from an <see cref="IStore"/>.
-        /// </summary>
-        /// <param name="selections">The selections to search for <see cref="ImplementationSelection"/>s that are missing.</param>
-        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        /// <exception cref="KeyNotFoundException">A <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
-        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
-        [NotNull, ItemNotNull]
-        public IEnumerable<ImplementationSelection> GetUncachedSelections([NotNull] Selections selections)
+        /// <inheritdoc/>
+        public IEnumerable<ImplementationSelection> GetUncachedSelections(Selections selections)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -92,12 +82,8 @@ namespace ZeroInstall.Services
             }
         }
 
-        /// <summary>
-        /// Retrieves the original <see cref="Implementation"/>s these selections were based on.
-        /// </summary>
-        /// <param name="selections">The <see cref="ImplementationSelection"/>s to map back to <see cref="Implementation"/>s.</param>
-        [NotNull, ItemNotNull]
-        public IEnumerable<Implementation> GetImplementations([NotNull] IEnumerable<ImplementationSelection> selections)
+        /// <inheritdoc/>
+        public IEnumerable<Implementation> GetImplementations(IEnumerable<ImplementationSelection> selections)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -109,20 +95,6 @@ namespace ZeroInstall.Services
                     ? _packageManager.Lookup(selection)
                     : _feedCache.GetFeed(selection.FromFeed ?? selection.InterfaceUri)[selection.ID].CloneImplementation();
             }
-        }
-
-        /// <summary>
-        /// Combines <see cref="GetUncachedSelections"/> and <see cref="GetImplementations"/>.
-        /// </summary>
-        /// <param name="selections">The selections to search for <see cref="ImplementationSelection"/>s that are missing.</param>
-        [NotNull, ItemNotNull]
-        public ICollection<Implementation> GetUncachedImplementations([NotNull] Selections selections)
-        {
-            #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
-            #endregion
-
-            return GetImplementations(GetUncachedSelections(selections)).ToList();
         }
     }
 }

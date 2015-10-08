@@ -62,10 +62,12 @@
     <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
     <Compile Include="Injector\ExecutorException.cs" />
     <Compile Include="Injector\IExecutor.cs" />
+    <Compile Include="ISelectionsManager.cs" />
     <Compile Include="PackageManagers\ExternalImplementation.cs" />
     <Compile Include="PackageManagers\ExternalRetrievalMethod.cs" />
     <Compile Include="PackageManagers\IPackageManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectionsManagerExtensions.cs" />
     <Compile Include="Solvers\ISolver.cs" />
     <Compile Include="Solvers\SelectionCandidateComparer.cs" />
     <Compile Include="Solvers\SelectionCandidateProvider.cs" />

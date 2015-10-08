@@ -164,13 +164,13 @@ namespace ZeroInstall.Services
         [NotNull]
         public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }
 
-        private SelectionsManager _selectionsManager;
+        private ISelectionsManager _selectionsManager;
 
         /// <summary>
         /// Contains helper methods for filtering <see cref="Selections"/>.
         /// </summary>
         [NotNull]
-        public SelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedCache, Store, PackageManager)); } set { _selectionsManager = value; } }
+        public ISelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedCache, Store, PackageManager)); } set { _selectionsManager = value; } }
 
         private static T Get<T>(ref T value, Func<T> build) where T : class
         {

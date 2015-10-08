@@ -21,6 +21,7 @@ using JetBrains.Annotations;
 using Moq;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
@@ -48,6 +49,7 @@ namespace ZeroInstall.Commands.CliCommands
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
         protected Mock<IExecutor> ExecutorMock { get; private set; }
+        protected Mock<ISelectionsManager> SelectionsManagerMock { get; private set; }
 
         protected override void Register(AutoMockContainer container)
         {
@@ -59,6 +61,7 @@ namespace ZeroInstall.Commands.CliCommands
             SolverMock = container.GetMock<ISolver>();
             FetcherMock = container.GetMock<IFetcher>();
             ExecutorMock = container.GetMock<IExecutor>();
+            SelectionsManagerMock = container.GetMock<ISelectionsManager>();
         }
 
         [SetUp]
@@ -76,6 +79,7 @@ namespace ZeroInstall.Commands.CliCommands
             Target.Solver = SolverMock.Object;
             Target.Fetcher = FetcherMock.Object;
             Target.Executor = ExecutorMock.Object;
+            Target.SelectionsManager = SelectionsManagerMock.Object;
 
             SelfUpdateUtils.NoAutoCheck = true;
         }
