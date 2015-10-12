@@ -50,12 +50,12 @@ namespace ZeroInstall.Store.Implementations.Archives
                 var executable = archive.GetNextEntry();
                 executable.Name.Should().Be("executable");
                 executable.ModTime.Should().Be(Timestamp);
-                ((executable.TarHeader.Mode & TarExtractor.ExecuteMode) > 0).Should().BeTrue();
+                executable.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode | TarExtractor.ExecuteMode);
 
                 var normal = archive.GetNextEntry();
                 normal.Name.Should().Be("normal");
                 normal.ModTime.Should().Be(Timestamp);
-                ((normal.TarHeader.Mode & TarExtractor.ExecuteMode) > 0).Should().BeFalse();
+                normal.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode);
 
                 var symlink = archive.GetNextEntry();
                 symlink.Name.Should().Be("symlink");
@@ -64,11 +64,12 @@ namespace ZeroInstall.Store.Implementations.Archives
                 var directory = archive.GetNextEntry();
                 directory.Name.Should().Be("dir");
                 directory.IsDirectory.Should().BeTrue();
+                directory.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode | TarExtractor.ExecuteMode);
 
                 var sub = archive.GetNextEntry();
                 sub.Name.Should().Be("dir/sub");
                 sub.ModTime.Should().Be(Timestamp);
-                ((sub.TarHeader.Mode & TarExtractor.ExecuteMode) > 0).Should().BeFalse();
+                sub.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode);
             }
         }
 

@@ -118,7 +118,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             _tarStream.PutNextEntry(new TarEntry(new TarHeader
             {
                 Name = directory.RelativeTo(SourceDirectory),
-                TypeFlag = TarHeader.LF_DIR
+                TypeFlag = TarHeader.LF_DIR,
+                Mode = TarExtractor.DefaultMode | TarExtractor.ExecuteMode
             }));
             _tarStream.CloseEntry();
         }
