@@ -92,8 +92,23 @@ namespace ZeroInstall.Store.Implementations
 
             if (Kind == StoreKind.ReadWrite)
             {
-                if (!_isUnixFS) FlagUtils.MarkAsNoUnixFS(DirectoryPath);
-                if (_useWriteProtection && WindowsUtils.IsWindowsNT) WriteDeleteInfoFile(DirectoryPath);
+                try
+                {
+                    if (!_isUnixFS) FlagUtils.MarkAsNoUnixFS(DirectoryPath);
+                    if (_useWriteProtection && WindowsUtils.IsWindowsNT) WriteDeleteInfoFile(DirectoryPath);
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    // Writing these files is not critical
+                    Log.Warn(ex);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Writing these files is not critical
+                    Log.Warn(ex);
+                }
+                #endregion
             }
         }
 
@@ -117,22 +132,9 @@ namespace ZeroInstall.Store.Implementations
 
         private static void WriteDeleteInfoFile(string path)
         {
-            try
-            {
-                File.WriteAllText(
-                    Path.Combine(path, Resources.DeleteInfoFileName + ".txt"),
-                    string.Format(Resources.DeleteInfoFileContent, path), Encoding.UTF8);
-            }
-                #region Error handling
-            catch (IOException)
-            {
-                // Writing this file is not important, just ignore (might be a race condition)
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // Writing this file is not important, just ignore
-            }
-            #endregion
+            File.WriteAllText(
+                Path.Combine(path, Resources.DeleteInfoFileName + ".txt"),
+                string.Format(Resources.DeleteInfoFileContent, path), Encoding.UTF8);
         }
         #endregion
 
