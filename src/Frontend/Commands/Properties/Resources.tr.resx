@@ -133,6 +133,9 @@ Yapılan işlemin geçerli olması için terminalinizi kapatıp yeniden açmanı
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Gereken tüm bileşenler indirildi.</value>
   </data>
+  <data name="AlreadyInImplDirs" xml:space="preserve">
+    <value>&apos;{0}&apos; zaten özel uygulama önbellekleri listesinde var.</value>
+  </data>
   <data name="AppAlias" xml:space="preserve">
     <value>Uygulama kısaltması</value>
   </data>
@@ -306,6 +309,9 @@ Bir sürüm takımı seçildiğinde çıkış durumu 0 olur. Uygun bir takım bu
   <data name="DescriptionStoreAdd" xml:space="preserve">
     <value>İçerikler önbelleğe bir dizinden ya da arşivden eklenir.</value>
   </data>
+  <data name="DescriptionStoreAddDir" xml:space="preserve">
+    <value>Özel uygulama önbellekleri listesine bir dizin ekler.</value>
+  </data>
   <data name="DescriptionStoreAudit" xml:space="preserve">
     <value>Önbellekteki tüm uygulamaların sağlamlığını denetler.
 Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
@@ -339,6 +345,9 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   </data>
   <data name="DescriptionStoreRemove" xml:space="preserve">
     <value>Bir uygulamayı önbellekten kaldırır.</value>
+  </data>
+  <data name="DescriptionStoreRemoveDir" xml:space="preserve">
+    <value>Özel uygulama önbellekleri listesinden bir dizini kaldırır.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
     <value>Bir uygulamanın sağlamlığını denetler (Örneğin öğe listesi düzeninin değişmemiş olması).</value>
@@ -475,6 +484,9 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Bu işlem taşınabilir kipte kullanılamaz.</value>
+  </data>
+  <data name="NotInImplDirs" xml:space="preserve">
+    <value>&apos;{0}&apos; özel uygulama önbellekleri listesinde yok.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Güncelleştirme bulunamadı</value>

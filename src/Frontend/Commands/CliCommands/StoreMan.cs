@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
@@ -50,7 +51,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override IEnumerable<string> SubCommandNames { get { return new[] {Add.Name, Audit.Name, Copy.Name, Export.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name}; } }
+        protected override IEnumerable<string> SubCommandNames { get { return new[] {Add.Name, Audit.Name, Copy.Name, Export.Name, Find.Name, List.Name, ListImplementations.Name, Manage.Name, Optimise.Name, Purge.Name, Remove.Name, Verify.Name, AddDir.Name, RemoveDir.Name}; } }
 
         /// <inheritdoc/>
         protected override SubCommand GetCommand(string commandName)
@@ -88,6 +89,10 @@ namespace ZeroInstall.Commands.CliCommands
                     return new Remove(Handler);
                 case Verify.Name:
                     return new Verify(Handler);
+                case AddDir.Name:
+                    return new AddDir(Handler);
+                case RemoveDir.Name:
+                    return new RemoveDir(Handler);
                 default:
                     throw new OptionException(string.Format(Resources.UnknownCommand, commandName), commandName);
             }
@@ -494,6 +499,104 @@ namespace ZeroInstall.Commands.CliCommands
                 }
 
                 return ExitCode.OK;
+            }
+        }
+
+        internal abstract class DirCommand : StoreSubCommand
+        {
+            #region Metadata
+            protected override string Usage { get { return "PATH"; } }
+
+            protected override int AdditionalArgsMin { get { return 1; } }
+
+            protected override int AdditionalArgsMax { get { return 1; } }
+
+            /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
+            protected bool MachineWide { get; private set; }
+
+            protected DirCommand([NotNull] ICommandHandler handler) : base(handler)
+            {
+                Options.Add("m|machine", () => Resources.OptionMachine, _ => MachineWide = true);
+            }
+            #endregion
+
+            protected string GetPath()
+            {
+                return Locations.IsPortable ? AdditionalArgs[0] : Path.GetFullPath(AdditionalArgs[0]);
+            }
+
+            protected IEnumerable<string> GetImplementationDirs()
+            {
+                return MachineWide
+                    ? StoreConfig.GetMachineWideImplementationDirs()
+                    : StoreConfig.GetUserImplementationDirs();
+            }
+
+            protected void SetImplementationDirs([NotNull] IEnumerable<string> paths)
+            {
+                if (MachineWide) StoreConfig.SetMachineWideImplementationDirs(paths);
+                else StoreConfig.SetUserImplementationDirs(paths);
+            }
+        }
+
+        internal class AddDir : DirCommand
+        {
+            #region Metadata
+            public new const string Name = "add-dir";
+
+            protected override string Description { get { return Resources.DescriptionStoreAddDir; } }
+
+            public AddDir([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                string path = GetPath();
+
+                // Init new store to ensure the target is suitable
+                Store = new DirectoryStore(path);
+
+                var dirs = GetImplementationDirs().ToList();
+                if (dirs.AddIfNew(path))
+                {
+                    SetImplementationDirs(dirs);
+                    return ExitCode.OK;
+                }
+                else
+                {
+                    Log.Warn(string.Format(Resources.AlreadyInImplDirs, path));
+                    return ExitCode.NoChanges;
+                }
+            }
+        }
+
+        internal class RemoveDir : DirCommand
+        {
+            #region Metadata
+            public new const string Name = "remove-dir";
+
+            protected override string Description { get { return Resources.DescriptionStoreRemoveDir; } }
+
+            public RemoveDir([NotNull] ICommandHandler handler) : base(handler)
+            {}
+            #endregion
+
+            public override ExitCode Execute()
+            {
+                string path = GetPath();
+
+                var dirs = GetImplementationDirs().ToList();
+                if (dirs.Remove(path))
+                {
+                    SetImplementationDirs(dirs);
+                    return ExitCode.OK;
+                }
+                else
+                {
+                    Log.Warn(string.Format(Resources.NotInImplDirs, path));
+                    return ExitCode.NoChanges;
+                }
             }
         }
     }

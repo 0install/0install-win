@@ -133,6 +133,9 @@ You may have to close and reopen your terminal for this to become effective.</va
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>All required components have been downloaded.</value>
   </data>
+  <data name="AlreadyInImplDirs" xml:space="preserve">
+    <value>'{0}' is already in the list of custom implementation caches.</value>
+  </data>
   <data name="AppAlias" xml:space="preserve">
     <value>Application alias</value>
   </data>
@@ -306,6 +309,9 @@ Returns an exit status of zero if it selected a set of versions, and a status of
   <data name="DescriptionStoreAdd" xml:space="preserve">
     <value>Adds the contents of a directory or archive to the cache.</value>
   </data>
+  <data name="DescriptionStoreAddDir" xml:space="preserve">
+    <value>Adds a directory to the list of custom implementation caches.</value>
+  </data>
   <data name="DescriptionStoreAudit" xml:space="preserve">
     <value>Checks that all implementations in the cache are undamaged.
 Additional arguments specify custom cache locations.</value>
@@ -339,6 +345,9 @@ Additional arguments specify custom cache locations.</value>
   </data>
   <data name="DescriptionStoreRemove" xml:space="preserve">
     <value>Removes an implementation from the cache.</value>
+  </data>
+  <data name="DescriptionStoreRemoveDir" xml:space="preserve">
+    <value>Removes a directory from the list of custom implementation caches.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
     <value>Makes sure an implementation have not been damaged (i.e. it manifest digest has not changed).</value>
@@ -475,6 +484,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>This operation is not available in portable mode.</value>
+  </data>
+  <data name="NotInImplDirs" xml:space="preserve">
+    <value>'{0}' is not in the list of custom implementation cacges.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>No updates found</value>

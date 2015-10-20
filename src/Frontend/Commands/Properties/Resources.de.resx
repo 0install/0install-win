@@ -133,6 +133,9 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Alle benötigten Komponenten wurden runtergeladen.</value>
   </data>
+  <data name="AlreadyInImplDirs" xml:space="preserve">
+    <value>'{0}' ist bereits in der Liste der benutzerdefinierten Implementierungscaches.</value>
+  </data>
   <data name="AppAlias" xml:space="preserve">
     <value>Anwendungsalias</value>
   </data>
@@ -306,6 +309,9 @@ Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde u
   <data name="DescriptionStoreAdd" xml:space="preserve">
     <value>Fügt den Inhalt eines Verzeichnisses oder eines Archives dem Cache hinzu.</value>
   </data>
+  <data name="DescriptionStoreAddDir" xml:space="preserve">
+    <value>Fügt ein Verzeichnis zur Liste der benutzerdefinierten Implementierungscaches hinzu.</value>
+  </data>
   <data name="DescriptionStoreAudit" xml:space="preserve">
     <value>Überprüft ob alle Implementierungen im Cache unbeschädigt sind.
 Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
@@ -339,6 +345,9 @@ Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
   </data>
   <data name="DescriptionStoreRemove" xml:space="preserve">
     <value>Entfernt eine Implementierung aus dem Cache.</value>
+  </data>
+  <data name="DescriptionStoreRemoveDir" xml:space="preserve">
+    <value>Entfernt ein Verzeichnis aus der Liste der benutzerdefinierten Implementierungscaches.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
     <value>Stellt sicher, dass eine Implementierungen nicht beschädigt wurde (d.h. ihr Manifestdigest hat sich nicht geändert).</value>
@@ -475,6 +484,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Dieser Vorgang steht im Portablen Modus nicht zur Verfügung.</value>
+  </data>
+  <data name="NotInImplDirs" xml:space="preserve">
+    <value>'{0}' ist nicht in der Liste der benutzerdefinierten Implementierungscaches.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>

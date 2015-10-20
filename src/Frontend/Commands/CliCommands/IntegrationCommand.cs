@@ -27,7 +27,7 @@ namespace ZeroInstall.Commands.CliCommands
         protected bool NoDownload;
 
         /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
-        protected bool MachineWide { private set; get; }
+        protected bool MachineWide { get; private set; }
 
         /// <inheritdoc/>
         protected IntegrationCommand([NotNull] ICommandHandler handler) : base(handler)
