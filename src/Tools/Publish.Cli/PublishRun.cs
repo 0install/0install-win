@@ -76,9 +76,10 @@ namespace ZeroInstall.Publish.Cli
         private bool _addMissing;
 
         /// <summary>
-        /// Add any downloaded archives to the implementation store.
+        /// Used to retain downloaded implementations; can be <see langword="null"/>.
         /// </summary>
-        private bool _keepDownloads;
+        [CanBeNull]
+        private IStore _keepDownloads;
 
         /// <summary>
         /// Add XML signature blocks to the feesd.
@@ -155,7 +156,7 @@ namespace ZeroInstall.Publish.Cli
 
                 // Modifications
                 {"add-missing", () => Resources.OptionAddMissing, _ => _addMissing = true},
-                {"keep-downloads", () => Resources.OptionsKeepDownloads, _ => _keepDownloads = true},
+                {"keep-downloads", () => Resources.OptionsKeepDownloads, _ => _keepDownloads = StoreFactory.CreateDefault()},
 
                 // Signatures
                 {"x|xmlsign", () => Resources.OptionXmlSign, _ => _xmlSign = true},

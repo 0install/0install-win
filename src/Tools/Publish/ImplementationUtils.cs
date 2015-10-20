@@ -25,7 +25,6 @@ using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -43,7 +42,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="RetrievalMethod"/> to use.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="keepDownloads">Adds the downloaded archive to the default <see cref="IStore"/> when set to <see langword="true"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
         /// <returns>A newly created <see cref="Implementation"/> containing one <see cref="Archive"/>.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was a problem extracting the archive.</exception>
@@ -51,7 +50,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
         /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
         [NotNull]
-        public static Implementation Build([NotNull] RetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, bool keepDownloads = false)
+        public static Implementation Build([NotNull] RetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] IStore keepDownloads = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -78,13 +77,13 @@ namespace ZeroInstall.Publish
         /// <param name="implementation">The <see cref="Implementation"/> to add data to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
-        public static void AddMissing([NotNull] this Implementation implementation, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null, bool keepDownloads = false)
+        public static void AddMissing([NotNull] this Implementation implementation, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null, [CanBeNull] IStore keepDownloads = null)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -175,12 +174,12 @@ namespace ZeroInstall.Publish
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
-        private static void UpdateDigest([NotNull] this Implementation implementation, [NotNull] string path, [NotNull] ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
+        private static void UpdateDigest([NotNull] this Implementation implementation, [NotNull] string path, [NotNull] ITaskHandler handler, [NotNull] ICommandExecutor executor, [CanBeNull] IStore keepDownloads = null)
         {
             var digest = GenerateDigest(path, handler, keepDownloads);
 
@@ -195,13 +194,13 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
         /// <returns>The newly generated digest.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         [Pure]
-        public static ManifestDigest GenerateDigest([NotNull] string path, [NotNull] ITaskHandler handler, bool keepDownloads = false)
+        public static ManifestDigest GenerateDigest([NotNull] string path, [NotNull] ITaskHandler handler, [CanBeNull] IStore keepDownloads = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -222,11 +221,11 @@ namespace ZeroInstall.Publish
             if (digest.PartialEquals(ManifestDigest.Empty))
                 Log.Warn(Resources.EmptyImplementation);
 
-            if (keepDownloads)
+            if (keepDownloads != null)
             {
                 try
                 {
-                    StoreFactory.CreateDefault().AddDirectory(path, digest, handler);
+                    keepDownloads.AddDirectory(path, digest, handler);
                 }
                 catch (ImplementationAlreadyInStoreException)
                 {}
