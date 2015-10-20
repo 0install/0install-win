@@ -65,6 +65,8 @@ namespace ZeroInstall.Store.Service
 
             _serviceIdentity = serviceIdentity;
             _eventLog = eventLog;
+
+            eventLog.WriteEntry("Using implementation directory: " + path, EventLogEntryType.Information);
         }
         #endregion
 

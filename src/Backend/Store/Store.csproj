@@ -130,6 +130,7 @@
     <Compile Include="Implementations\ManifestSymlink.cs" />
     <Compile Include="Implementations\OptimiseRun.cs" />
     <Compile Include="Implementations\RecipeUtils.cs" />
+    <Compile Include="Implementations\StoreConfig.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
     <Compile Include="ImplementationUtils.cs" />

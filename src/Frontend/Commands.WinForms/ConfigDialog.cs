@@ -150,31 +150,31 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Storage
-        private List<string> _systemImplDirs;
+        private List<string> _lockedImplDirs;
 
         private void LoadImplementationDirs()
         {
-            // List all implementation dirs in list box
-            _systemImplDirs = StoreFactory.GetImplementationDirs().ToList();
-            listBoxImplDirs.Items.Clear();
-            listBoxImplDirs.Items.AddRange(_systemImplDirs.Cast<object>().ToArray());
+            var allImplDirs = StoreConfig.GetImplementationDirs().ToList();
+            listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
 
-            // Then remove user-specific entries from the backing list to prevent modification
-            string userConfigPath = Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs");
-            if (File.Exists(userConfigPath))
-                _systemImplDirs.RemoveRange(StoreFactory.GetCustomImplementationDirs(userConfigPath));
+            var userImplDirs = StoreConfig.GetUserImplementationDirs();
+            _lockedImplDirs = allImplDirs.Except(userImplDirs).ToList();
         }
 
         private void SaveImplementationDirs()
         {
-            StoreFactory.SetUserCustomImplementationDirs(
-                listBoxImplDirs.Items.Cast<string>().Except(_systemImplDirs));
+            var allImplDirs = listBoxImplDirs.Items.Cast<string>();
+            var userImplDirs = allImplDirs.Except(_lockedImplDirs);
+            StoreConfig.SetUserImplementationDirs(userImplDirs);
         }
 
         private void listBoxImplDirs_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonGoToImplDir.Enabled = (listBoxImplDirs.SelectedItems.Count == 1);
-            buttonRemoveImplDir.Enabled = (listBoxImplDirs.SelectedItems.Count >= 1) && listBoxImplDirs.SelectedItems.Cast<string>().All(x => !_systemImplDirs.Contains(x));
+
+            buttonRemoveImplDir.Enabled =
+                (listBoxImplDirs.SelectedItems.Count >= 1) &&
+                !listBoxImplDirs.SelectedItems.Cast<string>().ContainsAny(_lockedImplDirs);
         }
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)

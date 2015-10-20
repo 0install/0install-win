@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementations
     ///   <para>When adding new <see cref="Store.Model.Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
     ///   <para>When when retrieving existing <see cref="Store.Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains(ZeroInstall.Store.Model.ManifestDigest)"/> is used.</para>
     /// </remarks>
-    public class CompositeStore : IStore
+    public class CompositeStore : MarshalByRefObject, IStore
     {
         #region Properties
         private readonly IStore[] _stores;
