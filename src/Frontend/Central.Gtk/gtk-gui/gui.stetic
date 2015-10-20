@@ -4,7 +4,7 @@
     <images-root-path>..</images-root-path>
   </configuration>
   <import>
-    <widget-library name="../../../packages/NanoByte.Common.Gtk.1.2.5/lib/net40/NanoByte.Common.Gtk.dll" />
+    <widget-library name="../../../packages/NanoByte.Common.Gtk.1.2.6/lib/net40/NanoByte.Common.Gtk.dll" />
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../../../../build/Debug/Frontend/0install-gtk.exe" />
     <widget-library name="../../../../build/Debug/Frontend/ZeroInstall-gtk.exe" internal="true" />

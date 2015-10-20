@@ -101,6 +101,12 @@ namespace ZeroInstall.OneGet
             Output(title, message);
         }
 
+        /// <inheritdoc/>
+        public ICredentialProvider BuildCredentialProvider()
+        {
+            return null;
+        }
+
         #region Dispose
         /// <inheritdoc/>
         public void Dispose()

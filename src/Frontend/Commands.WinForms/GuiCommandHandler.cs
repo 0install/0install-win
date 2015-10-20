@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.WinForms
                 // Handle events coming from a non-UI thread
                 : form.SetupProgress(task.Name));
 
-            task.Run(CancellationToken, progress);
+            task.Run(CancellationToken, progress, BuildCredentialProvider());
 
             _wrapper.Post(form => form.RestoreSelections());
         }
