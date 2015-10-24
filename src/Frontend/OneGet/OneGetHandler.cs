@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
 
@@ -27,24 +28,21 @@ namespace ZeroInstall.OneGet
     /// <summary>
     /// Manages communication between <see cref="ITask"/>s and a OneGet <see cref="Request"/>.
     /// </summary>
-    public class OneGetHandler : MarshalNoTimeout, ITaskHandler
+    public class OneGetHandler : TaskHandlerBase
     {
         private readonly Request _request;
 
         public OneGetHandler(Request request)
         {
             _request = request;
-
-            Log.Handler += LogHandler;
         }
 
-        #region Log handler
         /// <summary>
         /// Outputs <see cref="Log"/> messages using the OneGet <see cref="Request"/> object.
         /// </summary>
         /// <param name="severity">The type/severity of the entry.</param>
         /// <param name="message">The message text of the entry.</param>
-        private void LogHandler(LogSeverity severity, string message)
+        protected override void LogHandler(LogSeverity severity, string message)
         {
             switch (severity)
             {
@@ -60,70 +58,45 @@ namespace ZeroInstall.OneGet
                     break;
             }
         }
-        #endregion
-
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
+        protected override ICredentialProvider BuildCrendentialProvider()
+        {
+            return new WindowsCliCredentialProvider(_request.IsInteractive);
+        }
 
         /// <inheritdoc/>
-        public void RunTask(ITask task)
+        public override void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
             // Only report progress for tagged tasks (tasks that coresspond to specific implementations)
-            if (task.Tag == null) task.Run(CancellationToken);
-            else task.Run(CancellationToken, new OneGetProgress(task.Name, _request, _cancellationTokenSource));
+            if (task.Tag == null) task.Run(CancellationToken, CredentialProvider);
+            else task.Run(CancellationToken, CredentialProvider, new OneGetProgress(task.Name, _request, CancellationTokenSource));
         }
 
         /// <inheritdoc/>
-        public Verbosity Verbosity { get { return _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; } set { } }
+        public override Verbosity Verbosity { get { return _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; } set { } }
 
         /// <inheritdoc/>
-        public bool Ask(string question)
+        public override bool Ask(string question)
         {
             return _request.AskPermission(question);
         }
 
         /// <inheritdoc/>
-        public void Output(string title, string message)
+        public override void Output(string title, string message)
         {
             _request.Message(message);
         }
 
         /// <inheritdoc/>
-        public void Output<T>(string title, IEnumerable<T> data)
+        public override void Output<T>(string title, IEnumerable<T> data)
         {
             string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
             Output(title, message);
         }
-
-        /// <inheritdoc/>
-        public ICredentialProvider BuildCredentialProvider()
-        {
-            return null;
-        }
-
-        #region Dispose
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Log.Handler -= LogHandler;
-
-                _cancellationTokenSource.Dispose();
-            }
-        }
-        #endregion
     }
 }
