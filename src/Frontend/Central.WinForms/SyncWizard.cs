@@ -318,7 +318,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     var response = ex.Response as HttpWebResponse;
                     if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                        throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                        throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
                 }
 
                 throw;
@@ -396,7 +396,7 @@ namespace ZeroInstall.Central.WinForms
                     {
                         var response = ex.Response as HttpWebResponse;
                         if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                            throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                            throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
                     }
 
                     throw;

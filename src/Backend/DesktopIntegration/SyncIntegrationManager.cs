@@ -191,7 +191,7 @@ namespace ZeroInstall.DesktopIntegration
                         {
                             var response = ex.Response as HttpWebResponse;
                             if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                                throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                                throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
                         }
                         throw;
                     }
@@ -212,7 +212,7 @@ namespace ZeroInstall.DesktopIntegration
                             if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
                             {
                                 Handler.CancellationToken.ThrowIfCancellationRequested();
-                                throw new WebRaceConditionException();
+                                throw new WebRaceConditionException(ex);
                             }
                         }
                         else throw;
@@ -230,8 +230,8 @@ namespace ZeroInstall.DesktopIntegration
         [Serializable]
         private class WebRaceConditionException : WebException
         {
-            public WebRaceConditionException()
-                : base("Race condition: Multiple computers are trying to Sync to the same account at the same time.")
+            public WebRaceConditionException(WebException ex)
+                : base("Race condition: Multiple computers are trying to Sync to the same account at the same time.", ex, ex.Status, ex.Response)
             {}
 
             protected WebRaceConditionException([NotNull] SerializationInfo serializationInfo, StreamingContext streamingContext)
