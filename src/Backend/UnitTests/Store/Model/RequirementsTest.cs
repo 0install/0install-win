@@ -16,6 +16,7 @@
  */
 
 using FluentAssertions;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -69,6 +70,14 @@ namespace ZeroInstall.Store.Model
         {
             CreateTestRequirements().ToJsonString()
                 .Should().Be("{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test1.xml\":\"1.0..!2.0\",\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}");
+        }
+
+        [Test]
+        public void TestXml()
+        {
+            var requirements = new Requirements(FeedTest.Test1Uri, "command", new Architecture(OS.Windows, Cpu.I586));
+            string xml = requirements.ToXmlString();
+            XmlStorage.FromXmlString<Requirements>(xml).Should().Be(requirements);
         }
     }
 }

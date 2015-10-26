@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Values;
 using Newtonsoft.Json;
@@ -30,13 +32,14 @@ namespace ZeroInstall.Store.Model
     /// <summary>
     /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process. Used as input for the solver.
     /// </summary>
-    [Serializable]
+    [Serializable, XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : IInterfaceUri, ICloneable, IEquatable<Requirements>
     {
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
-        [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for."), JsonProperty("interface")]
+        [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for.")]
+        [XmlIgnore, JsonProperty("interface")]
         public FeedUri InterfaceUri { get; set; }
 
         /// <summary>
@@ -44,36 +47,11 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The name of the command in the implementation to execute. Will default to 'run' or 'compile' if null. Will not try to find any command if set to ''.")]
         [TypeConverter(typeof(CommandNameConverter))]
-        [JsonProperty("command"), CanBeNull]
+        [XmlAttribute("command"), JsonProperty("command"), CanBeNull]
         public string Command { get; set; }
 
-        /// <summary>
-        /// The architecture to find executables for. Find for the current system if left at default value.
-        /// </summary>
-        /// <remarks>Will default to <see cref="Store.Model.Architecture.CurrentSystem"/> if left at default value. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
-        [Description("The architecture to find executables for. Find for the current system if left at default value.")]
-        [JsonIgnore]
-        public Architecture Architecture { get; set; }
-
-        /// <summary>Used for JSON serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [JsonProperty("source")]
-        public bool Source { get { return Architecture.Cpu == Cpu.Source; } set { if (value) Architecture = new Architecture(Architecture.OS, Cpu.Source); } }
-
-        /// <summary>Used for JSON serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [JsonProperty("os")]
-        public string OSString { get { return Architecture.OS.ConvertToString(); } set { Architecture = new Architecture(value.ConvertFromString<OS>(), Architecture.Cpu); } }
-
-        /// <summary>Used for JSON serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [JsonProperty("cpu")]
-        public string CpuString { get { return Architecture.Cpu.ConvertToString(); } set { Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); } }
-
         // Order is always alphabetical, duplicate entries are not allowed
+
         private LanguageSet _languages = new LanguageSet();
 
         /// <summary>
@@ -81,14 +59,49 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
         [Description("The preferred languages for the implementation.")]
-        [JsonIgnore]
+        [XmlIgnore, JsonIgnore]
         public LanguageSet Languages { get { return _languages; } }
 
-        /// <summary>Used for JSON serialization.</summary>
-        /// <seealso cref="Architecture"/>
+        /// <summary>
+        /// The architecture to find executables for. Find for the current system if left at default value.
+        /// </summary>
+        /// <remarks>Will default to <see cref="Store.Model.Architecture.CurrentSystem"/> if left at default value. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
+        [Description("The architecture to find executables for. Find for the current system if left at default value.")]
+        [XmlIgnore, JsonIgnore]
+        public Architecture Architecture { get; set; }
+
+        #region XML/JSON serialization
+        /// <summary>Used for XMLserialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [JsonProperty("langs", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
+        [XmlAttribute("interface"), JsonIgnore]
+        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+
+        /// <summary>Used for XML and JSON serialization.</summary>
+        /// <seealso cref="Languages"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        [DefaultValue(""), JsonProperty("langs", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
+
+        /// <summary>Used for XML and JSON serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DefaultValue(false), XmlAttribute("source"), JsonProperty("source")]
+        public bool Source { get { return Architecture.Cpu == Cpu.Source; } set { if (value) Architecture = new Architecture(Architecture.OS, Cpu.Source); } }
+
+        /// <summary>Used for XML and JSON serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DefaultValue("*"), XmlAttribute("os"), JsonProperty("os", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string OSString { get { return Architecture.OS.ConvertToString(); } set { Architecture = new Architecture(value.ConvertFromString<OS>(), Architecture.Cpu); } }
+
+        /// <summary>Used for XML and JSON serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DefaultValue("*"), XmlAttribute("machine"), JsonProperty("cpu", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string CpuString { get { return Architecture.Cpu.ConvertToString(); } set { Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); } }
+        #endregion
 
         private readonly Dictionary<FeedUri, VersionRange> _extraRestrictions = new Dictionary<FeedUri, VersionRange>();
 
@@ -96,7 +109,7 @@ namespace ZeroInstall.Store.Model
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
-        [JsonProperty("extra_restrictions"), NotNull]
+        [XmlIgnore, JsonProperty("extra_restrictions"), NotNull]
         public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
@@ -106,8 +119,10 @@ namespace ZeroInstall.Store.Model
         /// Specifies that the selected implementations must be from one of the given distributions (e.g. Debian, RPM).
         /// The special value '0install' may be used to require implementations provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
-        [JsonIgnore, NotNull]
-        public List<string> Distributions { get { return _distributions; } }
+        /// <remarks>Used internally by solvers, copied from <see cref="Restriction.Distributions"/>, not set directly by user, not serialized.</remarks>
+        [Browsable(false)]
+        [XmlIgnore, JsonIgnore, NotNull]
+        public ICollection<string> Distributions { get { return _distributions; } }
 
         #region Constructor
         /// <summary>
