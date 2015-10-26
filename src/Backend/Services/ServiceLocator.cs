@@ -18,6 +18,7 @@
 using System;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Info;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
@@ -142,7 +143,7 @@ namespace ZeroInstall.Services
             get
             {
                 return Get(ref _solver, () => new FallbackSolver(
-                    new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler),
+                    new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler, zeroInstallVersion: new ImplementationVersion(AppInfo.Current.Version)),
                     new PythonSolver(Config, FeedManager, FeedCache, Handler)));
             }
             set { _solver = value; }

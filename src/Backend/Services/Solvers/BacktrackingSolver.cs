@@ -42,6 +42,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly IStore _store;
         private readonly IPackageManager _packageManager;
         private readonly ITaskHandler _handler;
+        private readonly ImplementationVersion _zeroInstallVersion;
 
         /// <summary>
         /// Creates a new simple solver.
@@ -51,7 +52,8 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public BacktrackingSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] ITaskHandler handler)
+        /// <param name="zeroInstallVersion">The version of the currently running Zero Install instance. Used for validating against <see cref="FeedElement.IfZeroInstallVersion"/>.</param>
+        public BacktrackingSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] ITaskHandler handler, [NotNull] ImplementationVersion zeroInstallVersion)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -59,6 +61,7 @@ namespace ZeroInstall.Services.Solvers
             if (store == null) throw new ArgumentNullException("store");
             if (packageManager == null) throw new ArgumentNullException("packageManager");
             if (handler == null) throw new ArgumentNullException("handler");
+            if (zeroInstallVersion == null) throw new ArgumentNullException("zeroInstallVersion");
             #endregion
 
             _config = config;
@@ -66,6 +69,7 @@ namespace ZeroInstall.Services.Solvers
             _packageManager = packageManager;
             _feedManager = feedManager;
             _handler = handler;
+            _zeroInstallVersion = zeroInstallVersion;
         }
         #endregion
 
@@ -80,7 +84,7 @@ namespace ZeroInstall.Services.Solvers
             Log.Info("Running Backtracking Solver for: " + requirements);
 
             var effectiveRequirements = requirements.GetEffective();
-            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager, requirements.Languages);
+            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager, _zeroInstallVersion, requirements.Languages);
             var solverRuns = effectiveRequirements.Select(x => new Pass(x, _handler.CancellationToken, candidateProvider));
 
             var successfullSolverRun = solverRuns.FirstOrDefault(x => x.TryToSolve());

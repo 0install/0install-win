@@ -44,6 +44,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly Config _config;
         private readonly IFeedManager _feedManager;
         private readonly IPackageManager _packageManager;
+        private readonly ImplementationVersion _zeroInstallVersion;
 
         /// <summary>
         /// Creates a new <see cref="SelectionCandidate"/> provider.
@@ -52,20 +53,24 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
+        /// <param name="zeroInstallVersion">The version of the currently running Zero Install instance. Used for validating against <see cref="FeedElement.IfZeroInstallVersion"/>.</param>
         /// <param name="languages">The preferred languages for the implementation.</param>
-        public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, LanguageSet languages)
+        public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] ImplementationVersion zeroInstallVersion, [NotNull] LanguageSet languages)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
             if (packageManager == null) throw new ArgumentNullException("packageManager");
+            if (zeroInstallVersion == null) throw new ArgumentNullException("zeroInstallVersion");
+            if (languages == null) throw new ArgumentNullException("languages");
             #endregion
 
             _config = config;
             _feedManager = feedManager;
             _isCached = BuildCacheChecker(store);
             _packageManager = packageManager;
+            _zeroInstallVersion = zeroInstallVersion;
             _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy, languages));
         }
 
@@ -171,7 +176,7 @@ namespace ZeroInstall.Services.Solvers
             if (feedUri == null || dictionary.ContainsKey(feedUri)) return;
 
             var feed = _feedManager[feedUri];
-            if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
+            if (feed.MinInjectorVersion != null && _zeroInstallVersion < feed.MinInjectorVersion)
             {
                 Log.Warn(string.Format("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.", feedUri, feed.MinInjectorVersion, AppInfo.Current.Version));
                 return;

@@ -43,6 +43,9 @@ namespace ZeroInstall.Services.Solvers
         {
             container.Register(new LanguageSet());
 
+            // Mock Zero Install version
+            container.Register(new ImplementationVersion("1.0"));
+
             _feedManagerMock = container.GetMock<IFeedManager>();
             _packageManagerMock = container.GetMock<IPackageManager>();
 
