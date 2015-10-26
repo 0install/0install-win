@@ -49,6 +49,12 @@ namespace ZeroInstall.Store.Model.Selection
         #endregion
 
         /// <summary>
+        /// Indicates whether the selection was generated for <see cref="Cpu.Source"/>.
+        /// </summary>
+        [XmlAttribute("source")]
+        public bool Source { get; set; }
+
+        /// <summary>
         /// The name of the <see cref="Command"/> in the interface to be started.
         /// </summary>
         [Description("The name of the command in the interface to be started.")]
@@ -194,7 +200,7 @@ namespace ZeroInstall.Store.Model.Selection
             if (!base.Equals(other)) return false;
             if (InterfaceUri != other.InterfaceUri) return false;
             if (Command != other.Command) return false;
-            if (!Implementations.SequencedEquals(other.Implementations)) return false;
+            if (!Implementations.UnsequencedEquals(other.Implementations)) return false;
             return true;
         }
 
@@ -214,7 +220,7 @@ namespace ZeroInstall.Store.Model.Selection
                 int result = base.GetHashCode();
                 if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 if (Command != null) result = (result * 397) ^ Command.GetHashCode();
-                result = (result * 397) ^ Implementations.GetSequencedHashCode();
+                result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
                 return result;
             }
         }
