@@ -23,6 +23,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model.Selection
@@ -184,11 +185,11 @@ namespace ZeroInstall.Store.Model.Selection
 
         #region Conversion
         /// <summary>
-        /// Returns the selections in the form "InterfaceUri (Command): Implementations". Not safe for parsing!
+        /// Returns the selections as XML. Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1}): {2}", InterfaceUri, Command, Implementations);
+            return this.ToXmlString();
         }
         #endregion
 

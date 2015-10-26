@@ -15,24 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Moq;
-using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using JetBrains.Annotations;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
-    /// Runs test methods for <see cref="BacktrackingSolver"/>.
+    /// A set of <see cref="TestCase"/>s.
     /// </summary>
-    [TestFixture]
-    public class BacktrackingSolverTest : SolverTest<BacktrackingSolver>
+    [Serializable, XmlRoot("test-cases", Namespace = Feed.XmlNamespace), XmlType("test-cases", Namespace = Feed.XmlNamespace)]
+    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
+    public class TestCaseSet : XmlUnknown
     {
-        protected override void Register(AutoMockContainer container)
-        {
-            base.Register(container);
+        private readonly List<TestCase> _testCases = new List<TestCase>();
 
-            // Mock Zero Install version
-            container.Register(new ImplementationVersion("1.0"));
-        }
+        /// <summary>
+        /// A list of input <see cref="Feed"/>s for the solver.
+        /// </summary>
+        [XmlElement("test", typeof(TestCase), Namespace = Feed.XmlNamespace), NotNull]
+        public List<TestCase> TestCases { get { return _testCases; } }
     }
 }

@@ -1,0 +1,1179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<test-cases xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+  <test name='trivial' add-downloads='true'>
+    <interface uri='http://example.com/prog.xml' min-injector-version='1'>
+      <name>0install</name>
+      <implementation id='v1' version='1'><command name='run' path='main'/></implementation>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='v1' interface='http://example.com/prog.xml' version='1'>
+        <command name="run" path="main"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="simple-dependency" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="lib1" interface="http://example.com/lib.xml"/>
+    </selections>
+  </test>
+
+  <test name="optional-dependency-satisfiable" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/lib.xml" importance="recommended"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/lib.xml" importance="recommended"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="lib1" interface="http://example.com/lib.xml"/>
+    </selections>
+  </test>
+
+  <test name="optional-dependency-not-satisfiable" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/lib.xml" importance="recommended"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <command name="run" path="test-app"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="os-specific-dependency-applicable" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires os="Windows" interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml" os="Windows"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires os="Windows" interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="lib1" interface="http://example.com/lib.xml"/>
+    </selections>
+  </test>
+
+  <test name="os-specific-dependency-not-applicable" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires os="Windows" interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml" os="Linux"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <command name="run" path="test-app"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="cyclic-dependency" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib1">
+        <requires interface="http://example.com/prog.xml"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="lib1" interface="http://example.com/lib.xml">
+        <requires interface="http://example.com/prog.xml"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="transitive-dependency" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/liba.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/liba.xml">
+      <name>libA</name>
+      <implementation version="1.0" id="libA1">
+        <requires interface="http://example.com/libb.xml"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/libb.xml">
+      <name>libB</name>
+      <implementation version="1.0" id="libB1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/liba.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="libA1" interface="http://example.com/liba.xml">
+        <requires interface="http://example.com/libb.xml"/>
+      </selection>
+      <selection version="1.0" id="libB1" interface="http://example.com/libb.xml"/>
+    </selections>
+  </test>
+
+  <test name="runner-dependency" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <command name="run" path="test-app">
+          <runner interface="http://example.com/runner.xml"/>
+        </command>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/runner.xml">
+      <name>runner</name>
+      <implementation version="1.0" id="runner1">
+        <command name="run" path="test-runner"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <command name="run" path="test-app">
+          <runner interface="http://example.com/runner.xml"/>
+        </command>
+      </selection>
+      <selection version="1.0" id="runner1" interface="http://example.com/runner.xml">
+        <command name="run" path="test-runner"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="dependency-with-binding" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/lib.xml">
+          <environment name="var1" insert="."/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/lib.xml">
+          <environment name="var1" insert="."/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="lib1" interface="http://example.com/lib.xml"/>
+    </selections>
+  </test>
+
+  <!-- Not supported yet -->
+  <!--
+  <test name="self-command-dependencies" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <command name="run" path="test-app">
+          <executable-in-path command="commandA" name="helperA"/>
+        </command>
+        <command name="commandA" path="helperA"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <command name="run" path="test-app">
+          <executable-in-path command="commandA" name="helperA"/>
+        </command>
+        <command name="commandA" path="helperA"/>
+      </selection>
+    </selections>
+  </test>
+  -->
+
+  <test name="multiple-command-dependencies" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/helper.xml">
+          <executable-in-path command="commandA" name="helperA"/>
+          <executable-in-path command="commandB" name="helperB"/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/helper.xml">
+      <name>helper</name>
+      <implementation version="1.0" id="helper1">
+        <command name="commandA" path="helperA"/>
+        <command name="commandB" path="helperB">
+          <runner interface="http://example.com/runner.xml"/>
+        </command>
+        <command name="commandC" path="helperC"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/runner.xml">
+      <name>runner</name>
+      <implementation version="1.0" id="runner1">
+        <command name="run" path="test-runner"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/helper.xml">
+          <executable-in-path command="commandA" name="helperA"/>
+          <executable-in-path command="commandB" name="helperB"/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="helper1" interface="http://example.com/helper.xml">
+        <command name="commandA" path="helperA"/>
+        <command name="commandB" path="helperB">
+          <runner interface="http://example.com/runner.xml"/>
+        </command>
+      </selection>
+      <selection version="1.0" id="runner1" interface="http://example.com/runner.xml">
+        <command name="run" path="test-runner"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="executable-binding-in-dependency" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/helper.xml">
+          <executable-in-path name="helper"/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/helper.xml">
+      <name>helper</name>
+      <implementation version="1.0" id="helper1">
+        <command name="run" path="test-helper"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/helper.xml">
+          <executable-in-path name="helper"/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="helper1" interface="http://example.com/helper.xml">
+        <command name="run" path="test-helper"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="executable-binding-in-dependency-triggering-additional-requirements" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/helper.xml">
+          <executable-in-path command="helper"/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/helper.xml">
+      <name>helper</name>
+      <implementation version="1.0" id="helper1">
+        <command name="helper" path="helper-app"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/helper.xml">
+          <executable-in-path command="helper"/>
+        </requires>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="helper1" interface="http://example.com/helper.xml">
+        <command name="helper" path="helper-app"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="executable-binding-in-implementation-triggering-additional-requirements" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <executable-in-path command="helper"/>
+        <command name="run" path="test-app"/>
+        <command name="helper" path="helper-app">
+          <requires interface="http://example.com/helper.xml"/>
+        </command>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/helper.xml">
+      <name>helper</name>
+      <implementation version="1.0" id="helper1"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <executable-in-path command="helper"/>
+        <command name="run" path="test-app"/>
+        <command name="helper" path="helper-app">
+          <requires interface="http://example.com/helper.xml"/>
+        </command>
+      </selection>
+      <selection version="1.0" id="helper1" interface="http://example.com/helper.xml"/>
+    </selections>
+  </test>
+
+  <test name="simple-restriction" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/liba.xml"/>
+        <requires interface="http://example.com/libb.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/liba.xml">
+      <name>libA</name>
+      <implementation version="1.0" id="liba1">
+        <restricts interface="http://example.com/libb.xml" version="1.0"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/libb.xml">
+      <name>libB</name>
+      <implementation version="1.0" id="libb1"/>
+      <implementation version="2.0" id="libb2"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/liba.xml"/>
+        <requires interface="http://example.com/libb.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="liba1" interface="http://example.com/liba.xml"/>
+      <selection version="1.0" id="libb1" interface="http://example.com/libb.xml"/>
+    </selections>
+  </test>
+
+  <test name="os-specific-restriction-applicable" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/liba.xml"/>
+        <requires interface="http://example.com/libb.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/liba.xml">
+      <name>libA</name>
+      <implementation version="1.0" id="liba1">
+        <restricts os="Windows" interface="http://example.com/libb.xml" version="1.0"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/libb.xml">
+      <name>libB</name>
+      <implementation version="1.0" id="libb1"/>
+      <implementation version="2.0" id="libb2"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml" os="Windows"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/liba.xml"/>
+        <requires interface="http://example.com/libb.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="liba1" interface="http://example.com/liba.xml"/>
+      <selection version="1.0" id="libb1" interface="http://example.com/libb.xml"/>
+    </selections>
+  </test>
+
+  <test name="os-specific-restriction-not-applicable" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation version="1.0" id="app1">
+        <requires interface="http://example.com/liba.xml"/>
+        <requires interface="http://example.com/libb.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/liba.xml">
+      <name>libA</name>
+      <implementation version="1.0" id="liba1">
+        <restricts os="Windows" interface="http://example.com/libb.xml" version="1.0"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/libb.xml">
+      <name>libB</name>
+      <implementation version="1.0" id="libb1"/>
+      <implementation version="2.0" id="libb2"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml" os="Linux"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection version="1.0" id="app1" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/liba.xml"/>
+        <requires interface="http://example.com/libb.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="liba1" interface="http://example.com/liba.xml"/>
+      <selection version="2.0" id="libb2" interface="http://example.com/libb.xml"/>
+    </selections>
+  </test>
+
+  <test name="simple-feed-reference" add-downloads="true">
+    <interface uri="http://example.com/prog1.xml">
+      <name>prog1</name>
+      <feed src="http://example.com/prog2.xml"/>
+      <implementation version="1.0" id="app1">
+        <command name="run" path="test-app1"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/prog2.xml">
+      <name>prog2</name>
+      <implementation version="2.0" id="app2">
+        <command name="run" path="test-app2"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog1.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog1.xml">
+      <selection version="2.0" id="app2" interface="http://example.com/prog1.xml" from-feed="http://example.com/prog2.xml">
+        <command name="run" path="test-app2"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="cyclic-feed-reference" add-downloads="true">
+    <interface uri="http://example.com/prog1.xml">
+      <name>prog1</name>
+      <feed src="http://example.com/prog2.xml"/>
+      <implementation version="1.0" id="app1">
+        <command name="run" path="test-app1"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/prog2.xml">
+      <name>prog2</name>
+      <feed src="http://example.com/prog1.xml"/>
+      <implementation version="2.0" id="app2">
+        <command name="run" path="test-app2"/>
+      </implementation>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog1.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog1.xml">
+      <selection version="2.0" id="app2" interface="http://example.com/prog1.xml" from-feed="http://example.com/prog2.xml">
+        <command name="run" path="test-app2"/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name="prefer-x64" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation arch="*-i686" version="1.0" id="app32">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+      <implementation arch="*-x86_64" version="1.0" id="app64">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation version="1.0" id="lib"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection arch="*-x86_64" version="1.0" id="app64" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection version="1.0" id="lib" interface="http://example.com/lib.xml"/>
+    </selections>
+  </test>
+
+  <test name="do-not-mix-x86-and-x64" add-downloads="true">
+    <interface uri="http://example.com/prog.xml">
+      <name>prog</name>
+      <implementation arch="*-i686" version="1.0" id="app32">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+      <implementation arch="*-x86_64" version="1.0" id="app64">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </implementation>
+    </interface>
+    <interface uri="http://example.com/lib.xml">
+      <name>lib</name>
+      <implementation arch="*-i486" version="1.0" id="lib"/>
+    </interface>
+    <requirements command="run" interface="http://example.com/prog.xml"/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection arch="*-i686" version="1.0" id="app32" interface="http://example.com/prog.xml">
+        <requires interface="http://example.com/lib.xml"/>
+        <command name="run" path="test-app"/>
+      </selection>
+      <selection arch="*-i486" version="1.0" id="lib" interface="http://example.com/lib.xml"/>
+    </selections>
+  </test>
+
+  <!-- Not supported yet -->
+  <!--
+  <test name='force-id' add-downloads='true'>
+    <interface uri='/path#foo/prog.xml' min-injector-version='1'>
+      <name>0install</name>
+      <implementation id='v1#x/y' version='1'><command name='run' path='main'/></implementation>
+      <implementation id='v2#x/y' version='2'><command name='run' path='main'/></implementation>
+    </interface>
+    <requirements command='run' interface='/path#foo/prog.xml'>
+      <restricts interface='/path#foo/prog.xml' version='=/path#foo/prog.xml/v1#x__y'/>
+      <restricts interface='/path#foo/prog2.xml' version='=/path#foo/prog.xml/v2#x__y'/>
+    </requirements>
+    <selections source="false" command="run" interface="/path#foo/prog.xml">
+      <selection id='v1#x/y' interface='/path#foo/prog.xml' version='1'>
+        <command name="run" path="main"/>
+      </selection>
+    </selections>
+  </test>
+  -->
+
+  <test name='binding-order' add-downloads='true'>
+    <interface uri='http://example.com/lib1.xml'>
+      <name>lib1</name>
+      <implementation id='l1' version='1'/>
+    </interface>
+    <interface uri='http://example.com/lib2.xml'>
+      <name>lib2</name>
+      <implementation id='l2' version='1'/>
+    </interface>
+    <interface uri='http://example.com/prog.xml' min-injector-version='1'>
+      <name>0install</name>
+      <implementation id='v1' version='1'>
+        <command name='run' path='main'>
+          <requires interface='http://example.com/lib1.xml'/>
+          <requires interface='http://example.com/lib2.xml'/>
+        </command>
+        <environment name='VAR' insert='a'/>
+        <environment name='VAR' insert='b'/>
+      </implementation>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='l1' interface='http://example.com/lib1.xml' version='1'/>
+      <selection id='l2' interface='http://example.com/lib2.xml' version='1'/>
+      <selection id='v1' interface='http://example.com/prog.xml' version='1'>
+        <command name="run" path="main">
+          <requires interface='http://example.com/lib1.xml'/>
+          <requires interface='http://example.com/lib2.xml'/>
+        </command>
+        <environment name='VAR' insert='a'/>
+        <environment name='VAR' insert='b'/>
+      </selection>
+    </selections>
+  </test>
+
+  <test name='mutliple-impls' add-downloads='true'>
+    <interface uri='http://example.com/prog.xml'>
+      <name>0install</name>
+      <implementation id='z2' version='2'><command name='run' path='main'/></implementation>
+      <implementation id='a1' version='1'><command name='run' path='main'/></implementation>
+      <implementation id='m3' version='3'><command name='run' path='main'/></implementation>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='m3' interface='http://example.com/prog.xml' version='3'>
+        <command name="run" path="main"/>
+      </selection>
+    </selections>
+  </test>
+
+  <!-- Not supported yet -->
+  <!--
+  <test name='deps' add-downloads='true'>
+    <interface uri='http://example.com/tester.xml'>
+      <name>tester</name>
+      <implementation id='t1' version='1'>
+	<command name='run' path='tester'/>
+      </implementation>
+    </interface>
+    <interface uri='http://example.com/lib.xml'>
+      <name>lib</name>
+      <implementation id='z2' version='2'>
+	<command name='run' path='prog'/>
+	<command name='test' path='test-prog'>
+	  <runner interface='http://example.com/tester.xml'/>
+	  <requires interface='http://example.com/missing.xml' importance='recommended'/>
+	</command>
+	<command name='gui' path='gui'/>
+      </implementation>
+      <implementation id='a1' version='1'/>
+      <implementation id='m3' version='3'/>
+    </interface>
+    <interface uri='http://example.com/unused.xml'>
+      <name>unused</name>
+      <implementation id='m3' version='3'/>
+    </interface>
+    <interface uri='http://example.com/prog.xml'>
+      <name>prog</name>
+      <group>
+	<binding name='foo'/>
+        <requires interface='http://example.com/lib.xml'>
+	  <executable-in-path name='lib' command='run'/>
+	  <executable-in-path name='test-lib' command='test'/>
+	</requires>
+        <implementation id='z2' version='2'><command name='run' path='main'/></implementation>
+	<implementation id='a1' version='1'><command name='run' path='main'/>
+	  <requires interface='http://example.com/missing.xml'/>
+	  <requires interface='http://example.com/unused.xml'/>
+	</implementation>
+        <implementation id='m3' version='3'><command name='run' path='main'/></implementation>
+      </group>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='z2' interface='http://example.com/lib.xml' version='2'>
+	<command name='run' path='prog'/>
+	<command name='test' path='test-prog'>
+	  <runner interface='http://example.com/tester.xml'/>
+	  <requires interface='http://example.com/missing.xml' importance='recommended'/>
+	</command>
+      </selection>
+      <selection id='m3' interface='http://example.com/prog.xml' version='3'>
+        <command name="run" path="main"/>
+	<binding name='foo'/>
+        <requires interface='http://example.com/lib.xml'>
+	  <executable-in-path name='lib' command='run'/>
+	  <executable-in-path name='test-lib' command='test'/>
+	</requires>
+      </selection>
+      <selection id='t1' interface='http://example.com/tester.xml' version='1'>
+	<command name='run' path='tester'/>
+      </selection>
+    </selections>
+  </test>
+  -->
+
+  <!-- Not supported yet -->
+  <!--
+  <test name='ignored-deps' add-downloads='true'>
+    <interface uri='http://example.com/unused.xml'>
+      <name>unused</name>
+      <implementation id='m3' version='3'/>
+    </interface>
+    <interface uri='http://example.com/prog.xml'>
+      <name>prog</name>
+      <implementation id='v1' version='1'>
+        <command name='run'>
+          <requires interface='http://example.com/Missing.xml' os='unknown'/>
+        </command>
+        <requires interface='http://example.com/Missing2.xml' use='never'/>
+      </implementation>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command='run' interface="http://example.com/prog.xml">
+      <selection id='v1' interface='http://example.com/prog.xml' version='1'>
+        <command name='run'/>
+      </selection>
+    </selections>
+  </test>
+  -->
+
+  <!-- Not supported yet -->
+  <!--
+  <test name='restrictions' add-downloads='true'>
+    <interface uri='http://example.com/lib.xml'>
+      <name>lib</name>
+      <implementation id='l0' version='0' arch='invalid-arch'/>
+      <implementation id='l1' version='1'/>
+      <implementation id='l2' version='2'>
+	<restricts interface='http://example.com/prog.xml'>
+	  <version before='3'/>
+	</restricts>
+      </implementation>
+      <implementation id='l3' version='3'/>
+    </interface>
+    <interface uri='http://example.com/prog.xml'>
+      <name>prog</name>
+      <group>
+        <command name="run" path="main">
+	  <restricts interface='http://example.com/unused.xml' version='1'/>
+	</command>
+	<requires interface='http://example.com/lib.xml' version='2..!3'/>
+        <implementation id='p2' version='2'></implementation>
+	<implementation id='p1' version='1'></implementation>
+        <implementation id='p3' version='3'></implementation>
+      </group>
+    </interface>
+    <interface uri='http://example.com/other.xml'>
+      <name>other</name>
+      <implementation id='o1' version='1'/>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='l2' interface='http://example.com/lib.xml' version='2'/>
+      <selection id='p2' interface='http://example.com/prog.xml' version='2'>
+        <command name="run" path="main"/>
+	<requires interface='http://example.com/lib.xml' version='2..!3'/>
+      </selection>
+    </selections>
+    <justification interface='http://example.com/prog.xml' id='p1'>
+      1 is ranked lower than 2: newer versions are preferred
+    </justification>
+    <justification interface='http://example.com/prog.xml' id='p2'>
+      http://example.com/prog.xml 2 was selected as the preferred version.
+    </justification>
+    <justification interface='http://example.com/prog.xml' id='p3'>
+There is no possible selection using http://example.com/prog.xml 3.
+Can't find all required implementations:
+- http://example.com/lib.xml -> (problem)
+    http://example.com/prog.xml 3 requires version 2..!3
+    Rejected candidates:
+      l3 (3): Incompatible with restriction: version 2..!3
+      l2 (2): Requires http://example.com/prog.xml version ..!3
+      l1 (1): Incompatible with restriction: version 2..!3
+      l0 (0): Not compatible with the requested OS type
+- http://example.com/prog.xml -> 3 (p3)
+    </justification>
+    <justification interface='http://example.com/prog.xml' id='p4'>
+      Implementation to consider (http://example.com/prog.xml p4) does not exist!
+    </justification>
+    <justification interface='http://example.com/other.xml' id='o1'>
+      If http://example.com/other.xml o1 were the only option, the best available solution wouldn't use it.
+    </justification>
+    <justification interface='http://example.com/lib.xml' id='l0'>
+      http://example.com/lib.xml 0 cannot be used (regardless of other components): Not compatible with the requested OS type
+    </justification>
+  </test>
+  -->
+
+  <test name='impossible' add-downloads='true'>
+    <interface uri='http://example.com/lib.xml'>
+      <name>lib</name>
+      <implementation id='l1' version='1'>
+	<restricts interface='http://example.com/prog.xml'>
+	  <version before='2'/>
+	</restricts>
+      </implementation>
+      <implementation id='l2' version='2'>
+	<restricts interface='http://example.com/prog.xml'>
+	  <version not-before='2'/>
+	</restricts>
+      </implementation>
+    </interface>
+    <interface uri='http://example.com/prog.xml'>
+      <name>prog</name>
+      <group>
+	<command name='run' path='main'/>
+	<requires interface='http://example.com/lib.xml'/>
+	<implementation id='p1' version='1'>
+	  <restricts interface='http://example.com/lib.xml' version='2'/>
+	</implementation>
+	<implementation id='p2' version='2'>
+	  <restricts interface='http://example.com/lib.xml' version='1..!2'/>
+	</implementation>
+      </group>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml' fails='true'/>
+    <problem>Can't find all required implementations:
+- http://example.com/lib.xml -> (problem)
+    http://example.com/prog.xml 2 requires version 1..!2
+    Rejected candidates:
+      l2 (2): Incompatible with restriction: version 1..!2
+      l1 (1): Requires http://example.com/prog.xml version ..!2
+- http://example.com/prog.xml -> 2 (p2)
+    </problem>
+  </test>
+
+  <test name='if-version' add-downloads='true'>
+    <interface uri='http://example.com/prog.xml'>
+      <name>0install</name>
+      <implementation id='v1' version='1'>
+	<command name='run' path='new-path' if-0install-version='1..'/>
+	<command name='run' path='old-path' if-0install-version='..!1'/>
+      </implementation>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='v1' interface='http://example.com/prog.xml' version='1'>
+        <command name="run" path="new-path"/>
+      </selection>
+    </selections>
+  </test>
+
+  <!-- Not supported yet -->
+  <!-- Can't select lib1 because of the 'distribution' restriction. -->
+  <!--
+  <test name='requires-distro' add-downloads='true'>
+    <interface uri='http://example.com/lib1.xml'>
+      <name>lib1</name>
+      <implementation id='l1' version='1'/>
+    </interface>
+    <interface uri='http://example.com/lib2.xml'>
+      <name>lib2</name>
+      <implementation id='l2' version='1'/>
+    </interface>
+    <interface uri='http://example.com/prog.xml'>
+      <name>0install</name>
+      <implementation id='v1' version='1'>
+	<command name='run' path='main'/>
+	<requires interface='http://example.com/lib1.xml' distribution='foo' importance='recommended'/>
+	<requires interface='http://example.com/lib2.xml' distribution='foo 0install' importance='recommended'/>
+      </implementation>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='l2' interface='http://example.com/lib2.xml' version='1'/>
+      <selection id='v1' interface='http://example.com/prog.xml' version='1'>
+        <command name="run" path="main"/>
+	<requires interface='http://example.com/lib1.xml' distribution='foo' importance='recommended'/>
+	<requires interface='http://example.com/lib2.xml' distribution='foo 0install' importance='recommended'/>
+      </selection>
+    </selections>
+  </test>
+  -->
+
+  <!-- Not supported yet -->
+  <!-- We can have either the latest lib1 or the latest lib2 but not both.
+       We give priority to lib1, because it's listed first in prog's dependencies. -->
+  <!--
+  <test name='priority' add-downloads='true'>
+    <interface uri='http://example.com/lib1.xml'>
+      <name>lib1</name>
+      <implementation id='l11' version='1'/>
+      <implementation id='l12' version='2'>
+	<restricts interface='http://example.com/lib2.xml' version='1'/>
+      </implementation>
+    </interface>
+    <interface uri='http://example.com/lib2.xml'>
+      <name>lib2</name>
+      <implementation id='l21' version='1'/>
+      <implementation id='l22' version='2'>
+	<restricts interface='http://example.com/lib1.xml' version='1'/>
+      </implementation>
+    </interface>
+    <interface uri='http://example.com/prog.xml'>
+      <name>prog</name>
+      <group>
+	<command name="run" path="main"/>
+	<implementation id='p1' version='1'>
+	  <requires interface='http://example.com/lib1.xml'/>
+	  <requires interface='http://example.com/lib2.xml'/>
+	</implementation>
+      </group>
+    </interface>
+    <requirements command='run' interface='http://example.com/prog.xml'/>
+
+    <selections source="false" command="run" interface="http://example.com/prog.xml">
+      <selection id='l12' interface='http://example.com/lib1.xml' version='2'/>
+      <selection id='l21' interface='http://example.com/lib2.xml' version='1'/>
+      <selection id='p1' interface='http://example.com/prog.xml' version='1'>
+        <command name="run" path="main"/>
+	<requires interface='http://example.com/lib1.xml'/>
+	<requires interface='http://example.com/lib2.xml'/>
+      </selection>
+    </selections>
+
+    <justification interface='http://example.com/lib2.xml' id='l22'>
+http://example.com/lib2.xml 2 is selectable, but using it would produce a less optimal solution overall.
+
+The changes would be:
+
+http://example.com/lib1.xml: 2 to 1
+    </justification>
+  </test>
+  -->
+
+  <!-- Not supported yet -->
+  <!-- No implementations -->
+  <!--
+  <test name='no-impls'>
+    <requirements interface='http://localhost/top.xml' fails='true'/>
+    <problem>
+Can't find all required implementations:
+- http://localhost/top.xml -> (problem)
+    Main feed 'http://localhost/top.xml' not available
+    No known implementations at all
+    </problem>
+  </test>
+  -->
+
+  <!-- No retrieval method -->
+  <test name='no-retrieval-method'>
+    <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group>
+      <implementation version='1' id='1'><requires interface='http://localhost/diagnostics.xml'/></implementation>
+    </group></interface>
+    <requirements interface='http://localhost/top.xml' fails='true'/>
+    <problem>
+Can't find all required implementations:
+- http://localhost/top.xml -> (problem)
+    No usable implementations:
+      1 (1): No retrieval methods
+   </problem>
+ </test>
+
+  <!-- No run command -->
+  <test name='no-run'>
+    <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group>
+      <implementation version='1' id='1'>
+	<archive href='http://localhost:3000/foo.tgz' size='100'/>
+	<requires interface='http://localhost/diagnostics.xml'>
+	  <version not-before='100'/>
+	</requires>
+      </implementation>
+    </group>
+  </interface>
+  <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+  <problem>
+Can't find all required implementations:
+- http://localhost/top.xml -> (problem)
+    Rejected candidates:
+      1 (1): No run command
+    </problem>
+  </test>
+
+  <!-- Missing command from dependency -->
+  <test name='missing-dep-command'>
+  <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+  <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><implementation version='1' id='1' main='foo'>
+        <archive href='http://localhost:3000/foo.tgz' size='100'/>
+        <requires interface='http://localhost/diagnostics.xml'>
+          <binding command='foo'/>
+        </requires>
+     </implementation>
+    </group>
+  </interface>
+  <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary><group>
+    <implementation version='5' id='diag-5'>
+      <archive href='http://localhost:3000/diag.tgz' size='100'/>
+   </implementation>
+   </group></interface>
+   <problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    http://localhost/top.xml 1 requires 'foo' command
+    Rejected candidates:
+      diag-5 (5): No foo command
+- http://localhost/top.xml -> 1 (1)
+  </problem>
+  </test>
+
+  <!-- Failing distribution requirement -->
+  <test name='failing-distro-req'>
+  <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+  <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><implementation version='1' id='1' main='foo'>
+	<archive href='http://localhost:3000/foo.tgz' size='100'/>
+	<requires interface='http://localhost/diagnostics.xml' distribution='foo'/>
+     </implementation>
+    </group>
+  </interface>
+  <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary><group>
+    <implementation version='5' id='diag-5'>
+      <archive href='http://localhost:3000/diag.tgz' size='100'/>
+   </implementation>
+   </group></interface>
+<problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    http://localhost/top.xml 1 requires distribution:foo
+    Rejected candidates:
+      diag-5 (5): Incompatible with restriction: distribution:foo
+- http://localhost/top.xml -> 1 (1)
+  </problem>
+  </test>
+
+  <!-- Failing version requirement on library -->
+  <test name='bad-dep-version'>
+  <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+  <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><implementation version='1' id='1' main='foo'>
+	<archive href='http://localhost:3000/foo.tgz' size='100'/>
+	<requires interface='http://localhost/diagnostics.xml' version='100..!200'/>
+      </implementation>
+    </group>
+  </interface>
+  <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary><group>
+      <implementation version='5' id='diag-5'>
+	<archive href='http://localhost:3000/diag.tgz' size='100'/>
+      </implementation>
+   </group></interface>
+   <problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    http://localhost/top.xml 1 requires version 100..!200
+    Rejected candidates:
+      diag-5 (5): Incompatible with restriction: version 100..!200
+- http://localhost/top.xml -> 1 (1)
+    </problem>
+  </test>
+
+  <!-- Failing version requires on root -->
+  <test name='failing-requires-root'>
+  <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+  <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><implementation version='1' id='1' main='foo'>
+	<archive href='http://localhost:3000/foo.tgz' size='100'/>
+	<requires interface='http://localhost/diagnostics.xml'/>
+      </implementation>
+    </group>
+  </interface>
+  <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary><group>
+      <implementation version='5' id='diag-5'>
+	<archive href='http://localhost:3000/diag.tgz' size='100'/>
+	<restricts interface='http://localhost/top.xml' version='100..!200'/>
+      </implementation>
+    </group>
+  </interface>
+<problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    Rejected candidates:
+      diag-5 (5): Requires http://localhost/top.xml version 100..!200
+- http://localhost/top.xml -> 1 (1)
+  </problem>
+  </test>
+
+  <!-- Not supported yet -->
+  <!-- Parse error in version restriction -->
+  <!--
+  <test name='bad-version-expr'>
+    <suppress-warnings/>
+    <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+    <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><implementation version='1' id='1' main='foo'>
+		    <archive href='http://localhost:3000/foo.tgz' size='100'/>
+		    <requires interface='http://localhost/diagnostics.xml' version='100..200'/>
+		 </implementation>
+      </group>
+    </interface>
+    <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary><group>
+    <implementation version='5' id='diag-5'>
+		    <archive href='http://localhost:3000/diag.tgz' size='100'/>
+		 </implementation>
+
+     </group></interface>
+  <problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    http://localhost/top.xml 1 requires &lt;impossible: Can't parse version restriction '100..200': End of range must be exclusive (use '..!200', not '..200')>
+    Rejected candidates:
+      diag-5 (5): Incompatible with restriction: &lt;impossible: Can't parse version restriction '100..200': End of range must be exclusive (use '..!200', not '..200')>
+- http://localhost/top.xml -> 1 (1)
+    </problem>
+  </test>
+  -->
+
+  <!-- Old-style version restriction -->
+  <test name='old-version-restrictions'>
+    <requirements interface='http://localhost/top.xml' fails='true' command='run'/>
+    <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><implementation version='1' id='1' main='foo'>
+	  <archive href='http://localhost:3000/foo.tgz' size='100'/>
+	  <requires interface='http://localhost/diagnostics.xml'>
+	    <version not-before='100'/>
+	  </requires>
+	</implementation>
+      </group>
+    </interface>
+    <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary><group>
+	<implementation version='5' id='diag-5'>
+	  <archive href='http://localhost:3000/diag.tgz' size='100'/>
+	</implementation>
+    </group></interface>
+    <problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    http://localhost/top.xml 1 requires version 100..
+    Rejected candidates:
+      diag-5 (5): Incompatible with restriction: version 100..
+- http://localhost/top.xml -> 1 (1)
+    </problem>
+  </test>
+
+  <!-- Mismatched machine types -->
+  <test name='mismatched-machine-types'>
+    <requirements interface='http://localhost/top.xml' fails='true' command='run' os='Windows'/>
+    <interface uri='http://localhost/top.xml'><name>Top</name><summary>Top</summary><group><group>
+	  <requires interface='http://localhost/diagnostics.xml'/>
+	  <implementation version='1' id='1' main='foo' arch='Windows-i486'>
+	    <archive href='http://localhost:3000/foo.tgz' size='100'/>
+	  </implementation>
+	</group>
+      </group>
+    </interface>
+    <interface uri='http://localhost/diagnostics.xml'><name>Diagnostics</name><summary>Diagnostics</summary>
+      <group>
+	<implementation version='5' id='diag-5' arch='Windows-x86_64'>
+	  <archive href='http://localhost:3000/diag.tgz' size='100'/>
+	</implementation>
+      </group>
+    </interface>
+  <problem>
+Can't find all required implementations:
+- http://localhost/diagnostics.xml -> (problem)
+    Rejected candidates:
+      diag-5 (5): Can't use x86_64 with selection of http://localhost/top.xml (i486)
+- http://localhost/top.xml -> 1 (1)
+    </problem>
+  </test>
+</test-cases>
