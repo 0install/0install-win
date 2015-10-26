@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Model.Selection
     /// <summary>
     /// Represents a set of <see cref="ImplementationBase"/>s chosen by a solver.
     /// </summary>
-    [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
     public sealed class Selections : XmlUnknown, IInterfaceUri, ICloneable, IEquatable<Selections>
     {
         /// <summary>

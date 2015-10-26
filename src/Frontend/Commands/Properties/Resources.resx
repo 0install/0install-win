@@ -486,7 +486,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>This operation is not available in portable mode.</value>
   </data>
   <data name="NotInImplDirs" xml:space="preserve">
-    <value>'{0}' is not in the list of custom implementation cacges.</value>
+    <value>'{0}' is not in the list of custom implementation caches.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>No updates found</value>

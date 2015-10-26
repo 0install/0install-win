@@ -1125,7 +1125,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; is not in the list of custom implementation cacges..
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not in the list of custom implementation caches..
         /// </summary>
         public static string NotInImplDirs {
             get {

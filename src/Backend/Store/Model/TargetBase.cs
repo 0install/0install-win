@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Model
 
         #region XML serialization
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Architecture"/>
+        /// <seealso cref="Languages"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("langs"), DefaultValue("")]
         public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
