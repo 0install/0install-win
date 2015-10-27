@@ -72,6 +72,7 @@ namespace ZeroInstall.Services
                 var implementation = selections[interfaceUri];
                 builder.AppendLine(indent + "  Version: " + implementation.Version);
                 builder.AppendLine(indent + "  Path: " + (implementation.LocalPath ?? implementation.GetPath(store) ?? Resources.NotCached));
+                builder.AppendLine();
 
                 indent += "    ";
 
