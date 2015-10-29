@@ -718,8 +718,6 @@
   </test>
   -->
 
-  <!-- Not supported yet -->
-  <!--
   <test name='ignored-deps' add-downloads='true'>
     <interface uri='http://example.com/unused.xml'>
       <name>unused</name>
@@ -741,7 +739,6 @@
       </selection>
     </selections>
   </test>
-  -->
 
   <!-- Not supported yet -->
   <!--

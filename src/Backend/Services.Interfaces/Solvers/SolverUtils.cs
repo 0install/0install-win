@@ -118,8 +118,8 @@ namespace ZeroInstall.Services.Solvers
             if (from == null) throw new ArgumentNullException("from");
             #endregion
 
-            target.Dependencies.AddRange(from.Dependencies.Where(x => x.OS.IsCompatible(requirements.Architecture)).CloneElements());
-            target.Restrictions.AddRange(from.Restrictions.Where(x => x.OS.IsCompatible(requirements.Architecture)).CloneElements());
+            target.Dependencies.AddRange(from.Dependencies.Where(x => x.IsApplicable(requirements)).CloneElements());
+            target.Restrictions.AddRange(from.Restrictions.Where(x => x.IsApplicable(requirements)).CloneElements());
         }
 
         /// <summary>

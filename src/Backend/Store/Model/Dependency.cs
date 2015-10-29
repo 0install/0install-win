@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -70,6 +71,16 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
         public List<Binding> Bindings { get { return _bindings; } }
+
+        /// <inheritdoc/>
+        public override bool IsApplicable(Requirements requirements)
+        {
+            #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            #endregion
+
+            return string.IsNullOrEmpty(Use) && base.IsApplicable(requirements);
+        }
 
         //--------------------//
 

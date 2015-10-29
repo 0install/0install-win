@@ -110,6 +110,18 @@ namespace ZeroInstall.Store.Model
             }
         }
 
+        /// <summary>
+        /// Determines whether this reference is applicable for the given <paramref name="requirements"/>.
+        /// </summary>
+        public virtual bool IsApplicable([NotNull] Requirements requirements)
+        {
+            #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            #endregion
+
+            return OS.IsCompatible(requirements.Architecture.OS);
+        }
+
         //--------------------//
 
         #region Normalize

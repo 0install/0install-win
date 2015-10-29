@@ -27,15 +27,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public static bool IsCompatible(this Architecture implementation, Architecture system)
         {
-            return implementation.OS.IsCompatible(system) && implementation.Cpu.IsCompatible(system);
-        }
-
-        /// <summary>
-        /// Determines whether an <paramref name="implementation"/> architecture (the current instance) can run on <see cref="Architecture.CurrentSystem"/>.
-        /// </summary>
-        public static bool IsCompatible(this Architecture implementation)
-        {
-            return implementation.IsCompatible(Architecture.CurrentSystem);
+            return implementation.OS.IsCompatible(system.OS) && implementation.Cpu.IsCompatible(system.Cpu);
         }
 
         /// <summary>
@@ -58,14 +50,6 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Determines whether an <paramref name="implementation"/> OS is compatible with a <paramref name="system"/> architecture.
-        /// </summary>
-        public static bool IsCompatible(this OS implementation, Architecture system)
-        {
-            return implementation.IsCompatible(system.OS);
-        }
-
-        /// <summary>
         /// Determines whether an <paramref name="implementation"/> CPU is compatible with a <paramref name="system"/> CPU.
         /// </summary>
         public static bool IsCompatible(this Cpu implementation, Cpu system)
@@ -80,14 +64,6 @@ namespace ZeroInstall.Store.Model
 
             // No match
             return false;
-        }
-
-        /// <summary>
-        /// Determines whether an <paramref name="implementation"/> CPU is compatible with a <paramref name="system"/> architecture.
-        /// </summary>
-        public static bool IsCompatible(this Cpu implementation, Architecture system)
-        {
-            return implementation.IsCompatible(system.Cpu);
         }
     }
 }
