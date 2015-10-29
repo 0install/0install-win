@@ -142,7 +142,7 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  
+
   <!-- Application meta data -->
   <xsd:complexType name="category" mixed="true">
     <xsd:annotation>
@@ -647,7 +647,7 @@
         <xsd:attribute name="use" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
-              This can be used to indicate that this dependency is only needed in some cases.
+              This can be used to indicate that this dependency is only needed in some cases. Deprecated; use &lt;command&gt;s instead.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

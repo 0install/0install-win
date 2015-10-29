@@ -176,7 +176,6 @@
     <Compile Include="Model\Design\InstallCommandsConverter.cs" />
     <Compile Include="Model\Design\LicenseNameConverter.cs" />
     <Compile Include="Model\Design\ManifestDigestConverter.cs" />
-    <Compile Include="Model\Design\UseConverter.cs" />
     <Compile Include="Model\Design\VerbNameConverter.cs" />
     <Compile Include="Model\DownloadRetrievalMethod.cs" />
     <Compile Include="Model\Element.cs" />

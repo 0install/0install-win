@@ -48,14 +48,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("requires", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
     public class Dependency : Restriction, IInterfaceUriBindingContainer, IEquatable<Dependency>
     {
-        #region Constants
-        /// <summary>
-        /// A <see cref="Use"/> value indicating that a depedency is only required for automatic test execution.
-        /// </summary>
-        public const string UseTesting = "testing";
-        #endregion
-
-        #region Properties
         /// <summary>
         /// Controls how important this dependency is (i.e. whether ignoring it is an option).
         /// </summary>
@@ -64,10 +56,9 @@ namespace ZeroInstall.Store.Model
         public Importance Importance { get; set; }
 
         /// <summary>
-        /// This can be used to indicate that this dependency is only needed in some cases.
+        /// This can be used to indicate that this dependency is only needed in some cases. Deprecated; use <see cref="Command"/>s instead.
         /// </summary>
-        [Description("This can be used to indicate that this dependency is only needed in some cases.")]
-        [TypeConverter(typeof(UseConverter))]
+        [Description("This can be used to indicate that this dependency is only needed in some cases; depcreated use <command>s instead.")]
         [XmlAttribute("use"), DefaultValue("")]
         public string Use { get; set; }
 
@@ -79,7 +70,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
         public List<Binding> Bindings { get { return _bindings; } }
-        #endregion
 
         //--------------------//
 

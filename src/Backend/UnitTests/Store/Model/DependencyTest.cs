@@ -38,8 +38,7 @@ namespace ZeroInstall.Store.Model
                 OS = OS.Windows,
                 Distributions = {"0install"},
                 Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
-                Importance = Importance.Recommended,
-                Use = Dependency.UseTesting
+                Importance = Importance.Recommended
             };
         }
         #endregion
