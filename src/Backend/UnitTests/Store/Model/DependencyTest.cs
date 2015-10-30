@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Model
             {
                 Versions = new VersionRange("1.0..!2.0"),
                 OS = OS.Windows,
-                Distributions = {"0install"},
+                Distributions = {Restriction.DistributionZeroInstall},
                 Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                 Importance = Importance.Recommended
             };

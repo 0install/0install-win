@@ -84,8 +84,13 @@ namespace ZeroInstall.Store.Model
         private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
+        /// Special value for <see cref="Distributions"/> that requires require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
+        /// </summary>
+        public const string DistributionZeroInstall = "0install";
+
+        /// <summary>
         /// Specifies that the selected implementation must be from one of the given distributions (e.g. Debian, RPM).
-        /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
+        /// The special value <see cref="DistributionZeroInstall"/> may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
         [Browsable(false)]
         [XmlIgnore, NotNull]

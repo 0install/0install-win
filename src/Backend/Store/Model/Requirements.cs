@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>
         /// Specifies that the selected implementations must be from one of the given distributions (e.g. Debian, RPM).
-        /// The special value '0install' may be used to require implementations provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
+        /// The special value <see cref="Restriction.DistributionZeroInstall"/> may be used to require implementations provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
         /// <remarks>Used internally by solvers, copied from <see cref="Restriction.Distributions"/>, not set directly by user, not serialized.</remarks>
         [Browsable(false)]
