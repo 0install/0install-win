@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Model.Selection
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Store.Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
-    public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>
+    public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>, IComparable<ImplementationSelection>
     {
         /// <summary>
         /// The URI or local path of the interface this implementation is for.
@@ -154,6 +154,18 @@ namespace ZeroInstall.Store.Model.Selection
                 if (QuickTestFile != null) result = (result * 397) ^ QuickTestFile.GetHashCode();
                 return result;
             }
+        }
+        #endregion
+
+        #region Comparison
+        /// <inheritdoc/>
+        public int CompareTo(ImplementationSelection other)
+        {
+            #region Sanity checks
+            if (other == null) throw new ArgumentNullException("other");
+            #endregion
+
+            return StringComparer.InvariantCulture.Compare(InterfaceUri.ToStringRfc(), other.InterfaceUri.ToStringRfc());
         }
         #endregion
     }

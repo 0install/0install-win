@@ -91,6 +91,7 @@ namespace ZeroInstall.Services.Solvers
             if (successfullSolverRun == null) throw new SolverException("No solution found");
 
             successfullSolverRun.Selections.PurgeRestrictions();
+            successfullSolverRun.Selections.Implementations.Sort();
             return successfullSolverRun.Selections;
         }
     }
