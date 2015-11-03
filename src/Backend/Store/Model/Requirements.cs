@@ -21,7 +21,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Values;
 using Newtonsoft.Json;
