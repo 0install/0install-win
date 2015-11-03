@@ -112,12 +112,12 @@ namespace ZeroInstall.Services.Solvers
 
             private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, FeedUri interfaceUri)
             {
+                var nativeImplementation = candidate.Implementation as ExternalImplementation;
+
                 foreach (var restriction in _restrictions.Where(x => x.InterfaceUri == interfaceUri))
                 {
                     if (restriction.Versions != null && !restriction.Versions.Match(candidate.Version)) return true;
-
-                    var nativeImplementation = candidate.Implementation as ExternalImplementation;
-                    if (nativeImplementation != null && restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
+                    if (nativeImplementation != null && !restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
                 }
                 return false;
             }
@@ -132,7 +132,7 @@ namespace ZeroInstall.Services.Solvers
                     if (existingSelection != null)
                     {
                         if (restriction.Versions != null && !restriction.Versions.Match(existingSelection.Version)) return true;
-                        if (nativeImplementation != null && restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
+                        if (nativeImplementation != null && !restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
                     }
                 }
 
