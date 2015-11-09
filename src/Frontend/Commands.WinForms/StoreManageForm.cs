@@ -163,7 +163,15 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonRunAsAdmin_Click(object sender, EventArgs e)
         {
-            throw new NotAdminException();
+            try
+            {
+                ProcessUtils.Assembly(Program.ExeName, StoreMan.Name, "manage").AsAdmin().Run();
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
+            Close();
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
