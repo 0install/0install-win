@@ -126,7 +126,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         private string GetPath(FeedUri feedUri)
         {
-            if (feedUri.IsFile) throw new UriFormatException("Feed URI must not point to a local file path when passed to the feed cache.");
+            if (feedUri.IsFile) throw new KeyNotFoundException("Feed cache does not handle local files: " + feedUri.ToStringRfc());
 
             string fileName = feedUri.Escape();
             string path = Path.Combine(DirectoryPath, fileName);

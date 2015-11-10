@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using JetBrains.Annotations;
@@ -23,7 +24,6 @@ using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -134,9 +134,15 @@ namespace ZeroInstall.Commands.CliCommands
             }
 
             // Detect replaced feeds
-            Feed feed = FeedCache.GetFeed(Requirements.InterfaceUri);
-            if (feed.ReplacedBy != null)
-                builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, feed.ReplacedBy.Target));
+            try
+            {
+                var feed = FeedCache.GetFeed(Requirements.InterfaceUri);
+                if (feed.ReplacedBy != null)
+                    builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, feed.ReplacedBy.Target));
+            }
+            catch (KeyNotFoundException)
+            {
+            }
 
             if (builder.Length == 0)
             {
