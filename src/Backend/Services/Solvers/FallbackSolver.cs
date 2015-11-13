@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+using System.Net;
 using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -58,10 +58,22 @@ namespace ZeroInstall.Services.Solvers
             }
             catch (SolverException ex)
             {
-                Log.Info(string.Format("Primary solver reported: " + ex.Message + Environment.NewLine + "Falling back to secondary solver.", requirements));
+                Log.Info("Primary solver failed, falling back to secondary solver.");
                 Log.Info(ex);
 
-                return _secondarySolver.Solve(requirements);
+                try
+                {
+                    return _secondarySolver.Solve(requirements);
+                }
+                catch (WebException ex2)
+                {
+                    Log.Warn("External solver failed");
+                    Log.Info(ex2);
+
+                    // Report the original problem instead of inability to launch external solver
+                    ex.Rethrow();
+                    throw;
+                }
             }
         }
     }
