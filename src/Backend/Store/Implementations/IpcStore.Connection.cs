@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Implementations
                 new Hashtable
                 {
                     {"name", IpcPortName + ".Callback"},
-                    {"portName", IpcPortName + ".Callback." + Path.GetTempFileName()} // Random port to allow multiple instances
+                    {"portName", IpcPortName + ".Callback." + Path.GetRandomFileName()} // Random port to allow multiple instances
                 },
                 new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
 #if !__MonoCS__
