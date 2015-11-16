@@ -1,16 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://zero-install.sourceforge.net/2004/injector/interface http://0install.de/schema/injector/interface/interface.xsd http://0install.de/schema/desktop-integration/capabilities http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" uri="http://0install.de/feeds/ZeroInstall_Updater.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
-	<name>Zero Install Updater</name>
-	<summary xml:lang="en">installs Zero Install updates</summary>
-	<summary xml:lang="de">installiert Zero Install updates</summary>
-	<description xml:lang="en">Used as a runner to install Zero Install for Windows updates.</description>
-	<description xml:lang="de">Als Runner verwendet um Zero Install for Windows Updates zu installieren.</description>
-	<homepage>http://0install.de/</homepage>
-	<icon href="http://0install.de/feeds/images/ZeroInstall.png" type="image/png" />
-	<icon href="http://0install.de/feeds/images/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
-	<feed-for interface="http://0install.de/feeds/ZeroInstall_Updater.xml" />
-	<group arch="Windows-*" license="LGPL v3 (GNU Lesser General Public License)" main="0update-win.exe">
-		<implementation version="1.4.5-post-1" stability="testing" id="local-release" local-path="build/Release/Updater" />
-		<implementation version="1.4.5-post-2" stability="developer" id="local-debug" local-path="build/Debug/Updater" />
-	</group>
+  <name>Zero Install Updater</name>
+  <summary xml:lang="en">installs Zero Install updates</summary>
+  <summary xml:lang="de">installiert Zero Install updates</summary>
+  <description xml:lang="en">Used as a runner to install Zero Install for Windows updates.</description>
+  <description xml:lang="de">Als Runner verwendet um Zero Install for Windows Updates zu installieren.</description>
+  <icon href="http://0install.de/feed-icons/ZeroInstall.png" type="image/png" />
+  <icon href="http://0install.de/feed-icons/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
+  <homepage>http://0install.de/</homepage>
+  <feed-for interface="http://0install.de/feeds/ZeroInstall_Updater.xml" />
+  <implementation arch="*-src" version="1.4.5" id="./src" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile">
+    <command name="compile" path="ZeroInstall.sln">
+      <runner interface="http://0install.de/feeds/cli/msbuild.xml">
+        <arg>--configuration</arg>
+        <arg>Release</arg>
+        <arg>--output</arg>
+        <arg>$SRCDIR/../build/Release/Updater</arg>
+        <arg>--dist</arg>
+        <arg>$DISTDIR</arg>
+      </runner>
+    </command>
+    <compile:implementation arch="Windows-*" license="LGPL v3 (GNU Lesser General Public License)" main="0update-win.exe" />
+  </implementation>
 </interface>
