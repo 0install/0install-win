@@ -23,6 +23,7 @@ using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
+using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.Security.Principal;
@@ -122,6 +123,10 @@ namespace ZeroInstall.Store.Service
                 ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
                 _store = CreateStore();
                 _objRef = RemotingServices.Marshal(_store, IpcStore.IpcObjectUri, typeof(IStore));
+
+                // Prevent the service from expiring on Windows 10
+                var lease = (ILease)RemotingServices.GetLifetimeService(_store);
+                lease.Renew(TimeSpan.FromDays(365));
             }
                 #region Error handling
             catch (IOException ex)
