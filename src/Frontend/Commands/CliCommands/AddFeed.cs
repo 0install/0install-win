@@ -60,7 +60,11 @@ namespace ZeroInstall.Commands.CliCommands
                 var preferences = InterfacePreferences.LoadFor(interfaceUri);
                 if (preferences.Feeds.AddIfNew(source))
                     modifiedInterfaces.Add(interfaceUri);
-                if (preferences.StabilityPolicy < suggestedStabilityPolicy)
+
+                var effectiveStabilityPolicy = (preferences.StabilityPolicy == Stability.Unset)
+                    ? (Config.HelpWithTesting ? Stability.Testing : Stability.Stable)
+                    : preferences.StabilityPolicy;
+                if (effectiveStabilityPolicy < suggestedStabilityPolicy)
                 {
                     string stabilityMessage = string.Format(Resources.StabilityPolicySingleImplementation, suggestedStabilityPolicy);
                     if (Handler.Ask(
