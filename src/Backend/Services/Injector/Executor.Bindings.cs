@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
@@ -45,6 +46,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        [NotNull]
         private ProcessStartInfo BuildStartInfoWithBindings()
         {
             var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
@@ -71,7 +73,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        private void ApplyBindings(IBindingContainer bindingContainer, ImplementationSelection implementation, ProcessStartInfo startInfo)
+        private void ApplyBindings([NotNull] IBindingContainer bindingContainer, [NotNull] ImplementationSelection implementation, [NotNull] ProcessStartInfo startInfo)
         {
             // Do not apply bindings more than once
             if (!_appliedBindingContainers.Add(bindingContainer)) return;
@@ -100,7 +102,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
+        private void ApplyDependencyBindings([NotNull] IDependencyContainer dependencyContainer, [NotNull] ProcessStartInfo startInfo)
         {
             foreach (var dependency in dependencyContainer.Dependencies
                 .Where(x => x.Importance == Importance.Essential || Selections.ContainsImplementation(x.InterfaceUri)))
@@ -115,7 +117,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to apply the binding to.</param>
         /// <exception cref="ExecutorException"><see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
-        private void ApplyEnvironmentBinding(EnvironmentBinding binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
+        private void ApplyEnvironmentBinding([NotNull] EnvironmentBinding binding, [NotNull] ImplementationSelection implementation, [NotNull] ProcessStartInfo startInfo)
         {
             Log.Debug("Applying " + binding + " for " + implementation);
 
@@ -211,7 +213,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException"><see cref="ExecutableInVar.Name"/> is invalid.</exception>
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
+        private void ApplyExecutableInVar([NotNull] ExecutableInVar binding, [NotNull] ImplementationSelection implementation, [NotNull] ProcessStartInfo startInfo)
         {
             Log.Debug("Applying " + binding + " for " + implementation);
 
@@ -240,7 +242,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException"><see cref="ExecutableInPath.Name"/> is invalid.</exception>
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
+        private void ApplyExecutableInPath([NotNull] ExecutableInPath binding, [NotNull] ImplementationSelection implementation, [NotNull] ProcessStartInfo startInfo)
         {
             Log.Debug("Applying " + binding + " for " + implementation);
 
@@ -265,7 +267,8 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
-        private string DeployRunEnvExecutable(string name)
+        [NotNull]
+        private string DeployRunEnvExecutable([NotNull] string name)
         {
             string templatePath = GetRunEnvTemplate();
             string deployedPath = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
@@ -304,6 +307,7 @@ namespace ZeroInstall.Services.Injector
         /// Deploys an appropriate runenv binary template for the current operating system.
         /// </summary>
         /// <returns>The path to the deployed executable file.</returns>
+        [NotNull]
         private string GetRunEnvTemplate()
         {
             string templateName;
@@ -337,7 +341,7 @@ namespace ZeroInstall.Services.Injector
         /// Split and apply command-lines for executable bindings.
         /// This is delayed until the end because environment variables that might be modified are expanded.
         /// </summary>
-        private void ProcessRunEnvBindings(ProcessStartInfo startInfo)
+        private void ProcessRunEnvBindings([NotNull] ProcessStartInfo startInfo)
         {
             foreach (var runEnv in _runEnvPendings)
             {
@@ -368,7 +372,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <paramref name="binding"/> has an invalid path or another working directory has already been set.</exception>
         /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfoWithBindings()"/>.</remarks>
-        private void ApplyWorkingDir(WorkingDir binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
+        private void ApplyWorkingDir([NotNull] WorkingDir binding, [NotNull] ImplementationSelection implementation, [NotNull] ProcessStartInfo startInfo)
         {
             Log.Debug("Applying " + binding + " for " + implementation);
 

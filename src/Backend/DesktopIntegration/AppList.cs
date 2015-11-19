@@ -93,6 +93,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/>.</returns>
         /// <exception cref="KeyNotFoundException">No entry matching the interface URI was found.</exception>
+        [NotNull]
         public AppEntry this[[NotNull] FeedUri interfaceUri]
         {
             get

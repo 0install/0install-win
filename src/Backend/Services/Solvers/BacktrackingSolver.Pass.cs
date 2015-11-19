@@ -47,7 +47,7 @@ namespace ZeroInstall.Services.Solvers
             /// <param name="requirements">The top-level requirements the solver should try to meet.</param>
             /// <param name="cancellationToken">Used to signal when the user wishes to cancel the solver run.</param>
             /// <param name="candidateProvider">Generates <see cref="SelectionCandidate"/>s for the solver to choose among.</param>
-            public Pass(Requirements requirements, CancellationToken cancellationToken, SelectionCandidateProvider candidateProvider)
+            public Pass([NotNull] Requirements requirements, CancellationToken cancellationToken, [NotNull] SelectionCandidateProvider candidateProvider)
             {
                 #region Sanity checks
                 if (requirements == null) throw new ArgumentNullException("requirements");
@@ -84,7 +84,7 @@ namespace ZeroInstall.Services.Solvers
             /// <summary>
             /// Try to satisfy a set of <paramref name="requirements"/>, respecting any existing <see cref="Selections"/>.
             /// </summary>
-            private bool TryToSolve(Requirements requirements)
+            private bool TryToSolve([NotNull] Requirements requirements)
             {
                 _cancellationToken.ThrowIfCancellationRequested();
 
@@ -102,7 +102,7 @@ namespace ZeroInstall.Services.Solvers
             /// </summary>
             private readonly List<Restriction> _restrictions = new List<Restriction>();
 
-            private IEnumerable<SelectionCandidate> FilterSuitableCandidates(IEnumerable<SelectionCandidate> candidates, FeedUri interfaceUri)
+            private IEnumerable<SelectionCandidate> FilterSuitableCandidates([NotNull, ItemNotNull] IEnumerable<SelectionCandidate> candidates, [NotNull] FeedUri interfaceUri)
             {
                 return candidates.Where(candidate =>
                     candidate.IsSuitable &&
@@ -110,7 +110,7 @@ namespace ZeroInstall.Services.Solvers
                     !ConflictsWithExistingSelections(candidate));
             }
 
-            private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, FeedUri interfaceUri)
+            private bool ConflictsWithExistingRestrictions([NotNull] SelectionCandidate candidate, [NotNull] FeedUri interfaceUri)
             {
                 var nativeImplementation = candidate.Implementation as ExternalImplementation;
 
@@ -122,7 +122,7 @@ namespace ZeroInstall.Services.Solvers
                 return false;
             }
 
-            private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
+            private bool ConflictsWithExistingSelections([NotNull] SelectionCandidate candidate)
             {
                 var nativeImplementation = candidate.Implementation as ExternalImplementation;
 
@@ -139,7 +139,7 @@ namespace ZeroInstall.Services.Solvers
                 return false;
             }
 
-            private bool TryToUseExistingCandidate(Requirements requirements, IEnumerable<SelectionCandidate> suitableCandidates, ImplementationSelection selection)
+            private bool TryToUseExistingCandidate([NotNull] Requirements requirements, [NotNull, ItemNotNull] IEnumerable<SelectionCandidate> suitableCandidates, [NotNull] ImplementationSelection selection)
             {
                 if (!suitableCandidates.Contains(selection)) return false;
                 if (selection.ContainsCommand(requirements.Command)) return true;
@@ -148,7 +148,7 @@ namespace ZeroInstall.Services.Solvers
                 return TryToSolveCommand(command, requirements);
             }
 
-            private bool TryToSelectCandidate(IEnumerable<SelectionCandidate> candidates, Requirements requirements, IList<SelectionCandidate> allCandidates)
+            private bool TryToSelectCandidate([NotNull, ItemNotNull] IEnumerable<SelectionCandidate> candidates, [NotNull] Requirements requirements, [NotNull, ItemNotNull] IList<SelectionCandidate> allCandidates)
             {
                 foreach (var candidate in candidates)
                 {
@@ -162,12 +162,12 @@ namespace ZeroInstall.Services.Solvers
                 return false;
             }
 
-            private bool TryToSolveBindingRequirements(IInterfaceUriBindingContainer selection)
+            private bool TryToSolveBindingRequirements([NotNull] IInterfaceUriBindingContainer selection)
             {
                 return selection.ToBindingRequirements(selection.InterfaceUri).All(TryToSolve);
             }
 
-            private bool TryToSolveDependencies(IDependencyContainer dependencyContainer)
+            private bool TryToSolveDependencies([NotNull] IDependencyContainer dependencyContainer)
             {
                 var dependencies = dependencyContainer.Dependencies;
 
@@ -185,12 +185,12 @@ namespace ZeroInstall.Services.Solvers
                 return true;
             }
 
-            private bool TryToSolveDependency(Dependency dependency)
+            private bool TryToSolveDependency([NotNull] Dependency dependency)
             {
                 return TryToSolve(dependency.ToRequirements(_topLevelRequirements)) && TryToSolveBindingRequirements(dependency);
             }
 
-            private bool TryToSolveCommand(Command command, Requirements requirements)
+            private bool TryToSolveCommand([CanBeNull] Command command, [NotNull] Requirements requirements)
             {
                 if (command == null) return true;
 
@@ -202,7 +202,7 @@ namespace ZeroInstall.Services.Solvers
                 return command.ToBindingRequirements(requirements.InterfaceUri).All(TryToSolve) && TryToSolveDependencies(command);
             }
 
-            private ImplementationSelection AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)
+            private ImplementationSelection AddToSelections([NotNull] SelectionCandidate candidate, [NotNull] Requirements requirements, [NotNull, ItemNotNull] IEnumerable<SelectionCandidate> allCandidates)
             {
                 var selection = candidate.ToSelection(allCandidates, requirements);
                 Selections.Implementations.Add(selection);

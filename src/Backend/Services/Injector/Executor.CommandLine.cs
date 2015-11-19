@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
@@ -55,6 +56,7 @@ namespace ZeroInstall.Services.Injector
         /// Returns the main (first) implementation of the selection.
         /// Replaces the <see cref="Command"/> of the main implementation with the binary specified in <see cref="Main"/> if set.
         /// </summary>
+        [NotNull]
         private ImplementationSelection GetMainImplementation()
         {
             if (string.IsNullOrEmpty(Main)) return Selections.MainImplementation;
@@ -62,6 +64,7 @@ namespace ZeroInstall.Services.Injector
             // Clone the first implementation so the command can replaced without affecting Selections
             var mainImplementation = Selections.MainImplementation.CloneImplementation();
             var command = mainImplementation[Selections.Command];
+            Debug.Assert(command != null);
 
             string mainPath = FileUtils.UnifySlashes(Main);
             command.Path = (mainPath[0] == Path.DirectorySeparatorChar)
@@ -85,7 +88,8 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        private List<ArgBase> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
+        [NotNull, ItemNotNull]
+        private List<ArgBase> GetCommandLine([NotNull] ImplementationSelection implementation, [CanBeNull] string commandName, [NotNull] ProcessStartInfo startInfo)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -93,7 +97,8 @@ namespace ZeroInstall.Services.Injector
             #endregion
 
             if (string.IsNullOrEmpty(commandName)) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceUri));
-            Command command = implementation[commandName];
+            var command = implementation[commandName];
+            Debug.Assert(command != null);
 
             // Apply bindings implementations use to find themselves and their dependencies
             ApplyBindings(command, implementation, startInfo);
@@ -125,7 +130,7 @@ namespace ZeroInstall.Services.Injector
         /// Prepends the user-specified <see cref="Wrapper"/>, if any, to the command-line.
         /// </summary>
         /// <param name="commandLine"></param>
-        private void PrependWrapper(List<ArgBase> commandLine)
+        private void PrependWrapper([NotNull, ItemNotNull] List<ArgBase> commandLine)
         {
             if (string.IsNullOrEmpty(Wrapper)) return;
 
@@ -136,7 +141,7 @@ namespace ZeroInstall.Services.Injector
         /// <summary>
         /// Appends the user specified <paramref name="arguments"/> to the command-line.
         /// </summary>
-        private static void AppendUserArgs(string[] arguments, List<ArgBase> commandLine)
+        private static void AppendUserArgs([NotNull, ItemNotNull] string[] arguments, [NotNull, ItemNotNull] List<ArgBase> commandLine)
         {
             commandLine.AddRange(Array.ConvertAll(arguments, arg => new Arg {Value = arg}));
         }
@@ -146,7 +151,7 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="commandLine"></param>
         /// <param name="startInfo"></param>
-        private static void ApplyCommandLine(IEnumerable<ArgBase> commandLine, ProcessStartInfo startInfo)
+        private static void ApplyCommandLine([NotNull, ItemNotNull] IEnumerable<ArgBase> commandLine, [NotNull, ItemNotNull] ProcessStartInfo startInfo)
         {
             var split = SplitCommandLine(ExpandCommandLine(commandLine, startInfo.EnvironmentVariables));
             startInfo.FileName = split.Path;
@@ -158,7 +163,8 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="commandLine">The command-line to expand.</param>
         /// <param name="environmentVariables">A list of environment variables available for expansion.</param>
-        private static IList<string> ExpandCommandLine(IEnumerable<ArgBase> commandLine, StringDictionary environmentVariables)
+        [NotNull, ItemNotNull]
+        private static IList<string> ExpandCommandLine([NotNull, ItemNotNull] IEnumerable<ArgBase> commandLine, [NotNull] StringDictionary environmentVariables)
         {
             var result = new List<string>();
             new PerTypeDispatcher<ArgBase>(ignoreMissing: false)
@@ -187,7 +193,7 @@ namespace ZeroInstall.Services.Injector
         /// Splits a command-line into a file name and an arguments part.
         /// </summary>
         /// <param name="commandLine">The command-line to split.</param>
-        private static CommandLineSplit SplitCommandLine(IList<string> commandLine)
+        private static CommandLineSplit SplitCommandLine([NotNull, ItemNotNull] IList<string> commandLine)
         {
             if (commandLine.Count == 0) throw new ExecutorException(Resources.CommandLineEmpty);
 
