@@ -431,8 +431,8 @@ namespace ZeroInstall.Updater
         {
             if (IsPortable) return;
 
-            RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Target);
-            RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Target, "ZeroInstall.OneGet.dll"));
+            RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Target, machineWide: WindowsUtils.IsAdministrator);
+            RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Target, "ZeroInstall.OneGet.dll"), machineWide: WindowsUtils.IsAdministrator);
 
             RegistryInnoSetup();
         }

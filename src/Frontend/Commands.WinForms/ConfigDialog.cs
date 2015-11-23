@@ -174,7 +174,7 @@ namespace ZeroInstall.Commands.WinForms
 
             buttonRemoveImplDir.Enabled =
                 (listBoxImplDirs.SelectedItems.Count >= 1) &&
-                !listBoxImplDirs.SelectedItems.Cast<string>().ContainsAny(_lockedImplDirs);
+                !listBoxImplDirs.SelectedItems.Cast<string>().ToList().ContainsAny(_lockedImplDirs);
         }
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)

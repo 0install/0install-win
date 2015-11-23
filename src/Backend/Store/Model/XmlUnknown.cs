@@ -53,11 +53,11 @@ namespace ZeroInstall.Store.Model
                 if (x.NamespaceURI != y.NamespaceURI || x.Name != y.Name || x.InnerText != y.InnerText) return false;
 
                 // ReSharper disable once InvokeAsExtensionMethod
-                bool attributesEqual = EnumerableExtensions.UnsequencedEquals(
+                bool attributesEqual = CollectionExtensions.UnsequencedEquals(
                     x.Attributes.OfType<XmlAttribute>().ToArray(),
                     y.Attributes.OfType<XmlAttribute>().ToArray(),
                     comparer: XmlAttributeComparer.Instance);
-                bool elementsEqual = EnumerableExtensions.SequencedEquals(
+                bool elementsEqual = CollectionExtensions.SequencedEquals(
                     x.ChildNodes.OfType<XmlElement>().ToArray(),
                     y.ChildNodes.OfType<XmlElement>().ToArray(),
                     comparer: Instance);
@@ -78,11 +78,11 @@ namespace ZeroInstall.Store.Model
         {
             if (other == null) return false;
             // ReSharper disable once InvokeAsExtensionMethod
-            bool attributesEqual = EnumerableExtensions.UnsequencedEquals(
+            bool attributesEqual = CollectionExtensions.UnsequencedEquals(
                 UnknownAttributes ?? new XmlAttribute[0],
                 other.UnknownAttributes ?? new XmlAttribute[0],
                 comparer: XmlAttributeComparer.Instance);
-            bool elementsEqual = EnumerableExtensions.SequencedEquals(
+            bool elementsEqual = CollectionExtensions.SequencedEquals(
                 UnknownElements ?? new XmlElement[0],
                 other.UnknownElements ?? new XmlElement[0],
                 comparer: XmlElementComparer.Instance);

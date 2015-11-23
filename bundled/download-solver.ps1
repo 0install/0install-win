@@ -9,7 +9,7 @@ $webClient = New-Object System.Net.WebClient
 $webClient.DownloadFile($sourceUrl, $tempFile)
 
 echo "Extracting external solver..."
-$null = [Reflection.Assembly]::LoadFile($targetDir + "\..\src\packages\ICSharpCode.SharpZipLib.Patched.0.86.4\lib\net20\ICSharpCode.SharpZipLib.dll")
+$null = [Reflection.Assembly]::LoadFile($targetDir + "\..\src\packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll")
 $fastZip = New-Object ICSharpCode.SharpZipLib.Zip.FastZip
 $fastZip.ExtractZip($tempFile, $targetDir, "")
 

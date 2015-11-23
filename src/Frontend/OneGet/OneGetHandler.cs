@@ -98,5 +98,11 @@ namespace ZeroInstall.OneGet
             string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
             Output(title, message);
         }
+
+        /// <inheritdoc/>
+        public override void Error(Exception exception)
+        {
+            _request.Warning(exception.Message);
+        }
     }
 }
