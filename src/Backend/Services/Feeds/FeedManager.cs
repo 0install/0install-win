@@ -251,7 +251,7 @@ namespace ZeroInstall.Services.Feeds
                     Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 try
                 {
-                    var download = new DownloadMemory(GetMirrorUrl(feedUri));
+                    var download = new DownloadMemory(GetMirrorUrl(feedUri)) {NoCache = Refresh};
                     _handler.RunTask(download);
                     ImportFeed(download.GetData(), feedUri);
                 }
