@@ -35,8 +35,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("StubBuilder is only used on Windows");
 
+            var target = new FeedTarget(FeedTest.Test1Uri, FeedTest.CreateTestFeed());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
-                new FeedTarget(FeedTest.Test1Uri, FeedTest.CreateTestFeed()).BuildRunStub(tempFile, new SilentTaskHandler(), needsTerminal: false);
+                StubBuilder.BuildRunStub(target, tempFile, new SilentTaskHandler(), needsTerminal: false);
         }
 
         [Test]
@@ -44,8 +45,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("StubBuilder is only used on Windows");
 
+            var target = new FeedTarget(FeedTest.Test1Uri, FeedTest.CreateTestFeed());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
-                new FeedTarget(FeedTest.Test1Uri, FeedTest.CreateTestFeed()).BuildRunStub(tempFile, new SilentTaskHandler(), needsTerminal: true);
+                StubBuilder.BuildRunStub(target, tempFile, new SilentTaskHandler(), needsTerminal: true);
         }
     }
 }

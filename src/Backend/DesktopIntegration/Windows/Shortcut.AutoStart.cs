@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string filePath = GetStartupPath(autoStart.Name, machineWide);
-            Create(filePath, target.GetRunStub(autoStart.Command, handler));
+            Create(filePath, targetPath: StubBuilder.GetRunStub(target, autoStart.Command, handler));
         }
 
         /// <summary>

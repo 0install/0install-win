@@ -20,7 +20,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -161,7 +160,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (!WindowsUtils.IsWindows) return true;
 
             // If the default alias directory is already in the PATH terminals will find new aliases right away
-            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
+            string stubDirPath = DesktopIntegration.Windows.AppAlias.GetStubDir(machineWide);
             var variableTarget = machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
             string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
             return existingValue == null || !existingValue.Contains(stubDirPath);

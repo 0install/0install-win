@@ -55,8 +55,6 @@ namespace ZeroInstall.DesktopIntegration.Unix
                 throw new IOException(string.Format(Resources.NameInvalidChars, aliasName));
 
             // TODO: Find directory in search PATH
-            //string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
-            //string stubFilePath = Path.Combine(stubDirPath, aliasName);
 
             // TODO: Write file
         }
@@ -64,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
 
         #region Remove
         /// <summary>
-        /// Removes an application alias from the current system. 
+        /// Removes an application alias from the current system.
         /// </summary>
         /// <param name="aliasName">The name of the alias to be removed.</param>
         /// <param name="machineWide">The alias was created machine-wide instead of just for the current user.</param>
@@ -76,11 +74,9 @@ namespace ZeroInstall.DesktopIntegration.Unix
             if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
             #endregion
 
-            // TODO: Implement
-            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
-            string stubFilePath = Path.Combine(stubDirPath, aliasName);
+            // TODO: Find directory in search PATH
 
-            if (File.Exists(stubFilePath)) File.Delete(stubFilePath);
+            // TODO: Delete file
         }
         #endregion
     }

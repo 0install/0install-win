@@ -54,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>
-        public static string GetRunStub(this FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
+        public static string GetRunStub(FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string hash = (target.Uri + "#" + command).Hash(SHA256.Create());
             string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash), exeName + ".exe");
 
-            target.CreateOrUpdateRunStub(path, command, needsTerminal, handler);
+            CreateOrUpdateRunStub(target, path, command, needsTerminal, handler);
             return path;
         }
 
@@ -87,7 +87,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
-        private static void CreateOrUpdateRunStub(this FeedTarget target, [NotNull] string path, [CanBeNull] string command, bool needsTerminal, [NotNull] ITaskHandler handler)
+        private static void CreateOrUpdateRunStub(FeedTarget target, [NotNull] string path, [CanBeNull] string command, bool needsTerminal, [NotNull] ITaskHandler handler)
         {
             if (File.Exists(path))
             { // Existing stub
@@ -113,12 +113,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                     #endregion
 
-                    target.BuildRunStub(path, handler, needsTerminal, command);
+                    BuildRunStub(target, path, handler, needsTerminal, command);
                 }
             }
             else
             { // No existing stub, build new one
-                target.BuildRunStub(path, handler, needsTerminal, command);
+                BuildRunStub(target, path, handler, needsTerminal, command);
             }
         }
         #endregion
@@ -137,7 +137,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
-        internal static void BuildRunStub(this FeedTarget target, [NotNull] string path, [NotNull] ITaskHandler handler, bool needsTerminal, [CanBeNull] string command = null)
+        internal static void BuildRunStub(FeedTarget target, [NotNull] string path, [NotNull] ITaskHandler handler, bool needsTerminal, [CanBeNull] string command = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -178,13 +178,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static string GetRunStubCode(FeedTarget target, bool needsTerminal, [CanBeNull] string command = null)
         {
             // Build command-line
-            string args = needsTerminal ? "" : "run --no-wait ";
+            string args = needsTerminal ? "run" : "run --no-wait ";
             if (!string.IsNullOrEmpty(command)) args += "--command " + command.EscapeArgument() + " ";
             args += target.Uri.ToStringRfc().EscapeArgument();
 
             // Load the template code and insert variables
             var code = typeof(StubBuilder).GetEmbedded("stub.template.cs").ReadToString()
-                .Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe")
+                .Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe")
                     .Replace(@"\", @"\\"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetBestName(CultureInfo.CurrentUICulture, command)));
