@@ -67,6 +67,8 @@ namespace ZeroInstall.Commands.CliCommands
                     Log.Info("Running Refresh Solve because feeds have become stale");
                     RefreshSolve();
                 }
+
+                DownloadUncachedImplementations();
             }
                 #region Error handling
             catch (WebException ex)
@@ -91,7 +93,6 @@ namespace ZeroInstall.Commands.CliCommands
             }
             #endregion
 
-            DownloadUncachedImplementations();
             SelfUpdateCheck();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
