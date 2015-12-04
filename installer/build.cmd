@@ -1,6 +1,7 @@
 @echo off
 ::Creates a portable ZIP archive, an Inno Setup installer and an MSI wrapper. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
 set /p version= < "%~dp0..\VERSION"
+set /p version_updater= < "%~dp0..\VERSION_UPDATER"
 
 rem Bundled tool executables (e.g. "zip")
 path %~dp0utils;%path%

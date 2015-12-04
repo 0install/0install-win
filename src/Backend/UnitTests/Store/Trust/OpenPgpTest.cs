@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Trust
 
         private readonly byte[] _referenceData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-        private readonly byte[] _signatureData = typeof(OpenPgpTest<T>).GetEmbedded("signature.dat").ToArray();
+        private readonly byte[] _signatureData = typeof(OpenPgpTest<>).GetEmbedded("signature.dat").ToArray();
 
         [Test]
         public void TestVerifyValidSignature()

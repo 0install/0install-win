@@ -48,6 +48,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var entryPoint = target.Feed.GetEntryPoint(command);
             bool needsTerminal = (entryPoint != null && entryPoint.NeedsTerminal);
 
+            string targetPath = Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe");
+
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";
             if (command != Command.NameRun) arguments += "--command " + command.EscapeArgument() + " ";
@@ -55,9 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
 
-            Create(path,
-                targetPath: Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe"),
-                arguments: arguments,
+            Create(path, targetPath, arguments,
                 iconLocation: (icon == null) ? null : IconProvider.GetIconPath(icon, handler, machineWide),
                 description: target.Feed.GetBestSummary(CultureInfo.CurrentUICulture, command));
         }
