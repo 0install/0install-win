@@ -39,7 +39,7 @@ namespace ZeroInstall.Store
     [TypeConverter(typeof(StringConstructorConverter<FeedUri>))]
     public sealed class FeedUri : Uri, IEquatable<FeedUri>, ISerializable
     {
-        #region Constants
+        #region Prefixes
         /// <summary>
         /// This is prepended to a <see cref="FeedUri"/> if it is meant for demo data and should not be used to actually fetch a feed.
         /// </summary>
@@ -47,52 +47,23 @@ namespace ZeroInstall.Store
         public const string FakePrefix = "fake:";
 
         /// <summary>
-        /// This is prepended to <see cref="ImplementationSelection.FromFeed"/> if data was pulled from a native package manager rather than the feed itself.
-        /// </summary>
-        /// <seealso cref="PackageImplementation"/>
-        /// <seealso cref="IsFromDistribution"/>
-        public const string FromDistributionPrefix = "distribution:";
-        #endregion
-
-        #region Properties
-        /// <summary>
         /// Indicates whether this is a fake identifier meant for demo data and should not be used to actually fetch a feed.
         /// </summary>
         /// <seealso cref="FakePrefix"/>
         public bool IsFake { get; private set; }
 
         /// <summary>
+        /// This is prepended to <see cref="ImplementationSelection.FromFeed"/> if data was pulled from a native package manager rather than the feed itself.
+        /// </summary>
+        /// <seealso cref="PackageImplementation"/>
+        /// <seealso cref="IsFromDistribution"/>
+        public const string FromDistributionPrefix = "distribution:";
+
+        /// <summary>
         /// Indicates that an <see cref="ImplementationSelection"/> was generated with data from a native package manager rather than the feed itself.
         /// </summary>
         /// <seealso cref="FromDistributionPrefix"/>
         public bool IsFromDistribution { get; private set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a feed URI from a string.
-        /// </summary>
-        /// <param name="value">A string to parse as an HTTP(S) URL or an absolute local path.</param>
-        /// <exception cref="UriFormatException"><paramref name="value"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1057:StringUriOverloadsCallSystemUriOverloads")]
-        public FeedUri([NotNull, Localizable(false)] string value) : base(TrimPrefix(value), UriKind.Absolute)
-        {
-            if (string.IsNullOrEmpty(value)) throw new UriFormatException();
-
-            IsFake = value.StartsWith(FakePrefix);
-            IsFromDistribution = value.StartsWith(FromDistributionPrefix);
-
-            switch (Scheme)
-            {
-                case "http":
-                case "https":
-                case "file":
-                    break;
-
-                default:
-                    throw new UriFormatException(string.Format(Resources.InvalidFeedUri, this));
-            }
-        }
 
         private static string TrimPrefix(string value)
         {
@@ -101,6 +72,21 @@ namespace ZeroInstall.Store
             else return value;
         }
 
+        private void DetectPrefix(string value)
+        {
+            IsFake = value.StartsWith(FakePrefix);
+            IsFromDistribution = value.StartsWith(FromDistributionPrefix);
+        }
+
+        private string PrependPrefix(string result)
+        {
+            if (IsFake) return FakePrefix + result;
+            else if (IsFromDistribution) return FromDistributionPrefix + result;
+            else return result;
+        }
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// Creates a feed URI from an existing <see cref="Uri"/>.
         /// </summary>
@@ -116,6 +102,30 @@ namespace ZeroInstall.Store
         [Obsolete("Passing a FeedUri instance into the FeedUri constructor does nothing useful. Just use the original object.")]
         public FeedUri(FeedUri value) : this((Uri)value)
         {}
+
+        /// <summary>
+        /// Creates a feed URI from a string.
+        /// </summary>
+        /// <param name="value">A string to parse as an HTTP(S) URL or an absolute local path.</param>
+        /// <exception cref="UriFormatException"><paramref name="value"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1057:StringUriOverloadsCallSystemUriOverloads")]
+        public FeedUri([NotNull, Localizable(false)] string value) : base(TrimPrefix(value), UriKind.Absolute)
+        {
+            if (string.IsNullOrEmpty(value)) throw new UriFormatException();
+
+            switch (Scheme)
+            {
+                case "http":
+                case "https":
+                case "file":
+                    break;
+
+                default:
+                    throw new UriFormatException(string.Format(Resources.InvalidFeedUri, this));
+            }
+
+            DetectPrefix(value);
+        }
         #endregion
 
         #region Serialization
@@ -378,10 +388,7 @@ namespace ZeroInstall.Store
         /// </summary>
         public override string ToString()
         {
-            string result = IsFile ? LocalPath : base.ToString();
-            if (IsFake) return FakePrefix + result;
-            else if (IsFromDistribution) return FromDistributionPrefix + result;
-            else return result;
+            return PrependPrefix(IsFile ? LocalPath : base.ToString());
         }
 
         /// <summary>
@@ -390,10 +397,7 @@ namespace ZeroInstall.Store
         /// </summary>
         public string ToStringRfc()
         {
-            string result = IsFile ? LocalPath : AbsoluteUri;
-            if (IsFake) return FakePrefix + result;
-            else if (IsFromDistribution) return FromDistributionPrefix + result;
-            else return result;
+            return PrependPrefix(IsFile ? LocalPath : AbsoluteUri);
         }
         #endregion
 

@@ -155,5 +155,19 @@ namespace ZeroInstall.Store
             if (WindowsUtils.IsWindows)
                 new FeedUri(@"\\SERVER\C$\my feed.xml").EscapeComponent().Should().Equal("file", "____server__C_24___my_20_feed.xml");
         }
+
+        [Test]
+        public void TestPrefixes()
+        {
+            var fakeUri = new FeedUri("fake:http://example.com/");
+            fakeUri.IsFake.Should().BeTrue();
+            fakeUri.ToString().Should().Be("fake:http://example.com/");
+            fakeUri.ToStringRfc().Should().Be("fake:http://example.com/");
+
+            var fromDistributionUri = new FeedUri("distribution:http://example.com/");
+            fromDistributionUri.IsFromDistribution.Should().BeTrue();
+            fromDistributionUri.ToString().Should().Be("distribution:http://example.com/");
+            fromDistributionUri.ToStringRfc().Should().Be("distribution:http://example.com/");
+        }
     }
 }
