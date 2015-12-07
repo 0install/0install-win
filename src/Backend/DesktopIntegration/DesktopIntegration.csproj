@@ -120,6 +120,7 @@
     <Compile Include="Windows\DefaultProgram.cs" />
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />
+    <Compile Include="Windows\PathEnv.cs" />
     <Compile Include="Windows\Shortcut.cs" />
     <Compile Include="Windows\Shortcut.AutoStart.cs">
       <DependentUpon>Shortcut.cs</DependentUpon>

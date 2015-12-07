@@ -22,7 +22,6 @@ using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -65,11 +64,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 throw new IOException(string.Format(Resources.NameInvalidChars, aliasName));
 
             string stubDirPath = GetStubDir(machineWide);
-            string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
+            PathEnv.AddDir(stubDirPath, machineWide);
 
+            string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
             StubBuilder.BuildRunStub(target, stubFilePath, handler, needsTerminal: true, command: command);
-            var path = GetPath(machineWide);
-            if (!path.Contains(stubDirPath)) SetPath(path.Append(stubDirPath), machineWide);
             AddToAppPaths(aliasName + ".exe", stubFilePath, machineWide);
         }
 
@@ -105,10 +103,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
             #endregion
 
-            string stubFilePath = Path.Combine(GetStubDir(machineWide), aliasName + ".exe");
-
             RemoveFromAppPaths(aliasName + ".exe", machineWide);
 
+            string stubFilePath = Path.Combine(GetStubDir(machineWide), aliasName + ".exe");
             if (File.Exists(stubFilePath)) File.Delete(stubFilePath);
         }
 
@@ -136,34 +133,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static string GetStubDir(bool machineWide)
         {
             return Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
-        }
-
-        /// <summary>
-        /// Returns the current system's search path.
-        /// </summary>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide path variable; <see langword="false"/> for the per-user variant.</param>
-        /// <returns>The individual directories listed in the search path.</returns>
-        [NotNull]
-        private static string[] GetPath(bool machineWide)
-        {
-            string value = Environment.GetEnvironmentVariable(
-                variable: "PATH",
-                target: machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User);
-            return string.IsNullOrEmpty(value) ? new string[0] : value.Split(Path.PathSeparator);
-        }
-
-        /// <summary>
-        /// Sets the current system's search path.
-        /// </summary>
-        /// <param name="directories">The individual directories to list in the search path.</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide path variable; <see langword="false"/> for the per-user variant.</param>
-        private static void SetPath([NotNull] string[] directories, bool machineWide)
-        {
-            Environment.SetEnvironmentVariable(
-                variable: "PATH",
-                value: StringUtils.Join(Path.PathSeparator.ToString(), directories),
-                target: machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User);
-            WindowsUtils.NotifyEnvironmentChanged();
         }
     }
 }
