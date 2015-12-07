@@ -65,7 +65,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Creates a new Windows shortcut.
         /// </summary>
-        private static void Create([NotNull] string path, [NotNull] string targetPath, [CanBeNull] string arguments = null, [CanBeNull] string iconLocation = null, [CanBeNull] string description = null)
+        /// <param name="path">The location to place the shorcut at.</param>
+        /// <param name="targetPath">The target path the shortcut shall point to.</param>
+        /// <param name="arguments">Additional arguments to pass to the target; can be <see langword="null"/>.</param>
+        /// <param name="iconLocation">The path of the icon to use for the shortcut; leave <see langword="null"/> ot get the icon from <paramref name="targetPath"/>.</param>
+        /// <param name="description">A short human-readable description; can be <see langword="null"/>.</param>
+        public static void Create([NotNull] string path, [NotNull] string targetPath, [CanBeNull] string arguments = null, [CanBeNull] string iconLocation = null, [CanBeNull] string description = null)
         {
 #if !__MonoCS__
             if (File.Exists(path)) File.Delete(path);

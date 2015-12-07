@@ -59,7 +59,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (File.Exists(filePath)) File.Delete(filePath);
         }
 
-        private static string GetDesktopPath(string name, bool machineWide)
+        /// <summary>
+        /// Builds a path for a shortcut on the desktop.
+        /// </summary>
+        /// <param name="name">The name of the shortcut (without the .lnk ending).</param>
+        /// <param name="machineWide"><see langword="true"/> to use the machine-wide desktop; <see langword="false"/> for the per-user variant.</param>
+        /// <exception cref="IOException"><paramref name="name"/> contains invalid characters.</exception>
+        [NotNull]
+        public static string GetDesktopPath([NotNull] string name, bool machineWide)
         {
             CheckName(name);
 

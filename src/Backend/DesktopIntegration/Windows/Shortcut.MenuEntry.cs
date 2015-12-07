@@ -69,7 +69,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 Directory.Delete(dirPath, recursive: false);
         }
 
-        private static string GetStartMenuPath(string category, string name, bool machineWide)
+        /// <summary>
+        /// Builds a path for a shortcut in the start menu programs folder, optionally appending a category.
+        /// </summary>
+        /// <param name="category">The name of the category/directory below the programs folder; can be <see langword="null"/>.</param>
+        /// <param name="name">The name of the shortcut (without the .lnk ending).</param>
+        /// <param name="machineWide"><see langword="true"/> to use the machine-wide start menu; <see langword="false"/> for the per-user variant.</param>
+        /// <exception cref="IOException"><paramref name="name"/> or <paramref name="category"/> contains invalid characters.</exception>
+        [NotNull]
+        public static string GetStartMenuPath([CanBeNull] string category, [NotNull] string name, bool machineWide)
         {
             CheckName(name);
 
@@ -77,9 +85,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
 
         /// <summary>
-        /// Retrurns the start menu programs folder path, optionally appending a category.
+        /// Returns the start menu programs folder path, optionally appending a category.
         /// </summary>
+        /// <param name="category">The name of the category/directory below the programs folder; can be <see langword="null"/>.</param>
+        /// <param name="machineWide"><see langword="true"/> to use the machine-wide start menu; <see langword="false"/> for the per-user variant.</param>
         /// <exception cref="IOException"><paramref name="category"/> contains invalid characters.</exception>
+        [NotNull]
         private static string GetStartMenuCategoryPath([CanBeNull] string category, bool machineWide)
         {
             const Environment.SpecialFolder commonPrograms = (Environment.SpecialFolder)0x0017;
