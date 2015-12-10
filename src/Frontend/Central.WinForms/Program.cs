@@ -28,6 +28,7 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -139,20 +140,20 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="form">The window to configure.</param>
         /// <param name="name">The name for the taskbar entry.</param>
-        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; can be <see langword="null"/>.</param>
-        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; can be <see langword="null"/>.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method operates only on windows and not on individual controls.")]
-        internal static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name, [CanBeNull] string subCommand = null, [CanBeNull] string arguments = null)
+        internal static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name)
         {
             #region Sanity checks
             if (form == null) throw new ArgumentNullException("form");
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
+            if (Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase))
+                WindowsTaskbar.PreventPinning(form.Handle);
+
             string appUserModelID = AppUserModelID;
-            if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
-            WindowsTaskbar.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
+            WindowsTaskbar.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument(), exePath, name);
         }
         #endregion
     }

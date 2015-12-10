@@ -209,6 +209,9 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
+            if (Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase))
+                WindowsTaskbar.PreventPinning(form.Handle);
+
             string appUserModelID = AppUserModelID;
             if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
