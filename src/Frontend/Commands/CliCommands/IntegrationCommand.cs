@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -44,24 +42,28 @@ namespace ZeroInstall.Commands.CliCommands
         {
             base.Parse(args);
 
-            if (MachineWide)
-            {
-                if (ProgramUtils.PerUserInstall)
-                {
-                    string machineWideInstallBase = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation");
-                    string hint = (machineWideInstallBase != Locations.InstallBase && !string.IsNullOrEmpty(machineWideInstallBase))
-                        // Recommend using existing machine-wide instance
-                        ? string.Format(Resources.NoPerUserMachineWideUse, new[] {Path.Combine(machineWideInstallBase, "0install.exe"), Name}.Concat(args).JoinEscapeArguments())
-                        // Recommend downloading machine-wide installer
-                        : Resources.PleaseRunInstaller;
-                    throw new NotSupportedException(Resources.NoPerUserMachineWide + Environment.NewLine + hint);
-                }
-
-                if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
-            }
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
         }
 
         #region Helpers
+        /// <summary>
+        /// Checks the current <see cref="Locations.InstallBase"/> to determine whether it is suitable for operations that persist it.
+        /// </summary>
+        /// <remarks>
+        /// This should be called before performing any operations that persist <see cref="Locations.InstallBase"/> somewhere, e.g. in generated shortcuts or stubs.
+        /// It is not required for operations that only remove things from the system.</remarks>
+        /// <exception cref="NotSupportedException">The current Zero Install instance is running in portable mode.</exception>
+        /// <exception cref="UnsuitableInstallBaseException">The current Zero Install instance is installed in a location unsuitable for the desired operation.</exception>
+        protected void CheckInstallBase()
+        {
+            if (Locations.IsPortable)
+                throw new NotSupportedException(Resources.NoIntegrationFromPortable);
+            if (ProgramUtils.IsRunningFromCache)
+                throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
+            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir)
+                throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
+        }
+
         /// <summary>
         /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface URI.
         /// </summary>

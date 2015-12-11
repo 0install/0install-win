@@ -51,6 +51,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
+            CheckInstallBase();
+
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
                 integrationManager.Repair(FeedManager.GetFresh);
 

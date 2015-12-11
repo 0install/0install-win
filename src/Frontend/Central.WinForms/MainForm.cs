@@ -118,7 +118,7 @@ namespace ZeroInstall.Central.WinForms
                 tabControlApps.SelectTab(tabPageCatalog);
             }
 
-            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked) selfUpdateWorker.RunWorkerAsync();
+            if (!SelfUpdateUtils.NoAutoCheck && !ProgramUtils.IsRunningFromCache) selfUpdateWorker.RunWorkerAsync();
         }
 
         /// <summary>

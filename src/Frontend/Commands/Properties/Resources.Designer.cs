@@ -1053,11 +1053,20 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zero Install is currently running in portable mode or was launched from a cache directory. This makes it impossible to create desktop integration entries because they need to point to a permanent Zero Install location..
+        ///   Looks up a localized string similar to Zero Install was launched from a cache directory. It needs to be deployed to a permanent location for desktop integration to work..
         /// </summary>
-        public static string NoIntegrationFromTransientInstall {
+        public static string NoIntegrationFromCache {
             get {
-                return ResourceManager.GetString("NoIntegrationFromTransientInstall", resourceCulture);
+                return ResourceManager.GetString("NoIntegrationFromCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zero Install is running in portable mode. It needs to be deployed to a permanent location for desktop integration to work..
+        /// </summary>
+        public static string NoIntegrationFromPortable {
+            get {
+                return ResourceManager.GetString("NoIntegrationFromPortable", resourceCulture);
             }
         }
         
@@ -1071,29 +1080,20 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zero Install was launched from a user-specific directory. It needs to be deployed to a directory accessible by all users for machine-wide desktop integration to work..
+        /// </summary>
+        public static string NoMachineWideIntegrationFromPerUser {
+            get {
+                return ResourceManager.GetString("NoMachineWideIntegrationFromPerUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The graphical policy editor is not available in command-line mode..
         /// </summary>
         public static string NoModifySelectionsInCli {
             get {
                 return ResourceManager.GetString("NoModifySelectionsInCli", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zero Install is currently running from a user-specific directory that cannot be access by other users..
-        /// </summary>
-        public static string NoPerUserMachineWide {
-            get {
-                return ResourceManager.GetString("NoPerUserMachineWide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please use this command instead for the machine-wide operation: {0}.
-        /// </summary>
-        public static string NoPerUserMachineWideUse {
-            get {
-                return ResourceManager.GetString("NoPerUserMachineWideUse", resourceCulture);
             }
         }
         

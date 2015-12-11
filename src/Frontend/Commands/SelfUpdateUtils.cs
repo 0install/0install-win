@@ -26,7 +26,6 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -37,11 +36,6 @@ namespace ZeroInstall.Commands
     /// </summary>
     public static class SelfUpdateUtils
     {
-        /// <summary>
-        /// <see langword="true"/> if the current Zero Install instance is itself an <see cref="Implementation"/> inside an <see cref="IStore"/> and therefore cannot self-update.
-        /// </summary>
-        public static bool IsBlocked { get { return StoreUtils.PathInAStore(Locations.InstallBase); } }
-
         /// <summary>
         /// The name of a file placed in <seealso cref="Locations.InstallBase"/> used to set <see cref="NoAutoCheck"/> to <see langword="true"/>.
         /// </summary>

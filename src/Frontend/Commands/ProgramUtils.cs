@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -41,14 +42,14 @@ namespace ZeroInstall.Commands
     public static class ProgramUtils
     {
         /// <summary>
-        /// Indicates whether the application is installed in a user-specific location.
+        /// Indicates whether the application is running from an implementation cache.
         /// </summary>
-        public static bool PerUserInstall { get { return Locations.InstallBase.StartsWith(Locations.HomeDir); } }
+        public static bool IsRunningFromCache { get { return StoreUtils.PathInAStore(Locations.InstallBase); } }
 
         /// <summary>
-        /// Indicates whether the application's current location is prone to change, e.g. because this is a portable installation or executed from a cache directory.
+        /// Indicates whether the application is running from a user-specific location.
         /// </summary>
-        public static bool TransientInstall { get { return Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase); } }
+        public static bool IsRunningFromPerUserDir { get { return Locations.InstallBase.StartsWith(Locations.HomeDir); } }
 
         /// <summary>
         /// The current UI language; <see langword="null"/> to use system default.
@@ -77,15 +78,6 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// The EXE name for the Command GUI best suited for the current system; <see langword="null"/> if no GUI subsystem is running.
-        /// </summary>
-        [CanBeNull]
-        public static readonly string GuiAssemblyName =
-            WindowsUtils.IsWindows
-                ? (WindowsUtils.IsInteractive ? "0install-win" : null)
-                : (UnixUtils.HasGui ? "0install-gtk" : null);
-
-        /// <summary>
         /// Common initialization code to be called by every Frontend executable right after startup.
         /// </summary>
         public static void Init()
@@ -95,27 +87,19 @@ namespace ZeroInstall.Commands
             if (AppMutex.Probe(mutexName + "-update")) Environment.Exit(999);
             AppMutex.Create(mutexName);
 
-            if (WindowsUtils.IsWindows)
-            {
-                if (UILanguage != null) Languages.SetUI(UILanguage);
-
-                if (!TransientInstall)
-                {
-                    try
-                    {
-                        RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Locations.InstallBase);
-                        RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Locations.InstallBase, "ZeroInstall.OneGet.dll"));
-                    }
-                    catch (IOException)
-                    {}
-                    catch (UnauthorizedAccessException)
-                    {}
-                }
-            }
-
-            NetUtils.ApplyProxy();
+            if (WindowsUtils.IsWindows && UILanguage != null) Languages.SetUI(UILanguage);
             if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            NetUtils.ApplyProxy();
         }
+
+        /// <summary>
+        /// The EXE name for the Command GUI best suited for the current system; <see langword="null"/> if no GUI subsystem is running.
+        /// </summary>
+        [CanBeNull]
+        public static readonly string GuiAssemblyName =
+            WindowsUtils.IsWindows
+                ? (WindowsUtils.IsInteractive ? "0install-win" : null)
+                : (UnixUtils.HasGui ? "0install-gtk" : null);
 
         /// <summary>
         /// Parses command-line arguments and performs the indicated action. Performs error handling.
@@ -192,6 +176,26 @@ namespace ZeroInstall.Commands
                     return ExitCode.AccessDenied;
                 }
             }
+            catch (UnsuitableInstallBaseException ex)
+            {
+                if (WindowsUtils.IsWindows)
+                {
+                    handler.DisableUI();
+                    try
+                    {
+                        var result = TryRunOtherInstance(exeName, args, ex.NeedsMachineWide);
+                        if (result.HasValue) return result.Value;
+                    }
+                    catch (IOException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.IOError;
+                    }
+                }
+
+                handler.Error(ex);
+                return ExitCode.NotSupported;
+            }
             catch (OptionException ex)
             {
                 handler.Error(new OptionException(string.Format(Resources.TryHelp, exeName), ex.OptionName, ex));
@@ -258,6 +262,26 @@ namespace ZeroInstall.Commands
             {
                 handler.CloseUI();
             }
+        }
+
+        /// <summary>
+        /// Tries to run a command in another instance of Zero Install deployed on this system.
+        /// </summary>
+        /// <param name="exeName">The name of the executable to call in the target instance.</param>
+        /// <param name="args">The arguments to pass to the target instance.</param>
+        /// <param name="needsMachineWide"><see langword="true"/> if a machine-wide install location is required; <see langword="false"/> if a user-specific location will also do.</param>
+        /// <returns>The exit code returned by the other instance; <see langword="null"/> if no other instance could be found.</returns>
+        /// <exception cref="IOException">There was a problem launching the target instance.</exception>
+        private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, bool needsMachineWide)
+        {
+            string installLocation = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
+            if (string.IsNullOrEmpty(installLocation)) return null;
+            if (installLocation == Locations.InstallBase) return null; // Prevent redirect cycles
+            if (needsMachineWide && installLocation.StartsWith(Locations.HomeDir)) return null; // Do not redirect to per-user instances if machine-wide instance is required
+            if (!File.Exists(Path.Combine(installLocation, "0install.exe"))) return null;
+
+            Log.Warn("Redirecting to instance at " + installLocation);
+            return (ExitCode)new ProcessStartInfo(Path.Combine(installLocation, exeName + ".exe"), args.JoinEscapeArguments()) {UseShellExecute = false}.Run();
         }
     }
 }

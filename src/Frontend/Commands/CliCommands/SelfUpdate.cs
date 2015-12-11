@@ -88,7 +88,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
-            if (SelfUpdateUtils.IsBlocked) throw new NotSupportedException(Resources.SelfUpdateBlocked);
+            if (ProgramUtils.IsRunningFromCache) throw new NotSupportedException(Resources.SelfUpdateBlocked);
 
             try
             {

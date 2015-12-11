@@ -54,6 +54,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
+            CheckInstallBase();
+
             try
             {
                 using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFresh, Handler, MachineWide))

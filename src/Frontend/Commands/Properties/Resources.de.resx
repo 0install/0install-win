@@ -461,20 +461,20 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>
-  <data name="NoIntegrationFromTransientInstall" xml:space="preserve">
-    <value>Zero Install läuft derzeit im Portable Modus oder wurde von einem Cacheverzeichnis aus gestartet. Dies macht es unmöglich Desktopintergationseinträge zu erstellen, da Sie auf einen permanenten Zero Install Speicherort zeigen müssen.</value>
+  <data name="NoIntegrationFromCache" xml:space="preserve">
+    <value>Zero Install wurde von einem Cacheverzeichnis aus gestartet. Es muss an einem fixen Ort abgelegt sein, damit Desktopintegration funktioniert.</value>
+  </data>
+  <data name="NoIntegrationFromPortable" xml:space="preserve">
+    <value>Zero Install läuft im Portable Modus. Es muss an einem fixen Ort abgelegt sein, damit Desktopintegration funktioniert.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
   </data>
+  <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
+    <value>Zero Install wurde von einem benutzerspezifischen Verzeichnis aus gestartet. Es muss in einem für alle Benutzer zugänglichen Verzeichnis abgelegt sein, damit maschinenweite Desktopintegration funktioniert.</value>
+  </data>
   <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
-  </data>
-  <data name="NoPerUserMachineWide" xml:space="preserve">
-    <value>Zero Install läuft derzeit in einem benutzerspezifischen Verzeichnis, das nicht für andere Benutzer zugänglich ist.</value>
-  </data>
-  <data name="NoPerUserMachineWideUse" xml:space="preserve">
-    <value>Bitte verwenden Sie stattdessen diesen Befehl für die maschinenweite Operation: {0}</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Beim Ausführen einer Implementierung darf der Command nicht leer sein.</value>

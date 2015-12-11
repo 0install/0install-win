@@ -29,7 +29,6 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
-using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -154,7 +153,7 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase))
+            if (Locations.IsPortable || ProgramUtils.IsRunningFromCache)
                 WindowsTaskbar.PreventPinning(form.Handle);
 
             string appUserModelID = AppUserModelID;

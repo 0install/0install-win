@@ -99,8 +99,7 @@ namespace ZeroInstall.Commands.CliCommands
                 return ExitCode.OK;
             }
 
-            if (ProgramUtils.TransientInstall)
-                throw new NotSupportedException(Resources.NoIntegrationFromTransientInstall + Environment.NewLine + Resources.PleaseRunInstaller);
+            CheckInstallBase();
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
             var feed = FeedManager[interfaceUri];

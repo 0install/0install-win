@@ -108,6 +108,7 @@
     <Compile Include="RunHook.cs" />
     <Compile Include="SelfUpdateUtils.cs" />
     <Compile Include="SyncUtils.cs" />
+    <Compile Include="UnsuitableInstallBaseException.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.el.resx" />

@@ -440,9 +440,6 @@
   <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>Ο γραφικός επεξεργαστής πολιτικής δεν διατίθενται σε λειτουργία της γραμμής εντολών.</value>
   </data>
-  <data name="NoPerUserMachineWideUse" xml:space="preserve">
-    <value>Παρακαλούμε χρησιμοποιήστε αυτή την εντολή αντί: {0}</value>
-  </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Κατά την εκτέλεση μιας εφαρμογής η εντολή δεν μπορεί να είναι κενή.</value>
   </data>
