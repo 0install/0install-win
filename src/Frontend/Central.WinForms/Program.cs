@@ -28,6 +28,7 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Central.WinForms
@@ -123,11 +124,16 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="args">Command name with arguments to execute.</param>
         internal static void RunCommand([CanBeNull] Action callback, bool machineWide, [NotNull] params string[] args)
         {
+            args = machineWide ? args.Append("--machine") : args;
+
             var context = SynchronizationContext.Current;
             ThreadUtils.StartAsync(
                 () =>
                 {
-                    Commands.WinForms.Program.Run(machineWide ? args.Append("--machine").ToArray() : args);
+                    Log.Debug("Launching " + Commands.WinForms.Program.ExeName + " in-process with arguments: " + args.JoinEscapeArguments());
+                    using (var handler = new GuiCommandHandler())
+                        ProgramUtils.Run(Commands.WinForms.Program.ExeName, args, handler);
+
                     if (callback != null) context.Send(state => callback(), null);
                 },
                 "0install-win (" + args.JoinEscapeArguments() + ")");

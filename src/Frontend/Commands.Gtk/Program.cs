@@ -15,19 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
-using System.Net;
-using System.Text;
 using Gtk;
 using NanoByte.Common;
-using NDesk.Options;
-using ZeroInstall.Commands.Properties;
-using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services.Injector;
-using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands.Gtk
 {
@@ -48,120 +37,9 @@ namespace ZeroInstall.Commands.Gtk
         {
             ProgramUtils.Init();
             Application.Init();
-            return (int)Run(args);
-        }
-
-        /// <summary>
-        /// Runs the application (called by main method or by embedding process).
-        /// </summary>
-        public static ExitCode Run(string[] args)
-        {
-            Log.Debug("Zero Install Command GTK GUI started with: " + args.JoinEscapeArguments());
 
             using (var handler = new GuiCommandHandler())
-            {
-                try
-                {
-                    var command = CommandFactory.CreateAndParse(args, handler);
-                    return command.Execute();
-                }
-                    #region Error handling
-                catch (OperationCanceledException)
-                {
-                    return ExitCode.UserCanceled;
-                }
-                catch (OptionException ex)
-                {
-                    var builder = new StringBuilder(ex.Message);
-                    if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
-                    builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                    Msg.Inform(null, builder.ToString(), MsgSeverity.Warn);
-                    return ExitCode.InvalidArguments;
-                }
-                catch (FormatException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.InvalidArguments;
-                }
-                catch (WebException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.WebError;
-                }
-                catch (NotSupportedException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.NotSupported;
-                }
-                catch (IOException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.IOError;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.AccessDenied;
-                }
-                catch (InvalidDataException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.InvalidData;
-                }
-                catch (SignatureException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.InvalidSignature;
-                }
-                catch (DigestMismatchException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.DigestMismatch;
-                }
-                catch (SolverException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.SolverError;
-                }
-                catch (ExecutorException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.ExecutorError;
-                }
-                catch (ConflictException ex)
-                {
-                    handler.DisableUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return ExitCode.Conflict;
-                }
-                    #endregion
-
-                finally
-                {
-                    handler.CloseUI();
-                }
-            }
+                return (int)ProgramUtils.Run(ExeName, args, handler);
         }
     }
 }
