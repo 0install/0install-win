@@ -13,30 +13,24 @@ und der New Feed Wizard (leitet Sie durch den kompletten Feed-Erstellungsprozess
   <icon href="http://0install.de/feed-icons/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
   <homepage>http://0install.de/about/tools/</homepage>
   <feed-for interface="http://0install.de/feeds/ZeroInstall_Tools.xml" />
-  <implementation arch="*-src" version="2.9.6" id="./src" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile">
-    <command name="compile" path="ZeroInstall.sln">
-      <runner interface="http://0install.de/feeds/cli/msbuild.xml">
-        <arg>--configuration</arg>
-        <arg>Release</arg>
-        <arg>--output</arg>
-        <arg>$SRCDIR/../build/Release/Tools</arg>
-        <arg>--dist</arg>
-        <arg>$DISTDIR</arg>
-      </runner>
+  <group license="LGPL v3 (GNU Lesser General Public License)">
+    <requires interface="http://repo.roscidus.com/security/gnupg">
+      <environment name="PATH" insert="." />
+    </requires>
+    <command name="run" path="0publish-win.exe">
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
     </command>
-    <compile:implementation arch="*-*" license="LGPL v3 (GNU Lesser General Public License)">
-      <requires interface="http://repo.roscidus.com/security/gnupg">
-        <environment name="PATH" insert="." />
-      </requires>
-      <command name="run" path="0publish-win.exe">
-        <runner interface="http://0install.de/feeds/cli/cli.xml" />
-      </command>
-      <command name="0publish" path="0publish.exe">
-        <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
-      </command>
-      <command name="0capture" path="0capture.exe">
-        <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
-      </command>
-    </compile:implementation>
-  </implementation>
+    <command name="0publish" path="0publish.exe">
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
+    </command>
+    <command name="0capture" path="0capture.exe">
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
+    </command>
+    <implementation version="2.9.6-post-1" stability="testing" id="local-release" local-path="build/Release/Tools">
+      <manifest-digest />
+    </implementation>
+    <implementation version="2.9.6-post-2" stability="developer" id="local-debug" local-path="build/Debug/Tools">
+      <manifest-digest />
+    </implementation>
+  </group>
 </interface>

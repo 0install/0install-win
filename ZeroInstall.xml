@@ -11,38 +11,30 @@ Conceptually, you can imagine that the software is 'installed' only on a remote 
 Konzeptuell können Sie sich vorstellen, dass die Software nur auf einem Server "installiert" ist und Sie sie auf Ihrem eigenen Rechner lediglich ausführen (mittels eines Netzwerkdateisystems). Durch Caching ist dies schnell und funktioniert auch off-line. Der Cache ist mit kryptographischen Prüfsummen gesichert, so dass er auch zwischen Usern die einander nicht vertrauen geteilt werden kann. Zero Install löst Abhängigkeiten (wie z.B. Bibliotheken) auf einer pro-Anwendung Basis auf, so dass es zu keinen Konflikten kommen kann. Die Installation einer Anwendung erfordert niemals das Entfernen einer anderen.</description>
   <icon href="http://0install.de/feed-icons/ZeroInstall.png" type="image/png" />
   <icon href="http://0install.de/feed-icons/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
-  <category>Utility</category>
   <homepage>http://0install.de/</homepage>
   <feed-for interface="http://0install.de/feeds/ZeroInstall.xml" />
-  <implementation arch="*-src" version="2.9.6" id="./src" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile">
-    <command name="compile" path="ZeroInstall.sln">
-      <runner interface="http://0install.de/feeds/cli/msbuild.xml">
-        <arg>--configuration</arg>
-        <arg>Release</arg>
-        <arg>--output</arg>
-        <arg>$SRCDIR/../build/Release/Frontend</arg>
-        <arg>--dist</arg>
-        <arg>$DISTDIR</arg>
+  <group license="LGPL v3 (GNU Lesser General Public License)">
+    <command name="run" path="0install.exe">
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
+    </command>
+    <command name="run-gui" path="0install-win.exe">
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
+    </command>
+    <command name="central" path="ZeroInstall.exe">
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
+    </command>
+    <command name="update">
+      <environment name="ZEROINSTALL_UPDATER_SOURCE" insert="." mode="replace" />
+      <runner interface="http://0install.de/feeds/ZeroInstall_Updater.xml">
+        <arg>$ZEROINSTALL_UPDATER_SOURCE</arg>
+        <arg>2.9.2</arg>
       </runner>
     </command>
-    <compile:implementation arch="*-*" license="LGPL v3 (GNU Lesser General Public License)">
-      <environment name="ZEROINSTALL_VERSION" value="2.9.6" mode="replace" />
-      <command name="run" path="0install.exe">
-        <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
-      </command>
-      <command name="run-gui" path="0install-win.exe">
-        <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
-      </command>
-      <command name="central" path="ZeroInstall.exe">
-        <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
-      </command>
-      <command name="update">
-        <environment name="ZEROINSTALL_UPDATER_SOURCE" insert="." mode="replace" />
-        <runner interface="http://0install.de/feeds/ZeroInstall_Updater.xml">
-          <arg>$ZEROINSTALL_UPDATER_SOURCE</arg>
-          <arg>$ZEROINSTALL_VERSION</arg>
-        </runner>
-      </command>
-    </compile:implementation>
-  </implementation>
+    <implementation version="2.9.6-post-1" stability="testing" id="local-release" local-path="build/Release/Frontend">
+      <manifest-digest />
+    </implementation>
+    <implementation version="2.9.6-post-2" stability="developer" id="local-debug" local-path="build/Debug/Frontend">
+      <manifest-digest />
+    </implementation>
+  </group>
 </interface>
