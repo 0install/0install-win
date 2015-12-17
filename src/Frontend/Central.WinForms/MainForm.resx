@@ -188,7 +188,7 @@
   <data name="&gt;&gt;catalogWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelSelfUpdateMessage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelNotificationBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;panelBottom.Name" xml:space="preserve">
@@ -225,8 +225,8 @@
   <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>&amp;Setup</value>
   </data>
-  <data name="&gt;&gt;labelSelfUpdateMessage.Name" xml:space="preserve">
-    <value>labelSelfUpdateMessage</value>
+  <data name="&gt;&gt;labelNotificationBar.Name" xml:space="preserve">
+    <value>labelNotificationBar</value>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>vX.YY.Z</value>
@@ -240,7 +240,7 @@
   <data name="labelLoadingCatalog.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 360</value>
   </data>
-  <data name="labelSelfUpdateMessage.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelNotificationBar.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
   <data name="&gt;&gt;menuHelp.Type" xml:space="preserve">
@@ -273,7 +273,7 @@
   <data name="rootTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="pictureBoxLogo" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelBottom" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tabControlApps" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,56,Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="labelSelfUpdateMessage.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelNotificationBar.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="menuHelp.Size" type="System.Drawing.Size, System.Drawing">
@@ -312,7 +312,7 @@
   <data name="&gt;&gt;labelLastCatalogError.Name" xml:space="preserve">
     <value>labelLastCatalogError</value>
   </data>
-  <data name="labelSelfUpdateMessage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelNotificationBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>523, 30</value>
   </data>
   <data name="tileListMyApps.Location" type="System.Drawing.Point, System.Drawing">
@@ -345,7 +345,7 @@
   <data name="pictureBoxLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="labelSelfUpdateMessage.Visible" type="System.Boolean, mscorlib">
+  <data name="labelNotificationBar.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="&gt;&gt;buttonIntro.Name" xml:space="preserve">
@@ -751,7 +751,7 @@
         rEGAAKxBAACsQYABrEHAAaxB8AOsQfgHrEH8B6xB8AOsQeAHrEHgf6xB//+sQQ==
 </value>
   </data>
-  <data name="&gt;&gt;labelSelfUpdateMessage.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelNotificationBar.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;selfUpdateWorker.Name" xml:space="preserve">
@@ -775,7 +775,7 @@
   <data name="labelLastCatalogError.Location" type="System.Drawing.Point, System.Drawing">
     <value>114, 360</value>
   </data>
-  <data name="labelSelfUpdateMessage.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelNotificationBar.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
   <data name="labelLoadingCatalog.Visible" type="System.Boolean, mscorlib">
@@ -874,8 +874,8 @@
   <data name="buttonMoreApps.Location" type="System.Drawing.Point, System.Drawing">
     <value>345, 357</value>
   </data>
-  <data name="labelSelfUpdateMessage.Text" xml:space="preserve">
-    <value>(Update message)</value>
+  <data name="labelNotificationBar.Text" xml:space="preserve">
+    <value>(Message)</value>
   </data>
   <data name="buttonStoreOptimise.Text" xml:space="preserve">
     <value>Merge &amp;duplicates</value>
@@ -1066,7 +1066,7 @@
   <data name="&gt;&gt;buttonUpdateAllClean.Name" xml:space="preserve">
     <value>buttonUpdateAllClean</value>
   </data>
-  <data name="&gt;&gt;labelSelfUpdateMessage.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelNotificationBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="labelLastCatalogError.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -1129,7 +1129,7 @@
   <data name="&gt;&gt;tabControlApps.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;labelSelfUpdateMessage.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelNotificationBar.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="labelVersion.TabIndex" type="System.Int32, mscorlib">
@@ -1138,7 +1138,7 @@
   <data name="tabPageAppList.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="labelSelfUpdateMessage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelNotificationBar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
@@ -1213,7 +1213,7 @@
   <data name="buttonStoreAudit.Text" xml:space="preserve">
     <value>&amp;Check for errors</value>
   </data>
-  <data name="labelSelfUpdateMessage.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelNotificationBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <data name="&gt;&gt;labelVersion.Type" xml:space="preserve">

@@ -23,6 +23,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
@@ -227,6 +228,32 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
+        #region Notification Bar
+        /// <summary>
+        /// Shows a notification bar at the top of the window.
+        /// </summary>
+        /// <param name="message">The message to display in the notification bar.</param>
+        /// <param name="clickHandler">A callback to execute when the notification bar is clicked.</param>
+        public void ShowNotificactionBar([NotNull] string message, [NotNull] Action clickHandler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
+            if (clickHandler == null) throw new ArgumentNullException("clickHandler");
+            #endregion
+
+            labelNotificationBar.Text = message;
+            labelNotificationBar.Visible = true;
+            _notificationBarClickHandler = clickHandler;
+        }
+
+        private Action _notificationBarClickHandler;
+
+        private void labelNotificationBar_Click(object sender, EventArgs e)
+        {
+            if (_notificationBarClickHandler != null) _notificationBarClickHandler();
+        }
+        #endregion
+
         #region Buttons
         private void buttonSync_Click(object sender, EventArgs e)
         {
@@ -395,26 +422,23 @@ namespace ZeroInstall.Central.WinForms
             var selfUpdateVersion = e.Result as ImplementationVersion;
             if (selfUpdateVersion != null)
             {
-                labelSelfUpdateMessage.Text = string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion);
-                labelSelfUpdateMessage.Visible = true;
+                ShowNotificactionBar(string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion), delegate
+                {
+                    try
+                    {
+                        ProcessUtils.Assembly("0install-win", SelfUpdate.Name, "--batch", "--restart-central").Start();
+                        Application.Exit();
+                    }
+                        #region Error handling
+                    catch (OperationCanceledException)
+                    {}
+                    catch (IOException ex)
+                    {
+                        Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    }
+                    #endregion
+                });
             }
-        }
-
-        private void labelSelfUpdateMessage_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ProcessUtils.Assembly("0install-win", SelfUpdate.Name, "--batch", "--restart-central").Start();
-                Application.Exit();
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
         }
         #endregion
 
