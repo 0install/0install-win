@@ -221,14 +221,6 @@ Değişiklikleri kaydet</value>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Zero Install v{0} sürümü kullanılabilir. Yüklemek için tıklatın.</value>
   </data>
-  <data name="SelfUpdateNo" xml:space="preserve">
-    <value>Hayır
-Güncelleştirmeyi şimdilik yoksay</value>
-  </data>
-  <data name="SelfUpdateYes" xml:space="preserve">
-    <value>Evet
-Güncelleştirmeyi kur</value>
-  </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Yükleme tümleştirmesi</value>
   </data>

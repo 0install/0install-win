@@ -221,14 +221,6 @@
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Κάντε κλικ για εγκατάσταση.</value>
   </data>
-  <data name="SelfUpdateNo" xml:space="preserve">
-    <value>όχι
-Παράβλεψη ενημέρωσης τώρα</value>
-  </data>
-  <data name="SelfUpdateYes" xml:space="preserve">
-    <value>Ναι
-Εγκατάσταση νεας έκδοσης</value>
-  </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Ενσωμάτωση εγκατάστασης</value>
   </data>

@@ -221,14 +221,6 @@ Save changes</value>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Update to Zero Install v{0} available. Click to install.</value>
   </data>
-  <data name="SelfUpdateNo" xml:space="preserve">
-    <value>No
-Ignore update for now</value>
-  </data>
-  <data name="SelfUpdateYes" xml:space="preserve">
-    <value>Yes
-Install update</value>
-  </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Setup integration</value>
   </data>
