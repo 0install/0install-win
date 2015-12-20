@@ -86,8 +86,11 @@ namespace ZeroInstall.Commands.CliCommands
             if (interfaces.Count == 0)
                 throw new OptionException(string.Format(Resources.MissingFeedFor, feedUri), null);
 
-            var singletonImplementation = feed.Elements.OfType<Implementation>().SingleOrDefault();
-            if (singletonImplementation != null) suggestedStabilityPolicy = singletonImplementation.Stability;
+            if (feed.Elements.Count == 1)
+            {
+                var singletonImplementation = feed.Elements[0] as Implementation;
+                if (singletonImplementation != null) suggestedStabilityPolicy = singletonImplementation.Stability;
+            }
 
             return interfaces;
         }

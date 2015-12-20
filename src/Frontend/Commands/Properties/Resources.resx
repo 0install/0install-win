@@ -405,8 +405,7 @@ This is similar to '0install download --refresh', except that it prints informat
     <value>Feeds registered for '{0}'</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
-    <value>The feed was successfully unregistered for the following interfaces:
-{0}</value>
+    <value>The feed was successfully unregistered for the following interfaces:</value>
   </data>
   <data name="FileOrDirNotFound" xml:space="preserve">
     <value>Unable to find file or directory '{0}'.</value>

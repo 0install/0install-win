@@ -405,8 +405,7 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
     <value>Feeds registriert für '{0}'</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
-    <value>Der Feed wurde erfolgreich für die folgenden Interfaces deregistriert:
-{0}</value>
+    <value>Der Feed wurde erfolgreich für die folgenden Interfaces entregistriert:</value>
   </data>
   <data name="FileOrDirNotFound" xml:space="preserve">
     <value>Konnte die Datei oder das Verzeichnis '{0}' nicht finden.</value>

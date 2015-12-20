@@ -888,8 +888,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed was successfully unregistered for the following interfaces:
-        ///{0}.
+        ///   Looks up a localized string similar to The feed was successfully unregistered for the following interfaces:.
         /// </summary>
         public static string FeedUnregistered {
             get {

@@ -405,8 +405,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>&apos;{0}&apos; için akış kaydedildi</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
-    <value>Aşağıdaki arabirimlerin akış kaydı başarıyla silindi:
-{0}</value>
+    <value>Aşağıdaki arabirimlerin akış kaydı başarıyla silindi:</value>
   </data>
   <data name="FileOrDirNotFound" xml:space="preserve">
     <value>&apos;{0}&apos; olarak dosya ya da dizin bulunamıyor.</value>

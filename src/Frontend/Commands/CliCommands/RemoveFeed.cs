@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands.CliCommands
                 if (preferences.Feeds.Remove(source))
                 {
                     modifiedInterfaces.Add(interfaceUri);
-                    if (preferences.StabilityPolicy == suggestedStabilityPolicy)
+                    if (preferences.StabilityPolicy == suggestedStabilityPolicy && suggestedStabilityPolicy != Stability.Unset)
                     {
                         if (Handler.Ask(string.Format(Resources.StabilityPolicyReset, interfaceUri.ToStringRfc()), defaultAnswer: false))
                             preferences.StabilityPolicy = Stability.Unset;

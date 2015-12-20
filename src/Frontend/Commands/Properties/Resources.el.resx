@@ -378,8 +378,7 @@
     <value>Τροφοδοσίες καταχωριστηκαν για &apos;{0}&apos;</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
-    <value>Η τροφοδοσία αποκαταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:
-{0}</value>
+    <value>Η τροφοδοσία αποκαταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:</value>
   </data>
   <data name="FileOrDirNotFound" xml:space="preserve">
     <value>Δεν είναι δυνατή η εύρεση του αρχείου ή του καταλόγου &apos;{0}&apos;.</value>
