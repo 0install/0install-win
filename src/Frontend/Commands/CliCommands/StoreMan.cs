@@ -223,12 +223,13 @@ namespace ZeroInstall.Commands.CliCommands
             public override ExitCode Execute()
             {
                 var store = (AdditionalArgs.Count == 2) ? new DirectoryStore(AdditionalArgs[1]) : Store;
-
                 string path = AdditionalArgs[0];
                 Debug.Assert(path != null);
+                var manifestDigest = new ManifestDigest(Path.GetFileName(path));
+
                 try
                 {
-                    store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
+                    store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
                     return ExitCode.OK;
                 }
                 catch (ImplementationAlreadyInStoreException ex)
@@ -294,8 +295,10 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override ExitCode Execute()
             {
-                string path = Store.GetPath(new ManifestDigest(AdditionalArgs[0]));
-                if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[0]));
+                var manifestDigest = new ManifestDigest(AdditionalArgs[0]);
+
+                string path = Store.GetPath(manifestDigest);
+                if (path == null) throw new ImplementationNotFoundException(manifestDigest);
                 Handler.Output(string.Format(Resources.LocalPathOf, AdditionalArgs[0]), path);
                 return ExitCode.OK;
             }

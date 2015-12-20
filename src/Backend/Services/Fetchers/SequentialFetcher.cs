@@ -131,7 +131,7 @@ namespace ZeroInstall.Services.Fetchers
             {
                 try
                 {
-                    return implementation.ManifestDigest.AvailableDigests.First();
+                    return implementation.ManifestDigest.Best;
                 }
                     #region Error handling
                 catch (InvalidOperationException)

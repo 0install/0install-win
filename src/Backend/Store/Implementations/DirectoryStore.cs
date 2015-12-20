@@ -410,10 +410,11 @@ namespace ZeroInstall.Store.Implementations
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (handler == null) throw new ArgumentNullException("handler");
+            if (manifestDigest.Best == null) throw new ArgumentException("No known digest method", "manifestDigest");
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
-            Log.Info("Caching implementation: " + manifestDigest.AvailableDigests.First());
+            Log.Info("Caching implementation: " + manifestDigest.Best);
 
             // Copy to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = GetTempDir();
@@ -450,10 +451,11 @@ namespace ZeroInstall.Store.Implementations
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             if (handler == null) throw new ArgumentNullException("handler");
+            if (manifestDigest.Best == null) throw new ArgumentException("No known digest method", "manifestDigest");
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
-            Log.Info("Caching implementation: " + manifestDigest.AvailableDigests.First());
+            Log.Info("Caching implementation: " + manifestDigest.Best);
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = GetTempDir();

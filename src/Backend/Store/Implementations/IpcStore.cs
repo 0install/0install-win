@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Implementations
             try
             {
                 string result = GetServiceProxy().AddDirectory(path, manifestDigest, handler);
-                Log.Info("Sent implementation to Store Service: " + manifestDigest.AvailableDigests.First());
+                Log.Info("Sent implementation to Store Service: " + manifestDigest.Best);
                 return result;
             }
                 #region Error handling
@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Implementations
             try
             {
                 string result = GetServiceProxy().AddArchives(archiveInfos, manifestDigest, handler);
-                Log.Info("Sent implementation to Store Service: " + manifestDigest.AvailableDigests.First());
+                Log.Info("Sent implementation to Store Service: " + manifestDigest.Best);
                 return result;
             }
                 #region Error handling
