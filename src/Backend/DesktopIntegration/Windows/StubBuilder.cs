@@ -178,7 +178,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static string GetRunStubCode(FeedTarget target, bool needsTerminal, [CanBeNull] string command = null)
         {
             // Build command-line
-            string args = needsTerminal ? "run" : "run --no-wait ";
+            string args = needsTerminal ? "run " : "run --no-wait ";
             if (!string.IsNullOrEmpty(command)) args += "--command " + command.EscapeArgument() + " ";
             args += target.Uri.ToStringRfc().EscapeArgument();
 
