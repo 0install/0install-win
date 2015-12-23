@@ -30,10 +30,10 @@ Konzeptuell können Sie sich vorstellen, dass die Software nur auf einem Server 
         <arg>2.9.2</arg>
       </runner>
     </command>
-    <implementation version="2.9.6-post-1" stability="testing" id="local-release" local-path="build/Release/Frontend">
+    <implementation version="2.9.7-post-1" stability="testing" id="local-release" local-path="build/Release/Frontend">
       <manifest-digest />
     </implementation>
-    <implementation version="2.9.6-post-2" stability="developer" id="local-debug" local-path="build/Debug/Frontend">
+    <implementation version="2.9.7-post-2" stability="developer" id="local-debug" local-path="build/Debug/Frontend">
       <manifest-digest />
     </implementation>
   </group>
