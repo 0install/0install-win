@@ -13,7 +13,6 @@ Source directory structure
 - The directory `src` contains the Visual Studio solution with the actual source code.
 - The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code and developer documentation.
-- The directory `modeling` contains UML and other diagrams.
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
 - The directory `installer` contains scripts for creating a Windows installer for Zero Install.
 - The directory `bundled` contains an external solver (all platforms).
