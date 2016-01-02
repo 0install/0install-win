@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
@@ -52,8 +53,6 @@ namespace ZeroInstall.Store.Implementations
         /// Determines whether a directory resides on a non-Unix filesystem.
         /// </summary>
         /// <param name="target">The full path to the directory.</param>
-        /// <exception cref="IOException">There was an error reading the flag file.</exception>
-        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
         /// <seealso cref="NoUnixFSFile"/>
         /// <seealso cref="FileUtils.IsUnixFS"/>
@@ -63,8 +62,26 @@ namespace ZeroInstall.Store.Implementations
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            if (FindRootDir(NoUnixFSFile, target) != null) return false;
-            else return FileUtils.IsUnixFS(target);
+            // Move up one level to avoid write-protection within implementation directories
+            if (StoreUtils.PathInAStore(target)) target = Path.Combine(target, "..");
+
+            try
+            {
+                if (FindRootDir(NoUnixFSFile, target) != null) return false;
+                else return FileUtils.IsUnixFS(target);
+            }
+                #region Error handling
+            catch (IOException)
+            {
+                // Just assume the target is a Unix FS if the check fails on a Unixoid OS
+                return UnixUtils.IsUnix;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Just assume the target is a Unix FS if the check fails on a Unixoid OS
+                return UnixUtils.IsUnix;
+            }
+            #endregion
         }
 
         /// <summary>
