@@ -70,7 +70,7 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Ensures <see cref="RetrievalMethodUtils.DownloadAndApply(Recipe,ITaskHandler,ICommandExecutor)"/> works correctly with <seealso cref="Recipe"/>s.
+        /// Ensures <see cref="RetrievalMethodUtils.DownloadAndApply(Recipe,ITaskHandler,ICommandExecutor)"/> works correctly with <see cref="Recipe"/>s.
         /// </summary>
         [Test]
         public void DownloadAndApplyRecipe()

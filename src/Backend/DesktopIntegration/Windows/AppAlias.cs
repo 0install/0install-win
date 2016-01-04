@@ -45,7 +45,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Creates an application alias in the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="command">The command within <paramref name="target"/> the alias shall point to; can be <see langword="null"/>.</param>
+        /// <param name="command">The command within <paramref name="target"/> the alias shall point to; can be <c>null</c>.</param>
         /// <param name="aliasName">The name of the alias to be created.</param>
         /// <param name="machineWide">Create the alias machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
@@ -76,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="exeName">The name of the EXE file to add (including the file ending).</param>
         /// <param name="exePath">The full path to the EXE file.</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide registry key; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide registry key; <c>false</c> for the per-user variant.</param>
         private static void AddToAppPaths(string exeName, string exePath, bool machineWide)
         {
             // Only Windows 7 and newer support per-user AppPaths
@@ -113,7 +113,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Removes an EXE from the AppPath registry key.
         /// </summary>
         /// <param name="exeName">The name of the EXE file to add (including the file ending).</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide registry key; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide registry key; <c>false</c> for the per-user variant.</param>
         private static void RemoveFromAppPaths(string exeName, bool machineWide)
         {
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
@@ -128,7 +128,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Returns the path of the directory used to store alias stub EXEs.
         /// </summary>
-        /// <param name="machineWide"><see langword="true"/> for a machine-wide directory; <see langword="false"/> for a directory just for the current user.</param>
+        /// <param name="machineWide"><c>true</c> for a machine-wide directory; <c>false</c> for a directory just for the current user.</param>
         [NotNull]
         public static string GetStubDir(bool machineWide)
         {

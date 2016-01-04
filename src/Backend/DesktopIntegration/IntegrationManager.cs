@@ -393,7 +393,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Releases the mutex and any unmanaged resources.
         /// </summary>
-        /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
+        /// <param name="disposing"><c>true</c> if called manually and not by the garbage collector.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing && _mutex != null)

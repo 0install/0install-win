@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// A static value to set the variable to.
         /// </summary>
-        /// <remarks>If this is set <see cref="Insert"/> must be <see langword="null"/>.</remarks>
+        /// <remarks>If this is set <see cref="Insert"/> must be <c>null</c>.</remarks>
         [Description("A static value to set the variable to. If this is set 'Insert' must be empty.")]
         [XmlAttribute("value"), CanBeNull]
         public string Value { get; set; }
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The relative path of the item within the implementation to insert into the variable's value. Use <code>.</code> to publish the root directory.
         /// </summary>
-        /// <remarks>If this is set <see cref="Value"/> must be <see langword="null"/>.</remarks>
+        /// <remarks>If this is set <see cref="Value"/> must be <c>null</c>.</remarks>
         [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory. If this is set 'Value' must be empty.")]
         [XmlAttribute("insert"), CanBeNull]
         public string Insert { get; set; }

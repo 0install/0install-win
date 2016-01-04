@@ -149,7 +149,7 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Calls <see cref="FeedManagerExtensions.GetFresh"/>.
         /// </summary>
-        /// <returns>The loaded <see cref="Feed"/>; <see langword="null"/> on error.</returns>
+        /// <returns>The loaded <see cref="Feed"/>; <c>null</c> on error.</returns>
         [CanBeNull]
         public Feed LoadFeedSafe([NotNull] FeedUri feedUri)
         {

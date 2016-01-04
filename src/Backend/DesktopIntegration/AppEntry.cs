@@ -58,7 +58,7 @@ namespace ZeroInstall.DesktopIntegration
         private bool _autoUpdate = true;
 
         /// <summary>
-        /// Set to <see langword="true"/> to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to <see langword="false"/>.
+        /// Set to <c>true</c> to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to <c>false</c>.
         /// </summary>
         [Description("Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.")]
         [XmlAttribute("auto-update"), DefaultValue(true)]
@@ -113,7 +113,7 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment. Is <see langword="null"/> if no desktop integration has been performed yet.
+        /// A set of <see cref="AccessPoints"/>s to be registered in the desktop environment. Is <c>null</c> if no desktop integration has been performed yet.
         /// </summary>
         [Description("A set of AccessPoints to be registered in the desktop environment. Is null if no desktop integration has been performed yet.")]
         [XmlElement("access-points"), CanBeNull]

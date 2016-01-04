@@ -72,9 +72,11 @@
     <Compile Include="Capture\SnapshotDiff.DefaultProgram.cs" />
     <Compile Include="Capture\SnapshotDiff.FileType.cs" />
     <Compile Include="Capture\SnapshotDiff.UrlProtocol.cs" />
+    <Compile Include="Capture\_Namespace.cs" />
     <Compile Include="EntryPoints\Candidate.cs" />
     <Compile Include="EntryPoints\Design\DotNetVersionConverter.cs" />
     <Compile Include="EntryPoints\Design\JavaVersionConverter.cs" />
+    <Compile Include="EntryPoints\Design\_Namespace.cs" />
     <Compile Include="EntryPoints\Detection.cs" />
     <Compile Include="EntryPoints\DotNetExe.cs" />
     <Compile Include="EntryPoints\IIconContainer.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="EntryPoints\WindowsExe.cs" />
     <Compile Include="EntryPoints\PowerShellScript.cs" />
     <Compile Include="EntryPoints\WindowsBatch.cs" />
+    <Compile Include="EntryPoints\_Namespace.cs" />
     <Compile Include="ExitCode.cs" />
     <Compile Include="FeedBuilder.cs" />
     <Compile Include="FeedEditing.cs" />
@@ -109,6 +112,7 @@
     <Compile Include="RetrievalMethodUtils.cs" />
     <Compile Include="SignedCatalog.cs" />
     <Compile Include="SignedFeed.cs" />
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.el.resx" />

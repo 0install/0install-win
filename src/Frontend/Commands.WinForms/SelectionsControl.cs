@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.WinForms
         #region Modify selections
         /// <summary>
         /// Called after preferences have been changed and the <see cref="ISolver"/> needs to be rerun.
-        /// Is set between <see cref="BeginModifySelections"/> and <see cref="EndModifySelections"/>; is <see langword="null"/> otherwise.
+        /// Is set between <see cref="BeginModifySelections"/> and <see cref="EndModifySelections"/>; is <c>null</c> otherwise.
         /// </summary>
         private Func<Selections> _solveCallback;
 

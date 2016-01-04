@@ -36,19 +36,19 @@ namespace ZeroInstall.Store.Implementations.Archives
         public string Path { get; set; }
 
         /// <summary>
-        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
+        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <c>null</c> to extract entire archive.
         /// </summary>
         [CanBeNull]
         public string SubDir { get; set; }
 
         /// <summary>
-        /// Sub-path to be appended to the target directory without affecting location of flag files; <see langword="null"/> for none.
+        /// Sub-path to be appended to the target directory without affecting location of flag files; <c>null</c> for none.
         /// </summary>
         [CanBeNull]
         public string Destination { get; set; }
 
         /// <summary>
-        /// The MIME type of archive format of the file; <see langword="null"/> to guess.
+        /// The MIME type of archive format of the file; <c>null</c> to guess.
         /// </summary>
         [CanBeNull]
         public string MimeType { get; set; }

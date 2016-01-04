@@ -123,7 +123,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         /// <summary>
-        /// Returns <see langword="true"/> the first time it is called and then always <see langword="false"/>.
+        /// Returns <c>true</c> the first time it is called and then always <c>false</c>.
         /// </summary>
         private static bool OnFirstRun()
         {

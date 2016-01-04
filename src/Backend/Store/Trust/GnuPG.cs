@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Trust
         /// Parses information about a signature from a console line.
         /// </summary>
         /// <param name="line">The console line containing the signature information.</param>
-        /// <returns>The parsed signature representation; <see langword="null"/> if <paramref name="line"/> did not contain any signature information.</returns>
+        /// <returns>The parsed signature representation; <c>null</c> if <paramref name="line"/> did not contain any signature information.</returns>
         /// <exception cref="FormatException"><paramref name="line"/> contains incorrectly formatted signature information.</exception>
         [CanBeNull]
         private static OpenPgpSignature ParseSignatureLine([NotNull] string line)

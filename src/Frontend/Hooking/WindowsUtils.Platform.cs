@@ -30,42 +30,42 @@ namespace ZeroInstall.Hooking
     static partial class WindowsUtils
     {
         /// <summary>
-        /// <see langword="true"/> if the current operating system is Windows (9x- or NT-based); <see langword="false"/> otherwise.
+        /// <c>true</c> if the current operating system is Windows (9x- or NT-based); <c>false</c> otherwise.
         /// </summary>
         public static bool IsWindows { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
 
         /// <summary>
-        /// <see langword="true"/> if the current operating system is a modern Windows version (NT-based); <see langword="false"/> otherwise.
+        /// <c>true</c> if the current operating system is a modern Windows version (NT-based); <c>false</c> otherwise.
         /// </summary>
         public static bool IsWindowsNT { get { return Environment.OSVersion.Platform == PlatformID.Win32NT; } }
 
         /// <summary>
-        /// <see langword="true"/> if the current operating system is Windows Vista or newer; <see langword="false"/> otherwise.
+        /// <c>true</c> if the current operating system is Windows Vista or newer; <c>false</c> otherwise.
         /// </summary>
         public static bool IsWindowsVista { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 0); } }
 
         /// <summary>
-        /// <see langword="true"/> if the current operating system is Windows 7 or newer; <see langword="false"/> otherwise.
+        /// <c>true</c> if the current operating system is Windows 7 or newer; <c>false</c> otherwise.
         /// </summary>
         public static bool IsWindows7 { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 1); } }
 
         /// <summary>
-        /// <see langword="true"/> if the current operating system is Windows 8 or newer; <see langword="false"/> otherwise.
+        /// <c>true</c> if the current operating system is Windows 8 or newer; <c>false</c> otherwise.
         /// </summary>
         public static bool IsWindows8 { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 2); } }
 
         /// <summary>
-        /// <see langword="true"/> if the current operating system is 64-bit capable; <see langword="false"/> otherwise.
+        /// <c>true</c> if the current operating system is 64-bit capable; <c>false</c> otherwise.
         /// </summary>
         public static bool Is64BitOperatingSystem { get { return Is64BitProcess || Is32BitProcessOn64BitOperatingSystem; } }
 
         /// <summary>
-        /// <see langword="true"/> if the current process is 64-bit; <see langword="false"/> otherwise.
+        /// <c>true</c> if the current process is 64-bit; <c>false</c> otherwise.
         /// </summary>
         public static bool Is64BitProcess { get { return IntPtr.Size == 8; } }
 
         /// <summary>
-        /// <see langword="true"/> if the current process is 32-bit but the operating system is 64-bit capable; <see langword="false"/> otherwise.
+        /// <c>true</c> if the current process is 32-bit but the operating system is 64-bit capable; <c>false</c> otherwise.
         /// </summary>
         /// <remarks>Can only detect WOW on Windows XP and newer</remarks>
         public static bool Is32BitProcessOn64BitOperatingSystem
@@ -82,7 +82,7 @@ namespace ZeroInstall.Hooking
         }
 
         /// <summary>
-        /// Indicates whether the current user is an administrator. Always returns <see langword="true"/> on non-Windows systems.
+        /// Indicates whether the current user is an administrator. Always returns <c>true</c> on non-Windows systems.
         /// </summary>
         public static bool IsAdministrator
         {

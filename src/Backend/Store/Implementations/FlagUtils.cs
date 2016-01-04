@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="flagName">The name of the flag type to search for (<see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>).</param>
         /// <param name="target">The target directory to start the search from.</param>
-        /// <returns>The full path to the closest flag file that was found; <see langword="null"/> if none was found.</returns>
+        /// <returns>The full path to the closest flag file that was found; <c>null</c> if none was found.</returns>
         [CanBeNull]
         private static string FindRootDir([NotNull] string flagName, [NotNull] string target)
         {
@@ -154,7 +154,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Write
         /// <summary>
-        /// Sets a flag for a directory indicating that it resides on a non-Unix filesystem. This makes future calls to <seealso cref="IsUnixFS"/> run faster and more reliable.
+        /// Sets a flag for a directory indicating that it resides on a non-Unix filesystem. This makes future calls to <see cref="IsUnixFS"/> run faster and more reliable.
         /// </summary>
         /// <param name="target">The full path to the directory.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>

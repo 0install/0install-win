@@ -180,7 +180,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <summary>
-        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
+        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <c>true</c>) and stores the result in <see cref="Selections"/>.
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
@@ -211,7 +211,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <summary>
-        /// Run <see cref="Solve"/> with <see cref="IFeedManager.Refresh"/> set to <see langword="true"/>.
+        /// Run <see cref="Solve"/> with <see cref="IFeedManager.Refresh"/> set to <c>true</c>.
         /// </summary>
         protected void RefreshSolve()
         {

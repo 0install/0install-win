@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands
     public sealed class CliCommandHandler : CliTaskHandler, ICommandHandler
     {
         /// <summary>
-        /// Always returns <see langword="false"/>.
+        /// Always returns <c>false</c>.
         /// </summary>
         public bool Background { get { return false; } set { } }
 

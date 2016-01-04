@@ -42,7 +42,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="RetrievalMethod"/> to use.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <c>null</c>.</param>
         /// <returns>A newly created <see cref="Implementation"/> containing one <see cref="Archive"/>.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was a problem extracting the archive.</exception>
@@ -77,7 +77,7 @@ namespace ZeroInstall.Publish
         /// <param name="implementation">The <see cref="Implementation"/> to add data to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <c>null</c>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
@@ -174,7 +174,7 @@ namespace ZeroInstall.Publish
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <c>null</c>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
@@ -194,7 +194,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <see langword="null"/>.</param>
+        /// <param name="keepDownloads">Used to retain downloaded implementations; can be <c>null</c>.</param>
         /// <returns>The newly generated digest.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>

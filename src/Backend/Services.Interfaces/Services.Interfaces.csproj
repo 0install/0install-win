@@ -57,15 +57,19 @@
     <Compile Include="Feeds\ICatalogManager.cs" />
     <Compile Include="Feeds\IFeedManager.cs" />
     <Compile Include="Feeds\ITrustManager.cs" />
+    <Compile Include="Feeds\_Namespace.cs" />
     <Compile Include="Fetchers\FetcherBase.cs" />
     <Compile Include="Fetchers\IFetcher.cs" />
     <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
+    <Compile Include="Fetchers\_Namespace.cs" />
     <Compile Include="Injector\ExecutorException.cs" />
     <Compile Include="Injector\IExecutor.cs" />
+    <Compile Include="Injector\_Namespace.cs" />
     <Compile Include="ISelectionsManager.cs" />
     <Compile Include="PackageManagers\ExternalImplementation.cs" />
     <Compile Include="PackageManagers\ExternalRetrievalMethod.cs" />
     <Compile Include="PackageManagers\IPackageManager.cs" />
+    <Compile Include="PackageManagers\_Namespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectionsManagerExtensions.cs" />
     <Compile Include="Solvers\ISolver.cs" />
@@ -74,6 +78,8 @@
     <Compile Include="Solvers\SolverException.cs" />
     <Compile Include="Solvers\SolverExtensions.cs" />
     <Compile Include="Solvers\SolverUtils.cs" />
+    <Compile Include="Solvers\_Namespace.cs" />
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Store\Store.csproj">

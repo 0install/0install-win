@@ -45,7 +45,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Builds a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE.
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <c>null</c>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <returns>The path to the generated stub EXE.</returns>
@@ -79,8 +79,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <seealso cref="BuildRunStub"/>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="path">The target path to store the generated EXE file.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
-        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <c>null</c>.</param>
+        /// <param name="needsTerminal"><c>true</c> to build a CLI stub, <c>false</c> to build a GUI stub.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
@@ -130,8 +130,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="path">The target path to store the generated EXE file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
+        /// <param name="needsTerminal"><c>true</c> to build a CLI stub, <c>false</c> to build a GUI stub.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <c>null</c>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
@@ -172,8 +172,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Generates the C# to be compiled for the stub EXE.
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
-        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
+        /// <param name="needsTerminal"><c>true</c> to build a CLI stub, <c>false</c> to build a GUI stub.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <c>null</c>.</param>
         /// <returns>Generated C# code.</returns>
         private static string GetRunStubCode(FeedTarget target, bool needsTerminal, [CanBeNull] string command = null)
         {

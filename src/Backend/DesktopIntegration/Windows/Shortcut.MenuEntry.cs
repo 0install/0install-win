@@ -72,9 +72,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Builds a path for a shortcut in the start menu programs folder, optionally appending a category.
         /// </summary>
-        /// <param name="category">The name of the category/directory below the programs folder; can be <see langword="null"/>.</param>
+        /// <param name="category">The name of the category/directory below the programs folder; can be <c>null</c>.</param>
         /// <param name="name">The name of the shortcut (without the .lnk ending).</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide start menu; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide start menu; <c>false</c> for the per-user variant.</param>
         /// <exception cref="IOException"><paramref name="name"/> or <paramref name="category"/> contains invalid characters.</exception>
         [NotNull]
         public static string GetStartMenuPath([CanBeNull] string category, [NotNull] string name, bool machineWide)
@@ -87,8 +87,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Returns the start menu programs folder path, optionally appending a category.
         /// </summary>
-        /// <param name="category">The name of the category/directory below the programs folder; can be <see langword="null"/>.</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide start menu; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="category">The name of the category/directory below the programs folder; can be <c>null</c>.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide start menu; <c>false</c> for the per-user variant.</param>
         /// <exception cref="IOException"><paramref name="category"/> contains invalid characters.</exception>
         [NotNull]
         private static string GetStartMenuCategoryPath([CanBeNull] string category, bool machineWide)

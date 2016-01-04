@@ -44,27 +44,27 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.
         /// </summary>
-        /// <remarks>Will default to <see cref="Command"/> when left <see langword="null"/>.</remarks>
+        /// <remarks>Will default to <see cref="Command"/> when left <c>null</c>.</remarks>
         [Description("The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.")]
         [XmlAttribute("binary-name"), DefaultValue(""), CanBeNull]
         public string BinaryName { get; set; }
 
         /// <summary>
-        /// If <see langword="true"/>, indicates that the <see cref="Command"/> represented by this entry point requires a terminal in order to run.
+        /// If <c>true</c>, indicates that the <see cref="Command"/> represented by this entry point requires a terminal in order to run.
         /// </summary>
         [Description("If true, indicates that the Command represented by this entry point requires a terminal in order to run.")]
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
         /// <summary>
-        /// If <see langword="true"/>, indicates that this entry point should be offered as an auto-start candidate to the user.
+        /// If <c>true</c>, indicates that this entry point should be offered as an auto-start candidate to the user.
         /// </summary>
         [Description("If true, indicates that this entry point should be offered as an auto-start candidate to the user.")]
         [XmlIgnore, DefaultValue(false)]
         public bool SuggestAutoStart { get; set; }
 
         /// <summary>
-        /// If <see langword="true"/>, indicates that this entry point should be offered as a candidate for the "Send To" context menu to the user.
+        /// If <c>true</c>, indicates that this entry point should be offered as a candidate for the "Send To" context menu to the user.
         /// </summary>
         [Description("If true, indicates that this entry point should be offered as a candidate for the \"Send To\" context menu to the user.")]
         [XmlIgnore, DefaultValue(false)]

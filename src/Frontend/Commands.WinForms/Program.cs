@@ -64,8 +64,8 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="form">The window to configure.</param>
         /// <param name="name">The name for the taskbar entry.</param>
-        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; can be <see langword="null"/>.</param>
-        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; can be <see langword="null"/>.</param>
+        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; can be <c>null</c>.</param>
+        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; can be <c>null</c>.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Taskbar operations are always per-window.")]
         public static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name, [CanBeNull] string subCommand = null, [CanBeNull] string arguments = null)
         {

@@ -65,6 +65,8 @@
     <Compile Include="Sdk\Constants.cs" />
     <Compile Include="Sdk\ErrorCategory.cs" />
     <Compile Include="Sdk\Request.cs" />
+    <Compile Include="Sdk\_Namespace.cs" />
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />

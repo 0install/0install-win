@@ -34,7 +34,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="data">The data of the file.</param>
         /// <param name="uri">The URI the <paramref name="data"/> originally came from.</param>
-        /// <param name="localPath">The local file path the <paramref name="data"/> came from. Used to locate key files. May be <see langword="null"/> for in-memory data.</param>
+        /// <param name="localPath">The local file path the <paramref name="data"/> came from. Used to locate key files. May be <c>null</c> for in-memory data.</param>
         /// <returns>The first valid and trusted signature found on the feed.</returns>
         /// <exception cref="UriFormatException"><paramref name="uri"/> is a local file.</exception>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>

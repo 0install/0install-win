@@ -126,7 +126,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         /// <param name="aliasName">The name of the alias to create.</param>
         /// <param name="interfaceUri">The interface URI the alias shall point to.</param>
-        /// <param name="command">A command within the interface the alias shall point to; can be <see langword="null"/>.</param>
+        /// <param name="command">A command within the interface the alias shall point to; can be <c>null</c>.</param>
         /// <returns>The exit status code to end the process with.</returns>
         private ExitCode CreateAlias(string aliasName, FeedUri interfaceUri, string command = null)
         {
@@ -170,8 +170,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         /// <param name="appList">The list of <see cref="AppEntry"/>s to search.</param>
         /// <param name="aliasName">The name of the alias to search for.</param>
-        /// <param name="foundAppEntry">Returns the <see cref="AppEntry"/> containing the found <see cref="AppAlias"/>; <see langword="null"/> if none was found.</param>
-        /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <see langword="null"/> if none was found.</returns>
+        /// <param name="foundAppEntry">Returns the <see cref="AppEntry"/> containing the found <see cref="AppAlias"/>; <c>null</c> if none was found.</param>
+        /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <c>null</c> if none was found.</returns>
         [ContractAnnotation("=>null,foundAppEntry:null; =>notnull,foundAppEntry:notnull")]
         internal static AppAlias GetAppAlias([NotNull] AppList appList, [NotNull] string aliasName, out AppEntry foundAppEntry)
         {

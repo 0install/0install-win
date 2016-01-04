@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Returns the best entry of <see cref="AvailableDigests"/>; <see langword="null"/> if there are none.
+        /// Returns the best entry of <see cref="AvailableDigests"/>; <c>null</c> if there are none.
         /// </summary>
         [Browsable(false)]
         [CanBeNull]
@@ -215,10 +215,10 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Compares to values as a helper method for <see cref="PartialEquals"/>.
         /// </summary>
-        /// <param name="matchCounter">This value is incremented by one of the values match and are not <see langword="null"/>.</param>
+        /// <param name="matchCounter">This value is incremented by one of the values match and are not <c>null</c>.</param>
         /// <param name="left">The first value to be compared.</param>
         /// <param name="right">The second value to be compared.</param>
-        /// <returns><see langword="true"/> if the values either match or one of them is <see langword="null"/>.</returns>
+        /// <returns><c>true</c> if the values either match or one of them is <c>null</c>.</returns>
         [ContractAnnotation("left:null => true; right:null => true")]
         private static bool PartialEqualsHelper(ref int matchCounter, [CanBeNull] string left, [CanBeNull] string right)
         {

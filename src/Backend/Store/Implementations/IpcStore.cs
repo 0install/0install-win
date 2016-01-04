@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
-        /// Always returns <see langword="false"/>. Use a non-IPC <see cref="IStore"/> for this method instead.
+        /// Always returns <c>false</c>. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
         /// <remarks>Using the store service for this is unnecessary since it only requires read access to the file system.</remarks>
         public bool Contains(ManifestDigest manifestDigest)
@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
-        /// Always returns <see langword="false"/>. Use a non-IPC <see cref="IStore"/> for this method instead.
+        /// Always returns <c>false</c>. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
         /// <remarks>Using the store service for this is unnecessary since it only requires read access to the file system.</remarks>
         public bool Contains(string directory)
@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
-        /// Always returns <see langword="null"/>. Use a non-IPC <see cref="IStore"/> for this method instead.
+        /// Always returns <c>null</c>. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
         /// <remarks>Using the store service for this is unnecessary since it only requires read access to the file system.</remarks>
         public string GetPath(ManifestDigest manifestDigest)

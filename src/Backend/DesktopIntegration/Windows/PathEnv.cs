@@ -34,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Adds a directory to the search PATH.
         /// </summary>
         /// <param name="directory">The directory to add to the search PATH.</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide PATH variable; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide PATH variable; <c>false</c> for the per-user variant.</param>
         public static void AddDir([NotNull] string directory, bool machineWide)
         {
             #region Sanity checks
@@ -49,7 +49,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Removes a directory from the search PATH.
         /// </summary>
         /// <param name="directory">The directory to remove from the search PATH.</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide PATH variable; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide PATH variable; <c>false</c> for the per-user variant.</param>
         public static void RemoveDir([NotNull] string directory, bool machineWide)
         {
             #region Sanity checks
@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>
         /// Returns the current search PATH.
         /// </summary>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide PATH variable; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide PATH variable; <c>false</c> for the per-user variant.</param>
         /// <returns>The individual directories listed in the search path.</returns>
         [NotNull]
         public static string[] Get(bool machineWide)
@@ -78,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Sets the current search PATH.
         /// </summary>
         /// <param name="directories">The individual directories to list in the search PATH.</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide PATH variable; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide PATH variable; <c>false</c> for the per-user variant.</param>
         public static void Set([NotNull, ItemNotNull] string[] directories, bool machineWide)
         {
             #region Sanity checks

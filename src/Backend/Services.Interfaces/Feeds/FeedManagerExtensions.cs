@@ -38,7 +38,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="feedManager">The <see cref="IFeedManager"/> implementation.</param>
         /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="IFeedManager.Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="IFeedManager.Refresh"/> is set to <c>true</c>.</remarks>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>

@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <typeparam name="T">The capability type to match.</typeparam>
         /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
-        /// <returns>The first matching <see cref="Capability"/>; <see langword="null"/> if no match was found.</returns>
+        /// <returns>The first matching <see cref="Capability"/>; <c>null</c> if no match was found.</returns>
         /// <exception cref="KeyNotFoundException">No capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         [CanBeNull]
         public T GetCapability<T>([NotNull] string id) where T : Capability

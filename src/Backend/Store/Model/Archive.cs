@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Model
         /// Tries to guess the MIME type of an archive file by looking at its file extension.
         /// </summary>
         /// <param name="fileName">The file name to analyze.</param>
-        /// <returns>The MIME type if it could be guessed; <see langword="null"/> otherwise.</returns>
+        /// <returns>The MIME type if it could be guessed; <c>null</c> otherwise.</returns>
         /// <remarks>The file's content is not analyzed.</remarks>
         [CanBeNull]
         public static string GuessMimeType([NotNull] string fileName)
@@ -143,14 +143,14 @@ namespace ZeroInstall.Store.Model
         public override long DownloadSize { get { return Size + StartOffset; } }
 
         /// <summary>
-        /// The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.
+        /// The name of the subdirectory in the archive to extract; <c>null</c> or <see cref="string.Empty"/> for entire archive.
         /// </summary>
         [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
         [XmlAttribute("extract"), DefaultValue(""), CanBeNull]
         public string Extract { get; set; }
 
         /// <summary>
-        /// The subdirectory within the implementation directory to extract this archive to; can be <see langword="null"/>.
+        /// The subdirectory within the implementation directory to extract this archive to; can be <c>null</c>.
         /// </summary>
         [Description("The subdirectory within the implementation directory to extract this archive to; can be null.")]
         [XmlAttribute("dest"), CanBeNull]

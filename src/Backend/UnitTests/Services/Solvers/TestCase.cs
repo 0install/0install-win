@@ -58,7 +58,7 @@ namespace ZeroInstall.Services.Solvers
         public Selections Selections { get; set; }
 
         /// <summary>
-        /// A string describing the expected solver error message or <see langword="null"/> if no failure is expected.
+        /// A string describing the expected solver error message or <c>null</c> if no failure is expected.
         /// </summary>
         [XmlElement("problem"), CanBeNull]
         public string Problem { get; set; }

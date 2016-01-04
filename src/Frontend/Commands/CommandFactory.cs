@@ -40,9 +40,9 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new <see cref="CliCommand"/> based on a name.
         /// </summary>
-        /// <param name="commandName">The command name to look for; case-insensitive; can be <see langword="null"/>.</param>
+        /// <param name="commandName">The command name to look for; case-insensitive; can be <c>null</c>.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        /// <returns>The requested <see cref="CliCommand"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
+        /// <returns>The requested <see cref="CliCommand"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <c>null</c>.</returns>
         /// <exception cref="OptionException"><paramref name="commandName"/> is an unknown command.</exception>
         /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
@@ -152,7 +152,7 @@ namespace ZeroInstall.Commands
         /// Determines the command name specified in the command-line arguments.
         /// </summary>
         /// <param name="args">The command-line arguments to search for a command name. If a command is found it is removed from the collection.</param>
-        /// <returns>The name of the command that was found or <see langword="null"/> if none was specified.</returns>
+        /// <returns>The name of the command that was found or <c>null</c> if none was specified.</returns>
         [CanBeNull]
         public static string GetCommandName([NotNull, ItemNotNull] ref IEnumerable<string> args)
         {

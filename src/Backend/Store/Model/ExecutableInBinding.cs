@@ -12,7 +12,7 @@ namespace ZeroInstall.Store.Model
     public abstract class ExecutableInBinding : Binding
     {
         /// <summary>
-        /// The name of the <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
+        /// The name of the <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <c>null</c> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the implementation to launch; leave empty for 'run'.")]
         [TypeConverter(typeof(CommandNameConverter))]

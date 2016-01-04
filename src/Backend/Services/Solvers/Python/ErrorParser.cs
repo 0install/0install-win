@@ -68,7 +68,7 @@ namespace ZeroInstall.Services.Solvers.Python
         /// To be called for every line of error data received from the external solver.
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
-        /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>
+        /// <returns>The response to write to stdin; <c>null</c> for none.</returns>
         [CanBeNull]
         public string HandleStdErrorLine([NotNull] string line)
         {

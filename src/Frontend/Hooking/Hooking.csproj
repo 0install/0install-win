@@ -56,6 +56,7 @@
     <Compile Include="WindowsTaskbar.NativeMethods.cs" />
     <Compile Include="WindowsUtils.NativeMethods.cs" />
     <Compile Include="WindowsUtils.Platform.cs" />
+    <Compile Include="_Namespace.cs" />
     <None Include="..\..\..\lib\EasyHook.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

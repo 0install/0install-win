@@ -50,7 +50,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>Maps interface URIs to <see cref="AppTile"/>s.</summary>
         private readonly IDictionary<FeedUri, AppTile> _tileDictionary = new Dictionary<FeedUri, AppTile>();
 
-        /// <summary><see langword="true"/> if the last tile used <see cref="TileColorLight"/>; <see langword="false"/> if the last tile used <see cref="TileColorDark"/>.</summary>
+        /// <summary><c>true</c> if the last tile used <see cref="TileColorLight"/>; <c>false</c> if the last tile used <see cref="TileColorDark"/>.</summary>
         private bool _lastTileLight;
 
         /// <summary><see cref="AppTile"/>s prepared by <see cref="QueueNewTile"/>, waiting to be added to <see cref="_flowLayout"/>.</summary>

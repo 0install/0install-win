@@ -194,8 +194,8 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Returns the path to a permanent copy of the best matching icon for a specific <see cref="Command"/>.
         /// </summary>
-        /// <param name="command">The name of the command the icon should represent; <see langword="null"/> for <see cref="Command.NameRun"/>.</param>
-        /// <returns>The path to the icon file; <see langword="null"/> if no suitable icon was found.</returns>
+        /// <param name="command">The name of the command the icon should represent; <c>null</c> for <see cref="Command.NameRun"/>.</param>
+        /// <returns>The path to the icon file; <c>null</c> if no suitable icon was found.</returns>
         [CanBeNull]
         private string GetIconPath([CanBeNull] string command = null)
         {

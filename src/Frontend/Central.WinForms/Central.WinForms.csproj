@@ -115,6 +115,7 @@
     <Compile Include="SyncWizard.Designer.cs">
       <DependentUpon>SyncWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />

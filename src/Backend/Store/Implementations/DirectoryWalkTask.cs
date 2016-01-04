@@ -190,7 +190,7 @@ namespace ZeroInstall.Store.Implementations
         /// Handles a file.
         /// </summary>
         /// <param name="file">The file to handle.</param>
-        /// <param name="executable"><see langword="true"/> indicates that the file is marked as executable.</param>
+        /// <param name="executable"><c>true</c> indicates that the file is marked as executable.</param>
         protected abstract void HandleFile([NotNull] FileInfo file, bool executable = false);
 
         /// <summary>

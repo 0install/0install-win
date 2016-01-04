@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected override bool UnitsByte { get { return true; } }
 
         /// <summary>
-        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
+        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <c>null</c> to extract entire archive.
         /// </summary>
         [Description("The sub-directory in the archive (with Unix-style slashes) to be extracted; null to extract entire archive.")]
         [CanBeNull]
@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public string TargetDir { get; private set; }
 
         /// <summary>
-        /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files; <see langword="null"/> for none.
+        /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files; <c>null</c> for none.
         /// </summary>
         [Description("Sub-path to be appended to TargetDir without affecting location of flag files.")]
         [CanBeNull]
@@ -183,7 +183,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="path">The path of the archive file to be extracted.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        /// <param name="mimeType">The MIME type of archive format of the stream. Leave <see langword="null"/> to guess based on file name.</param>
+        /// <param name="mimeType">The MIME type of archive format of the stream. Leave <c>null</c> to guess based on file name.</param>
         /// <param name="startOffset"></param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">The archive is damaged.</exception>
@@ -217,7 +217,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Returns the path of an archive entry relative to <see cref="SubDir"/>.
         /// </summary>
         /// <param name="entryName">The Unix-style path of the archive entry relative to the archive's root.</param>
-        /// <returns>The relative path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
+        /// <returns>The relative path or <c>null</c> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
         [CanBeNull]
         protected virtual string GetRelativePath([NotNull] string entryName)
         {
@@ -294,7 +294,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
-        /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
+        /// <param name="executable"><c>true</c> if the file's executable bit is set; <c>false</c> otherwise.</param>
         protected void WriteFile([NotNull] string relativePath, long fileSize, DateTime lastWriteTime, [NotNull] Stream stream, bool executable = false)
         {
             #region Sanity checks
@@ -312,7 +312,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Creates a stream for writing an extracted file to the filesystem.
         /// </summary>
         /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
-        /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
+        /// <param name="executable"><c>true</c> if the file's executable bit is set; <c>false</c> otherwise.</param>
         /// <returns>A stream for writing the extracted file.</returns>
         protected FileStream OpenFileWriteStream([NotNull] string relativePath, bool executable = false)
         {
@@ -389,7 +389,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
         /// <param name="target">A path relative to <see cref="SubDir"/>.</param>
-        /// <param name="executable"><see langword="true"/> if the hardlink's executable bit is set; <see langword="false"/> otherwise.</param>
+        /// <param name="executable"><c>true</c> if the hardlink's executable bit is set; <c>false</c> otherwise.</param>
         protected void QueueHardlink([NotNull] string source, [NotNull] string target, bool executable = false)
         {
             _pendingHardlinks.Add(new PendingHardlink {Source = source, Target = target, Executable = executable});

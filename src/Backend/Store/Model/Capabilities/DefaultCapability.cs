@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     {
         #region Properties
         /// <summary>
-        /// When set to <see langword="true"/> this capability is not applied as a default handler without explicit confirmation from the user.
+        /// When set to <c>true</c> this capability is not applied as a default handler without explicit confirmation from the user.
         /// </summary>
         /// <remarks>Use this to exclude exotic capabilities from default integration categories.</remarks>
         [Description("When set to true do not apply this capability is not applied as a default handler without explicit confirmation from the user. Use this to exclude exotic capabilities from default integration categories.")]

@@ -111,7 +111,7 @@ namespace ZeroInstall.Commands
         /// Uses <see cref="Catalog.FindByShortName"/> to find a <see cref="Feed"/> matching a specific short name.
         /// </summary>
         /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
-        /// <returns>The first matching <see cref="Feed"/>; <see langword="null"/> if no match was found.</returns>
+        /// <returns>The first matching <see cref="Feed"/>; <c>null</c> if no match was found.</returns>
         [CanBeNull]
         protected Feed FindByShortName([NotNull] string shortName)
         {

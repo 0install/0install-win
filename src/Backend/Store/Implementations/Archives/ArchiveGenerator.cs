@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="sourceDirectory">The path of the directory to capture/store in the archive.</param>
         /// <param name="path">The path of the archive file to create.</param>
-        /// <param name="mimeType">The MIME type of archive format to create. Leave <see langword="null"/> to guess based on <paramref name="path"/>.</param>
+        /// <param name="mimeType">The MIME type of archive format to create. Leave <c>null</c> to guess based on <paramref name="path"/>.</param>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         /// <exception cref="IOException">Failed to create the archive file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the archive file was denied.</exception>

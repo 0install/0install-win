@@ -56,7 +56,7 @@ namespace ZeroInstall.Central.WinForms
         /// Runs the Sync Setup wizard.
         /// </summary>
         /// <param name="machineWide">Configure Sync for machine-wide data instead of just for the current user.</param>
-        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
         public static void Setup(bool machineWide, [CanBeNull] IWin32Window owner = null)
         {
             using (var wizard = new SyncWizard(machineWide))
@@ -67,7 +67,7 @@ namespace ZeroInstall.Central.WinForms
         /// Runs the Sync Troubleshooting wizard.
         /// </summary>
         /// <param name="machineWide">Configure Sync for machine-wide data instead of just for the current user.</param>
-        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
         public static void Troubleshooting(bool machineWide, [CanBeNull] IWin32Window owner = null)
         {
             using (var wizard = new SyncWizard(machineWide, troubleshooting: true))

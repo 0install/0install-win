@@ -522,7 +522,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Ensures that there are no applications running with open file handles in <paramref name="path"/>.
         /// </summary>
-        /// <returns>A Restart Manager session that is to be disposed once exclusive access to the directory is no longer required; may be <see langword="null"/>.</returns>
+        /// <returns>A Restart Manager session that is to be disposed once exclusive access to the directory is no longer required; may be <c>null</c>.</returns>
         private static void UseRestartManager(string path, ITaskHandler handler)
         {
             try

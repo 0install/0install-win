@@ -118,6 +118,7 @@
       <DependentUpon>StoreManageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StoreManageNode.cs" />
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />

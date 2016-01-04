@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// Returns the first icon with a specific MIME type.
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
-        /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
+        /// <returns>The best matching icon that was found or <c>null</c> if no matching icon was found.</returns>
         [CanBeNull]
         public Icon GetIcon([NotNull] string mimeType)
         {

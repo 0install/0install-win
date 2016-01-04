@@ -54,7 +54,7 @@ namespace ZeroInstall.Central.WinForms
 
         private static readonly ITaskHandler _handler = new SilentTaskHandler();
 
-        /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <see langword="null"/>.</summary>
+        /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
         [CanBeNull]
         private readonly IIconCache _iconCache;
         #endregion
@@ -128,7 +128,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <see langword="null"/>.</param>
+        /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         public AppTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false)
         {

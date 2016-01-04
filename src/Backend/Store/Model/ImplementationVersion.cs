@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Indicates whether this version number contains a template variable (a substring enclosed in curly brackets, e.g {var}) .
         /// </summary>
-        /// <remarks>This must be <see langword="false"/> in regular feeds; <see langword="true"/> is only valid for templates.</remarks>
+        /// <remarks>This must be <c>false</c> in regular feeds; <c>true</c> is only valid for templates.</remarks>
         public bool ContainsTemplateVariables { get { return _verbatimString != null; } }
         #endregion
 
@@ -112,8 +112,8 @@ namespace ZeroInstall.Store.Model
         /// Creates a new <see cref="ImplementationVersion"/> using the specified string representation.
         /// </summary>
         /// <param name="value">The string to parse.</param>
-        /// <param name="result">Returns the created <see cref="ImplementationVersion"/> if successfully; <see langword="null"/> otherwise.</param>
-        /// <returns><see langword="true"/> if the <see cref="ImplementationVersion"/> was successfully created; <see langword="false"/> otherwise.</returns>
+        /// <param name="result">Returns the created <see cref="ImplementationVersion"/> if successfully; <c>null</c> otherwise.</param>
+        /// <returns><c>true</c> if the <see cref="ImplementationVersion"/> was successfully created; <c>false</c> otherwise.</returns>
         [ContractAnnotation("=>false,result:null; =>true,result:notnull")]
         public static bool TryCreate([NotNull] string value, out ImplementationVersion result)
         {

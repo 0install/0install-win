@@ -313,7 +313,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Merges a new <see cref="IntegrationManagerBase.AppList"/> with the existing data.
         /// </summary>
         /// <param name="remoteAppList">The remote <see cref="AppList"/> to merge in.</param>
-        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
+        /// <param name="resetClient">Set to <c>true</c> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">An <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="InvalidDataException">One of the <see cref="AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>

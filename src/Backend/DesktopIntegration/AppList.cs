@@ -77,7 +77,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Checks whether an <see cref="AppEntry"/> for a specific interface URI exists.
         /// </summary>
         /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
-        /// <returns><see langword="true"/> if a matching entry was found; <see langword="false"/> otherwise.</returns>
+        /// <returns><c>true</c> if a matching entry was found; <c>false</c> otherwise.</returns>
         public bool ContainsEntry([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Gets an <see cref="AppEntry"/> for a specific interface URI. Safe for missing elements.
         /// </summary>
         /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
-        /// <returns>The first matching <see cref="AppEntry"/>; <see langword="null"/> if no match was found.</returns>
+        /// <returns>The first matching <see cref="AppEntry"/>; <c>null</c> if no match was found.</returns>
         [CanBeNull]
         public AppEntry GetEntry([NotNull] FeedUri interfaceUri)
         {
@@ -206,7 +206,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Loads a list from an XML file embedded in a ZIP archive.
         /// </summary>
         /// <param name="stream">The ZIP archive to load.</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
+        /// <param name="password">The password to use for decryption; <c>null</c> for no encryption.</param>
         /// <returns>The loaded list.</returns>
         /// <exception cref="ZipException">A problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data.</exception>
@@ -236,7 +236,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Saves the list in an XML file embedded in a ZIP archive.
         /// </summary>
         /// <param name="stream">The ZIP archive to be written.</param>
-        /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
+        /// <param name="password">The password to use for encryption; <c>null</c> for no encryption.</param>
         public void SaveXmlZip([NotNull] Stream stream, [CanBeNull] string password = null)
         {
             #region Sanity checks

@@ -164,7 +164,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>
         /// This is deprecated in favor of <see cref="Commands"/>.
-        /// <see langword="null"/> corresponds to no <see cref="Command"/>s.
+        /// <c>null</c> corresponds to no <see cref="Command"/>s.
         /// An empty string corresponds to a <see cref="Command"/> with no <see cref="Command.Path"/>.
         /// </remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
@@ -176,7 +176,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>
         /// This is deprecated in favor of <see cref="Commands"/>.
-        /// <see langword="null"/> corresponds to no <see cref="Command"/>s.
+        /// <c>null</c> corresponds to no <see cref="Command"/>s.
         /// An empty string corresponds to a <see cref="Command"/> with no <see cref="Command.Path"/>.
         /// </remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.")]
@@ -292,7 +292,7 @@ namespace ZeroInstall.Store.Model
         /// Determines whether <see cref="Commands"/> contains a <see cref="Command"/> with a specific name.
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for; <see cref="string.Empty"/> for none.</param>
-        /// <returns><see langword="true"/> if a matching command was found or if <paramref name="name"/> is <see cref="string.Empty"/>; <see langword="false"/> otherwise.</returns>
+        /// <returns><c>true</c> if a matching command was found or if <paramref name="name"/> is <see cref="string.Empty"/>; <c>false</c> otherwise.</returns>
         public bool ContainsCommand(string name)
         {
             #region Sanity checks
@@ -307,7 +307,7 @@ namespace ZeroInstall.Store.Model
         /// Returns the <see cref="Command"/> with a specific name.
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for; <see cref="string.Empty"/> for none.</param>
-        /// <returns>The first matching command; <see langword="null"/> if <paramref name="name"/> is <see cref="string.Empty"/>.</returns>
+        /// <returns>The first matching command; <c>null</c> if <paramref name="name"/> is <see cref="string.Empty"/>.</returns>
         /// <exception cref="KeyNotFoundException">No matching <see cref="Command"/> was found.</exception>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         [CanBeNull]
@@ -337,7 +337,7 @@ namespace ZeroInstall.Store.Model
         /// Returns the <see cref="Command"/> with a specific name. Safe for missing elements.
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for.</param>
-        /// <returns>The first matching command; <see langword="null"/> if no matching one was found.</returns>
+        /// <returns>The first matching command; <c>null</c> if no matching one was found.</returns>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         [CanBeNull]
         public Command GetCommand([NotNull] string name)

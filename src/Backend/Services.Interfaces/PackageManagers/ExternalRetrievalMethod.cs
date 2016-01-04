@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.PackageManagers
         public long Size { get; set; }
 
         /// <summary>
-        /// A question the user shall be asked for confirmation before calling <see cref="Install"/>. <see langword="null"/> if no confirmation is required.
+        /// A question the user shall be asked for confirmation before calling <see cref="Install"/>. <c>null</c> if no confirmation is required.
         /// </summary>
         [CanBeNull]
         public string ConfirmationQuestion { get; set; }

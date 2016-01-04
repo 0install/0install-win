@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Displays a dialog allowing the user to modify <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/> for an interface.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>

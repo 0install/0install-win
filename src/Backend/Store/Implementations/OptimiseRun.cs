@@ -27,7 +27,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Manages state during a single <seealso cref="IStore.Optimise"/> run.
+    /// Manages state during a single <see cref="IStore.Optimise"/> run.
     /// </summary>
     internal sealed class OptimiseRun : IDisposable
     {

@@ -1,0 +1,21 @@
+﻿PROJECT_NAME = "Zero Install Publishing Tools API"
+PROJECT_NUMBER = "2.9.7"
+
+INPUT = ../src/Tools
+STRIP_FROM_PATH = ../src/Tools
+RECURSIVE = YES
+EXCLUDE_PATTERNS = */UnitTests/* */Properties/* *.NativeMethods.cs */obj/*
+TAGFILES = ../build/common.tag=http://nano-byte.de/common/api/ ../build/Documentation/backend.tag=../backend
+
+OUTPUT_DIRECTORY = ../build/Documentation
+GENERATE_TAGFILE = ../build/Documentation/tools.tag
+HTML_OUTPUT = tools
+
+GENERATE_LATEX = NO
+CASE_SENSE_NAMES = NO
+
+EXTRACT_PACKAGE = YES
+EXTRACT_STATIC = YES
+AUTOLINK_SUPPORT = NO
+WARN_IF_UNDOCUMENTED = NO
+QUIET = YES

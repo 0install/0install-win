@@ -115,7 +115,7 @@ namespace ZeroInstall.Hooking
             /// <summary>The target path the link shall point to.</summary>
             public readonly string Path;
 
-            /// <summary>Additional arguments for <see cref="Title"/>; can be <see langword="null"/>.</summary>
+            /// <summary>Additional arguments for <see cref="Title"/>; can be <c>null</c>.</summary>
             public readonly string Arguments;
 
             /// <summary>The path of the icon for the link.</summary>
@@ -129,7 +129,7 @@ namespace ZeroInstall.Hooking
             /// </summary>
             /// <param name="title">The title/name of the task link.</param>
             /// <param name="path">The target path the link shall point to and to get the icon from.</param>
-            /// <param name="arguments">Additional arguments for <paramref name="title"/>; can be <see langword="null"/>.</param>
+            /// <param name="arguments">Additional arguments for <paramref name="title"/>; can be <c>null</c>.</param>
             public ShellLink(string title, string path, string arguments = null)
             {
                 #region Sanity checks
@@ -148,7 +148,7 @@ namespace ZeroInstall.Hooking
             /// </summary>
             /// <param name="title">The title/name of the task link.</param>
             /// <param name="path">The target path the link shall point to.</param>
-            /// <param name="arguments">Additional arguments for <paramref name="title"/>; can be <see langword="null"/>.</param>
+            /// <param name="arguments">Additional arguments for <paramref name="title"/>; can be <c>null</c>.</param>
             /// <param name="iconPath">The path of the icon for the link.</param>
             /// <param name="iconIndex">The resouce index within the file specified by <paramref name="iconPath"/>.</param>
             public ShellLink(string title, string path, string arguments, string iconPath, int iconIndex)
@@ -390,9 +390,9 @@ namespace ZeroInstall.Hooking
         /// </summary>
         /// <param name="hwnd">A handle to the window to set the ID for.</param>
         /// <param name="appID">The application ID to set.</param>
-        /// <param name="relaunchCommand">The command to use for relaunching this specific window if it was pinned to the taskbar; can be <see langword="null"/>.</param>
-        /// <param name="relaunchIcon">The icon to use for pinning this specific window to the taskbar (written as Path,ResourceIndex); can be <see langword="null"/>.</param>
-        /// <param name="relaunchName">The user-friendly name to associate with <paramref name="relaunchCommand"/>; can be <see langword="null"/>.</param>
+        /// <param name="relaunchCommand">The command to use for relaunching this specific window if it was pinned to the taskbar; can be <c>null</c>.</param>
+        /// <param name="relaunchIcon">The icon to use for pinning this specific window to the taskbar (written as Path,ResourceIndex); can be <c>null</c>.</param>
+        /// <param name="relaunchName">The user-friendly name to associate with <paramref name="relaunchCommand"/>; can be <c>null</c>.</param>
         /// <remarks>The application ID is used to group related windows in the taskbar.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
         public static void SetWindowAppID(IntPtr hwnd, string appID, string relaunchCommand = null, string relaunchIcon = null, string relaunchName = null)

@@ -32,18 +32,18 @@ namespace ZeroInstall.Services.Feeds
     public interface IFeedManager
     {
         /// <summary>
-        /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="IFeedCache"/>.
+        /// Set to <c>true</c> to re-download <see cref="Feed"/>s even if they are already in the <see cref="IFeedCache"/>.
         /// </summary>
         bool Refresh { get; set; }
 
         /// <summary>
-        /// Is set to <see langword="true"/> if any <see cref="Feed"/> returned by <see cref="this"/> is getting stale and should be updated by setting <see cref="Refresh"/> to <see langword="true"/>.
+        /// Is set to <c>true</c> if any <see cref="Feed"/> returned by <see cref="this"/> is getting stale and should be updated by setting <see cref="Refresh"/> to <c>true</c>.
         /// </summary>
         /// <remarks><see cref="Config.Freshness"/> controls the time span after which a feed is considered stale.</remarks>
         bool Stale { get; set; }
 
         /// <summary>
-        /// Indicates whether <see cref="Stale"/> is <see langword="true"/> and <see cref="Config.NetworkUse"/> is <see cref="NetworkLevel.Full"/>.
+        /// Indicates whether <see cref="Stale"/> is <c>true</c> and <see cref="Config.NetworkUse"/> is <see cref="NetworkLevel.Full"/>.
         /// </summary>
         bool ShouldRefresh { get; }
 
@@ -52,7 +52,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <c>true</c>.</remarks>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
@@ -66,7 +66,7 @@ namespace ZeroInstall.Services.Feeds
         /// Determines whether there is a stale cached copy of a particular feed.
         /// </summary>
         /// <param name="feedUri">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
-        /// <returns><see langword="true"/> if there is a stale copy in the cache or no copy at all; <see langword="false"/> if there is a fresh copy in the cache.</returns>
+        /// <returns><c>true</c> if there is a stale copy in the cache or no copy at all; <c>false</c> if there is a fresh copy in the cache.</returns>
         bool IsStale([NotNull] FeedUri feedUri);
 
         /// <summary>

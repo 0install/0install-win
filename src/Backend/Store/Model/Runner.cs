@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Model
     {
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="Restriction.InterfaceUri"/> to use; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
+        /// The name of the command in the <see cref="Restriction.InterfaceUri"/> to use; leave <c>null</c> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the interface to use; leave empty for 'run'.")]
         [TypeConverter(typeof(CommandNameConverter))]

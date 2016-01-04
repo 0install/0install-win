@@ -164,7 +164,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Toggles registry entries indicating whether icons for the application are currently visible.
         /// </summary>
         /// <param name="appEntry">The application being modified.</param>
-        /// <param name="iconsVisible"><see langword="true"/> if the icons are currently visible, <see langword="false"/> if the icons are currently not visible.</param>
+        /// <param name="iconsVisible"><c>true</c> if the icons are currently visible, <c>false</c> if the icons are currently not visible.</param>
         /// <remarks>This is a special handler to support <see cref="Windows.DefaultProgram"/>.</remarks>
         private static void ToggleIconsVisible(AppEntry appEntry, bool iconsVisible)
         {

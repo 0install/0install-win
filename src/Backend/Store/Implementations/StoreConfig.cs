@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns a list of paths for implementation directories as defined by configuration files including the default locations.
         /// </summary>
-        /// <param name="serviceMode"><see langword="true"/> to exclude the default location in the user profile, e.g., for system services.</param>
+        /// <param name="serviceMode"><c>true</c> to exclude the default location in the user profile, e.g., for system services.</param>
         /// <remarks>Mutliple configuration files apply cumulatively. I.e., directories from both the user config and the system config are used.</remarks>
         /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>

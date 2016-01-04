@@ -29,7 +29,7 @@ namespace ZeroInstall.Commands
     public sealed class UnsuitableInstallBaseException : NotSupportedException
     {
         /// <summary>
-        /// <see langword="true"/> if a machine-wide install location is required; <see langword="false"/> if a user-specific location will also do.
+        /// <c>true</c> if a machine-wide install location is required; <c>false</c> if a user-specific location will also do.
         /// </summary>
         public bool NeedsMachineWide { get; private set; }
 
@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         /// Creates a new unsuitable install base exception.
         /// </summary>
         /// <param name="message">A message describing why the current location in unsuitable.</param>
-        /// <param name="needsMachineWide"><see langword="true"/> if a machine-wide location is required; <see langword="false"/> if a user-specific location will also do.</param>
+        /// <param name="needsMachineWide"><c>true</c> if a machine-wide location is required; <c>false</c> if a user-specific location will also do.</param>
         public UnsuitableInstallBaseException(string message, bool needsMachineWide) : base(message)
         {
             NeedsMachineWide = needsMachineWide;

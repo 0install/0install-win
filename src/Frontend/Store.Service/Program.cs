@@ -85,7 +85,7 @@ namespace ZeroInstall.Store.Service
         /// Handles command-line arguments.
         /// </summary>
         /// <param name="command">The primary command to execute.</param>
-        /// <param name="silent"><see langword="true"/> if the command is to be executed without any visible user interface.</param>
+        /// <param name="silent"><c>true</c> if the command is to be executed without any visible user interface.</param>
         /// <returns>The process exit code.</returns>
         private static int HandleCommand(string command, bool silent)
         {

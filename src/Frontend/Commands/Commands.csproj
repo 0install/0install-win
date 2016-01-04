@@ -93,6 +93,7 @@
     <Compile Include="CliCommands\SyncApps.cs" />
     <Compile Include="CliCommands\Update.cs" />
     <Compile Include="CliCommands\UpdateApps.cs" />
+    <Compile Include="CliCommands\_Namespace.cs" />
     <Compile Include="CommandBase.cs" />
     <Compile Include="ConfigTab.cs" />
     <Compile Include="CommandFactory.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="SelfUpdateUtils.cs" />
     <Compile Include="SyncUtils.cs" />
     <Compile Include="UnsuitableInstallBaseException.cs" />
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.el.resx" />

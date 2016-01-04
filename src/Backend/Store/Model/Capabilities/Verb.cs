@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public string Name { get; set; }
 
         /// <summary>
-        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
+        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <c>null</c> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the feed to use when launching via this capability; leave empty for 'run'.")]
         [TypeConverter(typeof(CommandNameConverter))]
@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public string Arguments { get; set; }
 
         /// <summary>
-        /// Set this to <see langword="true"/> to hide the verb in the Windows context menu unless the Shift key is pressed when opening the menu.
+        /// Set this to <c>true</c> to hide the verb in the Windows context menu unless the Shift key is pressed when opening the menu.
         /// </summary>
         [Description("Set this to true to hide the verb in the Windows context menu unless the Shift key is pressed when opening the menu.")]
         [XmlAttribute("extended"), DefaultValue(false)]

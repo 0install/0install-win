@@ -152,7 +152,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Stops the Zero Install Store Service if it is running.
         /// </summary>
-        /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
+        /// <returns><c>true</c> if the service was running; <c>false</c> otherwise.</returns>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         private bool ServiceStop()
         {

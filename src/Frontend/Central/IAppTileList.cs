@@ -34,7 +34,7 @@ namespace ZeroInstall.Central
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <param name="iconCache">The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons; can be <see langword="null"/>.</param>
+        /// <param name="iconCache">The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons; can be <c>null</c>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="InvalidOperationException">The list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
         IAppTile QueueNewTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false);
@@ -48,7 +48,7 @@ namespace ZeroInstall.Central
         /// Retrieves a specific application tile from the list.
         /// </summary>
         /// <param name="interfaceUri">The interface URI of the application the tile to retrieve represents.</param>
-        /// <returns>The requested <see cref="IAppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
+        /// <returns>The requested <see cref="IAppTile"/>; <c>null</c> if no matching entry was found.</returns>
         [CanBeNull]
         IAppTile GetTile([NotNull] FeedUri interfaceUri);
 

@@ -108,7 +108,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
-        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <see langword="true"/>.</param>
+        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
         internal static void RunCommand(bool machineWide, [NotNull] params string[] args)
         {
@@ -118,8 +118,8 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
-        /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread. Can be <see langword="null"/>.</param>
-        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <see langword="true"/>.</param>
+        /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread. Can be <c>null</c>.</param>
+        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
         internal static void RunCommand([CanBeNull] Action callback, bool machineWide, [NotNull] params string[] args)
         {

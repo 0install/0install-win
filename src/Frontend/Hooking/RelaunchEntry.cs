@@ -35,7 +35,7 @@ namespace ZeroInstall.Hooking
     {
         #region Variables
         /// <summary>
-        /// The canonical name of the binary supplying the command (without file extensions); can be <see langword="null"/>.
+        /// The canonical name of the binary supplying the command (without file extensions); can be <c>null</c>.
         /// </summary>
         public readonly string BinaryName;
 
@@ -55,7 +55,7 @@ namespace ZeroInstall.Hooking
         public readonly bool NeedsTerminal;
 
         /// <summary>
-        /// The path to the icon to use for pinning this specific window to the taskbar; can be <see langword="null"/>.
+        /// The path to the icon to use for pinning this specific window to the taskbar; can be <c>null</c>.
         /// </summary>
         public readonly string IconPath;
 
@@ -69,11 +69,11 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// Creates a new relaunch entry.
         /// </summary>
-        /// <param name="binaryName">The canonical name of the binary supplying the command (without file extensions); can be <see langword="null"/>.</param>
+        /// <param name="binaryName">The canonical name of the binary supplying the command (without file extensions); can be <c>null</c>.</param>
         /// <param name="name">The name to use for pinning this specific window to the taskbar.</param>
         /// <param name="target">The Zero Install target. This will be used as a command-line argument, escape accordingly.</param>
         /// <param name="needsTerminal">Indicates whether this command requires a terminal to run.</param>
-        /// <param name="iconPath">The path to the icon to use for pinning this specific window to the taskbar; can be <see langword="null"/>.</param>
+        /// <param name="iconPath">The path to the icon to use for pinning this specific window to the taskbar; can be <c>null</c>.</param>
         public RelaunchEntry(string binaryName, string name, string target, bool needsTerminal, string iconPath)
         {
             #region Sanity checks

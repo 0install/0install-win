@@ -38,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="path">The location to place the shorcut at.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
-        /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; can be <see langword="null"/>.</param>
+        /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; can be <c>null</c>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
         private static void Create([NotNull] string path, FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide)
@@ -67,9 +67,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="path">The location to place the shorcut at.</param>
         /// <param name="targetPath">The target path the shortcut shall point to.</param>
-        /// <param name="arguments">Additional arguments to pass to the target; can be <see langword="null"/>.</param>
-        /// <param name="iconLocation">The path of the icon to use for the shortcut; leave <see langword="null"/> ot get the icon from <paramref name="targetPath"/>.</param>
-        /// <param name="description">A short human-readable description; can be <see langword="null"/>.</param>
+        /// <param name="arguments">Additional arguments to pass to the target; can be <c>null</c>.</param>
+        /// <param name="iconLocation">The path of the icon to use for the shortcut; leave <c>null</c> ot get the icon from <paramref name="targetPath"/>.</param>
+        /// <param name="description">A short human-readable description; can be <c>null</c>.</param>
         public static void Create([NotNull] string path, [NotNull] string targetPath, [CanBeNull] string arguments = null, [CanBeNull] string iconLocation = null, [CanBeNull] string description = null)
         {
 #if !__MonoCS__

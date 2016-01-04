@@ -137,7 +137,7 @@ namespace ZeroInstall.Store.Model
         public List<Category> Categories { get { return _categories; } }
 
         /// <summary>
-        /// If <see langword="true"/>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
+        /// If <c>true</c>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
         /// </summary>
         //[Category("Interface"), Description("If true, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.")]
         [Browsable(false)]
@@ -343,8 +343,8 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the first <see cref="EntryPoint"/> referencing a specific <see cref="Command"/>.
         /// </summary>
-        /// <param name="command">The command name to search for; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
-        /// <returns>The identified <see cref="EntryPoint"/>; <see langword="null"/> no matching one was found.</returns>
+        /// <param name="command">The command name to search for; <c>null</c> is equivalent to <see cref="Command.NameRun"/>.</param>
+        /// <returns>The identified <see cref="EntryPoint"/>; <c>null</c> no matching one was found.</returns>
         [ContractAnnotation("command:null=>notnull")]
         public EntryPoint GetEntryPoint([CanBeNull] string command = null)
         {
@@ -357,7 +357,7 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching name for a specific <see cref="Command"/>/<see cref="EntryPoint"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the name should represent; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
+        /// <param name="command">The name of the command the name should represent; <c>null</c> is equivalent to <see cref="Command.NameRun"/>.</param>
         /// <returns>The best matching name that was found.</returns>
         [NotNull]
         public string GetBestName([NotNull] CultureInfo language, [CanBeNull] string command = null)
@@ -382,8 +382,8 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching summary for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Summaries"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the summary should represent; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
-        /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
+        /// <param name="command">The name of the command the summary should represent; <c>null</c> is equivalent to <see cref="Command.NameRun"/>.</param>
+        /// <returns>The best matching summary that was found; <c>null</c> if no matching summary was found.</returns>
         [CanBeNull]
         public string GetBestSummary([NotNull] CultureInfo language, [CanBeNull] string command = null)
         {
@@ -407,8 +407,8 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching icon for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Icons"/>.
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
-        /// <param name="command">The name of the command the icon should represent; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
-        /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
+        /// <param name="command">The name of the command the icon should represent; <c>null</c> is equivalent to <see cref="Command.NameRun"/>.</param>
+        /// <returns>The best matching icon that was found or <c>null</c> if no matching icon was found.</returns>
         [CanBeNull]
         public Icon GetIcon([NotNull] string mimeType, [CanBeNull] string command = null)
         {

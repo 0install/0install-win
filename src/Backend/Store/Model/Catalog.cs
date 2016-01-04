@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Model
         /// Determines whether this catalog contains a <see cref="Feed"/> with a specific URI.
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
-        /// <returns><see langword="true"/> if a matching feed was found; <see langword="false"/> otherwise.</returns>
+        /// <returns><c>true</c> if a matching feed was found; <c>false</c> otherwise.</returns>
         public bool ContainsFeed([NotNull] FeedUri uri)
         {
             #region Sanity checks
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Model
         /// Returns the <see cref="Feed"/> with a specific URI. Safe for missing elements.
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
-        /// <returns>The identified <see cref="Feed"/>; <see langword="null"/> if no matching entry was found.</returns>
+        /// <returns>The identified <see cref="Feed"/>; <c>null</c> if no matching entry was found.</returns>
         [CanBeNull]
         public Feed GetFeed([NotNull] FeedUri uri)
         {
@@ -137,7 +137,7 @@ namespace ZeroInstall.Store.Model
         /// Retruns the first <see cref="Feed"/> that matches a sepecific short name.
         /// </summary>
         /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
-        /// <returns>The first matching <see cref="Feed"/>; <see langword="null"/> if no match was found.</returns>
+        /// <returns>The first matching <see cref="Feed"/>; <c>null</c> if no match was found.</returns>
         [CanBeNull]
         public Feed FindByShortName([CanBeNull] string shortName)
         {

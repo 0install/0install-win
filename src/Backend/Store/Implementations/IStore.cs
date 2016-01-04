@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Implementations
         StoreKind Kind { get; }
 
         /// <summary>
-        /// The directory containing the cached <see cref="Store.Model.Implementation"/>s. May be <see langword="null"/> for some <see cref="IStore"/> types.
+        /// The directory containing the cached <see cref="Store.Model.Implementation"/>s. May be <c>null</c> for some <see cref="IStore"/> types.
         /// </summary>
         [CanBeNull]
         string DirectoryPath { get; }
@@ -82,8 +82,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified implementation is available in the store;
-        ///   <see langword="false"/> if the specified implementation is not available in the store or if read access to the store is not permitted.
+        ///   <c>true</c> if the specified implementation is available in the store;
+        ///   <c>false</c> if the specified implementation is not available in the store or if read access to the store is not permitted.
         /// </returns>
         /// <remarks>If read access to the store is not permitted, no exception is thrown.</remarks>
         bool Contains(ManifestDigest manifestDigest);
@@ -93,8 +93,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="directory">The name of the directory to check for.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified directory is located in the store;
-        ///   <see langword="false"/> if the specified directory is not located in the store or if read access to the store is not permitted.
+        ///   <c>true</c> if the specified directory is located in the store;
+        ///   <c>false</c> if the specified directory is not located in the store or if read access to the store is not permitted.
         /// </returns>
         /// <remarks>If read access to the store is not permitted, no exception is thrown.</remarks>
         bool Contains([NotNull] string directory);
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="manifestDigest">The digest the implementation to look for.</param>
         /// <exception cref="UnauthorizedAccessException">Read access to the store is not permitted.</exception>
-        /// <returns>A fully qualified path to the directory containing the implementation; <see langword="null"/> if the requested implementation could not be found in the store.</returns>
+        /// <returns>A fully qualified path to the directory containing the implementation; <c>null</c> if the requested implementation could not be found in the store.</returns>
         [CanBeNull]
         string GetPath(ManifestDigest manifestDigest);
 
@@ -149,7 +149,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <returns><see langword="true"/> if the implementation was successfully removed; <see langword="false"/> if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</returns>
+        /// <returns><c>true</c> if the implementation was successfully removed; <c>false</c> if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>

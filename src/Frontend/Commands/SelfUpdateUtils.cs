@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands
     public static class SelfUpdateUtils
     {
         /// <summary>
-        /// The name of a file placed in <seealso cref="Locations.InstallBase"/> used to set <see cref="NoAutoCheck"/> to <see langword="true"/>.
+        /// The name of a file placed in <see cref="Locations.InstallBase"/> used to set <see cref="NoAutoCheck"/> to <c>true</c>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string NoAutoCheckFlagName = "_no_self_update_check";
@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         private static string NoAutoCheckFlagFile { get { return Path.Combine(Locations.PortableBase, NoAutoCheckFlagName); } }
 
         /// <summary>
-        /// <see langword="true"/> if automatic check for updates are disabled.
+        /// <c>true</c> if automatic check for updates are disabled.
         /// </summary>
         public static bool NoAutoCheck
         {
@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Checks if updates for Zero Install itself are available without using the usual command infrastructure.
         /// </summary>
-        /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
+        /// <returns>The version number of the newest available update; <c>null</c> if no update is available.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>

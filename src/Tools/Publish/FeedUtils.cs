@@ -117,7 +117,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="path">The feed or catalog file to check for signatures.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
-        /// <returns>The key used to sign the file; <see langword="null"/> if the file was not signed.</returns>
+        /// <returns>The key used to sign the file; <c>null</c> if the file was not signed.</returns>
         /// <exception cref="FileNotFoundException">The file file could not be found.</exception>
         /// <exception cref="IOException">The file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>

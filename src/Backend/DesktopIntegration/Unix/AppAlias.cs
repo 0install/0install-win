@@ -36,7 +36,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// Creates an application alias in the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
-        /// <param name="command">The command within <paramref name="target"/> the alias shall point to; can be <see langword="null"/>.</param>
+        /// <param name="command">The command within <paramref name="target"/> the alias shall point to; can be <c>null</c>.</param>
         /// <param name="aliasName">The name of the alias to be created.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the alias machine-wide instead of just for the current user.</param>

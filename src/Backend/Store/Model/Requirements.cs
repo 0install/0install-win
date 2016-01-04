@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Model
         public FeedUri InterfaceUri { get; set; }
 
         /// <summary>
-        /// The name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.
+        /// The name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <c>null</c>. Will not try to find any command if set to <see cref="string.Empty"/>.
         /// </summary>
         [Description("The name of the command in the implementation to execute. Will default to 'run' or 'compile' if null. Will not try to find any command if set to ''.")]
         [TypeConverter(typeof(CommandNameConverter))]
@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new requirements object.
         /// </summary>
         /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface to solve the dependencies for.</param>
-        /// <param name="command">he name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</param>
+        /// <param name="command">he name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <c>null</c>. Will not try to find any command if set to <see cref="string.Empty"/>.</param>
         /// <param name="architecture">The architecture to find executables for. Find for the current system if left at default value.</param>
         public Requirements([NotNull] FeedUri interfaceUri, [CanBeNull] string command = null, Architecture architecture = default(Architecture))
         {
@@ -157,7 +157,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new requirements object.
         /// </summary>
         /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface to solve the dependencies for. Must be an HTTP(S) URL or an absolute local path.</param>
-        /// <param name="command">he name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</param>
+        /// <param name="command">he name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <c>null</c>. Will not try to find any command if set to <see cref="string.Empty"/>.</param>
         /// <param name="architecture">The architecture to find executables for. Find for the current system if left at default value.</param>
         /// <exception cref="UriFormatException"><paramref name="interfaceUri"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Convenience overload that internally calls the Uri version")]

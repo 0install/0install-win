@@ -17,8 +17,8 @@ namespace ZeroInstall.Store.Icons
         /// </summary>
         /// <param name="iconUrl">The location of the icon. Must be an HTTP(S) URL.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified icon is available in this cache;
-        ///   <see langword="false"/> if the specified icon is not available in this cache.
+        ///   <c>true</c> if the specified icon is available in this cache;
+        ///   <c>false</c> if the specified icon is not available in this cache.
         /// </returns>
         bool Contains([NotNull] Uri iconUrl);
 

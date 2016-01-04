@@ -1,44 +1,18 @@
 @echo off
-::Compiles the source documentation. Assumes "..\src\build.cmd Debug" has already been executed.
+::Compiles the source documentation.
+pushd "%~dp0"
 
-rem Determine VS version
-if defined VS140COMNTOOLS (
-  ::Visual Studio 2015
-  call "%VS140COMNTOOLS%vsvars32.bat"
-  goto vs_ok
-)
-if defined VS120COMNTOOLS (
-  ::Visual Studio 2013
-  call "%VS120COMNTOOLS%vsvars32.bat"
-  goto vs_ok
-)
-if defined VS110COMNTOOLS (
-  ::Visual Studio 2012
-  call "%VS110COMNTOOLS%vsvars32.bat"
-  goto vs_ok
-)
-if defined VS100COMNTOOLS (
-  ::Visual Studio 2010
-  call "%VS100COMNTOOLS%vsvars32.bat"
-  goto vs_ok
-)
-goto err_no_vs
-:vs_ok
-
-
+rem Look for NanoByte.Common documentation build in sibling directory. On build servers this should be handled using dependency injection instead.
+if exist ..\..\..\nano-byte\common\build\Documentation\common.tag copy ..\..\..\nano-byte\common\build\Documentation\common.tag ..\build\common.tag > NUL
 
 echo Building source documentation...
-if exist "%~dp0..\build\Documentation" rd /s /q "%~dp0..\build\Documentation"
-FOR %%A IN ("%~dp0*.shfbproj") DO (
-  msbuild "%%A" /p:Configuration=Debug /v:q /nologo
-  if errorlevel 1 exit /b %errorlevel%
-)
+if exist ..\build\Documentation rd /s /q ..\build\Documentation
+mkdir ..\build\Documentation
+0install run http://0install.de/feeds/Doxygen.xml Backend.Doxyfile
+if errorlevel 1 exit /b %errorlevel%
+0install run http://0install.de/feeds/Doxygen.xml Frontend.Doxyfile
+if errorlevel 1 exit /b %errorlevel%
+0install run http://0install.de/feeds/Doxygen.xml Tools.Doxyfile
+if errorlevel 1 exit /b %errorlevel%
 
-
-
-exit /b 0
-rem Error messages
-
-:err_no_vs
-echo ERROR: No Visual Studio installation found. >&2
-exit /b 1
+popd

@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Trust
         /// Returns a specific secret key in the keyring.
         /// </summary>
         /// <param name="openPgp">The <see cref="IOpenPgp"/> implementation.</param>
-        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
+        /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <c>null</c> to use the default key.</param>
         /// <exception cref="KeyNotFoundException">The specified key could not be found on the system.</exception>
         /// <seealso cref="IOpenPgp.Sign"/>
         /// <seealso cref="IOpenPgp.ExportKey"/>

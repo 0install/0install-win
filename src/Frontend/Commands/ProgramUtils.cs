@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
         public static bool IsRunningFromPerUserDir { get { return Locations.InstallBase.StartsWith(Locations.HomeDir); } }
 
         /// <summary>
-        /// The current UI language; <see langword="null"/> to use system default.
+        /// The current UI language; <c>null</c> to use system default.
         /// </summary>
         /// <remarks>This value is only used on Windows and is stored in the Registry. For non-Windows platforms use the <code>LC_*</code> environment variables instead.</remarks>
         [CanBeNull]
@@ -93,7 +93,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// The EXE name for the Command GUI best suited for the current system; <see langword="null"/> if no GUI subsystem is running.
+        /// The EXE name for the Command GUI best suited for the current system; <c>null</c> if no GUI subsystem is running.
         /// </summary>
         [CanBeNull]
         public static readonly string GuiAssemblyName =
@@ -269,8 +269,8 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="exeName">The name of the executable to call in the target instance.</param>
         /// <param name="args">The arguments to pass to the target instance.</param>
-        /// <param name="needsMachineWide"><see langword="true"/> if a machine-wide install location is required; <see langword="false"/> if a user-specific location will also do.</param>
-        /// <returns>The exit code returned by the other instance; <see langword="null"/> if no other instance could be found.</returns>
+        /// <param name="needsMachineWide"><c>true</c> if a machine-wide install location is required; <c>false</c> if a user-specific location will also do.</param>
+        /// <returns>The exit code returned by the other instance; <c>null</c> if no other instance could be found.</returns>
         /// <exception cref="IOException">There was a problem launching the target instance.</exception>
         private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, bool needsMachineWide)
         {

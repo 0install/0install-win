@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="data">The data the signature is for.</param>
         /// <param name="signature">The signature in binary format.</param>
-        /// <returns>A list of signatures found, both valid and invalid. <seealso cref="MissingKeySignature"/> results indicate you need to use <seealso cref="ImportKey"/>.</returns>
+        /// <returns>A list of signatures found, both valid and invalid. <see cref="MissingKeySignature"/> results indicate you need to use <see cref="ImportKey"/>.</returns>
         /// <exception cref="InvalidDataException"><paramref name="signature"/> does not contain valid signature data.</exception>
         /// <seealso cref="Sign"/>
         [NotNull, ItemNotNull]

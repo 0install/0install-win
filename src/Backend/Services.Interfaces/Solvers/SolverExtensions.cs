@@ -36,7 +36,7 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         /// <param name="solver">The <see cref="ISolver"/> implementation.</param>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed; <see langword="null"/> if there was a problem.</returns>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed; <c>null</c> if there was a problem.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="ArgumentException"><paramref name="requirements"/> is incomplete.</exception>

@@ -107,7 +107,7 @@ namespace ZeroInstall.Publish.Capture
         /// </summary>
         /// <param name="commandLine">The fully qualified command-line to try to match.</param>
         /// <param name="additionalArgs">Any additional arguments from <paramref name="commandLine"/> that are not covered by the returned <see cref="Command"/>.</param>
-        /// <returns>The best matching <see cref="Command"/> or <see langword="null"/> if no match was found.</returns>
+        /// <returns>The best matching <see cref="Command"/> or <c>null</c> if no match was found.</returns>
         [CanBeNull]
         public Command GetCommand([NotNull] string commandLine, [CanBeNull] out string additionalArgs)
         {

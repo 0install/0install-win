@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="expectedDigest">The digest value the <see cref="Store.Model.Implementation"/> was supposed to have.</param>
         /// <param name="actualDigest">The digest value that was actually calculated.</param>
-        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedDigest"/>; may be <seealso langword="null"/>.</param>
+        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedDigest"/>; may be <c>null</c>.</param>
         /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualDigest"/>.</param>
         public DigestMismatchException(string expectedDigest = null, string actualDigest = null, Manifest expectedManifest = null, Manifest actualManifest = null)
             : base(GetMessage(expectedDigest, actualDigest, expectedManifest, actualManifest))

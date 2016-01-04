@@ -75,7 +75,7 @@ namespace ZeroInstall.Services.Solvers
             /// <summary>
             /// Try to satisfy the <see cref="_topLevelRequirements"/>. If successful the result can be retrieved from <see cref="Selections"/>.
             /// </summary>
-            /// <returns><see langword="true"/> if a solution was found; <see langword="false"/> otherwise.</returns>
+            /// <returns><c>true</c> if a solution was found; <c>false</c> otherwise.</returns>
             public bool TryToSolve()
             {
                 return TryToSolve(_topLevelRequirements);

@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="toCheck">The <see cref="Capability"/> to check for usage.</param>
-        /// <returns><see langword="true"/>, if <paramref name="toCheck"/> is already in usage.</returns>
+        /// <returns><c>true</c>, if <paramref name="toCheck"/> is already in usage.</returns>
         private bool IsCapabillityUsed<T>(DefaultCapability toCheck)
             where T : AccessPoints.DefaultAccessPoint
         {

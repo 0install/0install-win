@@ -38,7 +38,7 @@ namespace ZeroInstall.Publish.Capture
         private readonly FeedBuilder _feedBuilder;
 
         /// <summary>
-        /// The fully qualified path to the installation directory; leave <see langword="null"/> or empty for auto-detection.
+        /// The fully qualified path to the installation directory; leave <c>null</c> or empty for auto-detection.
         /// </summary>
         [CanBeNull]
         public string InstallationDir { get; set; }

@@ -84,12 +84,14 @@
     <Compile Include="Feeds\FeedCacheFactory.cs" />
     <Compile Include="Feeds\FeedUtils.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
+    <Compile Include="Feeds\_Namespace.cs" />
     <Compile Include="FeedUri.cs" />
     <Compile Include="FeedUriExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
+    <Compile Include="Icons\_Namespace.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\ArchiveGenerator.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Implementations\Archives\TarLzmaGenerator.cs" />
     <Compile Include="Implementations\Archives\ZipExtractor.cs" />
     <Compile Include="Implementations\Archives\ZipGenerator.cs" />
+    <Compile Include="Implementations\Archives\_Namespace.cs" />
     <Compile Include="Implementations\CompositeStore.cs" />
     <Compile Include="Implementations\CopyDirectoryPosix.cs" />
     <Compile Include="Implementations\DigestMismatchException.cs" />
@@ -133,6 +136,7 @@
     <Compile Include="Implementations\StoreConfig.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
+    <Compile Include="Implementations\_Namespace.cs" />
     <Compile Include="ImplementationUtils.cs" />
     <Compile Include="FeedTarget.cs" />
     <Compile Include="JsonStorage.cs" />
@@ -161,6 +165,7 @@
     <Compile Include="Model\Capabilities\UrlProtocol.cs" />
     <Compile Include="Model\Capabilities\Verb.cs" />
     <Compile Include="Model\Capabilities\VerbCapability.cs" />
+    <Compile Include="Model\Capabilities\_Namespace.cs" />
     <Compile Include="Model\Catalog.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Command.cs" />
@@ -177,6 +182,7 @@
     <Compile Include="Model\Design\LicenseNameConverter.cs" />
     <Compile Include="Model\Design\ManifestDigestConverter.cs" />
     <Compile Include="Model\Design\VerbNameConverter.cs" />
+    <Compile Include="Model\Design\_Namespace.cs" />
     <Compile Include="Model\DownloadRetrievalMethod.cs" />
     <Compile Include="Model\Element.cs" />
     <Compile Include="Model\EntryPoint.cs" />
@@ -214,6 +220,7 @@
     <Compile Include="Model\Preferences\FeedPreferences.cs" />
     <Compile Include="Model\Preferences\ImplementationPreferences.cs" />
     <Compile Include="Model\Preferences\InterfacePreferences.cs" />
+    <Compile Include="Model\Preferences\_Namespace.cs" />
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Model\RemoveStep.cs" />
     <Compile Include="Model\RenameStep.cs" />
@@ -224,6 +231,7 @@
     <Compile Include="Model\Selection\ImplementationSelection.cs" />
     <Compile Include="Model\Selection\SelectionCandidate.cs" />
     <Compile Include="Model\Selection\Selections.cs" />
+    <Compile Include="Model\Selection\_Namespace.cs" />
     <Compile Include="Model\SingleFile.cs" />
     <Compile Include="Model\TargetBase.cs" />
     <Compile Include="Model\VersionDottedList.cs" />
@@ -232,6 +240,7 @@
     <Compile Include="Model\VersionRangePart.cs" />
     <Compile Include="Model\WorkingDir.cs" />
     <Compile Include="Model\XmlUnknown.cs" />
+    <Compile Include="Model\_Namespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -255,6 +264,7 @@
     <Compile Include="Trust\SignatureException.cs" />
     <Compile Include="Trust\TrustDB.cs" />
     <Compile Include="Trust\WrongPassphraseException.cs" />
+    <Compile Include="Trust\_Namespace.cs" />
     <Compile Include="ViewModel\CacheNode.cs" />
     <Compile Include="ViewModel\CacheNodeBuilder.cs" />
     <Compile Include="ViewModel\FeedNode.cs" />
@@ -265,6 +275,8 @@
     <Compile Include="ViewModel\TempDirectoryNode.cs" />
     <Compile Include="ViewModel\TrustNode.cs" />
     <Compile Include="ViewModel\TrustNodeManager.cs" />
+    <Compile Include="ViewModel\_Namespace.cs" />
+    <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.el.resx" />

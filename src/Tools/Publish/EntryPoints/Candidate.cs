@@ -38,8 +38,8 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <param name="baseDirectory">The base directory containing the entire application.</param>
         /// <param name="file">The file to be analyzed. Must be located within the <paramref name="baseDirectory"/> or a subdirectory.</param>
         /// <returns>
-        /// <see langword="true"/> if <paramref name="file"/> matches this candidate type. The object will then contain all available metadata.
-        /// <see langword="false"/> if <paramref name="file"/>does not match this candidate type. The object will then be in an inconsistent state. Do not reuse!
+        /// <c>true</c> if <paramref name="file"/> matches this candidate type. The object will then contain all available metadata.
+        /// <c>false</c> if <paramref name="file"/>does not match this candidate type. The object will then be in an inconsistent state. Do not reuse!
         /// </returns>
         internal virtual bool Analyze([NotNull] DirectoryInfo baseDirectory, [NotNull] FileInfo file)
         {

@@ -100,8 +100,8 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a single interval version range.
         /// </summary>
-        /// <param name="notBefore">The lower, inclusive border of the range; can be <see langword="null"/>.</param>
-        /// <param name="before">The upper, exclusive border of the range; can be <see langword="null"/>.</param>
+        /// <param name="notBefore">The lower, inclusive border of the range; can be <c>null</c>.</param>
+        /// <param name="before">The upper, exclusive border of the range; can be <c>null</c>.</param>
         public VersionRange([CanBeNull] ImplementationVersion notBefore, [CanBeNull] ImplementationVersion before)
         {
             _parts = new VersionRangePart[] {new VersionRangeRange(notBefore, before)};
@@ -113,8 +113,8 @@ namespace ZeroInstall.Store.Model
         /// Creates a new <see cref="VersionRange"/> using the specified string representation.
         /// </summary>
         /// <param name="value">The string to parse.</param>
-        /// <param name="result">Returns the created <see cref="VersionRange"/> if successfully; <see langword="null"/> otherwise.</param>
-        /// <returns><see langword="true"/> if the <see cref="VersionRange"/> was successfully created; <see langword="false"/> otherwise.</returns>
+        /// <param name="result">Returns the created <see cref="VersionRange"/> if successfully; <c>null</c> otherwise.</param>
+        /// <returns><c>true</c> if the <see cref="VersionRange"/> was successfully created; <c>false</c> otherwise.</returns>
         [ContractAnnotation("=>false,result:null; =>true,result:notnull")]
         public static bool TryCreate(string value, out VersionRange result)
         {

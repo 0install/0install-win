@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Builds a path for a shortcut on the desktop.
         /// </summary>
         /// <param name="name">The name of the shortcut (without the .lnk ending).</param>
-        /// <param name="machineWide"><see langword="true"/> to use the machine-wide desktop; <see langword="false"/> for the per-user variant.</param>
+        /// <param name="machineWide"><c>true</c> to use the machine-wide desktop; <c>false</c> for the per-user variant.</param>
         /// <exception cref="IOException"><paramref name="name"/> contains invalid characters.</exception>
         [NotNull]
         public static string GetDesktopPath([NotNull] string name, bool machineWide)

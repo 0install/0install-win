@@ -97,7 +97,7 @@ namespace ZeroInstall.Publish
         /// Detects <see cref="Candidates"/> in the <see cref="ImplementationDirectory"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
-        /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <see langword="null"/> or empty.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <c>null</c> or empty.</exception>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
@@ -137,7 +137,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Generates <see cref="Commands"/> and <see cref="EntryPoints"/> bases on <see cref="Candidates"/> and <see cref="MainCandidate"/>.
         /// </summary>
-        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <c>null</c>.</exception>
         public void GenerateCommands()
         {
             if (MainCandidate == null) throw new InvalidOperationException(Resources.EntryPointNotFound);
@@ -183,7 +183,7 @@ namespace ZeroInstall.Publish
         /// Calculates the <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
-        /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <see langword="null"/> or empty.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <c>null</c> or empty.</exception>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was a problem generating the manifest.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
@@ -240,7 +240,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Generates a feed as described by the properties.
         /// </summary>
-        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <c>null</c>.</exception>
         public SignedFeed Build()
         {
             #region Sanity checks

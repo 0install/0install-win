@@ -69,7 +69,7 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// Locates the correct entry for the current process.
         /// </summary>
-        /// <returns>The first entry matching the binary name of the current process; the first entry if none matches; <see langword="null"/> if there are no entries at all.</returns>
+        /// <returns>The first entry matching the binary name of the current process; the first entry if none matches; <c>null</c> if there are no entries at all.</returns>
         internal RelaunchEntry GetCurrentEntry()
         {
             if (_entries.Count == 0) return null;

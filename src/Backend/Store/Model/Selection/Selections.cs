@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
         /// </summary>
         /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
-        /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
+        /// <returns><c>true</c> if an implementation was found; <c>false</c> otherwise.</returns>
         public bool ContainsImplementation([NotNull] FeedUri interfaceUri)
         {
             return Implementations.Any(implementation => implementation.InterfaceUri == interfaceUri);
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface. Safe for missing elements.
         /// </summary>
         /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
-        /// <returns>The first matching implementation; <see langword="null"/> if no matching one was found.</returns>
+        /// <returns>The first matching implementation; <c>null</c> if no matching one was found.</returns>
         [CanBeNull]
         public ImplementationSelection GetImplementation([NotNull] FeedUri interfaceUri)
         {

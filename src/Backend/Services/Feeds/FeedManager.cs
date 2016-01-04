@@ -75,9 +75,9 @@ namespace ZeroInstall.Services.Feeds
         private bool _refresh;
 
         /// <summary>
-        /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="IFeedCache"/>.
+        /// Set to <c>true</c> to re-download <see cref="Feed"/>s even if they are already in the <see cref="IFeedCache"/>.
         /// </summary>
-        /// <remarks>Setting this to <see langword="true"/> implicity also flushes the in-memory cache.</remarks>
+        /// <remarks>Setting this to <c>true</c> implicity also flushes the in-memory cache.</remarks>
         public bool Refresh
         {
             get { return _refresh; }
@@ -114,7 +114,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <c>true</c>.</remarks>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
@@ -302,7 +302,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="data">The content of the feed.</param>
         /// <param name="feedUri">The URI the feed originally came from.</param>
-        /// <param name="localPath">The local file path the feed data came from. May be <see langword="null"/> for in-memory data.</param>
+        /// <param name="localPath">The local file path the feed data came from. May be <c>null</c> for in-memory data.</param>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>

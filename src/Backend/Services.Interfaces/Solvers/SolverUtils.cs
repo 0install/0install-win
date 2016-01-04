@@ -128,7 +128,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="selection">The <see cref="ImplementationSelection"/> to add the <see cref="Command"/> to.</param>
         /// <param name="requirements">The requirements specifying which <see cref="Requirements.Command"/> to extract.</param>
         /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
-        /// <returns>The <see cref="Command"/> that was added to <paramref name="selection"/>; <see langword="null"/> if none.</returns>
+        /// <returns>The <see cref="Command"/> that was added to <paramref name="selection"/>; <c>null</c> if none.</returns>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method explicitly transfers information from an Implementation to an ImplementationSelection.")]
         [CanBeNull]
         public static Command AddCommand([NotNull] this ImplementationSelection selection, [NotNull] Requirements requirements, [NotNull] Implementation @from)

@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish.Cli
         private bool _addMissing;
 
         /// <summary>
-        /// Used to retain downloaded implementations; can be <see langword="null"/>.
+        /// Used to retain downloaded implementations; can be <c>null</c>.
         /// </summary>
         [CanBeNull]
         private IStore _keepDownloads;
@@ -94,7 +94,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// A key specifier (key ID, fingerprint or any part of a user ID) for the secret key to use to sign the feeds.
         /// </summary>
-        /// <remarks>Will use existing key or default key when left at <see langword="null"/>.</remarks>
+        /// <remarks>Will use existing key or default key when left at <c>null</c>.</remarks>
         [CanBeNull]
         private string _key;
 

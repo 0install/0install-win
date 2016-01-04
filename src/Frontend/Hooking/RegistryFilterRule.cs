@@ -46,8 +46,8 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// Creates a new filter rule.
         /// </summary>
-        /// <param name="processValue">The value as it is seen by the process; may not be <see langword="null"/>!</param>
-        /// <param name="registryValue">The value as it is actually stored in the registry; may not be <see langword="null"/>!</param>
+        /// <param name="processValue">The value as it is seen by the process; may not be <c>null</c>!</param>
+        /// <param name="registryValue">The value as it is actually stored in the registry; may not be <c>null</c>!</param>
         public RegistryFilterRule(string processValue, string registryValue)
         {
             #region Sanity checks

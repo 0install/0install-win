@@ -22,8 +22,8 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified feed is available in this cache;
-        ///   <see langword="false"/> if the specified feed is not available in this cache.
+        ///   <c>true</c> if the specified feed is available in this cache;
+        ///   <c>false</c> if the specified feed is not available in this cache.
         /// </returns>
         bool Contains([NotNull] FeedUri feedUri);
 

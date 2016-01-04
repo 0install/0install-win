@@ -86,7 +86,7 @@ namespace ZeroInstall.Hooking
         /// </summary>
         /// <param name="hKey">A registry key handle.</param>
         /// <param name="valueName">The nam of the registry value in <paramref name="hKey"/> to read.</param>
-        /// <returns>The value from the registry with any required substitutions applied or <see langword="null"/> if nothing was changed.</returns>
+        /// <returns>The value from the registry with any required substitutions applied or <c>null</c> if nothing was changed.</returns>
         private string GetFilteredValue(IntPtr hKey, string valueName)
         {
             RegistryValueKind valueType;
@@ -150,10 +150,10 @@ namespace ZeroInstall.Hooking
         /// </summary>
         /// <param name="dataPointer">A pointer to a buffer containing the data retrieved from the registry.</param>
         /// <param name="dataLength">The length of the data in the buffer specified by <paramref name="dataPointer"/>.</param>
-        /// <param name="unicode"><see langword="true"/> for Unicode-strings; <see langword="false"/> for ANSI-strings.</param>
+        /// <param name="unicode"><c>true</c> for Unicode-strings; <c>false</c> for ANSI-strings.</param>
         /// <returns>
-        ///   <see langword="true"/> if the data was changed and a new temporary buffer is now referenced by <paramref name="dataPointer"/> (needs to be manually freed);
-        ///   <see langword="false"/> if nothing was changed.
+        ///   <c>true</c> if the data was changed and a new temporary buffer is now referenced by <paramref name="dataPointer"/> (needs to be manually freed);
+        ///   <c>false</c> if nothing was changed.
         /// </returns>
         private bool FilterWriteBuffer(ref IntPtr dataPointer, ref uint dataLength, bool unicode)
         {

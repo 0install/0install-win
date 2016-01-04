@@ -222,7 +222,7 @@ namespace ZeroInstall.Store.Trust
 
     /// <summary>
     /// Represents a signature that could not yet be verified because the key is missing.
-    /// Use <seealso cref="IOpenPgp.ImportKey"/> to import the key and then retry.
+    /// Use <see cref="IOpenPgp.ImportKey"/> to import the key and then retry.
     /// </summary>
     /// <seealso cref="IOpenPgp.Verify"/>
     public sealed class MissingKeySignature : ErrorSignature

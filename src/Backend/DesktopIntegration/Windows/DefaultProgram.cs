@@ -118,7 +118,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Toggles the registry entry indicating whether icons for the application are currently visible.
         /// </summary>
         /// <param name="defaultProgram">The default program information to be modified.</param>
-        /// <param name="iconsVisible"><see langword="true"/> if the icons are currently visible, <see langword="false"/> if the icons are currently not visible.</param>
+        /// <param name="iconsVisible"><c>true</c> if the icons are currently visible, <c>false</c> if the icons are currently not visible.</param>
         internal static void ToggleIconsVisible(Store.Model.Capabilities.DefaultProgram defaultProgram, bool iconsVisible)
         {
             using (var installInfoKey = Registry.LocalMachine.OpenSubKeyChecked(RegKeyMachineClients + @"\" + defaultProgram.Service + @"\" + defaultProgram.ID + @"\" + RegSubKeyInstallInfo, writable: true))

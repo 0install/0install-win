@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands
     public class MockCommandHandler : MockTaskHandler, ICommandHandler
     {
         /// <summary>
-        /// Always returns <see langword="false"/>.
+        /// Always returns <c>false</c>.
         /// </summary>
         public bool Background { get { return false; } set { } }
 

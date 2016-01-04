@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementations
         private readonly List<ManifestNode> _nodes = new List<ManifestNode>();
 
         /// <summary>
-        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Implementations.Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Implementations.Manifest"/>; otherwise it's <c>null</c>.
         /// </summary>
         public Manifest Manifest { get { return new Manifest(Format, _nodes);} }
         #endregion

@@ -42,15 +42,15 @@ namespace ZeroInstall.Capture.Cli
         /// <summary>Ignore warnings and perform the operation anyway.</summary>
         private bool _force;
 
-        /// <summary>The directory the application to be captured is installed in; <see langword="null"/> to create no ZIP archive.</summary>
+        /// <summary>The directory the application to be captured is installed in; <c>null</c> to create no ZIP archive.</summary>
         [CanBeNull]
         private string _installationDirectory;
 
-        /// <summary>The relative path to the main EXE of the application to be captured; <see langword="null"/> to auto-detect.</summary>
+        /// <summary>The relative path to the main EXE of the application to be captured; <c>null</c> to auto-detect.</summary>
         [CanBeNull]
         private string _mainExe;
 
-        /// <summary>The path of the ZIP file to create from the installation directory; <see langword="null"/> to create no ZIP archive.</summary>
+        /// <summary>The path of the ZIP file to create from the installation directory; <c>null</c> to create no ZIP archive.</summary>
         [CanBeNull]
         private string _zipFile;
 

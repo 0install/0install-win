@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Model
         /// Turns a relative path into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="path">The potentially relative path; will remain untouched if absolute.</param>
-        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
+        /// <param name="source">The file containing the reference; can be <c>null</c>.</param>
         /// <returns>An absolute path.</returns>
         /// <exception cref="UriFormatException"><paramref name="path"/> is relative and <paramref name="source"/> is a remote URI.</exception>
         [NotNull]
@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Model
         /// Turns a relative path into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="path">The potentially relative path; will remain untouched if absolute.</param>
-        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
+        /// <param name="source">The file containing the reference; can be <c>null</c>.</param>
         /// <returns>An absolute path.</returns>
         /// <exception cref="UriFormatException"><paramref name="path"/> is relative and <paramref name="source"/> is a remote URI.</exception>
         [NotNull]
@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Model
         /// Turns a relative HREF into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
-        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
+        /// <param name="source">The file containing the reference; can be <c>null</c>.</param>
         /// <returns>An absolute HREF.</returns>
         /// <exception cref="UriFormatException"><paramref name="href"/> is relative and <paramref name="source"/> is a remote URI.</exception>
         [NotNull]
@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Model
         /// Turns a relative HREF into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
-        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
+        /// <param name="source">The file containing the reference; can be <c>null</c>.</param>
         /// <returns>An absolute HREF.</returns>
         /// <exception cref="UriFormatException"><paramref name="href"/> is relative and <paramref name="source"/> is a remote URI.</exception>
         [NotNull]

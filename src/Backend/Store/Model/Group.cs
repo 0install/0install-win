@@ -26,7 +26,7 @@ using NanoByte.Common.Collections;
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// All attributes of a group are inherited by any child <seealso cref="Group"/>s and <see cref="Implementation"/>s as defaults, but can be overridden there.
+    /// All attributes of a group are inherited by any child <see cref="Group"/>s and <see cref="Implementation"/>s as defaults, but can be overridden there.
     /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove any).
     /// </summary>
     /// <seealso cref="Feed.Elements"/>

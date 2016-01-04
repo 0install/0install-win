@@ -60,7 +60,7 @@ namespace ZeroInstall.Hooking
         /// Filters a registry read request undoing <see cref="_rules"/>.
         /// </summary>
         /// <param name="fromRegistry">The raw value read from the registry.</param>
-        /// <returns>The value from the registry with any required substitutions applied or <see langword="null"/> if nothing was changed.</returns>
+        /// <returns>The value from the registry with any required substitutions applied or <c>null</c> if nothing was changed.</returns>
         internal string ReadFilter(string fromRegistry)
         {
             if (string.IsNullOrEmpty(fromRegistry)) return fromRegistry;
@@ -78,7 +78,7 @@ namespace ZeroInstall.Hooking
         /// Filters a registry write request applying <see cref="_rules"/>.
         /// </summary>
         /// <param name="toRegistry">The value to be written to the registry.</param>
-        /// <returns>The value for the registry with any required substitutions applied or <see langword="null"/> if nothing was changed.</returns>
+        /// <returns>The value for the registry with any required substitutions applied or <c>null</c> if nothing was changed.</returns>
         internal string WriteFilter(string toRegistry)
         {
             if (string.IsNullOrEmpty(toRegistry)) return toRegistry;

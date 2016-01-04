@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="recipe">The <see cref="Recipe"/> to apply.</param>
         /// <param name="downloadedFiles">Files downloaded for the the <paramref name="recipe"/>. Must be in same order as <see cref="DownloadRetrievalMethod"/> elements in <paramref name="recipe"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <see langword="null"/>.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
         /// <exception cref="ArgumentException">The <see cref="Archive"/>s in <paramref name="recipe"/> and the files in <paramref name="downloadedFiles"/> do not match up.</exception>
         /// <exception cref="NotSupportedException"><paramref name="recipe"/> contains unknown step types.</exception>
@@ -98,7 +98,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="localPath">The local path of the archive.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <see langword="null"/>.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply([NotNull] this Archive step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="localPath">The local path of the file.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <see langword="null"/>.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply([NotNull] this SingleFile step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <see langword="null"/>.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "tag", Justification = "Number of method parameters must match overloaded method to ensure proper type-based compiler selection")]
         public static void Apply([NotNull] this SingleFile step, [NotNull] TemporaryFile downloadedFile, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)

@@ -107,7 +107,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="uri">The URI the signed file originally came from.</param>
         /// <param name="fingerprint">The fingerprint of the key to trust.</param>
         /// <param name="domain">The domain to trust the key for.</param>
-        /// <returns><see langword="true"/> if the user decided to trust the key, <see langword="false"/> if they decided not to trust the key.</returns>
+        /// <returns><c>true</c> if the user decided to trust the key, <c>false</c> if they decided not to trust the key.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         private bool HandleNewKey([NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
         {
@@ -126,7 +126,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="uri">The URI the signed file originally came from.</param>
         /// <param name="fingerprint">The fingerprint of the key to trust.</param>
         /// <param name="domain">The domain to trust the key for.</param>
-        /// <returns><see langword="true"/> if the user decided to trust the key, <see langword="false"/> if they decided not to trust the key.</returns>
+        /// <returns><c>true</c> if the user decided to trust the key, <c>false</c> if they decided not to trust the key.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         private bool AskKeyApproval([NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
         {
@@ -150,8 +150,8 @@ namespace ZeroInstall.Services.Feeds
         /// Retrieves information about a OpenPGP key from the <see cref="Config.KeyInfoServer"/>.
         /// </summary>
         /// <param name="fingerprint">The fingerprint of the key to check.</param>
-        /// <param name="goodVote">Returns <see langword="true"/> if the server indicated that the key is trustworthy.</param>
-        /// <returns>Human-readable information about the key or <see langword="null"/> if the server failed to provide a response.</returns>
+        /// <param name="goodVote">Returns <c>true</c> if the server indicated that the key is trustworthy.</param>
+        /// <returns>Human-readable information about the key or <c>null</c> if the server failed to provide a response.</returns>
         [CanBeNull]
         private string GetKeyInformation([NotNull] string fingerprint, out bool goodVote)
         {
@@ -200,7 +200,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="signature">The signature that could not be verified yet.</param>
         /// <param name="uri">The URI the signed data originally came from.</param>
-        /// <param name="localPath">The local file path the signed data came from. May be <see langword="null"/> for in-memory data.</param>
+        /// <param name="localPath">The local file path the signed data came from. May be <c>null</c> for in-memory data.</param>
         /// <exception cref="WebException">A key file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">A downloaded key file is damaged.</exception>
         /// <exception cref="IOException">A problem occurs while writing trust configuration.</exception>
