@@ -19,9 +19,9 @@ if errorlevel 1 pause
 ::Auto-download solver if missing
 if not exist "%~dp0bundled\Solver" (
   echo.
-  cd /d "%~dp0bundled"
+  pushd "%~dp0bundled"
   powershell -NonInteractive -Command - < download-solver.ps1
-  cd /d "%~dp0"
+  popd
 )
 
 echo.

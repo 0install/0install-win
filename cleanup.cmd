@@ -53,4 +53,4 @@ del "%~dp0*.VisualState.xml" > NUL 2>&1
 del "%~dp0TestResult.xml" > NUL 2>&1
 
 rem ReSharper caches
-rd /s /q "%~dp0src\_ReSharper.Caches"
+rd /s /q "%~dp0src\_ReSharper.Caches" > NUL 2>&1

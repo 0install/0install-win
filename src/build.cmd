@@ -1,6 +1,6 @@
 @echo off
 ::Compiles the Visual Studio solution.
-cd /d "%~dp0"
+pushd "%~dp0"
 
 rem Project settings
 set SOLUTION_FILE=ZeroInstall.sln
@@ -26,7 +26,8 @@ if defined VS100COMNTOOLS (
   call "%VS100COMNTOOLS%vsvars32.bat"
   goto vs_ok
 )
-goto err_no_vs
+echo ERROR: No Visual Studio installation found. >&2
+exit /b 1
 :vs_ok
 
 
@@ -36,6 +37,7 @@ if "%config%"=="" set config=Debug
 
 echo Restoring NuGet packages...
 .nuget\NuGet.exe restore %SOLUTION_FILE%
+if errorlevel 1 exit /b %errorlevel%
 echo.
 
 echo Compiling Visual Studio solution (%config%)...
@@ -43,11 +45,4 @@ if exist ..\build\%config% rd /s /q ..\build\%config%
 msbuild %SOLUTION_FILE% /nologo /v:q /t:Rebuild /p:Configuration=%config%
 if errorlevel 1 exit /b %errorlevel%
 
-
-
-exit /b 0
-rem Error messages
-
-:err_no_vs
-echo ERROR: No Visual Studio installation found. >&2
-exit /b 1
+popd

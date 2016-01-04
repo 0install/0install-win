@@ -24,7 +24,8 @@ if defined VS100COMNTOOLS (
   call "%VS100COMNTOOLS%vsvars32.bat"
   goto vs_ok
 )
-goto err_no_vs
+echo ERROR: No Visual Studio installation found. >&2
+exit /b 1
 :vs_ok
 
 
@@ -42,12 +43,3 @@ FOR %%A IN ("%~dp0..\build\Release\Tools\ZeroInstall.*.dll") DO signtool sign /t
 if errorlevel 1 exit /b %errorlevel%
 FOR %%A IN ("%~dp0..\build\Release\Updater\ZeroInstall.*.dll") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
 if errorlevel 1 exit /b %errorlevel%
-
-
-
-exit /b 0
-rem Error messages
-
-:err_no_vs
-echo ERROR: No Visual Studio installation found. >&2
-exit /b 1

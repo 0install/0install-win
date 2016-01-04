@@ -53,22 +53,24 @@ if not exist "%~dp0..\build\Installer" mkdir "%~dp0..\build\Installer"
 zip -q -9 -j "%~dp0..\build\Installer\zero-install.zip" "%~dp0_portable" "%~dp0..\COPYING.txt" "%~dp0..\3rd party code.txt"
 if errorlevel 1 exit /b %errorlevel%
 
-cd /d "%~dp0..\build\Release\Frontend"
+pushd "%~dp0..\build\Release\Frontend"
 zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" . --exclude *.xml *.pdb *.mdb *.vshost.exe
 if errorlevel 1 exit /b %errorlevel%
+popd
 
-cd /d "%~dp0..\bundled"
+pushd "%~dp0..\bundled"
 zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" Solver
 if errorlevel 1 exit /b %errorlevel%
+popd
 
+
+pushd "%~dp0"
 
 echo Building machine-wide installer...
-cd /d "%~dp0"
 "%INNOSETUP_DIR%\iscc.exe" /q "/dVersion=%version%" zero-install.iss
 if errorlevel 1 exit /b %errorlevel%
 
 echo Building per-user installer...
-cd /d "%~dp0"
 "%INNOSETUP_DIR%\iscc.exe" /q "/dVersion=%version%" /dPerUser=1 zero-install.iss
 if errorlevel 1 exit /b %errorlevel%
 
@@ -79,7 +81,6 @@ if "%4"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!
 
 
 echo Building MSI wrappers for EXE installers...
-cd /d "%~dp0"
 
 "%WIX_DIR%\bin\candle.exe" -nologo zero-install.wxs
 if errorlevel 1 exit /b %errorlevel%
@@ -92,6 +93,8 @@ if errorlevel 1 exit /b %errorlevel%
 "%WIX_DIR%\bin\light.exe" -nologo zero-install-per-user.wixobj -sval -out "..\build\Installer\zero-install-per-user.msi" -spdb
 if errorlevel 1 exit /b %errorlevel%
 del zero-install-per-user.wixobj
+
+popd
 
 
 
