@@ -1,11 +1,9 @@
 Zero Install
 ============
-Zero Install is a decentralized cross-platform software-installation system available under the LGPL. Visit http://0install.de/ for more information.
+Zero Install is a decentralized cross-platform software-installation system available under the LGPL.
 
-
-Developer information
----------------------
-See http://0install.de/dev/ for information development tools, build servers, API docs, etc..
+- **[Website](http://0install.de/)**
+- **[Developer information](http://0install.de/dev/)**
 
 
 Source directory structure
