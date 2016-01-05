@@ -218,8 +218,8 @@ Değişiklikleri kaydet</value>
   <data name="SelectVersionButton" xml:space="preserve">
     <value>&amp;Sürüm seç</value>
   </data>
-  <data name="SelfUpdateAvailable" xml:space="preserve">
-    <value>Zero Install v{0} sürümü kullanılabilir. Yüklemek için tıklatın.</value>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Zero Install v{0} sürümüne güncellemek için tıklayın...</value>
   </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Yükleme tümleştirmesi</value>

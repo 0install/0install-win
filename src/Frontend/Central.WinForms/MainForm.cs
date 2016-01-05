@@ -241,8 +241,18 @@ namespace ZeroInstall.Central.WinForms
             if (clickHandler == null) throw new ArgumentNullException("clickHandler");
             #endregion
 
+            var targetLocation = labelNotificationBar.Location;
+            labelNotificationBar.Location -= new Size(0, labelNotificationBar.Height);
             labelNotificationBar.Text = message;
             labelNotificationBar.Visible = true;
+            var timer = new Timer {Interval = 10, Enabled = true};
+            components.Add(timer);
+            timer.Tick += delegate
+            {
+                labelNotificationBar.Location += new Size(0, 1);
+                if (labelNotificationBar.Location == targetLocation) timer.Enabled = false;
+            };
+
             _notificationBarClickHandler = clickHandler;
         }
 
@@ -422,7 +432,7 @@ namespace ZeroInstall.Central.WinForms
             var selfUpdateVersion = e.Result as ImplementationVersion;
             if (selfUpdateVersion != null)
             {
-                ShowNotificactionBar(string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion), delegate
+                ShowNotificactionBar(string.Format(Resources.SelfUpdateNotification, selfUpdateVersion), delegate
                 {
                     try
                     {

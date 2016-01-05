@@ -217,8 +217,8 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="SelectVersionButton" xml:space="preserve">
     <value>&amp;Version auswählen</value>
   </data>
-  <data name="SelfUpdateAvailable" xml:space="preserve">
-    <value>Update auf Zero Install v{0} verfügbar. Klicken zum Installieren.</value>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Klicken um auf Zero Install v{0} zu aktualisieren...</value>
   </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Integration einrichten</value>

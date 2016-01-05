@@ -313,7 +313,7 @@
     <value>labelLastCatalogError</value>
   </data>
   <data name="labelNotificationBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>523, 30</value>
+    <value>333, 30</value>
   </data>
   <data name="tileListMyApps.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 4</value>
@@ -1214,7 +1214,7 @@
     <value>&amp;Check for errors</value>
   </data>
   <data name="labelNotificationBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>190, 0</value>
   </data>
   <data name="&gt;&gt;labelVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

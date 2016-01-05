@@ -354,11 +354,11 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update to Zero Install v{0} available. Click to install..
+        ///   Looks up a localized string similar to Click to update to Zero Install v{0}....
         /// </summary>
-        public static string SelfUpdateAvailable {
+        public static string SelfUpdateNotification {
             get {
-                return ResourceManager.GetString("SelfUpdateAvailable", resourceCulture);
+                return ResourceManager.GetString("SelfUpdateNotification", resourceCulture);
             }
         }
         

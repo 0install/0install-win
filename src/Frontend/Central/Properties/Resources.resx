@@ -218,8 +218,8 @@ Save changes</value>
   <data name="SelectVersionButton" xml:space="preserve">
     <value>Select &amp;version</value>
   </data>
-  <data name="SelfUpdateAvailable" xml:space="preserve">
-    <value>Update to Zero Install v{0} available. Click to install.</value>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Click to update to Zero Install v{0}...</value>
   </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Setup integration</value>
