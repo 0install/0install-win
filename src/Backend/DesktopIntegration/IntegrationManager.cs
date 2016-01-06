@@ -19,10 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Text.RegularExpressions;
-using System.Threading;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -41,67 +38,54 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     /// <remarks>
     /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
-    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="Dispose()"/>.
+    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IDisposable.Dispose"/>.
     /// </remarks>
-    public class IntegrationManager : IntegrationManagerBase, IDisposable
+    public class IntegrationManager : IntegrationManagerBase
     {
         #region Constants
         /// <summary>
         /// The name of the cross-process mutex used to signal that a desktop integration process class is currently active.
         /// </summary>
-        public const string MutexName = "ZeroInstall.DesktopIntegration";
+        protected override string MutexName { get { return "ZeroInstall.DesktopIntegration"; } }
+
+        /// <summary>
+        /// The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals integration changes to interested observers.
+        /// </summary>
+        public static readonly int ChangedWindowMessageID = WindowsUtils.RegisterWindowMessage("ZeroInstall.DesktopIntegration");
         #endregion
 
-        #region Variables
-        /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
-        protected readonly string AppListPath;
-
-        /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
-        private readonly Mutex _mutex;
-
-        /// <summary>The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals integration changes to interested observers.</summary>
-        public static readonly int ChangedWindowMessageID = WindowsUtils.RegisterWindowMessage(MutexName);
-        #endregion
+        /// <summary>
+        /// The storage location of the <see cref="AppList"/> file.
+        /// </summary>
+        public string AppListPath { get; private set; }
 
         #region Constructor
         /// <summary>
-        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Performs no locking.
-        /// </summary>
-        /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <exception cref="FileNotFoundException"><paramref name="appListPath"/> does not existing.</exception>
-        /// <exception cref="IOException">A problem occurs while accessing <paramref name="appListPath"/>.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to <paramref name="appListPath"/> file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false) : base(handler)
-        {
-            #region Sanity checks
-            if (appListPath == null) throw new ArgumentNullException("appListPath");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            MachineWide = machineWide;
-            AppListPath = appListPath;
-            AppList = XmlStorage.LoadXml<AppList>(AppListPath);
-        }
-
-        /// <summary>
-        /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/> (creating a new one if missing). Performs Mutex-based locking.
+        /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/> (creating a new one if missing). Performs Mutex-based locking!
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager([NotNull] ITaskHandler handler, bool machineWide = false) : base(handler)
+        public IntegrationManager([NotNull] ITaskHandler handler, bool machineWide = false)
+            : base(handler, machineWide)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            MachineWide = machineWide;
-            _mutex = AquireMutex();
+            try
+            {
+                AquireMutex();
+            }
+                #region Error handling
+            catch (UnauthorizedAccessException)
+            {
+                // Replace exception to add more context
+                throw new UnauthorizedAccessException(Resources.IntegrationMutex);
+            }
+            #endregion
 
             try
             {
@@ -122,47 +106,32 @@ namespace ZeroInstall.DesktopIntegration
             catch
             {
                 // Avoid abandoned mutexes
-                _mutex.ReleaseMutex();
-                _mutex.Close();
+                Dispose();
                 throw;
             }
             #endregion
         }
 
         /// <summary>
-        /// Prevents multiple concurrent desktop integration operations.
+        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Uses no mutex!
         /// </summary>
-        private Mutex AquireMutex()
+        /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <exception cref="FileNotFoundException"><paramref name="appListPath"/> does not existing.</exception>
+        /// <exception cref="IOException">A problem occurs while accessing <paramref name="appListPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to <paramref name="appListPath"/> file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
+        public IntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false)
+            : base(handler, machineWide)
         {
-            Mutex mutex;
-            if (MachineWide)
-            {
-                var mutexSecurity = new MutexSecurity();
-                mutexSecurity.AddAccessRule(new MutexAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), MutexRights.FullControl, AccessControlType.Allow));
-                bool createdNew;
-                mutex = new Mutex(false, @"Global\" + MutexName, out createdNew, mutexSecurity);
-            }
-            else mutex = new Mutex(false, MutexName);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appListPath)) throw new ArgumentNullException("appListPath");
+            if (appListPath == null) throw new ArgumentNullException("appListPath");
+            #endregion
 
-            try
-            {
-                switch (WaitHandle.WaitAny(new[] {mutex, Handler.CancellationToken.WaitHandle}, millisecondsTimeout: Handler.Verbosity == Verbosity.Batch ? 30000 : 1000, exitContext: false))
-                {
-                    case 0:
-                        return mutex;
-                    case 1:
-                        throw new OperationCanceledException();
-                    default:
-                    case WaitHandle.WaitTimeout:
-                        throw new UnauthorizedAccessException(Resources.IntegrationMutex);
-                }
-            }
-            catch (AbandonedMutexException ex)
-            {
-                // Abandoned mutexes also get owned, but indicate something may have gone wrong elsewhere
-                Log.Warn(ex.Message);
-                return mutex;
-            }
+            AppListPath = appListPath;
+            AppList = XmlStorage.LoadXml<AppList>(AppListPath);
         }
         #endregion
 
@@ -371,36 +340,6 @@ namespace ZeroInstall.DesktopIntegration
         private static void DeleteAppDir(AppEntry appEntry)
         {
             // TODO: Implement
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Dispose
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <inheritdoc/>
-        ~IntegrationManager()
-        {
-            Dispose(false);
-        }
-
-        /// <summary>
-        /// Releases the mutex and any unmanaged resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if called manually and not by the garbage collector.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing && _mutex != null)
-            {
-                _mutex.ReleaseMutex();
-                _mutex.Close();
-            }
         }
         #endregion
     }

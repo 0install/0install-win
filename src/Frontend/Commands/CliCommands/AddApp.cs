@@ -55,7 +55,9 @@ namespace ZeroInstall.Commands.CliCommands
         }
         #endregion
 
-        /// <summary>The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals that an application that is not listed in the <see cref="Catalog"/> was added.</summary>
+        /// <summary>
+        /// The window message ID (for use with <see cref="WindowsUtils.BroadcastMessage"/>) that signals that an application that is not listed in the <see cref="Catalog"/> was added.
+        /// </summary>
         public static readonly int AddedNonCatalogAppWindowMessageID = WindowsUtils.RegisterWindowMessage("ZeroInstall.Commands.AddedNonCatalogApp");
 
         /// <inheritdoc/>

@@ -58,8 +58,8 @@ namespace ZeroInstall.DesktopIntegration
     /// Synchronizes the <see cref="AppList"/> with other computers.
     /// </summary>
     /// <remarks>
-    /// To prevent raceconditions there may only be one desktop integration class instance per machine active at any given time.
-    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose()"/>.
+    /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
+    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IDisposable.Dispose"/>.
     /// </remarks>
     public class SyncIntegrationManager : IntegrationManager
     {
@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <summary>
-        /// Creates a new sync manager.
+        /// Creates a new sync manager. Performs Mutex-based locking!
         /// </summary>
         /// <param name="server">Access information for the sync server.</param>
         /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="server"/>.</param>
@@ -122,7 +122,7 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// Creates a new sync manager for a custom <see cref="AppList"/> file. Used for testing.
+        /// Creates a new sync manager for a custom <see cref="AppList"/> file. Used for testing. Uses no mutex!
         /// </summary>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="server">Access information for the sync server.</param>

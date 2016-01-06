@@ -34,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     /// <remarks>
     /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
-    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose()"/>.
+    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IDisposable.Dispose"/>.
     /// </remarks>
     public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager
     {
@@ -48,11 +48,11 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <inheritdoc/>
-        public CategoryIntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false) : base(appListPath, handler, machineWide)
+        public CategoryIntegrationManager([NotNull] ITaskHandler handler, bool machineWide = false) : base(handler, machineWide)
         {}
 
         /// <inheritdoc/>
-        public CategoryIntegrationManager([NotNull] ITaskHandler handler, bool machineWide = false) : base(handler, machineWide)
+        public CategoryIntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false) : base(appListPath, handler, machineWide)
         {}
         #endregion
 

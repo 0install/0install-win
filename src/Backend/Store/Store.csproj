@@ -140,6 +140,7 @@
     <Compile Include="ImplementationUtils.cs" />
     <Compile Include="FeedTarget.cs" />
     <Compile Include="JsonStorage.cs" />
+    <Compile Include="ManagerBase.cs" />
     <Compile Include="Model\Architecture.cs" />
     <Compile Include="Model\ArchitectureExtensions.cs" />
     <Compile Include="Model\Archive.cs" />

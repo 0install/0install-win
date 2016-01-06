@@ -31,40 +31,24 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Base class for <see cref="IIntegrationManager"/> implementations using template methods.
     /// </summary>
-    public abstract class IntegrationManagerBase : IIntegrationManager
+    public abstract class IntegrationManagerBase : ManagerBase, IIntegrationManager
     {
-        #region Dependencies
-        /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
-        [NotNull]
-        protected readonly ITaskHandler Handler;
-
-        /// <summary>
-        /// Creates an integration manager base.
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        protected IntegrationManagerBase([NotNull] ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            Handler = handler;
-        }
-        #endregion
-
-        #region Properties
         /// <summary>
         /// Stores a list of applications and their desktop integrations. Only use for read-access externally! Use this class' methods for any modifications.
         /// </summary>
         public AppList AppList { get; protected set; }
 
         /// <summary>
-        /// Apply operations machine-wide instead of just for the current user.
+        /// Creates a new integration manager.
         /// </summary>
-        public bool MachineWide { get; protected set; }
-        #endregion
-
-        //--------------------//
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
+        protected IntegrationManagerBase([NotNull] ITaskHandler handler, bool machineWide = false)
+            : base(handler, machineWide)
+        {}
 
         #region Interface
         /// <inheritdoc/>
