@@ -461,16 +461,16 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>
   <data name="NoIntegrationFromCache" xml:space="preserve">
-    <value>Zero Install wurde von einem Cacheverzeichnis aus gestartet. Es muss an einem fixen Ort abgelegt sein, damit Desktopintegration funktioniert.</value>
+    <value>Zero Install muss auf Ihrem System eingerichtet werden, damit Desktopintegration funktioniert.</value>
   </data>
   <data name="NoIntegrationFromPortable" xml:space="preserve">
-    <value>Zero Install läuft im Portable Modus. Es muss an einem fixen Ort abgelegt sein, damit Desktopintegration funktioniert.</value>
+    <value>Zero Install läuft im Portable Modus. Es muss an einem fixen Ort abgelegt werden, damit Desktopintegration funktioniert. Diese wird  von Ihrer Portable-Kopie komplett unabhängig sein.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
   </data>
   <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
-    <value>Zero Install wurde von einem benutzerspezifischen Verzeichnis aus gestartet. Es muss in einem für alle Benutzer zugänglichen Verzeichnis abgelegt sein, damit maschinenweite Desktopintegration funktioniert.</value>
+    <value>Zero Install läuft aus einem benutzerspezifischen Verzeichnis heraus. Es muss in einem für alle Benutzer zugänglichen Verzeichnis abgelegt werden, damit maschinenweite Desktopintegration funktioniert.</value>
   </data>
   <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>

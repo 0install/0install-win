@@ -461,10 +461,10 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
     <value>API çengellemesi önbelleklenmemiş uygulama nedeniyle olanaksız.</value>
   </data>
   <data name="NoIntegrationFromCache" xml:space="preserve">
-    <value>Zero Install bir önbellek dizininden başlatılmış. Dağıtım için masaüstü tümleştirmesinin çalışabileceği kalıcı bir konum gerekir.</value>
+    <value>Masaüstü tümleştirmesinin çalışabilmesi için Zero Install yazılımının yüklenmesi gerekir.</value>
   </data>
   <data name="NoIntegrationFromPortable" xml:space="preserve">
-    <value>Zero Install taşınabilir kipte çalışıyor. Dağıtım için masaüstü tümleştirmesinin çalışabileceği kalıcı bir konum gerekir.</value>
+    <value>Zero Install taşınabilir kipte çalışıyor. Masaüstü tümleştirmesinin çalışabilmesi için kalıcı bir konuma yüklenmiş olması gerekir. Bu yükleme taşınabilir kopyanızdan tamamen bağımsızdır.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Artık kullanılmıyor:</value>

@@ -1052,7 +1052,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zero Install was launched from a cache directory. It needs to be deployed to a permanent location for desktop integration to work..
+        ///   Looks up a localized string similar to Zero Install needs to be setup on your system for desktop integration to work..
         /// </summary>
         public static string NoIntegrationFromCache {
             get {
@@ -1061,7 +1061,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zero Install is running in portable mode. It needs to be deployed to a permanent location for desktop integration to work..
+        ///   Looks up a localized string similar to Zero Install is running in portable mode. It needs to be deployed to a permanent location for desktop integration to work. This will be completely independent from your portable copy..
         /// </summary>
         public static string NoIntegrationFromPortable {
             get {
@@ -1079,7 +1079,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zero Install was launched from a user-specific directory. It needs to be deployed to a directory accessible by all users for machine-wide desktop integration to work..
+        ///   Looks up a localized string similar to Zero Install is running from a user-specific directory. It needs to be deployed to a directory accessible by all users for machine-wide desktop integration to work..
         /// </summary>
         public static string NoMachineWideIntegrationFromPerUser {
             get {
