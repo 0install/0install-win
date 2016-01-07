@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new manifest.
         /// </summary>
-        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
+        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestDirectoryElement.Digest"/>.</param>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] IEnumerable<ManifestNode> nodes)
         {
@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new manifest.
         /// </summary>
-        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
+        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestDirectoryElement.Digest"/>.</param>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] params ManifestNode[] nodes)
         {

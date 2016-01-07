@@ -23,50 +23,22 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// An immutable symlink-entry in a <see cref="Manifest"/>.
+    /// A symlink entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
     [Serializable]
-    public sealed class ManifestSymlink : ManifestNode, IEquatable<ManifestSymlink>
+    public sealed class ManifestSymlink : ManifestDirectoryElement, IEquatable<ManifestSymlink>
     {
-        #region Properties
-        /// <summary>
-        /// The hash of the link target path.
-        /// </summary>
-        [NotNull]
-        public string Hash { get; private set; }
-
-        /// <summary>
-        /// The length of the link target path.
-        /// </summary>
-        public long Size { get; private set; }
-
-        /// <summary>
-        /// The name of the symlink without the containing directory.
-        /// </summary>
-        [NotNull]
-        public string SymlinkName { get; private set; }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new symlink-entry.
         /// </summary>
-        /// <param name="hash">The hash of the link target path.</param>
+        /// <param name="digest">The digest of the link target path.</param>
         /// <param name="size">The length of the link target path.</param>
-        /// <param name="symlinkName">The name of the symlink without the containing directory.</param>
-        /// <exception cref="ArgumentException"><paramref name="symlinkName"/> contains a newline character.</exception>
-        internal ManifestSymlink(string hash, long size, string symlinkName)
-        {
-            #region Sanity checks
-            if (symlinkName.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "symlinkName");
-            #endregion
-
-            Hash = hash;
-            Size = size;
-            SymlinkName = symlinkName;
-        }
-        #endregion
+        /// <param name="name">The name of the symlink without the containing directory.</param>
+        /// <exception cref="ArgumentException"><paramref name="name"/> contains a newline character.</exception>
+        internal ManifestSymlink(string digest, long size, string name)
+            : base(digest, size, name)
+        {}
 
         #region Factory methods
         /// <summary>
@@ -95,8 +67,6 @@ namespace ZeroInstall.Store.Implementations
         }
         #endregion
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the string representation of this node for the manifest format.
@@ -104,7 +74,7 @@ namespace ZeroInstall.Store.Implementations
         /// <returns><code>"S", space, hash, space, size, space, symlink name, newline</code></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Hash, Size, SymlinkName);
+            return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Digest, Size, Name);
         }
         #endregion
 
@@ -112,8 +82,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public bool Equals(ManifestSymlink other)
         {
-            if (other == null) return false;
-            return Equals(other.Hash, Hash) && other.Size == Size && Equals(other.SymlinkName, SymlinkName);
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -127,13 +96,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = Hash.GetHashCode();
-                result = (result * 397) ^ Size.GetHashCode();
-                result = (result * 397) ^ SymlinkName.GetHashCode();
-                return result;
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

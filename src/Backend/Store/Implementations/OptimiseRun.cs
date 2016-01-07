@@ -34,11 +34,11 @@ namespace ZeroInstall.Store.Implementations
         private struct DedupKey
         {
             public readonly long Size;
-            public readonly long LastModified;
+            public readonly DateTime LastModified;
             public readonly ManifestFormat Format;
             public readonly string Digest;
 
-            public DedupKey(long size, long lastModified, ManifestFormat format, string digest)
+            public DedupKey(long size, DateTime lastModified, ManifestFormat format, string digest)
             {
                 Size = size;
                 LastModified = lastModified;
@@ -120,7 +120,7 @@ namespace ZeroInstall.Store.Implementations
                     if (x.Size == 0) return;
 
                     var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
-                    var file = new StoreFile(implementationPath, Path.Combine(currentDirectory, x.FileName));
+                    var file = new StoreFile(implementationPath, Path.Combine(currentDirectory, x.Name));
 
                     StoreFile existingFile;
                     if (_fileHashes.TryGetValue(key, out existingFile))

@@ -44,7 +44,7 @@ namespace ZeroInstall.Publish
         private const string SingleFileName = "file.dat";
 
         private static readonly string _singleFileSha256Digest = new Manifest(ManifestFormat.Sha256New,
-            new ManifestNormalFile(SingleFileData.Hash(SHA256.Create()), 0, SingleFileData.Length, SingleFileName)).CalculateDigest();
+            new ManifestNormalFile(SingleFileData.Hash(SHA256.Create()), FileUtils.FromUnixTime(0), SingleFileData.Length, SingleFileName)).CalculateDigest();
 
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="Archive"/>s.

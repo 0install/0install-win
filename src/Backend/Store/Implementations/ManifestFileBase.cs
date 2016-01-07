@@ -16,74 +16,41 @@
  */
 
 using System;
-using JetBrains.Annotations;
-using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// An abstract base class for file-entries in a <see cref="Manifest"/>.
+    /// An abstract base class for file entries in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class and the derived classes are immutable. They should only be used as a part of a <see cref="Manifest"/>.</remarks>
     [Serializable]
-    public abstract class ManifestFileBase : ManifestNode
+    public abstract class ManifestFileBase : ManifestDirectoryElement
     {
-        #region Properties
         /// <summary>
-        /// The digest of the content of the file calculated using the selected digest algorithm.
+        /// The time this file was last modified.
         /// </summary>
-        [NotNull]
-        public string Digest { get; private set; }
+        public DateTime ModifiedTime { get; private set; }
 
-        /// <summary>
-        /// The time this file was last modified encoded as Unix time (number of seconds since the epoch).
-        /// </summary>
-        public long ModifiedTime { get; private set; }
-
-        /// <summary>
-        /// The size of the file in bytes.
-        /// </summary>
-        public long Size { get; private set; }
-
-        /// <summary>
-        /// The name of the file without the containing directory.
-        /// </summary>
-        [NotNull]
-        public string FileName { get; private set; }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new file entry.
         /// </summary>
         /// <param name="digest">The digest of the content of the file calculated using the selected digest algorithm.</param>
-        /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
+        /// <param name="modifiedTime">The time this file was last modified.</param>
         /// <param name="size">The size of the file in bytes.</param>
-        /// <param name="fileName">The name of the file without the containing directory.</param>
-        /// <exception cref="NotSupportedException"><paramref name="fileName"/> contains a newline character.</exception>
-        protected ManifestFileBase(string digest, long modifiedTime, long size, string fileName)
+        /// <param name="name">The name of the file without the containing directory.</param>
+        /// <exception cref="NotSupportedException"><paramref name="name"/> contains a newline character.</exception>
+        protected ManifestFileBase(string digest, DateTime modifiedTime, long size, string name)
+            : base(digest, size, name)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(digest)) throw new ArgumentNullException("digest");
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
-            if (fileName.Contains("\n")) throw new NotSupportedException(Resources.NewlineInName);
-            #endregion
-
-            Digest = digest;
             ModifiedTime = modifiedTime;
-            Size = size;
-            FileName = fileName;
         }
-        #endregion
-
-        //--------------------//
 
         #region Equality
         /// <inheritdoc/>
         protected bool Equals(ManifestFileBase other)
         {
             if (other == null) return false;
-            return other.Digest == Digest && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
+            return ModifiedTime == other.ModifiedTime && base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -91,10 +58,8 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                int result = Digest.GetHashCode();
+                int result = base.GetHashCode();
                 result = (result * 397) ^ ModifiedTime.GetHashCode();
-                result = (result * 397) ^ Size.GetHashCode();
-                result = (result * 397) ^ FileName.GetHashCode();
                 return result;
             }
         }

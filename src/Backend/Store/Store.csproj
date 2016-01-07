@@ -124,6 +124,7 @@
     <Compile Include="Implementations\IStore.cs" />
     <Compile Include="Implementations\Manifest.cs" />
     <Compile Include="Implementations\ManifestDirectory.cs" />
+    <Compile Include="Implementations\ManifestDirectoryElement.cs" />
     <Compile Include="Implementations\ManifestExecutableFile.cs" />
     <Compile Include="Implementations\ManifestFileBase.cs" />
     <Compile Include="Implementations\ManifestFormat.cs" />

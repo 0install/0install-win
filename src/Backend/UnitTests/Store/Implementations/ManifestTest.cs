@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Implementations
         {
             var manifest1 = new Manifest(ManifestFormat.Sha1New,
                 new ManifestDirectory("subdir"),
-                new ManifestNormalFile("abc123", new DateTime(2000, 1, 1).ToUnixTime(), 3, "file"));
+                new ManifestNormalFile("abc123", new DateTime(2000, 1, 1), 3, "file"));
             Manifest manifest2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
@@ -264,7 +264,7 @@ namespace ZeroInstall.Store.Implementations
                 var manifest = GenerateManifest(package, ManifestFormat.Sha256New, new MockTaskHandler());
 
                 (manifest[0] is ManifestSymlink).Should().BeTrue(because: "Unexpected manifest:\n" + manifest);
-                ((ManifestSymlink)manifest[0]).SymlinkName.Should().Be("source", because: "Unexpected manifest:\n" + manifest);
+                ((ManifestSymlink)manifest[0]).Name.Should().Be("source", because: "Unexpected manifest:\n" + manifest);
                 (manifest[1] is ManifestDirectory).Should().BeTrue(because: "Unexpected manifest:\n" + manifest);
                 ((ManifestDirectory)manifest[1]).FullPath.Should().Be("/target", because: "Unexpected manifest:\n" + manifest);
             }

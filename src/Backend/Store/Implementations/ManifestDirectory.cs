@@ -23,21 +23,18 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// An directory-entry in a <see cref="Manifest"/>.
+    /// A directory entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
     [Serializable]
     public sealed class ManifestDirectory : ManifestNode, IEquatable<ManifestDirectory>
     {
-        #region Properties
         /// <summary>
         /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
         /// </summary>
         [NotNull]
         public string FullPath { get; private set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new directory-entry.
         /// </summary>
@@ -52,7 +49,6 @@ namespace ZeroInstall.Store.Implementations
 
             FullPath = fullPath;
         }
-        #endregion
 
         #region Factory methods
         /// <summary>
@@ -71,8 +67,6 @@ namespace ZeroInstall.Store.Implementations
             return new ManifestDirectory(parts[1]);
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>
@@ -100,8 +94,7 @@ namespace ZeroInstall.Store.Implementations
         {
             if (other == null) return false;
 
-            // Directory ModifiedTime is ignored in the new manifest format
-            return /*other.ModifiedTime == ModifiedTime &&*/ Equals(other.FullPath, FullPath);
+            return FullPath == other.FullPath;
         }
 
         /// <inheritdoc/>
@@ -115,10 +108,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return FullPath.GetHashCode();
-            }
+            return FullPath.GetHashCode();
         }
         #endregion
     }

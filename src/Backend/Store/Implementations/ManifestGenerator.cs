@@ -73,8 +73,8 @@ namespace ZeroInstall.Store.Implementations
 
             using (var stream = file.OpenRead())
             {
-                if (executable) _nodes.Add(new ManifestExecutableFile(Format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name));
-                else _nodes.Add(new ManifestNormalFile(Format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name));
+                if (executable) _nodes.Add(new ManifestExecutableFile(Format.DigestContent(stream), file.LastWriteTimeUtc, file.Length, file.Name));
+                else _nodes.Add(new ManifestNormalFile(Format.DigestContent(stream), file.LastWriteTimeUtc, file.Length, file.Name));
             }
         }
 

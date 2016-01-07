@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Store.Implementations.ManifestDirectory">
-    <Position X="8.75" Y="2.5" Width="1.75" />
+    <Position X="9.25" Y="2.25" Width="1.75" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -10,13 +10,13 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>CAAAAAAABAAAAAAEkAAABAAAAAAAAIAAAAAAAAACAAA=</HashCode>
+      <HashCode>CAAAAAAABAAAAAAEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\ManifestDirectory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.ManifestNode">
-    <Position X="6.75" Y="0.75" Width="1.5" />
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\ManifestNode.cs</FileName>
@@ -28,7 +28,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAgJEIAAAAAAAEqAAAAAAAAAgAAoAEAAAAAkAAAAA=</HashCode>
+      <HashCode>AAAAgJkIAAAAAAAEqAAAAAAAAAgAAoAEAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\Manifest.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -37,7 +37,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.ManifestSymlink">
-    <Position X="4.75" Y="2.5" Width="1.5" />
+    <Position X="5.25" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -46,13 +46,13 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAgAQEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\ManifestSymlink.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.ManifestNormalFile">
-    <Position X="5.25" Y="5.75" Width="2" />
+    <Position X="5.75" Y="6.75" Width="2" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -67,7 +67,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.ManifestFileBase">
-    <Position X="6.75" Y="2.5" Width="1.5" />
+    <Position X="7.25" Y="4.5" Width="1.5" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -76,12 +76,12 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAgAAABAAAAAAAAIAAAgAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAAABAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\ManifestFileBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.ManifestExecutableFile">
-    <Position X="7.75" Y="5.75" Width="2" />
+    <Position X="8.25" Y="6.75" Width="2" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -101,21 +101,6 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <NestedTypes>
-      <Class Name="ZeroInstall.Store.Implementations.ManifestFormat.OldFormat" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Implementation\ManifestFormat.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="ZeroInstall.Store.Implementations.ManifestFormat.Sha1Format" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Implementations\ManifestFormat.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="ZeroInstall.Store.Implementations.ManifestFormat.NewFormat" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Implementation\ManifestFormat.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
       <Class Name="ZeroInstall.Store.Implementations.ManifestFormat.Sha1NewFormat" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Implementation\ManifestFormat.cs</NewMemberFileName>
@@ -133,27 +118,31 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAEAAAKAAEACAEAMAAEAAABCAQAAABABMIAQAQQBAEA=</HashCode>
+      <HashCode>AAAAAAKAAAACAEAMAAAAAABCAQAAABABEIAQAAABAEA=</HashCode>
       <FileName>Implementations\ManifestFormat.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.ManifestGenerator" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.75" />
-    <AssociationLine Name="Result" Type="ZeroInstall.Store.Implementations.Manifest" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.375" Y="1.191" />
-        <Point X="1.375" Y="2.188" />
-        <Point X="2.5" Y="2.188" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAQAQAAAAASAAAgAAAAAQAAAAgAAAAA=</HashCode>
+      <HashCode>AAACABACAAAAACAAAAAAAAUAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\ManifestGenerator.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Format" />
-      <Property Name="Result" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Store.Implementations.ManifestDirectoryElement">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ManifestDirectoryElement" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAgAAAAAQAAAAAAIAAAgAAAAAAAAA=</HashCode>
+      <FileName>Implementations\ManifestDirectoryElement.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

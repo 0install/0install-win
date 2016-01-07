@@ -18,29 +18,29 @@
 using System;
 using System.Globalization;
 using JetBrains.Annotations;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// An non-executable file-entry in a <see cref="Manifest"/>.
+    /// An non-executable file entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
     [Serializable]
     public sealed class ManifestNormalFile : ManifestFileBase, IEquatable<ManifestNormalFile>
     {
-        #region Constructor
         /// <summary>
         /// Creates a new non-executable file entry.
         /// </summary>
         /// <param name="hash">The hash of the content of the file calculated using the selected digest algorithm.</param>
-        /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
+        /// <param name="modifiedTime">The time this file was last modified.</param>
         /// <param name="size">The size of the file in bytes.</param>
-        /// <param name="fileName">The name of the file without the containing directory.</param>
-        /// <exception cref="NotSupportedException"><paramref name="fileName"/> contains a newline character.</exception>
-        public ManifestNormalFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
+        /// <param name="name">The name of the file without the containing directory.</param>
+        /// <exception cref="NotSupportedException"><paramref name="name"/> contains a newline character.</exception>
+        public ManifestNormalFile(string hash, DateTime modifiedTime, long size, string name)
+            : base(hash, modifiedTime, size, name)
         {}
-        #endregion
 
         #region Factory methods
         /// <summary>
@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Implementations
 
             try
             {
-                return new ManifestNormalFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]);
+                return new ManifestNormalFile(parts[1], FileUtils.FromUnixTime(long.Parse(parts[2])), long.Parse(parts[3]), parts[4]);
             }
                 #region Error handling
             catch (OverflowException ex)
@@ -69,8 +69,6 @@ namespace ZeroInstall.Store.Implementations
         }
         #endregion
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the string representation of this node for the manifest format.
@@ -78,7 +76,7 @@ namespace ZeroInstall.Store.Implementations
         /// <returns><code>"F", space, hash, space, mtime, space, size, space, file name, newline</code></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "F {0} {1} {2} {3}", Digest, ModifiedTime, Size, FileName);
+            return string.Format(CultureInfo.InvariantCulture, "F {0} {1} {2} {3}", Digest, ModifiedTime.ToUnixTime(), Size, Name);
         }
         #endregion
 
