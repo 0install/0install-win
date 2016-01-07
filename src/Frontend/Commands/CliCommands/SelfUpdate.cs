@@ -133,10 +133,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private bool UpdateFound()
         {
-            var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
-            var newVersion = Selections.Implementations[0].Version;
-            bool updatesFound = newVersion > currentVersion || _force;
-            return updatesFound;
+            return _force || (Selections.MainImplementation.Version > new ImplementationVersion(AppInfo.Current.Version));
         }
     }
 }
