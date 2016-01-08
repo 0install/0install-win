@@ -117,11 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Güncelleştir ve &amp;temizle</value>
+  </data>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;güncelleştir</value>
+  </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>&amp;Kurulum</value>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>&amp;Sorun giderme</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Eşitle</value>
+  </data>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Uygulamalarım</value>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Katalog sunucudan yükleniyor...</value>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>&amp;Diğer uygulamalar</value>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
     <value>Listeyi &amp;yenile</value>
@@ -129,40 +147,22 @@
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Katalog</value>
   </data>
-  <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Uygulamalarım</value>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Seçenekler</value>
   </data>
-  <data name="buttonHelp.Text" xml:space="preserve">
-    <value>&amp;Yardım</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Eşitle</value>
-  </data>
-  <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Katalog sunucudan yükleniyor...</value>
-  </data>
-  <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Ö&amp;nbellek yönetimi</value>
+  <data name="buttonStoreAudit.Text" xml:space="preserve">
+    <value>&amp;Hataları denetle</value>
   </data>
   <data name="buttonStoreOptimise.Text" xml:space="preserve">
     <value>Çiftleri &amp;birleştir</value>
   </data>
-  <data name="buttonOptions.Text" xml:space="preserve">
-    <value>&amp;Seçenekler</value>
-  </data>
-  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Güncelleştir ve &amp;temizle</value>
-  </data>
-  <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Tümünü &amp;güncelleştir</value>
-  </data>
-  <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>&amp;Diğer uygulamalar</value>
+  <data name="buttonStoreManage.Text" xml:space="preserve">
+    <value>Ö&amp;nbellek yönetimi</value>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
     <value>Başlangıç &amp;Videosu</value>
   </data>
-  <data name="buttonStoreAudit.Text" xml:space="preserve">
-    <value>&amp;Hataları denetle</value>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>&amp;Yardım</value>
   </data>
 </root>

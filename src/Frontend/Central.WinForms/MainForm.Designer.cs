@@ -57,7 +57,6 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
@@ -69,7 +68,6 @@
             this.tabPageCatalog.SuspendLayout();
             this.menuStoreManage.SuspendLayout();
             this.menuHelp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelBottom.SuspendLayout();
             this.rootTable.SuspendLayout();
             this.SuspendLayout();
@@ -271,13 +269,6 @@
             this.catalogWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.catalogWorker_DoWork);
             this.catalogWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.catalogWorker_RunWorkerCompleted);
             // 
-            // pictureBoxLogo
-            // 
-            resources.ApplyResources(this.pictureBoxLogo, "pictureBoxLogo");
-            this.pictureBoxLogo.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.Logo;
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.TabStop = false;
-            // 
             // appListWorker
             // 
             this.appListWorker.WorkerSupportsCancellation = true;
@@ -295,15 +286,15 @@
             // rootTable
             // 
             resources.ApplyResources(this.rootTable, "rootTable");
-            this.rootTable.Controls.Add(this.pictureBoxLogo, 0, 0);
-            this.rootTable.Controls.Add(this.panelBottom, 0, 2);
-            this.rootTable.Controls.Add(this.tabControlApps, 0, 1);
+            this.rootTable.Controls.Add(this.panelBottom, 0, 1);
+            this.rootTable.Controls.Add(this.tabControlApps, 0, 0);
             this.rootTable.Name = "rootTable";
             // 
             // labelNotificationBar
             // 
             resources.ApplyResources(this.labelNotificationBar, "labelNotificationBar");
             this.labelNotificationBar.BackColor = System.Drawing.SystemColors.Info;
+            this.labelNotificationBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelNotificationBar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelNotificationBar.Name = "labelNotificationBar";
             this.labelNotificationBar.Click += new System.EventHandler(this.labelNotificationBar_Click);
@@ -330,7 +321,6 @@
             this.tabPageCatalog.PerformLayout();
             this.menuStoreManage.ResumeLayout(false);
             this.menuHelp.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
             this.rootTable.ResumeLayout(false);
@@ -352,7 +342,6 @@
         private AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
         private System.ComponentModel.BackgroundWorker catalogWorker;
-        private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Button buttonMoreApps;
