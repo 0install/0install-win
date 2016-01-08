@@ -86,8 +86,8 @@ namespace ZeroInstall.Central.WinForms
             Program.ConfigureTaskbar(this, Text);
             WindowsTaskbar.AddTaskLinks(Program.AppUserModelID, new[]
             {
-                new WindowsTaskbar.ShellLink(buttonStoreManage.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage"),
-                new WindowsTaskbar.ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Configure.Name)
+                new WindowsTaskbar.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name),
+                new WindowsTaskbar.ShellLink(buttonUpdateAll.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), UpdateApps.Name)
             });
         }
 
