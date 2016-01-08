@@ -31,10 +31,9 @@ namespace ZeroInstall.Central.WinForms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.labelName = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
-            this.buttonRun = new SplitButton();
+            this.buttonRun = new NanoByte.Common.Controls.SplitButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,21 +45,10 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonIntegrate = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
+            this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.contextMenuRun.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBoxIcon
-            // 
-            this.pictureBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBoxIcon.Location = new System.Drawing.Point(6, 6);
-            this.pictureBoxIcon.Name = "pictureBoxIcon";
-            this.pictureBoxIcon.Size = new System.Drawing.Size(48, 48);
-            this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxIcon.TabIndex = 0;
-            this.pictureBoxIcon.TabStop = false;
-            this.pictureBoxIcon.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownHandler);
             // 
             // labelName
             // 
@@ -108,30 +96,30 @@ namespace ZeroInstall.Central.WinForms
             this.runMenuSeparator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
-            this.contextMenuRun.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuRun.Size = new System.Drawing.Size(68, 76);
             // 
             // buttonSelectCommand
             // 
             this.buttonSelectCommand.Name = "buttonSelectCommand";
-            this.buttonSelectCommand.Size = new System.Drawing.Size(152, 22);
+            this.buttonSelectCommand.Size = new System.Drawing.Size(67, 22);
             this.buttonSelectCommand.Visible = false;
             this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommand_Click);
             // 
             // buttonSelectVersion
             // 
             this.buttonSelectVersion.Name = "buttonSelectVersion";
-            this.buttonSelectVersion.Size = new System.Drawing.Size(152, 22);
+            this.buttonSelectVersion.Size = new System.Drawing.Size(67, 22);
             this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
             // 
             // runMenuSeparator
             // 
             this.runMenuSeparator.Name = "runMenuSeparator";
-            this.runMenuSeparator.Size = new System.Drawing.Size(149, 6);
+            this.runMenuSeparator.Size = new System.Drawing.Size(64, 6);
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(152, 22);
+            this.buttonUpdate.Size = new System.Drawing.Size(67, 22);
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonAdd
@@ -139,10 +127,10 @@ namespace ZeroInstall.Central.WinForms
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.AutoSize = true;
             this.buttonAdd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonAdd.Location = new System.Drawing.Point(364, 32);
+            this.buttonAdd.Location = new System.Drawing.Point(332, 32);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(29, 23);
-            this.buttonAdd.TabIndex = 5;
+            this.buttonAdd.TabIndex = 4;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -168,10 +156,10 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.AutoSize = true;
             this.buttonRemove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRemove.Location = new System.Drawing.Point(364, 32);
+            this.buttonRemove.Location = new System.Drawing.Point(332, 32);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(29, 23);
-            this.buttonRemove.TabIndex = 6;
+            this.buttonRemove.TabIndex = 5;
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
@@ -180,12 +168,24 @@ namespace ZeroInstall.Central.WinForms
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.AutoSize = true;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonIntegrate.Location = new System.Drawing.Point(332, 32);
+            this.buttonIntegrate.Location = new System.Drawing.Point(364, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";
             this.buttonIntegrate.Size = new System.Drawing.Size(29, 23);
-            this.buttonIntegrate.TabIndex = 4;
+            this.buttonIntegrate.TabIndex = 6;
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
+            // 
+            // pictureBoxIcon
+            // 
+            this.pictureBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBoxIcon.Location = new System.Drawing.Point(6, 6);
+            this.pictureBoxIcon.Name = "pictureBoxIcon";
+            this.pictureBoxIcon.Size = new System.Drawing.Size(48, 48);
+            this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxIcon.TabIndex = 0;
+            this.pictureBoxIcon.TabStop = false;
+            this.pictureBoxIcon.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownHandler);
             // 
             // AppTile
             // 
@@ -205,8 +205,8 @@ namespace ZeroInstall.Central.WinForms
             this.Name = "AppTile";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Size = new System.Drawing.Size(400, 60);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.contextMenuRun.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

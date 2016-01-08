@@ -219,7 +219,8 @@ namespace ZeroInstall.Central.WinForms
 
             toolTip.SetToolTip(buttonIntegrate, (Status == AppStatus.Integrated) ? _modifyButtonTooltip : _setupButtonTooltip);
             buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyButton : _setupButton;
-            buttonIntegrate.Enabled = (Status >= AppStatus.Added);
+            buttonIntegrate.Visible = (Status >= AppStatus.Added);
+            buttonIntegrate.Enabled = true;
         }
 
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -288,7 +289,8 @@ namespace ZeroInstall.Central.WinForms
         {
             if (InterfaceUri.IsFake) return;
 
-            if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn)) return;
+            if (Status == AppStatus.Integrated)
+                if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn)) return;
 
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
