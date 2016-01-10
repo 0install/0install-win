@@ -157,6 +157,9 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
   <data name="DeletingImplementation" xml:space="preserve">
     <value>{0} uygulaması siliniyor</value>
   </data>
+  <data name="DeletingObsoleteFiles" xml:space="preserve">
+    <value>Eski dosyalar siliniyor</value>
+  </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Bir uygulamanın karma değeri beklenen değerle eşleşmiyor.</value>
   </data>

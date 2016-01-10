@@ -133,8 +133,17 @@ This will also remove any desktop integration applied for this application.</val
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Click to setup Zero Install on this computer...</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Please enter the URL of a Zero Install feed here:</value>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>For all users</value>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>For current user</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoring duplicate application list entry for '{0}'.</value>

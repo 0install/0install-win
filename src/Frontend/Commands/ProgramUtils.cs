@@ -21,11 +21,14 @@ using System.IO;
 using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using NDesk.Options;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Injector;
@@ -181,6 +184,24 @@ namespace ZeroInstall.Commands
                     {
                         var result = TryRunOtherInstance(exeName, args, handler, ex.NeedsMachineWide);
                         if (result.HasValue) return result.Value;
+                        else if (handler.Ask(ex.Message + @" " + Resources.AskDeployZeroInstall,
+                            defaultAnswer: false, alternateMessage: ex.Message))
+                        {
+                            var deployArgs = new[] {MaintenanceMan.Name, MaintenanceMan.Deploy.Name, "--batch"};
+                            if (ex.NeedsMachineWide) deployArgs = deployArgs.Append("--machine");
+                            var deployResult = Run(exeName, deployArgs, handler);
+                            if (deployResult == ExitCode.OK)
+                            {
+                                result = TryRunOtherInstance(exeName, args, handler, ex.NeedsMachineWide);
+                                if (result.HasValue) return result.Value;
+                                else throw new IOException("Unable to find newly installed instance.");
+                            }
+                            else return deployResult;
+                        }
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
                     }
                     catch (IOException ex2)
                     {
@@ -188,8 +209,8 @@ namespace ZeroInstall.Commands
                         return ExitCode.IOError;
                     }
                 }
+                else handler.Error(ex);
 
-                handler.Error(ex);
                 return ExitCode.NotSupported;
             }
             catch (OptionException ex)
@@ -271,15 +292,29 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">There was a problem launching the target instance.</exception>
         private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, [NotNull] ICommandHandler handler, bool needsMachineWide)
         {
-            string installLocation = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
-            if (string.IsNullOrEmpty(installLocation)) return null;
-            if (installLocation == Locations.InstallBase) return null; // Prevent redirect cycles
+            string installLocation = FindOtherInstance();
+            if (installLocation == null) return null;
             if (needsMachineWide && installLocation.StartsWith(Locations.HomeDir)) return null; // Do not redirect to per-user instances if machine-wide instance is required
-            if (!File.Exists(Path.Combine(installLocation, "0install.exe"))) return null;
 
             Log.Warn("Redirecting to instance at " + installLocation);
             handler.DisableUI();
-            return (ExitCode)ProcessUtils.Assembly(Path.Combine(installLocation, exeName), args.JoinEscapeArguments()).Run();
+            return (ExitCode)ProcessUtils.Assembly(Path.Combine(installLocation, exeName), args).Run();
+        }
+
+        /// <summary>
+        /// Tries to find another instance of Zero Install deployed on this system.
+        /// </summary>
+        /// <returns>The installation directory of another instance of Zero Install; <c>null</c> if none was found.</returns>
+        [CanBeNull]
+        public static string FindOtherInstance()
+        {
+            if (!WindowsUtils.IsWindows) return null;
+
+            string installLocation = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
+            if (string.IsNullOrEmpty(installLocation)) return null;
+            if (installLocation == Locations.InstallBase) return null;
+            if (!File.Exists(Path.Combine(installLocation, "0install.exe"))) return null;
+            return installLocation;
         }
     }
 }

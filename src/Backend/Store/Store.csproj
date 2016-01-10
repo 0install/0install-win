@@ -119,6 +119,10 @@
     <Compile Include="Implementations\Archives\_Namespace.cs" />
     <Compile Include="Implementations\CompositeStore.cs" />
     <Compile Include="Implementations\CopyDirectoryPosix.cs" />
+    <Compile Include="Implementations\Deployment\ClearDirectory.cs" />
+    <Compile Include="Implementations\Deployment\DeployDirectory.cs" />
+    <Compile Include="Implementations\Deployment\DirectoryOperation.cs" />
+    <Compile Include="Implementations\Deployment\_Namespace.cs" />
     <Compile Include="Implementations\DigestMismatchException.cs" />
     <Compile Include="Implementations\DirectoryStore.cs" />
     <Compile Include="Implementations\DirectoryWalkTask.cs" />

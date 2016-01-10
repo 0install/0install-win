@@ -157,6 +157,9 @@ Alternativ können Sie auch die grafische Oberfläche zur Verwaltung der Caches 
   <data name="DeletingImplementation" xml:space="preserve">
     <value>Lösche Implementierung {0}</value>
   </data>
+  <data name="DeletingObsoleteFiles" xml:space="preserve">
+    <value>Lösche nicht mehr benötigte Dateien...</value>
+  </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Der Manifest-Hash einer Implementierung entspricht nicht dem erwarteten Wert.</value>
   </data>

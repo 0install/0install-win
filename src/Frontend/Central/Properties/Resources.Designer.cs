@@ -107,11 +107,38 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to setup Zero Install on this computer....
+        /// </summary>
+        public static string DeployNotification {
+            get {
+                return ResourceManager.GetString("DeployNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL of a Zero Install feed here:.
         /// </summary>
         public static string EnterFeedUrl {
             get {
                 return ResourceManager.GetString("EnterFeedUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For all users.
+        /// </summary>
+        public static string ForAllUsers {
+            get {
+                return ResourceManager.GetString("ForAllUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For current user.
+        /// </summary>
+        public static string ForCurrentUser {
+            get {
+                return ResourceManager.GetString("ForCurrentUser", resourceCulture);
             }
         }
         

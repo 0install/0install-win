@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -52,12 +53,22 @@ namespace ZeroInstall.Commands.CliCommands
         /// <remarks>
         /// This should be called before performing any operations that persist <see cref="Locations.InstallBase"/> somewhere, e.g. in generated shortcuts or stubs.
         /// It is not required for operations that only remove things from the system.</remarks>
-        /// <exception cref="NotSupportedException">The current Zero Install instance is running in portable mode.</exception>
         /// <exception cref="UnsuitableInstallBaseException">The current Zero Install instance is installed in a location unsuitable for the desired operation.</exception>
         protected void CheckInstallBase()
         {
             if (Locations.IsPortable)
-                throw new NotSupportedException(Resources.NoIntegrationFromPortable);
+            {
+                // NOTE: Portable instances remain decoupled from local instances, so we do not use UnsuitableInstallBaseException here, which would redirect commands to other instances.
+                if (Handler.Ask(Resources.AskDeployZeroInstall + Environment.NewLine + Resources.NoIntegrationFromPortable,
+                    defaultAnswer: false, alternateMessage: Resources.NoIntegrationFromPortable))
+                {
+                    var deployArgs = new[] {MaintenanceMan.Name, MaintenanceMan.Deploy.Name, "--restart-central"};
+                    if (MachineWide) deployArgs = deployArgs.Append("--machine");
+                    ProgramUtils.Run("0install", deployArgs, Handler);
+                }
+                throw new OperationCanceledException();
+            }
+
             if (ProgramUtils.IsRunningFromCache)
                 throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
             if (MachineWide && ProgramUtils.IsRunningFromPerUserDir)

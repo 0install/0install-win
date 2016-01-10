@@ -157,6 +157,9 @@
   <data name="DeletingImplementation" xml:space="preserve">
     <value>Διαγραφή εφαρμογής {0}</value>
   </data>
+  <data name="DeletingObsoleteFiles" xml:space="preserve">
+    <value>Διαγραφή παλιων αρχείων...</value>
+  </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Μια εφαρμογή δηλωτικου δίεσης δεν ταιριάζει με την αναμενόμενη τιμή.</value>
   </data>

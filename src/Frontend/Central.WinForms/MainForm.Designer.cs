@@ -61,6 +61,7 @@
             this.labelNotificationBar = new System.Windows.Forms.Label();
             this.buttonCommandLine = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlApps.SuspendLayout();
+            this.deployTimer = new System.Windows.Forms.Timer(this.components);
             this.tabPageAppList.SuspendLayout();
             this.menuUpdateAll.SuspendLayout();
             this.menuSync.SuspendLayout();
@@ -288,6 +289,12 @@
             resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
             this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
             // 
+            // deployTimer
+            // 
+            this.deployTimer.Interval = 1000;
+            this.deployTimer.Tick += new System.EventHandler(this.deployTimer_Tick);
+            // 
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -349,6 +356,7 @@
         private System.Windows.Forms.ToolStripMenuItem buttonIntro;
         private System.Windows.Forms.ToolStripMenuItem buttonStoreManage;
         private System.Windows.Forms.ToolStripMenuItem buttonCommandLine;
+        private System.Windows.Forms.Timer deployTimer;
     }
 }
 

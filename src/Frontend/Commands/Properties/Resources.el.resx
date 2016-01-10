@@ -418,6 +418,9 @@
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>Πρέπει να είστε διαχειριστης για να εκτελέσετε λειτουργίες του μηχανήματος κλίμακας.</value>
   </data>
+  <data name="MutexWait" xml:space="preserve">
+    <value>Αναμονή για όλες τις Zero Install περιπτώσεις να τελειώσουν...</value>
+  </data>
   <data name="MyApps" xml:space="preserve">
     <value>Οι εφαρμογές μου</value>
   </data>
@@ -614,6 +617,9 @@
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>Αποφασισμένοι &apos;{0}&apos; σε &apos;{1}&apos; χρησιμοποιώντας έναν κατάλογο.</value>
   </data>
+  <data name="RunNgen" xml:space="preserve">
+    <value>Προ-κατάρτιση NET συνελεύσεων για ταχύτερη εκκίνηση της εφαρμογής</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Επιλεγμένες υλοποιήσεις</value>
   </data>
@@ -628,6 +634,12 @@
   </data>
   <data name="StabilityPolicyReset" xml:space="preserve">
     <value>Επαναφορά της σταθερότητας ρύθμιση για {0} στην προεπιλογή;</value>
+  </data>
+  <data name="StartService" xml:space="preserve">
+    <value>Εκκίνηση Zero Install Υπηρεσίας</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>Διακοπή Zero Install Υπηρεσίας</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} χώρος αποθήκευσης ποιοτική αποκατάσταση.</value>

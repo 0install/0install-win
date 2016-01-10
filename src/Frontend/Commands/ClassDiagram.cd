@@ -399,7 +399,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliCommands.MultiCommand">
-    <Position X="35.25" Y="1.5" Width="1.75" />
+    <Position X="36" Y="1.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAACQgAAQAAAAAAAAEAACAAAAAAAAAAABAAAA=</HashCode>
       <FileName>CliCommands\MultiCommand.cs</FileName>
@@ -427,10 +427,37 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliCommands.SubCommand">
-    <Position X="37.25" Y="1" Width="1.5" />
+    <Position X="38.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CliCommands\SubCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan">
+    <Position X="38" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan.MaintenanceSubCommand" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\MaintenanceMan.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan.Deploy" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\MaintenanceMan.Deploy.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan.Remove" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\MaintenanceMan.Remove.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>CliCommands\MaintenanceMan.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

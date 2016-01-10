@@ -61,6 +61,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The command &apos;0install&apos; has been added to your command-line PATH..
+        /// </summary>
+        public static string Added0installToPath {
+            get {
+                return ResourceManager.GetString("Added0installToPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An alias named &apos;{0}&apos; for &apos;{1}&apos; was created..
         /// </summary>
         public static string AliasCreated {
@@ -120,6 +129,43 @@ namespace ZeroInstall.Commands.Properties {
         public static string AppList {
             get {
                 return ResourceManager.GetString("AppList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to register this instance machine-wide instead of just for the current user?.
+        /// </summary>
+        public static string AskDeployMachineWide {
+            get {
+                return ResourceManager.GetString("AskDeployMachineWide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arey you sure you want to deploy a new copy to &apos;{0}&apos;?.
+        /// </summary>
+        public static string AskDeployNewTarget {
+            get {
+                return ResourceManager.GetString("AskDeployNewTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to setup Zero Install on this computer?
+        ///This includes a start menu entry and access to the &quot;0install&quot; command-line..
+        /// </summary>
+        public static string AskDeployZeroInstall {
+            get {
+                return ResourceManager.GetString("AskDeployZeroInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove Zero Install from this computer?.
+        /// </summary>
+        public static string AskRemoveZeroInstall {
+            get {
+                return ResourceManager.GetString("AskRemoveZeroInstall", resourceCulture);
             }
         }
         
@@ -328,6 +374,34 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A portable version of Zero Install has been deployed to &apos;{0}&apos;.
+        ///You can use it by running the ZeroInstall.exe file in the directory..
+        /// </summary>
+        public static string DeployedPortable {
+            get {
+                return ResourceManager.GetString("DeployedPortable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When using the --portable option you must explicitly specify the target directory..
+        /// </summary>
+        public static string DeployMissingTargetForPortable {
+            get {
+                return ResourceManager.GetString("DeployMissingTargetForPortable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified target directory ({0}) is located outside your home directory..
+        /// </summary>
+        public static string DeployTargetOutsideHome {
+            get {
+                return ResourceManager.GetString("DeployTargetOutsideHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an alias for launching an application via 0install without always having to enter the full URI..
         /// </summary>
         public static string DescriptionAddAlias {
@@ -498,6 +572,24 @@ namespace ZeroInstall.Commands.Properties {
         public static string DescriptionListFeeds {
             get {
                 return ResourceManager.GetString("DescriptionListFeeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deploys Zero Install to the specified {TARGET} directory or the default directory for programs and integrates it in the system..
+        /// </summary>
+        public static string DescriptionMaintenanceDeploy {
+            get {
+                return ResourceManager.GetString("DescriptionMaintenanceDeploy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes the current instance of Zero Install from the system..
+        /// </summary>
+        public static string DescriptionMaintenanceRemove {
+            get {
+                return ResourceManager.GetString("DescriptionMaintenanceRemove", resourceCulture);
             }
         }
         
@@ -788,6 +880,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An existing copy of Zero Install was detected in &apos;{0}&apos;..
+        /// </summary>
+        public static string ExistingInstance {
+            get {
+                return ResourceManager.GetString("ExistingInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The feed was already registered for all appropriate interfaces..
         /// </summary>
         public static string FeedAlreadyRegistered {
@@ -906,6 +1007,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Installing Zero Install Store Service.
+        /// </summary>
+        public static string InstallService {
+            get {
+                return ResourceManager.GetString("InstallService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integrate {0}.
         /// </summary>
         public static string Integrate {
@@ -970,6 +1080,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The .manifest file is missing.
+        ///Run &apos;0install self-update --force&apos; to fix this..
+        /// </summary>
+        public static string MaintenanceMissingManifest {
+            get {
+                return ResourceManager.GetString("MaintenanceMissingManifest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing arguments..
         /// </summary>
         public static string MissingArguments {
@@ -1002,6 +1122,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string MustBeAdminForMachineWide {
             get {
                 return ResourceManager.GetString("MustBeAdminForMachineWide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for all Zero Install instances to end.
+        /// </summary>
+        public static string MutexWait {
+            get {
+                return ResourceManager.GetString("MutexWait", resourceCulture);
             }
         }
         
@@ -1407,6 +1536,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a portable installation that can be moved around (e.g., on a thumb drive)..
+        /// </summary>
+        public static string OptionPortable {
+            get {
+                return ResourceManager.GetString("OptionPortable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fetch fresh copies of all used feeds..
         /// </summary>
         public static string OptionRefresh {
@@ -1530,15 +1668,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please run http://0install.de/files/zero-install.exe to fix the issue..
-        /// </summary>
-        public static string PleaseRunInstaller {
-            get {
-                return ResourceManager.GetString("PleaseRunInstaller", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Portable mode.
         /// </summary>
         public static string PortableMode {
@@ -1638,6 +1767,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pre-compiling .NET assemblies for faster application startup.
+        /// </summary>
+        public static string RunNgen {
+            get {
+                return ResourceManager.GetString("RunNgen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected implementations.
         /// </summary>
         public static string SelectedImplementations {
@@ -1665,6 +1803,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The source and destination directories are the same: {0}.
+        /// </summary>
+        public static string SourceAndTargetSame {
+            get {
+                return ResourceManager.GetString("SourceAndTargetSame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set stability policy for {0} to match?.
         /// </summary>
         public static string StabilityPolicyAutoSet {
@@ -1688,6 +1835,24 @@ namespace ZeroInstall.Commands.Properties {
         public static string StabilityPolicySingleImplementation {
             get {
                 return ResourceManager.GetString("StabilityPolicySingleImplementation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Zero Install Store Service.
+        /// </summary>
+        public static string StartService {
+            get {
+                return ResourceManager.GetString("StartService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stopping Zero Install Store Service.
+        /// </summary>
+        public static string StopService {
+            get {
+                return ResourceManager.GetString("StopService", resourceCulture);
             }
         }
         
@@ -1779,6 +1944,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string UnableToLoadFeed {
             get {
                 return ResourceManager.GetString("UnableToLoadFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstalling Zero Install Store Service.
+        /// </summary>
+        public static string UninstallService {
+            get {
+                return ResourceManager.GetString("UninstallService", resourceCulture);
             }
         }
         

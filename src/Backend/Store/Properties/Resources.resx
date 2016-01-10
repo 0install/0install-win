@@ -157,6 +157,9 @@ Alternatively you can use the graphical user interface for managing the caches:
   <data name="DeletingImplementation" xml:space="preserve">
     <value>Deleting implementation {0}</value>
   </data>
+  <data name="DeletingObsoleteFiles" xml:space="preserve">
+    <value>Deleting obsolete files</value>
+  </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>An implementation's manifest hash does not match the expected value.</value>
   </data>

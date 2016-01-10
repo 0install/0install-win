@@ -124,6 +124,9 @@
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipGeneratorTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
+    <Compile Include="Store\Implementations\Deployment\ClearDirectoryTest.cs" />
+    <Compile Include="Store\Implementations\Deployment\DeployDirectoryTest.cs" />
+    <Compile Include="Store\Implementations\Deployment\DirectoryOperationTestBase.cs" />
     <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
     <Compile Include="Store\Implementations\DirectoryWalkTest.cs" />
     <Compile Include="Store\Implementations\FlagUtilsTest.cs" />

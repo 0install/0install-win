@@ -133,8 +133,17 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   <data name="Continue" xml:space="preserve">
     <value>Fortsetzen</value>
   </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Klicken um Zero Install auf diesem Rechner einzurichten...</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL eines Zero Install Feeds hier ein:</value>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Für alle Benutzer</value>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Für aktuellen Benutzer</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoriere doppelten Anwendungslisteneintrag für '{0}'.</value>

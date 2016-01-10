@@ -120,7 +120,10 @@ namespace ZeroInstall.Central.WinForms
                 tabControlApps.SelectTab(tabPageCatalog);
             }
 
-            if (!SelfUpdateUtils.NoAutoCheck && !ProgramUtils.IsRunningFromCache) selfUpdateWorker.RunWorkerAsync();
+            if (ProgramUtils.IsRunningFromCache && ProgramUtils.FindOtherInstance() == null)
+                deployTimer.Enabled = true;
+            else if (!SelfUpdateUtils.NoAutoCheck)
+                selfUpdateWorker.RunWorkerAsync();
         }
 
         /// <summary>
@@ -384,6 +387,59 @@ namespace ZeroInstall.Central.WinForms
 
         //--------------------//
 
+        #region Messages
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == IntegrationManager.ChangedWindowMessageID)
+                BeginInvoke(new Action(UpdateAppListAsync));
+            else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
+                tabControlApps.SelectedTab = tabPageAppList;
+            else if (m.Msg == MaintenanceManager.PerformedWindowMessageID)
+                labelNotificationBar.Hide();
+
+            base.WndProc(ref m);
+        }
+
+        #endregion
+
+        #region Deploy
+        private void deployTimer_Tick(object sender, EventArgs e)
+        {
+            deployTimer.Enabled = false;
+            ShowNotificactionBar(Resources.DeployNotification, () =>
+            {
+                bool machineWide;
+
+                if (WindowsUtils.IsWindowsVista)
+                { // Offer choice between per-user and machine-wide using Vista-style dialog box
+                    switch (Msg.YesNoCancel(this, Commands.Properties.Resources.AskDeployZeroInstall, MsgSeverity.Info,
+                        yesCaption: Resources.ForCurrentUser, noCaption: Resources.ForAllUsers))
+                    {
+                        case DialogResult.Yes:
+                            machineWide = false;
+                            break;
+
+                        case DialogResult.No:
+                            machineWide = true;
+                            break;
+
+                        default:
+                            return;
+                    }
+                }
+                else
+                { // Inherit machine-wide state from Central on pre-Vista OSes
+                    if (Msg.YesNoCancel(this, Commands.Properties.Resources.AskDeployZeroInstall, MsgSeverity.Info) != DialogResult.Yes)
+                        return;
+                    machineWide = _machineWide;
+                }
+
+                Program.RunCommand(machineWide, MaintenanceMan.Name, "deploy", "--batch", "--restart-central");
+                Close();
+            });
+        }
+        #endregion
+
         #region Self-update
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -477,16 +533,6 @@ namespace ZeroInstall.Central.WinForms
                 var feed = _tileManagement.LoadFeedSafe(tile.InterfaceUri);
                 if (feed != null) BeginInvoke(new Action(() => tile1.Feed = feed));
             }
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == IntegrationManager.ChangedWindowMessageID)
-                BeginInvoke(new Action(UpdateAppListAsync));
-            else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
-                tabControlApps.SelectedTab = tabPageAppList;
-
-            base.WndProc(ref m);
         }
         #endregion
 

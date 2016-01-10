@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Added0installToPath" xml:space="preserve">
+    <value>The command '0install' has been added to your command-line PATH.</value>
+  </data>
   <data name="AliasCreated" xml:space="preserve">
     <value>An alias named '{0}' for '{1}' was created.</value>
   </data>
@@ -137,6 +140,19 @@
   </data>
   <data name="AppList" xml:space="preserve">
     <value>Application list</value>
+  </data>
+  <data name="AskDeployMachineWide" xml:space="preserve">
+    <value>Do you want to register this instance machine-wide instead of just for the current user?</value>
+  </data>
+  <data name="AskDeployNewTarget" xml:space="preserve">
+    <value>Arey you sure you want to deploy a new copy to '{0}'?</value>
+  </data>
+  <data name="AskDeployZeroInstall" xml:space="preserve">
+    <value>Do you want to setup Zero Install on this computer?
+This includes a start menu entry and access to the "0install" command-line.</value>
+  </data>
+  <data name="AskRemoveZeroInstall" xml:space="preserve">
+    <value>Are you sure you want to remove Zero Install from this computer?</value>
   </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Do you wish to update any existing desktop integration to reflect this?
@@ -210,6 +226,16 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   <data name="DeletingImplementations" xml:space="preserve">
     <value>Deleting implementation</value>
   </data>
+  <data name="DeployedPortable" xml:space="preserve">
+    <value>A portable version of Zero Install has been deployed to '{0}'.
+You can use it by running the ZeroInstall.exe file in the directory.</value>
+  </data>
+  <data name="DeployMissingTargetForPortable" xml:space="preserve">
+    <value>When using the --portable option you must explicitly specify the target directory.</value>
+  </data>
+  <data name="DeployTargetOutsideHome" xml:space="preserve">
+    <value>The specified target directory ({0}) is located outside your home directory.</value>
+  </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Create an alias for launching an application via 0install without always having to enter the full URI.</value>
   </data>
@@ -269,6 +295,12 @@ The file must have a trusted digital signature, as when fetching from the networ
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Lists all extra feeds added to URI using '0install add-feed'.</value>
+  </data>
+  <data name="DescriptionMaintenanceDeploy" xml:space="preserve">
+    <value>Deploys Zero Install to the specified {TARGET} directory or the default directory for programs and integrates it in the system.</value>
+  </data>
+  <data name="DescriptionMaintenanceRemove" xml:space="preserve">
+    <value>Removes the current instance of Zero Install from the system.</value>
   </data>
   <data name="DescriptionRemoveAllApps" xml:space="preserve">
     <value>Removes all applications from the application list and undoes any desktop environment integration. Use this command to clean up the system before removing Zero Install.</value>
@@ -370,6 +402,9 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="ExclusiveOptions" xml:space="preserve">
     <value>The options {0} and {1} cannot be used together.</value>
   </data>
+  <data name="ExistingInstance" xml:space="preserve">
+    <value>An existing copy of Zero Install was detected in '{0}'.</value>
+  </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>The feed was already registered for all appropriate interfaces.</value>
   </data>
@@ -410,6 +445,9 @@ This is similar to '0install download --refresh', except that it prints informat
     <value>This feed does not seem to be for the same application. Add it anyway?
 A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   </data>
+  <data name="InstallService" xml:space="preserve">
+    <value>Installing Zero Install Store Service</value>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate {0}</value>
   </data>
@@ -432,6 +470,10 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="LocalPathOf" xml:space="preserve">
     <value>Local path of {0}</value>
   </data>
+  <data name="MaintenanceMissingManifest" xml:space="preserve">
+    <value>The .manifest file is missing.
+Run '0install self-update --force' to fix this.</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments.</value>
   </data>
@@ -443,6 +485,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>You must be an administrator to perform machine-wide operations.</value>
+  </data>
+  <data name="MutexWait" xml:space="preserve">
+    <value>Waiting for all Zero Install instances to end</value>
   </data>
   <data name="MyApps" xml:space="preserve">
     <value>My applications</value>
@@ -581,6 +626,9 @@ In off-line mode, no interfaces are refreshed even if they are out-of-date, and 
   <data name="OptionOS" xml:space="preserve">
     <value>Forces the solver to target the operating system {OS}.</value>
   </data>
+  <data name="OptionPortable" xml:space="preserve">
+    <value>Create a portable installation that can be moved around (e.g., on a thumb drive).</value>
+  </data>
   <data name="OptionRefresh" xml:space="preserve">
     <value>Fetch fresh copies of all used feeds.</value>
   </data>
@@ -626,9 +674,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="OptionXml" xml:space="preserve">
     <value>Write selected versions to console as machine-readable XML.</value>
   </data>
-  <data name="PleaseRunInstaller" xml:space="preserve">
-    <value>Please run http://0install.de/files/zero-install.exe to fix the issue.</value>
-  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
@@ -662,6 +707,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>Resolved '{0}' to '{1}' using a catalog.</value>
   </data>
+  <data name="RunNgen" xml:space="preserve">
+    <value>Pre-compiling .NET assemblies for faster application startup</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations</value>
   </data>
@@ -671,6 +719,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
   </data>
+  <data name="SourceAndTargetSame" xml:space="preserve">
+    <value>The source and destination directories are the same: {0}</value>
+  </data>
   <data name="StabilityPolicyAutoSet" xml:space="preserve">
     <value>Set stability policy for {0} to match?</value>
   </data>
@@ -679,6 +730,12 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="StabilityPolicySingleImplementation" xml:space="preserve">
     <value>There is only a single implementation in the feed. It has a stability rating of '{0}'.</value>
+  </data>
+  <data name="StartService" xml:space="preserve">
+    <value>Starting Zero Install Store Service</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>Stopping Zero Install Store Service</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} storage space reclaimed.</value>
@@ -710,6 +767,9 @@ Keep this key secret and use something different for your password. This way nob
   </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Unable to load feed '{0}'; skipping.</value>
+  </data>
+  <data name="UninstallService" xml:space="preserve">
+    <value>Uninstalling Zero Install Store Service</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command '{0}'.</value>

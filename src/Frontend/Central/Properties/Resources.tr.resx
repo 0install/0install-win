@@ -133,8 +133,17 @@ Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerin
   <data name="Continue" xml:space="preserve">
     <value>Devam</value>
   </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Zero Install yazılımını bu bilgisayara yüklemek için tıklayın...</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Lütfen buraya bir Zero Install akışının adresini yazın:</value>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Tüm kullanıcılar için</value>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Geçerli kullanıcı için</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>&apos;{0}&apos; için çift uygulama listesi kaydı yoksayılıyor.</value>

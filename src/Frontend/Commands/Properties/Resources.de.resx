@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Added0installToPath" xml:space="preserve">
+    <value>Der '0install' Befehl wurde Ihrem Befehlszeilen PATH hinzugefügt.</value>
+  </data>
   <data name="AliasCreated" xml:space="preserve">
     <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.</value>
   </data>
@@ -137,6 +140,19 @@
   </data>
   <data name="AppList" xml:space="preserve">
     <value>Anwendungsliste</value>
+  </data>
+  <data name="AskDeployMachineWide" xml:space="preserve">
+    <value>Möchten Sie diese Instanz maschinenweit statt nur für den aktuellen Benutzer registrieren?</value>
+  </data>
+  <data name="AskDeployNewTarget" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie eine neue Kopie in '{0}' erstellen möchten?</value>
+  </data>
+  <data name="AskDeployZeroInstall" xml:space="preserve">
+    <value>Möchten Sie Zero Install auf diesem Computer einrichten?
+Dies beinhaltet einen Startmenü-Eintrag sowie Zugriff auf den "0install" Befehl von der Befehlszeile aus.</value>
+  </data>
+  <data name="AskRemoveZeroInstall" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie Zero Install von diesem Computer entfernen möchten?</value>
   </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Möchten Sie die bestehende Desktopintegration daran anpassen?
@@ -210,6 +226,16 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   <data name="DeletingImplementations" xml:space="preserve">
     <value>Lösche Implementierung</value>
   </data>
+  <data name="DeployedPortable" xml:space="preserve">
+    <value>Eine portable Version von Zero Install wurde in '{0}' abgelegt.
+Sie können Sie verwenden, indem Sie die ZeroInstall.exe Datei in dem Verzeichnis starten.</value>
+  </data>
+  <data name="DeployMissingTargetForPortable" xml:space="preserve">
+    <value>Wenn Sie die --portable Option verwenden, müssen Sie das Zielverzeichnis explizit angeben.</value>
+  </data>
+  <data name="DeployTargetOutsideHome" xml:space="preserve">
+    <value>Das angegebene Zielverzeichnis ({0}) liegt außerhalb ihres Home-Verzeichnisses.</value>
+  </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Legt einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
   </data>
@@ -269,6 +295,12 @@ Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Listet alle zusätzlichen Feeds auf, die mit '0install add-feed' hinzugefügt wurden.</value>
+  </data>
+  <data name="DescriptionMaintenanceDeploy" xml:space="preserve">
+    <value>Legt Zero Install im angegebenen {TARGET} Verzeichnis oder im Standardverzeichnis für Programme ab und integriert es ins System.</value>
+  </data>
+  <data name="DescriptionMaintenanceRemove" xml:space="preserve">
+    <value>Entfernt die aktuelle Zero Install Instanz vom System.</value>
   </data>
   <data name="DescriptionRemoveAllApps" xml:space="preserve">
     <value>Entfernt alle Anwendungen aus der Anwendungsliste und macht Integrationen in die Desktopumgebung rückgängig. Verwenden Sie diesen Befehl um das System aufzuräumen, bevor Sie Zero Install deinstallieren.</value>
@@ -370,6 +402,9 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   <data name="ExclusiveOptions" xml:space="preserve">
     <value>Die Optionen {0} und {1} können nicht zusammen genutzt werden.</value>
   </data>
+  <data name="ExistingInstance" xml:space="preserve">
+    <value>Eine bestehende Kopie von Zero Install wurde in '{0}' entdeckt.</value>
+  </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>Der Feed war bereits für alle passenden Interfaces registriert.</value>
   </data>
@@ -410,6 +445,9 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
     <value>Dieser Feed scheint nicht für die gleiche Anwendung zu sein. Trotzdem hinzufügen?
 Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   </data>
+  <data name="InstallService" xml:space="preserve">
+    <value>Installiere Zero Install Store Dienst</value>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integriere {0}</value>
   </data>
@@ -432,6 +470,10 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="LocalPathOf" xml:space="preserve">
     <value>Lokaler Pfad von {0}</value>
   </data>
+  <data name="MaintenanceMissingManifest" xml:space="preserve">
+    <value>Die .manifest Datei fehlt.
+Führen Sie '0install self-update --force' aus, um dies zu beheben.</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Keine Argumente vorhanden.</value>
   </data>
@@ -444,6 +486,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>Sie müssen ein Administrator sein, um maschinenweite Operationen durchführen zu können.</value>
   </data>
+  <data name="MutexWait" xml:space="preserve">
+    <value>Warte auf das Beenden aller Zero Install Instanzen...</value>
+  </data>
   <data name="MyApps" xml:space="preserve">
     <value>Meine Anwendungen</value>
   </data>
@@ -454,7 +499,7 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Zero Install muss auf Ihrem System eingerichtet werden, damit Desktopintegration funktioniert.</value>
   </data>
   <data name="NoIntegrationFromPortable" xml:space="preserve">
-    <value>Zero Install läuft im Portable Modus. Es muss an einem fixen Ort abgelegt werden, damit Desktopintegration funktioniert. Diese wird  von Ihrer Portable-Kopie komplett unabhängig sein.</value>
+    <value>Zero Install läuft im Portable Modus. Es muss an einem fixen Ort abgelegt werden, damit Desktopintegration funktioniert. Diese wird von Ihrer Portable-Kopie komplett unabhängig sein.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
@@ -581,6 +626,9 @@ Im Offline-Modus wird kein Interface erneuert, auch wenn es veraltet ist und neu
   <data name="OptionOS" xml:space="preserve">
     <value>Zwingt den Solver auf ein bestimmtes Betriebssystem {OS} abzuzielen.</value>
   </data>
+  <data name="OptionPortable" xml:space="preserve">
+    <value>Erstelle eine portable Installation, die umherbewegt werden kann (z.B. auf einem USB Stick).</value>
+  </data>
   <data name="OptionRefresh" xml:space="preserve">
     <value>Rufe aktualisierte Kopien aller verwendeten Feeds ab.</value>
   </data>
@@ -626,9 +674,6 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="OptionXml" xml:space="preserve">
     <value>Scheibe ausgewählte Versionen auf die Konsole als Maschinen-lesbares XML.</value>
   </data>
-  <data name="PleaseRunInstaller" xml:space="preserve">
-    <value>Bitte führen Sie http://0install.de/files/zero-install.exe aus um das Problem zu lösen.</value>
-  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>
@@ -662,6 +707,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst</value>
   </data>
+  <data name="RunNgen" xml:space="preserve">
+    <value>.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren</value>
+  </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen</value>
   </data>
@@ -671,6 +719,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
   </data>
+  <data name="SourceAndTargetSame" xml:space="preserve">
+    <value>Das Quell- und das Zielverzeichnis sind identisch: {0}</value>
+  </data>
   <data name="StabilityPolicyAutoSet" xml:space="preserve">
     <value>Stabilitäts-Policy für {0} entsprechend setzten?</value>
   </data>
@@ -679,6 +730,12 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="StabilityPolicySingleImplementation" xml:space="preserve">
     <value>Es befindet sich nur eine einzelne Implementierung im Feed. Sie hat einen Stabilitätsbewertung von '{0}'.</value>
+  </data>
+  <data name="StartService" xml:space="preserve">
+    <value>Starte Zero Install Store Dienst</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>Beende Zero Install Store Dienst</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} Speicherplatz zurückgewonnen.</value>
@@ -710,6 +767,9 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
   </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
+  </data>
+  <data name="UninstallService" xml:space="preserve">
+    <value>Deinstalliere Zero Install Store Dienst</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
