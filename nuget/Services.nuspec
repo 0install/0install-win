@@ -4,11 +4,12 @@
         <id>ZeroInstall.Services</id>
         <version>$version$</version>
         <authors>Bastian Eicher</authors>
-        <projectUrl>http://0install.de/</projectUrl>
+        <projectUrl>http://0install.de/dev/</projectUrl>
         <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
         <iconUrl>https://0install.de/wp-content/uploads/icon.png</iconUrl>
         <description>The Zero Install Services API contains the entire logic for services such as dependency resolution and implementation downloading.
-Zero Install itself is built upon this API. You can use the API to integrate Zero Install features into your own application, e.g. for a plugin management system.</description>
+Zero Install itself is built upon this API. You can use the API to integrate Zero Install features into your own application, e.g. for a plugin management system.
+API documentation: http://0install.de/api/backend/</description>
         <summary>Zero Install Services API (download and run apps)</summary>
         <dependencies>
             <dependency id="ZeroInstall.Store" version="[$version$]" />
