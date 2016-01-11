@@ -79,6 +79,7 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">There was a problem accessin a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         [NotNull, ItemNotNull]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "May throw exceptions")]
         public static IEnumerable<string> GetUserImplementationDirs()
         {
             return GetImplementationDirs(GetUserConfigFile());
@@ -106,6 +107,7 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">There was a problem accessin a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         [NotNull, ItemNotNull]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "May throw exceptions")]
         public static IEnumerable<string> GetMachineWideImplementationDirs()
         {
             return GetImplementationDirs(GetMachineWideConfigFile());

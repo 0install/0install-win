@@ -28,9 +28,10 @@ namespace ZeroInstall.Store.Model.Selection
     /// <summary>
     /// An executable implementation of a <see cref="Feed"/> as a part of a <see cref="Selections"/>.
     /// </summary>
-    /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Store.Model.Implementation"/> instance.</remarks>
+    /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
+    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "IComparable is only used for deterministic ordering")]
     public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>, IComparable<ImplementationSelection>
     {
         /// <summary>
