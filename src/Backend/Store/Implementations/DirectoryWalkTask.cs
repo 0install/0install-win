@@ -29,7 +29,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Common base class for tasks that walk an entire directory tree.
+    /// Common base class for tasks that walk an entire directory tree using template methods.
     /// </summary>
     public abstract class DirectoryWalkTask : TaskBase
     {

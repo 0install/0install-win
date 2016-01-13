@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// The current UI language; <c>null</c> to use system default.
         /// </summary>
-        /// <remarks>This value is only used on Windows and is stored in the Registry. For non-Windows platforms use the <code>LC_*</code> environment variables instead.</remarks>
+        /// <remarks>This value is only used on Windows and is stored in the Registry. For non-Windows platforms use the <c>LC_*</c> environment variables instead.</remarks>
         [CanBeNull]
         public static CultureInfo UILanguage
         {

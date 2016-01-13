@@ -40,10 +40,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         {}
 
         /// <summary>
-        /// Adds a layer around a stream that isolates the <code>data.tar.gz</code> file from a TAR stream.
+        /// Adds a layer around a stream that isolates the <c>data.tar.gz</c> file from a TAR stream.
         /// </summary>
         /// <param name="stream">The TAR stream.</param>
-        /// <returns>A stream representing the <code>data.tar.gz</code> data.</returns>
+        /// <returns>A stream representing the <c>data.tar.gz</c> data.</returns>
         /// <exception cref="IOException">The compressed stream contains invalid data.</exception>
         private static Stream GetPartialStream(Stream stream)
         {

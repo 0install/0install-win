@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns the string representation of this node for the new manifest format.
         /// </summary>
-        /// <returns><code>"D", space, full path name, newline</code></returns>
+        /// <returns><c>"D", space, full path name, newline</c></returns>
         public override string ToString()
         {
             return string.Format(CultureInfo.InvariantCulture, "D {0}", FullPath);
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns the string representation of this node for the old manifest format.
         /// </summary>
-        /// <returns><code>"D", space, mtime, space, full path name, newline</code></returns>
+        /// <returns><c>"D", space, mtime, space, full path name, newline</c></returns>
         public override string ToStringOld()
         {
             return string.Format(CultureInfo.InvariantCulture, "D {0}", FullPath);

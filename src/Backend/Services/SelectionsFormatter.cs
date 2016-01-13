@@ -104,7 +104,7 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="implementation">The implementation to locate.</param>
         /// <param name="store">The store to search for the implementation storage location.</param>
-        /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <code>package:</code> or <c>null</c> if the implementation is not cached yet.</returns>
+        /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <c>package:</c> or <c>null</c> if the implementation is not cached yet.</returns>
         [CanBeNull]
         private static string GetPath([NotNull] this ImplementationSelection implementation, [NotNull] IStore store)
         {

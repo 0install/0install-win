@@ -87,7 +87,7 @@ namespace ZeroInstall.Services.PackageManagers
         }
 
         /// <summary>
-        /// Hook for retrieving a set of specific native implementations for a package name.
+        /// Retrieves a set of specific native implementations for a package name.
         /// </summary>
         /// <param name="packageName">The name of the package to look for.</param>
         [NotNull, ItemNotNull]

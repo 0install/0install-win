@@ -237,7 +237,7 @@ http://creativecommons.org/licenses/by-sa/2.5/
                       This is a runnable Zero Install feed. To add this program to your Applications menu, choose
                       <b>Zero Install -&gt; Add New Program</b> from the <b>Applications</b> menu, and drag this
                       feed's URL into the window it opens.
-                      If you don't see this menu item, install the <code>zeroinstall-injector</code> package from your
+                      If you don't see this menu item, install the zeroinstall-injector package from your
                       distribution's repository, or from <a href="http://0install.net/injector.html">0install.net</a>.
                     </p>
                     <p>
@@ -247,8 +247,8 @@ http://creativecommons.org/licenses/by-sa/2.5/
                       </pre>
                     </p>
                     <p>
-                      The <code>0alias</code> command can be used to create a short-cut to run it again later.
-                      If you don't have the <code>0launch</code> command, download it from
+                      The 0alias command can be used to create a short-cut to run it again later.
+                      If you don't have the 0launch command, download it from
                       <a href="http://0install.net/injector.html">0install.net</a>, which also contains
                       documentation about how the Zero Install system works.
                     </p>

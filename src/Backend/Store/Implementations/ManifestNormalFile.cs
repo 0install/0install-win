@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns the string representation of this node for the manifest format.
         /// </summary>
-        /// <returns><code>"F", space, hash, space, mtime, space, size, space, file name, newline</code></returns>
+        /// <returns><c>"F", space, hash, space, mtime, space, size, space, file name, newline</c></returns>
         public override string ToString()
         {
             return string.Format(CultureInfo.InvariantCulture, "F {0} {1} {2} {3}", Digest, ModifiedTime.ToUnixTime(), Size, Name);
