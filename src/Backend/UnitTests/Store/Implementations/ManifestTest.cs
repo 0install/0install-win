@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using FluentAssertions;
@@ -139,6 +140,24 @@ namespace ZeroInstall.Store.Implementations
                 manifest.ToString().Replace(Environment.NewLine, "\n")
                     .Should().Be("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file\n");
             }
+        }
+
+        [Test]
+        public void TestListPaths()
+        {
+            var normalFile = new ManifestNormalFile("123", new DateTime(), 10, "normal");
+            var dir1 = new ManifestDirectory("/dir1");
+            var executableFile = new ManifestExecutableFile("123", new DateTime(), 10, "executable");
+            var dir2 = new ManifestDirectory("/dir2");
+            var symlink = new ManifestSymlink("123", 10, "symlink");
+            var manifest = new Manifest(ManifestFormat.Sha256New, normalFile, dir1, executableFile, dir2, symlink);
+
+            manifest.ListPaths().Should().Equal(
+                new KeyValuePair<string, ManifestNode>("normal", normalFile),
+                new KeyValuePair<string, ManifestNode>("dir1", dir1),
+                new KeyValuePair<string, ManifestNode>(Path.Combine("dir1", "executable"), executableFile),
+                new KeyValuePair<string, ManifestNode>("dir2", dir2),
+                new KeyValuePair<string, ManifestNode>(Path.Combine("dir2", "symlink"), symlink));
         }
 
         // ReSharper disable AssignNullToNotNullAttribute
