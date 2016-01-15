@@ -42,6 +42,7 @@ namespace ZeroInstall.Store.Model
             MimeTypeTarGzip = "application/x-compressed-tar",
             MimeTypeTarBzip = "application/x-bzip-compressed-tar",
             MimeTypeTarLzma = "application/x-lzma-compressed-tar",
+            MimeTypeTarXz = "application/x-xz-compressed-tar",
             MimeTypeRubyGem = "application/x-ruby-gem",
             MimeType7Z = "application/x-7z-compressed",
             MimeTypeCab = "application/vnd.ms-cab-compressed",
@@ -53,7 +54,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// All known <see cref="MimeType"/> values for archives.
         /// </summary>
-        public static readonly string[] KnownMimeTypes = {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeRubyGem, MimeType7Z, MimeTypeCab, MimeTypeMsi, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
+        public static readonly string[] KnownMimeTypes = {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeTarXz, MimeTypeRubyGem, MimeType7Z, MimeTypeCab, MimeTypeMsi, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
 
         /// <summary>
         /// Tries to guess the MIME type of an archive file by looking at its file extension.
@@ -73,6 +74,7 @@ namespace ZeroInstall.Store.Model
             if (fileName.EndsWithIgnoreCase(".tar.gz") || fileName.EndsWithIgnoreCase(".tgz")) return MimeTypeTarGzip;
             if (fileName.EndsWithIgnoreCase(".tar.bz2") || fileName.EndsWithIgnoreCase(".tbz2") || fileName.EndsWithIgnoreCase(".tbz")) return MimeTypeTarBzip;
             if (fileName.EndsWithIgnoreCase(".tar.lzma")) return MimeTypeTarLzma;
+            if (fileName.EndsWithIgnoreCase(".tar.xz")) return MimeTypeTarXz;
             if (fileName.EndsWithIgnoreCase(".gem")) return MimeTypeRubyGem;
             if (fileName.EndsWithIgnoreCase(".7z")) return MimeType7Z;
             if (fileName.EndsWithIgnoreCase(".cab")) return MimeTypeCab;
