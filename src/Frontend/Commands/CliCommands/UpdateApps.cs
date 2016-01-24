@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands.CliCommands
         private void Clean(IEnumerable<ManifestDigest> digestsToKeep)
         {
             var toDelete = Store.ListAll().Except(digestsToKeep, ManifestDigestPartialEqualityComparer.Instance).ToList();
-            Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, x => Store.Remove(x, Handler)));
+            Handler.RunTask(ForEachTask.Create(Resources.RemovingOutdated, toDelete, x => Store.Remove(x, Handler)));
         }
     }
 }

@@ -12,7 +12,7 @@ This API provides a common basis for the packages ZeroInstall.Services and ZeroI
 API documentation: http://0install.de/api/backend/</description>
         <summary>Zero Install Storage API (data models and management functions)</summary>
         <dependencies>
-            <dependency id="NanoByte.Common" version="[1.2.8]" />
+            <dependency id="NanoByte.Common" version="[1.2.9]" />
             <dependency id="ICSharpCode.SharpZipLib.Patched" version="0.86.5" />
             <dependency id="SevenZipSharp" version="0.64" />
             <dependency id="Newtonsoft.Json" version="7.0.1" />

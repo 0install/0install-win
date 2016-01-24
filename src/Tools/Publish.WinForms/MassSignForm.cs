@@ -115,7 +115,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <exception cref="UnauthorizedAccessException">Read or write access to the feed file is not permitted.</exception>
         private void SignFiles(OpenPgpSecretKey secretKey, string passphrase)
         {
-            var task = new ForEachTask<FileInfo>("Signing feeds", _files, file =>
+            var task = ForEachTask.Create("Signing feeds", _files, file =>
             {
                 SignedFeed signedFeed;
                 try

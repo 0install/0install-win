@@ -571,7 +571,7 @@ namespace ZeroInstall.Store.Implementations
 
             using (var run = new OptimiseRun(DirectoryPath))
             {
-                handler.RunTask(new ForEachTask<ManifestDigest>(
+                handler.RunTask(ForEachTask.Create(
                     name: string.Format(Resources.FindingDuplicateFiles, DirectoryPath),
                     target: ListAll(),
                     work: run.Work));
