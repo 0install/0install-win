@@ -20,6 +20,7 @@ Source directory structure
     - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
     - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
     - Samples: Contains the executables for the Zero Install API samples.
+    - zero-install.exe: A single-file Zero Install bootstrapper.
   - Packages: Contains the generated NuGet packages.
   - Installer: Contains the generated installers.
   - Documentation: Contains the generated source code documentation.

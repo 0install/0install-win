@@ -38,6 +38,11 @@ FOR /d %%D IN ("%~dp0src\Tools\*") DO (
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
+rd /s /q "%~dp0src\Bootstrap\bin" > NUL 2>&1
+rd /s /q "%~dp0src\Bootstrap\obj" > NUL 2>&1
+rd /s /q "%~dp0src\Bootstrap\test-results" > NUL 2>&1
+del "%~dp0src\Bootstrap\*.pidb" > NUL 2>&1
+del "%~dp0src\Bootstrap\*.csproj.user" > NUL 2>&1
 
 rem NuGet packages
 FOR /d %%D IN ("%~dp0src\packages\*") DO rd /s /q "%%D"

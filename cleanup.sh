@@ -10,6 +10,7 @@ rm -f src/*.userprefs src/*.suo src/*.user src/*.cache
 rm -rf src/obj
 
 #Per-project
+rm -rf src/*/*/bin
 rm -rf src/*/*/obj
 rm -rf src/*/*/test-results
 rm -f src/*/*/*.pidb

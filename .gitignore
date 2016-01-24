@@ -1,6 +1,7 @@
 /build/
 /src/packages/*/
 /src/_ReSharper*/
+bin/
 obj/
 test-results/
 *.bak
