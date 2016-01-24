@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands.Utils
             if (services.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver
-            var requirements = new Requirements(services.Config.SelfUpdateUri, command: "update");
+            var requirements = new Requirements(services.Config.SelfUpdateUri);
             var selections = services.Solver.Solve(requirements);
 
             // Report version of current update if it is newer than the already installed version

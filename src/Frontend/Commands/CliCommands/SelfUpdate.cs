@@ -59,7 +59,6 @@ namespace ZeroInstall.Commands.CliCommands
             NoWait = true;
             FeedManager.Refresh = true;
             Config.AllowApiHooking = false;
-            Requirements.Command = "update";
 
             //Options.Remove("no-wait");
             //Options.Remove("refresh");
@@ -78,9 +77,10 @@ namespace ZeroInstall.Commands.CliCommands
             if (additionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + AdditionalArgs.JoinEscapeArguments(), null);
 
             SetInterfaceUri(Config.SelfUpdateUri);
+            if (ProgramUtils.GuiAssemblyName != null) Requirements.Command = Command.NameRunGui;
 
-            // Pass in the installation directory to the updater as an argument
-            AdditionalArgs.Add(Locations.InstallBase);
+            // Instruct new version of Zero Install in the cache to deploy itself over the location of the current version
+            AdditionalArgs.AddRange(new[] {MaintenanceMan.Name, MaintenanceMan.Deploy.Name, "--batch", Locations.InstallBase});
 
             if (_restartCentral) AdditionalArgs.Add("--restart-central");
         }

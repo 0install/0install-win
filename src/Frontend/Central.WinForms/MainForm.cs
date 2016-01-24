@@ -494,8 +494,8 @@ namespace ZeroInstall.Central.WinForms
                 {
                     try
                     {
-                        ProcessUtils.Assembly("0install-win", SelfUpdate.Name, "--batch", "--restart-central").Start();
-                        Application.Exit();
+                        Program.RunCommand(SelfUpdate.Name, "--batch", "--restart-central");
+                        Close();
                     }
                         #region Error handling
                     catch (OperationCanceledException)

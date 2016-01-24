@@ -1,4 +1,4 @@
-﻿// This file contains shared assembly information for all projects except the updater and tools
+﻿// This file contains shared assembly information for all projects except Tools
 
 using System.Reflection;
 

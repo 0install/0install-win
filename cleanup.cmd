@@ -38,12 +38,6 @@ FOR /d %%D IN ("%~dp0src\Tools\*") DO (
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
-FOR /d %%D IN ("%~dp0src\Updater\*") DO (
-  rd /s /q "%%D\obj" > NUL 2>&1
-  rd /s /q "%%D\test-results" > NUL 2>&1
-  del "%%D\*.pidb" > NUL 2>&1
-  del "%%D\*.csproj.user" > NUL 2>&1
-)
 
 rem NuGet packages
 FOR /d %%D IN ("%~dp0src\packages\*") DO rd /s /q "%%D"

@@ -23,12 +23,11 @@ Konzeptuell können Sie sich vorstellen, dass die Software nur auf einem Server 
     <command name="central" path="ZeroInstall.exe">
       <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
     </command>
-    <command name="update">
-      <environment name="ZEROINSTALL_UPDATER_SOURCE" insert="." mode="replace" />
-      <runner interface="http://0install.de/feeds/ZeroInstall_Updater.xml">
-        <arg>$ZEROINSTALL_UPDATER_SOURCE</arg>
-        <arg>2.10.0</arg>
-      </runner>
+    <command name="update" path="0install-win.exe">
+      <arg>maintenance</arg>
+      <arg>deploy</arg>
+      <arg>--batch</arg>
+      <runner interface="http://0install.de/feeds/cli/cli.xml" command="run-gui" />
     </command>
     <implementation version="2.10.0-post-1" stability="testing" id="local-release" local-path="build/Release/Frontend">
       <manifest-digest />
