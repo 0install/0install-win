@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -77,11 +76,12 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
                 }.Dispatch(AppEntry.AccessPoints.Entries);
             }
 
-            PurgeEmpty(MenuEntries);
-            PurgeEmpty(DesktopIcons);
-            PurgeEmpty(SendTo);
-            PurgeEmpty(Aliases);
-            PurgeEmpty(AutoStarts);
+            // Remove incomplete entries
+            MenuEntries.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            DesktopIcons.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            SendTo.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            Aliases.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            AutoStarts.RemoveAll(x => string.IsNullOrEmpty(x.Name));
 
             // Determine differences between current and desired state
             Merge.TwoWay(theirs: MenuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
@@ -89,13 +89,6 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             Merge.TwoWay(theirs: SendTo, mine: currentSendTo, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: Aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: AutoStarts, mine: currentAutoStarts, added: toAdd.Add, removed: toRemove.Add);
-        }
-
-        private static void PurgeEmpty<T>(ICollection<T> list)
-            where T : CommandAccessPoint
-        {
-            foreach (var entry in list.Where(x => string.IsNullOrEmpty(x.Name) || string.IsNullOrEmpty(x.Command)).ToList())
-                list.Remove(entry);
         }
     }
 }
