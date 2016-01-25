@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AeroWizard">
-      <HintPath>..\..\packages\AeroWizard.2.0.12\lib\net20\AeroWizard.dll</HintPath>
+      <HintPath>..\..\packages\AeroWizard.2.1.2\lib\net20\AeroWizard.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
