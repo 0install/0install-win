@@ -89,6 +89,15 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter &apos;0install --help&apos; to see a list of available commands..
+        /// </summary>
+        public static string CommandLineHint {
+            get {
+                return ResourceManager.GetString("CommandLineHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {

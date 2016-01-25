@@ -153,6 +153,9 @@
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>&amp;Cache Verwaltung</value>
   </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>&amp;Befehlszeile</value>
+  </data>
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
   </data>

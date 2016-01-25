@@ -127,6 +127,9 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Geben Sie '0install --help' ein, um eine Liste der verfügbaren Befehle anzuzeigen.</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Fortsetzen</value>
   </data>

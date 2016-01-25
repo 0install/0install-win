@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -347,14 +348,17 @@ namespace ZeroInstall.Central.WinForms
             Program.RunCommand(StoreMan.Name, "manage");
         }
 
-        private void buttonStoreAudit_Click(object sender, EventArgs e)
+        private void buttonCommandLine_Click(object sender, EventArgs e)
         {
-            Program.RunCommand(StoreMan.Name, "audit");
-        }
-
-        private void buttonStoreOptimise_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(StoreMan.Name, "optimise");
+            var cmd = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/k echo " + Resources.CommandLineHint,
+                UseShellExecute = false,
+                WorkingDirectory = Locations.IsPortable ? Locations.PortableBase : Locations.HomeDir
+            };
+            cmd.EnvironmentVariables["PATH"] = Locations.InstallBase + Path.PathSeparator + Environment.GetEnvironmentVariable("PATH");
+            cmd.Start();
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

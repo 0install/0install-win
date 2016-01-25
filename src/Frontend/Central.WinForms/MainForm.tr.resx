@@ -150,12 +150,6 @@
   <data name="buttonOptions.Text" xml:space="preserve">
     <value>&amp;Seçenekler</value>
   </data>
-  <data name="buttonStoreAudit.Text" xml:space="preserve">
-    <value>&amp;Hataları denetle</value>
-  </data>
-  <data name="buttonStoreOptimise.Text" xml:space="preserve">
-    <value>Çiftleri &amp;birleştir</value>
-  </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>Ö&amp;nbellek yönetimi</value>
   </data>

@@ -46,29 +46,27 @@
             this.buttonMoreApps = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonOptions = new System.Windows.Forms.Button();
-            this.buttonStoreManage = new NanoByte.Common.Controls.SplitButton();
-            this.menuStoreManage = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonStoreAudit = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonStoreOptimise = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonHelp = new NanoByte.Common.Controls.SplitButton();
-            this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelVersion = new System.Windows.Forms.Label();
             this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.buttonOptions = new System.Windows.Forms.ToolStripButton();
+            this.buttonTools = new System.Windows.Forms.ToolStripDropDownButton();
+            this.buttonStoreManage = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonHelp = new System.Windows.Forms.ToolStripSplitButton();
+            this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelVersion = new System.Windows.Forms.ToolStripLabel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.labelNotificationBar = new System.Windows.Forms.Label();
+            this.buttonCommandLine = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.menuUpdateAll.SuspendLayout();
             this.menuSync.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
-            this.menuStoreManage.SuspendLayout();
-            this.menuHelp.SuspendLayout();
             this.panelBottom.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.rootTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -192,73 +190,6 @@
             resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
             this.tileListCatalog.Name = "tileListCatalog";
             // 
-            // buttonOptions
-            // 
-            resources.ApplyResources(this.buttonOptions, "buttonOptions");
-            this.buttonOptions.Name = "buttonOptions";
-            this.buttonOptions.UseVisualStyleBackColor = true;
-            this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
-            // 
-            // buttonStoreManage
-            // 
-            resources.ApplyResources(this.buttonStoreManage, "buttonStoreManage");
-            this.buttonStoreManage.ContextMenuStrip = this.menuStoreManage;
-            this.buttonStoreManage.Name = "buttonStoreManage";
-            this.buttonStoreManage.ShowSplit = true;
-            this.buttonStoreManage.SplitMenuStrip = this.menuStoreManage;
-            this.buttonStoreManage.UseVisualStyleBackColor = true;
-            this.buttonStoreManage.Click += new System.EventHandler(this.buttonStoreManage_Click);
-            // 
-            // menuStoreManage
-            // 
-            this.menuStoreManage.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.menuStoreManage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonStoreAudit,
-            this.buttonStoreOptimise});
-            this.menuStoreManage.Name = "contextMenuStrip1";
-            resources.ApplyResources(this.menuStoreManage, "menuStoreManage");
-            // 
-            // buttonStoreAudit
-            // 
-            this.buttonStoreAudit.Name = "buttonStoreAudit";
-            resources.ApplyResources(this.buttonStoreAudit, "buttonStoreAudit");
-            this.buttonStoreAudit.Click += new System.EventHandler(this.buttonStoreAudit_Click);
-            // 
-            // buttonStoreOptimise
-            // 
-            this.buttonStoreOptimise.Name = "buttonStoreOptimise";
-            resources.ApplyResources(this.buttonStoreOptimise, "buttonStoreOptimise");
-            this.buttonStoreOptimise.Click += new System.EventHandler(this.buttonStoreOptimise_Click);
-            // 
-            // buttonHelp
-            // 
-            resources.ApplyResources(this.buttonHelp, "buttonHelp");
-            this.buttonHelp.ContextMenuStrip = this.menuHelp;
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.ShowSplit = true;
-            this.buttonHelp.SplitMenuStrip = this.menuHelp;
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // menuHelp
-            // 
-            this.menuHelp.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.menuHelp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonIntro});
-            this.menuHelp.Name = "menuHelp";
-            resources.ApplyResources(this.menuHelp, "menuHelp");
-            // 
-            // buttonIntro
-            // 
-            this.buttonIntro.Name = "buttonIntro";
-            resources.ApplyResources(this.buttonIntro, "buttonIntro");
-            this.buttonIntro.Click += new System.EventHandler(this.buttonIntro_Click);
-            // 
-            // labelVersion
-            // 
-            resources.ApplyResources(this.labelVersion, "labelVersion");
-            this.labelVersion.Name = "labelVersion";
-            // 
             // selfUpdateWorker
             // 
             this.selfUpdateWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.selfUpdateWorker_DoWork);
@@ -276,12 +207,64 @@
             // 
             // panelBottom
             // 
-            this.panelBottom.Controls.Add(this.buttonStoreManage);
-            this.panelBottom.Controls.Add(this.buttonHelp);
-            this.panelBottom.Controls.Add(this.buttonOptions);
-            this.panelBottom.Controls.Add(this.labelVersion);
+            this.panelBottom.Controls.Add(this.toolStrip);
             resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Name = "panelBottom";
+            // 
+            // toolStrip
+            // 
+            resources.ApplyResources(this.toolStrip, "toolStrip");
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonOptions,
+            this.buttonTools,
+            this.buttonHelp,
+            this.labelVersion});
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            // 
+            // buttonOptions
+            // 
+            this.buttonOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.buttonOptions, "buttonOptions");
+            this.buttonOptions.Name = "buttonOptions";
+            this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
+            // 
+            // buttonTools
+            // 
+            this.buttonTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.buttonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonStoreManage,
+            this.buttonCommandLine});
+            resources.ApplyResources(this.buttonTools, "buttonTools");
+            this.buttonTools.Name = "buttonTools";
+            // 
+            // buttonStoreManage
+            // 
+            this.buttonStoreManage.Name = "buttonStoreManage";
+            resources.ApplyResources(this.buttonStoreManage, "buttonStoreManage");
+            this.buttonStoreManage.Click += new System.EventHandler(this.buttonStoreManage_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.buttonHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonIntro});
+            resources.ApplyResources(this.buttonHelp, "buttonHelp");
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.ButtonClick += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // buttonIntro
+            // 
+            this.buttonIntro.Name = "buttonIntro";
+            resources.ApplyResources(this.buttonIntro, "buttonIntro");
+            this.buttonIntro.Click += new System.EventHandler(this.buttonIntro_Click);
+            // 
+            // labelVersion
+            // 
+            this.labelVersion.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.labelVersion.Name = "labelVersion";
+            resources.ApplyResources(this.labelVersion, "labelVersion");
             // 
             // rootTable
             // 
@@ -298,6 +281,12 @@
             this.labelNotificationBar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelNotificationBar.Name = "labelNotificationBar";
             this.labelNotificationBar.Click += new System.EventHandler(this.labelNotificationBar_Click);
+            // 
+            // buttonCommandLine
+            // 
+            this.buttonCommandLine.Name = "buttonCommandLine";
+            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
+            this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
             // 
             // MainForm
             // 
@@ -319,10 +308,10 @@
             this.menuSync.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
-            this.menuStoreManage.ResumeLayout(false);
-            this.menuHelp.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.rootTable.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -333,11 +322,6 @@
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private NanoByte.Common.Controls.SplitButton buttonHelp;
-        private System.Windows.Forms.ContextMenuStrip menuStoreManage;
-        private NanoByte.Common.Controls.SplitButton buttonStoreManage;
-        private System.Windows.Forms.ToolStripMenuItem buttonStoreOptimise;
-        private System.Windows.Forms.Label labelVersion;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
@@ -353,15 +337,18 @@
         private NanoByte.Common.Controls.SplitButton buttonUpdateAll;
         private System.Windows.Forms.ContextMenuStrip menuUpdateAll;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdateAllClean;
-        private System.Windows.Forms.ContextMenuStrip menuHelp;
-        private System.Windows.Forms.ToolStripMenuItem buttonIntro;
         private System.Windows.Forms.ContextMenuStrip menuSync;
         private System.Windows.Forms.ToolStripMenuItem buttonSyncSetup;
         private System.Windows.Forms.ToolStripMenuItem buttonSyncTroubleshoot;
-        private System.Windows.Forms.Button buttonOptions;
         private System.Windows.Forms.Label labelNotificationBar;
-        private System.Windows.Forms.ToolStripMenuItem buttonStoreAudit;
-
+        private System.Windows.Forms.ToolStripDropDownButton buttonTools;
+        private System.Windows.Forms.ToolStripLabel labelVersion;
+        private System.Windows.Forms.ToolStripSplitButton buttonHelp;
+        private System.Windows.Forms.ToolStripButton buttonOptions;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripMenuItem buttonIntro;
+        private System.Windows.Forms.ToolStripMenuItem buttonStoreManage;
+        private System.Windows.Forms.ToolStripMenuItem buttonCommandLine;
     }
 }
 
