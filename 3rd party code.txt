@@ -38,10 +38,10 @@ http://james.newtonking.com/json
 MIT license: http://opensource.org/licenses/MIT
 NuGet package: Newtonsoft.Json
 
-Bouncy Castle
-http://www.bouncycastle.org/csharp/
+Bouncy Castle (OpenPGP-only version)
+http://www.bouncycastle.org/csharp
 Bouncy Castle license: http://www.bouncycastle.org/csharp/licence.html
-NuGet package: BouncyCastle
+NuGet package: BouncyCastle.OpenPgp
 
 Task Scheduler Managed Wrapper
 http://taskscheduler.codeplex.com/
