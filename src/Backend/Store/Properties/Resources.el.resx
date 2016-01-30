@@ -263,9 +263,6 @@
   <data name="InvalidUrl" xml:space="preserve">
     <value>Η ζητούμενη διεύθυνση URL δεν είναι έγκυρη.</value>
   </data>
-  <data name="MissingPath" xml:space="preserve">
-    <value>Καμία καθορισμένη διαδρομή.</value>
-  </data>
   <data name="MustBeAdminToOptimise" xml:space="preserve">
     <value>Μόνο οι διαχειριστές μπορούν να βελτιστοποιήσουν ένα κοινό κατάστημα.</value>
   </data>

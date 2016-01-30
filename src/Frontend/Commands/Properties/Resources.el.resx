@@ -207,12 +207,6 @@
   <data name="DeleteEntry" xml:space="preserve">
     <value>Θέλετε να διαγράψετε την εγγραφή από τη μνήμη cache;</value>
   </data>
-  <data name="DeletingDirectory" xml:space="preserve">
-    <value>Διαγραφή καταλόγου</value>
-  </data>
-  <data name="DeletingEntries" xml:space="preserve">
-    <value>Διαγραφή καταχωρήσεων</value>
-  </data>
   <data name="DeletingImplementations" xml:space="preserve">
     <value>Διαγραφή εφαρμογής</value>
   </data>

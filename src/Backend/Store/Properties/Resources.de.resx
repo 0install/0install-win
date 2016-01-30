@@ -266,9 +266,6 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
   <data name="InvalidUrl" xml:space="preserve">
     <value>Die angeforderte URL ist ungültig.</value>
   </data>
-  <data name="MissingPath" xml:space="preserve">
-    <value>Kein Pfad angegeben.</value>
-  </data>
   <data name="MustBeAdminToOptimise" xml:space="preserve">
     <value>Nur Administratoren können einen gemeinsam genutzen Store optimieren.</value>
   </data>

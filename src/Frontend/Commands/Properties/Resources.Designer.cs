@@ -329,24 +329,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting directory.
-        /// </summary>
-        public static string DeletingDirectory {
-            get {
-                return ResourceManager.GetString("DeletingDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deleting entries.
-        /// </summary>
-        public static string DeletingEntries {
-            get {
-                return ResourceManager.GetString("DeletingEntries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Deleting implementation.
         /// </summary>
         public static string DeletingImplementations {

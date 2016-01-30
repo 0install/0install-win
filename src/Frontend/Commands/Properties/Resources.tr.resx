@@ -211,12 +211,6 @@ Varsayılan olmasını istemediğiniz özelliğin ilgili onay kutusunu işaretle
   <data name="DeleteEntry" xml:space="preserve">
     <value>Bu kayıtları önbellekten silmek ister misiniz?</value>
   </data>
-  <data name="DeletingDirectory" xml:space="preserve">
-    <value>Dizin siliniyor</value>
-  </data>
-  <data name="DeletingEntries" xml:space="preserve">
-    <value>Girdiler siliniyor</value>
-  </data>
   <data name="DeletingImplementations" xml:space="preserve">
     <value>Uygulama siliniyor</value>
   </data>

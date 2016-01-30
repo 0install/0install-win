@@ -266,9 +266,6 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   <data name="InvalidUrl" xml:space="preserve">
     <value>The requested URL is invalid.</value>
   </data>
-  <data name="MissingPath" xml:space="preserve">
-    <value>No path specified.</value>
-  </data>
   <data name="MustBeAdminToOptimise" xml:space="preserve">
     <value>Only administrators can optimise a shared store.</value>
   </data>

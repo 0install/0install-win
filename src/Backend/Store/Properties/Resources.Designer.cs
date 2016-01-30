@@ -486,15 +486,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No path specified..
-        /// </summary>
-        internal static string MissingPath {
-            get {
-                return ResourceManager.GetString("MissingPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only administrators can optimise a shared store..
         /// </summary>
         internal static string MustBeAdminToOptimise {

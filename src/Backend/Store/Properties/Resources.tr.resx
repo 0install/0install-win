@@ -266,9 +266,6 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
   <data name="InvalidUrl" xml:space="preserve">
     <value>İstenilen ağ akışı geçersiz.</value>
   </data>
-  <data name="MissingPath" xml:space="preserve">
-    <value>Belirtilmiş hedef yok.</value>
-  </data>
   <data name="MustBeAdminToOptimise" xml:space="preserve">
     <value>Paylaşılan bir belleği yalnız yöneticiler iyileştirebilir.</value>
   </data>
