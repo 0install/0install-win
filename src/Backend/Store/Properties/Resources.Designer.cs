@@ -586,6 +586,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zero Install cannot remove itself from an implementation cache..
+        /// </summary>
+        internal static string NoStoreSelfRemove {
+            get {
+                return ResourceManager.GetString("NoStoreSelfRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No suitable icon was found..
         /// </summary>
         internal static string NoSuitableIconFound {

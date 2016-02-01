@@ -300,6 +300,9 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
     <value>&apos;{0}&apos; yolu kesin bir yol değil. Bağıl yollar yalnız taşınabilir kipte kullanılabilir.
 &apos;{1}&apos; yapılandırma dosyasında belirtilmiştir.</value>
   </data>
+  <data name="NoStoreSelfRemove" xml:space="preserve">
+    <value>Zero Install kendisi bir uygulama önbelleğinden kaldıramaz.</value>
+  </data>
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>Uygun simge bulunamadı.</value>
   </data>

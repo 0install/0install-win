@@ -300,6 +300,9 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
     <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portablen Modus erlaubt.
 Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
+  <data name="NoStoreSelfRemove" xml:space="preserve">
+    <value>Zero Install kann sich selbst nicht aus einem Implementierungscache entfernen.</value>
+  </data>
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>Es wurde kein geeignetes Icon gefunden.</value>
   </data>

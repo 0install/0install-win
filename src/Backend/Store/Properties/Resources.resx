@@ -300,6 +300,9 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
     <value>The path '{0}' is not an absolute path. Relative paths are only allowed in portable mode.
 Specified in the configuration file '{1}'.</value>
   </data>
+  <data name="NoStoreSelfRemove" xml:space="preserve">
+    <value>Zero Install cannot remove itself from an implementation cache.</value>
+  </data>
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>No suitable icon was found.</value>
   </data>

@@ -503,6 +503,11 @@ namespace ZeroInstall.Store.Implementations
             string path = GetPath(manifestDigest);
             if (path == null) return false;
             if (Kind == StoreKind.ReadOnly && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
+            if (path == Locations.InstallBase && WindowsUtils.IsWindows)
+            {
+                Log.Warn(Resources.NoStoreSelfRemove);
+                return false;
+            }
 
             if (WindowsUtils.IsWindowsVista) UseRestartManager(path, handler);
 
