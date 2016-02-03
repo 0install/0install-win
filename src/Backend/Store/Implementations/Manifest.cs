@@ -289,7 +289,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Conversion
         /// <summary>
-        /// Returns the manifest in the same text representation format used by <see cref="Save(System.IO.Stream)"/>.
+        /// Returns the manifest in the same text representation format used by <see cref="Save(Stream)"/>.
         /// </summary>
         public override string ToString()
         {

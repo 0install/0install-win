@@ -122,8 +122,8 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (_printManifest)
             {
-                string result = manifest.ToString().TrimEnd('\n');
-                if (_printDigest) result += "\n" + manifest.CalculateDigest();
+                string result = manifest.ToString().TrimEnd(Environment.NewLine.ToCharArray());
+                if (_printDigest) result += Environment.NewLine + manifest.CalculateDigest();
                 return result;
             }
             else return manifest.CalculateDigest();
