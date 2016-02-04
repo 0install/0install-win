@@ -18,12 +18,9 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NanoByte.Common;
-using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -31,7 +28,7 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Manages the <see cref="Catalog"/>s provided by the <see cref="ICatalogManager"/>.
     /// </summary>
-    public sealed class CatalogMan : MultiCommand
+    public sealed partial class CatalogMan : MultiCommand
     {
         #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -77,170 +74,6 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected CatalogSubCommand([NotNull] ICommandHandler handler) : base(handler)
             {}
-        }
-
-        // ReSharper disable MemberHidesStaticFromOuterClass
-
-        private class Search : CatalogSubCommand
-        {
-            #region Metadata
-            public new const string Name = "search";
-
-            protected override string Description { get { return Resources.DescriptionCatalogSearch; } }
-
-            protected override string Usage { get { return "[QUERY]"; } }
-
-            public Search([NotNull] ICommandHandler handler) : base(handler)
-            {}
-            #endregion
-
-            public override ExitCode Execute()
-            {
-                var catalog = CatalogManager.GetCached() ?? CatalogManager.GetOnline();
-                string query = AdditionalArgs.JoinEscapeArguments();
-
-                Handler.Output(Resources.AppList, catalog.Search(query));
-                return ExitCode.OK;
-            }
-        }
-
-        private class Refresh : CatalogSubCommand
-        {
-            #region Metadata
-            public new const string Name = "refresh";
-
-            protected override string Description { get { return Resources.DescriptionCatalogRefresh; } }
-
-            protected override string Usage { get { return ""; } }
-
-            protected override int AdditionalArgsMax { get { return 0; } }
-
-            public Refresh([NotNull] ICommandHandler handler) : base(handler)
-            {}
-            #endregion
-
-            public override ExitCode Execute()
-            {
-                CatalogManager.GetOnline();
-                return ExitCode.OK;
-            }
-        }
-
-        private class Add : CatalogSubCommand
-        {
-            #region Metadata
-            public new const string Name = "add";
-
-            protected override string Description { get { return Resources.DescriptionCatalogAdd; } }
-
-            protected override string Usage { get { return "URI"; } }
-
-            protected override int AdditionalArgsMin { get { return 1; } }
-
-            protected override int AdditionalArgsMax { get { return 1; } }
-            #endregion
-
-            #region State
-            private bool _skipVerify;
-
-            public Add([NotNull] ICommandHandler handler) : base(handler)
-            {
-                Options.Add("skip-verify", () => Resources.OptionCatalogAddSkipVerify, _ => _skipVerify = true);
-            }
-            #endregion
-
-            public override ExitCode Execute()
-            {
-                var uri = new FeedUri(AdditionalArgs[0]);
-                if (!_skipVerify) CatalogManager.DownloadCatalog(uri);
-
-                if (CatalogManager.AddSource(uri))
-                {
-                    if (!_skipVerify) CatalogManager.GetOnlineSafe();
-                    return ExitCode.OK;
-                }
-                else
-                {
-                    Handler.OutputLow(Resources.CatalogSources, string.Format(Resources.CatalogAlreadyRegistered, uri.ToStringRfc()));
-                    return ExitCode.NoChanges;
-                }
-            }
-        }
-
-        private class Remove : CatalogSubCommand
-        {
-            #region Metadata
-            public new const string Name = "remove";
-
-            protected override string Description { get { return Resources.DescriptionCatalogRemove; } }
-
-            protected override string Usage { get { return "URI"; } }
-
-            protected override int AdditionalArgsMin { get { return 1; } }
-
-            protected override int AdditionalArgsMax { get { return 1; } }
-
-            public Remove([NotNull] ICommandHandler handler) : base(handler)
-            {}
-            #endregion
-
-            public override ExitCode Execute()
-            {
-                var uri = new FeedUri(AdditionalArgs[0]);
-
-                if (CatalogManager.RemoveSource(uri))
-                    return ExitCode.OK;
-                else
-                {
-                    Handler.OutputLow(Resources.CatalogSources, string.Format(Resources.CatalogNotRegistered, uri.ToStringRfc()));
-                    return ExitCode.NoChanges;
-                }
-            }
-        }
-
-        private class Reset : CatalogSubCommand
-        {
-            #region Metadata
-            public new const string Name = "reset";
-
-            protected override string Description { get { return Resources.DescriptionCatalogReset; } }
-
-            protected override string Usage { get { return ""; } }
-
-            protected override int AdditionalArgsMax { get { return 0; } }
-
-            public Reset([NotNull] ICommandHandler handler) : base(handler)
-            {}
-            #endregion
-
-            public override ExitCode Execute()
-            {
-                Services.Feeds.CatalogManager.SetSources(new[] {Services.Feeds.CatalogManager.DefaultSource});
-                CatalogManager.GetOnlineSafe();
-                return ExitCode.OK;
-            }
-        }
-
-        private class List : CatalogSubCommand
-        {
-            #region Metadata
-            public new const string Name = "list";
-
-            protected override string Description { get { return Resources.DescriptionCatalogList; } }
-
-            protected override string Usage { get { return ""; } }
-
-            protected override int AdditionalArgsMax { get { return 0; } }
-
-            public List([NotNull] ICommandHandler handler) : base(handler)
-            {}
-            #endregion
-
-            public override ExitCode Execute()
-            {
-                Handler.Output(Resources.CatalogSources, Services.Feeds.CatalogManager.GetSources());
-                return ExitCode.OK;
-            }
         }
     }
 }

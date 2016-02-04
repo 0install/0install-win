@@ -1,271 +1,436 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Commands.AddFeed">
-    <Position X="12" Y="9" Width="1.75" />
+  <Class Name="ZeroInstall.Commands.CliCommands.AddFeed">
+    <Position X="10.25" Y="9" Width="1.75" />
     <Members>
       <Method Name="AddFeed" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAgAAAAAAAAAAQABCAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>AddFeed.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>CliCommands\AddFeed.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Update">
-    <Position X="2.75" Y="16" Width="2" />
+  <Class Name="ZeroInstall.Commands.CliCommands.Update">
+    <Position X="2.75" Y="15.75" Width="2" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQABABgAABAAAAAAAAAAAQ=</HashCode>
-      <FileName>Update.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQAAABgAABAAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Update.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Configure">
-    <Position X="17" Y="5.75" Width="1.5" />
+  <Class Name="ZeroInstall.Commands.CliCommands.Configure">
+    <Position X="15.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAgAAQAAAgAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Configure.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAEgAAAQMAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Configure.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Download">
+  <Class Name="ZeroInstall.Commands.CliCommands.Download">
     <Position X="3.5" Y="12" Width="2.75" />
     <Members>
       <Method Name="Download" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAgAAQAAAAAAAQIhAAoAAAACAAAAAAAAAA=</HashCode>
-      <FileName>Download.cs</FileName>
+      <HashCode>AAAABAAAAAAgAAQAAAAAAAQIgAAgAAAACAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Download.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Import">
-    <Position X="9.5" Y="5.75" Width="1.5" />
+  <Class Name="ZeroInstall.Commands.CliCommands.Import">
+    <Position X="7.75" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="Import" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAgAAQAAgAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Import.cs</FileName>
+      <HashCode>AAAAAAAAACAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Import.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.List">
-    <Position X="11.25" Y="5.75" Width="1.5" />
+  <Class Name="ZeroInstall.Commands.CliCommands.List">
+    <Position X="9.5" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="List" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAAAI=</HashCode>
-      <FileName>List.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\List.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.RemoveFeed">
-    <Position X="14.25" Y="9" Width="1.75" />
+  <Class Name="ZeroInstall.Commands.CliCommands.RemoveFeed">
+    <Position X="12.5" Y="9" Width="1.75" />
     <Members>
       <Method Name="RemoveFeed" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAgAAAAAAAAAAQABCAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>RemoveFeed.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>CliCommands\RemoveFeed.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Run">
-    <Position X="5" Y="16" Width="2" />
+  <Class Name="ZeroInstall.Commands.CliCommands.Run">
+    <Position X="5" Y="15.75" Width="2" />
     <Members>
       <Method Name="Run" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAgAAQAAAAAAAQMBQAIAAEggAAAAAAAAAA=</HashCode>
-      <FileName>Run.cs</FileName>
+      <HashCode>AAAAAAAgAAAgAAQAAAAAAAQMAQAAAAEggAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Run.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Selection">
+  <Class Name="ZeroInstall.Commands.CliCommands.Selection">
     <Position X="4" Y="5.75" Width="1.75" />
     <Members>
-      <Field Name="_requirements" Hidden="true" />
       <Method Name="Selection" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAKAoYAQAEABAACQMBBIiAAAwAAgAAAAAAAA=</HashCode>
-      <FileName>Selection.cs</FileName>
+      <HashCode>AAAiAAAAAKAoYAQAEABAACQMBAIiIAAwAAgAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Selection.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.FrontendCommand">
-    <Position X="11" Y="0.5" Width="2" />
+  <Class Name="ZeroInstall.Commands.CliCommands.CliCommand">
+    <Position X="9.25" Y="0.5" Width="2" />
     <Members>
-      <Field Name="_appList" Hidden="true" />
       <Method Name="SupportedValues" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAIAAACgoAAQAAAEAACQEBAAIAAAgAAAAACBEAAA=</HashCode>
-      <FileName>FrontendCommand.cs</FileName>
+      <HashCode>AAAgAIAAACgoAAQAAAAAAAQEAAAAAAAgAAAAAABEAAA=</HashCode>
+      <FileName>CliCommands\CliCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.ListFeeds">
-    <Position X="15.25" Y="5.75" Width="1.5" />
+  <Class Name="ZeroInstall.Commands.CliCommands.ListFeeds">
+    <Position X="13.5" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="ListFeeds" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAgAAQAIAAAAAQEAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>ListFeeds.cs</FileName>
+      <HashCode>AAAAAAAAACAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\ListFeeds.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.DefaultCommand">
+  <Class Name="ZeroInstall.Commands.CliCommands.DefaultCommand">
     <Position X="0.5" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="DefaultCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAAAAEAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>DefaultCommand.cs</FileName>
+      <FileName>CliCommands\DefaultCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CommandFactory">
-    <Position X="8.75" Y="0.5" Width="2" />
+    <Position X="7" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>CommandFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.AddApp">
+  <Class Name="ZeroInstall.Commands.CliCommands.AddApp">
     <Position X="20.25" Y="10.5" Width="1.5" />
     <Members>
       <Method Name="AddApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQEAAAIAIAAAAAAAAAAAAE=</HashCode>
-      <FileName>AddApp.cs</FileName>
+      <HashCode>AAAAAAAAAIAgAAAAAAAAAAQEAAAAAIAAAAAAAAAAAAE=</HashCode>
+      <FileName>CliCommands\AddApp.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.IntegrateApp">
+  <Class Name="ZeroInstall.Commands.CliCommands.IntegrateApp">
     <Position X="22" Y="10.5" Width="2" />
     <Members>
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>gAACAAAAAAAgAAAAAAAAAISEAAAIAoAQABAABAAAAAE=</HashCode>
-      <FileName>IntegrateApp.cs</FileName>
+      <HashCode>gAACAAAAAAAgAAAAAAAAAISEAAAAAoAQAAAABAAAAAE=</HashCode>
+      <FileName>CliCommands\IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.RemoveApp">
+  <Class Name="ZeroInstall.Commands.CliCommands.RemoveApp">
     <Position X="24.25" Y="10.5" Width="1.5" />
     <Members>
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAASEAAAIAIAAAAAAAAAAAAE=</HashCode>
-      <FileName>RemoveApp.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAASEAAAAAIAAAAAAAAAAAAE=</HashCode>
+      <FileName>CliCommands\RemoveApp.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.AppCommand">
+  <Class Name="ZeroInstall.Commands.CliCommands.AppCommand">
     <Position X="22.25" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="AppCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAQAAAAAAAAABAAAAAAgAAAAAAAAAAE=</HashCode>
-      <FileName>AppCommand.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAQAAAAAAAAAAAAAAAAgAAAAAAAAAAE=</HashCode>
+      <FileName>CliCommands\AppCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.IntegrationCommand">
-    <Position X="24.5" Y="2.75" Width="2.25" />
+  <Class Name="ZeroInstall.Commands.CliCommands.IntegrationCommand">
+    <Position X="24.5" Y="2" Width="2.25" />
     <Members>
       <Method Name="IntegrationCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAgAAAAAAAAAAAAAAACAQgAAEAAAAAAAAAA=</HashCode>
-      <FileName>IntegrationCommand.cs</FileName>
+      <HashCode>AAAgAAAAAAgAAAAEAAAAACAAAACAAgEAEAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\IntegrationCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.AddAlias">
+  <Class Name="ZeroInstall.Commands.CliCommands.AddAlias">
     <Position X="20.5" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="AddAlias" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAIAAAAACAgAAUAAAAAAAQEBAAAAIEgAAAEAAAAIAA=</HashCode>
-      <FileName>AddAlias.cs</FileName>
+      <HashCode>AAAIAAAAACAgAAUAAAAAAAQEAAAAAIEgAAAEAAAAIAA=</HashCode>
+      <FileName>CliCommands\AddAlias.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.SyncApps">
+  <Class Name="ZeroInstall.Commands.CliCommands.SyncApps">
     <Position X="29.25" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="SyncApps" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAASAAAAAAAQEBAAAAQAiAAAAAAAAAAA=</HashCode>
-      <FileName>SyncApps.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAiAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\SyncApps.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Digest">
-    <Position X="18.75" Y="5.75" Width="1.5" />
+  <Class Name="ZeroInstall.Commands.CliCommands.Digest">
+    <Position X="17" Y="5.75" Width="1.5" />
     <Members>
       <Method Name="Digest" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAIAAAACAgAhQAAAAAAAQEBAAAAAAgABAAAAAQAAA=</HashCode>
-      <FileName>Digest.cs</FileName>
+      <HashCode>AAAAIAAAACAgAhQAAAAAAAQEAAAAAAAgABAAAAAQAAA=</HashCode>
+      <FileName>CliCommands\Digest.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.SelfUpdate">
-    <Position X="5" Y="20.25" Width="2" />
+  <Class Name="ZeroInstall.Commands.CliCommands.SelfUpdate">
+    <Position X="5" Y="19.75" Width="2" />
     <Members>
       <Method Name="SelfUpdate" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAgAAQAAAAgAQQEBAAAAAAAAAAAEAAAAAA=</HashCode>
-      <FileName>SelfUpdate.cs</FileName>
+      <HashCode>AAAgAAAAAAAgAAQAAAAgAQQEAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>CliCommands\SelfUpdate.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.AddRemoveFeedCommand">
-    <Position X="13" Y="5.75" Width="2" />
+  <Class Name="ZeroInstall.Commands.CliCommands.AddRemoveFeedCommand">
+    <Position X="11.25" Y="5.75" Width="2" />
     <Members>
       <Method Name="AddRemoveFeedCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAECAAAAQAAAAAAAAEACAAAAAgAAIAAAAAAAg=</HashCode>
-      <FileName>AddRemoveFeedCommand.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAQAAAAAAAAEAAAAAAAgAAIAAAAAAAE=</HashCode>
+      <FileName>CliCommands\AddRemoveFeedCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.RepairApps">
+  <Class Name="ZeroInstall.Commands.CliCommands.RepairApps">
     <Position X="27.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAIAgAAAAAAAAAAA=</HashCode>
-      <FileName>RepairApps.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAIAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\RepairApps.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.UpdateApps">
+  <Class Name="ZeroInstall.Commands.CliCommands.UpdateApps">
     <Position X="25.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgBAQAAAAAQCQEhAAAAIAgAAAAAAAAQAA=</HashCode>
-      <FileName>UpdateApps.cs</FileName>
+      <HashCode>AAAAAAAAAAAgBAQAAAAAQCQEgAAAAIAgAAAAAAAAQAA=</HashCode>
+      <FileName>CliCommands\UpdateApps.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Central">
+  <Class Name="ZeroInstall.Commands.CliCommands.Central">
     <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAACA=</HashCode>
-      <FileName>Central.cs</FileName>
+      <FileName>CliCommands\Central.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.Fetch">
+  <Class Name="ZeroInstall.Commands.CliCommands.Fetch">
     <Position X="6" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Fetch.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Fetch.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.RemoveAllApps">
+  <Class Name="ZeroInstall.Commands.CliCommands.RemoveAllApps">
     <Position X="24" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>RemoveAllApps.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAIAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\RemoveAllApps.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.StoreMan">
-    <Position X="7.75" Y="5.75" Width="1.5" />
+  <Class Name="ZeroInstall.Commands.CliCommands.StoreMan">
+    <Position X="34.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Export" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Implementations.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Verify" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Implementations.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.List" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Directories.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Purge" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Management.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Add" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Implementations.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Remove" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Implementations.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Audit" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Management.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Copy" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Implementations.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.RemoveDir" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Directories.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Manage" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Management.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Find" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Implementations.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.DirCommand" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Directories.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.AddDir" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Directories.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.ListImplementations" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Management.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.Optimise" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.Management.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.StoreMan.StoreSubCommand" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\StoreMan.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAIAAAIBIKAgAQQAAAAABAQEAgAoAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>StoreMan.cs</FileName>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>CliCommands\StoreMan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan">
+    <Position X="36.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.Add" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.Add.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.CatalogSubCommand" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.List" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.List.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.Refresh" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.Refresh.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.Remove" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.Remove.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.Reset" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.Reset.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.CatalogMan.Search" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\CatalogMan.Search.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>CliCommands\CatalogMan.Add.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.MultiCommand">
+    <Position X="35.25" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAACQgAAQAAAAAAAAEAACAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>CliCommands\MultiCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.ImportApps">
+    <Position X="32.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\ImportApps.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.ListApps">
+    <Position X="31" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\ListApps.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.Search">
+    <Position X="18.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Search.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.SubCommand">
+    <Position X="37.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\SubCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

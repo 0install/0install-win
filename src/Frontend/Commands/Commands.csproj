@@ -64,7 +64,13 @@
     <Compile Include="CliCommands\AddFeed.cs" />
     <Compile Include="CliCommands\AddRemoveFeedCommand.cs" />
     <Compile Include="CliCommands\AppCommand.cs" />
+    <Compile Include="CliCommands\CatalogMan.Add.cs" />
     <Compile Include="CliCommands\CatalogMan.cs" />
+    <Compile Include="CliCommands\CatalogMan.List.cs" />
+    <Compile Include="CliCommands\CatalogMan.Refresh.cs" />
+    <Compile Include="CliCommands\CatalogMan.Remove.cs" />
+    <Compile Include="CliCommands\CatalogMan.Reset.cs" />
+    <Compile Include="CliCommands\CatalogMan.Search.cs" />
     <Compile Include="CliCommands\Central.cs" />
     <Compile Include="CliCommands\CliCommand.cs" />
     <Compile Include="CliCommands\Configure.cs" />
@@ -89,6 +95,9 @@
     <Compile Include="CliCommands\Selection.cs" />
     <Compile Include="CliCommands\SelfUpdate.cs" />
     <Compile Include="CliCommands\StoreMan.cs" />
+    <Compile Include="CliCommands\StoreMan.Directories.cs" />
+    <Compile Include="CliCommands\StoreMan.Management.cs" />
+    <Compile Include="CliCommands\StoreMan.Implementations.cs" />
     <Compile Include="CliCommands\SubCommand.cs" />
     <Compile Include="CliCommands\SyncApps.cs" />
     <Compile Include="CliCommands\Update.cs" />
