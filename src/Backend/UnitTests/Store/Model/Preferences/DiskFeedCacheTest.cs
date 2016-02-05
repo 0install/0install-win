@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using FluentAssertions;
+using Moq;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -44,7 +45,7 @@ namespace ZeroInstall.Store.Model.Preferences
 
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new DiskFeedCache(_tempDir, MockRepository.Create<IOpenPgp>().Object);
+            _cache = new DiskFeedCache(_tempDir, new Mock<IOpenPgp>().Object);
 
             // Add some dummy feeds to the cache
             _feed1 = FeedTest.CreateTestFeed();

@@ -33,18 +33,10 @@ namespace ZeroInstall.Services.Solvers
     /// </summary>
     public abstract class SolverTest<T> : TestWithContainer<T> where T : class, ISolver
     {
-        protected override void Register(AutoMockContainer container)
-        {
-            _feedManagerMock = container.GetMock<IFeedManager>();
-
-            base.Register(container);
-        }
-
-        private Mock<IFeedManager> _feedManagerMock;
-
         [Test]
         public void EnsureXmlTestCasesCanBeLoaded()
         {
+            // ReSharper disable once UnusedVariable
             var _ = SolverTestCases.Xml.ToList();
         }
 
@@ -52,7 +44,7 @@ namespace ZeroInstall.Services.Solvers
         public Selections TestCase(IEnumerable<Feed> feeds, Requirements requirements)
         {
             var feedLookup = feeds.ToDictionary(x => x.Uri, x => x);
-            _feedManagerMock.Setup(x => x[It.IsAny<FeedUri>()]).Returns((FeedUri feedUri) => feedLookup[feedUri]);
+            GetMock<IFeedManager>().Setup(x => x[It.IsAny<FeedUri>()]).Returns((FeedUri feedUri) => feedLookup[feedUri]);
 
             return Target.Solve(requirements);
         }

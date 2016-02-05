@@ -25,6 +25,11 @@ using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Fetchers;
+using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -36,6 +41,12 @@ namespace ZeroInstall.Commands.CliCommands
     [TestFixture]
     public class RunTest : SelectionTestBase<Run>
     {
+        private Mock<ICatalogManager> CatalogManagerMock { get { return GetMock<ICatalogManager>(); } }
+        private Mock<ISolver> SolverMock { get { return GetMock<ISolver>(); } }
+        private Mock<IFetcher> FetcherMock { get { return GetMock<IFetcher>(); } }
+        private Mock<IExecutor> ExecutorMock { get { return GetMock<IExecutor>(); } }
+        private Mock<ISelectionsManager> SelectionsManagerMock { get { return GetMock<ISelectionsManager>(); } }
+
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public override void TestNormal()
         {

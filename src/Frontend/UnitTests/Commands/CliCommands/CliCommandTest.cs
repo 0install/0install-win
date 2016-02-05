@@ -43,25 +43,9 @@ namespace ZeroInstall.Commands.CliCommands
         // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
         protected new MockCommandHandler Handler { get; private set; }
 
-        protected Mock<IFeedCache> FeedCacheMock { get; private set; }
-        protected Mock<ICatalogManager> CatalogManagerMock { get; private set; }
-        protected Mock<IStore> StoreMock { get; private set; }
-        protected Mock<ISolver> SolverMock { get; private set; }
-        protected Mock<IFetcher> FetcherMock { get; private set; }
-        protected Mock<IExecutor> ExecutorMock { get; private set; }
-        protected Mock<ISelectionsManager> SelectionsManagerMock { get; private set; }
-
         protected override void Register(AutoMockContainer container)
         {
             container.Register<ICommandHandler>(Handler = new MockCommandHandler());
-
-            FeedCacheMock = container.GetMock<IFeedCache>();
-            CatalogManagerMock = container.GetMock<ICatalogManager>();
-            StoreMock = container.GetMock<IStore>();
-            SolverMock = container.GetMock<ISolver>();
-            FetcherMock = container.GetMock<IFetcher>();
-            ExecutorMock = container.GetMock<IExecutor>();
-            SelectionsManagerMock = container.GetMock<ISelectionsManager>();
         }
 
         [SetUp]
@@ -70,16 +54,16 @@ namespace ZeroInstall.Commands.CliCommands
             base.SetUp();
 
             Target.Config = Config;
-            Target.FeedCache = FeedCacheMock.Object;
-            Target.CatalogManager = CatalogManagerMock.Object;
+            Target.FeedCache = Resolve<IFeedCache>();
+            Target.CatalogManager = Resolve<ICatalogManager>();
             Target.OpenPgp = Resolve<IOpenPgp>();
             Target.TrustDB = TrustDB;
-            Target.Store = StoreMock.Object;
+            Target.Store = Resolve<IStore>();
             Target.PackageManager = Resolve<IPackageManager>();
-            Target.Solver = SolverMock.Object;
-            Target.Fetcher = FetcherMock.Object;
-            Target.Executor = ExecutorMock.Object;
-            Target.SelectionsManager = SelectionsManagerMock.Object;
+            Target.Solver = Resolve<ISolver>();
+            Target.Fetcher = Resolve<IFetcher>();
+            Target.Executor = Resolve<IExecutor>();
+            Target.SelectionsManager = Resolve<ISelectionsManager>();
 
             SelfUpdateUtils.NoAutoCheck = true;
         }

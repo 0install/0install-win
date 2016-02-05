@@ -17,7 +17,6 @@
 
 using System.IO;
 using FluentAssertions;
-using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
@@ -33,15 +32,6 @@ namespace ZeroInstall.Services.Feeds
     [TestFixture]
     public class CatalogManagerTest : TestWithContainer<CatalogManager>
     {
-        private Mock<ITrustManager> _trustManagerMock;
-
-        protected override void Register(AutoMockContainer container)
-        {
-            base.Register(container);
-
-            _trustManagerMock = container.GetMock<ITrustManager>();
-        }
-
         [Test]
         public void TestGetOnline()
         {
@@ -57,7 +47,7 @@ namespace ZeroInstall.Services.Feeds
             {
                 var uri = new FeedUri(server.FileUri);
                 CatalogManager.SetSources(new[] {uri});
-                _trustManagerMock.Setup(x => x.CheckTrust(array, uri, null)).Returns(OpenPgpUtilsTest.TestSignature);
+                GetMock<ITrustManager>().Setup(x => x.CheckTrust(array, uri, null)).Returns(OpenPgpUtilsTest.TestSignature);
 
                 Target.GetOnline().Should().Be(catalog);
             }

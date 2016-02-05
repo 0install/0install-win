@@ -34,26 +34,17 @@ namespace ZeroInstall.Services
     [TestFixture]
     public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
-        private Mock<IFeedManager> _feedManagereMock;
-        private Mock<IPackageManager> _packageManagerMock;
-        private Mock<IStore> _storeMock;
-
-        protected override void Register(AutoMockContainer container)
-        {
-            _feedManagereMock = container.GetMock<IFeedManager>();
-            _packageManagerMock = container.GetMock<IPackageManager>();
-            _storeMock = container.GetMock<IStore>();
-
-            base.Register(container);
-        }
+        private Mock<IFeedManager> FeedManagereMock { get { return GetMock<IFeedManager>(); } }
+        private Mock<IPackageManager> PackageManagerMock { get { return GetMock<IPackageManager>(); } }
+        private Mock<IStore> StoreMock { get { return GetMock<IStore>(); } }
 
         [Test]
         public void TestGetUncachedSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
 
-            _storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
-            _storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
+            StoreMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
+            StoreMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
 
             var implementationSelections = Target.GetUncachedSelections(selections);
 
@@ -81,8 +72,8 @@ namespace ZeroInstall.Services
                     }
                 };
 
-                _packageManagerMock.Setup(x => x.Lookup(selections.Implementations[0])).Returns(impl1);
-                _packageManagerMock.Setup(x => x.Lookup(selections.Implementations[1])).Returns(impl2);
+                PackageManagerMock.Setup(x => x.Lookup(selections.Implementations[0])).Returns(impl1);
+                PackageManagerMock.Setup(x => x.Lookup(selections.Implementations[1])).Returns(impl2);
 
                 var implementationSelections = Target.GetUncachedSelections(selections);
 
@@ -107,9 +98,9 @@ namespace ZeroInstall.Services
                 new ImplementationSelection {ID = impl3.ID, InterfaceUri = FeedTest.Test1Uri, FromFeed = new FeedUri(FeedUri.FromDistributionPrefix + FeedTest.Test1Uri)}
             };
 
-            _feedManagereMock.Setup(x => x[FeedTest.Test1Uri]).Returns(new Feed {Elements = {impl1}});
-            _feedManagereMock.Setup(x => x[FeedTest.Sub2Uri]).Returns(new Feed {Elements = {impl2}});
-            _packageManagerMock.Setup(x => x.Lookup(implementationSelections[2])).Returns(impl3);
+            FeedManagereMock.Setup(x => x[FeedTest.Test1Uri]).Returns(new Feed {Elements = {impl1}});
+            FeedManagereMock.Setup(x => x[FeedTest.Sub2Uri]).Returns(new Feed {Elements = {impl2}});
+            PackageManagerMock.Setup(x => x.Lookup(implementationSelections[2])).Returns(impl3);
 
             Target.GetImplementations(implementationSelections)
                 .Should().BeEquivalentTo(impl1, impl2, impl3);

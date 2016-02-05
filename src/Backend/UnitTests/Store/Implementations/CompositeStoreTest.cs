@@ -52,8 +52,8 @@ namespace ZeroInstall.Store.Implementations
             _handler = new MockTaskHandler();
 
             // Prepare mock objects that will be injected with methods in the tests
-            _mockStore1 = MockRepository.Create<IStore>();
-            _mockStore2 = MockRepository.Create<IStore>();
+            _mockStore1 = CreateMock<IStore>();
+            _mockStore2 = CreateMock<IStore>();
 
             _testStore = new CompositeStore(new[] {_mockStore1.Object, _mockStore2.Object});
         }

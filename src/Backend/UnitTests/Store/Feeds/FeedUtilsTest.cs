@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Text;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -41,7 +42,7 @@ namespace ZeroInstall.Store.Feeds
             var feed3 = FeedTest.CreateTestFeed();
             feed3.Uri = FeedTest.Test3Uri;
 
-            var cacheMock = MockRepository.Create<IFeedCache>();
+            var cacheMock = CreateMock<IFeedCache>();
             cacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri, FeedTest.Test3Uri});
             cacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed1);
             cacheMock.Setup(x => x.GetFeed(FeedTest.Test2Uri)).Throws(new InvalidDataException("Fake exception for testing"));
@@ -61,7 +62,7 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestGetSignatures()
         {
-            var openPgpMock = MockRepository.Create<IOpenPgp>();
+            var openPgpMock = CreateMock<IOpenPgp>();
             var result = new OpenPgpSignature[] {OpenPgpUtilsTest.TestSignature};
             openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(result);
 
@@ -76,7 +77,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesMissingNewLine()
         {
             string input = "Feed without newline" + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd;
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(MockRepository.Create<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesInvalidChars()
         {
             const string input = FeedText + FeedUtils.SignatureBlockStart + "*!?#" + FeedUtils.SignatureBlockEnd;
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(MockRepository.Create<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesMissingEnd()
         {
             string input = FeedText + FeedUtils.SignatureBlockStart + _signatureBase64;
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(MockRepository.Create<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignaturesDataAfterSignature()
         {
             string input = FeedText + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd + "more data";
-            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(MockRepository.Create<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
+            Assert.Throws<SignatureException>(() => FeedUtils.GetSignatures(new Mock<IOpenPgp>().Object, Encoding.UTF8.GetBytes(input)));
         }
     }
 }

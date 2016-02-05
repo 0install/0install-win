@@ -36,14 +36,7 @@ namespace ZeroInstall.Services.Fetchers
     public abstract class FetcherTest<TFetcher> : TestWithContainer<TFetcher>
         where TFetcher : class, IFetcher
     {
-        protected Mock<IStore> StoreMock;
-
-        protected override void Register(AutoMockContainer container)
-        {
-            base.Register(container);
-
-            StoreMock = container.GetMock<IStore>();
-        }
+        protected Mock<IStore> StoreMock { get { return GetMock<IStore>(); } }
 
         [Test]
         public void DownloadSingleArchive()

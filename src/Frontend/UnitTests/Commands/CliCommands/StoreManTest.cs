@@ -21,6 +21,7 @@ using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -33,8 +34,14 @@ namespace ZeroInstall.Commands.CliCommands
     /// </summary>
     public class StoreManTest
     {
+        internal abstract class StoreSubCommand<T> : CliCommandTest<T>
+            where T:StoreMan.StoreSubCommand
+        {
+            protected Mock<IStore> StoreMock { get { return GetMock<IStore>(); } }
+        }
+
         [TestFixture]
-        internal class Add : CliCommandTest<StoreMan.Add>
+        internal class Add : StoreSubCommand<StoreMan.Add>
         {
             [Test]
             public void Archive()
@@ -157,7 +164,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Audit : CliCommandTest<StoreMan.Audit>
+        internal class Audit : StoreSubCommand<StoreMan.Audit>
         {
             [Test]
             public void TestAudit()
@@ -171,7 +178,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Copy : CliCommandTest<StoreMan.Copy>
+        internal class Copy : StoreSubCommand<StoreMan.Copy>
         {
             [Test]
             public void Normal()
@@ -202,7 +209,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Find : CliCommandTest<StoreMan.Find>
+        internal class Find : StoreSubCommand<StoreMan.Find>
         {
             [Test]
             public void Test()
@@ -216,7 +223,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class List : CliCommandTest<StoreMan.List>
+        internal class List : StoreSubCommand<StoreMan.List>
         {
             [Test]
             public void Test()
@@ -226,7 +233,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class ListImplementations : CliCommandTest<StoreMan.ListImplementations>
+        internal class ListImplementations : StoreSubCommand<StoreMan.ListImplementations>
         {
             [Test]
             public void ListAll()
@@ -238,8 +245,8 @@ namespace ZeroInstall.Commands.CliCommands
 
                 using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
                 {
-                    FeedCacheMock.Setup(x => x.ListAll()).Returns(new[] {testFeed.Uri});
-                    FeedCacheMock.Setup(x => x.GetFeed(testFeed.Uri)).Returns(testFeed);
+                    GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {testFeed.Uri});
+                    GetMock<IFeedCache>().Setup(x => x.GetFeed(testFeed.Uri)).Returns(testFeed);
                     StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest1, digest2});
                     StoreMock.Setup(x => x.ListAllTemp()).Returns(new string[0]);
                     StoreMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns(tempDir);
@@ -252,7 +259,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Optimise : CliCommandTest<StoreMan.Optimise>
+        internal class Optimise : StoreSubCommand<StoreMan.Optimise>
         {
             [Test]
             public void Test()
@@ -264,7 +271,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Purge : CliCommandTest<StoreMan.Purge>
+        internal class Purge : StoreSubCommand<StoreMan.Purge>
         {
             [Test]
             public void Test()
@@ -279,7 +286,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Remove : CliCommandTest<StoreMan.Remove>
+        internal class Remove : StoreSubCommand<StoreMan.Remove>
         {
             [Test]
             public void Test()
@@ -293,7 +300,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [TestFixture]
-        internal class Verify : CliCommandTest<StoreMan.Verify>
+        internal class Verify : StoreSubCommand<StoreMan.Verify>
         {
             [Test]
             public void Pass()

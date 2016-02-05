@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Moq;
 using NUnit.Framework;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -26,6 +28,8 @@ namespace ZeroInstall.Commands.CliCommands
     [TestFixture]
     public class ListTest : CliCommandTest<List>
     {
+        private Mock<IFeedCache> FeedCacheMock { get { return GetMock<IFeedCache>(); } }
+
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]
         public void TestNoArgs()
         {

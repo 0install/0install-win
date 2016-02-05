@@ -15,9 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Fetchers;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -29,6 +33,9 @@ namespace ZeroInstall.Commands.CliCommands
     [TestFixture]
     public class DownloadTest : SelectionTestBase<Download>
     {
+        private Mock<IFetcher> FetcherMock { get { return GetMock<IFetcher>(); } }
+        private Mock<ISelectionsManager> SelectionsManagerMock { get { return GetMock<ISelectionsManager>(); } }
+
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public override void TestNormal()
         {
@@ -38,7 +45,7 @@ namespace ZeroInstall.Commands.CliCommands
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
 
-            SolverMock.Setup(x => x.Solve(requirements)).Returns(selections);
+            GetMock<ISolver>().Setup(x => x.Solve(requirements)).Returns(selections);
 
             // Download uncached implementations
             SelectionsManagerMock.Setup(x => x.GetUncachedSelections(selections)).Returns(selections.Implementations);

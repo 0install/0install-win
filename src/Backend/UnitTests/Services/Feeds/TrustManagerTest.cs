@@ -46,15 +46,12 @@ namespace ZeroInstall.Services.Feeds
         private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
         #endregion
 
-        private Mock<IOpenPgp> _openPgpMock;
-        private Mock<IFeedCache> _feedCacheMock;
+        private Mock<IOpenPgp> OpenPgpMock { get { return GetMock<IOpenPgp>(); } }
+        private Mock<IFeedCache> FeedCacheMock {  get { return GetMock<IFeedCache>(); } }
 
         protected override void Register(AutoMockContainer container)
         {
             base.Register(container);
-
-            _openPgpMock = container.GetMock<IOpenPgp>();
-            _feedCacheMock = container.GetMock<IFeedCache>();
 
             Config.KeyInfoServer = null;
             Config.AutoApproveKeys = false;
@@ -73,7 +70,7 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void BadSignature()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123)});
+            OpenPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123)});
 
             Target.Invoking(x => x.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")))
                 .ShouldThrow<SignatureException>();
@@ -83,7 +80,7 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void MultipleSignatures()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123), OpenPgpUtilsTest.TestSignature});
+            OpenPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123), OpenPgpUtilsTest.TestSignature});
             TrustKey();
 
             Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml"))
@@ -116,7 +113,7 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndNoAutoTrust()
         {
             RegisterKey();
-            _feedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(true);
+            FeedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(true);
             Handler.AnswerQuestionWith = false;
 
             using (var keyInfoServer = new MicroServer("key/" + OpenPgpUtilsTest.TestSignature.FormatFingerprint(), KeyInfoResponse.ToStream()))
@@ -132,7 +129,7 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndAutoTrust()
         {
             RegisterKey();
-            _feedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(false);
+            FeedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(false);
 
             using (var keyInfoServer = new MicroServer("key/" + OpenPgpUtilsTest.TestSignature.FormatFingerprint(), KeyInfoResponse.ToStream()))
             {
@@ -188,7 +185,7 @@ namespace ZeroInstall.Services.Feeds
 
         private void RegisterKey()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {OpenPgpUtilsTest.TestSignature});
+            OpenPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {OpenPgpUtilsTest.TestSignature});
         }
 
         private void TrustKey()
@@ -203,10 +200,10 @@ namespace ZeroInstall.Services.Feeds
 
         private void ExpectKeyImport()
         {
-            _openPgpMock.SetupSequence(x => x.Verify(_feedBytes, _signatureBytes))
+            OpenPgpMock.SetupSequence(x => x.Verify(_feedBytes, _signatureBytes))
                 .Returns(new OpenPgpSignature[] {new MissingKeySignature(OpenPgpUtilsTest.TestKeyID)})
                 .Returns(new OpenPgpSignature[] {OpenPgpUtilsTest.TestSignature});
-            _openPgpMock.Setup(x => x.ImportKey(_keyData));
+            OpenPgpMock.Setup(x => x.ImportKey(_keyData));
         }
 
         private void UseKeyInfoServer(MicroServer keyInfoServer)
