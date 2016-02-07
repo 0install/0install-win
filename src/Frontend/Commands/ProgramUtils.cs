@@ -99,7 +99,7 @@ namespace ZeroInstall.Commands
         public static readonly string GuiAssemblyName =
             WindowsUtils.IsWindows
                 ? (WindowsUtils.IsInteractive ? "0install-win" : null)
-                : (UnixUtils.HasGui ? "0install-gtk" : null);
+                : null; //(UnixUtils.HasGui ? "0install-gtk" : null);
 
         /// <summary>
         /// Parses command-line arguments and performs the indicated action. Performs error handling.
