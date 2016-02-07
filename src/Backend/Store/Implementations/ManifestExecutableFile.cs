@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementations
         /// <returns><c>"X", space, hash, space, mtime, space, size, space, file name, newline</c></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "X {0} {1} {2} {3}", Digest, ModifiedTime.ToUnixTime(), Size, Name);
+            return string.Format(CultureInfo.InvariantCulture, "X {0} {1} {2} {3}", Digest, ModifiedTimeUnix, Size, Name);
         }
         #endregion
 

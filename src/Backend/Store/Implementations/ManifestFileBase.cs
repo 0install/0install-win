@@ -16,6 +16,7 @@
  */
 
 using System;
+using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Store.Implementations
 {
@@ -27,9 +28,14 @@ namespace ZeroInstall.Store.Implementations
     public abstract class ManifestFileBase : ManifestDirectoryElement
     {
         /// <summary>
+        /// The time this file was last modified as Unix time.
+        /// </summary>
+        protected long ModifiedTimeUnix { get; private set; }
+
+        /// <summary>
         /// The time this file was last modified.
         /// </summary>
-        public DateTime ModifiedTime { get; private set; }
+        public DateTime ModifiedTime { get { return FileUtils.FromUnixTime(ModifiedTimeUnix); } }
 
         /// <summary>
         /// Creates a new file entry.
@@ -42,7 +48,7 @@ namespace ZeroInstall.Store.Implementations
         protected ManifestFileBase(string digest, DateTime modifiedTime, long size, string name)
             : base(digest, size, name)
         {
-            ModifiedTime = modifiedTime;
+            ModifiedTimeUnix = modifiedTime.ToUnixTime();
         }
 
         #region Equality
@@ -50,7 +56,7 @@ namespace ZeroInstall.Store.Implementations
         protected bool Equals(ManifestFileBase other)
         {
             if (other == null) return false;
-            return ModifiedTime == other.ModifiedTime && base.Equals(other);
+            return ModifiedTimeUnix == other.ModifiedTimeUnix && base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -59,7 +65,7 @@ namespace ZeroInstall.Store.Implementations
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ ModifiedTime.GetHashCode();
+                result = (result * 397) ^ ModifiedTimeUnix.GetHashCode();
                 return result;
             }
         }
