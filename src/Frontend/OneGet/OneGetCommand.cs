@@ -324,7 +324,7 @@ namespace ZeroInstall.OneGet
             if (implementation == null)
             {
                 var selections = Solver.TrySolve(requirements);
-                if (selections != null) implementation = selections.Implementations[0];
+                if (selections != null) implementation = selections.MainImplementation;
             }
             if (feed == null) feed = FeedManager[requirements.InterfaceUri];
 

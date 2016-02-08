@@ -81,7 +81,7 @@ namespace ZeroInstall.Commands
 
             // Report version of current update if it is newer than the already installed version
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
-            var newVersion = selections.Implementations[0].Version;
+            var newVersion = selections.MainImplementation.Version;
             return (newVersion > currentVersion) ? newVersion : null;
         }
     }
