@@ -66,14 +66,11 @@
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProjectInstaller.Designer.cs">
-      <DependentUpon>ProjectInstaller.cs</DependentUpon>
-    </Compile>
     <Compile Include="SecureStore.cs" />
     <Compile Include="StoreService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StoreServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="StoreService.Designer.cs">

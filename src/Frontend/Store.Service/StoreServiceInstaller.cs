@@ -17,15 +17,26 @@
 
 using System.ComponentModel;
 using System.Configuration.Install;
+using System.ServiceProcess;
 
 namespace ZeroInstall.Store.Service
 {
+    /// <summary>
+    /// Entry point used by InstallUtil.exe.
+    /// </summary>
     [RunInstaller(true)]
-    public partial class ProjectInstaller : Installer
+    public class StoreServiceInstaller : Installer
     {
-        public ProjectInstaller()
+        public StoreServiceInstaller()
         {
-            InitializeComponent();
+            Installers.Add(new ServiceProcessInstaller {Account = ServiceAccount.LocalService});
+            Installers.Add(new ServiceInstaller
+            {
+                Description = "Manages a Zero Install implementation cache shared between all users.",
+                DisplayName = "Zero Install Store Service",
+                ServiceName = "0store-service",
+                StartType = ServiceStartMode.Automatic
+            });
         }
     }
 }
