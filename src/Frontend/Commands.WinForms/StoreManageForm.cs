@@ -165,7 +165,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                ProcessUtils.Assembly(Program.ExeName, StoreMan.Name, "manage").AsAdmin().Run();
+                ProcessUtils.Assembly(Program.ExeName, StoreMan.Name, "manage").AsAdmin().Start();
             }
             catch (OperationCanceledException)
             {

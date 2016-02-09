@@ -40,10 +40,11 @@ namespace ZeroInstall.Commands.WinForms
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler
     {
+        #region Resources
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
-        /// <inheritdoc/>
-        public bool Background { get; set; }
+        /// <summary>A wait handle used by <see cref="CustomizeSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
+        private readonly AutoResetEvent _modifySelectionsWaitHandle = new AutoResetEvent(false);
 
         public GuiCommandHandler()
         {
@@ -56,6 +57,26 @@ namespace ZeroInstall.Commands.WinForms
             });
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    _modifySelectionsWaitHandle.Close();
+                    _wrapper.Dispose();
+                }
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
+        }
+        #endregion
+
+        /// <inheritdoc/>
+        public bool Background { get; set; }
+
         #region Task tracking
         /// <inheritdoc/>
         public override void RunTask(ITask task)
@@ -67,10 +88,8 @@ namespace ZeroInstall.Commands.WinForms
             Log.Debug("Task: " + task.Name);
 
             var progress = _wrapper.Post(form => (task.Tag is ManifestDigest)
-                // Handle events coming from a non-UI thread
-                ? form.SetupProgress(task.Name, (ManifestDigest)task.Tag)
-                // Handle events coming from a non-UI thread
-                : form.SetupProgress(task.Name));
+                ? form.GetProgressControl(task.Name, (ManifestDigest)task.Tag)
+                : form.GetProgressControl(task.Name));
 
             task.Run(CancellationToken, CredentialProvider, progress);
 
@@ -134,9 +153,6 @@ namespace ZeroInstall.Commands.WinForms
 
             _wrapper.Post(form => form.ShowSelections(selections, feedManager));
         }
-
-        /// <summary>A wait handle used by <see cref="CustomizeSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
-        private readonly AutoResetEvent _modifySelectionsWaitHandle = new AutoResetEvent(false);
 
         /// <inheritdoc/>
         public void CustomizeSelections(Func<Selections> solveCallback)
@@ -289,26 +305,6 @@ namespace ZeroInstall.Commands.WinForms
                 case LogSeverity.Error:
                     _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Error));
                     break;
-            }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Dispose
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
-                if (disposing)
-                {
-                    _modifySelectionsWaitHandle.Close();
-                    _wrapper.Dispose();
-                }
-            }
-            finally
-            {
-                base.Dispose(disposing);
             }
         }
         #endregion

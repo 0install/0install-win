@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using NanoByte.Common.Controls;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -39,7 +38,7 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonHide = new System.Windows.Forms.Button();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.trackingControl = new NanoByte.Common.Controls.TaskControl();
+            this.taskControl = new NanoByte.Common.Controls.TaskControl();
             this.buttonModifySelectionsDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -84,15 +83,15 @@ namespace ZeroInstall.Commands.WinForms
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
-            // trackingControl
+            // taskControl
             // 
-            this.trackingControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.taskControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackingControl.Location = new System.Drawing.Point(13, 12);
-            this.trackingControl.Name = "trackingControl";
-            this.trackingControl.Size = new System.Drawing.Size(434, 54);
-            this.trackingControl.TabIndex = 5;
-            this.trackingControl.Visible = false;
+            this.taskControl.Location = new System.Drawing.Point(13, 12);
+            this.taskControl.Name = "taskControl";
+            this.taskControl.Size = new System.Drawing.Size(434, 54);
+            this.taskControl.TabIndex = 5;
+            this.taskControl.Visible = false;
             // 
             // buttonModifySelectionsDone
             // 
@@ -114,7 +113,7 @@ namespace ZeroInstall.Commands.WinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 162);
             this.Controls.Add(this.buttonModifySelectionsDone);
-            this.Controls.Add(this.trackingControl);
+            this.Controls.Add(this.taskControl);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
@@ -124,7 +123,7 @@ namespace ZeroInstall.Commands.WinForms
             this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Zero Install";
-            this.Closing += new System.ComponentModel.CancelEventHandler(this.ProgressForm_Closing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
             this.Shown += new System.EventHandler(this.ProgressForm_Shown);
             this.ResumeLayout(false);
 
@@ -134,9 +133,9 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
-        private SelectionsControl selectionsControl;
+        private ZeroInstall.Commands.WinForms.SelectionsControl selectionsControl;
         private System.Windows.Forms.ToolTip toolTip;
-        private TaskControl trackingControl;
+        private NanoByte.Common.Controls.TaskControl taskControl;
         private System.Windows.Forms.Button buttonModifySelectionsDone;
 
     }

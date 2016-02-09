@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands.WinForms
             InitializeComponent();
             CreateHandle();
 
-            TrackingControls = new TransparentCache<ManifestDigest, TaskControl>(CreateTrackingControl);
+            TaskControls = new TransparentCache<ManifestDigest, TaskControl>(CreateTaskControls);
         }
         #endregion
 
@@ -159,9 +159,9 @@ namespace ZeroInstall.Commands.WinForms
         /// A list of <see cref="TaskControl"/>s adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.
         /// Missing entries are transparently created on request.
         /// </summary>
-        internal readonly TransparentCache<ManifestDigest, TaskControl> TrackingControls;
+        internal readonly TransparentCache<ManifestDigest, TaskControl> TaskControls;
 
-        private TaskControl CreateTrackingControl(ManifestDigest manifestDigest)
+        private TaskControl CreateTaskControls(ManifestDigest manifestDigest)
         {
             var trackingControl = new TaskControl {Dock = DockStyle.Fill};
             trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode

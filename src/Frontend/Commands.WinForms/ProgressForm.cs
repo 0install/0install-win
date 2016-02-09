@@ -39,17 +39,6 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public partial class ProgressForm : Form
     {
-        #region Variables
-        /// <summary>Signaled when the user wishes to cancel the current process.</summary>
-        private readonly CancellationTokenSource _cancellationTokenSource;
-
-        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="ModifySelections"/>.</summary>
-        private EventWaitHandle _modifySelectionsWaitHandle;
-
-        /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
-        private bool _selectionsShown;
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Creates a new progress tracking form.
@@ -79,6 +68,12 @@ namespace ZeroInstall.Commands.WinForms
         //--------------------//
 
         #region Selections UI
+        /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
+        private bool _selectionsShown;
+
+        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="ModifySelections"/>.</summary>
+        private EventWaitHandle _modifySelectionsWaitHandle;
+
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
         /// Returns immediately.
@@ -95,7 +90,7 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            trackingControl.Visible = false;
+            taskControl.Visible = false;
             _selectionsShown = selectionsControl.Visible = true;
             selectionsControl.SetSelections(selections, feedManager);
         }
@@ -143,33 +138,33 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// Creates a new GUI element for tracking a <see cref="ITask"/> and returns a handle to it. Should only be one running at a time.
+        /// Gets a GUI element for reporting progress of a generic <see cref="ITask"/>. Should only be one running at a time.
         /// </summary>
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public IProgress<TaskSnapshot> SetupProgress(string taskName)
+        public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            trackingControl.Visible = true;
+            taskControl.Visible = true;
 
             // Hide other stuff
             if (_selectionsShown) selectionsControl.Hide();
 
-            trackingControl.TaskName = taskName;
-            return trackingControl;
+            taskControl.TaskName = taskName;
+            return taskControl;
         }
 
         /// <summary>
-        /// Creates a new GUI element for tracking a <see cref="ITask"/> for a specific implementation and returns a handle to it. May run multiple in parallel.
+        /// Gets a GUI element for reporting progress of a <see cref="ITask"/> for a specific implementation. May run multiple in parallel.
         /// </summary>
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <param name="tag">A digest used to associate the task with a specific implementation.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public IProgress<TaskSnapshot> SetupProgress(string taskName, ManifestDigest tag)
+        public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName, ManifestDigest tag)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
@@ -177,25 +172,25 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             // Hide other stuff
-            trackingControl.Hide();
+            taskControl.Hide();
 
             if (_selectionsShown)
             {
-                var control = selectionsControl.TrackingControls[tag];
+                var control = selectionsControl.TaskControls[tag];
                 control.TaskName = taskName;
                 return control;
             }
-            else return SetupProgress(taskName);
+            else return GetProgressControl(taskName);
         }
 
         /// <summary>
-        /// Restores the UI activated by <see cref="ShowSelections"/> and hidden by <see cref="SetupProgress(string)"/> after an <see cref="ITask.Run"/> completes.
+        /// Restores the UI activated by <see cref="ShowSelections"/> and hidden by <see cref="GetProgressControl(string)"/> after an <see cref="ITask.Run"/> completes.
         /// </summary>
         public void RestoreSelections()
         {
             if (_selectionsShown)
             {
-                trackingControl.Visible = false;
+                taskControl.Visible = false;
                 selectionsControl.Visible = true;
             }
         }
@@ -273,8 +268,10 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Closing
-        // Raised when the user tried to close the window
-        private void ProgressForm_Closing(object sender, CancelEventArgs e)
+        /// <summary>Signaled when the user wishes to cancel the current process.</summary>
+        private readonly CancellationTokenSource _cancellationTokenSource;
+
+        private void ProgressForm_FormClosing(object sender, CancelEventArgs e)
         {
             // Never allow the user to directly close the window
             e.Cancel = true;
