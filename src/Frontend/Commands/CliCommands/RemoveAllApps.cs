@@ -16,8 +16,6 @@
  */
 
 using System;
-using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
@@ -54,19 +52,9 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
-            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
-            {
-                if (integrationManager.AppList.Entries.Count == 0) return ExitCode.OK;
-
-                if (Handler.Ask(Resources.ConfirmRemoveAll, defaultAnswer: true))
-                {
-                    Handler.RunTask(ForEachTask.Create(Resources.RemovingApplications, integrationManager.AppList.Entries.ToList(), integrationManager.RemoveApp));
-
-                    // Purge sync status, otherwise next sync would remove everything from server as well instead of restoring from there
-                    File.Delete(AppList.GetDefaultPath(MachineWide) + SyncIntegrationManager.AppListLastSyncSuffix);
-                }
-                else throw new OperationCanceledException();
-            }
+            if (Handler.Ask(Resources.ConfirmRemoveAll, defaultAnswer: true))
+                AppUtils.RemoveAllApps(Handler, MachineWide);
+            else throw new OperationCanceledException();
 
             return ExitCode.OK;
         }

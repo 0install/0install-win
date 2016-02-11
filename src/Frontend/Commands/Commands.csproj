@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="AppUtils.cs" />
     <Compile Include="CliCommandHandler.cs" />
     <Compile Include="CliCommands\AddAlias.cs" />
     <Compile Include="CliCommands\AddApp.cs" />
