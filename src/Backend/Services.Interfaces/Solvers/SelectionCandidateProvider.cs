@@ -145,7 +145,7 @@ namespace ZeroInstall.Services.Solvers
                 {
                     // Wrap exception to add context information
                     throw new IOException(
-                        string.Format("Failed to load feed {1} manually registered for interface {0}. Try '0install remove-feed {0} {1}.", requirements.InterfaceUri.ToStringRfc(), reference.Source.ToStringRfc()),
+                        string.Format("Failed to load feed {1} manually registered for interface {0}. Try '0install remove-feed {0} {1}'.", requirements.InterfaceUri.ToStringRfc(), reference.Source.ToStringRfc()),
                         ex);
                 }
                 #endregion
