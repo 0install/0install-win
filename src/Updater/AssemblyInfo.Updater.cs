@@ -8,4 +8,4 @@ using System.Reflection;
 [assembly: AssemblyCopyright("Copyright 2010-2015 Bastian Eicher")]
 
 // Version information
-[assembly: AssemblyVersion("1.4.5")]
+[assembly: AssemblyVersion("1.5.0")]

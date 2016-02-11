@@ -1,5 +1,5 @@
 ﻿PROJECT_NAME = "Zero Install Backend API"
-PROJECT_NUMBER = "2.9.7"
+PROJECT_NUMBER = "2.10.0"
 
 INPUT = ../src/Backend
 STRIP_FROM_PATH = ../src/Backend
