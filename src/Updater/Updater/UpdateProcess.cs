@@ -341,10 +341,9 @@ namespace ZeroInstall.Updater
                     File.Delete(file);
 
                 if (NewVersion >= new Version("2.9") && Directory.Exists(Path.Combine(Target, "GnuPG")))
-                {
                     Directory.Delete(Path.Combine(Target, "GnuPG"));
+                if (NewVersion >= new Version("2.10") && Directory.Exists(Path.Combine(Target, "Solver")))
                     Directory.Delete(Path.Combine(Target, "Solver"));
-                }
             });
         }
 
@@ -392,7 +391,9 @@ namespace ZeroInstall.Updater
                     Path.Combine("GnuPG", "COPYING.txt")
                 };
                 paths.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
-
+            }
+            if (NewVersion >= new Version("2.10"))
+            {
                 if (Directory.Exists(Path.Combine(Target, "Solver")))
                     paths.AddRange(FileUtils.GetFilesRecursive(Path.Combine(Target, "Solver")));
             }
