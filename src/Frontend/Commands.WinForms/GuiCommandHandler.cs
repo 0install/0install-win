@@ -208,6 +208,14 @@ namespace ZeroInstall.Commands.WinForms
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
         }
+
+        /// <inheritdoc/>
+        public override void Error(Exception exception)
+        {
+            DisableUI();
+
+            base.Error(exception);
+        }
         #endregion
 
         #region Dialogs

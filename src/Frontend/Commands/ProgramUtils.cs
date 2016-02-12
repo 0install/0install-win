@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -132,7 +131,6 @@ namespace ZeroInstall.Commands
                 {
                     Log.Info("Switching to GUI");
                     handler.DisableUI();
-
                     try
                     {
                         return (ExitCode)ProcessUtils.Assembly(GuiAssemblyName, args).Run();
@@ -155,7 +153,6 @@ namespace ZeroInstall.Commands
                 {
                     Log.Info("Elevating to admin");
                     handler.DisableUI();
-
                     try
                     {
                         return (ExitCode)ProcessUtils.Assembly(GuiAssemblyName ?? exeName, args).AsAdmin().Run();
@@ -180,10 +177,9 @@ namespace ZeroInstall.Commands
             {
                 if (WindowsUtils.IsWindows)
                 {
-                    handler.DisableUI();
                     try
                     {
-                        var result = TryRunOtherInstance(exeName, args, ex.NeedsMachineWide);
+                        var result = TryRunOtherInstance(exeName, args, handler, ex.NeedsMachineWide);
                         if (result.HasValue) return result.Value;
                     }
                     catch (IOException ex2)
@@ -269,10 +265,11 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="exeName">The name of the executable to call in the target instance.</param>
         /// <param name="args">The arguments to pass to the target instance.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <param name="needsMachineWide"><c>true</c> if a machine-wide install location is required; <c>false</c> if a user-specific location will also do.</param>
         /// <returns>The exit code returned by the other instance; <c>null</c> if no other instance could be found.</returns>
         /// <exception cref="IOException">There was a problem launching the target instance.</exception>
-        private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, bool needsMachineWide)
+        private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, [NotNull] ICommandHandler handler, bool needsMachineWide)
         {
             string installLocation = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
             if (string.IsNullOrEmpty(installLocation)) return null;
@@ -281,7 +278,8 @@ namespace ZeroInstall.Commands
             if (!File.Exists(Path.Combine(installLocation, "0install.exe"))) return null;
 
             Log.Warn("Redirecting to instance at " + installLocation);
-            return (ExitCode)new ProcessStartInfo(Path.Combine(installLocation, exeName + ".exe"), args.JoinEscapeArguments()) {UseShellExecute = false}.Run();
+            handler.DisableUI();
+            return (ExitCode)ProcessUtils.Assembly(Path.Combine(installLocation, exeName), args.JoinEscapeArguments()).Run();
         }
     }
 }
