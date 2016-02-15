@@ -17,6 +17,7 @@
 
 using JetBrains.Annotations;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Commands.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
 

@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="AppUtils.cs" />
     <Compile Include="CliCommandHandler.cs" />
     <Compile Include="CliCommands\AddAlias.cs" />
     <Compile Include="CliCommands\AddApp.cs" />
@@ -116,10 +115,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="RunHook.cs" />
-    <Compile Include="SelfUpdateUtils.cs" />
-    <Compile Include="SyncUtils.cs" />
     <Compile Include="UnsuitableInstallBaseException.cs" />
+    <Compile Include="Utils\AppUtils.cs" />
+    <Compile Include="Utils\RunHook.cs" />
+    <Compile Include="Utils\SelfUpdateUtils.cs" />
+    <Compile Include="Utils\SyncUtils.cs" />
+    <Compile Include="Utils\_Namespace.cs" />
     <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>

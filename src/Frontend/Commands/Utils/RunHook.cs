@@ -39,7 +39,7 @@ using ZeroInstall.Store.Model.Capabilities;
 using ZeroInstall.Store.Model.Selection;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 
-namespace ZeroInstall.Commands
+namespace ZeroInstall.Commands.Utils
 {
     /// <summary>
     /// Hooks into the creation of new processes to inject API hooks.

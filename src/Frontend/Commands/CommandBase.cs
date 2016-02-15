@@ -25,6 +25,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Commands.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;

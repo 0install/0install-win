@@ -32,6 +32,7 @@ using NanoByte.Common.Storage;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.CliCommands;
+using ZeroInstall.Commands.Utils;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;

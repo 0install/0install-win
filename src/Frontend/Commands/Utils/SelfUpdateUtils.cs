@@ -29,7 +29,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Commands
+namespace ZeroInstall.Commands.Utils
 {
     /// <summary>
     /// Provides functionality for controlling Zero Install's self-update feature.

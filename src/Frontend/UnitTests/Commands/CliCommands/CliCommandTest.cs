@@ -21,6 +21,7 @@ using JetBrains.Annotations;
 using Moq;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.Commands.Utils;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;

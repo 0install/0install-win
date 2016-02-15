@@ -20,7 +20,7 @@ using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Commands
+namespace ZeroInstall.Commands.Utils
 {
     /// <summary>
     /// Helper methods for creating instances of <see cref="SyncIntegrationManager"/>.
