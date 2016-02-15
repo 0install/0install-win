@@ -350,10 +350,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCommandLine_Click(object sender, EventArgs e)
         {
-            var cmd = new ProcessStartInfo
+            var cmd = new ProcessStartInfo("cmd.exe", "/k echo " + Resources.CommandLineHint)
             {
-                FileName = "cmd.exe",
-                Arguments = "/k echo " + Resources.CommandLineHint,
                 UseShellExecute = false,
                 WorkingDirectory = Locations.IsPortable ? Locations.PortableBase : Locations.HomeDir
             };

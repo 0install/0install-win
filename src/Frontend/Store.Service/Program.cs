@@ -114,7 +114,8 @@ namespace ZeroInstall.Store.Service
         {
             int exitCode = new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
             {
-                WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)
+                WindowStyle = silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
+                WorkingDirectory = Path.GetTempPath()
             }.Run();
 
             if (!silent)
@@ -133,7 +134,8 @@ namespace ZeroInstall.Store.Service
 
             int exitCode = new ProcessStartInfo(InstallUtilPath, new[] {"/u", Application.ExecutablePath}.JoinEscapeArguments())
             {
-                WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)
+                WindowStyle = silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
+                WorkingDirectory = Path.GetTempPath()
             }.Run();
 
             if (!silent)
