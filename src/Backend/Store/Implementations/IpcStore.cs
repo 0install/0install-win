@@ -54,8 +54,6 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        //--------------------//
-
         /// <summary>
         /// Always returns empty list. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
@@ -165,8 +163,7 @@ namespace ZeroInstall.Store.Implementations
         public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {}
 
-        //--------------------//
-
+        #region Conversion
         /// <summary>
         /// Returns a fixed string.
         /// </summary>
@@ -175,5 +172,6 @@ namespace ZeroInstall.Store.Implementations
             // NOTE: Do not touch DirectoryPath here to avoid potentially expensive IPC
             return "Connection to Store Service (if available)";
         }
+        #endregion
     }
 }

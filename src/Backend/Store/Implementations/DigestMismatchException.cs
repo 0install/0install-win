@@ -32,7 +32,6 @@ namespace ZeroInstall.Store.Implementations
     [Serializable]
     public sealed class DigestMismatchException : Exception
     {
-        #region Properties
         /// <summary>
         /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
@@ -56,9 +55,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         [CanBeNull]
         public Manifest ActualManifest { get; private set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new digest mismatch exception.
         /// </summary>
@@ -108,6 +105,7 @@ namespace ZeroInstall.Store.Implementations
         public DigestMismatchException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
@@ -122,9 +120,7 @@ namespace ZeroInstall.Store.Implementations
             ActualDigest = info.GetString("ActualDigest");
             ActualManifest = (Manifest)info.GetValue("ActualManifest", typeof(Manifest));
         }
-        #endregion
 
-        #region Serialization
         /// <inheritdoc/>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

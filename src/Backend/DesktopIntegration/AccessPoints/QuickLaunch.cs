@@ -31,15 +31,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("quick-launch", Namespace = AppList.XmlNamespace)]
     public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
             return new[] {"quick-launch:" + Name};
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -61,9 +58,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Remove(this);
         }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <inheritdoc/>

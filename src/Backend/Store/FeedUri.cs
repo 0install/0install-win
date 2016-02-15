@@ -86,7 +86,6 @@ namespace ZeroInstall.Store
         }
         #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a feed URI from an existing <see cref="Uri"/>.
         /// </summary>
@@ -126,30 +125,6 @@ namespace ZeroInstall.Store
 
             DetectPrefix(value);
         }
-        #endregion
-
-        #region Serialization
-        private FeedUri(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-            IsFake = serializationInfo.GetBoolean("IsFake");
-            IsFromDistribution = serializationInfo.GetBoolean("IsFromDistribution");
-        }
-
-        [SecurityPermission(SecurityAction.LinkDemand, SerializationFormatter = true)]
-        void ISerializable.GetObjectData(SerializationInfo serializationInfo, StreamingContext streamingContext)
-        {
-            #region Sanity checks
-            if (serializationInfo == null) throw new ArgumentNullException("serializationInfo");
-            #endregion
-
-            GetObjectData(serializationInfo, streamingContext);
-            serializationInfo.AddValue("IsFake", IsFake);
-            serializationInfo.AddValue("IsFromDistribution", IsFromDistribution);
-        }
-        #endregion
-
-        //--------------------//
 
         #region Escaping
         /// <summary>
@@ -378,6 +353,27 @@ namespace ZeroInstall.Store
                     // Should never reach this
                     throw new InvalidOperationException();
             }
+        }
+        #endregion
+
+        #region Serialization
+        private FeedUri(SerializationInfo serializationInfo, StreamingContext streamingContext)
+            : base(serializationInfo, streamingContext)
+        {
+            IsFake = serializationInfo.GetBoolean("IsFake");
+            IsFromDistribution = serializationInfo.GetBoolean("IsFromDistribution");
+        }
+
+        [SecurityPermission(SecurityAction.LinkDemand, SerializationFormatter = true)]
+        void ISerializable.GetObjectData(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        {
+            #region Sanity checks
+            if (serializationInfo == null) throw new ArgumentNullException("serializationInfo");
+            #endregion
+
+            GetObjectData(serializationInfo, streamingContext);
+            serializationInfo.AddValue("IsFake", IsFake);
+            serializationInfo.AddValue("IsFromDistribution", IsFromDistribution);
         }
         #endregion
 

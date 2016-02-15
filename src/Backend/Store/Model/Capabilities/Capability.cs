@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [XmlType("capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class Capability : XmlUnknown, ICloneable
     {
-        #region Properties
         /// <summary>
         /// Indicates whether this capability can be registered only machine-wide and not per-user on Windows systems.
         /// </summary>
@@ -53,9 +52,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Browsable(false)]
         [XmlIgnore, NotNull, ItemNotNull]
         public abstract IEnumerable<string> ConflictIDs { get; }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

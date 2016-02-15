@@ -19,12 +19,9 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     internal struct VersionDottedList : IEquatable<VersionDottedList>, IComparable<VersionDottedList>
     {
-        #region Variables
         /// <summary>The individual decimals.</summary>
         private readonly long[] _decimals;
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new dotted-list from a a string.
         /// </summary>
@@ -45,9 +42,16 @@ namespace ZeroInstall.Store.Model
                     throw new FormatException(Resources.MustBeDottedList);
             }
         }
-        #endregion
 
-        //--------------------//
+        private static readonly Regex _dottedListPattern = new Regex(@"^(\d+(\.\d+)*)$");
+
+        /// <summary>
+        /// Checks whether a string represents a valid dotted-list.
+        /// </summary>
+        public static bool IsValid(string value)
+        {
+            return _dottedListPattern.IsMatch(value);
+        }
 
         #region Conversion
         /// <inheritdoc/>
@@ -115,20 +119,6 @@ namespace ZeroInstall.Store.Model
                 if (comparisonResult != 0) return left.CompareTo(right);
             }
             return 0;
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Static helpers
-        private static readonly Regex _dottedListPattern = new Regex(@"^(\d+(\.\d+)*)$");
-
-        /// <summary>
-        /// Checks whether a string represents a valid dotted-list.
-        /// </summary>
-        public static bool IsValid(string value)
-        {
-            return _dottedListPattern.IsMatch(value);
         }
         #endregion
     }

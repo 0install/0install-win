@@ -62,9 +62,6 @@ namespace ZeroInstall.Store.Model.Preferences
             get { return _implementations; }
         }
 
-        //--------------------//
-
-        #region Access
         /// <summary>
         /// Retrieves an existing entry from <see cref="Implementations"/> by ID or creates a new one if no appropriate one exists.
         /// </summary>
@@ -83,7 +80,6 @@ namespace ZeroInstall.Store.Model.Preferences
                 return result;
             }
         }
-        #endregion
 
         #region Normalize
         /// <summary>
@@ -176,8 +172,6 @@ namespace ZeroInstall.Store.Model.Preferences
             this.SaveXml(path);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

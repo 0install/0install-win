@@ -28,15 +28,12 @@ namespace ZeroInstall.Store.Trust
     [XmlType("domain", Namespace = TrustDB.XmlNamespace)]
     public struct Domain : ICloneable, IEquatable<Domain>, IComparable<Domain>
     {
-        #region Properties
         /// <summary>
         /// A valid domain name (not a full <see cref="Uri"/>!).
         /// </summary>
         [XmlAttribute("value")]
         public string Value { get; set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new domain entry.
         /// </summary>
@@ -45,9 +42,6 @@ namespace ZeroInstall.Store.Trust
         {
             Value = value;
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <inheritdoc/>

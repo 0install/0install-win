@@ -26,7 +26,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [XmlType("default-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class DefaultCapability : Capability
     {
-        #region Properties
         /// <summary>
         /// When set to <c>true</c> this capability is not applied as a default handler without explicit confirmation from the user.
         /// </summary>
@@ -34,9 +33,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Description("When set to true do not apply this capability is not applied as a default handler without explicit confirmation from the user. Use this to exclude exotic capabilities from default integration categories.")]
         [XmlAttribute("explicit-only"), DefaultValue(false)]
         public bool ExplicitOnly { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Equality
         /// <inheritdoc/>

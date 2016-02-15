@@ -33,7 +33,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [Serializable, XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
     public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>
     {
-        #region Properties
         private readonly List<AccessPoint> _accessPoints = new List<AccessPoint>();
 
         /// <summary>
@@ -47,9 +46,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             get { return _accessPoints; }
         }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

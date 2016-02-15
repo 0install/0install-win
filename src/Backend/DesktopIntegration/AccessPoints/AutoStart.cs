@@ -38,15 +38,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public const string CategoryName = "auto-start";
         #endregion
 
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
             return new[] {"auto-start:" + Name};
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -68,9 +65,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows) Windows.Shortcut.Remove(this, machineWide);
         }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <inheritdoc/>

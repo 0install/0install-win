@@ -123,7 +123,6 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, JsonIgnore, NotNull]
         public ICollection<string> Distributions { get { return _distributions; } }
 
-        #region Constructor
         /// <summary>
         /// Cretes an empty requirements object. Use this to fill in values incrementally, e.g. when parsing command-line arguments.
         /// </summary>
@@ -164,9 +163,6 @@ namespace ZeroInstall.Store.Model
         public Requirements([NotNull] string interfaceUri, [CanBeNull] string command = null, Architecture architecture = default(Architecture))
             : this(new FeedUri(interfaceUri), command, architecture)
         {}
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlRoot("url-protocol", Namespace = CapabilityList.XmlNamespace), XmlType("url-protocol", Namespace = CapabilityList.XmlNamespace)]
     public sealed class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
     {
-        #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
@@ -48,9 +47,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"progid:" + ID}; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -61,6 +61,12 @@ namespace ZeroInstall.Store.Model.Selection
         /// <seealso cref="FromFeed"/>
         [XmlAttribute("from-feed"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string FromFeedString { get { return (FromFeed == null) ? null : FromFeed.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
+
+        /// <summary>
+        /// Used for XML serialization.
+        /// </summary>
+        public ImplementationSelection()
+        {}
         #endregion
 
         /// <summary>
@@ -79,13 +85,6 @@ namespace ZeroInstall.Store.Model.Selection
         [XmlIgnore, CanBeNull]
         public IEnumerable<SelectionCandidate> Candidates { get { return _candidates; } }
 
-        #region Contructor
-        /// <summary>
-        /// Used for XML serialization.
-        /// </summary>
-        public ImplementationSelection()
-        {}
-
         /// <summary>
         /// Creates a new implemenetation selection.
         /// </summary>
@@ -94,9 +93,6 @@ namespace ZeroInstall.Store.Model.Selection
         {
             _candidates = candidates.ToList();
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <inheritdoc/>

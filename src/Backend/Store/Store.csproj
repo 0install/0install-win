@@ -82,6 +82,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
+    <Compile Include="Feeds\FeedCacheExtentsions.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />
     <Compile Include="Feeds\FeedUtils.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />

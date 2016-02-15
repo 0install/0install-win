@@ -28,16 +28,12 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("executable-in-path", Namespace = Feed.XmlNamespace), XmlType("executable-in-path", Namespace = Feed.XmlNamespace)]
     public sealed class ExecutableInPath : ExecutableInBinding, IEquatable<ExecutableInPath>
     {
-        #region Properties
         /// <summary>
         /// The name of the executable (without file extensions).
         /// </summary>
         [Description("The name of the executable (without file extensions).")]
         [XmlAttribute("name")]
         public string Name { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

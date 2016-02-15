@@ -28,7 +28,6 @@ namespace ZeroInstall.Store.Trust
     [XmlType("key", Namespace = TrustDB.XmlNamespace)]
     public sealed class Key : ICloneable, IEquatable<Key>
     {
-        #region Properties
         /// <summary>
         /// The cryptographic fingerprint of this key.
         /// </summary>
@@ -44,9 +43,6 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         [XmlElement("domain"), NotNull]
         public SortedSet<Domain> Domains { get { return _domains; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <inheritdoc/>

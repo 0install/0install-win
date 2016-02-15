@@ -38,15 +38,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public const string CategoryName = "send-to";
         #endregion
 
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
             return new[] {"send-to:" + Name};
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -68,9 +65,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Remove(this);
         }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <inheritdoc/>

@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [XmlType("verb-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class VerbCapability : IconCapability
     {
-        #region Properties
         private readonly List<Verb> _verbs = new List<Verb>();
 
         /// <summary>
@@ -38,9 +37,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Browsable(false)]
         [XmlElement("verb"), NotNull]
         public List<Verb> Verbs { get { return _verbs; } }
-        #endregion
-
-        //--------------------//
 
         #region Equality
         /// <inheritdoc/>

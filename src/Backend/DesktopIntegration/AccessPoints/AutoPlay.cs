@@ -33,7 +33,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
     public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
@@ -44,9 +43,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             return capability.Events.Select(@event => "autoplay-event:" + @event.Name);
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -70,9 +67,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             if (WindowsUtils.IsWindows) Windows.AutoPlay.Unregister(capability, machineWide, accessPoint: true);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

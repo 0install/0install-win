@@ -37,16 +37,12 @@ namespace ZeroInstall.Store.Model.Capabilities
             NameBurnCD = "HandleCDBurningOnArrival", NameBurnDvd = "HandleDVDBurningOnArrival", NameBurnBluRay = "HandleBDBurningOnArrival";
         #endregion
 
-        #region Properties
         /// <summary>
         /// The name of the event.
         /// </summary>
         [Description("The name of the event.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

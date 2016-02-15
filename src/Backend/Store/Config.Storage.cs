@@ -35,7 +35,6 @@ namespace ZeroInstall.Store
 {
     partial class Config
     {
-        #region Access
         /// <summary>
         /// Retrieves the string representation of an option identified by a key.
         /// </summary>
@@ -69,9 +68,7 @@ namespace ZeroInstall.Store
             var property = _metaData[key];
             property.Value = property.DefaultValue;
         }
-        #endregion
-
-        #region Storage
+        
         private const string RegistryPolicyPath = @"SOFTWARE\Policies\Zero Install";
 
         /// <summary>
@@ -151,7 +148,6 @@ namespace ZeroInstall.Store
         {
             Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "global"));
         }
-        #endregion
 
         #region Serialization
         private const string GlobalSection = "global";
@@ -253,9 +249,7 @@ namespace ZeroInstall.Store
             }
         }
         #endregion
-
-        //--------------------//
-
+        
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Config"/> instance.

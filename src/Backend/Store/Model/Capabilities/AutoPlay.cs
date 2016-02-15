@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
     public sealed class AutoPlay : IconCapability, ISingleVerb, IEquatable<AutoPlay>
     {
-        #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
@@ -62,9 +61,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"autoplay:" + ID}; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

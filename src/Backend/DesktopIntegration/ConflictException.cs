@@ -92,13 +92,13 @@ namespace ZeroInstall.DesktopIntegration
         public ConflictException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
         private ConflictException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
 
-        #region Serialization
         /// <inheritdoc/>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

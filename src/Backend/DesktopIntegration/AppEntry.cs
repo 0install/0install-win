@@ -132,9 +132,6 @@ namespace ZeroInstall.DesktopIntegration
         [XmlAttribute("timestamp"), DefaultValue(0)]
         public long TimestampUnix { get { return Timestamp.ToUnixTime(); } set { Timestamp = FileUtils.FromUnixTime(value); } }
 
-        //--------------------//
-
-        #region Access
         /// <summary>
         /// Retrieves the first <see cref="Capability"/> that matches a specific type and ID and is compatible with <see cref="Architecture.CurrentSystem"/>.
         /// </summary>
@@ -161,9 +158,6 @@ namespace ZeroInstall.DesktopIntegration
             }
             #endregion
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

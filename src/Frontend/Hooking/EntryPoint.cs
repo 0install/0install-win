@@ -39,7 +39,6 @@ namespace ZeroInstall.Hooking
         public const string AssemblyStrongName = "ZeroInstall.Hooking,PublicKeyToken=3090a828a7702cec";
         #endregion
 
-        #region Variables
         private readonly string _implementationDir;
 
         private readonly RegistryFilter _registryFilter;
@@ -52,9 +51,7 @@ namespace ZeroInstall.Hooking
             _regSetValueExWHook, _regSetValueExAHook,
             _createProcessWHook, _createProcessAHook,
             _createWindowExWHook, _createWindowExAHook;
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new entry point.
         /// </summary>
@@ -75,11 +72,7 @@ namespace ZeroInstall.Hooking
             _relaunchControl = relaunchControl;
             _relaunchInformation = relaunchControl.GetCurrentEntry();
         }
-        #endregion
 
-        //--------------------//
-
-        #region Injection
         /// <summary>
         /// Sets up the API hooks and maintains them.
         /// </summary>
@@ -134,6 +127,5 @@ namespace ZeroInstall.Hooking
             _createWindowExAHook = LocalHook.Create(LocalHook.GetProcAddress("user32.dll", "CreateWindowExA"), new UnsafeNativeMethods.DCreateWindowExA(CreateWindowExACallback), null);
             _createWindowExAHook.ThreadACL.SetExclusiveACL(new[] {0});
         }
-        #endregion
     }
 }

@@ -33,7 +33,6 @@ namespace ZeroInstall.Store.Model
     [XmlType("implementation-base", Namespace = Feed.XmlNamespace)]
     public abstract class ImplementationBase : Element
     {
-        #region Properties
         /// <summary>
         /// A unique identifier for this implementation. Used when storing implementation-specific user preferences.
         /// </summary>
@@ -56,9 +55,6 @@ namespace ZeroInstall.Store.Model
         [Category("Identity"), Description("A manifest digest is a means of uniquely identifying an Implementation and verifying its contents.")]
         [XmlElement("manifest-digest")]
         public ManifestDigest ManifestDigest { get { return _manifestDigest; } set { _manifestDigest = value; } }
-        #endregion
-
-        //--------------------//
 
         #region Normalize
         /// <summary>
@@ -104,8 +100,6 @@ namespace ZeroInstall.Store.Model
             if (!string.IsNullOrEmpty(ID)) _manifestDigest.ParseID(ID);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

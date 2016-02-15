@@ -28,7 +28,6 @@ namespace ZeroInstall.Services.Solvers
     [Serializable]
     public sealed class SolverException : Exception
     {
-        #region Constructor
         /// <summary>
         /// Indicates that the <see cref="ISolver"/> encountered an unknown problem.
         /// </summary>
@@ -47,6 +46,7 @@ namespace ZeroInstall.Services.Solvers
         public SolverException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>

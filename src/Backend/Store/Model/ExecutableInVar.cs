@@ -28,16 +28,12 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("executable-in-var", Namespace = Feed.XmlNamespace), XmlType("executable-in-var", Namespace = Feed.XmlNamespace)]
     public sealed class ExecutableInVar : ExecutableInBinding, IEquatable<ExecutableInVar>
     {
-        #region Properties
         /// <summary>
         /// The name of the environment variable.
         /// </summary>
         [Description("The name of the environment variable.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

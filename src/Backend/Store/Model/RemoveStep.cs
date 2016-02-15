@@ -28,24 +28,18 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("remove", Namespace = Feed.XmlNamespace), XmlType("remove", Namespace = Feed.XmlNamespace)]
     public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>, ICloneable
     {
-        #region Properties
         /// <summary>
         /// The file or directory to be removed relative to the implementation root as a Unix-style path.
         /// </summary>
         [Description("The file or directory to be removed relative to the implementation root as a Unix-style path.")]
         [XmlAttribute("path"), DefaultValue("")]
         public string Path { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Normalize
         /// <inheritdoc/>
         public void Normalize(FeedUri feedUri)
         {}
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

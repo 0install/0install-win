@@ -32,7 +32,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class IconCapability : DefaultCapability, IIconContainer, IDescriptionContainer
     {
-        #region Properties
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
         /// <inheritdoc/>
@@ -48,11 +47,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Browsable(false)]
         [XmlElement("icon", Namespace = Feed.XmlNamespace), NotNull]
         public List<Icon> Icons { get { return _icons; } }
-        #endregion
 
-        //--------------------//
-
-        #region Query
         /// <summary>
         /// Returns the first icon with a specific MIME type.
         /// </summary>
@@ -67,9 +62,6 @@ namespace ZeroInstall.Store.Model.Capabilities
 
             return Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
         }
-        #endregion
-
-        //--------------------//
 
         #region Equality
         /// <inheritdoc/>

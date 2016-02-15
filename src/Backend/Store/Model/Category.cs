@@ -37,7 +37,6 @@ namespace ZeroInstall.Store.Model
         public static readonly string[] WellKnownNames = {"AudioVideo", "Audio", "Video", "Development", "Education", "Game", "Graphics", "Network", "Office", "Science", "Settings", "System", "Utility"};
         #endregion
 
-        #region Properties
         /// <summary>
         /// The category name as specified by the <see cref="TypeNamespace"/>.
         /// </summary>
@@ -52,9 +51,6 @@ namespace ZeroInstall.Store.Model
         [Description("If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification. Otherwise, it is a URI giving the namespace for the category.")]
         [XmlAttribute("type"), DefaultValue(""), CanBeNull]
         public string TypeNamespace { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

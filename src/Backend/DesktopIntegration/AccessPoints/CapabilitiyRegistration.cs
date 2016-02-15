@@ -42,9 +42,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public const string CategoryName = "capabilities";
         #endregion
 
-        //--------------------//
-
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
@@ -54,9 +51,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             return appEntry.CapabilityLists.CompatibleCapabilities().SelectMany(x => x.ConflictIDs);
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -117,9 +112,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             }
             dispatcher.Dispatch(appEntry.CapabilityLists.CompatibleCapabilities());
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

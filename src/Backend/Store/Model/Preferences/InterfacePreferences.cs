@@ -74,8 +74,6 @@ namespace ZeroInstall.Store.Model.Preferences
             get { return _feeds; }
         }
 
-        //--------------------//
-
         #region Storage
         /// <summary>
         /// Loads <see cref="InterfacePreferences"/> for a specific interface.
@@ -155,8 +153,6 @@ namespace ZeroInstall.Store.Model.Preferences
             this.SaveXml(path);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

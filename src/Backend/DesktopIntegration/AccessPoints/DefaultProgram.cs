@@ -32,7 +32,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("default-program", Namespace = AppList.XmlNamespace)]
     public class DefaultProgram : DefaultAccessPoint, IEquatable<DefaultProgram>
     {
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
@@ -43,9 +42,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             return new[] {"clients:" + capability.Service};
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -71,9 +68,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (WindowsUtils.IsWindows && machineWide)
                 Windows.DefaultProgram.Unregister(capability, accessPoint: true);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

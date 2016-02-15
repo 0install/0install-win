@@ -234,9 +234,12 @@ namespace ZeroInstall.DesktopIntegration
                 : base("Race condition: Multiple computers are trying to Sync to the same account at the same time.", ex, ex.Status, ex.Response)
             {}
 
+
+            #region Serialization
             protected WebRaceConditionException([NotNull] SerializationInfo serializationInfo, StreamingContext streamingContext)
                 : base(serializationInfo, streamingContext)
             {}
+            #endregion
         }
         #endregion
 

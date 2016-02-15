@@ -33,7 +33,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("file-type", Namespace = AppList.XmlNamespace)]
     public class FileType : DefaultAccessPoint, IEquatable<FileType>
     {
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
@@ -44,9 +43,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             return capability.Extensions.Select(extension => "extension:" + extension.Value);
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -70,9 +67,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             if (WindowsUtils.IsWindows) Windows.FileType.Unregister(capability, machineWide, accessPoint: true);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

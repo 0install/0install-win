@@ -77,8 +77,6 @@ namespace ZeroInstall.Store.Model.Capabilities
             return Entries.OfType<T>().FirstOrDefault(specificCapability => specificCapability.ID == id);
         }
 
-        //--------------------//
-
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="CapabilityList"/> instance.

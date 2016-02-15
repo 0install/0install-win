@@ -27,7 +27,6 @@ namespace ZeroInstall.Store.Model.Preferences
     [XmlType("implementation-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class ImplementationPreferences : XmlUnknown, ICloneable, IEquatable<ImplementationPreferences>
     {
-        #region Properties
         /// <summary>
         /// A unique identifier for the implementation. Coressponds to <see cref="ImplementationBase.ID"/>.
         /// </summary>
@@ -50,9 +49,6 @@ namespace ZeroInstall.Store.Model.Preferences
         [Browsable(false)]
         [XmlIgnore]
         public bool IsSuperflous { get { return UserStability == Stability.Unset; } }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

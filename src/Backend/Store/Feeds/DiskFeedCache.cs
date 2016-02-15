@@ -59,17 +59,12 @@ namespace ZeroInstall.Store.Feeds
         }
         #endregion
 
-        #region Properties
         /// <summary>
         /// The directory containing the cached <see cref="Feed"/>s.
         /// </summary>
         [NotNull]
         public string DirectoryPath { get; private set; }
-        #endregion
 
-        //--------------------//
-
-        #region Contains
         /// <inheritdoc/>
         public bool Contains(FeedUri feedUri)
         {
@@ -82,9 +77,7 @@ namespace ZeroInstall.Store.Feeds
 
             return FileUtils.ExistsCaseSensitive(Path.Combine(DirectoryPath, feedUri.Escape()));
         }
-        #endregion
 
-        #region List all
         /// <inheritdoc/>
         public IEnumerable<FeedUri> ListAll()
         {
@@ -94,9 +87,7 @@ namespace ZeroInstall.Store.Feeds
             return Directory.GetFiles(DirectoryPath)
                 .TrySelect<string, FeedUri, UriFormatException>(x => FeedUri.Unescape(Path.GetFileName(x)));
         }
-        #endregion
 
-        #region Get
         /// <inheritdoc/>
         public Feed GetFeed(FeedUri feedUri)
         {
@@ -133,9 +124,7 @@ namespace ZeroInstall.Store.Feeds
             if (FileUtils.ExistsCaseSensitive(path)) return path;
             else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUri, path));
         }
-        #endregion
 
-        #region Add
         /// <inheritdoc/>
         public void Add(FeedUri feedUri, byte[] data)
         {
@@ -175,9 +164,7 @@ namespace ZeroInstall.Store.Feeds
                     atomic.Commit();
                 }
         }
-        #endregion
 
-        #region Remove
         /// <inheritdoc/>
         public void Remove(FeedUri feedUri)
         {
@@ -189,15 +176,10 @@ namespace ZeroInstall.Store.Feeds
             Log.Debug("Removing feed " + feedUri.ToStringRfc() + " from disk cache: " + path);
             File.Delete(path);
         }
-        #endregion
 
-        #region Flush
         // No in-memory cache
         void IFeedCache.Flush()
         {}
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -47,7 +47,6 @@ namespace ZeroInstall.Store.Model
         public static readonly ManifestDigest Empty = new ManifestDigest(sha1New: "da39a3ee5e6b4b0d3255bfef95601890afd80709", sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", sha256New: "4OYMIQUY7QOBJGX36TEJS35ZEQT24QPEMSNZGTFESWMRW6CSXBKQ");
         #endregion
 
-        #region Properties
         /// <summary>
         /// A SHA-1 hash of the old manifest format. Not supported anymore!
         /// </summary>
@@ -108,9 +107,25 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [XmlAnyAttribute, NonSerialized]
         public XmlAttribute[] UnknownAlgorithms;
-        #endregion
 
-        #region Constructor
+        /// <summary>
+        /// Creates a new manifest digest structure with pre-set values.
+        /// </summary>
+        /// <param name="sha1">A SHA-1 hash of the old manifest format.</param>
+        /// <param name="sha1New">A SHA-1 hash of the new manifest format.</param>
+        /// <param name="sha256">A SHA-256 hash of the new manifest format. (most secure)</param>
+        /// <param name="sha256New">A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.</param>
+        [SuppressMessage("Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray")]
+        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Only used in unit tests.")]
+        public ManifestDigest(string sha1 = null, string sha1New = null, string sha256 = null, string sha256New = null) : this()
+        {
+            Sha1 = sha1;
+            Sha1New = sha1New;
+            Sha256 = sha256;
+            Sha256New = sha256New;
+        }
+
+        #region Parsing
         /// <summary>
         /// Creates a new manifest digest structure by parsing an ID string.
         /// </summary>
@@ -129,27 +144,6 @@ namespace ZeroInstall.Store.Model
             else throw new NotSupportedException(Resources.NoKnownDigestMethod);
         }
 
-        /// <summary>
-        /// Creates a new manifest digest structure with pre-set values.
-        /// </summary>
-        /// <param name="sha1">A SHA-1 hash of the old manifest format.</param>
-        /// <param name="sha1New">A SHA-1 hash of the new manifest format.</param>
-        /// <param name="sha256">A SHA-256 hash of the new manifest format. (most secure)</param>
-        /// <param name="sha256New">A SHA-256 hash of the new manifest format with a base32 encoding and no equals sign in the path.</param>
-        [SuppressMessage("Microsoft.Design", "CA1025:ReplaceRepetitiveArgumentsWithParamsArray")]
-        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Only used in unit tests.")]
-        public ManifestDigest(string sha1 = null, string sha1New = null, string sha256 = null, string sha256New = null) : this()
-        {
-            Sha1 = sha1;
-            Sha1New = sha1New;
-            Sha256 = sha256;
-            Sha256New = sha256New;
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Parsing
         /// <summary>
         /// Parses an ID string, checking for digest values. The values will be added to this object if the corresponding digest value hasn't been set already.
         /// </summary>
@@ -172,8 +166,6 @@ namespace ZeroInstall.Store.Model
             return value.StartsWith(prefix) ? value.Substring(prefix.Length) : null;
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

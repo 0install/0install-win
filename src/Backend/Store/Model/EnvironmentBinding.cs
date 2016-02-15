@@ -50,7 +50,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("environment", Namespace = Feed.XmlNamespace), XmlType("environment", Namespace = Feed.XmlNamespace)]
     public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {
-        #region Properties
         /// <summary>
         /// The name of the environment variable.
         /// </summary>
@@ -95,9 +94,6 @@ namespace ZeroInstall.Store.Model
         [Description("If the environment variable is not currently set then this value is used for prepending or appending.")]
         [XmlAttribute("default"), DefaultValue("")]
         public string Default { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

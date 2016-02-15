@@ -27,7 +27,6 @@ namespace ZeroInstall.Store.Trust
     [Serializable]
     public sealed class WrongPassphraseException : Exception
     {
-        #region Constructor
         /// <summary>
         /// Indicates that an incorrect passphrase was passed to <see cref="GnuPG"/>.
         /// </summary>
@@ -42,6 +41,7 @@ namespace ZeroInstall.Store.Trust
         public WrongPassphraseException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>

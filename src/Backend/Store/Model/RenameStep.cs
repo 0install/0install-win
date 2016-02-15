@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("rename", Namespace = Feed.XmlNamespace), XmlType("rename", Namespace = Feed.XmlNamespace)]
     public sealed class RenameStep : FeedElement, IRecipeStep, IEquatable<RenameStep>, ICloneable
     {
-        #region Properties
         /// <summary>
         /// The source file or directory relative to the implementation root as a Unix-style path.
         /// </summary>
@@ -43,17 +42,12 @@ namespace ZeroInstall.Store.Model
         [Description("The destination file or directory relative to the implementation root as a Unix-style path.")]
         [XmlAttribute("dest"), DefaultValue(""), CanBeNull]
         public string Destination { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Normalize
         /// <inheritdoc/>
         public void Normalize(FeedUri feedUri)
         {}
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

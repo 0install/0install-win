@@ -43,8 +43,6 @@ namespace ZeroInstall.Store.Model
         public string SourceString { get { return (Source == null) ? null : Source.ToStringRfc(); } set { Source = (value == null) ? null : new FeedUri(value); } }
         #endregion
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the feed reference in the form "Source (Architecture, Languages)". Not safe for parsing!

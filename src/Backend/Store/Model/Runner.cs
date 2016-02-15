@@ -33,7 +33,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("runner", Namespace = Feed.XmlNamespace), XmlType("runner", Namespace = Feed.XmlNamespace)]
     public class Runner : Dependency, IArgBaseContainer, IEquatable<Runner>
     {
-        #region Properties
         /// <summary>
         /// The name of the command in the <see cref="Restriction.InterfaceUri"/> to use; leave <c>null</c> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
@@ -50,9 +49,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
         public List<ArgBase> Arguments { get { return _arguments; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

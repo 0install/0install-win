@@ -31,7 +31,6 @@ namespace ZeroInstall.Services.Feeds
     [Serializable]
     public sealed class ReplayAttackException : IOException
     {
-        #region Properties
         /// <summary>
         /// The URL of the feed file to be added to the cache.
         /// </summary>
@@ -47,9 +46,7 @@ namespace ZeroInstall.Services.Feeds
         /// The last changed time stamp of the new file to be added.
         /// </summary>
         public DateTime NewTime { get; private set; }
-        #endregion
-
-        #region Constructor
+        
         /// <summary>
         /// Creates a new replay attack exception.
         /// </summary>
@@ -77,6 +74,7 @@ namespace ZeroInstall.Services.Feeds
         public ReplayAttackException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
@@ -90,9 +88,7 @@ namespace ZeroInstall.Services.Feeds
             OldTime = info.GetDateTime("OldTime");
             NewTime = info.GetDateTime("NewTime");
         }
-        #endregion
 
-        #region Serialization
         /// <inheritdoc/>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

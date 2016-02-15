@@ -48,9 +48,7 @@ namespace ZeroInstall.Store.Icons
 
             DirectoryPath = path;
         }
-
-        //--------------------//
-
+        
         private readonly object _lock = new object();
 
         /// <inheritdoc/>

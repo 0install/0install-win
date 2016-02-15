@@ -44,10 +44,12 @@ namespace ZeroInstall.Services.Injector
         public ExecutorException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
         private ExecutorException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
+        #endregion
     }
 }

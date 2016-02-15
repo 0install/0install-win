@@ -53,8 +53,6 @@ namespace ZeroInstall.Services.PackageManagers
         /// </summary>
         public Action Install { get; set; }
 
-        //--------------------//
-
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="ExternalRetrievalMethod"/> instance.

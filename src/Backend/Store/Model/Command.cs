@@ -55,7 +55,6 @@ namespace ZeroInstall.Store.Model
         public const string NameCompile = "compile";
         #endregion
 
-        #region Properties
         /// <summary>
         /// The name of the command. Well-known names are <see cref="NameRun"/>, <see cref="NameTest"/> and <see cref="NameCompile"/>.
         /// </summary>
@@ -120,9 +119,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("runner"), CanBeNull]
         public Runner Runner { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Normalize
         /// <summary>
@@ -143,8 +139,6 @@ namespace ZeroInstall.Store.Model
             foreach (var restriction in Restrictions) restriction.Normalize();
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

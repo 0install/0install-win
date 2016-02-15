@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlRoot("registration", Namespace = CapabilityList.XmlNamespace), XmlType("registration", Namespace = CapabilityList.XmlNamespace)]
     public sealed class AppRegistration : Capability, IEquatable<AppRegistration>
     {
-        #region Properties
         /// <inheritdoc/>
         public override bool WindowsMachineWideOnly
         {
@@ -52,9 +51,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath}; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

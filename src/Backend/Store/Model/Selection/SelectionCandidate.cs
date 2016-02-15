@@ -29,13 +29,6 @@ namespace ZeroInstall.Store.Model.Selection
     /// </summary>
     public sealed class SelectionCandidate : IEquatable<SelectionCandidate>
     {
-        #region Variables
-        /// <summary>The preferences controlling how the solver evaluates this candidate.</summary>
-        [NotNull]
-        private readonly ImplementationPreferences _implementationPreferences;
-        #endregion
-
-        #region Properties
         /// <summary>
         /// The implementation this selection candidate references.
         /// </summary>
@@ -75,6 +68,10 @@ namespace ZeroInstall.Store.Model.Selection
         [Description("The default stability rating for this implementation.")]
         public Stability Stability { get { return Implementation.Stability; } }
 
+        /// <summary>The preferences controlling how the solver evaluates this candidate.</summary>
+        [NotNull]
+        private readonly ImplementationPreferences _implementationPreferences;
+
         /// <summary>
         /// A user-specified override for the <see cref="Stability"/> specified in the feed.
         /// </summary>
@@ -104,9 +101,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Browsable(false)]
         public bool IsSuitable { get; set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new selection candidate.
         /// </summary>
@@ -161,9 +156,6 @@ namespace ZeroInstall.Store.Model.Selection
             if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceUri, out range)) return true;
             return range.Match(version);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -32,7 +32,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("context-menu", Namespace = AppList.XmlNamespace)]
     public class ContextMenu : DefaultAccessPoint, IEquatable<ContextMenu>
     {
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
@@ -43,9 +42,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             return new[] {"context-menu-" + capability.Target + ":" + capability.ID + @"\" + capability.Verb};
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -71,9 +68,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Remove(capability, machineWide);
             else if (UnixUtils.IsUnix) Unix.ContextMenu.Remove(capability, machineWide);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

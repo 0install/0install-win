@@ -127,8 +127,6 @@ namespace ZeroInstall.Store.Model
             return OS.IsCompatible(requirements.Architecture.OS);
         }
 
-        //--------------------//
-
         #region Normalize
         /// <summary>
         /// Handles legacy elements (converts <see cref="Constraints"/> to <see cref="Versions"/>).
@@ -143,8 +141,6 @@ namespace ZeroInstall.Store.Model
             }
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -41,17 +41,16 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     public sealed class VersionRange : IEquatable<VersionRange>
     {
-        #region Variables
-        /// <summary>The individual non-disjoint range parts.</summary>
-        private readonly VersionRangePart[] _parts;
-
+        #region Constants
         /// <summary>
         /// An "impossible" range matching no versions.
         /// </summary>
         public static readonly VersionRange None = new VersionRange(new VersionRangeRange(new ImplementationVersion("0"), new ImplementationVersion("0")));
         #endregion
 
-        #region Constructor
+        /// <summary>The individual non-disjoint range parts.</summary>
+        private readonly VersionRangePart[] _parts;
+
         private VersionRange([NotNull] params VersionRangePart[] parts)
         {
             #region Sanity checks
@@ -106,9 +105,7 @@ namespace ZeroInstall.Store.Model
         {
             _parts = new VersionRangePart[] {new VersionRangeRange(notBefore, before)};
         }
-        #endregion
 
-        #region Factory methods
         /// <summary>
         /// Creates a new <see cref="VersionRange"/> using the specified string representation.
         /// </summary>
@@ -129,11 +126,7 @@ namespace ZeroInstall.Store.Model
                 return false;
             }
         }
-        #endregion
 
-        //--------------------//
-
-        #region Intersect
         /// <summary>
         /// Intersects a <see cref="Constraint"/> with this range and returns the result as a new range.
         /// </summary>
@@ -148,9 +141,7 @@ namespace ZeroInstall.Store.Model
             var parts = _parts.Select(part => part.Intersects(constraint)).WhereNotNull();
             return parts.Any() ? new VersionRange(parts.ToArray()) : None;
         }
-        #endregion
 
-        #region Match
         /// <summary>
         /// Determines whether a specific version lies within this range.
         /// </summary>
@@ -163,9 +154,6 @@ namespace ZeroInstall.Store.Model
             if (_parts.Length == 0) return true;
             return _parts.Any(part => part.Match(version));
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

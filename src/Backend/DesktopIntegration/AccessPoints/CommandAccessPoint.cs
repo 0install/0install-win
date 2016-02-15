@@ -28,7 +28,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("command-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class CommandAccessPoint : AccessPoint
     {
-        #region Properties
         /// <summary>
         /// The name of the menu entry, icon, command-line, etc..
         /// </summary>
@@ -43,9 +42,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         [XmlAttribute("command")]
         [CanBeNull]
         public string Command { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

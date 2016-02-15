@@ -29,16 +29,12 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlRoot("known-prefix", Namespace = CapabilityList.XmlNamespace), XmlType("known-prefix", Namespace = CapabilityList.XmlNamespace)]
     public class KnownProtocolPrefix : XmlUnknown, ICloneable, IEquatable<KnownProtocolPrefix>
     {
-        #region Properties
         /// <summary>
         /// The value of the prefix (e.g. "http").
         /// </summary>
         [Description("The value of the prefix (e.g. \"http\").")]
         [XmlAttribute("value")]
         public string Value { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

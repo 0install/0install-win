@@ -54,7 +54,6 @@ namespace ZeroInstall.Store.ViewModel
         }
         #endregion
 
-        #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "Loading"; } }
 
@@ -70,7 +69,6 @@ namespace ZeroInstall.Store.ViewModel
         /// The total size of all <see cref="Implementation"/>s in bytes.
         /// </summary>
         public long TotalSize { get; private set; }
-        #endregion
 
         private IEnumerable<Feed> _feeds;
 

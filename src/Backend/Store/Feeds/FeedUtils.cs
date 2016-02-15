@@ -33,43 +33,6 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class FeedUtils
     {
-        #region Cache
-        /// <summary>
-        /// Loads all <see cref="Feed"/>s stored in <see cref="IFeedCache"/> into memory.
-        /// </summary>
-        /// <param name="cache">The <see cref="IFeedCache"/> to load <see cref="Feed"/>s from.</param>
-        /// <returns>The parsed <see cref="Feed"/>s. Damaged files are logged and skipped.</returns>
-        /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
-        public static IEnumerable<Feed> GetAll([NotNull] this IFeedCache cache)
-        {
-            #region Sanity checks
-            if (cache == null) throw new ArgumentNullException("cache");
-            #endregion
-
-            var feeds = new List<Feed>();
-            foreach (var feedUri in cache.ListAll())
-            {
-                try
-                {
-                    feeds.Add(cache.GetFeed(feedUri));
-                }
-                    #region Error handling
-                catch (KeyNotFoundException)
-                {
-                    // Feed file no longer exists
-                }
-                catch (InvalidDataException ex)
-                {
-                    Log.Error(ex);
-                }
-                #endregion
-            }
-            return feeds;
-        }
-        #endregion
-
-        #region Signatures
         /// <summary>
         /// The string signifying the start of a signature block.
         /// </summary>
@@ -190,6 +153,5 @@ namespace ZeroInstall.Store.Feeds
             }
             #endregion
         }
-        #endregion
     }
 }

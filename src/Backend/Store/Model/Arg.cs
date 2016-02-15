@@ -36,8 +36,6 @@ namespace ZeroInstall.Store.Model
         [XmlText]
         public string Value { get; set; }
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Convenience cast for turning strings into plain <see cref="Arg"/>s.

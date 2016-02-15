@@ -34,7 +34,6 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public abstract class Extractor : TaskBase, IDisposable
     {
-        #region Properties
         /// <inheritdoc/>
         public override string Name { get { return Resources.ExtractingArchive; } }
 
@@ -67,9 +66,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         [NotNull]
         protected string EffectiveTargetDir { get { return string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination); } }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Indicates whether <see cref="TargetDir"/> is located on a filesystem with support for Unixoid features such as executable bits.
         /// </summary>
@@ -90,7 +87,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (Directory.Exists(target)) Directory.CreateDirectory(target);
             _isUnixFS = FlagUtils.IsUnixFS(target);
         }
-        #endregion
 
         #region Factory methods
         /// <summary>
@@ -210,8 +206,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
         #endregion
-
-        //--------------------//
 
         /// <summary>
         /// Returns the path of an archive entry relative to <see cref="SubDir"/>.
@@ -497,8 +491,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Directory.SetLastWriteTimeUtc(pair.Key, pair.Value);
             }
         }
-
-        //--------------------//
 
         #region Dispose
         /// <summary>

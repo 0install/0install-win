@@ -119,8 +119,6 @@ namespace ZeroInstall.Store.Model
         [XmlElement("icon"), NotNull]
         public List<Icon> Icons { get { return _icons; } }
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the EntryPoint in the form "Command (BinaryName)". Not safe for parsing!

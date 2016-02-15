@@ -72,7 +72,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         public const string ServiceInternetCall = "Internet Call";
         #endregion
 
-        #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return true; } }
@@ -95,9 +94,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"clients:" + Service + @"\" + ID}; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

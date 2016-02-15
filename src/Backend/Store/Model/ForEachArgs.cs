@@ -55,8 +55,6 @@ namespace ZeroInstall.Store.Model
         [XmlElement("arg"), NotNull]
         public List<Arg> Arguments { get { return _arguments; } }
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the for-each instruction in the form "ItemFrom". Not safe for parsing!

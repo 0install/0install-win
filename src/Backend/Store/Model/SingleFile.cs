@@ -29,16 +29,12 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("file", Namespace = Feed.XmlNamespace), XmlType("file", Namespace = Feed.XmlNamespace)]
     public sealed class SingleFile : DownloadRetrievalMethod, IEquatable<SingleFile>
     {
-        #region Properties
         /// <summary>
         /// The file's target path relative to the implementation root as a Unix-style path.
         /// </summary>
         [Description("The file's target path relative to the implementation root as a Unix-style path.")]
         [XmlAttribute("dest"), CanBeNull]
         public string Destination { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

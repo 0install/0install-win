@@ -71,7 +71,6 @@ namespace ZeroInstall.Services.Feeds
         }
         #endregion
 
-        #region Properties
         private bool _refresh;
 
         /// <summary>
@@ -93,11 +92,7 @@ namespace ZeroInstall.Services.Feeds
 
         /// <inheritdoc/>
         public bool ShouldRefresh { get { return Stale && _config.NetworkUse == NetworkLevel.Full; } }
-        #endregion
 
-        //--------------------//
-
-        #region Get feed
         protected override Feed Retrieve(FeedUri feedUri)
         {
             #region Sanity checks
@@ -152,9 +147,7 @@ namespace ZeroInstall.Services.Feeds
                 #endregion
             }
         }
-        #endregion
 
-        #region Cached
         /// <summary>
         /// Loads a <see cref="Feed"/> from the <see cref="_feedCache"/>.
         /// </summary>
@@ -217,9 +210,7 @@ namespace ZeroInstall.Services.Feeds
             // Check last modification time
             return file.Exists ? file.LastWriteTimeUtc : new DateTime();
         }
-        #endregion
 
-        #region Download
         /// <summary>
         /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures. Automatically falls back to the mirror server.
         /// </summary>
@@ -282,9 +273,7 @@ namespace ZeroInstall.Services.Feeds
             // Set modification time to now
             FileUtils.Touch(path);
         }
-        #endregion
 
-        #region Import feed
         /// <inheritdoc/>
         public void ImportFeed(string path)
         {
@@ -348,6 +337,5 @@ namespace ZeroInstall.Services.Feeds
                 // No existing feed to be replaced
             }
         }
-        #endregion
     }
 }

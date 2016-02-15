@@ -27,7 +27,6 @@ namespace ZeroInstall.Store.Trust
     [Serializable]
     public sealed class SignatureException : Exception
     {
-        #region Constructor
         /// <inheritdoc/>
         public SignatureException() : base(Resources.InvalidSignature)
         {}
@@ -40,6 +39,7 @@ namespace ZeroInstall.Store.Trust
         public SignatureException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>

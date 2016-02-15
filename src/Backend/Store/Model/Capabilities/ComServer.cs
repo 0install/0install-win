@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlRoot("com-server", Namespace = CapabilityList.XmlNamespace), XmlType("com-server", Namespace = CapabilityList.XmlNamespace)]
     public sealed class ComServer : Capability, IEquatable<ComServer>
     {
-        #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
@@ -37,9 +36,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"classes:" + ID}; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

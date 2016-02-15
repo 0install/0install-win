@@ -112,8 +112,6 @@ namespace ZeroInstall.Services.PackageManagers
             return implementation;
         }
 
-        //--------------------//
-
         #region Equality
         /// <inheritdoc/>
         public bool Equals(ExternalImplementation other)

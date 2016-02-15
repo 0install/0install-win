@@ -124,7 +124,6 @@ namespace ZeroInstall.Store.Model
         }
         #endregion
 
-        #region Properties
         /// <summary>
         /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="DownloadRetrievalMethod.Href"/> attribute. This value is case-insensitive.
         /// </summary>
@@ -157,9 +156,6 @@ namespace ZeroInstall.Store.Model
         [Description("The subdirectory within the implementation directory to extract this archive to; can be null.")]
         [XmlAttribute("dest"), CanBeNull]
         public string Destination { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Normalize
         /// <inheritdoc/>
@@ -178,8 +174,6 @@ namespace ZeroInstall.Store.Model
             MimeType = GuessMimeType(Href.OriginalString);
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

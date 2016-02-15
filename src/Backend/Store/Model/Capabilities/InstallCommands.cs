@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlType("install-commands", Namespace = CapabilityList.XmlNamespace)]
     public struct InstallCommands : IEquatable<InstallCommands>
     {
-        #region Properties
         /// <summary>
         /// The path (relative to the installation directory) to the executable used to set an application as the default program without any arguments.
         /// </summary>
@@ -73,9 +72,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Description("Additional arguments for the executable specified in HideIcons.")]
         [XmlAttribute("hide-icons-args"), DefaultValue("")]
         public string HideIconsArgs { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

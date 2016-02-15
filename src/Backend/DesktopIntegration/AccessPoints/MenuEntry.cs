@@ -39,26 +39,19 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public const string CategoryName = "menu";
         #endregion
 
-        #region Properties
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            return new[] {"menu:" + Category + @"\" + Name};
+        }
+
         /// <summary>
         /// The category or folder in the menu to add the entry to. Leave empty for top-level entry.
         /// </summary>
         [Description("The category or folder in the menu to add the entry to. Leave empty for top-level entry.")]
         [XmlAttribute("category")]
         public string Category { get; set; }
-        #endregion
 
-        //--------------------//
-
-        #region Conflict ID
-        /// <inheritdoc/>
-        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
-        {
-            return new[] {"menu:" + Category + @"\" + Name};
-        }
-        #endregion
-
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -82,9 +75,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (WindowsUtils.IsWindows) Windows.Shortcut.Remove(this, machineWide);
             else if (UnixUtils.IsUnix) Unix.FreeDesktop.Remove(this, machineWide);
         }
-        #endregion
-
-        //--------------------//
 
         #region Clone
         /// <inheritdoc/>

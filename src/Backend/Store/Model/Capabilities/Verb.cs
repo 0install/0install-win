@@ -70,7 +70,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         public const string NamePreview = "Preview";
         #endregion
 
-        #region Properties
         /// <summary>
         /// The name of the verb. Use canonical names to get automatic localization; specify <see cref="Descriptions"/> otherwise.
         /// </summary>
@@ -107,9 +106,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -71,8 +71,6 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public bool ContainsUnknownSteps { get { return UnknownElements != null && UnknownElements.Length > 0; } }
 
-        //--------------------//
-
         #region Normalize
         /// <summary>
         /// Call <see cref="RetrievalMethod.Normalize"/> on all contained <see cref="IRecipeStep"/>s.
@@ -94,8 +92,6 @@ namespace ZeroInstall.Store.Model
                 step.Normalize(feedUri);
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

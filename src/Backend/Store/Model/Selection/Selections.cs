@@ -79,7 +79,6 @@ namespace ZeroInstall.Store.Model.Selection
         [XmlIgnore]
         public ImplementationSelection MainImplementation { get { return this[InterfaceUri]; } }
 
-        #region Constructor
         /// <summary>
         /// Creates an empty selections document.
         /// </summary>
@@ -93,22 +92,7 @@ namespace ZeroInstall.Store.Model.Selection
         {
             Implementations.AddRange(implementations);
         }
-        #endregion
 
-        //--------------------//
-
-        #region Normalize
-        /// <summary>
-        /// Calls <see cref="ImplementationBase.Normalize"/> for all <see cref="Implementations"/>.
-        /// </summary>
-        public void Normalize()
-        {
-            foreach (var implementation in Implementations)
-                implementation.Normalize(implementation.FromFeed ?? implementation.InterfaceUri);
-        }
-        #endregion
-
-        #region Query
         /// <summary>
         /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
         /// </summary>
@@ -161,9 +145,17 @@ namespace ZeroInstall.Store.Model.Selection
 
             return Implementations.FirstOrDefault(implementation => implementation.InterfaceUri == interfaceUri);
         }
-        #endregion
 
-        //--------------------//
+        #region Normalize
+        /// <summary>
+        /// Calls <see cref="ImplementationBase.Normalize"/> for all <see cref="Implementations"/>.
+        /// </summary>
+        public void Normalize()
+        {
+            foreach (var implementation in Implementations)
+                implementation.Normalize(implementation.FromFeed ?? implementation.InterfaceUri);
+        }
+        #endregion
 
         #region Clone
         /// <summary>

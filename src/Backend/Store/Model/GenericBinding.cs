@@ -28,16 +28,12 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("binding", Namespace = Feed.XmlNamespace), XmlType("binding", Namespace = Feed.XmlNamespace)]
     public sealed class GenericBinding : ExecutableInBinding, IEquatable<GenericBinding>
     {
-        #region Properties
         /// <summary>
-        /// If your binding needs a path within the selected implemention, it is suggested that the path attribute be used for this. Other attributes and child elements should be namespaced to avoid collisions. 
+        /// If your binding needs a path within the selected implemention, it is suggested that the path attribute be used for this. Other attributes and child elements should be namespaced to avoid collisions.
         /// </summary>
         [Description("If your binding needs a path within the selected implemention, it is suggested that the path attribute be used for this. Other attributes and child elements should be namespaced to avoid collisions. ")]
         [XmlAttribute("path")]
         public string Path { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -35,7 +35,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         public const string TypeFolder = "folder", TypeText = "text", TypeImage = "image", TypeAudio = "audio", TypeVideo = "video", TypeCompressed = "compressed", TypeDocument = "document", TypeSystem = "system", TypeApplication = "application", TypeGameMedia = "gamemedia", TypeContacts = "contacts";
         #endregion
 
-        #region Properties
         /// <summary>
         /// The file extension including the leading dot (e.g. ".png").
         /// </summary>
@@ -56,9 +55,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Description("Defines the broad category of file (e.g. text, image, audio) types this extension falls into. Should always be a canonical type.")]
         [XmlAttribute("perceived-type"), DefaultValue("")]
         public string PerceivedType { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

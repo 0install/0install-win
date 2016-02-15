@@ -80,8 +80,6 @@ namespace ZeroInstall.Store.Model
             return string.IsNullOrEmpty(Use) && base.IsApplicable(requirements);
         }
 
-        //--------------------//
-
         #region Normalize
         /// <inheritdoc/>
         public override void Normalize()
@@ -92,8 +90,6 @@ namespace ZeroInstall.Store.Model
             Bindings.RemoveAll(FilterMismatch);
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

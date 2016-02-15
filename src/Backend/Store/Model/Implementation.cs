@@ -43,8 +43,6 @@ namespace ZeroInstall.Store.Model
         [NotNull]
         public List<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
 
-        //--------------------//
-
         #region Normalize
         /// <summary>
         /// Sets missing default values and handles legacy elements.
@@ -80,8 +78,6 @@ namespace ZeroInstall.Store.Model
             RetrievalMethods.RemoveRange(toRemove);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

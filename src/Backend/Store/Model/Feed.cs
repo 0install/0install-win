@@ -233,85 +233,6 @@ namespace ZeroInstall.Store.Model
             get { return _capabilityLists; }
         }
 
-        //--------------------//
-
-        #region Normalize
-        /// <summary>
-        /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
-        /// </summary>
-        /// <param name="feedUri">The feed the data was originally loaded from.</param>
-        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public void Normalize([NotNull] FeedUri feedUri)
-        {
-            #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
-            #endregion
-
-            // Apply if-0install-version filter
-            Elements.RemoveAll(FeedElement.FilterMismatch);
-            Icons.RemoveAll(FeedElement.FilterMismatch);
-            Categories.RemoveAll(FeedElement.FilterMismatch);
-            Feeds.RemoveAll(FeedElement.FilterMismatch);
-            FeedFor.RemoveAll(FeedElement.FilterMismatch);
-            EntryPoints.RemoveAll(FeedElement.FilterMismatch);
-
-            NormalizeElements(feedUri);
-            NormalizeEntryPoints();
-        }
-
-        private void NormalizeElements([NotNull] FeedUri feedUri)
-        {
-            var collapsedElements = new List<Element>();
-            foreach (var element in Elements)
-            {
-                // Flatten structure in groups, set missing default values in implementations
-                element.Normalize(feedUri);
-
-                var group = element as Group;
-                if (group != null)
-                {
-                    // Move implementations out of groups
-                    collapsedElements.AddRange(group.Elements);
-                }
-                else collapsedElements.Add(element);
-            }
-
-            Elements.Clear();
-            Elements.AddRange(collapsedElements);
-        }
-
-        private void NormalizeEntryPoints()
-        {
-            // Remove invalid entry points
-            EntryPoints.RemoveAll(x => string.IsNullOrEmpty(x.Command));
-
-            // Ensure an entry point for the "run" command exists
-            var mainEntryPoint = GetEntryPoint();
-            if (mainEntryPoint == null)
-                EntryPoints.Add(mainEntryPoint = new EntryPoint {Names = {Name}, Command = Command.NameRun});
-
-            // Copy the needs-terminal flag from the feed to the main entry point if present
-            if (NeedsTerminal) mainEntryPoint.NeedsTerminal = true;
-        }
-
-        /// <summary>
-        /// Strips the feed down to the application metadata removing specific <see cref="Implementation"/>s.
-        /// </summary>
-        public void Strip()
-        {
-            // TODO: Extract supported architectures
-            Elements.Clear();
-
-            // TODO: Extract supported file types
-            CapabilityLists.Clear();
-
-            SchemaLocation = null;
-            UnknownAttributes = new XmlAttribute[0];
-            UnknownElements = new XmlElement[0];
-        }
-        #endregion
-
-        #region Query
         /// <summary>
         /// Returns the <see cref="Implementation"/> with a specific ID string.
         /// </summary>
@@ -427,9 +348,82 @@ namespace ZeroInstall.Store.Model
 
             return Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
         }
-        #endregion
 
-        //--------------------//
+        #region Normalize
+        /// <summary>
+        /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
+        /// </summary>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public void Normalize([NotNull] FeedUri feedUri)
+        {
+            #region Sanity checks
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            #endregion
+
+            // Apply if-0install-version filter
+            Elements.RemoveAll(FeedElement.FilterMismatch);
+            Icons.RemoveAll(FeedElement.FilterMismatch);
+            Categories.RemoveAll(FeedElement.FilterMismatch);
+            Feeds.RemoveAll(FeedElement.FilterMismatch);
+            FeedFor.RemoveAll(FeedElement.FilterMismatch);
+            EntryPoints.RemoveAll(FeedElement.FilterMismatch);
+
+            NormalizeElements(feedUri);
+            NormalizeEntryPoints();
+        }
+
+        private void NormalizeElements([NotNull] FeedUri feedUri)
+        {
+            var collapsedElements = new List<Element>();
+            foreach (var element in Elements)
+            {
+                // Flatten structure in groups, set missing default values in implementations
+                element.Normalize(feedUri);
+
+                var group = element as Group;
+                if (group != null)
+                {
+                    // Move implementations out of groups
+                    collapsedElements.AddRange(group.Elements);
+                }
+                else collapsedElements.Add(element);
+            }
+
+            Elements.Clear();
+            Elements.AddRange(collapsedElements);
+        }
+
+        private void NormalizeEntryPoints()
+        {
+            // Remove invalid entry points
+            EntryPoints.RemoveAll(x => string.IsNullOrEmpty(x.Command));
+
+            // Ensure an entry point for the "run" command exists
+            var mainEntryPoint = GetEntryPoint();
+            if (mainEntryPoint == null)
+                EntryPoints.Add(mainEntryPoint = new EntryPoint {Names = {Name}, Command = Command.NameRun});
+
+            // Copy the needs-terminal flag from the feed to the main entry point if present
+            if (NeedsTerminal) mainEntryPoint.NeedsTerminal = true;
+        }
+
+        /// <summary>
+        /// Strips the feed down to the application metadata removing specific <see cref="Implementation"/>s.
+        /// </summary>
+        public void Strip()
+        {
+            // TODO: Extract supported architectures
+            Elements.Clear();
+
+            // TODO: Extract supported file types
+            CapabilityLists.Clear();
+
+            SchemaLocation = null;
+            UnknownAttributes = new XmlAttribute[0];
+            UnknownElements = new XmlElement[0];
+        }
+        #endregion
 
         #region Clone
         /// <summary>

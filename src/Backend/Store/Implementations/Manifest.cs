@@ -37,12 +37,13 @@ namespace ZeroInstall.Store.Implementations
     [Serializable]
     public sealed class Manifest : IEquatable<Manifest>, IEnumerable<ManifestNode>
     {
+        #region Constants
         /// <summary>
         /// The well-known file name used to store manifest files in directories.
         /// </summary>
         public const string ManifestFile = ".manifest";
+        #endregion
 
-        #region Properties
         /// <summary>
         /// The format of the manifest (which file details are listed, which digest method is used, etc.).
         /// </summary>
@@ -69,9 +70,7 @@ namespace ZeroInstall.Store.Implementations
                 return _totalSize;
             }
         }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new manifest.
         /// </summary>
@@ -103,9 +102,39 @@ namespace ZeroInstall.Store.Implementations
             Format = format;
             _nodes = nodes;
         }
-        #endregion
 
-        //--------------------//
+        /// <summary>
+        /// Lists the paths of all <see cref="ManifestNode"/>s relative to the manifest root.
+        /// </summary>
+        /// <returns>A mapping of relative paths to <see cref="ManifestNode"/>s.</returns>
+        /// <remarks>This handles the fact that <see cref="ManifestDirectoryElement"/>s inherit their location from the last <see cref="ManifestDirectory"/> that precedes them.</remarks>
+        [Pure, NotNull, ItemNotNull]
+        public IList<KeyValuePair<string, ManifestNode>> ListPaths()
+        {
+            var result = new List<KeyValuePair<string, ManifestNode>>();
+
+            string dirPath = "";
+            foreach (var node in this)
+            {
+                var dir = node as ManifestDirectory;
+                if (dir != null)
+                {
+                    dirPath = FileUtils.UnifySlashes(dir.FullPath).Substring(1);
+                    result.Add(new KeyValuePair<string, ManifestNode>(dirPath, dir));
+                }
+                else
+                {
+                    var element = node as ManifestDirectoryElement;
+                    if (element != null)
+                    {
+                        string elementPath = Path.Combine(dirPath, element.Name);
+                        result.Add(new KeyValuePair<string, ManifestNode>(elementPath, element));
+                    }
+                }
+            }
+
+            return result;
+        }
 
         #region Storage
         /// <summary>
@@ -231,43 +260,6 @@ namespace ZeroInstall.Store.Implementations
             }
         }
         #endregion
-
-        #region Paths
-        /// <summary>
-        /// Lists the paths of all <see cref="ManifestNode"/>s relative to the manifest root.
-        /// </summary>
-        /// <returns>A mapping of relative paths to <see cref="ManifestNode"/>s.</returns>
-        /// <remarks>This handles the fact that <see cref="ManifestDirectoryElement"/>s inherit their location from the last <see cref="ManifestDirectory"/> that precedes them.</remarks>
-        [Pure, NotNull, ItemNotNull]
-        public IList<KeyValuePair<string, ManifestNode>> ListPaths()
-        {
-            var result = new List<KeyValuePair<string, ManifestNode>>();
-
-            string dirPath = "";
-            foreach (var node in this)
-            {
-                var dir = node as ManifestDirectory;
-                if (dir != null)
-                {
-                    dirPath = FileUtils.UnifySlashes(dir.FullPath).Substring(1);
-                    result.Add(new KeyValuePair<string, ManifestNode>(dirPath, dir));
-                }
-                else
-                {
-                    var element = node as ManifestDirectoryElement;
-                    if (element != null)
-                    {
-                        string elementPath = Path.Combine(dirPath, element.Name);
-                        result.Add(new KeyValuePair<string, ManifestNode>(elementPath, element));
-                    }
-                }
-            }
-
-            return result;
-        }
-        #endregion
-
-        //--------------------//
 
         #region Enumeration
         IEnumerator<ManifestNode> IEnumerable<ManifestNode>.GetEnumerator()

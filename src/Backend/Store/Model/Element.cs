@@ -227,67 +227,6 @@ namespace ZeroInstall.Store.Model
         [XmlElement("command"), NotNull]
         public List<Command> Commands { get { return _commands; } }
 
-        //--------------------//
-
-        #region Normalize
-        /// <summary>
-        /// Sets missing default values and handles legacy elements.
-        /// </summary>
-        /// <param name="feedUri">The feed the data was originally loaded from.</param>
-        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public virtual void Normalize([NotNull] FeedUri feedUri)
-        {
-            #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
-            #endregion
-
-            // Apply if-0install-version filter
-            Commands.RemoveAll(FilterMismatch);
-            Dependencies.RemoveAll(FilterMismatch);
-            Restrictions.RemoveAll(FilterMismatch);
-            Bindings.RemoveAll(FilterMismatch);
-
-            // Convert legacy launch commands
-            if (Main != null) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
-            if (SelfTest != null) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
-
-            foreach (var command in Commands) command.Normalize();
-            foreach (var dependency in Dependencies) dependency.Normalize();
-            foreach (var restriction in Restrictions) restriction.Normalize();
-        }
-
-        /// <summary>
-        /// Transfers attributes from another <see cref="Element"/> object to this one.
-        /// Existing values are not replaced. Provides an inheritance-like relation.
-        /// </summary>
-        /// <param name="parent">The object to take the attributes from.</param>
-        internal void InheritFrom([NotNull] Element parent)
-        {
-            #region Sanity checks
-            if (parent == null) throw new ArgumentNullException("parent");
-            #endregion
-
-            // Check if values are unset and need inheritance)
-            if (Version == null) Version = parent.Version;
-            if (VersionModifier == null) VersionModifier = parent.VersionModifier;
-            if (Released == default(DateTime)) Released = parent.Released;
-            if (Main == null) Main = parent.Main;
-            if (SelfTest == null) SelfTest = parent.SelfTest;
-            if (DocDir == null) DocDir = parent.DocDir;
-            if (License == null) License = parent.License;
-            if (Stability == Stability.Unset) Stability = parent.Stability;
-            if (Languages.Count == 0) Languages = new LanguageSet(parent.Languages);
-            if (Architecture == default(Architecture)) Architecture = parent.Architecture;
-
-            // Accumulate list entries
-            Commands.AddRange(parent.Commands);
-            Dependencies.AddRange(parent.Dependencies);
-            Restrictions.AddRange(parent.Restrictions);
-            Bindings.AddRange(parent.Bindings);
-        }
-        #endregion
-
-        #region Query
         /// <summary>
         /// Determines whether <see cref="Commands"/> contains a <see cref="Command"/> with a specific name.
         /// </summary>
@@ -348,9 +287,64 @@ namespace ZeroInstall.Store.Model
 
             return Commands.FirstOrDefault(command => command != null && command.Name == name);
         }
-        #endregion
 
-        //--------------------//
+        #region Normalize
+        /// <summary>
+        /// Sets missing default values and handles legacy elements.
+        /// </summary>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public virtual void Normalize([NotNull] FeedUri feedUri)
+        {
+            #region Sanity checks
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            #endregion
+
+            // Apply if-0install-version filter
+            Commands.RemoveAll(FilterMismatch);
+            Dependencies.RemoveAll(FilterMismatch);
+            Restrictions.RemoveAll(FilterMismatch);
+            Bindings.RemoveAll(FilterMismatch);
+
+            // Convert legacy launch commands
+            if (Main != null) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
+            if (SelfTest != null) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
+
+            foreach (var command in Commands) command.Normalize();
+            foreach (var dependency in Dependencies) dependency.Normalize();
+            foreach (var restriction in Restrictions) restriction.Normalize();
+        }
+
+        /// <summary>
+        /// Transfers attributes from another <see cref="Element"/> object to this one.
+        /// Existing values are not replaced. Provides an inheritance-like relation.
+        /// </summary>
+        /// <param name="parent">The object to take the attributes from.</param>
+        internal void InheritFrom([NotNull] Element parent)
+        {
+            #region Sanity checks
+            if (parent == null) throw new ArgumentNullException("parent");
+            #endregion
+
+            // Check if values are unset and need inheritance)
+            if (Version == null) Version = parent.Version;
+            if (VersionModifier == null) VersionModifier = parent.VersionModifier;
+            if (Released == default(DateTime)) Released = parent.Released;
+            if (Main == null) Main = parent.Main;
+            if (SelfTest == null) SelfTest = parent.SelfTest;
+            if (DocDir == null) DocDir = parent.DocDir;
+            if (License == null) License = parent.License;
+            if (Stability == Stability.Unset) Stability = parent.Stability;
+            if (Languages.Count == 0) Languages = new LanguageSet(parent.Languages);
+            if (Architecture == default(Architecture)) Architecture = parent.Architecture;
+
+            // Accumulate list entries
+            Commands.AddRange(parent.Commands);
+            Dependencies.AddRange(parent.Dependencies);
+            Restrictions.AddRange(parent.Restrictions);
+            Bindings.AddRange(parent.Bindings);
+        }
+        #endregion
 
         #region Clone
         /// <summary>

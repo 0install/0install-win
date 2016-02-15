@@ -140,7 +140,6 @@ namespace ZeroInstall.Store.Model
         public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.Ppc, Cpu.Ppc64};
         #endregion
 
-        #region Properties
         /// <summary>
         /// Determines which operating systems are supported.
         /// </summary>
@@ -166,9 +165,7 @@ namespace ZeroInstall.Store.Model
             else if (UnixUtils.IsUnix) return new Architecture(UnixUtils.IsMacOSX ? OS.MacOSX : ParseOSString(UnixUtils.OSName), ParseCpuString(UnixUtils.CpuType));
             else return new Architecture(OS.Unknown, Cpu.Unknown);
         }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new architecture structure from a string in the form "os-cpu".
         /// </summary>
@@ -196,7 +193,6 @@ namespace ZeroInstall.Store.Model
             OS = os;
             Cpu = cpu;
         }
-        #endregion
 
         #region Parse string
         private static OS ParseOSString(string os)
@@ -261,8 +257,6 @@ namespace ZeroInstall.Store.Model
             }
         }
         #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

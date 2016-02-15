@@ -38,22 +38,6 @@ namespace ZeroInstall.Central
     /// </summary>
     public class AppTileManagement
     {
-        private AppList _appList = new AppList();
-
-        /// <summary>
-        /// Stores the data currently displayed in <see cref="_tileListMyApps"/>.
-        /// Used for comparison/merging when updating the list.
-        /// </summary>
-        public AppList AppList { get { return _appList; } }
-
-        private Catalog _catalog = new Catalog();
-
-        /// <summary>
-        /// Stores the data currently displayed in <see cref="_tileListCatalog"/>.
-        /// Used for comparison/merging when updating the list.
-        /// </summary>
-        public Catalog Catalog { get { return _catalog; } }
-
         #region Dependencies
         private readonly IFeedManager _feedManager;
         private readonly ICatalogManager _catalogManager;
@@ -91,9 +75,14 @@ namespace ZeroInstall.Central
         }
         #endregion
 
-        //--------------------//
+        private AppList _appList = new AppList();
 
-        #region MyApps
+        /// <summary>
+        /// Stores the data currently displayed in <see cref="_tileListMyApps"/>.
+        /// Used for comparison/merging when updating the list.
+        /// </summary>
+        public AppList AppList { get { return _appList; } }
+
         /// <summary>
         /// Loads the current <see cref="AppList"/> from the disk and updates the "My Apps" <see cref="IAppTileList"/>.
         /// </summary>
@@ -194,9 +183,15 @@ namespace ZeroInstall.Central
             }
             #endregion
         }
-        #endregion
 
-        #region Catalog
+        private Catalog _catalog = new Catalog();
+
+        /// <summary>
+        /// Stores the data currently displayed in <see cref="_tileListCatalog"/>.
+        /// Used for comparison/merging when updating the list.
+        /// </summary>
+        public Catalog Catalog { get { return _catalog; } }
+
         /// <summary>
         /// Loads a cached version of the catalog from the disk and passes it to <see cref="SetCatalog"/>.
         /// </summary>
@@ -258,6 +253,5 @@ namespace ZeroInstall.Central
             }
             #endregion
         }
-        #endregion
     }
 }

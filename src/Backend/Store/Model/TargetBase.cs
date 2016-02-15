@@ -76,8 +76,6 @@ namespace ZeroInstall.Store.Model
         public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
         #endregion
 
-        //--------------------//
-
         #region Clone
         /// <summary>
         /// Copies all known values from one instance to another. Helper method for instance cloning.

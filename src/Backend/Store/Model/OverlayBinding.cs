@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("overlay", Namespace = Feed.XmlNamespace), XmlType("overlay", Namespace = Feed.XmlNamespace)]
     public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {
-        #region Properties
         /// <summary>
         /// The relative path of the directory in the implementation to publish. The default is to publish everything.
         /// </summary>
@@ -43,9 +42,7 @@ namespace ZeroInstall.Store.Model
         [Description("The mount point on which src is to appear in the filesystem. If missing, '/' (on POSIX) or '%systemdrive%' (on Windows) is assumed.")]
         [XmlAttribute("mount-point"), DefaultValue("")]
         public string MountPoint { get; set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new default overlay binding that publishes the entire implementation to the filesystem root.
         /// </summary>
@@ -53,9 +50,6 @@ namespace ZeroInstall.Store.Model
         {
             Source = ".";
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

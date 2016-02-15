@@ -31,7 +31,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("mock", Namespace = AppList.XmlNamespace)]
     public class MockAccessPoint : DefaultAccessPoint, IEquatable<MockAccessPoint>
     {
-        #region Properties
+        /// <inheritdoc/>
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
+        {
+            return string.IsNullOrEmpty(ID) ? new string[0] : new[] {"mock:" + ID};
+        }
+
         /// <summary>
         /// An indentifier that controls the result of <see cref="GetConflictIDs"/>.
         /// </summary>
@@ -49,19 +54,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag"), XmlAttribute("unapply-flag-path")]
         public string UnapplyFlagPath { get; set; }
-        #endregion
 
-        //--------------------//
-
-        #region Conflict ID
-        /// <inheritdoc/>
-        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
-        {
-            return string.IsNullOrEmpty(ID) ? new string[0] : new[] {"mock:" + ID};
-        }
-        #endregion
-
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -93,9 +86,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             if (!string.IsNullOrEmpty(UnapplyFlagPath)) FileUtils.Touch(UnapplyFlagPath);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

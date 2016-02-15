@@ -56,8 +56,6 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, Browsable(false)]
         public virtual long DownloadSize { get { return Size; } }
 
-        //--------------------//
-
         #region Normalize
         /// <inheritdoc/>
         public override void Normalize(FeedUri feedUri)
@@ -71,8 +69,6 @@ namespace ZeroInstall.Store.Model
             if (Href != null) Href = ModelUtils.GetAbsoluteHref(Href, feedUri);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <inheritdoc/>

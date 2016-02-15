@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("working-dir", Namespace = Feed.XmlNamespace), XmlType("working-dir", Namespace = Feed.XmlNamespace)]
     public sealed class WorkingDir : FeedElement, ICloneable, IEquatable<WorkingDir>
     {
-        #region Properties
         /// <summary>
         /// The relative path of the directory in the implementation to set as the working directory. Defaults to use the root of the implementation if unset.
         /// </summary>
@@ -39,9 +38,6 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("src"), DefaultValue("")]
         [CanBeNull]
         public string Source { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

@@ -56,7 +56,6 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Serializable, XmlRoot("context-menu", Namespace = CapabilityList.XmlNamespace), XmlType("context-menu", Namespace = CapabilityList.XmlNamespace)]
     public sealed class ContextMenu : DefaultCapability, ISingleVerb, IEquatable<ContextMenu>
     {
-        #region Properties
         /// <inheritdoc/>
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
@@ -82,9 +81,6 @@ namespace ZeroInstall.Store.Model.Capabilities
             // Note: Context menu entries are only created via AccessPoints, the capability itself does nothing
             get { return Enumerable.Empty<string>(); }
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

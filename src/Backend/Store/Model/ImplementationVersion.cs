@@ -44,7 +44,6 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     public sealed class ImplementationVersion : IEquatable<ImplementationVersion>, IComparable<ImplementationVersion>
     {
-        #region Variables
         /// <summary>The first part of the version number.</summary>
         private readonly VersionDottedList _firstPart;
 
@@ -53,17 +52,13 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>Used to store the unparsed input string (instead of <see cref="_firstPart"/> and <see cref="_additionalParts"/>) if it <see cref="ModelUtils.ContainsTemplateVariables"/>.</summary>
         private readonly string _verbatimString;
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Indicates whether this version number contains a template variable (a substring enclosed in curly brackets, e.g {var}) .
         /// </summary>
         /// <remarks>This must be <c>false</c> in regular feeds; <c>true</c> is only valid for templates.</remarks>
         public bool ContainsTemplateVariables { get { return _verbatimString != null; } }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new implementation version from a a string.
         /// </summary>
@@ -105,9 +100,7 @@ namespace ZeroInstall.Store.Model
             _firstPart = new VersionDottedList(version.ToString());
             _additionalParts = new VersionPart[0];
         }
-        #endregion
 
-        #region Factory methods
         /// <summary>
         /// Creates a new <see cref="ImplementationVersion"/> using the specified string representation.
         /// </summary>
@@ -128,9 +121,6 @@ namespace ZeroInstall.Store.Model
                 return false;
             }
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

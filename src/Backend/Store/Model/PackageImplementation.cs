@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
         public static readonly string[] DistributionNames = {"Arch", "Cygwin", "Darwin", "Debian", "Gentoo", "MacPorts", "Ports", "RPM", "Slack", "Windows"};
         #endregion
 
-        #region Override Properties
+        #region Disabled Properties
         /// <summary>
         /// The version number as provided by the operating system.
         /// </summary>
@@ -81,7 +81,6 @@ namespace ZeroInstall.Store.Model
         public override Stability Stability { get { return Stability.Unset; } set { } }
         #endregion
 
-        #region Properties
         /// <summary>
         /// The name of the package in the distribution-specific package manager.
         /// </summary>
@@ -116,9 +115,6 @@ namespace ZeroInstall.Store.Model
                 Distributions.AddRange(value.Split(' '));
             }
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

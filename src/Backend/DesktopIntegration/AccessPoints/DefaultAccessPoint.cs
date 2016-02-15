@@ -34,16 +34,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public const string CategoryName = "default-app";
         #endregion
 
-        #region Properties
         /// <summary>
         /// The ID of the <see cref="Capability"/> to be made the default handler.
         /// </summary>
         [Description("The ID of the Capability to be made the default handler.")]
         [XmlAttribute("capability")]
         public string Capability { get; set; }
-        #endregion
-
-        //--------------------//
 
         #region Equality
         /// <inheritdoc/>

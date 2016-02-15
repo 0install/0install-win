@@ -46,8 +46,6 @@ namespace ZeroInstall.Store.Model
         public string TargetString { get { return (Target == null ? null : Target.ToStringRfc()); } set { Target = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
         #endregion
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the interface reference in the form "Target". Not safe for parsing!

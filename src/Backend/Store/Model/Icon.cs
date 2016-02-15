@@ -75,8 +75,6 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("type"), DefaultValue(""), CanBeNull]
         public string MimeType { get; set; }
 
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the icon in the form "Location (MimeType)". Not safe for parsing!

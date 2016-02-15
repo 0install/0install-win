@@ -54,7 +54,6 @@ namespace ZeroInstall.Store.Trust
         public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
         #endregion
 
-        #region Properties
         // Order is preserved, but ignore it when comparing
         private readonly List<Key> _keys = new List<Key>();
 
@@ -67,11 +66,7 @@ namespace ZeroInstall.Store.Trust
         {
             get { return _keys; }
         }
-        #endregion
 
-        //--------------------//
-
-        #region Access
         /// <summary>
         /// Determines whether a key is trusted for a specific domain.
         /// </summary>
@@ -125,7 +120,6 @@ namespace ZeroInstall.Store.Trust
             foreach (Key key in Keys.Where(key => key.Fingerprint == fingerprint))
                 key.Domains.Remove(domain);
         }
-        #endregion
 
         #region Storage
         /// <summary>
@@ -190,8 +184,6 @@ namespace ZeroInstall.Store.Trust
             this.SaveXml(path);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

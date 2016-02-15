@@ -62,7 +62,6 @@ namespace ZeroInstall.Store.Model
         public string SchemaLocation = XsiSchemaLocation;
         #endregion
 
-        #region Properties
         private readonly List<Feed> _feeds = new List<Feed>();
 
         /// <summary>
@@ -71,11 +70,7 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace), NotNull]
         public List<Feed> Feeds { get { return _feeds; } }
-        #endregion
 
-        //--------------------//
-
-        #region Query
         /// <summary>
         /// Determines whether this catalog contains a <see cref="Feed"/> with a specific URI.
         /// </summary>
@@ -182,7 +177,6 @@ namespace ZeroInstall.Store.Model
                 }
             }
         }
-        #endregion
 
         #region Normalize
         /// <summary>
@@ -195,8 +189,6 @@ namespace ZeroInstall.Store.Model
                 feed.Normalize(feed.Uri);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

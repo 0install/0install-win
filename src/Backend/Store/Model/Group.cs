@@ -34,7 +34,6 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
-        #region Properties
         private readonly List<Element> _elements = new List<Element>();
 
         /// <summary>
@@ -43,9 +42,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         public List<Element> Elements { get { return _elements; } }
-        #endregion
-
-        //--------------------//
 
         #region Normalize
         /// <summary>
@@ -83,8 +79,6 @@ namespace ZeroInstall.Store.Model
             Elements.AddRange(collapsedElements);
         }
         #endregion
-
-        //--------------------//
 
         #region Clone
         /// <summary>

@@ -33,7 +33,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
     public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
     {
-        #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
         {
@@ -45,9 +44,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability.KnownPrefixes.Count == 0) return new[] {"protocol:" + capability.ID};
             return capability.KnownPrefixes.Select(prefix => "protocol:" + prefix.Value);
         }
-        #endregion
 
-        #region Apply
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
@@ -71,9 +68,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.LookupCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Unregister(capability, machineWide, accessPoint: true);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <summary>

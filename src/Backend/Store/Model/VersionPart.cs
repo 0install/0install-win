@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     internal struct VersionPart : IEquatable<VersionPart>, IComparable<VersionPart>
     {
-        #region Singleton fields
+        #region Constants
         /// <summary>
         /// A version number with the value -1.
         /// </summary>
@@ -54,7 +54,6 @@ namespace ZeroInstall.Store.Model
         public static readonly VersionPart Default = new VersionPart("-1");
         #endregion
 
-        #region Properties
         /// <summary>
         /// The modifier part of the version part.
         /// </summary>
@@ -64,9 +63,7 @@ namespace ZeroInstall.Store.Model
         /// The dotted list part of the version part.
         /// </summary>
         public VersionDottedList DottedList { get; private set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new dotted-list from a a string.
         /// </summary>
@@ -95,9 +92,6 @@ namespace ZeroInstall.Store.Model
             // Parse any rest as dotted list
             if (!string.IsNullOrEmpty(value)) DottedList = new VersionDottedList(value);
         }
-        #endregion
-
-        //--------------------//
 
         #region Conversion
         /// <inheritdoc/>
