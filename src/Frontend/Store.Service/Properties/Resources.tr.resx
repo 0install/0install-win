@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlreadyRunning" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti zaten çalışıyor.</value>
-  </data>
-  <data name="AlreadyStopped" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti zaten durdurulmuş.</value>
-  </data>
   <data name="FailedToAddImplementation" xml:space="preserve">
     <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerine ekleyemedi.</value>
   </data>
@@ -135,12 +129,6 @@
   <data name="FailedToRemoveTempDir" xml:space="preserve">
     <value>(&apos;{0}&apos; kullanıcısı için) &apos;{1}&apos; üzerinde oluşturulan geçici dizin kaldırılamadı.</value>
   </data>
-  <data name="InstallFail" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti yüklenemedi. Ayrıntılar için yükleme dizinindeki günlük dosyasına bakın.</value>
-  </data>
-  <data name="InstallSuccess" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti başarıyla yüklendi.</value>
-  </data>
   <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Paylaşılan bir bellekten yalnız yöneticiler bileşen kaldırabilir.</value>
   </data>
@@ -150,32 +138,10 @@
   <data name="SettingFilePermissions" xml:space="preserve">
     <value>Dosya izinleri ayarlanıyor</value>
   </data>
-  <data name="StartSuccess" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti başarıyla başlatıldı.</value>
-  </data>
-  <data name="StatusRunning" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti çalışıyor.</value>
-  </data>
-  <data name="StatusStopped" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti çalışmıyor.</value>
-  </data>
-  <data name="StopSuccess" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti başarıyla durduruldu.</value>
-  </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerine ekledi.</value>
   </data>
   <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
     <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerinden kaldırdı.</value>
-  </data>
-  <data name="UninstallFail" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti kaldırılamadı. Ayrıntılar için yükleme dizinindeki günlük dosyasına bakın.</value>
-  </data>
-  <data name="UninstallSuccess" xml:space="preserve">
-    <value>Zero Install Bellek Hizmeti başarıyla kaldırıldı.</value>
-  </data>
-  <data name="UnknownCommand" xml:space="preserve">
-    <value>Bilinmeyen komut!
-Kullanım: {0}</value>
   </data>
 </root>

@@ -15,16 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.ServiceProcess;
-using System.Windows.Forms;
 using NanoByte.Common;
-using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service
 {
@@ -37,164 +30,16 @@ namespace ZeroInstall.Store.Service
         /// The main entry point for the application.
         /// </summary>
         // NOTE: No [STAThread] here, because it could block .NET remoting
-        private static int Main(string[] args)
+        private static int Main()
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
             if (AppMutex.Probe(mutexName + "-update")) return 999;
 
-            if (args == null || args.Length == 0)
-            {
-                // NOTE: Do not block updater from starting because it will automatically stop service
+            // NOTE: Do not block updater from starting because it will automatically stop service
 
-                ServiceBase.Run(new ServiceBase[] {new StoreService()});
-                return 0;
-            }
-            else
-            {
-                AppMutex.Create(mutexName);
-                if (Locations.IsPortable)
-                {
-                    Msg.Inform(null, Resources.NoPortableMode, MsgSeverity.Error);
-                    return 1;
-                }
-
-                string command = args[0].ToLowerInvariant();
-                bool silent = args.Contains("--silent", StringComparer.OrdinalIgnoreCase);
-                try
-                {
-                    return HandleCommand(command, silent);
-                }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    if (!silent) Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return 1;
-                }
-                catch (InvalidOperationException ex)
-                {
-                    if (!silent) Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return 1;
-                }
-                #endregion
-            }
+            ServiceBase.Run(new ServiceBase[] { new StoreService() });
+            return 0;
         }
-
-        #region Commands
-        /// <summary>
-        /// Handles command-line arguments.
-        /// </summary>
-        /// <param name="command">The primary command to execute.</param>
-        /// <param name="silent"><c>true</c> if the command is to be executed without any visible user interface.</param>
-        /// <returns>The process exit code.</returns>
-        private static int HandleCommand(string command, bool silent)
-        {
-            switch (command)
-            {
-                case "install":
-                    return Install(silent);
-                case "uninstall":
-                    return Uninstall(silent);
-                case "start":
-                    Start(silent);
-                    return 0;
-                case "stop":
-                    Stop(silent);
-                    return 0;
-                case "status":
-                    Status();
-                    return 0;
-                default:
-                    Msg.Inform(null, string.Format(Resources.UnknownCommand, "0store-service (install|uninstall|start|stop|status) [--silent]"), MsgSeverity.Error);
-                    return 1;
-            }
-        }
-
-        private static int Install(bool silent)
-        {
-            int exitCode = new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
-            {
-                WindowStyle = silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
-                WorkingDirectory = Path.GetTempPath()
-            }.Run();
-
-            if (!silent)
-            {
-                if (exitCode == 0) Msg.Inform(null, Resources.InstallSuccess, MsgSeverity.Info);
-                else Msg.Inform(null, Resources.InstallFail, MsgSeverity.Error);
-            }
-            return exitCode;
-        }
-
-        private static int Uninstall(bool silent)
-        {
-            var controller = new ServiceController("0store-service");
-
-            if (controller.Status == ServiceControllerStatus.Running) controller.Stop();
-
-            int exitCode = new ProcessStartInfo(InstallUtilPath, new[] {"/u", Application.ExecutablePath}.JoinEscapeArguments())
-            {
-                WindowStyle = silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal,
-                WorkingDirectory = Path.GetTempPath()
-            }.Run();
-
-            if (!silent)
-            {
-                if (exitCode == 0) Msg.Inform(null, Resources.UninstallSuccess, MsgSeverity.Info);
-                else Msg.Inform(null, Resources.UninstallFail, MsgSeverity.Error);
-            }
-            return exitCode;
-        }
-
-        private static void Start(bool silent)
-        {
-            var controller = new ServiceController("0store-service");
-
-            if (controller.Status == ServiceControllerStatus.Running)
-            {
-                if (!silent) Msg.Inform(null, Resources.AlreadyRunning, MsgSeverity.Info);
-                return;
-            }
-
-            controller.Start();
-            if (!silent) Msg.Inform(null, Resources.StartSuccess, MsgSeverity.Info);
-        }
-
-        private static void Stop(bool silent)
-        {
-            var controller = new ServiceController("0store-service");
-
-            if (controller.Status == ServiceControllerStatus.Stopped)
-            {
-                if (!silent) Msg.Inform(null, Resources.AlreadyStopped, MsgSeverity.Info);
-                return;
-            }
-
-            controller.Stop();
-            if (!silent) Msg.Inform(null, Resources.StopSuccess, MsgSeverity.Info);
-        }
-
-        private static void Status()
-        {
-            var controller = new ServiceController("0store-service");
-
-            Msg.Inform(null, (controller.Status == ServiceControllerStatus.Running ? Resources.StatusRunning : Resources.StatusStopped), MsgSeverity.Info);
-        }
-
-        /// <summary>
-        /// The path to the .NET service installation utility.
-        /// </summary>
-        private static string InstallUtilPath
-        {
-            get
-            {
-                // Use .NET 4.0 if possible, otherwise 2.0
-                string netFxDir = WindowsUtils.GetNetFxDirectory(
-                    WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx40) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
-
-                return Path.Combine(netFxDir, "InstallUtil.exe");
-            }
-        }
-        #endregion
     }
 }
