@@ -190,7 +190,7 @@
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
     <value>Warnung: Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren.</value>
   </data>
-  <data name="tabLanguage.Text" xml:space="preserve">
+  <data name="tabPageLanguage.Text" xml:space="preserve">
     <value>Sprache</value>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">

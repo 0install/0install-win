@@ -1261,7 +1261,7 @@ Notes:
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelLanguage.Parent" xml:space="preserve">
-    <value>tabLanguage</value>
+    <value>tabPageLanguage</value>
   </data>
   <data name="&gt;&gt;labelLanguage.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1285,36 +1285,36 @@ Notes:
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
-    <value>tabLanguage</value>
+    <value>tabPageLanguage</value>
   </data>
   <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabLanguage.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageLanguage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabLanguage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageLanguage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabLanguage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>371, 203</value>
   </data>
-  <data name="tabLanguage.TabIndex" type="System.Int32, mscorlib">
+  <data name="tabPageLanguage.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="tabLanguage.Text" xml:space="preserve">
+  <data name="tabPageLanguage.Text" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="&gt;&gt;tabLanguage.Name" xml:space="preserve">
-    <value>tabLanguage</value>
+  <data name="&gt;&gt;tabPageLanguage.Name" xml:space="preserve">
+    <value>tabPageLanguage</value>
   </data>
-  <data name="&gt;&gt;tabLanguage.Type" xml:space="preserve">
+  <data name="&gt;&gt;tabPageLanguage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabLanguage.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageLanguage.Parent" xml:space="preserve">
     <value>tabOptions</value>
   </data>
-  <data name="&gt;&gt;tabLanguage.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabPageLanguage.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="tabOptions.Location" type="System.Drawing.Point, System.Drawing">

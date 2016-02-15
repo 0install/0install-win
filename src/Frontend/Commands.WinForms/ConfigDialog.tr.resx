@@ -216,7 +216,7 @@ Notlar:
 - Tüm diller için çeviri bulunamayabilir
 - Dil değişikliğinin geçerli olması için Zero Install yeniden başlatılmalıdır.</value>
   </data>
-  <data name="tabLanguage.Text" xml:space="preserve">
+  <data name="tabPageLanguage.Text" xml:space="preserve">
     <value>Dil</value>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">

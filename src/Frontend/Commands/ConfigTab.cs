@@ -30,6 +30,7 @@ namespace ZeroInstall.Commands
         Catalog,
         Trust,
         Sync,
+        Language,
         Advanced
     }
 }

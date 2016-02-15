@@ -216,7 +216,7 @@
 - μεταφράσεις δεν είναι διαθέσιμη για όλες τις γλώσσες.
 - Πρέπει να ξαναξεκινήσετε Zero Install για γλωσσικές αλλαγές για να εφαρμοστείτε.</value>
   </data>
-  <data name="tabLanguage.Text" xml:space="preserve">
+  <data name="tabPageLanguage.Text" xml:space="preserve">
     <value>γλώσσα</value>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">

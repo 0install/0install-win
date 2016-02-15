@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands.WinForms
             treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
 
             if (WindowsUtils.IsWindows) LoadLanguages();
-            else tabLanguage.Visible = false;
+            else tabPageLanguage.Visible = false;
         }
 
         /// <summary>
@@ -90,6 +90,9 @@ namespace ZeroInstall.Commands.WinForms
                     break;
                 case ConfigTab.Sync:
                     tabOptions.SelectTab(tabPageSync);
+                    break;
+                case ConfigTab.Language:
+                    tabOptions.SelectTab(tabPageLanguage);
                     break;
                 case ConfigTab.Advanced:
                     tabOptions.SelectTab(tabPageAdvanced);
