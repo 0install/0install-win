@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Service
     {
         public StoreServiceInstaller()
         {
-            Installers.Add(new ServiceProcessInstaller {Account = ServiceAccount.LocalService});
+            Installers.Add(new ServiceProcessInstaller {Account = ServiceAccount.LocalSystem});
             Installers.Add(new ServiceInstaller
             {
                 Description = "Manages a Zero Install implementation cache shared between all users.",
