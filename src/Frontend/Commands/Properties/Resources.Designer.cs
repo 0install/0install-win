@@ -70,16 +70,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An alias named &apos;{0}&apos; for &apos;{1}&apos; was created.
-        ///You may have to close and reopen your terminal for this to become effective..
-        /// </summary>
-        public static string AliasCreatedReopenTerminal {
-            get {
-                return ResourceManager.GetString("AliasCreatedReopenTerminal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No existing alias named &apos;{0}&apos; was found..
         /// </summary>
         public static string AliasNotFound {
@@ -1178,7 +1168,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and answer questions with default answers..
+        ///   Looks up a localized string similar to Automatically answer questions with defaults when possible. Avoid unnecessary console output (e.g. progress bars)..
         /// </summary>
         public static string OptionBatch {
             get {
@@ -1621,6 +1611,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You may have to close and reopen your terminal for this to become effective..
+        /// </summary>
+        public static string ReopenTerminal {
+            get {
+                return ResourceManager.GetString("ReopenTerminal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to reset the list to its original state?.
         /// </summary>
         public static string ResetList {
@@ -1753,15 +1752,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string TooManyArguments {
             get {
                 return ResourceManager.GetString("TooManyArguments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try using the command &apos;0install-win&apos; instead of &apos;0install&apos;..
-        /// </summary>
-        public static string Try0installWin {
-            get {
-                return ResourceManager.GetString("Try0installWin", resourceCulture);
             }
         }
         

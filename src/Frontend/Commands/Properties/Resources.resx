@@ -120,10 +120,6 @@
   <data name="AliasCreated" xml:space="preserve">
     <value>An alias named '{0}' for '{1}' was created.</value>
   </data>
-  <data name="AliasCreatedReopenTerminal" xml:space="preserve">
-    <value>An alias named '{0}' for '{1}' was created.
-You may have to close and reopen your terminal for this to become effective.</value>
-  </data>
   <data name="AliasNotFound" xml:space="preserve">
     <value>No existing alias named '{0}' was found.</value>
   </data>
@@ -503,7 +499,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Hide the graphical user interface and use something like a tray icon instead. Has no effect in command-line mode.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
-    <value>Run in batch mode: don't display progress reports to the user and answer questions with default answers.</value>
+    <value>Automatically answer questions with defaults when possible. Avoid unnecessary console output (e.g. progress bars).</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program.</value>
@@ -657,6 +653,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Removing outdated implementations</value>
   </data>
+  <data name="ReopenTerminal" xml:space="preserve">
+    <value>You may have to close and reopen your terminal for this to become effective.</value>
+  </data>
   <data name="ResetList" xml:space="preserve">
     <value>Do you want to reset the list to its original state?</value>
   </data>
@@ -702,9 +701,6 @@ Keep this key secret and use something different for your password. This way nob
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Too many arguments or unknown options.</value>
-  </data>
-  <data name="Try0installWin" xml:space="preserve">
-    <value>Try using the command '0install-win' instead of '0install'.</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Try {0} --help</value>

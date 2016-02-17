@@ -120,10 +120,6 @@
   <data name="AliasCreated" xml:space="preserve">
     <value>&apos;{1}&apos; için &apos;{0}&apos; kısaltması oluşturuldu.</value>
   </data>
-  <data name="AliasCreatedReopenTerminal" xml:space="preserve">
-    <value>&apos;{1}&apos; için &apos;{0}&apos; kısaltması oluşturuldu.
-Yapılan işlemin geçerli olması için terminalinizi kapatıp yeniden açmanız gerekebilir.</value>
-  </data>
   <data name="AliasNotFound" xml:space="preserve">
     <value>&apos;{0}&apos; kısaltması bulunamadı.</value>
   </data>
@@ -657,6 +653,9 @@ Komut satırı değişkenleri bulunabilir. Boşluklardan kaçınılmalıdır.</v
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Eski uygulamalar siliniyor</value>
   </data>
+  <data name="ReopenTerminal" xml:space="preserve">
+    <value>Yapılan işlemin geçerli olması için terminalinizi kapatıp yeniden açmanız gerekebilir.</value>
+  </data>
   <data name="ResetList" xml:space="preserve">
     <value>Listeyi ilk durumuna geri yüklemek ister misiniz?</value>
   </data>
@@ -702,9 +701,6 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Çok sayıda değişken var ya da seçenekler bilinmiyor.</value>
-  </data>
-  <data name="Try0installWin" xml:space="preserve">
-    <value>&apos;0install-win&apos; yerine &apos;0install&apos; komutunu kullanmayı deneyin.</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>{0} --help deneyin</value>

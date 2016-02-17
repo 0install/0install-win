@@ -143,9 +143,9 @@ namespace ZeroInstall.Commands.CliCommands
                 var alias = new AppAlias {Name = aliasName, Command = command};
                 integrationManager.AddAccessPoints(appEntry, FeedManager[interfaceUri], new AccessPoint[] {alias});
 
-                Handler.OutputLow(
-                    Resources.DesktopIntegration,
-                    string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
+                string message = string.Format(Resources.AliasCreated, aliasName, appEntry.Name);
+                if (needsReopenTerminal) message += Environment.NewLine + Resources.ReopenTerminal;
+                Handler.OutputLow(Resources.DesktopIntegration, message);
                 return ExitCode.OK;
             }
         }

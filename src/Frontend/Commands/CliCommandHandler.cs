@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public void CustomizeSelections(Func<Selections> solveCallback)
         {
-            throw new NeedGuiException(Resources.NoModifySelectionsInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
+            throw new NeedGuiException(Resources.NoModifySelectionsInCli);
         }
 
         /// <inheritdoc/>

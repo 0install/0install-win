@@ -120,9 +120,6 @@
   <data name="AliasCreated" xml:space="preserve">
     <value>Ένα ψευδώνυμο που ονομάζεται &apos;{0}&apos; για &apos;{1}&apos; δημιουργήθηκε.</value>
   </data>
-  <data name="AliasCreatedReopenTerminal" xml:space="preserve">
-    <value>Ένα ψευδώνυμο που ονομάζεται &apos;{0}&apos; για &apos;{1}&apos; δημιουργηθηκε. Μπορεί να χρειαστεί να κλείσετε και να ανοίξετε ξανά το τερματικό σας για να γίνει αυτό αποτελεσματικά.</value>
-  </data>
   <data name="AliasNotFound" xml:space="preserve">
     <value>Κανένα υπαρκτό ψευδώνυμο που ονομάζεται &apos;{0}&apos; δεν βρέθηκε.</value>
   </data>
@@ -608,6 +605,9 @@
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Αφαίρεση παρωχημένων εφαρμογών</value>
   </data>
+  <data name="ReopenTerminal" xml:space="preserve">
+    <value>Μπορεί να χρειαστεί να κλείσετε και να ανοίξετε ξανά το τερματικό σας για να γίνει αυτό αποτελεσματικά.</value>
+  </data>
   <data name="ResetList" xml:space="preserve">
     <value>Θέλετε να επαναφέρετε τη λίστα στην αρχική της κατάσταση;</value>
   </data>
@@ -650,9 +650,6 @@
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Πάρα πολλά επιχειρήματα ή άγνωστες επιλογές.</value>
-  </data>
-  <data name="Try0installWin" xml:space="preserve">
-    <value>Δοκιμάστε να χρησιμοποιήσετε την εντολή &quot;0install-win» αντί του όρου «0install».</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Δοκιμάστε {0} --help</value>
