@@ -46,7 +46,9 @@ namespace ZeroInstall
         [TearDown]
         public virtual void TearDown()
         {
-            MockRepository.VerifyAll();
+            // Prevent Mock verify failures from hiding underlying test failures
+            if (TestContext.CurrentContext.Result.State == TestState.Success)
+                MockRepository.VerifyAll();
         }
     }
 }
