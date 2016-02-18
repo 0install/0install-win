@@ -177,7 +177,7 @@ namespace ZeroInstall.Services.Feeds
             using (var server = new MicroServer("keys/" + OpenPgpUtilsTest.TestKeyIDString + ".gpg", new MemoryStream(_keyData)))
             {
                 Config.FeedMirror = server.ServerUri;
-                Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test/feed.xml"))
+                Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost:9999/test/feed.xml"))
                     .Should().Be(OpenPgpUtilsTest.TestSignature);
             }
             IsKeyTrusted().Should().BeTrue(because: "Key should be trusted");
