@@ -153,6 +153,9 @@
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>Ö&amp;nbellek yönetimi</value>
   </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>K&amp;omut satırı</value>
+  </data>
   <data name="buttonIntro.Text" xml:space="preserve">
     <value>Başlangıç &amp;Videosu</value>
   </data>

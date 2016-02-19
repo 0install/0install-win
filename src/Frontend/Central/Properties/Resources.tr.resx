@@ -127,6 +127,9 @@ Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerin
   <data name="Cancel" xml:space="preserve">
     <value>İptal</value>
   </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Kullanılabilecek komutları görmek için &apos;0install --help&apos; yazın.</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Devam</value>
   </data>
