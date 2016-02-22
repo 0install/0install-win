@@ -131,7 +131,7 @@ namespace ZeroInstall.Publish.WinForms
                 catch (InvalidDataException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
-                    throw new IOException(ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), ex);
+                    throw new IOException(ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), ex);
                 }
                 #endregion
 

@@ -173,7 +173,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             {
                 bool warnOtherImplementations = (ContainerRef.RetrievalMethods.Count > 1);
                 if (Msg.YesNo(this,
-                    warnOtherImplementations ? Resources.DigestMismatch + "\n" + Resources.DigestOtherImplementations : Resources.DigestMismatch,
+                    warnOtherImplementations ? Resources.DigestMismatch + Environment.NewLine + Resources.DigestOtherImplementations : Resources.DigestMismatch,
                     warnOtherImplementations ? MsgSeverity.Warn : MsgSeverity.Info,
                     Resources.DigestReplace, Resources.DigestKeep))
                     SetDigest(digest, executor);

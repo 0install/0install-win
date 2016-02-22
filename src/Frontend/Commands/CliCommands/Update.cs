@@ -151,7 +151,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
             else
             {
-                Handler.Output(Resources.ChangesFound, builder.ToString(0, builder.Length - Environment.NewLine.Length));
+                Handler.Output(Resources.ChangesFound, builder.ToString());
                 return ExitCode.OK;
             }
         }

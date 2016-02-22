@@ -48,7 +48,7 @@ namespace ZeroInstall.Services
 
             var builder = new StringBuilder();
             PrintNode(selections, builder, new HashSet<FeedUri>(), store, "", selections.InterfaceUri);
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
+            return builder.ToString();
         }
 
         /// <summary>

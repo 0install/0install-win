@@ -131,25 +131,25 @@ namespace ZeroInstall.Store.Service
                 #region Error handling
             catch (IOException ex)
             {
-                eventLog.WriteEntry(string.Format("Failed to open cache directory:\n{0}", ex), EventLogEntryType.Error);
+                eventLog.WriteEntry("Failed to open cache directory:" + Environment.NewLine + ex, EventLogEntryType.Error);
                 ExitCode = UnableToWriteToDevice;
                 Stop();
             }
             catch (UnauthorizedAccessException ex)
             {
-                eventLog.WriteEntry(string.Format("Failed to open cache directory:\n{0}", ex), EventLogEntryType.Error);
+                eventLog.WriteEntry("Failed to open cache directory:" + Environment.NewLine + ex, EventLogEntryType.Error);
                 ExitCode = AccessDenied;
                 Stop();
             }
             catch (RemotingException ex)
             {
-                eventLog.WriteEntry(string.Format("Failed to open IPC connection:\n{0}", ex), EventLogEntryType.Error);
+                eventLog.WriteEntry("Failed to open IPC connection:" + Environment.NewLine + ex, EventLogEntryType.Error);
                 ExitCode = InvalidHandle;
                 Stop();
             }
             catch (SecurityException ex)
             {
-                eventLog.WriteEntry(string.Format("Failed to open IPC connection:\n{0}", ex), EventLogEntryType.Error);
+                eventLog.WriteEntry("Failed to open IPC connection:" + Environment.NewLine + ex, EventLogEntryType.Error);
                 ExitCode = InvalidHandle;
                 Stop();
             }

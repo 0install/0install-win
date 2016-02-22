@@ -114,7 +114,7 @@ namespace ZeroInstall.Commands.WinForms
             var ex = e.Error;
             if (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException)
             {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
                 Close();
             }
             else if (ex != null) ex.Rethrow();

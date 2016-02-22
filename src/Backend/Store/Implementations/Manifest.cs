@@ -187,6 +187,17 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
+        /// Returns the manifest in the same format used by <see cref="Save(Stream)"/>.
+        /// </summary>
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+            foreach (var node in _nodes)
+                output.Append(node + "\n");
+            return output.ToString();
+        }
+
+        /// <summary>
         /// Parses a manifest file stream.
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
@@ -277,20 +288,6 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="i">The index of the node to retreive.</param>
         public ManifestNode this[int i] { get { return _nodes[i]; } }
-        #endregion
-
-        #region Conversion
-        /// <summary>
-        /// Returns the manifest in the same text representation format used by <see cref="Save(Stream)"/>.
-        /// </summary>
-        public override string ToString()
-        {
-            // Use the same format as the file
-            var output = new StringBuilder();
-            foreach (var node in _nodes)
-                output.AppendLine(node.ToString());
-            return output.ToString();
-        }
         #endregion
 
         #region Equality

@@ -107,9 +107,9 @@ namespace ZeroInstall.Commands.CliCommands
                 (FeedUri interfaceUri, VersionRange range) => Requirements.ExtraRestrictions[interfaceUri] = range);
             Options.Add("s|source", () => Resources.OptionSource,
                 _ => Requirements.Source = true);
-            Options.Add("os=", () => Resources.OptionOS + "\n" + SupportedValues(Architecture.KnownOS),
+            Options.Add("os=", () => Resources.OptionOS + Environment.NewLine + SupportedValues(Architecture.KnownOS),
                 (OS os) => Requirements.Architecture = new Architecture(os, Requirements.Architecture.Cpu));
-            Options.Add("cpu=", () => Resources.OptionCpu + "\n" + SupportedValues(Architecture.KnownCpu),
+            Options.Add("cpu=", () => Resources.OptionCpu + Environment.NewLine + SupportedValues(Architecture.KnownCpu),
                 (Cpu cpu) => Requirements.Architecture = new Architecture(Requirements.Architecture.OS, cpu));
             Options.Add("language=", () => Resources.OptionLanguage,
                 (CultureInfo lang) => Requirements.Languages.Add(lang));

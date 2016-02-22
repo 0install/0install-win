@@ -312,7 +312,7 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (InvalidDataException ex)
             {
-                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
                 return true;
             }
             #endregion

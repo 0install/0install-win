@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             Options.Add("manifest", () => Resources.OptionManifest, _ => _printManifest = true);
             Options.Add("digest", () => Resources.OptionDigest, _ => _printDigest = true);
-            Options.Add("algorithm=", () => Resources.OptionAlgorithm + "\n" + SupportedValues(ManifestFormat.All),
+            Options.Add("algorithm=", () => Resources.OptionAlgorithm + Environment.NewLine + SupportedValues(ManifestFormat.All),
                 delegate(string algorithm)
                 {
                     try
@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (_printManifest)
             {
-                string result = manifest.ToString().TrimEnd(Environment.NewLine.ToCharArray());
+                string result = manifest.ToString();
                 if (_printDigest) result += Environment.NewLine + manifest.CalculateDigest();
                 return result;
             }
