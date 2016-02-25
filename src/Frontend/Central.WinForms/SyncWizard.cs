@@ -27,7 +27,6 @@ using NanoByte.Common;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Commands;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Utils;
 using ZeroInstall.DesktopIntegration;
@@ -80,7 +79,7 @@ namespace ZeroInstall.Central.WinForms
 
         private SyncIntegrationManager CreateSync(string cryptoKey)
         {
-            var services = new ServiceLocator(new GuiTaskHandler(this));
+            var services = new ServiceLocator(new DialogTaskHandler(this));
             return new SyncIntegrationManager(_server, cryptoKey, services.FeedManager.GetFresh, services.Handler, _machineWide);
         }
 
@@ -276,7 +275,7 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     handler.RunTask(new SimpleTask(Text, CheckCredentials));
             }
                 #region Error handling
@@ -350,7 +349,7 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     handler.RunTask(new SimpleTask(Text, CheckCryptoKey));
             }
                 #region Error handling

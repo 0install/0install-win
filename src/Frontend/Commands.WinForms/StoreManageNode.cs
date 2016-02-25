@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands.WinForms
                 var implementationNode = storeNode as ImplementationNode;
                 if (implementationNode != null)
                 {
-                    using (var handler = new GuiTaskHandler(_manageForm))
+                    using (var handler = new DialogTaskHandler(_manageForm))
                     {
                         menu.Add(new MenuItem(Resources.Verify, delegate
                         {
@@ -109,7 +109,7 @@ namespace ZeroInstall.Commands.WinForms
 
             menu.Add(new MenuItem(Resources.Remove, delegate
             {
-                using (var handler = new GuiTaskHandler(_manageForm))
+                using (var handler = new DialogTaskHandler(_manageForm))
                 {
                     if (handler.Ask(Resources.DeleteEntry))
                     {

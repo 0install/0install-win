@@ -167,7 +167,7 @@ namespace ZeroInstall.Publish.WinForms
                 new SingleFile {Href = textBoxDownloadUrl.Uri},
                 checkLocalCopy.Checked ? textBoxLocalPath.Text : null);
             _feedBuilder.ImplementationDirectory = _feedBuilder.TemporaryDirectory;
-            using (var handler = new GuiTaskHandler(this))
+            using (var handler = new DialogTaskHandler(this))
             {
                 _feedBuilder.DetectCandidates(handler);
                 _feedBuilder.CalculateDigest(handler);
@@ -194,7 +194,7 @@ namespace ZeroInstall.Publish.WinForms
                 _installerCapture.SetLocal(textBoxDownloadUrl.Uri, textBoxLocalPath.Text);
             else
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     _installerCapture.Download(textBoxDownloadUrl.Uri, handler);
             }
 
@@ -205,7 +205,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             _feedBuilder.RetrievalMethod = retrievalMethod;
 
-            using (var handler = new GuiTaskHandler(this))
+            using (var handler = new DialogTaskHandler(this))
             {
                 _feedBuilder.TemporaryDirectory = (localPath == null)
                     ? retrievalMethod.DownloadAndApply(handler)
@@ -233,7 +233,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void archiveExtractPage_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            using (var handler = new GuiTaskHandler(this))
+            using (var handler = new DialogTaskHandler(this))
             {
                 if (FileUtils.IsBreakoutPath(listBoxExtract.Text))
                 {
@@ -300,7 +300,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 var captureSession = CaptureSession.Start(_feedBuilder);
 
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     _installerCapture.RunInstaller(handler);
 
                 _installerCapture.CaptureSession = captureSession;
@@ -334,7 +334,7 @@ namespace ZeroInstall.Publish.WinForms
 
             try
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     _installerCapture.ExtractInstallerAsArchive(_feedBuilder, handler);
             }
                 #region Error handling
@@ -380,7 +380,7 @@ namespace ZeroInstall.Publish.WinForms
             try
             {
                 session.InstallationDir = textBoxInstallationDir.Text;
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     session.Diff(handler);
             }
                 #region Error handling
@@ -406,7 +406,7 @@ namespace ZeroInstall.Publish.WinForms
 
             try
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     _installerCapture.ExtractInstallerAsArchive(_feedBuilder, handler);
 
                 pageInstallerCaptureDiff.NextPage = pageArchiveExtract;
@@ -458,7 +458,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             try
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                     _installerCapture.CaptureSession.CollectFiles(textBoxArchivePath.Text, textBoxUploadUrl.Uri, handler);
             }
                 #region Error handling

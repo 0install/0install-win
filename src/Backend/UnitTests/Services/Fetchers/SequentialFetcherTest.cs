@@ -16,7 +16,7 @@
  */
 
 using System;
-using NanoByte.Common.Streams;
+using NanoByte.Common.Net;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 

@@ -289,7 +289,7 @@ namespace ZeroInstall.Commands.WinForms
                 Feed feed = null;
                 try
                 {
-                    using (var handler = new GuiTaskHandler(this))
+                    using (var handler = new DialogTaskHandler(this))
                     {
                         handler.RunTask(new SimpleTask(Resources.CheckingFeed,
                             delegate

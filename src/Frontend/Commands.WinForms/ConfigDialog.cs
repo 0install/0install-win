@@ -275,7 +275,7 @@ namespace ZeroInstall.Commands.WinForms
                 var uri = new FeedUri(input);
                 if (listBoxCatalogSources.Items.Contains(uri)) return;
 
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                 {
                     var services = new ServiceLocator(handler);
                     services.CatalogManager.DownloadCatalog(uri);

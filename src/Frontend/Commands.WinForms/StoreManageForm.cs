@@ -180,7 +180,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 try
                 {
-                    using (var handler = new GuiTaskHandler(this))
+                    using (var handler = new DialogTaskHandler(this))
                     {
                         foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
                             node.Delete(handler);
@@ -214,7 +214,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                using (var handler = new GuiTaskHandler(this))
+                using (var handler = new DialogTaskHandler(this))
                 {
                     foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
                         entry.Verify(handler);

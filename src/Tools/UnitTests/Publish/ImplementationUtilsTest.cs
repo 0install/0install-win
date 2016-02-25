@@ -20,6 +20,7 @@ using System.IO;
 using System.Security.Cryptography;
 using FluentAssertions;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;

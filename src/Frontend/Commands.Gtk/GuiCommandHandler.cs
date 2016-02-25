@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands.Gtk
     /// Uses <see cref="Gtk"/> to allow users to interact with <see cref="CliCommand"/>s.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler
+    public sealed class GuiCommandHandler : DialogTaskHandler, ICommandHandler
     {
         /// <inheritdoc/>
         public bool Background { get; set; }

@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using FluentAssertions;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;

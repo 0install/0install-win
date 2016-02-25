@@ -20,6 +20,7 @@ using System.IO;
 using System.Text;
 using FluentAssertions;
 using Moq;
+using NanoByte.Common.Net;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store;
