@@ -51,7 +51,7 @@ NuGet package: TaskScheduler
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/
 GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
-NuGet package: SevenZipSharp
+Self-compiled managed DLL: SevenZipSharp.dll
 
 7-Zip Extra files
 http://www.7-zip.org/
