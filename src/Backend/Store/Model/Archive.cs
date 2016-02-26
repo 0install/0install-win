@@ -73,8 +73,8 @@ namespace ZeroInstall.Store.Model
             if (fileName.EndsWithIgnoreCase(".tar")) return MimeTypeTar;
             if (fileName.EndsWithIgnoreCase(".tar.gz") || fileName.EndsWithIgnoreCase(".tgz")) return MimeTypeTarGzip;
             if (fileName.EndsWithIgnoreCase(".tar.bz2") || fileName.EndsWithIgnoreCase(".tbz2") || fileName.EndsWithIgnoreCase(".tbz")) return MimeTypeTarBzip;
-            if (fileName.EndsWithIgnoreCase(".tar.lzma")) return MimeTypeTarLzma;
-            if (fileName.EndsWithIgnoreCase(".tar.xz")) return MimeTypeTarXz;
+            if (fileName.EndsWithIgnoreCase(".tar.lzma") || fileName.EndsWithIgnoreCase(".tlzma")) return MimeTypeTarLzma;
+            if (fileName.EndsWithIgnoreCase(".tar.xz") || fileName.EndsWithIgnoreCase(".txz")) return MimeTypeTarXz;
             if (fileName.EndsWithIgnoreCase(".gem")) return MimeTypeRubyGem;
             if (fileName.EndsWithIgnoreCase(".7z")) return MimeType7Z;
             if (fileName.EndsWithIgnoreCase(".cab")) return MimeTypeCab;
