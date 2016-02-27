@@ -31,9 +31,11 @@ API documentation: http://0install.de/api/backend/</description>
         <file src="..\lib\INIFileParser.*" target="lib\net20" />
         <file src="..\lib\Microsoft.Deployment.*" target="lib\net20" />
         <file src="..\lib\SevenZipSharp.*" target="lib\net20" />
+        <file src="..\lib\XZ.NET.*" target="lib\net20" />
 
         <!-- Bundled native dependencies -->
         <file src="..\lib\7zxa*.dll" target="content" />
+        <file src="..\lib\liblzma*.dll" target="content" />
         <file src="install.ps1" target="tools" /> <!-- CopyToOutputDirectory -->
 
         <!-- Source code -->

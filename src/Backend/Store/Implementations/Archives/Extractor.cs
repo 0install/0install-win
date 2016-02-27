@@ -156,6 +156,9 @@ namespace ZeroInstall.Store.Implementations.Archives
                 case Archive.MimeTypeTarLzma:
                     extractor = new TarLzmaExtractor(stream, target);
                     break;
+                case Archive.MimeTypeTarXz:
+                    extractor = new TarXzExtractor(stream, target);
+                    break;
                 case Archive.MimeTypeRubyGem:
                     extractor = new RubyGemExtractor(stream, target);
                     break;

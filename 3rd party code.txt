@@ -58,6 +58,16 @@ http://www.7-zip.org/
 GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 Pre-compiled native DLLs: 7zxa.dll, 7zxa-x64.dll
 
+XZ.NET
+https://github.com/RomanBelkov/XZ.NET
+MIT license: http://opensource.org/licenses/MIT
+Self-compiled managed DLL: XZ.NET.dll
+
+liblzma (XZ Utils)
+http://tukaani.org/xz/
+Public domain
+Pre-compiled native DLLs: liblzma.dll, liblzma64.dll
+
 INI File Parser 2.0.4
 http://github.com/rickyah/ini-parser
 MIT license: http://opensource.org/licenses/MIT

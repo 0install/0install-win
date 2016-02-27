@@ -76,6 +76,9 @@
     <Reference Include="Microsoft.Deployment.WindowsInstaller">
       <HintPath>..\..\..\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
     </Reference>
+    <Reference Include="XZ.NET">
+      <HintPath>..\..\..\lib\XZ.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Implementations\Archives\TarGzGenerator.cs" />
     <Compile Include="Implementations\Archives\TarLzmaExtractor.cs" />
     <Compile Include="Implementations\Archives\TarLzmaGenerator.cs" />
+    <Compile Include="Implementations\Archives\TarXzExtractor.cs" />
     <Compile Include="Implementations\Archives\ZipExtractor.cs" />
     <Compile Include="Implementations\Archives\ZipGenerator.cs" />
     <Compile Include="Implementations\Archives\_Namespace.cs" />
@@ -328,6 +332,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\lib\7zxa.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\lib\liblzma64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\lib\liblzma.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

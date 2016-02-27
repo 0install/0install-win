@@ -173,6 +173,7 @@
     <Compile Include="TestWithMocks.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Services\Fetchers\testArchive.zip" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.7z" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.cab" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.gem" />
@@ -181,16 +182,16 @@
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.bz2" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.gz" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.lzma" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.xz" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <EmbeddedResource Include="Services\Fetchers\testArchive.zip" />
     <EmbeddedResource Include="Store\Trust\pubring.gpg" />
     <EmbeddedResource Include="Store\Trust\secring.gpg" />
     <EmbeddedResource Include="Store\Trust\signature.dat" />
     <EmbeddedResource Include="Store\Trust\pubkey.gpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

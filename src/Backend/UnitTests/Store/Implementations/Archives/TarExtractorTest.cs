@@ -80,6 +80,14 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         [Test]
+        public void TestXzCompressed()
+        {
+            if (!WindowsUtils.IsWindows) Assert.Ignore(".xz decompression is currently only available on Windows");
+
+            TestExtract(Model.Archive.MimeTypeTarXz, this.GetEmbedded("testArchive.tar.xz"));
+        }
+
+        [Test]
         public void TestLzmaCompressed()
         {
             TestExtract(Model.Archive.MimeTypeTarLzma, this.GetEmbedded("testArchive.tar.lzma"));

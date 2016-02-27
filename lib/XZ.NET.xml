@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XZ.NET</name>
+    </assembly>
+    <members>
+        <member name="M:XZ.NET.XZInputStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads bytes from stream
+            </summary>
+            <returns>byte read or -1 on end of stream</returns>
+        </member>
+        <member name="P:XZ.NET.XZInputStream.Length">
+            <summary>
+            Gives a size of uncompressed data in bytes
+            </summary>
+            <returns>Size of uncompressed data or 0 if error occured</returns>
+        </member>
+    </members>
+</doc>
