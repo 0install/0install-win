@@ -168,7 +168,7 @@ namespace ZeroInstall.Commands.CliCommands
             // Automatically show help for missing args
             if (AdditionalArgsMin > 0 && !args.Any()) args = new[] {"--help"};
 
-            AdditionalArgs.AddRange(Options.Parse(args));
+            AdditionalArgs.AddRange(Options.Parse(args).Where(x => !string.IsNullOrEmpty(x)));
 
             if (AdditionalArgs.Count < AdditionalArgsMin) throw new OptionException(Resources.MissingArguments, null);
             if (AdditionalArgsMin == 1 && string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, null);
