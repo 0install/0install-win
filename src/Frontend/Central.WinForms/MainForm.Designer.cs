@@ -54,12 +54,13 @@
             this.buttonOptions = new System.Windows.Forms.ToolStripButton();
             this.buttonTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonStoreManage = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonCommandLine = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonPortableCreator = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonHelp = new System.Windows.Forms.ToolStripSplitButton();
             this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
             this.labelVersion = new System.Windows.Forms.ToolStripLabel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.labelNotificationBar = new System.Windows.Forms.Label();
-            this.buttonCommandLine = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlApps.SuspendLayout();
             this.deployTimer = new System.Windows.Forms.Timer(this.components);
             this.tabPageAppList.SuspendLayout();
@@ -236,7 +237,8 @@
             this.buttonTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonStoreManage,
-            this.buttonCommandLine});
+            this.buttonCommandLine,
+            this.buttonPortableCreator});
             resources.ApplyResources(this.buttonTools, "buttonTools");
             this.buttonTools.Name = "buttonTools";
             // 
@@ -245,6 +247,18 @@
             this.buttonStoreManage.Name = "buttonStoreManage";
             resources.ApplyResources(this.buttonStoreManage, "buttonStoreManage");
             this.buttonStoreManage.Click += new System.EventHandler(this.buttonStoreManage_Click);
+            // 
+            // buttonCommandLine
+            // 
+            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
+            this.buttonCommandLine.Name = "buttonCommandLine";
+            this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
+            // 
+            // buttonPortableCreator
+            // 
+            resources.ApplyResources(this.buttonPortableCreator, "buttonPortableCreator");
+            this.buttonPortableCreator.Name = "buttonPortableCreator";
+            this.buttonPortableCreator.Click += new System.EventHandler(this.buttonPortableCreator_Click);
             // 
             // buttonHelp
             // 
@@ -283,17 +297,10 @@
             this.labelNotificationBar.Name = "labelNotificationBar";
             this.labelNotificationBar.Click += new System.EventHandler(this.labelNotificationBar_Click);
             // 
-            // buttonCommandLine
-            // 
-            this.buttonCommandLine.Name = "buttonCommandLine";
-            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
-            this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
-            // 
             // deployTimer
             // 
             this.deployTimer.Interval = 1000;
             this.deployTimer.Tick += new System.EventHandler(this.deployTimer_Tick);
-            // 
             // 
             // MainForm
             // 
@@ -357,6 +364,7 @@
         private System.Windows.Forms.ToolStripMenuItem buttonStoreManage;
         private System.Windows.Forms.ToolStripMenuItem buttonCommandLine;
         private System.Windows.Forms.Timer deployTimer;
+        private System.Windows.Forms.ToolStripMenuItem buttonPortableCreator;
     }
 }
 

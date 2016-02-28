@@ -195,6 +195,10 @@ in the start menu or on the desktop.</value>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Modify integration</value>
   </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>The directory {0} is not empty.
+Are you sure you want place a portable version of Zero Install there?</value>
+  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>

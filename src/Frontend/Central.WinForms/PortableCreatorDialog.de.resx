@@ -117,58 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Aktualisieren und aufräumen</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Abbrechen</value>
   </data>
-  <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Alle &amp;aktualisieren</value>
+  <data name="labelInfo.Text" xml:space="preserve">
+    <value>Hier können Sie eine Portable Version von Zero Install erstellen, z.B. für einen USB Stick. Das Ziel muss NTFS formatiert sein.</value>
   </data>
-  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>&amp;Problembehebung</value>
+  <data name="textBoxTarget.HintText" xml:space="preserve">
+    <value>Zielverzeichnis</value>
   </data>
-  <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Meine Anwendungen</value>
+  <data name="buttonDeploy.Text" xml:space="preserve">
+    <value>&amp;Erstellen</value>
   </data>
-  <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Lade Katalog vom Server...</value>
+  <data name="labelInfo2.Text" xml:space="preserve">
+    <value>- Speichert Zero Install Konfiguration und gecachte Anwendungen innerhalb eines einzelnen Verzeichnisses.
+- Macht nicht die über Zero Install gestarteten Anwendungen automatisch auch portable.
+- Portable Versionen von Zero Install können keine Desktopintegration durchführen (z.B. Startmenüeinträge anlegen).
+- Ziehen Sie in Betracht, stattdessen das normale Zero Install auf mehreren Rechnern mit Zero Install Sync einzusetzen.</value>
   </data>
-  <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>&amp;Mehr Anwendungen</value>
-  </data>
-  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Liste &amp;aktualisieren</value>
-  </data>
-  <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Katalog</value>
-  </data>
-  <data name="buttonOptions.Text" xml:space="preserve">
-    <value>&amp;Optionen</value>
-  </data>
-  <data name="buttonStoreAudit.Text" xml:space="preserve">
-    <value>Nach Fehlern &amp;suchen</value>
-  </data>
-  <data name="buttonStoreOptimise.Text" xml:space="preserve">
-    <value>&amp;Duplikate zusammenführen</value>
-  </data>
-  <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>&amp;Cache Verwaltung</value>
-  </data>
-  <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>&amp;Befehlszeile</value>
-  </data>
-  <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>&amp;Portable Ersteller</value>
-  </data>
-  <data name="buttonHelp.Text" xml:space="preserve">
-    <value>&amp;Hilfe</value>
-  </data>
-  <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>&amp;Einrichten</value>
-  </data>
-  <data name="buttonIntro.Text" xml:space="preserve">
-    <value>&amp;Intro Video</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Sync</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Portable Ersteller</value>
   </data>
 </root>

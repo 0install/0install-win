@@ -194,6 +194,10 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Integration ändern</value>
   </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' ist nicht leer.
+Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen möchten?</value>
+  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>

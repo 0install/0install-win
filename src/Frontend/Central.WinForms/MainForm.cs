@@ -363,6 +363,11 @@ namespace ZeroInstall.Central.WinForms
             cmd.Start();
         }
 
+        private void buttonPortableCreator_Click(object sender, EventArgs e)
+        {
+            new PortableCreatorDialog().Show(this);
+        }
+
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             try

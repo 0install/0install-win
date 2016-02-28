@@ -90,6 +90,12 @@
     <Compile Include="MoreAppsDialog.Designer.cs">
       <DependentUpon>MoreAppsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="PortableCreatorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PortableCreatorDialog.Designer.cs">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectCommandDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MoreAppsDialog.tr.resx">
       <DependentUpon>MoreAppsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortableCreatorDialog.de.resx">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortableCreatorDialog.resx">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

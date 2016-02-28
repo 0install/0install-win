@@ -525,6 +525,18 @@
   <data name="buttonCommandLine.Text" xml:space="preserve">
     <value>C&amp;ommand-line</value>
   </data>
+  <data name="&gt;&gt;buttonPortableCreator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPortableCreator.Name" xml:space="preserve">
+    <value>buttonPortableCreator</value>
+  </data>
+  <data name="buttonPortableCreator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="buttonPortableCreator.Text" xml:space="preserve">
+    <value>&amp;Portable Creator</value>
+  </data>
   <data name="buttonTools.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>

@@ -289,6 +289,16 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The directory {0} is not empty.
+        ///Are you sure you want place a portable version of Zero Install there?.
+        /// </summary>
+        public static string PortableDirNotEmptyAsk {
+            get {
+                return ResourceManager.GetString("PortableDirNotEmptyAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Portable mode.
         /// </summary>
         public static string PortableMode {
