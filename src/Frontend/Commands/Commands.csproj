@@ -58,7 +58,7 @@
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="CliCommandHandler.cs" />
     <Compile Include="CliCommands\AddAlias.cs" />
     <Compile Include="CliCommands\AddApp.cs" />

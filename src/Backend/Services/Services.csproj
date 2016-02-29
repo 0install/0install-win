@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />

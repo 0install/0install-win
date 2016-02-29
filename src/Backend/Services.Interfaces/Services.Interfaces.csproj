@@ -51,7 +51,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Feeds\CatalogManagerExtensions.cs" />
     <Compile Include="Feeds\FeedManagerExtensions.cs" />
     <Compile Include="Feeds\ICatalogManager.cs" />

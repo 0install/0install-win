@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Capture\CaptureSession.cs" />
     <Compile Include="Capture\CommandMapper.cs" />
     <Compile Include="Capture\RegUtils.cs" />

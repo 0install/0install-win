@@ -51,7 +51,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="AppTileManagement.cs" />
     <Compile Include="AppStatus.cs" />
     <Compile Include="GlobalSuppressions.cs" />

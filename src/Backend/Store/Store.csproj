@@ -81,7 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />

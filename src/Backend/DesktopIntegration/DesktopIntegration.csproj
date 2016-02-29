@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="AccessPoints\AccessPoint.cs" />
     <Compile Include="AccessPoints\AccessPointList.cs" />
     <Compile Include="AccessPoints\AppAlias.cs" />

@@ -83,7 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="GuiCommandHandler.cs" />
     <Compile Include="Program.cs" />

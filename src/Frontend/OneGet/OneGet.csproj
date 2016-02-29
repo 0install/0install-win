@@ -54,7 +54,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="OneGetCommand.cs" />
     <Compile Include="OneGetHandler.cs" />
     <Compile Include="OneGetProgress.cs" />

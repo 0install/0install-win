@@ -71,7 +71,7 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Controls\ArchiveEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

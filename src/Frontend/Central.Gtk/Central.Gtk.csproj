@@ -83,7 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="gtk-gui\ZeroInstall.Central.Gtk.MainWindow.cs" />
     <Compile Include="MainWindow.cs" />
