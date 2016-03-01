@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>ZeroInstall.Frontend</id>
-        <version>$version$</version>
+        <version>$version$$VersionSuffix$</version>
         <authors>Bastian Eicher</authors>
         <projectUrl>http://0install.de/dev/</projectUrl>
         <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
@@ -12,7 +12,7 @@ You can download end-user binaries at: http://0install.de/downloads/
 API documentation: http://0install.de/api/frontend/</description>
         <summary>Zero Install Frontend executables</summary>
         <dependencies>
-            <dependency id="ZeroInstall.Services" version="[$version$]" />
+            <dependency id="ZeroInstall.Services" version="[$version$$VersionSuffix$]" />
         </dependencies>
     </metadata>
     <files>

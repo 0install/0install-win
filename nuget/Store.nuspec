@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>ZeroInstall.Store</id>
-        <version>$version$</version>
+        <version>$version$$VersionSuffix$</version>
         <authors>Bastian Eicher</authors>
         <projectUrl>http://0install.de/dev/</projectUrl>
         <licenseUrl>http://www.gnu.org/copyleft/lesser.html</licenseUrl>

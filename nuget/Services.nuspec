@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>ZeroInstall.Services</id>
-        <version>$version$</version>
+        <version>$version$$VersionSuffix$</version>
         <authors>Bastian Eicher</authors>
         <projectUrl>http://0install.de/dev/</projectUrl>
         <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
@@ -12,7 +12,7 @@ Zero Install itself is built upon this API. You can use the API to integrate Zer
 API documentation: http://0install.de/api/backend/</description>
         <summary>Zero Install Services API (download and run apps)</summary>
         <dependencies>
-            <dependency id="ZeroInstall.Store" version="[$version$]" />
+            <dependency id="ZeroInstall.Store" version="[$version$$VersionSuffix$]" />
         </dependencies>
         <references>
             <reference file="ZeroInstall.Services.Interfaces.dll" />
