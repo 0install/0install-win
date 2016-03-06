@@ -12,7 +12,7 @@ Source directory structure
 - The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code documentation.
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
-- The directory `installer` contains scripts for creating a Windows installer for Zero Install.
+- The directory `publish` contains scripts for creating release archives and feeds.
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
   - Debug: Contains Debug builds produced from the source code.
   - Release: Contains Release builds produced from the source code.
@@ -22,7 +22,7 @@ Source directory structure
     - Samples: Contains the executables for the Zero Install API samples.
     - zero-install.exe: A single-file Zero Install bootstrapper.
   - Packages: Contains the generated NuGet packages.
-  - Installer: Contains the generated installers.
+  - Publish: Contains the generated release archives and feeds.
   - Documentation: Contains the generated source code documentation.
 - The top-level directory contains local Zero Install feeds referencing the contents of the `build` directory. They can be registered with `0install add-feed` in order to replace the online versions of Zero Install and its tools with your local builds.
 
@@ -32,8 +32,7 @@ Use `.\Set-Version.ps1 "X.Y.Z"` in PowerShall to change the version number. This
 
 Building on Windows
 -------------------
-`build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
-Note: Please read `installer/readme.txt` as well for information about required tools.
+`build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows release.
 
 If you wish to add an AuthentiCode signature to the compiled binaries set the `signing_cert_path` environment variable to the certificate's file path and `signing_cert_pass` to the password used to decrypt the file before executing the build scripts.
 For example:
@@ -48,7 +47,7 @@ build.cmd
 
 Building on Linux
 -----------------
-`build.sh` will perform a partial debug compilation using Mono's xbuild. A installer package will not be built.
+`build.sh` will perform a partial debug compilation using Mono's xbuild. Some parts of a full release can currently only be built on Windows.
 
 `cleanup.sh` will delete any temporary files created by the xbuild build process.
 

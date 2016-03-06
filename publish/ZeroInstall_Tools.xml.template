@@ -26,11 +26,8 @@ und der New Feed Wizard (leitet Sie durch den kompletten Feed-Erstellungsprozess
     <command name="0capture" path="0capture.exe">
       <runner interface="http://0install.de/feeds/cli/cli.xml" command="run" />
     </command>
-    <implementation version="2.10.0-post-1" stability="testing" id="local-release" local-path="build/Release/Tools">
-      <manifest-digest />
-    </implementation>
-    <implementation version="2.10.0-post-2" stability="developer" id="local-debug" local-path="build/Debug/Tools">
-      <manifest-digest />
+    <implementation version="{version}" local-path="../build/Release/Tools">
+      <archive href="ZeroInstall_Tools-{version}.tar.gz" />
     </implementation>
   </group>
 </interface>

@@ -21,12 +21,3 @@ $ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 (Get-Content "$ScriptDir\doc\Tools.Doxyfile" -Encoding UTF8) `
   -replace 'PROJECT_NUMBER = ".*"', ('PROJECT_NUMBER = "' + $NewVersion + '"') |
   Set-Content "$ScriptDir\doc\Tools.Doxyfile" -Encoding UTF8
-
-(Get-Content "$ScriptDir\ZeroInstall.xml" -Encoding UTF8) `
-  -replace 'version=".*" stability="testing"', ('version="' + $NewVersion + '-post-1" stability="testing"') `
-  -replace 'version=".*" stability="developer"', ('version="' + $NewVersion + '-post-2" stability="developer"') |
-  Set-Content "$ScriptDir\ZeroInstall.xml" -Encoding UTF8
-(Get-Content "$ScriptDir\ZeroInstall_Tools.xml" -Encoding UTF8) `
-  -replace 'version=".*" stability="testing"', ('version="' + $NewVersion + '-post-1" stability="testing"') `
-  -replace 'version=".*" stability="developer"', ('version="' + $NewVersion + '-post-2" stability="developer"') |
-  Set-Content "$ScriptDir\ZeroInstall_Tools.xml" -Encoding UTF8
