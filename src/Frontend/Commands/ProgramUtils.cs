@@ -215,7 +215,7 @@ namespace ZeroInstall.Commands
             }
             catch (OptionException ex)
             {
-                handler.Error(new OptionException(string.Format(Resources.TryHelp, exeName), ex.OptionName, ex));
+                handler.Error(new OptionException(ex.Message + string.Format(Resources.TryHelp, exeName), ex.OptionName));
                 return ExitCode.InvalidArguments;
             }
             catch (FormatException ex)
