@@ -73,8 +73,8 @@ namespace ZeroInstall.Commands.CliCommands
         {
             // NOTE: Does not call base method
 
-            var additionalArgs = Options.Parse(args);
-            if (additionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + AdditionalArgs.JoinEscapeArguments(), null);
+            AdditionalArgs.AddRange(Options.Parse(args));
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + AdditionalArgs.JoinEscapeArguments(), null);
 
             SetInterfaceUri(Config.SelfUpdateUri);
             if (ProgramUtils.GuiAssemblyName != null) Requirements.Command = Command.NameRunGui;
