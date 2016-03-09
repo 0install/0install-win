@@ -39,5 +39,5 @@ FOR %%A IN ("%~dp0..\build\Release\Frontend\ZeroInstall.*.dll") DO signtool sign
 if errorlevel 1 exit /b %errorlevel%
 FOR %%A IN ("%~dp0..\build\Release\Tools\ZeroInstall.*.dll") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
 if errorlevel 1 exit /b %errorlevel%
-signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%~dp0..\build\Release\zero-install.exe"
+signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%~dp0..\build\Release\Bootstrap\zero-install.exe"
 if errorlevel 1 exit /b %errorlevel%
