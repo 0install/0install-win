@@ -18,7 +18,6 @@
 using System;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Info;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
@@ -145,7 +144,7 @@ namespace ZeroInstall.Services
                 return Get(ref _solver, () =>
                 {
                     ISolver
-                        backtrackingSolver = new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler, zeroInstallVersion: new ImplementationVersion(AppInfo.Current.Version)),
+                        backtrackingSolver = new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler),
                         externalSolver = new ExternalSolver(backtrackingSolver, SelectionsManager, Fetcher, Executor, Config, FeedManager, Handler);
                     return new FallbackSolver(backtrackingSolver, externalSolver);
                 });
