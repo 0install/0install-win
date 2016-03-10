@@ -83,12 +83,13 @@ namespace ZeroInstall.Commands.CliCommands
                         return ExitCode.UserCanceled;
                 }
 
+                bool newDirectory = !Directory.Exists(targetDir);
                 PerformDeploy(targetDir);
                 if (_restartCentral) RestartCentral(targetDir);
 
                 if (_portable)
                     Handler.OutputLow(Resources.PortableMode, string.Format(Resources.DeployedPortable, targetDir));
-                else
+                else if (newDirectory)
                 {
                     // Use Console.WriteLine() instead of Handler.Output() to ensure this is only shown in CLI mode and not in a window
                     Console.WriteLine(Resources.Added0installToPath + Environment.NewLine + Resources.ReopenTerminal);
