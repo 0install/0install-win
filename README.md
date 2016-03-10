@@ -42,6 +42,8 @@ set signing_cert_pass=mypass
 build.cmd
 ```
 
+If you wish to deploy the release after compilation as the default Zero Install instance in your user profile run `build.cmd deploy`. To deploy it for all users use `build.cmd deploy --machine` instead.
+
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 
 
@@ -57,6 +59,6 @@ Note: You must perform a Debug build first (using `src/build.sh`) before you can
 
 Environment variables
 ---------------------
-- `ZEROINSTALL_PORTABLE_BASE`: Set by the C# code to to inform the Python code of Portable mode.
-- `ZEROINSTALL_EXTERNAL_FETCHER`: Set by the C# code to make the Python code delegate downloading files back to the C# implementation.
-- `ZEROINSTALL_EXTERNAL_STORE`: Set by the C# code to make the Python code delegate extracting archives back to the C# implementation.
+- `ZEROINSTALL_PORTABLE_BASE`: Set by the C# code to to inform the OCaml code of Portable mode.
+- `ZEROINSTALL_EXTERNAL_FETCHER`: Set by the C# code to make the OCaml code delegate downloading files back to the C# implementation.
+- `ZEROINSTALL_EXTERNAL_STORE`: Set by the C# code to make the OCaml code delegate extracting archives back to the C# implementation.
