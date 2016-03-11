@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
+using System.Runtime.Serialization;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
@@ -46,7 +47,13 @@ namespace ZeroInstall.Store.Implementations
                     #region Error handling
                 catch (RemotingException ex)
                 {
-                    // Ignore remoting errors in case service is offline
+                    Log.Debug("Unable to connect to Store Service");
+                    Log.Debug(ex);
+                    return null;
+                }
+                catch (SerializationException ex)
+                {
+                    Log.Debug("Incompatible version of Store Service");
                     Log.Debug(ex);
                     return null;
                 }
@@ -120,6 +127,11 @@ namespace ZeroInstall.Store.Implementations
                 // Wrap exception since only certain exception types are allowed
                 throw new IOException(ex.Message, ex);
             }
+            catch (SerializationException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
             #endregion
         }
 
@@ -134,6 +146,11 @@ namespace ZeroInstall.Store.Implementations
             }
                 #region Error handling
             catch (RemotingException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            catch (SerializationException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new IOException(ex.Message, ex);
