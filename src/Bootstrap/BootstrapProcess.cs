@@ -101,13 +101,10 @@ namespace ZeroInstall.Bootstrap
         {
             _gui = gui;
 
-            // Only use per-user default cache location
-            Store = new DirectoryStore(
-                Locations.GetCacheDirPath("0install.net", machineWide: false, resource: "implementations"),
-                useWriteProtection: false);
-
-            // Ignore preexisting configuration to ensure reliable install experience
-            Config = new Config();
+            //// Only use per-user default cache location
+            //Store = new DirectoryStore(
+            //    Locations.GetCacheDirPath("0install.net", machineWide: false, resource: "implementations"),
+            //    useWriteProtection: false);
 
             _options = new OptionSet
             {
@@ -136,14 +133,14 @@ namespace ZeroInstall.Bootstrap
                     "no-existing", () => "Do not detect and use existing Zero Install instances. Always use downloaded and cached instance.", _ => _noExisting = true
                 },
                 {
-                    "version=", () => "Select a specific version of Zero Install. Implies --no-existing.", (VersionRange range) =>
+                    "version=", () => "Select a specific {VERSION} of Zero Install. Implies --no-existing.", (VersionRange range) =>
                     {
                         _version = range;
                         _noExisting = true;
                     }
                 },
                 {
-                    "feed=", () => "Specify an alternative feed for Zero Install. Implies --no-existing.", feed =>
+                    "feed=", () => "Specify an alternative {FEED} for Zero Install. Must be an absolute URI. Implies --no-existing.", feed =>
                     {
                         Config.SelfUpdateUri = new FeedUri(feed);
                         _noExisting = true;
@@ -209,7 +206,9 @@ namespace ZeroInstall.Bootstrap
                 }
             }
 
-            return (ExitCode)GetStartInfo().Run();
+            var startInfo = GetStartInfo();
+            Handler.Dispose();
+            return (ExitCode)startInfo.Run();
         }
 
         /// <summary>
