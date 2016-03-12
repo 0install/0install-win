@@ -99,7 +99,6 @@ namespace ZeroInstall.Commands.CliCommands
             return ShowOutput();
         }
 
-        #region Helpers
         /// <inheritdoc/>
         protected override void Solve()
         {
@@ -149,13 +148,12 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        private ExitCode ShowOutput()
+        protected override ExitCode ShowOutput()
         {
             if (_show || ShowXml) Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
 
             return ExitCode.OK;
         }
-        #endregion
     }
 }

@@ -94,7 +94,6 @@ namespace ZeroInstall.Commands.CliCommands
             return ShowOutput();
         }
 
-        #region Helpers
         /// <summary>
         /// Run solver with refresh forced off to get the old values
         /// </summary>
@@ -107,7 +106,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Shows a list of changes found by the update process.
         /// </summary>
-        private ExitCode ShowOutput()
+        protected override ExitCode ShowOutput()
         {
             var builder = new StringBuilder();
             foreach (var oldImplementation in _oldSelections.Implementations)
@@ -155,6 +154,5 @@ namespace ZeroInstall.Commands.CliCommands
                 return ExitCode.OK;
             }
         }
-        #endregion
     }
 }

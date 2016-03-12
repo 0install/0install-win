@@ -104,7 +104,6 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        #region Helpers
         /// <inheritdoc/>
         protected override void Solve()
         {
@@ -185,6 +184,5 @@ namespace ZeroInstall.Commands.CliCommands
                 StartCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Prepend("--batch"));
             }
         }
-        #endregion
     }
 }

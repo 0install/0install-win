@@ -45,18 +45,6 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "select";
 
-        /// <summary>Cached <see cref="ISolver"/> results.</summary>
-        protected Selections Selections;
-
-        /// <summary>Indicates the user provided a pre-computed <see cref="Selections"/> XML document instead of using the <see cref="ISolver"/>.</summary>
-        protected bool SelectionsDocument;
-
-        /// <summary>Indicates the user wants a UI to modify the <see cref="Selections"/>.</summary>
-        protected bool CustomizeSelections;
-
-        /// <summary>Indicates the user wants a machine-readable output.</summary>
-        protected bool ShowXml;
-
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionSelect; } }
 
@@ -79,6 +67,15 @@ namespace ZeroInstall.Commands.CliCommands
         // Intermediate variables, transferred to Requirements after parsing
         private VersionRange _version;
         private ImplementationVersion _before, _notBefore;
+
+        /// <summary>Indicates the user provided a pre-computed <see cref="Selections"/> XML document instead of using the <see cref="ISolver"/>.</summary>
+        protected bool SelectionsDocument;
+
+        /// <summary>Indicates the user wants a UI to modify the <see cref="Selections"/>.</summary>
+        protected bool CustomizeSelections;
+
+        /// <summary>Indicates the user wants a machine-readable output.</summary>
+        protected bool ShowXml;
 
         /// <inheritdoc/>
         public Selection([NotNull] ICommandHandler handler) : base(handler)
@@ -160,7 +157,9 @@ namespace ZeroInstall.Commands.CliCommands
             return ShowOutput();
         }
 
-        #region Helpers
+        /// <summary>Cached <see cref="ISolver"/> results.</summary>
+        protected Selections Selections;
+
         /// <summary>
         /// Trys to parse <see cref="Store.Model.Requirements.InterfaceUri"/> as a pre-computed <see cref="Store.Model.Selection.Selections"/> document.
         /// </summary>
@@ -253,7 +252,7 @@ namespace ZeroInstall.Commands.CliCommands
             return Selections;
         }
 
-        private ExitCode ShowOutput()
+        protected virtual ExitCode ShowOutput()
         {
             Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return ExitCode.OK;
@@ -267,6 +266,5 @@ namespace ZeroInstall.Commands.CliCommands
         {
             return ShowXml ? Selections.ToXmlString() : Selections.GetHumanReadable(Store);
         }
-        #endregion
     }
 }
