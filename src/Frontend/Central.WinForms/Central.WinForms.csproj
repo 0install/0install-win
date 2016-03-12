@@ -180,7 +180,13 @@
     <EmbeddedResource Include="PortableCreatorDialog.de.resx">
       <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PortableCreatorDialog.el.resx">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PortableCreatorDialog.resx">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortableCreatorDialog.tr.resx">
       <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

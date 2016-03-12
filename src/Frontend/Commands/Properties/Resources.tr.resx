@@ -226,6 +226,10 @@ Varsayılan olmasını istemediğiniz özelliğin ilgili onay kutusunu işaretle
   <data name="DeletingImplementations" xml:space="preserve">
     <value>Uygulama siliniyor</value>
   </data>
+  <data name="DeployedPortable" xml:space="preserve">
+    <value>Zero Install taşınabilir sürümü &apos;{0}&apos; klasörüne yüklendi.
+Başlatmak için klasördeki ZeroInstall.exe dosyasını çalıştırın.</value>
+  </data>
   <data name="DeployMissingTargetForPortable" xml:space="preserve">
     <value>--portable seçeneği kullanılırken hedef klasörü açıkça belirtmelisiniz.</value>
   </data>

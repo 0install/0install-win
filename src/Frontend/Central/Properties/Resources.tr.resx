@@ -195,6 +195,10 @@ ya da masaüstüne ekleyerek &quot;tümleştirin&quot;.</value>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Tümleştirmeyi değiştir</value>
   </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>{0} klasörü boş değil.
+Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emin misiniz?</value>
+  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Taşınabilir kip</value>
   </data>
