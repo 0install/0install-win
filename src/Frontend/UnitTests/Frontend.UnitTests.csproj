@@ -109,7 +109,6 @@
     <Compile Include="Commands\CliCommands\SelectionTestBase.cs" />
     <Compile Include="Commands\CliCommands\StoreManTest.cs" />
     <Compile Include="Commands\CliCommands\UpdateTest.cs" />
-    <Compile Include="Commands\CommandFactoryTest.cs" />
     <Compile Include="Commands\MockCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>
