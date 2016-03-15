@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="en" />
         <title>Zero Install - Software catalog</title>
-        <link rel="stylesheet" href="resources/catalog.css" type="text/css" />
+        <link rel="stylesheet" href="catalog.css" type="text/css" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
       </head>
 
@@ -24,16 +24,20 @@
           <div class="list">
             <xsl:for-each select="interface:interface">
               <div class="app">
-                <xsl:variable name="icon" select="interface:icon[@type='image/png']/@href"/>
-                <xsl:if test="$icon">
-                  <img class="icon" src="{$icon}"/>
-                </xsl:if>
-                <xsl:if test="not($icon)">
-                  <img class="icon" src="http://0install.net/tango/applications-system.png"/>
-                </xsl:if>
+                <a class="subtle" href="{@uri}">
+                  <xsl:variable name="icon" select="interface:icon[@type='image/png']/@href"/>
+                  <xsl:if test="$icon">
+                    <img class="icon" src="{$icon}"/>
+                  </xsl:if>
+                  <xsl:if test="not($icon)">
+                    <img class="icon" src="http://0install.net/tango/applications-system.png"/>
+                  </xsl:if>
+                </a>
                 <div class="info">
                   <h2 class="name">
-                    <xsl:value-of select="interface:name"/>
+                    <a class="subtle" href="{@uri}">
+                      <xsl:value-of select="interface:name"/>
+                    </a>
                   </h2>
                   <p class="summary">
                     <xsl:if test="interface:summary[@xml:lang='en']">
@@ -43,7 +47,6 @@
                       <xsl:value-of select="interface:summary"/>
                     </xsl:if>
                   </p>
-                  <a class="details" href="{@uri}">Details...</a>
                 </div>
                 <div class="actions">
                   <form action="http://0install.de/bootstrap/" method="get">

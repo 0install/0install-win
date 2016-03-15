@@ -1,6 +1,4 @@
-﻿using NanoByte.Common.Controls;
-
-namespace ZeroInstall.Central.WinForms
+﻿namespace ZeroInstall.Central.WinForms
 {
     partial class AppTile
     {
@@ -40,7 +38,6 @@ namespace ZeroInstall.Central.WinForms
             this.runMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.linkLabelDetails = new System.Windows.Forms.LinkLabel();
             this.iconDownloadWorker = new System.ComponentModel.BackgroundWorker();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonIntegrate = new System.Windows.Forms.Button();
@@ -55,12 +52,13 @@ namespace ZeroInstall.Central.WinForms
             this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelName.AutoEllipsis = true;
+            this.labelName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             this.labelName.Location = new System.Drawing.Point(60, 6);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(266, 18);
             this.labelName.TabIndex = 0;
-            this.labelName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownHandler);
+            this.labelName.Click += new System.EventHandler(this.LinkClicked);
             // 
             // labelSummary
             // 
@@ -134,18 +132,6 @@ namespace ZeroInstall.Central.WinForms
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // linkLabelDetails
-            // 
-            this.linkLabelDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelDetails.AutoSize = true;
-            this.linkLabelDetails.Location = new System.Drawing.Point(276, 37);
-            this.linkLabelDetails.Name = "linkLabelDetails";
-            this.linkLabelDetails.Size = new System.Drawing.Size(48, 13);
-            this.linkLabelDetails.TabIndex = 7;
-            this.linkLabelDetails.TabStop = true;
-            this.linkLabelDetails.Text = "Details...";
-            this.linkLabelDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDetails_LinkClicked);
-            // 
             // iconDownloadWorker
             // 
             this.iconDownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.iconDownloadWorker_DoWork);
@@ -180,19 +166,19 @@ namespace ZeroInstall.Central.WinForms
             this.pictureBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxIcon.Location = new System.Drawing.Point(6, 6);
+            this.pictureBoxIcon.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxIcon.Name = "pictureBoxIcon";
             this.pictureBoxIcon.Size = new System.Drawing.Size(48, 48);
             this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
-            this.pictureBoxIcon.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownHandler);
+            this.pictureBoxIcon.Click += new System.EventHandler(this.LinkClicked);
             // 
             // AppTile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelName);
-            this.Controls.Add(this.linkLabelDetails);
             this.Controls.Add(this.labelSummary);
             this.Controls.Add(this.pictureBoxIcon);
             this.Controls.Add(this.buttonRun);
@@ -217,9 +203,8 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.PictureBox pictureBoxIcon;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelSummary;
-        internal SplitButton buttonRun;
+        internal NanoByte.Common.Controls.SplitButton buttonRun;
         internal System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.LinkLabel linkLabelDetails;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
         private System.Windows.Forms.ToolStripMenuItem buttonSelectVersion;

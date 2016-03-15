@@ -48,10 +48,9 @@ h1 {
     float: left;
     margin: 0;
 }
-.details {
-    vertical-align: bottom;
-    float: right;
-    margin: 0;
+.subtle {
+    color: black;
+    text-decoration: none;
 }
 
 .actions {

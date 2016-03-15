@@ -223,7 +223,7 @@ namespace ZeroInstall.Central.WinForms
             buttonIntegrate.Enabled = true;
         }
 
-        private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkClicked(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
             try
@@ -296,16 +296,6 @@ namespace ZeroInstall.Central.WinForms
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
             Program.RunCommand(UpdateButtons, _machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
-        }
-        #endregion
-
-        #region Drag and drop handling
-        private void MouseDownHandler(object sender, MouseEventArgs e)
-        {
-            // Copy the interface URI and make sure it goes into another window
-            MainForm.DisableDragAndDrop = true;
-            DoDragDrop(InterfaceUri, DragDropEffects.Copy);
-            MainForm.DisableDragAndDrop = true;
         }
         #endregion
     }
