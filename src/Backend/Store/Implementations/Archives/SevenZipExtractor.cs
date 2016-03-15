@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -83,6 +84,12 @@ namespace ZeroInstall.Store.Implementations.Archives
                 }
             }
                 #region Error handling
+            catch (ObjectDisposedException ex)
+            {
+                // Async cancellation may cause underlying file stream to be closed
+                Log.Warn(ex);
+                throw new OperationCanceledException();
+            }
             catch (SevenZipException ex)
             {
                 // Wrap exception since only certain exception types are allowed
