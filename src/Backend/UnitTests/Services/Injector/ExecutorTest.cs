@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -57,11 +56,13 @@ namespace ZeroInstall.Services.Injector
         }
 
         [Test]
-        public void TestExceptionEmpty()
+        public void TestExceptions()
         {
-            new Executor(new Mock<IStore>(MockBehavior.Loose).Object)
-                .Invoking(x => x.Start(new Selections()))
-                .ShouldThrow<ArgumentException>(because: "Empty selections should be rejected");
+            var executor = new Executor(new Mock<IStore>(MockBehavior.Loose).Object);
+            executor.Invoking(x => x.Start(new Selections {Command = Command.NameRun}))
+                .ShouldThrow<ExecutorException>(because: "Selections with no implementations should be rejected");
+            executor.Invoking(x => x.Start(new Selections {Implementations = {new ImplementationSelection()}}))
+                .ShouldThrow<ExecutorException>(because: "Selections with no start command should be rejected");
         }
 
         [Test]

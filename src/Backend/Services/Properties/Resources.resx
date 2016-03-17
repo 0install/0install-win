@@ -181,9 +181,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="MissingInterfaceUri" xml:space="preserve">
     <value>No interface was specified.</value>
   </data>
-  <data name="NoImplementationsPassed" xml:space="preserve">
-    <value>At least one implementation must be passed.</value>
-  </data>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>The key information server was unable to provide any additional information about this key.</value>
   </data>

@@ -16,10 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;
 
@@ -63,6 +63,7 @@ namespace ZeroInstall.Services.Injector
         public Process Start(Selections selections, params string[] arguments)
         {
             #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
@@ -77,16 +78,27 @@ namespace ZeroInstall.Services.Injector
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
-            if (selections.Implementations.Count == 0) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
+            if (string.IsNullOrEmpty(selections.Command)) throw new ExecutorException("The Selections document does not specify a start command.");
+            if (selections.Implementations.Count == 0) throw new ExecutorException("The Selections document does not list any implementations.");
             Selections = selections;
 
-            var startInfo = BuildStartInfoWithBindings();
-            var commandLine = GetCommandLine(GetMainImplementation(), Selections.Command, startInfo);
-            PrependWrapper(commandLine);
-            AppendUserArgs(arguments, commandLine);
-            ProcessRunEnvBindings(startInfo);
-            ApplyCommandLine(commandLine, startInfo);
-            return startInfo;
+            try
+            {
+                var startInfo = BuildStartInfoWithBindings();
+                var commandLine = GetCommandLine(GetMainImplementation(), Selections.Command, startInfo);
+                PrependWrapper(commandLine);
+                AppendUserArgs(arguments, commandLine);
+                ProcessRunEnvBindings(startInfo);
+                ApplyCommandLine(commandLine, startInfo);
+                return startInfo;
+            }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new ExecutorException(ex.Message);
+            }
+            #endregion
         }
 
         /// <inheritdoc/>

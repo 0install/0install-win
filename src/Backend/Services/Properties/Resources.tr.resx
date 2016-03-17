@@ -181,9 +181,6 @@
   <data name="MissingInterfaceUri" xml:space="preserve">
     <value>Bir arabirim belirtilmemiş.</value>
   </data>
-  <data name="NoImplementationsPassed" xml:space="preserve">
-    <value>En az bir uygulama iletilmeli.</value>
-  </data>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>Anahtar bilgileri sunucusu bu anahtarla ilgili ek bilgi sağlayamadı.</value>
   </data>

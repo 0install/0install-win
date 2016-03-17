@@ -181,9 +181,6 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="MissingInterfaceUri" xml:space="preserve">
     <value>Es wurde kein Interface angegeben.</value>
   </data>
-  <data name="NoImplementationsPassed" xml:space="preserve">
-    <value>Es muss mindestens eine Implementierung übergeben werden.</value>
-  </data>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>Der Keyinformationsserver konnte keine weiteren Informationen über diesen Key zur Verfügung stellen.</value>
   </data>

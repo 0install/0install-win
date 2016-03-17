@@ -35,8 +35,6 @@ namespace ZeroInstall.Services.Injector
         /// <param name="selections">The <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        /// <exception cref="ArgumentException"><see cref="Store.Model.Selection.Selections.Implementations"/> on <paramref name="selections"/> is empty.</exception>
-        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
@@ -50,7 +48,6 @@ namespace ZeroInstall.Services.Injector
         /// <param name="selections">The <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The newly created <see cref="Process"/>; <c>null</c> if no external process was started.</returns>
-        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/> or the main executable could not be launched.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>

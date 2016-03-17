@@ -138,20 +138,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "command");
 
             using (CreateRunHook())
-            {
-                try
-                {
-                    return Executor.Start(Selections, AdditionalArgs.ToArray());
-                }
-                    #region Error handling
-                catch (KeyNotFoundException ex)
-                {
-                    // Gracefully handle broken external selections
-                    if (SelectionsDocument) throw new InvalidDataException(ex.Message, ex);
-                    else throw;
-                }
-                #endregion
-            }
+                return Executor.Start(Selections, AdditionalArgs.ToArray());
         }
 
         private IDisposable CreateRunHook()

@@ -183,9 +183,6 @@
   <data name="MissingInterfaceUri" xml:space="preserve">
     <value>Δεν ορίστηκε διεπαφή.</value>
   </data>
-  <data name="NoImplementationsPassed" xml:space="preserve">
-    <value>Τουλάχιστον μία εφαρμογή πρέπει να περάσει.</value>
-  </data>
   <data name="NoKeyInfoServerData" xml:space="preserve">
     <value>Το κλειδί του διακομιστή πληροφοριών δεν ήταν σε θέση να παράσχει οποιαδήποτε επιπλέον πληροφορία σχετικά με αυτό το κλειδί.</value>
   </data>

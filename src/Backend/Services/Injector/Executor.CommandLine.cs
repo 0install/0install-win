@@ -89,14 +89,15 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
         [NotNull, ItemNotNull]
-        private List<ArgBase> GetCommandLine([NotNull] ImplementationSelection implementation, [CanBeNull] string commandName, [NotNull] ProcessStartInfo startInfo)
+        private List<ArgBase> GetCommandLine([NotNull] ImplementationSelection implementation, [NotNull] string commandName, [NotNull] ProcessStartInfo startInfo)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
             if (startInfo == null) throw new ArgumentNullException("startInfo");
+            if (commandName == null) throw new ArgumentNullException("commandName");
             #endregion
 
-            if (string.IsNullOrEmpty(commandName)) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceUri));
+            if (commandName.Length == 0) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceUri));
             var command = implementation[commandName];
             Debug.Assert(command != null);
 
