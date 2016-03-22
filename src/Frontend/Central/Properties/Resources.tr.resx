@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButtonTooltip" xml:space="preserve">
-    <value>&quot;Uygulamalarım&quot;a ekle</value>
-  </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>&apos;{0}&apos; uygulamasını uygulama listenizden kaldırmak istiyor musunuz?
 Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerini de kaldıracaktır.</value>
@@ -147,6 +144,9 @@ Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerin
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>&apos;{0}&apos; için çift uygulama listesi kaydı yoksayılıyor.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Yükleme tümleştirmesi</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Sıradan uygulama</value>
@@ -192,8 +192,14 @@ ya da masaüstüne ekleyerek &quot;tümleştirin&quot;.</value>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Makine çapında geçerli kip</value>
   </data>
-  <data name="ModifyButtonTooltip" xml:space="preserve">
+  <data name="ModifyIntegration" xml:space="preserve">
     <value>Tümleştirmeyi değiştir</value>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>&quot;Uygulamalarım&quot;a ekle</value>
+  </data>
+  <data name="MyAppsRemove" xml:space="preserve">
+    <value>&quot;Uygulamalarım&quot;dan kaldır</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>{0} klasörü boş değil.
@@ -202,14 +208,17 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
   <data name="PortableMode" xml:space="preserve">
     <value>Taşınabilir kip</value>
   </data>
-  <data name="RemoveButtonTooltip" xml:space="preserve">
-    <value>&quot;Uygulamalarım&quot;dan kaldır</value>
-  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Listeden seçilmiş {0} kaydı kaldırmak istediğinize emin misiniz?</value>
   </data>
-  <data name="RunButtonText" xml:space="preserve">
+  <data name="Run" xml:space="preserve">
     <value>Çalıştır</value>
+  </data>
+  <data name="RunCommand" xml:space="preserve">
+    <value>&amp;Komut seç</value>
+  </data>
+  <data name="RunVersion" xml:space="preserve">
+    <value>&amp;Sürüm seç</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
@@ -228,17 +237,8 @@ Değişiklikleri kaydet</value>
   <data name="SelectCommand" xml:space="preserve">
     <value>{0} için komut seçin</value>
   </data>
-  <data name="SelectCommandButton" xml:space="preserve">
-    <value>&amp;Komut seç</value>
-  </data>
-  <data name="SelectVersionButton" xml:space="preserve">
-    <value>&amp;Sürüm seç</value>
-  </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Zero Install v{0} sürümüne güncellemek için tıklayın...</value>
-  </data>
-  <data name="SetupButtonTooltip" xml:space="preserve">
-    <value>Yükleme tümleştirmesi</value>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>Önce Sync Yüklemesi tamamlanmalıdır.</value>
@@ -277,12 +277,12 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
     <value>Sync sunucusu ile şifresiz bir bağlantı kurmak istediğinize emin misiniz?
 Şifrelenmiş bağlantılar https:// ile başlar.</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>&amp;Güncelleştir</value>
+  </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Bu işlem güncelleştirme sonrasında artık gerek duyulmayan uygulamaları önbellekten siler. Devam etmek ister misiniz?
 Uyarı: Daha önce &quot;Uygulamalarım&quot; altına eklemeden &quot;Çalıştırdığınız&quot; uygulamalar da önbellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrimiçi olmanız gerekecek.</value>
-  </data>
-  <data name="UpdateButtonText" xml:space="preserve">
-    <value>&amp;Güncelleştir</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>İşleniyor...</value>

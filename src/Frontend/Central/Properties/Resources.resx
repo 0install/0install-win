@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButtonTooltip" xml:space="preserve">
-    <value>Add to "my applications"</value>
-  </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>Are you sure you want to remove '{0}' from your application list?
 This will also remove any desktop integration applied for this application.</value>
@@ -147,6 +144,9 @@ This will also remove any desktop integration applied for this application.</val
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoring duplicate application list entry for '{0}'.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Setup integration</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Common app</value>
@@ -192,8 +192,14 @@ in the start menu or on the desktop.</value>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Machine-wide mode</value>
   </data>
-  <data name="ModifyButtonTooltip" xml:space="preserve">
+  <data name="ModifyIntegration" xml:space="preserve">
     <value>Modify integration</value>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Add to "my applications"</value>
+  </data>
+  <data name="MyAppsRemove" xml:space="preserve">
+    <value>Remove from "my applications"</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>The directory {0} is not empty.
@@ -202,14 +208,17 @@ Are you sure you want place a portable version of Zero Install there?</value>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
-  <data name="RemoveButtonTooltip" xml:space="preserve">
-    <value>Remove from "my applications"</value>
-  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
   </data>
-  <data name="RunButtonText" xml:space="preserve">
+  <data name="Run" xml:space="preserve">
     <value>Run</value>
+  </data>
+  <data name="RunCommand" xml:space="preserve">
+    <value>... specific &amp;command</value>
+  </data>
+  <data name="RunVersion" xml:space="preserve">
+    <value>... specific &amp;version</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Do you wish to save any changes made?</value>
@@ -228,17 +237,8 @@ Save changes</value>
   <data name="SelectCommand" xml:space="preserve">
     <value>Select command for {0}</value>
   </data>
-  <data name="SelectCommandButton" xml:space="preserve">
-    <value>Select &amp;command</value>
-  </data>
-  <data name="SelectVersionButton" xml:space="preserve">
-    <value>Select &amp;version</value>
-  </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Click to update to Zero Install v{0}...</value>
-  </data>
-  <data name="SetupButtonTooltip" xml:space="preserve">
-    <value>Setup integration</value>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>You need to complete Sync Setup first.</value>
@@ -277,12 +277,12 @@ You can replace the data stored on the server by choosing that you don't remembe
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
 Encrypted connections use an https:// prefix.</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>&amp;Update</value>
+  </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
 Important: Applications you have "Run" previously without adding them to "My applications" will also be removed from the cache.  You will need to be online if you decide to run them again.</value>
-  </data>
-  <data name="UpdateButtonText" xml:space="preserve">
-    <value>&amp;Update</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Working...</value>

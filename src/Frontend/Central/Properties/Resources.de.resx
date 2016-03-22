@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButtonTooltip" xml:space="preserve">
-    <value>Zu "Meine Anwendungen" hinzufügen</value>
-  </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
 Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
@@ -147,6 +144,9 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoriere doppelten Anwendungslisteneintrag für '{0}'.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integration einrichten</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Normale App</value>
@@ -191,8 +191,14 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Maschinenweiter Modus</value>
   </data>
-  <data name="ModifyButtonTooltip" xml:space="preserve">
+  <data name="ModifyIntegration" xml:space="preserve">
     <value>Integration ändern</value>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Zu "Meine Anwendungen" hinzufügen</value>
+  </data>
+  <data name="MyAppsRemove" xml:space="preserve">
+    <value>Aus "Meine Anwendungen" entfernen</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.
@@ -201,14 +207,17 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>
-  <data name="RemoveButtonTooltip" xml:space="preserve">
-    <value>Aus "Meine Anwendungen" entfernen</value>
-  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
   </data>
-  <data name="RunButtonText" xml:space="preserve">
-    <value>Start</value>
+  <data name="Run" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+  <data name="RunCommand" xml:space="preserve">
+    <value>... bestimmter &amp;Befehl</value>
+  </data>
+  <data name="RunVersion" xml:space="preserve">
+    <value>... bestimmte &amp;Version</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
@@ -227,17 +236,8 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
   <data name="SelectCommand" xml:space="preserve">
     <value>Kommando für {0} auswählen</value>
   </data>
-  <data name="SelectCommandButton" xml:space="preserve">
-    <value>&amp;Kommando auswählen</value>
-  </data>
-  <data name="SelectVersionButton" xml:space="preserve">
-    <value>&amp;Version auswählen</value>
-  </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Klicken um auf Zero Install v{0} zu aktualisieren...</value>
-  </data>
-  <data name="SetupButtonTooltip" xml:space="preserve">
-    <value>Integration einrichten</value>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>Sie müssen Sync Setup zuerst abschließen.</value>
@@ -276,12 +276,12 @@ Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie au
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
 Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
+  </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Dies entfernt automatisch Implementierungen, die nach dem Update nicht mehr benötigt werden, aus dem Cache. Fortsetzen?
 Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Anwendungen" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
-  </data>
-  <data name="UpdateButtonText" xml:space="preserve">
-    <value>&amp;Aktualisieren</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite...</value>

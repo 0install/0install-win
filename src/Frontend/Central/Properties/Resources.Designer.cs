@@ -61,15 +61,6 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
-        /// </summary>
-        public static string AddButtonTooltip {
-            get {
-                return ResourceManager.GetString("AddButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
         ///This will also remove any desktop integration applied for this application..
         /// </summary>
@@ -148,6 +139,15 @@ namespace ZeroInstall.Central.Properties {
         public static string IgnoringDuplicateAppListEntry {
             get {
                 return ResourceManager.GetString("IgnoringDuplicateAppListEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup integration.
+        /// </summary>
+        public static string Integrate {
+            get {
+                return ResourceManager.GetString("Integrate", resourceCulture);
             }
         }
         
@@ -282,9 +282,27 @@ namespace ZeroInstall.Central.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Modify integration.
         /// </summary>
-        public static string ModifyButtonTooltip {
+        public static string ModifyIntegration {
             get {
-                return ResourceManager.GetString("ModifyButtonTooltip", resourceCulture);
+                return ResourceManager.GetString("ModifyIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
+        /// </summary>
+        public static string MyAppsAdd {
+            get {
+                return ResourceManager.GetString("MyAppsAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
+        /// </summary>
+        public static string MyAppsRemove {
+            get {
+                return ResourceManager.GetString("MyAppsRemove", resourceCulture);
             }
         }
         
@@ -308,15 +326,6 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
-        /// </summary>
-        public static string RemoveButtonTooltip {
-            get {
-                return ResourceManager.GetString("RemoveButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Do you want to remove the {0} selected entries from the list?.
         /// </summary>
         public static string RemoveSelectedEntries {
@@ -328,9 +337,27 @@ namespace ZeroInstall.Central.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Run.
         /// </summary>
-        public static string RunButtonText {
+        public static string Run {
             get {
-                return ResourceManager.GetString("RunButtonText", resourceCulture);
+                return ResourceManager.GetString("Run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ... specific &amp;command.
+        /// </summary>
+        public static string RunCommand {
+            get {
+                return ResourceManager.GetString("RunCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ... specific &amp;version.
+        /// </summary>
+        public static string RunVersion {
+            get {
+                return ResourceManager.GetString("RunVersion", resourceCulture);
             }
         }
         
@@ -382,38 +409,11 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select &amp;command.
-        /// </summary>
-        public static string SelectCommandButton {
-            get {
-                return ResourceManager.GetString("SelectCommandButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select &amp;version.
-        /// </summary>
-        public static string SelectVersionButton {
-            get {
-                return ResourceManager.GetString("SelectVersionButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Click to update to Zero Install v{0}....
         /// </summary>
         public static string SelfUpdateNotification {
             get {
                 return ResourceManager.GetString("SelfUpdateNotification", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Setup integration.
-        /// </summary>
-        public static string SetupButtonTooltip {
-            get {
-                return ResourceManager.GetString("SetupButtonTooltip", resourceCulture);
             }
         }
         
@@ -521,21 +521,21 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
         ///Important: Applications you have &quot;Run&quot; previously without adding them to &quot;My applications&quot; will also be removed from the cache.  You will need to be online if you decide to run them again..
         /// </summary>
         public static string UpdateAllCleanWillRemove {
             get {
                 return ResourceManager.GetString("UpdateAllCleanWillRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Update.
-        /// </summary>
-        public static string UpdateButtonText {
-            get {
-                return ResourceManager.GetString("UpdateButtonText", resourceCulture);
             }
         }
         

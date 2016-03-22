@@ -63,19 +63,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddButton {
+        internal static System.Drawing.Bitmap AppIcon {
             get {
-                object obj = ResourceManager.GetObject("AddButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap App {
-            get {
-                object obj = ResourceManager.GetObject("App", resourceCulture);
+                object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +103,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ModifyButton {
+        internal static System.Drawing.Bitmap IntegrateIcon {
             get {
-                object obj = ResourceManager.GetObject("ModifyButton", resourceCulture);
+                object obj = ResourceManager.GetObject("IntegrateIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +113,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap RemoveButton {
+        internal static System.Drawing.Bitmap ModifyIntegrationIcon {
             get {
-                object obj = ResourceManager.GetObject("RemoveButton", resourceCulture);
+                object obj = ResourceManager.GetObject("ModifyIntegrationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +123,19 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SetupButton {
+        internal static System.Drawing.Bitmap MyAppsAddedIcon {
             get {
-                object obj = ResourceManager.GetObject("SetupButton", resourceCulture);
+                object obj = ResourceManager.GetObject("MyAppsAddedIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyAppsNotAddedIcon {
+            get {
+                object obj = ResourceManager.GetObject("MyAppsNotAddedIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
