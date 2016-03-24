@@ -257,7 +257,10 @@ namespace ZeroInstall.Services.Feeds
             var data = SignFeed(feed);
 
             // Newer signautre present => replay attack
-            FeedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature(OpenPgpUtilsTest.TestKeyID, OpenPgpUtilsTest.TestFingerprint, new DateTime(2002, 1, 1))});
+            FeedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[]
+            {
+                new ValidSignature(OpenPgpUtilsTest.TestKeyID, OpenPgpUtilsTest.TestFingerprint, new DateTime(2002, 1, 1, 0, 0, 0, DateTimeKind.Utc))
+            });
 
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {

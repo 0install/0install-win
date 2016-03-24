@@ -31,11 +31,11 @@ namespace ZeroInstall.Services.Fetchers
     {
         public const string RegularString = "regular\n";
         public static readonly string RegularHash = RegularString.Hash(SHA256.Create());
-        public static readonly long RegularTimestamp = new DateTime(2000, 1, 1, 12, 0, 0).ToUnixTime();
+        public static readonly long RegularTimestamp = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc).ToUnixTime();
 
         public const string ExecutableString = "executable\n";
         public static readonly string ExecutableHash = ExecutableString.Hash(SHA256.Create());
-        public static readonly long ExecutableTimestamp = new DateTime(2000, 1, 1, 12, 0, 0).ToUnixTime();
+        public static readonly long ExecutableTimestamp = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc).ToUnixTime();
 
         public static readonly Stream ZipArchiveStream = typeof(TestData).GetEmbedded("testArchive.zip");
     }

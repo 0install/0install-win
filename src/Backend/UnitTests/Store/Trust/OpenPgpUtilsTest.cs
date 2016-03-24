@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Trust
         public static readonly long TestKeyID = 255;
         public static readonly byte[] TestFingerprint = {170, 170, 0, 0, 0, 0, 0, 0, 0, 255};
         public const string TestFingerprintString = "AAAA00000000000000FF";
-        public static readonly ValidSignature TestSignature = new ValidSignature(TestKeyID, TestFingerprint, new DateTime(2000, 1, 1));
+        public static readonly ValidSignature TestSignature = new ValidSignature(TestKeyID, TestFingerprint, new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc));
 
         [Test]
         public void TestParseKeyID()

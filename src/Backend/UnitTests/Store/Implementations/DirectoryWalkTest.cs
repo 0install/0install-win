@@ -83,7 +83,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         // ReSharper disable once StaticMemberInGenericType
-        protected static readonly DateTime Timestamp = new DateTime(2000, 1, 1, 0, 0, 1);
+        protected static readonly DateTime Timestamp = new DateTime(2000, 1, 1, 0, 0, 1, DateTimeKind.Utc);
 
         protected const string Contents = "abc";
 

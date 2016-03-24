@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Trust
             TestImportKey();
 
             Target.Verify(_referenceData, _signatureData).Should().Equal(
-                new ValidSignature(_secretKey.KeyID, _secretKey.GetFingerprint(), new DateTime(2015, 7, 16, 17, 20, 7)));
+                new ValidSignature(_secretKey.KeyID, _secretKey.GetFingerprint(), new DateTime(2015, 7, 16, 17, 20, 7, DateTimeKind.Utc)));
         }
 
         [Test]

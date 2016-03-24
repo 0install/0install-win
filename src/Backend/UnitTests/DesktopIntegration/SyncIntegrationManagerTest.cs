@@ -208,7 +208,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = true, Timestamp = new DateTime(2000, 1, 1),
+                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = true, Timestamp = new DateTime(1999, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apLocalApplied, UnapplyFlagPath = apLocalUnapplied}}}
                         }
                     }
@@ -220,7 +220,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = false, Timestamp = new DateTime(2001, 1, 1),
+                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = false, Timestamp = new DateTime(2001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apRemoteApplied, UnapplyFlagPath = apRemoteUnapplied}}}
                         }
                     }

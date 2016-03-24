@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Implementations
         {
             var manifest1 = new Manifest(ManifestFormat.Sha1New,
                 new ManifestDirectory("subdir"),
-                new ManifestNormalFile("abc123", new DateTime(2000, 1, 1), 3, "file"));
+                new ManifestNormalFile("abc123", new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc), 3, "file"));
             Manifest manifest2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {

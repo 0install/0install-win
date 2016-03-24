@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             return new FeedPreferences
             {
-                LastChecked = new DateTime(2000, 1, 1),
+                LastChecked = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Implementations = {new ImplementationPreferences {ID = "test_id", UserStability = Stability.Testing}}
             };
         }
