@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.buttonUpdateAll = new NanoByte.Common.Controls.SplitButton();
+            this.buttonUpdateAll = new NanoByte.Common.Controls.DropDownButton();
             this.menuUpdateAll = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonUpdateAllClean = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSync = new NanoByte.Common.Controls.SplitButton();
+            this.buttonSync = new NanoByte.Common.Controls.DropDownButton();
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,9 +94,9 @@
             // 
             resources.ApplyResources(this.buttonUpdateAll, "buttonUpdateAll");
             this.buttonUpdateAll.ContextMenuStrip = this.menuUpdateAll;
+            this.buttonUpdateAll.DropDownMenuStrip = this.menuUpdateAll;
             this.buttonUpdateAll.Name = "buttonUpdateAll";
             this.buttonUpdateAll.ShowSplit = true;
-            this.buttonUpdateAll.SplitMenuStrip = this.menuUpdateAll;
             this.buttonUpdateAll.UseVisualStyleBackColor = true;
             this.buttonUpdateAll.Click += new System.EventHandler(this.buttonUpdateAll_Click);
             // 
@@ -118,9 +118,9 @@
             // 
             resources.ApplyResources(this.buttonSync, "buttonSync");
             this.buttonSync.ContextMenuStrip = this.menuSync;
+            this.buttonSync.DropDownMenuStrip = this.menuSync;
             this.buttonSync.Name = "buttonSync";
             this.buttonSync.ShowSplit = true;
-            this.buttonSync.SplitMenuStrip = this.menuSync;
             this.buttonSync.UseVisualStyleBackColor = true;
             this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
             // 
@@ -343,12 +343,12 @@
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Button buttonMoreApps;
-        private NanoByte.Common.Controls.SplitButton buttonSync;
+        private NanoByte.Common.Controls.DropDownButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
         private System.Windows.Forms.Label labelLoadingCatalog;
-        private NanoByte.Common.Controls.SplitButton buttonUpdateAll;
+        private NanoByte.Common.Controls.DropDownButton buttonUpdateAll;
         private System.Windows.Forms.ContextMenuStrip menuUpdateAll;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdateAllClean;
         private System.Windows.Forms.ContextMenuStrip menuSync;

@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The version number of the Zero Install model.
         /// </summary>
-        public static readonly ImplementationVersion ZeroInstallVersion = new ImplementationVersion(AppInfo.Load(Assembly.GetExecutingAssembly()).Version);
+        public static readonly ImplementationVersion ZeroInstallVersion = new ImplementationVersion(AppInfo.CurrentLibrary.Version);
 
         /// <summary>
         /// Checks whether an element passes the specified <see cref="IfZeroInstallVersion"/> restriction, if any.

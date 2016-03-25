@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.labelName = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
-            this.buttonRun = new NanoByte.Common.Controls.SplitButton();
+            this.buttonRun = new NanoByte.Common.Controls.DropDownButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,12 +76,12 @@
             this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRun.AutoSize = true;
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
+            this.buttonRun.DropDownMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonRun.Location = new System.Drawing.Point(332, 6);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.ShowSplit = true;
             this.buttonRun.Size = new System.Drawing.Size(61, 23);
-            this.buttonRun.SplitMenuStrip = this.contextMenuRun;
             this.buttonRun.TabIndex = 3;
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
@@ -203,7 +203,7 @@
         private System.Windows.Forms.PictureBox pictureBoxIcon;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelSummary;
-        internal NanoByte.Common.Controls.SplitButton buttonRun;
+        internal NanoByte.Common.Controls.DropDownButton buttonRun;
         internal System.Windows.Forms.Button buttonAdd;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
