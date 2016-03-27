@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2015 Bastian Eicher, Simon E. Silva Lauinger
+ * Copyright 2010-2016 Bastian Eicher, Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
