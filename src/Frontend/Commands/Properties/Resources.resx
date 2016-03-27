@@ -387,6 +387,12 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
   </data>
+  <data name="DesktopIntegrationApply" xml:space="preserve">
+    <value>Applying desktop integration</value>
+  </data>
+  <data name="DesktopIntegrationRemove" xml:space="preserve">
+    <value>Removing desktop integration</value>
+  </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
   </data>

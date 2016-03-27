@@ -387,6 +387,12 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktopintegration</value>
   </data>
+  <data name="DesktopIntegrationApply" xml:space="preserve">
+    <value>Wende Desktopintegration an</value>
+  </data>
+  <data name="DesktopIntegrationRemove" xml:space="preserve">
+    <value>Entferne Desktopintegration</value>
+  </data>
   <data name="Done" xml:space="preserve">
     <value>Fertig</value>
   </data>

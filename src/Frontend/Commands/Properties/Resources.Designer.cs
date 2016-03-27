@@ -835,6 +835,24 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applying desktop integration.
+        /// </summary>
+        public static string DesktopIntegrationApply {
+            get {
+                return ResourceManager.GetString("DesktopIntegrationApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing desktop integration.
+        /// </summary>
+        public static string DesktopIntegrationRemove {
+            get {
+                return ResourceManager.GetString("DesktopIntegrationRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string Done {

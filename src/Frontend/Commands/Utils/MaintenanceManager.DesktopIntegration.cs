@@ -23,6 +23,7 @@ using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Commands.Utils
@@ -33,7 +34,7 @@ namespace ZeroInstall.Commands.Utils
         {
             if (WindowsUtils.IsWindows)
             {
-                Handler.RunTask(new SimpleTask("Performing desktop integration", () =>
+                Handler.RunTask(new SimpleTask(Resources.DesktopIntegrationApply, () =>
                 {
                     Shortcut.Create(
                         path: Shortcut.GetStartMenuPath("", "Zero Install", MachineWide),
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands.Utils
         {
             if (WindowsUtils.IsWindows)
             {
-                Handler.RunTask(new SimpleTask("Removing desktop integration", () =>
+                Handler.RunTask(new SimpleTask(Resources.DesktopIntegrationRemove, () =>
                 {
                     DeleteIfExists(Shortcut.GetStartMenuPath("", "Zero Install", MachineWide));
                     DeleteIfExists(Shortcut.GetStartMenuPath("Zero install", "Zero Install", MachineWide));
