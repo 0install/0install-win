@@ -93,8 +93,3 @@ http://easyhook.codeplex.com/
 GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 Pre-compiled managed DLL: EasyHook.dll
 Pre-compiled unmanaged DLLs: EasyHook32.dll, EasyHook64.dll
-
-GnuPG 1.4.11
-http://www.gnupg.org/
-GNU GPL: http://www.gnu.org/copyleft/gpl.html
-Pre-compiled EXE: gpg.exe
