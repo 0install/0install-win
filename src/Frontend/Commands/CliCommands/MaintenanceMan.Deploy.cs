@@ -172,7 +172,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 if (ProgramUtils.GuiAssemblyName != null)
                 {
-                    var startInfo = WindowsUtils.IsWindows
+                    var startInfo = WindowsUtils.IsWindowsVista
                         // Use explorer.exe to return to standard user privileges after UAC elevation
                         ? new ProcessStartInfo("explorer.exe", Path.Combine(targetDir, "ZeroInstall.exe").EscapeArgument())
                         : ProcessUtils.Assembly(Path.Combine(targetDir, ProgramUtils.GuiAssemblyName), Central.Name);
