@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -139,9 +140,13 @@ namespace ZeroInstall.Commands.CliCommands
                 using (var manager = new MaintenanceManager(tempDir, Handler, machineWide: false, portable: true))
                     manager.Deploy();
 
-                ProcessUtils.Assembly(
-                    Path.Combine(tempDir, ProgramUtils.GuiAssemblyName ?? "0install"),
-                    MaintenanceMan.Name, RemoveHelper.Name, Locations.InstallBase).Start();
+                string assembly = Path.Combine(tempDir, ProgramUtils.GuiAssemblyName ?? "0install");
+
+                var args = new[] {MaintenanceMan.Name, RemoveHelper.Name, Locations.InstallBase};
+                if (Handler.Verbosity == Verbosity.Batch) args = args.Append("--batch");
+                if (Handler.Background) args = args.Append("--background");
+
+                ProcessUtils.Assembly(assembly, args).Start();
             }
         }
 

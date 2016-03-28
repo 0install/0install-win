@@ -86,8 +86,8 @@ namespace ZeroInstall.Commands.Utils
                 uninsKey.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
 
                 uninsKey.SetValue("DisplayIcon", Path.Combine(TargetDir, "ZeroInstall.exe"));
-                uninsKey.SetValue("UninstallString", new[] { Path.Combine(TargetDir, "0install-win.exe"), MaintenanceMan.Name, MaintenanceMan.Remove.Name }.JoinEscapeArguments());
-                uninsKey.SetValue("QuietUninstallString", new[] { Path.Combine(TargetDir, "0install-win.exe"), MaintenanceMan.Name, MaintenanceMan.Remove.Name, "--batch" }.JoinEscapeArguments());
+                uninsKey.SetValue("UninstallString", new[] {Path.Combine(TargetDir, "0install-win.exe"), MaintenanceMan.Name, MaintenanceMan.Remove.Name}.JoinEscapeArguments());
+                uninsKey.SetValue("QuietUninstallString", new[] {Path.Combine(TargetDir, "0install-win.exe"), MaintenanceMan.Name, MaintenanceMan.Remove.Name, "--batch", "--background"}.JoinEscapeArguments());
                 uninsKey.SetValue("NoModify", 1, RegistryValueKind.DWord);
                 uninsKey.SetValue("NoRepiar", 1, RegistryValueKind.DWord);
             }
