@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands.Utils
         {
             if (TargetDir == Locations.InstallBase)
             {
-                Log.Info("Cannot use Mutex because source and target dir are the same: " + TargetDir);
+                Log.Info("Cannot use Mutex because source and target directory are the same: " + TargetDir);
                 return;
             }
 

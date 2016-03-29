@@ -145,7 +145,7 @@
     <value>Do you want to register this instance machine-wide instead of just for the current user?</value>
   </data>
   <data name="AskDeployNewTarget" xml:space="preserve">
-    <value>Arey you sure you want to deploy a new copy to '{0}'?</value>
+    <value>Are you sure you want to deploy a new copy to '{0}'?</value>
   </data>
   <data name="AskDeployZeroInstall" xml:space="preserve">
     <value>Do you want to setup Zero Install on this computer?

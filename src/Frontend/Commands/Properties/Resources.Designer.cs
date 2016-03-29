@@ -142,7 +142,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arey you sure you want to deploy a new copy to &apos;{0}&apos;?.
+        ///   Looks up a localized string similar to Are you sure you want to deploy a new copy to &apos;{0}&apos;?.
         /// </summary>
         public static string AskDeployNewTarget {
             get {

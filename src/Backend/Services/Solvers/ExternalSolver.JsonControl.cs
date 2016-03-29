@@ -54,7 +54,7 @@ namespace ZeroInstall.Services.Solvers
                     apiNotification[0].ToString() != "invoke" ||
                     apiNotification[1] != null ||
                     apiNotification[2].ToString() != "set-api-version")
-                    throw new IOException("External solver did not resond correctly to handshake.");
+                    throw new IOException("External solver did not respond correctly to handshake.");
 
                 var apiVersion = new ImplementationVersion(apiNotification[3].ReparseAsJson<string[]>()[0]);
                 if (apiVersion >= new ImplementationVersion(ApiVersion))
