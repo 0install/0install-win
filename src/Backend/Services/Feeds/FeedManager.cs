@@ -93,14 +93,14 @@ namespace ZeroInstall.Services.Feeds
         /// <inheritdoc/>
         public bool ShouldRefresh { get { return Stale && _config.NetworkUse == NetworkLevel.Full; } }
 
-        protected override Feed Retrieve(FeedUri feedUri)
+        protected override Feed Retrieve(FeedUri key)
         {
             #region Sanity checks
-            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            if (key == null) throw new ArgumentNullException("key");
             #endregion
 
-            var feed = GetFeed(feedUri);
-            feed.Normalize(feedUri);
+            var feed = GetFeed(key);
+            feed.Normalize(key);
             return feed;
         }
 

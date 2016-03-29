@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using System.Linq;
 using NanoByte.Common.Tasks;
@@ -35,6 +36,10 @@ namespace ZeroInstall.Commands.Utils
         /// <param name="machineWide">Apply the operation machine-wide instead of just for the current user.</param>
         public static void RemoveAllApps(ITaskHandler handler, bool machineWide)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             using (var integrationManager = new IntegrationManager(handler, machineWide))
             {
                 handler.RunTask(ForEachTask.Create(Resources.RemovingApplications, integrationManager.AppList.Entries.ToList(), integrationManager.RemoveApp));

@@ -21,7 +21,6 @@ using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 
@@ -77,7 +76,7 @@ namespace ZeroInstall.Commands.CliCommands
             /// <param name="machineWide"><c>true</c> to look only for machine-wide instances; <c>false</c> to look only for instances in the current user profile.</param>
             /// <returns>The installation directory of an instance of Zero Install; <c>null</c> if none was found.</returns>
             [CanBeNull]
-            protected string FindExistingInstance(bool machineWide)
+            protected static string FindExistingInstance(bool machineWide)
             {
                 if (!WindowsUtils.IsWindows) return null;
 

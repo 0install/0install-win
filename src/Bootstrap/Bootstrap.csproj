@@ -66,6 +66,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="BootstrapProcess.cs" />
     <Compile Include="ExitCode.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GuiTaskHandler.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
