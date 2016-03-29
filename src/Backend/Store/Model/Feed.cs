@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
-    public sealed class Feed : XmlUnknown, IElementContainer, ISummaryContainer, IIconContainer, ICloneable, IEquatable<Feed>
+    public class Feed : XmlUnknown, IElementContainer, ISummaryContainer, IIconContainer, ICloneable, IEquatable<Feed>
     {
         #region Constants
         /// <summary>
