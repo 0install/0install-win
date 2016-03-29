@@ -65,8 +65,8 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is Arg && Equals((Arg)obj);
         }
 

@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [SuppressMessage("Microsoft.Usage", "CA2231:OverloadOperatorEqualsOnOverridingValueTypeEquals", Justification = "Equals() method is only used for easier unit testing")]
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
             return obj is ArchiveFileInfo && Equals((ArchiveFileInfo)obj);
         }
 

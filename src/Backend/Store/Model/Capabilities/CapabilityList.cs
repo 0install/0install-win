@@ -110,14 +110,14 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(CapabilityList other)
         {
             if (other == null) return false;
-            return base.Equals(other) && (OS == other.OS && Entries.SequencedEquals(other.Entries));
+            return base.Equals(other) && (OS == other.OS && Entries.UnsequencedEquals(other.Entries));
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is CapabilityList && Equals((CapabilityList)obj);
         }
 
@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (int)OS;
-                result = (result * 397) ^ Entries.GetSequencedHashCode();
+                result = (result * 397) ^ Entries.GetUnsequencedHashCode();
                 return result;
             }
         }

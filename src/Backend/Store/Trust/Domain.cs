@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
             return obj is Domain && Equals((Domain)obj);
         }
 

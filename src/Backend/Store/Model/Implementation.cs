@@ -107,14 +107,14 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Implementation other)
         {
             if (other == null) return false;
-            return base.Equals(other) && RetrievalMethods.SequencedEquals(other.RetrievalMethods);
+            return base.Equals(other) && RetrievalMethods.UnsequencedEquals(other.RetrievalMethods);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             if (obj.GetType() != typeof(Implementation)) return false;
             return Equals((Implementation)obj);
         }
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ RetrievalMethods.GetSequencedHashCode();
+                return (base.GetHashCode() * 397) ^ RetrievalMethods.GetUnsequencedHashCode();
             }
         }
         #endregion

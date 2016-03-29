@@ -290,7 +290,7 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
             return obj is Architecture && Equals((Architecture)obj);
         }
 

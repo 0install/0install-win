@@ -91,14 +91,14 @@ namespace ZeroInstall.Store.Model.Capabilities
             if (other == null) return false;
             return base.Equals(other) &&
                    other.Provider == Provider && Equals(other.Verb, Verb) &&
-                   Events.SequencedEquals(other.Events);
+                   Events.UnsequencedEquals(other.Events);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is AutoPlay && Equals((AutoPlay)obj);
         }
 
@@ -111,7 +111,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 if (Verb != null) result = (result * 397) ^ Verb.GetHashCode();
-                result = (result * 397) ^ Events.GetSequencedHashCode();
+                result = (result * 397) ^ Events.GetUnsequencedHashCode();
                 return result;
             }
         }

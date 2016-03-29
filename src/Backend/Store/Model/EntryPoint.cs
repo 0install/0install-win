@@ -157,14 +157,14 @@ namespace ZeroInstall.Store.Model
             if (other == null) return false;
             return base.Equals(other) &&
                    Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
-                   Names.SequencedEquals(other.Names) && Summaries.SequencedEquals(other.Summaries) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
+                   Names.UnsequencedEquals(other.Names) && Summaries.UnsequencedEquals(other.Summaries) && Descriptions.UnsequencedEquals(other.Descriptions) && Icons.UnsequencedEquals(other.Icons);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is EntryPoint && Equals((EntryPoint)obj);
         }
 
@@ -177,10 +177,10 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (BinaryName ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
-                result = (result * 397) ^ Names.GetSequencedHashCode();
-                result = (result * 397) ^ Summaries.GetSequencedHashCode();
-                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
-                result = (result * 397) ^ Icons.GetSequencedHashCode();
+                result = (result * 397) ^ Names.GetUnsequencedHashCode();
+                result = (result * 397) ^ Summaries.GetUnsequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Icons.GetUnsequencedHashCode();
                 return result;
             }
         }

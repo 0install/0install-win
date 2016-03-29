@@ -123,8 +123,8 @@ namespace ZeroInstall.Services.PackageManagers
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             if (obj.GetType() != typeof(ExternalImplementation)) return false;
             return Equals((ExternalImplementation)obj);
         }

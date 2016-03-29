@@ -107,7 +107,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
             return obj is InstallCommands && Equals((InstallCommands)obj);
         }
 

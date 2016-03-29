@@ -131,14 +131,14 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         public bool Equals(Dependency other)
         {
-            return base.Equals(other) && Importance == other.Importance && Use == other.Use && Bindings.SequencedEquals(other.Bindings);
+            return base.Equals(other) && Importance == other.Importance && Use == other.Use && Bindings.UnsequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj.GetType() == typeof(Dependency) && Equals((Dependency)obj);
         }
 
@@ -150,7 +150,7 @@ namespace ZeroInstall.Store.Model
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (int)Importance;
                 result = (result * 397) ^ (Use ?? "").GetHashCode();
-                result = (result * 397) ^ Bindings.GetSequencedHashCode();
+                result = (result * 397) ^ Bindings.GetUnsequencedHashCode();
                 return result;
             }
         }

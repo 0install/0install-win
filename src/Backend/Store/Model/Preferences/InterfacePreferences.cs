@@ -191,15 +191,15 @@ namespace ZeroInstall.Store.Model.Preferences
             if (!base.Equals(other)) return false;
             if (Uri != other.Uri) return false;
             if (StabilityPolicy != other.StabilityPolicy) return false;
-            if (!Feeds.SequencedEquals(other.Feeds)) return false;
+            if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
             return true;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is InterfacePreferences && Equals((InterfacePreferences)obj);
         }
 
@@ -211,7 +211,7 @@ namespace ZeroInstall.Store.Model.Preferences
                 int result = base.GetHashCode();
                 if (Uri != null) result = (result * 397) ^ Uri.GetHashCode();
                 result = (result * 397) ^ StabilityPolicy.GetHashCode();
-                result = (result * 397) ^ Feeds.GetSequencedHashCode();
+                result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
                 return result;
             }
         }

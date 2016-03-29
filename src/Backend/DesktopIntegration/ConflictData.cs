@@ -80,7 +80,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
             return obj is ConflictData && Equals((ConflictData)obj);
         }
 

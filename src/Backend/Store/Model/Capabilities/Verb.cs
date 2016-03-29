@@ -140,14 +140,14 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(Verb other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Name == Name && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended && Descriptions.SequencedEquals(other.Descriptions);
+            return base.Equals(other) && other.Name == Name && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended && Descriptions.UnsequencedEquals(other.Descriptions);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is Verb && Equals((Verb)obj);
         }
 
@@ -161,7 +161,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 result = (result * 397) ^ (Command ?? "").GetHashCode();
                 result = (result * 397) ^ (Arguments ?? "").GetHashCode();
                 result = (result * 397) ^ Extended.GetHashCode();
-                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
                 return result;
             }
         }

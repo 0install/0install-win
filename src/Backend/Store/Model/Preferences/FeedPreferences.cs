@@ -207,14 +207,14 @@ namespace ZeroInstall.Store.Model.Preferences
         public bool Equals(FeedPreferences other)
         {
             if (other == null) return false;
-            return base.Equals(other) && LastChecked == other.LastChecked && Implementations.SequencedEquals(other.Implementations);
+            return base.Equals(other) && LastChecked == other.LastChecked && Implementations.UnsequencedEquals(other.Implementations);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is FeedPreferences && Equals((FeedPreferences)obj);
         }
 
@@ -225,7 +225,7 @@ namespace ZeroInstall.Store.Model.Preferences
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ LastChecked.GetHashCode();
-                result = (result * 397) ^ Implementations.GetSequencedHashCode();
+                result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
                 return result;
             }
         }

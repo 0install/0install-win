@@ -213,14 +213,14 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Catalog other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Feeds.SequencedEquals(other.Feeds);
+            return base.Equals(other) && Feeds.UnsequencedEquals(other.Feeds);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj.GetType() == typeof(Catalog) && Equals((Catalog)obj);
         }
 
@@ -229,7 +229,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ Feeds.GetSequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Feeds.GetUnsequencedHashCode();
             }
         }
         #endregion

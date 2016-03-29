@@ -200,7 +200,7 @@ namespace ZeroInstall.DesktopIntegration
             if (Name != other.Name) return false;
             if (AutoUpdate != other.AutoUpdate) return false;
             if (!Equals(Requirements, other.Requirements)) return false;
-            if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
+            if (!CapabilityLists.UnsequencedEquals(other.CapabilityLists)) return false;
             if (!Equals(AccessPoints, other.AccessPoints)) return false;
             return true;
         }
@@ -208,8 +208,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is AppEntry && Equals((AppEntry)obj);
         }
 
@@ -223,7 +223,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (Name != null) result = (result * 397) ^ Name.GetHashCode();
                 result = (result * 397) ^ AutoUpdate.GetHashCode();
                 if (Requirements != null) result = (result * 397) ^ Requirements.GetHashCode();
-                result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
+                result = (result * 397) ^ CapabilityLists.GetUnsequencedHashCode();
                 if (AccessPoints != null) result = (result * 397) ^ AccessPoints.GetHashCode();
                 return result;
             }

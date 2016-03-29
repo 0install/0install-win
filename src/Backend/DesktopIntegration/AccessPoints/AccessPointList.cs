@@ -81,14 +81,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public bool Equals(AccessPointList other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Entries.SequencedEquals(other.Entries);
+            return base.Equals(other) && Entries.UnsequencedEquals(other.Entries);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is AccessPointList && Equals((AccessPointList)obj);
         }
 
@@ -97,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ Entries.GetSequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Entries.GetUnsequencedHashCode();
             }
         }
         #endregion

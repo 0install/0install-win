@@ -193,15 +193,15 @@ namespace ZeroInstall.Store.Model.Selection
             if (!base.Equals(other)) return false;
             if (InterfaceUri != other.InterfaceUri) return false;
             if (Command != other.Command) return false;
-            if (!Implementations.SequencedEquals(other.Implementations)) return false;
+            if (!Implementations.UnsequencedEquals(other.Implementations)) return false;
             return true;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is Selections && Equals((Selections)obj);
         }
 
@@ -213,7 +213,7 @@ namespace ZeroInstall.Store.Model.Selection
                 int result = base.GetHashCode();
                 if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 if (Command != null) result = (result * 397) ^ Command.GetHashCode();
-                result = (result * 397) ^ Implementations.GetSequencedHashCode();
+                result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
                 return result;
             }
         }

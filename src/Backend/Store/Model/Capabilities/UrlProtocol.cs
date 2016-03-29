@@ -76,14 +76,14 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(UrlProtocol other)
         {
             if (other == null) return false;
-            return base.Equals(other) && KnownPrefixes.SequencedEquals(other.KnownPrefixes);
+            return base.Equals(other) && KnownPrefixes.UnsequencedEquals(other.KnownPrefixes);
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj == null) return false;
+            if (obj == this) return true;
             return obj is UrlProtocol && Equals((UrlProtocol)obj);
         }
 
@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ KnownPrefixes.GetSequencedHashCode();
+                return (base.GetHashCode() * 397) ^ KnownPrefixes.GetUnsequencedHashCode();
             }
         }
         #endregion
