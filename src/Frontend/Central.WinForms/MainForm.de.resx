@@ -144,12 +144,6 @@
   <data name="buttonOptions.Text" xml:space="preserve">
     <value>&amp;Optionen</value>
   </data>
-  <data name="buttonStoreAudit.Text" xml:space="preserve">
-    <value>Nach Fehlern &amp;suchen</value>
-  </data>
-  <data name="buttonStoreOptimise.Text" xml:space="preserve">
-    <value>&amp;Duplikate zusammenführen</value>
-  </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>&amp;Cache Verwaltung</value>
   </data>

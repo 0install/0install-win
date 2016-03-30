@@ -16,7 +16,6 @@
  */
 
 using System.ComponentModel;
-using System.Reflection;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common.Info;

@@ -27,7 +27,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -97,7 +96,7 @@ namespace ZeroInstall.Publish
                     {
                         // ReSharper disable AccessToDisposedClosure
                         (Archive archive) => archive.Apply(downloadedFile, extractionDir, handler),
-                        (SingleFile file) => file.Apply(downloadedFile, extractionDir, handler)
+                        (SingleFile file) => file.Apply(downloadedFile, extractionDir)
                         // ReSharper restore AccessToDisposedClosure
                     }.Dispatch(retrievalMethod);
                 }

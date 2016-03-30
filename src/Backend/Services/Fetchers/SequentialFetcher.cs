@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using JetBrains.Annotations;
@@ -131,6 +131,7 @@ namespace ZeroInstall.Services.Fetchers
             {
                 try
                 {
+                    Debug.Assert(implementation.ManifestDigest.Best != null);
                     return implementation.ManifestDigest.Best;
                 }
                     #region Error handling

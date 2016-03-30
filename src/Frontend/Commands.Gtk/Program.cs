@@ -16,7 +16,6 @@
  */
 
 using Gtk;
-using NanoByte.Common;
 
 namespace ZeroInstall.Commands.Gtk
 {

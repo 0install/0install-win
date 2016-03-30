@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using NanoByte.Common;

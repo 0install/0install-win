@@ -27,13 +27,13 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Contains test methods for <see cref="FeedUtils"/>.
+    /// Contains test methods for <see cref="FeedCacheExtentsions"/>.
     /// </summary>
     [TestFixture]
-    public class FeedUtilsTest : TestWithMocks
+    public class FeedCacheExtentsionsTest : TestWithMocks
     {
         /// <summary>
-        /// Ensures <see cref="FeedUtils.GetAll"/> correctly loads <see cref="Feed"/>s from an <see cref="IFeedCache"/>, skipping any exceptions.
+        /// Ensures <see cref="FeedCacheExtentsions.GetAll"/> correctly loads <see cref="Feed"/>s from an <see cref="IFeedCache"/>, skipping any exceptions.
         /// </summary>
         [Test]
         public void TestGetFeeds()

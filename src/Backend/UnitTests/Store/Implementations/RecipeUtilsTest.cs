@@ -222,7 +222,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 File.WriteAllText(tempFile, "data");
 
-                new SingleFile {Destination = "file"}.Apply(tempFile, workingDir, new MockTaskHandler());
+                new SingleFile {Destination = "file"}.Apply(tempFile, workingDir);
 
                 File.Exists(tempFile).Should().BeFalse(because: "Files passed in as temp objects should be moved");
                 File.Exists(Path.Combine(workingDir, "file")).Should().BeTrue();

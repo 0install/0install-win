@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Implementations
                     {
                         downloadedEnum.MoveNext();
                         if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, "downloadedFiles");
-                        step.Apply(downloadedEnum.Current, workingDir, handler, tag);
+                        step.Apply(downloadedEnum.Current, workingDir);
                     },
                     (RemoveStep step) => step.Apply(workingDir),
                     (RenameStep step) => step.Apply(workingDir)
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 // ReSharper disable once AccessToDisposedClosure
                 handler.RunTask(new SimpleTask(Resources.CopyFiles, () => File.Copy(localPath, tempFile, overwrite: true)));
-                step.Apply(tempFile, workingDir, handler, tag);
+                step.Apply(tempFile, workingDir);
             }
         }
 
@@ -161,17 +161,14 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="step">The <see cref="Store.Model.Archive"/> to apply.</param>
         /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
-        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "tag", Justification = "Number of method parameters must match overloaded method to ensure proper type-based compiler selection")]
-        public static void Apply([NotNull] this SingleFile step, [NotNull] TemporaryFile downloadedFile, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
+        public static void Apply([NotNull] this SingleFile step, [NotNull] TemporaryFile downloadedFile, [NotNull] TemporaryDirectory workingDir)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
             if (downloadedFile == null) throw new ArgumentNullException("downloadedFile");
             if (workingDir == null) throw new ArgumentNullException("workingDir");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             #region Path validation

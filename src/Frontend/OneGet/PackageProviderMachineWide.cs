@@ -29,7 +29,7 @@ namespace ZeroInstall.OneGet
     /// </summary>
     public class PackageProviderMachineWide : PackageProviderBase
     {
-        private bool IsDisabled { get { return ProgramUtils.IsRunningFromPerUserDir; } }
+        private static bool IsDisabled { get { return ProgramUtils.IsRunningFromPerUserDir; } }
 
         public override string PackageProviderName { get { return IsDisabled ? "0install-Machine-disabled" : "0install-Machine"; } }
 

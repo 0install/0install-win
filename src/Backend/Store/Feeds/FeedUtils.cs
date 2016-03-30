@@ -21,7 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 using ZeroInstall.Store.Trust;
