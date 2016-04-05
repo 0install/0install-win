@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -93,8 +94,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         [NotNull]
         private static string GetStartMenuCategoryPath([CanBeNull] string category, bool machineWide)
         {
-            const Environment.SpecialFolder commonPrograms = (Environment.SpecialFolder)0x0017;
-            string menuDir = Environment.GetFolderPath(machineWide ? commonPrograms : Environment.SpecialFolder.Programs);
+            string menuDir = machineWide
+                ? RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs")
+                : Environment.GetFolderPath(Environment.SpecialFolder.Programs);
 
             if (string.IsNullOrEmpty(category)) return menuDir;
             else
