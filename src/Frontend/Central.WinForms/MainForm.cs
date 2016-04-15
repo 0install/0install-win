@@ -26,6 +26,7 @@ using System.Net;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -337,9 +338,25 @@ namespace ZeroInstall.Central.WinForms
             LoadCatalogAsync();
         }
 
-        private void buttonMoreApps_Click(object sender, EventArgs e)
+        private void buttonSearch_Click(object sender, EventArgs e)
         {
-            new MoreAppsDialog(_machineWide).Show(this);
+            Program.RunCommand(Search.Name);
+        }
+
+        private void buttonAddFeed_Click(object sender, EventArgs e)
+        {
+            string interfaceUri = InputBox.Show(this, Text, Resources.EnterFeedUrl);
+            if (!string.IsNullOrEmpty(interfaceUri)) Program.RunCommand(_machineWide, AddApp.Name, interfaceUri);
+        }
+
+        private void buttonAddCatalog_Click(object sender, EventArgs e)
+        {
+            Program.RunCommand(Configure.Name, "--tab=catalog");
+        }
+
+        private void buttonFeedEditor_Click(object sender, EventArgs e)
+        {
+            Program.RunCommand(Run.Name, "http://0install.de/feeds/ZeroInstall_Tools.xml");
         }
 
         private void buttonOptions_Click(object sender, EventArgs e)

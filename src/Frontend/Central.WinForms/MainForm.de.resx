@@ -165,4 +165,16 @@
   <data name="buttonSync.Text" xml:space="preserve">
     <value>&amp;Sync</value>
   </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Eine Stichwortsuche durchführen</value>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>Die URL von einem Feed eingeben (eine einzelne Anwendung)</value>
+  </data>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Die URL von einem Katalog (einer Sammlung von Feeds) eingeben</value>
+  </data>
+  <data name="buttonFeedEditor.Text" xml:space="preserve">
+    <value>Den Feed Editor verwenden um einen neuen Feed zu erstellen</value>
+  </data>
 </root>

@@ -84,12 +84,6 @@
     <Compile Include="IntroDialog.Designer.cs">
       <DependentUpon>IntroDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="MoreAppsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MoreAppsDialog.Designer.cs">
-      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="PortableCreatorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,18 +157,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.tr.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MoreAppsDialog.de.resx">
-      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MoreAppsDialog.el.resx">
-      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MoreAppsDialog.resx">
-      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MoreAppsDialog.tr.resx">
-      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PortableCreatorDialog.de.resx">
       <DependentUpon>PortableCreatorDialog.cs</DependentUpon>

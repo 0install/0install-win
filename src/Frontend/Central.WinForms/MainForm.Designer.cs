@@ -39,13 +39,16 @@
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.labelLastCatalogError = new System.Windows.Forms.Label();
-            this.buttonMoreApps = new System.Windows.Forms.Button();
+            this.buttonMoreApps = new NanoByte.Common.Controls.DropDownButton();
+            this.menuMoreApps = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonAddFeed = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonAddCatalog = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonFeedEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
-            this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             this.catalogWorker = new System.ComponentModel.BackgroundWorker();
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
@@ -61,12 +64,15 @@
             this.labelVersion = new System.Windows.Forms.ToolStripLabel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.labelNotificationBar = new System.Windows.Forms.Label();
-            this.tabControlApps.SuspendLayout();
             this.deployTimer = new System.Windows.Forms.Timer(this.components);
+            this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.menuUpdateAll.SuspendLayout();
             this.menuSync.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
+            this.menuMoreApps.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.rootTable.SuspendLayout();
@@ -145,11 +151,6 @@
             resources.ApplyResources(this.buttonSyncTroubleshoot, "buttonSyncTroubleshoot");
             this.buttonSyncTroubleshoot.Click += new System.EventHandler(this.buttonSyncTroubleshoot_Click);
             // 
-            // tileListMyApps
-            // 
-            resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
-            this.tileListMyApps.Name = "tileListMyApps";
-            // 
             // tabPageCatalog
             // 
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
@@ -176,9 +177,44 @@
             // buttonMoreApps
             // 
             resources.ApplyResources(this.buttonMoreApps, "buttonMoreApps");
+            this.buttonMoreApps.ContextMenuStrip = this.menuMoreApps;
+            this.buttonMoreApps.DropDownMenuStrip = this.menuMoreApps;
             this.buttonMoreApps.Name = "buttonMoreApps";
             this.buttonMoreApps.UseVisualStyleBackColor = true;
-            this.buttonMoreApps.Click += new System.EventHandler(this.buttonMoreApps_Click);
+            // 
+            // menuMoreApps
+            // 
+            this.menuMoreApps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonSearch,
+            this.buttonAddFeed,
+            this.buttonAddCatalog,
+            this.buttonFeedEditor});
+            this.menuMoreApps.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.menuMoreApps, "menuMoreApps");
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Name = "buttonSearch";
+            resources.ApplyResources(this.buttonSearch, "buttonSearch");
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // buttonAddFeed
+            // 
+            this.buttonAddFeed.Name = "buttonAddFeed";
+            resources.ApplyResources(this.buttonAddFeed, "buttonAddFeed");
+            this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
+            // 
+            // buttonAddCatalog
+            // 
+            this.buttonAddCatalog.Name = "buttonAddCatalog";
+            resources.ApplyResources(this.buttonAddCatalog, "buttonAddCatalog");
+            this.buttonAddCatalog.Click += new System.EventHandler(this.buttonAddCatalog_Click);
+            // 
+            // buttonFeedEditor
+            // 
+            this.buttonFeedEditor.Name = "buttonFeedEditor";
+            resources.ApplyResources(this.buttonFeedEditor, "buttonFeedEditor");
+            this.buttonFeedEditor.Click += new System.EventHandler(this.buttonFeedEditor_Click);
             // 
             // buttonRefreshCatalog
             // 
@@ -186,11 +222,6 @@
             this.buttonRefreshCatalog.Name = "buttonRefreshCatalog";
             this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
             this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
-            // 
-            // tileListCatalog
-            // 
-            resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
-            this.tileListCatalog.Name = "tileListCatalog";
             // 
             // selfUpdateWorker
             // 
@@ -250,14 +281,14 @@
             // 
             // buttonCommandLine
             // 
-            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
             this.buttonCommandLine.Name = "buttonCommandLine";
+            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
             this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
             // 
             // buttonPortableCreator
             // 
-            resources.ApplyResources(this.buttonPortableCreator, "buttonPortableCreator");
             this.buttonPortableCreator.Name = "buttonPortableCreator";
+            resources.ApplyResources(this.buttonPortableCreator, "buttonPortableCreator");
             this.buttonPortableCreator.Click += new System.EventHandler(this.buttonPortableCreator_Click);
             // 
             // buttonHelp
@@ -302,6 +333,16 @@
             this.deployTimer.Interval = 1000;
             this.deployTimer.Tick += new System.EventHandler(this.deployTimer_Tick);
             // 
+            // tileListMyApps
+            // 
+            resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
+            this.tileListMyApps.Name = "tileListMyApps";
+            // 
+            // tileListCatalog
+            // 
+            resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
+            this.tileListCatalog.Name = "tileListCatalog";
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -322,6 +363,7 @@
             this.menuSync.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
+            this.menuMoreApps.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -342,7 +384,7 @@
         private System.ComponentModel.BackgroundWorker catalogWorker;
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
-        private System.Windows.Forms.Button buttonMoreApps;
+        private NanoByte.Common.Controls.DropDownButton buttonMoreApps;
         private NanoByte.Common.Controls.DropDownButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
@@ -365,6 +407,11 @@
         private System.Windows.Forms.ToolStripMenuItem buttonCommandLine;
         private System.Windows.Forms.Timer deployTimer;
         private System.Windows.Forms.ToolStripMenuItem buttonPortableCreator;
+        private System.Windows.Forms.ContextMenuStrip menuMoreApps;
+        private System.Windows.Forms.ToolStripMenuItem buttonSearch;
+        private System.Windows.Forms.ToolStripMenuItem buttonAddFeed;
+        private System.Windows.Forms.ToolStripMenuItem buttonAddCatalog;
+        private System.Windows.Forms.ToolStripMenuItem buttonFeedEditor;
     }
 }
 

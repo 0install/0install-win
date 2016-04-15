@@ -159,4 +159,16 @@
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>Βοήθεια</value>
   </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Εκτελέστε μια αναζήτηση λέξεων-κλειδιών</value>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>Εισάγετε την διεύθυνση URL μιας τροφοδοσίας</value>
+  </data>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Εισάγετε το URL του καταλόγου (μια συλλογή από τροφοδοσίες)</value>
+  </data>
+  <data name="buttonFeedEditor.Text" xml:space="preserve">
+    <value>Χρησιμοποιήστε το πρόγραμμα επεξεργασίας τροφοδοσίας για να δημιουργήσετε μια νέα ροή</value>
+  </data>
 </root>
