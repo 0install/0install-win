@@ -131,11 +131,11 @@
   </data>
   <data name="AskSkipCapture" xml:space="preserve">
     <value>Yakalamayı geçmek istediğinize emin misiniz?
-Bunu yaparsanız uygulamaların masaüstü tümleştirmeleri (örneğin dosya ilişkilendirmeleri) akışa eklenmez.</value>
+Bunu yaparsanız uygulamaların masaüstü bütünleştirmeleri (örneğin dosya ilişkilendirmeleri) akışa eklenmez.</value>
   </data>
   <data name="AskSkipIcon" xml:space="preserve">
     <value>Simgeler olmadan devam etmek istediğinize emin misiniz?
-Bunu yaparsanız Zero Install katalogdaki uygulama simgelerini yer tutan genel bir simge üzerinden görüntüler.</value>
+Bunu yaparsanız Zero Install masaüstü bütünleştirmeleri kısayolları için katalogdaki genel bir simge olarak görüntüler.</value>
   </data>
   <data name="AskSkipSecurity" xml:space="preserve">
     <value>Ayarları tamamlamadan devam etmek istediğinize emin misiniz?
@@ -197,7 +197,7 @@ Giriş noktalarını el ile belirtmeyi deneyin.</value>
     <value>Yükleyici ile ilgili olan bir arşiv ayıklanamadı.</value>
   </data>
   <data name="InstallerNeedAltSource" xml:space="preserve">
-    <value>Uygulama için, ZIP arşivi gibi alternatif bir indirme kaynağı belirtmelisiniz. Bu durumda da yükleyici tarafından belirlenmiş masaüstü tümleştirmesi kullanılmaya devam edilecek.</value>
+    <value>Uygulama için, ZIP arşivi gibi alternatif bir indirme kaynağı belirtmelisiniz. Bu durumda da yükleyici tarafından belirlenmiş masaüstü bütünleştirmesi kullanılmaya devam edilecek.</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Geçersiz yetenek kaydı yolu: {0}</value>

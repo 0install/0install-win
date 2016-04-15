@@ -316,6 +316,6 @@
     <value>&amp;Temel ayarlar</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Uygulamayı tümleştir</value>
+    <value>Uygulamayı bütünleştir</value>
   </data>
 </root>

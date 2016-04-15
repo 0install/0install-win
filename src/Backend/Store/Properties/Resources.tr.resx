@@ -185,7 +185,7 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
     <value>&apos;{0}&apos; için arabirim yükleme ayarları hatalı. Varsayılan ayarlara geri dönün.</value>
   </data>
   <data name="ErrorLoadingTrustDB" xml:space="preserve">
-    <value>Güvenli veritabanı yüklenirken hata. Varsayılan ayarlara geri dönün.</value>
+    <value>Güvenli veritabanı yüklenirken sorun çıktı. Varsayılan ayarlara geri dönün.</value>
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Arşiv ayıklanıyor</value>
@@ -313,18 +313,18 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
     <value>Yol bağıl olmalıdır.</value>
   </data>
   <data name="ProblemAccessingStore" xml:space="preserve">
-    <value>&apos;{0}&apos; uygulama mağazasına erişilirken bir sorun oluştu.</value>
+    <value>&apos;{0}&apos; uygulama mağazasına erişilirken bir sorun çıktı.</value>
   </data>
   <data name="ProblemAccessingStoreEx" xml:space="preserve">
-    <value>&apos;{0}&apos; uygulama mağazasına erişilirken bir sorun oluştu.
+    <value>&apos;{0}&apos; uygulama mağazasına erişilirken bir sorun çıktı.
 &apos;{1}&apos; yapılandırma dosyasında belirtilmiştir.</value>
   </data>
   <data name="ProblemLoadingConfigFile" xml:space="preserve">
-    <value>Bir yapılandırma dosyasını yüklerken sorun oluştu.
-&apos;{0}&apos; dosyasını silerek sorunu giderebilirsiniz.</value>
+    <value>Bir yapılandırma dosyasını yüklerken sorun çıktı. 
+sorunu gidermek için &apos;{0}&apos; dosyasını silebilirsiniz.</value>
   </data>
   <data name="ProblemLoadingConfigValue" xml:space="preserve">
-    <value>&apos;{0}&apos; yapılandırma değeri yüklenirken bir sorun oluştu.
+    <value>&apos;{0}&apos; yapılandırma değeri yüklenirken bir sorun çıktı.
 &apos;{1}&apos; dosyasını silerek sorunu giderebilirsiniz. Diğer ayarlar da kaybolacak.</value>
   </data>
   <data name="RecipeFileNotDownloaded" xml:space="preserve">

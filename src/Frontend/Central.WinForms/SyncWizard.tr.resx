@@ -127,7 +127,7 @@
     <value>Zero Install Sync ilk kez bu bilgisayarda mı ayarlanacak?</value>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync uygulama listenizi ve Masaüstü tümleştirmelerinizi alır ve diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
+    <value>Zero Install Sync uygulama listenizi ve Masaüstü bütünleştirmelerinizi alarak diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
     <value>Windows &amp;dosya paylaşımı kullan:</value>

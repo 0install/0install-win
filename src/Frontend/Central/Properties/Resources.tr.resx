@@ -119,7 +119,7 @@
   </resheader>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>&apos;{0}&apos; uygulamasını uygulama listenizden kaldırmak istiyor musunuz?
-Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerini de kaldıracaktır.</value>
+Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü bütünleştirmelerini de kaldıracaktır.</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>İptal</value>
@@ -146,7 +146,7 @@ Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerin
     <value>&apos;{0}&apos; için çift uygulama listesi kaydı yoksayılıyor.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Yükleme tümleştirmesi</value>
+    <value>Yükleme bütünleştirmesi</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Sıradan uygulama</value>
@@ -175,7 +175,7 @@ Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerin
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>Bir uygulamayı başlat menüsü
-ya da masaüstüne ekleyerek &quot;tümleştirin&quot;.</value>
+ya da masaüstüne ekleyerek &quot;bütünleştirin&quot;.</value>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Sık kullandığınız uygulamaların listesini buradan yönetebilirsiniz.</value>
@@ -193,7 +193,7 @@ ya da masaüstüne ekleyerek &quot;tümleştirin&quot;.</value>
     <value>Makine çapında geçerli kip</value>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Tümleştirmeyi değiştir</value>
+    <value>Bütünleştirmeyi değiştir</value>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>&quot;Uygulamalarım&quot;a ekle</value>
@@ -215,10 +215,10 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
     <value>Çalıştır</value>
   </data>
   <data name="RunCommand" xml:space="preserve">
-    <value>&amp;Komut seç</value>
+    <value>... &amp;komut seçin</value>
   </data>
   <data name="RunVersion" xml:space="preserve">
-    <value>&amp;Sürüm seç</value>
+    <value>... &amp;sürüm seçin</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
@@ -278,7 +278,7 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
 Şifrelenmiş bağlantılar https:// ile başlar.</value>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>&amp;Güncelleştir</value>
+    <value>&amp;Güncelle</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Bu işlem güncelleştirme sonrasında artık gerek duyulmayan uygulamaları önbellekten siler. Devam etmek ister misiniz?

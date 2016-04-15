@@ -143,7 +143,7 @@
     <value>&apos;{0}&apos; başlatılamadı.</value>
   </data>
   <data name="FeedDownloadError" xml:space="preserve">
-    <value>&apos;{0}&apos; akışı indirilirken hata.</value>
+    <value>&apos;{0}&apos; akışı indirilirken sorun çıktı.</value>
   </data>
   <data name="FeedNotCachedOffline" xml:space="preserve">
     <value>&apos;{0}&apos; akışı önbelleğe alınmadı ve Zero Install şu anda çevrimdışı kipte çalışıyor.</value>

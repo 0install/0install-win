@@ -136,7 +136,7 @@
     <value>&apos;{0}&apos; uygulaması uygulama listesinde bulunamadı.</value>
   </data>
   <data name="IntegrationMutex" xml:space="preserve">
-    <value>Aynı anda yalnız bir masaüstü tümleştirme işlemi yürütebilirsiniz.</value>
+    <value>Aynı anda yalnız bir masaüstü bütünleştirme işlemi yürütebilirsiniz.</value>
   </data>
   <data name="NameInvalidChars" xml:space="preserve">
     <value>&apos;{0}&apos; adında geçersiz karakterler var.</value>
@@ -145,10 +145,10 @@
     <value>Lütfen Sync&apos;i ayarlamak için &apos;0install central&apos; ya da &apos;0install config&apos; kullanın.</value>
   </data>
   <data name="ProblemLoading" xml:space="preserve">
-    <value>&apos;{0}&apos; yüklenirken bir sorun oluştu.</value>
+    <value>&apos;{0}&apos; yüklenirken bir sorun çıktı.</value>
   </data>
   <data name="RepairingIntegration" xml:space="preserve">
-    <value>Masaüstü tümleştirmesi onarılıyor</value>
+    <value>Masaüstü bütünleştirmesi onarılıyor</value>
   </data>
   <data name="ShortcutNameInvalidChars" xml:space="preserve">
     <value>&apos;{0}&apos; kısayol adında geçersiz karakterler var.</value>
@@ -165,7 +165,7 @@ Sunucu tarafından kullanılan şifreleme anahtarını değiştirmek için sorun
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Sync sunucusundaki veri bozulmuş.
-Sunucudaki veriyi değiştirmek için sorun giderme yardımcısını(&quot;Sync&quot; düğmesini sağ tıklatın) ya da &apos;0install sync --reset=server&apos; komutunu kullanın.</value>
+Sunucudaki veriyi değiştirmek için sorun giderme yardımcısını (&quot;Sync&quot; düğmesine sağ tıklayın) ya da &apos;0install sync --reset=server&apos; komutunu kullanın.</value>
   </data>
   <data name="SyncUploading" xml:space="preserve">
     <value>Eşitleme verisi gönderiliyor</value>

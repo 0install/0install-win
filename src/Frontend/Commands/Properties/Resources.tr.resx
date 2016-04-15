@@ -155,9 +155,9 @@ Bu işlem sonucunda bir başlat menüsü kaydı ve &quot;0install&quot; komut sa
     <value>Zero Install yazılımını bu bilgisayardan kaldırmak istediğinize emin misiniz?</value>
   </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
-    <value>Varolan masaüstü tümleştirmelerini bu değişikliği yansıtacak şekilde güncelleştirmek ister misiniz?
-&apos;Evet&apos; seçilirse, uyumluluk sorunu olabilecek tümleştirmeler silinir.
-&apos;Hayır&apos; seçilirse, Zero Install eski yetenekleri ile çalışmayı sürdürecektir.</value>
+    <value>Varolan masaüstü bütünleştirmelerini bu değişikliği yansıtacak şekilde güncelleştirmek ister misiniz?
+&apos;Evet&apos; seçilirse, uyumluluk sorunu olabilecek bütünleştirmeler silinir.
+&apos;Hayır&apos; seçilirse, Zero Install eski yetenekleri ile çalışmayı sürdürür.</value>
   </data>
   <data name="CachedImplementations" xml:space="preserve">
     <value>Önbellekteki uygulamalar</value>
@@ -282,10 +282,10 @@ Seçilmiş sürümler uygun ve önbelleğe indirilmiş ise çıkış durumu 0 ol
 Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</value>
   </data>
   <data name="DescriptionImportApps" xml:space="preserve">
-    <value>Varolan bir app-list.xml dosyasından uygulamaların ayarlarını ve masaüstü tümleştirmelerini içe aktarır.</value>
+    <value>Varolan bir app-list.xml dosyasından uygulamaların ayarlarını ve masaüstü bütünleştirmelerini içe aktarır.</value>
   </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
-    <value>Bir uygulamayı uygulama listesine ekler (eğer eksikse) ve masaüstü ortamıyla tümleştirir.</value>
+    <value>Bir uygulamayı uygulama listesine ekler (eğer eksikse) ve masaüstü ortamıyla bütünleştirir.</value>
   </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>Yerel olarak bilinen tüm akış İnternet adreslerini listeler. Bir arama ifadesi belirtilmiş ise yalnız içinde bu dizge geçen İnternet adresleri görüntülenir (büyük küçük harfe duyarlı).</value>
@@ -297,22 +297,22 @@ Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</val
     <value>&apos;0install add-feed&apos; kullanılarak İnternet adresine eklenmiş tüm fazladan akışlar listelenir.</value>
   </data>
   <data name="DescriptionMaintenanceDeploy" xml:space="preserve">
-    <value>Programlar ve tümleştirmeler için sisteme Zero Install yazılımını belirtilen {TARGET} dizine ya da varsayılan dizine dağıtır.</value>
+    <value>Zero Install yazılımını belirtilen {TARGET} klasörüne ya da varsayılan programlar klasörüne yükler ve sistem ile bütünleştirir.</value>
   </data>
   <data name="DescriptionMaintenanceRemove" xml:space="preserve">
     <value>Zero Install yazılımının geçerli kopyasını sisteminizden kaldırır.</value>
   </data>
   <data name="DescriptionRemoveAllApps" xml:space="preserve">
-    <value>Uygulama listesinden tüm uygulamalar kaldırılır ve masaüstü ortamı tümleştirmeleri geri alınır. Zero Install kaldırma işlemine geçmeden önce sisteminizi temizlemek için bu komutu kullanın.</value>
+    <value>Uygulama listesinden tüm uygulamaları kaldırır ve masaüstü ortamı bütünleştirmelerini geri alır. Zero Install kaldırma işlemine başlamadan önce sisteminizi temizlemek için bu komutu kullanın.</value>
   </data>
   <data name="DescriptionRemoveApp" xml:space="preserve">
-    <value>Uygulama listesinden tüm uygulamalar kaldırılır ve masaüstü ortamı tümleştirmeleri geri alınır.</value>
+    <value>Uygulama listesinden tüm uygulamalar kaldırılır ve masaüstü ortamı bütünleştirmeleri geri alınır.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Bir akışın kaydı kaldırılır, &apos;0install add-feed&apos; ile etkilenenler eski durumuna geri döndürülür.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
-    <value>Uygulama listesindeki tüm uygulamaların masaüstü tümleştirmeleri yeniden uygulanır.</value>
+    <value>Uygulama listesindeki tüm uygulamaların masaüstü bütünleştirmeleri yeniden uygulanır.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
     <value>&apos;0install download&apos; ile benzer şekilde davranır. Yalnızca yazılımın önbellekte olduğundan emin olunduktan sonra çalıştırılır.
@@ -385,7 +385,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>Uygulama listesindeki tüm uygulamaları güncelleştirir.</value>
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
-    <value>Masaüstü tümleştirmesi</value>
+    <value>Masaüstü bütünleştirmesi</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Tamamlandı</value>
@@ -449,16 +449,16 @@ Akış uyumluluğu için bir &lt;feed-for&gt; kodu bulunmalıdır.</value>
     <value>Zero Install Mağaza Hizmeti başlatılıyor...</value>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>{0} tümleştirmesi</value>
+    <value>{0} ile bütünleştir</value>
   </data>
   <data name="IntegrateAppInvalid" xml:space="preserve">
-    <value>Masaüstü tümleştirme seçenekleriniz uygulanabilir değil.</value>
+    <value>Masaüstü bütünleştirme seçenekleriniz uygulanamadı.</value>
   </data>
   <data name="IntegrateAppRetry" xml:space="preserve">
     <value>Seçeneklerinizi değiştirmek ve yeniden denemek ister misiniz?</value>
   </data>
   <data name="IntegrateAppUseGui" xml:space="preserve">
-    <value>Lütfen Zero Install görsel arabirimini ya da komut satırı değişkenlerini kullanarak tümleştirme seçeneklerinizi açık olarak belirtin.</value>
+    <value>Lütfen Zero Install görsel arayüzünü ya da komut satırı değişkenlerini kullanarak bütünleştirme seçeneklerinizi açık olarak belirtin.</value>
   </data>
   <data name="InvalidArgument" xml:space="preserve">
     <value>Geçersiz değişken &apos;{0}&apos;.</value>
@@ -496,16 +496,16 @@ Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalış
     <value>API çengellemesi önbelleklenmemiş uygulama nedeniyle olanaksız.</value>
   </data>
   <data name="NoIntegrationFromCache" xml:space="preserve">
-    <value>Masaüstü tümleştirmesinin çalışabilmesi için Zero Install yazılımının yüklenmesi gerekir.</value>
+    <value>Masaüstü bütünleştirmesinin çalışabilmesi için Zero Install yazılımının yüklenmesi gerekir.</value>
   </data>
   <data name="NoIntegrationFromPortable" xml:space="preserve">
-    <value>Zero Install taşınabilir kipte çalışıyor. Masaüstü tümleştirmesinin çalışabilmesi için kalıcı bir konuma yüklenmiş olması gerekir. Bu yükleme taşınabilir kopyanızdan tamamen bağımsızdır.</value>
+    <value>Zero Install taşınabilir kipte çalışıyor. Masaüstü bütünleştirmesinin çalışabilmesi için kalıcı bir konuma yüklenmiş olması gerekir. Bu yükleme taşınabilir kopyanızdan tamamen bağımsızdır.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Artık kullanılmıyor:</value>
   </data>
   <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
-    <value>Zero Install kullanıcı tanımlı bir dizinden başlatılmış. Makine çapında tümleştirmenin çalışması için tüm kullanıcılar tarafından erişilebilen bir dizine dağıtılması gerekir.</value>
+    <value>Zero Install kullanıcıya özel bir klasörde çalışıyor. Masaüstü bütünleştirmesinin bilgisayar genelinde kullanılabilmesi için, tüm kullanıcılar tarafından erişilebilen bir klasörde yüklü olmalıdır.</value>
   </data>
   <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>Görsel ilke düzenleyicisi komut satırı kipinde kullanılamıyor.</value>
@@ -667,9 +667,9 @@ Bir aralık yerine tek bir sürüm rakamı kullanılarak, belirli bir sürüm is
 Bununla birlikte, yeni indirmeler bu dizine yazılmaz.</value>
   </data>
   <data name="OptionWrapper" xml:space="preserve">
-    <value>Seçilmiş yazılımı doğrudan çalıştırmak yerine, {COMMAND} PROGRAM ARGS komut yazılım değişkenler şeklinde çalışır. Bu seçenek yazılım üzerinde hata ayıklama ve izleme araçları kullanmak için kullanışlıdır (Zero Install yerine).
-Sarıcının yazılım tarafından seçilen ortamda yürütüleceğinden, bu mekanizma kum havuzu yalıtım uygulaması için kullanılamaz.
-Komut satırı değişkenleri bulunabilir. Boşluklardan kaçınılmalıdır.</value>
+    <value>Seçilmiş yazılımı doğrudan çalıştırmak yerine, {COMMAND} PROGRAM ARGS komut yazılım değişkenler şeklinde çalıştırın. Bu seçenek yazılım üzerinde hata ayıklama ve izleme araçları kullanmak için yararlıdır (Zero Install yerine).
+Sarıcı yazılım tarafından seçilen ortamda yürütüleceğinden, bu mekanizma kum havuzu yalıtımı uygulaması için kullanılamaz.
+Komut satırı değişkenleri eklenebilir. Boşluklardan kaçınılmalıdır.</value>
   </data>
   <data name="OptionXml" xml:space="preserve">
     <value>Seçilmiş sürümleri makine tarafından okunabilen bir XML dosyasına yazın.</value>
