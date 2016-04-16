@@ -135,9 +135,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="localPath">The local path of the file.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
-        public static void Apply([NotNull] this SingleFile step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
+        public static void Apply([NotNull] this SingleFile step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
