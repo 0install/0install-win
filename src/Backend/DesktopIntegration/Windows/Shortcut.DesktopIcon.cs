@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store;
@@ -70,8 +71,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             CheckName(name);
 
-            const Environment.SpecialFolder commonDesktopDirectory = (Environment.SpecialFolder)0x0019;
-            string desktopDir = Environment.GetFolderPath(machineWide ? commonDesktopDirectory : Environment.SpecialFolder.DesktopDirectory);
+            string desktopDir = machineWide
+                ? RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Desktop")
+                : Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             return Path.Combine(desktopDir, name + ".lnk");
         }
     }

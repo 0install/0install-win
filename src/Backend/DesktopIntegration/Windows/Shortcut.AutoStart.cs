@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store;
@@ -62,8 +63,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             CheckName(name);
 
-            const Environment.SpecialFolder commonStartup = (Environment.SpecialFolder)0x0018;
-            string startupDir = Environment.GetFolderPath(machineWide ? commonStartup : Environment.SpecialFolder.Startup);
+            string startupDir = machineWide
+                ? RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Startup")
+                : Environment.GetFolderPath(Environment.SpecialFolder.Startup);
             return Path.Combine(startupDir, name + ".lnk");
         }
     }
