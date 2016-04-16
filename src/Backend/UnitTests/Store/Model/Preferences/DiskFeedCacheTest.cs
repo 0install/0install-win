@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Model.Preferences
             var feed = FeedTest.CreateTestFeed();
             feed.Uri = FeedTest.Test3Uri;
 
-            _cache.Add(feed.Uri, feed.ToArray());
+            _cache.Add(feed.Uri, ToArray(feed));
 
             _cache.GetFeed(feed.Uri)
                 .Should().Be(feed);
@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Model.Preferences
             var feed = FeedTest.CreateTestFeed();
             feed.Uri = new FeedUri("http://0install.de/feeds/test-" + longHttpUrlBuilder);
 
-            _cache.Add(feed.Uri, feed.ToArray());
+            _cache.Add(feed.Uri, ToArray(feed));
 
             feed.Normalize(feed.Uri);
             _cache.GetFeed(feed.Uri).Should().Be(feed);
@@ -166,6 +166,15 @@ namespace ZeroInstall.Store.Model.Preferences
             _cache.Contains(feed.Uri).Should().BeTrue();
             _cache.Remove(feed.Uri);
             _cache.Contains(feed.Uri).Should().BeFalse();
+        }
+
+        private static byte[] ToArray(Feed feed)
+        {
+            using (var stream = new MemoryStream())
+            {
+                feed.SaveXml(stream);
+                return stream.ToArray();
+            }
         }
     }
 }

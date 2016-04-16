@@ -23,7 +23,7 @@ using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.CliCommands

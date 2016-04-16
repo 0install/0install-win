@@ -20,19 +20,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using NanoByte.Common.Tasks;
-using ZeroInstall.Store.Implementations;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides utility methods for managing <see cref="Store.Model.Implementation"/>s.
+    /// Contains extension methods for <see cref="Feed"/>s.
     /// </summary>
-    public static class ImplementationUtils
+    public static class FeedExtensions
     {
         /// <summary>
-        /// Tries to find an <see cref="Store.Model.Implementation"/> with a specific <see cref="ManifestDigest"/> in a list of <see cref="Feed"/>s.
+        /// Tries to find an <see cref="Implementation"/> with a specific <see cref="ManifestDigest"/> in a list of <see cref="Feed"/>s.
         /// </summary>
         /// <param name="feeds">The list of <see cref="Feed"/>s to search in.</param>
         /// <param name="digest">The digest to search for.</param>
@@ -57,25 +56,6 @@ namespace ZeroInstall.Store
 
             feed = null;
             return null;
-        }
-
-        /// <summary>
-        /// Removes all implementations from a store.
-        /// </summary>
-        /// <param name="store">The store to be purged.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="IOException">An implementation could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
-        public static void Purge([NotNull] this IStore store, [NotNull] ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            foreach (var manifestDigest in store.ListAll())
-                store.Remove(manifestDigest, handler);
         }
     }
 }

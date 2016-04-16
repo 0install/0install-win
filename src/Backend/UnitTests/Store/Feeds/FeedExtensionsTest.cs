@@ -19,16 +19,16 @@ using FluentAssertions;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Store.Management
+namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
     /// Contains test methods for <see cref="ImplementationUtils"/>.
     /// </summary>
     [TestFixture]
-    public class ImplementationUtilsTest
+    public class FeedExtensionsTest
     {
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.GetImplementation"/> correctly locates <see cref="Implementation"/> in a list of <see cref="Feed"/>s.
+        /// Ensures <see cref="Feeds.FeedExtensions.GetImplementation"/> correctly locates <see cref="Implementation"/> in a list of <see cref="Feed"/>s.
         /// </summary>
         [Test]
         public void TestGetImplementation()
