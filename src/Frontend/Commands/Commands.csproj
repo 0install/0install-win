@@ -78,6 +78,7 @@
     <Compile Include="CliCommands\DefaultCommand.cs" />
     <Compile Include="CliCommands\Digest.cs" />
     <Compile Include="CliCommands\Download.cs" />
+    <Compile Include="CliCommands\Export.cs" />
     <Compile Include="CliCommands\Fetch.cs" />
     <Compile Include="CliCommands\Import.cs" />
     <Compile Include="CliCommands\ImportApps.cs" />

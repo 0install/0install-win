@@ -132,6 +132,10 @@
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Alle benötigten Komponenten wurden runtergeladen.</value>
   </data>
+  <data name="AllComponentsExported" xml:space="preserve">
+    <value>Alle benötigten Komponenten wurden exportiert.
+Sie können '0install import' und '0install store add' verwenden, um die Dateien auf einem anderen Rechner zu importieren.</value>
+  </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
     <value>'{0}' ist bereits in der Liste der benutzerdefinierten Implementierungscaches.</value>
   </data>
@@ -277,6 +281,9 @@ Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit eine
     <value>Verhält sich ähnlich zu '0install select', außer dass er die ausgewählten Versionen auch runterlädt, falls sie sich nicht bereits im Cache befinden.
 Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefunden wurde und sie nun alle heruntergeladen sind und sich im Cache befinden; gibt ansonsten einen Exit Status von 1 zurück.</value>
   </data>
+  <data name="DescriptionExport" xml:space="preserve">
+    <value>Exportiert alle Feeds und Implementierung, die benötigt werden, um das durch eine URI identifizierte Programm zu starten, nach DIRECTORY.</value>
+  </data>
   <data name="DescriptionImport" xml:space="preserve">
     <value>Importiert einen Feed aus einer lokalen Datei, als wäre aus einem Netzwerk heruntergeladen worden. Dies ist praktisch um einen Feed zu testen, der nicht extra auf einem entfernten Server hochgeladen werden muss, nur um ihn wieder herunterzuladen.
 Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie beim Abrufen aus dem Netzwerk.</value>
@@ -410,6 +417,9 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   </data>
   <data name="ExistingInstance" xml:space="preserve">
     <value>Eine bestehende Kopie von Zero Install wurde in '{0}' entdeckt.</value>
+  </data>
+  <data name="ExportComplete" xml:space="preserve">
+    <value>Export abgeschlossen.</value>
   </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>Der Feed war bereits für alle passenden Interfaces registriert.</value>
@@ -618,6 +628,9 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
   </data>
   <data name="OptionNoDownload" xml:space="preserve">
     <value>Lade die Anwendung selbst noch nicht herunter. Wird stattdessen bei der ersten Verwendung automatisch heruntergeladen.</value>
+  </data>
+  <data name="OptionNoImplementations" xml:space="preserve">
+    <value>Keine Implementierungsarchive exportieren. Nur Feeds exportieren.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>

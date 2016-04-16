@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="Commands\CliCommands\CliCommandTest.cs" />
     <Compile Include="Commands\CliCommands\DownloadTest.cs" />
+    <Compile Include="Commands\CliCommands\ExportTest.cs" />
     <Compile Include="Commands\CliCommands\ListTest.cs" />
     <Compile Include="Commands\CliCommands\RunTest.cs" />
     <Compile Include="Commands\CliCommands\SelectionTest.cs" />

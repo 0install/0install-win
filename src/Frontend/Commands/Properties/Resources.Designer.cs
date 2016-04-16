@@ -106,6 +106,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All required components have been exported. You can use &apos;0install import&apos; and &apos;0install store add&apos; to import the files on another computer..
+        /// </summary>
+        public static string AllComponentsExported {
+            get {
+                return ResourceManager.GetString("AllComponentsExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is already in the list of custom implementation caches..
         /// </summary>
         public static string AlreadyInImplDirs {
@@ -521,6 +530,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exports all feeds and implementations required to launch the program specified by a URI to a DIRECTORY..
+        /// </summary>
+        public static string DescriptionExport {
+            get {
+                return ResourceManager.GetString("DescriptionExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Imports a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again.
         ///The file must have a trusted digital signature, as when fetching from the network..
         /// </summary>
@@ -903,6 +921,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string ExistingInstance {
             get {
                 return ResourceManager.GetString("ExistingInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export complete..
+        /// </summary>
+        public static string ExportComplete {
+            get {
+                return ResourceManager.GetString("ExportComplete", resourceCulture);
             }
         }
         
@@ -1513,6 +1540,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string OptionNoDownload {
             get {
                 return ResourceManager.GetString("OptionNoDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not include implementation archives in the export. Only export feeds..
+        /// </summary>
+        public static string OptionNoImplementations {
+            get {
+                return ResourceManager.GetString("OptionNoImplementations", resourceCulture);
             }
         }
         

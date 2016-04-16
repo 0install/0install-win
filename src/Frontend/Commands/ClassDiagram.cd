@@ -11,7 +11,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliCommands.Update">
-    <Position X="2.75" Y="15.75" Width="2" />
+    <Position X="3.75" Y="15.75" Width="2.25" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
@@ -68,7 +68,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliCommands.Run">
-    <Position X="5" Y="15.75" Width="2" />
+    <Position X="6.25" Y="15.75" Width="2" />
     <Members>
       <Method Name="Run" Hidden="true" />
     </Members>
@@ -205,7 +205,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.CliCommands.SelfUpdate">
-    <Position X="5" Y="19.75" Width="2" />
+    <Position X="6.25" Y="19.75" Width="2" />
     <Members>
       <Method Name="SelfUpdate" Hidden="true" />
     </Members>
@@ -449,15 +449,32 @@
           <NewMemberFileName>CliCommands\MaintenanceMan.Deploy.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan.RemoveSubCommandBase" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\MaintenanceMan.Remove.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
       <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan.Remove" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CliCommands\MaintenanceMan.Remove.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ZeroInstall.Commands.CliCommands.MaintenanceMan.RemoveHelper" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>CliCommands\MaintenanceMan.Remove.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAQAAAAAAAAAAAAAAABACAA=</HashCode>
       <FileName>CliCommands\MaintenanceMan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.CliCommands.Export">
+    <Position X="1.5" Y="15.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CliCommands\Export.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

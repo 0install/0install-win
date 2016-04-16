@@ -132,6 +132,9 @@
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>All required components have been downloaded.</value>
   </data>
+  <data name="AllComponentsExported" xml:space="preserve">
+    <value>All required components have been exported. You can use '0install import' and '0install store add' to import the files on another computer.</value>
+  </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
     <value>'{0}' is already in the list of custom implementation caches.</value>
   </data>
@@ -277,6 +280,9 @@ With no arguments, it displays all settings and their current values. With one a
     <value>Behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached.
 Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
   </data>
+  <data name="DescriptionExport" xml:space="preserve">
+    <value>Exports all feeds and implementations required to launch the program specified by a URI to a DIRECTORY.</value>
+  </data>
   <data name="DescriptionImport" xml:space="preserve">
     <value>Imports a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again.
 The file must have a trusted digital signature, as when fetching from the network.</value>
@@ -410,6 +416,9 @@ This is similar to '0install download --refresh', except that it prints informat
   </data>
   <data name="ExistingInstance" xml:space="preserve">
     <value>An existing copy of Zero Install was detected in '{0}'.</value>
+  </data>
+  <data name="ExportComplete" xml:space="preserve">
+    <value>Export complete.</value>
   </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>The feed was already registered for all appropriate interfaces.</value>
@@ -618,6 +627,9 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
   </data>
   <data name="OptionNoDownload" xml:space="preserve">
     <value>Do not download the application itself yet. Will be automatically downloaded on first use instead.</value>
+  </data>
+  <data name="OptionNoImplementations" xml:space="preserve">
+    <value>Do not include implementation archives in the export. Only export feeds.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
