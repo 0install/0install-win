@@ -15,13 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
-using ZeroInstall.Services.Fetchers;
-using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -33,41 +29,27 @@ namespace ZeroInstall.Commands.CliCommands
     [TestFixture]
     public class DownloadTest : SelectionTestBase<Download>
     {
-        private Mock<IFetcher> FetcherMock { get { return GetMock<IFetcher>(); } }
-        private Mock<ISelectionsManager> SelectionsManagerMock { get { return GetMock<ISelectionsManager>(); } }
-
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
-        public override void TestNormal()
+        public void TestNormal()
         {
-            var testImplementation1 = new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
-            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")};
+            var selections = ExpectSolve();
 
-            var requirements = RequirementsTest.CreateTestRequirements();
-            var selections = SelectionsTest.CreateTestSelections();
-
-            GetMock<ISolver>().Setup(x => x.Solve(requirements)).Returns(selections);
-
-            // Download uncached implementations
-            SelectionsManagerMock.Setup(x => x.GetUncachedSelections(selections)).Returns(selections.Implementations);
-            SelectionsManagerMock.Setup(x => x.GetImplementations(selections.Implementations)).Returns(new[] {testImplementation1, testImplementation2});
-            FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
+            ExpectFetchUncached(selections,
+                new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")},
+                new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")});
 
             RunAndAssert(Resources.AllComponentsDownloaded, 0, selections,
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
-        public override void TestImportSelections()
+        public void TestImportSelections()
         {
-            var testImplementation1 = new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
-            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")};
-
             var selections = SelectionsTest.CreateTestSelections();
 
-            // Download uncached implementations
-            SelectionsManagerMock.Setup(x => x.GetUncachedSelections(selections)).Returns(selections.Implementations);
-            SelectionsManagerMock.Setup(x => x.GetImplementations(selections.Implementations)).Returns(new[] {testImplementation1, testImplementation2});
-            FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
+            ExpectFetchUncached(selections,
+                new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")},
+                new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")});
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {

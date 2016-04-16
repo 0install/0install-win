@@ -20,8 +20,6 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Services;
-using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -36,7 +34,7 @@ namespace ZeroInstall.Commands.CliCommands
     public class UpdateTest : SelectionTestBase<Update>
     {
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
-        public override void TestNormal()
+        public void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
             var selectionsOld = SelectionsTest.CreateTestSelections();
@@ -44,16 +42,15 @@ namespace ZeroInstall.Commands.CliCommands
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceUri = FeedTest.Sub3Uri, ID = "id3", Version = new ImplementationVersion("0.1")});
 
-            GetMock<ISolver>().SetupSequence(x => x.Solve(requirements)).Returns(selectionsOld).Returns(selectionsNew);
-
-            var impl1 = new Implementation {ID = "id1"};
-            var impl2 = new Implementation {ID = "id2"};
-            var impl3 = new Implementation {ID = "id3"};
+            GetMock<ISolver>().SetupSequence(x => x.Solve(requirements))
+                .Returns(selectionsOld)
+                .Returns(selectionsNew);
 
             // Download uncached implementations
-            GetMock<ISelectionsManager>().Setup(x => x.GetUncachedSelections(selectionsNew)).Returns(selectionsNew.Implementations);
-            GetMock<ISelectionsManager>().Setup(x => x.GetImplementations(selectionsNew.Implementations)).Returns(new[] {impl1, impl2, impl3});
-            GetMock<IFetcher>().Setup(x => x.Fetch(new[] {impl1, impl2, impl3}.IsEquivalent()));
+            ExpectFetchUncached(selectionsNew,
+                new Implementation {ID = "id1"},
+                new Implementation {ID = "id2"},
+                new Implementation {ID = "id3"});
 
             // Check for <replaced-by>
             GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(FeedTest.CreateTestFeed());
@@ -63,7 +60,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         [Test(Description = "Ensures local Selections XMLs are rejected.")]
-        public override void TestImportSelections()
+        public void TestRejectImportSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

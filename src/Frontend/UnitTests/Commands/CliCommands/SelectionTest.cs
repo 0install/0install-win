@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using NanoByte.Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -24,5 +26,28 @@ namespace ZeroInstall.Commands.CliCommands
     /// </summary>
     [TestFixture]
     public class SelectionTest : SelectionTestBase<Selection>
-    {}
+    {
+        [Test(Description = "Ensures all options are parsed and handled correctly.")]
+        public virtual void TestNormal()
+        {
+            var selections = ExpectSolve();
+
+            RunAndAssert(selections.ToXmlString(), 0, selections,
+                "--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
+        }
+
+        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        public virtual void TestImportSelections()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                selections.SaveXml(tempFile);
+
+                selections.Normalize();
+                RunAndAssert(selections.ToXmlString(), 0, selections,
+                    "--xml", tempFile);
+            }
+        }
+    }
 }
