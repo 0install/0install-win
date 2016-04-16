@@ -33,18 +33,6 @@ namespace ZeroInstall.Publish
     [TestFixture]
     public class FeedUtilsTest : TestWithMocks
     {
-        private static readonly OpenPgpSecretKey _secretKey = new OpenPgpSecretKey(keyID: 123, fingerprint: new byte[] {1, 2, 3}, userID: "user");
-
-        private Mock<IOpenPgp> _openPgpMock;
-
-        [SetUp]
-        public override void SetUp()
-        {
-            base.SetUp();
-
-            _openPgpMock = CreateMock<IOpenPgp>();
-        }
-
         /// <summary>
         /// Ensures <see cref="FeedUtils.SignFeed"/> produces valid feed files.
         /// </summary>
@@ -56,34 +44,18 @@ namespace ZeroInstall.Publish
                 var feed = FeedTest.CreateTestFeed();
                 const string passphrase = "passphrase123";
                 var signature = new byte[] {1, 2, 3};
+                var secretKey = new OpenPgpSecretKey(keyID: 123, fingerprint: new byte[] {1, 2, 3}, userID: "user");
 
-                _openPgpMock.Setup(x => x.Sign(It.IsAny<byte[]>(), _secretKey, passphrase))
+                var openPgpMock = CreateMock<IOpenPgp>();
+                openPgpMock.Setup(x => x.Sign(It.IsAny<byte[]>(), secretKey, passphrase))
                     .Returns(signature);
                 feed.SaveXml(stream);
-                FeedUtils.SignFeed(stream, _secretKey, passphrase, _openPgpMock.Object);
+                FeedUtils.SignFeed(stream, secretKey, passphrase, openPgpMock.Object);
 
                 string signedFeed = stream.ReadToString();
                 string expectedFeed = feed.ToXmlString() + Store.Feeds.FeedUtils.SignatureBlockStart +
                                       Convert.ToBase64String(signature) + "\n" + Store.Feeds.FeedUtils.SignatureBlockEnd;
                 signedFeed.Should().Be(expectedFeed, because: "Feed should remain unchanged except for appended XML signatre");
-            }
-        }
-
-        /// <summary>
-        /// Ensures <see cref="FeedUtils.DeployPublicKey"/> produces key files properly.
-        /// </summary>
-        [Test]
-        public void TestDeployPublicKey()
-        {
-            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-            {
-                const string publicKey = "public";
-
-                _openPgpMock.Setup(x => x.ExportKey(_secretKey)).Returns(publicKey);
-                FeedUtils.DeployPublicKey(tempDir.Path, _secretKey, _openPgpMock.Object);
-
-                File.ReadAllText(tempDir + Path.DirectorySeparatorChar + _secretKey.FormatKeyID() + ".gpg")
-                    .Should().Be(publicKey, because: "Public key should be written to parallel file in directory");
             }
         }
     }

@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.IO;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Trust
@@ -97,6 +99,29 @@ namespace ZeroInstall.Store.Trust
                 int i2 = (fingerprint[fingerprint.Length - 4] << 24) | (fingerprint[fingerprint.Length - 3] << 16) | (fingerprint[fingerprint.Length - 2] << 8) | fingerprint[fingerprint.Length - 1];
                 return ((long)i1 << 32) | (uint)i2;
             }
+        }
+
+        /// <summary>
+        /// Exports an OpenPGP public key to a key file.
+        /// </summary>
+        /// <param name="openPgp">The OpenPGP-compatible system used to manage keys.</param>
+        /// <param name="keyID">The key ID to get the public key for.</param>
+        /// <param name="path">The directory to write the key file to.</param>
+        /// <exception cref="UnauthorizedAccessException">The file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
+        /// <exception cref="IOException">The specified <paramref name="keyID"/> could not be found on the system.</exception>
+        public static void DeployPublicKey([NotNull] this IOpenPgp openPgp, [NotNull] IKeyIDContainer keyID, [NotNull] string path)
+        {
+            #region Sanity checks
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (keyID == null) throw new ArgumentNullException("keyID");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            File.WriteAllText(
+                path: Path.Combine(path, keyID.FormatKeyID() + ".gpg"),
+                contents: openPgp.ExportKey(keyID),
+                encoding: Encoding.ASCII);
         }
     }
 }

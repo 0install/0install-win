@@ -112,7 +112,7 @@ namespace ZeroInstall.Publish
             string directory = Path.GetDirectoryName(path);
             if (directory != null)
             {
-                FeedUtils.DeployPublicKey(directory, SecretKey, openPgp);
+                openPgp.DeployPublicKey(SecretKey, directory);
                 FeedUtils.DeployStylesheet(directory, @"feed");
             }
         }

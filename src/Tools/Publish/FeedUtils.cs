@@ -90,29 +90,6 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Exports an OpenPGP public key to a key file.
-        /// </summary>
-        /// <param name="path">The directory to write the key file to.</param>
-        /// <param name="secretKey">The secret key to get the public kyey for.</param>
-        /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
-        /// <exception cref="IOException">The file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
-        /// <exception cref="KeyNotFoundException">The specified <paramref name="secretKey"/> could not be found on the system.</exception>
-        public static void DeployPublicKey([NotNull] string path, [NotNull] OpenPgpSecretKey secretKey, [NotNull] IOpenPgp openPgp)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (secretKey == null) throw new ArgumentNullException("secretKey");
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
-            #endregion
-
-            File.WriteAllText(
-                path: Path.Combine(path, secretKey.FormatKeyID() + ".gpg"),
-                contents: openPgp.ExportKey(secretKey),
-                encoding: Encoding.ASCII);
-        }
-
-        /// <summary>
         /// Determines the key used to sign a feed or catalog file. Only uses the first signature if more than one is present.
         /// </summary>
         /// <param name="path">The feed or catalog file to check for signatures.</param>
