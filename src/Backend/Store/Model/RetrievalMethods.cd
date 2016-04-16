@@ -11,8 +11,8 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAQEkAAAAAAAEAACAIAEAAAABAAAARA=</HashCode>
-      <FileName>Archive.cs</FileName>
+      <HashCode>AAAAAAAAAgAIwAQEkAgAAAAAEBACAIwEAAgBBAACARE=</HashCode>
+      <FileName>Model\Archive.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -23,7 +23,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAkAACAAAAAQAAAIAAAAABAAAAABA=</HashCode>
-      <FileName>Implementation.cs</FileName>
+      <FileName>Model\Implementation.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="RetrievalMethods" />
@@ -41,7 +41,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAABIAAAAAAAAAAEkAAAIAAAAAAAIIAAAAAAAAAAABA=</HashCode>
-      <FileName>Recipe.cs</FileName>
+      <FileName>Model\Recipe.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Steps" />
@@ -56,7 +56,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIEAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>RetrievalMethod.cs</FileName>
+      <FileName>Model\RetrievalMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -70,8 +70,8 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIEkAAAAAAAEAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>RemoveStep.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAIMkAAAAAAAEAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RemoveStep.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -85,8 +85,8 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAEkAAAAAAAEAAAAIAEAAAAAAAAAAA=</HashCode>
-      <FileName>RenameStep.cs</FileName>
+      <HashCode>AAAAAAAAAgAAAAAMkAAAAAAAEAAAAIAEAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RenameStep.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -94,15 +94,15 @@
     <Position X="6" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEgAAAAAIAEAAAAIAEAAAAAAAAABA=</HashCode>
-      <FileName>SingleFile.cs</FileName>
+      <FileName>Model\SingleFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Store.Model.DownloadRetrievalMethod" Collapsed="true">
-    <Position X="5" Y="4.75" Width="1.5" />
+    <Position X="4.75" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAgAIAAAAAUAACAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>DownloadRetrievalMethod.cs</FileName>
+      <HashCode>AAAAAAAAAAAAgAAAkAAAAAAAEAACAIBAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DownloadRetrievalMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -113,7 +113,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IRecipeStep.cs</FileName>
+      <FileName>Model\IRecipeStep.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

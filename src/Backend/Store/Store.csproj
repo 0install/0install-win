@@ -305,6 +305,8 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <None Include="Implementations\Archives\ClassDiagram.cd" />
+    <None Include="Implementations\Archives\ArchiveExtractor.cd" />
+    <None Include="Implementations\Archives\ArchiveGenerator.cd" />
     <None Include="Implementations\Manifest.cd" />
     <None Include="Implementations\Store.cd" />
     <None Include="Model\Binding.cd" />
