@@ -108,6 +108,7 @@
     <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
     <Compile Include="Services\Solvers\TestCaseSet.cs" />
     <Compile Include="Store\ConfigTest.cs" />
+    <Compile Include="Store\ExporterTest.cs" />
     <Compile Include="Store\Feeds\FeedCacheExtentsionsTest.cs" />
     <Compile Include="Store\Feeds\FeedExtensionsTest.cs" />
     <Compile Include="Store\FeedUriTest.cs" />

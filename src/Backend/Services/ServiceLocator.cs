@@ -176,6 +176,14 @@ namespace ZeroInstall.Services
         [NotNull]
         public ISelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedManager, Store, PackageManager)); } set { _selectionsManager = value; } }
 
+        private IExporter _exporter;
+
+        /// <summary>
+        /// Exports feeds and implementations.
+        /// </summary>
+        [NotNull]
+        public IExporter Exporter { get { return Get(ref _exporter, () => _exporter = new Exporter(FeedCache, OpenPgp, Store)); } set { _exporter = value; } }
+
         private static T Get<T>(ref T value, Func<T> build) where T : class
         {
             if (value == null)
