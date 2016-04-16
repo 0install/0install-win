@@ -24,11 +24,15 @@ using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -51,6 +55,9 @@ namespace ZeroInstall.Bootstrap
         /// <summary>A specific version of Zero Install to download.</summary>
         [CanBeNull]
         private VersionRange _version;
+
+        /// <summary>A directory to search for feeds and archives to import.</summary>
+        private string _importDir = Path.Combine(Locations.InstallBase, "bundled");
 
         /// <summary>Arguments passed through to the target process.</summary>
         [NotNull]
@@ -145,6 +152,13 @@ namespace ZeroInstall.Bootstrap
                     }
                 },
                 {
+                    "import=", () => "Specifies a {DIRECTORY} to search for feeds and archives to import. The default is a directory next to the bootstrapper called 'bundled'.", path =>
+                    {
+                        if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format("Directory '{0}' not found.", path));
+                        _importDir = path;
+                    }
+                },
+                {
                     "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
                 },
                 {
@@ -204,9 +218,68 @@ namespace ZeroInstall.Bootstrap
                 }
             }
 
+            if (Directory.Exists(_importDir))
+            {
+                ImportFeeds();
+                ImportArchives();
+            }
+
             var startInfo = GetStartInfo();
             Handler.Dispose();
             return (ExitCode)startInfo.Run();
+        }
+
+        /// <summary>
+        /// Imports bundled feeds and GnuPG keys.
+        /// </summary>
+        private void ImportFeeds()
+        {
+            if (!Directory.Exists(_importDir)) return;
+
+            foreach (string path in Directory.GetFiles(_importDir, "*.xml"))
+            {
+                try
+                {
+                    FeedManager.ImportFeed(path);
+                }
+                    #region Error handling
+                catch (ReplayAttackException)
+                {
+                    Log.Info("Ignored feed because a newer version is already in cache");
+                }
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Imports implementation archives into the <see cref="IStore"/>.
+        /// </summary>
+        private void ImportArchives()
+        {
+            foreach (string path in Directory.GetFiles(_importDir))
+            {
+                Debug.Assert(path != null);
+                var digest = new ManifestDigest();
+                digest.ParseID(Path.GetFileNameWithoutExtension(path));
+                if (digest.Best != null && !Store.Contains(digest))
+                {
+                    try
+                    {
+                        Store.AddArchives(new[]
+                        {
+                            new ArchiveFileInfo
+                            {
+                                Path = path,
+                                MimeType = Archive.GuessMimeType(path)
+                            }
+                        }, digest, Handler);
+                    }
+                        #region Error handling
+                    catch (ImplementationAlreadyInStoreException)
+                    {}
+                    #endregion
+                }
+            }
         }
 
         /// <summary>
