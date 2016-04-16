@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts an archive.
     /// </summary>
-    public abstract class Extractor : TaskBase, IDisposable
+    public abstract class ArchiveExtractor : TaskBase, IDisposable
     {
         /// <inheritdoc/>
         public override string Name { get { return Resources.ExtractingArchive; } }
@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
         /// <param name="target">The path to the directory to extract into.</param>
-        protected Extractor([NotNull] string target)
+        protected ArchiveExtractor([NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Verifies that a archives of a specific MIME type are supported.
         /// </summary>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
-        /// <returns>The newly created <see cref="Extractor"/>.</returns>
+        /// <returns>The newly created <see cref="ArchiveExtractor"/>.</returns>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         public static void VerifySupport([NotNull] string mimeType)
         {
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Creates a new <see cref="Extractor"/> for extracting from an archive stream.
+        /// Creates a new <see cref="ArchiveExtractor"/> for extracting from an archive stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
@@ -132,14 +132,14 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <exception cref="IOException">Failed to read the archive file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the archive file was denied.</exception>
         [NotNull]
-        public static Extractor Create([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
+        public static ArchiveExtractor Create([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            Extractor extractor;
+            ArchiveExtractor extractor;
             switch (mimeType)
             {
                 case Archive.MimeTypeZip:
@@ -179,17 +179,17 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Creates a new <see cref="Extractor"/> for extracting from an archive file.
+        /// Creates a new <see cref="ArchiveExtractor"/> for extracting from an archive file.
         /// </summary>
         /// <param name="path">The path of the archive file to be extracted.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <param name="mimeType">The MIME type of archive format of the stream. Leave <c>null</c> to guess based on file name.</param>
         /// <param name="startOffset"></param>
-        /// <returns>The newly created <see cref="Extractor"/>.</returns>
+        /// <returns>The newly created <see cref="ArchiveExtractor"/>.</returns>
         /// <exception cref="IOException">The archive is damaged.</exception>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         [NotNull]
-        public static Extractor Create([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
+        public static ArchiveExtractor Create([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
         {
             if (string.IsNullOrEmpty(mimeType)) mimeType = Archive.GuessMimeType(path);
 
@@ -214,13 +214,13 @@ namespace ZeroInstall.Store.Implementations.Archives
         // This avoids "assembly not found" errors if the methods are never actually called.
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static Extractor NewCabExtractor(Stream stream, string target)
+        private static ArchiveExtractor NewCabExtractor(Stream stream, string target)
         {
             return new CabExtractor(stream, target);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static Extractor NewMsiExtractor(string path, string target)
+        private static ArchiveExtractor NewMsiExtractor(string path, string target)
         {
             return new MsiExtractor(path, target);
         }

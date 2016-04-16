@@ -114,7 +114,7 @@
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
     <Compile Include="Store\Implementations\Archives\ArchiveGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
-    <Compile Include="Store\Implementations\Archives\ExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\ArchiveExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\MsiExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarBz2GeneratorTest.cs" />

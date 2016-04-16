@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Common base class for exractors for Microsoft archive formats.
     /// </summary>
-    public abstract class MicrosoftExtractor : Extractor, IUnpackStreamContext
+    public abstract class MicrosoftExtractor : ArchiveExtractor, IUnpackStreamContext
     {
         protected readonly CabEngine CabEngine = new CabEngine();
         protected Stream CabStream;

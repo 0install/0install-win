@@ -101,7 +101,7 @@
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\ArchiveGenerator.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
-    <Compile Include="Implementations\Archives\Extractor.cs" />
+    <Compile Include="Implementations\Archives\ArchiveExtractor.cs" />
     <Compile Include="Implementations\Archives\MicrosoftExtractor.cs" />
     <Compile Include="Implementations\Archives\MsiExtractor.cs" />
     <Compile Include="Implementations\Archives\RubyGemExtractor.cs" />
@@ -308,6 +308,7 @@
     <None Include="Implementations\Archives\ClassDiagram.cd" />
     <None Include="Implementations\Archives\ArchiveExtractor.cd" />
     <None Include="Implementations\Archives\ArchiveGenerator.cd" />
+    <None Include="Implementations\Archives\ArchiveExtractor.cd" />
     <None Include="Implementations\Manifest.cd" />
     <None Include="Implementations\Store.cd" />
     <None Include="Model\Binding.cd" />

@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a 7z archive.
     /// </summary>
-    public class SevenZipExtractor : Extractor
+    public class SevenZipExtractor : ArchiveExtractor
     {
         #region Stream
         private readonly Stream _stream;

@@ -3,7 +3,7 @@
   <Class Name="ZeroInstall.Store.Implementations.Archives.ZipExtractor" Collapsed="true">
     <Position X="3.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAACAAAAQAAEAAAAACAAQAAAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAgQAACAAAAQABEAAAAAAAAQAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Implementations\Archives\ZipExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -13,14 +13,6 @@
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\Archives\CabExtractor.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="ZeroInstall.Store.Implementations.Archives.Extractor" Collapsed="true">
-    <Position X="3.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQAAACCIAQAQAAAAAAAQAAAAQCAAEQABoigCCAQA=</HashCode>
-      <FileName>Implementations\Archives\Extractor.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.MicrosoftExtractor" Collapsed="true">
     <Position X="1.25" Y="1.75" Width="1.75" />
@@ -47,7 +39,7 @@
   <Class Name="ZeroInstall.Store.Implementations.Archives.TarExtractor" Collapsed="true">
     <Position X="5.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAACCAAAAQAAAAAAAAAAARAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAACCACAAQAAAAAAAAAAAREAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\Archives\TarExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -61,31 +53,31 @@
   <Class Name="ZeroInstall.Store.Implementations.Archives.TarLzmaExtractor" Collapsed="true">
     <Position X="5.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgABA=</HashCode>
       <FileName>Implementations\Archives\TarLzmaExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.MsiExtractor" Collapsed="true">
     <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EgBIAAAAACAQQAQAAAAAACAAAAAAAAQAAAAAAAAAEAA=</HashCode>
+      <HashCode>UgBIAAAAACAQQAQAAAAAACAAAAAAAAQAAAAAAAAAEAA=</HashCode>
       <FileName>Implementations\Archives\MsiExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.SevenZipExtractor" Collapsed="true">
     <Position X="7.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAQgAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAQAAAAgAAAAAAAAAAQAAAAACgAAABA=</HashCode>
       <FileName>Implementations\Archives\SevenZipExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="ZeroInstall.Store.Implementations.Archives.ArchiveFileInfo">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+  <Class Name="ZeroInstall.Store.Implementations.Archives.ArchiveExtractor" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAYEgAAAAAAAAAAAAIAEAAAABACAAAA=</HashCode>
-      <FileName>Implementations\Archives\ArchiveFileInfo.cs</FileName>
+      <HashCode>QAAAQAQgCGIAAAQAAAAAAAQAIAAQCEAEQEAoigCCAQg=</HashCode>
+      <FileName>Implementations\Archives\ArchiveExtractor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
-  </Struct>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

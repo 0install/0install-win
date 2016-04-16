@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a TAR archive.
     /// </summary>
-    public class TarExtractor : Extractor
+    public class TarExtractor : ArchiveExtractor
     {
         #region Stream
         private readonly TarInputStream _tarStream;
@@ -144,7 +144,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Helper method for <see cref="Extractor.WriteFile"/>.
+        /// Helper method for <see cref="ArchiveExtractor.WriteFile"/>.
         /// </summary>
         /// <param name="stream">The <see cref="TarInputStream"/> containing the entry data to write to a file.</param>
         /// <param name="fileStream">Stream access to the file to write.</param>

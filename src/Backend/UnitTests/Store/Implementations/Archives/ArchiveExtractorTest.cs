@@ -25,12 +25,12 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Contains test methods for <see cref="Extractor"/>.
+    /// Contains test methods for <see cref="ArchiveExtractor"/>.
     /// </summary>
     [TestFixture]
-    public class ExtractorTest
+    public class ArchiveExtractorTest
     {
-        [Test(Description = "Ensures Extractor.FromStream() correctly creates a ZipExtractor.")]
+        [Test(Description = "Ensures ArchiveExtractor.FromStream() correctly creates a ZipExtractor.")]
         public void TestCreateExtractor()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -45,16 +45,16 @@ namespace ZeroInstall.Store.Implementations.Archives
                     zipStream.CloseEntry();
                 }
 
-                using (var extractor = Extractor.Create(File.OpenRead(path), tempDir, Model.Archive.MimeTypeZip))
+                using (var extractor = ArchiveExtractor.Create(File.OpenRead(path), tempDir, Model.Archive.MimeTypeZip))
                     extractor.Should().BeOfType<ZipExtractor>();
             }
         }
 
-        [Test(Description = "Ensures Extractor.VerifySupport() correctly distinguishes between supported and not supported archive MIME types.")]
+        [Test(Description = "Ensures ArchiveExtractor.VerifySupport() correctly distinguishes between supported and not supported archive MIME types.")]
         public void TestVerifySupport()
         {
-            Assert.DoesNotThrow(() => Extractor.VerifySupport(Model.Archive.MimeTypeZip));
-            Assert.Throws<NotSupportedException>(() => Extractor.VerifySupport("test/format"));
+            Assert.DoesNotThrow(() => ArchiveExtractor.VerifySupport(Model.Archive.MimeTypeZip));
+            Assert.Throws<NotSupportedException>(() => ArchiveExtractor.VerifySupport("test/format"));
         }
     }
 }

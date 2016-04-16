@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             using (var tempFile = Deploy(this.GetEmbedded("testArchive.msi")))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.Create(tempFile, sandbox, Archive.MimeTypeMsi))
+            using (var extractor = ArchiveExtractor.Create(tempFile, sandbox, Archive.MimeTypeMsi))
             {
                 extractor.SubDir = "SourceDir";
                 extractor.Run();
@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
             using (var tempFile = Deploy(new MemoryStream(_garbageData)))
-                Assert.Throws<IOException>(() => Extractor.Create(tempFile, sandbox, Archive.MimeTypeMsi));
+                Assert.Throws<IOException>(() => ArchiveExtractor.Create(tempFile, sandbox, Archive.MimeTypeMsi));
         }
 
         private static TemporaryFile Deploy(Stream stream)

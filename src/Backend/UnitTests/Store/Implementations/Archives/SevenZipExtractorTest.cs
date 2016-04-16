@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.Create(this.GetEmbedded("testArchive.7z"), sandbox, Archive.MimeType7Z))
+            using (var extractor = ArchiveExtractor.Create(this.GetEmbedded("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
                 extractor.Run();
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.Create(this.GetEmbedded("testArchive.7z"), sandbox, Archive.MimeType7Z))
+            using (var extractor = ArchiveExtractor.Create(this.GetEmbedded("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
                 extractor.SubDir = "folder1";
                 extractor.Run();
@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-                Assert.Throws<IOException>(() => Extractor.Create(new MemoryStream(_garbageData), sandbox, Archive.MimeType7Z).Run());
+                Assert.Throws<IOException>(() => ArchiveExtractor.Create(new MemoryStream(_garbageData), sandbox, Archive.MimeType7Z).Run());
         }
     }
 }

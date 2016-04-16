@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a ZIP archive.
     /// </summary>
-    public class ZipExtractor : Extractor
+    public class ZipExtractor : ArchiveExtractor
     {
         #region Stream
         /// <summary>Information about the files in the archive as stored in the central directory.</summary>

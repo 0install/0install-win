@@ -171,7 +171,8 @@ namespace ZeroInstall.Services.Fetchers
             Handler.CancellationToken.ThrowIfCancellationRequested();
 
             // Fail fast on unsupported archive type
-            foreach (var archive in recipe.Steps.OfType<Archive>()) Extractor.VerifySupport(archive.MimeType);
+            foreach (var archive in recipe.Steps.OfType<Archive>())
+                ArchiveExtractor.VerifySupport(archive.MimeType);
 
             var downloadedFiles = new List<TemporaryFile>();
             try
