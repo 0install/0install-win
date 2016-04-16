@@ -16,8 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
@@ -105,6 +107,33 @@ namespace ZeroInstall.Store.Implementations.Archives
             return generator;
         }
         #endregion
+
+        /// <inheritdoc/>
+        protected override void HandleEntries(IEnumerable<FileSystemInfo> entries)
+        {
+            try
+            {
+                base.HandleEntries(entries);
+            }
+            catch (OperationCanceledException)
+            {
+                if (OutputArchive != null && File.Exists(OutputArchive))
+                {
+                    Log.Info("Deleting incomplete archive " + OutputArchive);
+                    try
+                    {
+                        Dispose();
+                        File.Delete(OutputArchive);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warn(ex);
+                    }
+                }
+
+                throw;
+            }
+        }
 
         #region Dispose
         /// <summary>

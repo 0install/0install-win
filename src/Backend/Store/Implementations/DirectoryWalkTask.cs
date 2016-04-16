@@ -111,8 +111,12 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="NotSupportedException">A file has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
         /// <exception cref="IOException">There was an error reading a file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read a file.</exception>
-        private void HandleEntries([NotNull] IEnumerable<FileSystemInfo> entries)
+        protected virtual void HandleEntries([NotNull] IEnumerable<FileSystemInfo> entries)
         {
+            #region Sanity checks
+            if (entries == null) throw new ArgumentNullException("entries");
+            #endregion
+
             var externalXbits = FlagUtils.GetFiles(FlagUtils.XbitFile, SourceDirectory.FullName);
             var externalSymlinks = FlagUtils.GetFiles(FlagUtils.SymlinkFile, SourceDirectory.FullName);
 
