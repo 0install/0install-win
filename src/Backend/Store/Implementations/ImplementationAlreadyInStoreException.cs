@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using ZeroInstall.Store.Model;
@@ -25,10 +24,10 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Indicates an <see cref="Store.Model.Implementation"/> being added to an <see cref="IStore"/> is already in the store.
+    /// Indicates an <see cref="Implementation"/> being added to an <see cref="IStore"/> is already in the store.
     /// </summary>
     [Serializable]
-    public sealed class ImplementationAlreadyInStoreException : IOException
+    public sealed class ImplementationAlreadyInStoreException : Exception
     {
         #region Properties
         /// <summary>

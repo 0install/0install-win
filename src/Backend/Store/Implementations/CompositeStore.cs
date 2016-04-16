@@ -134,6 +134,8 @@ namespace ZeroInstall.Store.Implementations
 
             Flush();
 
+            if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             foreach (var store in _stores.Reverse())
@@ -144,10 +146,6 @@ namespace ZeroInstall.Store.Implementations
                     return store.AddDirectory(path, manifestDigest, handler);
                 }
                     #region Error handling
-                catch (ImplementationAlreadyInStoreException)
-                {
-                    throw; // Do not try any further
-                }
                 catch (IOException ex)
                 {
                     innerException = ex; // Remember the last error
@@ -179,6 +177,8 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             Flush();
+
+            if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;

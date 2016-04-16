@@ -159,6 +159,9 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddDirectoryFirst()
         {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+
             _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Returns("");
             _testStore.AddDirectory("path", _digest1, _handler);
         }
@@ -166,6 +169,9 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddDirectorySecond()
         {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+
             _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Returns("");
             _testStore.AddDirectory("path", _digest1, _handler);
@@ -174,9 +180,20 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddDirectoryFail()
         {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+
             _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _testStore.Invoking(x => x.AddDirectory("path", _digest1, _handler)).ShouldThrow<IOException>(because: "Should pass through fatal exceptions");
+        }
+
+        [Test]
+        public void TestAddDirectoryFailAlreadyInStore()
+        {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
+
+            _testStore.Invoking(x => x.AddDirectory("path", _digest1, _handler)).ShouldThrow<ImplementationAlreadyInStoreException>(because: "Should not attempt to add new copy if any of the children contains the implementation");
         }
         #endregion
 
@@ -184,6 +201,9 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddArchivesFirst()
         {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+
             _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Returns("");
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
@@ -191,6 +211,9 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddArchivesSecond()
         {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+
             _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Returns("");
             _testStore.AddArchives(_archives, _digest1, _handler);
@@ -199,9 +222,20 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddArchivesFail()
         {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
+
             _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _testStore.Invoking(x => x.AddArchives(_archives, _digest1, _handler)).ShouldThrow<IOException>(because: "Should pass through fatal exceptions");
+        }
+
+        [Test]
+        public void TestAddArchivesFailAlreadyInStore()
+        {
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
+
+            _testStore.Invoking(x => x.AddArchives(_archives, _digest1, _handler)).ShouldThrow<ImplementationAlreadyInStoreException>(because: "Should not attempt to add new copy if any of the children contains the implementation");
         }
         #endregion
 
