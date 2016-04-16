@@ -23,7 +23,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Streams;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
@@ -32,8 +31,6 @@ using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;
@@ -218,15 +215,14 @@ namespace ZeroInstall.OneGet
         public void DownloadPackage([NotNull] string fastPackageReference, [NotNull] string location)
         {
             Directory.CreateDirectory(location);
-            this.GetEmbedded("import.bat").CopyToFile(Path.Combine(location, "import.bat"));
-
-            FeedCache = new DiskFeedCache(Path.Combine(location, "interfaces"), OpenPgp);
-            Store = new DirectoryStore(Path.Combine(location, "implementations"), useWriteProtection: false);
-            FeedManager.Refresh = true;
 
             var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
             Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
+
+            Exporter.ExportFeeds(selections, location);
+            Exporter.ExportImplementations(selections, location, Handler);
+            Exporter.DeployBootstrap(location);
 
             SelfUpdateCheck();
         }

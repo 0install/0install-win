@@ -94,7 +94,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="import.bat" />
     <None Include="provider.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
