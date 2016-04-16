@@ -111,12 +111,13 @@ namespace ZeroInstall.Store.Feeds
             return FeedUtils.GetSignatures(_openPgp, File.ReadAllBytes(GetPath(feedUri)));
         }
 
-        /// <summary>
-        /// Determines the file path used to store a feed with a particular ID.
-        /// </summary>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
-        private string GetPath(FeedUri feedUri)
+        /// <inheritdoc/>
+        public string GetPath(FeedUri feedUri)
         {
+            #region Sanity checks
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            #endregion
+
             if (feedUri.IsFile) throw new KeyNotFoundException("Feed cache does not handle local files: " + feedUri.ToStringRfc());
 
             string fileName = feedUri.Escape();
