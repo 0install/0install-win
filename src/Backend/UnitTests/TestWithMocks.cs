@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Moq;
 using NUnit.Framework;
 
@@ -47,8 +48,17 @@ namespace ZeroInstall
         public virtual void TearDown()
         {
             // Prevent Mock verify failures from hiding underlying test failures
-            if (TestContext.CurrentContext.Result.State == TestState.Success)
-                MockRepository.VerifyAll();
+            try
+            {
+                if (TestContext.CurrentContext.Result.State != TestState.Success)
+                    return;
+            }
+            catch (NullReferenceException)
+            {
+                // Bug in NUnit prevents some test contexts from being detected
+            }
+
+            MockRepository.VerifyAll();
         }
     }
 }
