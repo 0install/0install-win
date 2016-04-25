@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -91,6 +92,9 @@ namespace ZeroInstall
         public override void TearDown()
         {
             _redirect.Dispose();
+
+            var diposable = Target as IDisposable;
+            if (diposable != null) diposable.Dispose();
 
             base.TearDown();
         }
