@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Model.Selection
             if (other == null) throw new ArgumentNullException("other");
             #endregion
 
-            return StringComparer.InvariantCulture.Compare(InterfaceUri.ToStringRfc(), other.InterfaceUri.ToStringRfc());
+            return StringComparer.Ordinal.Compare(InterfaceUri.ToStringRfc(), other.InterfaceUri.ToStringRfc());
         }
         #endregion
     }

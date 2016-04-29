@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public bool Equals(Domain other)
         {
-            return other.Value == Value;
+            return string.Equals(Value, other.Value, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <inheritdoc/>
@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public int CompareTo(Domain other)
         {
-            return StringComparer.InvariantCultureIgnoreCase.Compare(Value, other.Value);
+            return StringComparer.OrdinalIgnoreCase.Compare(Value, other.Value);
         }
         #endregion
     }

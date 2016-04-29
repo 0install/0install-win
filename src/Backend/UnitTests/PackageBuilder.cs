@@ -103,7 +103,7 @@ namespace ZeroInstall
         public void Add(HierarchyEntry newEntry)
         {
             Entries.Add(newEntry);
-            Entries.Sort((left, right) => StringComparer.InvariantCulture.Compare(left.Name, right.Name));
+            Entries.Sort((left, right) => StringComparer.OrdinalIgnoreCase.Compare(left.Name, right.Name));
         }
 
         public IEnumerable<HierarchyEntry> Children { get { return Entries; } }
