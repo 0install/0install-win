@@ -26,7 +26,6 @@ if not exist ..\build\Publish mkdir ..\build\Publish
 del /q ..\build\Publish\*.*
 move *.xml ..\build\Publish > NUL
 move *.tar.gz ..\build\Publish > NUL
-copy ..\build\Release\Bootstrap\*.exe ..\build\Publish > NUL
 
 
 popd
