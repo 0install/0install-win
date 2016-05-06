@@ -143,6 +143,11 @@ namespace ZeroInstall.Commands
                         handler.Error(ex2);
                         return ExitCode.IOError;
                     }
+                    catch (NotAdminException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.AccessDenied;
+                    }
                 }
                 else
                 {
@@ -160,14 +165,24 @@ namespace ZeroInstall.Commands
                     {
                         return (ExitCode)ProcessUtils.Assembly(GuiAssemblyName ?? exeName, args).AsAdmin().Run();
                     }
-                    catch (OperationCanceledException)
+                    catch (PlatformNotSupportedException ex2)
                     {
-                        return ExitCode.UserCanceled;
+                        handler.Error(ex2);
+                        return ExitCode.NotSupported;
                     }
                     catch (IOException ex2)
                     {
                         handler.Error(ex2);
                         return ExitCode.IOError;
+                    }
+                    catch (NotAdminException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.AccessDenied;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
                     }
                 }
                 else
@@ -199,14 +214,15 @@ namespace ZeroInstall.Commands
                             else return deployResult;
                         }
                     }
-                    catch (OperationCanceledException)
-                    {
-                        return ExitCode.UserCanceled;
-                    }
                     catch (IOException ex2)
                     {
                         handler.Error(ex2);
                         return ExitCode.IOError;
+                    }
+                    catch (NotAdminException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.AccessDenied;
                     }
                 }
                 else handler.Error(ex);
@@ -290,6 +306,7 @@ namespace ZeroInstall.Commands
         /// <param name="needsMachineWide"><c>true</c> if a machine-wide install location is required; <c>false</c> if a user-specific location will also do.</param>
         /// <returns>The exit code returned by the other instance; <c>null</c> if no other instance could be found.</returns>
         /// <exception cref="IOException">There was a problem launching the target instance.</exception>
+        /// <exception cref="NotAdminException">The target process requires elevation.</exception>
         private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, [NotNull] ICommandHandler handler, bool needsMachineWide)
         {
             string installLocation = FindOtherInstance();

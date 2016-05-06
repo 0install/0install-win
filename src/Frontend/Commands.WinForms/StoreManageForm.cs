@@ -167,6 +167,11 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Assembly(Program.ExeName, StoreMan.Name, "manage").AsAdmin().Start();
             }
+            catch (PlatformNotSupportedException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
             catch (OperationCanceledException)
             {
                 return;
