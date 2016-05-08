@@ -161,7 +161,7 @@ namespace ZeroInstall.Commands.CliCommands
             // If the default alias directory is already in the PATH terminals will find new aliases right away
             string stubDirPath = DesktopIntegration.Windows.AppAlias.GetStubDir(machineWide);
             var variableTarget = machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User;
-            string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
+            string existingValue = Environment.GetEnvironmentVariable("Path", variableTarget);
             return existingValue == null || !existingValue.Contains(stubDirPath);
         }
 

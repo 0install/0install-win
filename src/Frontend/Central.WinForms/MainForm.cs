@@ -376,7 +376,7 @@ namespace ZeroInstall.Central.WinForms
                 UseShellExecute = false,
                 WorkingDirectory = Locations.IsPortable ? Locations.PortableBase : Locations.HomeDir
             };
-            cmd.EnvironmentVariables["PATH"] = Locations.InstallBase + Path.PathSeparator + Environment.GetEnvironmentVariable("PATH");
+            cmd.EnvironmentVariables["Path"] = Locations.InstallBase + Path.PathSeparator + Environment.GetEnvironmentVariable("Path");
             cmd.Start();
         }
 

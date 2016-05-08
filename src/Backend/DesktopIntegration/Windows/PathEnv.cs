@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static string[] Get(bool machineWide)
         {
             string value = Environment.GetEnvironmentVariable(
-                variable: "PATH",
+                variable: "Path",
                 target: machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User);
             return string.IsNullOrEmpty(value) ? new string[0] : value.Split(Path.PathSeparator);
         }
@@ -86,7 +86,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             Environment.SetEnvironmentVariable(
-                variable: "PATH",
+                variable: "Path",
                 value: StringUtils.Join(Path.PathSeparator.ToString(), directories),
                 target: machineWide ? EnvironmentVariableTarget.Machine : EnvironmentVariableTarget.User);
             WindowsUtils.NotifyEnvironmentChanged();
