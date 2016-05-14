@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 #if !__MonoCS__
             if (File.Exists(path)) File.Delete(path);
 
-            var wshShell = new IWshRuntimeLibrary.WshShellClass();
+            var wshShell = new IWshRuntimeLibrary.WshShell();
             var shortcut = (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(path);
 
             shortcut.TargetPath = targetPath;
