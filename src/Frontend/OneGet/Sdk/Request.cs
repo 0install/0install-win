@@ -76,7 +76,7 @@ namespace PackageManagement.Sdk {
 
         #region core-apis
 
-        public abstract dynamic PackageManagementService {get;}
+        public abstract object PackageManagementService {get;}
 
         public abstract IProviderServices ProviderServices {get;}
 
@@ -296,7 +296,7 @@ namespace PackageManagement.Sdk {
 
         public Dictionary<string, string[]> Options {
             get {
-                return _options ?? (_options = OptionKeys.Where(each => !string.IsNullOrWhiteSpace(each)).ToDictionary(k => k, (k) => (GetOptionValues(k) ?? new string[0]).ToArray()));
+                return _options ?? (_options = OptionKeys.Where(each => !string.IsNullOrEmpty(each)).ToDictionary(k => k, (k) => (GetOptionValues(k) ?? new string[0]).ToArray()));
             }
         }
 
