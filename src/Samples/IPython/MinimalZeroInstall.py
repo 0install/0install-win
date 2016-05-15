@@ -1,6 +1,5 @@
-﻿#Uncomment this when running with interpreter instead of compiler
-#import clr
-#clr.AddReferenceToFile("NanoByte.Common.dll", "ZeroInstall.Services.dll", "ZeroInstall.Store.dll")
+﻿import clr
+clr.AddReferenceToFile("NanoByte.Common.dll", "ZeroInstall.Services.dll", "ZeroInstall.Store.dll")
 
 import sys
 from NanoByte.Common.Tasks import CliTaskHandler

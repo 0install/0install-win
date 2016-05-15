@@ -5,4 +5,3 @@ The "build.sh" script will compile the code using Mono's xbuild on Unix-like sys
 
 Use "ZeroInstall.sln" for Visual Studio 2012 oder 2013.
 Use "ZeroInstall_Mono.sln" for MonoDevelop/Xamarin Studio 5.0+ or xbuild.
-Use "ZeroInstall_SharpDevelop.sln" for SharpDevelop 4.2+.
