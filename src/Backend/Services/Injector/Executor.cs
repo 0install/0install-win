@@ -82,6 +82,8 @@ namespace ZeroInstall.Services.Injector
             if (selections.Implementations.Count == 0) throw new ExecutorException("The Selections document does not list any implementations.");
             Selections = selections;
 
+            ProcessUtils.SanitizeEnvironmentVariables();
+
             try
             {
                 var startInfo = BuildStartInfoWithBindings();

@@ -157,7 +157,7 @@ namespace ZeroInstall.Commands
             }
             catch (NotAdminException ex)
             {
-                if (WindowsUtils.IsWindowsNT)
+                if (WindowsUtils.HasUac)
                 {
                     Log.Info("Elevating to admin");
                     handler.DisableUI();

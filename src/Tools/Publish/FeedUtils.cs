@@ -49,8 +49,8 @@ namespace ZeroInstall.Publish
 
             if (!File.Exists(Path.Combine(path, name + ".xsl")))
             {
-                typeof(FeedUtils).GetEmbedded(name + ".xsl").CopyToFile(Path.Combine(path, name + ".xsl"));
-                typeof(FeedUtils).GetEmbedded(name + ".css").CopyToFile(Path.Combine(path, name + ".css"));
+                typeof(FeedUtils).CopyEmbeddedToFile(name + ".xsl", Path.Combine(path, name + ".xsl"));
+                typeof(FeedUtils).CopyEmbeddedToFile(name + ".css", Path.Combine(path, name + ".css"));
             }
         }
 

@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     [TestFixture]
-    public class TarExtractorTestBasicFunctionality
+    public class TarExtractorTest
     {
         private TemporaryDirectory _sandbox;
         private static readonly byte[] _garbageData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestPlain()
         {
-            TestExtract(Model.Archive.MimeTypeTar, this.GetEmbedded("testArchive.tar"));
+            TestExtract(Model.Archive.MimeTypeTar, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestGzCompressed()
         {
-            TestExtract(Model.Archive.MimeTypeTarGzip, this.GetEmbedded("testArchive.tar.gz"));
+            TestExtract(Model.Archive.MimeTypeTarGzip, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.gz"));
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestBz2Compressed()
         {
-            TestExtract(Model.Archive.MimeTypeTarBzip, this.GetEmbedded("testArchive.tar.bz2"));
+            TestExtract(Model.Archive.MimeTypeTarBzip, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.bz2"));
         }
 
         [Test]
@@ -84,13 +84,13 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore(".xz decompression is currently only available on Windows");
 
-            TestExtract(Model.Archive.MimeTypeTarXz, this.GetEmbedded("testArchive.tar.xz"));
+            TestExtract(Model.Archive.MimeTypeTarXz, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.xz"));
         }
 
         [Test]
         public void TestLzmaCompressed()
         {
-            TestExtract(Model.Archive.MimeTypeTarLzma, this.GetEmbedded("testArchive.tar.lzma"));
+            TestExtract(Model.Archive.MimeTypeTarLzma, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.lzma"));
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                this.GetEmbedded("testArchive.tar.lzma").CopyToFile(tempFile);
+                typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.lzma").CopyToFile(tempFile);
 
                 using (var stream = File.OpenRead(tempFile))
                     TestExtract(Model.Archive.MimeTypeTarLzma, stream);
@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestRubyGem()
         {
-            TestExtract(Model.Archive.MimeTypeRubyGem, this.GetEmbedded("testArchive.gem"));
+            TestExtract(Model.Archive.MimeTypeRubyGem, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.gem"));
         }
 
         private void TestExtract(string mimeType, Stream archive)
@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
+            using (var extractor = new TarExtractor(typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"), _sandbox))
                 extractor.Run();
 
             if (UnixUtils.IsUnix)
@@ -171,7 +171,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
+            using (var extractor = new TarExtractor(typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"), _sandbox))
                 extractor.Run();
 
             string target;
@@ -188,7 +188,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithHardlink()
         {
-            using (var extractor = new TarExtractor(this.GetEmbedded("testArchive.tar"), _sandbox))
+            using (var extractor = new TarExtractor(typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"), _sandbox))
                 extractor.Run();
 
             FileUtils.AreHardlinked(Path.Combine(_sandbox, "subdir1", "regular"), Path.Combine(_sandbox, "hardlink"))

@@ -245,7 +245,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 // Extract embedded CAB from MSI
                 using (var tempStream = File.Create(tempFile))
-                    stream.CopyTo(tempStream, cancellationToken: CancellationToken);
+                    stream.CopyToEx(tempStream, cancellationToken: CancellationToken);
 
                 // Extract individual files from CAB
                 using (CabStream = File.OpenRead(tempFile))

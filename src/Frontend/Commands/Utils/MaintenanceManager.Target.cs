@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands.Utils
             get
             {
                 return Manifest.Load(
-                    this.GetEmbedded("legacy.manifest"),
+                    typeof(MaintenanceManager).GetEmbeddedString("legacy.manifest"),
                     ManifestFormat.Sha256New); // The digests are not checked so the format does not matter
             }
         }

@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = ArchiveExtractor.Create(this.GetEmbedded("testArchive.7z"), sandbox, Archive.MimeType7Z))
+            using (var extractor = ArchiveExtractor.Create(typeof(SevenZipExtractorTest).GetEmbeddedStream("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
                 extractor.Run();
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = ArchiveExtractor.Create(this.GetEmbedded("testArchive.7z"), sandbox, Archive.MimeType7Z))
+            using (var extractor = ArchiveExtractor.Create(typeof(SevenZipExtractorTest).GetEmbeddedStream("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
                 extractor.SubDir = "folder1";
                 extractor.Run();

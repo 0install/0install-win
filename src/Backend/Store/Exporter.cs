@@ -111,8 +111,7 @@ namespace ZeroInstall.Store
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            using (var stream = typeof(Exporter).GetEmbedded("import.cmd"))
-                stream.CopyToFile(Path.Combine(path, "import.cmd"));
+            typeof(Exporter).CopyEmbeddedToFile("import.cmd", Path.Combine(path, "import.cmd"));
         }
     }
 }

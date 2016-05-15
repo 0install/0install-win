@@ -326,7 +326,7 @@ namespace ZeroInstall.Services.Injector
             Log.Info("Writing run-environment template to: " + path);
             try
             {
-                this.GetEmbedded(templateName).CopyToFile(path);
+                typeof(Executor).CopyEmbeddedToFile(templateName, path);
             }
                 #region Error handling
             catch (IOException ex)

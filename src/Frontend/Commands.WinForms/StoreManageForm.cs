@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.WinForms
                 Program.ConfigureTaskbar(this, Text, subCommand: ".Store.Manage", arguments: StoreMan.Name + " manage");
                 if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
                 if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
-                else if (WindowsUtils.IsWindowsNT) buttonRunAsAdmin.Visible = true;
+                else if (WindowsUtils.HasUac) buttonRunAsAdmin.Visible = true;
             };
 
             Shown += delegate { RefreshList(); };

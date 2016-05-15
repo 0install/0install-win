@@ -53,7 +53,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void BuildArchive()
         {
-            using (var stream = typeof(ArchiveExtractorTest).GetEmbedded("testArchive.zip"))
+            using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = ImplementationUtils.Build(new Archive {Href = microServer.FileUri}, new SilentTaskHandler());
@@ -88,7 +88,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void BuildRecipe()
         {
-            using (var stream = typeof(ArchiveExtractorTest).GetEmbedded("testArchive.zip"))
+            using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}, new SilentTaskHandler());
@@ -106,7 +106,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingArchive()
         {
-            using (var stream = typeof(ArchiveExtractorTest).GetEmbedded("testArchive.zip"))
+            using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
@@ -144,7 +144,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingRecipe()
         {
-            using (var stream = typeof(ArchiveExtractorTest).GetEmbedded("testArchive.zip"))
+            using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}}};
@@ -188,7 +188,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingExceptions()
         {
-            using (var stream = typeof(ArchiveExtractorTest).GetEmbedded("testArchive.zip"))
+            using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};

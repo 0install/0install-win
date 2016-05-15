@@ -27,7 +27,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     [TestFixture]
-    public class ZipExtractorTestBasicFunctionality
+    public class ZipExtractorTest
     {
         #region Helpers
         private PackageBuilder BuildSamplePackageHierarchy()
@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
         public void TestFileExtract()
         {
-            using (var extractor = ArchiveExtractor.Create(this.GetEmbedded("testArchive.zip"), _sandbox, Archive.MimeTypeZip))
+            using (var extractor = ArchiveExtractor.Create(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
             File.Exists(Path.Combine(_sandbox, "subdir1/regular")).Should().BeTrue(because: "Should extract file 'regular'");
@@ -189,7 +189,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var extractor = new ZipExtractor(this.GetEmbedded("testArchive.zip"), _sandbox))
+            using (var extractor = new ZipExtractor(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox))
                 extractor.Run();
 
             if (UnixUtils.IsUnix)
@@ -207,7 +207,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var extractor = new ZipExtractor(this.GetEmbedded("testArchive.zip"), _sandbox))
+            using (var extractor = new ZipExtractor(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox))
                 extractor.Run();
 
             string target;

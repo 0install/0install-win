@@ -37,6 +37,6 @@ namespace ZeroInstall.Services.Fetchers
         public static readonly string ExecutableHash = ExecutableString.Hash(SHA256.Create());
         public static readonly long ExecutableTimestamp = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc).ToUnixTime();
 
-        public static readonly Stream ZipArchiveStream = typeof(TestData).GetEmbedded("testArchive.zip");
+        public static readonly Stream ZipArchiveStream = typeof(TestData).GetEmbeddedStream("testArchive.zip");
     }
 }

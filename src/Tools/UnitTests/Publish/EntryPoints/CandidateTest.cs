@@ -68,8 +68,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             var file = new FileInfo(Path.Combine(Directory.FullName, reference.RelativePath));
 
-            using (var fileStream = file.Create())
-                this.GetEmbedded(reference.RelativePath).CopyTo(fileStream);
+            typeof(CandidateTest).CopyEmbeddedToFile(reference.RelativePath, file.FullName);
 
             if (xbit)
             {

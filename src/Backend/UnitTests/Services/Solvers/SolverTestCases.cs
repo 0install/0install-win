@@ -34,12 +34,15 @@ namespace ZeroInstall.Services.Solvers
         {
             get
             {
-                var testCaseSet = XmlStorage.LoadXml<TestCaseSet>(typeof(SolverTestCases).GetEmbedded("test-cases.xml"));
-                foreach (var testCase in testCaseSet.TestCases)
+                using (var stream = typeof(SolverTestCases).GetEmbeddedStream("test-cases.xml"))
                 {
-                    var testCaseData = new TestCaseData(testCase.Feeds, testCase.Requirements).Returns(testCase.Selections).SetName(testCase.Name);
-                    if (!string.IsNullOrEmpty(testCase.Problem)) testCaseData.Throws(typeof(SolverException));
-                    yield return testCaseData;
+                    var testCaseSet = XmlStorage.LoadXml<TestCaseSet>(stream);
+                    foreach (var testCase in testCaseSet.TestCases)
+                    {
+                        var testCaseData = new TestCaseData(testCase.Feeds, testCase.Requirements).Returns(testCase.Selections).SetName(testCase.Name);
+                        if (!string.IsNullOrEmpty(testCase.Problem)) testCaseData.Throws(typeof(SolverException));
+                        yield return testCaseData;
+                    }
                 }
             }
         }
