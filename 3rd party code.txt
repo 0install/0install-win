@@ -13,11 +13,6 @@ http://code.google.com/p/moq-contrib/
 New BSD license: http://opensource.org/licenses/BSD-3-Clause
 NuGet package: Moq.Contrib
 
-LinqBridge
-http://code.google.com/p/linqbridge/
-MIT license: http://opensource.org/licenses/MIT
-NuGet package: LinqBridge
-
 ICSharpCode.SharpZipLib (patched)
 http://www.icsharpcode.net/OpenSource/SharpZipLib/ + https://github.com/nano-byte/SharpZipLib
 GNU GPL with GNU Classpath exception
@@ -48,6 +43,11 @@ http://taskscheduler.codeplex.com/
 MIT license: http://opensource.org/licenses/MIT
 NuGet package: TaskScheduler
 
+ELFSharp
+http://antmicro.com/projects/elfsharp/
+X11 license: ELFSharp.license.txt
+NuGet package: ELFSharp 
+
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/
 GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
@@ -77,11 +77,6 @@ NDesk.Options post-0.2.1-GIT-checkout (patched)
 http://ndesk.org/Options + https://github.com/nano-byte/NDesk.Options
 MIT license: http://opensource.org/licenses/MIT
 Self-compiled managed DLL: NDesk.Options.dll
-
-ELFSharp 0.0.10
-http://antmicro.com/projects/elfsharp/
-X11 license: ELFSharp.license.txt
-Self-compiled managed DLL: ELFSharp.dll
 
 WiX Toolset 3.8
 http://wixtoolset.org/

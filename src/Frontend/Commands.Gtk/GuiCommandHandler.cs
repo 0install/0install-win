@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-extern alias LinqBridge;
 using System;
 using System.Threading;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.DesktopIntegration.ViewModel;
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands.Gtk
         private readonly AutoResetEvent _modifySelectionsWaitHandle = new AutoResetEvent(false);
 
         /// <inheritdoc/>
-        public void CustomizeSelections(LinqBridge::System.Func<Selections> solveCallback)
+        public void CustomizeSelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");

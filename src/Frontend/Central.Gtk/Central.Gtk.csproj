@@ -9,6 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Central.Gtk</RootNamespace>
     <AssemblyName>ZeroInstall-gtk</AssemblyName>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -17,7 +19,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -25,37 +27,25 @@
     <OutputPath>..\..\..\build\Debug\Frontend\</OutputPath>
     <DocumentationFile>..\..\..\build\Debug\Frontend\ZeroInstall-gtk.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\..\build\Release\Frontend\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqBridge">
-      <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
-      <Aliases>LinqBridge</Aliases>
-    </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.3.2\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common.Gtk">
-      <HintPath>..\..\packages\NanoByte.Common.Gtk.1.3.2\lib\net40\NanoByte.Common.Gtk.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.Gtk.2.0.0\lib\net40-client\NanoByte.Common.Gtk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -103,8 +93,8 @@
     <Content Include="DesktopIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\_clr4\App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\App.config" />
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@
 rem Compile source code
 echo.
 call "%~dp0src\build.cmd" Release
+call "%~dp0src\build.cmd" ReleaseNet35
+call "%~dp0src\build.cmd" ReleaseNet20
 if errorlevel 1 pause
 
 rem Add AuthentiCode signatures
@@ -30,6 +32,6 @@ if errorlevel 1 pause
 rem Deploy compiled binaries
 if "%1" == "deploy" (
 echo.
-"%~dp0build\Release\Frontend\0install.exe" digest --manifest "%~dp0build\Release\Frontend" > "%~dp0build\Release\Frontend\.manifest"
-"%~dp0build\Release\Frontend\0install.exe" maintenance %*
+"%~dp0build\ReleaseNet20\Frontend\0install.exe" digest --manifest "%~dp0build\ReleaseNet20\Frontend" > "%~dp0build\ReleaseNet20\Frontend\.manifest"
+"%~dp0build\ReleaseNet20\Frontend\0install.exe" maintenance %*
 )

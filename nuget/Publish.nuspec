@@ -19,10 +19,9 @@ API documentation: http://0install.de/api/tools/</description>
         </references>
     </metadata>
     <files>
-        <file src="..\build\Release\Tools\ZeroInstall.Publish.*" target="lib\net20" />
-
-        <!-- Satellite assemblies (translations) -->
-        <file src="..\build\Release\Tools\**\ZeroInstall.Publish.resources.dll" target="lib\net20" />
+        <!-- .NET 4.0 binaries -->
+        <file src="..\build\Release\Tools\ZeroInstall.Publish.*" target="lib\net40" />
+        <file src="..\build\Release\Tools\**\ZeroInstall.Publish.resources.dll" target="lib\net40" />
 
         <!-- Source code -->
         <file src="..\src\Tools\Publish\**\*.cs" target="src\Publish" />

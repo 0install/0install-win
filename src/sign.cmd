@@ -31,13 +31,25 @@ exit /b 1
 
 
 echo Signing binaries with "%signing_cert_path%"...
+
 FOR %%A IN ("%~dp0..\build\Release\Frontend\*.exe") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
-if errorlevel 1 exit /b %errorlevel%
-FOR %%A IN ("%~dp0..\build\Release\Tools\*.exe") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
 if errorlevel 1 exit /b %errorlevel%
 FOR %%A IN ("%~dp0..\build\Release\Frontend\ZeroInstall.*.dll") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
 if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\Release\Tools\*.exe") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
 FOR %%A IN ("%~dp0..\build\Release\Tools\ZeroInstall.*.dll") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
 if errorlevel 1 exit /b %errorlevel%
-signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%~dp0..\build\Release\Bootstrap\zero-install.exe"
+
+FOR %%A IN ("%~dp0..\build\ReleaseNet35\Frontend\*.exe") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\ReleaseNet35\Frontend\ZeroInstall.*.dll") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+
+FOR %%A IN ("%~dp0..\build\ReleaseNet20\Frontend\*.exe") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+FOR %%A IN ("%~dp0..\build\ReleaseNet20\Frontend\ZeroInstall.*.dll") DO signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%%A"
+if errorlevel 1 exit /b %errorlevel%
+
+signtool sign /t %timestamp_server% /f "%signing_cert_path%" /p "%signing_cert_pass%" /v "%~dp0..\build\ReleaseNet20\Bootstrap\zero-install.exe"
 if errorlevel 1 exit /b %errorlevel%

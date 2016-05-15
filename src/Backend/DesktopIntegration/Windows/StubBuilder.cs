@@ -185,7 +185,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // Load the template code and insert variables
             var code = typeof(StubBuilder).GetEmbeddedString("stub.template.cs")
                 .Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe")
-                    .Replace(@"\", @"\\"));
+                .Replace(@"\", @"\\"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetBestName(CultureInfo.CurrentUICulture, command)));
             return code;

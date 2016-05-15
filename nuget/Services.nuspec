@@ -21,13 +21,26 @@ API documentation: http://0install.de/api/backend/</description>
         </references>
     </metadata>
     <files>
-        <file src="..\build\Release\Backend\ZeroInstall.Services.*" target="lib\net20" />
-        <file src="..\build\Release\Backend\ZeroInstall.DesktopIntegration.*" target="lib\net20" />
-        <file src="..\build\Release\Backend\Interop.IWshRuntimeLibrary.*" target="lib\net20" />
+        <!-- .NET 4.0 binaries -->
+        <file src="..\build\Release\Backend\ZeroInstall.Services.*" target="lib\net40" />
+        <file src="..\build\Release\Backend\ZeroInstall.DesktopIntegration.*" target="lib\net40" />
+        <file src="..\build\Release\Backend\Interop.IWshRuntimeLibrary.*" target="lib\net40" />
+        <file src="..\build\Release\Backend\**\ZeroInstall.Services.resources.dll" target="lib\net40" />
+        <file src="..\build\Release\Backend\**\ZeroInstall.DesktopIntegration.resources.dll" target="lib\net40" />
 
-        <!-- Satellite assemblies (translations) -->
-        <file src="..\build\Release\Backend\**\ZeroInstall.Services.resources.dll" target="lib\net20" />
-        <file src="..\build\Release\Backend\**\ZeroInstall.DesktopIntegration.resources.dll" target="lib\net20" />
+        <!-- .NET 3.5 binaries -->
+        <file src="..\build\ReleaseNet35\Backend\ZeroInstall.Services.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Backend\ZeroInstall.DesktopIntegration.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Backend\Interop.IWshRuntimeLibrary.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Backend\**\ZeroInstall.Services.resources.dll" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Backend\**\ZeroInstall.DesktopIntegration.resources.dll" target="lib\net35" />
+
+        <!-- .NET 2.0 binaries -->
+        <file src="..\build\ReleaseNet20\Backend\ZeroInstall.Services.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Backend\ZeroInstall.DesktopIntegration.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Backend\Interop.IWshRuntimeLibrary.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Backend\**\ZeroInstall.Services.resources.dll" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Backend\**\ZeroInstall.DesktopIntegration.resources.dll" target="lib\net20" />
 
         <!-- Source code -->
         <file src="..\src\Backend\Services\**\*.cs" target="src\Services" />

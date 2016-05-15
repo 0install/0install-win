@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;

@@ -16,17 +16,44 @@ API documentation: http://0install.de/api/frontend/</description>
         </dependencies>
     </metadata>
     <files>
-        <file src="..\build\Release\Frontend\ZeroInstall.Commands.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\ZeroInstall.OneGet.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\ZeroInstall.Central.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\ZeroInstall.Hooking.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0install.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0install-win.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0store.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0store-service.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0alias.*" target="lib\net20" />
-        <file src="..\build\Release\Frontend\ZeroInstall.exe" target="lib\net20" />
-        <file src="..\build\Release\Frontend\ZeroInstall.pdb" target="lib\net20" />
+        <!-- .NET 4.0 binaries -->
+        <file src="..\build\Release\Frontend\ZeroInstall.Commands.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\ZeroInstall.OneGet.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\ZeroInstall.Central.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\ZeroInstall.Hooking.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\0install.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\0install-win.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\0store.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\0store-service.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\0alias.*" target="lib\net40" />
+        <file src="..\build\Release\Frontend\ZeroInstall.exe" target="lib\net40" />
+        <file src="..\build\Release\Frontend\ZeroInstall.pdb" target="lib\net40" />
+
+        <!-- .NET 3.5 binaries -->
+        <file src="..\build\ReleaseNet35\Frontend\ZeroInstall.Commands.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\ZeroInstall.OneGet.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\ZeroInstall.Central.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\ZeroInstall.Hooking.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\0install.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\0install-win.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\0store.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\0store-service.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\0alias.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\ZeroInstall.exe" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Frontend\ZeroInstall.pdb" target="lib\net35" />
+
+        <!-- .NET 2.0 binaries -->
+        <file src="..\build\ReleaseNet20\Frontend\ZeroInstall.Commands.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\ZeroInstall.OneGet.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\ZeroInstall.Central.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\ZeroInstall.Hooking.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\0install.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\0install-win.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\0store.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\0store-service.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\0alias.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\ZeroInstall.exe" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Frontend\ZeroInstall.pdb" target="lib\net20" />
 
         <!-- Source code -->
         <file src="..\src\Frontend\**\*.cs" target="src" />

@@ -23,7 +23,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;

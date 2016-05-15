@@ -9,58 +9,112 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Bootstrap</RootNamespace>
     <AssemblyName>0bootstrap</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
     <NoWarn>1591</NoWarn>
+    <WarningLevel>4</WarningLevel>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET40</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNet35|AnyCPU'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\DebugNet35\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET35</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNet20|AnyCPU'">
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\DebugNet20\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;NET40</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet35|AnyCPU'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\ReleaseNet35\</OutputPath>
+    <DefineConstants>TRACE;NET35</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet20|AnyCPU'">
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\ReleaseNet20\</OutputPath>
+    <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqBridge">
-      <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
-    </Reference>
-    <Reference Include="NanoByte.Common">
-      <HintPath>..\packages\NanoByte.Common.1.3.2\lib\net20\NanoByte.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="NanoByte.Common.WinForms">
-      <HintPath>..\packages\NanoByte.Common.WinForms.1.3.2\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="NDesk.Options">
-      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'">
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\packages\NanoByte.Common.2.0.0\lib\net40-client\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.WinForms">
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.0.0\lib\net40-client\NanoByte.Common.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <None Include="..\_clr4\App.config" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='DebugNet35' Or '$(Configuration)'=='ReleaseNet35'">
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\packages\NanoByte.Common.2.0.0\lib\net35-client\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.WinForms">
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.0.0\lib\net35-client\NanoByte.Common.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <None Include="..\_clr2\App.config" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='DebugNet20' Or '$(Configuration)'=='ReleaseNet20'">
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\packages\NanoByte.Common.2.0.0\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.WinForms">
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.0.0\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
+    </Reference>
+    <None Include="..\_clr2\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
@@ -87,7 +141,6 @@
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
     <None Include="packages.config" />
-    <None Include="Properties\App.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
@@ -119,7 +172,7 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
     <PostBuildEvent>cd /d "$(OutDir)"
-"$(SolutionDir)packages\ILRepack.2.0.10\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll LinqBridge.dll</PostBuildEvent>
+"$(SolutionDir)packages\ILRepack.2.0.10\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,7 +11,8 @@
     <AssemblyName>Sample.VBasic</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Console</MyType>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -25,16 +26,6 @@
     <AdditionalParameters>
     </AdditionalParameters>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <DefineDebug>false</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Release\Samples\</OutputPath>
-    <AdditionalParameters>
-    </AdditionalParameters>
-  </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>On</OptionStrict>
   </PropertyGroup>
@@ -42,11 +33,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqBridge">
-      <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
-    </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.3.2\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net40\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

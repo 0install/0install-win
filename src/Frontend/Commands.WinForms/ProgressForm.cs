@@ -31,6 +31,7 @@ using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;
+using CancellationTokenSource = NanoByte.Common.Tasks.CancellationTokenSource;
 
 namespace ZeroInstall.Commands.WinForms
 {

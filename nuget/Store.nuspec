@@ -12,7 +12,7 @@ This API provides a common basis for the packages ZeroInstall.Services and ZeroI
 API documentation: http://0install.de/api/backend/</description>
         <summary>Zero Install Storage API (data models and management functions)</summary>
         <dependencies>
-            <dependency id="NanoByte.Common" version="[1.3.2]" />
+            <dependency id="NanoByte.Common" version="2.0.0" />
             <dependency id="ICSharpCode.SharpZipLib.Patched" version="0.86.5" />
             <dependency id="Newtonsoft.Json" version="8.0.3" />
             <dependency id="BouncyCastle" version="1.7.0" />
@@ -22,12 +22,25 @@ API documentation: http://0install.de/api/backend/</description>
         </references>
     </metadata>
     <files>
-        <file src="..\build\Release\Backend\ZeroInstall.Store.*" target="lib\net20" />
+        <!-- .NET 4.0 binaries -->
+        <file src="..\build\Release\Backend\ZeroInstall.Store.*" target="lib\net40" />
+        <file src="..\build\Release\Backend\**\ZeroInstall.Store.resources.dll" target="lib\net40" />
+        <file src="..\lib\INIFileParser.*" target="lib\net40" />
+        <file src="..\lib\Microsoft.Deployment.*" target="lib\net40" />
+        <file src="..\lib\SevenZipSharp.*" target="lib\net40" />
+        <file src="..\lib\XZ.NET.*" target="lib\net40" />
 
-        <!-- Satellite assemblies (translations) -->
-        <file src="..\build\Release\Backend\**\ZeroInstall.Store.resources.dll" target="lib\net20" />
+        <!-- .NET 3.5 binaries -->
+        <file src="..\build\ReleaseNet35\Backend\ZeroInstall.Store.*" target="lib\net35" />
+        <file src="..\build\ReleaseNet35\Backend\**\ZeroInstall.Store.resources.dll" target="lib\net35" />
+        <file src="..\lib\INIFileParser.*" target="lib\net35" />
+        <file src="..\lib\Microsoft.Deployment.*" target="lib\net35" />
+        <file src="..\lib\SevenZipSharp.*" target="lib\net35" />
+        <file src="..\lib\XZ.NET.*" target="lib\net35" />
 
-        <!-- Bundled dependencies -->
+        <!-- .NET 2.0 binaries -->
+        <file src="..\build\ReleaseNet20\Backend\ZeroInstall.Store.*" target="lib\net20" />
+        <file src="..\build\ReleaseNet20\Backend\**\ZeroInstall.Store.resources.dll" target="lib\net20" />
         <file src="..\lib\INIFileParser.*" target="lib\net20" />
         <file src="..\lib\Microsoft.Deployment.*" target="lib\net20" />
         <file src="..\lib\SevenZipSharp.*" target="lib\net20" />

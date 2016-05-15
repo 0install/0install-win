@@ -9,7 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Capture.Cli</RootNamespace>
     <AssemblyName>0capture</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -17,7 +19,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -25,35 +27,25 @@
     <OutputPath>..\..\..\build\Debug\Tools\</OutputPath>
     <DocumentationFile>..\..\..\build\Debug\Tools\0capture.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\..\build\Release\Tools\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqBridge">
-      <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
-    </Reference>
-    <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.3.2\lib\net20\NanoByte.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net40-client\NanoByte.Common.dll</HintPath>
+    </Reference>
     <Reference Include="NDesk.Options">
       <HintPath>..\..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
@@ -71,18 +63,18 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\_clr4\App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\App.config" />
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Publish\Publish.csproj">
+      <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
+      <Name>Publish</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Backend\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Publish\Publish.csproj">
-      <Project>{841cd750-f9d0-4a2d-98c7-7a340c781f41}</Project>
-      <Name>Publish</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-extern alias LinqBridge;
+using System;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void CustomizeSelections(LinqBridge::System.Func<Selections> solveCallback)
+        public void CustomizeSelections(Func<Selections> solveCallback)
         {
             // No UI, so nothing to do
         }

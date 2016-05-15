@@ -1,5 +1,5 @@
 @echo off
-::Creates NuGet packages. Assumes "..\src\build.cmd Release" has already been executed.
+::Creates NuGet packages. Assumes "..\src\build.cmd Release", "..\src\build.cmd ReleaseNet35" and "..\src\build.cmd ReleaseNet20" have already been executed.
 set /p version= < "%~dp0..\VERSION"
 
 rem Project settings

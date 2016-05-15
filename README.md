@@ -14,8 +14,8 @@ Source directory structure
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
 - The directory `publish` contains scripts for creating release archives and feeds.
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
-  - `Debug`: Contains Debug builds produced from the source code.
-  - `Release`: Contains Release builds produced from the source code.
+  - `Debug`|`DebugNet35`|`DebugNet35`: Contains Debug builds targeting the .NET Framework 4.0, 3.5 and 2.0 respectively.
+  - `Release`|`ReleaseNet35`|`ReleaseNet35`: Contains Release builds targeting the .NET Framework 4.0, 3.5 and 2.0 respectively.
     - `Backend`: Contains the libraries forming the Zero Install Backend.
     - `Frontend`: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
     - `Tools`: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
