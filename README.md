@@ -14,16 +14,16 @@ Source directory structure
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
 - The directory `publish` contains scripts for creating release archives and feeds.
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
-  - Debug: Contains Debug builds produced from the source code.
-  - Release: Contains Release builds produced from the source code.
-    - Backend: Contains the libraries forming the Zero Install Backend.
-    - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
-    - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
-    - Samples: Contains the executables for the Zero Install API samples.
-    - zero-install.exe: A single-file Zero Install bootstrapper.
-  - Packages: Contains the generated NuGet packages.
-  - Publish: Contains the generated release archives and feeds.
-  - Documentation: Contains the generated source code documentation.
+  - `Debug`: Contains Debug builds produced from the source code.
+  - `Release`: Contains Release builds produced from the source code.
+    - `Backend`: Contains the libraries forming the Zero Install Backend.
+    - `Frontend`: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
+    - `Tools`: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
+    - `Samples`: Contains the executables for the Zero Install API samples.
+    - `zero-install.exe`: A single-file Zero Install bootstrapper.
+  - `Packages`: Contains the generated NuGet packages.
+  - `Publish`: Contains the generated release archives and feeds.
+  - `Documentation`: Contains the generated source code documentation.
 - The top-level directory contains local Zero Install feeds referencing the contents of the `build` directory. They can be registered with `0install add-feed` in order to replace the online versions of Zero Install and its tools with your local builds.
 
 `VERSION` contains the version number used by build scripts.
