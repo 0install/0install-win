@@ -1,5 +1,5 @@
 ﻿PROJECT_NAME = "Zero Install Publishing Tools API"
-PROJECT_NUMBER = "2.11.4"
+PROJECT_NUMBER = "2.11.5"
 
 INPUT = ../src/Tools
 STRIP_FROM_PATH = ../src/Tools
