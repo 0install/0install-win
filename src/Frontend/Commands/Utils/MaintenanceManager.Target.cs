@@ -49,13 +49,15 @@ namespace ZeroInstall.Commands.Utils
         /// Provides a fake <see cref="Manifest"/> listing the files usually present in older deployments.
         /// </summary>
         [NotNull]
-        private Manifest LegacyManifest
+        private static Manifest LegacyManifest
         {
             get
             {
-                return Manifest.Load(
-                    typeof(MaintenanceManager).GetEmbeddedString("legacy.manifest"),
-                    ManifestFormat.Sha256New); // The digests are not checked so the format does not matter
+                using (var stream = typeof(MaintenanceManager).GetEmbeddedStream("legacy.manifest"))
+                {
+                    return Manifest.Load(stream,
+                        ManifestFormat.Sha256New); // The digests are not checked so the format does not matter
+                }
             }
         }
 
