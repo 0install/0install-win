@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
@@ -35,15 +34,13 @@ namespace ZeroInstall.Store.Trust
         [XmlAttribute("fingerprint")]
         public string Fingerprint { get; set; }
 
-        // Order is preserved, duplicate entries are not intended
-        private readonly SortedSet<Domain> _domains = new SortedSet<Domain>();
+        private readonly DomainSet _domains = new DomainSet();
 
-        // Note: Can not use ICollection<T> interface with XML Serialization
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
         [XmlElement("domain"), NotNull]
-        public SortedSet<Domain> Domains { get { return _domains; } }
+        public DomainSet Domains { get { return _domains; } }
 
         #region Conversion
         /// <inheritdoc/>
