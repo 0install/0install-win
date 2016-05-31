@@ -269,7 +269,7 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
         [NotNull]
-        private string DeployRunEnvExecutable([NotNull] string name)
+        private static string DeployRunEnvExecutable([NotNull] string name)
         {
             string templatePath = GetRunEnvTemplate();
             string deployedPath = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
@@ -309,7 +309,7 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <returns>The path to the deployed executable file.</returns>
         [NotNull]
-        private string GetRunEnvTemplate()
+        private static string GetRunEnvTemplate()
         {
             string templateName;
             if (WindowsUtils.IsWindows)

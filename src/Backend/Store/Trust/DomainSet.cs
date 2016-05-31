@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ZeroInstall.Store.Trust
@@ -7,6 +8,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// A set of alphabetically sorted <see cref="Domain"/>s.
     /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "A Set is a specific type of Collection.")]
     public class DomainSet : SortedSet<Domain>
     {
         public DomainSet() : base(new DomainComparer())

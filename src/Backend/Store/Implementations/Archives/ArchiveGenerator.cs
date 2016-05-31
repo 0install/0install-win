@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -109,6 +110,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         #endregion
 
         /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Do not let exceptions in cleanup logic hide original exception.")]
         protected override void HandleEntries(IEnumerable<FileSystemInfo> entries)
         {
             try
