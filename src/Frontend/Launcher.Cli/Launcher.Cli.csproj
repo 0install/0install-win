@@ -16,8 +16,10 @@
     <AssemblyOriginatorKeyFile>..\..\sgKey.snk</AssemblyOriginatorKeyFile>
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -29,8 +31,6 @@
     <DocumentationFile>..\..\..\build\Debug\Frontend\0launch.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET40</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNet35|AnyCPU'">
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -42,8 +42,6 @@
     <DocumentationFile>..\..\..\build\DebugNet35\Frontend\0launch.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET35</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNet20|AnyCPU'">
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -55,8 +53,6 @@
     <DocumentationFile>..\..\..\build\DebugNet20\Frontend\0launch.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -93,19 +89,22 @@
       <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
-    <None Include="..\..\_clr4\App.config" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='DebugNet35' Or '$(Configuration)'=='ReleaseNet35'">
     <Reference Include="NanoByte.Common">
       <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net35-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
-    <None Include="..\..\_clr2\App.config" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='DebugNet20' Or '$(Configuration)'=='ReleaseNet20'">
     <Reference Include="NanoByte.Common">
       <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'">
+    <None Include="..\..\_clr4\App.config" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='DebugNet35' Or '$(Configuration)'=='ReleaseNet35' Or '$(Configuration)'=='DebugNet20' Or '$(Configuration)'=='ReleaseNet20'">
     <None Include="..\..\_clr2\App.config" />
   </ItemGroup>
   <ItemGroup>
