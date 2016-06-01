@@ -208,6 +208,8 @@ namespace ZeroInstall.Services.Fetchers
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             #endregion
 
+            retrievalMethod.Validate();
+
             var tempFile = new TemporaryFile("0install-fetcher");
             try
             {

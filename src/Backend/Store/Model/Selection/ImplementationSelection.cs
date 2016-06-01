@@ -94,6 +94,14 @@ namespace ZeroInstall.Store.Model.Selection
             _candidates = candidates.ToList();
         }
 
+        /// <inheritdoc/>
+        public override void Normalize(FeedUri feedUri)
+        {
+            base.Normalize(feedUri);
+
+            EnsureNotNull(InterfaceUri, "interface", "selection");
+        }
+
         #region Conversion
         /// <inheritdoc/>
         public override string ToString()

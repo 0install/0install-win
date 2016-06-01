@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
@@ -150,8 +151,12 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Calls <see cref="ImplementationBase.Normalize"/> for all <see cref="Implementations"/>.
         /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
         public void Normalize()
         {
+            EnsureNotNull(InterfaceUri, xmlAttribute: "interface", xmlTag: "selections");
+            EnsureNotNull(Command, xmlAttribute: "command", xmlTag: "selections");
+
             foreach (var implementation in Implementations)
                 implementation.Normalize(implementation.FromFeed ?? implementation.InterfaceUri);
         }

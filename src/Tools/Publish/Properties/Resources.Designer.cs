@@ -248,15 +248,6 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The download URL is missing..
-        /// </summary>
-        public static string HrefMissing {
-            get {
-                return ResourceManager.GetString("HrefMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The image format is not supported by Zero Install..
         /// </summary>
         public static string ImageFormatNotSupported {

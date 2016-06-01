@@ -36,6 +36,14 @@ namespace ZeroInstall.Store.Model
         [XmlText]
         public string Value { get; set; }
 
+        #region Normalize
+        /// <inheritdoc/>
+        public override void Normalize()
+        {
+            EnsureNotNull(Value, xmlAttribute: "value", xmlTag: "arg");
+        }
+        #endregion
+
         #region Conversion
         /// <summary>
         /// Convenience cast for turning strings into plain <see cref="Arg"/>s.

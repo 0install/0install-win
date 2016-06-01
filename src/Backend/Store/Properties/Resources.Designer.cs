@@ -495,6 +495,24 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing &lt;name&gt; tag in feed {0}..
+        /// </summary>
+        internal static string MissingNameTagInFeed {
+            get {
+                return ResourceManager.GetString("MissingNameTagInFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing &apos;{0}&apos; attribute on &lt;{1}&gt; tag..
+        /// </summary>
+        internal static string MissingXmlAttributeOnTag {
+            get {
+                return ResourceManager.GetString("MissingXmlAttributeOnTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only administrators can optimise a shared store..
         /// </summary>
         internal static string MustBeAdminToOptimise {

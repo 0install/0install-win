@@ -223,7 +223,7 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void DetectStaleCached()
         {
-            var feed = new Feed();
+            var feed = new Feed {Name = "Mock feed"};
             FeedCacheMock.Setup(x => x.Contains(FeedTest.Test1Uri)).Returns(true);
             FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor(FeedTest.Test1Uri);

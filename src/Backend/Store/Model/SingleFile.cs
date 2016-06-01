@@ -36,6 +36,10 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("dest"), CanBeNull]
         public string Destination { get; set; }
 
+        #region Normalize
+        protected override string XmlTagName { get { return "archive"; } }
+        #endregion
+
         #region Conversion
         /// <summary>
         /// Returns the file in the form "Location (Size) => Destination". Not safe for parsing!

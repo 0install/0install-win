@@ -184,9 +184,6 @@ Try specifying it manually.</value>
   <data name="HintTextMultiline" xml:space="preserve">
     <value>A complete possibly multi-line description</value>
   </data>
-  <data name="HrefMissing" xml:space="preserve">
-    <value>The download URL is missing.</value>
-  </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>The image format is not supported by Zero Install.</value>
   </data>

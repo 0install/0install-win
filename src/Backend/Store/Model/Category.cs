@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The category name as specified by the TypeNamespace.")]
         [TypeConverter(typeof(CategoryNameConverter))]
-        [XmlText]
+        [XmlText, CanBeNull]
         public string Name { get; set; }
 
         /// <summary>

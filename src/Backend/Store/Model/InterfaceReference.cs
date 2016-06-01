@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Store.Model
@@ -28,7 +29,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Feed.FeedFor"/>
     /// <seealso cref="Feed.ReplacedBy"/>
     [Description("A reference to an interface URI, e.g. for specifying which interface this feed implements or by which interface it is replaced.")]
-    [Serializable, XmlRoot("interface-reference", Namespace = Feed.XmlNamespace), XmlType("interface-reference", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("feed-for", Namespace = Feed.XmlNamespace), XmlType("feed-for", Namespace = Feed.XmlNamespace)]
     public sealed class InterfaceReference : FeedElement, ICloneable, IEquatable<InterfaceReference>
     {
         /// <summary>
@@ -44,6 +45,18 @@ namespace ZeroInstall.Store.Model
         [DisplayName(@"Target"), Description("The URI used to locate the interface.")]
         [XmlAttribute("interface"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string TargetString { get { return (Target == null ? null : Target.ToStringRfc()); } set { Target = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        #endregion
+
+        #region Normalize
+        /// <summary>
+        /// Performs sanity checks.
+        /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public void Normalize()
+        {
+            EnsureNotNull(Target, xmlAttribute: "interface", xmlTag: "feed-for");
+        }
         #endregion
 
         #region Conversion

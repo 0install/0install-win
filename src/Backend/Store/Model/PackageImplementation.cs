@@ -85,7 +85,7 @@ namespace ZeroInstall.Store.Model
         /// The name of the package in the distribution-specific package manager.
         /// </summary>
         [Category("Identity"), Description("The name of the package in the distribution-specific package manager.")]
-        [XmlAttribute("package")]
+        [XmlAttribute("package"), CanBeNull]
         public string Package { get; set; }
 
         // Order is not important (but is preserved), duplicate string entries are not allowed (but not enforced)

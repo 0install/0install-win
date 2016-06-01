@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Xml.Serialization;
 using NanoByte.Common.Net;
 
@@ -67,6 +68,17 @@ namespace ZeroInstall.Store.Model
             base.Normalize(feedUri);
 
             if (Href != null) Href = ModelUtils.GetAbsoluteHref(Href, feedUri);
+        }
+
+        protected abstract string XmlTagName { get; }
+
+        /// <summary>
+        /// Performs sanity checks.
+        /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
+        public void Validate()
+        {
+            EnsureNotNull(Href, xmlAttribute: "href", xmlTag: XmlTagName);
         }
         #endregion
 

@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestNormalizeNotBefore()
         {
-            var restriction = new Restriction {Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0")}}};
+            var restriction = new Restriction {InterfaceUri = FeedTest.Test1Uri, Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0")}}};
             restriction.Normalize();
             restriction.Versions.Should().Be(new VersionRange("1.0.."));
         }
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestNormalizeBefore()
         {
-            var restriction = new Restriction {Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}};
+            var restriction = new Restriction {InterfaceUri = FeedTest.Test1Uri, Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}};
             restriction.Normalize();
             restriction.Versions.Should().Be(new VersionRange("..!2.0"));
         }
@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestNormalizeRange()
         {
-            var restriction = new Restriction {Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}};
+            var restriction = new Restriction {InterfaceUri = FeedTest.Test1Uri, Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}};
             restriction.Normalize();
             restriction.Versions.Should().Be(new VersionRange("1.0..!2.0"));
         }
@@ -102,6 +102,7 @@ namespace ZeroInstall.Store.Model
         {
             var restriction = new Restriction
             {
+                InterfaceUri = FeedTest.Test1Uri,
                 Constraints =
                 {
                     new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")},

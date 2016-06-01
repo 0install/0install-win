@@ -81,6 +81,8 @@ namespace ZeroInstall.Store.Model
         }
 
         #region Normalize
+        protected override string XmlTagName { get { return "requires"; } }
+
         /// <inheritdoc/>
         public override void Normalize()
         {

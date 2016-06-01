@@ -269,6 +269,12 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   <data name="InvalidUrl" xml:space="preserve">
     <value>The requested URL is invalid.</value>
   </data>
+  <data name="MissingNameTagInFeed" xml:space="preserve">
+    <value>Missing &lt;name&gt; tag in feed {0}.</value>
+  </data>
+  <data name="MissingXmlAttributeOnTag" xml:space="preserve">
+    <value>Missing '{0}' attribute on &lt;{1}&gt; tag.</value>
+  </data>
   <data name="MustBeAdminToOptimise" xml:space="preserve">
     <value>Only administrators can optimise a shared store.</value>
   </data>

@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute. This value is case-insensitive.")]
         [TypeConverter(typeof(ArchiveMimeTypeConverter))]
-        [XmlAttribute("type"), DefaultValue("")]
+        [XmlAttribute("type"), DefaultValue(""), CanBeNull]
         public string MimeType { get; set; }
 
         /// <summary>
@@ -173,6 +173,8 @@ namespace ZeroInstall.Store.Model
             // Guess the MIME type based on the file extension
             MimeType = GuessMimeType(Href.OriginalString);
         }
+
+        protected override string XmlTagName { get { return "archive"; } }
         #endregion
 
         #region Conversion

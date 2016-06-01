@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common.Net;
@@ -74,6 +75,18 @@ namespace ZeroInstall.Store.Model
         [TypeConverter(typeof(IconMimeTypeConverter))]
         [XmlAttribute("type"), DefaultValue(""), CanBeNull]
         public string MimeType { get; set; }
+
+        #region Normalize
+        /// <summary>
+        /// Performs sanity checks.
+        /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public void Normalize()
+        {
+            EnsureNotNull(Href, xmlAttribute: "href", xmlTag: "icon");
+        }
+        #endregion
 
         #region Conversion
         /// <summary>

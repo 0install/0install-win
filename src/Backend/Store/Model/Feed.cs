@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -29,6 +30,7 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model.Capabilities;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model
 {
@@ -354,12 +356,15 @@ namespace ZeroInstall.Store.Model
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
         /// <param name="feedUri">The feed the data was originally loaded from.</param>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
         public void Normalize([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
+
+            if (Name == null) throw new InvalidDataException(string.Format(Resources.MissingNameTagInFeed, feedUri));
 
             // Apply if-0install-version filter
             Elements.RemoveAll(FeedElement.FilterMismatch);
@@ -368,6 +373,10 @@ namespace ZeroInstall.Store.Model
             Feeds.RemoveAll(FeedElement.FilterMismatch);
             FeedFor.RemoveAll(FeedElement.FilterMismatch);
             EntryPoints.RemoveAll(FeedElement.FilterMismatch);
+
+            foreach (var icon in Icons) icon.Normalize();
+            foreach (var feedReference in Feeds) feedReference.Normalize();
+            foreach (var interfaceReference in FeedFor) interfaceReference.Normalize();
 
             NormalizeElements(feedUri);
             NormalizeEntryPoints();

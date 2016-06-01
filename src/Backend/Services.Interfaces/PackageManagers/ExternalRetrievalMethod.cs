@@ -30,11 +30,13 @@ namespace ZeroInstall.Services.PackageManagers
         /// <summary>
         /// The name of the distribution this package came from.
         /// </summary>
+        [CanBeNull]
         public string Distro { get; set; }
 
         /// <summary>
         /// The package name, in a form recognised by the external package manager.
         /// </summary>
+        [CanBeNull]
         public string PackageID { get; set; }
 
         /// <summary>

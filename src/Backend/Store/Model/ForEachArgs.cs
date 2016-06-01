@@ -55,6 +55,14 @@ namespace ZeroInstall.Store.Model
         [XmlElement("arg"), NotNull]
         public List<Arg> Arguments { get { return _arguments; } }
 
+        #region Normalize
+        /// <inheritdoc/>
+        public override void Normalize()
+        {
+            EnsureNotNull(ItemFrom, xmlAttribute: "item-from", xmlTag: "for-each");
+        }
+        #endregion
+
         #region Conversion
         /// <summary>
         /// Returns the for-each instruction in the form "ItemFrom". Not safe for parsing!

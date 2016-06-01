@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Store.Model
@@ -26,7 +27,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <seealso cref="Feed.Feeds"/>
     [Description("A linked feed that contains more implementations of this feed's interface. Is treated by the solver as if it were part of the main feed.")]
-    [Serializable, XmlRoot("feed-reference", Namespace = Feed.XmlNamespace), XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
+    [Serializable, XmlRoot("feed", Namespace = Feed.XmlNamespace), XmlType("feed", Namespace = Feed.XmlNamespace)]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         /// <summary>
@@ -41,6 +42,18 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Source"/>
         [XmlAttribute("src"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string SourceString { get { return (Source == null) ? null : Source.ToStringRfc(); } set { Source = (value == null) ? null : new FeedUri(value); } }
+        #endregion
+
+        #region Normalize
+        /// <summary>
+        /// Performs sanity checks.
+        /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public void Normalize()
+        {
+            EnsureNotNull(Source, xmlAttribute: "src", xmlTag: "feed");
+        }
         #endregion
 
         #region Conversion

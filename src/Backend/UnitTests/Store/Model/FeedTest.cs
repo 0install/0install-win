@@ -213,7 +213,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void TestNormalize()
         {
-            var feed = new Feed {Elements = {CreateTestGroup()}};
+            var feed = new Feed {Name = "Mock feed", Elements = {CreateTestGroup()}};
             feed.Normalize(Test1Uri);
 
             var implementation = feed.Elements[0];

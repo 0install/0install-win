@@ -95,13 +95,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <returns>The newly created <see cref="ArchiveExtractor"/>.</returns>
-        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static void VerifySupport([NotNull] string mimeType)
+        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type or is <c>null</c>.</exception>
+        public static void VerifySupport([CanBeNull] string mimeType)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
-            #endregion
-
             switch (mimeType)
             {
                 case Archive.MimeTypeZip:

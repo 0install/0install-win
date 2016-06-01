@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
@@ -128,12 +129,17 @@ namespace ZeroInstall.Store.Model
         }
 
         #region Normalize
+        protected virtual string XmlTagName { get { return "restricts"; } }
+
         /// <summary>
         /// Handles legacy elements (converts <see cref="Constraints"/> to <see cref="Versions"/>).
         /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
         public virtual void Normalize()
         {
+            EnsureNotNull(InterfaceUri, xmlAttribute: "interface", xmlTag: XmlTagName);
+
             if (Constraints.Count != 0)
             {
                 Versions = Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));

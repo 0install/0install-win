@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.ViewModel
             string path = store.GetPath(digest);
             if (path == null) return;
             string manifestPath = System.IO.Path.Combine(path, Manifest.ManifestFile);
-            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.AvailableDigests.FirstOrDefault())).TotalSize;
+            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.AvailableDigests.First())).TotalSize;
         }
 
         private readonly ManifestDigest _digest;

@@ -150,6 +150,8 @@ namespace ZeroInstall.Services.Fetchers
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             #endregion
 
+            retrievalMethod.Validate();
+
             try
             {
                 return base.Download(retrievalMethod, tag);

@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model
 {
@@ -24,6 +27,18 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [XmlAnyElement]
         public XmlElement[] UnknownElements;
+
+        /// <summary>
+        /// Ensures that a value mapped from an XML attribute is not null.
+        /// </summary>
+        /// <param name="value">The mapped value to check.</param>
+        /// <param name="xmlAttribute">The name of the XML attribute.</param>
+        /// <param name="xmlTag">The name of the XML tag containing the attribute.</param>
+        // ReSharper disable once UnusedParameter.Global
+        protected static void EnsureNotNull(object value, [NotNull] string xmlAttribute, [NotNull] string xmlTag)
+        {
+            if (value == null) throw new InvalidDataException(string.Format(Resources.MissingXmlAttributeOnTag, xmlAttribute, xmlTag));
+        }
 
         #region Comparers
         private class XmlAttributeComparer : IEqualityComparer<XmlAttribute>

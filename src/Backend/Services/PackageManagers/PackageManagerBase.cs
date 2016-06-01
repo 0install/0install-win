@@ -46,7 +46,7 @@ namespace ZeroInstall.Services.PackageManagers
             if (distributions == null) throw new ArgumentNullException("distributions");
             #endregion
 
-            if (!distributions.ContainsOrEmpty(DistributionName) || !package.Distributions.ContainsOrEmpty(DistributionName)) yield break;
+            if (!distributions.ContainsOrEmpty(DistributionName) || !package.Distributions.ContainsOrEmpty(DistributionName) || string.IsNullOrEmpty(package.Package)) yield break;
 
             foreach (var implementation in GetImplementations(package.Package))
             {

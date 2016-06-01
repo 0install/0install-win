@@ -50,6 +50,18 @@ namespace ZeroInstall.Store.Model
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
         public List<ArgBase> Arguments { get { return _arguments; } }
 
+        #region Normalize
+        protected override string XmlTagName { get { return "runner"; } }
+
+        /// <inheritdoc/>
+        public override void Normalize()
+        {
+            base.Normalize();
+
+            foreach (var argument in Arguments) argument.Normalize();
+        }
+        #endregion
+
         #region Conversion
         /// <summary>
         /// Returns the runner in the form "Interface (Command)". Not safe for parsing!

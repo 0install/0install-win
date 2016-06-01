@@ -181,9 +181,6 @@
   <data name="HintTextMultiline" xml:space="preserve">
     <value>Μια πλήρης περιγραφή πιθανόν πολλαπλών γραμμών</value>
   </data>
-  <data name="HrefMissing" xml:space="preserve">
-    <value>Η λήψη διεύθυνσης URL δεν υπάρχει.</value>
-  </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Η μορφή της εικόνας δεν υποστηρίζεται από το Zero Install.</value>
   </data>

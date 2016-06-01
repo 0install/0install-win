@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Xml.Serialization;
 using ZeroInstall.Store.Model.Design;
 
@@ -29,6 +30,13 @@ namespace ZeroInstall.Store.Model
     [XmlType("arg-base", Namespace = Feed.XmlNamespace)]
     public abstract class ArgBase : FeedElement, ICloneable
     {
+        /// <summary>
+        /// Performs sanity checks.
+        /// </summary>
+        /// <exception cref="InvalidDataException">One or more required fields are not set.</exception>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public abstract void Normalize();
+
         /// <summary>
         /// Creates a deep copy of this <see cref="ArgBase"/> instance.
         /// </summary>

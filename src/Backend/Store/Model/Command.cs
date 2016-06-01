@@ -134,6 +134,7 @@ namespace ZeroInstall.Store.Model
             Bindings.RemoveAll(FilterMismatch);
             if (FilterMismatch(WorkingDir)) WorkingDir = null;
 
+            foreach (var argument in Arguments) argument.Normalize();
             if (Runner != null) Runner.Normalize();
             foreach (var dependency in Dependencies) dependency.Normalize();
             foreach (var restriction in Restrictions) restriction.Normalize();
