@@ -42,10 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.0\lib\net40-client\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.1\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common.Gtk">
-      <HintPath>..\..\packages\NanoByte.Common.Gtk.2.0.0\lib\net40-client\NanoByte.Common.Gtk.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.Gtk.2.0.1\lib\net40-client\NanoByte.Common.Gtk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
