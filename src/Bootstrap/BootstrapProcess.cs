@@ -161,28 +161,6 @@ namespace ZeroInstall.Bootstrap
                 {
                     "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
                 },
-                {
-                    "silent", () => "Automatically deploy Zero Install in unattended mode.", _ =>
-                    {
-                        Handler.Verbosity = Verbosity.Batch;
-                        _noExisting = true;
-
-                        _targetArgs.Clear();
-                        _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch"});
-                        if (!IsPerUser) _targetArgs.Add("--machine");
-                    }
-                },
-                {
-                    "verysilent", () => "Automatically deploy Zero Install in unattended mode with no UI.", _ =>
-                    {
-                        Handler.Verbosity = Verbosity.Batch;
-                        _noExisting = true;
-
-                        _targetArgs.Clear();
-                        _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch", "--background"});
-                        if (!IsPerUser) _targetArgs.Add("--machine");
-                    }
-                },
                 {"mergetasks", () => "Does nothing. For compatibility with old Inno Setup installer.", _ => { }},
                 {"norestart", () => "Does nothing. For compatibility with old Inno Setup installer.", _ => { }},
 
@@ -197,6 +175,26 @@ namespace ZeroInstall.Bootstrap
                     }
                 }
             };
+
+            if (EmbeddedConfig.Instance.AppMode != AppMode.None) return;
+            _options.Add("silent", () => "Automatically deploy Zero Install in unattended mode.", _ =>
+            {
+                Handler.Verbosity = Verbosity.Batch;
+                _noExisting = true;
+
+                _targetArgs.Clear();
+                _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch"});
+                if (!IsPerUser) _targetArgs.Add("--machine");
+            });
+            _options.Add("verysilent", () => "Automatically deploy Zero Install in unattended mode with no UI.", _ =>
+            {
+                Handler.Verbosity = Verbosity.Batch;
+                _noExisting = true;
+
+                _targetArgs.Clear();
+                _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch", "--background"});
+                if (!IsPerUser) _targetArgs.Add("--machine");
+            });
         }
         #endregion
 
@@ -207,7 +205,18 @@ namespace ZeroInstall.Bootstrap
         /// <returns>The exit status code to end the process with.</returns>
         public ExitCode Execute([NotNull, ItemNotNull] IEnumerable<string> args)
         {
+            switch (EmbeddedConfig.Instance.AppMode)
+            {
+                case AppMode.Run:
+                    _targetArgs.AddRange(new [] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()});
+                    break;
+
+                case AppMode.Integrate:
+                    _targetArgs.AddRange(new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()});
+                    break;
+            }
             _targetArgs.AddRange(_options.Parse(args));
+
             if (_targetArgs.Count == 0)
             {
                 if (_gui) _targetArgs.Add("central");

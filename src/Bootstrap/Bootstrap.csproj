@@ -121,7 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="AppMode.cs" />
     <Compile Include="BootstrapProcess.cs" />
+    <Compile Include="EmbeddedConfig.cs" />
     <Compile Include="ExitCode.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GuiTaskHandler.cs" />
@@ -142,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
+    <EmbeddedResource Include="EmbeddedConfig.txt" />
     <Content Include="Icon.ico" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />

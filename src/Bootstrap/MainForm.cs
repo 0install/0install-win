@@ -32,6 +32,17 @@ namespace ZeroInstall.Bootstrap
             _cancellationTokenSource = cancellationTokenSource;
             InitializeComponent();
 
+            switch (EmbeddedConfig.Instance.AppMode)
+            {
+                case AppMode.Run:
+                    labelLoading.Text = string.Format("Preparing to run {0}...", EmbeddedConfig.Instance.AppName);
+                    break;
+
+                case AppMode.Integrate:
+                    labelLoading.Text = string.Format("Preparing to integrate {0}...", EmbeddedConfig.Instance.AppName);
+                    break;
+            }
+
             HandleCreated += delegate
             {
                 this.EnableWindowDrag();
