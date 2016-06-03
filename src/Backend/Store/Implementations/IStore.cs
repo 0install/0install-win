@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="UnauthorizedAccessException">Read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">The archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
         [NotNull]
-        string AddArchives([NotNull, ItemNotNull, InstantHandle] IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, [NotNull] ITaskHandler handler);
+        string AddArchives([NotNull, InstantHandle] IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, [NotNull] ITaskHandler handler);
 
         /// <summary>
         /// Removes a specific implementation from the cache.
