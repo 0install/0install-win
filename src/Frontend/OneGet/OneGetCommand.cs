@@ -26,6 +26,7 @@ using NanoByte.Common.Collections;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Commands.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
@@ -220,9 +221,10 @@ namespace ZeroInstall.OneGet
             var selections = Solve(requirements);
             Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
 
-            Exporter.ExportFeeds(selections, location);
-            Exporter.ExportImplementations(selections, location, Handler);
-            Exporter.DeployBootstrap(location);
+            var exporter = new Exporter(selections, location);
+            exporter.ExportFeeds(FeedCache, OpenPgp);
+            exporter.ExportImplementations(Store, Handler);
+            exporter.DeployImportScript();
 
             SelfUpdateCheck();
         }

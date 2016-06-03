@@ -27,21 +27,39 @@ using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Commands.Utils
 {
     [TestFixture]
-    public class ExporterTest : TestWithContainer<Exporter>
+    public class ExporterTest : TestWithMocks
     {
+        private TemporaryDirectory _outputDir;
+        private Exporter _target;
+
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+
+            _outputDir = new TemporaryDirectory("0install-unit-test");
+            var selections = SelectionsTest.CreateTestSelections();
+            _target = new Exporter(selections, _outputDir);
+        }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            _outputDir.Dispose();
+        }
+
         [Test]
         public void TestExportFeeds()
         {
-            var selections = SelectionsTest.CreateTestSelections();
-
-            using (var outputDir = new TemporaryDirectory("0install-unit-test"))
             using (var feedFile1 = new TemporaryFile("0install-unit-tests"))
             using (var feedFile2 = new TemporaryFile("0install-unit-tests"))
             {
-                var feedCacheMock = GetMock<IFeedCache>();
+                var feedCacheMock = CreateMock<IFeedCache>();
 
                 feedCacheMock.Setup(x => x.GetPath(FeedTest.Sub1Uri)).Returns(feedFile1);
                 feedCacheMock.Setup(x => x.GetPath(FeedTest.Sub2Uri)).Returns(feedFile2);
@@ -49,20 +67,22 @@ namespace ZeroInstall.Store
                 var signature = new ValidSignature(123, new byte[0], new DateTime(2000, 1, 1));
                 feedCacheMock.Setup(x => x.GetSignatures(FeedTest.Sub1Uri)).Returns(new OpenPgpSignature[] { signature });
                 feedCacheMock.Setup(x => x.GetSignatures(FeedTest.Sub2Uri)).Returns(new OpenPgpSignature[] { signature });
-                GetMock<IOpenPgp>().Setup(x => x.ExportKey(signature)).Returns("abc");
 
-                Target.ExportFeeds(selections, outputDir);
+                var openPgpMock = CreateMock<IOpenPgp>();
+                openPgpMock.Setup(x => x.ExportKey(signature)).Returns("abc");
+
+                _target.ExportFeeds(feedCacheMock.Object, openPgpMock.Object);
 
                 FileAssert.AreEqual(
                     expected: new FileInfo(feedFile1),
-                    actual: new FileInfo(Path.Combine(outputDir, FeedTest.Sub1Uri.PrettyEscape() + ".xml")),
+                    actual: new FileInfo(Path.Combine(_outputDir, FeedTest.Sub1Uri.PrettyEscape() + ".xml")),
                     message: "Feed should be exported.");
                 FileAssert.AreEqual(
                     expected: new FileInfo(feedFile2),
-                    actual: new FileInfo(Path.Combine(outputDir, FeedTest.Sub2Uri.PrettyEscape() + ".xml")),
+                    actual: new FileInfo(Path.Combine(_outputDir, FeedTest.Sub2Uri.PrettyEscape() + ".xml")),
                     message: "Feed should be exported.");
 
-                File.ReadAllText(Path.Combine(outputDir, "000000000000007B.gpg")).Should()
+                File.ReadAllText(Path.Combine(_outputDir, "000000000000007B.gpg")).Should()
                     .Be("abc", because: "GPG keys should be exported.");
             }
         }
@@ -70,23 +90,20 @@ namespace ZeroInstall.Store
         [Test]
         public void TestExportImplementations()
         {
-            var selections = SelectionsTest.CreateTestSelections();
-
-            using (var outputDir = new TemporaryDirectory("0install-unit-test"))
             using (var implDir1 = new TemporaryDirectory("0install-unit-tests"))
             using (var implDir2 = new TemporaryDirectory("0install-unit-tests"))
             {
-                var storeMock = GetMock<IStore>();
+                var storeMock = CreateMock<IStore>();
                 storeMock.Setup(x => x.GetPath(new ManifestDigest(null, null, "123", null))).Returns(implDir1);
                 storeMock.Setup(x => x.GetPath(new ManifestDigest(null, null, "abc", null))).Returns(implDir2);
 
-                Target.ExportImplementations(selections, outputDir, new SilentTaskHandler());
-
-                File.Exists(Path.Combine(outputDir, "sha256=123.tbz2")).Should()
-                    .BeTrue(because: "Implementation should be exported.");
-                File.Exists(Path.Combine(outputDir, "sha256=abc.tbz2")).Should()
-                    .BeTrue(because: "Implementation should be exported.");
+                _target.ExportImplementations(storeMock.Object, new SilentTaskHandler());
             }
+
+            File.Exists(Path.Combine(_outputDir, "sha256=123.tbz2")).Should()
+                .BeTrue(because: "Implementation should be exported.");
+            File.Exists(Path.Combine(_outputDir, "sha256=abc.tbz2")).Should()
+                .BeTrue(because: "Implementation should be exported.");
         }
     }
 }

@@ -171,6 +171,7 @@
     </Compile>
     <Compile Include="UnsuitableInstallBaseException.cs" />
     <Compile Include="Utils\AppUtils.cs" />
+    <Compile Include="Utils\Exporter.cs" />
     <Compile Include="Utils\MaintenanceManager.cs" />
     <Compile Include="Utils\MaintenanceManager.DesktopIntegration.cs" />
     <Compile Include="Utils\MaintenanceManager.Service.cs" />
@@ -222,6 +223,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Utils\import.cmd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

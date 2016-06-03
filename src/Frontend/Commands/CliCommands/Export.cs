@@ -20,6 +20,7 @@ using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Commands.Utils;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -82,13 +83,14 @@ namespace ZeroInstall.Commands.CliCommands
 
             Solve();
 
-            Exporter.ExportFeeds(Selections, outputPath);
+            var exporter = new Exporter(Selections, outputPath);
+            exporter.ExportFeeds(FeedCache, OpenPgp);
             if (!_noImplementations)
             {
                 DownloadUncachedImplementations();
-                Exporter.ExportImplementations(Selections, outputPath, Handler);
+                exporter.ExportImplementations(Store, Handler);
             }
-            Exporter.DeployBootstrap(outputPath);
+            exporter.DeployImportScript();
 
             SelfUpdateCheck();
 

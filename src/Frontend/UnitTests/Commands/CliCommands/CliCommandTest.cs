@@ -28,7 +28,6 @@ using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
@@ -66,7 +65,6 @@ namespace ZeroInstall.Commands.CliCommands
             Target.Fetcher = Resolve<IFetcher>();
             Target.Executor = Resolve<IExecutor>();
             Target.SelectionsManager = Resolve<ISelectionsManager>();
-            Target.Exporter = Resolve<IExporter>();
 
             SelfUpdateUtils.NoAutoCheck = true;
         }

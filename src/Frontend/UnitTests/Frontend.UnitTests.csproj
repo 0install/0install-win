@@ -97,7 +97,6 @@
   <ItemGroup>
     <Compile Include="Commands\CliCommands\CliCommandTest.cs" />
     <Compile Include="Commands\CliCommands\DownloadTest.cs" />
-    <Compile Include="Commands\CliCommands\ExportTest.cs" />
     <Compile Include="Commands\CliCommands\ListTest.cs" />
     <Compile Include="Commands\CliCommands\RunTest.cs" />
     <Compile Include="Commands\CliCommands\SelectionTest.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="Commands\CliCommands\StoreManTest.cs" />
     <Compile Include="Commands\CliCommands\UpdateTest.cs" />
     <Compile Include="Commands\MockCommandHandler.cs" />
+    <Compile Include="Commands\Utils\ExporterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

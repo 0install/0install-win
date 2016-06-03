@@ -139,7 +139,6 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
-    <Compile Include="Exporter.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheExtentsions.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />
@@ -154,7 +153,6 @@
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
     <Compile Include="Icons\_Namespace.cs" />
-    <Compile Include="IExporter.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\ArchiveGenerator.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
@@ -363,11 +361,10 @@
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
-    <None Include="Implementations\Archives\ArchiveGenerator.cd" />
     <None Include="Implementations\Archives\ArchiveExtractor.cd" />
+    <None Include="Implementations\Archives\ArchiveGenerator.cd" />
     <None Include="Implementations\Manifest.cd" />
     <None Include="Implementations\Store.cd" />
-    <EmbeddedResource Include="import.cmd" />
     <None Include="Model\Binding.cd" />
     <None Include="Model\Capabilities\capabilities.xsd">
       <SubType>Designer</SubType>
