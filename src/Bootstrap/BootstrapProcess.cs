@@ -57,7 +57,7 @@ namespace ZeroInstall.Bootstrap
         private VersionRange _version;
 
         /// <summary>A directory to search for feeds and archives to import.</summary>
-        private string _importDir = Path.Combine(Locations.InstallBase, "bundled");
+        private string _contentDir = Path.Combine(Locations.InstallBase, "content");
 
         /// <summary>Arguments passed through to the target process.</summary>
         [NotNull]
@@ -152,10 +152,10 @@ namespace ZeroInstall.Bootstrap
                     }
                 },
                 {
-                    "import=", () => "Specifies a {DIRECTORY} to search for feeds and archives to import. The default is a directory next to the bootstrapper called 'bundled'.", path =>
+                    "content-dir=", () => "Specifies a {DIRECTORY} to search for feeds and archives to import. The default is a directory called 'content'.", path =>
                     {
                         if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format("Directory '{0}' not found.", path));
-                        _importDir = path;
+                        _contentDir = path;
                     }
                 },
                 {
@@ -227,7 +227,7 @@ namespace ZeroInstall.Bootstrap
                 }
             }
 
-            if (Directory.Exists(_importDir))
+            if (Directory.Exists(_contentDir))
             {
                 ImportFeeds();
                 ImportArchives();
@@ -243,9 +243,9 @@ namespace ZeroInstall.Bootstrap
         /// </summary>
         private void ImportFeeds()
         {
-            if (!Directory.Exists(_importDir)) return;
+            if (!Directory.Exists(_contentDir)) return;
 
-            foreach (string path in Directory.GetFiles(_importDir, "*.xml"))
+            foreach (string path in Directory.GetFiles(_contentDir, "*.xml"))
             {
                 try
                 {
@@ -265,7 +265,7 @@ namespace ZeroInstall.Bootstrap
         /// </summary>
         private void ImportArchives()
         {
-            foreach (string path in Directory.GetFiles(_importDir))
+            foreach (string path in Directory.GetFiles(_contentDir))
             {
                 Debug.Assert(path != null);
                 var digest = new ManifestDigest();
