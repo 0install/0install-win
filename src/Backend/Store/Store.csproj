@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
+    <Compile Include="BootstrapMode.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />

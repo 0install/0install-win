@@ -121,7 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="AppMode.cs" />
     <Compile Include="BootstrapProcess.cs" />
     <Compile Include="EmbeddedConfig.cs" />
     <Compile Include="ExitCode.cs" />

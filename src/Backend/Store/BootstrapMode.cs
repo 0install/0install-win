@@ -1,9 +1,9 @@
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall.Store
 {
     /// <summary>
-    /// Application bootstrapping mode.
+    /// Available operation modes for the Zero Install Bootstrapper.
     /// </summary>
-    public enum AppMode
+    public enum BootstrapMode
     {
         /// <summary>
         /// Perform no application bootstrapping.

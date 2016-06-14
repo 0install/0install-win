@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Bootstrap
 {
@@ -34,11 +35,11 @@ namespace ZeroInstall.Bootstrap
 
             switch (EmbeddedConfig.Instance.AppMode)
             {
-                case AppMode.Run:
+                case BootstrapMode.Run:
                     labelLoading.Text = string.Format("Preparing to run {0}...", EmbeddedConfig.Instance.AppName);
                     break;
 
-                case AppMode.Integrate:
+                case BootstrapMode.Integrate:
                     labelLoading.Text = string.Format("Preparing to integrate {0}...", EmbeddedConfig.Instance.AppName);
                     break;
             }

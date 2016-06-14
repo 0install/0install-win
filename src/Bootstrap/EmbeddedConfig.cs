@@ -29,20 +29,20 @@ namespace ZeroInstall.Bootstrap
     {
         /// <summary>
         /// The name of the target application to bootstrap.
-        /// Only relevant if <see cref="AppMode"/> is not <see cref="Bootstrap.AppMode.None"/>.
+        /// Only relevant if <see cref="AppMode"/> is not <see cref="BootstrapMode.None"/>.
         /// </summary>
         public string AppName { get; private set; }
 
         /// <summary>
         /// The feed URI of the target application to bootstrap.
-        /// Only relevant if <see cref="AppMode"/> is not <see cref="Bootstrap.AppMode.None"/>.
+        /// Only relevant if <see cref="AppMode"/> is not <see cref="BootstrapMode.None"/>.
         /// </summary>
         public FeedUri AppUri { get; private set; }
 
         /// <summary>
         /// The application bootstrapping mode to use.
         /// </summary>
-        public AppMode AppMode { get; private set; }
+        public BootstrapMode AppMode { get; private set; }
 
         /// <summary>
         /// Loads the embedded configuration.
@@ -55,16 +55,16 @@ namespace ZeroInstall.Bootstrap
             AppMode = GetAppMode(lines[2].TrimEnd());
         }
 
-        private static AppMode GetAppMode(string value)
+        private static BootstrapMode GetAppMode(string value)
         {
             switch (value)
             {
                 case "run":
-                    return AppMode.Run;
+                    return BootstrapMode.Run;
                 case "integrate":
-                    return AppMode.Integrate;
+                    return BootstrapMode.Integrate;
                 default:
-                    return AppMode.None;
+                    return BootstrapMode.None;
             }
         }
 

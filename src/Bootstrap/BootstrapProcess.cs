@@ -176,7 +176,7 @@ namespace ZeroInstall.Bootstrap
                 }
             };
 
-            if (EmbeddedConfig.Instance.AppMode != AppMode.None) return;
+            if (EmbeddedConfig.Instance.AppMode != BootstrapMode.None) return;
             _options.Add("silent", () => "Automatically deploy Zero Install in unattended mode.", _ =>
             {
                 Handler.Verbosity = Verbosity.Batch;
@@ -207,11 +207,11 @@ namespace ZeroInstall.Bootstrap
         {
             switch (EmbeddedConfig.Instance.AppMode)
             {
-                case AppMode.Run:
+                case BootstrapMode.Run:
                     _targetArgs.AddRange(new [] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()});
                     break;
 
-                case AppMode.Integrate:
+                case BootstrapMode.Integrate:
                     _targetArgs.AddRange(new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()});
                     break;
             }
