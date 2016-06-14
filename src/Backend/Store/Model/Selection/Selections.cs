@@ -51,6 +51,13 @@ namespace ZeroInstall.Store.Model.Selection
         #endregion
 
         /// <summary>
+        /// The name specified by the feed at <see cref="InterfaceUri"/>.
+        /// </summary>
+        [Description("The name specified by the feed at InterfaceUri.")]
+        [XmlElement("name"), CanBeNull]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Indicates whether the selection was generated for <see cref="Cpu.Source"/>.
         /// </summary>
         [XmlAttribute("source")]

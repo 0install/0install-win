@@ -196,6 +196,7 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 Selections = Solver.Solve(Requirements);
+                Selections.Name = FeedCache.GetFeed(Selections.InterfaceUri).Name;
             }
                 #region Error handling
             catch

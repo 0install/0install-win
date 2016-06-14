@@ -23,6 +23,7 @@ using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Solvers;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -53,6 +54,10 @@ namespace ZeroInstall.Commands.CliCommands
 
             GetMock<ISolver>().Setup(x => x.Solve(requirements)).Returns(selections);
 
+            var feed = FeedTest.CreateTestFeed();
+            GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
+
+            selections.Name = feed.Name;
             return selections;
         }
 
