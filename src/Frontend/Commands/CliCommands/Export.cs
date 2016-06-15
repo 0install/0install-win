@@ -16,11 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.Utils;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -48,6 +50,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         #region State
         private bool _noImplementations;
+        private BootstrapMode _bootstrapType = BootstrapMode.Run;
 
         /// <inheritdoc/>
         public Export([NotNull] ICommandHandler handler) : base(handler)
@@ -55,18 +58,20 @@ namespace ZeroInstall.Commands.CliCommands
             //Options.Remove("xml");
             //Options.Remove("show");
 
-            Options.Add("no-implementations", () => Resources.OptionNoImplementations, _ => _noImplementations = true);
+            Options.Add("no-implementations", () => Resources.OptionExportNoImplementations, _ => _noImplementations = true);
+            Options.Add("bootstrap=", () => Resources.OptionExportBootstrap + Environment.NewLine + SupportedValues<BootstrapMode>(), (BootstrapMode x) => _bootstrapType = x);
         }
         #endregion
 
-        /// <inheritdoc/>
-        public override ExitCode Execute()
+        private string _outputPath;
+
+        public override void Parse(IEnumerable<string> args)
         {
-            string outputPath;
+            base.Parse(args);
+
             try
             {
-                outputPath = Path.GetFullPath(AdditionalArgs[0]);
-                Directory.CreateDirectory(outputPath);
+                _outputPath = Path.GetFullPath(AdditionalArgs[0]);
             }
                 #region Error handling
             catch (ArgumentException ex)
@@ -80,17 +85,32 @@ namespace ZeroInstall.Commands.CliCommands
                 throw new UriFormatException(ex.Message);
             }
             #endregion
+        }
 
+        /// <inheritdoc/>
+        public override ExitCode Execute()
+        {
             Solve();
 
-            var exporter = new Exporter(Selections, outputPath);
+            var exporter = new Exporter(Selections, Requirements, _outputPath);
+
             exporter.ExportFeeds(FeedCache, OpenPgp);
             if (!_noImplementations)
             {
                 DownloadUncachedImplementations();
                 exporter.ExportImplementations(Store, Handler);
             }
+
             exporter.DeployImportScript();
+            switch (_bootstrapType)
+            {
+                case BootstrapMode.Run:
+                    exporter.DeployBootstrapRun(Handler);
+                    break;
+                case BootstrapMode.Integrate:
+                    exporter.DeployBootstrapIntegrate(Handler);
+                    break;
+            }
 
             SelfUpdateCheck();
 
@@ -99,7 +119,9 @@ namespace ZeroInstall.Commands.CliCommands
 
         protected override ExitCode ShowOutput()
         {
-            Handler.OutputLow(Resources.ExportComplete, Resources.AllComponentsExported);
+            Handler.OutputLow(
+                title: Resources.ExportComplete,
+                message: string.Format(Resources.AllComponentsExported, Selections.Name ?? "app", _outputPath));
 
             return ExitCode.OK;
         }

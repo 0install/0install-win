@@ -106,7 +106,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All required components have been exported. You can use &apos;0install import&apos; and &apos;0install store add&apos; to import the files on another computer..
+        ///   Looks up a localized string similar to All components required to run {0} have been exported to &apos;{1}&apos;.
+        ///You can use the import script or Bootstrap executable in &apos;{1}&apos; to import these files on another computer..
         /// </summary>
         public static string AllComponentsExported {
             get {
@@ -1425,6 +1426,24 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose the type of Bootstrapper to place alongside the export..
+        /// </summary>
+        public static string OptionExportBootstrap {
+            get {
+                return ResourceManager.GetString("OptionExportBootstrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not include implementation archives in the export. Only export feeds..
+        /// </summary>
+        public static string OptionExportNoImplementations {
+            get {
+                return ResourceManager.GetString("OptionExportNoImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perform the update even if the currently installed version is the same or newer..
         /// </summary>
         public static string OptionForceSelfUpdate {
@@ -1540,15 +1559,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string OptionNoDownload {
             get {
                 return ResourceManager.GetString("OptionNoDownload", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do not include implementation archives in the export. Only export feeds..
-        /// </summary>
-        public static string OptionNoImplementations {
-            get {
-                return ResourceManager.GetString("OptionNoImplementations", resourceCulture);
             }
         }
         

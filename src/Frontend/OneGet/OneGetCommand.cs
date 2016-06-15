@@ -221,10 +221,11 @@ namespace ZeroInstall.OneGet
             var selections = Solve(requirements);
             Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
 
-            var exporter = new Exporter(selections, location);
+            var exporter = new Exporter(selections, requirements, location);
             exporter.ExportFeeds(FeedCache, OpenPgp);
             exporter.ExportImplementations(Store, Handler);
             exporter.DeployImportScript();
+            exporter.DeployBootstrapIntegrate(Handler);
 
             SelfUpdateCheck();
         }

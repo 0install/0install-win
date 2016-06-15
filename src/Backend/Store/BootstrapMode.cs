@@ -1,3 +1,5 @@
+using System.Xml.Serialization;
+
 namespace ZeroInstall.Store
 {
     /// <summary>
@@ -8,16 +10,19 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Perform no application bootstrapping.
         /// </summary>
+        [XmlEnum("none")]
         None,
 
         /// <summary>
         /// Run the target application.
         /// </summary>
+        [XmlEnum("run")]
         Run,
 
         /// <summary>
         /// Perform desktop integration for the target application.
         /// </summary>
+        [XmlEnum("integrate")]
         Integrate
     }
 }

@@ -133,8 +133,8 @@
     <value>Alle benötigten Komponenten wurden runtergeladen.</value>
   </data>
   <data name="AllComponentsExported" xml:space="preserve">
-    <value>Alle benötigten Komponenten wurden exportiert.
-Sie können '0install import' und '0install store add' verwenden, um die Dateien auf einem anderen Rechner zu importieren.</value>
+    <value>Alle Komponenten, die benötigten werden um {0} auszuführen, wurden nach '{1}' exportiert.
+Sie können das Import Skript oder das Bootstrap Programm in '{1}' verwenden, um diese Dateien auf einem anderen Rechner zu importieren.</value>
   </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
     <value>'{0}' ist bereits in der Liste der benutzerdefinierten Implementierungscaches.</value>
@@ -588,6 +588,12 @@ Hat keine Wirkung im Text-Modus.</value>
   <data name="OptionDigest" xml:space="preserve">
     <value>Zeigt den Digest des Manifest an (standardmäßig aktiviert wenn --manifest nicht gesetzt ist).</value>
   </data>
+  <data name="OptionExportBootstrap" xml:space="preserve">
+    <value>Wählt die Art von Bootstrapper aus, die neben dem Export platziert werden soll.</value>
+  </data>
+  <data name="OptionExportNoImplementations" xml:space="preserve">
+    <value>Keine Implementierungsarchive exportieren. Nur Feeds exportieren.</value>
+  </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Führe das Update durch, auch wenn die derzeit installierte Version die gleiche oder neuer ist.</value>
   </data>
@@ -628,9 +634,6 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
   </data>
   <data name="OptionNoDownload" xml:space="preserve">
     <value>Lade die Anwendung selbst noch nicht herunter. Wird stattdessen bei der ersten Verwendung automatisch heruntergeladen.</value>
-  </data>
-  <data name="OptionNoImplementations" xml:space="preserve">
-    <value>Keine Implementierungsarchive exportieren. Nur Feeds exportieren.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>

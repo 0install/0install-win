@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.Utils
     [TestFixture]
     public class ExporterTest : TestWithMocks
     {
-        private TemporaryDirectory _outputDir;
+        private TemporaryDirectory _destination;
         private Exporter _target;
 
         [SetUp]
@@ -40,9 +40,9 @@ namespace ZeroInstall.Commands.Utils
         {
             base.SetUp();
 
-            _outputDir = new TemporaryDirectory("0install-unit-test");
+            _destination = new TemporaryDirectory("0install-unit-test");
             var selections = SelectionsTest.CreateTestSelections();
-            _target = new Exporter(selections, _outputDir);
+            _target = new Exporter(selections, new Architecture(), _destination);
         }
 
         [TearDown]
@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands.Utils
         {
             base.TearDown();
 
-            _outputDir.Dispose();
+            _destination.Dispose();
         }
 
         [Test]
@@ -73,16 +73,17 @@ namespace ZeroInstall.Commands.Utils
 
                 _target.ExportFeeds(feedCacheMock.Object, openPgpMock.Object);
 
+                string contentDir = Path.Combine(_destination, "content");
                 FileAssert.AreEqual(
                     expected: new FileInfo(feedFile1),
-                    actual: new FileInfo(Path.Combine(_outputDir, FeedTest.Sub1Uri.PrettyEscape() + ".xml")),
+                    actual: new FileInfo(Path.Combine(contentDir, FeedTest.Sub1Uri.PrettyEscape())),
                     message: "Feed should be exported.");
                 FileAssert.AreEqual(
                     expected: new FileInfo(feedFile2),
-                    actual: new FileInfo(Path.Combine(_outputDir, FeedTest.Sub2Uri.PrettyEscape() + ".xml")),
+                    actual: new FileInfo(Path.Combine(contentDir, FeedTest.Sub2Uri.PrettyEscape())),
                     message: "Feed should be exported.");
 
-                File.ReadAllText(Path.Combine(_outputDir, "000000000000007B.gpg")).Should()
+                File.ReadAllText(Path.Combine(contentDir, "000000000000007B.gpg")).Should()
                     .Be("abc", because: "GPG keys should be exported.");
             }
         }
@@ -100,9 +101,10 @@ namespace ZeroInstall.Commands.Utils
                 _target.ExportImplementations(storeMock.Object, new SilentTaskHandler());
             }
 
-            File.Exists(Path.Combine(_outputDir, "sha256=123.tbz2")).Should()
+            string contentDir = Path.Combine(_destination, "content");
+            File.Exists(Path.Combine(contentDir, "sha256=123.tbz2")).Should()
                 .BeTrue(because: "Implementation should be exported.");
-            File.Exists(Path.Combine(_outputDir, "sha256=abc.tbz2")).Should()
+            File.Exists(Path.Combine(contentDir, "sha256=abc.tbz2")).Should()
                 .BeTrue(because: "Implementation should be exported.");
         }
     }
