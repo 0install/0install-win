@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NanoByte.Common;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store;
@@ -50,9 +51,22 @@ namespace ZeroInstall.Bootstrap
         private EmbeddedConfig()
         {
             var lines = typeof(EmbeddedConfig).GetEmbeddedString("EmbeddedConfig.txt").SplitMultilineText();
-            AppName = lines[0].TrimEnd();
-            AppUri = new FeedUri(lines[1].TrimEnd());
-            AppMode = GetAppMode(lines[2].TrimEnd());
+
+            try
+            {
+                AppUri = new FeedUri(lines[0].TrimEnd());
+                Log.Info("EmbeddedConfig: AppUri: " + AppUri);
+
+                AppName = lines[1].TrimEnd();
+                Log.Info("EmbeddedConfig: AppName: " + AppName);
+
+                AppMode = GetAppMode(lines[2].TrimEnd());
+                Log.Info("EmbeddedConfig: AppMode: " + AppMode);
+            }
+            catch (UriFormatException)
+            {
+                // No (valid) feed URI set
+            }
         }
 
         private static BootstrapMode GetAppMode(string value)
