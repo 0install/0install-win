@@ -199,9 +199,19 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Generates a localized instruction string describing multiple selectable values.
         /// </summary>
+        /// <param name="values">The values to list.</param>
         protected static string SupportedValues<T>(params T[] values)
         {
             return string.Format(Resources.SupportedValues, StringUtils.Join(", ", values.Select(AttributeUtils.ConvertToString)));
+        }
+
+        /// <summary>
+        /// Generates a localized instruction string describing multiple selectable enum values.
+        /// </summary>
+        /// <typeparam name="T">The enum type to list values for.</typeparam>
+        protected static string SupportedValues<T>()
+        {
+            return SupportedValues(Enum.GetValues(typeof(T)).Cast<T>().ToArray());
         }
     }
 }

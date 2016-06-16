@@ -132,14 +132,6 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     public struct Architecture : IEquatable<Architecture>
     {
-        #region Constants
-        /// <summary>A list of all known <see cref="OS"/> values.</summary>
-        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.Solaris, OS.FreeBsd, OS.MacOSX, OS.Darwin, OS.Windows, OS.Cygwin};
-
-        /// <summary>A list of all known <see cref="Cpu"/> values, except for <see cref="Store.Model.Cpu.Source"/>.</summary>
-        public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.Ppc, Cpu.Ppc64};
-        #endregion
-
         /// <summary>
         /// Determines which operating systems are supported.
         /// </summary>
