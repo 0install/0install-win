@@ -200,7 +200,7 @@ namespace ZeroInstall.Commands
                         var result = TryRunOtherInstance(exeName, args, handler, ex.NeedsMachineWide);
                         if (result.HasValue) return result.Value;
                         else if (handler.Ask(ex.Message + @" " + Resources.AskDeployZeroInstall,
-                            defaultAnswer: false, alternateMessage: ex.Message))
+                            defaultAnswer: true, alternateMessage: ex.Message))
                         {
                             var deployArgs = new[] {MaintenanceMan.Name, MaintenanceMan.Deploy.Name, "--batch"};
                             if (ex.NeedsMachineWide) deployArgs = deployArgs.Append("--machine");
