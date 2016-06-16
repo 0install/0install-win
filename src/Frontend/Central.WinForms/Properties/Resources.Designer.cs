@@ -63,9 +63,49 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AppAdd {
+            get {
+                object obj = ResourceManager.GetObject("AppAdd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AppIcon {
             get {
                 object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppIntegrate {
+            get {
+                object obj = ResourceManager.GetObject("AppIntegrate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppModify {
+            get {
+                object obj = ResourceManager.GetObject("AppModify", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppRemove {
+            get {
+                object obj = ResourceManager.GetObject("AppRemove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,46 +136,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static System.Drawing.Bitmap ArrowUp {
             get {
                 object obj = ResourceManager.GetObject("ArrowUp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IntegrateIcon {
-            get {
-                object obj = ResourceManager.GetObject("IntegrateIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ModifyIntegrationIcon {
-            get {
-                object obj = ResourceManager.GetObject("ModifyIntegrationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MyAppsAddedIcon {
-            get {
-                object obj = ResourceManager.GetObject("MyAppsAddedIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MyAppsNotAddedIcon {
-            get {
-                object obj = ResourceManager.GetObject("MyAppsNotAddedIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

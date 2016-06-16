@@ -39,11 +39,13 @@
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.iconDownloadWorker = new System.ComponentModel.BackgroundWorker();
-            this.buttonRemove = new System.Windows.Forms.Button();
-            this.buttonIntegrate = new System.Windows.Forms.Button();
+            this.buttonIntegrate = new NanoByte.Common.Controls.DropDownButton();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.contextMenuIntegrate = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.contextMenuRun.SuspendLayout();
+            this.contextMenuIntegrate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,7 +130,7 @@
             this.buttonAdd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonAdd.Location = new System.Drawing.Point(330, 32);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(30, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(63, 23);
             this.buttonAdd.TabIndex = 4;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -138,36 +140,41 @@
             this.iconDownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.iconDownloadWorker_DoWork);
             this.iconDownloadWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.iconDownloadWorker_RunWorkerCompleted);
             // 
-            // buttonRemove
-            // 
-            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemove.AutoSize = true;
-            this.buttonRemove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRemove.Location = new System.Drawing.Point(330, 32);
-            this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(30, 23);
-            this.buttonRemove.TabIndex = 5;
-            this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
-            // 
             // buttonIntegrate
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.AutoSize = true;
+            this.buttonIntegrate.ContextMenuStrip = this.contextMenuIntegrate;
+            this.buttonIntegrate.DropDownMenuStrip = this.contextMenuIntegrate;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonIntegrate.Location = new System.Drawing.Point(363, 32);
+            this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";
-            this.buttonIntegrate.Size = new System.Drawing.Size(30, 23);
-            this.buttonIntegrate.TabIndex = 6;
+            this.buttonIntegrate.ShowSplit = true;
+            this.buttonIntegrate.Size = new System.Drawing.Size(63, 23);
+            this.buttonIntegrate.TabIndex = 5;
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
+            // 
+            // contextMenuIntegrate
+            // 
+            this.contextMenuIntegrate.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonRemove});
+            this.contextMenuIntegrate.Name = "contextMenuIntegrate";
+            this.contextMenuIntegrate.Size = new System.Drawing.Size(126, 26);
+            // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(125, 22);
+            this.buttonRemove.Text = "(Remove)";
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // pictureBoxIcon
             // 
             this.pictureBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBoxIcon.Location = new System.Drawing.Point(6, 6);
             this.pictureBoxIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxIcon.Location = new System.Drawing.Point(6, 6);
             this.pictureBoxIcon.Name = "pictureBoxIcon";
             this.pictureBoxIcon.Size = new System.Drawing.Size(48, 48);
             this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -181,7 +188,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonIntegrate);
             this.Controls.Add(this.pictureBoxIcon);
             this.Controls.Add(this.labelName);
@@ -193,6 +199,7 @@
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Size = new System.Drawing.Size(400, 60);
             this.contextMenuRun.ResumeLayout(false);
+            this.contextMenuIntegrate.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -212,8 +219,9 @@
         private System.Windows.Forms.ToolStripMenuItem buttonSelectCommand;
         private System.Windows.Forms.ToolStripSeparator runMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
-        internal System.Windows.Forms.Button buttonRemove;
-        internal System.Windows.Forms.Button buttonIntegrate;
+        internal NanoByte.Common.Controls.DropDownButton buttonIntegrate;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ContextMenuStrip contextMenuIntegrate;
+        private System.Windows.Forms.ToolStripMenuItem buttonRemove;
     }
 }

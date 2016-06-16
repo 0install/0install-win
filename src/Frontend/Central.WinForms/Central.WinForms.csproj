@@ -184,14 +184,14 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
+    <Content Include="Resources\AppAdd.png" />
     <Content Include="Resources\AppIcon.png" />
+    <Content Include="Resources\AppIntegrate.png" />
+    <Content Include="Resources\AppModify.png" />
+    <Content Include="Resources\AppRemove.png" />
     <Content Include="Resources\ArrowDown.png" />
     <Content Include="Resources\ArrowRight.png" />
     <Content Include="Resources\ArrowUp.png" />
-    <Content Include="Resources\IntegrateIcon.png" />
-    <Content Include="Resources\ModifyIntegrationIcon.png" />
-    <Content Include="Resources\MyAppsAddedIcon.png" />
-    <Content Include="Resources\MyAppsNotAddedIcon.png" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

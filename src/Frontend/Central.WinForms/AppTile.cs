@@ -45,7 +45,7 @@ namespace ZeroInstall.Central.WinForms
         #region Variables
         // Static resource preload
         private static readonly string _runButtonText = SharedResources.Run;
-        private static readonly Bitmap _notAddedIcon = Resources.MyAppsNotAddedIcon, _addedIcon = Resources.MyAppsAddedIcon, _integrateIcon = Resources.IntegrateIcon, _modifyIntegrationIcon = Resources.ModifyIntegrationIcon;
+        private static readonly Bitmap _addImage = Resources.AppAdd, _removeImage = Resources.AppRemove, _integrateImage = Resources.AppIntegrate, _modifyImage = Resources.AppModify;
         private static readonly string _addText = SharedResources.MyAppsAdd, _removeText = SharedResources.MyAppsRemove, _integrateText = SharedResources.Integrate, _modifyIntegrationText = SharedResources.ModifyIntegration;
         private static readonly string _runCommandText = SharedResources.RunCommand, _runVersionText = SharedResources.RunVersion, _updateText = SharedResources.Update;
 
@@ -142,11 +142,11 @@ namespace ZeroInstall.Central.WinForms
 
             InitializeComponent();
             buttonRun.Text = _runButtonText;
-            buttonAdd.Image = _notAddedIcon;
-            buttonRemove.Image = _addedIcon;
-            buttonIntegrate.Image = _integrateIcon;
+            buttonAdd.Image = _addImage;
+            buttonRemove.Image = _removeImage;
+            buttonRemove.Text = _removeText;
+            buttonIntegrate.Image = _integrateImage;
             toolTip.SetToolTip(buttonAdd, _addText);
-            toolTip.SetToolTip(buttonRemove, _removeText);
             buttonSelectCommand.Text = _runCommandText;
             buttonSelectVersion.Text = _runVersionText;
             buttonUpdate.Text = _updateText;
@@ -215,10 +215,9 @@ namespace ZeroInstall.Central.WinForms
         private void UpdateButtons()
         {
             buttonAdd.Enabled = buttonAdd.Visible = (Status == AppStatus.Candidate);
-            buttonRemove.Enabled = buttonRemove.Visible = (Status >= AppStatus.Added);
 
             toolTip.SetToolTip(buttonIntegrate, (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText);
-            buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyIntegrationIcon : _integrateIcon;
+            buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyImage : _integrateImage;
             buttonIntegrate.Visible = (Status >= AppStatus.Added);
             buttonIntegrate.Enabled = true;
         }
@@ -280,7 +279,7 @@ namespace ZeroInstall.Central.WinForms
             if (InterfaceUri.IsFake) return;
 
             // Disable buttons while operation is running
-            buttonRemove.Enabled = buttonIntegrate.Enabled = false;
+            buttonIntegrate.Enabled = false;
 
             Program.RunCommand(UpdateButtons, _machineWide, IntegrateApp.Name, InterfaceUri.ToStringRfc());
         }
@@ -293,7 +292,7 @@ namespace ZeroInstall.Central.WinForms
                 if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn)) return;
 
             // Disable buttons while operation is running
-            buttonRemove.Enabled = buttonIntegrate.Enabled = false;
+            buttonIntegrate.Enabled = false;
 
             Program.RunCommand(UpdateButtons, _machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
         }
