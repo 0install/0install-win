@@ -30,8 +30,4 @@ call "%~dp0doc\build.cmd"
 if errorlevel 1 pause
 
 rem Deploy compiled binaries
-if "%1" == "deploy" (
-echo.
-"%~dp0build\ReleaseNet20\Frontend\0install.exe" digest --manifest "%~dp0build\ReleaseNet20\Frontend" > "%~dp0build\ReleaseNet20\Frontend\.manifest"
-"%~dp0build\ReleaseNet20\Frontend\0install.exe" maintenance %*
-)
+if "%1" == "deploy" "%~dp0build\Release\Bootstrap\zero-install.exe" --feed="%~dp0build\Publish\ZeroInstall-%version%.xml" maintenance %*
