@@ -76,17 +76,43 @@ namespace ZeroInstall.Bootstrap
         {
             get
             {
+                string exeName = _exeName.EscapeArgument();
                 string help;
                 using (var buffer = new MemoryStream())
                 {
                     var writer = new StreamWriter(buffer);
-                    writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
-                    writer.WriteLine("Usage: " + _exeName + " [OPTIONS] [-- 0INSTALL-ARGS]");
-                    writer.WriteLine();
-                    writer.WriteLine("Samples:");
-                    writer.WriteLine("  " + _exeName + " -- central  Open main Zero Install GUI");
-                    writer.WriteLine("  " + _exeName + " -- run vlc  Run VLC via Zero Install");
-                    writer.WriteLine("  " + _exeName + " --silent    Deploy Zero Install for use without bootstrapper");
+                    switch (EmbeddedConfig.Instance.AppMode)
+                    {
+                        case BootstrapMode.None:
+                            writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
+                            writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
+                            writer.WriteLine();
+                            writer.WriteLine("Samples:");
+                            writer.WriteLine("  {0} central             Open main Zero Install GUI.", exeName);
+                            writer.WriteLine("  {0} maintenance deploy  Deploy Zero Install to this computer.", exeName);
+                            writer.WriteLine("  {0} run vlc             Run VLC via Zero Install.", exeName);
+                            writer.WriteLine("  {0} -- --help           Show help for Zero Install instead of Bootstrapper.", exeName);
+                            break;
+                        case BootstrapMode.Run:
+                            writer.WriteLine("This bootstrapper downloads and runs {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
+                            writer.WriteLine();
+                            writer.WriteLine("Samples:");
+                            writer.WriteLine("  {0}               Run {1}.", exeName, EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, EmbeddedConfig.Instance.AppName);
+                            break;
+                        case BootstrapMode.Integrate:
+                            writer.WriteLine("This bootstrapper downloads and integrates {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("Usage: {0} [OPTIONS] [[--] INTEGRATE-ARGS]", exeName);
+                            writer.WriteLine();
+                            writer.WriteLine("Samples:");
+                            writer.WriteLine("  {0}             Show GUI for integrating {1}.", exeName, EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("  {0} --add=menu  Add {1} to start menu.", exeName, EmbeddedConfig.Instance.AppName);
+                            writer.WriteLine("  {0} -- --help   Show help for {1} integration instead of Bootstrapper.", exeName, EmbeddedConfig.Instance.AppName);
+                            break;
+                    }
                     writer.WriteLine();
                     writer.WriteLine("Options:");
                     _options.WriteOptionDescriptions(writer);
@@ -106,11 +132,6 @@ namespace ZeroInstall.Bootstrap
         {
             _gui = gui;
 
-            //// Only use per-user default cache location
-            //Store = new DirectoryStore(
-            //    Locations.GetCacheDirPath("0install.net", machineWide: false, resource: "implementations"),
-            //    useWriteProtection: false);
-
             _options = new OptionSet
             {
                 {
@@ -123,14 +144,14 @@ namespace ZeroInstall.Bootstrap
                 {
                     "batch", () => "Automatically answer questions with defaults when possible. Avoid unnecessary console output (e.g. progress bars).", _ =>
                     {
-                        if (Handler.Verbosity >= Verbosity.Verbose) throw new OptionException("Cannot combine --batch and verbose", "verbose");
+                        if (Handler.Verbosity >= Verbosity.Verbose) throw new OptionException("Cannot combine --batch and --verbose", "verbose");
                         Handler.Verbosity = Verbosity.Batch;
                     }
                 },
                 {
                     "v|verbose", () => "More verbose output. Use twice for even more verbose output.", _ =>
                     {
-                        if (Handler.Verbosity == Verbosity.Batch) throw new OptionException("Cannot combine --batch and verbose", "batch");
+                        if (Handler.Verbosity == Verbosity.Batch) throw new OptionException("Cannot combine --batch and --verbose", "batch");
                         Handler.Verbosity++;
                     }
                 },
@@ -161,8 +182,6 @@ namespace ZeroInstall.Bootstrap
                 {
                     "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
                 },
-                {"mergetasks", () => "Does nothing. For compatibility with old Inno Setup installer.", _ => { }},
-                {"norestart", () => "Does nothing. For compatibility with old Inno Setup installer.", _ => { }},
 
                 // Disable interspersed arguments (needed for passing arguments through to target)
                 {
@@ -176,25 +195,21 @@ namespace ZeroInstall.Bootstrap
                 }
             };
 
-            if (EmbeddedConfig.Instance.AppMode != BootstrapMode.None) return;
-            _options.Add("silent", () => "Automatically deploy Zero Install in unattended mode.", _ =>
+            if (EmbeddedConfig.Instance.AppMode == BootstrapMode.None)
             {
-                Handler.Verbosity = Verbosity.Batch;
-                _noExisting = true;
-
-                _targetArgs.Clear();
-                _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch"});
-                if (!IsPerUser) _targetArgs.Add("--machine");
-            });
-            _options.Add("verysilent", () => "Automatically deploy Zero Install in unattended mode with no UI.", _ =>
-            {
-                Handler.Verbosity = Verbosity.Batch;
-                _noExisting = true;
-
-                _targetArgs.Clear();
-                _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch", "--background"});
-                if (!IsPerUser) _targetArgs.Add("--machine");
-            });
+                _options.Add("silent", () => "Deploy Zero Install in unattended mode. Equivalent to \"maintenance deploy --batch\".", _ =>
+                {
+                    _targetArgs.Clear();
+                    _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch"});
+                    if (!IsPerUser) _targetArgs.Add("--machine");
+                });
+                _options.Add("verysilent", () => "Deploy Zero Install in unattended mode with no UI. Equivalent to \"maintenance deploy --batch --background\".", _ =>
+                {
+                    _targetArgs.Clear();
+                    _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch", "--background"});
+                    if (!IsPerUser) _targetArgs.Add("--machine");
+                });
+            }
         }
         #endregion
 
@@ -205,16 +220,7 @@ namespace ZeroInstall.Bootstrap
         /// <returns>The exit status code to end the process with.</returns>
         public ExitCode Execute([NotNull, ItemNotNull] IEnumerable<string> args)
         {
-            switch (EmbeddedConfig.Instance.AppMode)
-            {
-                case BootstrapMode.Run:
-                    _targetArgs.AddRange(new [] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()});
-                    break;
-
-                case BootstrapMode.Integrate:
-                    _targetArgs.AddRange(new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()});
-                    break;
-            }
+            _targetArgs.AddRange(GetEmbeddedArgs());
             _targetArgs.AddRange(_options.Parse(args));
 
             if (_targetArgs.Count == 0)
@@ -226,6 +232,7 @@ namespace ZeroInstall.Bootstrap
                     return ExitCode.UserCanceled;
                 }
             }
+            else HandleSharedOptions();
 
             if (Directory.Exists(_contentDir))
             {
@@ -236,6 +243,42 @@ namespace ZeroInstall.Bootstrap
             var startInfo = GetStartInfo();
             Handler.Dispose();
             return (ExitCode)startInfo.Run();
+        }
+
+        /// <summary>
+        /// Gets implicit command-line arguments based on the <see cref="EmbeddedConfig"/>, if any.
+        /// </summary>
+        private static IEnumerable<string> GetEmbeddedArgs()
+        {
+            switch (EmbeddedConfig.Instance.AppMode)
+            {
+                case BootstrapMode.Run:
+                    return new[] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()};
+                case BootstrapMode.Integrate:
+                    return new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()};
+                default:
+                    return new string[0];
+            }
+        }
+
+        /// <summary>
+        /// Handles arguments passed to the target that are also applicable to the bootstrapper.
+        /// </summary>
+        private void HandleSharedOptions()
+        {
+            foreach (string arg in _targetArgs)
+            {
+                switch (arg)
+                {
+                    case "batch":
+                        Handler.Verbosity = Verbosity.Batch;
+                        break;
+                    case "o":
+                    case "offline":
+                        Config.NetworkUse = NetworkLevel.Offline;
+                        break;
+                }
+            }
         }
 
         /// <summary>
