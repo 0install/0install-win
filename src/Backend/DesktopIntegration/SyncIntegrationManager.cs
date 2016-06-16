@@ -99,7 +99,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public SyncIntegrationManager(SyncServer server, [CanBeNull] string cryptoKey, [NotNull] Converter<FeedUri, Feed> feedRetriever, [NotNull] ITaskHandler handler, bool machineWide = false)
             : base(handler, machineWide)
@@ -130,7 +130,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public SyncIntegrationManager([NotNull] string appListPath, SyncServer server, [NotNull] Converter<FeedUri, Feed> feedRetriever, [NotNull] ITaskHandler handler, bool machineWide = false)
             : base(appListPath, handler, machineWide)
@@ -160,7 +160,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="resetMode">Controls how synchronization data is reset.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data or if the specified crypto key was wrong.</exception>
+        /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data or the specified crypto key was wrong.</exception>
         /// <exception cref="WebException">A problem occured while communicating with the sync server or while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>

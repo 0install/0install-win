@@ -190,7 +190,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="InvalidDataException">A feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">A feed file could not be found.</exception>
-        /// <exception cref="IOException">A file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="IOException">A file could not be read or written or the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a feed file or the catalog file is not permitted.</exception>
         /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
         /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
@@ -240,7 +240,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Saves a feed.
         /// </summary>
-        /// <exception cref="IOException">A file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="IOException">A file could not be read or written or the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a feed file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
         private void SaveFeed(FeedEditing feedEditing)
@@ -297,7 +297,7 @@ namespace ZeroInstall.Publish.Cli
         /// Saves a catalog.
         /// </summary>
         /// <param name="catalog">The catalog to save.</param>
-        /// <exception cref="IOException">A file could not be read or written or if the GnuPG could not be launched or the catalog file could not be written.</exception>
+        /// <exception cref="IOException">A file could not be read or written or the GnuPG could not be launched or the catalog file could not be written.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a catalog file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
         private void SaveCatalog(Catalog catalog)

@@ -184,7 +184,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <exception cref="OptionException">The number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
-        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted or an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">An operation failed due to insufficient rights.</exception>
         /// <exception cref="InvalidDataException">A problem occurred while deserializing an XML file.</exception>
         /// <exception cref="SignatureException">The signature data could not be handled for some reason.</exception>

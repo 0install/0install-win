@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns a list of <see cref="IStore"/>s representing all local cache directories.
         /// </summary>
-        /// <exception cref="IOException">A directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">A directory could not be created or the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating a directory was not permitted.</exception>
         [NotNull, ItemNotNull]
         private static IEnumerable<IStore> GetStores()

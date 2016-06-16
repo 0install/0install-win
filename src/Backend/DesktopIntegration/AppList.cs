@@ -202,7 +202,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="stream">The ZIP archive to load.</param>
         /// <param name="password">The password to use for decryption; <c>null</c> for no encryption.</param>
         /// <returns>The loaded list.</returns>
-        /// <exception cref="ZipException">A problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
+        /// <exception cref="ZipException">A problem occurred while reading the ZIP data or <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data.</exception>
         [NotNull]
         public static AppList LoadXmlZip([NotNull] Stream stream, [CanBeNull] string password = null)
