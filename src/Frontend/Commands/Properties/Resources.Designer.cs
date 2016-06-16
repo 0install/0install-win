@@ -1435,6 +1435,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include Zero Install itself in the export alongside the application..
+        /// </summary>
+        public static string OptionExportIncludeZeroInstall {
+            get {
+                return ResourceManager.GetString("OptionExportIncludeZeroInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not include implementation archives in the export. Only export feeds..
         /// </summary>
         public static string OptionExportNoImplementations {

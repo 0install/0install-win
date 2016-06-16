@@ -591,6 +591,9 @@ Hat keine Wirkung im Text-Modus.</value>
   <data name="OptionExportBootstrap" xml:space="preserve">
     <value>Wählt die Art von Bootstrapper aus, die neben dem Export platziert werden soll.</value>
   </data>
+  <data name="OptionExportIncludeZeroInstall" xml:space="preserve">
+    <value>Fügt dem Export zusätzlich zur Anwendung Zero Install selbst hinzu.</value>
+  </data>
   <data name="OptionExportNoImplementations" xml:space="preserve">
     <value>Keine Implementierungsarchive exportieren. Nur Feeds exportieren.</value>
   </data>

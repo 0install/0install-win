@@ -19,10 +19,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.Utils;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -50,6 +53,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         #region State
         private bool _noImplementations;
+        private bool _includeZeroInstall;
         private BootstrapMode _bootstrapType = BootstrapMode.Run;
 
         /// <inheritdoc/>
@@ -59,6 +63,7 @@ namespace ZeroInstall.Commands.CliCommands
             //Options.Remove("show");
 
             Options.Add("no-implementations", () => Resources.OptionExportNoImplementations, _ => _noImplementations = true);
+            Options.Add("include-zero-install", () => Resources.OptionExportIncludeZeroInstall, _ => _includeZeroInstall = true);
             Options.Add("bootstrap=", () => Resources.OptionExportBootstrap + Environment.NewLine + SupportedValues<BootstrapMode>(), (BootstrapMode x) => _bootstrapType = x);
         }
         #endregion
@@ -115,6 +120,32 @@ namespace ZeroInstall.Commands.CliCommands
             SelfUpdateCheck();
 
             return ShowOutput();
+        }
+
+        protected override void Solve()
+        {
+            base.Solve();
+
+            if (_includeZeroInstall)
+            {
+                try
+                {
+                    var selfSelections = Solver.Solve(new Requirements(Config.SelfUpdateUri));
+
+                    Selections.Implementations.AddRange(selfSelections.Implementations);
+                    UncachedImplementations.AddRange(SelectionsManager.GetUncachedImplementations(selfSelections));
+                }
+                    #region Error handling
+                catch
+                {
+                    // Suppress any left-over errors if the user canceled anyway
+                    Handler.CancellationToken.ThrowIfCancellationRequested();
+                    throw;
+                }
+                #endregion
+
+                Handler.CancellationToken.ThrowIfCancellationRequested();
+            }
         }
 
         protected override ExitCode ShowOutput()

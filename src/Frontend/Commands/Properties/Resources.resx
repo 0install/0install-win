@@ -591,6 +591,9 @@ Has no effect in text-mode.</value>
   <data name="OptionExportBootstrap" xml:space="preserve">
     <value>Choose the type of Bootstrapper to place alongside the export.</value>
   </data>
+  <data name="OptionExportIncludeZeroInstall" xml:space="preserve">
+    <value>Include Zero Install itself in the export alongside the application.</value>
+  </data>
   <data name="OptionExportNoImplementations" xml:space="preserve">
     <value>Do not include implementation archives in the export. Only export feeds.</value>
   </data>
