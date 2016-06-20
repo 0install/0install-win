@@ -52,7 +52,14 @@
                   <form action="http://0install.de/bootstrap/" method="get">
                     <input type="hidden" name="name" value="{interface:name}"/>
                     <input type="hidden" name="uri" value="{@uri}"/>
+                    <input type="hidden" name="mode" value="run"/>
                     <input type="submit" value="Run"/>
+                  </form>
+                  <form action="http://0install.de/bootstrap/" method="get">
+                    <input type="hidden" name="name" value="{interface:name}"/>
+                    <input type="hidden" name="uri" value="{@uri}"/>
+                    <input type="hidden" name="mode" value="integrate"/>
+                    <input type="submit" value="Integrate"/>
                   </form>
                 </div>
               </div>
