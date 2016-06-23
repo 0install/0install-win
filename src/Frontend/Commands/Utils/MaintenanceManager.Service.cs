@@ -31,7 +31,8 @@ namespace ZeroInstall.Commands.Utils
 {
     partial class MaintenanceManager
     {
-        private static readonly string _netFxDir = WindowsUtils.GetNetFxDirectory(WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx40) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
+        private static readonly string _runtimeDir = WindowsUtils.GetNetFxDirectory(
+            (Environment.Version.Major == 4) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
 
         private const string ServiceName = "0store-service";
 
@@ -101,7 +102,7 @@ namespace ZeroInstall.Commands.Utils
             }));
         }
 
-        private static readonly string _installUtilExe = Path.Combine(_netFxDir, "InstallUtil.exe");
+        private static readonly string _installUtilExe = Path.Combine(_runtimeDir, "InstallUtil.exe");
         private string ServiceExe { get { return Path.Combine(TargetDir, "0store-service.exe"); } }
 
         /// <summary>
@@ -138,7 +139,7 @@ namespace ZeroInstall.Commands.Utils
             File.Delete(Path.Combine(TargetDir, "InstallUtil.InstallLog"));
         }
 
-        private static readonly string _ngenExe = Path.Combine(_netFxDir, "ngen.exe");
+        private static readonly string _ngenExe = Path.Combine(_runtimeDir, "ngen.exe");
 
         private static readonly string[] _ngenAssemblies =
         {

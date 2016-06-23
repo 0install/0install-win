@@ -159,7 +159,7 @@ namespace ZeroInstall.Services.PackageManagers
                     // .NET executables do not need a runner on Windows
                     Commands = {new Command {Name = Command.NameRun, Path = ""}},
                     IsInstalled = true,
-                    QuickTestFile = Path.Combine(WindowsUtils.GetNetFxDirectory(clrVersion), "mscorlib.dll")
+                    QuickTestFile = GetNetfxQuickTestFile(clrVersion)
                 };
             }
 
@@ -175,10 +175,15 @@ namespace ZeroInstall.Services.PackageManagers
                         // .NET executables do not need a runner on Windows
                         Commands = {new Command {Name = Command.NameRun, Path = ""}},
                         IsInstalled = true,
-                        QuickTestFile = Path.Combine(WindowsUtils.GetNetFxDirectory(clrVersion), "mscorlib.dll")
+                        QuickTestFile = GetNetfxQuickTestFile(clrVersion)
                     };
                 }
             }
+        }
+
+        private static string GetNetfxQuickTestFile(string clrVersion)
+        {
+            return Path.Combine(WindowsUtils.GetNetFxDirectory(clrVersion), "mscorlib.dll");
         }
     }
 }

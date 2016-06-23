@@ -314,7 +314,7 @@ namespace ZeroInstall.Services.Injector
             string templateName;
             if (WindowsUtils.IsWindows)
             {
-                templateName = (Directory.Exists(WindowsUtils.GetNetFxDirectory(WindowsUtils.NetFx40)))
+                templateName = (Environment.Version.Major == 4)
                     ? "runenv.clr4.template"
                     : "runenv.clr2.template";
             }
