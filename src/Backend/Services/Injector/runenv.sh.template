@@ -1,2 +1,3 @@
-#!/bin/sh
-#ToDo: Implement
+#!/bin/bash
+env_var_name=ZEROINSTALL_RUNENV_$(basename $0)
+${!env_var_name} "$@"

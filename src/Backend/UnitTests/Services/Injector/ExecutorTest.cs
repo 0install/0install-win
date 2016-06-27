@@ -21,6 +21,7 @@ using System.IO;
 using FluentAssertions;
 using Moq;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -123,17 +124,25 @@ namespace ZeroInstall.Services.Injector
             startInfo.WorkingDirectory.Should().Be(Path.Combine(Test1Path, "bin"), because: "Should set implementation path");
 
             string execFile = Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path));
-            string execArgs = new[]
+            var execArgs = new[]
             {
-                selections.Implementations[2].Commands[0].Arguments[0].ToString(),
-                selections.Implementations[1].Commands[1].Runner.Arguments[0].ToString(),
-                Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[1].Path)),
-                selections.Implementations[1].Commands[1].Arguments[0].ToString()
-            }.JoinEscapeArguments();
-            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-var"].Should().Be(execFile);
-            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-var"].Should().Be(execArgs);
-            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-path"].Should().Be(execFile);
-            startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-path"].Should().Be(execArgs);
+                    selections.Implementations[2].Commands[0].Arguments[0].ToString(),
+                    selections.Implementations[1].Commands[1].Runner.Arguments[0].ToString(),
+                    Path.Combine(Test1Path, FileUtils.UnifySlashes(selections.Implementations[1].Commands[1].Path)),
+                    selections.Implementations[1].Commands[1].Arguments[0].ToString()
+                };
+            if (WindowsUtils.IsWindows)
+            {
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-var"].Should().Be(execFile);
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-var"].Should().Be(execArgs.JoinEscapeArguments());
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_exec-in-path"].Should().Be(execFile);
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_exec-in-path"].Should().Be(execArgs.JoinEscapeArguments());
+            }
+            else
+            {
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_exec-in-var"].Should().Be(execArgs.Prepend(execFile).JoinEscapeArguments());
+                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_exec-in-path"].Should().Be(execArgs.Prepend(execFile).JoinEscapeArguments());
+            }
             startInfo.EnvironmentVariables["PATH"].Should().Be(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", "exec-in-path") + Path.PathSeparator + new ProcessStartInfo().EnvironmentVariables["PATH"]);
         }
 

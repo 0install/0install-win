@@ -311,15 +311,11 @@ namespace ZeroInstall.Services.Injector
         [NotNull]
         private static string GetRunEnvTemplate()
         {
-            string templateName;
-            if (WindowsUtils.IsWindows)
-            {
-                templateName = (Environment.Version.Major == 4)
+            var templateName = WindowsUtils.IsWindows
+                ? (Environment.Version.Major == 4)
                     ? "runenv.clr4.template"
-                    : "runenv.clr2.template";
-            }
-            else if (UnixUtils.IsUnix) templateName = "runenv.sh.template";
-            else throw new NotSupportedException(string.Format(Resources.BindingNotSupportedOnCurrentOS, @"<executable-in-*>"));
+                    : "runenv.clr2.template"
+                : "runenv.sh.template";
 
             string path = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables"), templateName);
             Log.Info("Writing run-environment template to: " + path);
@@ -346,9 +342,14 @@ namespace ZeroInstall.Services.Injector
         {
             foreach (var runEnv in _runEnvPendings)
             {
-                var split = SplitCommandLine(ExpandCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables));
-                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_" + runEnv.ExeName] = split.Path;
-                startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_" + runEnv.ExeName] = split.Arguments;
+                var commandLine = ExpandCommandLine(runEnv.CommandLine, startInfo.EnvironmentVariables);
+                if (WindowsUtils.IsWindows)
+                {
+                    var split = SplitCommandLine(commandLine);
+                    startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_FILE_" + runEnv.ExeName] = split.Path;
+                    startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_ARGS_" + runEnv.ExeName] = split.Arguments;
+                }
+                else startInfo.EnvironmentVariables["ZEROINSTALL_RUNENV_" + runEnv.ExeName] = commandLine.JoinEscapeArguments();
             }
             _runEnvPendings.Clear();
 
