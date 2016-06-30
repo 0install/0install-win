@@ -152,7 +152,7 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="commandLine"></param>
         /// <param name="startInfo"></param>
-        private static void ApplyCommandLine([NotNull, ItemNotNull] IEnumerable<ArgBase> commandLine, [NotNull, ItemNotNull] ProcessStartInfo startInfo)
+        private static void ApplyCommandLine([NotNull, ItemNotNull] IEnumerable<ArgBase> commandLine, [NotNull] ProcessStartInfo startInfo)
         {
             var split = SplitCommandLine(ExpandCommandLine(commandLine, startInfo.EnvironmentVariables));
             startInfo.FileName = split.Path;

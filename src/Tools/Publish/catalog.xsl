@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Language" content="en" />
         <title>Zero Install - Software catalog</title>
         <link rel="stylesheet" href="catalog.css" type="text/css" />
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
       </head>
 
       <body>
