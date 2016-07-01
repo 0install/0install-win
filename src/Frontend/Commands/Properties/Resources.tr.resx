@@ -132,6 +132,10 @@
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Gereken tüm bileşenler indirildi.</value>
   </data>
+  <data name="AllComponentsExported" xml:space="preserve">
+    <value>{0} çalıştırmak için gerekli tüm bileşenler &apos;{1}&apos; üzerine verildi.
+Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyaları başka bir bilgisayara alabilirsiniz..</value>
+  </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
     <value>&apos;{0}&apos; zaten özel uygulama önbellekleri listesinde var.</value>
   </data>
@@ -145,7 +149,7 @@
     <value>Kayıt geçerli kullanıcı yerine makine çapında tüm kullanıcılar için yapılsın mı?</value>
   </data>
   <data name="AskDeployNewTarget" xml:space="preserve">
-    <value>Yeni bir &apos;{0}&apos; kopyası başlatmak istediğinize emin misiniz?</value>
+    <value>Yeni bir &apos;{0}&apos; kopyası yayınlamak istediğinize emin misiniz?</value>
   </data>
   <data name="AskDeployZeroInstall" xml:space="preserve">
     <value>Bu bilgisayara Zero Install yazılımını yüklemek istiyor musunuz?
@@ -277,6 +281,9 @@ Değişken yoksa, tüm ayarlar ve geçerli olan değerler görüntülenir. Bir d
     <value>&apos;0install select&apos; ile benzer şekilde davranır. Yalnızca önbellekte bulunmuyorsa seçilmiş sürümler de indirilir.
 Seçilmiş sürümler uygun ve önbelleğe indirilmiş ise çıkış durumu 0 olur. Diğer durumlarda çıkış durumu 1 olur.</value>
   </data>
+  <data name="DescriptionExport" xml:space="preserve">
+    <value>Belirtilen bir İnternet adresi ile başlatılan tüm akış ve uygulamaları bir KLASÖRE verir.</value>
+  </data>
   <data name="DescriptionImport" xml:space="preserve">
     <value>Akışı ağdan indirilmiş yerel bir dosyadan alır. Bu özellik bir akış dosyası sınanırken, aynı dosyanın uzak sunucuya yüklenip yeniden indirilmesinden kaçınmak için kullanışlıdır.
 Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</value>
@@ -387,6 +394,12 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Masaüstü bütünleştirmesi</value>
   </data>
+  <data name="DesktopIntegrationApply" xml:space="preserve">
+    <value>Masaüstü bütünleştirmesi uygulanıyor</value>
+  </data>
+  <data name="DesktopIntegrationRemove" xml:space="preserve">
+    <value>Masaüstü bütünleştirmesi kaldırılıyor</value>
+  </data>
   <data name="Done" xml:space="preserve">
     <value>Tamamlandı</value>
   </data>
@@ -404,6 +417,9 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   </data>
   <data name="ExistingInstance" xml:space="preserve">
     <value>Çalışan bir Zero Install kopyası &apos;{0}&apos; bulundu.</value>
+  </data>
+  <data name="ExportComplete" xml:space="preserve">
+    <value>Verme işlemi tamamlandı.</value>
   </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>Akış zaten tüm uygun arabirimlere kaydedilmiş.</value>
@@ -571,6 +587,15 @@ Metin kipinde bir etkisi yoktur.</value>
   </data>
   <data name="OptionDigest" xml:space="preserve">
     <value>Bildirimlerin özetini görüntüler (--manifest belirtilmemiş ise varsayılan olarak etkin).</value>
+  </data>
+  <data name="OptionExportBootstrap" xml:space="preserve">
+    <value>Verilen dosyalara eklenecek Bootstrapper tipini seçin.</value>
+  </data>
+  <data name="OptionExportIncludeZeroInstall" xml:space="preserve">
+    <value>Uygulamanın yanına Zero Install yazılımı da eklensin.</value>
+  </data>
+  <data name="OptionExportNoImplementations" xml:space="preserve">
+    <value>Verme sırasında uygulama arşivleri işleme katılmasın. Yalnız akışlar katılsın.</value>
   </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Yüklü sürüm aynı ya da daha yeni olsa bile güncelleştirmeyi gerçekleştirir.</value>
