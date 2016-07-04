@@ -71,8 +71,7 @@ namespace ZeroInstall.Services.Solvers
                     Log.Info(ex2);
 
                     // Report the original problem instead of inability to launch external solver
-                    ex.Rethrow();
-                    throw;
+                    throw ex.PreserveStack();
                 }
             }
         }

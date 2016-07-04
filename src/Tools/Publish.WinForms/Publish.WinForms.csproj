@@ -44,6 +44,9 @@
     <Reference Include="AeroWizard">
       <HintPath>..\..\packages\AeroWizard.2.1.7\lib\net40\AeroWizard.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\..\packages\JetBrains.Annotations.10.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -51,10 +54,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.1\lib\net40-client\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.2\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common.WinForms">
-      <HintPath>..\..\packages\NanoByte.Common.WinForms.2.0.1\lib\net40-client\NanoByte.Common.WinForms.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.WinForms.2.0.2\lib\net40-client\NanoByte.Common.WinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

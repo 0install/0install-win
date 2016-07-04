@@ -162,8 +162,8 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // If we reach this, the implementation could not be added to any store
-            innerException?.Rethrow();
-            throw new InvalidOperationException();
+            throw innerException?.PreserveStack()
+                ?? new InvalidOperationException();
         }
         #endregion
 
@@ -206,8 +206,8 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            innerException?.Rethrow();
-            throw new InvalidOperationException();
+            throw innerException?.PreserveStack()
+                ?? new InvalidOperationException();
         }
         #endregion
 

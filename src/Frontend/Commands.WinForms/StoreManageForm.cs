@@ -117,7 +117,7 @@ namespace ZeroInstall.Commands.WinForms
                 Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
                 Close();
             }
-            else ex?.Rethrow();
+            else if (ex != null) throw ex.PreserveStack();
             #endregion
 
             var nodeListBuilder = (CacheNodeBuilder)e.Result;
