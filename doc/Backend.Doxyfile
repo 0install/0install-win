@@ -1,7 +1,8 @@
 ﻿PROJECT_NAME = "Zero Install Backend API"
 PROJECT_NUMBER = "2.11.5"
 
-INPUT = ../src/Backend
+INPUT = Backend.md ../src/Backend
+USE_MDFILE_AS_MAINPAGE = Backend.md
 STRIP_FROM_PATH = ../src/Backend
 RECURSIVE = YES
 EXCLUDE_PATTERNS = */UnitTests/* */Properties/* *.NativeMethods.cs */obj/*

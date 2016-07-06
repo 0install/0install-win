@@ -1,7 +1,8 @@
-﻿PROJECT_NAME = "Zero Install Publishing Tools API"
+﻿PROJECT_NAME = "Zero Install Publishing API"
 PROJECT_NUMBER = "2.11.5"
 
-INPUT = ../src/Tools
+INPUT = Tools.md ../src/Tools
+USE_MDFILE_AS_MAINPAGE = Tools.md
 STRIP_FROM_PATH = ../src/Tools
 RECURSIVE = YES
 EXCLUDE_PATTERNS = */UnitTests/* */Properties/* *.NativeMethods.cs */obj/*
