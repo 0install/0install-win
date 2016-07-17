@@ -196,7 +196,6 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 Selections = Solver.Solve(Requirements);
-                Selections.Name = FeedCache.GetFeed(Selections.InterfaceUri).Name;
             }
                 #region Error handling
             catch
@@ -204,6 +203,18 @@ namespace ZeroInstall.Commands.CliCommands
                 // Suppress any left-over errors if the user canceled anyway
                 Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
+            }
+            #endregion
+
+            try
+            {
+                Selections.Name = FeedCache.GetFeed(Selections.InterfaceUri).Name;
+            }
+                #region Error handling
+            catch (KeyNotFoundException)
+            {
+                // Fall back to using feed file name
+                Selections.Name = Selections.InterfaceUri.ToString().GetRightPartAtLastOccurrence('/');
             }
             #endregion
 
