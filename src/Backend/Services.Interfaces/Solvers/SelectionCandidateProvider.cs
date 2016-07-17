@@ -117,23 +117,27 @@ namespace ZeroInstall.Services.Solvers
             return candidates;
         }
 
+        /// <summary>
+        /// Loads the main feed for the specified <paramref name="requirements"/>, additional feeds added by local configuration and <see cref="Feed.Feeds"/> references.
+        /// </summary>
+        /// <returns>A dictionary mapping <see cref="FeedUri"/>s to the actual <see cref="Feed"/>s loaded from there.</returns>
         private IDictionary<FeedUri, Feed> GetFeeds(Requirements requirements)
         {
             var dictionary = new Dictionary<FeedUri, Feed>();
 
-            AddFeed(dictionary, requirements.InterfaceUri, requirements);
+            AddFeedToDict(dictionary, requirements.InterfaceUri, requirements);
 
             foreach (var uri in GetNativeFeedPaths(requirements.InterfaceUri))
-                AddFeed(dictionary, uri, requirements);
+                AddFeedToDict(dictionary, uri, requirements);
 
             foreach (var uri in GetSitePackagePaths(requirements.InterfaceUri))
-                AddFeed(dictionary, uri, requirements);
+                AddFeedToDict(dictionary, uri, requirements);
 
             foreach (var reference in _interfacePreferences[requirements.InterfaceUri].Feeds)
             {
                 try
                 {
-                    AddFeed(dictionary, reference.Source, requirements);
+                    AddFeedToDict(dictionary, reference.Source, requirements);
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -166,7 +170,13 @@ namespace ZeroInstall.Services.Solvers
                 select new FeedUri(path);
         }
 
-        private void AddFeed(IDictionary<FeedUri, Feed> dictionary, FeedUri feedUri, Requirements requirements)
+        /// <summary>
+        /// Loads a feed and adds it to a dictionary if it is not already in it. Recursivley adds <see cref="Feed.Feeds"/> references.
+        /// </summary>
+        /// <param name="dictionary">The dictionary to add the feed to.</param>
+        /// <param name="feedUri">The URI to load the feed from</param>
+        /// <param name="requirements">Requirements to apply as a filter to <see cref="Feed.Feeds"/> references before following them.</param>
+        private void AddFeedToDict([NotNull] IDictionary<FeedUri, Feed> dictionary, [CanBeNull] FeedUri feedUri, [NotNull] Requirements requirements)
         {
             if (feedUri == null || dictionary.ContainsKey(feedUri)) return;
 
@@ -182,7 +192,7 @@ namespace ZeroInstall.Services.Solvers
             {
                 if (reference.Architecture.IsCompatible(requirements.Architecture) &&
                     (reference.Languages.Count == 0 || reference.Languages.ContainsAny(requirements.Languages, ignoreCountry: true)))
-                    AddFeed(dictionary, reference.Source, requirements);
+                    AddFeedToDict(dictionary, reference.Source, requirements);
             }
         }
 
