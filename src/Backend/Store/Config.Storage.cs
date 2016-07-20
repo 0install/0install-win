@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -68,8 +69,28 @@ namespace ZeroInstall.Store
             var property = _metaData[key];
             property.Value = property.DefaultValue;
         }
-        
+
         private const string RegistryPolicyPath = @"SOFTWARE\Policies\Zero Install";
+
+        /// <summary>
+        /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
+        /// </summary>
+        /// <returns>The loaded <see cref="Config"/>.</returns>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
+        [NotNull]
+        public static Config Load()
+        {
+            var config = new Config();
+
+            config.ReadFromAppSettings();
+            config.ReadFromIniFiles();
+            if (WindowsUtils.IsWindowsNT)
+                config.ReadFromRegistry();
+
+            return config;
+        }
 
         /// <summary>
         /// Loads the settings from a single INI file.
@@ -89,33 +110,14 @@ namespace ZeroInstall.Store
         }
 
         /// <summary>
-        /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
+        /// Saves the settings to an INI file in the default location in the user profile.
         /// </summary>
-        /// <returns>The loaded <see cref="Config"/>.</returns>
-        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
-        [NotNull]
-        public static Config Load()
+        /// <remarks>This method performs an atomic write operation when possible.</remarks>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        public void Save()
         {
-            // Locate all applicable config files
-            var paths = Locations.GetLoadConfigPaths("0install.net", true, "injector", "global");
-
-            // Accumulate values from all files
-            var config = new Config();
-            foreach (var path in paths.Reverse()) // Read least important first
-                config.ReadFromIniFile(path);
-
-            // Apply Windows registry policies (override existing config)
-            if (WindowsUtils.IsWindowsNT)
-            {
-                using (var registryKey = Registry.LocalMachine.OpenSubKey(RegistryPolicyPath, writable: false))
-                    if (registryKey != null) config.ReadFromRegistry(registryKey);
-                using (var registryKey = Registry.CurrentUser.OpenSubKey(RegistryPolicyPath, writable: false))
-                    if (registryKey != null) config.ReadFromRegistry(registryKey);
-            }
-
-            return config;
+            Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "global"));
         }
 
         /// <summary>
@@ -139,17 +141,15 @@ namespace ZeroInstall.Store
         }
 
         /// <summary>
-        /// Saves the settings to an INI file in the default location in the user profile.
+        /// Reads settings from INI files on the disk and transfers them to properties.
         /// </summary>
-        /// <remarks>This method performs an atomic write operation when possible.</remarks>
-        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        public void Save()
+        private void ReadFromIniFiles()
         {
-            Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "global"));
+            var paths = Locations.GetLoadConfigPaths("0install.net", true, "injector", "global");
+            foreach (var path in paths.Reverse()) // Read least important first
+                ReadFromIniFile(path);
         }
 
-        #region Serialization
         private const string GlobalSection = "global";
         private const string Base64Suffix = "_base64";
 
@@ -158,7 +158,7 @@ namespace ZeroInstall.Store
         private IniData _iniData;
 
         /// <summary>
-        /// Reads data from an INI file on the disk and transfers it to properties using <see cref="_metaData"/>.
+        /// Reads settings from an INI file on the disk and transfers them to properties.
         /// </summary>
         private void ReadFromIniFile([NotNull] string path)
         {
@@ -186,7 +186,9 @@ namespace ZeroInstall.Store
                 {
                     try
                     {
-                        property.Value.Value = property.Value.NeedsEncoding ? global[key].Base64Utf8Decode() : global[key];
+                        property.Value.Value = property.Value.NeedsEncoding
+                            ? global[key].Base64Utf8Decode()
+                            : global[key];
                     }
                         #region Error handling
                     catch (FormatException ex)
@@ -200,7 +202,58 @@ namespace ZeroInstall.Store
         }
 
         /// <summary>
-        /// Reads data from a Windows registry key and transfers it to properties using <see cref="_metaData"/>.
+        /// Transfers settings from properties to <see cref="_iniData"/>.
+        /// </summary>
+        private void TransferToIni()
+        {
+            if (_iniData == null) _iniData = new IniData();
+            _iniData.Sections.RemoveSection("__global__section__"); // Throw away section-less data
+
+            if (!_iniData.Sections.ContainsSection(GlobalSection)) _iniData.Sections.AddSection(GlobalSection);
+            var global = _iniData[GlobalSection];
+
+            foreach (var property in _metaData)
+            {
+                string key = property.Key;
+                if (property.Value.NeedsEncoding) key += Base64Suffix;
+
+                if (property.Value.IsDefaultValue || property.Value.Value == null)
+                    global.RemoveKey(key);
+                else
+                {
+                    global[key] = property.Value.NeedsEncoding
+                        ? property.Value.Value.Base64Utf8Encode()
+                        : property.Value.Value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reads settings from <see cref="ConfigurationManager.AppSettings"/> and transfers them to properties.
+        /// </summary>
+        private void ReadFromAppSettings()
+        {
+            foreach (var property in _metaData)
+            {
+                string value = ConfigurationManager.AppSettings[property.Key];
+                if (!string.IsNullOrEmpty(value))
+                    property.Value.Value = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads settings from Windows policy registry keys and transfers them to properties.
+        /// </summary>
+        private void ReadFromRegistry()
+        {
+            using (var registryKey = Registry.LocalMachine.OpenSubKey(RegistryPolicyPath, writable: false))
+                if (registryKey != null) ReadFromRegistry(registryKey);
+            using (var registryKey = Registry.CurrentUser.OpenSubKey(RegistryPolicyPath, writable: false))
+                if (registryKey != null) ReadFromRegistry(registryKey);
+        }
+
+        /// <summary>
+        /// Reads settings from a Windows registry key and transfers them to properties.
         /// </summary>
         private void ReadFromRegistry([NotNull] RegistryKey registryKey)
         {
@@ -229,29 +282,6 @@ namespace ZeroInstall.Store
         }
 
         /// <summary>
-        /// Transfers data from properties to <see cref="_iniData"/> using <see cref="_metaData"/>.
-        /// </summary>
-        private void TransferToIni()
-        {
-            if (_iniData == null) _iniData = new IniData();
-            _iniData.Sections.RemoveSection("__global__section__"); // Throw away section-less data
-
-            if (!_iniData.Sections.ContainsSection(GlobalSection)) _iniData.Sections.AddSection(GlobalSection);
-            var global = _iniData[GlobalSection];
-
-            foreach (var property in _metaData)
-            {
-                string key = property.Key;
-                if (property.Value.NeedsEncoding) key += Base64Suffix;
-
-                if (property.Value.IsDefaultValue || property.Value.Value == null) global.RemoveKey(key);
-                else global[key] = property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value;
-            }
-        }
-        #endregion
-        
-        #region Clone
-        /// <summary>
         /// Creates a deep copy of this <see cref="Config"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Config"/>.</returns>
@@ -267,9 +297,7 @@ namespace ZeroInstall.Store
         {
             return Clone();
         }
-        #endregion
 
-        #region Conversion
         /// <summary>
         /// Returns the keys and values of all contained setings.
         /// </summary>
@@ -280,9 +308,7 @@ namespace ZeroInstall.Store
                 builder.AppendLine(property.Key + " = " + (property.Value.NeedsEncoding ? "***" : property.Value.Value));
             return builder.ToString();
         }
-        #endregion
 
-        #region Equality
         /// <inheritdoc/>
         public bool Equals(Config other)
         {
@@ -312,6 +338,5 @@ namespace ZeroInstall.Store
                 return result;
             }
         }
-        #endregion
     }
 }
