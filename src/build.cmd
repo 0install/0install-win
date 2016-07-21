@@ -26,9 +26,8 @@ set config=%1
 if "%config%"=="" set config=Debug
 
 echo Restoring NuGet packages...
-.nuget\NuGet.exe restore %SOLUTION_FILE%
+.nuget\NuGet.exe restore %SOLUTION_FILE% -Verbosity quiet
 if errorlevel 1 exit /b %errorlevel%
-echo.
 
 echo Compiling Visual Studio solution (%config%)...
 if exist ..\build\%config% rd /s /q ..\build\%config%

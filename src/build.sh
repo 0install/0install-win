@@ -9,7 +9,7 @@ export MONO_IOMAP=all
 SOLUTION_FILE=ZeroInstall_Mono.sln
 
 echo Restoring NuGet packages...
-mono --runtime=v4.0 .nuget/NuGet.exe restore $SOLUTION_FILE
+mono .nuget/NuGet.exe restore $SOLUTION_FILE -Verbosity quiet
 
 echo Compiling solution...
 xbuild $SOLUTION_FILE /nologo /v:q
