@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -126,20 +125,13 @@ namespace ZeroInstall.Services.Fetchers
         [NotNull]
         private static string GetDownloadID([NotNull] Implementation implementation)
         {
-            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return implementation.ID;
+            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix))
+                return implementation.ID;
             else
             {
-                try
-                {
-                    Debug.Assert(implementation.ManifestDigest.Best != null);
-                    return implementation.ManifestDigest.Best;
-                }
-                    #region Error handling
-                catch (InvalidOperationException)
-                {
-                    throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
-                }
-                #endregion
+                var digest = implementation.ManifestDigest.Best;
+                if (digest == null) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
+                return digest;
             }
         }
 
