@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Configuration;
 using NanoByte.Common;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store;
@@ -54,13 +55,13 @@ namespace ZeroInstall.Bootstrap
 
             try
             {
-                AppUri = new FeedUri(lines[0].TrimEnd());
+                AppUri = new FeedUri(ConfigurationManager.AppSettings["app_uri"] ?? lines[0].TrimEnd());
                 Log.Info("EmbeddedConfig: AppUri: " + AppUri);
 
-                AppName = lines[1].TrimEnd();
+                AppName = ConfigurationManager.AppSettings["app_name"] ?? lines[1].TrimEnd();
                 Log.Info("EmbeddedConfig: AppName: " + AppName);
 
-                AppMode = GetAppMode(lines[2].TrimEnd());
+                AppMode = GetAppMode(ConfigurationManager.AppSettings["app_mode"] ?? lines[2].TrimEnd());
                 Log.Info("EmbeddedConfig: AppMode: " + AppMode);
             }
             catch (UriFormatException)
