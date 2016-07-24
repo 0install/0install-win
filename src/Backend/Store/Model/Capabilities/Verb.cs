@@ -26,7 +26,7 @@ using ZeroInstall.Store.Model.Design;
 namespace ZeroInstall.Store.Model.Capabilities
 {
     /// <summary>
-    /// The mapping of an action/verb (e.g. open, edit) to a <see cref="Store.Model.Command"/>.
+    /// The mapping of an action/verb (e.g. open, edit) to a <see cref="Command"/>.
     /// </summary>
     [Description("The mapping of an action/verb (e.g. open, edit) to a Command.")]
     [Serializable, XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public string Name { get; set; }
 
         /// <summary>
-        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <c>null</c> for <see cref="Store.Model.Command.NameRun"/>.
+        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <c>null</c> for <see cref="Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the feed to use when launching via this capability; leave empty for 'run'.")]
         [TypeConverter(typeof(CommandNameConverter))]

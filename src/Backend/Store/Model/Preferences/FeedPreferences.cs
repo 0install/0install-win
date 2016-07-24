@@ -30,7 +30,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Model.Preferences
 {
     /// <summary>
-    /// Stores user-specific preferences for a <see cref="Store.Model.Feed"/>.
+    /// Stores user-specific preferences for a <see cref="Feed"/>.
     /// </summary>
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace), XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class FeedPreferences : XmlUnknown, ICloneable, IEquatable<FeedPreferences>

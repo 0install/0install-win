@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementations
     public sealed class DigestMismatchException : Exception
     {
         /// <summary>
-        /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
+        /// The hash value the <see cref="Implementation"/> was supposed to have.
         /// </summary>
         [CanBeNull]
         public string ExpectedDigest { get; }
@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new digest mismatch exception.
         /// </summary>
-        /// <param name="expectedDigest">The digest value the <see cref="Store.Model.Implementation"/> was supposed to have.</param>
+        /// <param name="expectedDigest">The digest value the <see cref="Implementation"/> was supposed to have.</param>
         /// <param name="actualDigest">The digest value that was actually calculated.</param>
         /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedDigest"/>; may be <c>null</c>.</param>
         /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualDigest"/>.</param>

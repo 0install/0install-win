@@ -128,7 +128,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <summary>
-        /// Sets <see cref="Store.Model.Requirements.InterfaceUri"/> and applies <see cref="Requirements"/> options that need to be deferred to the end of the parsing process.
+        /// Sets <see cref="Requirements.InterfaceUri"/> and applies <see cref="Requirements"/> options that need to be deferred to the end of the parsing process.
         /// </summary>
         protected void SetInterfaceUri(FeedUri uri)
         {
@@ -161,7 +161,7 @@ namespace ZeroInstall.Commands.CliCommands
         protected Selections Selections;
 
         /// <summary>
-        /// Trys to parse <see cref="Store.Model.Requirements.InterfaceUri"/> as a pre-computed <see cref="Store.Model.Selection.Selections"/> document.
+        /// Trys to parse <see cref="Requirements.InterfaceUri"/> as a pre-computed <see cref="Selection.Selections"/> document.
         /// </summary>
         /// <seealso cref="SelectionsDocument"/>
         private void TryParseSelectionsDocument()

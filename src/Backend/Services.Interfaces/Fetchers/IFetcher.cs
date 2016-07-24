@@ -34,13 +34,13 @@ namespace ZeroInstall.Services.Fetchers
         /// <summary>
         /// Downloads a set of <see cref="Implementation"/>s to the <see cref="Store"/> and returns once this process is complete.
         /// </summary>
-        /// <param name="implementations">The <see cref="Store.Model.Implementation"/>s to be downloaded.</param>
+        /// <param name="implementations">The <see cref="Implementation"/>s to be downloaded.</param>
         /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         void Fetch([NotNull, ItemNotNull] IEnumerable<Implementation> implementations);
     }
 }

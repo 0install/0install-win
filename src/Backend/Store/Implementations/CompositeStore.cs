@@ -34,8 +34,8 @@ namespace ZeroInstall.Store.Implementations
     /// Combines multiple <see cref="IStore"/>s as a composite. Adds memory caching for <see cref="IStore.Contains(ManifestDigest)"/>.
     /// </summary>
     /// <remarks>
-    ///   <para>When adding new <see cref="Store.Model.Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
-    ///   <para>When when retrieving existing <see cref="Store.Model.Implementation"/>s the first child <see cref="IStore"/> that returns <c>true</c> for <see cref="IStore.Contains(ZeroInstall.Store.Model.ManifestDigest)"/> is used.</para>
+    ///   <para>When adding new <see cref="Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
+    ///   <para>When when retrieving existing <see cref="Implementation"/>s the first child <see cref="IStore"/> that returns <c>true</c> for <see cref="IStore.Contains(ZeroInstall.Store.Model.ManifestDigest)"/> is used.</para>
     /// </remarks>
     public class CompositeStore : MarshalByRefObject, IStore
     {
@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="stores">
         ///   A priority-sorted list of <see cref="IStore"/>s.
-        ///   Queried last-to-first for adding new <see cref="Store.Model.Implementation"/>s, first-to-last otherwise.
+        ///   Queried last-to-first for adding new <see cref="Implementation"/>s, first-to-last otherwise.
         /// </param>
         public CompositeStore([NotNull, ItemNotNull] IEnumerable<IStore> stores)
         {

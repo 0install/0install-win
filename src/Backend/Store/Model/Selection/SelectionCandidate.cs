@@ -85,7 +85,7 @@ namespace ZeroInstall.Store.Model.Selection
         public Stability EffectiveStability => (UserStability == Stability.Unset) ? Stability : UserStability;
 
         /// <summary>
-        /// For platform-specific binaries, the platform for which an <see cref="Store.Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
+        /// For platform-specific binaries, the platform for which an <see cref="Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
         /// </summary>
         [Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.")]
         public string Architecture => Implementation.Architecture.ToString();

@@ -33,7 +33,7 @@ namespace ZeroInstall.Store
         public readonly FeedUri Uri;
 
         /// <summary>
-        /// The data aquired from <see cref="Uri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
+        /// The data aquired from <see cref="Uri"/>. <see cref="Feed.Normalize"/> has already been called.
         /// </summary>
         [NotNull]
         public readonly Feed Feed;
@@ -42,7 +42,7 @@ namespace ZeroInstall.Store
         /// Creates a new feed target.
         /// </summary>
         /// <param name="uri">The URI or local path (must be absolute) to the feed.</param>
-        /// <param name="feed">The data aquired from <paramref name="uri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.</param>
+        /// <param name="feed">The data aquired from <paramref name="uri"/>. <see cref="Feed.Normalize"/> has already been called.</param>
         public FeedTarget([NotNull] FeedUri uri, [NotNull] Feed feed)
         {
             Uri = uri;

@@ -48,7 +48,7 @@ namespace ZeroInstall.Services.Fetchers
         /// <summary>
         /// Creates a new download fetcher.
         /// </summary>
-        /// <param name="store">The location to store the downloaded and unpacked <see cref="ZeroInstall.Store.Model.Implementation"/>s in.</param>
+        /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         protected FetcherBase([NotNull] IStore store, [NotNull] ITaskHandler handler)
         {
@@ -91,7 +91,7 @@ namespace ZeroInstall.Services.Fetchers
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         protected void Retrieve([NotNull] Implementation implementation)
         {
             #region Sanity checks
@@ -113,7 +113,7 @@ namespace ZeroInstall.Services.Fetchers
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         private void Retrieve([NotNull] RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
             var externalRetrievalMethod = retrievalMethod as ExternalRetrievalMethod;
@@ -163,9 +163,9 @@ namespace ZeroInstall.Services.Fetchers
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         private void Cook([NotNull] Recipe recipe, ManifestDigest manifestDigest)
         {
             Handler.CancellationToken.ThrowIfCancellationRequested();
@@ -234,9 +234,9 @@ namespace ZeroInstall.Services.Fetchers
         /// <exception cref="OperationCanceledException">An IO task was canceled from another thread.</exception>
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         private void ApplyArchives([NotNull, ItemNotNull] IList<Archive> archives, [NotNull, ItemNotNull] IList<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             var archiveFileInfos = new ArchiveFileInfo[archives.Count];
@@ -265,9 +265,9 @@ namespace ZeroInstall.Services.Fetchers
         /// <exception cref="OperationCanceledException">An IO task was canceled from another thread.</exception>
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         private void ApplyRecipe([NotNull] Recipe recipe, [NotNull, ItemNotNull] IEnumerable<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             using (var recipeDir = recipe.Apply(files, Handler, manifestDigest))

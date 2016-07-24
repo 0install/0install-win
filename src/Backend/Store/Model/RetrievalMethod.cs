@@ -22,7 +22,7 @@ using JetBrains.Annotations;
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// A retrieval method is a way of getting a copy of an <see cref="Store.Model.Implementation"/>.
+    /// A retrieval method is a way of getting a copy of an <see cref="Implementation"/>.
     /// </summary>
     [XmlType("retrieval-method", Namespace = Feed.XmlNamespace)]
     public abstract class RetrievalMethod : FeedElement, ICloneable

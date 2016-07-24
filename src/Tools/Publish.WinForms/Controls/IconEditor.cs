@@ -29,7 +29,7 @@ using Icon = ZeroInstall.Store.Model.Icon;
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
-    /// Edits <see cref="Store.Model.Icon"/> instances.
+    /// Edits <see cref="Icon"/> instances.
     /// </summary>
     public partial class IconEditor : IconEditorShim
     {

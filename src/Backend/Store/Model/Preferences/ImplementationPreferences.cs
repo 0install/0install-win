@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Store.Model.Preferences
 {
     /// <summary>
-    /// Stores user-specific preferences for an <see cref="Store.Model.Implementation"/>.
+    /// Stores user-specific preferences for an <see cref="Implementation"/>.
     /// </summary>
     [XmlType("implementation-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class ImplementationPreferences : XmlUnknown, ICloneable, IEquatable<ImplementationPreferences>

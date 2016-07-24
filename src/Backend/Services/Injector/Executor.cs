@@ -21,6 +21,7 @@ using System.Diagnostics;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
@@ -32,14 +33,14 @@ namespace ZeroInstall.Services.Injector
     {
         #region Dependencies
         /// <summary>
-        /// Used to locate the selected <see cref="Store.Model.Implementation"/>s.
+        /// Used to locate the selected <see cref="Implementation"/>s.
         /// </summary>
         private readonly IStore _store;
 
         /// <summary>
         /// Creates a new executor.
         /// </summary>
-        /// <param name="store">Used to locate the selected <see cref="Store.Model.Implementation"/>s.</param>
+        /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
         public Executor([NotNull] IStore store)
         {
             #region Sanity checks

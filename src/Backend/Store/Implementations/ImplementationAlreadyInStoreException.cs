@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementations
     {
         #region Properties
         /// <summary>
-        /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
+        /// The hash value the <see cref="Implementation"/> was supposed to have.
         /// </summary>
         public ManifestDigest ManifestDigest { get; }
         #endregion
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new implementation already in store exception.
         /// </summary>
-        /// <param name="manifestDigest">The digest of the <see cref="Store.Model.Implementation"/> that was supposed to be added.</param>
+        /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> that was supposed to be added.</param>
         public ImplementationAlreadyInStoreException(ManifestDigest manifestDigest)
             : base(string.Format(Resources.ImplementationAlreadyInStore, manifestDigest))
         {

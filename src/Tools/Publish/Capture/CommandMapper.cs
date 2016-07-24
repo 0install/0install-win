@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.Capture
     internal class CommandMapper
     {
         /// <summary>
-        /// An association of a command-line with a <see cref="Store.Model.Command"/>.
+        /// An association of a command-line with a <see cref="Command"/>.
         /// </summary>
         private struct CommandTuple
         {

@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Model
         private LanguageSet _languages = new LanguageSet();
 
         /// <summary>
-        /// The natural language(s) which an <see cref="Store.Model.Implementation"/> supports.
+        /// The natural language(s) which an <see cref="Implementation"/> supports.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// For platform-specific binaries, the platform for which an <see cref="Store.Model.Implementation"/> was compiled.
+        /// For platform-specific binaries, the platform for which an <see cref="Implementation"/> was compiled.
         /// </summary>
         /// <remarks>The injector knows that certain platforms are backwards-compatible with others, so binaries with arch="Linux-i486" will still be available on Linux-i686 machines, for example.</remarks>
         [Category("Release"), Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu.")]

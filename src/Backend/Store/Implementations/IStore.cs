@@ -45,9 +45,9 @@ namespace ZeroInstall.Store.Implementations
     }
 
     /// <summary>
-    /// Describes an object that allows the storage and retrieval of <see cref="Store.Model.Implementation"/> directories.
+    /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
     /// </summary>
-    /// <remarks>A store caches <see cref="Store.Model.Implementation"/>s identified by their <see cref="ManifestDigest"/>s.</remarks>
+    /// <remarks>A store caches <see cref="Implementation"/>s identified by their <see cref="ManifestDigest"/>s.</remarks>
     public interface IStore
     {
         /// <summary>
@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Implementations
         StoreKind Kind { get; }
 
         /// <summary>
-        /// The directory containing the cached <see cref="Store.Model.Implementation"/>s. May be <c>null</c> for some <see cref="IStore"/> types.
+        /// The directory containing the cached <see cref="Implementation"/>s. May be <c>null</c> for some <see cref="IStore"/> types.
         /// </summary>
         [CanBeNull]
         string DirectoryPath { get; }
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementations
         IEnumerable<string> ListAllTemp();
 
         /// <summary>
-        /// Determines whether the store contains a local copy of an implementation identified by a specific <see cref="Store.Model.ManifestDigest"/>.
+        /// Determines whether the store contains a local copy of an implementation identified by a specific <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
         /// <returns>
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>The final location of the directory in the store.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException"><paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException"><paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         [NotNull]
@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="NotSupportedException">An archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">One of the archives cannot be extracted.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">The archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
         [NotNull]

@@ -45,7 +45,7 @@ namespace ZeroInstall.Services.Fetchers
         /// Creates a new sequential download fetcher.
         /// </summary>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
-        /// <param name="store">The location to store the downloaded and unpacked <see cref="Store.Model.Implementation"/>s in.</param>
+        /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         public SequentialFetcher([NotNull] Config config, [NotNull] IStore store, [NotNull] ITaskHandler handler)
             : base(store, handler)
@@ -81,7 +81,7 @@ namespace ZeroInstall.Services.Fetchers
         /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         private void FetchOne([NotNull] Implementation implementation)
         {
             // Use mutex to detect in-progress download of same implementation in other processes
