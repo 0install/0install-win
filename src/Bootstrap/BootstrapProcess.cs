@@ -220,6 +220,10 @@ namespace ZeroInstall.Bootstrap
         /// <returns>The exit status code to end the process with.</returns>
         public ExitCode Execute([NotNull, ItemNotNull] IEnumerable<string> args)
         {
+            // Write any customized configuration to the user profile
+            // NOTE: This must be done before parsing command-line options, since they may manipulate Config
+            Config.Save();
+
             _targetArgs.AddRange(GetEmbeddedArgs());
             _targetArgs.AddRange(_options.Parse(args));
 
