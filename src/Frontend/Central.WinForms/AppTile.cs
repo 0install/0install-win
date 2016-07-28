@@ -143,10 +143,11 @@ namespace ZeroInstall.Central.WinForms
             InitializeComponent();
             buttonRun.Text = _runButtonText;
             buttonAdd.Image = _addImage;
+            buttonAdd.AccessibleName = _addText;
+            toolTip.SetToolTip(buttonAdd, _addText);
             buttonRemove.Image = _removeImage;
             buttonRemove.Text = _removeText;
             buttonIntegrate.Image = _integrateImage;
-            toolTip.SetToolTip(buttonAdd, _addText);
             buttonSelectCommand.Text = _runCommandText;
             buttonSelectVersion.Text = _runVersionText;
             buttonUpdate.Text = _updateText;
@@ -216,8 +217,9 @@ namespace ZeroInstall.Central.WinForms
         {
             buttonAdd.Enabled = buttonAdd.Visible = (Status == AppStatus.Candidate);
 
-            toolTip.SetToolTip(buttonIntegrate, (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText);
             buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyImage : _integrateImage;
+            buttonIntegrate.AccessibleName = (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText;
+            toolTip.SetToolTip(buttonIntegrate, (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText);
             buttonIntegrate.Visible = (Status >= AppStatus.Added);
             buttonIntegrate.Enabled = true;
         }
