@@ -278,10 +278,10 @@ namespace ZeroInstall.Store.Implementations
                     Directory.Move(source, target);
                 }
                 catch (IOException ex)
-                {
                     // TODO: Make language independent
-                    if (ex.Message.Contains("already exists")) throw new ImplementationAlreadyInStoreException(expectedDigest);
-                    throw;
+                    when (ex.Message.Contains("already exists"))
+                {
+                    throw new ImplementationAlreadyInStoreException(expectedDigest);
                 }
             }
 
@@ -427,13 +427,10 @@ namespace ZeroInstall.Store.Implementations
                 }
                     #region Error handling
                 catch (IOException ex)
-                {
-                    // Wrap too generic exceptions
                     // TODO: Make language independent
-                    if (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied.")) throw new UnauthorizedAccessException(ex.Message, ex);
-
-                    // Pass other exceptions through
-                    throw;
+                    when (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied."))
+                {
+                    throw new UnauthorizedAccessException(ex.Message, ex);
                 }
                 #endregion
 
@@ -606,9 +603,8 @@ namespace ZeroInstall.Store.Implementations
                 // Reseal the directory in case the write protection got lost
                 if (_useWriteProtection) EnableWriteProtection(target);
             }
-            catch (DigestMismatchException ex)
+            catch (DigestMismatchException ex) when (ex.ExpectedDigest != null)
             {
-                if (ex.ExpectedDigest == null) throw;
                 Log.Error(ex);
                 if (handler.Ask(
                     question: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, ex.ExpectedDigest),

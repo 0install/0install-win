@@ -78,12 +78,9 @@ namespace ZeroInstall.Commands.CliCommands
                 return ExitCode.OK;
             }
                 #region Error handling
-            catch (WebException)
-            {
-                // WebException is a subclass of InvalidOperationException but we don't want to catch it here
-                throw;
-            }
             catch (InvalidOperationException ex)
+                // WebException is a subclass of InvalidOperationException but we don't want to catch it here
+                when (!(ex is WebException))
             { // Application already in AppList
                 Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
                 return ExitCode.NoChanges;

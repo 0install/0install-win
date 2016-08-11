@@ -100,10 +100,9 @@ namespace ZeroInstall.Commands.CliCommands
                     return CreateAppEntry(integrationManager, ref interfaceUri);
                 }
                 catch (InvalidOperationException ex)
-                {
                     // Only use exact exception type match
-                    if (ex.GetType() != typeof(InvalidOperationException)) throw;
-
+                    when (ex.GetType() == typeof(InvalidOperationException))
+                {
                     // Find the existing AppEntry after interface URI replacement
                     return integrationManager.AppList[interfaceUri];
                 }

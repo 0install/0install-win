@@ -312,16 +312,10 @@ namespace ZeroInstall.Central.WinForms
             }
                 #region Error handling
             catch (WebException ex)
+                when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
             {
                 // Wrap exception to add context information
-                if (ex.Status == WebExceptionStatus.ProtocolError)
-                {
-                    var response = ex.Response as HttpWebResponse;
-                    if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                        throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
-                }
-
-                throw;
+                throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
             }
             #endregion
         }
@@ -390,16 +384,10 @@ namespace ZeroInstall.Central.WinForms
                 }
                     #region Error handling
                 catch (WebException ex)
+                    when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     // Wrap exception to add context information
-                    if (ex.Status == WebExceptionStatus.ProtocolError)
-                    {
-                        var response = ex.Response as HttpWebResponse;
-                        if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                            throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
-                    }
-
-                    throw;
+                    throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
                 }
                 catch (ZipException ex)
                 {

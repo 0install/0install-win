@@ -148,10 +148,8 @@ namespace ZeroInstall.Services.Fetchers
             {
                 return base.Download(retrievalMethod, tag);
             }
-            catch (WebException ex)
+            catch (WebException ex) when (!retrievalMethod.Href.IsLoopback)
             {
-                if (retrievalMethod.Href.IsLoopback) throw;
-
                 Log.Warn(ex);
                 Log.Info("Trying mirror");
 

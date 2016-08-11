@@ -232,10 +232,8 @@ namespace ZeroInstall.Services.Feeds
                 _handler.RunTask(download);
                 ImportFeed(download.GetData(), feedUri);
             }
-            catch (WebException ex)
+            catch (WebException ex) when (!feedUri.IsLoopback)
             {
-                if (feedUri.IsLoopback) throw;
-
                 if (_handler.Verbosity == Verbosity.Batch)
                     Log.Info(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 else

@@ -186,14 +186,10 @@ namespace ZeroInstall.DesktopIntegration
                     }
                         #region Error handling
                     catch (WebException ex)
+                        when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
                     {
-                        if (ex.Status == WebExceptionStatus.ProtocolError)
-                        {
-                            var response = ex.Response as HttpWebResponse;
-                            if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                                throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
-                        }
-                        throw;
+                        Handler.CancellationToken.ThrowIfCancellationRequested();
+                        throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
                     }
                     #endregion
 
@@ -205,17 +201,10 @@ namespace ZeroInstall.DesktopIntegration
                     }
                         #region Error handling
                     catch (WebException ex)
+                        when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.PreconditionFailed)
                     {
-                        if (ex.Status == WebExceptionStatus.ProtocolError)
-                        {
-                            var response = ex.Response as HttpWebResponse;
-                            if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
-                            {
-                                Handler.CancellationToken.ThrowIfCancellationRequested();
-                                throw new WebRaceConditionException(ex);
-                            }
-                        }
-                        else throw;
+                        Handler.CancellationToken.ThrowIfCancellationRequested();
+                        throw new WebRaceConditionException(ex);
                     }
                     #endregion
                 }, maxRetries: 3);

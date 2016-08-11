@@ -63,23 +63,18 @@ public class RunEnv
             {
                 process = Process.Start(startInfo);
             }
-            catch (Win32Exception ex)
+            catch (Win32Exception ex) when (ex.NativeErrorCode == Win32RequestedOperationRequiresElevation)
             {
-                if (ex.NativeErrorCode == Win32RequestedOperationRequiresElevation)
-                {
-                    // UAC handling requires ShellExecute
-                    startInfo.UseShellExecute = true;
-                    process = Process.Start(startInfo);
-                }
-                else throw;
+                // UAC handling requires ShellExecute
+                startInfo.UseShellExecute = true;
+                process = Process.Start(startInfo);
             }
 
             process.WaitForExit();
         }
-        catch (Win32Exception ex)
+        catch (Win32Exception ex) when (ex.NativeErrorCode == Win32Cancelled)
         {
-            if (ex.NativeErrorCode == Win32Cancelled) return 100;
-            else throw;
+            return 100;
         }
         return process.ExitCode;
     }

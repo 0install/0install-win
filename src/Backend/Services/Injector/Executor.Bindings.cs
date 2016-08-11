@@ -282,15 +282,13 @@ namespace ZeroInstall.Services.Injector
                 FileUtils.CreateHardlink(deployedPath, templatePath);
             }
                 #region Error handling
-            catch (IOException)
+            catch (IOException) when (File.Exists(deployedPath))
             {
-                // File is probably currently in use
-                if (!File.Exists(deployedPath)) throw;
+                // File already exists and was probably locked because it was in use
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException) when (File.Exists(deployedPath))
             {
-                // File is probably currently in use
-                if (!File.Exists(deployedPath)) throw;
+                // File already exists and was probably locked because it was in use
             }
             catch (PlatformNotSupportedException)
             {
