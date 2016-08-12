@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.Commands.Gtk</RootNamespace>
     <AssemblyName>0install-gtk</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>..\..\app.gtk.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -97,7 +97,6 @@
   <ItemGroup>
     <None Include="..\..\_clr4\App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Services\Services.csproj">

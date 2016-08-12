@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.Publish.WinForms</RootNamespace>
     <AssemblyName>0publish-win</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>..\..\app.winforms.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -63,7 +63,6 @@
   <ItemGroup>
     <None Include="..\..\_clr4\App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />

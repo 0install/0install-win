@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.Commands.WinForms</RootNamespace>
     <AssemblyName>0install-win</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>..\..\app.winforms.manifest</ApplicationManifest>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -263,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Services\Services.csproj">

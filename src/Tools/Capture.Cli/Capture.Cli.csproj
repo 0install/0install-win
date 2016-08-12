@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.Capture.Cli</RootNamespace>
     <AssemblyName>0capture</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>..\..\app.cli.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -68,7 +68,6 @@
   <ItemGroup>
     <None Include="..\..\_clr4\App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Publish\Publish.csproj">

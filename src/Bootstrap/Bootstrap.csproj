@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.Bootstrap</RootNamespace>
     <AssemblyName>0bootstrap</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -87,7 +87,6 @@
     <Content Include="Icon.ico" />
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
