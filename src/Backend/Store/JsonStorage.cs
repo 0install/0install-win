@@ -33,7 +33,7 @@ namespace ZeroInstall.Store
         /// <param name="data">The object to be stored.</param>
         /// <returns>A string containing the JSON code.</returns>
         [NotNull]
-        public static string ToJsonString([NotNull] this object data)
+        public static string ToJsonString([CanBeNull] this object data)
         {
             return JsonConvert.SerializeObject(data);
         }
@@ -45,7 +45,6 @@ namespace ZeroInstall.Store
         /// <param name="data">The JSON string to be parsed.</param>
         /// <returns>The deserialized object.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        [NotNull]
         public static T FromJsonString<T>([NotNull] string data)
         {
             #region Sanity checks
@@ -62,7 +61,6 @@ namespace ZeroInstall.Store
         /// <param name="data">The JSON string to be parsed.</param>
         /// <param name="anonymousType">An instance of the anonymous type to parse to.</param>
         /// <returns>The deserialized object.</returns>
-        [NotNull]
         public static T FromJsonString<T>([NotNull] string data, [NotNull] T anonymousType)
         {
             #region Sanity checks
