@@ -117,7 +117,7 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
     <PostBuildEvent>cd /d "$(OutDir)"
-"$(SolutionDir)packages\ILRepack.2.0.10\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
+"$(SolutionDir)packages\ILRepack.2.0.10\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
 copy /y "$(ProjectDir)\App.config" "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe.config"
 copy "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\template.exe"</PostBuildEvent>
   </PropertyGroup>

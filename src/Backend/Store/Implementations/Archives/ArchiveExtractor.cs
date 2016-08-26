@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                     extractor = new SevenZipExtractor(stream, target);
                     break;
                 case Archive.MimeTypeCab:
-                    extractor = NewCabExtractor(stream, target);
+                    extractor = new CabExtractor(stream, target);
                     break;
                 case Archive.MimeTypeMsi:
                     throw new NotSupportedException("MSIs can only be accessed as local files, not as streams!");
@@ -190,7 +190,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(mimeType)) mimeType = Archive.GuessMimeType(path);
 
             // MSI Extractor does not support Stream-based access
-            if (mimeType == Archive.MimeTypeMsi) return NewMsiExtractor(path, target);
+            if (mimeType == Archive.MimeTypeMsi) return new MsiExtractor(path, target);
 
             Stream stream = File.OpenRead(path);
             if (startOffset != 0) stream = new OffsetStream(stream, startOffset);
@@ -204,21 +204,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 stream.Dispose();
                 throw;
             }
-        }
-
-        // Thin wrappers around constructor calls to ensure lazy loading of Microsoft.Deployment.Compression assembly.
-        // This avoids "assembly not found" errors if the methods are never actually called.
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static ArchiveExtractor NewCabExtractor(Stream stream, string target)
-        {
-            return new CabExtractor(stream, target);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static ArchiveExtractor NewMsiExtractor(string path, string target)
-        {
-            return new MsiExtractor(path, target);
         }
         #endregion
 
