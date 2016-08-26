@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <returns>A mapping of relative paths to <see cref="ManifestNode"/>s.</returns>
         /// <remarks>This handles the fact that <see cref="ManifestDirectoryElement"/>s inherit their location from the last <see cref="ManifestDirectory"/> that precedes them.</remarks>
-        [Pure, NotNull, ItemNotNull]
+        [Pure, NotNull]
         public IList<KeyValuePair<string, ManifestNode>> ListPaths()
         {
             var result = new List<KeyValuePair<string, ManifestNode>>();
@@ -294,7 +294,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public bool Equals(Manifest other)
         {
-            if (_nodes.Length != other?._nodes.Length) return false;
+            if (other == null || _nodes.Length != other._nodes.Length) return false;
 
             // If any node pair does not match, the manifests are not equal
             for (int i = 0; i < _nodes.Length; i++)

@@ -150,10 +150,6 @@
     <EmbeddedResource Include="Properties\Resources.tr.resx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
-      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
-      <Name>DesktopIntegration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
       <Name>Services.Interfaces</Name>

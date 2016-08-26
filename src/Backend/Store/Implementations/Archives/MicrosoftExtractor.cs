@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (disposing)
             {
                 CabStream?.Dispose();
-                CabEngine?.Dispose();
+                CabEngine.Dispose();
             }
         }
     }
