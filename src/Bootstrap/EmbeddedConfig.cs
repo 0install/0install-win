@@ -21,7 +21,7 @@ using NanoByte.Common;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall
 {
     /// <summary>
     /// Represents configuration embedded into the exectuable itself.

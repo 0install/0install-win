@@ -7,7 +7,7 @@
     <ProjectGuid>{4B47068C-73D3-4F2F-BC96-8FE2B8FA4A7D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.Bootstrap</RootNamespace>
+    <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>0bootstrap</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>

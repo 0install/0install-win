@@ -22,7 +22,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall
 {
     public partial class MainForm : Form
     {

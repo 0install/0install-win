@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Bootstrap
+﻿namespace ZeroInstall
 {
     partial class MainForm
     {
@@ -41,7 +41,7 @@
             // 
             this.pictureBoxLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxLogo.BackgroundImage = global::ZeroInstall.Bootstrap.Properties.Resources.Logo;
+            this.pictureBoxLogo.BackgroundImage = global::ZeroInstall.Properties.Resources.Logo;
             this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxLogo.Location = new System.Drawing.Point(37, 20);
             this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(2);

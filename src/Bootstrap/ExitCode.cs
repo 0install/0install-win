@@ -26,7 +26,7 @@ using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall
 {
     /// <summary>
     /// An exit code is returned to the original caller after the application terminates, to indicate success or the reason for failure.

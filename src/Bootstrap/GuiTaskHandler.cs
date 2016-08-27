@@ -19,7 +19,7 @@ using System;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall
 {
     public class GuiTaskHandler : GuiTaskHandlerBase
     {

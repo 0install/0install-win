@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -36,7 +35,7 @@ using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall
 {
     /// <summary>
     /// Downloads and executes an instance of Zero Install.
@@ -63,20 +62,17 @@ namespace ZeroInstall.Bootstrap
         [NotNull]
         private readonly List<string> _targetArgs = new List<string>();
 
-        /// <summary>The file name of the currently running EXE.</summary>
-        private static readonly string _exeName = Path.GetFileName(Application.ExecutablePath);
-
         /// <summary>
-        /// <c>true</c> if <see cref="_exeName"/> file name indicates unattended installations should be per-user; <c>false</c> if they should be machine-wide.
+        /// <c>true</c> if <see cref="Program.ExeName"/> file name indicates unattended installations should be per-user; <c>false</c> if they should be machine-wide.
         /// </summary>
         /// <remarks>Old installers were seperated into per-user and machine-wide. We now emulate this by looking at the EXE file name.</remarks>
-        private static bool IsPerUser => (_exeName == "zero-install-per-user.exe");
+        private static bool IsPerUser => StringUtils.EqualsIgnoreCase(Program.ExeName, "zero-install-per-user");
 
         private string HelpText
         {
             get
             {
-                string exeName = _exeName.EscapeArgument();
+                string exeName = Program.ExeName.EscapeArgument();
                 string help;
                 using (var buffer = new MemoryStream())
                 {
@@ -126,9 +122,9 @@ namespace ZeroInstall.Bootstrap
         /// <summary>
         /// Creates a new bootstrap process.
         /// </summary>
-        /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public BootstrapProcess(bool gui, [NotNull] ITaskHandler handler) : base(handler)
+        /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
+        public BootstrapProcess([NotNull] ITaskHandler handler, bool gui) : base(handler)
         {
             _gui = gui;
 

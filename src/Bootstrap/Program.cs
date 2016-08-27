@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
@@ -29,7 +30,7 @@ using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Bootstrap
+namespace ZeroInstall
 {
     /// <summary>
     /// Launches the bootstrapping GUI for Zero Install.
@@ -37,9 +38,19 @@ namespace ZeroInstall.Bootstrap
     public static class Program
     {
         /// <summary>
+        /// The full path of this binary.
+        /// </summary>
+        public static string ExePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+
+        /// <summary>
+        /// The current EXE name (without the file ending) of this binary.
+        /// </summary>
+        public static string ExeName = Path.GetFileNameWithoutExtension(ExePath);
+
+        /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        private static int Main(string[] args)
+        public static int Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -63,7 +74,7 @@ namespace ZeroInstall.Bootstrap
         private static ExitCode RunCli(string[] args)
         {
             using (var handler = new CliTaskHandler())
-                return Run(args, false, handler);
+                return Run(args, handler, gui: false);
         }
 
         /// <summary>
@@ -78,7 +89,7 @@ namespace ZeroInstall.Bootstrap
                 try
                 {
                     Console.WriteLine();
-                    return Run(args, false, handler);
+                    return Run(args, handler, gui: false);
                 }
                 finally
                 {
@@ -99,21 +110,21 @@ namespace ZeroInstall.Bootstrap
         private static ExitCode RunGui(string[] args)
         {
             using (var handler = new GuiTaskHandler())
-                return Run(args, true, handler);
+                return Run(args, handler, gui: true);
         }
 
         /// <summary>
         /// Runs the application.
         /// </summary>
         /// <param name="args">The command-line arguments passed to the application.</param>
-        /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
+        /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
         /// <returns>The exit status code to end the process with.</returns>
-        private static ExitCode Run(string[] args, bool gui, ITaskHandler handler)
+        private static ExitCode Run(string[] args, ITaskHandler handler, bool gui)
         {
             try
             {
-                return new BootstrapProcess(gui, handler).Execute(args);
+                return new BootstrapProcess(handler, gui).Execute(args);
             }
                 #region Error handling
             catch (OperationCanceledException)
