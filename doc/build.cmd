@@ -14,6 +14,6 @@ if errorlevel 1 exit /b %errorlevel%
 if errorlevel 1 exit /b %errorlevel%
 ..\build\ReleaseNet20\Frontend\0install.exe run http://0install.de/feeds/Doxygen.xml Tools.Doxyfile
 if errorlevel 1 exit /b %errorlevel%
-copy index.html ..\build\Documentation\index.html
+copy index.html ..\build\Documentation\index.html > NUL
 
 popd

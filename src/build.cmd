@@ -31,7 +31,7 @@ if errorlevel 1 exit /b %errorlevel%
 
 echo Compiling Visual Studio solution (%config%)...
 if exist ..\build\%config% rd /s /q ..\build\%config%
-msbuild %SOLUTION_FILE% /nologo /v:q /t:Rebuild /p:Configuration=%config%
+msbuild %SOLUTION_FILE% /nologo /v:q /m /t:Rebuild /p:Configuration=%config%
 if errorlevel 1 exit /b %errorlevel%
 
 popd

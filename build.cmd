@@ -30,4 +30,4 @@ call "%~dp0doc\build.cmd"
 if errorlevel 1 pause
 
 rem Deploy compiled binaries
-if "%1" == "deploy" "%~dp0build\Release\Bootstrap\zero-install.exe" --feed="%~dp0build\Publish\ZeroInstall-%version%.xml" maintenance %*
+if "%1" == "deploy" "%~dp0build\ReleaseNet20\Bootstrap\zero-install.exe" --feed="%~dp0build\Publish\ZeroInstall-%version%.xml" maintenance %* --batch
