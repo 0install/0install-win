@@ -16,10 +16,7 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using NanoByte.Common;
-using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
 
@@ -28,7 +25,7 @@ namespace ZeroInstall.OneGet
     /// <summary>
     /// Manages communication between <see cref="ITask"/>s and a OneGet <see cref="Request"/>.
     /// </summary>
-    public class OneGetHandler : TaskHandlerBase
+    public class OneGetHandler : CliTaskHandler
     {
         private readonly Request _request;
 
@@ -60,12 +57,6 @@ namespace ZeroInstall.OneGet
         }
 
         /// <inheritdoc/>
-        protected override ICredentialProvider BuildCrendentialProvider()
-        {
-            return new WindowsCliCredentialProvider(_request.IsInteractive);
-        }
-
-        /// <inheritdoc/>
         public override void RunTask(ITask task)
         {
             #region Sanity checks
@@ -84,19 +75,6 @@ namespace ZeroInstall.OneGet
         public override bool Ask(string question)
         {
             return _request.AskPermission(question);
-        }
-
-        /// <inheritdoc/>
-        public override void Output(string title, string message)
-        {
-            _request.Message(message);
-        }
-
-        /// <inheritdoc/>
-        public override void Output<T>(string title, IEnumerable<T> data)
-        {
-            string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
-            Output(title, message);
         }
 
         /// <inheritdoc/>

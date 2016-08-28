@@ -23,6 +23,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Native;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
@@ -39,23 +40,20 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// Provides functionality for implementing a OneGet provider. Used as a backend by <see cref="PackageProviderBase"/>. Once instance per <see cref="Request"/>.
+    /// Provides an execution context for handling a single OneGet <see cref="Request"/>.
     /// </summary>
-    public sealed class OneGetCommand : CommandBase, IDisposable
+    public sealed class OneGetContext : CommandBase, IOneGetContext
     {
         private readonly Request _request;
-        private readonly bool _machineWide;
 
         /// <summary>
         /// Creates a new OneGet command.
         /// </summary>
         /// <param name="request">The OneGet request callback object.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public OneGetCommand([NotNull] Request request, bool machineWide = false)
+        public OneGetContext([NotNull] Request request)
             : base(new OneGetHandler(request))
         {
             _request = request;
-            _machineWide = machineWide;
         }
 
         /// <inheritdoc/>
@@ -64,44 +62,48 @@ namespace ZeroInstall.OneGet
             Handler.Dispose();
         }
 
-        #region Options
-        private const string
-            RefreshKey = "Refresh",
-            SearchMirrorKey = "SearchMirror",
-            SkipVerifyKey = "SkipVerify",
-            DownloadLaterKey = "DownloadLater",
-            AllVersionsKey = "AllVersions";
-
         public void GetDynamicOptions(string category)
         {
             switch ((category ?? string.Empty).ToLowerInvariant())
             {
                 case "package":
-                    _request.YieldDynamicOption(RefreshKey, Constants.OptionType.Switch, false);
-                    _request.YieldDynamicOption(SearchMirrorKey, Constants.OptionType.Switch, false);
-                    break;
-
-                case "source":
-                    _request.YieldDynamicOption(SkipVerifyKey, Constants.OptionType.Switch, false);
+                    _request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
+                    _request.YieldDynamicOption("AllVersions", Constants.OptionType.Switch, isRequired: false);
+                    _request.YieldDynamicOption("GlobalSearch", Constants.OptionType.Switch, isRequired: false);
                     break;
 
                 case "install":
-                    _request.YieldDynamicOption(RefreshKey, Constants.OptionType.Switch, false);
-                    _request.YieldDynamicOption(DownloadLaterKey, Constants.OptionType.Switch, false);
+                    _request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
+                    _request.YieldDynamicOption("DeferDownload", Constants.OptionType.Switch, isRequired: false);
+                    _request.YieldDynamicOption("Scope", Constants.OptionType.String, isRequired: false, permittedValues: new[] {"CurrentUser", "AllUsers"});
+                    break;
+
+                case "source":
                     break;
             }
         }
 
-        private bool Refresh => _request.OptionKeys.Contains(RefreshKey);
+        private bool Refresh => _request.OptionKeys.Contains("Refresh");
+        private bool AllVersions => _request.OptionKeys.Contains("AllVersions");
+        private bool GlobalSearch => _request.OptionKeys.Contains("GlobalSearch");
+        private bool DeferDownload => _request.OptionKeys.Contains("DeferDownload");
+        private bool MachineWide => _request.GetOptionValue("Scope") == "AllUsers";
 
-        private bool SearchMirror => _request.OptionKeys.Contains(SearchMirrorKey);
+        public void AddPackageSource(FeedUri uri)
+        {
+            CatalogManager.DownloadCatalog(uri);
 
-        private bool SkipVerify => _request.OptionKeys.Contains(SkipVerifyKey);
+            if (CatalogManager.AddSource(uri))
+                CatalogManager.GetOnlineSafe();
+            else
+                Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, uri.ToStringRfc()));
+        }
 
-        private bool DownloadLater => _request.OptionKeys.Contains(DownloadLaterKey);
-
-        private bool AllVersions => _request.OptionKeys.Contains(AllVersionsKey);
-        #endregion
+        public void RemovePackageSource(FeedUri uri)
+        {
+            if (!CatalogManager.RemoveSource(uri))
+                Log.Warn(string.Format(Resources.CatalogNotRegistered, uri.ToStringRfc()));
+        }
 
         public void ResolvePackageSources()
         {
@@ -122,25 +124,7 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        public void AddPackageSource([NotNull] FeedUri uri)
-        {
-            if (!SkipVerify) CatalogManager.DownloadCatalog(uri);
-
-            if (CatalogManager.AddSource(uri))
-            {
-                if (!SkipVerify) CatalogManager.GetOnlineSafe();
-            }
-            else
-                Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, uri.ToStringRfc()));
-        }
-
-        public void RemovePackageSource([NotNull] FeedUri uri)
-        {
-            if (!CatalogManager.RemoveSource(uri))
-                Log.Warn(string.Format(Resources.CatalogNotRegistered, uri.ToStringRfc()));
-        }
-
-        public void FindPackage([CanBeNull] string name, [CanBeNull] ImplementationVersion requiredVersion, [CanBeNull] ImplementationVersion minimumVersion, [CanBeNull] ImplementationVersion maximumVersion)
+        public void FindPackage(string name, ImplementationVersion requiredVersion, ImplementationVersion minimumVersion, ImplementationVersion maximumVersion)
         {
             FeedManager.Refresh = Refresh;
 
@@ -149,7 +133,7 @@ namespace ZeroInstall.OneGet
             else if (minimumVersion != null || maximumVersion != null) versionRange = new VersionRange(minimumVersion, maximumVersion);
             else versionRange = null;
 
-            if (SearchMirror) MirrorSearch(name, versionRange);
+            if (GlobalSearch) MirrorSearch(name, versionRange);
             else CatalogSearch(name, versionRange);
         }
 
@@ -190,7 +174,7 @@ namespace ZeroInstall.OneGet
             if (string.IsNullOrEmpty(query))
             {
                 Log.Info("Returning entire catalog");
-                return (CatalogManager.GetCached() ?? CatalogManager.GetOnlineSafe()).Feeds;
+                return GetCatalog().Feeds;
             }
 
             Log.Info("Searching for short-name match in Catalog: " + query);
@@ -213,7 +197,14 @@ namespace ZeroInstall.OneGet
             Yield(requirements);
         }
 
-        public void DownloadPackage([NotNull] string fastPackageReference, [NotNull] string location)
+        public void GetInstalledPackages(string name)
+        {
+            var appList = AppList.LoadSafe(MachineWide);
+            foreach (var entry in appList.Search(name))
+                Yield(entry.EffectiveRequirements);
+        }
+
+        public void DownloadPackage(string fastPackageReference, string location)
         {
             Directory.CreateDirectory(location);
 
@@ -230,16 +221,19 @@ namespace ZeroInstall.OneGet
             SelfUpdateCheck();
         }
 
-        public void InstallPackage([NotNull] string fastPackageReference)
+        public void InstallPackage(string fastPackageReference)
         {
-            FeedManager.Refresh = Refresh || !DownloadLater;
+            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, needsMachineWide: true);
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+
+            FeedManager.Refresh = Refresh || !DeferDownload;
 
             var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
 
             ApplyIntegration(requirements);
             ApplyVersionRestrictions(requirements, selections);
-            if (!DownloadLater) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
+            if (!DeferDownload) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
 
             SelfUpdateCheck();
         }
@@ -263,7 +257,7 @@ namespace ZeroInstall.OneGet
         {
             Log.Info("Applying desktop integration");
             var feed = FeedManager[requirements.InterfaceUri];
-            using (var integrationManager = new CategoryIntegrationManager(Handler, _machineWide))
+            using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
             {
                 var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
                 integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
@@ -290,19 +284,14 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        public void UninstallPackage([NotNull] string fastPackageReference)
+        public void UninstallPackage(string fastPackageReference)
         {
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+
             var requirements = ParseReference(fastPackageReference);
 
-            using (var integrationManager = new IntegrationManager(Handler, _machineWide))
+            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
                 integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
-        }
-
-        public void GetInstalledPackages([CanBeNull] string name)
-        {
-            var appList = AppList.LoadSafe(_machineWide);
-            foreach (var entry in appList.Search(name))
-                Yield(entry.EffectiveRequirements);
         }
 
         public void GetPackageDetails(string fastPackageReference)

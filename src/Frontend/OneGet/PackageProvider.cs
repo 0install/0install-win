@@ -15,20 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using JetBrains.Annotations;
+using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
+using ZeroInstall.Commands;
 
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// A per-user OneGet package provider for Zero Install.
+    /// A OneGet package provider for Zero Install.
     /// </summary>
+    [PublicAPI]
     public class PackageProvider : PackageProviderBase
     {
-        public override string PackageProviderName => "0install";
+        /// <inheritdoc/>
+        protected override string Name => "0install";
 
-        protected override OneGetCommand BuildCommand(Request request)
-        {
-            return new OneGetCommand(request);
-        }
+        /// <inheritdoc/>
+        protected override bool IsDisabled => Locations.IsPortable || ProgramUtils.IsRunningFromCache;
+
+        /// <inheritdoc/>
+        protected override IOneGetContext BuildContext(Request request) => new OneGetContext(request);
     }
 }

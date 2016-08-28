@@ -33,12 +33,22 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// A common base for OneGet package providers for Zero Install. Implements OneGet's duck-typing interface.
+    /// A common base for OneGet package providers. Implements OneGet's duck-typing interface.
     /// </summary>
     public abstract class PackageProviderBase
     {
+        /// <summary>
+        /// The name of the package provider.
+        /// </summary>
+        protected abstract string Name { get; }
+
+        /// <summary>
+        /// Indicates whether the package provider is disabled and should not be considered for use by OneGet.
+        /// </summary>
+        protected abstract bool IsDisabled { get; }
+
         [PublicAPI]
-        public abstract string PackageProviderName { get; }
+        public string PackageProviderName => IsDisabled ? Name + "-disabled" : Name;
 
         [PublicAPI]
         public string ProviderVersion => AppInfo.CurrentLibrary.Version.ToString();
@@ -46,35 +56,41 @@ namespace ZeroInstall.OneGet
         [PublicAPI]
         public void OnUnhandledException(string methodName, Exception exception)
         {
-            Log.Error("Unexpected Exception thrown in " + PackageProviderName + "::" + methodName);
+            Log.Error("Unexpected exception thrown in " + Name + "::" + methodName);
             Log.Error(exception);
         }
 
         [PublicAPI]
         public void InitializeProvider(Request request)
         {
-            request.Debug("Calling '{0}::InitializeProvider'", PackageProviderName);
+            request.Debug("Calling '{0}::InitializeProvider'", Name);
         }
 
         [PublicAPI]
-        public virtual void GetFeatures(Request request)
+        public void GetFeatures(Request request)
         {
-            request.Debug("Calling '{0}::GetFeatures'", PackageProviderName);
-            request.Yield(new Dictionary<string, string[]>
-            {
-                {Constants.Features.SupportedExtensions, new[] {"xml"}},
-                {Constants.Features.SupportedSchemes, new[] {"http", "https", "file"}}
-            });
+            request.Debug("Calling '{0}::GetFeatures'", Name);
+            request.Yield(IsDisabled
+                ? new Dictionary<string, string[]>
+                {
+                    // Hide from package provider list
+                    [Constants.Features.AutomationOnly] = Constants.FeaturePresent
+                }
+                : new Dictionary<string, string[]>
+                {
+                    [Constants.Features.SupportedExtensions] = new[] {"xml"},
+                    [Constants.Features.SupportedSchemes] = new[] {"http", "https", "file"}
+                });
         }
 
         /// <summary>
-        /// Creates a <see cref="OneGetCommand"/> instance and executes a delegate on it, handling common exception types.
+        /// Creates a <see cref="IOneGetContext"/> instance and executes a delegate on it, handling common exception types.
         /// </summary>
-        private void Do(Request request, Action<OneGetCommand> action)
+        private void Do(Request request, Action<IOneGetContext> action)
         {
             try
             {
-                using (var command = BuildCommand(request))
+                using (var command = BuildContext(request))
                     action(command);
             }
                 #region Error handling
@@ -128,28 +144,29 @@ namespace ZeroInstall.OneGet
         }
 
         /// <summary>
-        /// Creates a <see cref="OneGetCommand"/> for a given <see cref="Request"/>.
+        /// Creates a <see cref="IOneGetContext"/> for a given <see cref="Request"/>.
         /// </summary>
-        protected abstract OneGetCommand BuildCommand(Request request);
+        [NotNull]
+        protected abstract IOneGetContext BuildContext(Request request);
 
         [PublicAPI]
         public void GetDynamicOptions(string category, Request request)
         {
-            request.Debug("Calling '{0}::GetDynamicOptions'", PackageProviderName);
+            request.Debug("Calling '{0}::GetDynamicOptions'", Name);
             Do(request, x => x.GetDynamicOptions(category));
         }
 
         [PublicAPI]
         public void ResolvePackageSources(Request request)
         {
-            request.Debug("Calling '{0}::ResolvePackageSources'", PackageProviderName);
+            request.Debug("Calling '{0}::ResolvePackageSources'", Name);
             Do(request, x => x.ResolvePackageSources());
         }
 
         [PublicAPI]
         public void AddPackageSource(string name, string location, bool trusted, Request request)
         {
-            request.Debug("Calling '{0}::AddPackageSource'", PackageProviderName);
+            request.Debug("Calling '{0}::AddPackageSource'", Name);
 
             if (string.IsNullOrEmpty(location))
             {
@@ -163,7 +180,7 @@ namespace ZeroInstall.OneGet
         [PublicAPI]
         public void RemovePackageSource(string name, Request request)
         {
-            request.Debug("Calling '{0}::RemovePackageSource'", PackageProviderName);
+            request.Debug("Calling '{0}::RemovePackageSource'", Name);
 
             if (string.IsNullOrEmpty(name))
             {
@@ -177,7 +194,7 @@ namespace ZeroInstall.OneGet
         [PublicAPI]
         public void FindPackage(string name, string requiredVersion, string minimumVersion, string maximumVersion, int id, Request request)
         {
-            request.Debug("Calling '{0}::FindPackage'", PackageProviderName);
+            request.Debug("Calling '{0}::FindPackage'", Name);
 
             if (string.IsNullOrEmpty(name))
             {
@@ -194,7 +211,7 @@ namespace ZeroInstall.OneGet
         [PublicAPI]
         public void FindPackageByFile(string file, int id, Request request)
         {
-            request.Debug("Calling '{0}::FindPackageByFile'", PackageProviderName);
+            request.Debug("Calling '{0}::FindPackageByFile'", Name);
 
             if (string.IsNullOrEmpty(file))
             {
@@ -208,7 +225,7 @@ namespace ZeroInstall.OneGet
         [PublicAPI]
         public void FindPackageByUri(Uri uri, int id, Request request)
         {
-            request.Debug("Calling '{0}::FindPackageByUri'", PackageProviderName);
+            request.Debug("Calling '{0}::FindPackageByUri'", Name);
 
             if (uri == null)
             {
@@ -222,35 +239,35 @@ namespace ZeroInstall.OneGet
         [PublicAPI]
         public void DownloadPackage(string fastPackageReference, string location, Request request)
         {
-            request.Debug("Calling '{0}::DownloadPackage'", PackageProviderName);
+            request.Debug("Calling '{0}::DownloadPackage'", Name);
             Do(request, x => x.DownloadPackage(fastPackageReference, location));
         }
 
         [PublicAPI]
         public void InstallPackage(string fastPackageReference, Request request)
         {
-            request.Debug("Calling '{0}::InstallPackage'", PackageProviderName);
+            request.Debug("Calling '{0}::InstallPackage'", Name);
             Do(request, x => x.InstallPackage(fastPackageReference));
         }
 
         [PublicAPI]
         public void UninstallPackage(string fastPackageReference, Request request)
         {
-            request.Debug("Calling '{0}::UninstallPackage'", PackageProviderName);
+            request.Debug("Calling '{0}::UninstallPackage'", Name);
             Do(request, x => x.UninstallPackage(fastPackageReference));
         }
 
         [PublicAPI]
         public void GetInstalledPackages(string name, string requiredVersion, string minimumVersion, string maximumVersion, Request request)
         {
-            request.Debug("Calling '{0}::GetInstalledPackages'", PackageProviderName);
+            request.Debug("Calling '{0}::GetInstalledPackages'", Name);
             Do(request, x => x.GetInstalledPackages(name));
         }
 
         [PublicAPI]
         public void GetPackageDetails(string fastPackageReference, Request request)
         {
-            request.Debug("Calling '{0}::GetPackageDetails'", PackageProviderName);
+            request.Debug("Calling '{0}::GetPackageDetails'", Name);
             Do(request, x => x.GetPackageDetails(fastPackageReference));
         }
     }

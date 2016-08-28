@@ -18,7 +18,6 @@ namespace PackageManagement.Sdk {
     using System.Globalization;
     using System.Linq;
     using System.Security;
-    using Messages = ZeroInstall.Commands.Properties.Resources;
 
     public abstract class Request {
         private Dictionary<string, string[]> _options;
@@ -264,7 +263,7 @@ namespace PackageManagement.Sdk {
         }
 
         internal string GetMessageStringInternal(string messageText) {
-            return Messages.ResourceManager.GetString(messageText);
+            return messageText;
         }
 
         internal string FormatMessageString(string messageText, params object[] args) {

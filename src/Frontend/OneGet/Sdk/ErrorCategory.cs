@@ -12,8 +12,10 @@
 //  limitations under the License.
 //
 
-namespace PackageManagement.Sdk {
-    public enum ErrorCategory {
+namespace PackageManagement.Sdk
+{
+    public enum ErrorCategory
+    {
         NotSpecified,
         OpenError,
         CloseError,

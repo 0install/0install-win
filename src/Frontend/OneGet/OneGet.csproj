@@ -104,12 +104,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
-    <Compile Include="OneGetCommand.cs" />
+    <Compile Include="IOneGetContext.cs" />
+    <Compile Include="OneGetContext.cs" />
     <Compile Include="OneGetHandler.cs" />
     <Compile Include="OneGetProgress.cs" />
     <Compile Include="PackageProvider.cs" />
     <Compile Include="PackageProviderBase.cs" />
-    <Compile Include="PackageProviderMachineWide.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sdk\Constants.cs" />
     <Compile Include="Sdk\ErrorCategory.cs" />
