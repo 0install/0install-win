@@ -11,7 +11,7 @@
     <AssemblyName>0bootstrap</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
     <NoWarn>1591</NoWarn>
@@ -19,7 +19,7 @@
     <RestorePackages>true</RestorePackages>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNet20|AnyCPU'">
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -72,6 +72,29 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneGet\BootstrapPackageProvider.cs" />
+    <Compile Include="..\Frontend\OneGet\IOneGetContext.cs">
+      <Link>OneGet\IOneGetContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Frontend\OneGet\OneGetHandler.cs">
+      <Link>OneGet\OneGetHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Frontend\OneGet\OneGetProgress.cs">
+      <Link>OneGet\OneGetProgress.cs</Link>
+    </Compile>
+    <Compile Include="OneGet\BootstrapOneGetContext.cs" />
+    <Compile Include="..\Frontend\OneGet\PackageProviderBase.cs">
+      <Link>OneGet\PackageProviderBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Frontend\OneGet\Sdk\Constants.cs">
+      <Link>OneGet\Sdk\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\Frontend\OneGet\Sdk\ErrorCategory.cs">
+      <Link>OneGet\Sdk\ErrorCategory.cs</Link>
+    </Compile>
+    <Compile Include="..\Frontend\OneGet\Sdk\Request.cs">
+      <Link>OneGet\Sdk\Request.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -86,6 +109,7 @@
     <EmbeddedResource Include="EmbeddedConfig.txt" />
     <Content Include="Icon.ico" />
     <None Include="App.config" />
+    <None Include="OneGet\provider.manifest" />
     <None Include="packages.config" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
@@ -119,7 +143,14 @@
     <PostBuildEvent>cd /d "$(OutDir)"
 "$(SolutionDir)packages\ILRepack.2.0.10\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
 copy /y "$(ProjectDir)\App.config" "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe.config"
-copy "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\template.exe"</PostBuildEvent>
+copy "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe" "$(SolutionDir)\..\build\$(Configuration)\Bootstrap\template.exe"
+
+:Locate MT.EXE Tool:
+for /f "delims=" %25%25a in ('powershell "$p = ((Get-ItemProperty -Path HKCU:\Software\PackageManagement\Tools\tools\MT.EXE -Name Path -ea 0).Path) ;  if( -not $p ) { $p = ((dir ${env:ProgramFiles(x86)} -recurse -ea 0|  where -property name -eq mt.exe | select -first 1 ).FullName) ;    $null = mkdir -Path HKCU:\Software\PackageManagement\Tools\tools\MT.EXE -Force ;    $null = New-ItemProperty -Path HKCU:\Software\OneGet\tools\MT.EXE -Name Path -Value $p -force } ; $p"') do @set MTEXE=%25%25a
+
+:Run the tool to add the manifest to the binary.
+"%25MTEXE%25" -manifest "$(ProjectDir)OneGet\provider.manifest" -outputresource:"$(TargetPath)";#101
+"%25MTEXE%25" -manifest "$(ProjectDir)OneGet\provider.manifest" -outputresource:"$(SolutionDir)\..\build\$(Configuration)\Bootstrap\zero-install.exe";#101</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
