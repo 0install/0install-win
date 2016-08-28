@@ -101,12 +101,12 @@ namespace ZeroInstall.Store.Implementations
                 catch (IOException ex)
                 {
                     // Writing these files is not critical
-                    Log.Warn(ex);
+                    Log.Debug(ex);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     // Writing these files is not critical
-                    Log.Warn(ex);
+                    Log.Debug(ex);
                 }
                 #endregion
             }

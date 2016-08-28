@@ -52,7 +52,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         /// <remarks>
         /// This should be called before performing any operations that persist <see cref="Locations.InstallBase"/> somewhere, e.g. in generated shortcuts or stubs.
-        /// It is not required for operations that only remove things from the system.</remarks>
+        /// It is not required for operations that only remove things from the system.
+        /// </remarks>
         /// <exception cref="UnsuitableInstallBaseException">The current Zero Install instance is installed in a location unsuitable for the desired operation.</exception>
         protected void CheckInstallBase()
         {
@@ -69,10 +70,8 @@ namespace ZeroInstall.Commands.CliCommands
                 throw new OperationCanceledException();
             }
 
-            if (ProgramUtils.IsRunningFromCache)
-                throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
-            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir)
-                throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
+            if (ProgramUtils.IsRunningFromCache) throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
+            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
         }
 
         /// <summary>

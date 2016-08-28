@@ -23,7 +23,6 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using PackageManagement.Sdk;
-using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
@@ -121,7 +120,7 @@ namespace ZeroInstall.OneGet
             {
                 request.Error(ErrorCategory.MetadataError, "", ex.Message);
             }
-            catch (ConflictException ex)
+            catch (InvalidOperationException ex)
             {
                 request.Error(ErrorCategory.MetadataError, "", ex.Message);
             }

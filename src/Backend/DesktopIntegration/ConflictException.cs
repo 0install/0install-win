@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration
     /// Indicates a desktop integration operation could not be completed due to conflicting <see cref="AccessPoint"/>s.
     /// </summary>
     [Serializable]
-    public sealed class ConflictException : Exception
+    public sealed class ConflictException : InvalidOperationException
     {
         /// <summary>
         /// The entries that are in conflict with each other.
