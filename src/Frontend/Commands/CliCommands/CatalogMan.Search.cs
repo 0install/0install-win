@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override ExitCode Execute()
             {
-                var catalog = CatalogManager.GetCached() ?? CatalogManager.GetOnline();
+                var catalog = GetCatalog();
                 string query = AdditionalArgs.JoinEscapeArguments();
 
                 Handler.Output(Resources.AppList, catalog.Search(query));

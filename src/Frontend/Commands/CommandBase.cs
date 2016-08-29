@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -109,10 +110,26 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
+        /// Returns a merged view of all <see cref="Catalog"/>s specified by the configuration files.
+        /// </summary>
+        /// <remarks>Handles caching based on <see cref="FeedManager.Refresh"/> flag.</remarks>
+        /// <exception cref="WebException">Attempted to download catalog and failed.</exception>
+        [NotNull]
+        protected Catalog GetCatalog()
+        {
+            Catalog result = null;
+            if (!FeedManager.Refresh) result = CatalogManager.GetCached();
+            if (result == null && Config.NetworkUse != NetworkLevel.Offline) result = CatalogManager.GetOnlineSafe();
+            if (result == null) throw new WebException(Resources.UnableToLoadCatalog);
+            return result;
+        }
+
+        /// <summary>
         /// Uses <see cref="Catalog.FindByShortName"/> to find a <see cref="Feed"/> matching a specific short name.
         /// </summary>
         /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
         /// <returns>The first matching <see cref="Feed"/>; <c>null</c> if no match was found.</returns>
+        /// <remarks>Handles caching based on <see cref="FeedManager.Refresh"/> flag.</remarks>
         [CanBeNull]
         protected Feed FindByShortName([NotNull] string shortName)
         {
@@ -120,9 +137,10 @@ namespace ZeroInstall.Commands
             if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException(nameof(shortName));
             #endregion
 
-            return
-                CatalogManager.GetCachedSafe().FindByShortName(shortName) ??
-                CatalogManager.GetOnlineSafe().FindByShortName(shortName);
+            Feed result = null;
+            if (!FeedManager.Refresh) result = CatalogManager.GetCachedSafe().FindByShortName(shortName);
+            if (result == null && Config.NetworkUse != NetworkLevel.Offline) result = CatalogManager.GetOnlineSafe().FindByShortName(shortName);
+            return result;
         }
 
         /// <summary>

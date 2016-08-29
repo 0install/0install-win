@@ -790,6 +790,9 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
   <data name="TryHelpWith" xml:space="preserve">
     <value>Probieren Sie --help mit einem der folgenden:</value>
   </data>
+  <data name="UnableToLoadCatalog" xml:space="preserve">
+    <value>Konnte den Softwarekatalog nicht herunterladen.</value>
+  </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
   </data>
