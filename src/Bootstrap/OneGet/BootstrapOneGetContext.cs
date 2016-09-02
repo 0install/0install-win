@@ -1,11 +1,8 @@
 ﻿using System;
 using System.IO;
 using NanoByte.Common;
-using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.OneGet
 {
@@ -28,33 +25,12 @@ namespace ZeroInstall.OneGet
             _handler.Dispose();
         }
 
-        public void GetDynamicOptions(string category)
-        {
-            _request.YieldDynamicOption("Scope", Constants.OptionType.String, isRequired: false, permittedValues: new[] {"CurrentUser", "AllUsers"});
-        }
-
-        private bool? MachineWide
-        {
-            get
-            {
-                switch (_request.GetOptionValue("Scope"))
-                {
-                    case "CurrentUser":
-                        return false;
-                    case "AllUsers":
-                        return true;
-                    default:
-                        return null;
-                }
-            }
-        }
-
-        public void AddPackageSource(FeedUri uri)
+        public void AddPackageSource(string uri)
         {
             Deploy();
         }
 
-        public void RemovePackageSource(FeedUri uri)
+        public void RemovePackageSource(string uri)
         {
             Deploy();
         }
@@ -62,7 +38,7 @@ namespace ZeroInstall.OneGet
         public void ResolvePackageSources()
         {}
 
-        public void FindPackage(string name, ImplementationVersion requiredVersion, ImplementationVersion minimumVersion, ImplementationVersion maximumVersion)
+        public void FindPackage(string name, string requiredVersion, string minimumVersion, string maximumVersion)
         {
             Deploy();
         }
@@ -73,6 +49,23 @@ namespace ZeroInstall.OneGet
         }
 
         private static bool _deployCompleted;
+
+        private bool MachineWide
+        {
+            get
+            {
+                switch (_request.GetOptionValue("Scope"))
+                {
+                    case "CurrentUser":
+                        return false;
+                    case "AllUsers":
+                        return true;
+                    default:
+                        // Chose default based on instal location of bootstrap provider
+                        return !Locations.InstallBase.StartsWith(Locations.HomeDir);
+                }
+            }
+        }
 
         /// <summary>
         /// Deploys Zero Install to the computer.
@@ -87,7 +80,7 @@ namespace ZeroInstall.OneGet
             }
 
             var process = new BootstrapProcess(_handler, gui: false);
-            var result = process.Execute(MachineWide ?? WindowsUtils.IsAdministrator
+            var result = process.Execute(MachineWide
                 ? new[] {"maintenance", "deploy", "--batch", "--machine"}
                 : new[] {"maintenance", "deploy", "--batch"});
 

@@ -62,47 +62,30 @@ namespace ZeroInstall.OneGet
             Handler.Dispose();
         }
 
-        public void GetDynamicOptions(string category)
-        {
-            switch ((category ?? string.Empty).ToLowerInvariant())
-            {
-                case "package":
-                    _request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
-                    _request.YieldDynamicOption("AllVersions", Constants.OptionType.Switch, isRequired: false);
-                    _request.YieldDynamicOption("GlobalSearch", Constants.OptionType.Switch, isRequired: false);
-                    break;
-
-                case "install":
-                    _request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
-                    _request.YieldDynamicOption("DeferDownload", Constants.OptionType.Switch, isRequired: false);
-                    _request.YieldDynamicOption("Scope", Constants.OptionType.String, isRequired: false, permittedValues: new[] {"CurrentUser", "AllUsers"});
-                    break;
-
-                case "source":
-                    break;
-            }
-        }
-
         private bool Refresh => _request.OptionKeys.Contains("Refresh");
         private bool AllVersions => _request.OptionKeys.Contains("AllVersions");
         private bool GlobalSearch => _request.OptionKeys.Contains("GlobalSearch");
         private bool DeferDownload => _request.OptionKeys.Contains("DeferDownload");
         private bool MachineWide => _request.GetOptionValue("Scope") == "AllUsers";
 
-        public void AddPackageSource(FeedUri uri)
+        public void AddPackageSource(string uri)
         {
-            CatalogManager.DownloadCatalog(uri);
+            var feedUri = new FeedUri(uri);
 
-            if (CatalogManager.AddSource(uri))
+            CatalogManager.DownloadCatalog(feedUri);
+
+            if (CatalogManager.AddSource(feedUri))
                 CatalogManager.GetOnlineSafe();
             else
-                Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, uri.ToStringRfc()));
+                Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, feedUri.ToStringRfc()));
         }
 
-        public void RemovePackageSource(FeedUri uri)
+        public void RemovePackageSource(string uri)
         {
-            if (!CatalogManager.RemoveSource(uri))
-                Log.Warn(string.Format(Resources.CatalogNotRegistered, uri.ToStringRfc()));
+            var feedUri = new FeedUri(uri);
+
+            if (!CatalogManager.RemoveSource(feedUri))
+                Log.Warn(string.Format(Resources.CatalogNotRegistered, feedUri.ToStringRfc()));
         }
 
         public void ResolvePackageSources()
@@ -124,13 +107,18 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        public void FindPackage(string name, ImplementationVersion requiredVersion, ImplementationVersion minimumVersion, ImplementationVersion maximumVersion)
+        public void FindPackage(string name, string requiredVersion, string minimumVersion, string maximumVersion)
         {
             FeedManager.Refresh = Refresh;
 
             VersionRange versionRange;
             if (requiredVersion != null) versionRange = new VersionRange(requiredVersion);
-            else if (minimumVersion != null || maximumVersion != null) versionRange = new VersionRange(minimumVersion, maximumVersion);
+            else if (minimumVersion != null || maximumVersion != null)
+            {
+                versionRange = new VersionRange(
+                    (minimumVersion == null) ? null : new ImplementationVersion(minimumVersion),
+                    (maximumVersion == null) ? null : new ImplementationVersion(maximumVersion));
+            }
             else versionRange = null;
 
             if (GlobalSearch) MirrorSearch(name, versionRange);

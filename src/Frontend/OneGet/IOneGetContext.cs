@@ -18,8 +18,6 @@
 using System;
 using JetBrains.Annotations;
 using PackageManagement.Sdk;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.OneGet
 {
@@ -28,11 +26,10 @@ namespace ZeroInstall.OneGet
     /// </summary>
     public interface IOneGetContext : IDisposable
     {
-        void GetDynamicOptions(string category);
-        void AddPackageSource([NotNull] FeedUri uri);
-        void RemovePackageSource([NotNull] FeedUri uri);
+        void AddPackageSource([NotNull] string uri);
+        void RemovePackageSource([NotNull] string uri);
         void ResolvePackageSources();
-        void FindPackage([CanBeNull] string name, [CanBeNull] ImplementationVersion requiredVersion, [CanBeNull] ImplementationVersion minimumVersion, [CanBeNull] ImplementationVersion maximumVersion);
+        void FindPackage([CanBeNull] string name, [CanBeNull] string requiredVersion, [CanBeNull] string minimumVersion, [CanBeNull] string maximumVersion);
         void FindPackageBy(string identifier);
         void GetInstalledPackages([CanBeNull] string name);
         void DownloadPackage([NotNull] string fastPackageReference, [NotNull] string location);

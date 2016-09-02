@@ -25,15 +25,13 @@ using NanoByte.Common.Info;
 using PackageManagement.Sdk;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// A common base for OneGet package providers. Implements OneGet's duck-typing interface.
+    /// Common base for OneGet package providers. Implements OneGet's duck-typing interface.
     /// </summary>
     public abstract class PackageProviderBase
     {
@@ -81,6 +79,29 @@ namespace ZeroInstall.OneGet
                     [Constants.Features.SupportedExtensions] = new[] {"xml"},
                     [Constants.Features.SupportedSchemes] = new[] {"http", "https", "file"}
                 });
+        }
+
+        [PublicAPI]
+        public void GetDynamicOptions(string category, Request request)
+        {
+            request.Debug("Calling '{0}::GetDynamicOptions'", Name);
+            switch ((category ?? string.Empty).ToLowerInvariant())
+            {
+                case "package":
+                    request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
+                    request.YieldDynamicOption("AllVersions", Constants.OptionType.Switch, isRequired: false);
+                    request.YieldDynamicOption("GlobalSearch", Constants.OptionType.Switch, isRequired: false);
+                    break;
+
+                case "install":
+                    request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
+                    request.YieldDynamicOption("DeferDownload", Constants.OptionType.Switch, isRequired: false);
+                    request.YieldDynamicOption("Scope", Constants.OptionType.String, isRequired: false, permittedValues: new[] { "CurrentUser", "AllUsers" });
+                    break;
+
+                case "source":
+                    break;
+            }
         }
 
         /// <summary>
@@ -150,13 +171,6 @@ namespace ZeroInstall.OneGet
         protected abstract IOneGetContext BuildContext(Request request);
 
         [PublicAPI]
-        public void GetDynamicOptions(string category, Request request)
-        {
-            request.Debug("Calling '{0}::GetDynamicOptions'", Name);
-            Do(request, x => x.GetDynamicOptions(category));
-        }
-
-        [PublicAPI]
         public void ResolvePackageSources(Request request)
         {
             request.Debug("Calling '{0}::ResolvePackageSources'", Name);
@@ -174,7 +188,7 @@ namespace ZeroInstall.OneGet
                 return;
             }
 
-            Do(request, x => x.AddPackageSource(new FeedUri(location)));
+            Do(request, x => x.AddPackageSource(location));
         }
 
         [PublicAPI]
@@ -188,7 +202,7 @@ namespace ZeroInstall.OneGet
                 return;
             }
 
-            Do(request, x => x.RemovePackageSource(new FeedUri(name)));
+            Do(request, x => x.RemovePackageSource(name));
         }
 
         [PublicAPI]
@@ -202,10 +216,7 @@ namespace ZeroInstall.OneGet
                 return;
             }
 
-            Do(request, x => x.FindPackage(name,
-                string.IsNullOrEmpty(requiredVersion) ? null : new ImplementationVersion(requiredVersion),
-                string.IsNullOrEmpty(minimumVersion) ? null : new ImplementationVersion(minimumVersion),
-                string.IsNullOrEmpty(maximumVersion) ? null : new ImplementationVersion(maximumVersion)));
+            Do(request, x => x.FindPackage(name, requiredVersion, minimumVersion, maximumVersion));
         }
 
         [PublicAPI]
