@@ -16,9 +16,7 @@
  */
 
 using JetBrains.Annotations;
-using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
-using ZeroInstall.Commands;
 
 namespace ZeroInstall.OneGet
 {
@@ -28,11 +26,7 @@ namespace ZeroInstall.OneGet
     [PublicAPI]
     public class PackageProvider : PackageProviderBase
     {
-        /// <inheritdoc/>
-        protected override string Name => "0install";
-
-        /// <inheritdoc/>
-        protected override bool IsDisabled => Locations.IsPortable || ProgramUtils.IsRunningFromCache;
+        public override string PackageProviderName => "0install";
 
         /// <inheritdoc/>
         protected override IOneGetContext BuildContext(Request request) => new OneGetContext(request);

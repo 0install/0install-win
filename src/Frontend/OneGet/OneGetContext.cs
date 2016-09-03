@@ -66,7 +66,7 @@ namespace ZeroInstall.OneGet
         private bool AllVersions => _request.OptionKeys.Contains("AllVersions");
         private bool GlobalSearch => _request.OptionKeys.Contains("GlobalSearch");
         private bool DeferDownload => _request.OptionKeys.Contains("DeferDownload");
-        private bool MachineWide => _request.GetOptionValue("Scope") == "AllUsers";
+        private bool MachineWide => StringUtils.EqualsIgnoreCase(_request.GetOptionValue("Scope"), "AllUsers");
 
         public void AddPackageSource(string uri)
         {

@@ -15,9 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.IO;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using PackageManagement.Sdk;
 
 namespace ZeroInstall.OneGet
@@ -28,19 +26,7 @@ namespace ZeroInstall.OneGet
     [PublicAPI]
     public class BootstrapPackageProvider : PackageProviderBase
     {
-        /// <inheritdoc/>
-        protected override string Name => "0install";
-
-        /// <inheritdoc/>
-        protected override bool IsDisabled
-        {
-            get
-            {
-                // Disable the bootstrap provider when a real Zero Install instance is detected
-                string existingInstall = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
-                return !string.IsNullOrEmpty(existingInstall) && File.Exists(Path.Combine(existingInstall, "ZeroInstall.OneGet.dll"));
-            }
-        }
+        public override string PackageProviderName => "0install";
 
         /// <inheritdoc/>
         protected override IOneGetContext BuildContext(Request request) => new BootstrapOneGetContext(request);
