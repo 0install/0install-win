@@ -11,9 +11,6 @@ $ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 (Get-Content "$ScriptDir\src\Frontend\OneGet\provider.manifest" -Encoding UTF8) `
   -replace 'version=".*" versionScheme="multipartnumeric"', ('version="' + $NewVersion + '.0" versionScheme="multipartnumeric"') |
   Set-Content "$ScriptDir\src\Frontend\OneGet\provider.manifest" -Encoding UTF8
-(Get-Content "$ScriptDir\src\Bootstrap\OneGet\provider.manifest" -Encoding UTF8) `
-  -replace 'version=".*" versionScheme="multipartnumeric"', ('version="' + $NewVersion + '.0" versionScheme="multipartnumeric"') |
-  Set-Content "$ScriptDir\src\Bootstrap\OneGet\provider.manifest" -Encoding UTF8
 
 (Get-Content "$ScriptDir\doc\Backend.Doxyfile" -Encoding UTF8) `
   -replace 'PROJECT_NUMBER = ".*"', ('PROJECT_NUMBER = "' + $NewVersion + '"') |
