@@ -16,6 +16,7 @@
  */
 
 using JetBrains.Annotations;
+using LinFu.DynamicProxy;
 using PackageManagement.Sdk;
 
 namespace ZeroInstall.OneGet
@@ -29,6 +30,7 @@ namespace ZeroInstall.OneGet
         public override string PackageProviderName => "0install";
 
         /// <inheritdoc/>
-        protected override IOneGetContext BuildContext(Request request) => new BootstrapOneGetContext(request);
+        protected override IOneGetContext BuildContext(Request request) =>
+            new ProxyFactory().CreateProxy<IOneGetContext>(new OneGetContextInterceptor(request));
     }
 }
