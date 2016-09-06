@@ -42,11 +42,11 @@ namespace ZeroInstall.OneGet
             _request = request;
         }
 
-        [CanBeNull]
-        private object _context;
-
         // Prevent multiple Zero Install deployments being started in parallel
         private static readonly object _initLock = new object();
+
+        [CanBeNull]
+        private static object _context;
 
         public object Intercept(InvocationInfo info)
         {

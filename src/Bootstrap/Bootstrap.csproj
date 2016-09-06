@@ -114,7 +114,6 @@
     <EmbeddedResource Include="EmbeddedConfig.txt" />
     <Content Include="Icon.ico" />
     <None Include="App.config" />
-    <None Include="OneGet\provider.manifest" />
     <None Include="packages.config" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
