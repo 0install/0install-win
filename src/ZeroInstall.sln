@@ -65,13 +65,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "Samples\CSharp\CS
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBasic", "Samples\VBasic\VBasic.vbproj", "{55A3CB6D-3FD9-47B1-ABDD-BB6A8D1FBBAA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{25F5FDAB-6FB6-4CBD-B0AC-878E432F5778}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp", "Samples\FSharp\FSharp.fsproj", "{AF9FB192-C867-425B-B60C-4FFB6051D354}"
 EndProject
 Global

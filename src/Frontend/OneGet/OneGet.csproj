@@ -147,7 +147,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
     <PostBuildEvent>:Locate MT.EXE Tool:
 for /f "delims=" %25%25a in ('powershell "$p = ((Get-ItemProperty -Path HKCU:\Software\PackageManagement\Tools\tools\MT.EXE -Name Path -ea 0).Path) ;  if( -not $p ) { $p = ((dir ${env:ProgramFiles(x86)} -recurse -ea 0|  where -property name -eq mt.exe | select -first 1 ).FullName) ;    $null = mkdir -Path HKCU:\Software\PackageManagement\Tools\tools\MT.EXE -Force ;    $null = New-ItemProperty -Path HKCU:\Software\OneGet\tools\MT.EXE -Name Path -Value $p -force } ; $p"') do @set MTEXE=%25%25a
