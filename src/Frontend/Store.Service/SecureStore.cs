@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -164,20 +165,26 @@ namespace ZeroInstall.Store.Service
                     }
 
                     string result = base.VerifyAndAdd(tempID, expectedDigest, handler);
-                    _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath));
+                    EventLog(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath), EventLogEntryType.Information);
                     return result;
                 }
-                    #region Error handling
-                catch (OperationCanceledException)
+                catch (Exception ex) when (!(ex is OperationCanceledException))
                 {
+                    EventLog(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Warning);
                     throw;
                 }
-                catch (Exception)
-                {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath), EventLogEntryType.Warning);
-                    throw;
-                }
-                #endregion
+            }
+        }
+
+        private void EventLog(string message, EventLogEntryType level)
+        {
+            try
+            {
+                _eventLog.WriteEntry(message, level);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Warn(ex);
             }
         }
         #endregion
