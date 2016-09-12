@@ -33,7 +33,7 @@ namespace ZeroInstall.DesktopIntegration
     /// Manages desktop integration via <see cref="AccessPoint"/>s, grouping them into categories.
     /// </summary>
     /// <remarks>
-    /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
+    /// To prevent race-conditions there may only be one desktop integration class instance active at any given time.
     /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IDisposable.Dispose"/>.
     /// </remarks>
     public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager

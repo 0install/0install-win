@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands.Utils
     /// Represents a specific Zero Install instance that is to be deployed, updated or removed.
     /// </summary>
     /// <remarks>
-    /// To prevent raceconditions there may only be one maintenance class instance active at any given time.
+    /// To prevent race-conditions there may only be one maintenance class instance active at any given time.
     /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IDisposable.Dispose"/>.
     /// </remarks>
     public partial class MaintenanceManager : ManagerBase
