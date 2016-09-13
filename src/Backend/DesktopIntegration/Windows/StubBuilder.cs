@@ -17,10 +17,10 @@
 
 using System;
 using System.CodeDom.Compiler;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -73,6 +73,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             return path;
         }
 
+        /// <summary>The point in time when the library file containing this code was installed.</summary>
+        private static readonly DateTime _libraryInstallTimestamp = File.GetCreationTimeUtc(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+
         /// <summary>
         /// Creates a new or updates an existing stub EXE that executes the "0install run" command.
         /// </summary>
@@ -91,9 +94,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             if (File.Exists(path))
             { // Existing stub
-                // TODO: Find better rebuild discriminator
-                if (File.GetLastWriteTime(path) < Process.GetCurrentProcess().StartTime)
-                { // Outdated, try to rebuild
+                if (File.GetLastWriteTimeUtc(path) < _libraryInstallTimestamp)
+                { // Built by older version of this library, try to rebuild
                     try
                     {
                         File.Delete(path);
