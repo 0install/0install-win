@@ -61,6 +61,7 @@ namespace ZeroInstall.Store.Model
 
             // Compatible supersets
             if (implementation >= Cpu.I386 && implementation <= Cpu.I686 && system >= implementation && system <= Cpu.I686) return true;
+            if (implementation >= Cpu.ArmV6L && implementation <= Cpu.ArmV7L && system >= implementation && system <= Cpu.ArmV7L) return true;
 
             // No match
             return false;

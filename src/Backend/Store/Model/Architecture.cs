@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>The supported operating system has not been set yet.</summary>
         [XmlEnum("unknown")]
-        Unknown = 99
+        Unknown = 100
     }
 
     /// <summary>
@@ -114,13 +114,21 @@ namespace ZeroInstall.Store.Model
         [XmlEnum("ppc64")]
         Ppc64,
 
+        /// <summary>Supports ARMv6 CPUs in little-endian mode.</summary>
+        [XmlEnum("armv6l")]
+        ArmV6L,
+
+        /// <summary>Supports ARMv7 CPUs in little-endian mode.</summary>
+        [XmlEnum("armv7l")]
+        ArmV7L,
+
         /// <summary>This is a source release and therefore architecture-independent.</summary>
         [XmlEnum("src")]
-        Source,
+        Source = 99,
 
         /// <summary>The supported CPU architecture has not been set yet.</summary>
         [XmlEnum("unknown")]
-        Unknown = 99
+        Unknown = 100
     }
     #endregion
 
