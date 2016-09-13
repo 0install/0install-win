@@ -94,6 +94,7 @@ namespace ZeroInstall.Services.Feeds
 
             foreach (var signature in signatures.OfType<MissingKeySignature>())
             {
+                Log.Info("Missing key for " + signature.FormatKeyID());
                 AcquireMissingKey(signature, uri, localPath);
                 goto KeyImported;
             }
@@ -212,6 +213,7 @@ namespace ZeroInstall.Services.Feeds
                 string keyFile = Path.Combine(localPath, signature.FormatKeyID() + ".gpg");
                 if (File.Exists(keyFile))
                 {
+                    Log.Info("Importing key file: " + keyFile);
                     _openPgp.ImportKey(File.ReadAllBytes(keyFile));
                     return;
                 }
