@@ -39,10 +39,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the binding in the form "Path = Command". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Path} = {Command}";
-        }
+        public override string ToString() => $"{Path} = {Command}";
         #endregion
 
         #region Clone

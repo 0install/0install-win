@@ -60,10 +60,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the extension in the form "Value (MimeType)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Value} ({MimeType})";
-        }
+        public override string ToString() => $"{Value} ({MimeType})";
         #endregion
 
         #region Clone
@@ -71,15 +68,9 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// Creates a deep copy of this <see cref="FileTypeExtension"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="FileTypeExtension"/>.</returns>
-        public FileTypeExtension Clone()
-        {
-            return new FileTypeExtension {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value, MimeType = MimeType, PerceivedType = PerceivedType};
-        }
+        public FileTypeExtension Clone() => new FileTypeExtension {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value, MimeType = MimeType, PerceivedType = PerceivedType};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

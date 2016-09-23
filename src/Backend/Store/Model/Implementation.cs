@@ -94,10 +94,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Implementation"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Implementation"/>.</returns>
-        public override Element Clone()
-        {
-            return CloneImplementation();
-        }
+        public override Element Clone() => CloneImplementation();
         #endregion
 
         #region Equality

@@ -56,18 +56,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Convenience cast for turning strings into <see cref="Category"/>s.
         /// </summary>
-        public static implicit operator Category(string value)
-        {
-            return new Category {Name = value};
-        }
+        public static implicit operator Category(string value) => new Category {Name = value};
 
         /// <summary>
         /// Returns <see cref="Name"/> directly. Safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Name ?? "unset";
-        }
+        public override string ToString() => Name ?? "unset";
         #endregion
 
         #region Equality
@@ -104,15 +98,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a plain copy of this category.
         /// </summary>
         /// <returns>The cloned category.</returns>
-        public Category Clone()
-        {
-            return new Category {Name = Name, TypeNamespace = TypeNamespace};
-        }
+        public Category Clone() => new Category {Name = Name, TypeNamespace = TypeNamespace};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
     }
 }

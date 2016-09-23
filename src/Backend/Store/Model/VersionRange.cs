@@ -159,11 +159,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns a string representation of the version range. Safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            // Separate parts with colons
-            return StringUtils.Join("|", _parts.Select(part => part.ToString()));
-        }
+        public override string ToString() => StringUtils.Join("|", _parts.Select(part => part.ToString()));
 
         /// <summary>
         /// Convenience cast for turning <see cref="ImplementationVersion"/>s into lower bounds for <see cref="VersionRange"/>s.

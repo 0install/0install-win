@@ -64,10 +64,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the runner in the form "Interface (Command)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{InterfaceUri} ({Command ?? Model.Command.NameRun})";
-        }
+        public override string ToString() => $"{InterfaceUri} ({Command ?? Model.Command.NameRun})";
         #endregion
 
         #region Clone
@@ -88,10 +85,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Runner"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Runner"/>.</returns>
-        public override Restriction Clone()
-        {
-            return CloneRunner();
-        }
+        public override Restriction Clone() => CloneRunner();
         #endregion
 
         #region Equality

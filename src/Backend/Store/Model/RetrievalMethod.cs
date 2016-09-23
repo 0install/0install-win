@@ -42,9 +42,6 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="RetrievalMethod"/>.</returns>
         public abstract RetrievalMethod Clone();
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
     }
 }

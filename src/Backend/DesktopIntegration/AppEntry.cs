@@ -156,10 +156,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns the entry in the form "Name (InterfaceUri)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Name} ({InterfaceUri})";
-        }
+        public override string ToString() => $"{Name} ({InterfaceUri})";
         #endregion
 
         #region Clone
@@ -177,10 +174,7 @@ namespace ZeroInstall.DesktopIntegration
             return appList;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

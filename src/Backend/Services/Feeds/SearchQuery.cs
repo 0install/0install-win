@@ -74,9 +74,6 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Returns the query in the form "Feed search: Keywords". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "Feed search: " + Keywords;
-        }
+        public override string ToString() => $"Feed search: {Keywords}";
     }
 }

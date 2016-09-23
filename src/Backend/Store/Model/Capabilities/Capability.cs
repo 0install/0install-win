@@ -60,10 +60,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <returns>The new copy of the <see cref="Capability"/>.</returns>
         public abstract Capability Clone();
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

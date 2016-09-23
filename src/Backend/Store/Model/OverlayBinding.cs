@@ -55,10 +55,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the binding in the form "Source => MountPoint". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Source} => {MountPoint}";
-        }
+        public override string ToString() => $"{Source} => {MountPoint}";
         #endregion
 
         #region Clone
@@ -66,10 +63,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="OverlayBinding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="OverlayBinding"/>.</returns>
-        public override Binding Clone()
-        {
-            return new OverlayBinding {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, MountPoint = MountPoint};
-        }
+        public override Binding Clone() => new OverlayBinding {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, MountPoint = MountPoint};
         #endregion
 
         #region Equality
@@ -85,7 +79,8 @@ namespace ZeroInstall.Store.Model
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is OverlayBinding && Equals((OverlayBinding)obj);
+            var binding = obj as OverlayBinding;
+            return binding != null && Equals(binding);
         }
 
         /// <inheritdoc/>

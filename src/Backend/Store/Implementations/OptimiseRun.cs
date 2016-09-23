@@ -76,10 +76,7 @@ namespace ZeroInstall.Store.Implementations
                 RelativePath = relativePath;
             }
 
-            public static implicit operator string(StoreFile file)
-            {
-                return Path.Combine(file.ImplementationPath, file.RelativePath);
-            }
+            public static implicit operator string(StoreFile file) => Path.Combine(file.ImplementationPath, file.RelativePath);
         }
 
         private readonly Dictionary<DedupKey, StoreFile> _fileHashes = new Dictionary<DedupKey, StoreFile>();

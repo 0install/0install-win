@@ -103,15 +103,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Icon"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Icon"/>.</returns>
-        public Icon Clone()
-        {
-            return new Icon {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Href = Href, MimeType = MimeType};
-        }
+        public Icon Clone() => new Icon {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Href = Href, MimeType = MimeType};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

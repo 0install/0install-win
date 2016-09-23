@@ -53,10 +53,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the rename step in the form "Source => Destination". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Source} => {Destination}";
-        }
+        public override string ToString() => $"{Source} => {Destination}";
         #endregion
 
         #region Clone
@@ -64,15 +61,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="RenameStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="RenameStep"/>.</returns>
-        public IRecipeStep CloneRecipeStep()
-        {
-            return new RenameStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, Destination = Destination};
-        }
+        public IRecipeStep CloneRecipeStep() => new RenameStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, Destination = Destination};
 
-        object ICloneable.Clone()
-        {
-            return CloneRecipeStep();
-        }
+        object ICloneable.Clone() => CloneRecipeStep();
         #endregion
 
         #region Equality

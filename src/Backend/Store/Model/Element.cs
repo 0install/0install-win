@@ -343,10 +343,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Element"/>.</returns>
         public abstract Element Clone();
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
 
         /// <summary>
         /// Copies all known values from one instance to another. Helper method for instance cloning.

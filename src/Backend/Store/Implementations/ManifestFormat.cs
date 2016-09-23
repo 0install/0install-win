@@ -74,10 +74,7 @@ namespace ZeroInstall.Store.Implementations
         public virtual string Separator => "=";
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return Prefix;
-        }
+        public override string ToString() => Prefix;
 
         /// <summary>
         /// Generates the digest of a implementation file as used within the manifest file.
@@ -134,19 +131,13 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Serializes a hash as digest of an implementation file as used within the manifest file.
         /// </summary>
-        protected virtual string SerializeContentDigest([NotNull] byte[] hash)
-        {
-            return hash.Base16Encode();
-        }
+        protected virtual string SerializeContentDigest([NotNull] byte[] hash) => hash.Base16Encode();
 
         /// <summary>
         /// Serializes a hash as a digest of a manifest file as used for the implementation directory name.
         /// </summary>
         [NotNull]
-        protected virtual string SerializeManifestDigest([NotNull] byte[] hash)
-        {
-            return hash.Base16Encode();
-        }
+        protected virtual string SerializeManifestDigest([NotNull] byte[] hash) => hash.Base16Encode();
         #endregion
 
         #region Inner classes
@@ -158,10 +149,7 @@ namespace ZeroInstall.Store.Implementations
         {
             public override string Prefix => "sha1new";
 
-            protected override HashAlgorithm GetHashAlgorithm()
-            {
-                return SHA1.Create();
-            }
+            protected override HashAlgorithm GetHashAlgorithm() => SHA1.Create();
         }
 
         /// <summary>
@@ -172,10 +160,7 @@ namespace ZeroInstall.Store.Implementations
         {
             public override string Prefix => "sha256";
 
-            protected override HashAlgorithm GetHashAlgorithm()
-            {
-                return SHA256.Create();
-            }
+            protected override HashAlgorithm GetHashAlgorithm() => SHA256.Create();
         }
 
         /// <summary>
@@ -188,15 +173,9 @@ namespace ZeroInstall.Store.Implementations
 
             public override string Separator => "_";
 
-            protected override HashAlgorithm GetHashAlgorithm()
-            {
-                return SHA256.Create();
-            }
+            protected override HashAlgorithm GetHashAlgorithm() => SHA256.Create();
 
-            protected override string SerializeManifestDigest(byte[] hash)
-            {
-                return hash.Base32Encode();
-            }
+            protected override string SerializeManifestDigest(byte[] hash) => hash.Base32Encode();
         }
         #endregion
     }

@@ -99,10 +99,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the capability in the form "Service (ID)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Service} ({ID})";
-        }
+        public override string ToString() => $"{Service} ({ID})";
         #endregion
 
         #region Clone

@@ -36,9 +36,6 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Binding"/>.</returns>
         public abstract Binding Clone();
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
     }
 }

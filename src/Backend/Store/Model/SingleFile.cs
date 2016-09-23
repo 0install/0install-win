@@ -44,10 +44,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the file in the form "Location (Size) => Destination". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Href} ({Size}) => {Destination}";
-        }
+        public override string ToString() => $"{Href} ({Size}) => {Destination}";
         #endregion
 
         #region Clone
@@ -55,28 +52,19 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="SingleFile"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
-        private SingleFile CloneFile()
-        {
-            return new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, Destination = Destination};
-        }
+        private SingleFile CloneFile() => new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, Destination = Destination};
 
         /// <summary>
         /// Creates a deep copy of this <see cref="SingleFile"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
-        public override IRecipeStep CloneRecipeStep()
-        {
-            return CloneFile();
-        }
+        public override IRecipeStep CloneRecipeStep() => CloneFile();
 
         /// <summary>
         /// Creates a deep copy of this <see cref="SingleFile"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
-        public override RetrievalMethod Clone()
-        {
-            return CloneFile();
-        }
+        public override RetrievalMethod Clone() => CloneFile();
         #endregion
 
         #region Equality

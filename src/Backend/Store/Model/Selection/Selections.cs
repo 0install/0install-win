@@ -179,20 +179,14 @@ namespace ZeroInstall.Store.Model.Selection
             return selections;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the selections as XML. Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return this.ToXmlString();
-        }
+        public override string ToString() => this.ToXmlString();
         #endregion
 
         #region Equality

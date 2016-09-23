@@ -48,18 +48,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Convenience cast for turning strings into plain <see cref="Arg"/>s.
         /// </summary>
-        public static implicit operator Arg(string value)
-        {
-            return new Arg {Value = value};
-        }
+        public static implicit operator Arg(string value) => new Arg {Value = value};
 
         /// <summary>
         /// Returns <see cref="Value"/> directly. Safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Value ?? "(empty)";
-        }
+        public override string ToString() => Value ?? "(empty)";
         #endregion
 
         #region Equality
@@ -95,19 +89,13 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Arg"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Arg"/>.</returns>
-        public Arg CloneArg()
-        {
-            return new Arg {Value = Value};
-        }
+        public Arg CloneArg() => new Arg {Value = Value};
 
         /// <summary>
         /// Creates a deep copy of this <see cref="Arg"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Arg"/>.</returns>
-        public override ArgBase Clone()
-        {
-            return CloneArg();
-        }
+        public override ArgBase Clone() => CloneArg();
         #endregion
     }
 }

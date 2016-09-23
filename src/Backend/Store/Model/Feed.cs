@@ -424,20 +424,14 @@ namespace ZeroInstall.Store.Model
             return feed;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the feed/interface in the form "Name (Uri)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Name} ({Uri})";
-        }
+        public override string ToString() => $"{Name} ({Uri})";
         #endregion
 
         #region Equality

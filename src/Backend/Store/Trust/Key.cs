@@ -58,14 +58,10 @@ namespace ZeroInstall.Store.Trust
         {
             var key = new Key {Fingerprint = Fingerprint};
             key.Domains.AddRange(Domains.CloneElements());
-
             return key;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

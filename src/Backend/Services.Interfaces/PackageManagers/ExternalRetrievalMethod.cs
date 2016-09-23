@@ -60,19 +60,13 @@ namespace ZeroInstall.Services.PackageManagers
         /// Creates a deep copy of this <see cref="ExternalRetrievalMethod"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ExternalRetrievalMethod"/>.</returns>
-        private ExternalRetrievalMethod CloneNativeRetrievalMethod()
-        {
-            return new ExternalRetrievalMethod {Distro = Distro, PackageID = PackageID, Size = Size, ConfirmationQuestion = ConfirmationQuestion, Install = Install};
-        }
+        private ExternalRetrievalMethod CloneNativeRetrievalMethod() => new ExternalRetrievalMethod {Distro = Distro, PackageID = PackageID, Size = Size, ConfirmationQuestion = ConfirmationQuestion, Install = Install};
 
         /// <summary>
         /// Creates a deep copy of this <see cref="ExternalRetrievalMethod"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ExternalRetrievalMethod"/>.</returns>
-        public override RetrievalMethod Clone()
-        {
-            return CloneNativeRetrievalMethod();
-        }
+        public override RetrievalMethod Clone() => CloneNativeRetrievalMethod();
         #endregion
 
         #region Equality

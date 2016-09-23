@@ -49,10 +49,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns the entry in the form "AccessPoint in AppEntry". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{AccessPoint} in {AppEntry}";
-        }
+        public override string ToString() => $"{AccessPoint} in {AppEntry}";
 
         #region Equality
         /// <inheritdoc/>

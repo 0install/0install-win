@@ -73,18 +73,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// Returns the access point in the form "UrlProtocol: Capability". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"UrlProtocol: {Capability}";
-        }
+        public override string ToString() => $"UrlProtocol: {Capability}";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new UrlProtocol {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
-        }
+        public override AccessPoint Clone() => new UrlProtocol {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
         #endregion
 
         #region Equality

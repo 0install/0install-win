@@ -266,10 +266,7 @@ namespace ZeroInstall.DesktopIntegration
             return appList;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

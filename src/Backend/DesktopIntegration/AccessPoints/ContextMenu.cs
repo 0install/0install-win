@@ -73,18 +73,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// Returns the access point in the form "ContextMenu". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "ContextMenu";
-        }
+        public override string ToString() => "ContextMenu";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
-        }
+        public override AccessPoint Clone() => new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
         #endregion
 
         #region Equality

@@ -89,10 +89,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             public string ParentID;
             public string FullPath;
 
-            public override string ToString()
-            {
-                return FullPath;
-            }
+            public override string ToString() => FullPath;
         }
 
         private readonly Dictionary<string, MsiDirectory> _directories = new Dictionary<string, MsiDirectory>();
@@ -150,10 +147,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             public string DirectoryId;
             public string FullPath;
 
-            public override string ToString()
-            {
-                return FullPath;
-            }
+            public override string ToString() => FullPath;
         }
 
         private readonly Dictionary<string, MsiFile> _files = new Dictionary<string, MsiFile>();

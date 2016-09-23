@@ -99,12 +99,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the binding in the form "Name = Value (Mode, Default)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return (string.IsNullOrEmpty(Insert))
-                ? $"{Name} = {Value} ({Mode})"
-                : $"{Name} = Impl+{Insert} ({Mode})";
-        }
+        public override string ToString() => string.IsNullOrEmpty(Insert)
+            ? $"{Name} = {Value} ({Mode})"
+            : $"{Name} = Impl+{Insert} ({Mode})";
         #endregion
 
         #region Clone
@@ -112,10 +109,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
-        public override Binding Clone()
-        {
-            return new EnvironmentBinding {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Value = Value, Insert = Insert, Mode = Mode, Separator = Separator, Default = Default};
-        }
+        public override Binding Clone() => new EnvironmentBinding {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Value = Value, Insert = Insert, Mode = Mode, Separator = Separator, Default = Default};
         #endregion
 
         #region Equality

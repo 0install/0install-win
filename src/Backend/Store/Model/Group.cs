@@ -94,10 +94,7 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <inheritdoc/>
-        public override Element Clone()
-        {
-            return CloneGroup();
-        }
+        public override Element Clone() => CloneGroup();
         #endregion
 
         #region Conversion

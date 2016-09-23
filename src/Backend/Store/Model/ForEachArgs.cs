@@ -65,10 +65,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the for-each instruction in the form "ItemFrom". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return ItemFrom ?? "(empty)";
-        }
+        public override string ToString() => ItemFrom ?? "(empty)";
         #endregion
 
         #region Clone
@@ -87,10 +84,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="ForEachArgs"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ForEachArgs"/>.</returns>
-        public override ArgBase Clone()
-        {
-            return CloneForEachArgs();
-        }
+        public override ArgBase Clone() => CloneForEachArgs();
         #endregion
 
         #region Equality

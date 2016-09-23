@@ -109,10 +109,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the extension in the form "Name = Command". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Name} = {Command ?? Model.Command.NameRun}";
-        }
+        public override string ToString() => $"{Name} = {Command ?? Model.Command.NameRun}";
         #endregion
 
         #region Clone
@@ -127,10 +124,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             return newVerb;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

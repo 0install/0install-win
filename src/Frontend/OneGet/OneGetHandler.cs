@@ -72,15 +72,9 @@ namespace ZeroInstall.OneGet
         public override Verbosity Verbosity { get { return _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; } set { } }
 
         /// <inheritdoc/>
-        public override bool Ask(string question)
-        {
-            return _request.AskPermission(question);
-        }
+        public override bool Ask(string question) => _request.AskPermission(question);
 
         /// <inheritdoc/>
-        public override void Error(Exception exception)
-        {
-            _request.Warning(exception.Message);
-        }
+        public override void Error(Exception exception) => _request.Warning(exception.Message);
     }
 }

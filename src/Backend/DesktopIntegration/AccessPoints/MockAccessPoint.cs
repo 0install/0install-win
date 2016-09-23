@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -32,10 +33,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     public class MockAccessPoint : DefaultAccessPoint, IEquatable<MockAccessPoint>
     {
         /// <inheritdoc/>
-        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
-        {
-            return string.IsNullOrEmpty(ID) ? new string[0] : new[] {"mock:" + ID};
-        }
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry) => string.IsNullOrEmpty(ID)
+            ? Enumerable.Empty<string>()
+            : new[] {"mock:" + ID};
 
         /// <summary>
         /// An indentifier that controls the result of <see cref="GetConflictIDs"/>.
@@ -91,23 +91,17 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// Returns the access point in the form "MockAccessPoint: ID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"MockAccessPoint: {ID} (ApplyFlagPath: {ApplyFlagPath}, UnapplyFlagPath: {UnapplyFlagPath})";
-        }
+        public override string ToString() => $"MockAccessPoint: {ID} (ApplyFlagPath: {ApplyFlagPath}, UnapplyFlagPath: {UnapplyFlagPath})";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
+        public override AccessPoint Clone() => new MockAccessPoint
         {
-            return new MockAccessPoint
-            {
-                ID = ID, Capability = Capability,
-                ApplyFlagPath = ApplyFlagPath, UnapplyFlagPath = UnapplyFlagPath,
-                UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements
-            };
-        }
+            ID = ID, Capability = Capability,
+            ApplyFlagPath = ApplyFlagPath, UnapplyFlagPath = UnapplyFlagPath,
+            UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements
+        };
         #endregion
 
         #region Equality

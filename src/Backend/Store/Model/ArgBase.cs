@@ -43,17 +43,11 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="ArgBase"/>.</returns>
         public abstract ArgBase Clone();
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
 
         /// <summary>
         /// Convenience cast for turning strings into plain <see cref="Arg"/>s.
         /// </summary>
-        public static implicit operator ArgBase(string value)
-        {
-            return new Arg {Value = value};
-        }
+        public static implicit operator ArgBase(string value) => new Arg {Value = value};
     }
 }

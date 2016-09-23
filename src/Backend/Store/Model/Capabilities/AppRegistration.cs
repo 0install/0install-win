@@ -49,18 +49,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the capability in the form "CapabilityRegPath". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return CapabilityRegPath;
-        }
+        public override string ToString() => CapabilityRegPath;
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability Clone()
-        {
-            return new AppRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, CapabilityRegPath = CapabilityRegPath};
-        }
+        public override Capability Clone() => new AppRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, CapabilityRegPath = CapabilityRegPath};
         #endregion
 
         #region Equality

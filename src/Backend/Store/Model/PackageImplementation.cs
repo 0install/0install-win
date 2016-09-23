@@ -119,10 +119,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the implementation in the form "Package (Distributions)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Package} ({DistributionsString})";
-        }
+        public override string ToString() => $"{Package} ({DistributionsString})";
         #endregion
 
         #region Clone
@@ -142,10 +139,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="PackageImplementation"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="PackageImplementation"/>.</returns>
-        public override Element Clone()
-        {
-            return CloneImplementation();
-        }
+        public override Element Clone() => CloneImplementation();
         #endregion
 
         #region Equals

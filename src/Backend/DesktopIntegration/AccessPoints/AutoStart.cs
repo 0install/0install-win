@@ -39,10 +39,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         /// <inheritdoc/>
-        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
-        {
-            return new[] {"auto-start:" + Name};
-        }
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry) => new[] {"auto-start:" + Name};
 
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
@@ -68,10 +65,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new AutoStart {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command};
-        }
+        public override AccessPoint Clone() => new AutoStart {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command};
         #endregion
 
         #region Equality

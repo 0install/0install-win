@@ -137,10 +137,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the Command in the form "Name (Path)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Name + " (" + Path + ")";
-        }
+        public override string ToString() => $"{Name} ({Path})";
         #endregion
 
         #region Clone
@@ -161,10 +158,7 @@ namespace ZeroInstall.Store.Model
             return newCommand;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

@@ -60,12 +60,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the feed reference in the form "Source (Architecture, Languages)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Languages.Count == 0
-                ? $"{Source} ({Architecture})"
-                : $"{Source} ({Architecture}, {Languages})";
-        }
+        public override string ToString() => (Languages.Count == 0)
+            ? $"{Source} ({Architecture})"
+            : $"{Source} ({Architecture}, {Languages})";
         #endregion
 
         #region Clone
@@ -80,10 +77,7 @@ namespace ZeroInstall.Store.Model
             return feedRereference;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

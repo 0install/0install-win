@@ -72,9 +72,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <returns>The new copy of the <see cref="AccessPoint"/>.</returns>
         public abstract AccessPoint Clone();
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
     }
 }

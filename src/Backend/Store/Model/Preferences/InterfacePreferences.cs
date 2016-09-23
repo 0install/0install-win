@@ -160,20 +160,14 @@ namespace ZeroInstall.Store.Model.Preferences
             return feed;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the preferences in the form "InterfacePreferences: Uri". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"InterfacePreferences: {Uri}";
-        }
+        public override string ToString() => $"InterfacePreferences: {Uri}";
         #endregion
 
         #region Equality

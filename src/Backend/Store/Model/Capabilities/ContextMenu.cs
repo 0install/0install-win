@@ -82,18 +82,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the capability in the form "ID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return ID;
-        }
+        public override string ToString() => ID;
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability Clone()
-        {
-            return new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Target = Target, Verb = Verb.Clone()};
-        }
+        public override Capability Clone() => new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Target = Target, Verb = Verb.Clone()};
         #endregion
 
         #region Equality

@@ -45,10 +45,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the remove step in the form "Path". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Path;
-        }
+        public override string ToString() => Path;
         #endregion
 
         #region Clone
@@ -56,15 +53,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="RemoveStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="RemoveStep"/>.</returns>
-        public IRecipeStep CloneRecipeStep()
-        {
-            return new RemoveStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Path = Path};
-        }
+        public IRecipeStep CloneRecipeStep() => new RemoveStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Path = Path};
 
-        object ICloneable.Clone()
-        {
-            return CloneRecipeStep();
-        }
+        object ICloneable.Clone() => CloneRecipeStep();
         #endregion
 
         #region Equality
@@ -80,7 +71,8 @@ namespace ZeroInstall.Store.Model
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is RemoveStep && Equals((RemoveStep)obj);
+            var step = obj as RemoveStep;
+            return step != null && Equals(step);
         }
 
         /// <inheritdoc/>

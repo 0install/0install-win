@@ -293,10 +293,7 @@ namespace ZeroInstall.Store
             return newConfig;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
 
         /// <summary>
         /// Returns the keys and values of all contained setings.
@@ -321,7 +318,8 @@ namespace ZeroInstall.Store
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is Config && Equals((Config)obj);
+            var config = obj as Config;
+            return config != null && Equals(config);
         }
 
         /// <inheritdoc/>

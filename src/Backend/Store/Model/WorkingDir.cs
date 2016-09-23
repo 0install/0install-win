@@ -43,10 +43,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the binding in the form "Source". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Source ?? "(unset)";
-        }
+        public override string ToString() => Source ?? "(unset)";
         #endregion
 
         #region Clone
@@ -54,15 +51,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="WorkingDir"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
-        public WorkingDir Clone()
-        {
-            return new WorkingDir {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source};
-        }
+        public WorkingDir Clone() => new WorkingDir {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

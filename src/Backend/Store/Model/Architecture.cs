@@ -262,10 +262,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the architecture in the form "os-cpu". Safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return OS.ConvertToString() + "-" + Cpu.ConvertToString();
-        }
+        public override string ToString() => OS.ConvertToString() + "-" + Cpu.ConvertToString();
         #endregion
 
         #region Equality

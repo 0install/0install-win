@@ -115,10 +115,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the EntryPoint in the form "Command (BinaryName)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return string.IsNullOrEmpty(BinaryName) ? Command : Command + " (" + BinaryName + ")";
-        }
+        public override string ToString() => string.IsNullOrEmpty(BinaryName)
+            ? Command
+            : Command + " (" + BinaryName + ")";
         #endregion
 
         #region Clone
@@ -136,10 +135,7 @@ namespace ZeroInstall.Store.Model
             return newEntryPoint;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

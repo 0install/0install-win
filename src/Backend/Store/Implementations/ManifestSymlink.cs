@@ -72,10 +72,7 @@ namespace ZeroInstall.Store.Implementations
         /// Returns the string representation of this node for the manifest format.
         /// </summary>
         /// <returns><c>"S", space, hash, space, size, space, symlink name, newline</c></returns>
-        public override string ToString()
-        {
-            return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Digest, Size, Name);
-        }
+        public override string ToString() => string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Digest, Size, Name);
         #endregion
 
         #region Equality

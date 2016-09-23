@@ -41,18 +41,12 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the capability in the form "-". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "-";
-        }
+        public override string ToString() => "-";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override Capability Clone()
-        {
-            return new ComServer {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID};
-        }
+        public override Capability Clone() => new ComServer {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID};
         #endregion
 
         #region Equality

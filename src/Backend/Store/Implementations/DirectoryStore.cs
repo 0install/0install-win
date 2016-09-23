@@ -620,10 +620,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns <see cref="Kind"/> and <see cref="DirectoryPath"/>. Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Kind + ": " + DirectoryPath;
-        }
+        public override string ToString() => $"{Kind}: {DirectoryPath}";
         #endregion
 
         #region Equality

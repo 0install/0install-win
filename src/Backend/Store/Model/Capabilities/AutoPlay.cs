@@ -64,10 +64,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the capability in the form "ID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return ID;
-        }
+        public override string ToString() => ID;
         #endregion
 
         #region Clone

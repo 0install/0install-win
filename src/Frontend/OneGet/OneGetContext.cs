@@ -57,10 +57,7 @@ namespace ZeroInstall.OneGet
         }
 
         /// <inheritdoc/>
-        public void Dispose()
-        {
-            Handler.Dispose();
-        }
+        public void Dispose() => Handler.Dispose();
 
         private bool Refresh => _request.OptionKeys.Contains("Refresh");
         private bool AllVersions => _request.OptionKeys.Contains("AllVersions");

@@ -63,10 +63,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the interface reference in the form "Target". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Target}";
-        }
+        public override string ToString() => $"{Target}";
         #endregion
 
         #region Clone
@@ -74,15 +71,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
-        public InterfaceReference Clone()
-        {
-            return new InterfaceReference {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Target = Target};
-        }
+        public InterfaceReference Clone() => new InterfaceReference {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Target = Target};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality
@@ -98,7 +89,8 @@ namespace ZeroInstall.Store.Model
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is InterfaceReference && Equals((InterfaceReference)obj);
+            var reference = obj as InterfaceReference;
+            return reference != null && Equals(reference);
         }
 
         /// <inheritdoc/>

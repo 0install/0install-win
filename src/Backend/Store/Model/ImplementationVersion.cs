@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Model
             if (_verbatimString != null) return _verbatimString;
 
             var output = new StringBuilder();
-            output.Append(_firstPart.ToString());
+            output.Append(_firstPart);
 
             // Separate additional parts with hyphens
             if (_additionalParts != null)
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Model
                 foreach (var part in _additionalParts)
                 {
                     output.Append('-');
-                    output.Append(part.ToString());
+                    output.Append(part);
                 }
             }
 
@@ -161,7 +161,8 @@ namespace ZeroInstall.Store.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj is ImplementationVersion && Equals((ImplementationVersion)obj);
+            var version = obj as ImplementationVersion;
+            return version != null && Equals(version);
         }
 
         /// <inheritdoc/>

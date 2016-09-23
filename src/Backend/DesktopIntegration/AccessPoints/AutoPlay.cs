@@ -72,18 +72,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// Returns the access point in the form "AutoPlay". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "AutoPlay";
-        }
+        public override string ToString() => "AutoPlay";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
-        }
+        public override AccessPoint Clone() => new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
         #endregion
 
         #region Equality

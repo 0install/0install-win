@@ -185,10 +185,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the requirements in the form "InterfaceUri (Command)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return string.IsNullOrEmpty(Command) ? InterfaceUri.ToStringRfc() : InterfaceUri.ToStringRfc() + " (" + Command + ")";
-        }
+        public override string ToString() => string.IsNullOrEmpty(Command)
+            ? InterfaceUri.ToStringRfc()
+            : InterfaceUri.ToStringRfc() + " (" + Command + ")";
 
         /// <summary>
         /// Transforms the requirements into a command-line arguments.

@@ -94,9 +94,6 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Returns the result in the form "Uri NEWLINE Name - Summary [Score]". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Uri.ToStringRfc() + Environment.NewLine + $"{Name} - {Summary} [{Score}%]";
-        }
+        public override string ToString() => Uri.ToStringRfc() + Environment.NewLine + $"{Name} - {Summary} [{Score}%]";
     }
 }

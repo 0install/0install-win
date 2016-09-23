@@ -161,10 +161,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Returns the selection candidate in the form "SelectionCandidate: Implementation". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"SelectionCandidate: {Implementation} from {FeedUri}";
-        }
+        public override string ToString() => $"SelectionCandidate: {Implementation} from {FeedUri}";
         #endregion
 
         #region Equality

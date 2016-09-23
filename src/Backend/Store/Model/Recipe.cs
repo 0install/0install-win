@@ -95,10 +95,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the recipe in the form "X steps". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Steps.Count} steps";
-        }
+        public override string ToString() => $"{Steps.Count} steps";
         #endregion
 
         #region Clone

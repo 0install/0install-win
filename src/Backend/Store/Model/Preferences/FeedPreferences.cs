@@ -177,24 +177,17 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             var feedPreferences = new FeedPreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, LastChecked = LastChecked};
             feedPreferences.Implementations.AddRange(Implementations.CloneElements());
-
             return feedPreferences;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the preferences in the form "FeedPreferences: LastChecked". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"FeedPreferences: {LastChecked}";
-        }
+        public override string ToString() => $"FeedPreferences: {LastChecked}";
         #endregion
 
         #region Equality

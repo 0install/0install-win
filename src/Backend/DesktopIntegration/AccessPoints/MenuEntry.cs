@@ -40,10 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         /// <inheritdoc/>
-        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
-        {
-            return new[] {"menu:" + Category + @"\" + Name};
-        }
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry) => new[] {"menu:" + Category + @"\" + Name};
 
         /// <summary>
         /// The category or folder in the menu to add the entry to. Leave empty for top-level entry.
@@ -78,10 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new MenuEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command, Category = Category};
-        }
+        public override AccessPoint Clone() => new MenuEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command, Category = Category};
         #endregion
 
         #region Equality

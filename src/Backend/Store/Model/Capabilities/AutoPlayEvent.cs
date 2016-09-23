@@ -48,10 +48,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the event in the form "Name". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() => Name;
         #endregion
 
         #region Clone
@@ -59,15 +56,9 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// Creates a deep copy of this <see cref="AutoPlayEvent"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="AutoPlayEvent"/>.</returns>
-        public AutoPlayEvent Clone()
-        {
-            return new AutoPlayEvent {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name};
-        }
+        public AutoPlayEvent Clone() => new AutoPlayEvent {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

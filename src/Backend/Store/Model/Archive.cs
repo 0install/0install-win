@@ -184,7 +184,7 @@ namespace ZeroInstall.Store.Model
         public override string ToString()
         {
             string result = $"{Href} ({MimeType}, {Size} + {StartOffset}, {Extract})";
-            if (!String.IsNullOrEmpty(Destination)) result += " => " + Destination;
+            if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
             return result;
         }
         #endregion
@@ -194,28 +194,19 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Archive"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
-        private Archive CloneArchive()
-        {
-            return new Archive {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, MimeType = MimeType, StartOffset = StartOffset, Extract = Extract, Destination = Destination};
-        }
+        private Archive CloneArchive() => new Archive {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, MimeType = MimeType, StartOffset = StartOffset, Extract = Extract, Destination = Destination};
 
         /// <summary>
         /// Creates a deep copy of this <see cref="Archive"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
-        public override IRecipeStep CloneRecipeStep()
-        {
-            return CloneArchive();
-        }
+        public override IRecipeStep CloneRecipeStep() => CloneArchive();
 
         /// <summary>
         /// Creates a deep copy of this <see cref="Archive"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
-        public override RetrievalMethod Clone()
-        {
-            return CloneArchive();
-        }
+        public override RetrievalMethod Clone() => CloneArchive();
         #endregion
 
         #region Equality

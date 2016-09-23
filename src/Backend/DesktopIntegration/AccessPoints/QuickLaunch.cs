@@ -32,10 +32,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     public class QuickLaunch : IconAccessPoint, IEquatable<QuickLaunch>
     {
         /// <inheritdoc/>
-        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)
-        {
-            return new[] {"quick-launch:" + Name};
-        }
+        public override IEnumerable<string> GetConflictIDs(AppEntry appEntry) => new[] {"quick-launch:" + Name};
 
         /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
@@ -61,10 +58,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new QuickLaunch {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command};
-        }
+        public override AccessPoint Clone() => new QuickLaunch {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command};
         #endregion
 
         #region Equality

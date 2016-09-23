@@ -87,20 +87,14 @@ namespace ZeroInstall.Store.Model.Capabilities
             return capabilityList;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the capability list in the form "OS". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return OS.ToString();
-        }
+        public override string ToString() => OS.ToString();
         #endregion
 
         #region Equality

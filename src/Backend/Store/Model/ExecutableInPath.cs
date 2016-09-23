@@ -39,10 +39,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the binding in the form " Name = Command". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Name} = {Command ?? Model.Command.NameRun}";
-        }
+        public override string ToString() => $"{Name} = {Command ?? Model.Command.NameRun}";
         #endregion
 
         #region Clone
@@ -50,10 +47,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="ExecutableInPath"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ExecutableInPath"/>.</returns>
-        public override Binding Clone()
-        {
-            return new ExecutableInPath {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Command = Command};
-        }
+        public override Binding Clone() => new ExecutableInPath {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Command = Command};
         #endregion
 
         #region Equality

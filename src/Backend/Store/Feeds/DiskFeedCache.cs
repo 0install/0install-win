@@ -184,12 +184,9 @@ namespace ZeroInstall.Store.Feeds
 
         #region Conversion
         /// <summary>
-        /// Returns <see cref="DirectoryPath"/>. Not safe for parsing!
+        /// Returns the store in the form "DiskFeedCache: DirectoryPath". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"DiskFeedCache: {DirectoryPath}";
-        }
+        public override string ToString() => $"DiskFeedCache: {DirectoryPath}";
         #endregion
     }
 }

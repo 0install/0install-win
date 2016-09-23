@@ -77,10 +77,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the install info in the form "Reinstall ReinstallArgs, ShowIcons ShowIconsArgs, HideIcons HideIconsArgs". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{Reinstall} {ReinstallArgs}, {ShowIcons} {ShowIconsArgs}, {HideIcons} {HideIconsArgs}";
-        }
+        public override string ToString() => $"{Reinstall} {ReinstallArgs}, {ShowIcons} {ShowIconsArgs}, {HideIcons} {HideIconsArgs}";
         #endregion
 
         #region Equality

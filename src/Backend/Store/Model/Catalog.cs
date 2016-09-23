@@ -199,10 +199,7 @@ namespace ZeroInstall.Store.Model
             return catalog;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

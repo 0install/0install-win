@@ -121,10 +121,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Dependency"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
-        public override Restriction Clone()
-        {
-            return CloneDependency();
-        }
+        public override Restriction Clone() => CloneDependency();
         #endregion
 
         #region Equality

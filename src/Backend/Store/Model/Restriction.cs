@@ -150,10 +150,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the dependency in the form "Interface". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return (InterfaceUri == null) ? "-" : InterfaceUri.ToStringRfc();
-        }
+        public override string ToString() => (InterfaceUri == null) ? "-" : InterfaceUri.ToStringRfc();
         #endregion
 
         #region Clone
@@ -169,10 +166,7 @@ namespace ZeroInstall.Store.Model
             return restriction;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

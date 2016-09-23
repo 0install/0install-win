@@ -59,10 +59,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the constraint in the form "NotBefore =&lt; Ver %lt; Before". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"{NotBefore} =< Ver < {Before}";
-        }
+        public override string ToString() => $"{NotBefore} =< Ver < {Before}";
         #endregion
 
         #region Clone
@@ -70,15 +67,9 @@ namespace ZeroInstall.Store.Model
         /// Creates a copy of this <see cref="Constraint"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Constraint"/>.</returns>
-        public Constraint Clone()
-        {
-            return new Constraint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, NotBefore = NotBefore, Before = Before};
-        }
+        public Constraint Clone() => new Constraint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, NotBefore = NotBefore, Before = Before};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

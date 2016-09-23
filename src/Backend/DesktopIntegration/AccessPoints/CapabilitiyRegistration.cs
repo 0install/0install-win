@@ -117,18 +117,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// Returns the access point in the form "CapabilityRegistration". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "CapabilityRegistration";
-        }
+        public override string ToString() => "CapabilityRegistration";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new CapabilityRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
-        }
+        public override AccessPoint Clone() => new CapabilityRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
         #endregion
 
         #region Equality

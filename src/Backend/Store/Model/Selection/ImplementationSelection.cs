@@ -102,10 +102,7 @@ namespace ZeroInstall.Store.Model.Selection
 
         #region Conversion
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return base.ToString() + " (" + InterfaceUri + ")";
-        }
+        public override string ToString() => base.ToString() + " (" + InterfaceUri + ")";
         #endregion
 
         #region Clone
@@ -124,10 +121,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// Creates a deep copy of this <see cref="ImplementationSelection"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ImplementationSelection"/>.</returns>
-        public override Element Clone()
-        {
-            return CloneImplementation();
-        }
+        public override Element Clone() => CloneImplementation();
         #endregion
 
         #region Equality

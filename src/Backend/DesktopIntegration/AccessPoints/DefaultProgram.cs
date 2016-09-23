@@ -73,18 +73,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// Returns the access point in the form "DefaultProgram". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "DefaultProgram";
-        }
+        public override string ToString() => "DefaultProgram";
         #endregion
 
         #region Clone
         /// <inheritdoc/>
-        public override AccessPoint Clone()
-        {
-            return new DefaultProgram {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
-        }
+        public override AccessPoint Clone() => new DefaultProgram {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Capability = Capability};
         #endregion
 
         #region Equality

@@ -53,25 +53,16 @@ namespace ZeroInstall.Store.Model.Preferences
         /// Creates a deep copy of this <see cref="ImplementationPreferences"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ImplementationPreferences"/>.</returns>
-        public ImplementationPreferences Clone()
-        {
-            return new ImplementationPreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, UserStability = UserStability};
-        }
+        public ImplementationPreferences Clone() => new ImplementationPreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, UserStability = UserStability};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the preferences in the form "ImplementationPreferences: ID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"ImplementationPreferences: {ID}";
-        }
+        public override string ToString() => $"ImplementationPreferences: {ID}";
         #endregion
 
         #region Equality

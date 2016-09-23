@@ -55,20 +55,14 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             return accessPointList;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
         /// <summary>
         /// Returns the access point list in the form "Entry; Entry; ...". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return StringUtils.Join("; ", Entries.Select(x => x.ToString()));
-        }
+        public override string ToString() => StringUtils.Join("; ", Entries.Select(x => x.ToString()));
         #endregion
 
         #region Equality

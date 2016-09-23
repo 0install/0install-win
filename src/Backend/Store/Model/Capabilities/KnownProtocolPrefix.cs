@@ -40,10 +40,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Returns the prefix in the form "Value". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return Value;
-        }
+        public override string ToString() => Value;
         #endregion
 
         #region Clone
@@ -51,15 +48,9 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// Creates a deep copy of this <see cref="KnownProtocolPrefix"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="KnownProtocolPrefix"/>.</returns>
-        public KnownProtocolPrefix Clone()
-        {
-            return new KnownProtocolPrefix {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value};
-        }
+        public KnownProtocolPrefix Clone() => new KnownProtocolPrefix {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value};
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

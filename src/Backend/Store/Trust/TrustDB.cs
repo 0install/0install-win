@@ -190,14 +190,10 @@ namespace ZeroInstall.Store.Trust
         {
             var trust = new TrustDB();
             trust.Keys.AddRange(Keys.CloneElements());
-
             return trust;
         }
 
-        object ICloneable.Clone()
-        {
-            return Clone();
-        }
+        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

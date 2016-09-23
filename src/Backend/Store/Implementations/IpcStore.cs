@@ -184,11 +184,8 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns a fixed string.
         /// </summary>
-        public override string ToString()
-        {
-            // NOTE: Do not touch DirectoryPath here to avoid potentially expensive IPC
-            return "Connection to Store Service (if available)";
-        }
+        // NOTE: Do not touch DirectoryPath here to avoid potentially expensive IPC
+        public override string ToString() => "Connection to Store Service (if available)";
         #endregion
     }
 }
