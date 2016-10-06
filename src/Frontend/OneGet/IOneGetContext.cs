@@ -30,11 +30,11 @@ namespace ZeroInstall.OneGet
         void RemovePackageSource([NotNull] string uri);
         void ResolvePackageSources();
         void FindPackage([CanBeNull] string name, [CanBeNull] string requiredVersion, [CanBeNull] string minimumVersion, [CanBeNull] string maximumVersion);
-        void FindPackageBy(string identifier);
+        void FindPackageBy([NotNull] string identifier);
         void GetInstalledPackages([CanBeNull] string name);
         void DownloadPackage([NotNull] string fastPackageReference, [NotNull] string location);
         void InstallPackage([NotNull] string fastPackageReference);
         void UninstallPackage([NotNull] string fastPackageReference);
-        void GetPackageDetails(string fastPackageReference);
+        void GetPackageDetails([NotNull] string fastPackageReference);
     }
 }

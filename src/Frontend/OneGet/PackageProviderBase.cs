@@ -165,13 +165,11 @@ namespace ZeroInstall.OneGet
         public void AddPackageSource(string name, string location, bool trusted, Request request)
         {
             request.Debug("Calling '{0}::AddPackageSource'", PackageProviderName);
-
             if (string.IsNullOrEmpty(location))
             {
-                request.Error(ErrorCategory.InvalidArgument, "location", "Location missing");
+                request.Error(ErrorCategory.InvalidArgument, "location", "Location parameter missing");
                 return;
             }
-
             Do(request, x => x.AddPackageSource(location));
         }
 
@@ -179,10 +177,9 @@ namespace ZeroInstall.OneGet
         public void RemovePackageSource(string name, Request request)
         {
             request.Debug("Calling '{0}::RemovePackageSource'", PackageProviderName);
-
             if (string.IsNullOrEmpty(name))
             {
-                request.Error(ErrorCategory.InvalidArgument, "name", "Name missing");
+                request.Error(ErrorCategory.InvalidArgument, "name", "Name parameter missing");
                 return;
             }
 
@@ -193,13 +190,6 @@ namespace ZeroInstall.OneGet
         public void FindPackage(string name, string requiredVersion, string minimumVersion, string maximumVersion, int id, Request request)
         {
             request.Debug("Calling '{0}::FindPackage'", PackageProviderName);
-
-            if (string.IsNullOrEmpty(name))
-            {
-                request.Error(ErrorCategory.InvalidArgument, "name", "Name missing");
-                return;
-            }
-
             Do(request, x => x.FindPackage(name, requiredVersion, minimumVersion, maximumVersion));
         }
 
@@ -207,13 +197,11 @@ namespace ZeroInstall.OneGet
         public void FindPackageByFile(string file, int id, Request request)
         {
             request.Debug("Calling '{0}::FindPackageByFile'", PackageProviderName);
-
             if (string.IsNullOrEmpty(file))
             {
-                request.Error(ErrorCategory.InvalidArgument, "file", "File missing");
+                request.Error(ErrorCategory.InvalidArgument, "file", "File parameter missing");
                 return;
             }
-
             Do(request, x => x.FindPackageBy(file));
         }
 
@@ -221,13 +209,11 @@ namespace ZeroInstall.OneGet
         public void FindPackageByUri(Uri uri, int id, Request request)
         {
             request.Debug("Calling '{0}::FindPackageByUri'", PackageProviderName);
-
             if (uri == null)
             {
-                request.Error(ErrorCategory.InvalidArgument, "uri", "Uri missing");
+                request.Error(ErrorCategory.InvalidArgument, "uri", "Uri parameter missing");
                 return;
             }
-
             Do(request, x => x.FindPackageBy(uri.OriginalString));
         }
 
@@ -235,6 +221,11 @@ namespace ZeroInstall.OneGet
         public void DownloadPackage(string fastPackageReference, string location, Request request)
         {
             request.Debug("Calling '{0}::DownloadPackage'", PackageProviderName);
+            if (string.IsNullOrEmpty(location))
+            {
+                request.Error(ErrorCategory.InvalidArgument, "location", "Location parameter missing");
+                return;
+            }
             Do(request, x => x.DownloadPackage(fastPackageReference, location));
         }
 
