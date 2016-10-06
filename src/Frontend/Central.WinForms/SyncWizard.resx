@@ -415,7 +415,7 @@
     <value>textBoxCustomServer</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.0.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.0.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Parent" xml:space="preserve">
     <value>groupCustomServer</value>
@@ -526,7 +526,7 @@
     <value>textBoxFileShare</value>
   </data>
   <data name="&gt;&gt;textBoxFileShare.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.0.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.0.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxFileShare.Parent" xml:space="preserve">
     <value>groupFileShare</value>
@@ -568,7 +568,7 @@
     <value>pageServer</value>
   </data>
   <data name="&gt;&gt;pageServer.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageSetupWelcome.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -583,7 +583,7 @@
     <value>pageSetupWelcome</value>
   </data>
   <data name="&gt;&gt;pageSetupWelcome.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelRegister2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -821,7 +821,7 @@
     <value>pageCredentials</value>
   </data>
   <data name="&gt;&gt;pageCredentials.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageRegister.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -836,7 +836,7 @@
     <value>pageRegister</value>
   </data>
   <data name="&gt;&gt;pageRegister.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="buttonForgotKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -962,7 +962,7 @@
     <value>pageExistingCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageExistingCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelResetCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1121,7 +1121,7 @@
     <value>pageCryptoKeyChanged</value>
   </data>
   <data name="&gt;&gt;pageCryptoKeyChanged.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageResetCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1136,7 +1136,7 @@
     <value>pageResetCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageResetCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelNewCryptoKeyHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1295,7 +1295,7 @@
     <value>pageSetupFinished</value>
   </data>
   <data name="&gt;&gt;pageSetupFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageNewCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1310,7 +1310,7 @@
     <value>pageNewCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageNewCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="buttonResetClient.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1436,7 +1436,7 @@
     <value>pageResetWelcome</value>
   </data>
   <data name="&gt;&gt;pageResetWelcome.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelChangeCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1535,7 +1535,7 @@
     <value>pageChangeCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageChangeCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelResetServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1640,7 +1640,7 @@
     <value>pageResetServerFinished</value>
   </data>
   <data name="&gt;&gt;pageResetServerFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageResetServer.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1655,7 +1655,7 @@
     <value>pageResetServer</value>
   </data>
   <data name="&gt;&gt;pageResetServer.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelResetClient.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1730,7 +1730,7 @@
     <value>pageResetClientFinished</value>
   </data>
   <data name="&gt;&gt;pageResetClientFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageResetClient.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1745,7 +1745,7 @@
     <value>pageResetClient</value>
   </data>
   <data name="&gt;&gt;pageResetClient.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="wizardControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>574, 415</value>
@@ -2859,7 +2859,7 @@
     <value>wizardControl</value>
   </data>
   <data name="&gt;&gt;wizardControl.Type" xml:space="preserve">
-    <value>AeroWizard.WizardControl, AeroWizard, Version=2.0.22.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardControl, AeroWizard, Version=2.0.32.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="&gt;&gt;wizardControl.Parent" xml:space="preserve">
     <value>$this</value>

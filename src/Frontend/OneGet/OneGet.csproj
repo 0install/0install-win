@@ -87,19 +87,19 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'">
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.2\lib\net40-client\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.3\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='DebugNet35' Or '$(Configuration)'=='ReleaseNet35'">
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.2\lib\net35-client\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.3\lib\net35-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='DebugNet20' Or '$(Configuration)'=='ReleaseNet20'">
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.2\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.3\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

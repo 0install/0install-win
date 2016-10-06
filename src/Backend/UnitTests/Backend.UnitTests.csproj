@@ -50,7 +50,7 @@
       <HintPath>..\..\packages\Moq.Contrib.0.3\lib\Moq.Contrib.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.2\lib\net40-client\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.3\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
