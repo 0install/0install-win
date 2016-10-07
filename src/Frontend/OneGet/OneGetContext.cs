@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -191,8 +190,6 @@ namespace ZeroInstall.OneGet
 
         public void DownloadPackage(string fastPackageReference, string location)
         {
-            Directory.CreateDirectory(location);
-
             var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
             Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
@@ -202,6 +199,8 @@ namespace ZeroInstall.OneGet
             exporter.ExportImplementations(Store, Handler);
             exporter.DeployImportScript();
             exporter.DeployBootstrapIntegrate(Handler);
+
+            Yield(requirements);
 
             SelfUpdateCheck();
         }
@@ -234,6 +233,18 @@ namespace ZeroInstall.OneGet
                 selections = Solver.Solve(requirements);
                 FeedManager.Refresh = false;
             }
+
+            try
+            {
+                selections.Name = FeedCache.GetFeed(selections.InterfaceUri).Name;
+            }
+                #region Error handling
+            catch (KeyNotFoundException)
+            {
+                // Fall back to using feed file name
+                selections.Name = selections.InterfaceUri.ToString().GetRightPartAtLastOccurrence('/');
+            }
+            #endregion
 
             return selections;
         }
