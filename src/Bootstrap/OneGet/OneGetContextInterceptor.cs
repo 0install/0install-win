@@ -42,18 +42,22 @@ namespace ZeroInstall.OneGet
             _request = request;
         }
 
-        // Prevent multiple Zero Install deployments being started in parallel
+        // NOTE: Static lock shared across all instances, to pevent multiple Zero Install deployments being started in parallel
         private static readonly object _initLock = new object();
 
         [CanBeNull]
-        private static object _context;
+        private object _context;
 
         public object Intercept(InvocationInfo info)
         {
-            lock (_initLock)
+            // Double-checked locking
+            if (_context == null)
             {
-                if (_context != null) return _context;
-                _context = InitExternalContext();
+                lock (_initLock)
+                {
+                    if (_context == null)
+                        _context = InitExternalContext();
+                }
             }
 
             _request.Debug("Forwarding to deployed Zero Install instance: {0}", info.TargetMethod.Name);
@@ -67,10 +71,12 @@ namespace ZeroInstall.OneGet
         [NotNull]
         private object InitExternalContext()
         {
+            _request.Debug("Trying to initialize external OneGet context from a deployed Zero Install instance");
+
             string providerPath = GetDeployedProviderPath();
             if (providerPath == null) Deploy();
             providerPath = GetDeployedProviderPath();
-            if (providerPath == null) throw new InvalidOperationException("Unable to find deployed Zero Install instance.");
+            if (providerPath == null) throw new InvalidOperationException("Unable to find a deployed Zero Install instance");
 
             _request.Debug("Building OneGet context from {0}", providerPath);
             var assembly = Assembly.LoadFrom(providerPath);
@@ -104,7 +110,7 @@ namespace ZeroInstall.OneGet
         {
             using (var handler = new OneGetHandler(_request))
             {
-                Log.Info("Deploying Zero Install");
+                _request.Verbose("Deploying Zero Install");
 
                 var process = new BootstrapProcess(handler, gui: false);
                 var result = process.Execute(Locations.InstallBase.StartsWith(Locations.HomeDir)
@@ -130,7 +136,7 @@ namespace ZeroInstall.OneGet
                     }
                     #endregion
                 }
-                else throw new InvalidOperationException("Zero Install deployment failed with exit code " + result + ".");
+                else throw new InvalidOperationException($"Zero Install deployment failed with exit code {result}.");
             }
         }
 
