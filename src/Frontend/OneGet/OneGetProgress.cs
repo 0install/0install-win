@@ -24,7 +24,7 @@ namespace ZeroInstall.OneGet
     /// <summary>
     /// Represents a single progress bar provided by OneGet.
     /// </summary>
-    public class OneGetProgress : MarshalByRefObject, NanoByte.Common.Tasks.IProgress<TaskSnapshot>
+    public class OneGetProgress : MarshalByRefObject, IProgress<TaskSnapshot>
     {
         private readonly string _name;
         private readonly Request _request;
@@ -36,6 +36,8 @@ namespace ZeroInstall.OneGet
             _name = name;
             _request = request;
             _cancellationTokenSource = cancellationTokenSource;
+
+            _request.Debug(name);
             _activityId = _request.StartProgress(0, name);
         }
 

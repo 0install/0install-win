@@ -63,9 +63,7 @@ namespace ZeroInstall.OneGet
             if (task == null) throw new ArgumentNullException(nameof(task));
             #endregion
 
-            // Only report progress for tagged tasks (tasks that coresspond to specific implementations)
-            if (task.Tag == null) task.Run(CancellationToken, CredentialProvider);
-            else task.Run(CancellationToken, CredentialProvider, new OneGetProgress(task.Name, _request, CancellationTokenSource));
+            task.Run(CancellationToken, CredentialProvider, new OneGetProgress(task.Name, _request, CancellationTokenSource));
         }
 
         /// <inheritdoc/>
