@@ -128,8 +128,6 @@ namespace ZeroInstall.Commands.Utils
 
                     if (WindowsUtils.IsWindows)
                     {
-                        DeleteObsoleteInstallerFiles();
-
                         RegistryApply();
                         WindowsUtils.BroadcastMessage(PerformedWindowMessageID);
                     }

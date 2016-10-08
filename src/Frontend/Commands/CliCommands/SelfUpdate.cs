@@ -125,7 +125,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private bool UpdateFound()
         {
-            return _force || (Selections.MainImplementation.Version > new ImplementationVersion(AppInfo.Current.Version));
+            return _force || (Selections.MainImplementation.Version > new ImplementationVersion(AppInfo.CurrentLibrary.Version));
         }
     }
 }

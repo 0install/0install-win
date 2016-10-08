@@ -107,12 +107,5 @@ namespace ZeroInstall.Commands.Utils
         {
             _targetMutex?.Close();
         }
-
-        private void DeleteObsoleteInstallerFiles()
-        {
-            File.Delete(Path.Combine(TargetDir, "unins000.exe"));
-            File.Delete(Path.Combine(TargetDir, "unins000.dat"));
-            File.Delete(Path.Combine(TargetDir, FlagUtils.XbitFile));
-        }
     }
 }

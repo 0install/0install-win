@@ -79,10 +79,10 @@ namespace ZeroInstall.Commands.Utils
                 uninsKey.SetValue("InstallLocation", TargetDir + @"\");
                 uninsKey.SetValue("Publisher", "0install.de");
                 uninsKey.SetValue("URLInfoAbout", "http://0install.de/");
-                uninsKey.SetValue("DisplayName", MachineWide ? AppInfo.Current.ProductName : AppInfo.Current.ProductName + " (current user)");
-                uninsKey.SetValue("DisplayVersion", AppInfo.Current.Version.ToString());
-                uninsKey.SetValue("MajorVersion", AppInfo.Current.Version.Major, RegistryValueKind.DWord);
-                uninsKey.SetValue("MinorVersion", AppInfo.Current.Version.Minor, RegistryValueKind.DWord);
+                uninsKey.SetValue("DisplayName", MachineWide ? AppInfo.CurrentLibrary.ProductName : AppInfo.CurrentLibrary.ProductName + " (current user)");
+                uninsKey.SetValue("DisplayVersion", AppInfo.CurrentLibrary.Version.ToString());
+                uninsKey.SetValue("MajorVersion", AppInfo.CurrentLibrary.Version.Major, RegistryValueKind.DWord);
+                uninsKey.SetValue("MinorVersion", AppInfo.CurrentLibrary.Version.Minor, RegistryValueKind.DWord);
                 uninsKey.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
 
                 uninsKey.SetValue("DisplayIcon", Path.Combine(TargetDir, "ZeroInstall.exe"));
