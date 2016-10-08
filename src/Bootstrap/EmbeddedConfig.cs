@@ -56,13 +56,13 @@ namespace ZeroInstall
             try
             {
                 AppUri = new FeedUri(ConfigurationManager.AppSettings["app_uri"] ?? lines[0].TrimEnd());
-                Log.Info("EmbeddedConfig: AppUri: " + AppUri);
+                Log.Info("Embedded config: AppUri: " + AppUri);
 
                 AppName = ConfigurationManager.AppSettings["app_name"] ?? lines[1].TrimEnd();
-                Log.Info("EmbeddedConfig: AppName: " + AppName);
+                Log.Info("Embedded config: AppName: " + AppName);
 
                 AppMode = GetAppMode(ConfigurationManager.AppSettings["app_mode"] ?? lines[2].TrimEnd());
-                Log.Info("EmbeddedConfig: AppMode: " + AppMode);
+                Log.Info("Embedded config: AppMode: " + AppMode);
             }
             catch (UriFormatException)
             {

@@ -30,8 +30,6 @@
     <OutputPath>bin\DebugNet20\</OutputPath>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet20|AnyCPU'">
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -110,7 +108,6 @@
     <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
     <EmbeddedResource Include="EmbeddedConfig.txt" />
     <Content Include="Icon.ico" />
     <None Include="App.config" />

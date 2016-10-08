@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
 
@@ -31,8 +32,14 @@ namespace ZeroInstall.OneGet
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly int _activityId;
 
-        public OneGetProgress(string name, Request request, CancellationTokenSource cancellationTokenSource)
+        public OneGetProgress([NotNull] string name, [NotNull] Request request, [NotNull] CancellationTokenSource cancellationTokenSource)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (cancellationTokenSource == null) throw new ArgumentNullException(nameof(cancellationTokenSource));
+            #endregion
+
             _name = name;
             _request = request;
             _cancellationTokenSource = cancellationTokenSource;

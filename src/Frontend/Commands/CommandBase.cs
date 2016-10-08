@@ -114,6 +114,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <remarks>Handles caching based on <see cref="FeedManager.Refresh"/> flag.</remarks>
         /// <exception cref="WebException">Attempted to download catalog and failed.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO")]
         [NotNull]
         protected Catalog GetCatalog()
         {
