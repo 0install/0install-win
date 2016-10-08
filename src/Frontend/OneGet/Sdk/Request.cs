@@ -126,6 +126,10 @@ namespace PackageManagement.Sdk {
 
         public abstract bool ShouldContinueWithUntrustedPackageSource(string package, string packageSource);
 
+        public abstract bool ShouldContinue(string query, string caption, ref bool yesToAll, ref bool noToAll);
+
+        public abstract bool ShouldContinue(string query, string caption);
+
         public abstract bool AskPermission(string permission);
 
         public abstract bool IsInteractive {get;}

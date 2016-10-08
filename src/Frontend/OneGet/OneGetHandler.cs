@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
@@ -70,7 +71,7 @@ namespace ZeroInstall.OneGet
         public override Verbosity Verbosity { get { return _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; } set { } }
 
         /// <inheritdoc/>
-        public override bool Ask(string question) => _request.AskPermission(question);
+        public override bool Ask(string question) => _request.OptionKeys.Contains("Force") || _request.ShouldContinue(question, "Zero Install");
 
         /// <inheritdoc/>
         public override void Error(Exception exception) => _request.Warning(exception.Message);
