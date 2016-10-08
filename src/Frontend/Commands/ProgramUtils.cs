@@ -309,9 +309,8 @@ namespace ZeroInstall.Commands
         /// <exception cref="NotAdminException">The target process requires elevation.</exception>
         private static ExitCode? TryRunOtherInstance([NotNull] string exeName, [NotNull] string[] args, [NotNull] ICommandHandler handler, bool needsMachineWide)
         {
-            string installLocation = FindOtherInstance();
+            string installLocation = FindOtherInstance(needsMachineWide);
             if (installLocation == null) return null;
-            if (needsMachineWide && installLocation.StartsWith(Locations.HomeDir)) return null; // Do not redirect to per-user instances if machine-wide instance is required
 
             Log.Warn("Redirecting to instance at " + installLocation);
             handler.DisableUI();
@@ -321,15 +320,17 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Tries to find another instance of Zero Install deployed on this system.
         /// </summary>
+        /// <param name="needsMachineWide"><c>true</c> if a machine-wide install location is required; <c>false</c> if a user-specific location will also do.</param>
         /// <returns>The installation directory of another instance of Zero Install; <c>null</c> if none was found.</returns>
         [CanBeNull]
-        public static string FindOtherInstance()
+        public static string FindOtherInstance(bool needsMachineWide = true)
         {
             if (!WindowsUtils.IsWindows) return null;
 
             string installLocation = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
             if (string.IsNullOrEmpty(installLocation)) return null;
             if (installLocation == Locations.InstallBase) return null;
+            if (needsMachineWide && installLocation.StartsWith(Locations.HomeDir)) return null;
             if (!File.Exists(Path.Combine(installLocation, "0install.exe"))) return null;
             return installLocation;
         }
