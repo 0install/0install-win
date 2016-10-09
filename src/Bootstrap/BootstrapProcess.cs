@@ -338,7 +338,7 @@ namespace ZeroInstall
         /// Returns process start information for an instance of Zero Install.
         /// </summary>
         [NotNull]
-        private ProcessStartInfo GetStartInfo()
+        public ProcessStartInfo GetStartInfo()
         {
             return _noExisting
                 ? GetCached()

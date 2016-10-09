@@ -17,22 +17,26 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using LinFu.DynamicProxy;
 using NanoByte.Common;
-using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
 
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// Forwards requests to an <see cref="IOneGetContext"/> loaded from a deployed Zero Install instance. Deploys an instance if there is none.
+    /// Forwards requests to an <see cref="IOneGetContext"/> implementation from a deployed or cached Zero Install instance.
     /// </summary>
     public class OneGetContextInterceptor : IInterceptor
     {
         private readonly Request _request;
 
+        /// <summary>
+        /// Creates a new <see cref="IOneGetContext"/> interceptor.
+        /// </summary>
+        /// <param name="request">The OneGet request interface to pass to the constructor of the target <see cref="IOneGetContext"/> implementation.</param>
         public OneGetContextInterceptor([NotNull] Request request)
         {
             #region Sanity checks
@@ -42,14 +46,18 @@ namespace ZeroInstall.OneGet
             _request = request;
         }
 
-        // NOTE: Static lock shared across all instances, to pevent multiple Zero Install deployments being started in parallel
-        private static readonly object _initLock = new object();
-
         [CanBeNull]
         private object _context;
 
+        // NOTE: Static/shared lock, to avoid multiple deployments being started in parallel
+        private static readonly object _initLock = new object();
+
         public object Intercept(InvocationInfo info)
         {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException(nameof(info));
+            #endregion
+
             // Double-checked locking
             if (_context == null)
             {
@@ -60,26 +68,20 @@ namespace ZeroInstall.OneGet
                 }
             }
 
-            _request.Debug("Forwarding to deployed Zero Install instance: {0}", info.TargetMethod.Name);
-            return _context.DuckType(info);
+            _request.Debug("Forwarding to other Zero Install instance: {0}", info.TargetMethod.Name);
+            return DuckType(_context, info);
         }
 
         /// <summary>
-        /// Initializes an <see cref="IOneGetContext"/> loaded from a deployed Zero Install instance. Deploys an instance if there is none.
+        /// Initializes an <see cref="IOneGetContext"/> loaded from an external OneGet provider assembly.
         /// </summary>
-        /// <exception cref="InvalidOperationException">Failed to deploy Zero Install.</exception>
         [NotNull]
         private object InitExternalContext()
         {
-            _request.Debug("Trying to initialize external OneGet context from a deployed Zero Install instance");
+            string providerDirectory = GetProviderDirectory();
+            _request.Verbose("Loading Zero Install OneGet provider from {0}", providerDirectory);
 
-            string providerPath = GetDeployedProviderPath();
-            if (providerPath == null) Deploy();
-            providerPath = GetDeployedProviderPath();
-            if (providerPath == null) throw new InvalidOperationException("Unable to find a deployed Zero Install instance");
-
-            _request.Debug("Building OneGet context from {0}", providerPath);
-            var assembly = Assembly.LoadFrom(providerPath);
+            var assembly = Assembly.LoadFrom(Path.Combine(providerDirectory, "ZeroInstall.OneGet.dll"));
             var requestType = assembly.GetType("PackageManagement.Sdk.Request", throwOnError: true);
             object requestProxy = new ProxyFactory().CreateProxy(requestType, new RequestInterceptor(_request));
             var contextType = assembly.GetType("ZeroInstall.OneGet.OneGetContext", throwOnError: true);
@@ -87,56 +89,18 @@ namespace ZeroInstall.OneGet
         }
 
         /// <summary>
-        /// Trys to get the path to a Zero Install OneGet Provider DLL deployed on this machine.
+        /// Gets the path of the directory to load the Zero Install OneGet provider assembly from.
         /// </summary>
-        /// <returns>A full path or <c>null</c> if no deployed provider was found.</returns>
-        [CanBeNull]
-        private static string GetDeployedProviderPath()
-        {
-            string installLocation = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
-            if (string.IsNullOrEmpty(installLocation)) return null;
-
-            string providerDll = Path.Combine(installLocation, "ZeroInstall.OneGet.dll");
-            if (!File.Exists(providerDll)) return null;
-
-            return providerDll;
-        }
-
-        /// <summary>
-        /// Deploys Zero Install to this machine.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Failed to deploy Zero Install.</exception>
-        private void Deploy()
+        /// <returns>The full path of the directory containing the provider assembly.</returns>
+        [NotNull]
+        private string GetProviderDirectory()
         {
             using (var handler = new OneGetHandler(_request))
             {
-                _request.Verbose("Deploying Zero Install");
+                var bootstrap = new BootstrapProcess(handler, gui: false);
 
-                var process = new BootstrapProcess(handler, gui: false);
-                var result = process.Execute(Locations.InstallBase.StartsWith(Locations.HomeDir)
-                    ? new[] {"--no-existing", "maintenance", "deploy", "--batch"}
-                    : new[] {"--no-existing", "maintenance", "deploy", "--batch", "--machine"});
-
-                if (result == ExitCode.OK)
-                {
-                    // Try to move Bootstrap provider after deployment to prevent future PowerShell sessions from loading it again
-                    try
-                    {
-                        Log.Debug("Trying to remove boostrap provider assembly after deployment");
-                        File.Move(Program.ExePath, Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()));
-                    }
-                        #region Error handling
-                    catch (IOException ex)
-                    {
-                        Log.Debug(ex);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Debug(ex);
-                    }
-                    #endregion
-                }
-                else throw new InvalidOperationException($"Zero Install deployment failed with exit code {result}.");
+                // ReSharper disable once AssignNullToNotNullAttribute
+                return Path.GetDirectoryName(bootstrap.GetStartInfo().FileName);
             }
         }
 
@@ -152,7 +116,27 @@ namespace ZeroInstall.OneGet
                 _request = request;
             }
 
-            public object Intercept(InvocationInfo info) => _request.DuckType(info);
+            public object Intercept(InvocationInfo info) => DuckType(_request, info);
+        }
+
+        /// <summary>
+        /// Forwards a method invocation <paramref name="info"/> to a <paramref name="target"/> using duck-typing.
+        /// </summary>
+        private static object DuckType(object target, InvocationInfo info)
+        {
+            var method = target.GetType().GetMethod(
+                info.TargetMethod.Name,
+                info.TargetMethod.GetParameters().Select(x => x.ParameterType).ToArray());
+            if (method == null) throw new InvalidOperationException("Unable to find suitable method for duck-typing: " + info.TargetMethod.Name);
+
+            try
+            {
+                return method.Invoke(target, info.Arguments);
+            }
+            catch (TargetInvocationException ex) when (ex.InnerException != null)
+            {
+                throw ex.InnerException.PreserveStack();
+            }
         }
     }
 }

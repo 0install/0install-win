@@ -130,6 +130,7 @@ namespace ZeroInstall.Commands.Utils
                     {
                         RegistryApply();
                         WindowsUtils.BroadcastMessage(PerformedWindowMessageID);
+                        RemoveOneGetBootstrap();
                     }
                 }
 

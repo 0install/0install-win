@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using System.Threading;
 using JetBrains.Annotations;
@@ -106,6 +107,49 @@ namespace ZeroInstall.Commands.Utils
         private void TargetMutexRelease()
         {
             _targetMutex?.Close();
+        }
+
+        /// <summary>
+        /// Try to remove OneGet Bootstrap module to prevent future PowerShell sessions from loading it again.
+        /// </summary>
+        private void RemoveOneGetBootstrap()
+        {
+            RemoveOneGetBootstrap(FileUtils.PathCombine(
+                Environment.GetFolderPath(MachineWide ? Environment.SpecialFolder.ProgramFiles : Environment.SpecialFolder.MyDocuments),
+                "PackageManagement", "ProviderAssemblies", "0install"));
+            RemoveOneGetBootstrap(FileUtils.PathCombine(
+                Environment.GetFolderPath(MachineWide ? Environment.SpecialFolder.ProgramFiles : Environment.SpecialFolder.LocalApplicationData),
+                "WindowsPowerShell", "Modules", "0install"));
+        }
+
+        private static void RemoveOneGetBootstrap(string dirPath)
+        {
+            if (!Directory.Exists(dirPath)) return;
+
+            try
+            {
+                foreach (string subDirPath in Directory.GetDirectories(dirPath))
+                {
+                    foreach (string filePath in Directory.GetFiles(subDirPath))
+                    {
+                        string tempPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                        Log.Debug($"Trying to move '{filePath}' to '{tempPath}' to prevent future PowerShell sessions from loading it again");
+                        File.Move(filePath, tempPath);
+                    }
+                    Directory.Delete(subDirPath);
+                }
+                Directory.Delete(dirPath);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Debug(ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Debug(ex);
+            }
+            #endregion
         }
     }
 }
