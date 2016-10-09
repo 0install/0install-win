@@ -207,17 +207,24 @@ namespace ZeroInstall.OneGet
 
         public void InstallPackage(string fastPackageReference)
         {
-            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, needsMachineWide: true);
+            var requirements = ParseReference(fastPackageReference);
+            Install(requirements);
+        }
+
+        private void Install(Requirements requirements)
+        {
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
+            if (ProgramUtils.IsRunningFromCache) throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
 
             FeedManager.Refresh = Refresh || !DeferDownload;
 
-            var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
 
             ApplyIntegration(requirements);
             ApplyVersionRestrictions(requirements, selections);
             if (!DeferDownload) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
+            Yield(requirements);
 
             SelfUpdateCheck();
         }
@@ -251,7 +258,7 @@ namespace ZeroInstall.OneGet
 
         private void ApplyIntegration(Requirements requirements)
         {
-            Log.Info("Applying desktop integration");
+            Log.Info(Resources.DesktopIntegrationApply);
             var feed = FeedManager[requirements.InterfaceUri];
             using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
             {
