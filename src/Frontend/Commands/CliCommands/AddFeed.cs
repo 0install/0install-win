@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "add-feed";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionAddFeed;
+        public override string Description => Resources.DescriptionAddFeed;
         #endregion
 
         /// <inheritdoc/>

@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands.CliCommands
     {
         #region Metadata
         /// <inheritdoc/>
-        protected override string Description
+        public override string Description
         {
             get
             {
@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        protected override string Usage => "SUBCOMMAND";
+        public override string Usage => "SUBCOMMAND";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => 1;
@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// A list of sub-command names (without alternatives) as used in command-line arguments in lower-case.
         /// </summary>
         [NotNull, ItemNotNull]
-        protected abstract IEnumerable<string> SubCommandNames { get; }
+        public abstract IEnumerable<string> SubCommandNames { get; }
 
         /// <summary>
         /// Creates a new <see cref="SubCommand"/> based on a name.
@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         [NotNull]
-        protected abstract SubCommand GetCommand([NotNull] string commandName);
+        public abstract SubCommand GetCommand([NotNull] string commandName);
 
         /// <summary>The sub-command selected in <see cref="Parse"/> and used in <see cref="Execute"/>.</summary>
         [CanBeNull]

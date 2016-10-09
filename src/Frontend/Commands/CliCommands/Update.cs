@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "update";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionUpdate;
+        public override string Description => Resources.DescriptionUpdate;
         #endregion
 
         #region State

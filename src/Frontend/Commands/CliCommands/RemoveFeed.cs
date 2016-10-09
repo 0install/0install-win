@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "remove-feed";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionRemoveFeed;
+        public override string Description => Resources.DescriptionRemoveFeed;
         #endregion
 
         /// <inheritdoc/>

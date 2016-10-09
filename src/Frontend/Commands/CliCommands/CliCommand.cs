@@ -61,13 +61,13 @@ namespace ZeroInstall.Commands.CliCommands
         /// A short description of what this command does.
         /// </summary>
         [NotNull]
-        protected abstract string Description { get; }
+        public abstract string Description { get; }
 
         /// <summary>
         /// The additional arguments to be displayed after the command name in the help text.
         /// </summary>
         [NotNull]
-        protected abstract string Usage { get; }
+        public abstract string Usage { get; }
 
         /// <summary>
         /// The minimum number of <see cref="AdditionalArgs"/> allowed. Checked in <see cref="Parse"/>.
@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
-        protected readonly OptionSet Options = new OptionSet();
+        protected internal readonly OptionSet Options = new OptionSet();
         #endregion
 
         #region State

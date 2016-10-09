@@ -41,10 +41,10 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override IEnumerable<string> SubCommandNames => new[] {Deploy.Name, Remove.Name};
+        public override IEnumerable<string> SubCommandNames => new[] {Deploy.Name, Remove.Name};
 
         /// <inheritdoc/>
-        protected override SubCommand GetCommand(string commandName)
+        public override SubCommand GetCommand(string commandName)
         {
             #region Sanity checks
             if (commandName == null) throw new ArgumentNullException(nameof(commandName));

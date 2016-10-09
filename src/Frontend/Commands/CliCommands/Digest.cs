@@ -37,10 +37,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "digest";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionDigest;
+        public override string Description => Resources.DescriptionDigest;
 
         /// <inheritdoc/>
-        protected override string Usage => "(DIRECTORY | ARCHIVE [SUBDIR])";
+        public override string Usage => "(DIRECTORY | ARCHIVE [SUBDIR])";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => 1;

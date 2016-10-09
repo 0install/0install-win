@@ -39,9 +39,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "add";
 
-            protected override string Description => Resources.DescriptionStoreAdd;
+            public override string Description => Resources.DescriptionStoreAdd;
 
-            protected override string Usage => "DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))";
+            public override string Usage => "DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))";
 
             protected override int AdditionalArgsMin => 2;
 
@@ -96,9 +96,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "copy";
 
-            protected override string Description => Resources.DescriptionStoreCopy;
+            public override string Description => Resources.DescriptionStoreCopy;
 
-            protected override string Usage => "DIRECTORY [CACHE]";
+            public override string Usage => "DIRECTORY [CACHE]";
 
             protected override int AdditionalArgsMin => 1;
 
@@ -133,9 +133,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "export";
 
-            protected override string Description => Resources.DescriptionStoreExport;
+            public override string Description => Resources.DescriptionStoreExport;
 
-            protected override string Usage => "DIGEST OUTPUT-ARCHIVE [MIME-TYPE]";
+            public override string Usage => "DIGEST OUTPUT-ARCHIVE [MIME-TYPE]";
 
             protected override int AdditionalArgsMin => 2;
 
@@ -169,9 +169,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "find";
 
-            protected override string Description => Resources.DescriptionStoreFind;
+            public override string Description => Resources.DescriptionStoreFind;
 
-            protected override string Usage => "DIGEST";
+            public override string Usage => "DIGEST";
 
             protected override int AdditionalArgsMin => 1;
 
@@ -197,9 +197,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "remove";
 
-            protected override string Description => Resources.DescriptionStoreRemove;
+            public override string Description => Resources.DescriptionStoreRemove;
 
-            protected override string Usage => "DIGEST+";
+            public override string Usage => "DIGEST+";
 
             protected override int AdditionalArgsMin => 1;
 
@@ -223,9 +223,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "verify";
 
-            protected override string Description => Resources.DescriptionStoreVerify;
+            public override string Description => Resources.DescriptionStoreVerify;
 
-            protected override string Usage => "[DIRECTORY] DIGEST";
+            public override string Usage => "[DIRECTORY] DIGEST";
 
             protected override int AdditionalArgsMin => 1;
 

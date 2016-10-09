@@ -42,10 +42,10 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName = "add-alias";
 
         /// <inheritdoc/>
-        protected override string Usage => "ALIAS [INTERFACE [COMMAND]]";
+        public override string Usage => "ALIAS [INTERFACE [COMMAND]]";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionAddAlias;
+        public override string Description => Resources.DescriptionAddAlias;
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => 1;

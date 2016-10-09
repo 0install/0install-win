@@ -40,10 +40,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "self-update";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionSelfUpdate;
+        public override string Description => Resources.DescriptionSelfUpdate;
 
         /// <inheritdoc/>
-        protected override string Usage => "[OPTIONS]";
+        public override string Usage => "[OPTIONS]";
         #endregion
 
         #region State

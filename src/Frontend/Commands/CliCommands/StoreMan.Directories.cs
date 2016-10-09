@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.CliCommands
         private abstract class DirCommand : StoreSubCommand
         {
             #region Metadata
-            protected override string Usage => "PATH";
+            public override string Usage => "PATH";
 
             protected override int AdditionalArgsMin => 1;
 
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "add-dir";
 
-            protected override string Description => Resources.DescriptionStoreAddDir;
+            public override string Description => Resources.DescriptionStoreAddDir;
 
             public AddDir([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove-dir";
 
-            protected override string Description => Resources.DescriptionStoreRemoveDir;
+            public override string Description => Resources.DescriptionStoreRemoveDir;
 
             public RemoveDir([NotNull] ICommandHandler handler) : base(handler)
             {}
@@ -134,9 +134,9 @@ namespace ZeroInstall.Commands.CliCommands
             #region Metadata
             public new const string Name = "list";
 
-            protected override string Description => Resources.DescriptionStoreList;
+            public override string Description => Resources.DescriptionStoreList;
 
-            protected override string Usage => "";
+            public override string Usage => "";
 
             protected override int AdditionalArgsMax => 0;
 

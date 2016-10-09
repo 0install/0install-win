@@ -43,10 +43,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "run";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionRun;
+        public override string Description => Resources.DescriptionRun;
 
         /// <inheritdoc/>
-        protected override string Usage => base.Usage + " [ARGS]";
+        public override string Usage => base.Usage + " [ARGS]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => int.MaxValue;

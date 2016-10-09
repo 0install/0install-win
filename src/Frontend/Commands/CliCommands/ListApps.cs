@@ -34,10 +34,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "list-apps";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionListApps;
+        public override string Description => Resources.DescriptionListApps;
 
         /// <inheritdoc/>
-        protected override string Usage => "[PATTERN]";
+        public override string Usage => "[PATTERN]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 1;

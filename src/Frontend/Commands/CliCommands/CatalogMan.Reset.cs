@@ -29,9 +29,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "reset";
 
-            protected override string Description => Resources.DescriptionCatalogReset;
+            public override string Description => Resources.DescriptionCatalogReset;
 
-            protected override string Usage => "";
+            public override string Usage => "";
 
             protected override int AdditionalArgsMax => 0;
 

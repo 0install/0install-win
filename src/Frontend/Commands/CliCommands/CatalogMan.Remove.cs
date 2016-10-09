@@ -30,9 +30,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove";
 
-            protected override string Description => Resources.DescriptionCatalogRemove;
+            public override string Description => Resources.DescriptionCatalogRemove;
 
-            protected override string Usage => "URI";
+            public override string Usage => "URI";
 
             protected override int AdditionalArgsMin => 1;
 

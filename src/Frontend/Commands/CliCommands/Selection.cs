@@ -46,10 +46,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "select";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionSelect;
+        public override string Description => Resources.DescriptionSelect;
 
         /// <inheritdoc/>
-        protected override string Usage => "[OPTIONS] URI";
+        public override string Usage => "[OPTIONS] URI";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => 1;

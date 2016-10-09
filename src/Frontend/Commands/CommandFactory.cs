@@ -48,7 +48,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         [NotNull]
-        private static CliCommand GetCommand([CanBeNull] string commandName, [NotNull] ICommandHandler handler)
+        public static CliCommand GetCommand([CanBeNull] string commandName, [NotNull] ICommandHandler handler)
         {
             if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(handler);
             switch (commandName.ToLowerInvariant())

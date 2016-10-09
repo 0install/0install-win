@@ -32,10 +32,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "list-feeds";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionListFeeds;
+        public override string Description => Resources.DescriptionListFeeds;
 
         /// <inheritdoc/>
-        protected override string Usage => "[OPTIONS] URI";
+        public override string Usage => "[OPTIONS] URI";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => 1;

@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "download";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionDownload;
+        public override string Description => Resources.DescriptionDownload;
         #endregion
 
         #region State

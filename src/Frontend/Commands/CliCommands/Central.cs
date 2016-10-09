@@ -32,10 +32,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "central";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionCentral;
+        public override string Description => Resources.DescriptionCentral;
 
         /// <inheritdoc/>
-        protected override string Usage => "[OPTIONS]";
+        public override string Usage => "[OPTIONS]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 0;

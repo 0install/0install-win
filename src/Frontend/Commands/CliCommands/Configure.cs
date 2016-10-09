@@ -34,10 +34,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "config";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionConfig;
+        public override string Description => Resources.DescriptionConfig;
 
         /// <inheritdoc/>
-        protected override string Usage => "[NAME [VALUE|default]]";
+        public override string Usage => "[NAME [VALUE|default]]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 2;

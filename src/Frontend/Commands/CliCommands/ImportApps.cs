@@ -32,10 +32,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "import-apps";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionImportApps;
+        public override string Description => Resources.DescriptionImportApps;
 
         /// <inheritdoc/>
-        protected override string Usage => "APP-LIST-FILE [OPTIONS]";
+        public override string Usage => "APP-LIST-FILE [OPTIONS]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => 1;

@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands.CliCommands
     {
         #region Metadata
         /// <inheritdoc/>
-        protected override string Description
+        public override string Description
         {
             get
             {
@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        protected override string Usage => "COMMAND";
+        public override string Usage => "COMMAND";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 0;

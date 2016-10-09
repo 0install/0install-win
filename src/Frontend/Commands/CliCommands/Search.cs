@@ -32,10 +32,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "search";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionSearch;
+        public override string Description => Resources.DescriptionSearch;
 
         /// <inheritdoc/>
-        protected override string Usage => "QUERY";
+        public override string Usage => "QUERY";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin => (Handler is CliCommandHandler) ? 1 : 0;

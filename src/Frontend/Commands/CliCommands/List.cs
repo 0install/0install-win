@@ -33,10 +33,10 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "list";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionList;
+        public override string Description => Resources.DescriptionList;
 
         /// <inheritdoc/>
-        protected override string Usage => "[PATTERN]";
+        public override string Usage => "[PATTERN]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 1;

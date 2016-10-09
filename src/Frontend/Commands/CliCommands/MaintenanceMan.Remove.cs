@@ -67,9 +67,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove";
 
-            protected override string Description => Resources.DescriptionMaintenanceRemove;
+            public override string Description => Resources.DescriptionMaintenanceRemove;
 
-            protected override string Usage => "";
+            public override string Usage => "";
 
             protected override int AdditionalArgsMax => 0;
 
@@ -147,9 +147,9 @@ namespace ZeroInstall.Commands.CliCommands
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public new const string Name = "remove-helper";
 
-            protected override string Description => "Internal helper for '0install maintenance remove' used to support self-removal on Windows.";
+            public override string Description => "Internal helper for '0install maintenance remove' used to support self-removal on Windows.";
 
-            protected override string Usage => "TARGET";
+            public override string Usage => "TARGET";
 
             protected override int AdditionalArgsMin => 1;
 

@@ -42,10 +42,10 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName = "update-apps";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionUpdateApps;
+        public override string Description => Resources.DescriptionUpdateApps;
 
         /// <inheritdoc/>
-        protected override string Usage => "[OPTIONS]";
+        public override string Usage => "[OPTIONS]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 0;

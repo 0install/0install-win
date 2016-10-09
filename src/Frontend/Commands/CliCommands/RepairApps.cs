@@ -35,10 +35,10 @@ namespace ZeroInstall.Commands.CliCommands
         public const string AltName = "repair-apps";
 
         /// <inheritdoc/>
-        protected override string Description => Resources.DescriptionRepairApps;
+        public override string Description => Resources.DescriptionRepairApps;
 
         /// <inheritdoc/>
-        protected override string Usage => "[OPTIONS]";
+        public override string Usage => "[OPTIONS]";
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax => 0;
