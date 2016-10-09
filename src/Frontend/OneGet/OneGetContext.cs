@@ -18,11 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
@@ -208,7 +211,26 @@ namespace ZeroInstall.OneGet
         public void InstallPackage(string fastPackageReference)
         {
             var requirements = ParseReference(fastPackageReference);
-            Install(requirements);
+            try
+            {
+                Install(requirements);
+                SelfUpdateCheck();
+            }
+            catch (UnsuitableInstallBaseException ex)
+            {
+                string installLocation = ProgramUtils.FindOtherInstance(ex.NeedsMachineWide);
+                if (installLocation == null)
+                {
+                    if (Handler.Ask(Resources.AskDeployZeroInstall + Environment.NewLine + ex.Message,
+                        defaultAnswer: false, alternateMessage: ex.Message))
+                        installLocation = DeployInstance(ex.NeedsMachineWide);
+                    else return;
+                }
+
+                // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply prentend we are running from a different source
+                Locations.OverrideInstallBase(installLocation);
+                Install(requirements);
+            }
         }
 
         private void Install(Requirements requirements)
@@ -225,8 +247,6 @@ namespace ZeroInstall.OneGet
             ApplyVersionRestrictions(requirements, selections);
             if (!DeferDownload) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
             Yield(requirements);
-
-            SelfUpdateCheck();
         }
 
         private Selections Solve(Requirements requirements)
@@ -285,6 +305,26 @@ namespace ZeroInstall.OneGet
                     pref.SaveFor(restriction.Key);
                 }
             }
+        }
+
+        /// <summary>
+        /// Deploys a Zero Install instance to this machine.
+        /// </summary>
+        /// <param name="machineWide"><c>true</c> to deploy to a location for all users; <c>false</c> to deploy to a location for the current user only.</param>
+        /// <returns>The director Zero Install was deployed to.</returns>
+        private string DeployInstance(bool machineWide)
+        {
+            string programFiles = machineWide
+                ? Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
+                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Programs");
+            string installLocation = Path.Combine(programFiles, "Zero Install");
+
+            Log.Info("Deploying Zero Install to " + installLocation);
+            using (var manager = new MaintenanceManager(installLocation, Handler, machineWide, portable: false))
+                manager.Deploy();
+            Log.Warn(Resources.Added0installToPath + Environment.NewLine + Resources.ReopenTerminal);
+
+            return installLocation;
         }
 
         public void UninstallPackage(string fastPackageReference)
