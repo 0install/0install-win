@@ -379,7 +379,7 @@ Additional arguments specify custom cache locations.</value>
     <value>Removes a directory from the list of custom implementation caches.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
-    <value>Makes sure an implementation have not been damaged (i.e. it manifest digest has not changed).</value>
+    <value>Makes sure an implementation has not been damaged (i.e. it manifest digest has not changed).</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronizes the application list with the server.</value>

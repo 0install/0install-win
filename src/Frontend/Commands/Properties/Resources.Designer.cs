@@ -808,7 +808,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Makes sure an implementation have not been damaged (i.e. it manifest digest has not changed)..
+        ///   Looks up a localized string similar to Makes sure an implementation has not been damaged (i.e. it manifest digest has not changed)..
         /// </summary>
         public static string DescriptionStoreVerify {
             get {
