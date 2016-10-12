@@ -665,7 +665,7 @@
     <value>&amp;More applications</value>
   </data>
   <data name="&gt;&gt;buttonMoreApps.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.0.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.0.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonMoreApps.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -779,7 +779,7 @@
     <value>&amp;Sync</value>
   </data>
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.0.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.0.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -851,7 +851,7 @@
     <value>&amp;Update all</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.0.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.0.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.ZOrder" xml:space="preserve">
     <value>0</value>
