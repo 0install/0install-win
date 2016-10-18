@@ -1,7 +1,7 @@
 @echo off
 ::Adds AuthentiCode signatures to all binaries. Assumes "build.cmd Release" has already been executed.
 if not "%1" == "" set signing_cert_path=%*
-set timestamp_server=http://timestamp.globalsign.com/?signature=sha2
+set timestamp_server=http://timestamp.comodoca.com
 
 rem Determine VS version
 if defined VS140COMNTOOLS (
