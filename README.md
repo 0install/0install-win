@@ -12,6 +12,7 @@ Source directory structure
 - The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code documentation.
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
+- The directory `powershell` contains scripts for creating PowerShell modules.
 - The directory `publish` contains scripts for creating feeds and archives for publishing.
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
   - `Debug`|`DebugNet35`|`DebugNet35`: Contains Debug builds targeting the .NET Framework 4.0, 3.5 and 2.0 respectively.
@@ -23,6 +24,7 @@ Source directory structure
   - `Bootstrap`: Contains a standalone executable enabling end-users to aquire published feeds and archives.
   - `Documentation`: Contains the generated source code documentation.
   - `Packages`: Contains the generated NuGet packages.
+  - `Modules`: Contains the generated PowerShell modules.
   - `Publish`: Contains the generated feeds and archives for publishing.
 - The top-level directory contains local Zero Install feeds referencing the contents of the `build` directory. They can be registered with `0install add-feed` in order to replace the online versions of Zero Install and its tools with your local builds.
 

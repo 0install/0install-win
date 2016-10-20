@@ -19,6 +19,11 @@ echo.
 call "%~dp0nuget\build.cmd"
 if errorlevel 1 pause
 
+rem Create PowerShell modules
+echo.
+call "%~dp0powershell\build.cmd"
+if errorlevel 1 pause
+
 rem Create feeds and archives for publishing
 echo.
 call "%~dp0publish\build.cmd"
