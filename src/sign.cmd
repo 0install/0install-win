@@ -35,5 +35,5 @@ FOR %%A IN ("%~dp0..\build\ReleaseNet20\Frontend\*.exe") DO signtool sign /f "%s
 if errorlevel 1 exit /b %errorlevel%
 FOR %%A IN ("%~dp0..\build\ReleaseNet20\Frontend\ZeroInstall.*.dll") DO signtool sign /f "%signing_cert_path%" /fd sha256 /p "%signing_cert_pass%" /tr %timestamp_server% /td sha256 /q "%%A"
 if errorlevel 1 exit /b %errorlevel%
-signtool sign /f "%signing_cert_path%" /fd sha256 /p "%signing_cert_pass%" /tr %timestamp_server% /td sha256 /q "%~dp0..\build\ReleaseNet20\Bootstrap\zero-install.exe"
+signtool sign /f "%signing_cert_path%" /fd sha256 /p "%signing_cert_pass%" /tr %timestamp_server% /td sha256 /q "%~dp0..\build\Bootstrap\zero-install.exe"
 if errorlevel 1 exit /b %errorlevel%
