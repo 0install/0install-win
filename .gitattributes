@@ -1,5 +1,5 @@
 # Disable linebreak normalization
-*	     text=false
+*        -text
 
 # Visual Studio file types
 *.cs     diff=csharp
