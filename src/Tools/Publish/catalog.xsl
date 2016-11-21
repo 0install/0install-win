@@ -15,12 +15,20 @@
         <title>Zero Install - Software catalog</title>
         <link rel="stylesheet" href="catalog.css" type="text/css" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+        <script>
+          window.addEventListener("keydown",function (e) {
+            if (e.keyCode === 114 || (e.ctrlKey &amp;&amp; e.keyCode === 70)) { 
+              document.getElementById("search").focus();
+              e.preventDefault();
+            }
+          })
+        </script>
       </head>
 
       <body>
         <div id="main">
           <h1>Zero Install - Software catalog</h1>
-          <input class="search" placeholder="Search" />
+          <input id="search" class="search" placeholder="Search" />
           <div class="list">
             <xsl:for-each select="interface:interface">
               <div class="app">
