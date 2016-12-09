@@ -685,7 +685,7 @@ Each range is in the form "START..!END". The range matches versions where START 
 A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.</value>
   </data>
   <data name="OptionVersionRangeFor" xml:space="preserve">
-    <value>Specifies the version {1:RANGE} for any library or sub-component with the given {0:URI} (as for --version).</value>
+    <value>For any library or sub-component with the given {URI} specifies the version {RANGE} (as for --version).</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Add {DIR} to the list of implementation caches to search.

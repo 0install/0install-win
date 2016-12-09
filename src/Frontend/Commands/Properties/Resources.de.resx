@@ -685,7 +685,7 @@ Jede Range ist in der Form "START..!ENDE". Die Ranges akzeptieren Versionen bei 
 Eine einzelne Versionsnummer kann anstelle eines Ranges angegeben werden um nur diese Version zu akzeptieren, oder !VERSION um alles außer der Version zu akzeptieren.</value>
   </data>
   <data name="OptionVersionRangeFor" xml:space="preserve">
-    <value>Spezifziert die Versions-{1:RANGE} ür jede Bibliothek oder Subkomponente mit der angegebenen {0:URI} (wie bei --version).</value>
+    <value>Für jede Bibliothek oder Subkomponente mit der angegebenen {URI}, spezifziert die Versions-{RANGE} (wie bei --version).</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Füge {DIR} zu der Liste der zu Durchsuchenden Implementierungscaches hinzu.

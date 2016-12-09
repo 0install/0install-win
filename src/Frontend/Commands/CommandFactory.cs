@@ -53,6 +53,8 @@ namespace ZeroInstall.Commands
             if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(handler);
             switch (commandName.ToLowerInvariant())
             {
+                case ExportHelp.Name:
+                    return new ExportHelp(handler);
                 case Central.Name:
                     return new Central(handler);
                 case SelfUpdate.Name:
