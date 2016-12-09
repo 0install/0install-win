@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.WinForms
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(372, 127);
+            this.buttonCancel.Location = new System.Drawing.Point(417, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms
             // buttonHide
             // 
             this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(291, 127);
+            this.buttonHide.Location = new System.Drawing.Point(336, 226);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
             this.buttonHide.TabIndex = 2;
@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands.WinForms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
-            this.selectionsControl.Size = new System.Drawing.Size(435, 109);
+            this.selectionsControl.Size = new System.Drawing.Size(480, 208);
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
@@ -87,9 +87,9 @@ namespace ZeroInstall.Commands.WinForms
             // 
             this.taskControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.taskControl.Location = new System.Drawing.Point(13, 12);
+            this.taskControl.Location = new System.Drawing.Point(24, 24);
             this.taskControl.Name = "taskControl";
-            this.taskControl.Size = new System.Drawing.Size(434, 54);
+            this.taskControl.Size = new System.Drawing.Size(455, 54);
             this.taskControl.TabIndex = 5;
             this.taskControl.Visible = false;
             // 
@@ -97,7 +97,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             this.buttonModifySelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonModifySelectionsDone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonModifySelectionsDone.Location = new System.Drawing.Point(12, 127);
+            this.buttonModifySelectionsDone.Location = new System.Drawing.Point(12, 226);
             this.buttonModifySelectionsDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
             this.buttonModifySelectionsDone.Name = "buttonModifySelectionsDone";
             this.buttonModifySelectionsDone.Size = new System.Drawing.Size(75, 23);
@@ -111,7 +111,8 @@ namespace ZeroInstall.Commands.WinForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 162);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(504, 261);
             this.Controls.Add(this.buttonModifySelectionsDone);
             this.Controls.Add(this.taskControl);
             this.Controls.Add(this.buttonHide);
@@ -119,9 +120,10 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.selectionsControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(375, 150);
+            this.MinimumSize = new System.Drawing.Size(375, 225);
             this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
             this.Shown += new System.EventHandler(this.ProgressForm_Shown);

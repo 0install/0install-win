@@ -121,10 +121,12 @@ namespace ZeroInstall.Commands.WinForms
             selectionsControl.BeginModifySelections(solveCallback);
             buttonModifySelectionsDone.Visible = true;
             buttonModifySelectionsDone.Focus();
+            buttonHide.Visible = false;
         }
 
         private void buttonModifySelectionsDone_Click(object sender, EventArgs e)
         {
+            buttonHide.Visible = true;
             buttonModifySelectionsDone.Visible = false;
             selectionsControl.EndModifySelections();
 
