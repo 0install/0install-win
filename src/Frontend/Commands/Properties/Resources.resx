@@ -523,7 +523,7 @@ Run '0install self-update --force' to fix this.</value>
   <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
     <value>Zero Install is running from a user-specific directory. It needs to be deployed to a directory accessible by all users for machine-wide desktop integration to work.</value>
   </data>
-  <data name="NoModifySelectionsInCli" xml:space="preserve">
+  <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
     <value>The graphical policy editor is not available in command-line mode.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">

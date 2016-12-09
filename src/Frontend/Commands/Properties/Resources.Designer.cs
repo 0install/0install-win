@@ -1237,9 +1237,9 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The graphical policy editor is not available in command-line mode..
         /// </summary>
-        public static string NoModifySelectionsInCli {
+        public static string NoCustomizeSelectionsInCli {
             get {
-                return ResourceManager.GetString("NoModifySelectionsInCli", resourceCulture);
+                return ResourceManager.GetString("NoCustomizeSelectionsInCli", resourceCulture);
             }
         }
         

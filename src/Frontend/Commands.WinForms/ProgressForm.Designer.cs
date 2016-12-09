@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.taskControl = new NanoByte.Common.Controls.TaskControl();
-            this.buttonModifySelectionsDone = new System.Windows.Forms.Button();
+            this.buttonCustomizeSelectionsDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -93,19 +93,19 @@ namespace ZeroInstall.Commands.WinForms
             this.taskControl.TabIndex = 5;
             this.taskControl.Visible = false;
             // 
-            // buttonModifySelectionsDone
+            // buttonCustomizeSelectionsDone
             // 
-            this.buttonModifySelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonModifySelectionsDone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonModifySelectionsDone.Location = new System.Drawing.Point(12, 226);
-            this.buttonModifySelectionsDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
-            this.buttonModifySelectionsDone.Name = "buttonModifySelectionsDone";
-            this.buttonModifySelectionsDone.Size = new System.Drawing.Size(75, 23);
-            this.buttonModifySelectionsDone.TabIndex = 6;
-            this.buttonModifySelectionsDone.Text = "(Done)";
-            this.buttonModifySelectionsDone.UseVisualStyleBackColor = true;
-            this.buttonModifySelectionsDone.Visible = false;
-            this.buttonModifySelectionsDone.Click += new System.EventHandler(this.buttonModifySelectionsDone_Click);
+            this.buttonCustomizeSelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeSelectionsDone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonCustomizeSelectionsDone.Location = new System.Drawing.Point(12, 226);
+            this.buttonCustomizeSelectionsDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
+            this.buttonCustomizeSelectionsDone.Name = "buttonCustomizeSelectionsDone";
+            this.buttonCustomizeSelectionsDone.Size = new System.Drawing.Size(75, 23);
+            this.buttonCustomizeSelectionsDone.TabIndex = 6;
+            this.buttonCustomizeSelectionsDone.Text = "(Done)";
+            this.buttonCustomizeSelectionsDone.UseVisualStyleBackColor = true;
+            this.buttonCustomizeSelectionsDone.Visible = false;
+            this.buttonCustomizeSelectionsDone.Click += new System.EventHandler(this.buttonCustomizeSelectionsDone_Click);
             // 
             // ProgressForm
             // 
@@ -113,7 +113,7 @@ namespace ZeroInstall.Commands.WinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(504, 261);
-            this.Controls.Add(this.buttonModifySelectionsDone);
+            this.Controls.Add(this.buttonCustomizeSelectionsDone);
             this.Controls.Add(this.taskControl);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
@@ -138,7 +138,7 @@ namespace ZeroInstall.Commands.WinForms
         private ZeroInstall.Commands.WinForms.SelectionsControl selectionsControl;
         private System.Windows.Forms.ToolTip toolTip;
         private NanoByte.Common.Controls.TaskControl taskControl;
-        private System.Windows.Forms.Button buttonModifySelectionsDone;
+        private System.Windows.Forms.Button buttonCustomizeSelectionsDone;
 
     }
 }

@@ -523,7 +523,7 @@ Führen Sie '0install self-update --force' aus, um dies zu beheben.</value>
   <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
     <value>Zero Install läuft aus einem benutzerspezifischen Verzeichnis heraus. Es muss in einem für alle Benutzer zugänglichen Verzeichnis abgelegt werden, damit maschinenweite Desktopintegration funktioniert.</value>
   </data>
-  <data name="NoModifySelectionsInCli" xml:space="preserve">
+  <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
     <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">

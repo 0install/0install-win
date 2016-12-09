@@ -523,7 +523,7 @@ Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalış
   <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
     <value>Zero Install kullanıcıya özel bir klasörde çalışıyor. Masaüstü bütünleştirmesinin bilgisayar genelinde kullanılabilmesi için, tüm kullanıcılar tarafından erişilebilen bir klasörde yüklü olmalıdır.</value>
   </data>
-  <data name="NoModifySelectionsInCli" xml:space="preserve">
+  <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
     <value>Görsel ilke düzenleyicisi komut satırı kipinde kullanılamıyor.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">

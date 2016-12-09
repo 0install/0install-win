@@ -430,7 +430,7 @@
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Δεν χρησιμοποιείται πλέον:</value>
   </data>
-  <data name="NoModifySelectionsInCli" xml:space="preserve">
+  <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
     <value>Ο γραφικός επεξεργαστής πολιτικής δεν διατίθενται σε λειτουργία της γραμμής εντολών.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">

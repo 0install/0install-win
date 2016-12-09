@@ -19,7 +19,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
@@ -109,7 +108,7 @@ namespace ZeroInstall.Commands.WinForms
         #region Modify selections
         /// <summary>
         /// Called after preferences have been changed and the <see cref="ISolver"/> needs to be rerun.
-        /// Is set between <see cref="BeginModifySelections"/> and <see cref="EndModifySelections"/>; is <c>null</c> otherwise.
+        /// Is set between <see cref="BeginCustomizeSelections"/> and <see cref="EndCustomizeSelections"/>; is <c>null</c> otherwise.
         /// </summary>
         private Func<Selections> _solveCallback;
 
@@ -121,7 +120,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void BeginModifySelections(Func<Selections> solveCallback)
+        public void BeginCustomizeSelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
@@ -146,9 +145,9 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Removes the additional UI added by <see cref="BeginModifySelections"/>.
+        /// Removes the additional UI added by <see cref="BeginCustomizeSelections"/>.
         /// </summary>
-        public void EndModifySelections()
+        public void EndCustomizeSelections()
         {
             _solveCallback = null;
             BuildTable();
