@@ -143,7 +143,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to register this instance machine-wide instead of just for the current user?.
+        ///   Looks up a localized string similar to Setup Zero Install for all users (machine-wide) instead of just the current user?.
         /// </summary>
         public static string AskDeployMachineWide {
             get {
@@ -152,7 +152,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to deploy a new copy to &apos;{0}&apos;?.
+        ///   Looks up a localized string similar to Are you sure you want to deploy a new copy of Zero Install to &apos;{0}&apos;?.
         /// </summary>
         public static string AskDeployNewTarget {
             get {
@@ -161,8 +161,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to setup Zero Install on this computer?
-        ///This includes a start menu entry and access to the &quot;0install&quot; command-line..
+        ///   Looks up a localized string similar to This will add Zero Install to the start menu and command-line. Continue?.
         /// </summary>
         public static string AskDeployZeroInstall {
             get {
@@ -1199,6 +1198,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The graphical policy editor is not available in command-line mode..
+        /// </summary>
+        public static string NoCustomizeSelectionsInCli {
+            get {
+                return ResourceManager.GetString("NoCustomizeSelectionsInCli", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zero Install needs to be setup on your system for desktop integration to work..
         /// </summary>
         public static string NoIntegrationFromCache {
@@ -1231,15 +1239,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string NoMachineWideIntegrationFromPerUser {
             get {
                 return ResourceManager.GetString("NoMachineWideIntegrationFromPerUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The graphical policy editor is not available in command-line mode..
-        /// </summary>
-        public static string NoCustomizeSelectionsInCli {
-            get {
-                return ResourceManager.GetString("NoCustomizeSelectionsInCli", resourceCulture);
             }
         }
         

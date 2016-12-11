@@ -146,14 +146,13 @@ You can use the import script or Bootstrap executable in '{1}' to import these f
     <value>Application list</value>
   </data>
   <data name="AskDeployMachineWide" xml:space="preserve">
-    <value>Do you want to register this instance machine-wide instead of just for the current user?</value>
+    <value>Setup Zero Install for all users (machine-wide) instead of just the current user?</value>
   </data>
   <data name="AskDeployNewTarget" xml:space="preserve">
-    <value>Are you sure you want to deploy a new copy to '{0}'?</value>
+    <value>Are you sure you want to deploy a new copy of Zero Install to '{0}'?</value>
   </data>
   <data name="AskDeployZeroInstall" xml:space="preserve">
-    <value>Do you want to setup Zero Install on this computer?
-This includes a start menu entry and access to the "0install" command-line.</value>
+    <value>This will add Zero Install to the start menu and command-line. Continue?</value>
   </data>
   <data name="AskRemoveZeroInstall" xml:space="preserve">
     <value>Are you sure you want to remove Zero Install from this computer?</value>

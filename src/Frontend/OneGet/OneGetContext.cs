@@ -222,7 +222,7 @@ namespace ZeroInstall.OneGet
                 if (installLocation == null)
                 {
                     if (Handler.Ask(Resources.AskDeployZeroInstall + Environment.NewLine + ex.Message,
-                        defaultAnswer: false, alternateMessage: ex.Message))
+                        defaultAnswer: true, alternateMessage: ex.Message))
                         installLocation = DeployInstance(ex.NeedsMachineWide);
                     else return;
                 }

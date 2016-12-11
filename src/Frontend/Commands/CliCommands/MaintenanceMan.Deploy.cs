@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands.CliCommands
                     if (existing != null && existing != targetDir)
                     {
                         string hint = string.Format(Resources.ExistingInstance, existing);
-                        if (!Handler.Ask(string.Format(hint + Environment.NewLine + Resources.AskDeployNewTarget, targetDir), defaultAnswer: true, alternateMessage: hint))
+                        if (!Handler.Ask(string.Format(Resources.AskDeployNewTarget, targetDir) + Environment.NewLine + hint, defaultAnswer: true, alternateMessage: hint))
                             return ExitCode.UserCanceled;
                     }
                     else if (!Handler.Ask(Resources.AskDeployZeroInstall, defaultAnswer: true))
@@ -152,7 +152,7 @@ namespace ZeroInstall.Commands.CliCommands
                     else if (!targetDir.StartsWith(Locations.HomeDir))
                     {
                         string hint = string.Format(Resources.DeployTargetOutsideHome, targetDir);
-                        if (Handler.Ask(hint + Environment.NewLine + Resources.AskDeployMachineWide, defaultAnswer: false, alternateMessage: hint))
+                        if (Handler.Ask(Resources.AskDeployMachineWide + Environment.NewLine + hint, defaultAnswer: false, alternateMessage: hint))
                             _machineWide = true;
                     }
                 }

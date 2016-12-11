@@ -146,14 +146,13 @@ Sie können das Import Skript oder das Bootstrap Programm in '{1}' verwenden, um
     <value>Anwendungsliste</value>
   </data>
   <data name="AskDeployMachineWide" xml:space="preserve">
-    <value>Möchten Sie diese Instanz maschinenweit statt nur für den aktuellen Benutzer registrieren?</value>
+    <value>Zero Install für alle Benutzer (maschinenweit) anstatt nur für den aktuellen einrichten?</value>
   </data>
   <data name="AskDeployNewTarget" xml:space="preserve">
-    <value>Sind Sie sicher, dass Sie eine neue Kopie in '{0}' erstellen möchten?</value>
+    <value>Sind Sie sicher, dass Sie eine neue Kopie von Zero Install in '{0}' anlegen möchten?</value>
   </data>
   <data name="AskDeployZeroInstall" xml:space="preserve">
-    <value>Möchten Sie Zero Install auf diesem Computer einrichten?
-Dies beinhaltet einen Startmenü-Eintrag sowie Zugriff auf den "0install" Befehl von der Befehlszeile aus.</value>
+    <value>Dies fügt Zero Install dem Startmenü sowie der Befehlszeile hinzu. Fortfahren?</value>
   </data>
   <data name="AskRemoveZeroInstall" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie Zero Install von diesem Computer entfernen möchten?</value>
