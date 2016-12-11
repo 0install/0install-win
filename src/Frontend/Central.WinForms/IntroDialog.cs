@@ -33,7 +33,13 @@ namespace ZeroInstall.Central.WinForms
         public IntroDialog()
         {
             InitializeComponent();
-            Load += delegate { PlayIntro(); };
+        }
+
+        private void IntroDialog_Load(object sender, EventArgs e)
+        {
+            this.CenterOnParent();
+
+            PlayIntro();
         }
 
         private void PlayIntro()

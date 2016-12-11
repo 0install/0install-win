@@ -31,6 +31,11 @@ namespace ZeroInstall.Central.WinForms
             InitializeComponent();
         }
 
+        private void PortableCreatorDialog_Load(object sender, System.EventArgs e)
+        {
+            this.CenterOnParent();
+        }
+
         private void buttonSelectTarget_Click(object sender, System.EventArgs e)
         {
             using (var folderBrowserDialog = new FolderBrowserDialog {SelectedPath = textBoxTarget.Text})

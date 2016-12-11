@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
@@ -86,6 +87,8 @@ namespace ZeroInstall.Central.WinForms
         private void SelectCommandDialog_Load(object sender, EventArgs e)
         {
             Text = string.Format(Resources.SelectCommand, _target.Feed.Name);
+
+            this.CenterOnParent();
 
             foreach (var entryPoint in _target.Feed.EntryPoints)
                 comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, entryPoint));

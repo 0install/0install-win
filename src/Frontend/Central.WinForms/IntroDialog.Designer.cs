@@ -140,6 +140,7 @@
             this.Name = "IntroDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Load += new System.EventHandler(this.IntroDialog_Load);
             this.tabControlApps.ResumeLayout(false);
             this.tabPageAppList.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);

@@ -93,6 +93,7 @@
             this.Name = "PortableCreatorDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Load += new System.EventHandler(this.PortableCreatorDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
