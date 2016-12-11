@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish.WinForms
         private readonly InstallerCapture _installerCapture = new InstallerCapture();
 
         #region pageDownload
-        private void downloadPage_ToggleControls(object sender, EventArgs e)
+        private void pageDownload_ToggleControls(object sender, EventArgs e)
         {
             groupLocalCopy.Enabled = checkLocalCopy.Checked;
 
@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void downloadPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageDownload_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             var fileName = checkLocalCopy.Checked ? textBoxLocalPath.Text : textBoxDownloadUrl.Text;
 
@@ -217,7 +217,7 @@ namespace ZeroInstall.Publish.WinForms
         #region pageArchiveExtract
         private Archive _archive;
 
-        private void archiveExtractPage_Initialize(object sender, WizardPageInitEventArgs e)
+        private void pageArchiveExtract_Initialize(object sender, WizardPageInitEventArgs e)
         {
             _archive = (Archive)_feedBuilder.RetrievalMethod;
 
@@ -231,7 +231,7 @@ namespace ZeroInstall.Publish.WinForms
             listBoxExtract.EndUpdate();
         }
 
-        private void archiveExtractPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageArchiveExtract_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             using (var handler = new DialogTaskHandler(this))
             {
@@ -294,7 +294,7 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region pageInstallerCaptureStart
-        private void installerCaptureStartPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageInstallerCaptureStart_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             try
             {
@@ -372,7 +372,7 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void installerCaptureDiffPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageInstallerCaptureDiff_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             var session = _installerCapture.CaptureSession;
             if (session == null) return;
@@ -429,14 +429,14 @@ namespace ZeroInstall.Publish.WinForms
             #endregion
         }
 
-        private void installerCaptureDiffPage_Rollback(object sender, WizardPageConfirmEventArgs e)
+        private void pageInstallerCaptureDiff_Rollback(object sender, WizardPageConfirmEventArgs e)
         {
             _installerCapture.CaptureSession = null;
         }
         #endregion
 
         #region pageInstallerCollectFiles
-        private void installerCollectFilesPage_ToggleControls(object sender, EventArgs e)
+        private void pageInstallerCollectFiles_ToggleControls(object sender, EventArgs e)
         {
             buttonCreateArchive.Enabled = (textBoxUploadUrl.Text.Length > 0) && textBoxUploadUrl.IsValid && (textBoxArchivePath.Text.Length > 0);
         }
@@ -488,7 +488,7 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region pageInstallerAltDownload
-        private void installerAltDownloadPage_ToggleControls(object sender, EventArgs e)
+        private void pageInstallerAltDownload_ToggleControls(object sender, EventArgs e)
         {
             groupAltLocalCopy.Enabled = checkAltLocalCopy.Checked;
 
@@ -506,7 +506,7 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void installerAltDownloadPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageInstallerAltDownload_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             try
             {
@@ -550,14 +550,14 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region pageEntryPoint
-        private void entryPointPage_Initialize(object sender, WizardPageInitEventArgs e)
+        private void pageEntryPoint_Initialize(object sender, WizardPageInitEventArgs e)
         {
             listBoxEntryPoint.Items.Clear();
             listBoxEntryPoint.Items.AddRange(_feedBuilder.Candidates.Cast<object>().ToArray());
             listBoxEntryPoint.SelectedItem = _feedBuilder.MainCandidate;
         }
 
-        private void entryPointPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageEntryPoint_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             _feedBuilder.MainCandidate = listBoxEntryPoint.SelectedItem as Candidate;
             if (_feedBuilder.MainCandidate == null)
@@ -575,12 +575,12 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region pageDetails
-        private void detailsPage_Initialize(object sender, WizardPageInitEventArgs e)
+        private void pageDetails_Initialize(object sender, WizardPageInitEventArgs e)
         {
             propertyGridCandidate.SelectedObject = _feedBuilder.MainCandidate;
         }
 
-        private void detailsPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageDetails_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             if (string.IsNullOrEmpty(_feedBuilder.MainCandidate.Name) || string.IsNullOrEmpty(_feedBuilder.MainCandidate.Summary) || _feedBuilder.MainCandidate.Version == null)
             {
@@ -593,7 +593,7 @@ namespace ZeroInstall.Publish.WinForms
         #region pageIcon
         private Icon _icon;
 
-        private void iconPage_Initialize(object sender, WizardPageInitEventArgs e)
+        private void pageIcon_Initialize(object sender, WizardPageInitEventArgs e)
         {
             var windowsExe = _feedBuilder.MainCandidate as WindowsExe;
             if (windowsExe == null)
@@ -627,7 +627,7 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void iconPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageIcon_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             _feedBuilder.Icons.Clear();
             try
@@ -653,7 +653,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>Used to get a list of <see cref="OpenPgpSecretKey"/>s.</summary>
         private readonly IOpenPgp _openPgp;
 
-        private void securityPage_Initialize(object sender, WizardPageInitEventArgs e)
+        private void pageSecurity_Initialize(object sender, WizardPageInitEventArgs e)
         {
             ListKeys();
         }
@@ -706,7 +706,7 @@ namespace ZeroInstall.Publish.WinForms
             }, name: "WaitForOpenPgp");
         }
 
-        private void securityPage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageSecurity_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             _feedBuilder.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
             try
@@ -731,7 +731,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>The result retrurned by <see cref="Run"/>.</summary>
         private SignedFeed _signedFeed;
 
-        private void donePage_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageDone_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             _signedFeed = _feedBuilder.Build();
         }

@@ -143,7 +143,7 @@
             this.pageDownload.Size = new System.Drawing.Size(527, 261);
             this.pageDownload.TabIndex = 0;
             this.pageDownload.Text = "Download";
-            this.pageDownload.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.downloadPage_Commit);
+            this.pageDownload.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageDownload_Commit);
             // 
             // checkLocalCopy
             // 
@@ -154,7 +154,7 @@
             this.checkLocalCopy.TabIndex = 2;
             this.checkLocalCopy.Text = "I have a &local copy of this file";
             this.checkLocalCopy.UseVisualStyleBackColor = true;
-            this.checkLocalCopy.CheckedChanged += new System.EventHandler(this.downloadPage_ToggleControls);
+            this.checkLocalCopy.CheckedChanged += new System.EventHandler(this.pageDownload_ToggleControls);
             // 
             // groupLocalCopy
             // 
@@ -188,7 +188,7 @@
             this.textBoxLocalPath.Name = "textBoxLocalPath";
             this.textBoxLocalPath.Size = new System.Drawing.Size(421, 23);
             this.textBoxLocalPath.TabIndex = 0;
-            this.textBoxLocalPath.TextChanged += new System.EventHandler(this.downloadPage_ToggleControls);
+            this.textBoxLocalPath.TextChanged += new System.EventHandler(this.pageDownload_ToggleControls);
             // 
             // textBoxDownloadUrl
             // 
@@ -201,7 +201,7 @@
             this.textBoxDownloadUrl.Name = "textBoxDownloadUrl";
             this.textBoxDownloadUrl.Size = new System.Drawing.Size(474, 23);
             this.textBoxDownloadUrl.TabIndex = 1;
-            this.textBoxDownloadUrl.TextChanged += new System.EventHandler(this.downloadPage_ToggleControls);
+            this.textBoxDownloadUrl.TextChanged += new System.EventHandler(this.pageDownload_ToggleControls);
             // 
             // labelDownloadUrl
             // 
@@ -224,8 +224,8 @@
             this.pageArchiveExtract.Size = new System.Drawing.Size(527, 262);
             this.pageArchiveExtract.TabIndex = 1;
             this.pageArchiveExtract.Text = "Archive";
-            this.pageArchiveExtract.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.archiveExtractPage_Commit);
-            this.pageArchiveExtract.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.archiveExtractPage_Initialize);
+            this.pageArchiveExtract.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageArchiveExtract_Commit);
+            this.pageArchiveExtract.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageArchiveExtract_Initialize);
             // 
             // listBoxExtract
             // 
@@ -260,8 +260,8 @@
             this.pageEntryPoint.Size = new System.Drawing.Size(527, 262);
             this.pageEntryPoint.TabIndex = 2;
             this.pageEntryPoint.Text = "Entry point";
-            this.pageEntryPoint.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.entryPointPage_Commit);
-            this.pageEntryPoint.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.entryPointPage_Initialize);
+            this.pageEntryPoint.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageEntryPoint_Commit);
+            this.pageEntryPoint.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageEntryPoint_Initialize);
             // 
             // listBoxEntryPoint
             // 
@@ -295,8 +295,8 @@
             this.pageDetails.Size = new System.Drawing.Size(527, 262);
             this.pageDetails.TabIndex = 6;
             this.pageDetails.Text = "Details";
-            this.pageDetails.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.detailsPage_Commit);
-            this.pageDetails.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.detailsPage_Initialize);
+            this.pageDetails.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageDetails_Commit);
+            this.pageDetails.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageDetails_Initialize);
             // 
             // labelDetails
             // 
@@ -338,8 +338,8 @@
             this.pageIcon.Size = new System.Drawing.Size(527, 262);
             this.pageIcon.TabIndex = 7;
             this.pageIcon.Text = "Icon";
-            this.pageIcon.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.iconPage_Commit);
-            this.pageIcon.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.iconPage_Initialize);
+            this.pageIcon.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageIcon_Commit);
+            this.pageIcon.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageIcon_Initialize);
             // 
             // textBoxHrefPng
             // 
@@ -456,8 +456,8 @@
             this.pageSecurity.Size = new System.Drawing.Size(527, 262);
             this.pageSecurity.TabIndex = 8;
             this.pageSecurity.Text = "Security";
-            this.pageSecurity.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.securityPage_Commit);
-            this.pageSecurity.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.securityPage_Initialize);
+            this.pageSecurity.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageSecurity_Commit);
+            this.pageSecurity.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageSecurity_Initialize);
             // 
             // buttonNewKey
             // 
@@ -527,7 +527,7 @@
             this.pageDone.Size = new System.Drawing.Size(527, 262);
             this.pageDone.TabIndex = 9;
             this.pageDone.Text = "Done";
-            this.pageDone.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.donePage_Commit);
+            this.pageDone.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageDone_Commit);
             // 
             // labelDone2
             // 
@@ -561,7 +561,7 @@
             this.pageIstallerCaptureStart.Size = new System.Drawing.Size(527, 262);
             this.pageIstallerCaptureStart.TabIndex = 3;
             this.pageIstallerCaptureStart.Text = "Installer Capture";
-            this.pageIstallerCaptureStart.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureStartPage_Commit);
+            this.pageIstallerCaptureStart.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageInstallerCaptureStart_Commit);
             // 
             // buttonSkipCapture
             // 
@@ -607,8 +607,8 @@
             this.pageInstallerCaptureDiff.Size = new System.Drawing.Size(527, 262);
             this.pageInstallerCaptureDiff.TabIndex = 4;
             this.pageInstallerCaptureDiff.Text = "Installer Capture";
-            this.pageInstallerCaptureDiff.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureDiffPage_Commit);
-            this.pageInstallerCaptureDiff.Rollback += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerCaptureDiffPage_Rollback);
+            this.pageInstallerCaptureDiff.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageInstallerCaptureDiff_Commit);
+            this.pageInstallerCaptureDiff.Rollback += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageInstallerCaptureDiff_Rollback);
             // 
             // groupInstallationDir
             // 
@@ -737,7 +737,7 @@
             this.textBoxUploadUrl.Name = "textBoxUploadUrl";
             this.textBoxUploadUrl.Size = new System.Drawing.Size(457, 23);
             this.textBoxUploadUrl.TabIndex = 4;
-            this.textBoxUploadUrl.TextChanged += new System.EventHandler(this.installerCollectFilesPage_ToggleControls);
+            this.textBoxUploadUrl.TextChanged += new System.EventHandler(this.pageInstallerCollectFiles_ToggleControls);
             // 
             // buttonSelectArchivePath
             // 
@@ -759,7 +759,7 @@
             this.textBoxArchivePath.Name = "textBoxArchivePath";
             this.textBoxArchivePath.Size = new System.Drawing.Size(422, 23);
             this.textBoxArchivePath.TabIndex = 1;
-            this.textBoxArchivePath.TextChanged += new System.EventHandler(this.installerCollectFilesPage_ToggleControls);
+            this.textBoxArchivePath.TextChanged += new System.EventHandler(this.pageInstallerCollectFiles_ToggleControls);
             // 
             // installerAltDownloadPage
             // 
@@ -771,7 +771,7 @@
             this.installerAltDownloadPage.Size = new System.Drawing.Size(527, 262);
             this.installerAltDownloadPage.TabIndex = 10;
             this.installerAltDownloadPage.Text = "Alternative download";
-            this.installerAltDownloadPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.installerAltDownloadPage_Commit);
+            this.installerAltDownloadPage.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageInstallerAltDownload_Commit);
             // 
             // checkAltLocalCopy
             // 
@@ -782,7 +782,7 @@
             this.checkAltLocalCopy.TabIndex = 2;
             this.checkAltLocalCopy.Text = "I have a &local copy of this file";
             this.checkAltLocalCopy.UseVisualStyleBackColor = true;
-            this.checkAltLocalCopy.CheckedChanged += new System.EventHandler(this.installerAltDownloadPage_ToggleControls);
+            this.checkAltLocalCopy.CheckedChanged += new System.EventHandler(this.pageInstallerAltDownload_ToggleControls);
             // 
             // groupAltLocalCopy
             // 
@@ -816,7 +816,7 @@
             this.textBoxAltLocalPath.Name = "textBoxAltLocalPath";
             this.textBoxAltLocalPath.Size = new System.Drawing.Size(421, 23);
             this.textBoxAltLocalPath.TabIndex = 0;
-            this.textBoxAltLocalPath.TextChanged += new System.EventHandler(this.installerAltDownloadPage_ToggleControls);
+            this.textBoxAltLocalPath.TextChanged += new System.EventHandler(this.pageInstallerAltDownload_ToggleControls);
             // 
             // textBoxAltDownloadUrl
             // 
@@ -829,7 +829,7 @@
             this.textBoxAltDownloadUrl.Name = "textBoxAltDownloadUrl";
             this.textBoxAltDownloadUrl.Size = new System.Drawing.Size(474, 23);
             this.textBoxAltDownloadUrl.TabIndex = 1;
-            this.textBoxAltDownloadUrl.TextChanged += new System.EventHandler(this.installerAltDownloadPage_ToggleControls);
+            this.textBoxAltDownloadUrl.TextChanged += new System.EventHandler(this.pageInstallerAltDownload_ToggleControls);
             // 
             // labelAltDownloadUrl
             // 
