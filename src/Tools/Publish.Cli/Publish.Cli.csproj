@@ -55,7 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
-    <Compile Include="PublishRun.cs" />
+    <Compile Include="CaptureCommand.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="PublishCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

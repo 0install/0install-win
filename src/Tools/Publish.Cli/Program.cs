@@ -18,13 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using NanoByte.Common;
 using NanoByte.Common.Net;
+using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
-using SharedResources = ZeroInstall.Publish.Properties.Resources;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -46,8 +47,14 @@ namespace ZeroInstall.Publish.Cli
 
             try
             {
-                using (var run = new PublishRun(args))
-                    return (int)run.Execute();
+                using (var handler = new CliTaskHandler())
+                {
+                    var command = (args.FirstOrDefault() == "capture")
+                        ? (ICommand)new CaptureCommand(args.Skip(1), handler)
+                        : new PublishCommand(args, handler);
+                    return (int)command.Execute();
+                }
+
             }
                 #region Error hanlding
             catch (OperationCanceledException)

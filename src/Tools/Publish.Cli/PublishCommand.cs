@@ -40,9 +40,11 @@ namespace ZeroInstall.Publish.Cli
     /// <summary>
     /// Represents a single run of the 0publish tool.
     /// </summary>
-    public sealed class PublishRun : IDisposable
+    public sealed class PublishCommand : ICommand
     {
         #region Variables
+        private readonly ITaskHandler _handler;
+
         /// <summary>
         /// List of operational modes for the feed editor that can be selected via command-line arguments.
         /// </summary>
@@ -109,13 +111,17 @@ namespace ZeroInstall.Publish.Cli
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="OperationCanceledException">The user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException"><paramref name="args"/> contains unknown options.</exception>
-        public PublishRun(IEnumerable<string> args)
+        public PublishCommand(IEnumerable<string> args, ITaskHandler handler)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException(nameof(args));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
+
+            _handler = handler;
 
             var additionalArgs = BuildOptions().Parse(args);
             try
@@ -167,8 +173,8 @@ namespace ZeroInstall.Publish.Cli
             options.Add("h|help|?", () => Resources.OptionHelp, _ =>
             {
                 Console.WriteLine(Resources.Usage);
-                // ReSharper disable once LocalizableElement
                 Console.WriteLine("\t0publish [OPTIONS] feed.xml");
+                Console.WriteLine("\t0publish capture --help");
                 Console.WriteLine();
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
@@ -181,20 +187,7 @@ namespace ZeroInstall.Publish.Cli
         #endregion
 
         #region Execute
-        /// <summary>
-        /// Executes the commands specified by the command-line arguments.
-        /// </summary>
-        /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="OptionException">The specified feed file paths were invalid.</exception>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
-        /// <exception cref="InvalidDataException">A feed file is damaged.</exception>
-        /// <exception cref="FileNotFoundException">A feed file could not be found.</exception>
-        /// <exception cref="IOException">A file could not be read or written or the GnuPG could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to a feed file or the catalog file is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
-        /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
-        /// <exception cref="NotSupportedException">A MIME type doesn't belong to a known and supported archive type.</exception>
+        /// <inheritdoc/>
         public ExitCode Execute()
         {
             switch (_mode)
@@ -329,8 +322,6 @@ namespace ZeroInstall.Publish.Cli
         #endregion
 
         #region Modify
-        private readonly ITaskHandler _handler = new CliTaskHandler();
-
         /// <summary>
         /// Applies user-selected modifications to a feed.
         /// </summary>
@@ -355,10 +346,5 @@ namespace ZeroInstall.Publish.Cli
             }.Dispatch(elements);
         }
         #endregion
-
-        public void Dispose()
-        {
-            _handler.Dispose();
-        }
     }
 }

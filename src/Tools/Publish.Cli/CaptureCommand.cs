@@ -26,15 +26,14 @@ using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
-using ZeroInstall.Publish;
 using ZeroInstall.Publish.Capture;
 
-namespace ZeroInstall.Capture.Cli
+namespace ZeroInstall.Publish.Cli
 {
     /// <summary>
-    /// Structure for storing user-selected arguments for a capture operation.
+    /// Represents a single run of the 0publish tool in capture mode.
     /// </summary>
-    internal class CaptureCommand
+    internal class CaptureCommand : ICommand
     {
         #region Parse
         private readonly ITaskHandler _handler;
@@ -108,8 +107,8 @@ namespace ZeroInstall.Capture.Cli
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
         private static ExitCode PrintHelp()
         {
-            Console.WriteLine("0capture start myapp.snapshot [--force]");
-            Console.WriteLine("0capture finish myapp.snapshot myapp.xml [--force]");
+            Console.WriteLine("0publish capture start myapp.snapshot [--force]");
+            Console.WriteLine("0publish capture finish myapp.snapshot myapp.xml [--force]");
             Console.WriteLine("\t[--installation-dir=C:\\myapp] [--main-exe=myapp.exe] [--collect-files=myapp.zip]");
 
             return ExitCode.InvalidArguments;
