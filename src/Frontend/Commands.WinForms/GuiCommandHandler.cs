@@ -116,14 +116,10 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         /// <inheritdoc/>
-        public override bool Ask(string question)
+        protected override bool Ask(string question, MsgSeverity severity)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException(nameof(question));
-            #endregion
-
             Log.Debug("Question: " + question);
-            using (var future = _wrapper.Post(form => form.Ask(question)))
+            using (var future = _wrapper.Post(form => form.Ask(question, severity)))
             {
                 switch (future.Get())
                 {

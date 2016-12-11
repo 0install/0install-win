@@ -21,6 +21,7 @@ using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;

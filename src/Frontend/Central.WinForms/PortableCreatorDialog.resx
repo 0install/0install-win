@@ -178,7 +178,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="&gt;&gt;textBoxTarget.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.0.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.0.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="buttonDeploy.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 72</value>

@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.Utils;
 using ZeroInstall.Services;

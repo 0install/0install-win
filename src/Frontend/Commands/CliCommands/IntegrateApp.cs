@@ -21,7 +21,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;

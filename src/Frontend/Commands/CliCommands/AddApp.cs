@@ -19,7 +19,6 @@ using System;
 using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common.Native;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;

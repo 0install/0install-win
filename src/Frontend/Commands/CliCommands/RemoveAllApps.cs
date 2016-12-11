@@ -17,7 +17,6 @@
 
 using System;
 using JetBrains.Annotations;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.Utils;
 using ZeroInstall.DesktopIntegration;

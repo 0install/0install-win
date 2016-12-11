@@ -204,14 +204,14 @@ namespace ZeroInstall.Commands.WinForms
         private Future<DialogResult> _pendingResult;
 
         /// <inheritdoc/>
-        public Future<DialogResult> Ask(string question)
+        public Future<DialogResult> Ask(string question, MsgSeverity severity)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException(nameof(question));
             #endregion
 
             if (Visible)
-                return Msg.YesNoCancel(this, question, MsgSeverity.Warn);
+                return Msg.YesNoCancel(this, question, severity);
             else
             {
                 _pendingQuestion = question;

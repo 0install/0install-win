@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;

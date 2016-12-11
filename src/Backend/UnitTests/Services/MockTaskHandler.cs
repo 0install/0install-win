@@ -17,6 +17,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Services
@@ -42,7 +43,7 @@ namespace ZeroInstall.Services
         /// Fakes asking the user a question.
         /// </summary>
         /// <returns>The current value of <see cref="AnswerQuestionWith"/>.</returns>
-        public override bool Ask(string question)
+        protected override bool Ask(string question, MsgSeverity severity)
         {
             LastQuestion = question;
             return AnswerQuestionWith;

@@ -22,7 +22,6 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;

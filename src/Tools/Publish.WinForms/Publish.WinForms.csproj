@@ -54,10 +54,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.2.0.4\lib\net40-client\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.2.0.5\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common.WinForms">
-      <HintPath>..\..\packages\NanoByte.Common.WinForms.2.0.4\lib\net40-client\NanoByte.Common.WinForms.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.WinForms.2.0.5\lib\net40-client\NanoByte.Common.WinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
