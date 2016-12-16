@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.WinForms
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(417, 226);
+            this.buttonCancel.Location = new System.Drawing.Point(447, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms
             // buttonHide
             // 
             this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(336, 226);
+            this.buttonHide.Location = new System.Drawing.Point(366, 226);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
             this.buttonHide.TabIndex = 2;
@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands.WinForms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
-            this.selectionsControl.Size = new System.Drawing.Size(480, 208);
+            this.selectionsControl.Size = new System.Drawing.Size(505, 208);
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
@@ -89,7 +89,7 @@ namespace ZeroInstall.Commands.WinForms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.taskControl.Location = new System.Drawing.Point(24, 24);
             this.taskControl.Name = "taskControl";
-            this.taskControl.Size = new System.Drawing.Size(455, 54);
+            this.taskControl.Size = new System.Drawing.Size(486, 54);
             this.taskControl.TabIndex = 5;
             this.taskControl.Visible = false;
             // 
@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands.WinForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(504, 261);
+            this.ClientSize = new System.Drawing.Size(534, 261);
             this.Controls.Add(this.buttonCustomizeSelectionsDone);
             this.Controls.Add(this.taskControl);
             this.Controls.Add(this.buttonHide);
