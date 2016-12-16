@@ -790,7 +790,7 @@ Keep this key secret and use something different for your password. This way nob
     <value>Try --help with one of these:</value>
   </data>
   <data name="UnableToLoadCatalog" xml:space="preserve">
-    <value>Unable to download  the software catalog.</value>
+    <value>Unable to download the software catalog.</value>
   </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>Unable to load feed '{0}'; skipping.</value>

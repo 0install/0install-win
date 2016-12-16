@@ -295,7 +295,7 @@ Değişiklikleri kaydet</value>
 {0} --help deneyin</value>
   </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
-    <value>Bilinmeyen alma yöntemi tipi.</value>
+    <value>Bilinmeyen alma yöntemi türü.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Kullanım:</value>
@@ -304,7 +304,7 @@ Değişiklikleri kaydet</value>
     <value>Yükleyicinin tamamlanması bekleniyor</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
-    <value>Yanlış MIME tipi! {0} olmalıdır.</value>
+    <value>MIME türü yanlış! {0} olmalıdır.</value>
   </data>
   <data name="YesInstallerExe" xml:space="preserve">
     <value>Evet, EXE yükleyici</value>

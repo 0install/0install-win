@@ -146,14 +146,13 @@ Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyalar�
     <value>Uygulama listesi</value>
   </data>
   <data name="AskDeployMachineWide" xml:space="preserve">
-    <value>Kayıt geçerli kullanıcı yerine makine çapında tüm kullanıcılar için yapılsın mı?</value>
+    <value>Kurulum geçerli kullanıcı yerine (bilgisayardaki) tüm kullanıcılar için yapılsın mı?</value>
   </data>
   <data name="AskDeployNewTarget" xml:space="preserve">
-    <value>Yeni bir &apos;{0}&apos; kopyası yayınlamak istediğinize emin misiniz?</value>
+    <value>&apos;{0}&apos; üzerinde yeni bir Zero Install kopyası oluşturmak istediğinize emin misiniz?</value>
   </data>
   <data name="AskDeployZeroInstall" xml:space="preserve">
-    <value>Bu bilgisayara Zero Install yazılımını yüklemek istiyor musunuz?
-Bu işlem sonucunda bir başlat menüsü kaydı ve &quot;0install&quot; komut satırı erişimi oluşturulacak.</value>
+    <value>Bu işlem sonucunda Zero Install başlat menüsü ve komut satırına eklenecek. Devam edilsin mi?</value>
   </data>
   <data name="AskRemoveZeroInstall" xml:space="preserve">
     <value>Zero Install yazılımını bu bilgisayardan kaldırmak istediğinize emin misiniz?</value>
@@ -275,7 +274,7 @@ Başlatmak için klasördeki ZeroInstall.exe dosyasını çalıştırın.</value
 Değişken yoksa, tüm ayarlar ve geçerli olan değerler görüntülenir. Bir değişken varsa, adlandırılmış ayarın geçerli değeri görüntülenir. İki değişken varsa, ayara verilen değer ayarlanabilir ya da &quot;default&quot; değeri verilerek varsayılan ayarlar geri yüklenebilir.</value>
   </data>
   <data name="DescriptionDigest" xml:space="preserve">
-    <value>Bildirim özeti bir dizin ya da arşiv için tasarlanır.</value>
+    <value>Bir klasör ya da arşiv için öge listesi dosyasını hazırlar.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
     <value>&apos;0install select&apos; ile benzer şekilde davranır. Yalnızca önbellekte bulunmuyorsa seçilmiş sürümler de indirilir.
@@ -326,7 +325,7 @@ Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</val
 İndirme adımı başarısız olursa çıkış durumu 1 olur. Diğer durumlarda çıkış durumu çalıştırılan yazılımın çıkış durumu olur.</value>
   </data>
   <data name="DescriptionSearch" xml:space="preserve">
-    <value>Yansı sunucusu tarafından dizine eklenmiş akışlar içinde belirtilen anahtar kelimeleri arar. Varsayılan yansı sunucusunun bilinen tüm akışları kalitesinden bağımsız olarak dizine eklediğini unutmayın. Bir yazılımı çalıştırmanın güvenilir olup olmadığına siz karar vermelisiniz.</value>
+    <value>Yansı sunucusu tarafından dizine eklenmiş akışlar içinde belirtilen anahtar sözcükleri arar. Varsayılan yansı sunucusunun bilinen tüm akışları kalitesinden bağımsız olarak dizine eklediğini unutmayın. Bir yazılımı çalıştırmanın güvenilir olup olmadığına siz karar vermelisiniz.</value>
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Yazılımın İnternet adresi belirtilen ve tüm bağımlılıklar ile uyumlu olan bir sürümünü seçer.
@@ -379,7 +378,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>Özel uygulama önbellekleri listesinden bir dizini kaldırır.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
-    <value>Bir uygulamanın sağlamlığını denetler (Örneğin öğe listesi düzeninin değişmemiş olması).</value>
+    <value>Bir uygulamanın sağlamlığını denetler (Örneğin öge listesi dosyasının değişmemiş olması).</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Sunucu ile uygulama listesini eşitler.</value>
@@ -524,7 +523,7 @@ Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalış
     <value>Zero Install kullanıcıya özel bir klasörde çalışıyor. Masaüstü bütünleştirmesinin bilgisayar genelinde kullanılabilmesi için, tüm kullanıcılar tarafından erişilebilen bir klasörde yüklü olmalıdır.</value>
   </data>
   <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
-    <value>Görsel ilke düzenleyicisi komut satırı kipinde kullanılamıyor.</value>
+    <value>Görsel ilke düzenleyicisi komut satırı kipinde kullanılamaz.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Uygulama çalıştırılırken komut boş olamaz.</value>
@@ -586,10 +585,10 @@ Metin kipinde bir etkisi yoktur.</value>
     <value>Görsel ilke düzenleyicisini görüntüler. Böylece bir yazılım ya da kitaplığın hangi sürümünün kullanılacağı belirtilebilir.</value>
   </data>
   <data name="OptionDigest" xml:space="preserve">
-    <value>Bildirimlerin özetini görüntüler (--manifest belirtilmemiş ise varsayılan olarak etkin).</value>
+    <value>Öge listesi dosyasını görüntüler (--manifest belirtilmemiş ise varsayılan olarak etkin).</value>
   </data>
   <data name="OptionExportBootstrap" xml:space="preserve">
-    <value>Verilen dosyalara eklenecek Bootstrapper tipini seçin.</value>
+    <value>Verilen dosyalara eklenecek Bootstrapper türünü seçin.</value>
   </data>
   <data name="OptionExportIncludeZeroInstall" xml:space="preserve">
     <value>Uygulamanın yanına Zero Install yazılımı da eklensin.</value>
@@ -633,7 +632,7 @@ Komut satırı değişkenleri bulunamaz! Boşluklardan kaçınılması gerekmez.
     <value>İşletim kipleri ile ilgili daha ayrıntılı bilgileri görüntüler.</value>
   </data>
   <data name="OptionManifest" xml:space="preserve">
-    <value>Öğe listesini görüntüler (her dosya ya da klasör için bir satır).</value>
+    <value>Öğe listesini görüntüler (her bir dosya ya da klasör bir satırda).</value>
   </data>
   <data name="OptionNoDownload" xml:space="preserve">
     <value>Uygulamayı şimdiden indirmez. İndirmek için ilk kez kullanılmasını bekler.</value>
@@ -685,7 +684,7 @@ Her aralık &quot;BAŞLANGIÇ..!BİTİŞ&quot; biçimindedir. Aralığa uyan sü
 Bir aralık yerine tek bir sürüm rakamı kullanılarak, belirli bir sürüm istenebilir ya da !VERSION kullanılarak bu sürüm dışındaki tüm sürümler istenebilir.</value>
   </data>
   <data name="OptionVersionRangeFor" xml:space="preserve">
-    <value>Belirtilen {0:URI} için herhangi bir kitaplık ya da alt bileşenin sürümünü {1:RANGE} belirler (--version gibi).</value>
+    <value>Belirtilmiş {0:URI} için herhangi bir kitaplık ya da alt bileşenin sürümünü {1:RANGE} belirler (--version gibi).</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Aranacak uygulama önbelleği dizin listesine {DIR} dizinini ekler.
@@ -789,6 +788,9 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
   </data>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Şunlardan biriyle --help deneyin:</value>
+  </data>
+  <data name="UnableToLoadCatalog" xml:space="preserve">
+    <value>Yazılım kataloğu indirilemedi.</value>
   </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
     <value>&apos;{0}&apos; akışı yüklenemedi; atlanıyor.</value>

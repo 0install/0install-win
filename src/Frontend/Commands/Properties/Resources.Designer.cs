@@ -2011,7 +2011,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to download  the software catalog..
+        ///   Looks up a localized string similar to Unable to download the software catalog..
         /// </summary>
         public static string UnableToLoadCatalog {
             get {

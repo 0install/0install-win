@@ -191,7 +191,7 @@ Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri y�
     <value>Arşiv ayıklanıyor</value>
   </data>
   <data name="ExtractionOnlyOnWindows" xml:space="preserve">
-    <value>Ayıklanan bu arşiv tipi yalnız Windows üzerinde desteklenir.</value>
+    <value>Ayıklanan bu arşiv türü yalnız Windows üzerinde desteklenir.</value>
   </data>
   <data name="FailedToExtractArchive" xml:space="preserve">
     <value>Arşiv &apos;{0}&apos; üzerinden ayıklanamadı.</value>
@@ -388,7 +388,7 @@ sorunu gidermek için &apos;{0}&apos; dosyasını silebilirsiniz.</value>
     <value>&apos;{0}&apos; için yazma koruması etkinleştirilemiyor.</value>
   </data>
   <data name="UnknownArchiveType" xml:space="preserve">
-    <value>Bilinmeyen arşiv tipi.</value>
+    <value>Arşiv türü bilinmiyor.</value>
   </data>
   <data name="UnknownCpu" xml:space="preserve">
     <value>Bilinmeyen CPU.</value>
@@ -403,10 +403,10 @@ sorunu gidermek için &apos;{0}&apos; dosyasını silebilirsiniz.</value>
     <value>Bilinmeyen işletim sistemi.</value>
   </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
-    <value>&apos;{0}&apos; olarak gösterilen yönerge tipi bilinmiyor.</value>
+    <value>&apos;{0}&apos; olarak gösterilen yönerge türü bilinmiyor.</value>
   </data>
   <data name="UnsupportedArchiveMimeType" xml:space="preserve">
-    <value>&apos;{0}&apos; arşiv MIME tipi desteklenmiyor.</value>
+    <value>&apos;{0}&apos; arşiv MIME türü desteklenmiyor.</value>
   </data>
   <data name="VersionRangeEndNotExclusive" xml:space="preserve">
     <value>Sürüm aralığı sonu özel olmalıdır. &apos;..!{0}&apos; kullanın &apos;..{0}&apos; değil.</value>
