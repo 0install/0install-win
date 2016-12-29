@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.Security.Principal;
 using System.ServiceProcess;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Service.Properties;
@@ -39,14 +41,11 @@ namespace ZeroInstall.Store.Service
     /// </summary>
     public partial class StoreService : ServiceBase
     {
-        #region Constants
-        private const int IncorrectFunction = 1;
-        private const int AccessDenied = 5;
-        private const int InvalidHandle = 6;
-        private const int UnableToWriteToDevice = 29;
-        #endregion
+        public StoreService()
+        {
+            InitializeComponent();
+        }
 
-        #region Variables
         /// <summary>IPC channel for providing services to clients.</summary>
         private IChannelReceiver _serverChannel;
 
@@ -58,41 +57,31 @@ namespace ZeroInstall.Store.Service
 
         /// <summary>The IPC remoting reference for <see cref="_store"/>.</summary>
         private ObjRef _objRef;
-        #endregion
 
-        #region Constructor
-        public StoreService()
-        {
-            InitializeComponent();
+        private const int IncorrectFunction = 1, AccessDenied = 5, InvalidHandle = 6, UnableToWriteToDevice = 29;
 
-            // Ensure the event log accepts messages from this service
-            if (!EventLog.SourceExists(eventLog.Source)) EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
-        }
-        #endregion
-
-        #region Store
-        /// <summary>
-        /// Creates the store to provide to clients as a service.
-        /// </summary>
-        /// <exception cref="IOException">A cache directory could not be created or the underlying filesystem can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Creating a cache directory is not permitted.</exception>
-        private MarshalByRefObject CreateStore()
-        {
-            var identity = WindowsIdentity.GetCurrent();
-            Debug.Assert(identity != null);
-
-            var paths = StoreConfig.GetImplementationDirs(serviceMode: true);
-            var stores = paths.Select(path => new SecureStore(path, identity, eventLog)).Cast<IStore>();
-            return new CompositeStore(stores);
-        }
-        #endregion
-
-        #region Service events
         protected override void OnStart(string[] args)
         {
+            try
+            {
+                if (!EventLog.SourceExists(eventLog.Source))
+                    EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
+                Log.Handler += LogHandler;
+            }
+                #region Sanity checks
+            catch (SecurityException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
+
             if (Locations.IsPortable)
             {
-                eventLog.WriteEntry(Resources.NoPortableMode, EventLogEntryType.Error);
+                Log.Error(Resources.NoPortableMode);
                 ExitCode = IncorrectFunction;
                 Stop();
                 return;
@@ -111,7 +100,7 @@ namespace ZeroInstall.Store.Service
 #if !__MonoCS__
                     , IpcStore.IpcAcl
 #endif
-                    );
+                );
                 _clientChannel = new IpcClientChannel(
                     new Hashtable
                     {
@@ -131,25 +120,25 @@ namespace ZeroInstall.Store.Service
                 #region Error handling
             catch (IOException ex)
             {
-                eventLog.WriteEntry("Failed to open cache directory:" + Environment.NewLine + ex, EventLogEntryType.Error);
+                Log.Error("Failed to open cache directory:" + Environment.NewLine + ex);
                 ExitCode = UnableToWriteToDevice;
                 Stop();
             }
             catch (UnauthorizedAccessException ex)
             {
-                eventLog.WriteEntry("Failed to open cache directory:" + Environment.NewLine + ex, EventLogEntryType.Error);
+                Log.Error("Failed to open cache directory:" + Environment.NewLine + ex);
                 ExitCode = AccessDenied;
                 Stop();
             }
             catch (RemotingException ex)
             {
-                eventLog.WriteEntry("Failed to open IPC connection:" + Environment.NewLine + ex, EventLogEntryType.Error);
+                Log.Error("Failed to open IPC connection:" + Environment.NewLine + ex);
                 ExitCode = InvalidHandle;
                 Stop();
             }
             catch (SecurityException ex)
             {
-                eventLog.WriteEntry("Failed to open IPC connection:" + Environment.NewLine + ex, EventLogEntryType.Error);
+                Log.Error("Failed to open IPC connection:" + Environment.NewLine + ex);
                 ExitCode = InvalidHandle;
                 Stop();
             }
@@ -169,7 +158,62 @@ namespace ZeroInstall.Store.Service
 
             _serverChannel = null;
             _clientChannel = null;
+
+            Log.Handler -= LogHandler;
         }
-        #endregion
+
+        /// <summary>
+        /// Creates the store to provide to clients as a service.
+        /// </summary>
+        /// <exception cref="IOException">A cache directory could not be created or the underlying filesystem can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating a cache directory is not permitted.</exception>
+        private static MarshalByRefObject CreateStore()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            Debug.Assert(identity != null);
+
+            var paths = StoreConfig.GetImplementationDirs(serviceMode: true);
+            var stores = paths.Select(path => new SecureStore(path, identity)).Cast<IStore>();
+            return new CompositeStore(stores);
+        }
+
+        /// <summary>
+        /// Writes <see cref="NanoByte.Common.Log"/> messages to the Windows Event Log.
+        /// </summary>
+        /// <param name="severity">The type/severity of the entry.</param>
+        /// <param name="message">The message text of the entry.</param>
+        private void LogHandler(LogSeverity severity, string message)
+        {
+            var entryType = GetEntryType(severity);
+            if (!entryType.HasValue) return;
+
+            const int maxMessageLength = 16000;
+            if (message.Length > maxMessageLength)
+                message = message.Substring(0, maxMessageLength) + Environment.NewLine + "[MESSAGE TRIMMED DUE TO LENGTH]";
+
+            try
+            {
+                eventLog.WriteEntry(message, entryType.Value);
+            }
+            catch (Win32Exception)
+            {}
+            catch (InvalidOperationException)
+            {}
+        }
+
+        private static EventLogEntryType? GetEntryType(LogSeverity severity)
+        {
+            switch (severity)
+            {
+                case LogSeverity.Info:
+                    return EventLogEntryType.Information;
+                case LogSeverity.Warn:
+                    return EventLogEntryType.Warning;
+                case LogSeverity.Error:
+                    return EventLogEntryType.Error;
+                default:
+                    return null;
+            }
+        }
     }
 }

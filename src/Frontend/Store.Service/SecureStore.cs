@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -42,9 +41,6 @@ namespace ZeroInstall.Store.Service
         #region Variables
         /// <summary>The identity the service was launched with.</summary>
         private readonly WindowsIdentity _serviceIdentity;
-
-        /// <summary>Writes messages to the Windows Event Log.</summary>
-        private readonly EventLog _eventLog;
         #endregion
 
         #region Constructor
@@ -53,21 +49,18 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
         /// <param name="serviceIdentity">The identity the service was launched with.</param>
-        /// <param name="eventLog">Writes messages to the Windows Event Log.</param>
         /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
-        public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity, [NotNull] EventLog eventLog) : base(path)
+        public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity) : base(path)
         {
             #region Sanity checks
-            if (eventLog == null) throw new ArgumentNullException(nameof(eventLog));
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
-            if (eventLog == null) throw new ArgumentNullException(nameof(eventLog));
+            if (serviceIdentity == null) throw new ArgumentNullException(nameof(serviceIdentity));
             #endregion
 
             _serviceIdentity = serviceIdentity;
-            _eventLog = eventLog;
 
-            eventLog.WriteEntry("Using implementation directory: " + path, EventLogEntryType.Information);
+            Log.Info("Using implementation directory: " + path);
         }
         #endregion
 
@@ -97,7 +90,7 @@ namespace ZeroInstall.Store.Service
                     #region Error handling
                 catch (Exception ex)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToCreateTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    Log.Error(string.Format(Resources.FailedToCreateTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message);
                     throw;
                 }
                 #endregion
@@ -131,7 +124,7 @@ namespace ZeroInstall.Store.Service
                     #region Error handling
                 catch (Exception ex)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemoveTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    Log.Error(string.Format(Resources.FailedToRemoveTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message);
                     throw;
                 }
                 #endregion
@@ -165,26 +158,18 @@ namespace ZeroInstall.Store.Service
                     }
 
                     string result = base.VerifyAndAdd(tempID, expectedDigest, handler);
-                    EventLog(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath), EventLogEntryType.Information);
+                    Log.Info(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath));
                     return result;
                 }
-                catch (Exception ex) when (!(ex is OperationCanceledException))
+                catch (OperationCanceledException)
                 {
-                    EventLog(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Warning);
                     throw;
                 }
-            }
-        }
-
-        private void EventLog(string message, EventLogEntryType level)
-        {
-            try
-            {
-                _eventLog.WriteEntry(message, level);
-            }
-            catch (Win32Exception ex)
-            {
-                Log.Warn(ex);
+                catch (Exception ex)
+                {
+                    Log.Warn(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath) + Environment.NewLine + ex.Message);
+                    throw;
+                }
             }
         }
         #endregion
@@ -213,12 +198,12 @@ namespace ZeroInstall.Store.Service
                     #region Error handling
                 catch (Exception)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath), EventLogEntryType.Warning);
+                    Log.Warn(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
                     throw;
                 }
                 #endregion
 
-                if (removed) _eventLog.WriteEntry(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
+                if (removed) Log.Info(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
                 return removed;
             }
         }
