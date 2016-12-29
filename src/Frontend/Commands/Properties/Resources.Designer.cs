@@ -298,6 +298,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command.
+        /// </summary>
+        public static string Command {
+            get {
+                return ResourceManager.GetString("Command", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command-line arguments:.
         /// </summary>
         public static string CommandLineArguments {
@@ -407,6 +416,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string DeployTargetOutsideHome {
             get {
                 return ResourceManager.GetString("DeployTargetOutsideHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         

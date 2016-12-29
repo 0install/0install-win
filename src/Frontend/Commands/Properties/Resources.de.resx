@@ -198,6 +198,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="ClickToChoose" xml:space="preserve">
     <value>Hier klicken zum Auswählen.</value>
   </data>
+  <data name="Command" xml:space="preserve">
+    <value>Befehl</value>
+  </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
   </data>
@@ -238,6 +241,9 @@ Sie können Sie verwenden, indem Sie die ZeroInstall.exe Datei in dem Verzeichni
   </data>
   <data name="DeployTargetOutsideHome" xml:space="preserve">
     <value>Das angegebene Zielverzeichnis ({0}) liegt außerhalb ihres Home-Verzeichnisses.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
   </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Legt einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>

@@ -198,6 +198,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="ClickToChoose" xml:space="preserve">
     <value>Click here to choose.</value>
   </data>
+  <data name="Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Command-line arguments:</value>
   </data>
@@ -238,6 +241,9 @@ You can use it by running the ZeroInstall.exe file in the directory.</value>
   </data>
   <data name="DeployTargetOutsideHome" xml:space="preserve">
     <value>The specified target directory ({0}) is located outside your home directory.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Create an alias for launching an application via 0install without always having to enter the full URI.</value>
