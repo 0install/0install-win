@@ -200,10 +200,7 @@ namespace ZeroInstall.Publish
             var downloadedFile = new TemporaryFile("0publish");
             handler.RunTask(new DownloadFile(href, downloadedFile)); // Defer task to handler
 
-            // Set downloaded file size
-            long newSize = new FileInfo(downloadedFile).Length;
-            if (retrievalMethod.Size != newSize)
-                executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+            UpdateSize(retrievalMethod, downloadedFile, executor);
 
             return downloadedFile;
         }
@@ -232,10 +229,7 @@ namespace ZeroInstall.Publish
 
             if (executor == null) executor = new SimpleCommandExecutor();
 
-            // Set local file size
-            long newSize = new FileInfo(localPath).Length;
-            if (retrievalMethod.Size != newSize)
-                executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+            UpdateSize(retrievalMethod, localPath, executor);
 
             var extractionDir = new TemporaryDirectory("0publish");
             try
@@ -277,6 +271,25 @@ namespace ZeroInstall.Publish
             #endregion
 
             return extractionDir;
+        }
+        #endregion
+
+        #region Shared
+        /// <summary>
+        /// Updates <see cref="DownloadRetrievalMethod.Size"/> based on the file size of a local file.
+        /// </summary>
+        /// <param name="retrievalMethod">The element to update.</param>
+        /// <param name="filePath">The path of the file to get the size from.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
+        private static void UpdateSize([NotNull] DownloadRetrievalMethod retrievalMethod, [NotNull] string filePath, [NotNull] ICommandExecutor executor)
+        {
+            long size = new FileInfo(filePath).Length;
+
+            var archive = retrievalMethod as Archive;
+            if (archive != null) size -= archive.StartOffset;
+
+            if (retrievalMethod.Size != size)
+                executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newValue: size));
         }
         #endregion
     }

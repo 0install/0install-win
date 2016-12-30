@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Implementations
 
             if (string.IsNullOrEmpty(step.MimeType)) throw new IOException(Resources.UnknownArchiveType);
 
-            using (var extractor = ArchiveExtractor.Create(localPath, workingDir, step.MimeType))
+            using (var extractor = ArchiveExtractor.Create(localPath, workingDir, step.MimeType, step.StartOffset))
             {
                 extractor.SubDir = step.Extract;
                 extractor.Destination = FileUtils.UnifySlashes(step.Destination);
