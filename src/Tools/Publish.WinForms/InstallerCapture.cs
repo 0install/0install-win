@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
@@ -96,10 +97,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Disposes any temporary files created by <see cref="Download"/>.
         /// </summary>
-        public void Dispose()
-        {
-            _tempDir?.Dispose();
-        }
+        [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_tempDir", Justification = "False positive")]
+        public void Dispose() => _tempDir?.Dispose();
 
         /// <summary>
         /// Runs the installer and waits for it to exit.
