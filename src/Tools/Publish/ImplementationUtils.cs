@@ -186,7 +186,7 @@ namespace ZeroInstall.Publish
             if (implementation.ManifestDigest == default(ManifestDigest))
                 executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
             else if (!digest.PartialEquals(implementation.ManifestDigest))
-                throw new DigestMismatchException(implementation.ManifestDigest.ToString(), digest.ToString());
+                throw new DigestMismatchException(expectedDigest: implementation.ManifestDigest.ToString(), actualDigest: digest.ToString());
         }
 
         /// <summary>

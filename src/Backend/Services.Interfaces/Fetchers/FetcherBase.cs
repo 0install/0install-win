@@ -132,10 +132,10 @@ namespace ZeroInstall.Services.Fetchers
                 #region Error handling
             catch (ImplementationAlreadyInStoreException)
             {}
-            catch (DigestMismatchException ex)
+            catch (DigestMismatchException)
             {
-                // Wrap exception to add context information
-                throw new DigestMismatchException("Damaged download: " + retrievalMethod, ex);
+                Log.Error("Damaged download: " + retrievalMethod);
+                throw;
             }
             #endregion
         }

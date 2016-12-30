@@ -131,6 +131,7 @@ namespace ZeroInstall.OneGet
             }
             catch (DigestMismatchException ex)
             {
+                Log.Info(ex.LongMessage);
                 request.Error(ErrorCategory.MetadataError, "", ex.Message);
             }
             catch (SolverException ex)

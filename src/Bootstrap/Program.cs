@@ -20,6 +20,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
+using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
@@ -173,6 +174,7 @@ namespace ZeroInstall
             }
             catch (DigestMismatchException ex)
             {
+                Log.Info(ex.LongMessage);
                 handler.Error(ex);
                 return ExitCode.DigestMismatch;
             }

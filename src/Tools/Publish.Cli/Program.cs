@@ -93,6 +93,7 @@ namespace ZeroInstall.Publish.Cli
             }
             catch (DigestMismatchException ex)
             {
+                Log.Info(ex.LongMessage);
                 Log.Error(ex);
                 return (int)ExitCode.DigestMismatch;
             }

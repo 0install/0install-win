@@ -57,6 +57,30 @@ namespace ZeroInstall.Store.Implementations
         public Manifest ActualManifest { get; }
 
         /// <summary>
+        /// A longer version of <see cref="Exception.Message"/> that contains more details. Suitable for verbose output.
+        /// </summary>
+        [NotNull]
+        public string LongMessage
+        {
+            get
+            {
+                var builder = new StringBuilder(Message);
+                if (ExpectedManifest != null && ActualManifest != null)
+                {
+                    Merge.TwoWay(ActualManifest, ExpectedManifest,
+                        added: node => builder.Append(Environment.NewLine + "unexpected: " + node),
+                        removed: node => builder.Append(Environment.NewLine + "missing: " + node));
+                }
+                else
+                {
+                    if (ExpectedManifest != null) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchExpectedManifest, ExpectedManifest));
+                    if (ActualManifest != null) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchActualManifest, ActualManifest));
+                }
+                return builder.ToString();
+            }
+        }
+
+        /// <summary>
         /// Creates a new digest mismatch exception.
         /// </summary>
         /// <param name="expectedDigest">The digest value the <see cref="Implementation"/> was supposed to have.</param>
@@ -64,7 +88,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedDigest"/>; may be <c>null</c>.</param>
         /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualDigest"/>.</param>
         public DigestMismatchException(string expectedDigest = null, string actualDigest = null, Manifest expectedManifest = null, Manifest actualManifest = null)
-            : base(GetMessage(expectedDigest, actualDigest, expectedManifest, actualManifest))
+            : base(BuildMessage(expectedDigest, actualDigest))
         {
             ExpectedDigest = expectedDigest;
             ActualDigest = actualDigest;
@@ -72,29 +96,17 @@ namespace ZeroInstall.Store.Implementations
             ActualManifest = actualManifest;
         }
 
-        private static string GetMessage(string expectedDigest, string actualDigest, Manifest expectedManifest, Manifest actualManifest)
+        private static string BuildMessage(string expectedDigest, string actualDigest)
         {
-            var builder = new StringBuilder(Resources.DigestMismatch);
-            if (!string.IsNullOrEmpty(expectedDigest)) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchExpectedDigest, expectedDigest));
-            if (!string.IsNullOrEmpty(actualDigest)) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchActualDigest, actualDigest));
-
-            if (expectedManifest != null && actualManifest != null)
-            { // Diff
-                Merge.TwoWay(actualManifest, expectedManifest,
-                    added: node => builder.Append(Environment.NewLine + "unexpected: " + node),
-                    removed: node => builder.Append(Environment.NewLine + "missing: " + node));
-            }
-            else
-            {
-                if (expectedManifest != null) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchExpectedManifest, expectedManifest));
-                if (actualManifest != null) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchActualManifest, actualManifest));
-            }
-            return builder.ToString();
+            string message = Resources.DigestMismatch;
+            if (!string.IsNullOrEmpty(expectedDigest)) message += Environment.NewLine + string.Format(Resources.DigestMismatchExpectedDigest, expectedDigest);
+            if (!string.IsNullOrEmpty(actualDigest)) message += Environment.NewLine + string.Format(Resources.DigestMismatchActualDigest, actualDigest);
+            return message;
         }
 
         /// <inheritdoc/>
         public DigestMismatchException()
-            : base(GetMessage(null, null, null, null))
+            : base(BuildMessage(null, null))
         {}
 
         /// <inheritdoc/>

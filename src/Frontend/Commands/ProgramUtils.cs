@@ -25,7 +25,6 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using NDesk.Options;
 using ZeroInstall.Commands.CliCommands;
@@ -271,6 +270,7 @@ namespace ZeroInstall.Commands
             }
             catch (DigestMismatchException ex)
             {
+                Log.Info(ex.LongMessage);
                 handler.Error(ex);
                 return ExitCode.DigestMismatch;
             }

@@ -254,7 +254,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
                 catch (DigestMismatchException ex)
                 {
-                    Handler.Output(Resources.VerifyImplementation, ex.Message);
+                    Handler.Output(Resources.VerifyImplementation, ex.LongMessage);
                     return ExitCode.DigestMismatch;
                 }
 

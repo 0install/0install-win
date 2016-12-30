@@ -605,7 +605,7 @@ namespace ZeroInstall.Store.Implementations
             }
             catch (DigestMismatchException ex) when (ex.ExpectedDigest != null)
             {
-                Log.Error(ex);
+                Log.Info(ex.LongMessage);
                 if (handler.Ask(
                     question: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, ex.ExpectedDigest),
                     defaultAnswer: false, alternateMessage: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedBatchInformation, ex.ExpectedDigest)))
