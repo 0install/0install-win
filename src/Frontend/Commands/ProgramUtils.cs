@@ -213,6 +213,10 @@ namespace ZeroInstall.Commands
                             else return deployResult;
                         }
                     }
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
                     catch (IOException ex2)
                     {
                         handler.Error(ex2);
