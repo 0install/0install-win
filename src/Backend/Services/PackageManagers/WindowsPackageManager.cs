@@ -74,7 +74,9 @@ namespace ZeroInstall.Services.PackageManagers
                         FindNetFx(new ImplementationVersion("4.5"), WindowsUtils.NetFx40, @"v4\Full", 378389),
                         FindNetFx(new ImplementationVersion("4.5.1"), WindowsUtils.NetFx40, @"v4\Full", 378675), // also covers 378758
                         FindNetFx(new ImplementationVersion("4.5.2"), WindowsUtils.NetFx40, @"v4\Full", 379893),
-                        FindNetFx(new ImplementationVersion("4.6"), WindowsUtils.NetFx40, @"v4\Full", 393295) // also covers 393297
+                        FindNetFx(new ImplementationVersion("4.6"), WindowsUtils.NetFx40, @"v4\Full", 393295), // also covers 393297
+                        FindNetFx(new ImplementationVersion("4.6.1"), WindowsUtils.NetFx40, @"v4\Full", 394254),
+                        FindNetFx(new ImplementationVersion("4.6.2"), WindowsUtils.NetFx40, @"v4\Full", 394802) // also covers 394806
                     }.Flatten();
                 case "netfx-client":
                     return FindNetFx(new ImplementationVersion("4.0"), WindowsUtils.NetFx40, @"v4\Client");
