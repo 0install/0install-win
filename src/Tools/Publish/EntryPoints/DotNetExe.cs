@@ -98,23 +98,23 @@ namespace ZeroInstall.Publish.EntryPoints
                 case DotNetRuntimeType.Any:
                 default:
                     return ExternalDependencies
-                        ? new FeedUri("http://0install.de/feeds/cli/cli-monopath.xml")
-                        : new FeedUri("http://0install.de/feeds/cli/cli.xml");
+                        ? new FeedUri("http://repo.roscidus.com/cli/cli-monopath")
+                        : new FeedUri("http://repo.roscidus.com/cli/cli");
 
                 case DotNetRuntimeType.MicrosoftOnlyClientProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
                     return ExternalDependencies
-                        ? new FeedUri("http://0install.de/feeds/cli/cli-monopath.xml")
-                        : new FeedUri("http://0install.de/feeds/cli/netfx-client.xml");
+                        ? new FeedUri("http://repo.roscidus.com/cli/cli-monopath")
+                        : new FeedUri("http://repo.roscidus.com/cli/netfx-client");
 
                 case DotNetRuntimeType.MicrosoftOnlyFullProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
                     return ExternalDependencies
-                        ? new FeedUri("http://0install.de/feeds/cli/cli-monopath.xml")
-                        : new FeedUri("http://0install.de/feeds/cli/netf.xml");
+                        ? new FeedUri("http://repo.roscidus.com/cli/cli-monopath")
+                        : new FeedUri("http://repo.roscidus.com/cli/netfx");
 
                 case DotNetRuntimeType.MonoOnly:
-                    return new FeedUri("http://0install.de/feeds/cli/mono.xml");
+                    return new FeedUri("http://repo.roscidus.com/cli/mono");
             }
         }
 

@@ -49,7 +49,7 @@ namespace ZeroInstall.Publish.EntryPoints
                     Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
                     Runner = new Runner
                     {
-                        InterfaceUri = new FeedUri("http://0install.de/feeds/jar-launcher.xml"),
+                        InterfaceUri = new FeedUri("http://repo.roscidus.com/java/jar-launcher"),
                         Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
                         Versions = (VersionRange)MinimumRuntimeVersion
                     }
