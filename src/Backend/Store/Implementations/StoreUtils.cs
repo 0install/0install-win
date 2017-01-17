@@ -17,8 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
@@ -106,6 +108,25 @@ namespace ZeroInstall.Store.Implementations
                 return null;
             }
             #endregion
+        }
+
+        /// <summary>
+        /// Removes all implementations from a store.
+        /// </summary>
+        /// <param name="store">The store to be purged.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">An implementation could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
+        public static void Purge([NotNull] this IStore store, [NotNull] ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+            #endregion
+
+            foreach (var manifestDigest in store.ListAll())
+                store.Remove(manifestDigest, handler);
         }
     }
 }
