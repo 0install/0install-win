@@ -103,21 +103,5 @@ namespace ZeroInstall.Services.Injector
             }
             #endregion
         }
-
-        /// <inheritdoc/>
-        public string GetImplementationPath(ImplementationSelection implementation)
-        {
-            #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
-            #endregion
-
-            if (string.IsNullOrEmpty(implementation.LocalPath))
-            {
-                string path = _store.GetPath(implementation.ManifestDigest);
-                if (path == null) throw new ImplementationNotFoundException(implementation.ManifestDigest);
-                return path;
-            }
-            else return implementation.LocalPath;
-        }
     }
 }

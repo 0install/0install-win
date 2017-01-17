@@ -53,14 +53,5 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
         [CanBeNull]
         Process Start([NotNull] Selections selections, [NotNull] params string[] arguments);
-
-        /// <summary>
-        /// Locates an implementation on the disk (usually in an <see cref="IStore"/>).
-        /// </summary>
-        /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
-        /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
-        /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
-        [NotNull]
-        string GetImplementationPath([NotNull] ImplementationSelection implementation);
     }
 }

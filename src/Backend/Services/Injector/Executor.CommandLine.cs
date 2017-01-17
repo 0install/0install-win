@@ -120,7 +120,7 @@ namespace ZeroInstall.Services.Injector
                 string path = FileUtils.UnifySlashes(command.Path);
 
                 // Fully qualified paths are used by package/native implementations, usually relative to the implementation
-                commandLine.Add(Path.IsPathRooted(path) ? path : Path.Combine(GetImplementationPath(implementation), path));
+                commandLine.Add(Path.IsPathRooted(path) ? path : Path.Combine(_store.GetPath(implementation), path));
             }
             commandLine.AddRange(command.Arguments);
 

@@ -22,6 +22,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Store.Implementations
 {
@@ -108,6 +109,31 @@ namespace ZeroInstall.Store.Implementations
                 return null;
             }
             #endregion
+        }
+
+        /// <summary>
+        /// Determines the local path of an implementation.
+        /// </summary>
+        /// <param name="store">The store to get the implementation from.</param>
+        /// <param name="implementation">The implementation to be located.</param>
+        /// <returns>A fully qualified path to the directory containing the implementation.</returns>
+        /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the store is not permitted.</exception>
+        [NotNull]
+        public static string GetPath([NotNull] this IStore store, [NotNull] ImplementationBase implementation)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+            #endregion
+
+            if (string.IsNullOrEmpty(implementation.LocalPath))
+            {
+                string path = store.GetPath(implementation.ManifestDigest);
+                if (path == null) throw new ImplementationNotFoundException(implementation.ManifestDigest);
+                return path;
+            }
+            else return implementation.LocalPath;
         }
 
         /// <summary>

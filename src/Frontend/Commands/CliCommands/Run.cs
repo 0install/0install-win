@@ -145,7 +145,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 try
                 {
-                    return new RunHook(Selections, Executor, FeedManager, Handler);
+                    return new RunHook(Selections, Store, FeedManager, Handler);
                 }
                     #region Error handling
                 catch (ImplementationNotFoundException)

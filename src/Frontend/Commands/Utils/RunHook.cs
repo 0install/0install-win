@@ -31,7 +31,6 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Services.Injector;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -67,17 +66,17 @@ namespace ZeroInstall.Commands.Utils
         /// Hooks into the creation of new processes on the current thread to inject API hooks.
         /// </summary>
         /// <param name="selections">The implementations chosen for launch.</param>
-        /// <param name="executor">The executor used to launch the new process.</param>
+        /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="ImplementationNotFoundException">The main implementation is not cached (possibly because it is installed natively).</exception>
-        public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, ITaskHandler handler)
+        public RunHook(Selections selections, IStore store, IFeedManager feedManager, ITaskHandler handler)
         {
             var feed = feedManager[selections.InterfaceUri];
             _target = new FeedTarget(selections.InterfaceUri, feed);
 
             var mainImplementation = selections.MainImplementation;
-            _implementationDir = executor.GetImplementationPath(mainImplementation);
+            _implementationDir = store.GetPath(mainImplementation);
             _mainImplementation = feed[mainImplementation.ID];
 
             _handler = handler;
