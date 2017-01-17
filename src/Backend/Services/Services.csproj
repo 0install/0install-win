@@ -113,8 +113,6 @@
     <Compile Include="Feeds\SearchResult.cs" />
     <Compile Include="Feeds\TrustManager.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
-    <Compile Include="Injector\Executor.Bindings.cs" />
-    <Compile Include="Injector\Executor.CommandLine.cs" />
     <Compile Include="Injector\Executor.cs" />
     <Compile Include="PackageManagers\PackageManagerBase.cs" />
     <Compile Include="PackageManagers\PackageManagerFactory.cs" />
