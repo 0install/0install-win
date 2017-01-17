@@ -104,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Executors\ExecutorException.cs" />
+    <Compile Include="Executors\IExecutor.cs" />
+    <Compile Include="Executors\_Namespace.cs" />
     <Compile Include="Feeds\CatalogManagerExtensions.cs" />
     <Compile Include="Feeds\FeedManagerExtensions.cs" />
     <Compile Include="Feeds\ICatalogManager.cs" />
@@ -114,9 +117,6 @@
     <Compile Include="Fetchers\IFetcher.cs" />
     <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
     <Compile Include="Fetchers\_Namespace.cs" />
-    <Compile Include="Injector\ExecutorException.cs" />
-    <Compile Include="Injector\IExecutor.cs" />
-    <Compile Include="Injector\_Namespace.cs" />
     <Compile Include="ISelectionsManager.cs" />
     <Compile Include="PackageManagers\ExternalImplementation.cs" />
     <Compile Include="PackageManagers\ExternalRetrievalMethod.cs" />

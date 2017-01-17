@@ -30,7 +30,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;

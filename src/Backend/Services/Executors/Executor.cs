@@ -34,7 +34,7 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services.Injector
+namespace ZeroInstall.Services.Executors
 {
     /// <summary>
     /// Executes a set of <see cref="Selections"/> as a program using dependency injection.

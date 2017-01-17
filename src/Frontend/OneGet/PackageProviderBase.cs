@@ -23,7 +23,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using PackageManagement.Sdk;
-using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;

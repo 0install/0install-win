@@ -21,7 +21,7 @@ using System.Net;
 using NDesk.Options;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;

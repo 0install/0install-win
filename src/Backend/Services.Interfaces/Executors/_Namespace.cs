@@ -6,6 +6,6 @@
 /// Launches implementations and injects the selected dependencies.
 /// </summary>
 
-namespace ZeroInstall.Services.Injector
+namespace ZeroInstall.Services.Executors
 {
 }

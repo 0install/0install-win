@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Executors\Executor.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
@@ -113,7 +114,6 @@
     <Compile Include="Feeds\SearchResult.cs" />
     <Compile Include="Feeds\TrustManager.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
-    <Compile Include="Injector\Executor.cs" />
     <Compile Include="PackageManagers\PackageManagerBase.cs" />
     <Compile Include="PackageManagers\PackageManagerFactory.cs" />
     <Compile Include="PackageManagers\StubPackageManager.cs" />
@@ -132,7 +132,7 @@
     <Compile Include="Solvers\ExternalSolver.cs" />
     <Compile Include="Solvers\ExternalSolver.JsonControl.cs" />
     <Compile Include="Solvers\FallbackSolver.cs" />
-    <None Include="Injector\runenv.cs" />
+    <None Include="Executors\runenv.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
-    <EmbeddedResource Include="Injector\runenv.sh.template" />
-    <EmbeddedResource Include="Injector\runenv.clr2.template" />
-    <EmbeddedResource Include="Injector\runenv.clr4.template" />
+    <EmbeddedResource Include="Executors\runenv.sh.template" />
+    <EmbeddedResource Include="Executors\runenv.clr2.template" />
+    <EmbeddedResource Include="Executors\runenv.clr4.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

@@ -30,7 +30,7 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services.Injector
+namespace ZeroInstall.Services.Executors
 {
     /// <summary>
     /// Contains test methods for <see cref="Executor"/>.

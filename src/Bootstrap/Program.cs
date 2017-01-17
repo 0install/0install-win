@@ -26,7 +26,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
-using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;

@@ -25,8 +25,8 @@ using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Services.Injector;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

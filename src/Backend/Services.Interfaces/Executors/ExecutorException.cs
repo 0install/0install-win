@@ -18,7 +18,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace ZeroInstall.Services.Injector
+namespace ZeroInstall.Services.Executors
 {
     /// <summary>
     /// Indicates that the <see cref="IExecutor"/> was unable to launch the desired application.

@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using System.Net;
 using NDesk.Options;
-using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;

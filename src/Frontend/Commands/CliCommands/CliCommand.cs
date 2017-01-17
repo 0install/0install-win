@@ -29,7 +29,7 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;

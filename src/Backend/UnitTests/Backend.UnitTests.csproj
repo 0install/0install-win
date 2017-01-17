@@ -87,6 +87,7 @@
     <Compile Include="DesktopIntegration\Windows\StubBuilderTest.cs" />
     <Compile Include="MoqExtensions.cs" />
     <Compile Include="PackageBuilder.cs" />
+    <Compile Include="Services\Executors\ExecutorTest.cs" />
     <Compile Include="Services\Feeds\CatalogManagerTest.cs" />
     <Compile Include="Services\Feeds\FeedManagerTest.cs" />
     <Compile Include="Services\Feeds\TrustManagerTest.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Services\Fetchers\RetrievalMethodRankerTest.cs" />
     <Compile Include="Services\Fetchers\SequentialFetcherTest.cs" />
     <Compile Include="Services\Fetchers\TestData.cs" />
-    <Compile Include="Services\Injector\ExecutorTest.cs" />
     <Compile Include="Services\MockTaskHandler.cs" />
     <Compile Include="Services\SelectionsManagerTest.cs" />
     <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
