@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
         /// <seealso cref="ConflictException"/>
         Conflict = 15,
 
-        /// <summary>The <see cref="ISolver"/> was unable to provide a set of <see cref="Selections"/> that fulfill the <see cref="Requirements"/>. This can be caused by a problem with the feed, an impossible request (e.g., non-existing version) or your local configuration.</summary>
+        /// <summary>The <see cref="ISolver"/> was unable to provide <see cref="Selections"/> that fulfill the <see cref="Requirements"/>. This can be caused by a problem with the feed, an impossible request (e.g., non-existing version) or your local configuration.</summary>
         /// <seealso cref="SolverException"/>
         SolverError = 20,
 

@@ -163,7 +163,7 @@ namespace ZeroInstall.Services
         private IExecutor _executor;
 
         /// <summary>
-        /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
+        /// Executes a <see cref="Selections"/> document as a program using dependency injection.
         /// </summary>
         [NotNull]
         public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }

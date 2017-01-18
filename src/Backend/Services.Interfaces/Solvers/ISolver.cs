@@ -32,7 +32,7 @@ namespace ZeroInstall.Services.Solvers
     public interface ISolver
     {
         /// <summary>
-        /// Provides a set of <see cref="Selections"/> that satisfy a set of <see cref="Requirements"/>.
+        /// Provides <see cref="Selections"/> that satisfy a set of <see cref="Requirements"/>.
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.Solvers
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
-        /// <exception cref="SolverException">The solver was unable to provide a set of <see cref="Selections"/> that fulfill the <paramref name="requirements"/>.</exception>
+        /// <exception cref="SolverException">The solver was unable to provide <see cref="Selections"/> that fulfill the <paramref name="requirements"/>.</exception>
         [NotNull]
         Selections Solve([NotNull] Requirements requirements);
     }

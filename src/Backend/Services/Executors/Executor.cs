@@ -25,7 +25,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Services.Executors
 {
     /// <summary>
-    /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
+    /// Executes a <see cref="Selections"/> document as a program using dependency injection.
     /// </summary>
     public class Executor : IExecutor
     {

@@ -23,7 +23,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
-    /// Indicates the <see cref="ISolver"/> was unable to provide a set of <see cref="Selections"/> that fulfill the <see cref="Requirements"/>.
+    /// Indicates the <see cref="ISolver"/> was unable to provide <see cref="Selections"/> that fulfill the <see cref="Requirements"/>.
     /// </summary>
     [Serializable]
     public sealed class SolverException : Exception

@@ -190,7 +190,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <exception cref="SignatureException">The signature data could not be handled for some reason.</exception>
         /// <exception cref="FormatException">An URI, local path, version number, etc. is invalid.</exception>
         /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="SolverException">The <see cref="ISolver"/> was unable to provide a set of <see cref="Selections"/> that fulfill the <see cref="Requirements"/>.</exception>
+        /// <exception cref="SolverException">The <see cref="ISolver"/> was unable to provide <see cref="Selections"/> that fulfill the <see cref="Requirements"/>.</exception>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>

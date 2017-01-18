@@ -36,7 +36,7 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.Commands.Utils
 {
     /// <summary>
-    /// Exports feeds and implementations listed in a set of <see cref="Selections"/>.
+    /// Exports feeds and implementations listed in a <see cref="Selections"/> document.
     /// </summary>
     public class Exporter
     {

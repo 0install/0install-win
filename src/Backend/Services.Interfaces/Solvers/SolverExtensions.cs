@@ -32,7 +32,7 @@ namespace ZeroInstall.Services.Solvers
     public static class SolverExtensions
     {
         /// <summary>
-        /// Provides a set of <see cref="Selections"/> that satisfy a set of <see cref="Requirements"/>. Catches most exceptions and <see cref="Log"/>s them.
+        /// Provides <see cref="Selections"/> that satisfy a set of <see cref="Requirements"/>. Catches most exceptions and <see cref="Log"/>s them.
         /// </summary>
         /// <param name="solver">The <see cref="ISolver"/> implementation.</param>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
