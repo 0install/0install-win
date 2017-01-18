@@ -199,7 +199,7 @@ in the start menu or on the desktop.</value>
     <value>Add to "my applications"</value>
   </data>
   <data name="MyAppsRemove" xml:space="preserve">
-    <value>Remove from "my applications"</value>
+    <value>&amp;Remove from "my applications"</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>The directory {0} is not empty.
@@ -215,10 +215,10 @@ Are you sure you want place a portable version of Zero Install there?</value>
     <value>Run</value>
   </data>
   <data name="RunCommand" xml:space="preserve">
-    <value>... specific &amp;command</value>
+    <value>Run specific &amp;command</value>
   </data>
   <data name="RunVersion" xml:space="preserve">
-    <value>... specific &amp;version</value>
+    <value>Run specific &amp;version</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Do you wish to save any changes made?</value>

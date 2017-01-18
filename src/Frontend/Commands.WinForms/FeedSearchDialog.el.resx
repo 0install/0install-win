@@ -136,7 +136,10 @@
     <value>Εκτέλεση</value>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Προσθήκη</value>
+    <value>Προσθήκη στα &quot;εφαρμογές μου&quot;</value>
+  </data>
+  <data name="buttonIntegrate.Text" xml:space="preserve">
+    <value>Ενσωμάτωση εγκατάστασης</value>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>λεπτομέρειες</value>

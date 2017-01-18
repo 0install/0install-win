@@ -117,64 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Aktualisieren und aufräumen</value>
-  </data>
-  <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Alle &amp;aktualisieren</value>
-  </data>
-  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>&amp;Problembehebung</value>
-  </data>
-  <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Meine Anwendungen</value>
-  </data>
-  <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Lade Katalog vom Server...</value>
-  </data>
-  <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>&amp;Mehr Anwendungen</value>
-  </data>
-  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Liste &amp;aktualisieren</value>
-  </data>
-  <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Katalog</value>
-  </data>
-  <data name="buttonOptions.Text" xml:space="preserve">
-    <value>&amp;Optionen</value>
-  </data>
-  <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>&amp;Cache Verwaltung</value>
-  </data>
-  <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>&amp;Befehlszeile</value>
-  </data>
-  <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>&amp;Portable Ersteller</value>
-  </data>
-  <data name="buttonHelp.Text" xml:space="preserve">
-    <value>&amp;Hilfe</value>
-  </data>
-  <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>&amp;Einrichten</value>
-  </data>
-  <data name="buttonIntro.Text" xml:space="preserve">
-    <value>&amp;Intro Video</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Sync</value>
-  </data>
-  <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Eine Stichwortsuche durchführen</value>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Die URL von einem Katalog (einer Sammlung von Feeds) eingeben</value>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>Die URL von einem Feed eingeben (eine einzelne Anwendung)</value>
   </data>
-  <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Die URL von einem Katalog (einer Sammlung von Feeds) eingeben</value>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>&amp;Befehlszeile</value>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
     <value>Den Feed Editor verwenden um einen neuen Feed zu erstellen</value>
+  </data>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>&amp;Hilfe</value>
+  </data>
+  <data name="buttonIntro.Text" xml:space="preserve">
+    <value>&amp;Intro Video</value>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>&amp;Mehr Anwendungen</value>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Optionen</value>
+  </data>
+  <data name="buttonPortableCreator.Text" xml:space="preserve">
+    <value>&amp;Portable Ersteller</value>
+  </data>
+  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
+    <value>Liste &amp;aktualisieren</value>
+  </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Eine Stichwortsuche durchführen</value>
+  </data>
+  <data name="buttonStoreManage.Text" xml:space="preserve">
+    <value>&amp;Cache Verwaltung</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Sync</value>
+  </data>
+  <data name="buttonSync2.Text" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
+    <value>&amp;Einrichten</value>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
+    <value>&amp;Problembehebung</value>
+  </data>
+  <data name="buttonTools.Text" xml:space="preserve">
+    <value>&amp;Tools</value>
+  </data>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Alle &amp;aktualisieren</value>
+  </data>
+  <data name="buttonUpdateAll2.Text" xml:space="preserve">
+    <value>Alle aktualisieren</value>
+  </data>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Aktualisieren und aufräumen</value>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Lade Katalog vom Server...</value>
+  </data>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Meine Anwendungen</value>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="buttonDocumentation.Text" xml:space="preserve">
+    <value>&amp;Dokumentation</value>
   </data>
 </root>

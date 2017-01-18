@@ -117,44 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>&amp;Akışın İnternet adresini yazın (tek bir uygulama)</value>
+  <data name="buttonUpdateAll2.Text" xml:space="preserve">
+    <value>Tümünü güncelleştir</value>
   </data>
-  <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Bir &amp;kataloğun İnternet adresini yazın (akış koleksiyonu)</value>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Güncelleştir ve &amp;temizle</value>
   </data>
-  <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>K&amp;omut satırı</value>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;güncelleştir</value>
   </data>
-  <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Y&amp;eni bir akış oluşturmak için akış düzenleyicisini kullanın</value>
-  </data>
-  <data name="buttonHelp.Text" xml:space="preserve">
-    <value>&amp;Yardım</value>
-  </data>
-  <data name="buttonIntro.Text" xml:space="preserve">
-    <value>Başlangıç &amp;Videosu</value>
-  </data>
-  <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>&amp;Diğer uygulamalar</value>
-  </data>
-  <data name="buttonOptions.Text" xml:space="preserve">
-    <value>&amp;Seçenekler</value>
-  </data>
-  <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Taşınabilir &amp;Oluşturucu</value>
-  </data>
-  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Listeyi &amp;yenile</value>
-  </data>
-  <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Anahtar &amp;sözcük arayın</value>
-  </data>
-  <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Ö&amp;nbellek yönetimi</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Eşitle</value>
+  <data name="buttonSync2.Text" xml:space="preserve">
+    <value>Eşitle</value>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>&amp;Kurulum</value>
@@ -162,19 +135,52 @@
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>&amp;Sorun giderme</value>
   </data>
-  <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Tümünü &amp;güncelleştir</value>
-  </data>
-  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Güncelleştir ve &amp;temizle</value>
-  </data>
-  <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Katalog sunucudan yükleniyor...</value>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Eşitle</value>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
     <value>Uygulamalarım</value>
   </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Katalog sunucudan yükleniyor...</value>
+  </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Anahtar &amp;sözcük arayın</value>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>&amp;Akışın İnternet adresini yazın (tek bir uygulama)</value>
+  </data>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Bir &amp;kataloğun İnternet adresini yazın (akış koleksiyonu)</value>
+  </data>
+  <data name="buttonFeedEditor.Text" xml:space="preserve">
+    <value>Y&amp;eni bir akış oluşturmak için akış düzenleyicisini kullanın</value>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>&amp;Diğer uygulamalar</value>
+  </data>
+  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
+    <value>Listeyi &amp;yenile</value>
+  </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Katalog</value>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Seçenekler</value>
+  </data>
+  <data name="buttonStoreManage.Text" xml:space="preserve">
+    <value>Ö&amp;nbellek yönetimi</value>
+  </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>K&amp;omut satırı</value>
+  </data>
+  <data name="buttonPortableCreator.Text" xml:space="preserve">
+    <value>Taşınabilir &amp;Oluşturucu</value>
+  </data>
+  <data name="buttonIntro.Text" xml:space="preserve">
+    <value>Başlangıç &amp;Videosu</value>
+  </data>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>&amp;Yardım</value>
   </data>
 </root>

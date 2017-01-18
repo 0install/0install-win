@@ -298,7 +298,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
+        ///   Looks up a localized string similar to &amp;Remove from &quot;my applications&quot;.
         /// </summary>
         public static string MyAppsRemove {
             get {
@@ -344,7 +344,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ... specific &amp;command.
+        ///   Looks up a localized string similar to Run specific &amp;command.
         /// </summary>
         public static string RunCommand {
             get {
@@ -353,7 +353,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ... specific &amp;version.
+        ///   Looks up a localized string similar to Run specific &amp;version.
         /// </summary>
         public static string RunVersion {
             get {

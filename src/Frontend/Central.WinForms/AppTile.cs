@@ -101,10 +101,10 @@ namespace ZeroInstall.Central.WinForms
                 _feed = value;
                 if (value == null)
                 {
-                    buttonSelectCommand.Visible = false;
+                    buttonRunCommand.Visible = false;
                     return;
                 }
-                else buttonSelectCommand.Visible = true;
+                else buttonRunCommand.Visible = true;
 
                 // Get application summary from feed
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
@@ -141,16 +141,17 @@ namespace ZeroInstall.Central.WinForms
             _iconCache = iconCache;
 
             InitializeComponent();
-            buttonRun.Text = _runButtonText;
+            buttonRun.Text = buttonRun2.Text = _runButtonText;
+            buttonRunCommand.Text = _runCommandText;
+            buttonRunVersion.Text = _runVersionText;
+            buttonUpdate.Text = _updateText;
+
             buttonAdd.Image = _addImage;
             buttonAdd.AccessibleName = _addText;
             toolTip.SetToolTip(buttonAdd, _addText);
             buttonRemove.Image = _removeImage;
             buttonRemove.Text = _removeText;
             buttonIntegrate.Image = _integrateImage;
-            buttonSelectCommand.Text = _runCommandText;
-            buttonSelectVersion.Text = _runVersionText;
-            buttonUpdate.Text = _updateText;
 
             InterfaceUri = interfaceUri;
             labelName.Text = appName;
@@ -217,11 +218,13 @@ namespace ZeroInstall.Central.WinForms
         {
             buttonAdd.Enabled = buttonAdd.Visible = (Status == AppStatus.Candidate);
 
+            string integrateText = (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText;
+            buttonIntegrate.AccessibleName = integrateText;
+            toolTip.SetToolTip(buttonIntegrate, integrateText);
             buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyImage : _integrateImage;
-            buttonIntegrate.AccessibleName = (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText;
-            toolTip.SetToolTip(buttonIntegrate, (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText);
             buttonIntegrate.Visible = (Status >= AppStatus.Added);
             buttonIntegrate.Enabled = true;
+            buttonIntegrate2.Text = integrateText;
         }
 
         private void LinkClicked(object sender, EventArgs e)
@@ -248,13 +251,13 @@ namespace ZeroInstall.Central.WinForms
             else Program.RunCommand(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
-        private void buttonSelectVersion_Click(object sender, EventArgs e)
+        private void buttonRunVersion_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
             Program.RunCommand(Run.Name, "--no-wait", "--customize", InterfaceUri.ToStringRfc());
         }
 
-        private void buttonSelectCommand_Click(object sender, EventArgs e)
+        private void buttonRunCommand_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake || Feed == null) return;
             new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);

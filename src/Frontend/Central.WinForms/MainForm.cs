@@ -378,11 +378,11 @@ namespace ZeroInstall.Central.WinForms
             new PortableCreatorDialog().Show(this);
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+        private void buttonDocumentation_Click(object sender, EventArgs e)
         {
             try
             {
-                ProcessUtils.Start("http://0install.de/help/");
+                ProcessUtils.Start("http://0install.de/docs/");
             }
                 #region Error handling
             catch (OperationCanceledException)

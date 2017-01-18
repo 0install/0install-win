@@ -33,17 +33,19 @@
             this.labelSummary = new System.Windows.Forms.Label();
             this.buttonRun = new NanoByte.Common.Controls.DropDownButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonRunCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonRunVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.runMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.iconDownloadWorker = new System.ComponentModel.BackgroundWorker();
             this.buttonIntegrate = new NanoByte.Common.Controls.DropDownButton();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuIntegrate = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonIntegrate2 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
+            this.buttonRun2 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuRun.SuspendLayout();
             this.contextMenuIntegrate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
@@ -92,35 +94,40 @@
             // contextMenuRun
             // 
             this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonSelectCommand,
-            this.buttonSelectVersion,
+            this.buttonRun2,
+            this.buttonRunCommand,
+            this.buttonRunVersion,
             this.runMenuSeparator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
-            this.contextMenuRun.Size = new System.Drawing.Size(68, 76);
+            this.contextMenuRun.Size = new System.Drawing.Size(162, 120);
+            this.contextMenuRun.Text = "(Run)";
             // 
-            // buttonSelectCommand
+            // buttonRunCommand
             // 
-            this.buttonSelectCommand.Name = "buttonSelectCommand";
-            this.buttonSelectCommand.Size = new System.Drawing.Size(67, 22);
-            this.buttonSelectCommand.Visible = false;
-            this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommand_Click);
+            this.buttonRunCommand.Name = "buttonRunCommand";
+            this.buttonRunCommand.Size = new System.Drawing.Size(161, 22);
+            this.buttonRunCommand.Text = "(Run command)";
+            this.buttonRunCommand.Visible = false;
+            this.buttonRunCommand.Click += new System.EventHandler(this.buttonRunCommand_Click);
             // 
-            // buttonSelectVersion
+            // buttonRunVersion
             // 
-            this.buttonSelectVersion.Name = "buttonSelectVersion";
-            this.buttonSelectVersion.Size = new System.Drawing.Size(67, 22);
-            this.buttonSelectVersion.Click += new System.EventHandler(this.buttonSelectVersion_Click);
+            this.buttonRunVersion.Name = "buttonRunVersion";
+            this.buttonRunVersion.Size = new System.Drawing.Size(161, 22);
+            this.buttonRunVersion.Text = "(Run version)";
+            this.buttonRunVersion.Click += new System.EventHandler(this.buttonRunVersion_Click);
             // 
             // runMenuSeparator
             // 
             this.runMenuSeparator.Name = "runMenuSeparator";
-            this.runMenuSeparator.Size = new System.Drawing.Size(64, 6);
+            this.runMenuSeparator.Size = new System.Drawing.Size(158, 6);
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(67, 22);
+            this.buttonUpdate.Size = new System.Drawing.Size(161, 22);
+            this.buttonUpdate.Text = "(Update)";
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonAdd
@@ -158,14 +165,23 @@
             // contextMenuIntegrate
             // 
             this.contextMenuIntegrate.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonIntegrate2,
             this.buttonRemove});
             this.contextMenuIntegrate.Name = "contextMenuIntegrate";
-            this.contextMenuIntegrate.Size = new System.Drawing.Size(126, 26);
+            this.contextMenuIntegrate.Size = new System.Drawing.Size(136, 48);
+            // 
+            // buttonIntegrate2
+            // 
+            this.buttonIntegrate2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonIntegrate2.Name = "buttonIntegrate2";
+            this.buttonIntegrate2.Size = new System.Drawing.Size(135, 22);
+            this.buttonIntegrate2.Text = "(Integrate)";
+            this.buttonIntegrate2.Click += new System.EventHandler(this.buttonIntegrate_Click);
             // 
             // buttonRemove
             // 
             this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(125, 22);
+            this.buttonRemove.Size = new System.Drawing.Size(135, 22);
             this.buttonRemove.Text = "(Remove)";
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
@@ -181,6 +197,14 @@
             this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
             this.pictureBoxIcon.Click += new System.EventHandler(this.LinkClicked);
+            // 
+            // buttonRun2
+            // 
+            this.buttonRun2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRun2.Name = "buttonRun2";
+            this.buttonRun2.Size = new System.Drawing.Size(161, 22);
+            this.buttonRun2.Text = "(Run)";
+            this.buttonRun2.Click += new System.EventHandler(this.buttonRun_Click);
             // 
             // AppTile
             // 
@@ -215,13 +239,15 @@
         internal System.Windows.Forms.Button buttonAdd;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
-        private System.Windows.Forms.ToolStripMenuItem buttonSelectVersion;
-        private System.Windows.Forms.ToolStripMenuItem buttonSelectCommand;
+        private System.Windows.Forms.ToolStripMenuItem buttonRunVersion;
+        private System.Windows.Forms.ToolStripMenuItem buttonRunCommand;
         private System.Windows.Forms.ToolStripSeparator runMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
         internal NanoByte.Common.Controls.DropDownButton buttonIntegrate;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ContextMenuStrip contextMenuIntegrate;
         private System.Windows.Forms.ToolStripMenuItem buttonRemove;
+        private System.Windows.Forms.ToolStripMenuItem buttonIntegrate2;
+        private System.Windows.Forms.ToolStripMenuItem buttonRun2;
     }
 }

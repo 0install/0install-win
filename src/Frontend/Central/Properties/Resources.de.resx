@@ -174,7 +174,8 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
     <value>Suchen Sie nach einer Anwendung im "Katalog"...</value>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integrieren" Sie eine Anwendung, um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
+    <value>"Integrieren" Sie eine Anwendung,
+um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Hier können Sie Ihre Liste an Lieblingsanwendungen verwalten.</value>
@@ -198,7 +199,7 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
     <value>Zu "Meine Anwendungen" hinzufügen</value>
   </data>
   <data name="MyAppsRemove" xml:space="preserve">
-    <value>Aus "Meine Anwendungen" entfernen</value>
+    <value>Aus "Meine Anwendungen" &amp;entfernen</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.
@@ -214,10 +215,10 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
     <value>Start</value>
   </data>
   <data name="RunCommand" xml:space="preserve">
-    <value>... bestimmter &amp;Befehl</value>
+    <value>Bestimmten &amp;Befehl starten</value>
   </data>
   <data name="RunVersion" xml:space="preserve">
-    <value>... bestimmte &amp;Version</value>
+    <value>Bestimmte &amp;Version starten</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>

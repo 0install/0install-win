@@ -198,6 +198,9 @@ Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyalar�
   <data name="ClickToChoose" xml:space="preserve">
     <value>Seçmek için burayı tıklatın.</value>
   </data>
+  <data name="Command" xml:space="preserve">
+    <value>Komut</value>
+  </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Komut satırı değişkenleri:</value>
   </data>
@@ -238,6 +241,9 @@ Başlatmak için klasördeki ZeroInstall.exe dosyasını çalıştırın.</value
   </data>
   <data name="DeployTargetOutsideHome" xml:space="preserve">
     <value>Belirtilen hedef klasörü ({0}) ana klasörünüzün dışında.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıklama</value>
   </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Her zaman tam akış girmek zorunda kalmadan 0install üzerinden uygulama başlatmak için bir kısaltma oluşturun.</value>

@@ -136,10 +136,10 @@
     <value>Çalıştı&amp;r</value>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>&amp;Ekle</value>
+    <value>&quot;Uygulamalarım&quot;a &amp;ekle</value>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Bü&amp;tünleştir</value>
+    <value>Yükleme bütünleştirmesi</value>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>&amp;Ayrıntılar</value>
