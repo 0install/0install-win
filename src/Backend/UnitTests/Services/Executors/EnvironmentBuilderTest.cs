@@ -16,7 +16,6 @@
  */
 
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
 using Moq;
@@ -33,11 +32,10 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Services.Executors
 {
     /// <summary>
-    /// Contains test methods for <see cref="Executor"/>.
+    /// Contains test methods for <see cref="EnvironmentBuilder"/>.
     /// </summary>
     [TestFixture]
-    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    public class ExecutorTest
+    public class EnvironmentBuilderTest
     {
         private const string Test1Path = "test1 path", Test2Path = "test2 path";
 
@@ -59,10 +57,10 @@ namespace ZeroInstall.Services.Executors
         [Test]
         public void TestExceptions()
         {
-            var executor = new Executor(new Mock<IStore>(MockBehavior.Loose).Object);
-            executor.Invoking(x => x.Start(new Selections {Command = Command.NameRun}))
+            var executor = new EnvironmentBuilder(new Mock<IStore>(MockBehavior.Loose).Object);
+            executor.Invoking(x => x.Inject(new Selections {Command = Command.NameRun}))
                 .ShouldThrow<ExecutorException>(because: "Selections with no implementations should be rejected");
-            executor.Invoking(x => x.Start(new Selections {Implementations = {new ImplementationSelection()}}))
+            executor.Invoking(x => x.Inject(new Selections {Implementations = {new ImplementationSelection()}}))
                 .ShouldThrow<ExecutorException>(because: "Selections with no start command should be rejected");
         }
 
@@ -98,8 +96,8 @@ namespace ZeroInstall.Services.Executors
         {
             var storeMock = new Mock<IStore>(MockBehavior.Loose);
             storeMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns("test path");
-            var executor = new Executor(storeMock.Object);
-            executor.Invoking(x => x.GetStartInfo(selections))
+            var executor = new EnvironmentBuilder(storeMock.Object);
+            executor.Invoking(x => x.Inject(selections))
                 .ShouldThrow<ExecutorException>(because: "Invalid Selections should be rejected");
         }
 
@@ -147,16 +145,18 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/>.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/>.
         /// </summary>
         [Test]
-        public void TestGetStartInfo()
+        public void TestBaseline()
         {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
-            var executor = new Executor(GetMockStore(selections));
-            var startInfo = executor.GetStartInfo(selections, "--custom");
+            var startInfo = new EnvironmentBuilder(GetMockStore(selections))
+                .Inject(selections)
+                .AddArguments("--custom")
+                .ToStartInfo();
             startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 because: "Should combine runner implementation directory with runner command path");
@@ -175,18 +175,21 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Wrapper"/>.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Wrapper"/>.
         /// </summary>
         [Test]
-        public void TestGetStartInfoWrapper()
+        public void TestWrapper()
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
-            var executor = new Executor(GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
-            var startInfo = executor.GetStartInfo(selections, "--custom");
+            var startInfo = new EnvironmentBuilder(GetMockStore(selections))
+                .Inject(selections)
+                .AddWrapper("wrapper --wrapper")
+                .AddArguments("--custom")
+                .ToStartInfo();
             startInfo.FileName.Should().Be("wrapper");
             startInfo.Arguments.Should().Be(
                 new[]
@@ -205,16 +208,18 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with relative paths.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with relative paths.
         /// </summary>
         [Test]
-        public void TestGetStartInfoMainRelative()
+        public void TestMainRelative()
         {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
-            var executor = new Executor(GetMockStore(selections)) {Main = "main"};
-            var startInfo = executor.GetStartInfo(selections, "--custom");
+            var startInfo = new EnvironmentBuilder(GetMockStore(selections))
+                .Inject(selections, overrideMain: "main")
+                .AddArguments("--custom")
+                .ToStartInfo();
             startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 because: "Should combine runner implementation directory with runner command path");
@@ -232,16 +237,18 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with absolute paths.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with absolute paths.
         /// </summary>
         [Test]
-        public void TestGetStartInfoMainAbsolute()
+        public void TestMainAbsolute()
         {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
-            var executor = new Executor(GetMockStore(selections)) {Main = "/main"};
-            var startInfo = executor.GetStartInfo(selections, "--custom");
+            var startInfo = new EnvironmentBuilder(GetMockStore(selections))
+                .Inject(selections, overrideMain: "/main")
+                .AddArguments("--custom")
+                .ToStartInfo();
             startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 because: "Should combine runner implementation directory with runner command path");
@@ -259,17 +266,19 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="Executor.GetStartInfo"/> handles <see cref="Selections"/> with <see cref="Command.Path"/>s that are empty.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles <see cref="Selections"/> with <see cref="Command.Path"/>s that are empty.
         /// </summary>
         [Test]
-        public void TestGetStartInfoPathlessCommand()
+        public void TestPathlessCommand()
         {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
-            var executor = new Executor(GetMockStore(selections));
-            var startInfo = executor.GetStartInfo(selections, "--custom");
+            var startInfo = new EnvironmentBuilder(GetMockStore(selections))
+                .Inject(selections)
+                .AddArguments("--custom")
+                .ToStartInfo();
             startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)));
             startInfo.Arguments.Should().Be(
@@ -285,10 +294,10 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="Executor.GetStartInfo"/> handles <see cref="Selections"/> with <see cref="ForEachArgs"/>.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles <see cref="Selections"/> with <see cref="ForEachArgs"/>.
         /// </summary>
         [Test]
-        public void TestGetStartInfoForEachArgs()
+        public void TestForEachArgs()
         {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
@@ -300,8 +309,9 @@ namespace ZeroInstall.Services.Executors
             });
             selections.Implementations[2].Bindings.Add(new EnvironmentBinding {Name = "SPLIT_ARG", Value = "split1" + Path.PathSeparator + "split2"});
 
-            var executor = new Executor(GetMockStore(selections));
-            var startInfo = executor.GetStartInfo(selections);
+            var startInfo = new EnvironmentBuilder(GetMockStore(selections))
+                .Inject(selections)
+                .ToStartInfo();
             startInfo.FileName.Should().Be(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 because: "Should combine runner implementation directory with runner command path");

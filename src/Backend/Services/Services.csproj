@@ -106,6 +106,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Executors\EnvironmentBuilder.Bindings.cs" />
+    <Compile Include="Executors\EnvironmentBuilder.cs" />
     <Compile Include="Executors\Executor.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />

@@ -404,7 +404,10 @@ namespace ZeroInstall
                 Fetch();
             }
 
-            return Executor.GetStartInfo(_selections, _targetArgs.ToArray());
+            return Executor
+                .Inject(_selections)
+                .AddArguments(_targetArgs.ToArray())
+                .ToStartInfo();
         }
 
         /// <summary>

@@ -14,44 +14,28 @@ namespace ZeroInstall.Services.Executors
     public interface IExecutor
     {
         /// <summary>
-        /// The <see cref="Implementation"/>s chosen for the <see cref="Dependency"/>s.
+        /// Starts a program as described by a <see cref="Selections"/> document.
         /// </summary>
-        Selections Selections { get; }
-
-        /// <summary>
-        /// An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
-        /// </summary>
-        string Main { get; set; }
-
-        /// <summary>
-        /// Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers. May contain command-line arguments. Whitespaces must be escaped!
-        /// </summary>
-        string Wrapper { get; set; }
-
-        /// <summary>
-        /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
-        /// </summary>
-        /// <param name="selections">The <see cref="ImplementationSelection"/>s chosen by the solver.</param>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
-        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        [NotNull]
-        ProcessStartInfo GetStartInfo([NotNull] Selections selections, [NotNull, ItemNotNull] params string[] arguments);
-
-        /// <summary>
-        /// Starts the program as specified by <see cref="ProcessStartInfo"/>.
-        /// </summary>
-        /// <param name="selections">The <see cref="ImplementationSelection"/>s chosen by the solver.</param>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
+        /// <param name="selections">The set of <see cref="Implementation"/>s be injected into the execution environment.</param>
         /// <returns>The newly created <see cref="Process"/>; <c>null</c> if no external process was started.</returns>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/> or the main executable could not be launched.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
         [CanBeNull]
-        Process Start([NotNull] Selections selections, [NotNull] params string[] arguments);
+        Process Start([NotNull] Selections selections);
+
+        /// <summary>
+        /// Starts building an execution environment for a <see cref="Selections"/> document.
+        /// </summary>
+        /// <param name="selections">The set of <see cref="Implementation"/>s be injected into the execution environment.</param>
+        /// <param name="overrideMain">An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.</param>
+        /// <returns>A fluent-style builder for a process execution environment.</returns>
+        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        [NotNull]
+        IEnvironmentBuilder Inject([NotNull] Selections selections, string overrideMain = null);
     }
 }

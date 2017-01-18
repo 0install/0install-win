@@ -364,8 +364,6 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCommandLine_Click(object sender, EventArgs e)
         {
-            ProcessUtils.SanitizeEnvironmentVariables();
-
             var cmd = new ProcessStartInfo("cmd.exe", "/k echo " + Resources.CommandLineHint)
             {
                 UseShellExecute = false,

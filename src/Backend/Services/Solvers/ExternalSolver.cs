@@ -135,7 +135,10 @@ namespace ZeroInstall.Services.Solvers
             var arguments = new[] {"--console", "slave", ApiVersion};
             for (int i = 0; i < (int)_handler.Verbosity; i++)
                 arguments = arguments.Append("--verbose");
-            var startInfo = _executor.GetStartInfo(_solverSelections, arguments);
+            var startInfo = _executor
+                .Inject(_solverSelections)
+                .AddArguments(arguments)
+                .ToStartInfo();
 
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardInput = true;

@@ -39,7 +39,6 @@ namespace ZeroInstall.Commands.CliCommands
     public class RunTest : SelectionTestBase<Run>
     {
         private Mock<ICatalogManager> CatalogManagerMock => GetMock<ICatalogManager>();
-        private Mock<IExecutor> ExecutorMock => GetMock<IExecutor>();
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public void TestNormal()
@@ -50,9 +49,11 @@ namespace ZeroInstall.Commands.CliCommands
                 new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")},
                 new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")});
 
-            ExecutorMock.SetupSet(x => x.Main = "Main");
-            ExecutorMock.SetupSet(x => x.Wrapper = "Wrapper");
-            ExecutorMock.Setup(x => x.Start(selections, "--arg1", "--arg2")).Returns<Process>(null);
+            var envBuilderMock = GetMock<IEnvironmentBuilder>();
+            GetMock<IExecutor>().Setup(x => x.Inject(selections, "Main")).Returns(envBuilderMock.Object);
+            envBuilderMock.Setup(x => x.AddWrapper("Wrapper")).Returns(envBuilderMock.Object);
+            envBuilderMock.Setup(x => x.AddArguments("--arg1", "--arg2")).Returns(envBuilderMock.Object);
+            envBuilderMock.Setup(x => x.Start()).Returns<Process>(null);
 
             RunAndAssert(null, 0, selections,
                 "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0",
@@ -68,7 +69,12 @@ namespace ZeroInstall.Commands.CliCommands
                 new Implementation {ID = "id1", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")},
                 new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "xyz"), Version = new ImplementationVersion("1.0")});
 
-            ExecutorMock.Setup(x => x.Start(It.IsAny<Selections>(), "--arg1", "--arg2")).Returns<Process>(null);
+            var envBuilderMock = GetMock<IEnvironmentBuilder>();
+            GetMock<IExecutor>().Setup(x => x.Inject(selections, null)).Returns(envBuilderMock.Object);
+            envBuilderMock.Setup(x => x.AddWrapper(null)).Returns(envBuilderMock.Object);
+            envBuilderMock.Setup(x => x.AddArguments("--arg1", "--arg2")).Returns(envBuilderMock.Object);
+            envBuilderMock.Setup(x => x.Start()).Returns<Process>(null);
+
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

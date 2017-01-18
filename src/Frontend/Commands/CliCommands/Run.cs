@@ -53,6 +53,14 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         #region State
+        /// <summary>>An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.</summary>
+        [CanBeNull]
+        private string _overrideMain;
+
+        /// <summary>Instead of executing the selected program directly, pass it as an argument to this program.</summary>
+        [CanBeNull]
+        private string _wrapper;
+
         /// <summary>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>
         protected bool NoWait;
 
@@ -62,8 +70,8 @@ namespace ZeroInstall.Commands.CliCommands
             //Options.Remove("xml");
             //Options.Remove("show");
 
-            Options.Add("m|main=", () => Resources.OptionMain, newMain => Executor.Main = newMain);
-            Options.Add("w|wrapper=", () => Resources.OptionWrapper, newWrapper => Executor.Wrapper = newWrapper);
+            Options.Add("m|main=", () => Resources.OptionMain, newMain => _overrideMain = newMain);
+            Options.Add("w|wrapper=", () => Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
             Options.Add("no-wait", () => Resources.OptionNoWait, _ => NoWait = true);
 
             // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
@@ -136,7 +144,13 @@ namespace ZeroInstall.Commands.CliCommands
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "command");
 
             using (CreateRunHook())
-                return Executor.Start(Selections, AdditionalArgs.ToArray());
+            {
+                return Executor
+                    .Inject(Selections, _overrideMain)
+                    .AddWrapper(_wrapper)
+                    .AddArguments(AdditionalArgs.ToArray())
+                    .Start();
+            }
         }
 
         private IDisposable CreateRunHook()

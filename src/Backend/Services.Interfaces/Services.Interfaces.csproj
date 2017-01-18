@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs" />
     <Compile Include="Executors\ExecutorException.cs" />
+    <Compile Include="Executors\IEnvironmentBuilder.cs" />
     <Compile Include="Executors\IExecutor.cs" />
     <Compile Include="Executors\_Namespace.cs" />
     <Compile Include="Feeds\CatalogManagerExtensions.cs" />
