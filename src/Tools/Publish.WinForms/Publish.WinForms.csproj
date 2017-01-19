@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AeroWizard">
-      <HintPath>..\..\packages\AeroWizard.2.1.7\lib\net40\AeroWizard.dll</HintPath>
+      <HintPath>..\..\packages\AeroWizard.2.1.8\lib\net40\AeroWizard.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\..\packages\JetBrains.Annotations.10.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>

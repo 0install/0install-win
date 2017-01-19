@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ELFSharp">
-      <HintPath>..\..\packages\ELFSharp.1.0.2\lib\net40\ELFSharp.dll</HintPath>
+      <HintPath>..\..\packages\ELFSharp.1.0.4\lib\net40\ELFSharp.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>

@@ -13,6 +13,7 @@ API documentation: http://0install.de/api/tools/</description>
         <summary>Zero Install Publishing API (create and modify feeds)</summary>
         <dependencies>
             <dependency id="ZeroInstall.Store" version="[$version$$VersionSuffix$]" />
+            <dependency id="ELFSharp" version="1.0.4" />
         </dependencies>
         <references>
             <reference file="ZeroInstall.Publish.dll" />
