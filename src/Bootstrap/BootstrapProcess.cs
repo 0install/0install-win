@@ -38,7 +38,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall
 {
     /// <summary>
-    /// Downloads and executes an instance of Zero Install.
+    /// Represents the process of downloading and running an instance of Zero Install. Handles command-line arguments.
     /// </summary>
     public class BootstrapProcess : ServiceLocator
     {

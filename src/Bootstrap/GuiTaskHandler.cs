@@ -21,6 +21,10 @@ using NanoByte.Common.Tasks;
 
 namespace ZeroInstall
 {
+    /// <summary>
+    /// Uses <see cref="MainForm"/> to show <see cref="ITask"/> progress.
+    /// </summary>
+    /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public class GuiTaskHandler : GuiTaskHandlerBase
     {
         private readonly AsyncFormWrapper<MainForm> _wrapper;

@@ -24,6 +24,9 @@ using ZeroInstall.Store;
 
 namespace ZeroInstall
 {
+    /// <summary>
+    /// The main GUI for the Bootstrapper.
+    /// </summary>
     public partial class MainForm : Form
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
