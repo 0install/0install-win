@@ -566,11 +566,10 @@ namespace ZeroInstall.Publish.WinForms
                 return;
             }
 
-            // Command generating is handled differently when capturing an installer
             if (_installerCapture.CaptureSession == null)
                 _feedBuilder.GenerateCommands();
             else
-                _installerCapture.CaptureSession.Finish();
+                _installerCapture.CaptureSession.Finish(); // internally calls _feedBuilder.GenerateCommands()
         }
         #endregion
 
@@ -595,13 +594,24 @@ namespace ZeroInstall.Publish.WinForms
 
         private void pageIcon_Initialize(object sender, WizardPageInitEventArgs e)
         {
-            var windowsExe = _feedBuilder.MainCandidate as WindowsExe;
-            if (windowsExe == null)
-                pictureBoxIcon.Visible = buttonSaveIco.Enabled = buttonSavePng.Enabled = false;
-            else
+            pictureBoxIcon.Visible = buttonSaveIco.Enabled = buttonSavePng.Enabled = false;
+
+            var iconContainer = _feedBuilder.MainCandidate as EntryPoints.IIconContainer;
+            if (iconContainer != null)
             {
-                _icon = windowsExe.ExtractIcon();
-                pictureBoxIcon.Image = _icon.ToBitmap();
+                try
+                {
+                    _icon = iconContainer.ExtractIcon();
+                    pictureBoxIcon.Image = _icon.ToBitmap();
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                #endregion
+
                 pictureBoxIcon.Visible = buttonSaveIco.Enabled = buttonSavePng.Enabled = true;
             }
         }
@@ -613,7 +623,18 @@ namespace ZeroInstall.Publish.WinForms
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     using (var stream = File.Create(saveFileDialog.FileName))
-                        _icon.Save(stream);
+                    {
+                        try
+                        {
+                            _icon.Save(stream);
+                        }
+                            #region Error handling
+                        catch (Exception ex)
+                        {
+                            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                        }
+                        #endregion
+                    }
                 }
             }
         }
@@ -623,7 +644,18 @@ namespace ZeroInstall.Publish.WinForms
             using (var saveFileDialog = new SaveFileDialog {Filter = "PNG image files|*.png|All files|*.*"})
             {
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-                    _icon.ToBitmap().Save(saveFileDialog.FileName, ImageFormat.Png);
+                {
+                    try
+                    {
+                        _icon.ToBitmap().Save(saveFileDialog.FileName, ImageFormat.Png);
+                    }
+                        #region Error handling
+                    catch (Exception ex)
+                    {
+                        Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    }
+                    #endregion
+                }
             }
         }
 
