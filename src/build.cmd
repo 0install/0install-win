@@ -11,11 +11,6 @@ if defined VS140COMNTOOLS (
   call "%VS140COMNTOOLS%vsvars32.bat"
   goto vs_ok
 )
-if defined VS120COMNTOOLS (
-  ::Visual Studio 2013
-  call "%VS120COMNTOOLS%vsvars32.bat"
-  goto vs_ok
-)
 echo ERROR: No Visual Studio installation found. >&2
 exit /b 1
 :vs_ok

@@ -48,7 +48,7 @@ namespace ZeroInstall.Commands.Utils
             if (service.Status == ServiceControllerStatus.Stopped) return false;
 
             // Determine whether the service is installed in the target directory we are updating
-            string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\0store-service", "ImagePath").Trim('"');
+            string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" + ServiceName, "ImagePath").Trim('"');
             if (!imagePath.StartsWith(TargetDir)) return false;
 
             Handler.RunTask(new SimpleTask(Resources.StopService, () =>
@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands.Utils
         }
 
         private static readonly string _installUtilExe = Path.Combine(_runtimeDir, "InstallUtil.exe");
-        private string ServiceExe => Path.Combine(TargetDir, "0store-service.exe");
+        private string ServiceExe => Path.Combine(TargetDir, ServiceName + ".exe");
 
         /// <summary>
         /// Installs the Zero Install Store Service.
