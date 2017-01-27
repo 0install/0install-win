@@ -1,5 +1,7 @@
 /build/
 /src/packages/*/
+/src/.vs/
+/src/.idea/
 /src/_ReSharper*/
 bin/
 obj/
