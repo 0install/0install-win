@@ -111,11 +111,8 @@ namespace ZeroInstall.Publish
                 stream.CopyToFile(path);
             }
             string directory = Path.GetDirectoryName(path);
-            if (directory != null)
-            {
-                openPgp.DeployPublicKey(SecretKey, directory);
-                FeedUtils.DeployStylesheet(directory, @"catalog");
-            }
+            openPgp.DeployPublicKey(SecretKey, directory);
+            FeedUtils.DeployStylesheet(directory, @"catalog");
         }
         #endregion
     }

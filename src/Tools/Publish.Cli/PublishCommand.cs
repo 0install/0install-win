@@ -156,7 +156,7 @@ namespace ZeroInstall.Publish.Cli
                     {
                         if (string.IsNullOrEmpty(catalogFile)) return;
                         _mode = OperationMode.Catalog;
-                        _catalogFile = catalogFile;
+                        _catalogFile = Path.GetFullPath(catalogFile);
                     }
                 },
 
