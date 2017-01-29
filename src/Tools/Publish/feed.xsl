@@ -13,9 +13,9 @@ http://creativecommons.org/licenses/by-sa/2.5/
 	<xsl:template match="/zi:interface">
 		<html>
 			<head>
-				<title>
-					<xsl:value-of select="zi:name"/>
-				</title>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+				<meta http-equiv="Content-Language" content="en"/>
+				<title><xsl:value-of select="zi:name"/></title>
 				<link rel="stylesheet" type="text/css" href='feed.css'/>
 			</head>
 			<body>
@@ -30,7 +30,12 @@ http://creativecommons.org/licenses/by-sa/2.5/
 								</xsl:if>
 
 								<h1><xsl:value-of select="zi:name"/></h1>
-								<h2><xsl:value-of select='zi:summary'/></h2>
+								<xsl:if test="zi:summary[@xml:lang='en']">
+									<h2><xsl:value-of select="zi:summary[@xml:lang='en']"/></h2>
+								</xsl:if>
+								<xsl:if test="not(zi:summary[@xml:lang='en'])">
+									<h2><xsl:value-of select="zi:summary"/></h2>
+								</xsl:if>
 
 								<div class="what-is-this">
 									<xsl:if test="//zi:implementation[@main] | //zi:group[@main] | //zi:command[@name='run'] | //zi:package-implementation[@main]">								
@@ -92,6 +97,17 @@ http://creativecommons.org/licenses/by-sa/2.5/
 												</xsl:for-each>
 											</ul>
 										</dd>
+									</xsl:if>
+
+									<xsl:if test="zi:description[@xml:lang='en']">
+										<xsl:call-template name='description'>
+											<xsl:with-param name='text'><xsl:value-of select="zi:description[@xml:lang='en']"/></xsl:with-param>
+										</xsl:call-template>
+									</xsl:if>
+									<xsl:if test="not(zi:description[@xml:lang='en']) and zi:description">
+										<xsl:call-template name='description'>
+											<xsl:with-param name='text'><xsl:value-of select="zi:description"/></xsl:with-param>
+										</xsl:call-template>
 									</xsl:if>
 
 									<xsl:apply-templates mode="dl" select="*|@*"/>
@@ -289,31 +305,25 @@ http://creativecommons.org/licenses/by-sa/2.5/
 		</dd>
 	</xsl:template>
 
-	<xsl:template mode="dl" match="zi:description">
-		<dt>Description</dt>
-		<dd class="description">
-			<xsl:call-template name='description'>
-				<xsl:with-param name='text'><xsl:value-of select='.'/></xsl:with-param>
-			</xsl:call-template>
-		</dd>
-	</xsl:template>
-
 	<xsl:template name='description'>
 		<xsl:param name="text"/>
-		<xsl:if test='normalize-space($text)'>
-			<xsl:variable name='first' select='substring-before($text, "&#xa;&#xa;")'/>
-			<xsl:choose>
-				<xsl:when test='normalize-space($first)'>
-					<p><xsl:value-of select='$first'/></p>
-					<xsl:call-template name='description'>
-						<xsl:with-param name='text'><xsl:value-of select='substring-after($text, "&#xa;&#xa;")'/></xsl:with-param>
-					</xsl:call-template>
-				</xsl:when>
-				<xsl:otherwise>
-					<p><xsl:value-of select='$text'/></p>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
+        <dt>Description</dt>
+		<dd class="description">
+			<xsl:if test='normalize-space($text)'>
+				<xsl:variable name='first' select='substring-before($text, "&#xa;&#xa;")'/>
+				<xsl:choose>
+					<xsl:when test='normalize-space($first)'>
+						<p><xsl:value-of select='$first'/></p>
+						<xsl:call-template name='description'>
+							<xsl:with-param name='text'><xsl:value-of select='substring-after($text, "&#xa;&#xa;")'/></xsl:with-param>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<p><xsl:value-of select='$text'/></p>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+		</dd>
 	</xsl:template>
 
 	<!-- <xsl:template mode="dl" match="zi:icon"> -->
