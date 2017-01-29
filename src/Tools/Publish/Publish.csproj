@@ -141,8 +141,10 @@
   <ItemGroup>
     <EmbeddedResource Include="catalog.css" />
     <EmbeddedResource Include="catalog.xsl" />
+    <EmbeddedResource Include="catalog.xsl.de" />
     <EmbeddedResource Include="feed.css" />
     <EmbeddedResource Include="feed.xsl" />
+    <EmbeddedResource Include="feed.xsl.de" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Author: Tim Cuthbertson
+Modified by Thomas Leonard and Bastian Eicher.
+License: Creative Commons Attribution-ShareAlike 2.5 license
+http://creativecommons.org/licenses/by-sa/2.5/
+-->
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:zi="http://zero-install.sourceforge.net/2004/injector/interface"
+		version="1.0">
+	<xsl:output method="xml" encoding="utf-8" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"/>
+	<xsl:template match="/zi:interface">
+		<html>
+			<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+				<meta http-equiv="Content-Language" content="de"/>
+				<title><xsl:value-of select="zi:name"/></title>
+				<link rel="stylesheet" type="text/css" href='feed.css'/>
+			</head>
+			<body>
+				<div class="site">
+					<div class="main">
+						<div class="content">
+							<div class="post inner">
+
+								<xsl:variable name="icon-href" select="(zi:icon[@type='image/png'][1])/@href"/>
+								<xsl:if test="$icon-href != ''">
+									<img src="{$icon-href}" class="alpha icon" />
+								</xsl:if>
+
+								<h1><xsl:value-of select="zi:name"/></h1>
+								<xsl:if test="zi:summary[@xml:lang='de']">
+									<h2><xsl:value-of select="zi:summary[@xml:lang='de']"/></h2>
+								</xsl:if>
+								<xsl:if test="not(zi:summary[@xml:lang='de'])">
+									<h2><xsl:value-of select="zi:summary"/></h2>
+								</xsl:if>
+
+								<div class="what-is-this">
+									<xsl:if test="//zi:implementation[@main] | //zi:group[@main] | //zi:command[@name='run'] | //zi:package-implementation[@main]">								
+										<form action="https://0install.de/bootstrap/" method="get" style="float: left; margin-right: 4px;">
+											<input type="hidden" name="name" value="{zi:name}"/>
+											<input type="hidden" name="uri" value="{/zi:interface/@uri}"/>
+											<input type="hidden" name="mode" value="run"/>
+											<input type="submit" value="Run {zi:name}"/>
+										</form>
+										<form action="https://0install.de/bootstrap/" method="get" style="clear: right;">
+											<input type="hidden" name="name" value="{zi:name}"/>
+											<input type="hidden" name="uri" value="{/zi:interface/@uri}"/>
+											<input type="hidden" name="mode" value="integrate"/>
+											<input type="submit" value="Integrate {zi:name}"/>
+										</form>
+									</xsl:if>
+									Diese Seite ist ein Zero Install Feed.<br/>
+									<a href="#what-is-this">Mehr erfahren...</a>
+								</div>
+
+								<dl>
+									<xsl:if test="zi:replaced-by">
+										<dt>Dieser Feed wurde abgelöst!</dt>
+										<dd>
+											<p class="yourinfo">
+												Bitte verwenden Sie stattdessen folgenden:
+											</p>
+											<ul>
+												<xsl:for-each select="zi:replaced-by">
+													<li>
+														<a>
+															<xsl:attribute name="href">
+																<xsl:value-of select="@interface"/>
+															</xsl:attribute>
+															<xsl:value-of select="@interface"/>
+														</a>
+													</li>
+												</xsl:for-each>
+											</ul>
+										</dd>
+									</xsl:if>
+
+									<xsl:if test="zi:feed-for">
+										<dt>Interface</dt>
+										<dd>
+											<p class="yourinfo">
+												In den meisten Fällen sollten Sie folgende Interface URI anstelle der URI dieses Feeds verwenden:
+											</p>
+											<ul>
+												<xsl:for-each select="zi:feed-for">
+													<li>
+														<a>
+															<xsl:attribute name="href">
+																<xsl:value-of select="@interface"/>
+															</xsl:attribute>
+															<xsl:value-of select="@interface"/>
+														</a>
+													</li>
+												</xsl:for-each>
+											</ul>
+										</dd>
+									</xsl:if>
+
+									<xsl:if test="zi:description[@xml:lang='de']">
+										<xsl:call-template name='description'>
+											<xsl:with-param name='text'><xsl:value-of select="zi:description[@xml:lang='de']"/></xsl:with-param>
+										</xsl:call-template>
+									</xsl:if>
+									<xsl:if test="not(zi:description[@xml:lang='de']) and zi:description">
+										<xsl:call-template name='description'>
+											<xsl:with-param name='text'><xsl:value-of select="zi:description"/></xsl:with-param>
+										</xsl:call-template>
+									</xsl:if>
+
+									<xsl:apply-templates mode="dl" select="*|@*"/>
+
+									<dt>Notwendige Bibliotheken</dt>
+									<dd>
+										<xsl:choose>
+											<xsl:when test="//zi:requires|//zi:runner">
+												<p class="yourinfo">(Zero Install lädt benötigte Bibliotheken automatisch für Sie herunter)</p>
+												<ul>
+													<xsl:for-each select="//zi:requires|//zi:runner">
+														<xsl:variable name="interface" select="@interface"/>
+														<xsl:if test="not(preceding::zi:requires[@interface = $interface]) and not(preceding::zi:runner[@interface = $interface])">
+															<li>
+																<a>
+																	<xsl:attribute name="href">
+																		<xsl:value-of select="$interface"/>
+																	</xsl:attribute>
+																	<xsl:value-of select="$interface"/>
+																</a>
+															</li>
+														</xsl:if>
+													</xsl:for-each>
+												</ul>
+											</xsl:when>
+											<xsl:otherwise>
+												<p>Dieser Feed listet keine zusätzlichen Abhängigkeiten.</p>
+											</xsl:otherwise>
+										</xsl:choose>
+									</dd>
+
+									<xsl:if test="zi:feed">
+										<dt>Andere Feeds für dieses Interface:</dt>
+										<dd>
+											<p class="yourinfo">
+												(Zero Install wird diese Feeds bei der Wahl der Version berückstichtigen)
+											</p>
+											<ul>
+												<xsl:for-each select="zi:feed">
+													<li>
+														<a>
+															<xsl:attribute name="href">
+																<xsl:value-of select="@src"/>
+															</xsl:attribute>
+															<xsl:value-of select="@src"/>
+														</a>
+													</li>
+												</xsl:for-each>
+											</ul>
+										</dd>
+									</xsl:if>
+
+									<dt>Verfügbare Versionen</dt>
+									<dd>
+										<xsl:choose>
+											<xsl:when test="//zi:implementation|//zi:package-implementation">
+												<p class="yourinfo">
+													(Zero Install wird automatisch eine dieser Versionen für Sie herunterladen)
+												</p>
+												<xsl:if test='//zi:implementation'>
+													<table cellpadding="0" cellspacing="0">
+														<tr>
+															<th>Version</th>
+															<th>Veröffentlicht</th>
+															<th>Stablität</th>
+															<th>Platform</th>
+															<th>Download</th>
+														</tr>
+														<xsl:for-each select="//zi:implementation">
+															<tr>
+																<td>
+																	<xsl:value-of select="(ancestor-or-self::*[@version])[last()]/@version"/>
+																	<xsl:if test="(ancestor-or-self::*[@version])[last()]/@version-modifier">
+																		<xsl:value-of select="(ancestor-or-self::*[@version])[last()]/@version-modifier"/>
+																	</xsl:if>
+																</td>
+																<td>
+																	<xsl:value-of select="(ancestor-or-self::*[@released])[last()]/@released"/>
+																</td>
+																<td>
+																	<xsl:value-of select="(ancestor-or-self::*[@stability])[last()]/@stability"/>
+																</td>
+																<td>
+																	<xsl:variable name="arch" select="(ancestor-or-self::*[@arch])[last()]/@arch"/>
+																	<xsl:choose>
+																		<xsl:when test="$arch = &quot;*-src&quot;">Source code</xsl:when>
+																		<xsl:when test="not($arch)">Any</xsl:when>
+																		<xsl:otherwise>
+																			<xsl:value-of select="$arch"/>
+																		</xsl:otherwise>
+																	</xsl:choose>
+																</td>
+																<td>
+																	<xsl:for-each select=".//zi:archive">
+																		<a href="{@href}">Download</a> (<xsl:value-of select="@size"/> bytes)
+																	</xsl:for-each>
+																</td>
+															</tr>
+														</xsl:for-each>
+													</table>
+												</xsl:if>
+
+												<xsl:if test='//zi:package-implementation'>
+													<p>Nicht-Zero Install Pakete können dieses Interface erfüllen:</p>
+													<table cellpadding="0" cellspacing="0">
+														<tr>
+															<th>Distribution</th>
+															<th>Paketname</th>
+														</tr>
+														<xsl:for-each select='//zi:package-implementation'>
+															<tr>
+																<td>
+																	<xsl:value-of select='(ancestor-or-self::*[@distributions])[last()]/@distributions'/>
+																</td>
+																<td>
+																	<xsl:value-of select='(ancestor-or-self::*[@package])[last()]/@package'/>
+																</td>
+															</tr>
+														</xsl:for-each>
+													</table>
+												</xsl:if>
+											</xsl:when>
+											<xsl:otherwise>
+												<p>Es stehen keine Versionen zum Download zur Verfügung.</p>
+											</xsl:otherwise>
+										</xsl:choose>
+									</dd>
+
+								</dl>
+							</div>
+						</div>
+						<div class="clear"/>
+					</div>
+					<div class="chrome">
+						<div class="inner">
+							<div class="explanation">
+								<a name="what-is-this"></a>
+								<h3>Was ist diese Seite und wie verwende ich Sie?</h3>
+								<xsl:choose>
+									<xsl:when test="//zi:implementation[@main] | //zi:group[@main] | //zi:command[@name='run'] | //zi:package-implementation[@main]">
+										<p>
+											Dies ist ein Zero Install Feed. Wenn Sie <a href="http://0install.net/">Zero Install</a> auf Ihrem System haben,
+											können Sie es verwenden, um <xsl:value-of select="zi:name"/> von der Befehlszeile aus zu starten:
+										</p>
+										<pre>0install run <xsl:value-of select="/zi:interface/@uri"/></pre>
+										<p>
+											Dies lädt eine geeignete Implementierung von <xsl:value-of select="zi:name"/> (zusammen mit eventuellen Abhängigkeiten) herunter
+											und führt es dann aus, ohne Seiteneffekte für andere Software auf Ihrem System.
+										</p>
+									</xsl:when>
+									<xsl:otherwise>
+										<p>
+											Dies ist ein Zero Install Feed für <xsl:value-of select="zi:name"/>.
+											<xsl:value-of select="zi:name"/> ist eine Bibliothek und kann nicht direkt als Anwendung ausgeführt werden.
+										</p>
+										<p>
+											Für weitere Informationen über die Verwendung von Zero Install Paketen, lesen Sie die <a href="http://0install.net/dev.html">Zero Install Entwickleranleitung</a>.
+										</p>
+									</xsl:otherwise>
+								</xsl:choose>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--
+				<div class="clear"/>
+				<div class="inner footer">
+				</div>
+				-->
+			</body>
+		</html>
+	</xsl:template>
+
+
+
+
+	<xsl:template mode="dl" match="/zi:interface/@uri">
+		<dt>Vollständige URL</dt>
+		<dd>
+			<p>
+				<a href="{.}">
+					<xsl:value-of select="."/>
+				</a>
+			</p>
+		</dd>
+	</xsl:template>
+	<xsl:template mode="dl" match="zi:homepage">
+		<dt>Homepage</dt>
+		<dd>
+			<p>
+				<a href="{.}">
+					<xsl:value-of select="."/>
+				</a>
+			</p>
+		</dd>
+	</xsl:template>
+
+	<xsl:template name='description'>
+		<xsl:param name="text"/>
+        <dt>Beschreibung</dt>
+		<dd class="description">
+			<xsl:if test='normalize-space($text)'>
+				<xsl:variable name='first' select='substring-before($text, "&#xa;&#xa;")'/>
+				<xsl:choose>
+					<xsl:when test='normalize-space($first)'>
+						<p><xsl:value-of select='$first'/></p>
+						<xsl:call-template name='description'>
+							<xsl:with-param name='text'><xsl:value-of select='substring-after($text, "&#xa;&#xa;")'/></xsl:with-param>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<p><xsl:value-of select='$text'/></p>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+		</dd>
+	</xsl:template>
+
+	<!-- <xsl:template mode="dl" match="zi:icon"> -->
+	<!-- 	<dt>Icon</dt> -->
+	<!-- 	<dd> -->
+	<!-- 		<p> -->
+	<!-- 			<img src="{@href}" class="alpha"/> -->
+	<!-- 		</p> -->
+	<!-- 	</dd> -->
+	<!-- </xsl:template> -->
+	<xsl:template mode="dl" match="*|@*"/>
+	<xsl:template match="zi:group">
+		<dl class="group">
+			<xsl:apply-templates mode="attribs" select="@stability|@version|@id|@arch|@released"/>
+			<xsl:apply-templates select="zi:group|zi:requires|zi:runner|zi:implementation"/>
+		</dl>
+	</xsl:template>
+	<xsl:template match="zi:requires | zi:runner">
+		<dt>Benötigt</dt>
+		<dd>
+			<a href="{@interface}">
+				<xsl:value-of select="@interface"/>
+			</a>
+		</dd>
+	</xsl:template>
+	<xsl:template match="zi:implementation">
+		<dl class="impl">
+			<xsl:apply-templates mode="attribs" select="@stability|@version|@id|@arch|@released"/>
+			<xsl:apply-templates/>
+		</dl>
+	</xsl:template>
+	<xsl:template mode="attribs" match="@*">
+		<dt>
+			<xsl:value-of select="name(.)"/>
+		</dt>
+		<dd>
+			<xsl:value-of select="."/>
+		</dd>
+	</xsl:template>
+	<xsl:template match="zi:archive">
+		<dt>Download</dt>
+		<dd>
+			<a href="{@href}">
+				<xsl:value-of select="@href"/>
+			</a>
+			(<xsl:value-of select="@size"/> bytes)
+		</dd>
+	</xsl:template>
+</xsl:stylesheet>
