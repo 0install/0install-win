@@ -74,6 +74,7 @@
     <Compile Include="Capture\SnapshotDiff.FileType.cs" />
     <Compile Include="Capture\SnapshotDiff.UrlProtocol.cs" />
     <Compile Include="Capture\_Namespace.cs" />
+    <Compile Include="EntryPoints\BashScript.cs" />
     <Compile Include="EntryPoints\Candidate.cs" />
     <Compile Include="EntryPoints\Design\DotNetVersionConverter.cs" />
     <Compile Include="EntryPoints\Design\JavaVersionConverter.cs" />

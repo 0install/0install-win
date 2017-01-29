@@ -36,14 +36,15 @@ namespace ZeroInstall.Publish.EntryPoints
             () => new DotNetExe(),
             () => new WindowsExe(),
             () => new WindowsBatch(),
+            () => new MacOSApp(),
             () => new PowerShellScript(),
             () => new PythonScript(),
             () => new PhpScript(),
             () => new PerlScript(),
             () => new RubyScript(),
+            () => new BashScript(),
             () => new PosixScript(),
-            () => new MacOSApp(),
-            () => new PosixBinary()
+            () => new PosixBinary(),
         };
 
         /// <summary>
