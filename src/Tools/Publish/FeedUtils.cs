@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Streams;
@@ -49,10 +49,19 @@ namespace ZeroInstall.Publish
 
             if (!File.Exists(Path.Combine(path, name + ".xsl")))
             {
-                typeof(FeedUtils).CopyEmbeddedToFile(name + ".xsl", Path.Combine(path, name + ".xsl"));
-                typeof(FeedUtils).CopyEmbeddedToFile(name + ".css", Path.Combine(path, name + ".css"));
+                DeployEmbeddedFile(name + ".xsl", path);
+                DeployEmbeddedFile(name + ".css", path);
+                switch (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
+                {
+                    case "de":
+                        DeployEmbeddedFile(name + ".xsl.de", path);
+                        break;
+                }
             }
         }
+
+        private static void DeployEmbeddedFile(string fileName, string targetDir)
+            => typeof(FeedUtils).CopyEmbeddedToFile(fileName, Path.Combine(targetDir, fileName));
 
         /// <summary>
         /// Adds a Base64 signature to a feed or catalog stream.
