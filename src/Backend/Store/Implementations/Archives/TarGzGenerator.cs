@@ -26,8 +26,8 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public class TarGzGenerator : TarGenerator
     {
-        internal TarGzGenerator([NotNull] string sourceDirectory, [NotNull] Stream stream)
-            : base(sourceDirectory, new GZipOutputStream(stream))
+        internal TarGzGenerator([NotNull] string sourcePath, [NotNull] Stream stream)
+            : base(sourcePath, new GZipOutputStream(stream))
         {}
     }
 }

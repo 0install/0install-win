@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
@@ -52,9 +53,9 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Prepares to generate a manifest for a directory in the filesystem.
         /// </summary>
-        /// <param name="sourceDirectory">The path of the directory to analyze.</param>
+        /// <param name="sourcePath">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest to generate.</param>
-        public ManifestGenerator([NotNull] string sourceDirectory, [NotNull] ManifestFormat format) : base(sourceDirectory)
+        public ManifestGenerator([NotNull] string sourcePath, [NotNull] ManifestFormat format) : base(sourcePath)
         {
             #region Sanity checks
             if (format == null) throw new ArgumentNullException(nameof(format));
@@ -79,12 +80,14 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <inheritdoc/>
-        protected override void HandleSymlink(FileSystemInfo symlink, byte[] data)
+        protected override void HandleSymlink(FileSystemInfo symlink, string target)
         {
             #region Sanity checks
             if (symlink == null) throw new ArgumentNullException(nameof(symlink));
+            if (target == null) throw new ArgumentNullException(nameof(target));
             #endregion
 
+            var data = target.ToStream();
             _nodes.Add(new ManifestSymlink(Format.DigestContent(data), data.Length, symlink.Name));
         }
 

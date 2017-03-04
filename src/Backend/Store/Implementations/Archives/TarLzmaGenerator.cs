@@ -30,8 +30,8 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public class TarLzmaGenerator : TarGenerator
     {
-        internal TarLzmaGenerator([NotNull] string sourceDirectory, [NotNull] Stream stream)
-            : base(sourceDirectory, GetCompressionStream(stream))
+        internal TarLzmaGenerator([NotNull] string sourcePath, [NotNull] Stream stream)
+            : base(sourcePath, GetCompressionStream(stream))
         {}
 
         /// <summary>

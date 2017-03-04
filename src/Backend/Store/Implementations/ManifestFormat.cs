@@ -92,21 +92,6 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
-        /// Generates the digest of a implementation file as used within the manifest file.
-        /// </summary>
-        /// <param name="data">The content of the implementation file as a byte array.</param>
-        /// <returns>A string representation of the digest.</returns>
-        [NotNull]
-        public string DigestContent([NotNull] byte[] data)
-        {
-            #region Sanity checks
-            if (data == null) throw new ArgumentNullException(nameof(data));
-            #endregion
-
-            return SerializeContentDigest(GetHashAlgorithm().ComputeHash(data));
-        }
-
-        /// <summary>
         /// Generates the digest of a manifest file as used for the implementation directory name.
         /// </summary>
         /// <param name="stream">The content of the manifest file.</param>

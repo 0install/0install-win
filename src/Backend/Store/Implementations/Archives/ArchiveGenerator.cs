@@ -48,9 +48,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Prepares to generate an archive from a directory.
         /// </summary>
-        /// <param name="sourceDirectory">The path of the directory to capture/store in the archive.</param>
-        protected ArchiveGenerator([NotNull] string sourceDirectory)
-            : base(sourceDirectory)
+        /// <param name="sourcePath">The path of the directory to capture/store in the archive.</param>
+        protected ArchiveGenerator([NotNull] string sourcePath)
+            : base(sourcePath)
         {}
 
         #region Factory methods

@@ -26,8 +26,8 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public class TarBz2Generator : TarGenerator
     {
-        internal TarBz2Generator([NotNull] string sourceDirectory, [NotNull] Stream stream)
-            : base(sourceDirectory, new BZip2OutputStream(stream))
+        internal TarBz2Generator([NotNull] string sourcePath, [NotNull] Stream stream)
+            : base(sourcePath, new BZip2OutputStream(stream))
         {}
     }
 }

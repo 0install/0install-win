@@ -37,10 +37,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Prepares to generate a TAR archive from a directory.
         /// </summary>
-        /// <param name="sourceDirectory">The path of the directory to capture/store in the archive.</param>
+        /// <param name="sourcePath">The path of the directory to capture/store in the archive.</param>
         /// <param name="stream">The stream to write the generated archive to. Will be disposed when the generator is disposed.</param>
-        internal TarGenerator([NotNull] string sourceDirectory, [NotNull] Stream stream)
-            : base(sourceDirectory)
+        internal TarGenerator([NotNull] string sourcePath, [NotNull] Stream stream)
+            : base(sourcePath)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException(nameof(stream));
@@ -91,20 +91,21 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <inheritdoc/>
-        protected override void HandleSymlink(FileSystemInfo symlink, byte[] data)
+        protected override void HandleSymlink(FileSystemInfo symlink, string target)
         {
             #region Sanity checks
             if (symlink == null) throw new ArgumentNullException(nameof(symlink));
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (target == null) throw new ArgumentNullException(nameof(target));
             #endregion
 
+            var data = target.ToStream();
             _tarStream.PutNextEntry(new TarEntry(new TarHeader
             {
                 Name = symlink.RelativeTo(SourceDirectory),
                 TypeFlag = TarHeader.LF_SYMLINK,
                 Size = data.Length
             }));
-            _tarStream.Write(data);
+            data.WriteTo(_tarStream);
             _tarStream.CloseEntry();
         }
 

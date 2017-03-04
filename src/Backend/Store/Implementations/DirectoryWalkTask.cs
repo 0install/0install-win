@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementations
         protected override bool UnitsByte => true;
 
         /// <summary>Indicates whether <see cref="SourceDirectory"/> is located on a filesystem with support for Unixoid features such as executable bits.</summary>
-        private readonly bool _isUnixFS;
+        private readonly bool _sourceIsUnixFS;
 
         /// <summary>
         /// The directory to walk.
@@ -48,15 +48,15 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new directory walking task.
         /// </summary>
-        /// <param name="sourceDirectory">The path of the directory to walk.</param>
-        protected DirectoryWalkTask([NotNull] string sourceDirectory)
+        /// <param name="sourcePath">The path of the directory to walk.</param>
+        protected DirectoryWalkTask([NotNull] string sourcePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException(nameof(sourceDirectory));
+            if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException(nameof(sourcePath));
             #endregion
 
-            SourceDirectory = new DirectoryInfo(Path.GetFullPath(sourceDirectory));
-            _isUnixFS = FlagUtils.IsUnixFS(sourceDirectory);
+            SourceDirectory = new DirectoryInfo(Path.GetFullPath(sourcePath));
+            _sourceIsUnixFS = FlagUtils.IsUnixFS(sourcePath);
         }
 
         /// <inheritdoc/>
@@ -151,11 +151,11 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the file.</exception>
         private void HandleEntry([NotNull] FileInfo entry, [NotNull] ICollection<string> externalXbits, [NotNull] ICollection<string> externalSymlinks)
         {
-            if (_isUnixFS)
+            if (_sourceIsUnixFS)
             {
                 string symlinkTarget;
                 if (FileUtils.IsSymlink(entry.FullName, out symlinkTarget))
-                    HandleSymlink(entry, Encoding.UTF8.GetBytes(symlinkTarget));
+                    HandleSymlink(entry, symlinkTarget);
                 else if (FileUtils.IsExecutable(entry.FullName))
                     HandleFile(entry, executable: true);
                 else if (!FileUtils.IsRegularFile(entry.FullName))
@@ -166,9 +166,9 @@ namespace ZeroInstall.Store.Implementations
             {
                 string symlinkTarget;
                 if (CygwinUtils.IsSymlink(entry.FullName, out symlinkTarget))
-                    HandleSymlink(entry, Encoding.UTF8.GetBytes(symlinkTarget));
+                    HandleSymlink(entry, symlinkTarget);
                 else if (externalSymlinks.Contains(entry.FullName))
-                    HandleSymlink(entry, File.ReadAllBytes(entry.FullName));
+                    HandleSymlink(entry, File.ReadAllText(entry.FullName, Encoding.UTF8));
                 else if (externalXbits.Contains(entry.FullName))
                     HandleFile(entry, executable: true);
                 else HandleFile(entry);
@@ -183,9 +183,9 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the directory.</exception>
         private void HandleEntry([NotNull] DirectoryInfo entry)
         {
-            string symlinkTarget;
-            if (_isUnixFS && FileUtils.IsSymlink(entry.FullName, out symlinkTarget))
-                HandleSymlink(entry, Encoding.UTF8.GetBytes(symlinkTarget));
+            string target;
+            if (_sourceIsUnixFS && FileUtils.IsSymlink(entry.FullName, out target))
+                HandleSymlink(entry, target);
             else
                 HandleDirectory(entry);
         }
@@ -201,8 +201,8 @@ namespace ZeroInstall.Store.Implementations
         /// Handles a symlink.
         /// </summary>
         /// <param name="symlink">The symlink to handle.</param>
-        /// <param name="data">The encoded target of the symlink.</param>
-        protected abstract void HandleSymlink([NotNull] FileSystemInfo symlink, [NotNull] byte[] data);
+        /// <param name="target">The target the symlink points to.</param>
+        protected abstract void HandleSymlink([NotNull] FileSystemInfo symlink, [NotNull] string target);
 
         /// <summary>
         /// Handles a directory.
