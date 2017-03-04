@@ -239,6 +239,32 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
+        /// Ensures that <see cref="Feed.Normalize"/> correctly resolves <see cref="CopyFromStep.ID"/> references.
+        /// </summary>
+        [Test]
+        public void TestNormalizeResolveCopyFromReferences()
+        {
+            var step = new CopyFromStep {ID = "1"};
+            var feed = new Feed
+            {
+                Name = "MyApp",
+                Elements =
+                {
+                    new Implementation {ID = "1"},
+                    new Implementation
+                    {
+                        ID = "2",
+                        RetrievalMethods = {new Recipe {Steps = {step}}}
+                    }
+                }
+            };
+
+            feed.Normalize(Test1Uri);
+
+            step.Implementation.Should().Be(new Implementation {ID = "1"});
+        }
+
+        /// <summary>
         /// Ensures that <see cref="Feed.Strip"/> correctly removes non-essential metadata.
         /// </summary>
         [Test]

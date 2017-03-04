@@ -384,6 +384,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Es konnte kein geheimer Schlüssel mit dem angegebenen Namen gefunden werden.</value>
   </data>
+  <data name="UnableToResolveCopyFrom" xml:space="preserve">
+    <value>Der Recipe Schritt '{0}' in der Implementierung '{1}' hat eine ungültige Referenz.</value>
+  </data>
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>Konnte den Schreibschutz für '{0}' nicht aktivieren.</value>
   </data>

@@ -244,6 +244,7 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\Constraint.cs" />
+    <Compile Include="Model\CopyFromStep.cs" />
     <Compile Include="Model\Dependency.cs" />
     <Compile Include="Model\Design\ArchitectureConverter.cs" />
     <Compile Include="Model\Design\ArchiveMimeTypeConverter.cs" />

@@ -88,7 +88,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddElement<Archive, ArchiveEditor>("archive")
                 .AddElement<SingleFile, SingleFileEditor>("file")
                 .AddElement<RenameStep>("rename")
-                .AddElement<RemoveStep>("remove");
+                .AddElement<RemoveStep>("remove")
+                .AddElement<CopyFromStep>("copy-from");
 
             Describe<CapabilityList>()
                 .AddList(x => x.Entries)

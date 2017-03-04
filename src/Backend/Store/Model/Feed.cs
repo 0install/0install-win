@@ -350,6 +350,7 @@ namespace ZeroInstall.Store.Model
 
             NormalizeElements(feedUri);
             NormalizeEntryPoints();
+            ResolveCopyFromReferences();
         }
 
         private void NormalizeElements([NotNull] FeedUri feedUri)
@@ -385,6 +386,26 @@ namespace ZeroInstall.Store.Model
 
             // Copy the needs-terminal flag from the feed to the main entry point if present
             if (NeedsTerminal) mainEntryPoint.NeedsTerminal = true;
+        }
+
+        private void ResolveCopyFromReferences()
+        {
+            foreach (var implementation in Elements.OfType<Implementation>())
+            foreach (var recipe in implementation.RetrievalMethods.OfType<Recipe>())
+            foreach (var step in recipe.Steps.OfType<CopyFromStep>())
+            {
+                try
+                {
+                    step.Implementation = this[step.ID];
+                }
+                    #region Error handling
+                catch (KeyNotFoundException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new InvalidDataException(string.Format(Resources.UnableToResolveCopyFrom, step, implementation.ID), ex);
+                }
+                #endregion
+            }
         }
 
         /// <summary>

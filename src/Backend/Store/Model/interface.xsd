@@ -1015,6 +1015,7 @@
           <xsd:element name="file" type="feed:file" />
           <xsd:element name="rename" type="feed:rename" />
           <xsd:element name="remove" type="feed:remove" />
+          <xsd:element name="copy-from" type="feed:rename" />
         </xsd:choice>
       </xsd:extension>
     </xsd:complexContent>
@@ -1062,6 +1063,38 @@
           <xsd:annotation>
             <xsd:documentation>
               The file or directory to be removed relative to the implementation root as a Unix-style path.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="copy-from">
+    <xsd:annotation>
+      <xsd:documentation>
+        Copies files or directories from another implementation specified elsewhere in the same feed.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:recipe-step">
+        <xsd:attribute name="id" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The ID of the implementation to copy from.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="source" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>
+              The source file or directory relative to the source implementation root as a Unix-style path. Leave unset to copy the entire implementation.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="dest" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>
+              The destination file or directory relative to the destination implementation root as a Unix-style path. Leave unset to copy to the root of the new implementation.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

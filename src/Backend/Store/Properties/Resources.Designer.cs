@@ -832,6 +832,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The recipe step &apos;{0}&apos; in the implementation &apos;{1}&apos; has an invalid reference..
+        /// </summary>
+        internal static string UnableToResolveCopyFrom {
+            get {
+                return ResourceManager.GetString("UnableToResolveCopyFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to enable write protection for &apos;{0}&apos;..
         /// </summary>
         internal static string UnableToWriteProtect {
