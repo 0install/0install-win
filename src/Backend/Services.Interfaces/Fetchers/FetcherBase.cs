@@ -170,17 +170,18 @@ namespace ZeroInstall.Services.Fetchers
         {
             Handler.CancellationToken.ThrowIfCancellationRequested();
 
-            // Fail fast on unsupported archive type
+            // Fail fast on unsupported Archive types
             foreach (var archive in recipe.Steps.OfType<Archive>())
                 ArchiveExtractor.VerifySupport(archive.MimeType);
 
             var downloadedFiles = new List<TemporaryFile>();
             try
             {
+                // Download any files or archives required by the recipe
                 foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
                     downloadedFiles.Add(Download(downloadStep, tag: manifestDigest));
 
-                // More efficient special-case handling for Archive-only cases
+                // More efficient special-case handling for Archive-only Recipes
                 if (recipe.Steps.All(step => step is Archive))
                     ApplyArchives(recipe.Steps.Cast<Archive>().ToList(), downloadedFiles, manifestDigest);
                 else

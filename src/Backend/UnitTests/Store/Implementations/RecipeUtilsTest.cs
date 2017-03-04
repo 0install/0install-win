@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Implementations
                 var downloadedFiles = new[] {archiveFile, singleFile};
                 var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
 
-                using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
+                using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
                     // /subdir2/executable [!X]
                     string path = Path.Combine(recipeDir, "subdir2", "executable");
@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Implementations
                     }
                 };
 
-                using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
+                using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
                     if (!UnixUtils.IsUnix)
                     {

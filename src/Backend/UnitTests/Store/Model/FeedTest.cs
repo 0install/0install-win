@@ -43,127 +43,115 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a fictive test <see cref="Feed"/>.
         /// </summary>
-        public static Feed CreateTestFeed()
+        public static Feed CreateTestFeed() => new Feed
         {
-            return new Feed
+            Uri = Test1Uri,
+            Name = "MyApp",
+            Categories = {"Category1", "Category2"},
+            Homepage = new Uri("http://0install.de/"),
+            Feeds = {new FeedReference {Source = Sub1Uri}},
+            FeedFor = {new InterfaceReference {Target = new FeedUri("http://0install.de/feeds/test/super1.xml")}},
+            Summaries = {"Default summary", {"de-DE", "German summary"}},
+            Descriptions = {"Default description", {"de-DE", "German description"}},
+            Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test.png"), MimeType = Icon.MimeTypePng}},
+            Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
+            CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
+            EntryPoints =
             {
-                Uri = Test1Uri,
-                Name = "MyApp",
-                Categories = {"Category1", "Category2"},
-                Homepage = new Uri("http://0install.de/"),
-                Feeds = {new FeedReference {Source = Sub1Uri}},
-                FeedFor = {new InterfaceReference {Target = new FeedUri("http://0install.de/feeds/test/super1.xml")}},
-                Summaries = {"Default summary", {"de-DE", "German summary"}},
-                Descriptions = {"Default description", {"de-DE", "German description"}},
-                Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test.png"), MimeType = Icon.MimeTypePng}},
-                Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
-                CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
-                EntryPoints =
+                new EntryPoint
                 {
-                    new EntryPoint
-                    {
-                        Command = Command.NameRun,
-                        BinaryName = "myapp",
-                        Names = {"Entry name", {"de-DE", "German entry name"}},
-                        Summaries = {"Entry summary", {"de-DE", "German entry summary"}},
-                        Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.png"), MimeType = Icon.MimeTypePng}}
-                    }
+                    Command = Command.NameRun,
+                    BinaryName = "myapp",
+                    Names = {"Entry name", {"de-DE", "German entry name"}},
+                    Summaries = {"Entry summary", {"de-DE", "German entry summary"}},
+                    Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.png"), MimeType = Icon.MimeTypePng}}
                 }
-            };
-        }
+            }
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="Implementation"/>.
         /// </summary>
-        public static Implementation CreateTestImplementation()
+        public static Implementation CreateTestImplementation() => new Implementation
         {
-            return new Implementation
+            ID = "id1",
+            ManifestDigest = new ManifestDigest(sha256: "123"),
+            Version = new ImplementationVersion("1.0"),
+            Architecture = new Architecture(OS.Windows, Cpu.I586),
+            Languages = {"en-US"},
+            Commands = {CommandTest.CreateTestCommand1()},
+            DocDir = "doc",
+            Stability = Stability.Developer,
+            Dependencies =
             {
-                ID = "id1",
-                ManifestDigest = new ManifestDigest(sha256: "123"),
-                Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {"en-US"},
-                Commands = {CommandTest.CreateTestCommand1()},
-                DocDir = "doc",
-                Stability = Stability.Developer,
-                Dependencies =
+                new Dependency
                 {
-                    new Dependency
-                    {
-                        InterfaceUri = Test1Uri,
-                        Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
-                        Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
-                    }
-                },
-                Restrictions =
+                    InterfaceUri = Test1Uri,
+                    Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
+                    Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
+                }
+            },
+            Restrictions =
+            {
+                new Restriction
                 {
-                    new Restriction
-                    {
-                        InterfaceUri = Test2Uri,
-                        Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
-                    }
-                },
-                RetrievalMethods =
+                    InterfaceUri = Test2Uri,
+                    Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
+                }
+            },
+            RetrievalMethods =
+            {
+                new Recipe
                 {
-                    new Recipe
+                    Steps =
                     {
-                        Steps =
-                        {
-                            new Archive {Href = new Uri("http://0install.de/files/test/test.zip"), Size = 1024},
-                            new SingleFile {Href = new Uri("http://0install.de/files/test/test.dat"), Size = 1024, Destination = "test.dat"},
-                            new RenameStep {Source = "a", Destination = "b"},
-                            new RemoveStep {Path = "c"}
-                        }
+                        new Archive {Href = new Uri("http://0install.de/files/test/test.zip"), Size = 1024},
+                        new SingleFile {Href = new Uri("http://0install.de/files/test/test.dat"), Size = 1024, Destination = "test.dat"},
+                        new RenameStep {Source = "a", Destination = "b"},
+                        new RemoveStep {Path = "c"}
                     }
                 }
-            };
-        }
+            }
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="PackageImplementation"/>.
         /// </summary>
-        public static PackageImplementation CreateTestPackageImplementation()
+        public static PackageImplementation CreateTestPackageImplementation() => new PackageImplementation
         {
-            return new PackageImplementation
+            Package = "firefox",
+            Distributions = {"RPM"},
+            Version = new ImplementationVersion("1.0"),
+            Architecture = new Architecture(OS.Windows, Cpu.I586),
+            Languages = {"en-US"},
+            Commands = {CommandTest.CreateTestCommand1()},
+            DocDir = "doc",
+            Stability = Stability.Developer,
+            Dependencies =
             {
-                Package = "firefox",
-                Distributions = {"RPM"},
-                Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {"en-US"},
-                Commands = {CommandTest.CreateTestCommand1()},
-                DocDir = "doc",
-                Stability = Stability.Developer,
-                Dependencies =
+                new Dependency
                 {
-                    new Dependency
-                    {
-                        InterfaceUri = Test2Uri, Importance = Importance.Recommended,
-                        Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
-                    }
+                    InterfaceUri = Test2Uri, Importance = Importance.Recommended,
+                    Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                 }
-            };
-        }
+            }
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="Group"/>.
         /// </summary>
-        private static Group CreateTestGroup()
+        private static Group CreateTestGroup() => new Group
         {
-            return new Group
+            Languages = {"de"},
+            Architecture = new Architecture(OS.FreeBsd, Cpu.I586),
+            License = "GPL",
+            Stability = Stability.Developer,
+            Elements =
             {
-                Languages = {"de"},
-                Architecture = new Architecture(OS.FreeBsd, Cpu.I586),
-                License = "GPL",
-                Stability = Stability.Developer,
-                Elements =
-                {
-                    new Implementation {Commands = {new Command {Name = "run", Path = "main1"}}},
-                    new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}}
-                }
-            };
-        }
+                new Implementation {Commands = {new Command {Name = "run", Path = "main1"}}},
+                new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}}
+            }
+        };
         #endregion
 
         /// <summary>
@@ -211,7 +199,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Test]
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public void TestNormalize()
+        public void TestNormalizeGroup()
         {
             var feed = new Feed {Name = "Mock feed", Elements = {CreateTestGroup()}};
             feed.Normalize(Test1Uri);
@@ -232,21 +220,6 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.Strip"/> correctly removes non-essential metadata.
-        /// </summary>
-        [Test]
-        public void TestStrip()
-        {
-            var feed = CreateTestFeed();
-            feed.Strip();
-
-            feed.Elements.Should().BeEmpty();
-            feed.CapabilityLists.Should().BeEmpty();
-            feed.UnknownAttributes.Should().BeEmpty();
-            feed.UnknownElements.Should().BeEmpty();
-        }
-
-        /// <summary>
         /// Ensures that <see cref="Feed.Normalize"/> correctly updates collection hash codes.
         /// </summary>
         [Test]
@@ -263,6 +236,21 @@ namespace ZeroInstall.Store.Model
                 feedReload.Normalize(new FeedUri(tempFile));
                 feedReload.GetHashCode().Should().Be(feed.GetHashCode());
             }
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.Strip"/> correctly removes non-essential metadata.
+        /// </summary>
+        [Test]
+        public void TestStrip()
+        {
+            var feed = CreateTestFeed();
+            feed.Strip();
+
+            feed.Elements.Should().BeEmpty();
+            feed.CapabilityLists.Should().BeEmpty();
+            feed.UnknownAttributes.Should().BeEmpty();
+            feed.UnknownElements.Should().BeEmpty();
         }
 
         /// <summary>

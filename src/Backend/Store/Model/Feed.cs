@@ -247,7 +247,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="command">The command name to search for; <c>null</c> is equivalent to <see cref="Command.NameRun"/>.</param>
         /// <returns>The identified <see cref="EntryPoint"/>; <c>null</c> no matching one was found.</returns>
-        [ContractAnnotation("command:null=>notnull")]
+        [CanBeNull]
         public EntryPoint GetEntryPoint([CanBeNull] string command = null)
         {
             if (command == null) command = Command.NameRun;

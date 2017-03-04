@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="recipe">The <see cref="Recipe"/> to apply.</param>
         /// <param name="downloadedFiles">Files downloaded for the the <paramref name="recipe"/>. Must be in same order as <see cref="DownloadRetrievalMethod"/> elements in <paramref name="recipe"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
+        /// <param name="tag">A tag used to associate composite task with a specific operation; can be null.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
         /// <exception cref="ArgumentException">The <see cref="Archive"/>s in <paramref name="recipe"/> and the files in <paramref name="downloadedFiles"/> do not match up.</exception>
         /// <exception cref="NotSupportedException"><paramref name="recipe"/> contains unknown step types.</exception>
@@ -60,26 +60,28 @@ namespace ZeroInstall.Store.Implementations
 
             try
             {
-                IEnumerator<TemporaryFile> downloadedEnum = downloadedFiles.GetEnumerator();
-                // ReSharper disable AccessToDisposedClosure
-                new PerTypeDispatcher<IRecipeStep>(ignoreMissing: false)
+                using (var downloadedEnum = downloadedFiles.GetEnumerator())
                 {
-                    (Archive step) =>
+                    // ReSharper disable AccessToDisposedClosure
+                    new PerTypeDispatcher<IRecipeStep>(ignoreMissing: false)
                     {
-                        downloadedEnum.MoveNext();
-                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
-                        step.Apply(downloadedEnum.Current, workingDir, handler, tag);
-                    },
-                    (SingleFile step) =>
-                    {
-                        downloadedEnum.MoveNext();
-                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
-                        step.Apply(downloadedEnum.Current, workingDir);
-                    },
-                    (RemoveStep step) => step.Apply(workingDir),
-                    (RenameStep step) => step.Apply(workingDir)
-                }.Dispatch(recipe.Steps);
-                // ReSharper restore AccessToDisposedClosure
+                        (Archive step) =>
+                        {
+                            downloadedEnum.MoveNext();
+                            if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
+                            step.Apply(downloadedEnum.Current, workingDir, handler, tag);
+                        },
+                        (SingleFile step) =>
+                        {
+                            downloadedEnum.MoveNext();
+                            if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
+                            step.Apply(downloadedEnum.Current, workingDir);
+                        },
+                        (RemoveStep step) => step.Apply(workingDir),
+                        (RenameStep step) => step.Apply(workingDir)
+                    }.Dispatch(recipe.Steps);
+                    // ReSharper restore AccessToDisposedClosure
+                }
                 return workingDir;
             }
                 #region Error handling
@@ -98,7 +100,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="localPath">The local path of the archive.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <c>null</c>.</param>
+        /// <param name="tag">A tag used to associate composite task with a specific operation; can be null.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply([NotNull] this Archive step, [NotNull] string localPath, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
@@ -190,7 +192,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Applies a <see cref="RemoveStep"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="RemoveStep"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply([NotNull] this RemoveStep step, [NotNull] TemporaryDirectory workingDir)
@@ -218,7 +220,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Applies a <see cref="RenameStep"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="RenameStep"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply([NotNull] this RenameStep step, [NotNull] TemporaryDirectory workingDir)

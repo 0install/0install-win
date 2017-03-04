@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementations
             string flagDir = FindRootDir(flagName, target);
             if (flagDir == null) return new string[0];
 
-            var externalFlags = new List<string>();
+            var externalFlags = new HashSet<string>();
             using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, flagName)))
             {
                 // Each line in the file signals a flagged file
