@@ -22,6 +22,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
+using ZeroInstall.Store.Implementations.Build;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {

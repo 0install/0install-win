@@ -23,7 +23,6 @@ using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Store.Implementations
 {
@@ -47,7 +46,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Wrapper for <see cref="IStore.ListAll"/>, handling exceptions.
         /// </summary>
-        [NotNull, ItemNotNull]
+        [NotNull]
         public static IEnumerable<ManifestDigest> ListAllSafe([NotNull] this IStore store)
         {
             #region Sanity checks

@@ -178,8 +178,12 @@
     <Compile Include="Implementations\Archives\ZipExtractor.cs" />
     <Compile Include="Implementations\Archives\ZipGenerator.cs" />
     <Compile Include="Implementations\Archives\_Namespace.cs" />
+    <Compile Include="Implementations\Build\CopyDirectoryPosix.cs" />
+    <Compile Include="Implementations\Build\DirectoryWalkTask.cs" />
+    <Compile Include="Implementations\Build\FlagUtils.cs" />
+    <Compile Include="Implementations\Build\RecipeUtils.cs" />
+    <Compile Include="Implementations\Build\_Namespace.cs" />
     <Compile Include="Implementations\CompositeStore.cs" />
-    <Compile Include="Implementations\CopyDirectoryPosix.cs" />
     <Compile Include="Implementations\Deployment\ClearDirectory.cs" />
     <Compile Include="Implementations\Deployment\DeployDirectory.cs" />
     <Compile Include="Implementations\Deployment\DirectoryOperation.cs" />
@@ -187,8 +191,6 @@
     <Compile Include="Implementations\DigestMismatchException.cs" />
     <Compile Include="Implementations\DirectoryStore.cs" />
     <Compile Include="Implementations\DirectoryStore.OptimiseRun.cs" />
-    <Compile Include="Implementations\DirectoryWalkTask.cs" />
-    <Compile Include="Implementations\FlagUtils.cs" />
     <Compile Include="Implementations\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementations\ImplementationNotFoundException.cs" />
     <Compile Include="Implementations\IpcStore.Connection.cs" />
@@ -205,7 +207,6 @@
     <Compile Include="Implementations\Manifests\ManifestNormalFile.cs" />
     <Compile Include="Implementations\Manifests\ManifestSymlink.cs" />
     <Compile Include="Implementations\Manifests\_Namespace.cs" />
-    <Compile Include="Implementations\RecipeUtils.cs" />
     <Compile Include="Implementations\StoreConfig.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />

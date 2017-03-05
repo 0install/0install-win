@@ -19,6 +19,7 @@ using System.Security.Cryptography;
 using FluentAssertions;
 using NanoByte.Common;
 using NUnit.Framework;
+using ZeroInstall.Store.Implementations.Build;
 
 namespace ZeroInstall.Store.Implementations.Manifests
 {

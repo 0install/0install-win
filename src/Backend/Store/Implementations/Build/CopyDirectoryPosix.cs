@@ -20,7 +20,7 @@ using System.IO;
 using System.Text;
 using NanoByte.Common.Storage;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Copies the content of a directory to a new location preserving the original file modification times.

@@ -22,7 +22,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Common test cases for <see cref="DirectoryWalkTask"/> sub-classes.

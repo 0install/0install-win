@@ -21,7 +21,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Contains test methods for <see cref="FlagUtils"/>.

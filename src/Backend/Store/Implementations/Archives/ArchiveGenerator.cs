@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using ZeroInstall.Store.Implementations.Build;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

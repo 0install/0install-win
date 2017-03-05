@@ -29,6 +29,7 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Implementations.Build;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Fetchers

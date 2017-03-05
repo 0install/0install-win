@@ -27,7 +27,7 @@ using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Provides helper methods for dealing with <see cref="Recipe"/>s.

@@ -20,7 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Storage;
-using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Build;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Design;
 

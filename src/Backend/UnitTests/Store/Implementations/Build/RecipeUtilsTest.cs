@@ -26,7 +26,7 @@ using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Contains test methods for <see cref="RecipeUtils"/>.

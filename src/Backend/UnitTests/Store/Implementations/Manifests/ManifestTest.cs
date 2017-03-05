@@ -27,6 +27,7 @@ using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Services;
+using ZeroInstall.Store.Implementations.Build;
 
 namespace ZeroInstall.Store.Implementations.Manifests
 {

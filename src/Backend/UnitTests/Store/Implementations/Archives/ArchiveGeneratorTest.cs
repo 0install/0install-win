@@ -16,6 +16,7 @@
  */
 
 using System.IO;
+using ZeroInstall.Store.Implementations.Build;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {

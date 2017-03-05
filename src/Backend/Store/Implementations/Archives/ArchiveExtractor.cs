@@ -25,6 +25,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store.Implementations.Build;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
