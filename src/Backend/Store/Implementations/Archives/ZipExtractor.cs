@@ -42,9 +42,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal ZipExtractor([NotNull] Stream stream, [NotNull] string target) : base(target)
+        internal ZipExtractor([NotNull] Stream stream, [NotNull] string targetPath) : base(targetPath)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException(nameof(stream));
@@ -87,7 +87,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
-                if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
+                if (!Directory.Exists(EffectiveTargetPath)) Directory.CreateDirectory(EffectiveTargetPath);
 
                 // Read ZIP file sequentially and reference central directory in parallel
                 int i = 0;

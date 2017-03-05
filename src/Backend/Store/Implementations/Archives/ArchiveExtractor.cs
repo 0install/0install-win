@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -43,51 +42,59 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected override bool UnitsByte => true;
 
         /// <summary>
-        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <c>null</c> to extract entire archive.
+        /// The name of the subdirectory in the archive to extract (with Unix-style slashes); <c>null</c> to extract entire archive.
         /// </summary>
-        [Description("The sub-directory in the archive (with Unix-style slashes) to be extracted; null to extract entire archive.")]
+        [Description("The name of the subdirectory in the archive to extract (with Unix-style slashes); null to extract entire archive.")]
         [CanBeNull]
-        public string SubDir { get; set; }
+        public string Extract { get; set; }
 
         /// <summary>
         /// The path to the directory to extract into.
         /// </summary>
         [Description("The path to the directory to extract into.")]
         [NotNull]
-        public string TargetDir { get; }
+        public string TargetPath { get; }
 
         /// <summary>
-        /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files; <c>null</c> for none.
+        /// Sub-path to be appended to <see cref="TargetPath"/> without affecting location of flag files; <c>null</c> for none.
         /// </summary>
         [Description("Sub-path to be appended to TargetDir without affecting location of flag files.")]
         [CanBeNull]
-        public string Destination { get; set; }
+        public string TargetSuffix { get; set; }
 
         /// <summary>
-        /// <see cref="TargetDir"/> and <see cref="Destination"/> combined.
+        /// <see cref="TargetPath"/> and <see cref="TargetSuffix"/> combined.
         /// </summary>
         [NotNull]
-        protected string EffectiveTargetDir => string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination);
+        protected string EffectiveTargetPath => string.IsNullOrEmpty(TargetSuffix) ? TargetPath : Path.Combine(TargetPath, TargetSuffix);
 
         /// <summary>
-        /// Indicates whether <see cref="TargetDir"/> is located on a filesystem with support for Unixoid features such as executable bits.
+        /// Indicates whether <see cref="TargetPath"/> is located on a filesystem with support for Unixoid features such as executable bits.
         /// </summary>
-        private readonly bool _isUnixFS;
+        private readonly bool _targetIsUnixFS;
+
+        /// <summary>Used to track exeuctable bits in <see cref="TargetPath"/> if <see cref="_targetIsUnixFS"/> is <c>false</c>.</summary>
+        private readonly string _targetXbitFile;
+
+        /// <summary>Used to track symlinks if in <see cref="TargetPath"/> <see cref="_targetIsUnixFS"/> is <c>false</c>.</summary>
+        private readonly string _targetSymlinkFile;
 
         /// <summary>
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
-        /// <param name="target">The path to the directory to extract into.</param>
-        protected ArchiveExtractor([NotNull] string target)
+        /// <param name="targetPath">The path to the directory to extract into.</param>
+        protected ArchiveExtractor([NotNull] string targetPath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (string.IsNullOrEmpty(targetPath)) throw new ArgumentNullException(nameof(targetPath));
             #endregion
 
-            TargetDir = target;
+            TargetPath = targetPath;
 
-            if (Directory.Exists(target)) Directory.CreateDirectory(target);
-            _isUnixFS = FlagUtils.IsUnixFS(target);
+            if (Directory.Exists(targetPath)) Directory.CreateDirectory(targetPath);
+            _targetIsUnixFS = FlagUtils.IsUnixFS(targetPath);
+            _targetXbitFile = Path.Combine(TargetPath, FlagUtils.XbitFile);
+            _targetSymlinkFile = Path.Combine(TargetPath, FlagUtils.SymlinkFile);
         }
 
         #region Factory methods
@@ -124,47 +131,47 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Creates a new <see cref="ArchiveExtractor"/> for extracting from an archive stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <exception cref="IOException">Failed to read the archive file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the archive file was denied.</exception>
         [NotNull]
-        public static ArchiveExtractor Create([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
+        public static ArchiveExtractor Create([NotNull] Stream stream, [NotNull] string targetPath, [CanBeNull] string mimeType)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException(nameof(stream));
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (string.IsNullOrEmpty(targetPath)) throw new ArgumentNullException(nameof(targetPath));
             #endregion
 
             ArchiveExtractor extractor;
             switch (mimeType)
             {
                 case Archive.MimeTypeZip:
-                    extractor = new ZipExtractor(stream, target);
+                    extractor = new ZipExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeTar:
-                    extractor = new TarExtractor(stream, target);
+                    extractor = new TarExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeTarGzip:
-                    extractor = new TarGzExtractor(stream, target);
+                    extractor = new TarGzExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeTarBzip:
-                    extractor = new TarBz2Extractor(stream, target);
+                    extractor = new TarBz2Extractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeTarLzma:
-                    extractor = new TarLzmaExtractor(stream, target);
+                    extractor = new TarLzmaExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeTarXz:
-                    extractor = new TarXzExtractor(stream, target);
+                    extractor = new TarXzExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeRubyGem:
-                    extractor = new RubyGemExtractor(stream, target);
+                    extractor = new RubyGemExtractor(stream, targetPath);
                     break;
                 case Archive.MimeType7Z:
-                    extractor = new SevenZipExtractor(stream, target);
+                    extractor = new SevenZipExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeCab:
-                    extractor = new CabExtractor(stream, target);
+                    extractor = new CabExtractor(stream, targetPath);
                     break;
                 case Archive.MimeTypeMsi:
                     throw new NotSupportedException("MSIs can only be accessed as local files, not as streams!");
@@ -178,27 +185,32 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a new <see cref="ArchiveExtractor"/> for extracting from an archive file.
         /// </summary>
-        /// <param name="path">The path of the archive file to be extracted.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="archivePath">The path of the archive file to be extracted.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <param name="mimeType">The MIME type of archive format of the stream. Leave <c>null</c> to guess based on file name.</param>
         /// <param name="startOffset"></param>
         /// <returns>The newly created <see cref="ArchiveExtractor"/>.</returns>
         /// <exception cref="IOException">The archive is damaged.</exception>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         [NotNull]
-        public static ArchiveExtractor Create([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
+        public static ArchiveExtractor Create([NotNull] string archivePath, [NotNull] string targetPath, [CanBeNull] string mimeType = null, long startOffset = 0)
         {
-            if (string.IsNullOrEmpty(mimeType)) mimeType = Archive.GuessMimeType(path);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(archivePath)) throw new ArgumentNullException(nameof(mimeType));
+            if (string.IsNullOrEmpty(targetPath)) throw new ArgumentNullException(nameof(targetPath));
+            #endregion
+
+            if (string.IsNullOrEmpty(mimeType)) mimeType = Archive.GuessMimeType(archivePath);
 
             // MSI Extractor does not support Stream-based access
-            if (mimeType == Archive.MimeTypeMsi) return new MsiExtractor(path, target);
+            if (mimeType == Archive.MimeTypeMsi) return new MsiExtractor(archivePath, targetPath);
 
-            Stream stream = File.OpenRead(path);
+            Stream stream = File.OpenRead(archivePath);
             if (startOffset != 0) stream = new OffsetStream(stream, startOffset);
 
             try
             {
-                return Create(stream, target, mimeType);
+                return Create(stream, targetPath, mimeType);
             }
             catch
             {
@@ -209,10 +221,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         #endregion
 
         /// <summary>
-        /// Returns the path of an archive entry relative to <see cref="SubDir"/>.
+        /// Returns the path of an archive entry relative to <see cref="Extract"/>.
         /// </summary>
         /// <param name="entryName">The Unix-style path of the archive entry relative to the archive's root.</param>
-        /// <returns>The relative path or <c>null</c> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
+        /// <returns>The relative path or <c>null</c> if the <paramref name="entryName"/> doesn't lie within the <see cref="Extract"/>.</returns>
         [CanBeNull]
         protected virtual string GetRelativePath([NotNull] string entryName)
         {
@@ -222,10 +234,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             entryName = entryName.TrimStart(Path.DirectorySeparatorChar);
             if (entryName.StartsWith("." + Path.DirectorySeparatorChar)) entryName = entryName.Substring(2);
 
-            if (!string.IsNullOrEmpty(SubDir))
+            if (!string.IsNullOrEmpty(Extract))
             {
                 // Remove leading and trailing slashes
-                string subDir = FileUtils.UnifySlashes(SubDir).Trim(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                string subDir = FileUtils.UnifySlashes(Extract).Trim(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
                 // Only extract objects within the selected sub-directory
                 entryName = entryName.StartsWith(subDir) ? entryName.Substring(subDir.Length) : null;
@@ -242,7 +254,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a directory in the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         protected void CreateDirectory([NotNull] string relativePath, DateTime lastWriteTime)
         {
@@ -257,9 +269,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Combines the extraction <see cref="TargetDir"/> path with the relative path inside the archive (ensuring only valid paths are returned).
+        /// Combines the extraction <see cref="TargetPath"/> path with the relative path inside the archive (ensuring only valid paths are returned).
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         /// <returns>The combined path as an absolute path.</returns>
         /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
         protected string CombinePath([NotNull] string relativePath)
@@ -272,7 +284,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
-                return Path.GetFullPath(Path.Combine(EffectiveTargetDir, relativePath));
+                return Path.GetFullPath(Path.Combine(EffectiveTargetPath, relativePath));
             }
                 #region Error handling
             catch (ArgumentException ex)
@@ -285,7 +297,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Writes a file to the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
@@ -306,7 +318,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a stream for writing an extracted file to the filesystem.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         /// <param name="executable"><c>true</c> if the file's executable bit is set; <c>false</c> otherwise.</param>
         /// <returns>A stream for writing the extracted file.</returns>
         protected FileStream OpenFileWriteStream([NotNull] string relativePath, bool executable = false)
@@ -323,8 +335,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             // If a symlink is overwritten by a normal file, remove the symlink flag
             if (alreadyExists)
             {
-                string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.Remove(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
+                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? relativePath : Path.Combine(TargetSuffix, relativePath);
+                FlagUtils.Remove(_targetSymlinkFile, flagRelativePath);
             }
 
             if (executable) SetExecutableBit(relativePath);
@@ -336,38 +348,38 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Marks a file as executable using the filesystem if possible; stores it in a <see cref="FlagUtils.XbitFile"/> otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         private void SetExecutableBit(string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
             #endregion
 
-            if (_isUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), true);
+            if (_targetIsUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetPath, relativePath), true);
             else
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.XbitFile), flagRelativePath);
+                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? relativePath : Path.Combine(TargetSuffix, relativePath);
+                FlagUtils.Set(_targetXbitFile, flagRelativePath);
             }
         }
 
         /// <summary>
         /// Marks a file as no longer executable using the filesystem if possible, an <see cref="FlagUtils.XbitFile"/> file otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         private void RemoveExecutableBit(string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
             #endregion
 
-            if (_isUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), false);
+            if (_targetIsUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetPath, relativePath), false);
             else
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.Remove(Path.Combine(TargetDir, FlagUtils.XbitFile), flagRelativePath);
+                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? relativePath : Path.Combine(TargetSuffix, relativePath);
+                FlagUtils.Remove(_targetXbitFile, flagRelativePath);
             }
         }
 
@@ -382,8 +394,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Queues a hardlink for creation at the end of the extracton process. This enables handling links to files that have not been extracted yet.
         /// </summary>
-        /// <param name="source">A path relative to <see cref="EffectiveTargetDir"/>.</param>
-        /// <param name="target">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="source">A path relative to <see cref="EffectiveTargetPath"/>.</param>
+        /// <param name="target">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         /// <param name="executable"><c>true</c> if the hardlink's executable bit is set; <c>false</c> otherwise.</param>
         protected void QueueHardlink([NotNull] string source, [NotNull] string target, bool executable = false)
         {
@@ -393,7 +405,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a symbolic link in the filesystem if possible; stores it in a <see cref="FlagUtils.SymlinkFile"/> otherwise.
         /// </summary>
-        /// <param name="source">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="source">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
         protected void CreateSymlink([NotNull] string source, [NotNull] string target)
         {
@@ -406,7 +418,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
             if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
 
-            if (_isUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
+            if (_targetIsUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
             else if (WindowsUtils.IsWindowsNT)
             {
                 // NOTE: NTFS symbolic links require admin privileges; use Cygwin symlinks instead
@@ -418,8 +430,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                 File.WriteAllText(sourceAbsolute, target);
 
                 // Some OSes can't store the symlink flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
-                FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
+                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? source : Path.Combine(TargetSuffix, source);
+                FlagUtils.Set(_targetSymlinkFile, flagRelativePath);
             }
         }
 
@@ -451,8 +463,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a hardlink in the filesystem if possible; creates a copy otherwise.
         /// </summary>
-        /// <param name="source">A path relative to <see cref="EffectiveTargetDir"/>.</param>
-        /// <param name="target">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="source">A path relative to <see cref="EffectiveTargetPath"/>.</param>
+        /// <param name="target">A path relative to <see cref="EffectiveTargetPath"/>.</param>
         private void CreateHardlink([NotNull] string source, [NotNull] string target)
         {
             #region Sanity checks

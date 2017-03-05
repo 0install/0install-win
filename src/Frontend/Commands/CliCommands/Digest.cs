@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.CliCommands
                 {
                     using (var extractor = ArchiveExtractor.Create(path, tempDir))
                     {
-                        extractor.SubDir = subdir;
+                        extractor.Extract = subdir;
                         Handler.RunTask(extractor);
                     }
 

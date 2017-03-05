@@ -40,10 +40,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract a 7z archive contained in a stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal SevenZipExtractor([NotNull] Stream stream, [NotNull] string target)
-            : base(target)
+        internal SevenZipExtractor([NotNull] Stream stream, [NotNull] string targetPath)
+            : base(targetPath)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException(nameof(stream));
@@ -78,8 +78,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                 using (var extractor = new SevenZip.SevenZipExtractor(_stream))
                 {
                     State = TaskState.Data;
-                    if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
-                    if (extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete(extractor);
+                    if (!Directory.Exists(EffectiveTargetPath)) Directory.CreateDirectory(EffectiveTargetPath);
+                    if (extractor.IsSolid || string.IsNullOrEmpty(Extract)) ExtractComplete(extractor);
                     else ExtractIndividual(extractor);
                 }
             }
@@ -125,18 +125,18 @@ namespace ZeroInstall.Store.Implementations.Archives
             extractor.Extracting += (sender, e) => { UnitsProcessed = e.PercentDone; };
 
             CancellationToken.ThrowIfCancellationRequested();
-            if (string.IsNullOrEmpty(SubDir)) extractor.ExtractArchive(EffectiveTargetDir);
+            if (string.IsNullOrEmpty(Extract)) extractor.ExtractArchive(EffectiveTargetPath);
             else
             {
                 // Use an intermediate temp directory (on the same filesystem)
-                string tempDir = Path.Combine(TargetDir, Path.GetRandomFileName());
+                string tempDir = Path.Combine(TargetPath, Path.GetRandomFileName());
                 extractor.ExtractArchive(tempDir);
 
                 // Get only a specific subdir even though we extracted everything
-                string subDir = FileUtils.UnifySlashes(SubDir);
+                string subDir = FileUtils.UnifySlashes(Extract);
                 string tempSubDir = Path.Combine(tempDir, subDir);
                 if (!FileUtils.IsBreakoutPath(subDir) && Directory.Exists(tempSubDir))
-                    new MoveDirectory(tempSubDir, EffectiveTargetDir, overwrite: true).Run(CancellationToken);
+                    new MoveDirectory(tempSubDir, EffectiveTargetPath, overwrite: true).Run(CancellationToken);
                 Directory.Delete(tempDir, recursive: true);
             }
             CancellationToken.ThrowIfCancellationRequested();

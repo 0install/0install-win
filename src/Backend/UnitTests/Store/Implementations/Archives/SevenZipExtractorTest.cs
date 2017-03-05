@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
             using (var extractor = ArchiveExtractor.Create(typeof(SevenZipExtractorTest).GetEmbeddedStream("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
-                extractor.SubDir = "folder1";
+                extractor.Extract = "folder1";
                 extractor.Run();
 
                 string filePath = Path.Combine(sandbox, "file");

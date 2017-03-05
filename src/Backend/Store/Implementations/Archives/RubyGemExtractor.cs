@@ -33,10 +33,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract a Ruby Gem archive.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal RubyGemExtractor([NotNull] Stream stream, [NotNull] string target)
-            : base(GetPartialStream(stream), target)
+        internal RubyGemExtractor([NotNull] Stream stream, [NotNull] string targetPath)
+            : base(GetPartialStream(stream), targetPath)
         {}
 
         /// <summary>

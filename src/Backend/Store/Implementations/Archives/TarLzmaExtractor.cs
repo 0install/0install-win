@@ -36,10 +36,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract a TAR archive contained in a LZMA-compressed stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal TarLzmaExtractor([NotNull] Stream stream, [NotNull] string target)
-            : base(GetDecompressionStream(stream), target)
+        internal TarLzmaExtractor([NotNull] Stream stream, [NotNull] string targetPath)
+            : base(GetDecompressionStream(stream), targetPath)
         {
             _stream = stream;
             UnitsTotal = stream.Length;

@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.CliCommands
                     string path = tempFile;
                     StoreMock.Setup(x => x.AddArchives(new[]
                     {
-                        new ArchiveFileInfo {Path = path, SubDir = "extract"}
+                        new ArchiveFileInfo {Path = path, Extract = "extract"}
                     }, digest, Handler)).Returns("");
 
                     RunAndAssert(null, ExitCode.OK,
@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands.CliCommands
                     string path = tempFile;
                     StoreMock.Setup(x => x.AddArchives(new[]
                     {
-                        new ArchiveFileInfo {Path = path, SubDir = "extract", MimeType = "mime"}
+                        new ArchiveFileInfo {Path = path, Extract = "extract", MimeType = "mime"}
                     }, digest, Handler)).Returns("");
 
                     RunAndAssert(null, ExitCode.OK,
@@ -123,8 +123,8 @@ namespace ZeroInstall.Commands.CliCommands
                     string path2 = tempFile2;
                     StoreMock.Setup(x => x.AddArchives(new[]
                     {
-                        new ArchiveFileInfo {Path = path1, SubDir = "extract1", MimeType = "mime1"},
-                        new ArchiveFileInfo {Path = path2, SubDir = "extract2", MimeType = "mime2"}
+                        new ArchiveFileInfo {Path = path1, Extract = "extract1", MimeType = "mime1"},
+                        new ArchiveFileInfo {Path = path2, Extract = "extract2", MimeType = "mime2"}
                     }, digest, Handler)).Returns("");
 
                     RunAndAssert(null, ExitCode.OK,

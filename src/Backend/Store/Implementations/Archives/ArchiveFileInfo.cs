@@ -36,13 +36,13 @@ namespace ZeroInstall.Store.Implementations.Archives
         public string Path { get; set; }
 
         /// <summary>
-        /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <c>null</c> to extract entire archive.
+        /// The name of the subdirectory in the archive to extract (with Unix-style slashes); <c>null</c> to extract entire archive.
         /// </summary>
         [CanBeNull]
-        public string SubDir { get; set; }
+        public string Extract { get; set; }
 
         /// <summary>
-        /// Sub-path to be appended to the target directory without affecting location of flag files; <c>null</c> for none.
+        /// The subdirectory within the implementation directory to extract this archive to; <c>null</c> for none.
         /// </summary>
         [CanBeNull]
         public string Destination { get; set; }
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         public override string ToString()
         {
-            string result = $"ArchiveFileInfo: {Path} ({MimeType}, + {StartOffset}, {SubDir})";
+            string result = $"ArchiveFileInfo: {Path} ({MimeType}, + {StartOffset}, {Extract})";
             if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
             if (OriginalSource != null) result += ", originally from: " + OriginalSource.ToStringRfc();
             return result;
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public bool Equals(ArchiveFileInfo other)
         {
             // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
-            return string.Equals(SubDir, other.SubDir) && string.Equals(Destination, other.Destination) && string.Equals(MimeType, other.MimeType) && StartOffset == other.StartOffset && OriginalSource == other.OriginalSource;
+            return string.Equals(Extract, other.Extract) && string.Equals(Destination, other.Destination) && string.Equals(MimeType, other.MimeType) && StartOffset == other.StartOffset && OriginalSource == other.OriginalSource;
         }
 
         /// <inheritdoc/>
@@ -98,7 +98,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             unchecked
             {
                 // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
-                int hashCode = SubDir?.GetHashCode() ?? 0;
+                int hashCode = Extract?.GetHashCode() ?? 0;
                 hashCode = (hashCode * 397) ^ (Destination?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (MimeType?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ StartOffset.GetHashCode();

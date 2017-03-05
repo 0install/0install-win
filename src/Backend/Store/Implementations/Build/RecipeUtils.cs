@@ -123,8 +123,8 @@ namespace ZeroInstall.Store.Implementations.Build
 
             using (var extractor = ArchiveExtractor.Create(localPath, workingDir, step.MimeType, step.StartOffset))
             {
-                extractor.SubDir = step.Extract;
-                extractor.Destination = FileUtils.UnifySlashes(step.Destination);
+                extractor.Extract = step.Extract;
+                extractor.TargetSuffix = FileUtils.UnifySlashes(step.Destination);
                 extractor.Tag = tag;
                 handler.RunTask(extractor);
             }

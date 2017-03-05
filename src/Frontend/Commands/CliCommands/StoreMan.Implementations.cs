@@ -83,7 +83,7 @@ namespace ZeroInstall.Commands.CliCommands
                     archives[i] = new ArchiveFileInfo
                     {
                         Path = Path.GetFullPath(AdditionalArgs[i * 3 + 1]),
-                        SubDir = (AdditionalArgs.Count > i * 3 + 2) ? AdditionalArgs[i * 3 + 2] : null,
+                        Extract = (AdditionalArgs.Count > i * 3 + 2) ? AdditionalArgs[i * 3 + 2] : null,
                         MimeType = (AdditionalArgs.Count > i * 3 + 3) ? AdditionalArgs[i * 3 + 3] : Archive.GuessMimeType(AdditionalArgs[i * 3 + 1])
                     };
                 }

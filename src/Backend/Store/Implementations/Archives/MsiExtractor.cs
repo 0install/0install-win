@@ -40,19 +40,19 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Prepares to extract a Windows Installer MSI package contained in a stream.
         /// </summary>
-        /// <param name="path">The path of the Windows Installer MSI package to be extracted.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="archivePath">The path of the Windows Installer MSI package to be extracted.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The package is damaged.</exception>
-        internal MsiExtractor([NotNull] string path, [NotNull] string target)
-            : base(target)
+        internal MsiExtractor([NotNull] string archivePath, [NotNull] string targetPath)
+            : base(targetPath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            if (string.IsNullOrEmpty(archivePath)) throw new ArgumentNullException(nameof(archivePath));
             #endregion
 
             try
             {
-                _database = new Database(path, DatabaseOpenMode.ReadOnly);
+                _database = new Database(archivePath, DatabaseOpenMode.ReadOnly);
                 ReadDirectories();
                 ReadFiles();
                 ReadCabinets();

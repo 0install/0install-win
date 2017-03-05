@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
             using (var extractor = ArchiveExtractor.Create(tempFile, sandbox, Archive.MimeTypeMsi))
             {
-                extractor.SubDir = "SourceDir";
+                extractor.Extract = "SourceDir";
                 extractor.Run();
 
                 string filePath = Path.Combine(sandbox, "file");

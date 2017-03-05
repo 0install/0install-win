@@ -126,7 +126,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
             {
-                extractor.SubDir = "/sub/folder/";
+                extractor.Extract = "/sub/folder/";
                 extractor.Run();
             }
 
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
             {
-                extractor.SubDir = "/sub/folder/nested";
+                extractor.Extract = "/sub/folder/nested";
                 extractor.Run();
             }
 
@@ -265,7 +265,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 archiveStream.Seek(0, SeekOrigin.Begin);
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive to custom destination";
-                using (var extractor = new ZipExtractor(archiveStream, _sandbox) {Destination = "custom"})
+                using (var extractor = new ZipExtractor(archiveStream, _sandbox) {TargetSuffix = "custom"})
                     extractor.Invoking(x => x.Run()).ShouldNotThrow();
                 File.Exists(Path.Combine(_sandbox, "custom", "emptyFile")).Should().BeTrue(because: message);
                 File.ReadAllBytes(Path.Combine(_sandbox, "custom", "emptyFile")).Should().BeEmpty(because: message);

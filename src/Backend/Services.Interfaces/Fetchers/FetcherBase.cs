@@ -247,7 +247,7 @@ namespace ZeroInstall.Services.Fetchers
                 archiveFileInfos[i] = new ArchiveFileInfo
                 {
                     Path = files[i].Path,
-                    SubDir = archives[i].Extract,
+                    Extract = archives[i].Extract,
                     Destination = archives[i].Destination,
                     MimeType = archives[i].MimeType,
                     StartOffset = archives[i].StartOffset,

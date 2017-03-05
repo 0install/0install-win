@@ -34,10 +34,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract a MS Cabinet archive contained in a stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="targetPath">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal CabExtractor([NotNull] Stream stream, [NotNull] string target)
-            : base(target)
+        internal CabExtractor([NotNull] Stream stream, [NotNull] string targetPath)
+            : base(targetPath)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException(nameof(stream));
@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
-                if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
+                if (!Directory.Exists(EffectiveTargetPath)) Directory.CreateDirectory(EffectiveTargetPath);
                 CabEngine.Unpack(this, _ => true);
             }
                 #region Error handling

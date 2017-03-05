@@ -33,8 +33,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected readonly CabEngine CabEngine = new CabEngine();
         protected Stream CabStream;
 
-        protected MicrosoftExtractor(string target)
-            : base(target)
+        protected MicrosoftExtractor(string targetPath)
+            : base(targetPath)
         {
             if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.ExtractionOnlyOnWindows);
         }

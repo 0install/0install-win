@@ -467,8 +467,8 @@ namespace ZeroInstall.Store.Implementations
                     {
                         using (var extractor = ArchiveExtractor.Create(archiveInfo.Path, tempDir, archiveInfo.MimeType, archiveInfo.StartOffset))
                         {
-                            extractor.SubDir = archiveInfo.SubDir;
-                            extractor.Destination = archiveInfo.Destination;
+                            extractor.Extract = archiveInfo.Extract;
+                            extractor.TargetSuffix = archiveInfo.Destination;
                             extractor.Tag = manifestDigest;
                             handler.RunTask(extractor);
                         }
