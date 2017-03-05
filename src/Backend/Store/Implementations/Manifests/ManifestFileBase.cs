@@ -18,7 +18,7 @@
 using System;
 using NanoByte.Common.Storage;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// An abstract base class for file entries in a <see cref="Manifest"/>.

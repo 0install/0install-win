@@ -24,10 +24,10 @@ using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
-    /// Generates a <see cref="Implementations.Manifest"/> for a directory.
+    /// Generates a <see cref="Manifests.Manifest"/> for a directory.
     /// </summary>
     public class ManifestGenerator : DirectoryWalkTask
     {
@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Implementations
         private readonly List<ManifestNode> _nodes = new List<ManifestNode>();
 
         /// <summary>
-        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Implementations.Manifest"/>; otherwise it's <c>null</c>.
+        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifests.Manifest"/>; otherwise it's <c>null</c>.
         /// </summary>
         public Manifest Manifest => new Manifest(Format, _nodes);
         #endregion

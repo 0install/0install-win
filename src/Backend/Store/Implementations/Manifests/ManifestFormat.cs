@@ -7,7 +7,7 @@ using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// Abstract class to encapsulate the differences between the different formats that can be used to save and load <see cref="Manifest"/>s.

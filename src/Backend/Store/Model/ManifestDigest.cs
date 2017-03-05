@@ -24,7 +24,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;
 

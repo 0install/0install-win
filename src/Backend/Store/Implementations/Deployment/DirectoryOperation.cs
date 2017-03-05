@@ -24,11 +24,12 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store.Implementations.Manifests;
 
 namespace ZeroInstall.Store.Implementations.Deployment
 {
     /// <summary>
-    /// Common base class for deployment operations that operate on directories with <see cref="Implementations.Manifest"/>s.
+    /// Common base class for deployment operations that operate on directories with <see cref="Manifests.Manifest"/>s.
     /// </summary>
     public abstract class DirectoryOperation : StagedOperation
     {
@@ -39,7 +40,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
         public string Path { get; private set; }
 
         /// <summary>
-        /// The contents of a <see cref="Implementations.Manifest"/> file describing the directory.
+        /// The contents of a <see cref="Manifests.Manifest"/> file describing the directory.
         /// </summary>
         [NotNull]
         protected readonly Manifest Manifest;
@@ -60,7 +61,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
         /// Creates a new manifest directory task.
         /// </summary>
         /// <param name="path">The path of the directory to operate on.</param>
-        /// <param name="manifest">The contents of a <see cref="Implementations.Manifest"/> file describing the directory.</param>
+        /// <param name="manifest">The contents of a <see cref="Manifests.Manifest"/> file describing the directory.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         protected DirectoryOperation([NotNull] string path, [NotNull] Manifest manifest, [NotNull] ITaskHandler handler)
         {

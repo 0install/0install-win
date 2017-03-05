@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

@@ -27,6 +27,7 @@ using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 using ZeroInstall.Store.Trust;

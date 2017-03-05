@@ -28,7 +28,7 @@ using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Services;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// Contains test methods for <see cref="Manifest"/>.

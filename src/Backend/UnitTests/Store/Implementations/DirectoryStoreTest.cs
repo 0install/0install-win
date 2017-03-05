@@ -22,6 +22,7 @@ using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

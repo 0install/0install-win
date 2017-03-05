@@ -18,6 +18,7 @@
 using System.IO;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Store.Implementations.Manifests;
 
 namespace ZeroInstall.Store.Implementations.Deployment
 {

@@ -3,7 +3,7 @@
 // ReSharper disable EmptyNamespace
 
 /// <summary>
-/// Logic for extracting various kinds of archives.
+/// Logic for extracting and creating various kinds of archives.
 /// </summary>
 
 namespace ZeroInstall.Store.Implementations.Archives

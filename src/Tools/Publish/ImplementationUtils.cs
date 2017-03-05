@@ -27,6 +27,7 @@ using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish

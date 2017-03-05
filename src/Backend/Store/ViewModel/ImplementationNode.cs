@@ -23,6 +23,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.ViewModel

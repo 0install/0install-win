@@ -21,6 +21,7 @@ using System.Security.Permissions;
 using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common.Dispatch;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

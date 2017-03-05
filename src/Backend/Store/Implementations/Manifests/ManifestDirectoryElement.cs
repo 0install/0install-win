@@ -19,7 +19,7 @@ using System;
 using JetBrains.Annotations;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// An abstract base class for directory-element entries (files and symlinks) in a <see cref="Manifest"/>.

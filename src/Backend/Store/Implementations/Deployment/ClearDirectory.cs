@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2010-2016 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Deployment
@@ -37,7 +38,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
         /// Creates a new directory clear task.
         /// </summary>
         /// <param name="path">The path of the directory to clear.</param>
-        /// <param name="manifest">The contents of a <see cref="Store.Implementations.Manifest"/> file describing the directory.</param>
+        /// <param name="manifest">The contents of a <see cref="Manifest"/> file describing the directory.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         public ClearDirectory([NotNull] string path, [NotNull] Manifest manifest, [NotNull] ITaskHandler handler)
             : base(path, manifest, handler)

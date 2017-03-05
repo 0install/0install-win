@@ -21,7 +21,7 @@ using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// An non-executable file entry in a <see cref="Manifest"/>.

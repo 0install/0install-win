@@ -20,25 +20,35 @@ using System.Globalization;
 using JetBrains.Annotations;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
-    /// A symlink entry in a <see cref="Manifest"/>.
+    /// A directory entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
     [Serializable]
-    public sealed class ManifestSymlink : ManifestDirectoryElement, IEquatable<ManifestSymlink>
+    public sealed class ManifestDirectory : ManifestNode, IEquatable<ManifestDirectory>
     {
         /// <summary>
-        /// Creates a new symlink-entry.
+        /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
         /// </summary>
-        /// <param name="digest">The digest of the link target path.</param>
-        /// <param name="size">The length of the link target path.</param>
-        /// <param name="name">The name of the symlink without the containing directory.</param>
-        /// <exception cref="ArgumentException"><paramref name="name"/> contains a newline character.</exception>
-        internal ManifestSymlink(string digest, long size, string name)
-            : base(digest, size, name)
-        {}
+        [NotNull]
+        public string FullPath { get; }
+
+        /// <summary>
+        /// Creates a new directory-entry.
+        /// </summary>
+        /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
+        /// <exception cref="ArgumentException"><paramref name="fullPath"/> contains a newline character.</exception>
+        public ManifestDirectory(string fullPath)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(fullPath)) throw new ArgumentNullException(nameof(fullPath));
+            if (fullPath.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, nameof(fullPath));
+            #endregion
+
+            FullPath = fullPath;
+        }
 
         #region Factory methods
         /// <summary>
@@ -48,38 +58,31 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
         [NotNull]
-        internal static ManifestSymlink FromString([NotNull] string line)
+        internal static ManifestDirectory FromString([NotNull] string line)
         {
-            const int numberOfParts = 4;
+            const int numberOfParts = 2;
             string[] parts = line.Split(new[] {' '}, numberOfParts);
             if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
-            try
-            {
-                return new ManifestSymlink(parts[1], long.Parse(parts[2]), parts[3]);
-            }
-                #region Error handling
-            catch (OverflowException ex)
-            {
-                throw new FormatException(Resources.NumberTooLarge, ex);
-            }
-            #endregion
+            return new ManifestDirectory(parts[1]);
         }
         #endregion
 
         #region Conversion
         /// <summary>
-        /// Returns the string representation of this node for the manifest format.
+        /// Returns the string representation of this node for the new manifest format.
         /// </summary>
-        /// <returns><c>"S", space, hash, space, size, space, symlink name, newline</c></returns>
-        public override string ToString() => string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Digest, Size, Name);
+        /// <returns><c>"D", space, full path name, newline</c></returns>
+        public override string ToString() => string.Format(CultureInfo.InvariantCulture, "D {0}", FullPath);
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(ManifestSymlink other)
+        public bool Equals(ManifestDirectory other)
         {
-            return base.Equals(other);
+            if (other == null) return false;
+
+            return FullPath == other.FullPath;
         }
 
         /// <inheritdoc/>
@@ -87,13 +90,13 @@ namespace ZeroInstall.Store.Implementations
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is ManifestSymlink && Equals((ManifestSymlink)obj);
+            return obj is ManifestDirectory && Equals((ManifestDirectory)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return FullPath.GetHashCode();
         }
         #endregion
     }

@@ -27,7 +27,7 @@ using NanoByte.Common.Storage;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// A manifest lists every file, directory and symlink in the tree and contains a digest of each file's content.

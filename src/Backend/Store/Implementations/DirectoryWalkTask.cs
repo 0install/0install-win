@@ -24,6 +24,7 @@ using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations

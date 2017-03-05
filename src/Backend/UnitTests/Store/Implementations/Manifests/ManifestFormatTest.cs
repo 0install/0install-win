@@ -15,16 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+using FluentAssertions;
+using NUnit.Framework;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
-    /// An abstract base class for entries in <see cref="Manifest"/>.
+    /// Contains test methods for <see cref="ManifestFormat"/>.
     /// </summary>
-    /// <remarks>This class and the derived classes are immutable. They should only be used as a part of a <see cref="Manifest"/>.</remarks>
-    [Serializable]
-    public abstract class ManifestNode
+    [TestFixture]
+    public class ManifestFormatTest
     {
+        [Test]
+        public void TestFromPrefix()
+        {
+            ManifestFormat.FromPrefix("sha1new=abc").Should().BeSameAs(ManifestFormat.Sha1New);
+            ManifestFormat.FromPrefix("sha256=abc").Should().BeSameAs(ManifestFormat.Sha256);
+            ManifestFormat.FromPrefix("sha256new_abc").Should().BeSameAs(ManifestFormat.Sha256New);
+        }
     }
 }

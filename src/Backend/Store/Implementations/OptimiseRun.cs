@@ -21,6 +21,7 @@ using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
+using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations

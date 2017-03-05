@@ -20,7 +20,7 @@ using FluentAssertions;
 using NanoByte.Common;
 using NUnit.Framework;
 
-namespace ZeroInstall.Store.Implementations
+namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// Contains test methods for <see cref="ManifestGenerator"/>.

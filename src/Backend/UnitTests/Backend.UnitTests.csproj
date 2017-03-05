@@ -128,9 +128,9 @@
     <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
     <Compile Include="Store\Implementations\DirectoryWalkTest.cs" />
     <Compile Include="Store\Implementations\FlagUtilsTest.cs" />
-    <Compile Include="Store\Implementations\ManifestFormatTest.cs" />
-    <Compile Include="Store\Implementations\ManifestGeneratorTest.cs" />
-    <Compile Include="Store\Implementations\ManifestTest.cs" />
+    <Compile Include="Store\Implementations\Manifests\ManifestFormatTest.cs" />
+    <Compile Include="Store\Implementations\Manifests\ManifestGeneratorTest.cs" />
+    <Compile Include="Store\Implementations\Manifests\ManifestTest.cs" />
     <Compile Include="Store\Implementations\RecipeUtilsTest.cs" />
     <Compile Include="Store\Model\ArchitectureTest.cs" />
     <Compile Include="Store\Model\ArchiveTest.cs" />
