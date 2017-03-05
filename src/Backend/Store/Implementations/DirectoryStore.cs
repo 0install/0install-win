@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
     /// Manages a cache directory that stores <see cref="Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class DirectoryStore : MarshalNoTimeout, IStore, IEquatable<DirectoryStore>
+    public partial class DirectoryStore : MarshalNoTimeout, IStore, IEquatable<DirectoryStore>
     {
         /// <inheritdoc/>
         public StoreKind Kind { get; }

@@ -186,6 +186,7 @@
     <Compile Include="Implementations\Deployment\_Namespace.cs" />
     <Compile Include="Implementations\DigestMismatchException.cs" />
     <Compile Include="Implementations\DirectoryStore.cs" />
+    <Compile Include="Implementations\DirectoryStore.OptimiseRun.cs" />
     <Compile Include="Implementations\DirectoryWalkTask.cs" />
     <Compile Include="Implementations\FlagUtils.cs" />
     <Compile Include="Implementations\ImplementationAlreadyInStoreException.cs" />
@@ -204,7 +205,6 @@
     <Compile Include="Implementations\Manifests\ManifestNormalFile.cs" />
     <Compile Include="Implementations\Manifests\ManifestSymlink.cs" />
     <Compile Include="Implementations\Manifests\_Namespace.cs" />
-    <Compile Include="Implementations\OptimiseRun.cs" />
     <Compile Include="Implementations\RecipeUtils.cs" />
     <Compile Include="Implementations\StoreConfig.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
