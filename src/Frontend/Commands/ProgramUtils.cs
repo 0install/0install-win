@@ -89,7 +89,6 @@ namespace ZeroInstall.Commands
             AppMutex.Create(mutexName);
 
             if (WindowsUtils.IsWindows && UILanguage != null) Languages.SetUI(UILanguage);
-            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             NetUtils.ApplyProxy();
 
             ProcessUtils.SanitizeEnvironmentVariables();
