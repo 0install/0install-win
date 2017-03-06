@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
     /// <summary>
     /// Generates a <see cref="Manifests.Manifest"/> for a directory.
     /// </summary>
-    public class ManifestGenerator : DirectoryWalkTask
+    public class ManifestGenerator : DirectoryTaskBase
     {
         #region Properties
         /// <inheritdoc/>

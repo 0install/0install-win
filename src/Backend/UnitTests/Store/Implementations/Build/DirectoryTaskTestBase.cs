@@ -25,10 +25,10 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
-    /// Common test cases for <see cref="DirectoryWalkTask"/> sub-classes.
+    /// Common test cases for <see cref="DirectoryTaskBase"/> sub-classes.
     /// </summary>
-    public abstract class DirectoryWalkTest<T>
-        where T : DirectoryWalkTask
+    public abstract class DirectoryTaskTestBase<T>
+        where T : DirectoryTaskBase
     {
         private TemporaryDirectory _sourceDirectory;
         protected T Target;

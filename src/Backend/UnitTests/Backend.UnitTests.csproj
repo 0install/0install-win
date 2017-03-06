@@ -120,7 +120,7 @@
     <Compile Include="Store\Implementations\Archives\TarLzmaGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipGeneratorTest.cs" />
-    <Compile Include="Store\Implementations\Build\DirectoryWalkTest.cs" />
+    <Compile Include="Store\Implementations\Build\DirectoryTaskTestBase.cs" />
     <Compile Include="Store\Implementations\Build\FlagUtilsTest.cs" />
     <Compile Include="Store\Implementations\Build\RecipeUtilsTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />

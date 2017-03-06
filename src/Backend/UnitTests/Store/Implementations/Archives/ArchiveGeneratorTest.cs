@@ -23,7 +23,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Common test cases for <see cref="ArchiveGenerator"/> sub-classes.
     /// </summary>
-    public abstract class ArchiveGeneratorTest<T> : DirectoryWalkTest<T>
+    public abstract class ArchiveGeneratorTest<T> : DirectoryTaskTestBase<T>
         where T : ArchiveGenerator
     {
         private MemoryStream _archiveWriteStream;

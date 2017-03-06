@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
     /// Contains test methods for <see cref="ManifestGenerator"/>.
     /// </summary>
     [TestFixture]
-    public class ManifestGeneratorTest : DirectoryWalkTest<ManifestGenerator>
+    public class ManifestGeneratorTest : DirectoryTaskTestBase<ManifestGenerator>
     {
         protected override ManifestGenerator CreateTarget(string sourceDirectory)
         {

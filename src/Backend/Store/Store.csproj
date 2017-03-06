@@ -178,7 +178,7 @@
     <Compile Include="Implementations\Archives\ZipGenerator.cs" />
     <Compile Include="Implementations\Archives\_Namespace.cs" />
     <Compile Include="Implementations\Build\CopyDirectoryPosix.cs" />
-    <Compile Include="Implementations\Build\DirectoryWalkTask.cs" />
+    <Compile Include="Implementations\Build\DirectoryTaskBase.cs" />
     <Compile Include="Implementations\Build\FlagUtils.cs" />
     <Compile Include="Implementations\Build\RecipeUtils.cs" />
     <Compile Include="Implementations\Build\_Namespace.cs" />

@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Implementations.Build
     /// <summary>
     /// Common base class for tasks that walk an entire directory tree using template methods.
     /// </summary>
-    public abstract class DirectoryWalkTask : TaskBase
+    public abstract class DirectoryTaskBase : TaskBase
     {
         /// <inheritdoc/>
         protected override bool UnitsByte => true;
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// Creates a new directory walking task.
         /// </summary>
         /// <param name="sourcePath">The path of the directory to walk.</param>
-        protected DirectoryWalkTask([NotNull] string sourcePath)
+        protected DirectoryTaskBase([NotNull] string sourcePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException(nameof(sourcePath));

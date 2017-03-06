@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Creates an archive from a directory. Preserves execuable bits, symlinks and timestamps.
     /// </summary>
-    public abstract class ArchiveGenerator : DirectoryWalkTask, IDisposable
+    public abstract class ArchiveGenerator : DirectoryTaskBase, IDisposable
     {
         /// <summary>
         /// All supported MIME types for creating archives. This is a subset of <see cref="Archive.KnownMimeTypes"/>
