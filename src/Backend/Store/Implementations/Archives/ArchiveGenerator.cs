@@ -63,11 +63,12 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="mimeType">The MIME type of archive format to create.</param>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         [NotNull]
-        public static ArchiveGenerator Create([NotNull] string sourceDirectory, [NotNull] Stream stream, string mimeType)
+        public static ArchiveGenerator Create([NotNull] string sourceDirectory, [NotNull] Stream stream, [NotNull] string mimeType)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(sourceDirectory)) throw new ArgumentNullException(nameof(sourceDirectory));
             if (stream == null) throw new ArgumentNullException(nameof(stream));
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException(nameof(mimeType));
             #endregion
 
             switch (mimeType)

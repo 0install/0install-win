@@ -242,7 +242,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a directory in the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         protected void CreateDirectory([NotNull] string relativePath, DateTime lastWriteTime)
         {
@@ -259,7 +259,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Combines the extraction <see cref="TargetDir"/> path with the relative path inside the archive (ensuring only valid paths are returned).
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         /// <returns>The combined path as an absolute path.</returns>
         /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
         protected string CombinePath([NotNull] string relativePath)
@@ -285,7 +285,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Writes a file to the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
@@ -306,7 +306,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a stream for writing an extracted file to the filesystem.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         /// <param name="executable"><c>true</c> if the file's executable bit is set; <c>false</c> otherwise.</param>
         /// <returns>A stream for writing the extracted file.</returns>
         protected FileStream OpenFileWriteStream([NotNull] string relativePath, bool executable = false)
@@ -336,7 +336,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Marks a file as executable using the filesystem if possible; stores it in a <see cref="FlagUtils.XbitFile"/> otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         private void SetExecutableBit(string relativePath)
         {
             #region Sanity checks
@@ -355,7 +355,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Marks a file as no longer executable using the filesystem if possible, an <see cref="FlagUtils.XbitFile"/> file otherwise.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         private void RemoveExecutableBit(string relativePath)
         {
             #region Sanity checks
@@ -382,8 +382,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Queues a hardlink for creation at the end of the extracton process. This enables handling links to files that have not been extracted yet.
         /// </summary>
-        /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
-        /// <param name="target">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="source">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="target">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         /// <param name="executable"><c>true</c> if the hardlink's executable bit is set; <c>false</c> otherwise.</param>
         protected void QueueHardlink([NotNull] string source, [NotNull] string target, bool executable = false)
         {
@@ -393,7 +393,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a symbolic link in the filesystem if possible; stores it in a <see cref="FlagUtils.SymlinkFile"/> otherwise.
         /// </summary>
-        /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="source">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
         protected void CreateSymlink([NotNull] string source, [NotNull] string target)
         {
@@ -451,8 +451,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Creates a hardlink in the filesystem if possible; creates a copy otherwise.
         /// </summary>
-        /// <param name="source">A path relative to <see cref="SubDir"/>.</param>
-        /// <param name="target">A path relative to <see cref="SubDir"/>.</param>
+        /// <param name="source">A path relative to <see cref="EffectiveTargetDir"/>.</param>
+        /// <param name="target">A path relative to <see cref="EffectiveTargetDir"/>.</param>
         private void CreateHardlink([NotNull] string source, [NotNull] string target)
         {
             #region Sanity checks
