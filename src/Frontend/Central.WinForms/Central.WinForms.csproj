@@ -83,7 +83,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AeroWizard">
-      <HintPath>..\..\packages\AeroWizard.2.1.8\lib\net40\AeroWizard.dll</HintPath>
+      <HintPath>..\..\packages\AeroWizard.2.1.9\lib\net40\AeroWizard.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='DebugNet35' Or '$(Configuration)'=='ReleaseNet35'">
     <Reference Include="AeroWizard">
-      <HintPath>..\..\packages\AeroWizard.2.1.8\lib\net35\AeroWizard.dll</HintPath>
+      <HintPath>..\..\packages\AeroWizard.2.1.9\lib\net35\AeroWizard.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common">
       <HintPath>..\..\packages\NanoByte.Common.2.0.5\lib\net35-client\NanoByte.Common.dll</HintPath>
@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='DebugNet20' Or '$(Configuration)'=='ReleaseNet20'">
     <Reference Include="AeroWizard">
-      <HintPath>..\..\packages\AeroWizard.2.1.8\lib\net20\AeroWizard.dll</HintPath>
+      <HintPath>..\..\packages\AeroWizard.2.1.9\lib\net20\AeroWizard.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common">
       <HintPath>..\..\packages\NanoByte.Common.2.0.5\lib\net20\NanoByte.Common.dll</HintPath>
