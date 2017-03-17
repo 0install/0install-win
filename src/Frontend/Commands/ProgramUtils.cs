@@ -91,6 +91,12 @@ namespace ZeroInstall.Commands
             if (WindowsUtils.IsWindows && UILanguage != null) Languages.SetUI(UILanguage);
             NetUtils.ApplyProxy();
 
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls |
+                (SecurityProtocolType)768 | // Tls11
+                (SecurityProtocolType)3072; // Tls12
+
             ProcessUtils.SanitizeEnvironmentVariables();
         }
 
