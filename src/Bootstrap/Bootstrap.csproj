@@ -137,26 +137,22 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>cd /d "$(OutDir)"
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
+pushd "$(OutDir)"
 "$(SolutionDir)packages\ILRepack.2.0.12\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll LinFu.DynamicProxy.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
 copy /y "$(ProjectDir)\App.config" "$(SolutionDir)\..\build\Bootstrap\zero-install.exe.config"
+popd
 
-:Create copy of EXE that won't be AuthentiCode-signed so it can be used as a template
-copy "$(SolutionDir)\..\build\Bootstrap\zero-install.exe" "$(SolutionDir)\..\build\Bootstrap\template.exe"
+rem Create copy of EXE that won't be AuthentiCode-signed so it can be used as a template
+pushd "$(SolutionDir)\..\build\Bootstrap"
+copy zero-install.exe template.exe
+popd
 
-:Locate MT.EXE Tool:
-for /f "delims=" %25%25a in ('powershell "$p = ((Get-ItemProperty -Path HKCU:\Software\PackageManagement\Tools\tools\MT.EXE -Name Path -ea 0).Path) ;  if( -not $p ) { $p = ((dir ${env:ProgramFiles(x86)} -recurse -ea 0|  where -property name -eq mt.exe | select -first 1 ).FullName) ;    $null = mkdir -Path HKCU:\Software\PackageManagement\Tools\tools\MT.EXE -Force ;    $null = New-ItemProperty -Path HKCU:\Software\OneGet\tools\MT.EXE -Name Path -Value $p -force } ; $p"') do @set MTEXE=%25%25a
+rem Common locations for command-line tools
+path %25path%25;%25ProgramFiles(x86)%25\Windows Kits\10\bin\x64;%25ProgramFiles(x86)%25\Windows Kits\8.1\bin\x64
 
-:Run the tool to add the manifest to the binary.
-"%25MTEXE%25" -manifest "$(SolutionDir)Frontend\OneGet\provider.manifest" -outputresource:"$(TargetPath)";#101
-"%25MTEXE%25" -manifest "$(SolutionDir)Frontend\OneGet\provider.manifest" -outputresource:"$(SolutionDir)\..\build\Bootstrap\zero-install.exe";#101</PostBuildEvent>
+rem Add OneGet manifest to the EXE
+mt -manifest "$(SolutionDir)Frontend\OneGet\provider.manifest" -outputresource:"$(SolutionDir)\..\build\Bootstrap\zero-install.exe";#101</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

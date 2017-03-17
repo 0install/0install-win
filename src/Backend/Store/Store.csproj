@@ -412,16 +412,11 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)" Condition="'$(OS)' == 'Windows_NT' And ('$(Configuration)'=='Debug' Or '$(Configuration)'=='Release')">
-    <Delete Files="$(TargetDir)$(TargetName).XmlSerializers.dll" ContinueOnError="true" />
-    <SGen BuildAssemblyName="$(TargetFileName)" BuildAssemblyPath="$(OutputPath)" References="@(ReferencePath)" ShouldGenerateSerializer="true" UseProxyTypes="false" KeyContainer="$(KeyContainerName)" KeyFile="$(KeyOriginatorFile)" DelaySign="$(DelaySign)" ToolPath="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools">
-      <Output TaskParameter="SerializationAssembly" ItemName="SerializationAssembly" />
-    </SGen>
-  </Target>
-  <Target Name="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)" Condition="'$(OS)' == 'Windows_NT' And ('$(Configuration)'=='DebugNet35' Or '$(Configuration)'=='DebugNet20' Or '$(Configuration)'=='ReleaseNet35' Or '$(Configuration)'=='ReleaseNet20')">
-    <Delete Files="$(TargetDir)$(TargetName).XmlSerializers.dll" ContinueOnError="true" />
-    <SGen BuildAssemblyName="$(TargetFileName)" BuildAssemblyPath="$(OutputPath)" References="@(ReferencePath)" ShouldGenerateSerializer="true" UseProxyTypes="false" KeyContainer="$(KeyContainerName)" KeyFile="$(KeyOriginatorFile)" DelaySign="$(DelaySign)" ToolPath="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\Windows\v7.0A\Bin">
-      <Output TaskParameter="SerializationAssembly" ItemName="SerializationAssembly" />
-    </SGen>
-  </Target>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <PostBuildEvent>rem Common locations for command-line tools
+path %25path%25;%25ProgramFiles(x86)%25\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.2 Tools\x64;%25ProgramFiles(x86)%25\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools
+
+rem Generate serialization assembly for use with XmlSerializer
+sgen "$(TargetPath)" /force /compiler:/keyfile:$(SolutionDir)\sgKey.snk</PostBuildEvent>
+  </PropertyGroup>
 </Project>

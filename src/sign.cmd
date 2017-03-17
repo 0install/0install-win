@@ -1,18 +1,11 @@
 @echo off
 ::Adds AuthentiCode signatures to all binaries. Assumes "build.cmd Release" has already been executed.
+
 if not "%1" == "" set signing_cert_path=%*
 set timestamp_server=http://timestamp.comodoca.com
 
-rem Determine VS version
-if defined VS140COMNTOOLS (
-  ::Visual Studio 2015
-  call "%VS140COMNTOOLS%vsvars32.bat"
-  goto vs_ok
-)
-echo ERROR: No Visual Studio installation found. >&2
-exit /b 1
-:vs_ok
-
+rem Common locations for command-line tools
+path %path%;%ProgramFiles(x86)%\Windows Kits\10\bin\x64;%ProgramFiles(x86)%\Windows Kits\8.1\bin\x64
 
 
 echo Signing binaries with "%signing_cert_path%"...
