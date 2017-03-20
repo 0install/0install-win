@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.Deployment.Compression;
 using Microsoft.Deployment.Compression.Cab;
@@ -61,21 +60,18 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (relativePath == null) return null;
 
             _bytesStaged = fileSize;
-            return OpenFileWriteStream(relativePath);
+
+            string absolutePath = DirectoryBuilder.NewFilePath(relativePath, lastWriteTime);
+            return File.Create(absolutePath);
         }
 
         void IUnpackStreamContext.CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
             stream.Dispose();
-            string fullPath = GetRelativePath(path);
-            Debug.Assert(fullPath != null);
-            File.SetLastWriteTimeUtc(CombinePath(fullPath), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
-
             UnitsProcessed += _bytesStaged;
         }
 

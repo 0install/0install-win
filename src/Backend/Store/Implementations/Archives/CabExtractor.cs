@@ -20,7 +20,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Deployment.Compression.Cab;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -59,13 +58,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <inheritdoc/>
-        protected override void Execute()
+        protected override void ExtractArchive()
         {
-            State = TaskState.Data;
-
             try
             {
-                if (!Directory.Exists(EffectiveTargetPath)) Directory.CreateDirectory(EffectiveTargetPath);
                 CabEngine.Unpack(this, _ => true);
             }
                 #region Error handling
@@ -75,8 +71,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
-
-            State = TaskState.Complete;
         }
     }
 }

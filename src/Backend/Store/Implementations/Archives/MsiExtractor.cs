@@ -24,7 +24,6 @@ using Microsoft.Deployment.Compression.Cab;
 using Microsoft.Deployment.WindowsInstaller;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -196,10 +195,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         #endregion
 
         /// <inheritdoc/>
-        protected override void Execute()
+        protected override void ExtractArchive()
         {
-            State = TaskState.Data;
-
             try
             {
                 foreach (string cabinet in _cabinets)
@@ -229,8 +226,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
-
-            State = TaskState.Complete;
         }
 
         private void ExtractCab(Stream stream)

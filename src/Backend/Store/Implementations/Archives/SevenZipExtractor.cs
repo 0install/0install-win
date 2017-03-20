@@ -66,10 +66,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         protected override bool UnitsByte => _unitsByte;
 
         /// <inheritdoc/>
-        protected override void Execute()
+        protected override void ExtractArchive()
         {
-            State = TaskState.Header;
-
             try
             {
                 // NOTE: Must do initialization here since the constructor may be called on a different thread and SevenZipSharp is thread-affine
@@ -78,7 +76,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 using (var extractor = new SevenZip.SevenZipExtractor(_stream))
                 {
                     State = TaskState.Data;
-                    if (!Directory.Exists(EffectiveTargetPath)) Directory.CreateDirectory(EffectiveTargetPath);
                     if (extractor.IsSolid || string.IsNullOrEmpty(Extract)) ExtractComplete(extractor);
                     else ExtractIndividual(extractor);
                 }
@@ -111,8 +108,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
-
-            State = TaskState.Complete;
         }
 
         /// <summary>
@@ -125,7 +120,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             extractor.Extracting += (sender, e) => { UnitsProcessed = e.PercentDone; };
 
             CancellationToken.ThrowIfCancellationRequested();
-            if (string.IsNullOrEmpty(Extract)) extractor.ExtractArchive(EffectiveTargetPath);
+            if (string.IsNullOrEmpty(Extract)) extractor.ExtractArchive(DirectoryBuilder.EffectiveTargetPath);
             else
             {
                 // Use an intermediate temp directory (on the same filesystem)
@@ -136,7 +131,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 string subDir = FileUtils.UnifySlashes(Extract);
                 string tempSubDir = Path.Combine(tempDir, subDir);
                 if (!FileUtils.IsBreakoutPath(subDir) && Directory.Exists(tempSubDir))
-                    new MoveDirectory(tempSubDir, EffectiveTargetPath, overwrite: true).Run(CancellationToken);
+                    new MoveDirectory(tempSubDir, DirectoryBuilder.EffectiveTargetPath, overwrite: true).Run(CancellationToken);
                 Directory.Delete(tempDir, recursive: true);
             }
             CancellationToken.ThrowIfCancellationRequested();
@@ -155,17 +150,18 @@ namespace ZeroInstall.Store.Implementations.Archives
                 string relativePath = GetRelativePath(entry.FileName.Replace('\\', '/'));
                 if (relativePath == null) continue;
 
-                if (entry.IsDirectory) CreateDirectory(relativePath, entry.LastWriteTime);
+                if (entry.IsDirectory) DirectoryBuilder.CreateDirectory(relativePath, entry.LastWriteTime);
                 else
                 {
-                    using (var stream = OpenFileWriteStream(relativePath))
-                        extractor.ExtractFile(entry.Index, stream);
-                    File.SetLastWriteTimeUtc(CombinePath(relativePath), DateTime.SpecifyKind(entry.LastWriteTime, DateTimeKind.Utc));
+                    CancellationToken.ThrowIfCancellationRequested();
+
+                    string absolutePath = DirectoryBuilder.NewFilePath(relativePath, entry.LastWriteTime);
+                    using (var fileStream = File.Create(absolutePath))
+                        extractor.ExtractFile(entry.Index, fileStream);
 
                     UnitsProcessed += (long)entry.Size;
                 }
             }
-            Finish();
         }
     }
 }

@@ -21,7 +21,6 @@ using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using JetBrains.Annotations;
 using NanoByte.Common.Streams;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using ZeroInstall.Store.Properties;
 
@@ -81,14 +80,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         #endregion
 
         /// <inheritdoc/>
-        protected override void Execute()
+        protected override void ExtractArchive()
         {
-            State = TaskState.Data;
-
             try
             {
-                if (!Directory.Exists(EffectiveTargetPath)) Directory.CreateDirectory(EffectiveTargetPath);
-
                 // Read ZIP file sequentially and reference central directory in parallel
                 int i = 0;
                 ZipEntry localEntry;
@@ -99,17 +94,17 @@ namespace ZeroInstall.Store.Implementations.Archives
                     string relativePath = GetRelativePath(centralEntry.Name);
                     if (string.IsNullOrEmpty(relativePath)) continue;
 
-                    if (centralEntry.IsDirectory) CreateDirectory(relativePath, localEntry.DateTime);
+                    if (centralEntry.IsDirectory) DirectoryBuilder.CreateDirectory(relativePath, localEntry.DateTime);
                     else if (centralEntry.IsFile)
                     {
-                        if (IsSymlink(centralEntry)) CreateSymlink(relativePath, _zipStream.ReadToString());
-                        else WriteFile(relativePath, centralEntry.Size, localEntry.DateTime, _zipStream, IsExecutable(centralEntry));
+                        if (IsSymlink(centralEntry))
+                            DirectoryBuilder.CreateSymlink(relativePath, _zipStream.ReadToString());
+                        else
+                            WriteFile(relativePath, centralEntry.Size, localEntry.DateTime, _zipStream, IsExecutable(centralEntry));
                     }
 
                     UnitsProcessed += centralEntry.CompressedSize;
                 }
-
-                Finish();
             }
                 #region Error handling
             catch (SharpZipBaseException ex)
@@ -128,8 +123,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
-
-            State = TaskState.Complete;
         }
 
         /// <summary>

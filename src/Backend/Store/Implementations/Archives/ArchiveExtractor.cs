@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using JetBrains.Annotations;
@@ -48,36 +47,26 @@ namespace ZeroInstall.Store.Implementations.Archives
         [CanBeNull]
         public string Extract { get; set; }
 
+        /// <summary>Used to build the target directory with support for flag files.</summary>
+        protected readonly DirectoryBuilder DirectoryBuilder;
+
         /// <summary>
         /// The path to the directory to extract into.
         /// </summary>
         [Description("The path to the directory to extract into.")]
         [NotNull]
-        public string TargetPath { get; }
+        public string TargetPath => DirectoryBuilder.TargetPath;
 
         /// <summary>
         /// Sub-path to be appended to <see cref="TargetPath"/> without affecting location of flag files; <c>null</c> for none.
         /// </summary>
         [Description("Sub-path to be appended to TargetDir without affecting location of flag files.")]
         [CanBeNull]
-        public string TargetSuffix { get; set; }
-
-        /// <summary>
-        /// <see cref="TargetPath"/> and <see cref="TargetSuffix"/> combined.
-        /// </summary>
-        [NotNull]
-        protected string EffectiveTargetPath => string.IsNullOrEmpty(TargetSuffix) ? TargetPath : Path.Combine(TargetPath, TargetSuffix);
-
-        /// <summary>
-        /// Indicates whether <see cref="TargetPath"/> is located on a filesystem with support for Unixoid features such as executable bits.
-        /// </summary>
-        private readonly bool _targetIsUnixFS;
-
-        /// <summary>Used to track exeuctable bits in <see cref="TargetPath"/> if <see cref="_targetIsUnixFS"/> is <c>false</c>.</summary>
-        private readonly string _targetXbitFile;
-
-        /// <summary>Used to track symlinks if in <see cref="TargetPath"/> <see cref="_targetIsUnixFS"/> is <c>false</c>.</summary>
-        private readonly string _targetSymlinkFile;
+        public string TargetSuffix
+        {
+            get { return DirectoryBuilder.TargetSuffix; }
+            set { DirectoryBuilder.TargetSuffix = value; }
+        }
 
         /// <summary>
         /// Prepares to extract an archive contained in a stream.
@@ -89,12 +78,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(targetPath)) throw new ArgumentNullException(nameof(targetPath));
             #endregion
 
-            TargetPath = targetPath;
-
-            if (Directory.Exists(targetPath)) Directory.CreateDirectory(targetPath);
-            _targetIsUnixFS = FlagUtils.IsUnixFS(targetPath);
-            _targetXbitFile = Path.Combine(TargetPath, FlagUtils.XbitFile);
-            _targetSymlinkFile = Path.Combine(TargetPath, FlagUtils.SymlinkFile);
+            DirectoryBuilder = new DirectoryBuilder(targetPath);
         }
 
         #region Factory methods
@@ -209,6 +193,25 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
         #endregion
 
+        /// <inheritdoc/>
+        protected override void Execute()
+        {
+            State = TaskState.Data;
+            DirectoryBuilder.Initialize();
+
+            ExtractArchive();
+
+            DirectoryBuilder.CompletePending();
+            State = TaskState.Complete;
+        }
+
+        /// <summary>
+        /// Extracts the archive.
+        /// </summary>
+        /// <exception cref="OperationCanceledException">The operation was canceled.</exception>
+        /// <exception cref="IOException">A problem occured while extracting the archive.</exception>
+        protected abstract void ExtractArchive();
+
         /// <summary>
         /// Returns the path of an archive entry relative to <see cref="Extract"/>.
         /// </summary>
@@ -238,55 +241,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             return entryName;
         }
 
-        private readonly List<KeyValuePair<string, DateTime>> _directoryWriteTimes = new List<KeyValuePair<string, DateTime>>();
-
-        /// <summary>
-        /// Creates a directory in the filesystem and sets its last write time.
-        /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="lastWriteTime">The last write time to set.</param>
-        protected void CreateDirectory([NotNull] string relativePath, DateTime lastWriteTime)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
-            #endregion
-
-            string fullPath = CombinePath(relativePath);
-
-            Directory.CreateDirectory(fullPath);
-            _directoryWriteTimes.Add(new KeyValuePair<string, DateTime>(fullPath, lastWriteTime));
-        }
-
-        /// <summary>
-        /// Combines the extraction <see cref="TargetPath"/> path with the relative path inside the archive (ensuring only valid paths are returned).
-        /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <returns>The combined path as an absolute path.</returns>
-        /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
-        protected string CombinePath([NotNull] string relativePath)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
-            #endregion
-
-            if (FileUtils.IsBreakoutPath(relativePath)) throw new IOException(string.Format(Resources.ArchiveInvalidPath, relativePath));
-
-            try
-            {
-                return Path.GetFullPath(Path.Combine(EffectiveTargetPath, relativePath));
-            }
-                #region Error handling
-            catch (ArgumentException ex)
-            {
-                throw new IOException(Resources.ArchiveInvalidPath, ex);
-            }
-            #endregion
-        }
-
         /// <summary>
         /// Writes a file to the filesystem and sets its last write time.
         /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
+        /// <param name="relativePath">A path relative to <see cref="Build.DirectoryBuilder.EffectiveTargetPath"/>.</param>
         /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
@@ -298,130 +256,11 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             #endregion
 
-            using (var fileStream = OpenFileWriteStream(relativePath, executable: executable))
-                if (fileSize != 0) StreamToFile(stream, fileStream);
-
-            File.SetLastWriteTimeUtc(CombinePath(relativePath), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
-        }
-
-        /// <summary>
-        /// Creates a stream for writing an extracted file to the filesystem.
-        /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="executable"><c>true</c> if the file's executable bit is set; <c>false</c> otherwise.</param>
-        /// <returns>A stream for writing the extracted file.</returns>
-        protected FileStream OpenFileWriteStream([NotNull] string relativePath, bool executable = false)
-        {
             CancellationToken.ThrowIfCancellationRequested();
 
-            string fullPath = CombinePath(relativePath);
-            string directoryPath = Path.GetDirectoryName(fullPath);
-            if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-
-            bool alreadyExists = File.Exists(fullPath);
-            var stream = File.Create(fullPath);
-
-            // If a symlink is overwritten by a normal file, remove the symlink flag
-            if (alreadyExists)
-            {
-                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? relativePath : Path.Combine(TargetSuffix, relativePath);
-                FlagUtils.Remove(_targetSymlinkFile, flagRelativePath);
-            }
-
-            if (executable) SetExecutableBit(relativePath);
-            else if (alreadyExists) RemoveExecutableBit(relativePath); // If an executable file is overwritten by a non-executable file, remove the xbit flag
-
-            return stream;
-        }
-
-        /// <summary>
-        /// Marks a file as executable using the filesystem if possible; stores it in a <see cref="FlagUtils.XbitFile"/> otherwise.
-        /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        private void SetExecutableBit(string relativePath)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
-            #endregion
-
-            if (_targetIsUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetPath, relativePath), true);
-            else
-            {
-                // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? relativePath : Path.Combine(TargetSuffix, relativePath);
-                FlagUtils.Set(_targetXbitFile, flagRelativePath);
-            }
-        }
-
-        /// <summary>
-        /// Marks a file as no longer executable using the filesystem if possible, an <see cref="FlagUtils.XbitFile"/> file otherwise.
-        /// </summary>
-        /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        private void RemoveExecutableBit(string relativePath)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
-            #endregion
-
-            if (_targetIsUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetPath, relativePath), false);
-            else
-            {
-                // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? relativePath : Path.Combine(TargetSuffix, relativePath);
-                FlagUtils.Remove(_targetXbitFile, flagRelativePath);
-            }
-        }
-
-        private struct PendingHardlink
-        {
-            public string Source, Target;
-            public bool Executable;
-        }
-
-        private readonly List<PendingHardlink> _pendingHardlinks = new List<PendingHardlink>();
-
-        /// <summary>
-        /// Queues a hardlink for creation at the end of the extracton process. This enables handling links to files that have not been extracted yet.
-        /// </summary>
-        /// <param name="source">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="target">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="executable"><c>true</c> if the hardlink's executable bit is set; <c>false</c> otherwise.</param>
-        protected void QueueHardlink([NotNull] string source, [NotNull] string target, bool executable = false)
-        {
-            _pendingHardlinks.Add(new PendingHardlink {Source = source, Target = target, Executable = executable});
-        }
-
-        /// <summary>
-        /// Creates a symbolic link in the filesystem if possible; stores it in a <see cref="FlagUtils.SymlinkFile"/> otherwise.
-        /// </summary>
-        /// <param name="source">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
-        protected void CreateSymlink([NotNull] string source, [NotNull] string target)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException(nameof(source));
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
-            #endregion
-
-            string sourceAbsolute = CombinePath(source);
-            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
-            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
-
-            if (_targetIsUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
-            else if (WindowsUtils.IsWindowsNT)
-            {
-                // NOTE: NTFS symbolic links require admin privileges; use Cygwin symlinks instead
-                CygwinUtils.CreateSymlink(sourceAbsolute, target);
-            }
-            else
-            {
-                // Write link data as a normal file
-                File.WriteAllText(sourceAbsolute, target);
-
-                // Some OSes can't store the symlink flag directly in the filesystem; remember in a text-file instead
-                string flagRelativePath = string.IsNullOrEmpty(TargetSuffix) ? source : Path.Combine(TargetSuffix, source);
-                FlagUtils.Set(_targetSymlinkFile, flagRelativePath);
-            }
+            string absolutePath = DirectoryBuilder.NewFilePath(relativePath, lastWriteTime, executable);
+            using (var fileStream = File.Create(absolutePath))
+                if (fileSize != 0) StreamToFile(stream, fileStream);
         }
 
         /// <summary>
@@ -431,68 +270,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="fileStream">Stream access to the file to write.</param>
         /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
         protected virtual void StreamToFile([NotNull] Stream stream, [NotNull] FileStream fileStream)
-        {
-            stream.CopyToEx(fileStream, cancellationToken: CancellationToken);
-        }
-
-        /// <summary>
-        /// Performs any tasks that were deferred to the end of the extraction process.
-        /// </summary>
-        protected void Finish()
-        {
-            foreach (var hardlink in _pendingHardlinks)
-            {
-                CreateHardlink(hardlink.Source, hardlink.Target);
-                if (hardlink.Executable) SetExecutableBit(hardlink.Source);
-            }
-
-            SetDirectoryWriteTimes();
-        }
-
-        /// <summary>
-        /// Creates a hardlink in the filesystem if possible; creates a copy otherwise.
-        /// </summary>
-        /// <param name="source">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="target">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        private void CreateHardlink([NotNull] string source, [NotNull] string target)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException(nameof(source));
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
-            #endregion
-
-            string sourceAbsolute = CombinePath(source);
-            string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
-            if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
-            string targetAbsolute = CombinePath(target);
-
-            try
-            {
-                FileUtils.CreateHardlink(sourceAbsolute, targetAbsolute);
-            }
-            catch (PlatformNotSupportedException)
-            {
-                File.Copy(targetAbsolute, sourceAbsolute);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                File.Copy(targetAbsolute, sourceAbsolute);
-            }
-        }
-
-        /// <summary>
-        /// Sets the last write times of the directories that were recorded during extraction.
-        /// </summary>
-        /// <remarks>This must be done in a separate step, since changing anything within a directory will affect its last write time.</remarks>
-        private void SetDirectoryWriteTimes()
-        {
-            // Run through list backwards to ensure directories are handled "from the inside out"
-            for (int index = _directoryWriteTimes.Count - 1; index >= 0; index--)
-            {
-                var pair = _directoryWriteTimes[index];
-                Directory.SetLastWriteTimeUtc(pair.Key, pair.Value);
-            }
-        }
+            => stream.CopyToEx(fileStream, cancellationToken: CancellationToken);
 
         #region Dispose
         /// <summary>
