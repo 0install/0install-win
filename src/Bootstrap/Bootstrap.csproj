@@ -17,7 +17,6 @@
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -140,12 +139,12 @@
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
 pushd "$(OutDir)"
-"$(SolutionDir)packages\ILRepack.2.0.12\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(SolutionDir)\..\build\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll LinFu.DynamicProxy.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
-copy /y "$(ProjectDir)\App.config" "$(SolutionDir)\..\build\Bootstrap\zero-install.exe.config"
+"$(ProjectDir)\..\packages\ILRepack.2.0.12\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll LinFu.DynamicProxy.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
+copy /y "$(ProjectDir)\App.config" "$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe.config"
 popd
 
 rem Create copy of EXE that won't be AuthentiCode-signed so it can be used as a template
-pushd "$(SolutionDir)\..\build\Bootstrap"
+pushd "$(ProjectDir)\..\..\build\Bootstrap"
 copy zero-install.exe template.exe
 popd
 
@@ -153,6 +152,6 @@ rem Common locations for command-line tools
 path %25path%25;%25ProgramFiles(x86)%25\Windows Kits\10\bin\x64;%25ProgramFiles(x86)%25\Windows Kits\8.1\bin\x64
 
 rem Add OneGet manifest to the EXE
-mt -manifest "$(SolutionDir)Frontend\OneGet\provider.manifest" -outputresource:"$(SolutionDir)\..\build\Bootstrap\zero-install.exe";#101</PostBuildEvent>
+mt -manifest "$(ProjectDir)\..Frontend\OneGet\provider.manifest" -outputresource:"$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe";#101</PostBuildEvent>
   </PropertyGroup>
 </Project>
