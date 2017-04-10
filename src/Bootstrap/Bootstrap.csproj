@@ -139,7 +139,7 @@
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
 pushd "$(OutDir)"
-"$(ProjectDir)\..\packages\ILRepack.2.0.12\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll LinFu.DynamicProxy.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
+"$(ProjectDir)\..\packages\ILRepack.2.0.13\tools\ilrepack.exe" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll LinFu.DynamicProxy.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
 copy /y "$(ProjectDir)\App.config" "$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe.config"
 popd
 
