@@ -1094,7 +1094,7 @@
         <xsd:attribute name="dest" type="xsd:string" use="optional">
           <xsd:annotation>
             <xsd:documentation>
-              The destination file or directory relative to the destination implementation root as a Unix-style path. Leave unset to copy to the root of the new implementation.
+              The destination file or directory relative to the destination implementation root as a Unix-style path. Leave unset to copy to the root of the new implementation. Must be set if 'source' points to a file rather than a directory.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

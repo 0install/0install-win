@@ -44,9 +44,9 @@ namespace ZeroInstall.Store.Model
         public string Source { get; set; }
 
         /// <summary>
-        /// The destination file or directory relative to the destination implementation root as a Unix-style path. Leave <c>null</c> to copy to the root of the new implementation.
+        /// The destination file or directory relative to the destination implementation root as a Unix-style path. Leave <c>null</c> to copy to the root of the new implementation. Must be set if <see cref="Source"/> points to a file rather than a directory.
         /// </summary>
-        [Description("The destination file or directory relative to the destination implementation root as a Unix-style path. Leave unset to copy to the root of the new implementation.")]
+        [Description("The destination file or directory relative to the destination implementation root as a Unix-style path. Leave unset to copy to the root of the new implementation. Must be set if Source points to a file rather than a directory.")]
         [XmlAttribute("dest"), DefaultValue(""), CanBeNull]
         public string Destination { get; set; }
 
