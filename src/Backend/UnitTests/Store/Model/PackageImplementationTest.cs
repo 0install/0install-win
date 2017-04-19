@@ -26,21 +26,16 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class PackageImplementationTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="PackageImplementation"/>.
         /// </summary>
-        internal static PackageImplementation CreateTestImplementation()
+        internal static PackageImplementation CreateTestImplementation() => new PackageImplementation
         {
-            return new PackageImplementation
-            {
-                Distributions = {"RPM"}, Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
-                Main = "executable", DocDir = "doc", Stability = Stability.Developer,
-                Bindings = {EnvironmentBindingTest.CreateTestBinding()}
-            };
-        }
-        #endregion
+            Distributions = {"RPM"}, Version = new ImplementationVersion("1.0"),
+            Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
+            Main = "executable", DocDir = "doc", Stability = Stability.Developer,
+            Bindings = {EnvironmentBindingTest.CreateTestBinding()}
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

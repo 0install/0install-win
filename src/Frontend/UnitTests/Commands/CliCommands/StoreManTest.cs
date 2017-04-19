@@ -252,8 +252,8 @@ namespace ZeroInstall.Commands.CliCommands
                     StoreMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns(tempDir);
                     FileUtils.Touch(Path.Combine(tempDir, ".manifest"));
 
-                    var feedNode = new FeedNode(testFeed, Target.FeedCache);
-                    RunAndAssert(new ImplementationNode[] {new OwnedImplementationNode(digest1, testImplementation, feedNode, Target.Store), new OrphanedImplementationNode(digest2, Target.Store)}, ExitCode.OK);
+                    var feedNode = new FeedNode(testFeed, Sut.FeedCache);
+                    RunAndAssert(new ImplementationNode[] {new OwnedImplementationNode(digest1, testImplementation, feedNode, Sut.Store), new OrphanedImplementationNode(digest2, Sut.Store)}, ExitCode.OK);
                 }
             }
         }

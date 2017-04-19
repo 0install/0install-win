@@ -62,9 +62,9 @@ namespace ZeroInstall.Services.Feeds
             {
                 _feedPreNormalize.SaveXml(feedFile);
 
-                var result = Target[new FeedUri(feedFile)];
+                var result = Sut[new FeedUri(feedFile)];
                 result.Should().Be(_feedPostNormalize);
-                Target.Stale.Should().BeFalse();
+                Sut.Stale.Should().BeFalse();
             }
         }
 
@@ -73,7 +73,7 @@ namespace ZeroInstall.Services.Feeds
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
                 // ReSharper disable once UnusedVariable
-                Assert.Throws<FileNotFoundException>(() => { var _ = Target[new FeedUri(Path.Combine(tempDir, "invalid"))]; });
+                Assert.Throws<FileNotFoundException>(() => { var _ = Sut[new FeedUri(Path.Combine(tempDir, "invalid"))]; });
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace ZeroInstall.Services.Feeds
                 var data = feedStream.ToArray();
                 feedStream.Position = 0;
 
-                Target.IsStale(feed.Uri).Should().BeTrue(because: "Non-cached feeds should be reported as stale");
+                Sut.IsStale(feed.Uri).Should().BeTrue(because: "Non-cached feeds should be reported as stale");
 
                 // No previous feed
                 FeedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(false);
@@ -99,7 +99,7 @@ namespace ZeroInstall.Services.Feeds
 
                 TrustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
-                Target[feed.Uri].Should().Be(feed);
+                Sut[feed.Uri].Should().Be(feed);
             }
         }
 
@@ -119,7 +119,7 @@ namespace ZeroInstall.Services.Feeds
                 FeedCacheMock.Setup(x => x.Contains(feedUri)).Returns(false);
 
                 // ReSharper disable once UnusedVariable
-                Assert.Throws<InvalidDataException>(() => { var _ = Target[feedUri]; });
+                Assert.Throws<InvalidDataException>(() => { var _ = Sut[feedUri]; });
             }
         }
 
@@ -142,7 +142,7 @@ namespace ZeroInstall.Services.Feeds
                 TrustManagerMock.Setup(x => x.CheckTrust(data, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
                 Config.FeedMirror = mirrorServer.ServerUri;
-                Target[feed.Uri].Should().Be(feed);
+                Sut[feed.Uri].Should().Be(feed);
             }
         }
 
@@ -153,9 +153,9 @@ namespace ZeroInstall.Services.Feeds
             FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(_feedPreNormalize);
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor(FeedTest.Test1Uri);
 
-            Target.IsStale(FeedTest.Test1Uri).Should().BeFalse();
-            Target[FeedTest.Test1Uri].Should().Be(_feedPostNormalize);
-            Target.Stale.Should().BeFalse();
+            Sut.IsStale(FeedTest.Test1Uri).Should().BeFalse();
+            Sut[FeedTest.Test1Uri].Should().Be(_feedPostNormalize);
+            Sut.Stale.Should().BeFalse();
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace ZeroInstall.Services.Feeds
             DetectFreshCached();
 
             // ReSharper disable once UnusedVariable
-            var _ = Target[FeedTest.Test1Uri];
+            var _ = Sut[FeedTest.Test1Uri];
 
             FeedCacheMock.Verify(x => x.GetFeed(FeedTest.Test1Uri), Times.Once(),
                 failMessage: "Underlying cache was accessed more than once instead of being handled by the in-memory cache.");
@@ -201,7 +201,7 @@ namespace ZeroInstall.Services.Feeds
                 // Cause feed to become in-memory cached
                 FeedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(true);
                 FeedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
-                Target[feed.Uri].Should().Be(feed);
+                Sut[feed.Uri].Should().Be(feed);
 
                 AssertRefreshData(feed, feedData);
             }
@@ -216,8 +216,8 @@ namespace ZeroInstall.Services.Feeds
             // ReSharper disable once AccessToDisposedClosure
             TrustManagerMock.Setup(x => x.CheckTrust(feedData, feed.Uri, It.IsAny<string>())).Returns(OpenPgpUtilsTest.TestSignature);
 
-            Target.Refresh = true;
-            Target[feed.Uri].Should().Be(feed);
+            Sut.Refresh = true;
+            Sut[feed.Uri].Should().Be(feed);
         }
 
         [Test]
@@ -228,9 +228,9 @@ namespace ZeroInstall.Services.Feeds
             FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor(FeedTest.Test1Uri);
 
-            Target.IsStale(FeedTest.Test1Uri).Should().BeTrue();
-            Target[FeedTest.Test1Uri].Should().BeSameAs(feed);
-            Target.Stale.Should().BeTrue();
+            Sut.IsStale(FeedTest.Test1Uri).Should().BeTrue();
+            Sut[FeedTest.Test1Uri].Should().BeSameAs(feed);
+            Sut.Stale.Should().BeTrue();
         }
 
         [Test(Description = "Ensures valid feeds are correctly imported.")]
@@ -246,7 +246,7 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Target.ImportFeed(feedFile);
+                Sut.ImportFeed(feedFile);
             }
         }
 
@@ -265,7 +265,7 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Target.Invoking(x => x.ImportFeed(feedFile)).ShouldThrow<ReplayAttackException>();
+                Sut.Invoking(x => x.ImportFeed(feedFile)).ShouldThrow<ReplayAttackException>();
             }
         }
 

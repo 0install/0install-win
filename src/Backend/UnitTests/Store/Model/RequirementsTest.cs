@@ -27,23 +27,18 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class RequirementsTest
     {
-        #region Helpers
         /// <summary>
         /// Creates test <see cref="Requirements"/>.
         /// </summary>
-        public static Requirements CreateTestRequirements()
+        public static Requirements CreateTestRequirements() => new Requirements(FeedTest.Test1Uri, "command", new Architecture(OS.Windows, Cpu.I586))
         {
-            return new Requirements(FeedTest.Test1Uri, "command", new Architecture(OS.Windows, Cpu.I586))
+            //Languages = {"de-DE", "en-US"},
+            ExtraRestrictions =
             {
-                //Languages = {"de-DE", "en-US"},
-                ExtraRestrictions =
-                {
-                    {FeedTest.Test1Uri, new VersionRange("1.0..!2.0")},
-                    {FeedTest.Test2Uri, new VersionRange("2.0..!3.0")}
-                }
-            };
-        }
-        #endregion
+                {FeedTest.Test1Uri, new VersionRange("1.0..!2.0")},
+                {FeedTest.Test2Uri, new VersionRange("2.0..!3.0")}
+            }
+        };
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()

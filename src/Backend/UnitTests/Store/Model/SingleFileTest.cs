@@ -27,15 +27,15 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class SingleFileTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="SingleFile"/>.
         /// </summary>
-        internal static SingleFile CreateTestSingleFile()
+        internal static SingleFile CreateTestSingleFile() => new SingleFile
         {
-            return new SingleFile {Href = new Uri("http://0install.de/files/test/test.exe"), Size = 128, Destination = "dest"};
-        }
-        #endregion
+            Href = new Uri("http://0install.de/files/test/test.exe"),
+            Size = 128,
+            Destination = "dest"
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

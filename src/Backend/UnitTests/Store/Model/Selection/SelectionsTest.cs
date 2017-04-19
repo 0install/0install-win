@@ -28,24 +28,19 @@ namespace ZeroInstall.Store.Model.Selection
     [TestFixture]
     public class SelectionsTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a <see cref="Selections"/> with two implementations, one using the other as a runner plus a number of bindings.
         /// </summary>
-        public static Selections CreateTestSelections()
+        public static Selections CreateTestSelections() => new Selections
         {
-            return new Selections
+            InterfaceUri = FeedTest.Test1Uri,
+            Command = Command.NameRun,
+            Implementations =
             {
-                InterfaceUri = FeedTest.Test1Uri,
-                Command = Command.NameRun,
-                Implementations =
-                {
-                    ImplementationSelectionTest.CreateTestImplementation1(),
-                    ImplementationSelectionTest.CreateTestImplementation2()
-                }
-            };
-        }
-        #endregion
+                ImplementationSelectionTest.CreateTestImplementation1(),
+                ImplementationSelectionTest.CreateTestImplementation2()
+            }
+        };
 
         /// <summary>
         /// Ensures that <see cref="Selections.GetImplementation"/> and <see cref="Selections.this"/> correctly retrieve implementatinos.

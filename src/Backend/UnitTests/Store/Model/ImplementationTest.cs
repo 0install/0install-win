@@ -30,23 +30,18 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class ImplementationTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="Implementation"/>.
         /// </summary>
-        public static Implementation CreateTestImplementation()
+        public static Implementation CreateTestImplementation() => new Implementation
         {
-            return new Implementation
-            {
-                ID = "id", ManifestDigest = new ManifestDigest(sha256: "123"), Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
-                Main = "executable", DocDir = "doc", Stability = Stability.Developer,
-                Bindings = {EnvironmentBindingTest.CreateTestBinding()},
-                RetrievalMethods = {ArchiveTest.CreateTestArchive(), new Recipe {Steps = {ArchiveTest.CreateTestArchive()}}},
-                Commands = {CommandTest.CreateTestCommand1()}
-            };
-        }
-        #endregion
+            ID = "id", ManifestDigest = new ManifestDigest(sha256: "123"), Version = new ImplementationVersion("1.0"),
+            Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
+            Main = "executable", DocDir = "doc", Stability = Stability.Developer,
+            Bindings = {EnvironmentBindingTest.CreateTestBinding()},
+            RetrievalMethods = {ArchiveTest.CreateTestArchive(), new Recipe {Steps = {ArchiveTest.CreateTestArchive()}}},
+            Commands = {CommandTest.CreateTestCommand1()}
+        };
 
         /// <summary>
         /// Ensures that <see cref="Element.ContainsCommand"/> correctly checks for commands.

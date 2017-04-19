@@ -29,17 +29,17 @@ namespace ZeroInstall
     /// <summary>
     /// Common base class for test fixtures that use <see cref="AutoMockContainer"/>.
     /// </summary>
-    /// <typeparam name="TTarget">The type of the object to be instantiated and tested.</typeparam>
-    public class TestWithContainer<TTarget> : TestWithMocks
-        where TTarget : class
+    /// <typeparam name="TSut">The type of the object to be instantiated and tested (system under test).</typeparam>
+    public class TestWithContainer<TSut> : TestWithMocks
+        where TSut : class
     {
         private LocationsRedirect _redirect;
         private AutoMockContainer _container;
 
         /// <summary>
-        /// The object to be tested.
+        /// The object to be tested (system under test).
         /// </summary>
-        protected TTarget Target { get; private set; }
+        protected TSut Sut { get; private set; }
 
         [SetUp]
         public override void SetUp()
@@ -51,12 +51,12 @@ namespace ZeroInstall
             _container = new AutoMockContainer(MockRepository);
             Register(_container);
 
-            Target = _container.Create<TTarget>();
+            Sut = _container.Create<TSut>();
         }
 
         /// <summary>
         /// Creates or retrieves a <see cref="Mock"/> for a specific type. Multiple requests for the same type return the same mock instance.
-        /// These are the same mocks that are injected into the <see cref="Target"/>.
+        /// These are the same mocks that are injected into the <see cref="Sut"/>.
         /// </summary>
         /// <remarks>All created <see cref="Mock"/>s are automatically <see cref="Mock.Verify"/>d after the test completes.</remarks>
         protected Mock<T> GetMock<T>()
@@ -79,7 +79,7 @@ namespace ZeroInstall
         protected TrustDB TrustDB { get; private set; }
 
         /// <summary>
-        /// Hook that can be used to register objects in the <see cref="AutoMockContainer"/> before the <see cref="Target"/> is constructed.
+        /// Hook that can be used to register objects in the <see cref="AutoMockContainer"/> before the <see cref="Sut"/> is constructed.
         /// </summary>
         protected virtual void Register(AutoMockContainer container)
         {
@@ -93,7 +93,7 @@ namespace ZeroInstall
         {
             _redirect.Dispose();
 
-            (Target as IDisposable)?.Dispose();
+            (Sut as IDisposable)?.Dispose();
 
             base.TearDown();
         }

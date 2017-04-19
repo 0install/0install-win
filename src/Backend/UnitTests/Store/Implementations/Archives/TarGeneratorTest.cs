@@ -28,13 +28,17 @@ namespace ZeroInstall.Store.Implementations.Archives
     [TestFixture]
     public class TarGeneratorTest : ArchiveGeneratorTest<TarGenerator>
     {
-        protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream)
-        {
-            return new TarGenerator(sourceDirectory, stream);
-        }
+        protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream) => new TarGenerator(sourceDirectory, stream);
 
-        protected override void VerifyFileOrder()
+        [Test]
+        public void TestFileOrder()
         {
+            WriteFile("x");
+            WriteFile("y");
+            WriteFile("Z");
+
+            Execute();
+
             using (var archive = new TarInputStream(OpenArchive()))
             {
                 archive.GetNextEntry().Name.Should().Be("Z");
@@ -43,8 +47,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        protected override void VerifyFileTypes()
+        [Test]
+        public void TestFileTypes()
         {
+            WriteFile("executable", executable: true);
+            WriteFile("normal");
+            CreateSymlink("symlink");
+            CreateDir("dir");
+            WriteFile(Path.Combine("dir", "sub"));
+
+            Execute();
+
             using (var archive = new TarInputStream(OpenArchive()))
             {
                 var executable = archive.GetNextEntry();
@@ -81,11 +94,6 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             Execute();
 
-            VerifyHardlink();
-        }
-
-        private void VerifyHardlink()
-        {
             using (var archive = new TarInputStream(OpenArchive()))
             {
                 var file = archive.GetNextEntry();

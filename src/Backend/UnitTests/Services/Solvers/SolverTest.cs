@@ -46,7 +46,7 @@ namespace ZeroInstall.Services.Solvers
             var feedLookup = feeds.ToDictionary(x => x.Uri, x => x);
             GetMock<IFeedManager>().Setup(x => x[It.IsAny<FeedUri>()]).Returns((FeedUri feedUri) => feedLookup[feedUri]);
 
-            return Target.Solve(requirements);
+            return Sut.Solve(requirements);
         }
 
         [Test]

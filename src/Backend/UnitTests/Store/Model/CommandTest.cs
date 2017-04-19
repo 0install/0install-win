@@ -30,64 +30,55 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a fictive test <see cref="Command"/>.
         /// </summary>
-        public static Command CreateTestCommand1()
+        public static Command CreateTestCommand1() => new Command
         {
-            return new Command
+            Name = Command.NameRun,
+            Path = "dir 1/executable1", Arguments = {"--executable1"},
+            Runner = new Runner
             {
-                Name = Command.NameRun,
-                Path = "dir 1/executable1", Arguments = {"--executable1"},
-                Runner = new Runner
-                {
-                    InterfaceUri = FeedTest.Test2Uri, Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
-                },
-                Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND"}},
-                WorkingDir = new WorkingDir {Source = "bin"}
-            };
-        }
+                InterfaceUri = FeedTest.Test2Uri, Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
+            },
+            Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND"}},
+            WorkingDir = new WorkingDir {Source = "bin"}
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="Command"/> using <see cref="Command.NameTest"/>.
         /// </summary>
-        public static Command CreateTestCommand1Test()
+        public static Command CreateTestCommand1Test() => new Command
         {
-            return new Command
+            Name = Command.NameTest,
+            Path = "dir 1/test1", Arguments = {"--test1"},
+            Runner = new Runner
             {
-                Name = Command.NameTest,
-                Path = "dir 1/test1", Arguments = {"--test1"},
-                Runner = new Runner
-                {
-                    InterfaceUri = FeedTest.Test2Uri, Arguments = {"runner argument"}
-                }
-            };
-        }
+                InterfaceUri = FeedTest.Test2Uri, Arguments = {"runner argument"}
+            }
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="Command"/>.
         /// </summary>
-        public static Command CreateTestCommand2()
+        public static Command CreateTestCommand2() => new Command
         {
-            return new Command
+            Name = Command.NameRun,
+            Path = "dir 2/executable2", Arguments = {"--executable2"},
+            Dependencies =
             {
-                Name = Command.NameRun,
-                Path = "dir 2/executable2", Arguments = {"--executable2"},
-                Dependencies =
+                new Dependency
                 {
-                    new Dependency
-                    {
-                        InterfaceUri = FeedTest.Test1Uri,
-                        Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
-                    }
-                },
-                Restrictions =
-                {
-                    new Restriction
-                    {
-                        InterfaceUri = FeedTest.Test2Uri,
-                        Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
-                    }
+                    InterfaceUri = FeedTest.Test1Uri,
+                    Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
                 }
-            };
-        }
+            },
+            Restrictions =
+            {
+                new Restriction
+                {
+                    InterfaceUri = FeedTest.Test2Uri,
+                    Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
+                }
+            }
+        };
         #endregion
 
         /// <summary>

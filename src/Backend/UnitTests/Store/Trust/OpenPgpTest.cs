@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Trust
         {
             base.SetUp();
 
-            Target.HomeDir = _homeDir = new TemporaryDirectory("0install-unit-test");
+            Sut.HomeDir = _homeDir = new TemporaryDirectory("0install-unit-test");
         }
 
         [TearDown]
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Trust
         {
             TestImportKey();
 
-            Target.Verify(_referenceData, _signatureData).Should().Equal(
+            Sut.Verify(_referenceData, _signatureData).Should().Equal(
                 new ValidSignature(_secretKey.KeyID, _secretKey.GetFingerprint(), new DateTime(2015, 7, 16, 17, 20, 7, DateTimeKind.Utc)));
         }
 
@@ -73,21 +73,21 @@ namespace ZeroInstall.Store.Trust
         {
             TestImportKey();
 
-            Target.Verify(new byte[] {1, 2, 3}, _signatureData).Should().Equal(
+            Sut.Verify(new byte[] {1, 2, 3}, _signatureData).Should().Equal(
                 new BadSignature(_secretKey.KeyID));
         }
 
         [Test]
         public void TestVerifyMissingKeySignature()
         {
-            Target.Verify(_referenceData, _signatureData).Should().Equal(
+            Sut.Verify(_referenceData, _signatureData).Should().Equal(
                 new MissingKeySignature(_secretKey.KeyID));
         }
 
         [Test]
         public void TestVerifyInvalidData()
         {
-            Target.Invoking(x => x.Verify(new byte[] {1, 2, 3}, new byte[] {1, 2, 3}))
+            Sut.Invoking(x => x.Verify(new byte[] {1, 2, 3}, new byte[] {1, 2, 3}))
                 .ShouldThrow<InvalidDataException>();
         }
 
@@ -96,18 +96,18 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            var signatureData = Target.Sign(_referenceData, _secretKey, "passphrase");
+            var signatureData = Sut.Sign(_referenceData, _secretKey, "passphrase");
             Assert.That(signatureData.Length, Is.GreaterThan(10));
 
             TestImportKey();
-            var signature = (ValidSignature)Target.Verify(_referenceData, signatureData).Single();
+            var signature = (ValidSignature)Sut.Verify(_referenceData, signatureData).Single();
             signature.GetFingerprint().Should().Equal(_secretKey.GetFingerprint());
         }
 
         [Test]
         public void TestSignMissingKey()
         {
-            Target.Invoking(x => x.Sign(_referenceData, _secretKey)).ShouldThrow<KeyNotFoundException>();
+            Sut.Invoking(x => x.Sign(_referenceData, _secretKey)).ShouldThrow<KeyNotFoundException>();
         }
 
         [Test]
@@ -115,19 +115,19 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            Target.Invoking(x => x.Sign(_referenceData, _secretKey, "wrong-passphrase")).ShouldThrow<WrongPassphraseException>();
+            Sut.Invoking(x => x.Sign(_referenceData, _secretKey, "wrong-passphrase")).ShouldThrow<WrongPassphraseException>();
         }
 
         [Test]
         public void TestImportKey()
         {
-            Target.ImportKey(typeof(OpenPgpTest<>).GetEmbeddedBytes("pubkey.gpg"));
+            Sut.ImportKey(typeof(OpenPgpTest<>).GetEmbeddedBytes("pubkey.gpg"));
         }
 
         [Test]
         public void TestImportKeyInvalidData()
         {
-            Target.Invoking(x => x.ImportKey(new byte[] {1, 2, 3})).ShouldThrow<InvalidDataException>();
+            Sut.Invoking(x => x.ImportKey(new byte[] {1, 2, 3})).ShouldThrow<InvalidDataException>();
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            string exportedKey = Target.ExportKey(_secretKey);
+            string exportedKey = Sut.ExportKey(_secretKey);
             string referenceKeyData = typeof(OpenPgpTest<>).GetEmbeddedString("pubkey.gpg")
                 .GetRightPartAtFirstOccurrence("\n\n").GetLeftPartAtLastOccurrence("+");
 
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Trust
         [Test]
         public void TestExportKeyMissingKey()
         {
-            Target.Invoking(x => x.ExportKey(_secretKey)).ShouldThrow<KeyNotFoundException>();
+            Sut.Invoking(x => x.ExportKey(_secretKey)).ShouldThrow<KeyNotFoundException>();
         }
 
         [Test]
@@ -155,7 +155,7 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            Target.ListSecretKeys().Should().Equal(_secretKey);
+            Sut.ListSecretKeys().Should().Equal(_secretKey);
         }
 
         [Test]
@@ -163,21 +163,21 @@ namespace ZeroInstall.Store.Trust
         {
             DeployKeyRings();
 
-            Target.GetSecretKey(_secretKey).Should().Be(_secretKey, because: "Should get secret key using parsed id source");
+            Sut.GetSecretKey(_secretKey).Should().Be(_secretKey, because: "Should get secret key using parsed id source");
 
-            Target.GetSecretKey(_secretKey.UserID).Should().Be(_secretKey, because: "Should get secret key using user id");
-            Target.GetSecretKey(_secretKey.FormatKeyID()).Should().Be(_secretKey, because: "Should get secret key using key id string");
-            Target.GetSecretKey(_secretKey.FormatFingerprint()).Should().Be(_secretKey, because: "Should get secret key using fingerprint string");
+            Sut.GetSecretKey(_secretKey.UserID).Should().Be(_secretKey, because: "Should get secret key using user id");
+            Sut.GetSecretKey(_secretKey.FormatKeyID()).Should().Be(_secretKey, because: "Should get secret key using key id string");
+            Sut.GetSecretKey(_secretKey.FormatFingerprint()).Should().Be(_secretKey, because: "Should get secret key using fingerprint string");
 
-            Target.GetSecretKey().Should().Be(_secretKey, because: "Should get default secret key");
+            Sut.GetSecretKey().Should().Be(_secretKey, because: "Should get default secret key");
 
-            Target.Invoking(x => x.GetSecretKey("unknown@user.com")).ShouldThrow<KeyNotFoundException>();
+            Sut.Invoking(x => x.GetSecretKey("unknown@user.com")).ShouldThrow<KeyNotFoundException>();
         }
 
         private void DeployKeyRings()
         {
-            typeof(OpenPgpTest<>).CopyEmbeddedToFile("pubring.gpg", Path.Combine(Target.HomeDir, "pubring.gpg"));
-            typeof(OpenPgpTest<>).CopyEmbeddedToFile("secring.gpg", Path.Combine(Target.HomeDir, "secring.gpg"));
+            typeof(OpenPgpTest<>).CopyEmbeddedToFile("pubring.gpg", Path.Combine(Sut.HomeDir, "pubring.gpg"));
+            typeof(OpenPgpTest<>).CopyEmbeddedToFile("secring.gpg", Path.Combine(Sut.HomeDir, "secring.gpg"));
         }
     }
 }

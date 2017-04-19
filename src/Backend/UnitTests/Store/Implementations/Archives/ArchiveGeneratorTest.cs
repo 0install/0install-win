@@ -23,12 +23,13 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Common test cases for <see cref="ArchiveGenerator"/> sub-classes.
     /// </summary>
+    /// <typeparam name="T">The specific type of <see cref="ArchiveGenerator"/> to test.</typeparam>
     public abstract class ArchiveGeneratorTest<T> : DirectoryTaskTestBase<T>
         where T : ArchiveGenerator
     {
         private MemoryStream _archiveWriteStream;
 
-        protected override T CreateTarget(string sourceDirectory)
+        protected override T InitSut(string sourceDirectory)
         {
             _archiveWriteStream = new MemoryStream();
             return CreateGenerator(sourceDirectory, _archiveWriteStream);
@@ -36,16 +37,13 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected abstract T CreateGenerator(string sourceDirectory, Stream stream);
 
-        protected virtual Stream OpenArchive()
-        {
-            // NOTE: Must open new stream for reading because write stream gets closed
-            return new MemoryStream(_archiveWriteStream.ToArray(), writable: false);
-        }
+        // NOTE: Must open new stream for reading because write stream gets closed
+        protected virtual Stream OpenArchive() => new MemoryStream(_archiveWriteStream.ToArray(), writable: false);
 
         protected override void Execute()
         {
             base.Execute();
-            Target.Dispose();
+            Sut.Dispose();
         }
     }
 }

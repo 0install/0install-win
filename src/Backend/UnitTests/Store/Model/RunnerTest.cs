@@ -26,20 +26,15 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class RunnerTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="Runner"/>.
         /// </summary>
-        private static Runner CreateTestRunner()
+        private static Runner CreateTestRunner() => new Runner
         {
-            return new Runner
-            {
-                InterfaceUri = FeedTest.Test1Uri, Command = "run2", Bindings = {EnvironmentBindingTest.CreateTestBinding()},
-                Versions = new VersionRange("1.0..!2.0"),
-                Arguments = {"--arg"}
-            };
-        }
-        #endregion
+            InterfaceUri = FeedTest.Test1Uri, Command = "run2", Bindings = {EnvironmentBindingTest.CreateTestBinding()},
+            Versions = new VersionRange("1.0..!2.0"),
+            Arguments = {"--arg"}
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

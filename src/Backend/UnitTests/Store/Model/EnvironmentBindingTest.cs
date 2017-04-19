@@ -26,15 +26,17 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class EnvironmentBindingTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="EnvironmentBinding"/>.
         /// </summary>
-        internal static EnvironmentBinding CreateTestBinding()
+        internal static EnvironmentBinding CreateTestBinding() => new EnvironmentBinding
         {
-            return new EnvironmentBinding {Name = "name", Value = "value", Default = "default", Mode = EnvironmentMode.Replace, Separator = ","};
-        }
-        #endregion
+            Name = "name",
+            Value = "value",
+            Default = "default",
+            Mode = EnvironmentMode.Replace,
+            Separator = ","
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

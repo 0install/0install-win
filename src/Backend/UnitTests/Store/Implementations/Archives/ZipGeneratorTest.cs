@@ -29,13 +29,17 @@ namespace ZeroInstall.Store.Implementations.Archives
     [TestFixture]
     public class ZipGeneratorTest : ArchiveGeneratorTest<ZipGenerator>
     {
-        protected override ZipGenerator CreateGenerator(string sourceDirectory, Stream stream)
-        {
-            return new ZipGenerator(sourceDirectory, stream);
-        }
+        protected override ZipGenerator CreateGenerator(string sourceDirectory, Stream stream) => new ZipGenerator(sourceDirectory, stream);
 
-        protected override void VerifyFileOrder()
+        [Test]
+        public void TestFileOrder()
         {
+            WriteFile("x");
+            WriteFile("y");
+            WriteFile("Z");
+
+            Execute();
+
             using (var archive = new ZipFile(OpenArchive()))
             {
                 archive[0].Name.Should().Be("Z");
@@ -44,8 +48,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        protected override void VerifyFileTypes()
+        [Test]
+        public void TestFileTypes()
         {
+            WriteFile("executable", executable: true);
+            WriteFile("normal");
+            CreateSymlink("symlink");
+            CreateDir("dir");
+            WriteFile(Path.Combine("dir", "sub"));
+
+            Execute();
+
             using (var archive = new ZipFile(OpenArchive()))
             {
                 var executable = archive[0];

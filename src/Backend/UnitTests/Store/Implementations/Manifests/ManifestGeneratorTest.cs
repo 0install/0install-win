@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
 using System.Security.Cryptography;
 using FluentAssertions;
 using NanoByte.Common;
@@ -29,24 +30,37 @@ namespace ZeroInstall.Store.Implementations.Manifests
     [TestFixture]
     public class ManifestGeneratorTest : DirectoryTaskTestBase<ManifestGenerator>
     {
-        protected override ManifestGenerator CreateTarget(string sourceDirectory)
-        {
-            return new ManifestGenerator(sourceDirectory, ManifestFormat.Sha1New);
-        }
+        protected override ManifestGenerator InitSut(string sourceDirectory) => new ManifestGenerator(sourceDirectory, ManifestFormat.Sha1New);
 
         private static readonly string _hash = Contents.Hash(SHA1.Create());
 
-        protected override void VerifyFileOrder()
+        [Test]
+        public void TestFileOrder()
         {
-            Target.Manifest.Should().Equal(
+            WriteFile("x");
+            WriteFile("y");
+            WriteFile("Z");
+
+            Execute();
+
+            Sut.Manifest.Should().Equal(
                 new ManifestNormalFile(_hash, Timestamp, Contents.Length, "Z"),
                 new ManifestNormalFile(_hash, Timestamp, Contents.Length, "x"),
                 new ManifestNormalFile(_hash, Timestamp, Contents.Length, "y"));
         }
 
-        protected override void VerifyFileTypes()
+        [Test]
+        public void TestFileTypes()
         {
-            Target.Manifest.Should().Equal(
+            WriteFile("executable", executable: true);
+            WriteFile("normal");
+            CreateSymlink("symlink");
+            CreateDir("dir");
+            WriteFile(Path.Combine("dir", "sub"));
+
+            Execute();
+
+            Sut.Manifest.Should().Equal(
                 new ManifestExecutableFile(_hash, Timestamp, Contents.Length, "executable"),
                 new ManifestNormalFile(_hash, Timestamp, Contents.Length, "normal"),
                 new ManifestSymlink(_hash, Contents.Length, "symlink"),

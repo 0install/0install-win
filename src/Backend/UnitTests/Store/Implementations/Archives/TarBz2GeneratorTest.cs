@@ -24,14 +24,8 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public class TarBz2GeneratorTest : TarGeneratorTest
     {
-        protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream)
-        {
-            return new TarBz2Generator(sourceDirectory, stream);
-        }
+        protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream) => new TarBz2Generator(sourceDirectory, stream);
 
-        protected override Stream OpenArchive()
-        {
-            return TarBz2Extractor.GetDecompressionStream(base.OpenArchive());
-        }
+        protected override Stream OpenArchive() => TarBz2Extractor.GetDecompressionStream(base.OpenArchive());
     }
 }

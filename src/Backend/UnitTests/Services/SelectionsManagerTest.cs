@@ -46,7 +46,7 @@ namespace ZeroInstall.Services
             StoreMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
             StoreMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
 
-            var implementationSelections = Target.GetUncachedSelections(selections);
+            var implementationSelections = Sut.GetUncachedSelections(selections);
 
             implementationSelections.Should().BeEquivalentTo(new[] {selections.Implementations[0]}, because: "Only the first implementation should be listed as uncached");
         }
@@ -75,7 +75,7 @@ namespace ZeroInstall.Services
                 PackageManagerMock.Setup(x => x.Lookup(selections.Implementations[0])).Returns(impl1);
                 PackageManagerMock.Setup(x => x.Lookup(selections.Implementations[1])).Returns(impl2);
 
-                var implementationSelections = Target.GetUncachedSelections(selections);
+                var implementationSelections = Sut.GetUncachedSelections(selections);
 
                 // Only the first implementation should be listed as uncached
                 implementationSelections.Should().BeEquivalentTo(new[] {selections.Implementations[0]}, because: "Only the first implementation should be listed as uncached");
@@ -102,7 +102,7 @@ namespace ZeroInstall.Services
             FeedManagereMock.Setup(x => x[FeedTest.Sub2Uri]).Returns(new Feed {Elements = {impl2}});
             PackageManagerMock.Setup(x => x.Lookup(implementationSelections[2])).Returns(impl3);
 
-            Target.GetImplementations(implementationSelections)
+            Sut.GetImplementations(implementationSelections)
                 .Should().BeEquivalentTo(impl1, impl2, impl3);
         }
     }

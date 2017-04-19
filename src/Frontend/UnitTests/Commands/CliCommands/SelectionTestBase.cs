@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.CliCommands
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]
         public virtual void TestTooManyArgs()
         {
-            Target.Invoking(x => x.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}))
+            Sut.Invoking(x => x.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}))
                 .ShouldThrow<OptionException>(because: "Should reject more than one argument");
         }
 

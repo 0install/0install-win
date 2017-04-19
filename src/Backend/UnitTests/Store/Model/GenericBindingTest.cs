@@ -26,15 +26,10 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class GenericBindingTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="GenericBinding"/>.
         /// </summary>
-        internal static GenericBinding CreateTestBinding()
-        {
-            return new GenericBinding {Path = "path", Command = "command"};
-        }
-        #endregion
+        internal static GenericBinding CreateTestBinding() => new GenericBinding {Path = "path", Command = "command"};
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

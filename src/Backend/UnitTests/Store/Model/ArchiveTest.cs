@@ -29,16 +29,19 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class ArchiveTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="Archive"/>.
         /// </summary>
-        internal static Archive CreateTestArchive()
+        internal static Archive CreateTestArchive() => new Archive
         {
-            return new Archive {Href = new Uri("http://0install.de/files/test/test.exe"), MimeType = Archive.MimeTypeZip, Size = 128, StartOffset = 16, Extract = "extract", Destination = "dest"};
-        }
-        #endregion
-
+            Href = new Uri("http://0install.de/files/test/test.exe"),
+            MimeType = Archive.MimeTypeZip,
+            Size = 128,
+            StartOffset = 16,
+            Extract = "extract",
+            Destination = "dest"
+        };
+        
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>

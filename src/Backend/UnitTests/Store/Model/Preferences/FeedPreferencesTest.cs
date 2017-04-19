@@ -28,19 +28,14 @@ namespace ZeroInstall.Store.Model.Preferences
     [TestFixture]
     public class FeedPreferencesTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="FeedPreferences"/>.
         /// </summary>
-        public static FeedPreferences CreateTestFeedPreferences()
+        public static FeedPreferences CreateTestFeedPreferences() => new FeedPreferences
         {
-            return new FeedPreferences
-            {
-                LastChecked = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                Implementations = {new ImplementationPreferences {ID = "test_id", UserStability = Stability.Testing}}
-            };
-        }
-        #endregion
+            LastChecked = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+            Implementations = {new ImplementationPreferences {ID = "test_id", UserStability = Stability.Testing}}
+        };
 
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()

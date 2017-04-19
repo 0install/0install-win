@@ -27,20 +27,15 @@ namespace ZeroInstall.Store.Model.Preferences
     [TestFixture]
     public class InterfacePreferencesTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="InterfacePreferences"/>.
         /// </summary>
-        public static InterfacePreferences CreateTestInterfacePreferences()
+        public static InterfacePreferences CreateTestInterfacePreferences() => new InterfacePreferences
         {
-            return new InterfacePreferences
-            {
-                Uri = new FeedUri("http://somedomain/someapp.xml"),
-                StabilityPolicy = Stability.Testing,
-                Feeds = {new FeedReference {Source = new FeedUri("http://invalid/")}}
-            };
-        }
-        #endregion
+            Uri = new FeedUri("http://somedomain/someapp.xml"),
+            StabilityPolicy = Stability.Testing,
+            Feeds = {new FeedReference {Source = new FeedUri("http://invalid/")}}
+        };
 
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()

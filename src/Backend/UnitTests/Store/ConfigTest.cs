@@ -31,15 +31,17 @@ namespace ZeroInstall.Store
     [TestFixture]
     public class ConfigTest
     {
-        #region Helpers
         /// <summary>
         /// Creates test <see cref="Config"/>.
         /// </summary>
-        public static Config CreateTestConfig()
+        public static Config CreateTestConfig() => new Config
         {
-            return new Config {HelpWithTesting = true, Freshness = new TimeSpan(12, 0, 0, 0), NetworkUse = NetworkLevel.Minimal, AutoApproveKeys = false, SyncServerPassword = "pw123"};
-        }
-        #endregion
+            HelpWithTesting = true,
+            Freshness = new TimeSpan(12, 0, 0, 0),
+            NetworkUse = NetworkLevel.Minimal,
+            AutoApproveKeys = false,
+            SyncServerPassword = "pw123"
+        };
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()

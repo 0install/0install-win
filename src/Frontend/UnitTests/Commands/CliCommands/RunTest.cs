@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands.CliCommands
         [Test]
         public void TestGetCanonicalUriRemote()
         {
-            Target.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc()
+            Sut.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc()
                 .Should().Be("http://0install.de/feeds/test/test1.xml");
         }
 
@@ -104,25 +104,25 @@ namespace ZeroInstall.Commands.CliCommands
             // Absolute paths
             if (WindowsUtils.IsWindows)
             {
-                Target.GetCanonicalUri(@"C:\test\file").ToStringRfc().Should().Be(@"C:\test\file");
-                Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc().Should().Be(@"C:\test\file");
-                Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc().Should().Be(@"C:\test\file");
+                Sut.GetCanonicalUri(@"C:\test\file").ToStringRfc().Should().Be(@"C:\test\file");
+                Sut.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc().Should().Be(@"C:\test\file");
+                Sut.GetCanonicalUri("file:///C:/test/file").ToStringRfc().Should().Be(@"C:\test\file");
             }
             if (UnixUtils.IsUnix)
             {
-                Target.GetCanonicalUri("/test/file").ToStringRfc().Should().Be("/test/file");
-                Target.GetCanonicalUri("file:///test/file").ToStringRfc().Should().Be("/test/file");
+                Sut.GetCanonicalUri("/test/file").ToStringRfc().Should().Be("/test/file");
+                Sut.GetCanonicalUri("file:///test/file").ToStringRfc().Should().Be("/test/file");
             }
 
             // Relative paths
-            Target.GetCanonicalUri(Path.Combine("test", "file")).ToString().Should().Be(
+            Sut.GetCanonicalUri(Path.Combine("test", "file")).ToString().Should().Be(
                 Path.Combine(Environment.CurrentDirectory, "test", "file"));
-            Target.GetCanonicalUri("file:test/file").ToString().Should().Be(
+            Sut.GetCanonicalUri("file:test/file").ToString().Should().Be(
                 Path.Combine(Environment.CurrentDirectory, "test", "file"));
 
             // Invalid paths
-            Target.Invoking(x => x.GetCanonicalUri("file:/test/file")).ShouldThrow<UriFormatException>();
-            if (WindowsUtils.IsWindows) Target.Invoking(x => x.GetCanonicalUri(":::")).ShouldThrow<UriFormatException>();
+            Sut.Invoking(x => x.GetCanonicalUri("file:/test/file")).ShouldThrow<UriFormatException>();
+            if (WindowsUtils.IsWindows) Sut.Invoking(x => x.GetCanonicalUri(":::")).ShouldThrow<UriFormatException>();
         }
 
         [Test]
@@ -141,15 +141,15 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }.SaveXml(AppList.GetDefaultPath());
 
-            Target.GetCanonicalUri("alias:test").Should().Be(FeedTest.Test1Uri);
-            Target.Invoking(x => x.GetCanonicalUri("alias:invalid")).ShouldThrow<UriFormatException>();
+            Sut.GetCanonicalUri("alias:test").Should().Be(FeedTest.Test1Uri);
+            Sut.Invoking(x => x.GetCanonicalUri("alias:invalid")).ShouldThrow<UriFormatException>();
         }
 
         [Test]
         public void TestGetCanonicalUriCatalogCached()
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
-            Target.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
+            Sut.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
         }
 
         [Test]
@@ -157,7 +157,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog());
             CatalogManagerMock.Setup(x => x.GetOnline()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
-            Target.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
+            Sut.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
         }
     }
 }

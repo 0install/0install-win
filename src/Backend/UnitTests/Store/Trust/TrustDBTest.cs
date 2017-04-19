@@ -27,18 +27,24 @@ namespace ZeroInstall.Store.Trust
     [TestFixture]
     public class TrustDBTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="TrustDB"/>.
         /// </summary>
-        private static TrustDB CreateTestTrust()
+        private static TrustDB CreateTestTrust() => new TrustDB
         {
-            return new TrustDB
+            Keys =
             {
-                Keys = {new Key {Fingerprint = "abc", Domains = {new Domain {Value = "0install.de"}, new Domain {Value = "eicher.net"}}}}
-            };
-        }
-        #endregion
+                new Key
+                {
+                    Fingerprint = "abc",
+                    Domains =
+                    {
+                        new Domain {Value = "0install.de"},
+                        new Domain {Value = "eicher.net"}
+                    }
+                }
+            }
+        };
 
         [Test(Description = "Ensures that methods for adding and removing trusted keys work correctly.")]
         public void TestAddRemoveTrust()

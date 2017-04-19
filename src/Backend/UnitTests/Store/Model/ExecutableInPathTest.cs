@@ -26,15 +26,10 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class ExecutableInPathTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="ExecutableInPath"/>.
         /// </summary>
-        internal static ExecutableInPath CreateTestBinding()
-        {
-            return new ExecutableInPath {Name = "name", Command = "command"};
-        }
-        #endregion
+        internal static ExecutableInPath CreateTestBinding() => new ExecutableInPath {Name = "name", Command = "command"};
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

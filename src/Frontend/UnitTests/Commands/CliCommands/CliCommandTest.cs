@@ -54,17 +54,17 @@ namespace ZeroInstall.Commands.CliCommands
         {
             base.SetUp();
 
-            Target.Config = Config;
-            Target.FeedCache = Resolve<IFeedCache>();
-            Target.CatalogManager = Resolve<ICatalogManager>();
-            Target.OpenPgp = Resolve<IOpenPgp>();
-            Target.TrustDB = TrustDB;
-            Target.Store = Resolve<IStore>();
-            Target.PackageManager = Resolve<IPackageManager>();
-            Target.Solver = Resolve<ISolver>();
-            Target.Fetcher = Resolve<IFetcher>();
-            Target.Executor = Resolve<IExecutor>();
-            Target.SelectionsManager = Resolve<ISelectionsManager>();
+            Sut.Config = Config;
+            Sut.FeedCache = Resolve<IFeedCache>();
+            Sut.CatalogManager = Resolve<ICatalogManager>();
+            Sut.OpenPgp = Resolve<IOpenPgp>();
+            Sut.TrustDB = TrustDB;
+            Sut.Store = Resolve<IStore>();
+            Sut.PackageManager = Resolve<IPackageManager>();
+            Sut.Solver = Resolve<ISolver>();
+            Sut.Fetcher = Resolve<IFetcher>();
+            Sut.Executor = Resolve<IExecutor>();
+            Sut.SelectionsManager = Resolve<ISelectionsManager>();
 
             SelfUpdateUtils.NoAutoCheck = true;
         }
@@ -77,8 +77,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <param name="args">The arguments to pass to <see cref="CliCommand.Parse"/>.</param>
         protected void RunAndAssert([CanBeNull] string expectedOutput, ExitCode expectedExitCode, params string[] args)
         {
-            Target.Parse(args);
-            Target.Execute().Should().Be(expectedExitCode);
+            Sut.Parse(args);
+            Sut.Execute().Should().Be(expectedExitCode);
             Handler.LastOutput.Should().Be(expectedOutput);
         }
 
@@ -90,8 +90,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <param name="args">The arguments to pass to <see cref="CliCommand.Parse"/>.</param>
         protected void RunAndAssert<T>(IEnumerable<T> expectedOutput, ExitCode expectedExitCode, params string[] args)
         {
-            Target.Parse(args);
-            Target.Execute().Should().Be(expectedExitCode);
+            Sut.Parse(args);
+            Sut.Execute().Should().Be(expectedExitCode);
             Handler.LastOutputObjects.Should().Equal(expectedOutput);
         }
     }

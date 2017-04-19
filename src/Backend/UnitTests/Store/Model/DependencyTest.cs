@@ -26,22 +26,17 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class DependencyTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="Dependency"/>.
         /// </summary>
-        public static Dependency CreateTestDependency()
+        public static Dependency CreateTestDependency() => new Dependency
         {
-            return new Dependency
-            {
-                Versions = new VersionRange("1.0..!2.0"),
-                OS = OS.Windows,
-                Distributions = {Restriction.DistributionZeroInstall},
-                Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
-                Importance = Importance.Recommended
-            };
-        }
-        #endregion
+            Versions = new VersionRange("1.0..!2.0"),
+            OS = OS.Windows,
+            Distributions = {Restriction.DistributionZeroInstall},
+            Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
+            Importance = Importance.Recommended
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned and compared.

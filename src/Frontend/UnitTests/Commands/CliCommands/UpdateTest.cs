@@ -66,8 +66,8 @@ namespace ZeroInstall.Commands.CliCommands
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
-                Target.Parse(new string[] {tempFile});
-                Target.Invoking(x => x.Execute()).ShouldThrow<NotSupportedException>();
+                Sut.Parse(new string[] {tempFile});
+                Sut.Invoking(x => x.Execute()).ShouldThrow<NotSupportedException>();
             }
         }
     }

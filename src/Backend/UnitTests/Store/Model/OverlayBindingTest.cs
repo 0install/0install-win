@@ -26,15 +26,14 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class OverlayBindingTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="OverlayBinding"/>.
         /// </summary>
-        internal static OverlayBinding CreateTestBinding()
+        internal static OverlayBinding CreateTestBinding() => new OverlayBinding
         {
-            return new OverlayBinding {Source = @"somedir", MountPoint = @"/usr/share/somedir"};
-        }
-        #endregion
+            Source = @"somedir",
+            MountPoint = @"/usr/share/somedir"
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned.

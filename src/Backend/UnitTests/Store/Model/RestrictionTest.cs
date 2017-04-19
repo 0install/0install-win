@@ -26,21 +26,16 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class RestrictionTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="Restriction"/>.
         /// </summary>
-        public static Restriction CreateTestRestriction()
+        public static Restriction CreateTestRestriction() => new Restriction
         {
-            return new Restriction
-            {
-                Versions = new VersionRange("1.0..!2.0"),
-                OS = OS.Windows,
-                Distributions = {Restriction.DistributionZeroInstall},
-                Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}
-            };
-        }
-        #endregion
+            Versions = new VersionRange("1.0..!2.0"),
+            OS = OS.Windows,
+            Distributions = {Restriction.DistributionZeroInstall},
+            Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}
+        };
 
         /// <summary>
         /// Ensures that the class can be correctly cloned and compared.

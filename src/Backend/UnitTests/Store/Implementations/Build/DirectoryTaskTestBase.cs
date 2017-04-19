@@ -27,59 +27,40 @@ namespace ZeroInstall.Store.Implementations.Build
     /// <summary>
     /// Common test cases for <see cref="DirectoryTaskBase"/> sub-classes.
     /// </summary>
-    public abstract class DirectoryTaskTestBase<T>
-        where T : DirectoryTaskBase
+    /// <typeparam name="TSut">The type of the object to be instantiated and tested (system under test).</typeparam>
+    public abstract class DirectoryTaskTestBase<TSut>
+        where TSut : DirectoryTaskBase
     {
         private TemporaryDirectory _sourceDirectory;
-        protected T Target;
+
+        /// <summary>
+        /// The object to be tested (system under test).
+        /// </summary>
+        protected TSut Sut { get; private set; }
 
         [SetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
             _sourceDirectory = new TemporaryDirectory("0install-unit-tests");
-            Target = CreateTarget(_sourceDirectory);
+            Sut = InitSut(_sourceDirectory);
         }
 
-        protected abstract T CreateTarget(string sourceDirectory);
+        /// <summary>
+        /// Hook to instantiate the system under test.
+        /// </summary>
+        /// <param name="sourceDirectory">The path to temporary directory created for use as an input parameter to the SUT's constuctor.</param>
+        protected abstract TSut InitSut(string sourceDirectory);
 
         [TearDown]
-        public void TearDown()
+        public virtual void TearDown()
         {
             _sourceDirectory.Dispose();
-        }
-
-        [Test]
-        public void TestFileOrder()
-        {
-            WriteFile("x");
-            WriteFile("y");
-            WriteFile("Z");
-
-            Execute();
-
-            VerifyFileOrder();
-        }
-
-        protected abstract void VerifyFileOrder();
-
-        [Test]
-        public void TestFileTypes()
-        {
-            WriteFile("executable", executable: true);
-            WriteFile("normal");
-            CreateSymlink("symlink");
-            CreateDir("dir");
-            WriteFile(Path.Combine("dir", "sub"));
-
-            Execute();
-
-            VerifyFileTypes();
         }
 
         protected virtual void Execute()
         {
             using (var handler = new SilentTaskHandler())
-                handler.RunTask(Target);
+                handler.RunTask(Sut);
         }
 
         // ReSharper disable once StaticMemberInGenericType
@@ -128,7 +109,5 @@ namespace ZeroInstall.Store.Implementations.Build
                 sourcePath: Path.Combine(_sourceDirectory, name),
                 targetPath: Path.Combine(_sourceDirectory, target));
         }
-
-        protected abstract void VerifyFileTypes();
     }
 }

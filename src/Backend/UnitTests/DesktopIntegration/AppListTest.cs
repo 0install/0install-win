@@ -34,66 +34,57 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a fictive test <see cref="AppList"/> without <see cref="AccessPoint"/>s.
         /// </summary>
-        private static AppList CreateTestAppListWithoutAPs()
+        private static AppList CreateTestAppListWithoutAPs() => new AppList
         {
-            return new AppList
+            Entries =
             {
-                Entries =
+                new AppEntry
                 {
-                    new AppEntry
-                    {
-                        InterfaceUri = FeedTest.Test1Uri,
-                        AutoUpdate = true,
-                        CapabilityLists = {Store.Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()}
-                    }
+                    InterfaceUri = FeedTest.Test1Uri,
+                    AutoUpdate = true,
+                    CapabilityLists = {Store.Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                 }
-            };
-        }
+            }
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="AppList"/> with <see cref="AccessPoint"/>s.
         /// </summary>
-        private static AppList CreateTestAppListWithAPs()
+        private static AppList CreateTestAppListWithAPs() => new AppList
         {
-            return new AppList
+            Entries =
             {
-                Entries =
+                new AppEntry
                 {
-                    new AppEntry
-                    {
-                        InterfaceUri = FeedTest.Test1Uri,
-                        AutoUpdate = true,
-                        CapabilityLists = {Store.Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()},
-                        AccessPoints = CreateTestAccessPointList()
-                    }
+                    InterfaceUri = FeedTest.Test1Uri,
+                    AutoUpdate = true,
+                    CapabilityLists = {Store.Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()},
+                    AccessPoints = CreateTestAccessPointList()
                 }
-            };
-        }
+            }
+        };
 
         /// <summary>
         /// Creates a fictive test <see cref="AccessPoints.AccessPointList"/>.
         /// </summary>
-        private static AccessPointList CreateTestAccessPointList()
+        private static AccessPointList CreateTestAccessPointList() => new AccessPointList
         {
-            return new AccessPointList
+            Entries =
             {
-                Entries =
-                {
-                    new AppAlias {Command = "main", Name = "myapp"},
-                    new AutoStart {Command = "main", Name = "myapp"},
-                    new AutoPlay {Capability = "autoplay"},
-                    new CapabilityRegistration(),
-                    new ContextMenu {Capability = "context"},
-                    new DefaultProgram {Capability = "default"},
-                    new DesktopIcon {Command = "main", Name = "Desktop icon"},
-                    new FileType {Capability = "file_type"},
-                    new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
-                    new SendTo {Command = "main", Name = "Send to"},
-                    new UrlProtocol {Capability = "protocol"},
-                    new QuickLaunch {Command = "main", Name = "Quick Launch"}
-                }
-            };
-        }
+                new AppAlias {Command = "main", Name = "myapp"},
+                new AutoStart {Command = "main", Name = "myapp"},
+                new AutoPlay {Capability = "autoplay"},
+                new CapabilityRegistration(),
+                new ContextMenu {Capability = "context"},
+                new DefaultProgram {Capability = "default"},
+                new DesktopIcon {Command = "main", Name = "Desktop icon"},
+                new FileType {Capability = "file_type"},
+                new MenuEntry {Command = "main", Name = "Menu entry", Category = "Developer tools"},
+                new SendTo {Command = "main", Name = "Send to"},
+                new UrlProtocol {Capability = "protocol"},
+                new QuickLaunch {Command = "main", Name = "Quick Launch"}
+            }
+        };
         #endregion
 
         [Test(Description = "Ensures that the class is correctly serialized and deserialized without AccessPoints.")]

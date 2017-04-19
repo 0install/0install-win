@@ -28,15 +28,10 @@ namespace ZeroInstall.Store.Model
     [TestFixture]
     public class CatalogTest
     {
-        #region Helpers
         /// <summary>
         /// Creates a fictive test <see cref="Catalog"/>.
         /// </summary>
-        public static Catalog CreateTestCatalog()
-        {
-            return new Catalog {Feeds = {FeedTest.CreateTestFeed()}};
-        }
-        #endregion
+        public static Catalog CreateTestCatalog() => new Catalog {Feeds = {FeedTest.CreateTestFeed()}};
 
         /// <summary>
         /// Ensures that <see cref="Catalog.GetFeed"/> and <see cref="Catalog.this"/> correctly find contained <see cref="Feed"/>s.
