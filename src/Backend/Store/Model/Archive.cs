@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
@@ -54,7 +55,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// All known <see cref="MimeType"/> values for archives.
         /// </summary>
-        public static readonly string[] KnownMimeTypes = {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeTarXz, MimeTypeRubyGem, MimeType7Z, MimeTypeCab, MimeTypeMsi, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
+        public static readonly IEnumerable<string> KnownMimeTypes = new [] {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeTarXz, MimeTypeRubyGem, MimeType7Z, MimeTypeCab, MimeTypeMsi, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
 
         /// <summary>
         /// Tries to guess the MIME type of an archive file by looking at its file extension.

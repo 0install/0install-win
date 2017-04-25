@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 using NanoByte.Common;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
@@ -36,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             RegisterControl(textBoxDestination, new PropertyPointer<string>(() => Target.Destination, value => Target.Destination = value));
 
             // ReSharper disable once CoVariantArrayConversion
-            comboBoxMimeType.Items.AddRange(Archive.KnownMimeTypes);
+            comboBoxMimeType.Items.AddRange(Archive.KnownMimeTypes.Cast<object>().ToArray());
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)

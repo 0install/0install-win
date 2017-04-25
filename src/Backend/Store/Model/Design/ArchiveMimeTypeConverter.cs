@@ -16,6 +16,7 @@
  */
 
 using System.ComponentModel;
+using System.Linq;
 
 namespace ZeroInstall.Store.Model.Design
 {
@@ -25,6 +26,6 @@ namespace ZeroInstall.Store.Model.Design
 
         public override bool GetStandardValuesExclusive(ITypeDescriptorContext context) => false;
 
-        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) => new StandardValuesCollection(Archive.KnownMimeTypes);
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) => new StandardValuesCollection(Archive.KnownMimeTypes.ToList());
     }
 }

@@ -143,43 +143,31 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(targetPath)) throw new ArgumentNullException(nameof(targetPath));
             #endregion
 
-            ArchiveExtractor extractor;
             switch (mimeType)
             {
                 case Archive.MimeTypeZip:
-                    extractor = new ZipExtractor(stream, targetPath);
-                    break;
+                    return new ZipExtractor(stream, targetPath);
                 case Archive.MimeTypeTar:
-                    extractor = new TarExtractor(stream, targetPath);
-                    break;
+                    return new TarExtractor(stream, targetPath);
                 case Archive.MimeTypeTarGzip:
-                    extractor = new TarGzExtractor(stream, targetPath);
-                    break;
+                    return new TarGzExtractor(stream, targetPath);
                 case Archive.MimeTypeTarBzip:
-                    extractor = new TarBz2Extractor(stream, targetPath);
-                    break;
+                    return new TarBz2Extractor(stream, targetPath);
                 case Archive.MimeTypeTarLzma:
-                    extractor = new TarLzmaExtractor(stream, targetPath);
-                    break;
+                    return new TarLzmaExtractor(stream, targetPath);
                 case Archive.MimeTypeTarXz:
-                    extractor = new TarXzExtractor(stream, targetPath);
-                    break;
+                    return new TarXzExtractor(stream, targetPath);
                 case Archive.MimeTypeRubyGem:
-                    extractor = new RubyGemExtractor(stream, targetPath);
-                    break;
+                    return new RubyGemExtractor(stream, targetPath);
                 case Archive.MimeType7Z:
-                    extractor = new SevenZipExtractor(stream, targetPath);
-                    break;
+                    return new SevenZipExtractor(stream, targetPath);
                 case Archive.MimeTypeCab:
-                    extractor = new CabExtractor(stream, targetPath);
-                    break;
+                    return new CabExtractor(stream, targetPath);
                 case Archive.MimeTypeMsi:
                     throw new NotSupportedException("MSIs can only be accessed as local files, not as streams!");
                 default:
                     throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
             }
-
-            return extractor;
         }
 
         /// <summary>
