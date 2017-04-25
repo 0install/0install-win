@@ -113,6 +113,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 case Archive.MimeTypeTarGzip:
                 case Archive.MimeTypeTarBzip:
                 case Archive.MimeTypeTarLzma:
+                case Archive.MimeTypeTarXz:
                 case Archive.MimeTypeRubyGem:
                     return;
 
