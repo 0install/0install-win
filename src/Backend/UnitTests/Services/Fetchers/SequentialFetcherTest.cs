@@ -32,11 +32,11 @@ namespace ZeroInstall.Services.Fetchers
         public void DownloadSingleArchiveMirror()
         {
             StoreMock.Setup(x => x.Flush());
-            using (var mirrorServer = new MicroServer("archive/http/invalid/directory%23archive.zip", TestData.ZipArchiveStream))
+            using (var mirrorServer = new MicroServer("archive/http/invalid/directory%23archive.zip", ZipArchiveStream))
             {
                 Config.FeedMirror = mirrorServer.ServerUri;
                 TestDownloadArchives(
-                    new Archive {Href = new Uri("http://invalid/directory/archive.zip"), MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
+                    new Archive {Href = new Uri("http://invalid/directory/archive.zip"), MimeType = Archive.MimeTypeZip, Size = ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
             }
         }
     }

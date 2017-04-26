@@ -18,11 +18,10 @@
 using System;
 using System.IO;
 using FluentAssertions;
-using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
-using ZeroInstall.Store.Implementations.Build;
+using ZeroInstall.FileSystem;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -30,39 +29,39 @@ namespace ZeroInstall.Store.Implementations.Archives
     [TestFixture]
     public class ZipExtractorTest
     {
-        #region Helpers
-        private PackageBuilder BuildSamplePackageHierarchy()
+        private static TestRoot SamplePackageHierarchy => new TestRoot
         {
-            var packageBuilder = new PackageBuilder()
-                .AddFile("file1", "First file")
-                .AddFile("file2", new byte[] {0});
-            packageBuilder.AddFolder("emptyFolder");
-            packageBuilder.AddFolder("sub").AddFolder("folder")
-                .AddFile("nestedFile", "File 3\n")
-                .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
-            _package = packageBuilder.Hierarchy;
-            return packageBuilder;
-        }
-
-        private void GenerateArchiveDataFromPackage(PackageBuilder packageBuilder)
-        {
-            using (var archiveStream = new MemoryStream())
+            new TestFile("file") {Contents = "First file"},
+            new TestFile("file2") {Contents = ""},
+            new TestDirectory("emptyFolder"),
+            new TestDirectory("sub")
             {
-                packageBuilder.GeneratePackageArchive(archiveStream);
-                _archiveData = archiveStream.ToArray();
+                new TestDirectory("folder")
+                {
+                    new TestFile("nestedFile") {Contents = "File 3\n"},
+                    new TestDirectory("nestedFolder")
+                    {
+                        new TestFile("doublyNestedFile") {Contents = "File 4"}
+                    }
+                }
             }
-        }
-        #endregion
+        };
 
         private byte[] _archiveData;
         private TemporaryDirectory _sandbox;
-        private HierarchyEntry _package;
 
         [SetUp]
         public void SetUp()
         {
-            var packageBuilder = BuildSamplePackageHierarchy();
-            GenerateArchiveDataFromPackage(packageBuilder);
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var archiveStream = new MemoryStream())
+            {
+                SamplePackageHierarchy.Build(tempDir);
+                using (var generator = new ZipGenerator(tempDir, archiveStream))
+                    generator.Run();
+                _archiveData = archiveStream.ToArray();
+            }
+
             _sandbox = new TemporaryDirectory("0install-unit-tests");
         }
 
@@ -91,34 +90,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
-            Directory.Exists(_sandbox).Should().BeTrue();
-            var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
-            _package.AcceptVisitor(comparer);
-        }
-
-        private class CompareHierarchyToExtractedFolder : HierarchyVisitor
-        {
-            private readonly string _folder;
-
-            public CompareHierarchyToExtractedFolder(string folderToCompare)
-            {
-                _folder = folderToCompare;
-            }
-
-            public override void VisitFile(FileEntry entry)
-            {
-                string extractedPosition = Path.Combine(_folder, entry.RelativePath);
-                File.Exists(extractedPosition).Should().BeTrue(because: "File " + extractedPosition + " does not exist.");
-                byte[] fileData = File.ReadAllBytes(extractedPosition);
-                fileData.Should().Equal(entry.Content, because: "Different content in file " + extractedPosition);
-            }
-
-            public override void VisitFolder(FolderEntry entry)
-            {
-                string extractedPosition = Path.Combine(_folder, entry.RelativePath);
-                Directory.Exists(extractedPosition).Should().BeTrue(because: "Directory " + extractedPosition + " does not exist.");
-                VisitChildren(entry);
-            }
+            SamplePackageHierarchy.Verify(_sandbox);
         }
 
         [Test]
@@ -130,11 +102,14 @@ namespace ZeroInstall.Store.Implementations.Archives
                 extractor.Run();
             }
 
-            Directory.Exists(Path.Combine(_sandbox, "nestedFolder")).Should().BeTrue();
-            Directory.GetLastWriteTimeUtc(Path.Combine(_sandbox, "nestedFolder")).Should().Be(PackageBuilder.DefaultDate);
-            File.Exists(Path.Combine(_sandbox, "nestedFile")).Should().BeTrue();
-            File.Exists(Path.Combine(_sandbox, "file1")).Should().BeFalse();
-            File.Exists(Path.Combine(_sandbox, "file2")).Should().BeFalse();
+            new TestRoot
+            {
+                new TestFile("nestedFile") {Contents = "File 3\n"},
+                new TestDirectory("nestedFolder")
+                {
+                    new TestFile("doublyNestedFile") {Contents = "File 4"}
+                }
+            }.Verify(_sandbox);
         }
 
         [Test]
@@ -162,30 +137,11 @@ namespace ZeroInstall.Store.Implementations.Archives
             File.Exists(Path.Combine(_sandbox, "file0")).Should().BeTrue(because: "Extractor cleaned directory.");
             string file0Content = File.ReadAllText(Path.Combine(_sandbox, "file0"));
             file0Content.Should().Be("This file should not be touched");
-            var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
-            _package.AcceptVisitor(comparer);
-        }
-    }
-
-    [TestFixture]
-    public class ZipExtractorTestCornerCases
-    {
-        private TemporaryDirectory _sandbox;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _sandbox.Dispose();
+            SamplePackageHierarchy.Verify(_sandbox);
         }
 
         /// <summary>
-        /// Tests whether the extractor generates a correct <see cref="FlagUtils.SymlinkFile"/> file for a sample ZIP archive containing an executable file.
+        /// Tests whether the extractor correctly handles a ZIP archive containing an executable file.
         /// </summary>
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
@@ -193,17 +149,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = new ZipExtractor(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox))
                 extractor.Run();
 
-            if (UnixUtils.IsUnix)
-                FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")).Should().BeTrue(because: "File 'executable' should be marked as executable");
-            else
+            new TestRoot
             {
-                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox, FlagUtils.XbitFile)).Trim();
-                xbitFileContent.Should().Be("/subdir2/executable");
-            }
+                new TestDirectory("subdir2")
+                {
+                    new TestFile("executable") {IsExecutable = true, LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                }
+            }.Verify(_sandbox);
         }
 
         /// <summary>
-        /// Tests whether the extractor generates a correct <see cref="FlagUtils.SymlinkFile"/> file for a sample ZIP archive containing a symbolic link.
+        /// TTests whether the extractor correctly handles a ZIP archive containing containing a symbolic link.
         /// </summary>
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
@@ -211,65 +167,14 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = new ZipExtractor(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox))
                 extractor.Run();
 
-            string target;
-            string source = Path.Combine(_sandbox, "symlink");
-            if (UnixUtils.IsUnix) FileUtils.IsSymlink(source, out target).Should().BeTrue();
-            else CygwinUtils.IsSymlink(source, out target).Should().BeTrue();
-
-            target.Should().Be("subdir1/regular", because: "Symlink should point to 'regular'");
-        }
-
-        [Test]
-        public void TestRejectParentDirectoryEntry()
-        {
-            var builder = new PackageBuilder();
-            builder.AddFolder("..");
-
-            using (var archiveStream = File.Create(Path.Combine(_sandbox, "ar.zip")))
+            new TestRoot
             {
-                builder.GeneratePackageArchive(archiveStream);
-                archiveStream.Seek(0, SeekOrigin.Begin);
-                using (var extractor = new ZipExtractor(archiveStream, _sandbox))
-                    extractor.Invoking(x => x.Run()).ShouldThrow<IOException>(because: "ZipExtractor must not accept archives with '..' as entry");
-            }
-        }
-
-        [Test]
-        public void TestExtractEmptyFile()
-        {
-            var builder = new PackageBuilder()
-                .AddFile("emptyFile", new byte[] {});
-
-            using (var archiveStream = File.Create(Path.Combine(_sandbox, "ar.zip")))
-            {
-                builder.GeneratePackageArchive(archiveStream);
-                archiveStream.Seek(0, SeekOrigin.Begin);
-
-                const string message = "ZipExtractor should correctly extract empty files in an archive";
-                using (var extractor = new ZipExtractor(archiveStream, _sandbox))
-                    extractor.Invoking(x => x.Run()).ShouldNotThrow();
-                File.Exists(Path.Combine(_sandbox, "emptyFile")).Should().BeTrue(because: message);
-                File.ReadAllBytes(Path.Combine(_sandbox, "emptyFile")).Should().BeEmpty(because: message);
-            }
-        }
-
-        [Test]
-        public void TestExtractToCustomDestination()
-        {
-            var builder = new PackageBuilder()
-                .AddFile("emptyFile", new byte[] {});
-
-            using (var archiveStream = File.Create(Path.Combine(_sandbox, "ar.zip")))
-            {
-                builder.GeneratePackageArchive(archiveStream);
-                archiveStream.Seek(0, SeekOrigin.Begin);
-
-                const string message = "ZipExtractor should correctly extract empty files in an archive to custom destination";
-                using (var extractor = new ZipExtractor(archiveStream, _sandbox) {TargetSuffix = "custom"})
-                    extractor.Invoking(x => x.Run()).ShouldNotThrow();
-                File.Exists(Path.Combine(_sandbox, "custom", "emptyFile")).Should().BeTrue(because: message);
-                File.ReadAllBytes(Path.Combine(_sandbox, "custom", "emptyFile")).Should().BeEmpty(because: message);
-            }
+                new TestSymlink("symlink", target: "subdir1/regular"),
+                new TestDirectory("subdir1")
+                {
+                    new TestFile("regular") {LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                }
+            }.Verify(_sandbox);
         }
     }
 }

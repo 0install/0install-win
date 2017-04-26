@@ -18,7 +18,9 @@
 using System.IO;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
@@ -33,13 +35,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestFileOrder()
         {
-            WriteFile("x");
-            WriteFile("y");
-            WriteFile("Z");
+            var stream = BuildArchive(new TestRoot {new TestFile("x"), new TestFile("y"), new TestFile("Z")});
 
-            Execute();
-
-            using (var archive = new TarInputStream(OpenArchive()))
+            using (var archive = new TarInputStream(stream))
             {
                 archive.GetNextEntry().Name.Should().Be("Z");
                 archive.GetNextEntry().Name.Should().Be("x");
@@ -50,24 +48,24 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestFileTypes()
         {
-            WriteFile("executable", executable: true);
-            WriteFile("normal");
-            CreateSymlink("symlink");
-            CreateDir("dir");
-            WriteFile(Path.Combine("dir", "sub"));
+            var stream = BuildArchive(new TestRoot
+            {
+                new TestFile("executable") {IsExecutable = true},
+                new TestFile("normal"),
+                new TestSymlink("symlink", target: "abc"),
+                new TestDirectory("dir") {new TestFile("sub")}
+            });
 
-            Execute();
-
-            using (var archive = new TarInputStream(OpenArchive()))
+            using (var archive = new TarInputStream(stream))
             {
                 var executable = archive.GetNextEntry();
                 executable.Name.Should().Be("executable");
-                executable.ModTime.Should().Be(Timestamp);
+                executable.ModTime.Should().Be(TestFile.DefaultLastWrite);
                 executable.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode | TarExtractor.ExecuteMode);
 
                 var normal = archive.GetNextEntry();
                 normal.Name.Should().Be("normal");
-                normal.ModTime.Should().Be(Timestamp);
+                normal.ModTime.Should().Be(TestFile.DefaultLastWrite);
                 normal.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode);
 
                 var symlink = archive.GetNextEntry();
@@ -81,7 +79,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 var sub = archive.GetNextEntry();
                 sub.Name.Should().Be("dir/sub");
-                sub.ModTime.Should().Be(Timestamp);
+                sub.ModTime.Should().Be(TestFile.DefaultLastWrite);
                 sub.TarHeader.Mode.Should().Be(TarExtractor.DefaultMode);
             }
         }
@@ -89,12 +87,17 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestHardlink()
         {
-            WriteFile("file");
-            CreateHardlink("hardlink", target: "file");
+            Stream stream;
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                new TestRoot {new TestFile("file")}.Build(tempDir);
+                FileUtils.CreateHardlink(
+                    sourcePath: Path.Combine(tempDir, "hardlink"),
+                    targetPath: Path.Combine(tempDir, "file"));
+                stream = BuildArchive(tempDir);
+            }
 
-            Execute();
-
-            using (var archive = new TarInputStream(OpenArchive()))
+            using (var archive = new TarInputStream(stream))
             {
                 var file = archive.GetNextEntry();
                 file.Name.Should().Be("file");

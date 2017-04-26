@@ -84,8 +84,12 @@
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\Windows\StubBuilderTest.cs" />
+    <Compile Include="FileSystem\TestDirectory.cs" />
+    <Compile Include="FileSystem\TestElement.cs" />
+    <Compile Include="FileSystem\TestFile.cs" />
+    <Compile Include="FileSystem\TestRoot.cs" />
+    <Compile Include="FileSystem\TestSymlink.cs" />
     <Compile Include="MoqExtensions.cs" />
-    <Compile Include="PackageBuilder.cs" />
     <Compile Include="Services\Executors\EnvironmentBuilderTest.cs" />
     <Compile Include="Services\Feeds\CatalogManagerTest.cs" />
     <Compile Include="Services\Feeds\FeedManagerTest.cs" />
@@ -93,7 +97,6 @@
     <Compile Include="Services\Fetchers\FetcherTest.cs" />
     <Compile Include="Services\Fetchers\RetrievalMethodRankerTest.cs" />
     <Compile Include="Services\Fetchers\SequentialFetcherTest.cs" />
-    <Compile Include="Services\Fetchers\TestData.cs" />
     <Compile Include="Services\MockTaskHandler.cs" />
     <Compile Include="Services\SelectionsManagerTest.cs" />
     <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
@@ -120,7 +123,6 @@
     <Compile Include="Store\Implementations\Archives\TarLzmaGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ZipGeneratorTest.cs" />
-    <Compile Include="Store\Implementations\Build\DirectoryTaskTestBase.cs" />
     <Compile Include="Store\Implementations\Build\FlagUtilsTest.cs" />
     <Compile Include="Store\Implementations\Build\RecipeUtilsTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />

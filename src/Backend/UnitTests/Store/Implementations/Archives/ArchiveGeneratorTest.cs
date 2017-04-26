@@ -16,34 +16,37 @@
  */
 
 using System.IO;
-using ZeroInstall.Store.Implementations.Build;
+using NanoByte.Common.Storage;
+using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
     /// Common test cases for <see cref="ArchiveGenerator"/> sub-classes.
     /// </summary>
-    /// <typeparam name="T">The specific type of <see cref="ArchiveGenerator"/> to test.</typeparam>
-    public abstract class ArchiveGeneratorTest<T> : DirectoryTaskTestBase<T>
-        where T : ArchiveGenerator
+    /// <typeparam name="TGenerator">The specific type of <see cref="ArchiveGenerator"/> to test.</typeparam>
+    public abstract class ArchiveGeneratorTest<TGenerator>
+        where TGenerator : ArchiveGenerator
     {
-        private MemoryStream _archiveWriteStream;
+        protected abstract TGenerator CreateGenerator(string sourceDirectory, Stream stream);
 
-        protected override T InitSut(string sourceDirectory)
+        protected Stream BuildArchive(TestRoot root)
         {
-            _archiveWriteStream = new MemoryStream();
-            return CreateGenerator(sourceDirectory, _archiveWriteStream);
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                root.Build(tempDir);
+                return BuildArchive(tempDir);
+            }
         }
 
-        protected abstract T CreateGenerator(string sourceDirectory, Stream stream);
-
-        // NOTE: Must open new stream for reading because write stream gets closed
-        protected virtual Stream OpenArchive() => new MemoryStream(_archiveWriteStream.ToArray(), writable: false);
-
-        protected override void Execute()
+        protected virtual Stream BuildArchive(string sourcePath)
         {
-            base.Execute();
-            Sut.Dispose();
+            using (var archiveWriteStream = new MemoryStream())
+            {
+                using (var generator = CreateGenerator(sourcePath, archiveWriteStream))
+                    generator.Run();
+                return new MemoryStream(archiveWriteStream.ToArray(), writable: false);
+            }
         }
     }
 }

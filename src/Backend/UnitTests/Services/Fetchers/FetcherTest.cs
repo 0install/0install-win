@@ -24,6 +24,7 @@ using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
@@ -37,16 +38,19 @@ namespace ZeroInstall.Services.Fetchers
     public abstract class FetcherTest<TFetcher> : TestWithContainer<TFetcher>
         where TFetcher : class, IFetcher
     {
+        protected static readonly Stream ZipArchiveStream = typeof(FetcherTest<TFetcher>).GetEmbeddedStream("testArchive.zip");
+        protected static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
         protected Mock<IStore> StoreMock => GetMock<IStore>();
 
         [Test]
         public void DownloadSingleArchive()
         {
             StoreMock.Setup(x => x.Flush());
-            using (var server = new MicroServer("archive.zip", TestData.ZipArchiveStream))
+            using (var server = new MicroServer("archive.zip", ZipArchiveStream))
             {
                 TestDownloadArchives(
-                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
+                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
             }
         }
 
@@ -56,9 +60,9 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                TestData.ZipArchiveStream.CopyToFile(tempFile);
+                ZipArchiveStream.CopyToFile(tempFile);
                 TestDownloadArchives(
-                    new Archive {Href = new Uri(tempFile), MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
+                    new Archive {Href = new Uri(tempFile), MimeType = Archive.MimeTypeZip, Size = ZipArchiveStream.Length, Extract = "extract", Destination = "destination"});
             }
         }
 
@@ -66,12 +70,12 @@ namespace ZeroInstall.Services.Fetchers
         public void DownloadMultipleArchives()
         {
             StoreMock.Setup(x => x.Flush());
-            using (var server1 = new MicroServer("archive.zip", TestData.ZipArchiveStream))
-            using (var server2 = new MicroServer("archive.zip", TestData.ZipArchiveStream))
+            using (var server1 = new MicroServer("archive.zip", ZipArchiveStream))
+            using (var server2 = new MicroServer("archive.zip", ZipArchiveStream))
             {
                 TestDownloadArchives(
-                    new Archive {Href = server1.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract1", Destination = "destination1"},
-                    new Archive {Href = server2.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length, Extract = "extract2", Destination = "destination2"});
+                    new Archive {Href = server1.FileUri, MimeType = Archive.MimeTypeZip, Size = ZipArchiveStream.Length, Extract = "extract1", Destination = "destination1"},
+                    new Archive {Href = server2.FileUri, MimeType = Archive.MimeTypeZip, Size = ZipArchiveStream.Length, Extract = "extract2", Destination = "destination2"});
             }
         }
 
@@ -79,11 +83,11 @@ namespace ZeroInstall.Services.Fetchers
         public void DownloadSingleFile()
         {
             StoreMock.Setup(x => x.Flush());
-            using (var server = new MicroServer("regular", TestData.RegularString.ToStream()))
+            using (var server = new MicroServer("regular", TestFile.DefaultContents.ToStream()))
             {
                 TestDownload(
-                    dirPath => File.Exists(Path.Combine(dirPath, "regular")),
-                    new SingleFile {Href = server.FileUri, Size = TestData.RegularString.Length, Destination = "regular"});
+                    new TestRoot {new TestFile("regular") {LastWrite = UnixEpoch}},
+                    new SingleFile {Href = server.FileUri, Size = TestFile.DefaultContents.Length, Destination = "regular"});
             }
         }
 
@@ -91,20 +95,23 @@ namespace ZeroInstall.Services.Fetchers
         public void DownloadRecipe()
         {
             StoreMock.Setup(x => x.Flush());
-            using (var serverArchive = new MicroServer("archive.zip", TestData.ZipArchiveStream))
-            using (var serverSingleFile = new MicroServer("regular", TestData.RegularString.ToStream()))
+            using (var serverArchive = new MicroServer("archive.zip", ZipArchiveStream))
+            using (var serverSingleFile = new MicroServer("regular", TestFile.DefaultContents.ToStream()))
             {
                 TestDownload(
-                    dirPath => File.Exists(Path.Combine(dirPath, "regular")) &&
-                               !File.Exists(Path.Combine(dirPath, "executable")) && File.Exists(Path.Combine(dirPath, "executable2")) &&
-                               File.Exists(Path.Combine(dirPath, "regular2")),
+                    new TestRoot
+                    {
+                        new TestFile("regular") {LastWrite = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc)},
+                        new TestFile("regular2") {LastWrite = UnixEpoch},
+                        new TestFile("executable2") {IsExecutable = true, LastWrite = new DateTime(2000, 1, 1, 12, 0, 0, DateTimeKind.Utc)}
+                    },
                     new Recipe
                     {
                         Steps =
                         {
-                            new Archive {Href = serverArchive.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveStream.Length},
+                            new Archive {Href = serverArchive.FileUri, MimeType = Archive.MimeTypeZip, Size = ZipArchiveStream.Length},
                             new RenameStep {Source = "executable", Destination = "executable2"},
-                            new SingleFile {Href = serverSingleFile.FileUri, Size = TestData.RegularString.Length, Destination = "regular2"}
+                            new SingleFile {Href = serverSingleFile.FileUri, Size = TestFile.DefaultContents.Length, Destination = "regular2"}
                         }
                     });
             }
@@ -114,17 +121,17 @@ namespace ZeroInstall.Services.Fetchers
         public void SkipBroken()
         {
             StoreMock.Setup(x => x.Flush());
-            using (var serverArchive = new MicroServer("archive.zip", TestData.ZipArchiveStream))
-            using (var serverSingleFile = new MicroServer("regular", TestData.RegularString.ToStream()))
+            using (var serverArchive = new MicroServer("archive.zip", ZipArchiveStream))
+            using (var serverSingleFile = new MicroServer("regular", TestFile.DefaultContents.ToStream()))
             {
                 TestDownload(
-                    dirPath => File.Exists(Path.Combine(dirPath, "regular")),
+                    new TestRoot {new TestFile("regular") {LastWrite = UnixEpoch}},
                     // broken: wrong size
                     new Archive {Href = serverArchive.FileUri, MimeType = Archive.MimeTypeZip, Size = 0},
                     // broken: unknown archive format
-                    new Archive {Href = serverArchive.FileUri, MimeType = "test/format", Size = TestData.ZipArchiveStream.Length},
+                    new Archive {Href = serverArchive.FileUri, MimeType = "test/format", Size = ZipArchiveStream.Length},
                     // works
-                    new Recipe {Steps = {new SingleFile {Href = serverSingleFile.FileUri, Size = TestData.RegularString.Length, Destination = "regular"}}});
+                    new Recipe {Steps = {new SingleFile {Href = serverSingleFile.FileUri, Size = TestFile.DefaultContents.Length, Destination = "regular"}}});
             }
         }
 
@@ -152,14 +159,14 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        private void TestDownload(Predicate<string> directoryCheck, params RetrievalMethod[] retrievalMethod)
+        private void TestDownload(TestRoot expected, params RetrievalMethod[] retrievalMethod)
         {
             var digest = new ManifestDigest(sha256New: "test123");
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest};
             testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
             StoreMock.Setup(x => x.Contains(digest)).Returns(false);
-            StoreMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Handler)).Returns("");
+            StoreMock.Setup(x => x.AddDirectory(It.Is<string>(path => expected.Verify(path)), digest, Handler)).Returns("");
 
             Sut.Fetch(new[] {testImplementation});
         }

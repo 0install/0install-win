@@ -26,6 +26,7 @@ using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
@@ -200,19 +201,20 @@ namespace ZeroInstall.Publish
         [Test]
         public void GenerateDigest()
         {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                new PackageBuilder().AddFolder("subdir")
-                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
-                    .WritePackageInto(packageDir);
+                new TestRoot
+                {
+                    new TestDirectory("subdir") {new TestFile("file")}
+                }.Build(testDir);
 
-                ManifestDigest digest1 = ImplementationUtils.GenerateDigest(packageDir, new MockTaskHandler());
+                ManifestDigest digest1 = ImplementationUtils.GenerateDigest(testDir, new MockTaskHandler());
                 digest1.Sha1.Should().BeNullOrEmpty(because: "sha1 is deprecated");
                 digest1.Sha1New.Should().NotBeNullOrEmpty();
                 digest1.Sha256.Should().NotBeNullOrEmpty();
                 digest1.Sha256New.Should().NotBeNullOrEmpty();
 
-                ManifestDigest digest2 = ImplementationUtils.GenerateDigest(packageDir, new MockTaskHandler());
+                ManifestDigest digest2 = ImplementationUtils.GenerateDigest(testDir, new MockTaskHandler());
                 digest2.Should().Be(digest1);
             }
         }

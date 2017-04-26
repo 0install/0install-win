@@ -20,6 +20,7 @@ using FluentAssertions;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Values;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
@@ -34,13 +35,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestFileOrder()
         {
-            WriteFile("x");
-            WriteFile("y");
-            WriteFile("Z");
+            var stream = BuildArchive(new TestRoot {new TestFile("x"), new TestFile("y"), new TestFile("Z")});
 
-            Execute();
-
-            using (var archive = new ZipFile(OpenArchive()))
+            using (var archive = new ZipFile(stream))
             {
                 archive[0].Name.Should().Be("Z");
                 archive[1].Name.Should().Be("x");
@@ -51,26 +48,26 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestFileTypes()
         {
-            WriteFile("executable", executable: true);
-            WriteFile("normal");
-            CreateSymlink("symlink");
-            CreateDir("dir");
-            WriteFile(Path.Combine("dir", "sub"));
+            var stream = BuildArchive(new TestRoot
+            {
+                new TestFile("executable") {IsExecutable = true},
+                new TestFile("normal"),
+                new TestSymlink("symlink", target: "abc"),
+                new TestDirectory("dir") {new TestFile("sub")}
+            });
 
-            Execute();
-
-            using (var archive = new ZipFile(OpenArchive()))
+            using (var archive = new ZipFile(stream))
             {
                 var executable = archive[0];
                 executable.Name.Should().Be("executable");
                 executable.IsFile.Should().BeTrue();
-                executable.DateTime.Should().Be(Timestamp);
+                executable.DateTime.Should().Be(TestFile.DefaultLastWrite);
                 executable.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes).Should().BeTrue();
 
                 var normal = archive[1];
                 normal.Name.Should().Be("normal");
                 normal.IsFile.Should().BeTrue();
-                normal.DateTime.Should().Be(Timestamp);
+                normal.DateTime.Should().Be(TestFile.DefaultLastWrite);
                 normal.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes).Should().BeFalse();
 
                 var symlink = archive[2];
@@ -84,7 +81,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 var sub = archive[4];
                 sub.Name.Should().Be("dir/sub");
                 sub.IsFile.Should().BeTrue();
-                sub.DateTime.Should().Be(Timestamp);
+                sub.DateTime.Should().Be(TestFile.DefaultLastWrite);
                 sub.ExternalFileAttributes.HasFlag(ZipExtractor.ExecuteAttributes).Should().BeFalse();
             }
         }

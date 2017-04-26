@@ -26,6 +26,6 @@ namespace ZeroInstall.Store.Implementations.Archives
     {
         protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream) => new TarLzmaGenerator(sourceDirectory, stream);
 
-        protected override Stream OpenArchive() => TarLzmaExtractor.GetDecompressionStream(base.OpenArchive());
+        protected override Stream BuildArchive(string sourcePath) => TarLzmaExtractor.GetDecompressionStream(base.BuildArchive(sourcePath));
     }
 }

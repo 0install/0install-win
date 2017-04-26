@@ -26,6 +26,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Build;
 
@@ -75,7 +76,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
         {
             var manifest1 = new Manifest(ManifestFormat.Sha1New,
                 new ManifestDirectory("subdir"),
-                new ManifestNormalFile("abc123", new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc), 3, "file"));
+                new ManifestNormalFile("abc123", TestFile.DefaultLastWrite, 3, "file"));
             Manifest manifest2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
@@ -110,20 +111,20 @@ namespace ZeroInstall.Store.Implementations.Manifests
         [Test]
         public void TestCalculateDigest()
         {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                new PackageBuilder().AddFolder("subdir")
-                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
-                    .WritePackageInto(packageDir);
+                new TestRoot{
+                    new TestDirectory("subdir") {new TestFile("file")}
+                }.Build(testDir);
 
-                GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()).CalculateDigest()
-                    .Should().Be(CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()),
+                GenerateManifest(testDir, ManifestFormat.Sha1New, new MockTaskHandler()).CalculateDigest()
+                    .Should().Be(CreateDotFile(testDir, ManifestFormat.Sha1New, new MockTaskHandler()),
                         because: "sha1new dot file and digest should match");
-                GenerateManifest(packageDir, ManifestFormat.Sha256, new MockTaskHandler()).CalculateDigest()
-                    .Should().Be(CreateDotFile(packageDir, ManifestFormat.Sha256, new MockTaskHandler()),
+                GenerateManifest(testDir, ManifestFormat.Sha256, new MockTaskHandler()).CalculateDigest()
+                    .Should().Be(CreateDotFile(testDir, ManifestFormat.Sha256, new MockTaskHandler()),
                         because: "sha256 dot file and digest should match");
-                GenerateManifest(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()).CalculateDigest()
-                    .Should().Be(CreateDotFile(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()),
+                GenerateManifest(testDir, ManifestFormat.Sha256New, new MockTaskHandler()).CalculateDigest()
+                    .Should().Be(CreateDotFile(testDir, ManifestFormat.Sha256New, new MockTaskHandler()),
                         because: "sha256new dot file and digest should match");
             }
         }
@@ -131,13 +132,14 @@ namespace ZeroInstall.Store.Implementations.Manifests
         [Test(Description = "Ensures that ToXmlString() correctly outputs a serialized form of the manifest.")]
         public void TestToString()
         {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                new PackageBuilder().AddFolder("subdir")
-                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
-                    .WritePackageInto(packageDir);
+                new TestRoot
+                {
+                    new TestDirectory("subdir") {new TestFile("file")}
+                }.Build(testDir);
 
-                var manifest = GenerateManifest(packageDir, ManifestFormat.Sha1New, new MockTaskHandler());
+                var manifest = GenerateManifest(testDir, ManifestFormat.Sha1New, new MockTaskHandler());
                 manifest.ToString().Replace(Environment.NewLine, "\n")
                     .Should().Be("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file\n");
             }

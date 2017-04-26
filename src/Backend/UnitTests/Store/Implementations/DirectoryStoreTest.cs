@@ -21,6 +21,7 @@ using System.Threading;
 using FluentAssertions;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
@@ -84,10 +85,10 @@ namespace ZeroInstall.Store.Implementations
             _store.ListAllTemp().Should().Equal(Path.Combine(_tempDir, "temp=stuff"));
         }
 
-        private string DeployPackage(string id, PackageBuilder builder)
+        private string DeployPackage(string id, TestRoot root)
         {
             string path = Path.Combine(_tempDir, id);
-            builder.WritePackageInto(path);
+            root.Build(path);
             ManifestTest.CreateDotFile(path, ManifestFormat.FromPrefix(id), _handler);
             FileUtils.EnableWriteProtection(path);
             return path;
@@ -96,9 +97,11 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldHardlinkIdenticalFilesInSameImplementation()
         {
-            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
-                .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1)));
+            string package1Path = DeployPackage("sha256=1", new TestRoot
+            {
+                new TestFile("fileA") {Contents = "abc"},
+                new TestDirectory("dir") {new TestFile("fileB") {Contents = "abc"}}
+            });
 
             _store.Optimise(_handler).Should().Be(3);
             _store.Optimise(_handler).Should().Be(0);
@@ -110,10 +113,8 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldHardlinkIdenticalFilesInDifferentImplementations()
         {
-            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
-            string package2Path = DeployPackage("sha256=2", new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
+            string package1Path = DeployPackage("sha256=1", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
+            string package2Path = DeployPackage("sha256=2", new TestRoot{new TestFile("fileA") {Contents = "abc"}});
 
             _store.Optimise(_handler).Should().Be(3);
             _store.Optimise(_handler).Should().Be(0);
@@ -123,11 +124,13 @@ namespace ZeroInstall.Store.Implementations
         }
 
         [Test]
-        public void ShouldNotHardlinkWithDifferentTimestamps()
+        public void ShouldNotHardlinkFilesWithDifferentTimestamps()
         {
-            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
-                .AddFile("fileX", "abc", new DateTime(2000, 2, 2)));
+            string package1Path = DeployPackage("sha256=1", new TestRoot
+            {
+                new TestFile("fileA") {Contents = "abc", LastWrite = new DateTime(2000, 1, 1)},
+                new TestFile("fileX") {Contents = "abc", LastWrite = new DateTime(2000, 2, 2)}
+            });
 
             _store.Optimise(_handler).Should().Be(0);
             FileUtils.AreHardlinked(
@@ -136,26 +139,22 @@ namespace ZeroInstall.Store.Implementations
         }
 
         [Test]
-        public void ShouldNotHardlinkDifferentFiles()
+        public void ShouldNotHardlinkFilesWithDifferentContent()
         {
-            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
-                .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1)));
-            string package2Path = DeployPackage("sha256=2", new PackageBuilder()
-                .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 1, 1)));
+            string package1Path = DeployPackage("sha256=1", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
+            string package2Path = DeployPackage("sha256=2", new TestRoot {new TestFile("fileA") {Contents = "def"}});
 
             _store.Optimise(_handler).Should().Be(0);
             FileUtils.AreHardlinked(
-                Path.Combine(package1Path, "dir", "fileB"),
-                Path.Combine(package2Path, "dir", "fileB")).Should().BeFalse();
+                Path.Combine(package1Path, "fileA"),
+                Path.Combine(package2Path, "fileA")).Should().BeFalse();
         }
 
         [Test]
         public void ShouldNotHardlinkAcrossManifestFormatBorders()
         {
-            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
-            string package2Path = DeployPackage("sha256new_2", new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
+            string package1Path = DeployPackage("sha256=1", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
+            string package2Path = DeployPackage("sha256new_2", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
 
             _store.Optimise(_handler).Should().Be(0);
             FileUtils.AreHardlinked(
@@ -166,10 +165,10 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldAllowToAddFolder()
         {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
-                _store.AddDirectory(packageDir, digest, _handler);
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(testDir, ManifestFormat.Sha256, _handler));
+                _store.AddDirectory(testDir, digest, _handler);
 
                 _store.Contains(digest).Should().BeTrue(because: "After adding, Store must contain the added package");
                 _store.ListAll().Should().Equal(new[] {digest}, because: "After adding, Store must show the added package in the complete list");
@@ -181,10 +180,10 @@ namespace ZeroInstall.Store.Implementations
         {
             Directory.Delete(_tempDir, recursive: true);
 
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
-                _store.AddDirectory(packageDir, digest, _handler);
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(testDir, ManifestFormat.Sha256, _handler));
+                _store.AddDirectory(testDir, digest, _handler);
 
                 _store.Contains(digest).Should().BeTrue(because: "After adding, Store must contain the added package");
                 _store.ListAll().Should().Equal(new[] {digest}, because: "After adding, Store must show the added package in the complete list");
@@ -240,13 +239,11 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAuditPass()
         {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                new PackageBuilder().AddFolder("subdir")
-                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
-                    .WritePackageInto(packageDir);
-                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha1New, _handler));
-                _store.AddDirectory(packageDir, digest, _handler);
+                new TestRoot {new TestFile("file") {Contents = "AAA"}}.Build(testDir);
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(testDir, ManifestFormat.Sha1New, _handler));
+                _store.AddDirectory(testDir, digest, _handler);
 
                 _store.Verify(digest, _handler);
                 _handler.LastQuestion.Should().BeNull();
@@ -270,13 +267,11 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void StressTest()
         {
-            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var testDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                new PackageBuilder().AddFolder("subdir")
-                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
-                    .WritePackageInto(packageDir);
+                new TestRoot {new TestFile("file") {Contents = "AAA"}}.Build(testDir);
 
-                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(testDir, ManifestFormat.Sha256, _handler));
 
                 Exception exception = null;
                 var threads = new Thread[100];
@@ -287,7 +282,7 @@ namespace ZeroInstall.Store.Implementations
                         try
                         {
                             // ReSharper disable once AccessToDisposedClosure
-                            _store.AddDirectory(packageDir, digest, _handler);
+                            _store.AddDirectory(testDir, digest, _handler);
                             _store.Remove(digest, _handler);
                         }
                         catch (ImplementationAlreadyInStoreException)
