@@ -72,6 +72,23 @@ namespace ZeroInstall.Store.Implementations.Build
         }
 
         /// <summary>
+        /// Ensures <see cref="FlagUtils.IsFlagged"/> works correctly.
+        /// </summary>
+        [Test]
+        public void TestIsFlagged()
+        {
+            using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                File.WriteAllText(Path.Combine(flagDir, FlagUtils.XbitFile), "/dir1/file1\n/dir2/file2\n");
+
+                FlagUtils.IsFlagged(FlagUtils.XbitFile, Path.Combine(flagDir, "dir1", "file1")).Should().BeTrue();
+                FlagUtils.IsFlagged(FlagUtils.XbitFile, Path.Combine(flagDir, "dir2", "file2")).Should().BeTrue();
+                FlagUtils.IsFlagged(FlagUtils.XbitFile, Path.Combine(flagDir, "dir1", "file2")).Should().BeFalse();
+                FlagUtils.IsFlagged(FlagUtils.SymlinkFile, Path.Combine(flagDir, "dir1", "file1")).Should().BeFalse();
+            }
+        }
+
+        /// <summary>
         /// Ensures <see cref="FlagUtils.Set"/> works correctly.
         /// </summary>
         [Test]
@@ -84,6 +101,20 @@ namespace ZeroInstall.Store.Implementations.Build
 
                 FlagUtils.Set(flagFile, Path.Combine("dir2", "file2"));
                 File.ReadAllText(flagFile).Should().Be("/dir1/file1\n/dir2/file2\n");
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FlagUtils.SetAuto"/> works correctly.
+        /// </summary>
+        [Test]
+        public void TestSetAuto()
+        {
+            using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                FlagUtils.SetAuto(FlagUtils.XbitFile, Path.Combine(flagDir, "file1"));
+                FlagUtils.SetAuto(FlagUtils.XbitFile, Path.Combine(flagDir, "dir", "file2"));
+                File.ReadAllText(Path.Combine(flagDir, FlagUtils.XbitFile)).Should().Be("/file1\n/dir/file2\n");
             }
         }
 

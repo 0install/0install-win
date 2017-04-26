@@ -52,23 +52,23 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Determines whether a directory resides on a non-Unix filesystem.
         /// </summary>
-        /// <param name="target">The full path to the directory.</param>
+        /// <param name="directoryPath">The full path to the directory.</param>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
         /// <seealso cref="NoUnixFSFile"/>
         /// <seealso cref="FileUtils.IsUnixFS"/>
-        public static bool IsUnixFS([NotNull] string target)
+        public static bool IsUnixFS([NotNull] string directoryPath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (string.IsNullOrEmpty(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
             #endregion
 
             // Move up one level to avoid write-protection within implementation directories
-            if (StoreUtils.PathInAStore(target)) target = Path.Combine(target, "..");
+            if (StoreUtils.PathInAStore(directoryPath)) directoryPath = Path.Combine(directoryPath, "..");
 
             try
             {
-                if (FindRootDir(NoUnixFSFile, target) != null) return false;
-                else return FileUtils.IsUnixFS(target);
+                if (FindRootDir(NoUnixFSFile, directoryPath) != null) return false;
+                else return FileUtils.IsUnixFS(directoryPath);
             }
                 #region Error handling
             catch (IOException)
@@ -87,22 +87,22 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Retrieves a list of files for which an external flag is set.
         /// </summary>
-        /// <param name="flagName">The name of the flag type to search for (<see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>).</param>
-        /// <param name="target">The target directory to start the search from (will go upwards through directory levels one-by-one, thus may deliver "too many" results).</param>
+        /// <param name="flagName">The name of the flag type to search for (<see cref="XbitFile"/> or <see cref="SymlinkFile"/>).</param>
+        /// <param name="directoryPath">The target directory to start the search from (will go upwards through directory levels one-by-one, thus may deliver "too many" results).</param>
         /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
         /// <exception cref="IOException">There was an error reading the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
         [NotNull, ItemNotNull]
-        public static ICollection<string> GetFiles([NotNull] string flagName, [NotNull] string target)
+        public static ICollection<string> GetFiles([NotNull] string flagName, [NotNull] string directoryPath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException(nameof(flagName));
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (string.IsNullOrEmpty(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
             #endregion
 
-            string flagDir = FindRootDir(flagName, target);
+            string flagDir = FindRootDir(flagName, directoryPath);
             if (flagDir == null) return new string[0];
 
             var externalFlags = new HashSet<string>();
@@ -124,21 +124,45 @@ namespace ZeroInstall.Store.Implementations.Build
         }
 
         /// <summary>
-        /// Searches for a flag file starting in the <paramref name="target"/> directory and moving upwards until it finds it or until it reaches the root directory.
+        /// Determines whether an external flag is set for a specific file. Use <see cref="GetFiles"/> instead when possible for better performance.
         /// </summary>
-        /// <param name="flagName">The name of the flag type to search for (<see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>).</param>
-        /// <param name="target">The target directory to start the search from.</param>
-        /// <returns>The full path to the closest flag file that was found; <c>null</c> if none was found.</returns>
-        [CanBeNull]
-        private static string FindRootDir([NotNull] string flagName, [NotNull] string target)
+        /// <param name="flagName">The name of the flag type to search for (<see cref="XbitFile"/> or <see cref="SymlinkFile"/>).</param>
+        /// <param name="filePath">The absolute path of file to check.</param>
+        /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is not an absolute path.</exception>
+        /// <exception cref="IOException">There was an error reading the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
+        /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
+        public static bool IsFlagged([NotNull] string flagName, [NotNull] string filePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException(nameof(flagName));
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
+            if (!Path.IsPathRooted(filePath)) throw new ArgumentException($"'{filePath}' is not an absolute path.", nameof(filePath));
+            #endregion
+
+            var directoryPath = Path.GetDirectoryName(filePath);
+            if (directoryPath == null) throw new ArgumentException($"'{filePath}' is not an absolute path.", nameof(filePath));
+            return GetFiles(flagName, directoryPath).Contains(filePath);
+        }
+
+        /// <summary>
+        /// Searches for a flag file starting in the <paramref name="directoryPath"/> directory and moving upwards until it finds it or until it reaches the root directory.
+        /// </summary>
+        /// <param name="flagName">The name of the flag type to search for (<see cref="XbitFile"/> or <see cref="SymlinkFile"/>).</param>
+        /// <param name="directoryPath">The target directory to start the search from.</param>
+        /// <returns>The full path to the closest flag file that was found; <c>null</c> if none was found.</returns>
+        [CanBeNull]
+        private static string FindRootDir([NotNull] string flagName, [NotNull] string directoryPath)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException(nameof(flagName));
+            if (string.IsNullOrEmpty(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
             #endregion
 
             // Start searching for the flag file in the target directory and then move upwards
-            string flagDir = Path.GetFullPath(target);
+            string flagDir = Path.GetFullPath(directoryPath);
             while (!File.Exists(Path.Combine(flagDir, flagName)))
             {
                 // Go up one level in the directory hierachy
@@ -156,23 +180,23 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Sets a flag for a directory indicating that it resides on a non-Unix filesystem. This makes future calls to <see cref="IsUnixFS"/> run faster and more reliable.
         /// </summary>
-        /// <param name="target">The full path to the directory.</param>
+        /// <param name="directoryPath">The full path to the directory.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         /// <seealso cref="NoUnixFSFile"/>
-        public static void MarkAsNoUnixFS([NotNull] string target)
+        public static void MarkAsNoUnixFS([NotNull] string directoryPath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (string.IsNullOrEmpty(directoryPath)) throw new ArgumentNullException(nameof(directoryPath));
             #endregion
 
-            FileUtils.Touch(Path.Combine(target, NoUnixFSFile));
+            FileUtils.Touch(Path.Combine(directoryPath, NoUnixFSFile));
         }
 
         /// <summary>
         /// Sets a flag for a file in an external flag file.
         /// </summary>
-        /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="path">The full path to the flag file, named <see cref="XbitFile"/> or <see cref="SymlinkFile"/>.</param>
         /// <param name="relativePath">The path of the file to set relative to <paramref name="path"/>.</param>
         /// <exception cref="ArgumentException"><paramref name="relativePath"/> is not a relative path.</exception>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
@@ -193,9 +217,35 @@ namespace ZeroInstall.Store.Implementations.Build
         }
 
         /// <summary>
+        /// Sets a flag for a file in an external flag file in an automatically chosen location. Use <see cref="Set"/> instead when possible for predictable flag file locations.
+        /// </summary>
+        /// <param name="flagName">The name of the flag type to set (<see cref="XbitFile"/> or <see cref="SymlinkFile"/>).</param>
+        /// <param name="filePath">The absolute path of file to set the flag for.</param>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is not an absolute path.</exception>
+        /// <exception cref="IOException">There was an error writing the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
+        public static void SetAuto([NotNull] string flagName, [NotNull] string filePath)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException(nameof(flagName));
+            if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
+            if (!Path.IsPathRooted(filePath)) throw new ArgumentException($"'{filePath}' is not an absolute path.", nameof(filePath));
+            #endregion
+
+            var directoryPath = Path.GetDirectoryName(filePath);
+            if (directoryPath == null) throw new ArgumentException($"'{filePath}' is not an absolute path.", nameof(filePath));
+            string flagDir = FindRootDir(flagName, directoryPath) ?? directoryPath;
+
+            Set(
+                Path.Combine(flagDir, flagName),
+                new FileInfo(filePath).RelativeTo(new DirectoryInfo(flagDir)));
+        }
+
+        /// <summary>
         /// Removes one or more flags for a file or directory in an external flag file.
         /// </summary>
-        /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="path">The full path to the flag file, named <see cref="XbitFile"/> or <see cref="SymlinkFile"/>.</param>
         /// <param name="relativePath">The path of the file or directory to remove relative to <paramref name="path"/>.</param>
         /// <exception cref="ArgumentException"><paramref name="relativePath"/> is not a relative path.</exception>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
@@ -235,7 +285,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Adds a directory prefix to all entries in an external flag file.
         /// </summary>
-        /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="path">The full path to the flag file, named <see cref="XbitFile"/> or <see cref="SymlinkFile"/>.</param>
         /// <param name="source">The old path of the renamed file or directory relative to <paramref name="path"/>.</param>
         /// <param name="destination">The new path of the renamed file or directory relative to <paramref name="path"/>.</param>
         /// <exception cref="ArgumentException"><paramref name="source"/> or <paramref name="destination"/> is not a relative path.</exception>
