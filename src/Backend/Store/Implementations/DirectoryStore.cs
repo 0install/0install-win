@@ -425,7 +425,7 @@ namespace ZeroInstall.Store.Implementations
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
                 try
                 {
-                    handler.RunTask(new CopyDirectoryPosix(path, tempDir) {Tag = manifestDigest});
+                    handler.RunTask(new CloneDirectory(path, tempDir) {Tag = manifestDigest});
                 }
                     #region Error handling
                 catch (IOException ex)
