@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Indicates whether the application is running from an implementation cache.
         /// </summary>
-        public static bool IsRunningFromCache => StoreUtils.PathInAStore(Locations.InstallBase);
+        public static bool IsRunningFromCache => StoreUtils.DetectImplementationPath(Locations.InstallBase) != null;
 
         /// <summary>
         /// Indicates whether the application is running from a user-specific location.

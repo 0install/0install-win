@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Manifests;
@@ -32,15 +33,29 @@ namespace ZeroInstall.Store.Implementations
     public static class StoreUtils
     {
         /// <summary>
-        /// Determines whether a path looks like it is inside a store known by <see cref="ManifestFormat"/>.
+        /// Determines whether a path looks like it is inside a store implementation known by <see cref="ManifestFormat"/>.
         /// </summary>
-        public static bool PathInAStore([NotNull] string path)
+        /// <param name="path">A path to a directory that may or may not be inside a store implementation.</param>
+        /// <returns>The top-level of the detected store implementation directory if any; <c>null</c> otherwise.</returns>
+        /// <remarks>Performs no file system access. Only looks at the path string itself.</remarks>
+        [CanBeNull]
+        public static string DetectImplementationPath([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
-            return ManifestFormat.All.Any(format => path.Contains(format.Prefix + format.Separator));
+            var parts = Path.GetFullPath(path).Split(Path.DirectorySeparatorChar);
+            var builder = new StringBuilder();
+            foreach (string part in parts)
+            {
+                builder.Append(part);
+                if (ManifestFormat.All.Any(format => part.StartsWith(format.Prefix + format.Separator)))
+                    return builder.ToString();
+                builder.Append(Path.DirectorySeparatorChar);
+            }
+
+            return null;
         }
 
         /// <summary>

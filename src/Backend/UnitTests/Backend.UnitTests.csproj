@@ -135,6 +135,7 @@
     <Compile Include="Store\Implementations\Manifests\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementations\Manifests\ManifestGeneratorTest.cs" />
     <Compile Include="Store\Implementations\Manifests\ManifestTest.cs" />
+    <Compile Include="Store\Implementations\StoreUtilsTest.cs" />
     <Compile Include="Store\Model\ArchitectureTest.cs" />
     <Compile Include="Store\Model\ArchiveTest.cs" />
     <Compile Include="Store\Model\Capabilities\CapabilityListTest.cs" />
