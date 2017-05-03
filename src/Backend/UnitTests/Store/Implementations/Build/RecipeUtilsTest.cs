@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -166,6 +167,71 @@ namespace ZeroInstall.Store.Implementations.Build
                         }
                     }.Verify(recipeDir);
                 }
+            }
+        }
+
+        [Test]
+        public void TestApplyRecipeCopyFrom()
+        {
+            using (new LocationsRedirect("0install-unit-tests"))
+            {
+                string existingImplPath = Path.Combine(StoreConfig.GetImplementationDirs().First(), "sha1new=123");
+                new TestRoot
+                {
+                    new TestDirectory("source")
+                    {
+                        new TestFile("file"),
+                        new TestFile("executable") {IsExecutable = true},
+                        new TestSymlink("symlink", "target")
+                    }
+                }.Build(existingImplPath);
+
+                using (var archiveFile = new TemporaryFile("0install-unit-tests"))
+                {
+                    typeof(ArchiveExtractorTest).CopyEmbeddedToFile("testArchive.zip", archiveFile);
+
+                    var downloadedFiles = new[] {archiveFile};
+                    var recipe = new Recipe
+                    {
+                        Steps =
+                        {
+                            new CopyFromStep
+                            {
+                                Source = "source",
+                                Destination = "dest",
+                                Implementation = new Implementation
+                                {
+                                    ManifestDigest = new ManifestDigest(sha1New: "123")
+                                }
+                            },
+                            new CopyFromStep
+                            {
+                                Source = "source/file",
+                                Destination = "dest/symlink", // Overwrite existing symlink with regular file
+                                Implementation = new Implementation
+                                {
+                                    ManifestDigest = new ManifestDigest(sha1New: "123")
+                                }
+                            }
+                        }
+                    };
+
+                    using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
+                    {
+                        new TestRoot
+                        {
+                            new TestDirectory("dest")
+                            {
+                                new TestFile("file"),
+                                new TestFile("executable") {IsExecutable = true},
+                                new TestFile("symlink")
+                            }
+                        }.Verify(recipeDir);
+                    }
+                }
+
+                FileUtils.DisableWriteProtection(existingImplPath);
+                Directory.Delete(existingImplPath, recursive: true);
             }
         }
 

@@ -175,6 +175,10 @@ namespace ZeroInstall.Services.Fetchers
             foreach (var archive in recipe.Steps.OfType<Archive>())
                 ArchiveExtractor.VerifySupport(archive.MimeType);
 
+            // Download any other Implementations required by the Recipe
+            foreach (var copyFromStep in recipe.Steps.OfType<CopyFromStep>())
+                Fetch(new[] {copyFromStep.Implementation});
+
             var downloadedFiles = new List<TemporaryFile>();
             try
             {

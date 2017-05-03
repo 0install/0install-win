@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2016 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2010-2017 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -78,7 +78,8 @@ namespace ZeroInstall.Store.Implementations.Build
                             step.Apply(downloadedEnum.Current, workingDir);
                         },
                         (RemoveStep step) => step.Apply(workingDir),
-                        (RenameStep step) => step.Apply(workingDir)
+                        (RenameStep step) => step.Apply(workingDir),
+                        (CopyFromStep step) => step.Apply(workingDir, handler, tag)
                     }.Dispatch(recipe.Steps);
                     // ReSharper restore AccessToDisposedClosure
                 }
@@ -250,6 +251,54 @@ namespace ZeroInstall.Store.Implementations.Build
             // Update in flag files as well
             FlagUtils.Rename(Path.Combine(workingDir, FlagUtils.XbitFile), source, destination);
             FlagUtils.Rename(Path.Combine(workingDir, FlagUtils.SymlinkFile), source, destination);
+        }
+
+        /// <summary>
+        /// Applies a <see cref="CopyFromStep"/> to a <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        /// <param name="step">The <see cref="Archive"/> to apply.</param>
+        /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        /// <param name="tag">A tag used to associate composite task with a specific operation; can be null.</param>
+        /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
+        public static void Apply([NotNull] this CopyFromStep step, [NotNull] TemporaryDirectory workingDir, ITaskHandler handler, [CanBeNull] object tag = null)
+        {
+            #region Sanity checks
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
+            #endregion
+
+            #region Path validation
+            string source = FileUtils.UnifySlashes(step.Source ?? "");
+            string destination = FileUtils.UnifySlashes(step.Destination ?? "");
+            if (FileUtils.IsBreakoutPath(source)) throw new IOException(string.Format(Resources.RecipeInvalidPath, source));
+            if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
+            #endregion
+
+            var store = StoreFactory.CreateDefault();
+            string sourcePath = Path.Combine(store.GetPath(step.Implementation), source);
+
+            if (Directory.Exists(sourcePath))
+            {
+                handler.RunTask(new CloneDirectory(sourcePath, workingDir)
+                {
+                    TargetSuffix = destination,
+                    UseHardlinks = true,
+                    Tag = tag
+                });
+            }
+            else if (File.Exists(sourcePath))
+            {
+                if (string.IsNullOrEmpty(destination)) throw new IOException(string.Format(Resources.RecipeCopyFromDestinationMissing, step));
+                handler.RunTask(new CloneFile(sourcePath, workingDir)
+                {
+                    TargetSuffix = Path.GetDirectoryName(destination),
+                    TargetFileName = Path.GetFileName(destination),
+                    UseHardlinks = true,
+                    Tag = tag
+                });
+            }
+            else throw new IOException(string.Format(Resources.RecipeCopyFromSourceMissing, step));
         }
     }
 }

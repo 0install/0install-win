@@ -333,6 +333,12 @@ You can delete the file '{0}' to fix the problem.</value>
     <value>There was a problem loading the configuration value '{0}'.
 You can delete the file '{1}' to fix the problem. Other settings may also be lost.</value>
   </data>
+  <data name="RecipeCopyFromDestinationMissing" xml:space="preserve">
+    <value>The destination for the '{0}' step must be specified because the source is a file and not a directory.</value>
+  </data>
+  <data name="RecipeCopyFromSourceMissing" xml:space="preserve">
+    <value>The source specified in the '{0}' step does not exist.</value>
+  </data>
   <data name="RecipeFileNotDownloaded" xml:space="preserve">
     <value>A file referenced in the &lt;recipe&gt; was not downloaded.</value>
   </data>
