@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="CopyFromStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="CopyFromStep"/>.</returns>
-        public IRecipeStep CloneRecipeStep() => new CopyFromStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, ID = ID, Source = Source, Destination = Destination};
+        public IRecipeStep CloneRecipeStep() => new CopyFromStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, ID = ID, Implementation = Implementation.CloneImplementation(), Source = Source, Destination = Destination};
 
         object ICloneable.Clone() => CloneRecipeStep();
         #endregion
