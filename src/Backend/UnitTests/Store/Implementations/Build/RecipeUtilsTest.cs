@@ -15,13 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using FluentAssertions;
-using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -42,20 +43,25 @@ namespace ZeroInstall.Store.Implementations.Build
                 typeof(ArchiveExtractorTest).CopyEmbeddedToFile("testArchive.zip", archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
-                var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip, Destination = "subDir"}}};
+                var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip, Destination = "dest"}}};
 
-                using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
+                using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
-                    // /dest/symlink [S]
-                    string path = Path.Combine(recipeDir, "subDir", "symlink");
-                    File.Exists(path).Should().BeTrue(because: "File should exist: " + path);
-                    if (UnixUtils.IsUnix) FileUtils.IsSymlink(path).Should().BeTrue();
-                    else CygwinUtils.IsSymlink(path).Should().BeTrue();
-
-                    // /dest/subdir2/executable [deleted]
-                    path = Path.Combine(recipeDir, "subDir", "subdir2", "executable");
-                    File.Exists(path).Should().BeTrue(because: "File should exist: " + path);
-                    if (!UnixUtils.IsUnix) FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir).Should().BeEquivalentTo(path);
+                    new TestRoot
+                    {
+                        new TestDirectory("dest")
+                        {
+                            new TestSymlink("symlink", "subdir1/regular"),
+                            new TestDirectory("subdir1")
+                            {
+                                new TestFile("regular") {LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                            },
+                            new TestDirectory("subdir2")
+                            {
+                                new TestFile("executable") {IsExecutable = true, LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                            }
+                        }
+                    }.Verify(recipeDir);
                 }
             }
         }
@@ -66,7 +72,7 @@ namespace ZeroInstall.Store.Implementations.Build
             using (var singleFile = new TemporaryFile("0install-unit-tests"))
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                File.WriteAllText(singleFile, "data");
+                File.WriteAllText(singleFile, TestFile.DefaultContents);
                 typeof(ArchiveExtractorTest).CopyEmbeddedToFile("testArchive.zip", archiveFile);
 
                 var downloadedFiles = new[] {archiveFile, singleFile};
@@ -74,13 +80,17 @@ namespace ZeroInstall.Store.Implementations.Build
 
                 using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
-                    // /subdir2/executable [!X]
-                    string path = Path.Combine(recipeDir, "subdir2", "executable");
-                    File.Exists(path).Should().BeTrue(because: "File should exist: " + path);
-                    File.ReadAllText(path).Should().Be("data");
-                    File.GetLastWriteTimeUtc(path).ToUnixTime()
-                        .Should().Be(0, because: "Single files should be set to Unix epoch");
-                    if (!UnixUtils.IsUnix) FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir).Should().BeEmpty();
+                    new TestRoot
+                    {
+                        new TestDirectory("subdir2")
+                        {
+                            new TestFile("executable")
+                            {
+                                IsExecutable = false, // Executable file was overwritten by a non-executable one
+                                LastWrite = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                            }
+                        }
+                    }.Verify(recipeDir);
                 }
             }
         }
@@ -103,21 +113,17 @@ namespace ZeroInstall.Store.Implementations.Build
                     }
                 };
 
-                using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
+                using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
-                    if (!UnixUtils.IsUnix)
+                    new TestRoot
                     {
-                        FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir).Should().BeEmpty();
-                        FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir).Should().BeEmpty();
-                    }
-
-                    // /symlink [deleted]
-                    string path = Path.Combine(recipeDir, "symlink");
-                    File.Exists(path).Should().BeFalse(because: "File should not exist: " + path);
-
-                    // /subdir2 [deleted]
-                    path = Path.Combine(recipeDir, "subdir2");
-                    Directory.Exists(path).Should().BeFalse(because: "Directory should not exist: " + path);
+                        new TestDeletedFile("symlink"),
+                        new TestDirectory("subdir1")
+                        {
+                            new TestFile("regular") {LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                        },
+                        new TestDeletedDirectory("subdir2")
+                    }.Verify(recipeDir);
                 }
             }
         }
@@ -142,30 +148,23 @@ namespace ZeroInstall.Store.Implementations.Build
 
                 using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
-                    if (!UnixUtils.IsUnix)
+                    new TestRoot
                     {
-                        FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir)
-                            .Should().BeEquivalentTo(Path.Combine(recipeDir, "subdir2", "executable2"));
-                    }
-
-                    // /symlink [deleted]
-                    string path = Path.Combine(recipeDir, "symlink");
-                    File.Exists(path).Should().BeFalse(because: "File should not exist: " + path);
-
-                    // /subdir3/symlink2 [S]
-                    path = Path.Combine(recipeDir, "subdir3", "symlink2");
-                    File.Exists(path).Should().BeTrue(because: "Missing file: " + path);
-                    if (UnixUtils.IsUnix) FileUtils.IsSymlink(path).Should().BeTrue();
-                    else CygwinUtils.IsSymlink(path).Should().BeTrue();
-
-                    // /subdir2/executable [deleted]
-                    path = Path.Combine(recipeDir, "subdir2", "executable");
-                    File.Exists(path).Should().BeFalse(because: "File should not exist: " + path);
-
-                    // /subdir2/executable2 [X]
-                    path = Path.Combine(recipeDir, "subdir2", "executable2");
-                    File.Exists(path).Should().BeTrue(because: "Missing file: " + path);
-                    if (UnixUtils.IsUnix) FileUtils.IsExecutable(path).Should().BeTrue(because: "Not executable: " + path);
+                        new TestDeletedFile("symlink"),
+                        new TestDirectory("subdir1")
+                        {
+                            new TestFile("regular") {LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)},
+                        },
+                        new TestDirectory("subdir2")
+                        {
+                            new TestDeletedFile("executable"),
+                            new TestFile("executable2") {IsExecutable = true, LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                        },
+                        new TestDirectory("subdir3")
+                        {
+                            new TestSymlink("symlink2", "subdir1/regular")
+                        }
+                    }.Verify(recipeDir);
                 }
             }
         }
@@ -197,6 +196,10 @@ namespace ZeroInstall.Store.Implementations.Build
             new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}
                 .Invoking(x => x.Apply(new TemporaryFile[0], new SilentTaskHandler()))
                 .ShouldThrow<IOException>(because: "Should reject breakout path in RenameStep.Destination");
+
+            new Recipe {Steps = {new CopyFromStep {ID = "id123", Destination = "../destination"}}}
+                .Invoking(x => x.Apply(new TemporaryFile[0], new SilentTaskHandler()))
+                .ShouldThrow<IOException>(because: "Should reject breakout path in CopyFromStep.Destination");
         }
 
         [Test]

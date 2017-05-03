@@ -84,6 +84,8 @@
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\Windows\StubBuilderTest.cs" />
+    <Compile Include="FileSystem\TestDeletedDirectory.cs" />
+    <Compile Include="FileSystem\TestDeletedFile.cs" />
     <Compile Include="FileSystem\TestDirectory.cs" />
     <Compile Include="FileSystem\TestElement.cs" />
     <Compile Include="FileSystem\TestFile.cs" />

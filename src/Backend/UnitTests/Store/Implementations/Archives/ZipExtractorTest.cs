@@ -71,26 +71,36 @@ namespace ZeroInstall.Store.Implementations.Archives
             _sandbox.Dispose();
         }
 
-        [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
-        public void TestFileExtract()
+        [Test]
+        public void ComplexHierachy()
         {
             using (var extractor = ArchiveExtractor.Create(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
-            File.Exists(Path.Combine(_sandbox, "subdir1/regular")).Should().BeTrue(because: "Should extract file 'regular'");
-            File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")).Should().Be(new DateTime(2000, 1, 1, 13, 0, 0), because: "Correct last write time for file 'regular' should be set");
-
-            File.Exists(Path.Combine(_sandbox, "subdir2/executable")).Should().BeTrue(because: "Should extract file 'executable'");
-            File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir2/executable")).Should().Be(new DateTime(2000, 1, 1, 13, 0, 0), because: "Correct last write time for file 'executable' should be set");
+            new TestRoot
+            {
+                new TestSymlink("symlink", "subdir1/regular"),
+                new TestDirectory("subdir1")
+                {
+                    new TestFile("regular") {LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                },
+                new TestDirectory("subdir2")
+                {
+                    new TestFile("executable") {IsExecutable = true, LastWrite = new DateTime(2000, 1, 1, 13, 0, 0, DateTimeKind.Utc)}
+                }
+            }.Verify(_sandbox);
         }
 
         [Test]
-        public void ExtractionIntoFolder()
+        public void Suffix()
         {
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
+            {
+                extractor.TargetSuffix = "suffix";
                 extractor.Run();
+            }
 
-            SamplePackageHierarchy.Verify(_sandbox);
+            SamplePackageHierarchy.Verify(Path.Combine(_sandbox, "suffix"));
         }
 
         [Test]
@@ -128,15 +138,19 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractOverwritingExistingItems()
         {
-            File.WriteAllText(Path.Combine(_sandbox, "file1"), @"Wrong content");
-            File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
+            new TestRoot
+            {
+                new TestFile("file0") {Contents = "This file should not be touched"},
+                new TestFile("file1") {Contents = "Wrong content"}
+            }.Build(_sandbox);
 
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
                 extractor.Run();
 
-            File.Exists(Path.Combine(_sandbox, "file0")).Should().BeTrue(because: "Extractor cleaned directory.");
-            string file0Content = File.ReadAllText(Path.Combine(_sandbox, "file0"));
-            file0Content.Should().Be("This file should not be touched");
+            new TestRoot
+            {
+                new TestFile("file0") {Contents = "This file should not be touched"}
+            }.Verify(_sandbox);
             SamplePackageHierarchy.Verify(_sandbox);
         }
 
