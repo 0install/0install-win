@@ -239,10 +239,10 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.Normalize"/> correctly resolves <see cref="CopyFromStep.ID"/> references.
+        /// Ensures that <see cref="Feed.ResolveInternalReferences"/> correctly resolves <see cref="CopyFromStep.ID"/> references.
         /// </summary>
         [Test]
-        public void TestNormalizeResolveCopyFromReferences()
+        public void TestResolveInternalReferences()
         {
             var step = new CopyFromStep {ID = "1"};
             var feed = new Feed
@@ -259,7 +259,7 @@ namespace ZeroInstall.Store.Model
                 }
             };
 
-            feed.Normalize(Test1Uri);
+            feed.ResolveInternalReferences();
 
             step.Implementation.Should().Be(new Implementation {ID = "1"});
         }

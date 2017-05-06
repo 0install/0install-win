@@ -334,7 +334,11 @@ namespace ZeroInstall.Publish.Cli
         private void HandleModify(FeedEditing feedEditing)
         {
             if (_addMissing)
-                AddMissing(feedEditing.SignedFeed.Feed.Elements, feedEditing);
+            {
+                var feed = feedEditing.SignedFeed.Feed;
+                feed.ResolveInternalReferences();
+                AddMissing(feed.Elements, feedEditing);
+            }
         }
 
         private void AddMissing(IEnumerable<Element> elements, ICommandExecutor executor)

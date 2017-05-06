@@ -261,11 +261,14 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">A tag used to associate composite task with a specific operation; can be null.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
-        public static void Apply([NotNull] this CopyFromStep step, [NotNull] TemporaryDirectory workingDir, ITaskHandler handler, [CanBeNull] object tag = null)
+        /// <exception cref="ArgumentException"><see cref="CopyFromStep.Implementation"/> is <c>null</c>. Please call <see cref="Feed.ResolveInternalReferences"/> first.</exception>
+        /// <exception cref="ImplementationNotFoundException"><see cref="CopyFromStep.Implementation"/> is not cached in the default <see cref="IStore"/>.</exception>
+        public static void Apply([NotNull] this CopyFromStep step, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException(nameof(step));
             if (workingDir == null) throw new ArgumentNullException(nameof(workingDir));
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
             #endregion
 
             #region Path validation
@@ -274,6 +277,8 @@ namespace ZeroInstall.Store.Implementations.Build
             if (FileUtils.IsBreakoutPath(source)) throw new IOException(string.Format(Resources.RecipeInvalidPath, source));
             if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
             #endregion
+
+            if (step.Implementation == null) throw new ArgumentException("step.Implementation is null. Please call Feed.ResolveInternalReferences() first.", nameof(step));
 
             var store = StoreFactory.CreateDefault();
             string sourcePath = Path.Combine(store.GetPath(step.Implementation), source);

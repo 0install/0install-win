@@ -50,16 +50,29 @@ namespace ZeroInstall.Publish.WinForms
 
                 if (_feedEditing != null)
                 {
-                    menuUndo.Enabled = buttonUndo.Enabled = _feedEditing.UndoEnabled;
-                    menuRedo.Enabled = buttonRedo.Enabled = _feedEditing.RedoEnabled;
-
-                    _feedEditing.UndoEnabledChanged += () => menuUndo.Enabled = buttonUndo.Enabled = _feedEditing.UndoEnabled;
-                    _feedEditing.RedoEnabledChanged += () => menuRedo.Enabled = buttonRedo.Enabled = _feedEditing.RedoEnabled;
+                    _feedEditing.UndoEnabledChanged += OnFeedChange;
+                    _feedEditing.RedoEnabledChanged += OnFeedChange;
 
                     feedStructureEditor.CommandManager = _feedEditing;
+                    OnFeedChange();
                 }
 
                 ListKeys();
+            }
+        }
+
+        private void OnFeedChange()
+        {
+            menuUndo.Enabled = buttonUndo.Enabled = _feedEditing.UndoEnabled;
+            menuRedo.Enabled = buttonRedo.Enabled = _feedEditing.RedoEnabled;
+
+            try
+            {
+                _feedEditing.SignedFeed.Feed.ResolveInternalReferences();
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Warn(ex);
             }
         }
         #endregion

@@ -358,7 +358,7 @@ namespace ZeroInstall.Store.Model
 
             NormalizeElements(feedUri);
             NormalizeEntryPoints();
-            ResolveCopyFromReferences();
+            ResolveInternalReferences();
         }
 
         private void NormalizeElements([NotNull] FeedUri feedUri)
@@ -396,7 +396,12 @@ namespace ZeroInstall.Store.Model
             if (NeedsTerminal) mainEntryPoint.NeedsTerminal = true;
         }
 
-        private void ResolveCopyFromReferences()
+        /// <summary>
+        /// Resolves references between elements within the <see cref="Feed"/>.
+        /// </summary>
+        /// <exception cref="InvalidDataException">A reference could not be resolved.</exception>
+        /// <remarks>This method should be called instead of <see cref="Normalize"/> if you plan on serializing the feed again since it preservers the structure.</remarks>
+        public void ResolveInternalReferences()
         {
             foreach (var implementation in Implementations)
             foreach (var recipe in implementation.RetrievalMethods.OfType<Recipe>())
