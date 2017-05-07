@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (string.IsNullOrEmpty(input)) return ExitCode.InvalidData;
 
             var feedFragment = XmlStorage.FromXmlString<Feed>(input);
-            Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
+            Fetcher.Fetch(feedFragment.Implementations);
 
             return ExitCode.OK;
         }

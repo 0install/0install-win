@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -34,6 +35,9 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
+        /// <inheritdoc/>
+        internal override IEnumerable<Implementation> Implementations => Elements.SelectMany(x => x.Implementations);
+
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>

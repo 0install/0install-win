@@ -33,6 +33,9 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("implementation", Namespace = Feed.XmlNamespace), XmlType("implementation", Namespace = Feed.XmlNamespace)]
     public class Implementation : ImplementationBase, IEquatable<Implementation>
     {
+        /// <inheritdoc/>
+        internal override IEnumerable<Implementation> Implementations => new[] {this};
+
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>

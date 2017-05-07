@@ -17,10 +17,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -46,7 +44,7 @@ namespace ZeroInstall.Store.Feeds
 
             foreach (var curFeed in feeds)
             {
-                var impl = curFeed.Elements.OfType<Implementation>().FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
+                var impl = curFeed.Implementations.FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
                 if (impl != null)
                 {
                     feed = curFeed;

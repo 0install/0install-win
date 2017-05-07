@@ -215,12 +215,20 @@ namespace ZeroInstall.Store.Model
         public List<CapabilityList> CapabilityLists { get; } = new List<CapabilityList>();
 
         /// <summary>
+        /// A flat list of all <see cref="Implementation"/>s contained in this feed.
+        /// </summary>
+        /// <remarks>If this is used before <see cref="Normalize"/> has been called, incomplete <see cref="Implementation"/>s may be returned, because the <see cref="Group"/> inheritance structure has not been resolved.</remarks>
+        [Browsable(false)]
+        [XmlIgnore]
+        public IEnumerable<Implementation> Implementations => Elements.SelectMany(x => x.Implementations);
+
+        /// <summary>
         /// Returns the <see cref="Implementation"/> with a specific ID string.
         /// </summary>
         /// <param name="id">The <see cref="ImplementationBase.ID"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/>.</returns>
         /// <exception cref="KeyNotFoundException">No <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Elements"/>.</exception>
-        /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        /// <remarks>If this is used before <see cref="Normalize"/> has been called, incomplete <see cref="Implementation"/>s may be returned, because the <see cref="Group"/> inheritance structure has not been resolved.</remarks>
         public Implementation this[string id]
         {
             get
@@ -231,7 +239,7 @@ namespace ZeroInstall.Store.Model
 
                 try
                 {
-                    return Elements.OfType<Implementation>().First(implementation => implementation.ID == id);
+                    return Implementations.First(implementation => implementation.ID == id);
                 }
                     #region Error handling
                 catch (InvalidOperationException)
@@ -390,7 +398,7 @@ namespace ZeroInstall.Store.Model
 
         private void ResolveCopyFromReferences()
         {
-            foreach (var implementation in Elements.OfType<Implementation>())
+            foreach (var implementation in Implementations)
             foreach (var recipe in implementation.RetrievalMethods.OfType<Recipe>())
             foreach (var step in recipe.Steps.OfType<CopyFromStep>())
             {

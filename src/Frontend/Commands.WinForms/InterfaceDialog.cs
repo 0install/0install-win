@@ -182,7 +182,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 var feed = _feedManager[feedUri];
                 var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
-                return feed.Elements.OfType<Implementation>().Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
+                return feed.Implementations.Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
             }
                 #region Error handling
             catch (KeyNotFoundException)

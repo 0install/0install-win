@@ -84,6 +84,13 @@ namespace ZeroInstall.Store.Model
         #endregion
 
         /// <summary>
+        /// A flat list of all <see cref="Implementation"/>s contained in this element. May be the element itself or its children.
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        internal abstract IEnumerable<Implementation> Implementations { get; }
+
+        /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Category("Release"), Description("The version number of the implementation.")]

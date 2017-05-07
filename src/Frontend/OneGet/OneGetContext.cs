@@ -25,7 +25,6 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
@@ -140,7 +139,7 @@ namespace ZeroInstall.OneGet
             {
                 if (AllVersions)
                 {
-                    foreach (var implementation in FeedManager.GetFresh(feed.Uri).Elements.OfType<Implementation>())
+                    foreach (var implementation in FeedManager.GetFresh(feed.Uri).Implementations)
                     {
                         var requirements = new Requirements(feed.Uri) {ExtraRestrictions = {{feed.Uri, new VersionRange(implementation.Version)}}};
                         Yield(requirements, feed, implementation);

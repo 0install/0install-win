@@ -34,6 +34,9 @@ namespace ZeroInstall.Store.Model.Selection
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "IComparable is only used for deterministic ordering")]
     public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>, IComparable<ImplementationSelection>
     {
+        /// <inheritdoc/>
+        internal override IEnumerable<Implementation> Implementations => Enumerable.Empty<Implementation>();
+
         /// <summary>
         /// The URI or local path of the interface this implementation is for.
         /// </summary>

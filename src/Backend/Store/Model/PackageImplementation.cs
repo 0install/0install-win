@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -34,6 +35,9 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("package-implementation", Namespace = Feed.XmlNamespace), XmlType("package-implementation", Namespace = Feed.XmlNamespace)]
     public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>
     {
+        /// <inheritdoc/>
+        internal override IEnumerable<Implementation> Implementations => Enumerable.Empty<Implementation>();
+
         #region Constants
         /// <summary>
         /// Well-known values for <see cref="Distributions"/>.
