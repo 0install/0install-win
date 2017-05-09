@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store.Properties;
@@ -74,24 +75,82 @@ namespace ZeroInstall.Store.Implementations.Build
         {
             DirectoryBuilder.Initialize();
 
-            // Remove write-protection on source to allow creating hardlinks pointing to it
-            string unsealedSource = null;
-            if (UseHardlinks)
-            {
-                unsealedSource = StoreUtils.DetectImplementationPath(SourceDirectory.FullName);
-                if (unsealedSource != null)
-                    FileUtils.DisableWriteProtection(unsealedSource);
-            }
-
-            try
+            using (TryUnsealImplementation())
             {
                 base.HandleEntries(entries);
                 DirectoryBuilder.CompletePending();
             }
-            finally
+        }
+
+        /// <summary>
+        /// Tries to remove write-protection on the directory, if it is located in an <see cref="IStore"/> to allow creating hardlinks pointing into it.
+        /// </summary>
+        /// <returns>A handle for restoring the write protection when done; <c>null</c> if no write protection was removed.</returns>
+        [CanBeNull]
+        private IDisposable TryUnsealImplementation()
+        {
+            string path = StoreUtils.DetectImplementationPath(SourceDirectory.FullName);
+            if (path == null) return null;
+
+            try
             {
-                if (unsealedSource != null)
-                    FileUtils.EnableWriteProtection(unsealedSource);
+                FileUtils.DisableWriteProtection(path);
+                return new UnsealedDirectory(path);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Info("Unable to remove write protection for creating hardlinks");
+                Log.Info(ex);
+                return null;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Info("Unable to remove write protection for creating hardlinks");
+                Log.Info(ex);
+                return null;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Info("Unable to remove write protection for creating hardlinks");
+                Log.Info(ex);
+                return null;
+            }
+            #endregion
+        }
+
+        private sealed class UnsealedDirectory : IDisposable
+        {
+            private readonly string _path;
+
+            public UnsealedDirectory(string path)
+            {
+                _path = path;
+            }
+
+            public void Dispose()
+            {
+                try
+                {
+                    FileUtils.EnableWriteProtection(_path);
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Log.Info("Unable to restore write protection after creating hardlinks");
+                    Log.Error(ex);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Info("Unable to restore write protection after creating hardlinks");
+                    Log.Error(ex);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Log.Info("Unable to restore write protection after creating hardlinks");
+                    Log.Error(ex);
+                }
+                #endregion
             }
         }
 
