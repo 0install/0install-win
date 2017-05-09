@@ -409,7 +409,8 @@ namespace ZeroInstall.Store.Model
             {
                 try
                 {
-                    step.Implementation = this[step.ID];
+                    if (!string.IsNullOrEmpty(step.ID))
+                        step.Implementation = this[step.ID];
                 }
                     #region Error handling
                 catch (KeyNotFoundException ex)
