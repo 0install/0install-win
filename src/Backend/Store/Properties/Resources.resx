@@ -390,8 +390,8 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Unable to find a secret key with the specified name.</value>
   </data>
-  <data name="UnableToResolveCopyFrom" xml:space="preserve">
-    <value>The recipe step '{0}' in the implementation '{1}' has an invalid reference.</value>
+  <data name="UnableToResolveRecipeReference" xml:space="preserve">
+    <value>The recipe step '{0}' in the implementation '{1}' has an invalid implementation reference.</value>
   </data>
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>Unable to enable write protection for '{0}'.</value>

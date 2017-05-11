@@ -278,7 +278,7 @@ namespace ZeroInstall.Store.Implementations.Build
             if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
             #endregion
 
-            if (step.Implementation == null) throw new ArgumentException("step.Implementation is null. Please call Feed.ResolveInternalReferences() first.", nameof(step));
+            if (step.Implementation == null) throw new ArgumentException(string.Format(Resources.UnableToResolveRecipeReference, step, ""));
 
             var store = StoreFactory.CreateDefault();
             string sourcePath = Path.Combine(store.GetPath(step.Implementation), source);

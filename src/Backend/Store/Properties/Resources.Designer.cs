@@ -850,11 +850,11 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The recipe step &apos;{0}&apos; in the implementation &apos;{1}&apos; has an invalid reference..
+        ///   Looks up a localized string similar to The recipe step &apos;{0}&apos; in the implementation &apos;{1}&apos; has an invalid implementation reference..
         /// </summary>
-        internal static string UnableToResolveCopyFrom {
+        internal static string UnableToResolveRecipeReference {
             get {
-                return ResourceManager.GetString("UnableToResolveCopyFrom", resourceCulture);
+                return ResourceManager.GetString("UnableToResolveRecipeReference", resourceCulture);
             }
         }
         

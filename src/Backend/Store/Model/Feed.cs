@@ -407,16 +407,17 @@ namespace ZeroInstall.Store.Model
             foreach (var recipe in implementation.RetrievalMethods.OfType<Recipe>())
             foreach (var step in recipe.Steps.OfType<CopyFromStep>())
             {
+                if (string.IsNullOrEmpty(step.ID)) throw new InvalidDataException(string.Format(Resources.UnableToResolveRecipeReference, step, implementation.ID));
+
                 try
                 {
-                    if (!string.IsNullOrEmpty(step.ID))
-                        step.Implementation = this[step.ID];
+                    step.Implementation = this[step.ID];
                 }
                     #region Error handling
                 catch (KeyNotFoundException ex)
                 {
                     // Wrap exception to add context information
-                    throw new InvalidDataException(string.Format(Resources.UnableToResolveCopyFrom, step, implementation.ID), ex);
+                    throw new InvalidDataException(string.Format(Resources.UnableToResolveRecipeReference, step, implementation.ID), ex);
                 }
                 #endregion
             }
