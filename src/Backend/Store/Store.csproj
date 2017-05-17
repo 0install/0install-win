@@ -143,6 +143,7 @@
     <Compile Include="BootstrapMode.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
+    <Compile Include="Disposable.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheExtentsions.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />

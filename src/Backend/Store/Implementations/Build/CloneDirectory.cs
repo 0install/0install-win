@@ -95,7 +95,30 @@ namespace ZeroInstall.Store.Implementations.Build
             try
             {
                 FileUtils.DisableWriteProtection(path);
-                return new UnsealedDirectory(path);
+                return new Disposable(() =>
+                {
+                    try
+                    {
+                        FileUtils.EnableWriteProtection(path);
+                    }
+                        #region Error handling
+                    catch (IOException ex)
+                    {
+                        Log.Info("Unable to restore write protection after creating hardlinks");
+                        Log.Error(ex);
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Log.Info("Unable to restore write protection after creating hardlinks");
+                        Log.Error(ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        Log.Info("Unable to restore write protection after creating hardlinks");
+                        Log.Error(ex);
+                    }
+                    #endregion
+                });
             }
                 #region Error handling
             catch (IOException ex)
@@ -117,41 +140,6 @@ namespace ZeroInstall.Store.Implementations.Build
                 return null;
             }
             #endregion
-        }
-
-        private sealed class UnsealedDirectory : IDisposable
-        {
-            private readonly string _path;
-
-            public UnsealedDirectory(string path)
-            {
-                _path = path;
-            }
-
-            public void Dispose()
-            {
-                try
-                {
-                    FileUtils.EnableWriteProtection(_path);
-                }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    Log.Info("Unable to restore write protection after creating hardlinks");
-                    Log.Error(ex);
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Log.Info("Unable to restore write protection after creating hardlinks");
-                    Log.Error(ex);
-                }
-                catch (InvalidOperationException ex)
-                {
-                    Log.Info("Unable to restore write protection after creating hardlinks");
-                    Log.Error(ex);
-                }
-                #endregion
-            }
         }
 
         /// <inheritdoc/>
