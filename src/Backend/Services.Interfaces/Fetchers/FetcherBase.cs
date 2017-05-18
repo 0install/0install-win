@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -67,19 +66,36 @@ namespace ZeroInstall.Services.Fetchers
         public abstract void Fetch(IEnumerable<Implementation> implementations);
 
         /// <summary>
-        /// Determines whether an <see cref="Implementation"/> is already cached.
+        /// Downloads a single <see cref="Implementation"/> to the <see cref="IStore"/>.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method only operates on original Implementations (not Selections).")]
-        protected bool IsCached([NotNull] Implementation implementation)
+        /// <param name="implementation">The implementation to download.</param>
+        /// <param name="tag">The <see cref="ITask.Tag"/> to set for the download process.</param>
+        /// <returns>A fully qualified path to the directory containing the implementation; <c>null</c> if the requested implementation could not be found in the store or is a package implementation.</returns>
+        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        [CanBeNull]
+        protected abstract string Fetch([NotNull] Implementation implementation, object tag);
+
+        /// <summary>
+        /// Determines the local path of an implementation.
+        /// </summary>
+        /// <param name="implementation">The implementation to be located.</param>
+        /// <returns>A fully qualified path to the directory containing the implementation; <c>null</c> if the requested implementation could not be found in the store or is a package implementation.</returns>
+        [CanBeNull]
+        protected string GetPathSafe([NotNull] ImplementationBase implementation)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException(nameof(implementation));
             #endregion
 
-            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return false;
+            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return null;
 
             _store.Flush();
-            return _store.Contains(implementation.ManifestDigest);
+            return _store.GetPath(implementation.ManifestDigest);
         }
 
         /// <summary>

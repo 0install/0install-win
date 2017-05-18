@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading;
 using JetBrains.Annotations;
@@ -68,22 +67,17 @@ namespace ZeroInstall.Services.Fetchers
             foreach (var implementation in implementations)
             {
                 Handler.CancellationToken.ThrowIfCancellationRequested();
-                FetchOne(implementation);
+                Fetch(implementation, tag: implementation.ManifestDigest);
             }
         }
 
-        /// <summary>
-        /// Downloads a single <see cref="Implementation"/> to the <see cref="IStore"/>. Detects concurrent downloads in other processes.
-        /// </summary>
-        /// <param name="implementation">The implementation to download.</param>
-        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
-        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
-        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        private void FetchOne([NotNull] Implementation implementation)
+        /// <inheritdoc/>
+        protected override string Fetch(Implementation implementation, object tag)
         {
+            #region Sanity checks
+            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
+            #endregion
+
             // Use mutex to detect in-progress download of same implementation in other processes
             using (var mutex = new Mutex(false, "0install-fetcher-" + GetDownloadID(implementation)))
             {
@@ -92,7 +86,7 @@ namespace ZeroInstall.Services.Fetchers
                     while (!mutex.WaitOne(100, exitContext: false)) // NOTE: Might be blocked more than once
                     {
                         // Wait for mutex to be released
-                        Handler.RunTask(new WaitTask(Resources.WaitingForDownload, mutex) {Tag = implementation.ManifestDigest});
+                        Handler.RunTask(new WaitTask(Resources.WaitingForDownload, mutex) {Tag = tag});
                     }
                 }
                     #region Error handling
@@ -106,10 +100,13 @@ namespace ZeroInstall.Services.Fetchers
                 try
                 {
                     // Check if another process added the implementation in the meantime
-                    if (IsCached(implementation)) return;
+                    string path = GetPathSafe(implementation);
+                    if (path != null) return path;
 
                     if (implementation.RetrievalMethods.Count == 0) throw new NotSupportedException(string.Format(Resources.NoRetrievalMethod, implementation.ID));
                     Retrieve(implementation);
+
+                    return GetPathSafe(implementation);
                 }
                 finally
                 {
