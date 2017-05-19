@@ -47,9 +47,14 @@ namespace ZeroInstall.Store.Model
         public const string MimeTypeIco = "image/vnd.microsoft.icon";
 
         /// <summary>
+        /// The <see cref="MimeType"/> value for SVG icons.
+        /// </summary>
+        public const string MimeTypeSvg = "image/svg";
+
+        /// <summary>
         /// All known <see cref="MimeType"/> values for icons.
         /// </summary>
-        public static readonly string[] KnownMimeTypes = {MimeTypePng, MimeTypeIco};
+        public static readonly string[] KnownMimeTypes = {MimeTypePng, MimeTypeIco, MimeTypeSvg};
         #endregion
 
         /// <summary>
