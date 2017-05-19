@@ -57,6 +57,11 @@ namespace ZeroInstall
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
             NetUtils.ApplyProxy();
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls |
+                (SecurityProtocolType)768 | // Tls11
+                (SecurityProtocolType)3072; // Tls12
 
             if (WindowsUtils.IsWindows)
             {

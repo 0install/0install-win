@@ -40,6 +40,11 @@ namespace ZeroInstall.Publish.Cli
         private static int Main(string[] args)
         {
             NetUtils.ApplyProxy();
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls |
+                (SecurityProtocolType)768 | // Tls11
+                (SecurityProtocolType)3072; // Tls12
 
             // Automatically show help for missing args
             if (args == null) args = new string[0];
