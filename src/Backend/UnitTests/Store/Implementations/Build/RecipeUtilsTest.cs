@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -173,9 +172,9 @@ namespace ZeroInstall.Store.Implementations.Build
         [Test]
         public void TestApplyRecipeCopyFrom()
         {
-            using (new LocationsRedirect("0install-unit-tests"))
+            using (var existingImplDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                string existingImplPath = Path.Combine(StoreConfig.GetImplementationDirs().First(), "sha1new=123");
                 new TestRoot
                 {
                     new TestDirectory("source")
@@ -184,54 +183,52 @@ namespace ZeroInstall.Store.Implementations.Build
                         new TestFile("executable") {IsExecutable = true},
                         new TestSymlink("symlink", "target")
                     }
-                }.Build(existingImplPath);
+                }.Build(existingImplDir);
 
-                using (var archiveFile = new TemporaryFile("0install-unit-tests"))
+                typeof(ArchiveExtractorTest).CopyEmbeddedToFile("testArchive.zip", archiveFile);
+
+                var downloadedFiles = new[] {archiveFile};
+                var recipe = new Recipe
                 {
-                    typeof(ArchiveExtractorTest).CopyEmbeddedToFile("testArchive.zip", archiveFile);
-
-                    var downloadedFiles = new[] {archiveFile};
-                    var recipe = new Recipe
+                    Steps =
                     {
-                        Steps =
+                        new CopyFromStep
                         {
-                            new CopyFromStep
+                            Source = "source",
+                            Destination = "dest",
+                            Implementation = new Implementation
                             {
-                                Source = "source",
-                                Destination = "dest",
-                                Implementation = new Implementation
-                                {
-                                    ManifestDigest = new ManifestDigest(sha1New: "123")
-                                }
-                            },
-                            new CopyFromStep
+                                ManifestDigest = new ManifestDigest(sha1New: "123")
+                            }
+                        },
+                        new CopyFromStep
+                        {
+                            Source = "source/file",
+                            Destination = "dest/symlink", // Overwrite existing symlink with regular file
+                            Implementation = new Implementation
                             {
-                                Source = "source/file",
-                                Destination = "dest/symlink", // Overwrite existing symlink with regular file
-                                Implementation = new Implementation
-                                {
-                                    ManifestDigest = new ManifestDigest(sha1New: "123")
-                                }
+                                ManifestDigest = new ManifestDigest(sha1New: "123")
                             }
                         }
-                    };
-
-                    using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
-                    {
-                        new TestRoot
-                        {
-                            new TestDirectory("dest")
-                            {
-                                new TestFile("file"),
-                                new TestFile("executable") {IsExecutable = true},
-                                new TestFile("symlink")
-                            }
-                        }.Verify(recipeDir);
                     }
+                };
+
+                using (FetchHandle.Register(_ => existingImplDir))
+                using (var recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
+                {
+                    new TestRoot
+                    {
+                        new TestDirectory("dest")
+                        {
+                            new TestFile("file"),
+                            new TestFile("executable") {IsExecutable = true},
+                            new TestFile("symlink")
+                        }
+                    }.Verify(recipeDir);
                 }
 
-                FileUtils.DisableWriteProtection(existingImplPath);
-                Directory.Delete(existingImplPath, recursive: true);
+                FileUtils.DisableWriteProtection(existingImplDir);
+                Directory.Delete(existingImplDir, recursive: true);
             }
         }
 

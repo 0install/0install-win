@@ -144,7 +144,9 @@ namespace ZeroInstall.Services.Fetchers
             var recipe = retrievalMethod as Recipe ?? new Recipe {Steps = {(IRecipeStep)retrievalMethod}};
             try
             {
-                Cook(recipe, manifestDigest);
+                // Enable Recipe steps to call back to Fetcher
+                using (FetchHandle.Register(impl => Fetch(impl, tag: manifestDigest)))
+                    Cook(recipe, manifestDigest);
             }
                 #region Error handling
             catch (ImplementationAlreadyInStoreException)
@@ -190,9 +192,6 @@ namespace ZeroInstall.Services.Fetchers
             // Fail fast on unsupported Archive types
             foreach (var archive in recipe.Steps.OfType<Archive>())
                 ArchiveExtractor.VerifySupport(archive.MimeType);
-
-            // Download any other Implementations required by the Recipe
-            Fetch(recipe.Steps.OfType<CopyFromStep>().Select(x => x.Implementation));
 
             var downloadedFiles = new List<TemporaryFile>();
             try

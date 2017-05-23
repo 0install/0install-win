@@ -254,7 +254,7 @@ namespace ZeroInstall.Store.Implementations.Build
         }
 
         /// <summary>
-        /// Applies a <see cref="CopyFromStep"/> to a <see cref="TemporaryDirectory"/>.
+        /// Applies a <see cref="CopyFromStep"/> to a <see cref="TemporaryDirectory"/>. <see cref="FetchHandle.Register"/> must be called first on the same thread.
         /// </summary>
         /// <param name="step">The <see cref="Archive"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
@@ -262,7 +262,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <param name="tag">A tag used to associate composite task with a specific operation; can be null.</param>
         /// <exception cref="IOException">A path specified in <paramref name="step"/> is illegal.</exception>
         /// <exception cref="ArgumentException"><see cref="CopyFromStep.Implementation"/> is <c>null</c>. Please call <see cref="Feed.ResolveInternalReferences"/> first.</exception>
-        /// <exception cref="ImplementationNotFoundException"><see cref="CopyFromStep.Implementation"/> is not cached in the default <see cref="IStore"/>.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="FetchHandle.Register"/> was not called first.</exception>
         public static void Apply([NotNull] this CopyFromStep step, [NotNull] TemporaryDirectory workingDir, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)
         {
             #region Sanity checks
@@ -280,9 +280,7 @@ namespace ZeroInstall.Store.Implementations.Build
 
             if (step.Implementation == null) throw new ArgumentException(string.Format(Resources.UnableToResolveRecipeReference, step, ""));
 
-            var store = StoreFactory.CreateDefault();
-            string sourcePath = Path.Combine(store.GetPath(step.Implementation), source);
-
+            string sourcePath = Path.Combine(FetchHandle.Use(step.Implementation), source);
             if (Directory.Exists(sourcePath))
             {
                 handler.RunTask(new CloneDirectory(sourcePath, workingDir)
@@ -305,5 +303,6 @@ namespace ZeroInstall.Store.Implementations.Build
             }
             else throw new IOException(string.Format(Resources.RecipeCopyFromSourceMissing, step));
         }
+
     }
 }

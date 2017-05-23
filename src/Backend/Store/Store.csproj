@@ -193,6 +193,7 @@
     <Compile Include="Implementations\DigestMismatchException.cs" />
     <Compile Include="Implementations\DirectoryStore.cs" />
     <Compile Include="Implementations\DirectoryStore.OptimiseRun.cs" />
+    <Compile Include="Implementations\FetchHandle.cs" />
     <Compile Include="Implementations\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementations\ImplementationNotFoundException.cs" />
     <Compile Include="Implementations\IpcStore.Connection.cs" />
