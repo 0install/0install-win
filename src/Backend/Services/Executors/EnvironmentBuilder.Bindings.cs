@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -345,13 +346,15 @@ namespace ZeroInstall.Services.Executors
             }
             _runEnvPendings.Clear();
 
-            if (WindowsUtils.IsWindows)
+            try
             {
-                // Download implementations with .NET code even if a Python-version of Zero Install is executed
-                _startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_FETCHER"] = new[] {Path.Combine(Locations.InstallBase, "0install.exe"), "fetch"}.JoinEscapeArguments();
-
-                // Extracted archvies with .NET code even if a Python-version of Zero Install is executed
-                _startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_STORE"] = Path.Combine(Locations.InstallBase, "0store.exe");
+                // Allow Python/OCaml-version of Zero Install and other tools to call back to the Fetcher
+                var fetchCommand = ProcessUtils.Assembly("0install", "fetch");
+                _startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_FETCHER"] = fetchCommand.FileName.EscapeArgument() + " " + fetchCommand.Arguments;
+            }
+            catch (FileNotFoundException)
+            {
+                // Zero Install may be embedded as a library rather than an executable
             }
         }
 

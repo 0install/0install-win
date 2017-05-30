@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
@@ -24,7 +23,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Commands.CliCommands
 {
     /// <summary>
-    /// Downloads a set of <see cref="Implementation"/>s piped in as XML via stdin. Only for IPC-use.
+    /// Downloads a set of <see cref="Implementation"/>s piped in as XML via stdin (for programmatic use). Use <see cref="Feed"/> format with no inner linebreaks and terminated by a single linebreak.
     /// </summary>
     public class Fetch : CliCommand
     {
@@ -33,7 +32,7 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "fetch";
 
         /// <inheritdoc/>
-        public override string Description => "Downloads a set of implementations piped in as XML via stdin. Only for IPC-use.";
+        public override string Description => "Downloads a set of implementations piped in as XML via stdin (for programmatic use). Use Feed format with no inner linebreaks and terminated by a single linebreak.";
 
         /// <inheritdoc/>
         public override string Usage => "";

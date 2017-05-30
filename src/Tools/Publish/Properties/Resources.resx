@@ -175,6 +175,9 @@ Try specifying it manually.</value>
   <data name="FeedNotValid" xml:space="preserve">
     <value>The feed does not have the correct format.</value>
   </data>
+  <data name="FetchingExternal" xml:space="preserve">
+    <value>Downloading '{0}' using Zero Install</value>
+  </data>
   <data name="FileDialogFilter" xml:space="preserve">
     <value>Feed files (*.xml)|*.xml|Template files (*.xml.template)|*.xml.template|All files|*</value>
   </data>

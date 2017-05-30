@@ -25,7 +25,9 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Info;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms
@@ -79,6 +81,7 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Constructor
         private readonly IOpenPgp _openPgp;
+        private IDisposable _implementationProviderRegistration;
 
         /// <summary>
         /// Creates a new feed editing form.
@@ -91,6 +94,14 @@ namespace ZeroInstall.Publish.WinForms
             _openPgp = openPgp;
 
             FeedEditing = feedEditing;
+
+            // Enable Recipe steps to call out to external Fetcher
+            _implementationProviderRegistration = FetchHandle.Register(impl =>
+            {
+                using (var handler = new DialogTaskHandler(this))
+                    handler.RunTask(new ExternalFetch(impl));
+                return StoreFactory.CreateDefault().GetPath(impl);
+            });
         }
         #endregion
 

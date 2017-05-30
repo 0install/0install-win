@@ -337,7 +337,14 @@ namespace ZeroInstall.Publish.Cli
             {
                 var feed = feedEditing.SignedFeed.Feed;
                 feed.ResolveInternalReferences();
-                AddMissing(feed.Elements, feedEditing);
+
+                // Enable Recipe steps to call out to external Fetcher
+                using (FetchHandle.Register(impl =>
+                {
+                    _handler.RunTask(new ExternalFetch(impl));
+                    return StoreFactory.CreateDefault().GetPath(impl);
+                }))
+                    AddMissing(feed.Elements, feedEditing);
             }
         }
 

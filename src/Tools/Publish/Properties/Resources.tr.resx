@@ -175,6 +175,9 @@ Giriş noktalarını el ile belirtmeyi deneyin.</value>
   <data name="FeedNotValid" xml:space="preserve">
     <value>Akış geçerli bir biçime sahip değil.</value>
   </data>
+  <data name="FetchingExternal" xml:space="preserve">
+    <value> &apos;{0}&apos; Zero Install kullanılarak indiriliyor</value>
+  </data>
   <data name="FileDialogFilter" xml:space="preserve">
     <value>Akış dosyaları (*.xml)|*.xml|Geçici dosyalar (*.xml.template)|*.xml.template|Tüm dosyalar|*</value>
   </data>
