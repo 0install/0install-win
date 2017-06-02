@@ -581,7 +581,7 @@ Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalış
 Seçim sırasında komut kullanılmaması için boş (&quot;&quot;) bırakın.</value>
   </data>
   <data name="OptionConfigTab" xml:space="preserve">
-    <value>Ayar görsel arabiriminde belirtilen sekmeyi açar. Kullanılabilecek sekmeler {TAB}, güncelleştirmeler için &apos;updates&apos;, depolama için &apos;storage&apos;, katalog için &apos;catalog&apos;, güvenilirlik için &apos;trust&apos;, eşitleme için &apos;sync&apos; ve gelişmiş ayarlar için &apos;advanced&apos;.
+    <value>Ayar görsel ara yüzünde belirtilen sekmeyi açar. Kullanılabilecek {TAB} sekmeleri, güncelleştirmeler için &apos;updates&apos;, depolama için &apos;storage&apos;, katalog için &apos;catalog&apos;, güvenilirlik için &apos;trust&apos;, eşitleme için &apos;sync&apos; ve gelişmiş ayarlar için &apos;advanced&apos;.
 Metin kipinde bir etkisi yoktur.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">

@@ -581,7 +581,7 @@ Führen Sie '0install self-update --force' aus, um dies zu beheben.</value>
 Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
   </data>
   <data name="OptionConfigTab" xml:space="preserve">
-    <value>Wechsle auf eine bestimmte Registerkarte im Konfigurations-GUI. Mögliche {TAB}s sind 'updates', 'storage', 'catalog', 'trust', 'sync' und 'advanced'.
+    <value>Wechsle auf eine bestimmte Registerkarte im Konfigurations-GUI. Mögliche {TAB}s sind 'updates', 'storage', 'catalog', 'trust', 'sync', 'language' und 'advanced'.
 Hat keine Wirkung im Text-Modus.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">

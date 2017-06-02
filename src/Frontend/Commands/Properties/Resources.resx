@@ -581,7 +581,7 @@ Run '0install self-update --force' to fix this.</value>
 Set to empty ("") to ignore the command during selection.</value>
   </data>
   <data name="OptionConfigTab" xml:space="preserve">
-    <value>Switch to a specific tab in the configuration GUI. Possible {TAB}s are 'updates', 'storage', 'catalog', 'trust', 'sync' and 'advanced'.
+    <value>Switch to a specific tab in the configuration GUI. Possible {TAB}s are 'updates', 'storage', 'catalog', 'trust', 'sync', 'language', 'language' and 'advanced'.
 Has no effect in text-mode.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">

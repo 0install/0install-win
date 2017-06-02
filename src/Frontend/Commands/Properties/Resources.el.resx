@@ -477,7 +477,7 @@
 Ρύθμιση για να αδειάσει (&quot;&quot;) για να αγνοήσει την εντολή κατά τη διάρκεια της επιλογής.</value>
   </data>
   <data name="OptionConfigTab" xml:space="preserve">
-    <value>Μετάβαση σε συγκεκριμένη καρτέλα στο GUI διαμόρφωσης. Πιθανές {TAB}ες είναι &apos;updates&apos;, &apos;storage&apos;, &apos;catalog&apos;, &apos;trust&apos;, &apos;sync&apos; και &apos;advanced&apos;.
+    <value>Μετάβαση σε συγκεκριμένη καρτέλα στο GUI διαμόρφωσης. Πιθανές {TAB}ες είναι &apos;updates&apos;, &apos;storage&apos;, &apos;catalog&apos;, &apos;trust&apos;, &apos;sync&apos;, &apos;language&apos; και &apos;advanced&apos;.
 Δεν έχει κανένα αποτέλεσμα στην λειτουργία κειμένου.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">
