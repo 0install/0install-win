@@ -333,6 +333,12 @@ sorunu gidermek için &apos;{0}&apos; dosyasını silebilirsiniz.</value>
     <value>&apos;{0}&apos; yapılandırma değeri yüklenirken bir sorun çıktı.
 &apos;{1}&apos; dosyasını silerek sorunu giderebilirsiniz. Diğer ayarlar da kaybolacak.</value>
   </data>
+  <data name="RecipeCopyFromDestinationMissing" xml:space="preserve">
+    <value>Kaynak bir klasör değil dosya olduğundan &apos;{0}&apos;. adım için hedef belirtilmelidir.</value>
+  </data>
+  <data name="RecipeCopyFromSourceMissing" xml:space="preserve">
+    <value> &apos;{0}&apos;. adımda belirtilen kaynak bulunamadı.</value>
+  </data>
   <data name="RecipeFileNotDownloaded" xml:space="preserve">
     <value>&lt;recipe&gt; içinde belirtilen bir dosya indirilemedi.</value>
   </data>
@@ -383,6 +389,9 @@ sorunu gidermek için &apos;{0}&apos; dosyasını silebilirsiniz.</value>
   </data>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Belirtilen ad ile bir gizli anahtar bulunamıyor.</value>
+  </data>
+  <data name="UnableToResolveRecipeReference" xml:space="preserve">
+    <value> &apos;{0}&apos;. adımdaki  &apos;{1}&apos; uygulamasının uygulama referansı geçersiz.</value>
   </data>
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>&apos;{0}&apos; için yazma koruması etkinleştirilemiyor.</value>

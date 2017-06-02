@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Tümünü güncelleştir</value>
+    <value>Tümünü güncelle</value>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Güncelleştir ve &amp;temizle</value>
+    <value>Güncelle ve &amp;temizle</value>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
     <value>Tümünü &amp;güncelleştir</value>
@@ -176,6 +176,12 @@
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
     <value>Taşınabilir &amp;Oluşturucu</value>
+  </data>
+  <data name="buttonTools.Text" xml:space="preserve">
+    <value>&amp;Araçlar</value>
+  </data>
+  <data name="buttonDocumentation.Text" xml:space="preserve">
+    <value>&amp;Belgeler</value>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
     <value>Başlangıç &amp;Videosu</value>

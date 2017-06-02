@@ -199,7 +199,7 @@ ya da masaüstüne ekleyerek &quot;bütünleştirin&quot;.</value>
     <value>&quot;Uygulamalarım&quot;a ekle</value>
   </data>
   <data name="MyAppsRemove" xml:space="preserve">
-    <value>&quot;Uygulamalarım&quot;dan kaldır</value>
+    <value>&quot;Uygulamalarım&quot;dan kaldı&amp;r</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>{0} klasörü boş değil.
@@ -215,10 +215,10 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
     <value>Çalıştır</value>
   </data>
   <data name="RunCommand" xml:space="preserve">
-    <value>... &amp;komut seçin</value>
+    <value>Belirli bir &amp;komut yürüt</value>
   </data>
   <data name="RunVersion" xml:space="preserve">
-    <value>... &amp;sürüm seçin</value>
+    <value>Belirli bir &amp;sürüm yürüt</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
