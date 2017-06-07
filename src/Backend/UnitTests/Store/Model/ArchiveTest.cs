@@ -19,14 +19,13 @@ using System;
 using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Native;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Archive"/>.
     /// </summary>
-    [TestFixture]
     public class ArchiveTest
     {
         /// <summary>
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestClone()
         {
             var archive1 = CreateTestArchive();
@@ -57,7 +56,7 @@ namespace ZeroInstall.Store.Model
             archive2.Should().NotBeSameAs(archive1, because: "Cloning should not return the same reference.");
         }
 
-        [Test]
+        [Fact]
         public void TestNormalizeGuessMimeType()
         {
             var archive = new Archive {Href = new Uri("http://0install.de/files/test/test.tar.gz"), Size = 128};
@@ -65,7 +64,7 @@ namespace ZeroInstall.Store.Model
             archive.MimeType.Should().Be(Archive.MimeTypeTarGzip, because: "Normalize() should guess missing MIME type");
         }
 
-        [Test]
+        [Fact]
         public void TestNormalizeLocalPath()
         {
             var archive = new Archive {Href = new Uri("test.zip", UriKind.Relative), MimeType = Archive.MimeTypeZip, Size = 128};

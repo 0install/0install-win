@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -24,7 +24,6 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Contains test methods for <see cref="PosixScript"/>.
     /// </summary>
-    [TestFixture]
     public class PosixScriptTest : CandidateTest
     {
         public static readonly PosixScript Reference = new PosixScript
@@ -35,20 +34,20 @@ namespace ZeroInstall.Publish.EntryPoints
             NeedsTerminal = true
         };
 
-        [Test]
+        [Fact]
         public void Sh()
         {
             TestAnalyze(Reference, executable: true);
         }
 
-        [Test]
+        [Fact]
         public void NotExecutable()
         {
             new PosixScript().Analyze(baseDirectory: Directory, file: Deploy(Reference, xbit: false))
                 .Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void NoShebang()
         {
             new PosixScript().Analyze(baseDirectory: Directory, file: Deploy(PosixBinaryTest.Reference32, xbit: true))

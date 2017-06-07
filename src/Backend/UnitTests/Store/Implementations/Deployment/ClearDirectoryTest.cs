@@ -20,7 +20,7 @@ using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Implementations.Manifests;
 
 namespace ZeroInstall.Store.Implementations.Deployment
@@ -28,10 +28,9 @@ namespace ZeroInstall.Store.Implementations.Deployment
     /// <summary>
     /// Contains test methods for <see cref="ClearDirectory"/>.
     /// </summary>
-    [TestFixture]
     public class ClearDirectoryTest : DirectoryOperationTestBase
     {
-        [Test]
+        [Fact]
         public void StageAndCommit()
         {
             string manifestPath = Path.Combine(TempDir, Manifest.ManifestFile);
@@ -53,7 +52,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
             Directory.Exists(TempDir).Should().BeFalse(because: "Entire directory should be gone after commit.");
         }
 
-        [Test]
+        [Fact]
         public void StageAndRollBack()
         {
             using (var operation = new ClearDirectory(TempDir, Manifest, new SilentTaskHandler()))
@@ -66,10 +65,10 @@ namespace ZeroInstall.Store.Implementations.Deployment
             File.Exists(File2Path).Should().BeTrue(because: "Original file should be back after rollback.");
         }
 
-        [Test]
+        [SkippableFact]
         public void ReadOnlyAttribute()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("Read-only file attribute is only available on Windows");
+            Skip.IfNot(WindowsUtils.IsWindows, "Read-only file attribute is only available on Windows");
 
             new FileInfo(File1Path).IsReadOnly = true;
 
@@ -82,7 +81,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
             Directory.Exists(TempDir).Should().BeFalse(because: "Entire directory should be gone after commit.");
         }
 
-        [Test]
+        [Fact]
         public void UntrackedFilesInTarget()
         {
             FileUtils.Touch(Path.Combine(TempDir, "untracked"));
@@ -96,7 +95,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
             Directory.GetFileSystemEntries(TempDir).Length.Should().Be(1, because: "Only untracked file should be left after commit.");
         }
 
-        [Test]
+        [Fact]
         public void MissingFiles()
         {
             TempDir.Dispose();

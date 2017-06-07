@@ -18,14 +18,13 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Catalog"/>.
     /// </summary>
-    [TestFixture]
     public class CatalogTest
     {
         /// <summary>
@@ -36,7 +35,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Catalog.GetFeed"/> and <see cref="Catalog.this"/> correctly find contained <see cref="Feed"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetFeed()
         {
             var catalog = CreateTestCatalog();
@@ -45,18 +44,16 @@ namespace ZeroInstall.Store.Model
             catalog[FeedTest.Test1Uri].Should().Be(FeedTest.CreateTestFeed());
 
             catalog.GetFeed(new FeedUri("http://invalid/")).Should().BeNull();
-            // ReSharper disable once UnusedVariable
-            catalog.Invoking(x => { var _ = x[new FeedUri("http://invalid/")]; }).ShouldThrow<KeyNotFoundException>();
+            Assert.Throws<KeyNotFoundException>(() => catalog[new FeedUri("http://invalid/")]);
         }
 
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSaveLoad()
         {
             Catalog catalog1 = CreateTestCatalog(), catalog2;
-            Assert.That(catalog1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -73,7 +70,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestClone()
         {
             var catalog1 = CreateTestCatalog();
@@ -88,7 +85,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Catalog.FindByShortName"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestFindByShortName()
         {
             var appA = new Feed
@@ -113,7 +110,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Catalog.Search"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSearch()
         {
             var appA = new Feed {Uri = FeedTest.Test1Uri, Name = "AppA"};

@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -24,10 +24,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// <summary>
     /// Contains test methods for <see cref="CapabilityRegistration"/>.
     /// </summary>
-    [TestFixture]
     public class CapabilityRegistrationTest
     {
-        [Test]
+        [Fact]
         public void TestGetConflictIDs()
         {
             var capabilityRegistration = new CapabilityRegistration();

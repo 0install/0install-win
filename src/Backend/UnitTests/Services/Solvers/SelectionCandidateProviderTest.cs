@@ -20,7 +20,7 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
@@ -33,23 +33,21 @@ namespace ZeroInstall.Services.Solvers
     /// <summary>
     /// Runs test methods for <see cref="SelectionCandidateProvider"/>.
     /// </summary>
-    [TestFixture]
+    [Collection("LocationsRedirect")]
     public class SelectionCandidateProviderTest : TestWithContainer<SelectionCandidateProvider>
     {
         private Mock<IFeedManager> FeedManagerMock => GetMock<IFeedManager>();
         private Mock<IPackageManager> PackageManagerMock => GetMock<IPackageManager>();
 
-        protected override void Register(AutoMockContainer container)
+        public SelectionCandidateProviderTest()
         {
-            container.Register(new LanguageSet());
-
             // Mock Zero Install version
-            container.Register(new ImplementationVersion("1.0"));
+            Container.Register(new ImplementationVersion("1.0"));
 
-            base.Register(container);
+            Container.Register(new LanguageSet());
         }
 
-        [Test]
+        [Fact]
         public void TestGetSortedCandidates()
         {
             var mainFeed = FeedTest.CreateTestFeed();
@@ -62,7 +60,7 @@ namespace ZeroInstall.Services.Solvers
                 new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
-        [Test]
+        [Fact]
         public void TestFeedReferences()
         {
             var mainFeed = FeedTest.CreateTestFeed();
@@ -80,7 +78,7 @@ namespace ZeroInstall.Services.Solvers
                 new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
-        [Test]
+        [Fact]
         public void TestInterfacePreferences()
         {
             var mainFeed = FeedTest.CreateTestFeed();
@@ -101,7 +99,7 @@ namespace ZeroInstall.Services.Solvers
                 new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
-        [Test]
+        [Fact]
         public void TestNativeFeed()
         {
             var mainFeed = FeedTest.CreateTestFeed();
@@ -126,7 +124,7 @@ namespace ZeroInstall.Services.Solvers
             }
         }
 
-        [Test]
+        [Fact]
         public void TestSitePackages()
         {
             var mainFeed = FeedTest.CreateTestFeed();
@@ -154,7 +152,7 @@ namespace ZeroInstall.Services.Solvers
             }
         }
 
-        [Test]
+        [Fact]
         public void TestPackageManager()
         {
             var mainFeed = FeedTest.CreateTestFeed();
@@ -171,7 +169,7 @@ namespace ZeroInstall.Services.Solvers
                 new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements));
         }
 
-        [Test]
+        [Fact]
         public void TestLookupOriginalImplementation()
         {
             var mainFeed = FeedTest.CreateTestFeed();

@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Build
@@ -26,26 +26,20 @@ namespace ZeroInstall.Store.Implementations.Build
     /// <summary>
     /// Contains test methods for <see cref="DirectoryBuilder"/>.
     /// </summary>
-    [TestFixture]
-    public class DirectoryBuilderTest
+    public class DirectoryBuilderTest : IDisposable
     {
-        private TemporaryDirectory _tempDir;
-        private DirectoryBuilder _builder;
+        private readonly TemporaryDirectory _tempDir;
+        private readonly DirectoryBuilder _builder;
 
-        [SetUp]
-        public void SetUp()
+        public DirectoryBuilderTest()
         {
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _builder = new DirectoryBuilder(_tempDir);
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _tempDir.Dispose();
-        }
+        public void Dispose() => _tempDir.Dispose();
 
-        [Test]
+        [Fact]
         public void Basic()
         {
             _builder.Initialize();
@@ -68,7 +62,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }.Verify(_tempDir);
         }
 
-        [Test]
+        [Fact]
         public void Suffix()
         {
             _builder.TargetSuffix = "suffix";
@@ -95,7 +89,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }.Verify(_tempDir);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteFile()
         {
             new TestRoot {new TestFile("file") {LastWrite = new DateTime(2000, 2, 2), Contents = "wrong", IsExecutable = true}}.Build(_tempDir);
@@ -110,7 +104,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }.Verify(_tempDir);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteSymlink()
         {
             new TestRoot {new TestSymlink("file", "target")}.Build(_tempDir);
@@ -125,7 +119,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }.Verify(_tempDir);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteWithSymlink()
         {
             new TestRoot {new TestFile("file")}.Build(_tempDir);

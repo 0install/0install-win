@@ -19,7 +19,7 @@ using System;
 using FluentAssertions;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
@@ -32,28 +32,25 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Contains test methods for <see cref="IntegrationManager"/>.
     /// </summary>
-    [TestFixture]
-    public sealed class IntegrationManagerTest
+    public sealed class IntegrationManagerTest : IDisposable
     {
-        private TemporaryFile _appListFile;
-        private IntegrationManager _integrationManager;
+        private readonly TemporaryFile _appListFile;
+        private readonly IntegrationManager _integrationManager;
 
-        [SetUp]
-        public void SetUp()
+        public IntegrationManagerTest()
         {
             _appListFile = new TemporaryFile("0install-unit-tests");
             new AppList().SaveXml(_appListFile);
             _integrationManager = new IntegrationManager(_appListFile, new MockTaskHandler());
         }
 
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             _integrationManager.Dispose();
             _appListFile.Dispose();
         }
 
-        [Test]
+        [Fact]
         public void TestAddApp()
         {
             var capabilityList = CapabilityListTest.CreateTestCapabilityList();
@@ -67,7 +64,7 @@ namespace ZeroInstall.DesktopIntegration
                 .ShouldThrow<InvalidOperationException>(because: "Do not allow adding applications to AppList more than once.");
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveApp()
         {
             var target = new FeedTarget(FeedTest.Test1Uri, new Feed {Name = "Test"});
@@ -87,7 +84,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestAddAccessPoints()
         {
             var capabilityList = CapabilityListTest.CreateTestCapabilityList();
@@ -120,7 +117,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveAccessPoints()
         {
             var capabilityList = CapabilityListTest.CreateTestCapabilityList();
@@ -144,7 +141,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestUpdateApp()
         {
             var capabilitiyList = new CapabilityList
@@ -170,7 +167,7 @@ namespace ZeroInstall.DesktopIntegration
                 .Should().Equal(new[] {accessPoints[0]}, because: "Only the first access point should be left.");
         }
 
-        [Test]
+        [Fact]
         public void TestRepair()
         {
             var target = new FeedTarget(FeedTest.Test1Uri, new Feed {Name = "Test"});

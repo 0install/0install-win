@@ -21,7 +21,7 @@ using FluentAssertions;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -31,29 +31,23 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Contains test methods for <see cref="SyncIntegrationManager"/>.
     /// </summary>
-    [TestFixture]
-    public sealed class SyncIntegrationManagerTest
+    public sealed class SyncIntegrationManagerTest : IDisposable
     {
         #region Common
-        private TemporaryDirectory _tempDir;
-        private string _appListPath;
+        private readonly TemporaryDirectory _tempDir;
+        private readonly string _appListPath;
 
-        [SetUp]
-        public void SetUp()
+        public SyncIntegrationManagerTest()
         {
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _appListPath = Path.Combine(_tempDir, "app-list.xml");
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _tempDir.Dispose();
-        }
+        public void Dispose() => _tempDir.Dispose();
         #endregion
 
         #region Individual
-        [Test]
+        [Fact]
         public void TestAddedLocal()
         {
             using (var apApplied = new TemporaryFlagFile("ap-applied"))
@@ -78,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestRemovedLocal()
         {
             using (var apApplied = new TemporaryFlagFile("ap-applied"))
@@ -103,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestModifiedLocal()
         {
             using (var apLocalApplied = new TemporaryFlagFile("ap-local-applied"))
@@ -144,7 +138,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestAddedRemote()
         {
             using (var apApplied = new TemporaryFlagFile("ap-applied"))
@@ -169,7 +163,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestRemovedRemote()
         {
             using (var apApplied = new TemporaryFlagFile("ap-applied"))
@@ -194,7 +188,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestModifiedRemote()
         {
             using (var apLocalApplied = new TemporaryFlagFile("ap-local-applied"))
@@ -267,7 +261,7 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Composite
-        [Test]
+        [Fact]
         public void TestMixed()
         {
             using (var ap1Applied = new TemporaryFlagFile("ap1-applied"))
@@ -291,7 +285,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestResetClient()
         {
             using (var ap1Applied = new TemporaryFlagFile("ap1-applied"))
@@ -315,7 +309,7 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        [Test]
+        [Fact]
         public void TestResetServer()
         {
             using (var ap1Applied = new TemporaryFlagFile("ap1-applied"))

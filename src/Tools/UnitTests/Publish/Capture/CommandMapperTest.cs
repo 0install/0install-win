@@ -17,7 +17,7 @@
 
 using System.IO;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.Capture
@@ -25,13 +25,12 @@ namespace ZeroInstall.Publish.Capture
     /// <summary>
     /// Contains test methods for <see cref="CommandMapper"/>.
     /// </summary>
-    [TestFixture]
     public class CommandMapperTest
     {
         /// <summary>
         /// Ensures <see cref="CommandMapper.GetCommand"/> correctly finds the best possible <see cref="Command"/> matches for command-lines;
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetCommand()
         {
             var commandNoArgs = new Command {Name = "no-args", Path = "entry.exe"};

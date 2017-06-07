@@ -19,20 +19,19 @@ using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Contains test methods for <see cref="FlagUtils"/>.
     /// </summary>
-    [TestFixture]
     public class FlagUtilsTest
     {
         /// <summary>
         /// Ensures <see cref="FlagUtils.IsUnixFS"/> and <see cref="FlagUtils.MarkAsNoUnixFS"/> work correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestIsUnixFS()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -51,7 +50,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Ensures <see cref="FlagUtils.GetFiles"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetFiles()
         {
             using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
@@ -74,7 +73,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Ensures <see cref="FlagUtils.IsFlagged"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestIsFlagged()
         {
             using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
@@ -91,7 +90,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Ensures <see cref="FlagUtils.Set"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSet()
         {
             using (var flagFile = new TemporaryFile("0install-unit-tests"))
@@ -107,7 +106,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Ensures <see cref="FlagUtils.SetAuto"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSetAuto()
         {
             using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
@@ -121,7 +120,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Ensures <see cref="FlagUtils.Remove"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestRemove()
         {
             using (var flagFile = new TemporaryFile("0install-unit-tests"))
@@ -142,7 +141,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Ensures <see cref="FlagUtils.Rename"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestRename()
         {
             using (var flagFile = new TemporaryFile("0install-unit-tests"))

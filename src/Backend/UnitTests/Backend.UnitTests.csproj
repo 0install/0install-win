@@ -9,10 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>ZeroInstall.Backend.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\..\sgKey.snk</AssemblyOriginatorKeyFile>
+    <NoWarn>1702;219</NoWarn>
+    <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
@@ -22,12 +24,16 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Debug\Backend\</OutputPath>
+    <OutputPath>..\..\..\..\build\Debug\Backend\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <NoWarn>1702;219</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\build\Release\Backend\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
@@ -51,8 +57,23 @@
     <Reference Include="NanoByte.Common">
       <HintPath>..\..\packages\NanoByte.Common.2.0.5\lib\net40-client\NanoByte.Common.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    <Reference Include="Validation">
+      <HintPath>..\..\packages\Validation.2.4.15\lib\net45\Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert">
+      <HintPath>..\..\packages\xunit.assert.2.2.0\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>..\..\packages\xunit.extensibility.core.2.2.0\lib\netstandard1.1\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop">
+      <HintPath>..\..\packages\xunit.extensibility.execution.2.2.0\lib\net452\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Xunit.SkippableFact">
+      <HintPath>..\..\packages\Xunit.SkippableFact.1.3.1\lib\net452\Xunit.SkippableFact.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -104,7 +125,6 @@
     <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
     <Compile Include="Services\Solvers\SelectionCandidateProviderTest.cs" />
     <Compile Include="Services\Solvers\SolverTest.cs" />
-    <Compile Include="Services\Solvers\SolverTestCases.cs" />
     <Compile Include="Services\Solvers\TestCase.cs" />
     <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
     <Compile Include="Services\Solvers\TestCaseSet.cs" />
@@ -172,7 +192,6 @@
     <Compile Include="Store\Model\VersionRangeTest.cs" />
     <Compile Include="Store\Model\XmlUnknownTest.cs" />
     <Compile Include="Store\Trust\BouncyCastleTest.cs" />
-    <Compile Include="Store\Trust\GnuPGTest.cs" />
     <Compile Include="Store\Trust\OpenPgpTest.cs" />
     <Compile Include="Store\Trust\OpenPgpUtilsTest.cs" />
     <Compile Include="Store\Trust\TrustDBTest.cs" />

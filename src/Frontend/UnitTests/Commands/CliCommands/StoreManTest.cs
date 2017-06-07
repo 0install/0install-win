@@ -19,7 +19,7 @@ using System.Globalization;
 using System.IO;
 using Moq;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -40,10 +40,9 @@ namespace ZeroInstall.Commands.CliCommands
             protected Mock<IStore> StoreMock => GetMock<IStore>();
         }
 
-        [TestFixture]
-        internal class Add : StoreSubCommand<StoreMan.Add>
+            internal class Add : StoreSubCommand<StoreMan.Add>
         {
-            [Test]
+            [Fact]
             public void Archive()
             {
                 using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -60,7 +59,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void ArchiveRelativePath()
             {
                 using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
@@ -78,7 +77,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void ArchiveExtract()
             {
                 using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -95,7 +94,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void ArchiveExtractMime()
             {
                 using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -112,7 +111,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void MultipleArchives()
             {
                 using (var tempFile1 = new TemporaryFile("0install-unit-tests"))
@@ -134,7 +133,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void Directory()
             {
                 using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -148,7 +147,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void DirectoryRelativePath()
             {
                 using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
@@ -163,10 +162,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Audit : StoreSubCommand<StoreMan.Audit>
+            internal class Audit : StoreSubCommand<StoreMan.Audit>
         {
-            [Test]
+            [Fact]
             public void TestAudit()
             {
                 var storeMock = StoreMock;
@@ -177,10 +175,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Copy : StoreSubCommand<StoreMan.Copy>
+            internal class Copy : StoreSubCommand<StoreMan.Copy>
         {
-            [Test]
+            [Fact]
             public void Normal()
             {
                 using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -193,7 +190,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            [Test]
+            [Fact]
             public void RelativePath()
             {
                 using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
@@ -208,10 +205,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Find : StoreSubCommand<StoreMan.Find>
+            internal class Find : StoreSubCommand<StoreMan.Find>
         {
-            [Test]
+            [Fact]
             public void Test()
             {
                 var digest = new ManifestDigest(sha256New: "abc");
@@ -222,20 +218,18 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class List : StoreSubCommand<StoreMan.List>
+            internal class List : StoreSubCommand<StoreMan.List>
         {
-            [Test]
+            [Fact]
             public void Test()
             {
                 RunAndAssert(new[] {StoreMock.Object}, ExitCode.OK);
             }
         }
 
-        [TestFixture]
-        internal class ListImplementations : StoreSubCommand<StoreMan.ListImplementations>
+            internal class ListImplementations : StoreSubCommand<StoreMan.ListImplementations>
         {
-            [Test]
+            [Fact]
             public void ListAll()
             {
                 var testFeed = FeedTest.CreateTestFeed();
@@ -258,10 +252,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Optimise : StoreSubCommand<StoreMan.Optimise>
+            internal class Optimise : StoreSubCommand<StoreMan.Optimise>
         {
-            [Test]
+            [Fact]
             public void Test()
             {
                 StoreMock.Setup(x => x.Optimise(Handler)).Returns(123);
@@ -270,10 +263,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Purge : StoreSubCommand<StoreMan.Purge>
+            internal class Purge : StoreSubCommand<StoreMan.Purge>
         {
-            [Test]
+            [Fact]
             public void Test()
             {
                 var digest = new ManifestDigest(sha256New: "abc");
@@ -285,10 +277,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Remove : StoreSubCommand<StoreMan.Remove>
+            internal class Remove : StoreSubCommand<StoreMan.Remove>
         {
-            [Test]
+            [Fact]
             public void Test()
             {
                 var digest = new ManifestDigest(sha256New: "abc");
@@ -299,10 +290,9 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [TestFixture]
-        internal class Verify : StoreSubCommand<StoreMan.Verify>
+            internal class Verify : StoreSubCommand<StoreMan.Verify>
         {
-            [Test]
+            [Fact]
             public void Pass()
             {
                 var digest = new ManifestDigest(sha256New: "abc");
@@ -312,7 +302,7 @@ namespace ZeroInstall.Commands.CliCommands
                     "sha256new_" + digest.Sha256New);
             }
 
-            [Test]
+            [Fact]
             public void Fail()
             {
                 var digest = new ManifestDigest(sha256New: "abc");

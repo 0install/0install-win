@@ -22,21 +22,19 @@ using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Icons
 {
     /// <summary>
     /// Contains test methods for <see cref="DiskIconCache"/>.
     /// </summary>
-    [TestFixture]
-    public class DiskIconCacheTest
+    public class DiskIconCacheTest : IDisposable
     {
-        private TemporaryDirectory _tempDir;
-        private DiskIconCache _cache;
+        private readonly TemporaryDirectory _tempDir;
+        private readonly DiskIconCache _cache;
 
-        [SetUp]
-        public void SetUp()
+        public DiskIconCacheTest()
         {
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
@@ -48,13 +46,9 @@ namespace ZeroInstall.Store.Icons
             File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _tempDir.Dispose();
-        }
+        public void Dispose() => _tempDir.Dispose();
 
-        [Test]
+        [Fact]
         public void TestContains()
         {
             _cache.Contains(new Uri("http://0install.de/feeds/images/test1.png")).Should().BeTrue();
@@ -65,7 +59,7 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// Ensures <see cref="DiskIconCache.GetIcon"/> works correctly for icons that are already in the cache.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetIconCached()
         {
             const string icon1 = "http://0install.de/feeds/images/test1.png";
@@ -76,7 +70,7 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// Ensures <see cref="DiskIconCache.GetIcon"/> correctly downloads icons that are not already in the cache.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetIconDownload()
         {
             const string iconData = "test";
@@ -90,7 +84,7 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// Ensures <see cref="DiskIconCache.GetIcon"/> returns outdated files from the cache if downloads fail.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetIconDownloadFail()
         {
             const string iconData = "test";
@@ -109,7 +103,7 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// Ensures <see cref="DiskIconCache.Remove"/> correctly removes an icon from the cache.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestRemove()
         {
             _cache.Remove(new Uri("http://0install.de/feeds/images/test1.png"));

@@ -18,7 +18,7 @@
 using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
@@ -31,14 +31,13 @@ namespace ZeroInstall.Services
     /// <summary>
     /// Contains test methods for <see cref="SelectionsManager"/>.
     /// </summary>
-    [TestFixture]
     public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
         private Mock<IFeedManager> FeedManagereMock => GetMock<IFeedManager>();
         private Mock<IPackageManager> PackageManagerMock => GetMock<IPackageManager>();
         private Mock<IStore> StoreMock => GetMock<IStore>();
 
-        [Test]
+        [Fact]
         public void TestGetUncachedSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -51,7 +50,7 @@ namespace ZeroInstall.Services
             implementationSelections.Should().BeEquivalentTo(new[] {selections.Implementations[0]}, because: "Only the first implementation should be listed as uncached");
         }
 
-        [Test]
+        [Fact]
         public void TestGetUncachedSelectionsPackageManager()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -82,7 +81,7 @@ namespace ZeroInstall.Services
             }
         }
 
-        [Test]
+        [Fact]
         public void TestGetImplementations()
         {
             var impl1 = new Implementation {ID = "test123"};

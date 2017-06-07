@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
 
@@ -27,7 +27,6 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Contains test methods for <see cref="AppList"/>.
     /// </summary>
-    [TestFixture]
     public sealed class AppListTest
     {
         #region Helpers
@@ -87,13 +86,13 @@ namespace ZeroInstall.DesktopIntegration
         };
         #endregion
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized without AccessPoints.")]
+        [Fact] // Ensures that the class is correctly serialized and deserialized without AccessPoints.
         public void TestSaveLoadWithoutAPs()
         {
             TestSaveLoad(CreateTestAppListWithoutAPs());
         }
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized with AccessPoints.")]
+        [Fact] // Ensures that the class is correctly serialized and deserialized with AccessPoints.
         public void TestSaveLoadWithAPs()
         {
             TestSaveLoad(CreateTestAppListWithAPs());
@@ -101,8 +100,6 @@ namespace ZeroInstall.DesktopIntegration
 
         private static void TestSaveLoad(AppList appList)
         {
-            Assert.That(appList, Is.XmlSerializable);
-
             AppList appList2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
@@ -117,7 +114,7 @@ namespace ZeroInstall.DesktopIntegration
             appList2.Should().NotBeSameAs(appList, because: "Serialized objects should not return the same reference.");
         }
 
-        [Test]
+        [Fact]
         public void TestContainsEntry()
         {
             var appList = CreateTestAppListWithAPs();
@@ -125,7 +122,7 @@ namespace ZeroInstall.DesktopIntegration
             appList.ContainsEntry(FeedTest.Test2Uri).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestGetEntry()
         {
             var appList = CreateTestAppListWithAPs();
@@ -134,11 +131,10 @@ namespace ZeroInstall.DesktopIntegration
             appList[FeedTest.Test1Uri].Should().Be(appList.Entries[0]);
 
             appList.GetEntry(FeedTest.Test2Uri).Should().BeNull();
-            // ReSharper disable once UnusedVariable
-            appList.Invoking(x => { var _ = x[FeedTest.Test2Uri]; }).ShouldThrow<KeyNotFoundException>();
+            Assert.Throws<KeyNotFoundException>(() => appList[FeedTest.Test2Uri]);
         }
 
-        [Test]
+        [Fact]
         public void TestSearch()
         {
             var appA = new AppEntry {InterfaceUri = FeedTest.Test1Uri, Name = "AppA"};
@@ -152,13 +148,13 @@ namespace ZeroInstall.DesktopIntegration
             appList.Search("AppB").Should().Equal(appB);
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]
+        [Fact] // Ensures that the class can be correctly cloned without AccessPoints.
         public void TestCloneWithoutAPs()
         {
             TestClone(CreateTestAppListWithoutAPs());
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned with AccessPoints.")]
+        [Fact] // Ensures that the class can be correctly cloned with AccessPoints.
         public void TestCloneWithAPs()
         {
             TestClone(CreateTestAppListWithAPs());

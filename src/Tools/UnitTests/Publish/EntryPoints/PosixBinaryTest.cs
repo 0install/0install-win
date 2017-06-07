@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -24,32 +24,31 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Contains test methods for <see cref="PosixBinary"/>.
     /// </summary>
-    [TestFixture]
     public class PosixBinaryTest : CandidateTest
     {
         public static readonly PosixBinary Reference32 = new PosixBinary {RelativePath = "elf32", Name = "elf32", Architecture = new Architecture(OS.Linux, Cpu.I386)};
         public static readonly PosixBinary Reference64 = new PosixBinary {RelativePath = "elf64", Name = "elf64", Architecture = new Architecture(OS.Linux, Cpu.X64)};
 
-        [Test]
+        [Fact]
         public void Elf32()
         {
             TestAnalyze(Reference32, executable: true);
         }
 
-        [Test]
+        [Fact]
         public void Elf64()
         {
             TestAnalyze(Reference64, executable: true);
         }
 
-        [Test]
+        [Fact]
         public void NotExecutable()
         {
             new PosixBinary().Analyze(baseDirectory: Directory, file: Deploy(Reference32, xbit: false))
                 .Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void NotElf()
         {
             new PosixBinary().Analyze(baseDirectory: Directory, file: Deploy(PosixScriptTest.Reference, xbit: true))

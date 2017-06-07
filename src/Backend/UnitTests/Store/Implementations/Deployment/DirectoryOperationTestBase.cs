@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
 using ZeroInstall.Store.Implementations.Manifests;
 
 namespace ZeroInstall.Store.Implementations.Deployment
@@ -25,19 +25,18 @@ namespace ZeroInstall.Store.Implementations.Deployment
     /// <summary>
     /// Common base class for testing classes <see cref="DirectoryOperation"/> derived from.
     /// </summary>
-    public abstract class DirectoryOperationTestBase
+    public abstract class DirectoryOperationTestBase : IDisposable
     {
-        protected TemporaryDirectory TempDir;
-        protected string File1Path;
-        protected string SubdirPath;
-        protected string File2Path;
-        protected Manifest Manifest;
+        protected readonly TemporaryDirectory TempDir = new TemporaryDirectory("0install-unit-tests");
+        public virtual void Dispose() => TempDir.Dispose();
 
-        [SetUp]
-        public virtual void SetUp()
+        protected readonly string File1Path;
+        protected readonly string SubdirPath;
+        protected readonly string File2Path;
+        protected readonly Manifest Manifest;
+
+        protected DirectoryOperationTestBase()
         {
-            TempDir = new TemporaryDirectory("0install-unit-tests");
-
             File1Path = Path.Combine(TempDir, "file1");
             FileUtils.Touch(File1Path);
 
@@ -50,12 +49,6 @@ namespace ZeroInstall.Store.Implementations.Deployment
             var generator = new ManifestGenerator(TempDir, ManifestFormat.Sha256New);
             generator.Run();
             Manifest = generator.Manifest;
-        }
-
-        [TearDown]
-        public virtual void TearDown()
-        {
-            TempDir.Dispose();
         }
     }
 }

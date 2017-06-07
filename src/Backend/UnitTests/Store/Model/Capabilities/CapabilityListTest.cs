@@ -18,14 +18,13 @@
 using System;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
     /// <summary>
     /// Contains test methods for <see cref="CapabilityList"/>.
     /// </summary>
-    [TestFixture]
     public sealed class CapabilityListTest
     {
         #region Helpers
@@ -54,11 +53,10 @@ namespace ZeroInstall.Store.Model.Capabilities
         }
         #endregion
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
+        [Fact] // Ensures that the class is correctly serialized and deserialized.
         public void TestSaveLoad()
         {
             CapabilityList capabilityList1 = CreateTestCapabilityList(), capabilityList2;
-            Assert.That(capabilityList1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -72,7 +70,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             capabilityList2.Should().NotBeSameAs(capabilityList1, because: "Serialized objects should not return the same reference.");
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
+        [Fact] // Ensures that the class can be correctly cloned.
         public void TestClone()
         {
             var capabilityList1 = CreateTestCapabilityList();

@@ -19,7 +19,7 @@ using System.IO;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Values;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -27,12 +27,11 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Contains test methods for <see cref="ZipGenerator"/>.
     /// </summary>
-    [TestFixture]
     public class ZipGeneratorTest : ArchiveGeneratorTest<ZipGenerator>
     {
         protected override ZipGenerator CreateGenerator(string sourceDirectory, Stream stream) => new ZipGenerator(sourceDirectory, stream);
 
-        [Test]
+        [Fact]
         public void TestFileOrder()
         {
             var stream = BuildArchive(new TestRoot {new TestFile("x"), new TestFile("y"), new TestFile("Z")});
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        [Test]
+        [Fact]
         public void TestFileTypes()
         {
             var stream = BuildArchive(new TestRoot

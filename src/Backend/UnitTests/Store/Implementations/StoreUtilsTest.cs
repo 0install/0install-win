@@ -17,17 +17,16 @@
 
 using FluentAssertions;
 using NanoByte.Common.Native;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
     /// Contains test methods for <see cref="StoreUtils"/>.
     /// </summary>
-    [TestFixture]
     public class StoreUtilsTest
     {
-        [Test]
+        [Fact]
         public void TestDetectImplementationPath()
         {
             StoreUtils.DetectImplementationPath(WindowsUtils.IsWindows ? @"C:\some\dir" : "/some/dir")

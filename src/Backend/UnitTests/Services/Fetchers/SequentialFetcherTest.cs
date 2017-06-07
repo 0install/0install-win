@@ -17,7 +17,7 @@
 
 using System;
 using NanoByte.Common.Net;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Fetchers
@@ -25,10 +25,9 @@ namespace ZeroInstall.Services.Fetchers
     /// <summary>
     /// Runs test methods for <see cref="SequentialFetcher"/>
     /// </summary>
-    [TestFixture]
     public class SequentialFetcherTest : FetcherTest<SequentialFetcher>
     {
-        [Test]
+        [Fact]
         public void DownloadSingleArchiveMirror()
         {
             StoreMock.Setup(x => x.Flush());

@@ -18,7 +18,7 @@
 using System.Globalization;
 using System.Linq;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
@@ -27,20 +27,19 @@ namespace ZeroInstall.Services.Solvers
     /// <summary>
     /// Contains test methods for <see cref="SolverUtils"/>.
     /// </summary>
-    [TestFixture]
     public class SolverUtilsTest
     {
-        [Test]
+        [Fact]
         public void GetEffectiveFillsInDefaultValues()
         {
             new Requirements("http://test/feed.xml").GetEffective().First()
                 .Should().Be(new Requirements(new FeedUri("http://test/feed.xml"), Command.NameRun, Architecture.CurrentSystem) {Languages = {CultureInfo.CurrentUICulture}});
         }
 
-        [Test]
+        [Fact]
         public void GetEffectiveHandlesX86OnX64()
         {
-            if (Architecture.CurrentSystem.Cpu != Cpu.X64) Assert.Ignore("Can only test on X64 systems");
+            Skip.IfNot(Architecture.CurrentSystem.Cpu == Cpu.X64, "Can only test on X64 systems");
 
             var requirements = new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}};
             requirements.GetEffective().Should().Equal(

@@ -16,20 +16,19 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="FeedReference"/>.
     /// </summary>
-    [TestFixture]
     public class FeedReferenceTest
     {
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestClone()
         {
             var reference1 = new FeedReference
@@ -48,7 +47,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that equal and unequal instances can be correctly differentiated.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestEquals()
         {
             var reference1 = new FeedReference

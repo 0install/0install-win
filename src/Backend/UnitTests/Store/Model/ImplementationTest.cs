@@ -20,14 +20,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using NanoByte.Common.Native;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Implementation"/>.
     /// </summary>
-    [TestFixture]
     public class ImplementationTest
     {
         /// <summary>
@@ -46,7 +45,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Element.ContainsCommand"/> correctly checks for commands.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestContainsCommand()
         {
             var implementation = CreateTestImplementation();
@@ -57,7 +56,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Element.GetCommand"/> and <see cref="Element.this"/> correctly retrieve commands.
         /// </summary>
-        [Test]
+        [Fact]
         [SuppressMessage("ReSharper", "UnusedVariable")]
         public void TestGetCommand()
         {
@@ -66,17 +65,17 @@ namespace ZeroInstall.Store.Model
             implementation.GetCommand(Command.NameRun).Should().Be(implementation.Commands[0]);
             implementation[Command.NameRun].Should().Be(implementation.Commands[0]);
 
-            implementation.Invoking(x => x.GetCommand("")).ShouldThrow<ArgumentNullException>();
+            Assert.Throws<ArgumentNullException>(() => implementation.GetCommand(""));
             implementation[""].Should().BeNull();
 
             implementation.GetCommand("invalid").Should().BeNull();
-            implementation.Invoking(x => { var _ = x["invalid"]; }).ShouldThrow<KeyNotFoundException>();
+            Assert.Throws<KeyNotFoundException>(() => implementation["invalid"]);
         }
 
         /// <summary>
         /// Ensures that <see cref="Implementation.Normalize"/> correctly identifies manifest digests in the ID tag.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestNormalizeID()
         {
             var implementation = new Implementation {ID = "sha256=123"};
@@ -94,7 +93,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Implementation.Normalize"/> correctly converts <see cref="Element.Main"/> and <see cref="Element.SelfTest"/> to <see cref="Command"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void TestNormalizeCommand()
         {
@@ -107,7 +106,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Implementation.Normalize"/> correctly makes <see cref="ImplementationBase.LocalPath"/> absolute.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestNormalizeLocalPath()
         {
             var localUri = new FeedUri(WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
@@ -129,7 +128,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Implementation.Normalize"/> rejects local paths in non-local feeds.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestNormalizeRejectLocalPath()
         {
             var implmementation = new Implementation {LocalPath = "subdir"};
@@ -140,7 +139,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Implementation.Normalize"/> rejects relative <see cref="DownloadRetrievalMethod.Href"/>s in non-local feeds.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestNormalizeRejectRelativeHref()
         {
             var relative = new Archive {Href = new Uri("relative", UriKind.Relative)};
@@ -154,7 +153,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestClone()
         {
             var implementation1 = CreateTestImplementation();

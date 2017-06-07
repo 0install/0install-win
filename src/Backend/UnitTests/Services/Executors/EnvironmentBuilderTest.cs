@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Diagnostics;
 using System.IO;
 using FluentAssertions;
@@ -23,7 +24,7 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -34,27 +35,16 @@ namespace ZeroInstall.Services.Executors
     /// <summary>
     /// Contains test methods for <see cref="EnvironmentBuilder"/>.
     /// </summary>
-    [TestFixture]
-    public class EnvironmentBuilderTest
+    [Collection("LocationsRedirect")]
+    public class EnvironmentBuilderTest : IDisposable
     {
         private const string Test1Path = "test1 path", Test2Path = "test2 path";
 
-        private LocationsRedirect _redirect;
+        // Don't store generated executables settings in real user profile
+        private readonly LocationsRedirect _redirect = new LocationsRedirect("0install-unit-tests");
+        public void Dispose() => _redirect.Dispose();
 
-        [SetUp]
-        public void SetUp()
-        {
-            // Don't store generated executables settings in real user profile
-            _redirect = new LocationsRedirect("0install-unit-tests");
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _redirect.Dispose();
-        }
-
-        [Test]
+        [Fact]
         public void TestExceptions()
         {
             var executor = new EnvironmentBuilder(new Mock<IStore>(MockBehavior.Loose).Object);
@@ -64,7 +54,7 @@ namespace ZeroInstall.Services.Executors
                 .ShouldThrow<ExecutorException>(because: "Selections with no start command should be rejected");
         }
 
-        [Test]
+        [Fact]
         public void TestExceptionMultipleInvalidBindings()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -84,7 +74,7 @@ namespace ZeroInstall.Services.Executors
             ExpectCommandException(selections);
         }
 
-        [Test]
+        [Fact]
         public void TestExceptionMultipleWorkingDirs()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -147,7 +137,7 @@ namespace ZeroInstall.Services.Executors
         /// <summary>
         /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/>.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestBaseline()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -175,12 +165,12 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Wrapper"/>.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/>.
         /// </summary>
-        [Test]
+        [SkippableFact]
         public void TestWrapper()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
+            Skip.IfNot(WindowsUtils.IsWindows, "Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
@@ -210,7 +200,7 @@ namespace ZeroInstall.Services.Executors
         /// <summary>
         /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with relative paths.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestMainRelative()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -239,7 +229,7 @@ namespace ZeroInstall.Services.Executors
         /// <summary>
         /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with absolute paths.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestMainAbsolute()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -268,7 +258,7 @@ namespace ZeroInstall.Services.Executors
         /// <summary>
         /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles <see cref="Selections"/> with <see cref="Command.Path"/>s that are empty.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestPathlessCommand()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -296,7 +286,7 @@ namespace ZeroInstall.Services.Executors
         /// <summary>
         /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles <see cref="Selections"/> with <see cref="ForEachArgs"/>.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestForEachArgs()
         {
             var selections = SelectionsTest.CreateTestSelections();

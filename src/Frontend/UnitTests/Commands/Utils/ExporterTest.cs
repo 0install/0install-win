@@ -20,7 +20,7 @@ using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -29,31 +29,26 @@ using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands.Utils
 {
-    [TestFixture]
     public class ExporterTest : TestWithMocks
     {
-        private TemporaryDirectory _destination;
-        private Exporter _target;
+        private readonly TemporaryDirectory _destination;
+        private readonly Exporter _target;
 
-        [SetUp]
-        public override void SetUp()
+        public ExporterTest()
         {
-            base.SetUp();
 
             _destination = new TemporaryDirectory("0install-unit-test");
             var selections = SelectionsTest.CreateTestSelections();
             _target = new Exporter(selections, new Architecture(), _destination);
         }
 
-        [TearDown]
-        public override void TearDown()
+        public override void Dispose()
         {
-            base.TearDown();
-
+            base.Dispose();
             _destination.Dispose();
         }
 
-        [Test]
+        [Fact]
         public void TestExportFeeds()
         {
             using (var feedFile1 = new TemporaryFile("0install-unit-tests"))
@@ -74,21 +69,15 @@ namespace ZeroInstall.Commands.Utils
                 _target.ExportFeeds(feedCacheMock.Object, openPgpMock.Object);
 
                 string contentDir = Path.Combine(_destination, "content");
-                FileAssert.AreEqual(
-                    expected: new FileInfo(feedFile1),
-                    actual: new FileInfo(Path.Combine(contentDir, FeedTest.Sub1Uri.PrettyEscape())),
-                    message: "Feed should be exported.");
-                FileAssert.AreEqual(
-                    expected: new FileInfo(feedFile2),
-                    actual: new FileInfo(Path.Combine(contentDir, FeedTest.Sub2Uri.PrettyEscape())),
-                    message: "Feed should be exported.");
+                File.Exists(Path.Combine(contentDir, FeedTest.Sub1Uri.PrettyEscape())).Should().BeTrue();
+                File.Exists(Path.Combine(contentDir, FeedTest.Sub2Uri.PrettyEscape())).Should().BeTrue();
 
                 File.ReadAllText(Path.Combine(contentDir, "000000000000007B.gpg")).Should()
                     .Be("abc", because: "GPG keys should be exported.");
             }
         }
 
-        [Test]
+        [Fact]
         public void TestExportImplementations()
         {
             using (var implDir1 = new TemporaryDirectory("0install-unit-tests"))

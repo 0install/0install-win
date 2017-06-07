@@ -22,7 +22,7 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
@@ -31,18 +31,14 @@ namespace ZeroInstall.Store.Model.Preferences
     /// <summary>
     /// Contains test methods for <see cref="DiskFeedCache"/>.
     /// </summary>
-    [TestFixture]
     public class DiskFeedCacheTest : TestWithMocks
     {
-        private TemporaryDirectory _tempDir;
-        private DiskFeedCache _cache;
-        private Feed _feed1;
+        private readonly TemporaryDirectory _tempDir;
+        private readonly DiskFeedCache _cache;
+        private readonly Feed _feed1;
 
-        [SetUp]
-        public override void SetUp()
+        public DiskFeedCacheTest()
         {
-            base.SetUp();
-
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _cache = new DiskFeedCache(_tempDir, new Mock<IOpenPgp>().Object);
@@ -58,15 +54,13 @@ namespace ZeroInstall.Store.Model.Preferences
             File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
 
-        [TearDown]
-        public override void TearDown()
+        public override void Dispose()
         {
+            base.Dispose();
             _tempDir.Dispose();
-
-            base.TearDown();
         }
 
-        [Test]
+        [Fact]
         public void TestContains()
         {
             _cache.Contains(FeedTest.Test1Uri).Should().BeTrue();
@@ -87,42 +81,42 @@ namespace ZeroInstall.Store.Model.Preferences
             }
         }
 
-        [Test]
+        [Fact]
         public void TestContainsCaseSensitive()
         {
             _cache.Contains(new FeedUri("http://0install.de/feeds/test/test1.xml")).Should().BeTrue();
             _cache.Contains(new FeedUri("http://0install.de/feeds/test/Test1.xml")).Should().BeFalse(because: "Should not be case-sensitive");
         }
 
-        [Test]
+        [Fact]
         public void TestListAll()
         {
             _cache.ListAll()
                 .Should().Equal(FeedTest.Test1Uri, FeedTest.Test2Uri);
         }
 
-        [Test]
+        [Fact]
         public void TestGetFeed()
         {
             _cache.GetFeed(_feed1.Uri)
                 .Should().Be(_feed1);
         }
 
-        [Test]
+        [Fact]
         public void TestGetFeedCaseSensitive()
         {
             _cache.Invoking(x => x.GetFeed(new FeedUri("http://0install.de/feeds/test/test1.xml"))).ShouldNotThrow<KeyNotFoundException>();
-            _cache.Invoking(x => x.GetFeed(new FeedUri("http://0install.de/feeds/test/Test1.xml"))).ShouldThrow<KeyNotFoundException>(because: "Should be case-sensitive");
+            Assert.Throws<KeyNotFoundException>(() => _cache.GetFeed(new FeedUri("http://0install.de/feeds/test/Test1.xml")));
         }
 
-        [Test]
+        [Fact]
         public void TestGetSignatures()
         {
             _cache.GetSignatures(FeedTest.Test1Uri)
                 .Should().BeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void TestAdd()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -134,7 +128,7 @@ namespace ZeroInstall.Store.Model.Preferences
                 .Should().Be(feed);
         }
 
-        [Test]
+        [Fact]
         public void TestRemove()
         {
             _cache.Contains(FeedTest.Test1Uri).Should().BeTrue();
@@ -146,10 +140,10 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Ensures <see cref="DiskFeedCache"/> can handle feed URIs longer than the OSes maximum supported file path length.
         /// </summary>
-        [Test, Ignore("Slow")]
+        [SkippableFact(Skip = "Slow")]
         public void TestTooLongFilename()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("Windows systems have a specific upper limit to file path lengths");
+            Skip.IfNot(WindowsUtils.IsWindows, "Windows systems have a specific upper limit to file path lengths");
 
             var longHttpUrlBuilder = new StringBuilder(255);
             for (int i = 0; i < 255; i++)

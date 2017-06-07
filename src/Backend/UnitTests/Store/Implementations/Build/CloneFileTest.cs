@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Build
@@ -26,10 +26,9 @@ namespace ZeroInstall.Store.Implementations.Build
     /// <summary>
     /// Contains test methods for <see cref="CloneFile"/>.
     /// </summary>
-    [TestFixture]
     public class CloneFileTest : CloneTestBase
     {
-        [Test]
+        [Fact]
         public void CopyFile()
         {
             new TestRoot
@@ -43,7 +42,7 @@ namespace ZeroInstall.Store.Implementations.Build
             new TestRoot {new TestFile("fileB")}.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void CopyFileSuffix()
         {
             new TestRoot {new TestFile("fileA")}.Build(SourceDirectory);
@@ -53,7 +52,7 @@ namespace ZeroInstall.Store.Implementations.Build
             new TestRoot {new TestDirectory("suffix") {new TestFile("fileB")}}.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void HardlinkFile()
         {
             new TestRoot {new TestFile("fileA")}.Build(SourceDirectory);
@@ -72,7 +71,7 @@ namespace ZeroInstall.Store.Implementations.Build
             FileUtils.AreHardlinked(Path.Combine(SourceDirectory, "fileA"), Path.Combine(TargetDirectory, "fileB"));
         }
 
-        [Test]
+        [Fact]
         public void CopySymlink()
         {
             new TestRoot {new TestSymlink("fileA", "target")}.Build(SourceDirectory);
@@ -82,7 +81,7 @@ namespace ZeroInstall.Store.Implementations.Build
             new TestRoot {new TestSymlink("fileB", "target")}.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteFile()
         {
             new TestRoot {new TestFile("fileA")}.Build(SourceDirectory);
@@ -93,7 +92,7 @@ namespace ZeroInstall.Store.Implementations.Build
             new TestRoot {new TestFile("fileB")}.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteSymlink()
         {
             new TestRoot {new TestFile("fileA")}.Build(SourceDirectory);
@@ -104,7 +103,7 @@ namespace ZeroInstall.Store.Implementations.Build
             new TestRoot {new TestFile("fileB")}.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteWithSymlink()
         {
             new TestRoot {new TestSymlink("fileA", "target")}.Build(SourceDirectory);

@@ -16,7 +16,7 @@
  */
 
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -26,10 +26,9 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Contains integration tests for <see cref="Download"/>.
     /// </summary>
-    [TestFixture]
     public class DownloadTest : SelectionTestBase<Download>
     {
-        [Test(Description = "Ensures all options are parsed and handled correctly.")]
+        [Fact] // Ensures all options are parsed and handled correctly.
         public void TestNormal()
         {
             var selections = ExpectSolve();
@@ -42,7 +41,7 @@ namespace ZeroInstall.Commands.CliCommands
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 
-        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        [Fact] // Ensures local Selections XMLs are correctly detected and parsed.
         public void TestImportSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();

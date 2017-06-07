@@ -1,25 +1,17 @@
+using System;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations.Build
 {
     /// <summary>
     /// Common base class for tests that compare two directories.
     /// </summary>
-    public abstract class CloneTestBase
+    public abstract class CloneTestBase : IDisposable
     {
-        protected TemporaryDirectory SourceDirectory { get; private set; }
-        protected TemporaryDirectory TargetDirectory { get; private set; }
+        protected readonly TemporaryDirectory SourceDirectory = new TemporaryDirectory("0install-unit-tests");
+        protected readonly TemporaryDirectory TargetDirectory = new TemporaryDirectory("0install-unit-tests");
 
-        [SetUp]
-        public void SetUp()
-        {
-            SourceDirectory = new TemporaryDirectory("0install-unit-tests");
-            TargetDirectory = new TemporaryDirectory("0install-unit-tests");
-        }
-
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             SourceDirectory.Dispose();
             TargetDirectory.Dispose();

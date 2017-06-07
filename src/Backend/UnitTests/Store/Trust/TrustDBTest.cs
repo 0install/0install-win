@@ -17,14 +17,13 @@
 
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Contains test methods for <see cref="TrustDB"/>.
     /// </summary>
-    [TestFixture]
     public class TrustDBTest
     {
         /// <summary>
@@ -46,7 +45,7 @@ namespace ZeroInstall.Store.Trust
             }
         };
 
-        [Test(Description = "Ensures that methods for adding and removing trusted keys work correctly.")]
+        [Fact] // Ensures that methods for adding and removing trusted keys work correctly.
         public void TestAddRemoveTrust()
         {
             var trust = new TrustDB();
@@ -60,11 +59,10 @@ namespace ZeroInstall.Store.Trust
             trust.IsTrusted("abc", new Domain("domain")).Should().BeFalse();
         }
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
+        [Fact] // Ensures that the class is correctly serialized and deserialized.
         public void TestSaveLoad()
         {
             TrustDB trust1 = CreateTestTrust(), trust2;
-            Assert.That(trust1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -78,7 +76,7 @@ namespace ZeroInstall.Store.Trust
             ReferenceEquals(trust1, trust2).Should().BeFalse(because: "Serialized objects should not return the same reference.");
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
+        [Fact] // Ensures that the class can be correctly cloned.
         public void TestClone()
         {
             var trust1 = CreateTestTrust();

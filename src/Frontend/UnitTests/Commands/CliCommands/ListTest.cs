@@ -16,7 +16,7 @@
  */
 
 using Moq;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 
@@ -25,19 +25,18 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Contains integration tests for <see cref="List"/>.
     /// </summary>
-    [TestFixture]
     public class ListTest : CliCommandTest<List>
     {
         private Mock<IFeedCache> FeedCacheMock => GetMock<IFeedCache>();
 
-        [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]
+        [Fact] // Ensures calling with no arguments returns all feeds in the cache.
         public void TestNoArgs()
         {
             FeedCacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri});
             RunAndAssert(new[] {FeedTest.Test1Uri.ToStringRfc(), FeedTest.Test2Uri.ToStringRfc()}, ExitCode.OK);
         }
 
-        [Test(Description = "Ensures calling with a single argument returns a filtered list of feeds in the cache.")]
+        [Fact] // Ensures calling with a single argument returns a filtered list of feeds in the cache.
         public void TestPattern()
         {
             FeedCacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri});

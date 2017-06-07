@@ -16,20 +16,19 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="ManifestDigest"/>.
     /// </summary>
-    [TestFixture]
     public class ManifestDigestTest
     {
         /// <summary>
         /// Ensures <see cref="ManifestDigest.ParseID"/> correctly extracts additional digests from ID strings.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestParseID()
         {
             new ManifestDigest("sha1=test").Sha1.Should().Be("test");
@@ -46,7 +45,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures <see cref="ManifestDigest.PartialEquals"/> correctly compares digests.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestPartialEqual()
         {
             var digest1 = new ManifestDigest(sha1: "test1");

@@ -20,7 +20,7 @@ using System.IO;
 using System.Text;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -29,13 +29,12 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Contains test methods for <see cref="FeedCacheExtentsions"/>.
     /// </summary>
-    [TestFixture]
     public class FeedCacheExtentsionsTest : TestWithMocks
     {
         /// <summary>
         /// Ensures <see cref="FeedCacheExtentsions.GetAll"/> correctly loads <see cref="Feed"/>s from an <see cref="IFeedCache"/>, skipping any exceptions.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetFeeds()
         {
             var feed1 = FeedTest.CreateTestFeed();
@@ -59,7 +58,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Ensures that <see cref="FeedUtils.GetSignatures"/> correctly separates an XML signature block from a signed feed.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSignatures()
         {
             var openPgpMock = CreateMock<IOpenPgp>();
@@ -73,7 +72,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Ensures that <see cref="FeedUtils.GetSignatures"/> throws a <see cref="SignatureException"/> if the signature block does not start in a new line.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSignaturesMissingNewLine()
         {
             string input = "Feed without newline" + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd;
@@ -83,7 +82,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Ensures that <see cref="FeedUtils.GetSignatures" /> throws a <see cref="SignatureException"/> if the signature contains non-base 64 characters.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSignaturesInvalidChars()
         {
             const string input = FeedText + FeedUtils.SignatureBlockStart + "*!?#" + FeedUtils.SignatureBlockEnd;
@@ -93,7 +92,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Ensures that <see cref="FeedUtils.GetSignatures" /> throws a <see cref="SignatureException"/> if the correct signature end is missing.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSignaturesMissingEnd()
         {
             string input = FeedText + FeedUtils.SignatureBlockStart + _signatureBase64;
@@ -103,7 +102,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Ensures that <see cref="FeedUtils.GetSignatures" /> throws a <see cref="SignatureException"/> if there is additional data after the signature block.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSignaturesDataAfterSignature()
         {
             string input = FeedText + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd + "more data";

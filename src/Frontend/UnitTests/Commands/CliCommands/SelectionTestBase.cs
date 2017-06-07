@@ -17,9 +17,8 @@
 
 using FluentAssertions;
 using JetBrains.Annotations;
-using NanoByte.Common.Tasks;
 using NDesk.Options;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Solvers;
@@ -36,12 +35,9 @@ namespace ZeroInstall.Commands.CliCommands
     public abstract class SelectionTestBase<TCommand> : CliCommandTest<TCommand>
         where TCommand : Selection
     {
-        [Test(Description = "Ensures calling with too many arguments raises an exception.")]
-        public virtual void TestTooManyArgs()
-        {
-            Sut.Invoking(x => x.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}))
-                .ShouldThrow<OptionException>(because: "Should reject more than one argument");
-        }
+        [Fact]
+        public virtual void ShouldRejectTooManyArgs()
+            => Assert.Throws<OptionException>(() => Sut.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}));
 
         /// <summary>
         /// Configures the <see cref="ISolver"/> mock to expect a call with <see cref="RequirementsTest.CreateTestRequirements"/>.

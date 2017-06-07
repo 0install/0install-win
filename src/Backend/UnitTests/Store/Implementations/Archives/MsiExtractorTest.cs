@@ -21,18 +21,17 @@ using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
-    [TestFixture]
     public class MsiExtractorTest
     {
-        [Test]
+        [SkippableFact]
         public void TestExtract()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("MSI extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
+            Skip.IfNot(WindowsUtils.IsWindows, "MSI extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             using (var tempFile = Deploy(typeof(MsiExtractorTest).GetEmbeddedStream("testArchive.msi")))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
@@ -55,10 +54,10 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         private static readonly byte[] _garbageData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
-        [Test]
+        [SkippableFact]
         public void TestExtractInvalidData()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("MSI extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
+            Skip.IfNot(WindowsUtils.IsWindows, "MSI extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
             using (var tempFile = Deploy(new MemoryStream(_garbageData)))

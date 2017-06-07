@@ -22,7 +22,7 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Net;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
@@ -32,7 +32,6 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// Contains test methods for <see cref="TrustManager"/>.
     /// </summary>
-    [TestFixture]
     public class TrustManagerTest : TestWithContainer<TrustManager>
     {
         #region Constants
@@ -50,15 +49,13 @@ namespace ZeroInstall.Services.Feeds
         private Mock<IOpenPgp> OpenPgpMock => GetMock<IOpenPgp>();
         private Mock<IFeedCache> FeedCacheMock => GetMock<IFeedCache>();
 
-        protected override void Register(AutoMockContainer container)
+        public TrustManagerTest()
         {
-            base.Register(container);
-
             Config.KeyInfoServer = null;
             Config.AutoApproveKeys = false;
         }
 
-        [Test]
+        [Fact]
         public void PreviouslyTrusted()
         {
             RegisterKey();
@@ -68,17 +65,16 @@ namespace ZeroInstall.Services.Feeds
                 .Should().Be(OpenPgpUtilsTest.TestSignature);
         }
 
-        [Test]
+        [Fact]
         public void BadSignature()
         {
             OpenPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123)});
 
-            Sut.Invoking(x => x.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")))
-                .ShouldThrow<SignatureException>();
+            Assert.Throws<SignatureException>(() => Sut.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             IsKeyTrusted().Should().BeFalse(because: "Key should not be trusted");
         }
 
-        [Test]
+        [Fact]
         public void MultipleSignatures()
         {
             OpenPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(keyID: 123), OpenPgpUtilsTest.TestSignature});
@@ -88,18 +84,17 @@ namespace ZeroInstall.Services.Feeds
                 .Should().Be(OpenPgpUtilsTest.TestSignature);
         }
 
-        [Test]
+        [Fact]
         public void ExistingKeyAndReject()
         {
             RegisterKey();
             Handler.AnswerQuestionWith = false;
 
-            Sut.Invoking(x => x.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")))
-                .ShouldThrow<SignatureException>();
+            Assert.Throws<SignatureException>(() => Sut.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             IsKeyTrusted().Should().BeFalse(because: "Key should not be trusted");
         }
 
-        [Test]
+        [Fact]
         public void ExistingKeyAndApprove()
         {
             RegisterKey();
@@ -110,7 +105,7 @@ namespace ZeroInstall.Services.Feeds
             IsKeyTrusted().Should().BeTrue(because: "Key should be trusted");
         }
 
-        [Test]
+        [Fact]
         public void ExistingKeyAndNoAutoTrust()
         {
             RegisterKey();
@@ -120,13 +115,12 @@ namespace ZeroInstall.Services.Feeds
             using (var keyInfoServer = new MicroServer("key/" + OpenPgpUtilsTest.TestSignature.FormatFingerprint(), KeyInfoResponse.ToStream()))
             {
                 UseKeyInfoServer(keyInfoServer);
-                Sut.Invoking(x => x.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")))
-                    .ShouldThrow<SignatureException>();
+                Assert.Throws<SignatureException>(() => Sut.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             }
             IsKeyTrusted().Should().BeFalse(because: "Key should not be trusted");
         }
 
-        [Test]
+        [Fact]
         public void ExistingKeyAndAutoTrust()
         {
             RegisterKey();
@@ -141,7 +135,7 @@ namespace ZeroInstall.Services.Feeds
             IsKeyTrusted().Should().BeTrue(because: "Key should be trusted");
         }
 
-        [Test]
+        [Fact]
         public void DownloadKeyAndReject()
         {
             ExpectKeyImport();
@@ -149,13 +143,12 @@ namespace ZeroInstall.Services.Feeds
 
             using (var server = new MicroServer(OpenPgpUtilsTest.TestKeyIDString + ".gpg", new MemoryStream(_keyData)))
             {
-                Sut.Invoking(x => x.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")))
-                    .ShouldThrow<SignatureException>();
+                Assert.Throws<SignatureException>(() => Sut.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
             }
             IsKeyTrusted().Should().BeFalse(because: "Key should not be trusted");
         }
 
-        [Test]
+        [Fact]
         public void DownloadKeyAndApprove()
         {
             ExpectKeyImport();
@@ -169,7 +162,7 @@ namespace ZeroInstall.Services.Feeds
             IsKeyTrusted().Should().BeTrue(because: "Key should be trusted");
         }
 
-        [Test]
+        [Fact]
         public void DownloadKeyFromMirrorAndApprove()
         {
             ExpectKeyImport();

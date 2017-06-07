@@ -21,7 +21,7 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -30,13 +30,12 @@ namespace ZeroInstall.Publish
     /// <summary>
     /// Contains test methods for <see cref="FeedUtils"/>.
     /// </summary>
-    [TestFixture]
     public class FeedUtilsTest : TestWithMocks
     {
         /// <summary>
         /// Ensures <see cref="FeedUtils.SignFeed"/> produces valid feed files.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSignFeed()
         {
             using (var stream = new MemoryStream())

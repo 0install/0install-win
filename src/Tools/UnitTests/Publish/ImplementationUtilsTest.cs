@@ -25,7 +25,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations;
@@ -38,7 +38,6 @@ namespace ZeroInstall.Publish
     /// <summary>
     /// Contains test methods for <see cref="ImplementationUtils"/>.
     /// </summary>
-    [TestFixture]
     public class ImplementationUtilsTest
     {
         private const string ArchiveSha256Digest = "AQCBCMCZVBAQO4SKOSVHF4AWO3QOSYORL5YJC2MTP5PXJMSF5C2A";
@@ -52,7 +51,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void BuildArchive()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
@@ -70,7 +69,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void BuildSingleFile()
         {
             using (var originalStream = SingleFileData.ToStream())
@@ -87,7 +86,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="Recipe"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void BuildRecipe()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
@@ -105,7 +104,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void AddMissingArchive()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
@@ -124,7 +123,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void AddMissingSingleFile()
         {
             using (var originalStream = SingleFileData.ToStream())
@@ -143,7 +142,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> works correctly with <see cref="Recipe"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void AddMissingRecipe()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
@@ -162,7 +161,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> generates missing <see cref="Archive"/>s from <see cref="ImplementationBase.LocalPath"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void GenerateMissingArchive()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -187,18 +186,18 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> throws <see cref="DigestMismatchException"/>s when appropriate.
         /// </summary>
-        [Test]
+        [Fact]
         public void AddMissingExceptions()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
-                implementation.Invoking(x => x.AddMissing(new SilentTaskHandler())).ShouldThrow<DigestMismatchException>();
+                Assert.Throws<DigestMismatchException>(() => implementation.AddMissing(new SilentTaskHandler()));
             }
         }
 
-        [Test]
+        [Fact]
         public void GenerateDigest()
         {
             using (var testDir = new TemporaryDirectory("0install-unit-tests"))

@@ -18,8 +18,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using JetBrains.Annotations;
 using Moq;
-using NUnit.Framework;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
+using Xunit;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -33,28 +36,32 @@ namespace ZeroInstall.Services.Solvers
     /// </summary>
     public abstract class SolverTest<T> : TestWithContainer<T> where T : class, ISolver
     {
-        [Test]
-        public void EnsureXmlTestCasesCanBeLoaded()
+        /// <summary>
+        /// Test cases loaded from an embedded XML file.
+        /// </summary>
+        [UsedImplicitly]
+        public static IEnumerable<object[]> LoadTestCases()
         {
-            // ReSharper disable once UnusedVariable
-            var _ = SolverTestCases.Xml.ToList();
+            using (var stream = typeof(SolverTest<>).GetEmbeddedStream("test-cases.xml"))
+                return XmlStorage.LoadXml<TestCaseSet>(stream).TestCases.Select(x => new object[] {x});
         }
 
-        [Test, TestCaseSource(typeof(SolverTestCases), nameof(SolverTestCases.Xml))]
-        public Selections TestCase(IEnumerable<Feed> feeds, Requirements requirements)
+        [Theory]
+        [MemberData(nameof(LoadTestCases))]
+        public void TestCase(TestCase testCase)
         {
-            var feedLookup = feeds.ToDictionary(x => x.Uri, x => x);
-            GetMock<IFeedManager>().Setup(x => x[It.IsAny<FeedUri>()]).Returns((FeedUri feedUri) => feedLookup[feedUri]);
-
-            return Sut.Solve(requirements);
+            if (testCase.Problem == null)
+                Solve(testCase.Feeds, testCase.Requirements).Should().Be(testCase.Selections);
+            else
+                Assert.Throws<SolverException>(() => Solve(testCase.Feeds, testCase.Requirements));
         }
 
-        [Test]
+        [Fact]
         public void CustomFeedReference()
         {
             new InterfacePreferences {Feeds = {new FeedReference {Source = new FeedUri("http://example.com/prog2.xml")}}}.SaveFor(new FeedUri("http://example.com/prog1.xml"));
 
-            var actual = TestCase(
+            var actual = Solve(
                 feeds: new[]
                 {
                     new Feed
@@ -81,10 +88,10 @@ namespace ZeroInstall.Services.Solvers
             });
         }
 
-        [Test]
+        [Fact]
         public void ExtraRestrictions()
         {
-            var actual = TestCase(
+            var actual = Solve(
                 feeds: new[]
                 {
                     new Feed
@@ -111,6 +118,14 @@ namespace ZeroInstall.Services.Solvers
                     new ImplementationSelection {InterfaceUri = new FeedUri("http://example.com/prog.xml"), Version = new ImplementationVersion("1.0"), ID = "app1", Commands = {new Command {Name = Command.NameRun, Path = "test-app1"}}}
                 }
             });
+        }
+
+        private Selections Solve(IEnumerable<Feed> feeds, Requirements requirements)
+        {
+            var feedLookup = feeds.ToDictionary(x => x.Uri, x => x);
+            GetMock<IFeedManager>().Setup(x => x[It.IsAny<FeedUri>()]).Returns((FeedUri feedUri) => feedLookup[feedUri]);
+
+            return Sut.Solve(requirements);
         }
     }
 }

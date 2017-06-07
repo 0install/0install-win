@@ -16,20 +16,19 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="VersionRange"/>.
     /// </summary>
-    [TestFixture]
     public class VersionRangeTest
     {
         /// <summary>
         /// Ensures <see cref="VersionRange.ToString"/> correctly serializes ranges.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestToString()
         {
             new VersionRange("2.6").ToString().Should().Be("2.6");
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures <see cref="VersionRange"/> objects are correctly compared.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestEquals()
         {
             new VersionRange("2.6").Should().Be(new VersionRange(new ImplementationVersion("2.6")));
@@ -61,7 +60,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures <see cref="VersionRange.Match"/> works correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestMatch()
         {
             new VersionRange("1.2").Match(new ImplementationVersion("1.2")).Should().BeTrue();
@@ -81,7 +80,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures <see cref="VersionRange.Intersect"/> correctly handles <see cref="Constraint"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestIntersect()
         {
             var constraint = new Constraint {NotBefore = new ImplementationVersion("1"), Before = new ImplementationVersion("2")};

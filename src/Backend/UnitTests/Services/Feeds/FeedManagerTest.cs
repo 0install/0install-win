@@ -23,7 +23,7 @@ using Moq;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -35,27 +35,23 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// Contains test methods for <see cref="FeedManager"/>.
     /// </summary>
-    [TestFixture]
     public class FeedManagerTest : TestWithContainer<FeedManager>
     {
         private Mock<IFeedCache> FeedCacheMock => GetMock<IFeedCache>();
         private Mock<ITrustManager> TrustManagerMock => GetMock<ITrustManager>();
 
-        private Feed _feedPreNormalize;
-        private Feed _feedPostNormalize;
+        private readonly Feed _feedPreNormalize;
+        private readonly Feed _feedPostNormalize;
 
-        [SetUp]
-        public override void SetUp()
+        public FeedManagerTest()
         {
-            base.SetUp();
-
             _feedPreNormalize = FeedTest.CreateTestFeed();
 
             _feedPostNormalize = _feedPreNormalize.Clone();
             _feedPostNormalize.Normalize(_feedPreNormalize.Uri);
         }
 
-        [Test]
+        [Fact]
         public void Local()
         {
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
@@ -68,15 +64,14 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
-        [Test]
+        [Fact]
         public void LocalMissing()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-                // ReSharper disable once UnusedVariable
-                Assert.Throws<FileNotFoundException>(() => { var _ = Sut[new FeedUri(Path.Combine(tempDir, "invalid"))]; });
+                Assert.Throws<FileNotFoundException>(() => Sut[new FeedUri(Path.Combine(tempDir, "invalid"))]);
         }
 
-        [Test]
+        [Fact]
         public void Download()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -103,7 +98,7 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
-        [Test]
+        [Fact]
         public void DownloadIncorrectUri()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -118,12 +113,11 @@ namespace ZeroInstall.Services.Feeds
                 // No previous feed
                 FeedCacheMock.Setup(x => x.Contains(feedUri)).Returns(false);
 
-                // ReSharper disable once UnusedVariable
-                Assert.Throws<InvalidDataException>(() => { var _ = Sut[feedUri]; });
+                Assert.Throws<InvalidDataException>(() => Sut[feedUri]);
             }
         }
 
-        [Test]
+        [Fact]
         public void DownloadFromMirror()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -146,7 +140,7 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
-        [Test]
+        [Fact]
         public void DetectFreshCached()
         {
             FeedCacheMock.Setup(x => x.Contains(FeedTest.Test1Uri)).Returns(true);
@@ -158,7 +152,7 @@ namespace ZeroInstall.Services.Feeds
             Sut.Stale.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ServeFromInMemoryCache()
         {
             DetectFreshCached();
@@ -170,7 +164,7 @@ namespace ZeroInstall.Services.Feeds
                 failMessage: "Underlying cache was accessed more than once instead of being handled by the in-memory cache.");
         }
 
-        [Test]
+        [Fact]
         public void Refresh()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -186,7 +180,7 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
-        [Test]
+        [Fact]
         public void RefreshClearsInMemoryCache()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -220,7 +214,7 @@ namespace ZeroInstall.Services.Feeds
             Sut[feed.Uri].Should().Be(feed);
         }
 
-        [Test]
+        [Fact]
         public void DetectStaleCached()
         {
             var feed = new Feed {Name = "Mock feed"};
@@ -233,7 +227,7 @@ namespace ZeroInstall.Services.Feeds
             Sut.Stale.Should().BeTrue();
         }
 
-        [Test(Description = "Ensures valid feeds are correctly imported.")]
+        [Fact] // Ensures valid feeds are correctly imported.
         public void Import()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -250,7 +244,7 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
-        [Test(Description = "Ensures replay attacks are detected.")]
+        [Fact] // Ensures replay attacks are detected.
         public void ImportReplayAttack()
         {
             var feed = FeedTest.CreateTestFeed();
@@ -265,7 +259,7 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Sut.Invoking(x => x.ImportFeed(feedFile)).ShouldThrow<ReplayAttackException>();
+                Assert.Throws<ReplayAttackException>(() => Sut.ImportFeed(feedFile));
             }
         }
 

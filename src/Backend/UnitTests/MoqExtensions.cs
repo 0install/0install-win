@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Moq;
-using NUnit.Framework.Constraints;
+using NanoByte.Common.Collections;
 
 namespace ZeroInstall
 {
@@ -31,18 +31,14 @@ namespace ZeroInstall
         /// Ensures a collection is equal to this one (same elements in same order).
         /// </summary>
         [Matcher]
-        public static IEnumerable<T> IsEqual<T>([NotNull] this IEnumerable<T> expected)
-        {
-            return Match.Create<IEnumerable<T>>(new EqualConstraint(expected).Matches);
-        }
+        public static ICollection<T> IsEqual<T>([NotNull] this ICollection<T> expected)
+            => Match.Create<ICollection<T>>(x => x.SequencedEquals(expected));
 
         /// <summary>
         /// Ensures a collection is equivalet to this one (same elements in any order).
         /// </summary>
         [Matcher]
-        public static IEnumerable<T> IsEquivalent<T>([NotNull] this IEnumerable<T> expected)
-        {
-            return Match.Create<IEnumerable<T>>(new CollectionEquivalentConstraint(expected).Matches);
-        }
+        public static ICollection<T> IsEquivalent<T>([NotNull] this ICollection<T> expected)
+            => Match.Create<ICollection<T>>(x => x.UnsequencedEquals(expected));
     }
 }

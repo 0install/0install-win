@@ -16,17 +16,16 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Implementations.Manifests
 {
     /// <summary>
     /// Contains test methods for <see cref="ManifestFormat"/>.
     /// </summary>
-    [TestFixture]
     public class ManifestFormatTest
     {
-        [Test]
+        [Fact]
         public void TestFromPrefix()
         {
             ManifestFormat.FromPrefix("sha1new=abc").Should().BeSameAs(ManifestFormat.Sha1New);

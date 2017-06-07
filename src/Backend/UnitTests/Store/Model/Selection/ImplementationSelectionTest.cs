@@ -16,14 +16,13 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model.Selection
 {
     /// <summary>
     /// Contains test methods for <see cref="ImplementationSelection"/>.
     /// </summary>
-    [TestFixture]
     public class ImplementationSelectionTest
     {
         /// <summary>
@@ -86,7 +85,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestClone()
         {
             var implementation1 = CreateTestImplementation1();

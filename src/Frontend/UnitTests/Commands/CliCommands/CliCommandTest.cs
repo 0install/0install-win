@@ -20,7 +20,6 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Moq;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
 using ZeroInstall.Commands.Utils;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Executors;
@@ -44,15 +43,10 @@ namespace ZeroInstall.Commands.CliCommands
         // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
         protected new MockCommandHandler Handler { get; private set; }
 
-        protected override void Register(AutoMockContainer container)
-        {
-            container.Register<ICommandHandler>(Handler = new MockCommandHandler());
-        }
 
-        [SetUp]
-        public override void SetUp()
+        protected CliCommandTest()
         {
-            base.SetUp();
+            Container.Register<ICommandHandler>(Handler = new MockCommandHandler());
 
             Sut.Config = Config;
             Sut.FeedCache = Resolve<IFeedCache>();

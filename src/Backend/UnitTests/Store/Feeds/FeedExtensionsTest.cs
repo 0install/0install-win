@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -24,13 +24,12 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Contains test methods for <see cref="ImplementationUtils"/>.
     /// </summary>
-    [TestFixture]
     public class FeedExtensionsTest
     {
         /// <summary>
         /// Ensures <see cref="Feeds.FeedExtensions.GetImplementation"/> correctly locates <see cref="Implementation"/> in a list of <see cref="Feed"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetImplementation()
         {
             var digest1 = new ManifestDigest(sha256: "123");

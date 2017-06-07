@@ -21,7 +21,7 @@ using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;
@@ -32,10 +32,9 @@ namespace ZeroInstall.Store.Implementations.Build
     /// <summary>
     /// Contains test methods for <see cref="RecipeUtils"/>.
     /// </summary>
-    [TestFixture]
     public class RecipeUtilsTest
     {
-        [Test]
+        [Fact]
         public void TestApplyRecipeArchiv()
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
@@ -66,7 +65,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
         }
 
-        [Test]
+        [Fact]
         public void TestApplyRecipeSingleFile()
         {
             using (var singleFile = new TemporaryFile("0install-unit-tests"))
@@ -95,7 +94,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
         }
 
-        [Test]
+        [Fact]
         public void TestApplyRecipeRemove()
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
@@ -128,7 +127,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
         }
 
-        [Test]
+        [Fact]
         public void TestApplyRecipeRename()
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
@@ -169,7 +168,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
         }
 
-        [Test]
+        [Fact]
         public void TestApplyRecipeCopyFrom()
         {
             using (var existingImplDir = new TemporaryDirectory("0install-unit-tests"))
@@ -232,7 +231,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
         }
 
-        [Test]
+        [Fact]
         public void TestApplyRecipeExceptions()
         {
             using (var tempArchive = new TemporaryFile("0install-unit-tests"))
@@ -265,7 +264,7 @@ namespace ZeroInstall.Store.Implementations.Build
                 .ShouldThrow<IOException>(because: "Should reject breakout path in CopyFromStep.Destination");
         }
 
-        [Test]
+        [Fact]
         public void TestApplySingleFilePath()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -280,7 +279,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
         }
 
-        [Test]
+        [Fact]
         public void TestApplySingleFileTemp()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

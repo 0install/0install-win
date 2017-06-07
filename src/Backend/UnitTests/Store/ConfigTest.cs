@@ -20,15 +20,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using FluentAssertions;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store
 {
     /// <summary>
     /// Contains test methods for <see cref="Config"/>.
     /// </summary>
-    [TestFixture]
+    [Collection("LocationsRedirect")]
     public class ConfigTest
     {
         /// <summary>
@@ -43,7 +44,7 @@ namespace ZeroInstall.Store
             SyncServerPassword = "pw123"
         };
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
+        [Fact] // Ensures that the class can be correctly cloned.
         public void TestClone()
         {
             var config1 = CreateTestConfig();
@@ -58,7 +59,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSaveLoad()
         {
             Config config1, config2;
@@ -79,16 +80,16 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Ensures <see cref="Config.GetOption"/> and <see cref="Config.SetOption"/> properly access the settings properties.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSetValue()
         {
             var config = new Config();
-            config.Invoking(x => x.SetOption("Test", "Test")).ShouldThrow<KeyNotFoundException>();
+            Assert.Throws<KeyNotFoundException>(() => config.SetOption("Test", "Test"));
 
             config.HelpWithTesting.Should().BeFalse();
             config.GetOption("help_with_testing").Should().Be("False");
             config.SetOption("help_with_testing", "True");
-            config.Invoking(x => x.SetOption("help_with_testing", "Test")).ShouldThrow<FormatException>();
+            Assert.Throws<FormatException>(() => config.SetOption("help_with_testing", "Test"));
             config.HelpWithTesting.Should().BeTrue();
             config.GetOption("help_with_testing").Should().Be("True");
 
@@ -100,7 +101,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Ensures <see cref="Config.Save(string)"/> preserves unknown properties loaded in <see cref="Config.Load(string)"/>.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestRetainUnknownProperties()
         {
             string testIniData = "[global]" + Environment.NewLine + "test = test" + Environment.NewLine;
@@ -113,7 +114,7 @@ namespace ZeroInstall.Store
             }
         }
 
-        [Test]
+        [Fact]
         public void StressTest()
         {
             using (new LocationsRedirect("0install-unit-tests"))
@@ -140,8 +141,7 @@ namespace ZeroInstall.Store
 
                 foreach (var thread in threads)
                     thread.Join();
-                if (exception != null)
-                    Assert.Fail(exception.ToString());
+                if (exception != null) throw exception.PreserveStack();
             }
         }
     }

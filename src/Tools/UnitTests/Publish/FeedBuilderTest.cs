@@ -21,7 +21,7 @@ using FluentAssertions;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -32,27 +32,18 @@ namespace ZeroInstall.Publish
     /// <summary>
     /// Contains test methods for <see cref="FeedBuilder"/>.
     /// </summary>
-    [TestFixture]
-    public class FeedBuilderTest
+    public class FeedBuilderTest : IDisposable
     {
-        private FeedBuilder _builder;
-        private TemporaryDirectory _implementationDir;
+        private readonly FeedBuilder _builder = new FeedBuilder();
+        private readonly TemporaryDirectory _implementationDir = new TemporaryDirectory("0install-unit-tests");
 
-        [SetUp]
-        public void SetUp()
-        {
-            _builder = new FeedBuilder();
-            _implementationDir = new TemporaryDirectory("0install-unit-tests");
-        }
-
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             _builder.Dispose();
             _implementationDir.Dispose();
         }
 
-        [Test]
+        [Fact]
         public void TestCalculateDigest()
         {
             _builder.ImplementationDirectory = _implementationDir;
@@ -60,14 +51,14 @@ namespace ZeroInstall.Publish
             _builder.ManifestDigest.Should().Be(ManifestDigest.Empty);
         }
 
-        [Test]
+        [Fact]
         public void TestDetectCandidates()
         {
             _builder.ImplementationDirectory = _implementationDir;
             _builder.DetectCandidates(new SilentTaskHandler());
         }
 
-        [Test]
+        [Fact]
         public void TestGenerateCommands()
         {
             _builder.MainCandidate = new WindowsExe
@@ -81,7 +72,7 @@ namespace ZeroInstall.Publish
             _builder.GenerateCommands();
         }
 
-        [Test]
+        [Fact]
         public void TestBuild()
         {
             TestCalculateDigest();
@@ -113,7 +104,7 @@ namespace ZeroInstall.Publish
             signedFeed.SecretKey.Should().Be(_builder.SecretKey);
         }
 
-        [Test]
+        [Fact]
         public void TestTemporaryDirectory()
         {
             var tempDir1 = new TemporaryDirectory("0install-unit-tests");

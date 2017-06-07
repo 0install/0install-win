@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Moq;
-using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Solvers
@@ -24,15 +22,12 @@ namespace ZeroInstall.Services.Solvers
     /// <summary>
     /// Runs test methods for <see cref="BacktrackingSolver"/>.
     /// </summary>
-    [TestFixture]
     public class BacktrackingSolverTest : SolverTest<BacktrackingSolver>
     {
-        protected override void Register(AutoMockContainer container)
+        public BacktrackingSolverTest()
         {
-            base.Register(container);
-
             // Mock Zero Install version
-            container.Register(new ImplementationVersion("1.0"));
+            Container.Register(new ImplementationVersion("1.0"));
         }
     }
 }

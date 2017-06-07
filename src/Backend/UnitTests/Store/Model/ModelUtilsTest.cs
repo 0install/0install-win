@@ -2,17 +2,16 @@
 using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Native;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="ModelUtils"/>.
     /// </summary>
-    [TestFixture]
     public class ModelUtilsTest
     {
-        [Test]
+        [Fact]
         public void TestContainsTemplateVariables()
         {
             ModelUtils.ContainsTemplateVariables("").Should().BeFalse();
@@ -23,7 +22,7 @@ namespace ZeroInstall.Store.Model
             ModelUtils.ContainsTemplateVariables("x{var}x").Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TestGetAbsolutePath()
         {
             string absolutePath = WindowsUtils.IsWindows ? @"C:\local\subdir\file" : "/local/subdir/file";
@@ -36,14 +35,14 @@ namespace ZeroInstall.Store.Model
                 .Should().Be(absolutePath, because: "Should ignore source if path is already absolute.");
         }
 
-        [Test]
+        [Fact]
         public void TestGetAbsolutePathException()
         {
             Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsolutePath("subdir/file"));
             Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsolutePath("subdir/file", new FeedUri("http://remote/")));
         }
 
-        [Test]
+        [Fact]
         public void TestGetAbsoluteHref()
         {
             Uri absoluteHref = WindowsUtils.IsWindows ? new Uri("file:///C:/local/subdir/file") : new Uri("file:///local/subdir/file");
@@ -56,7 +55,7 @@ namespace ZeroInstall.Store.Model
                 .Should().Be(absoluteHref, because: "Should ignore source if href is already absolute.");
         }
 
-        [Test]
+        [Fact]
         public void TestGetAbsoluteHrefException()
         {
             Assert.Throws<UriFormatException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative)));

@@ -16,17 +16,16 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Architecture"/>.
     /// </summary>
-    [TestFixture]
     public class ArchitectureTest
     {
-        [Test]
+        [Fact]
         public void TestConstructor()
         {
             new Architecture("*-*").Should().Be(new Architecture(OS.All, Cpu.All));
@@ -35,7 +34,7 @@ namespace ZeroInstall.Store.Model
             new Architecture("Linux-i686").Should().Be(new Architecture(OS.Linux, Cpu.I686));
         }
 
-        [Test]
+        [Fact]
         public void TestIsCompatible()
         {
             new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Windows, Cpu.I486)).Should().BeTrue();
@@ -46,7 +45,7 @@ namespace ZeroInstall.Store.Model
             new Architecture(OS.Windows, Cpu.I486).IsCompatible(new Architecture(OS.Linux, Cpu.Ppc)).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestIsCompatibleOS()
         {
             // Wildcard
@@ -74,7 +73,7 @@ namespace ZeroInstall.Store.Model
             OS.Posix.IsCompatible(OS.Windows).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestIsCompatibleCpu()
         {
             // Wildcard

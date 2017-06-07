@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using NanoByte.Common.Native;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store
@@ -27,54 +27,43 @@ namespace ZeroInstall.Store
     /// <summary>
     /// Contains test methods for <see cref="FeedUri"/>.
     /// </summary>
-    [TestFixture]
     [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
     public class FeedUriTest
     {
         /// <summary>
         /// Ensures the <see cref="FeedUri"/> constructor correctly identify invalid interface URIs.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestValid()
         {
-            Assert.DoesNotThrow(() => new FeedUri("http://0install.de"));
-            Assert.DoesNotThrow(() => new FeedUri("http://0install.de/"));
-            Assert.DoesNotThrow(() => new FeedUri("http://0install.de/feeds/test1.xml"));
-            Assert.DoesNotThrow(() => new FeedUri("https://0install.de/feeds/test1.xml"));
+            new FeedUri("http://0install.de");
+            new FeedUri("http://0install.de/");
+            new FeedUri("http://0install.de/feeds/test1.xml");
+            new FeedUri("https://0install.de/feeds/test1.xml");
 
-            Assert.DoesNotThrow(() => new FeedUri("http://0install.de/feeds/my feed.xml"));
-            Assert.DoesNotThrow(() => new FeedUri("http://0install.de/feeds/my%20feed.xml"));
+            new FeedUri("http://0install.de/feeds/my feed.xml");
+            new FeedUri("http://0install.de/feeds/my%20feed.xml");
 
-            Assert.DoesNotThrow(() => new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml"));
-            Assert.DoesNotThrow(() => new FeedUri(WindowsUtils.IsWindows ? "file:///C:/my%20feed.xml" : "file:///root/my%20feed.xml"));
+            new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml");
+            new FeedUri(WindowsUtils.IsWindows ? "file:///C:/my%20feed.xml" : "file:///root/my%20feed.xml");
             if (WindowsUtils.IsWindows)
             {
-                Assert.DoesNotThrow(() => new FeedUri(@"\\SERVER\C$\my feed.xml"));
-                Assert.DoesNotThrow(() => new FeedUri("file://SERVER/C$/my%20feed.xml"));
+                new FeedUri(@"\\SERVER\C$\my feed.xml");
+                new FeedUri("file://SERVER/C$/my%20feed.xml");
             }
         }
 
         /// <summary>
         /// Ensures the <see cref="FeedUri"/> constructor correctly identify valid interface URIs.
         /// </summary>
-        [Test]
-        public void TestInvalid()
-        {
-            var invalidIDs = new[]
-            {
-                "ftp://host/",
-                "foo://host/",
-                "relative"
-            };
-
-            foreach (var id in invalidIDs)
-                Assert.Throws<UriFormatException>(() => new FeedUri(id), "Should reject " + id);
-        }
+        [Theory, InlineData("ftp://host/"), InlineData("foo://host/"), InlineData("relative")]
+        public void TestInvalid(string id)
+            => Assert.Throws<UriFormatException>(() => new FeedUri(id));
 
         /// <summary>
         /// Ensures the <see cref="FeedUri.ToString"/> and <see cref="FeedUri.ToStringRfc"/> work correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestToString()
         {
             new FeedUri("http://0install.de").ToStringRfc().Should().Be("http://0install.de/");
@@ -119,34 +108,25 @@ namespace ZeroInstall.Store
             }
         }
 
-        [Test]
+        [Fact]
         public void TestEscape()
-        {
-            FeedTest.Test1Uri.Escape().Should().Be("http%3a%2f%2f0install.de%2ffeeds%2ftest%2ftest1.xml");
-        }
+            => FeedTest.Test1Uri.Escape().Should().Be("http%3a%2f%2f0install.de%2ffeeds%2ftest%2ftest1.xml");
 
-        [Test]
+        [Fact]
         public void TestUnescape()
-        {
-            FeedUri.Unescape("http%3A%2F%2F0install.de%2Ffeeds%2Ftest%2Ftest1.xml").Should().Be(FeedTest.Test1Uri);
-        }
+            => FeedUri.Unescape("http%3A%2F%2F0install.de%2Ffeeds%2Ftest%2Ftest1.xml").Should().Be(FeedTest.Test1Uri);
 
-        [Test]
+        [Fact]
         public void TestPrettyEscape()
-        {
-            FeedTest.Test1Uri.PrettyEscape().Should().Be(
+            => FeedTest.Test1Uri.PrettyEscape().Should().Be(
                 // Colon is preserved on POSIX systems but not on other OSes
                 UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml");
-        }
 
-        [Test]
+        [Fact]
         public void TestPrettyUnescape()
-        {
-            FeedUri.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml").Should().Be(
-                FeedTest.Test1Uri);
-        }
+            => FeedUri.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml").Should().Be(FeedTest.Test1Uri);
 
-        [Test]
+        [Fact]
         public void TestEscapeComponent()
         {
             new FeedUri("http://example.com/foo/bar.xml").EscapeComponent().Should().Equal("http", "example.com", "foo__bar.xml");
@@ -156,7 +136,7 @@ namespace ZeroInstall.Store
                 new FeedUri(@"\\SERVER\C$\my feed.xml").EscapeComponent().Should().Equal("file", "____server__C_24___my_20_feed.xml");
         }
 
-        [Test]
+        [Fact]
         public void TestPrefixes()
         {
             var fakeUri = new FeedUri("fake:http://example.com/");

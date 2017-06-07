@@ -19,8 +19,9 @@ using System;
 using System.IO;
 using System.Threading;
 using FluentAssertions;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Manifests;
@@ -32,29 +33,26 @@ namespace ZeroInstall.Store.Implementations
     /// <summary>
     /// Contains test methods for <see cref="DirectoryStore"/>.
     /// </summary>
-    [TestFixture]
-    public class DirectoryStoreTest
+    public class DirectoryStoreTest : IDisposable
     {
         private MockTaskHandler _handler;
         private TemporaryDirectory _tempDir;
         private DirectoryStore _store;
 
-        [SetUp]
-        public void SetUp()
+        public DirectoryStoreTest()
         {
             _handler = new MockTaskHandler();
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_tempDir);
         }
 
-        [TearDown]
-        public void TearDown()
+        public void Dispose()
         {
             _store.Purge(_handler);
             _tempDir.Dispose();
         }
 
-        [Test]
+        [Fact]
         public void TestContains()
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha256new_123ABC"));
@@ -62,7 +60,7 @@ namespace ZeroInstall.Store.Implementations
             _store.Contains(new ManifestDigest(sha256New: "456XYZ")).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestListAll()
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1=test1"));
@@ -77,7 +75,7 @@ namespace ZeroInstall.Store.Implementations
                 new ManifestDigest(sha256New: "test4"));
         }
 
-        [Test]
+        [Fact]
         public void TestListAllTemp()
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1=test"));
@@ -94,7 +92,7 @@ namespace ZeroInstall.Store.Implementations
             return path;
         }
 
-        [Test]
+        [Fact]
         public void ShouldHardlinkIdenticalFilesInSameImplementation()
         {
             string package1Path = DeployPackage("sha256=1", new TestRoot
@@ -110,7 +108,7 @@ namespace ZeroInstall.Store.Implementations
                 Path.Combine(package1Path, "dir", "fileB")).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ShouldHardlinkIdenticalFilesInDifferentImplementations()
         {
             string package1Path = DeployPackage("sha256=1", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
@@ -123,7 +121,7 @@ namespace ZeroInstall.Store.Implementations
                 Path.Combine(package2Path, "fileA")).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ShouldNotHardlinkFilesWithDifferentTimestamps()
         {
             string package1Path = DeployPackage("sha256=1", new TestRoot
@@ -138,7 +136,7 @@ namespace ZeroInstall.Store.Implementations
                 Path.Combine(package1Path, "fileX")).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ShouldNotHardlinkFilesWithDifferentContent()
         {
             string package1Path = DeployPackage("sha256=1", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
@@ -150,7 +148,7 @@ namespace ZeroInstall.Store.Implementations
                 Path.Combine(package2Path, "fileA")).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ShouldNotHardlinkAcrossManifestFormatBorders()
         {
             string package1Path = DeployPackage("sha256=1", new TestRoot {new TestFile("fileA") {Contents = "abc"}});
@@ -162,7 +160,7 @@ namespace ZeroInstall.Store.Implementations
                 Path.Combine(package2Path, "fileA")).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ShouldAllowToAddFolder()
         {
             using (var testDir = new TemporaryDirectory("0install-unit-tests"))
@@ -175,7 +173,7 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldRecreateMissingStoreDir()
         {
             Directory.Delete(_tempDir, recursive: true);
@@ -192,7 +190,7 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldHandleRelativePaths()
         {
             // Change the working directory
@@ -211,7 +209,7 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldAllowToRemove()
         {
             string implPath = Path.Combine(_tempDir, "sha256new_123ABC");
@@ -221,7 +219,7 @@ namespace ZeroInstall.Store.Implementations
             Directory.Exists(implPath).Should().BeFalse(because: "After remove, Store may no longer contain the added package");
         }
 
-        [Test]
+        [Fact]
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
             string implPath = Path.Combine(_tempDir, "sha256new_123ABC");
@@ -230,13 +228,13 @@ namespace ZeroInstall.Store.Implementations
                 .Should().Be(implPath, because: "Store must return the correct path for Implementations it contains");
         }
 
-        [Test]
+        [Fact]
         public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
         {
             _store.GetPath(new ManifestDigest(sha256: "123")).Should().BeNull();
         }
 
-        [Test]
+        [Fact]
         public void TestAuditPass()
         {
             using (var testDir = new TemporaryDirectory("0install-unit-tests"))
@@ -250,7 +248,7 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        [Test]
+        [Fact]
         public void TestAuditFail()
         {
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
@@ -264,7 +262,7 @@ namespace ZeroInstall.Store.Implementations
             _store.Contains(new ManifestDigest(sha1New: "abc")).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void StressTest()
         {
             using (var testDir = new TemporaryDirectory("0install-unit-tests"))
@@ -299,8 +297,7 @@ namespace ZeroInstall.Store.Implementations
 
                 foreach (var thread in threads)
                     thread.Join();
-                if (exception != null)
-                    Assert.Fail(exception.ToString());
+                if (exception != null) throw exception.PreserveStack();
 
                 _store.Contains(digest).Should().BeFalse();
             }

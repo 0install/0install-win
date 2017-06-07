@@ -16,14 +16,13 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Runner"/>.
     /// </summary>
-    [TestFixture]
     public class RunnerTest
     {
         /// <summary>
@@ -39,7 +38,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestClone()
         {
             var runner1 = CreateTestRunner();

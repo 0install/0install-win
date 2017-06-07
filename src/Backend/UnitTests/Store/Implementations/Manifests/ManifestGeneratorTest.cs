@@ -19,7 +19,7 @@ using System.Security.Cryptography;
 using FluentAssertions;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Manifests
@@ -27,19 +27,18 @@ namespace ZeroInstall.Store.Implementations.Manifests
     /// <summary>
     /// Contains test methods for <see cref="ManifestGenerator"/>.
     /// </summary>
-    [TestFixture]
     public class ManifestGeneratorTest
     {
         private static readonly string _hash = TestFile.DefaultContents.Hash(SHA1.Create());
 
-        [Test]
+        [Fact]
         public void TestFileOrder() => Test(
             new TestRoot {new TestFile("x"), new TestFile("y"), new TestFile("Z")},
             new ManifestNormalFile(_hash, TestFile.DefaultLastWrite, TestFile.DefaultContents.Length, "Z"),
             new ManifestNormalFile(_hash, TestFile.DefaultLastWrite, TestFile.DefaultContents.Length, "x"),
             new ManifestNormalFile(_hash, TestFile.DefaultLastWrite, TestFile.DefaultContents.Length, "y"));
 
-        [Test]
+        [Fact]
         public void TestFileTypes() => Test(
             new TestRoot
             {

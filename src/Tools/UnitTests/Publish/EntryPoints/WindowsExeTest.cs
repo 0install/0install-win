@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -24,7 +24,6 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Contains test methods for <see cref="WindowsExe"/>.
     /// </summary>
-    [TestFixture]
     public class WindowsExeTest : CandidateTest
     {
         public static readonly WindowsExe Reference32 = new WindowsExe
@@ -55,25 +54,25 @@ namespace ZeroInstall.Publish.EntryPoints
             NeedsTerminal = true
         };
 
-        [Test]
+        [Fact]
         public void X86()
         {
             TestAnalyze(Reference32);
         }
 
-        [Test]
+        [Fact]
         public void X64()
         {
             TestAnalyze(Reference64);
         }
 
-        [Test]
+        [Fact]
         public void X86Terminal()
         {
             TestAnalyze(ReferenceTerminal);
         }
 
-        [Test]
+        [Fact]
         public void NotExe()
         {
             new WindowsExe().Analyze(baseDirectory: Directory, file: Deploy(PosixScriptTest.Reference, xbit: false))

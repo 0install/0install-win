@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Store.Model
@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model
     /// <summary>
     /// Contains test methods for <see cref="Feed"/>.
     /// </summary>
-    [TestFixture]
     public class FeedTest
     {
         #region Helpers
@@ -157,11 +156,10 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSaveLoad()
         {
             Feed feed1 = CreateTestFeed(), feed2;
-            Assert.That(feed1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -178,7 +176,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class can be correctly cloned and compared.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestCloneEquals()
         {
             var feed1 = CreateTestFeed();
@@ -197,7 +195,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.Normalize"/> correctly collapses <see cref="Group"/> structures.
         /// </summary>
-        [Test]
+        [Fact]
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void TestNormalizeGroup()
         {
@@ -222,7 +220,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.Normalize"/> correctly updates collection hash codes.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestNormalizeHash()
         {
             var feed = CreateTestFeed();
@@ -241,7 +239,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.ResolveInternalReferences"/> correctly resolves <see cref="CopyFromStep.ID"/> references.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestResolveInternalReferences()
         {
             var step = new CopyFromStep {ID = "1"};
@@ -267,7 +265,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.Strip"/> correctly removes non-essential metadata.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestStrip()
         {
             var feed = CreateTestFeed();
@@ -282,20 +280,19 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that contained <see cref="Implementation"/>s are correctly returned by ID.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetImplementation()
         {
             var feed = CreateTestFeed();
 
             feed["id1"].Should().Be(CreateTestImplementation());
-            // ReSharper disable once UnusedVariable
-            feed.Invoking(x => { var _ = x["invalid"]; }).ShouldThrow<KeyNotFoundException>();
+            Assert.Throws<KeyNotFoundException>(() => feed["invalid"]);
         }
 
         /// <summary>
         /// Ensures that <see cref="Feed.GetEntryPoint"/> correctly identifies contained <see cref="EntryPoint"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetEntryPoint()
         {
             var feed = CreateTestFeed();
@@ -307,7 +304,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.GetBestName"/> correctly finds best matching names for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetName()
         {
             var feed = CreateTestFeed();
@@ -319,7 +316,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.GetBestSummary"/> correctly finds best matching summaries for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetSummary()
         {
             var feed = CreateTestFeed();
@@ -331,7 +328,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that <see cref="Feed.GetIcon"/> correctly finds best matching <see cref="Icon"/>s for <see cref="Command"/>s/<see cref="EntryPoint"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetIcon()
         {
             var feed = CreateTestFeed();

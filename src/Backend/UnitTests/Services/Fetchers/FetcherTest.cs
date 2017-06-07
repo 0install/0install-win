@@ -23,7 +23,7 @@ using Moq;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Implementations;
@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.Fetchers
 
         protected Mock<IStore> StoreMock => GetMock<IStore>();
 
-        [Test]
+        [Fact]
         public void DownloadSingleArchive()
         {
             StoreMock.Setup(x => x.Flush());
@@ -54,7 +54,7 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        [Test]
+        [Fact]
         public void DownloadLocalArchive()
         {
             StoreMock.Setup(x => x.Flush());
@@ -66,7 +66,7 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        [Test]
+        [Fact]
         public void DownloadMultipleArchives()
         {
             StoreMock.Setup(x => x.Flush());
@@ -79,7 +79,7 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        [Test]
+        [Fact]
         public void DownloadSingleFile()
         {
             StoreMock.Setup(x => x.Flush());
@@ -91,7 +91,7 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        [Test]
+        [Fact]
         public void DownloadRecipe()
         {
             StoreMock.Setup(x => x.Flush());
@@ -117,7 +117,7 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        [Test]
+        [Fact]
         public void SkipBroken()
         {
             StoreMock.Setup(x => x.Flush());
@@ -139,7 +139,7 @@ namespace ZeroInstall.Services.Fetchers
         protected void TestDownloadArchives(params Archive[] archives)
         {
             var digest = new ManifestDigest(sha256New: "test123");
-            var archiveInfos = archives.Select(archive => new ArchiveFileInfo {Extract = archive.Extract, Destination = archive.Destination, MimeType = archive.MimeType, StartOffset = archive.StartOffset, OriginalSource = archive.Href});
+            var archiveInfos = archives.Select(archive => new ArchiveFileInfo {Extract = archive.Extract, Destination = archive.Destination, MimeType = archive.MimeType, StartOffset = archive.StartOffset, OriginalSource = archive.Href}).ToList();
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
             StoreMock.Setup(x => x.GetPath(digest)).Returns<string>(null);
@@ -172,7 +172,7 @@ namespace ZeroInstall.Services.Fetchers
         }
         #endregion
 
-        [Test]
+        [Fact]
         public void RunExternalConfirm()
         {
             bool installInvoked = false;
@@ -195,12 +195,12 @@ namespace ZeroInstall.Services.Fetchers
             installInvoked.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void RunExternalDeny()
         {
             bool installInvoked = false;
             Handler.AnswerQuestionWith = false;
-            Sut.Invoking(x => x.Fetch(new[]
+            Assert.Throws<OperationCanceledException>(() => Sut.Fetch(new[]
             {
                 new Implementation
                 {
@@ -214,11 +214,11 @@ namespace ZeroInstall.Services.Fetchers
                         }
                     }
                 }
-            })).ShouldThrow<OperationCanceledException>();
+            }));
             installInvoked.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void SkipExisting()
         {
             var digest = new ManifestDigest(sha256New: "test123");
@@ -229,17 +229,17 @@ namespace ZeroInstall.Services.Fetchers
             Sut.Fetch(new[] {testImplementation});
         }
 
-        [Test]
+        [Fact]
         public void NoSuitableMethod()
         {
             var implementation = new Implementation {ID = "test", ManifestDigest = new ManifestDigest(sha256New: "test123")};
             StoreMock.Setup(x => x.Flush());
             StoreMock.Setup(x => x.GetPath(implementation.ManifestDigest)).Returns<string>(null);
 
-            Sut.Invoking(x => x.Fetch(new[] {implementation})).ShouldThrow<NotSupportedException>();
+            Assert.Throws<NotSupportedException>(() => Sut.Fetch(new[] {implementation}));
         }
 
-        [Test]
+        [Fact]
         public void UnsupportedArchiveFormat()
         {
             var implementation = new Implementation
@@ -251,10 +251,10 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             StoreMock.Setup(x => x.GetPath(implementation.ManifestDigest)).Returns<string>(null);
 
-            Sut.Invoking(x => x.Fetch(new[] {implementation})).ShouldThrow<NotSupportedException>();
+            Assert.Throws<NotSupportedException>(() => Sut.Fetch(new[] {implementation}));
         }
 
-        [Test]
+        [Fact]
         public void UnsupportedArchiveFormatInRecipe()
         {
             var implementation = new Implementation
@@ -266,7 +266,7 @@ namespace ZeroInstall.Services.Fetchers
             StoreMock.Setup(x => x.Flush());
             StoreMock.Setup(x => x.GetPath(implementation.ManifestDigest)).Returns<string>(null);
 
-            Sut.Invoking(x => x.Fetch(new[] {implementation})).ShouldThrow<NotSupportedException>();
+            Assert.Throws<NotSupportedException>(() => Sut.Fetch(new[] {implementation}));
         }
     }
 }

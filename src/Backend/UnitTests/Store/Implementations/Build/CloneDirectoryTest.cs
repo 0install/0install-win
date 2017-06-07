@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Build
@@ -26,10 +26,9 @@ namespace ZeroInstall.Store.Implementations.Build
     /// <summary>
     /// Contains test methods for <see cref="CloneDirectory"/>.
     /// </summary>
-    [TestFixture]
     public class CloneDirectoryTest : CloneTestBase
     {
-        [Test]
+        [Fact]
         public void Copy()
         {
             var root = new TestRoot
@@ -48,7 +47,7 @@ namespace ZeroInstall.Store.Implementations.Build
             root.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void CopySuffix()
         {
             var root = new TestRoot
@@ -67,7 +66,7 @@ namespace ZeroInstall.Store.Implementations.Build
             root.Verify(Path.Combine(TargetDirectory, "suffix"));
         }
 
-        [Test]
+        [Fact]
         public void Hardlink()
         {
             var root = new TestRoot
@@ -96,7 +95,7 @@ namespace ZeroInstall.Store.Implementations.Build
             FileUtils.AreHardlinked(Path.Combine(SourceDirectory, "dir", "executable"), Path.Combine(TargetDirectory, "dir", "executable"));
         }
 
-        [Test]
+        [Fact]
         public void OverwriteFile()
         {
             var root = new TestRoot {new TestFile("fileA")};
@@ -108,7 +107,7 @@ namespace ZeroInstall.Store.Implementations.Build
             root.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteSymlink()
         {
             var root = new TestRoot {new TestFile("fileA")};
@@ -120,7 +119,7 @@ namespace ZeroInstall.Store.Implementations.Build
             root.Verify(TargetDirectory);
         }
 
-        [Test]
+        [Fact]
         public void OverwriteWithSymlink()
         {
             var root = new TestRoot {new TestSymlink("fileA", "target")};

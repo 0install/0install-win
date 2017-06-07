@@ -21,80 +21,69 @@ using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Implementations.Build;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
-    [TestFixture]
-    public class TarExtractorTest
+    public class TarExtractorTest : IDisposable
     {
-        private TemporaryDirectory _sandbox;
         private static readonly byte[] _garbageData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
-        [SetUp]
-        public void SetUp()
-        {
-            _sandbox = new TemporaryWorkingDirectory("0install-unit-tests");
-        }
+        private readonly TemporaryDirectory _sandbox = new TemporaryWorkingDirectory("0install-unit-tests");
+        public void Dispose() => _sandbox.Dispose();
 
-        [TearDown]
-        public void TearDown()
-        {
-            _sandbox.Dispose();
-        }
-
-        [Test]
+        [Fact]
         public void TestPlain()
         {
             TestExtract(Model.Archive.MimeTypeTar, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"));
         }
 
-        [Test]
+        [Fact]
         public void TestPlainError()
         {
             Assert.Throws<IOException>(() => TestExtract(Model.Archive.MimeTypeTar, new MemoryStream(_garbageData)));
         }
 
-        [Test]
+        [Fact]
         public void TestGzCompressed()
         {
             TestExtract(Model.Archive.MimeTypeTarGzip, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.gz"));
         }
 
-        [Test]
+        [Fact]
         public void TestGzCompressedError()
         {
             Assert.Throws<IOException>(() => TestExtract(Model.Archive.MimeTypeTarGzip, new MemoryStream(_garbageData)));
         }
 
-        [Test]
+        [Fact]
         public void TestBz2Compressed()
         {
             TestExtract(Model.Archive.MimeTypeTarBzip, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.bz2"));
         }
 
-        [Test]
+        [Fact]
         public void TestBz2CompressedError()
         {
             Assert.Throws<IOException>(() => TestExtract(Model.Archive.MimeTypeTarBzip, new MemoryStream(_garbageData)));
         }
 
-        [Test]
+        [SkippableFact]
         public void TestXzCompressed()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore(".xz decompression is currently only available on Windows");
+            Skip.IfNot(WindowsUtils.IsWindows, ".xz decompression is currently only available on Windows");
 
             TestExtract(Model.Archive.MimeTypeTarXz, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.xz"));
         }
 
-        [Test]
+        [Fact]
         public void TestLzmaCompressed()
         {
             TestExtract(Model.Archive.MimeTypeTarLzma, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar.lzma"));
         }
 
-        [Test]
+        [Fact]
         public void TestLzmaCompressedOnDisk()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -106,13 +95,13 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        [Test]
+        [Fact]
         public void TestLzmaCompressedError()
         {
             Assert.Throws<IOException>(() => TestExtract(Model.Archive.MimeTypeTarLzma, new MemoryStream(_garbageData)));
         }
 
-        [Test]
+        [Fact]
         public void TestRubyGem()
         {
             TestExtract(Model.Archive.MimeTypeRubyGem, typeof(TarExtractorTest).GetEmbeddedStream("testArchive.gem"));
@@ -131,27 +120,15 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
     }
 
-    [TestFixture]
-    public class TarExtractorTestCornerCases
+    public class TarExtractorTestCornerCases : IDisposable
     {
-        private TemporaryDirectory _sandbox;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _sandbox.Dispose();
-        }
+        private readonly TemporaryDirectory _sandbox = new TemporaryDirectory("0install-unit-tests");
+        public void Dispose() => _sandbox.Dispose();
 
         /// <summary>
         /// Tests whether the extractor generates a correct <see cref="FlagUtils.XbitFile"/> for a sample TAR archive containing an executable file.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var extractor = new TarExtractor(typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"), _sandbox))
@@ -169,7 +146,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Tests whether the extractor generates a <see cref="FileUtils.IsSymlink(string)"/> entry for a sample TAR archive containing a symbolic link.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestExtractUnixArchiveWithSymlink()
         {
             using (var extractor = new TarExtractor(typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"), _sandbox))
@@ -186,7 +163,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Tests whether the extractor creates an on-disk hardlink for a sample TAR archive containing a hardlink.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestExtractUnixArchiveWithHardlink()
         {
             using (var extractor = new TarExtractor(typeof(TarExtractorTest).GetEmbeddedStream("testArchive.tar"), _sandbox))

@@ -16,14 +16,13 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Command"/>.
     /// </summary>
-    [TestFixture]
     public class CommandTest
     {
         #region Helpers
@@ -84,7 +83,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures that the class can be correctly cloned and compared.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestCloneEquals()
         {
             var command1 = CreateTestCommand1();

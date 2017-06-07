@@ -17,14 +17,13 @@
 
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model.Preferences
 {
     /// <summary>
     /// Contains test methods for <see cref="InterfacePreferences"/>.
     /// </summary>
-    [TestFixture]
     public class InterfacePreferencesTest
     {
         /// <summary>
@@ -37,11 +36,10 @@ namespace ZeroInstall.Store.Model.Preferences
             Feeds = {new FeedReference {Source = new FeedUri("http://invalid/")}}
         };
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
+        [Fact] // Ensures that the class is correctly serialized and deserialized.
         public void TestSaveLoad()
         {
             InterfacePreferences preferences1 = CreateTestInterfacePreferences(), preferences2;
-            Assert.That(preferences1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -55,7 +53,7 @@ namespace ZeroInstall.Store.Model.Preferences
             preferences2.Should().NotBeSameAs(preferences1, because: "Serialized objects should not return the same reference.");
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
+        [Fact] // Ensures that the class can be correctly cloned.
         public void TestClone()
         {
             var preferences1 = CreateTestInterfacePreferences();

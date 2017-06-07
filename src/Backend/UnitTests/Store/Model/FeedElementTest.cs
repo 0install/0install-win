@@ -16,17 +16,16 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="FeedElement"/>.
     /// </summary>
-    [TestFixture]
     public class FeedElementTest
     {
-        [Test]
+        [Fact]
         public void TestFilterMismatch()
         {
             FeedElement.FilterMismatch(new EntryPoint()).Should().BeFalse();

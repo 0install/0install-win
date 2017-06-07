@@ -18,14 +18,13 @@
 using System;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model.Preferences
 {
     /// <summary>
     /// Contains test methods for <see cref="FeedPreferences"/>.
     /// </summary>
-    [TestFixture]
     public class FeedPreferencesTest
     {
         /// <summary>
@@ -37,11 +36,10 @@ namespace ZeroInstall.Store.Model.Preferences
             Implementations = {new ImplementationPreferences {ID = "test_id", UserStability = Stability.Testing}}
         };
 
-        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
+        [Fact] // Ensures that the class is correctly serialized and deserialized.
         public void TestSaveLoad()
         {
             FeedPreferences preferences1 = CreateTestFeedPreferences(), preferences2;
-            Assert.That(preferences1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -55,7 +53,7 @@ namespace ZeroInstall.Store.Model.Preferences
             preferences2.Should().NotBeSameAs(preferences1, because: "Serialized objects should not return the same reference.");
         }
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
+        [Fact] // Ensures that the class can be correctly cloned.
         public void TestClone()
         {
             var preferences1 = CreateTestFeedPreferences();
@@ -70,7 +68,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Ensures that <see cref="FeedPreferences.Normalize"/> correctly removes superflous entries from <see cref="FeedPreferences.Implementations"/>.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestNormalize()
         {
             var keep = new ImplementationPreferences {ID = "id1", UserStability = Stability.Testing};
@@ -81,7 +79,7 @@ namespace ZeroInstall.Store.Model.Preferences
             preferences.Implementations.Should().BeEquivalentTo(keep);
         }
 
-        [Test]
+        [Fact]
         public void TestGetImplementationPreferences()
         {
             var preferences = new FeedPreferences();

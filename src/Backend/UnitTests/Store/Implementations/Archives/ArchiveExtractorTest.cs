@@ -20,17 +20,16 @@ using System.IO;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
     /// Contains test methods for <see cref="ArchiveExtractor"/>.
     /// </summary>
-    [TestFixture]
     public class ArchiveExtractorTest
     {
-        [Test(Description = "Ensures ArchiveExtractor.FromStream() correctly creates a ZipExtractor.")]
+        [Fact] // Ensures ArchiveExtractor.FromStream() correctly creates a ZipExtractor.
         public void TestCreateExtractor()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -50,10 +49,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        [Test(Description = "Ensures ArchiveExtractor.VerifySupport() correctly distinguishes between supported and not supported archive MIME types.")]
+        [Fact] // Ensures ArchiveExtractor.VerifySupport() correctly distinguishes between supported and not supported archive MIME types.
         public void TestVerifySupport()
         {
-            Assert.DoesNotThrow(() => ArchiveExtractor.VerifySupport(Model.Archive.MimeTypeZip));
+            ArchiveExtractor.VerifySupport(Model.Archive.MimeTypeZip);
             Assert.Throws<NotSupportedException>(() => ArchiveExtractor.VerifySupport("test/format"));
         }
     }

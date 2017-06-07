@@ -19,7 +19,7 @@ using System.IO;
 using FluentAssertions;
 using ICSharpCode.SharpZipLib.Tar;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -27,12 +27,11 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Contains test methods for <see cref="TarGenerator"/>.
     /// </summary>
-    [TestFixture]
     public class TarGeneratorTest : ArchiveGeneratorTest<TarGenerator>
     {
         protected override TarGenerator CreateGenerator(string sourceDirectory, Stream stream) => new TarGenerator(sourceDirectory, stream);
 
-        [Test]
+        [Fact]
         public void TestFileOrder()
         {
             var stream = BuildArchive(new TestRoot {new TestFile("x"), new TestFile("y"), new TestFile("Z")});
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        [Test]
+        [Fact]
         public void TestFileTypes()
         {
             var stream = BuildArchive(new TestRoot
@@ -84,7 +83,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        [Test]
+        [Fact]
         public void TestHardlink()
         {
             Stream stream;

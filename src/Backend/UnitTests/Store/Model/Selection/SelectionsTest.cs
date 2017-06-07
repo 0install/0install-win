@@ -18,14 +18,13 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model.Selection
 {
     /// <summary>
     /// Contains test methods for <see cref="Selections"/>.
     /// </summary>
-    [TestFixture]
     public class SelectionsTest
     {
         /// <summary>
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Ensures that <see cref="Selections.GetImplementation"/> and <see cref="Selections.this"/> correctly retrieve implementatinos.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestGetImplementation()
         {
             var implementation = CreateTestSelections();
@@ -55,18 +54,16 @@ namespace ZeroInstall.Store.Model.Selection
 
             implementation.GetImplementation(new FeedUri("http://invalid/")).Should().BeNull();
 
-            // ReSharper disable once UnusedVariable
-            implementation.Invoking(x => { var _ = x[new FeedUri("http://invalid/")]; }).ShouldThrow<KeyNotFoundException>();
+            Assert.Throws<KeyNotFoundException>(() => implementation[new FeedUri("http://invalid/")]);
         }
 
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSaveLoad()
         {
             Selections selections1 = CreateTestSelections(), selections2;
-            Assert.That(selections1, Is.XmlSerializable);
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
@@ -83,7 +80,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Ensures that the class can be correctly cloned and compared.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestCloneEquals()
         {
             var selections1 = CreateTestSelections();

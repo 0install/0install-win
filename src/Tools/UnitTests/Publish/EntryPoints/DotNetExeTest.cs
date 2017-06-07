@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -24,7 +24,6 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Contains test methods for <see cref="DotNetExe"/>.
     /// </summary>
-    [TestFixture]
     public class DotNetExeTest : CandidateTest
     {
         public static readonly DotNetExe Reference = new DotNetExe
@@ -55,25 +54,25 @@ namespace ZeroInstall.Publish.EntryPoints
             NeedsTerminal = true
         };
 
-        [Test]
+        [Fact]
         public void AnyCpu()
         {
             TestAnalyze(Reference);
         }
 
-        [Test]
+        [Fact]
         public void X64()
         {
             TestAnalyze(Reference64);
         }
 
-        [Test]
+        [Fact]
         public void Terminal()
         {
             TestAnalyze(ReferenceTerminal);
         }
 
-        [Test]
+        [Fact]
         public void NotDotNet()
         {
             new DotNetExe().Analyze(baseDirectory: Directory, file: Deploy(WindowsExeTest.Reference32, xbit: false))

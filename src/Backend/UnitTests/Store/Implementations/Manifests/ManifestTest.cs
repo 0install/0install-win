@@ -25,7 +25,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Build;
@@ -35,7 +35,6 @@ namespace ZeroInstall.Store.Implementations.Manifests
     /// <summary>
     /// Contains test methods for <see cref="Manifest"/>.
     /// </summary>
-    [TestFixture]
     public class ManifestTest : TestWithMocks
     {
         #region Helpers
@@ -71,7 +70,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
         }
         #endregion
 
-        [Test(Description = "Ensures that Manifest is correctly generated, serialized and deserialized.")]
+        [Fact] // Ensures that Manifest is correctly generated, serialized and deserialized.
         public void TestSaveLoad()
         {
             var manifest1 = new Manifest(ManifestFormat.Sha1New,
@@ -89,26 +88,26 @@ namespace ZeroInstall.Store.Implementations.Manifests
             manifest2.Should().Equal(manifest1);
         }
 
-        [Test(Description = "Ensures damaged manifest lines are correctly identified.")]
+        [Fact] // Ensures damaged manifest lines are correctly identified.
         public void TestLoadException()
         {
             Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha256));
             Assert.Throws<FormatException>(() => Manifest.Load("test".ToStream(), ManifestFormat.Sha256New));
-            Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha1New));
-            Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256));
-            Assert.DoesNotThrow(() => Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256New));
+            Manifest.Load("D /test".ToStream(), ManifestFormat.Sha1New);
+            Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256);
+            Manifest.Load("D /test".ToStream(), ManifestFormat.Sha256New);
 
-            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha1New));
-            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256));
-            Assert.DoesNotThrow(() => Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256New));
+            Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha1New);
+            Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256);
+            Manifest.Load("F abc123 1200000000 128 test".ToStream(), ManifestFormat.Sha256New);
 
             Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha1New));
             Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha256));
             Assert.Throws<FormatException>(() => Manifest.Load("F abc123 128 test".ToStream(), ManifestFormat.Sha256New));
         }
 
-        [Test]
+        [Fact]
         public void TestCalculateDigest()
         {
             using (var testDir = new TemporaryDirectory("0install-unit-tests"))
@@ -129,7 +128,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
             }
         }
 
-        [Test(Description = "Ensures that ToXmlString() correctly outputs a serialized form of the manifest.")]
+        [Fact] // Ensures that ToXmlString() correctly outputs a serialized form of the manifest.
         public void TestToString()
         {
             using (var testDir = new TemporaryDirectory("0install-unit-tests"))
@@ -145,7 +144,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
             }
         }
 
-        [Test]
+        [Fact]
         public void TestListPaths()
         {
             var normalFile = new ManifestNormalFile("123", new DateTime(), 10, "normal");
@@ -164,7 +163,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
         }
 
         // ReSharper disable AssignNullToNotNullAttribute
-        [Test]
+        [Fact]
         public void ShouldListNormalWindowsExeWithFlagF()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
@@ -183,7 +182,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldListFilesInXbitWithFlagX()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
@@ -208,7 +207,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldListFilesInSymlinkWithFlagS()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
@@ -233,7 +232,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldListNothingForEmptyPackage()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
@@ -244,7 +243,7 @@ namespace ZeroInstall.Store.Implementations.Manifests
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldHandleSubdirectoriesWithExecutables()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
@@ -274,10 +273,10 @@ namespace ZeroInstall.Store.Implementations.Manifests
 
         // ReSharper restore AssignNullToNotNullAttribute
 
-        [Test]
+        [SkippableFact]
         public void ShouldNotFollowDirectorySymlinks()
         {
-            if (!UnixUtils.IsUnix) Assert.Ignore("Can only test symlinks on Unixoid system");
+            Skip.IfNot(UnixUtils.IsUnix, "Can only test symlinks on Unixoid system");
 
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {

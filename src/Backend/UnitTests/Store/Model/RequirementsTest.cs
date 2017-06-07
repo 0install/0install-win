@@ -17,14 +17,13 @@
 
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="Requirements"/>.
     /// </summary>
-    [TestFixture]
     public class RequirementsTest
     {
         /// <summary>
@@ -40,7 +39,7 @@ namespace ZeroInstall.Store.Model
             }
         };
 
-        [Test(Description = "Ensures that the class can be correctly cloned.")]
+        [Fact] // Ensures that the class can be correctly cloned.
         public void TestClone()
         {
             var requirements1 = CreateTestRequirements();
@@ -53,21 +52,21 @@ namespace ZeroInstall.Store.Model
             requirements2.Should().NotBeSameAs(requirements1, because: "Cloning should not return the same reference.");
         }
 
-        [Test(Description = "Ensures that the class can be serialized to a command-line argument string")]
+        [Fact] // Ensures that the class can be serialized to a command-line argument string
         public void TestToCommandLineArgs()
         {
             CreateTestRequirements().ToCommandLineArgs()
                 .Should().Equal("--command", "command", "--os", "Windows", "--cpu", "i586", "--version-for", "http://0install.de/feeds/test/test1.xml", "1.0..!2.0", "--version-for", "http://0install.de/feeds/test/test2.xml", "2.0..!3.0", "http://0install.de/feeds/test/test1.xml");
         }
 
-        [Test]
+        [Fact]
         public void TestJson()
         {
             CreateTestRequirements().ToJsonString()
                 .Should().Be("{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test1.xml\":\"1.0..!2.0\",\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}");
         }
 
-        [Test]
+        [Fact]
         public void TestXml()
         {
             var requirements = new Requirements(FeedTest.Test1Uri, "command", new Architecture(OS.Windows, Cpu.I586));

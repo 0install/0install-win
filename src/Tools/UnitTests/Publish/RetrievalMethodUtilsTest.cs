@@ -22,7 +22,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 
@@ -31,7 +31,6 @@ namespace ZeroInstall.Publish
     /// <summary>
     /// Contains test methods for <see cref="RetrievalMethodUtils"/>.
     /// </summary>
-    [TestFixture]
     public class RetrievalMethodUtilsTest
     {
         private const string SingleFileData = "data";
@@ -40,7 +39,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="RetrievalMethodUtils.DownloadAndApply(DownloadRetrievalMethod,ITaskHandler,ICommandExecutor)"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void DownloadAndApplyArchive()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
@@ -57,7 +56,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="RetrievalMethodUtils.DownloadAndApply(DownloadRetrievalMethod,ITaskHandler,ICommandExecutor)"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void DownloadAndApplySingleFile()
         {
             using (var stream = SingleFileData.ToStream())
@@ -73,7 +72,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="RetrievalMethodUtils.DownloadAndApply(Recipe,ITaskHandler,ICommandExecutor)"/> works correctly with <see cref="Recipe"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void DownloadAndApplyRecipe()
         {
             using (var stream = typeof(ArchiveExtractorTest).GetEmbeddedStream("testArchive.zip"))
@@ -91,7 +90,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="RetrievalMethodUtils.LocalApply"/> handles <see cref="Archive"/>s without downloading them.
         /// </summary>
-        [Test]
+        [Fact]
         public void LocalApplyArchive()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -113,7 +112,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Ensures <see cref="RetrievalMethodUtils.LocalApply"/> handles <see cref="SingleFile"/>s without downloading them.
         /// </summary>
-        [Test]
+        [Fact]
         public void LocalApplySingleFile()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))

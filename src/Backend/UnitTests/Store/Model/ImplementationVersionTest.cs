@@ -17,20 +17,19 @@
 
 using System;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="ImplementationVersion"/>.
     /// </summary>
-    [TestFixture]
     public class ImplementationVersionTest
     {
         /// <summary>
         /// Ensures the <see cref="ImplementationVersion.TryCreate"/> correctly handles valid strings and rejects invalid ones.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestTryCreate()
         {
             var validVersions = new[] {"0.1", "1", "1.0", "1.1", "1.1-", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2--0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.3", "1.2.10", "3"};
@@ -52,7 +51,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures the constructor correctly parses <see cref="string"/>s and <see cref="Version"/>s.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestVersionConstructor()
         {
             new ImplementationVersion(new Version(1, 2)).Should().Be(new ImplementationVersion("1.2"));
@@ -63,7 +62,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures the <see cref="Version"/> constructor correctly handles template variables.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestTemplateVariable()
         {
             var version = new ImplementationVersion("1-pre{var}");
@@ -78,7 +77,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures <see cref="ImplementationVersion"/> objects are correctly compared.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestEquals()
         {
             new ImplementationVersion("1.2-pre-3").Should().Be(new ImplementationVersion("1.2-pre-3"));
@@ -92,7 +91,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Ensures <see cref="ImplementationVersion"/> objects are sorted correctly.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestSort()
         {
             var sortedVersions = new[] {"0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.3", "1.2.10", "3"};

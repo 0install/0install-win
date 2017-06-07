@@ -16,7 +16,7 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Model.Preferences;
 
 namespace ZeroInstall.Store.Model.Selection
@@ -24,10 +24,9 @@ namespace ZeroInstall.Store.Model.Selection
     /// <summary>
     /// Contains test methods for <see cref="SelectionCandidate"/>.
     /// </summary>
-    [TestFixture]
     public class SelectionCandidateTest
     {
-        [Test]
+        [Fact]
         public void TestIsSuitable()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
@@ -35,7 +34,7 @@ namespace ZeroInstall.Store.Model.Selection
                 .IsSuitable.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TestIsSuitableArchitecture()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Model.Selection
                 .IsSuitable.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestIsSuitableVersionMismatch()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
@@ -59,7 +58,7 @@ namespace ZeroInstall.Store.Model.Selection
             }).IsSuitable.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestIsSuitableBuggyInsecure()
         {
             var implementation = ImplementationTest.CreateTestImplementation();

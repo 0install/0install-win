@@ -18,7 +18,7 @@
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
@@ -27,23 +27,22 @@ namespace ZeroInstall.DesktopIntegration.Windows
     /// <summary>
     /// Contains test methods for <see cref="StubBuilder"/>.
     /// </summary>
-    [TestFixture]
     public sealed class StubBuilderTest
     {
-        [Test]
+        [SkippableFact]
         public void TestBuildStubGui()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("StubBuilder is only used on Windows");
+            Skip.IfNot(WindowsUtils.IsWindows, "StubBuilder is only used on Windows");
 
             var target = new FeedTarget(FeedTest.Test1Uri, FeedTest.CreateTestFeed());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
                 StubBuilder.BuildRunStub(target, tempFile, new SilentTaskHandler(), needsTerminal: false);
         }
 
-        [Test]
+        [SkippableFact]
         public void TestBuildStubNeedsTerminal()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("StubBuilder is only used on Windows");
+            Skip.IfNot(WindowsUtils.IsWindows, "StubBuilder is only used on Windows");
 
             var target = new FeedTarget(FeedTest.Test1Uri, FeedTest.CreateTestFeed());
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

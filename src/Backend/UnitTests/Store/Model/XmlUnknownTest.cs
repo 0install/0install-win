@@ -18,14 +18,13 @@
 using System.Xml.Serialization;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Contains test methods for <see cref="XmlUnknown"/>'s equality testing logic.
     /// </summary>
-    [TestFixture]
     public class XmlUnknownTest
     {
         [XmlRoot(ElementName = "root")]
@@ -44,7 +43,7 @@ namespace ZeroInstall.Store.Model
             }
         }
 
-        [Test]
+        [Fact]
         public void TestEquals()
         {
             var dataBase = XmlStorage.FromXmlString<XmlUnknownStub>("<root key1=\"value1\" key2=\"value2\"><element key=\"value\">text<child1 key=\"value\" /><child2 key=\"value\" /></element></root>");

@@ -16,40 +16,39 @@
  */
 
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
     /// <summary>
     /// Contains test methods for <see cref="PythonScript"/>.
     /// </summary>
-    [TestFixture]
     public class PythonScriptTest : CandidateTest
     {
         public static readonly PythonScript Reference = new PythonScript {RelativePath = "python", Name = "python", NeedsTerminal = true};
         public static readonly PythonScript ReferenceWithExtension = new PythonScript {RelativePath = "python.py", Name = "python", NeedsTerminal = true};
         public static readonly PythonScript ReferenceWithExtensionWindows = new PythonScript {RelativePath = "python.pyw", Name = "python", NeedsTerminal = false};
 
-        [Test]
+        [Fact]
         public void NoExtension()
         {
             TestAnalyze(Reference, executable: true);
         }
 
-        [Test]
+        [Fact]
         public void NotExecutable()
         {
             new PythonScript().Analyze(baseDirectory: Directory, file: Deploy(Reference, xbit: false))
                 .Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void WithExtension()
         {
             TestAnalyze(ReferenceWithExtension);
         }
 
-        [Test]
+        [Fact]
         public void WithExtensionWindows()
         {
             TestAnalyze(ReferenceWithExtensionWindows);

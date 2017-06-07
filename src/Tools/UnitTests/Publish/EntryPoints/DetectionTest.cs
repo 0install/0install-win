@@ -19,17 +19,16 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
     /// <summary>
     /// Contains test methods for <see cref="Detection"/>.
     /// </summary>
-    [TestFixture]
     public class DetectionTest : CandidateTest
     {
-        [Test]
+        [Fact]
         public void TestListCandidates()
         {
             Deploy(DotNetExeTest.Reference, xbit: false);
@@ -47,7 +46,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 PosixBinaryTest.Reference32);
         }
 
-        [Test(Description = "Should not fail on empty files")]
+        [Fact] // Should not fail on empty files
         public void TestEmpty()
         {
             FileUtils.Touch(Path.Combine(Directory.FullName, "empty"));

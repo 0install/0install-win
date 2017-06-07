@@ -15,11 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -29,7 +30,6 @@ namespace ZeroInstall.Store.Implementations
     /// <summary>
     /// Uses mocking to ensure <see cref="CompositeStore"/> correctly delegates work to its child <see cref="IStore"/>s.
     /// </summary>
-    [TestFixture]
     public class CompositeStoreTest : TestWithMocks
     {
         #region Constants
@@ -40,18 +40,14 @@ namespace ZeroInstall.Store.Implementations
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
         #endregion
 
-        private MockTaskHandler _handler;
-        private Mock<IStore> _mockStore1, _mockStore2;
-        private CompositeStore _testStore;
+        private readonly MockTaskHandler _handler;
+        private readonly Mock<IStore> _mockStore1, _mockStore2;
+        private readonly CompositeStore _testStore;
 
-        [SetUp]
-        public override void SetUp()
+        public CompositeStoreTest()
         {
-            base.SetUp();
-
             _handler = new MockTaskHandler();
 
-            // Prepare mock objects that will be injected with methods in the tests
             _mockStore1 = CreateMock<IStore>();
             _mockStore2 = CreateMock<IStore>();
 
@@ -59,7 +55,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         #region List all
-        [Test]
+        [Fact]
         public void TestListAll()
         {
             _mockStore1.Setup(x => x.ListAll()).Returns(new[] {_digest1});
@@ -67,7 +63,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.ListAll().Should().BeEquivalentTo(new[] {_digest1, _digest2}, because: "Should combine results from all stores");
         }
 
-        [Test]
+        [Fact]
         public void TestListAllTemp()
         {
             _mockStore1.Setup(x => x.ListAllTemp()).Returns(new[] {"abc"});
@@ -77,7 +73,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Contains
-        [Test]
+        [Fact]
         public void TestContainsFirst()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
@@ -87,7 +83,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.Contains("dir1").Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TestContainsSecond()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -99,7 +95,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.Contains("dir1").Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TestContainsFalse()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -111,7 +107,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.Contains("dir1").Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void TestContainsCache()
         {
             // First have underlying store report true
@@ -119,7 +115,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.Contains(_digest1).Should().BeTrue();
 
             // Then check the composite cached the result
-            _mockStore1.Setup(x => x.Contains(_digest1)).Throws(new AssertionException("Should not call underlying store when result is cached"));
+            _mockStore1.Setup(x => x.Contains(_digest1)).Throws(new InvalidOperationException("Should not call underlying store when result is cached"));
             _testStore.Contains(_digest1).Should().BeTrue();
 
             // Then clear cache and report different result
@@ -131,14 +127,14 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Get path
-        [Test]
+        [Fact]
         public void TestGetPathFirst()
         {
             _mockStore1.Setup(x => x.GetPath(_digest1)).Returns("path");
             _testStore.GetPath(_digest1).Should().Be("path", because: "Should get path from first mock");
         }
 
-        [Test]
+        [Fact]
         public void TestGetPathSecond()
         {
             _mockStore1.Setup(x => x.GetPath(_digest1)).Returns<string>(null);
@@ -146,7 +142,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.GetPath(_digest1).Should().Be("path", because: "Should get path from second mock");
         }
 
-        [Test]
+        [Fact]
         public void TestGetPathFail()
         {
             _mockStore1.Setup(x => x.GetPath(_digest1)).Returns<string>(null);
@@ -156,7 +152,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Add directory
-        [Test]
+        [Fact]
         public void TestAddDirectoryFirst()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -166,7 +162,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.AddDirectory("path", _digest1, _handler);
         }
 
-        [Test]
+        [Fact]
         public void TestAddDirectorySecond()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -177,7 +173,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.AddDirectory("path", _digest1, _handler);
         }
 
-        [Test]
+        [Fact]
         public void TestAddDirectoryFail()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -185,20 +181,20 @@ namespace ZeroInstall.Store.Implementations
 
             _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
-            _testStore.Invoking(x => x.AddDirectory("path", _digest1, _handler)).ShouldThrow<IOException>(because: "Should pass through fatal exceptions");
+            Assert.Throws<IOException>(() => _testStore.AddDirectory("path", _digest1, _handler));
         }
 
-        [Test]
+        [Fact]
         public void TestAddDirectoryFailAlreadyInStore()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
 
-            _testStore.Invoking(x => x.AddDirectory("path", _digest1, _handler)).ShouldThrow<ImplementationAlreadyInStoreException>(because: "Should not attempt to add new copy if any of the children contains the implementation");
+            Assert.Throws<ImplementationAlreadyInStoreException>(() => _testStore.AddDirectory("path", _digest1, _handler));
         }
         #endregion
 
         #region Add archive
-        [Test]
+        [Fact]
         public void TestAddArchivesFirst()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -208,7 +204,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
-        [Test]
+        [Fact]
         public void TestAddArchivesSecond()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -219,7 +215,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
-        [Test]
+        [Fact]
         public void TestAddArchivesFail()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
@@ -227,20 +223,20 @@ namespace ZeroInstall.Store.Implementations
 
             _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
-            _testStore.Invoking(x => x.AddArchives(_archives, _digest1, _handler)).ShouldThrow<IOException>(because: "Should pass through fatal exceptions");
+            Assert.Throws<IOException>(() => _testStore.AddArchives(_archives, _digest1, _handler));
         }
 
-        [Test]
+        [Fact]
         public void TestAddArchivesFailAlreadyInStore()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
 
-            _testStore.Invoking(x => x.AddArchives(_archives, _digest1, _handler)).ShouldThrow<ImplementationAlreadyInStoreException>(because: "Should not attempt to add new copy if any of the children contains the implementation");
+            Assert.Throws<ImplementationAlreadyInStoreException>(() => _testStore.AddArchives(_archives, _digest1, _handler));
         }
         #endregion
 
         #region Remove
-        [Test]
+        [Fact]
         public void TestRemoveTwo()
         {
             _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Returns(true);
@@ -248,7 +244,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.Remove(_digest1, _handler).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveOne()
         {
             _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Returns(false);
@@ -256,7 +252,7 @@ namespace ZeroInstall.Store.Implementations
             _testStore.Remove(_digest1, _handler).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveNone()
         {
             _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Returns(false);
@@ -266,7 +262,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Verify
-        [Test]
+        [Fact]
         public void TestVerify()
         {
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);

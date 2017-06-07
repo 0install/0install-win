@@ -22,7 +22,7 @@ using FluentAssertions;
 using Moq;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Services.Executors;
@@ -35,12 +35,11 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Contains integration tests for <see cref="Run"/>.
     /// </summary>
-    [TestFixture]
     public class RunTest : SelectionTestBase<Run>
     {
         private Mock<ICatalogManager> CatalogManagerMock => GetMock<ICatalogManager>();
 
-        [Test(Description = "Ensures all options are parsed and handled correctly.")]
+        [Fact] // Ensures all options are parsed and handled correctly.
         public void TestNormal()
         {
             var selections = ExpectSolve();
@@ -60,7 +59,7 @@ namespace ZeroInstall.Commands.CliCommands
                 "--main=Main", "--wrapper=Wrapper", "http://0install.de/feeds/test/test1.xml", "--arg1", "--arg2");
         }
 
-        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        [Fact] // Ensures local Selections XMLs are correctly detected and parsed.
         public void TestImportSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -84,18 +83,19 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        [Ignore("Not applicable")]
-        public override void TestTooManyArgs()
-        {}
+        public override void ShouldRejectTooManyArgs()
+        {
+            // Not applicable
+        }
 
-        [Test]
+        [Fact]
         public void TestGetCanonicalUriRemote()
         {
             Sut.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc()
                 .Should().Be("http://0install.de/feeds/test/test1.xml");
         }
 
-        [Test]
+        [Fact]
         public void TestGetCanonicalUriFile()
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog());
@@ -121,11 +121,11 @@ namespace ZeroInstall.Commands.CliCommands
                 Path.Combine(Environment.CurrentDirectory, "test", "file"));
 
             // Invalid paths
-            Sut.Invoking(x => x.GetCanonicalUri("file:/test/file")).ShouldThrow<UriFormatException>();
-            if (WindowsUtils.IsWindows) Sut.Invoking(x => x.GetCanonicalUri(":::")).ShouldThrow<UriFormatException>();
+            Assert.Throws<UriFormatException>(() => Sut.GetCanonicalUri("file:/test/file"));
+            if (WindowsUtils.IsWindows) Assert.Throws<UriFormatException>(() => Sut.GetCanonicalUri(":::"));
         }
 
-        [Test]
+        [Fact]
         public void TestGetCanonicalUriAliases()
         {
             // Fake an alias
@@ -142,17 +142,17 @@ namespace ZeroInstall.Commands.CliCommands
             }.SaveXml(AppList.GetDefaultPath());
 
             Sut.GetCanonicalUri("alias:test").Should().Be(FeedTest.Test1Uri);
-            Sut.Invoking(x => x.GetCanonicalUri("alias:invalid")).ShouldThrow<UriFormatException>();
+            Assert.Throws<UriFormatException>(() => Sut.GetCanonicalUri("alias:invalid"));
         }
 
-        [Test]
+        [Fact]
         public void TestGetCanonicalUriCatalogCached()
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
             Sut.GetCanonicalUri("MyApp").Should().Be(FeedTest.Test1Uri);
         }
 
-        [Test]
+        [Fact]
         public void TestGetCanonicalUriCatalogOnline()
         {
             CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog());

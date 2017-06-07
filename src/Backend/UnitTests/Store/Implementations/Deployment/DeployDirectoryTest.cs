@@ -20,7 +20,7 @@ using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store.Implementations.Manifests;
 
 namespace ZeroInstall.Store.Implementations.Deployment
@@ -28,35 +28,27 @@ namespace ZeroInstall.Store.Implementations.Deployment
     /// <summary>
     /// Contains test methods for <see cref="DeployDirectory"/>.
     /// </summary>
-    [TestFixture]
     public class DeployDirectoryTest : DirectoryOperationTestBase
     {
-        private TemporaryDirectory _destinationDirectory;
-        private string _destinationManifestPath;
-        private string _destinationFile1Path;
-        private string _destinationSubdirPath;
-        private string _destinationFile2Path;
+        private readonly TemporaryDirectory _destinationDirectory = new TemporaryDirectory("0install-unit-tests");
 
-        [SetUp]
-        public override void SetUp()
+        public override void Dispose()
         {
-            base.SetUp();
+            _destinationDirectory.Dispose();
+            base.Dispose();
+        }
 
-            _destinationDirectory = new TemporaryDirectory("0install-unit-tests");
+        private readonly string _destinationManifestPath, _destinationFile1Path, _destinationSubdirPath, _destinationFile2Path;
+
+        public DeployDirectoryTest()
+        {
             _destinationManifestPath = Path.Combine(_destinationDirectory, Manifest.ManifestFile);
             _destinationFile1Path = Path.Combine(_destinationDirectory, "file1");
             _destinationSubdirPath = Path.Combine(_destinationDirectory, "subdir");
             _destinationFile2Path = Path.Combine(_destinationSubdirPath, "file2");
         }
 
-        [TearDown]
-        public override void TearDown()
-        {
-            _destinationDirectory.Dispose();
-            base.TearDown();
-        }
-
-        [Test]
+        [Fact]
         public void StageAndCommit()
         {
             Directory.Delete(_destinationDirectory);
@@ -80,7 +72,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
             File.Exists(_destinationFile2Path).Should().BeTrue(because: "Final destination file should exist after commit.");
         }
 
-        [Test]
+        [Fact]
         public void StageAndRollBack()
         {
             Directory.Delete(_destinationDirectory);
@@ -94,7 +86,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
             Directory.Exists(_destinationDirectory).Should().BeFalse(because: "Directory should be gone after rollback.");
         }
 
-        [Test]
+        [Fact]
         public void PreExistingFiles()
         {
             FileUtils.Touch(Path.Combine(_destinationDirectory, "preexisting"));
@@ -108,10 +100,10 @@ namespace ZeroInstall.Store.Implementations.Deployment
             Directory.GetFileSystemEntries(_destinationDirectory).Length.Should().Be(1, because: "All new content should be gone after rollback.");
         }
 
-        [Test]
+        [SkippableFact]
         public void ReadOnlyAttribute()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("Read-only file attribute is only available on Windows");
+            Skip.IfNot(WindowsUtils.IsWindows, "Read-only file attribute is only available on Windows");
 
             FileUtils.Touch(_destinationFile1Path);
             new FileInfo(_destinationFile1Path).IsReadOnly = true;

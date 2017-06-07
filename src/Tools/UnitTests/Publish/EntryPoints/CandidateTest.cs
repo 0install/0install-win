@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
 using ZeroInstall.Store.Implementations.Build;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -28,22 +28,16 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Base class for test fixtures that test <see cref="Candidate"/>s.
     /// </summary>
-    public abstract class CandidateTest
+    public abstract class CandidateTest : IDisposable
     {
-        private TemporaryDirectory _temporaryDirectory;
-        protected DirectoryInfo Directory;
+        private readonly TemporaryDirectory _temporaryDirectory = new TemporaryDirectory("unit-tests");
+        public void Dispose() => _temporaryDirectory.Dispose();
 
-        [SetUp]
-        public void SetUp()
+        protected readonly DirectoryInfo Directory;
+
+        protected CandidateTest()
         {
-            _temporaryDirectory = new TemporaryDirectory("unit-tests");
             Directory = new DirectoryInfo(_temporaryDirectory);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _temporaryDirectory.Dispose();
         }
 
         /// <summary>

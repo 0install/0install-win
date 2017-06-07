@@ -19,7 +19,7 @@ using System;
 using FluentAssertions;
 using Moq;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -30,10 +30,9 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Contains integration tests for <see cref="Update"/>.
     /// </summary>
-    [TestFixture]
     public class UpdateTest : SelectionTestBase<Update>
     {
-        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        [Fact] // Ensures local Selections XMLs are correctly detected and parsed.
         public void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
@@ -59,7 +58,7 @@ namespace ZeroInstall.Commands.CliCommands
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 
-        [Test(Description = "Ensures local Selections XMLs are rejected.")]
+        [Fact] // Ensures local Selections XMLs are rejected.
         public void TestRejectImportSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
@@ -67,7 +66,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 selections.SaveXml(tempFile);
                 Sut.Parse(new string[] {tempFile});
-                Sut.Invoking(x => x.Execute()).ShouldThrow<NotSupportedException>();
+                Assert.Throws<NotSupportedException>(() => Sut.Execute());
             }
         }
     }

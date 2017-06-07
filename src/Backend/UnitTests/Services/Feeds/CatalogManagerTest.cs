@@ -19,7 +19,7 @@ using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -29,10 +29,9 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// Contains test methods for <see cref="CatalogManager"/>.
     /// </summary>
-    [TestFixture]
     public class CatalogManagerTest : TestWithContainer<CatalogManager>
     {
-        [Test]
+        [Fact]
         public void TestGetOnline()
         {
             var catalog = CatalogTest.CreateTestCatalog();
@@ -53,7 +52,7 @@ namespace ZeroInstall.Services.Feeds
             }
         }
 
-        [Test]
+        [Fact]
         public void TestGetCached()
         {
             var catalog = CatalogTest.CreateTestCatalog();
@@ -66,35 +65,35 @@ namespace ZeroInstall.Services.Feeds
 
         private static readonly FeedUri _testSource = new FeedUri("http://localhost/test/");
 
-        [Test]
+        [Fact]
         public void TestAddSourceExisting()
         {
             Sut.AddSource(CatalogManager.DefaultSource).Should().BeFalse();
             CatalogManager.GetSources().Should().Equal(CatalogManager.DefaultSource);
         }
 
-        [Test]
+        [Fact]
         public void TestAddSourceNew()
         {
             Sut.AddSource(_testSource).Should().BeTrue();
             CatalogManager.GetSources().Should().Equal(CatalogManager.DefaultSource, _testSource);
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveSource()
         {
             Sut.RemoveSource(CatalogManager.DefaultSource).Should().BeTrue();
             CatalogManager.GetSources().Should().BeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveSourceMissing()
         {
             Sut.RemoveSource(_testSource).Should().BeFalse();
             CatalogManager.GetSources().Should().Equal(CatalogManager.DefaultSource);
         }
 
-        [Test]
+        [Fact]
         public void TestSetSources()
         {
             CatalogManager.SetSources(new[] {_testSource});

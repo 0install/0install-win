@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
 
@@ -26,10 +26,9 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Contains test methods for <see cref="ConflictDataUtils"/>.
     /// </summary>
-    [TestFixture]
     public sealed class ConflictDataUtilsTest
     {
-        [Test]
+        [Fact]
         public void NoConflicts()
         {
             var accessPointA = new MockAccessPoint {ID = "a"};
@@ -45,7 +44,7 @@ namespace ZeroInstall.DesktopIntegration
             appList.CheckForConflicts(new[] {accessPointB}, appEntry2);
         }
 
-        [Test]
+        [Fact]
         public void ReApply()
         {
             var accessPointA = new MockAccessPoint {ID = "a"};
@@ -59,7 +58,7 @@ namespace ZeroInstall.DesktopIntegration
             appList.CheckForConflicts(new[] {accessPointA}, appEntry1);
         }
 
-        [Test]
+        [Fact]
         public void Conflict()
         {
             var accessPointA = new MockAccessPoint {ID = "a"};
@@ -72,11 +71,10 @@ namespace ZeroInstall.DesktopIntegration
             var appEntry2 = new AppEntry {Name = "App2", InterfaceUri = FeedTest.Test2Uri};
 
             var appList = new AppList {Entries = {appEntry1}};
-            appList.Invoking(x => x.CheckForConflicts(new[] {accessPointA}, appEntry2))
-                .ShouldThrow<ConflictException>();
+            Assert.Throws<ConflictException>(() => appList.CheckForConflicts(new[] {accessPointA}, appEntry2));
         }
 
-        [Test]
+        [Fact]
         public void AccessPointCandidates()
         {
             var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "b"}};
@@ -89,16 +87,16 @@ namespace ZeroInstall.DesktopIntegration
             });
         }
 
-        [Test]
+        [Fact]
         public void AccessPointCandidatesInternalConflict()
         {
             var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "a"}};
             var appEntry = new AppEntry {Name = "App"};
 
-            accessPoints.Invoking(x => x.GetConflictData(appEntry)).ShouldThrow<ConflictException>();
+            Assert.Throws<ConflictException>(() => accessPoints.GetConflictData(appEntry));
         }
 
-        [Test]
+        [Fact]
         public void ExistingAppEntries()
         {
             var appList = new[]
@@ -114,7 +112,7 @@ namespace ZeroInstall.DesktopIntegration
             });
         }
 
-        [Test]
+        [Fact]
         public void ExistingAppEntriesInternalConflict()
         {
             var appList = new[]
@@ -123,7 +121,7 @@ namespace ZeroInstall.DesktopIntegration
                 new AppEntry {Name = "App2", AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ID = "a"}}}}
             };
 
-            appList.Invoking(x => x.GetConflictData()).ShouldThrow<ConflictException>();
+            Assert.Throws<ConflictException>(() => appList.GetConflictData());
         }
     }
 }

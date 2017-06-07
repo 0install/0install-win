@@ -20,14 +20,13 @@ using System.IO;
 using FluentAssertions;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
-using NUnit.Framework;
+using Xunit;
 using ZeroInstall.FileSystem;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
-    [TestFixture]
-    public class ZipExtractorTest
+    public class ZipExtractorTest : IDisposable
     {
         private static TestRoot SamplePackageHierarchy => new TestRoot
         {
@@ -47,11 +46,11 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         };
 
-        private byte[] _archiveData;
-        private TemporaryDirectory _sandbox;
+        private readonly byte[] _archiveData = BuildArchive();
+        private readonly TemporaryDirectory _sandbox = new TemporaryDirectory("0install-unit-tests");
+        public void Dispose() => _sandbox.Dispose();
 
-        [SetUp]
-        public void SetUp()
+        private static byte[] BuildArchive()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             using (var archiveStream = new MemoryStream())
@@ -59,19 +58,11 @@ namespace ZeroInstall.Store.Implementations.Archives
                 SamplePackageHierarchy.Build(tempDir);
                 using (var generator = new ZipGenerator(tempDir, archiveStream))
                     generator.Run();
-                _archiveData = archiveStream.ToArray();
+                return archiveStream.ToArray();
             }
-
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _sandbox.Dispose();
-        }
-
-        [Test]
+        [Fact]
         public void ComplexHierachy()
         {
             using (var extractor = ArchiveExtractor.Create(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox, Archive.MimeTypeZip))
@@ -91,7 +82,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }.Verify(_sandbox);
         }
 
-        [Test]
+        [Fact]
         public void Suffix()
         {
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
@@ -103,7 +94,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             SamplePackageHierarchy.Verify(Path.Combine(_sandbox, "suffix"));
         }
 
-        [Test]
+        [Fact]
         public void ExtractionOfSubDir()
         {
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
@@ -122,7 +113,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }.Verify(_sandbox);
         }
 
-        [Test]
+        [Fact]
         public void EnsureSubDirDoesNotTouchFileNames()
         {
             using (var extractor = ArchiveExtractor.Create(new MemoryStream(_archiveData), _sandbox, Archive.MimeTypeZip))
@@ -135,7 +126,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             File.Exists(Path.Combine(_sandbox, "File")).Should().BeFalse(because: "Should not apply subdir matching to part of filename");
         }
 
-        [Test]
+        [Fact]
         public void TestExtractOverwritingExistingItems()
         {
             new TestRoot
@@ -157,7 +148,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Tests whether the extractor correctly handles a ZIP archive containing an executable file.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var extractor = new ZipExtractor(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox))
@@ -175,7 +166,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// TTests whether the extractor correctly handles a ZIP archive containing containing a symbolic link.
         /// </summary>
-        [Test]
+        [Fact]
         public void TestExtractUnixArchiveWithSymlink()
         {
             using (var extractor = new ZipExtractor(typeof(ZipExtractorTest).GetEmbeddedStream("testArchive.zip"), _sandbox))
