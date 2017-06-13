@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
         /// The path of the directory to operate on.
         /// </summary>
         [NotNull]
-        public string Path { get; private set; }
+        public string Path { get; }
 
         /// <summary>
         /// The contents of a <see cref="Manifests.Manifest"/> file describing the directory.

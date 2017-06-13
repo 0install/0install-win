@@ -32,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// The wrapped <see cref="Capability" />.
         /// </summary>
         [Browsable(false)]
-        public DefaultCapability Capability { get; private set; }
+        public DefaultCapability Capability { get; }
 
         /// <summary>
         /// Stores whether the <see cref="CapabilityModel.Capability" /> was already used or not.

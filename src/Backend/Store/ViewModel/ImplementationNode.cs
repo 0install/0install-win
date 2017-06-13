@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.ViewModel
         /// The total size of the implementation in bytes.
         /// </summary>
         [Description("The total size of the implementation in bytes.")]
-        public long Size { get; private set; }
+        public long Size { get; }
 
         /// <inheritdoc/>
         public override string Path => Store.GetPath(_digest);

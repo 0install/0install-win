@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands.CliCommands
         where TCommand : CliCommand
     {
         // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
-        protected new MockCommandHandler Handler { get; private set; }
+        protected new MockCommandHandler Handler { get; }
 
 
         protected CliCommandTest()

@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Browsable(false)]
         [NotNull]
-        public FeedPreferences FeedPreferences { get; private set; }
+        public FeedPreferences FeedPreferences { get; }
 
         /// <summary>
         /// The version number of the implementation.

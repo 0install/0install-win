@@ -59,7 +59,7 @@ namespace ZeroInstall.Publish.Capture
         /// <summary>
         /// The fully qualified path to the installation directory.
         /// </summary>
-        public string InstallationDir { get; private set; }
+        public string InstallationDir { get; }
 
         /// <summary>
         /// Creates a new command provider.
