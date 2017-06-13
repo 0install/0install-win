@@ -39,15 +39,17 @@ namespace ZeroInstall.Publish.WinForms
         [STAThread] // Required for WinForms
         private static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
+            ProcessUtils.SanitizeEnvironmentVariables();
             NetUtils.ApplyProxy();
             ServicePointManager.SecurityProtocol =
                 SecurityProtocolType.Ssl3 |
                 SecurityProtocolType.Tls |
                 (SecurityProtocolType)768 | // Tls11
                 (SecurityProtocolType)3072; // Tls12
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
             var openPgp = OpenPgpFactory.CreateDefault();
 

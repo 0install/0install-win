@@ -41,27 +41,29 @@ namespace ZeroInstall
         /// <summary>
         /// The full path of this binary.
         /// </summary>
-        public static string ExePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+        public static readonly string ExePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
 
         /// <summary>
         /// The current EXE name (without the file ending) of this binary.
         /// </summary>
-        public static string ExeName = Path.GetFileNameWithoutExtension(ExePath);
+        public static readonly string ExeName = Path.GetFileNameWithoutExtension(ExePath);
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         public static int Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
+            ProcessUtils.SanitizeEnvironmentVariables();
             NetUtils.ApplyProxy();
             ServicePointManager.SecurityProtocol =
                 SecurityProtocolType.Ssl3 |
                 SecurityProtocolType.Tls |
                 (SecurityProtocolType)768 | // Tls11
                 (SecurityProtocolType)3072; // Tls12
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
             if (WindowsUtils.IsWindows)
             {

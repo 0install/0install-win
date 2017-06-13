@@ -39,6 +39,7 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         private static int Main(string[] args)
         {
+            ProcessUtils.SanitizeEnvironmentVariables();
             NetUtils.ApplyProxy();
             ServicePointManager.SecurityProtocol =
                 SecurityProtocolType.Ssl3 |

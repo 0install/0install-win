@@ -49,6 +49,7 @@ namespace ZeroInstall.Commands.WinForms
         private static int Main(string[] args)
         {
             ProgramUtils.Init();
+
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
