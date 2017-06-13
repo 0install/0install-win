@@ -17,6 +17,7 @@
 
 using FluentAssertions;
 using JetBrains.Annotations;
+using NanoByte.Common.Tasks;
 using NDesk.Options;
 using Xunit;
 using ZeroInstall.Services;

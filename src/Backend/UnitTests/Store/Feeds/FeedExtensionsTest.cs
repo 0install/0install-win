@@ -22,7 +22,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Contains test methods for <see cref="ImplementationUtils"/>.
+    /// Contains test methods for <see cref="FeedExtensions"/>.
     /// </summary>
     public class FeedExtensionsTest
     {

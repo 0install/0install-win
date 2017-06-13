@@ -74,7 +74,7 @@ namespace ZeroInstall
 
         /// <summary>
         /// Provides an instance of a specific type.
-        /// Will usually be a <see cref="Mock"/> as provided by <see cref="GetMock{T}"/> unless a custom instance has been registered in <see cref="Register"/>.
+        /// Will usually be a <see cref="Mock"/> as provided by <see cref="GetMock{T}"/> unless a custom instance has been registered in the constructor.
         /// </summary>
         protected T Resolve<T>() where T : class => Container.Resolve<T>();
     }

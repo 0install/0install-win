@@ -198,7 +198,7 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with relative paths.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and "main" overrides with relative paths.
         /// </summary>
         [Fact]
         public void TestMainRelative()
@@ -227,7 +227,7 @@ namespace ZeroInstall.Services.Executors
         }
 
         /// <summary>
-        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with absolute paths.
+        /// Ensures <see cref="EnvironmentBuilder.ToStartInfo"/> handles complex <see cref="Selections"/> and "main" overrides with absolute paths.
         /// </summary>
         [Fact]
         public void TestMainAbsolute()
