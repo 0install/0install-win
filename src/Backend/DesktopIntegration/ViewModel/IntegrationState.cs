@@ -55,15 +55,9 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         public IntegrationState([NotNull] IIntegrationManager integrationManager, [NotNull] AppEntry appEntry, [NotNull] Feed feed)
         {
-            #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException(nameof(integrationManager));
-            if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
-            if (feed == null) throw new ArgumentNullException(nameof(feed));
-            #endregion
-
-            _integrationManager = integrationManager;
-            AppEntry = appEntry;
-            Feed = feed;
+            _integrationManager = integrationManager ?? throw new ArgumentNullException(nameof(integrationManager));
+            AppEntry = appEntry ?? throw new ArgumentNullException(nameof(appEntry));
+            Feed = feed ?? throw new ArgumentNullException(nameof(feed));
 
             CapabilitiyRegistration = (AppEntry.AccessPoints == null) || AppEntry.AccessPoints.Entries.OfType<AccessPoints.CapabilityRegistration>().Any();
 

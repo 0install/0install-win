@@ -116,14 +116,9 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="OptionException"><paramref name="args"/> contains unknown options.</exception>
         public PublishCommand(IEnumerable<string> args, ITaskHandler handler)
         {
-            #region Sanity checks
-            if (args == null) throw new ArgumentNullException(nameof(args));
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
 
-            _handler = handler;
-
-            var additionalArgs = BuildOptions().Parse(args);
+            var additionalArgs = BuildOptions().Parse(args ?? throw new ArgumentNullException(nameof(args)));
             try
             {
                 _feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml");

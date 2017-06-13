@@ -114,14 +114,10 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read a file.</exception>
         protected virtual void HandleEntries([NotNull] IEnumerable<FileSystemInfo> entries)
         {
-            #region Sanity checks
-            if (entries == null) throw new ArgumentNullException(nameof(entries));
-            #endregion
-
             var externalXbits = FlagUtils.GetFiles(FlagUtils.XbitFile, SourceDirectory.FullName);
             var externalSymlinks = FlagUtils.GetFiles(FlagUtils.SymlinkFile, SourceDirectory.FullName);
 
-            foreach (var entry in entries)
+            foreach (var entry in entries ?? throw new ArgumentNullException(nameof(entries)))
             {
                 CancellationToken.ThrowIfCancellationRequested();
 

@@ -57,17 +57,10 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         public FeedManager([NotNull] Config config, [NotNull] IFeedCache feedCache, [NotNull] ITrustManager trustManager, [NotNull] ITaskHandler handler)
         {
-            #region Sanity checks
-            if (config == null) throw new ArgumentNullException(nameof(config));
-            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
-            if (trustManager == null) throw new ArgumentNullException(nameof(trustManager));
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            _config = config;
-            _feedCache = feedCache;
-            _trustManager = trustManager;
-            _handler = handler;
+            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
+            _trustManager = trustManager ?? throw new ArgumentNullException(nameof(trustManager));
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
         #endregion
 

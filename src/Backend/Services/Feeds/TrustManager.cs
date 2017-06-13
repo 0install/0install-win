@@ -55,19 +55,11 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="handler">A callback object used when the the user needs to be asked questions.</param>
         public TrustManager([NotNull] Config config, [NotNull] IOpenPgp openPgp, [NotNull] TrustDB trustDB, [NotNull] IFeedCache feedCache, [NotNull] ITaskHandler handler)
         {
-            #region Sanity checks
-            if (config == null) throw new ArgumentNullException(nameof(config));
-            if (openPgp == null) throw new ArgumentNullException(nameof(openPgp));
-            if (trustDB == null) throw new ArgumentNullException(nameof(trustDB));
-            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            _config = config;
-            _openPgp = openPgp;
-            _trustDB = trustDB;
-            _feedCache = feedCache;
-            _handler = handler;
+            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _openPgp = openPgp ?? throw new ArgumentNullException(nameof(openPgp));
+            _trustDB = trustDB ?? throw new ArgumentNullException(nameof(trustDB));
+            _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
         #endregion
 
@@ -264,8 +256,6 @@ namespace ZeroInstall.Services.Feeds
 
         [NotNull]
         private Uri GetMirrorUrl([NotNull] MissingKeySignature signature)
-        {
-            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.FormatKeyID() + ".gpg");
-        }
+            => new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.FormatKeyID() + ".gpg");
     }
 }

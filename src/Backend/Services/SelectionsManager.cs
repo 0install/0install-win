@@ -45,15 +45,9 @@ namespace ZeroInstall.Services
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
         public SelectionsManager([NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager)
         {
-            #region Sanity checks
-            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            if (packageManager == null) throw new ArgumentNullException(nameof(packageManager));
-            #endregion
-
-            _feedManager = feedManager;
-            _store = store;
-            _packageManager = packageManager;
+            _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
+            _store = store ?? throw new ArgumentNullException(nameof(store));
+            _packageManager = packageManager ?? throw new ArgumentNullException(nameof(packageManager));
         }
         #endregion
 

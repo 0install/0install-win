@@ -52,13 +52,8 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         protected FetcherBase([NotNull] IStore store, [NotNull] ITaskHandler handler)
         {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            _store = store;
-            Handler = handler;
+            _store = store ?? throw new ArgumentNullException(nameof(store));
+            Handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
         #endregion
 

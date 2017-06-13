@@ -32,7 +32,6 @@ namespace ZeroInstall.Store.Implementations.Manifests
     /// </summary>
     public class ManifestGenerator : DirectoryTaskBase
     {
-        #region Properties
         /// <inheritdoc/>
         public override string Name => string.Format(Resources.GeneratingManifest, Format);
 
@@ -48,23 +47,14 @@ namespace ZeroInstall.Store.Implementations.Manifests
         /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifests.Manifest"/>; otherwise it's <c>null</c>.
         /// </summary>
         public Manifest Manifest => new Manifest(Format, _nodes);
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Prepares to generate a manifest for a directory in the filesystem.
         /// </summary>
         /// <param name="sourcePath">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest to generate.</param>
         public ManifestGenerator([NotNull] string sourcePath, [NotNull] ManifestFormat format) : base(sourcePath)
-        {
-            #region Sanity checks
-            if (format == null) throw new ArgumentNullException(nameof(format));
-            #endregion
-
-            Format = format;
-        }
-        #endregion
+            => Format = format ?? throw new ArgumentNullException(nameof(format));
 
         /// <inheritdoc/>
         protected override void HandleFile(FileInfo file, bool executable = false)

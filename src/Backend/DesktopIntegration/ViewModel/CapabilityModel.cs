@@ -27,7 +27,6 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
     /// </summary>
     public abstract class CapabilityModel
     {
-        #region Properties
         /// <summary>
         /// The wrapped <see cref="Capability" />.
         /// </summary>
@@ -49,7 +48,6 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// </summary>
         [Browsable(false)]
         public bool Changed => (_wasUsed != Use);
-        #endregion
 
         /// <summary>
         /// Creates a new instance.
@@ -58,11 +56,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <param name="used">Indicates whether the <see cref="Capability" /> was already used.</param>
         protected CapabilityModel([NotNull] DefaultCapability capability, bool used)
         {
-            #region Sanity Checks
-            if (capability == null) throw new ArgumentNullException(nameof(capability));
-            #endregion
-
-            Capability = capability;
+            Capability = capability ?? throw new ArgumentNullException(nameof(capability));
             _wasUsed = Use = used;
         }
     }

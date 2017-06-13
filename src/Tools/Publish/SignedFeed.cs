@@ -51,15 +51,10 @@ namespace ZeroInstall.Publish
         /// <param name="secretKey">The secret key used to sign the <see cref="Feed"/>; <c>null</c> for no signature.</param>
         public SignedFeed([NotNull] Feed feed, [CanBeNull] OpenPgpSecretKey secretKey = null)
         {
-            #region Sanity checks
-            if (feed == null) throw new ArgumentNullException(nameof(feed));
-            #endregion
-
-            Feed = feed;
+            Feed = feed ?? throw new ArgumentNullException(nameof(feed));
             SecretKey = secretKey;
         }
 
-        #region Storage
         /// <summary>
         /// Loads a <see cref="Feed"/> from an XML file and identifies the signature (if any).
         /// </summary>
@@ -116,6 +111,5 @@ namespace ZeroInstall.Publish
                 FeedUtils.DeployStylesheet(directory, @"feed");
             }
         }
-        #endregion
     }
 }

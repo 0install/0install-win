@@ -60,10 +60,7 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return KeyID.GetHashCode();
-        }
+        public override int GetHashCode() => KeyID.GetHashCode();
         #endregion
     }
 
@@ -76,10 +73,7 @@ namespace ZeroInstall.Store.Trust
         private readonly byte[] _fingerprint;
 
         /// <inheritdoc/>
-        public byte[] GetFingerprint()
-        {
-            return _fingerprint.ToArray();
-        }
+        public byte[] GetFingerprint() => _fingerprint.ToArray();
 
         /// <summary>
         /// The point in time when the signature was created in UTC.
@@ -94,23 +88,14 @@ namespace ZeroInstall.Store.Trust
         /// <param name="timestamp">The point in time when the signature was created in UTC.</param>
         public ValidSignature(long keyID, [NotNull] byte[] fingerprint, DateTime timestamp) : base(keyID)
         {
-            #region Sanity checks
-            if (fingerprint == null) throw new ArgumentNullException(nameof(fingerprint));
-            #endregion
-
-            _fingerprint = fingerprint;
+            _fingerprint = fingerprint ?? throw new ArgumentNullException(nameof(fingerprint));
             Timestamp = timestamp;
         }
 
-        #region Conversion
         /// <summary>
         /// Returns the signature information in the form "ValidSignature: Fingerprint (Timestamp)". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"ValidSignature: {this.FormatFingerprint()} ({Timestamp})";
-        }
-        #endregion
+        public override string ToString() => $"ValidSignature: {this.FormatFingerprint()} ({Timestamp})";
 
         #region Equality
         private bool Equals(ValidSignature other)
@@ -152,16 +137,11 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keyID">The key ID of the key used to create this signature.</param>
         public ErrorSignature(long keyID) : base(keyID)
         {}
-
-        #region Conversion
+        
         /// <summary>
         /// Returns the signature information in the form "ErrorSignature: KeyID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"ErrorSignature: {this.FormatKeyID()}";
-        }
-        #endregion
+        public override string ToString() => $"ErrorSignature: {this.FormatKeyID()}";
 
         #region Equality
         /// <inheritdoc/>
@@ -173,10 +153,7 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
         #endregion
     }
 
@@ -192,16 +169,11 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keyID">The key ID of the key used to create this signature.</param>
         public BadSignature(long keyID) : base(keyID)
         {}
-
-        #region Conversion
+        
         /// <summary>
         /// Returns the signature information in the form "BadSignature: KeyID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"BadSignature: {this.FormatKeyID()}";
-        }
-        #endregion
+        public override string ToString() => $"BadSignature: {this.FormatKeyID()}";
 
         #region Equality
         /// <inheritdoc/>
@@ -213,10 +185,7 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
         #endregion
     }
 
@@ -233,16 +202,11 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keyID">The key ID of the key used to create this signature.</param>
         public MissingKeySignature(long keyID) : base(keyID)
         {}
-
-        #region Conversion
+        
         /// <summary>
         /// Returns the signature information in the form "MissingKeySignature: KeyID". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"MissingKeySignature: {this.FormatKeyID()}";
-        }
-        #endregion
+        public override string ToString() => $"MissingKeySignature: {this.FormatKeyID()}";
 
         #region Equality
         /// <inheritdoc/>
@@ -254,10 +218,7 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
         #endregion
     }
 }

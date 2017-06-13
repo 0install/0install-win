@@ -53,34 +53,21 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <inheritdoc/>
         protected override void HandleFile(FileInfo file, bool executable = false)
         {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            #endregion
-
-            if (file.Name == SourceFileName)
+            if ((file ?? throw new ArgumentNullException(nameof(file))).Name == SourceFileName)
                 base.HandleFile(file, executable);
         }
 
         /// <inheritdoc/>
         protected override void HandleSymlink(FileSystemInfo symlink, string target)
         {
-            #region Sanity checks
-            if (symlink == null) throw new ArgumentNullException(nameof(symlink));
-            if (target == null) throw new ArgumentNullException(nameof(target));
-            #endregion
-
-            if (symlink.Name == SourceFileName)
-                DirectoryBuilder.CreateSymlink(TargetFileName, target);
+            if ((symlink ?? throw new ArgumentNullException(nameof(symlink))) .Name == SourceFileName)
+                DirectoryBuilder.CreateSymlink(TargetFileName, target ?? throw new ArgumentNullException(nameof(target)));
         }
 
         /// <inheritdoc/>
         protected override string NewFilePath(FileInfo file, bool executable)
-        {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            #endregion
-
-            return DirectoryBuilder.NewFilePath(TargetFileName, file.LastWriteTimeUtc, executable);
-        }
+            => DirectoryBuilder.NewFilePath(
+                TargetFileName,
+                (file ?? throw new ArgumentNullException(nameof(file))).LastWriteTimeUtc, executable);
     }
 }

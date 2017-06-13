@@ -47,11 +47,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
         public ProgressForm([NotNull] CancellationTokenSource cancellationTokenSource)
         {
-            #region Sanity checks
-            if (cancellationTokenSource == null) throw new ArgumentNullException(nameof(cancellationTokenSource));
-            #endregion
-
-            _cancellationTokenSource = cancellationTokenSource;
+            _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
             InitializeComponent();
 
@@ -108,14 +104,13 @@ namespace ZeroInstall.Commands.WinForms
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
-            if (waitHandle == null) throw new ArgumentNullException(nameof(waitHandle));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
             Visible = true;
             notifyIcon.Visible = false;
 
-            _customizeSelectionsWaitHandle = waitHandle;
+            _customizeSelectionsWaitHandle = waitHandle ?? throw new ArgumentNullException(nameof(waitHandle));
 
             // Show "modify selections" UI
             selectionsControl.BeginCustomizeSelections(solveCallback);

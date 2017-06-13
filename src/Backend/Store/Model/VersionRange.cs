@@ -52,21 +52,12 @@ namespace ZeroInstall.Store.Model
         private readonly VersionRangePart[] _parts;
 
         private VersionRange([NotNull] params VersionRangePart[] parts)
-        {
-            #region Sanity checks
-            if (parts == null) throw new ArgumentNullException(nameof(parts));
-            #endregion
-
-            _parts = parts;
-        }
+            => _parts = parts ?? throw new ArgumentNullException(nameof(parts));
 
         /// <summary>
         /// Creates an empty version range (matches anything).
         /// </summary>
-        public VersionRange()
-        {
-            _parts = new VersionRangePart[0];
-        }
+        public VersionRange() => _parts = new VersionRangePart[0];
 
         /// <summary>
         /// Creates a new version range from a a string.
@@ -88,13 +79,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="version">The exact version to match.</param>
         public VersionRange([NotNull] ImplementationVersion version)
-        {
-            #region Sanity checks
-            if (version == null) throw new ArgumentNullException(nameof(version));
-            #endregion
-
-            _parts = new VersionRangePart[] {new VersionRangeExact(version)};
-        }
+            => _parts = new VersionRangePart[] {new VersionRangeExact(version ?? throw new ArgumentNullException(nameof(version))) };
 
         /// <summary>
         /// Creates a single interval version range.
@@ -102,9 +87,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="notBefore">The lower, inclusive border of the range; can be <c>null</c>.</param>
         /// <param name="before">The upper, exclusive border of the range; can be <c>null</c>.</param>
         public VersionRange([CanBeNull] ImplementationVersion notBefore, [CanBeNull] ImplementationVersion before)
-        {
-            _parts = new VersionRangePart[] {new VersionRangeRange(notBefore, before)};
-        }
+            => _parts = new VersionRangePart[] {new VersionRangeRange(notBefore, before)};
 
         /// <summary>
         /// Creates a new <see cref="VersionRange"/> using the specified string representation.

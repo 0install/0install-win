@@ -40,13 +40,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="implementation">The implementation to download.</param>
         public ExternalFetch([NotNull] Implementation implementation)
-        {
-            #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
-            #endregion
-
-            _implementation = implementation;
-        }
+            => _implementation = implementation ?? throw new ArgumentNullException(nameof(implementation));
 
         /// <inheritdoc/>
         public override string Name => string.Format(Resources.FetchingExternal, _implementation.ID);

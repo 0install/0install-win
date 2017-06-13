@@ -40,13 +40,7 @@ namespace ZeroInstall.Services.Executors
         /// </summary>
         /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
         public Executor([NotNull] IStore store)
-        {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            #endregion
-
-            _store = store;
-        }
+            => _store = store ?? throw new ArgumentNullException(nameof(store));
         #endregion
 
         /// <inheritdoc/>

@@ -44,13 +44,8 @@ namespace ZeroInstall.Store.ViewModel
         /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
         public CacheNodeBuilder([NotNull] IStore store, [NotNull] IFeedCache feedCache)
         {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
-            #endregion
-
-            _store = store;
-            _feedCache = feedCache;
+            _store = store ?? throw new ArgumentNullException(nameof(store));
+            _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
         }
         #endregion
 

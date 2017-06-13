@@ -50,13 +50,8 @@ namespace ZeroInstall.Hooking
         /// <param name="registryValue">The value as it is actually stored in the registry; may not be <c>null</c>!</param>
         public RegistryFilterRule(string processValue, string registryValue)
         {
-            #region Sanity checks
-            if (processValue == null) throw new ArgumentNullException(nameof(processValue));
-            if (registryValue == null) throw new ArgumentNullException(nameof(registryValue));
-            #endregion
-
-            ProcessValue = processValue;
-            RegistryValue = registryValue;
+            ProcessValue = processValue ?? throw new ArgumentNullException(nameof(processValue));
+            RegistryValue = registryValue ?? throw new ArgumentNullException(nameof(registryValue));
         }
         #endregion
 

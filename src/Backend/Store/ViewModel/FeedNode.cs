@@ -45,13 +45,8 @@ namespace ZeroInstall.Store.ViewModel
         /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
         public FeedNode([NotNull] Feed feed, [NotNull] IFeedCache cache)
         {
-            #region Sanity checks
-            if (cache == null) throw new ArgumentNullException(nameof(cache));
-            if (feed == null) throw new ArgumentNullException(nameof(feed));
-            #endregion
-
-            _cache = cache;
-            _feed = feed;
+            _cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _feed = feed ?? throw new ArgumentNullException(nameof(feed));
         }
 
         /// <inheritdoc/>
@@ -106,9 +101,6 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="KeyNotFoundException">No matching feed could be found in the <see cref="IFeedCache"/>.</exception>
         /// <exception cref="IOException">The feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
-        public override void Delete(ITaskHandler handler)
-        {
-            _cache.Remove(_feed.Uri);
-        }
+        public override void Delete(ITaskHandler handler) => _cache.Remove(_feed.Uri);
     }
 }

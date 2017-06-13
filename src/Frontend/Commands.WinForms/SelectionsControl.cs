@@ -71,12 +71,9 @@ namespace ZeroInstall.Commands.WinForms
         /// </remarks>
         public void SetSelections([NotNull] Selections selections, [NotNull] IFeedManager feedManager)
         {
-            #region Sanity checks
-            if (selections == null) throw new ArgumentNullException(nameof(selections));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
 
-            _selections = selections;
+            _selections = selections ?? throw new ArgumentNullException(nameof(selections));
             _feedManager = feedManager;
 
             BuildTable();
@@ -122,12 +119,9 @@ namespace ZeroInstall.Commands.WinForms
         /// </remarks>
         public void BeginCustomizeSelections(Func<Selections> solveCallback)
         {
-            #region Sanity checks
-            if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
 
-            _solveCallback = solveCallback;
+            _solveCallback = solveCallback ?? throw new ArgumentNullException(nameof(solveCallback));
             CreateLinkLabels();
         }
 

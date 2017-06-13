@@ -53,19 +53,11 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         public BacktrackingSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] ITaskHandler handler)
         {
-            #region Sanity checks
-            if (config == null) throw new ArgumentNullException(nameof(config));
-            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            if (packageManager == null) throw new ArgumentNullException(nameof(packageManager));
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            _config = config;
-            _store = store;
-            _packageManager = packageManager;
-            _feedManager = feedManager;
-            _handler = handler;
+            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _store = store ?? throw new ArgumentNullException(nameof(store));
+            _packageManager = packageManager ?? throw new ArgumentNullException(nameof(packageManager));
+            _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
         #endregion
 

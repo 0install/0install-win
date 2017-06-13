@@ -49,14 +49,10 @@ namespace ZeroInstall.Services.Solvers
             /// <param name="candidateProvider">Generates <see cref="SelectionCandidate"/>s for the solver to choose among.</param>
             public Pass([NotNull] Requirements requirements, CancellationToken cancellationToken, [NotNull] SelectionCandidateProvider candidateProvider)
             {
-                #region Sanity checks
-                if (requirements == null) throw new ArgumentNullException(nameof(requirements));
-                #endregion
-
                 _cancellationToken = cancellationToken;
                 _candidateProvider = candidateProvider;
 
-                _topLevelRequirements = requirements;
+                _topLevelRequirements = requirements ?? throw new ArgumentNullException(nameof(requirements));
                 Selections.InterfaceUri = requirements.InterfaceUri;
                 Selections.Command = requirements.Command;
             }
@@ -74,10 +70,7 @@ namespace ZeroInstall.Services.Solvers
             /// Try to satisfy the <see cref="_topLevelRequirements"/>. If successful the result can be retrieved from <see cref="Selections"/>.
             /// </summary>
             /// <returns><c>true</c> if a solution was found; <c>false</c> otherwise.</returns>
-            public bool TryToSolve()
-            {
-                return TryToSolve(_topLevelRequirements);
-            }
+            public bool TryToSolve() => TryToSolve(_topLevelRequirements);
 
             /// <summary>
             /// Try to satisfy a set of <paramref name="requirements"/>, respecting any existing <see cref="Selections"/>.
@@ -101,12 +94,10 @@ namespace ZeroInstall.Services.Solvers
             private readonly List<Restriction> _restrictions = new List<Restriction>();
 
             private IEnumerable<SelectionCandidate> FilterSuitableCandidates([NotNull, ItemNotNull] IEnumerable<SelectionCandidate> candidates, [NotNull] FeedUri interfaceUri)
-            {
-                return candidates.Where(candidate =>
+                => candidates.Where(candidate =>
                     candidate.IsSuitable &&
                     !ConflictsWithExistingRestrictions(candidate, interfaceUri) &&
                     !ConflictsWithExistingSelections(candidate));
-            }
 
             private bool ConflictsWithExistingRestrictions([NotNull] SelectionCandidate candidate, [NotNull] FeedUri interfaceUri)
             {
@@ -161,9 +152,7 @@ namespace ZeroInstall.Services.Solvers
             }
 
             private bool TryToSolveBindingRequirements([NotNull] IInterfaceUriBindingContainer selection)
-            {
-                return selection.ToBindingRequirements(selection.InterfaceUri).All(TryToSolve);
-            }
+                => selection.ToBindingRequirements(selection.InterfaceUri).All(TryToSolve);
 
             private bool TryToSolveDependencies([NotNull] IDependencyContainer dependencyContainer)
             {
@@ -184,9 +173,7 @@ namespace ZeroInstall.Services.Solvers
             }
 
             private bool TryToSolveDependency([NotNull] Dependency dependency)
-            {
-                return TryToSolve(dependency.ToRequirements(_topLevelRequirements)) && TryToSolveBindingRequirements(dependency);
-            }
+                => TryToSolve(dependency.ToRequirements(_topLevelRequirements)) && TryToSolveBindingRequirements(dependency);
 
             private bool TryToSolveCommand([CanBeNull] Command command, [NotNull] Requirements requirements)
             {

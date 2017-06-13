@@ -47,11 +47,7 @@ namespace ZeroInstall.Store
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         protected ManagerBase([NotNull] ITaskHandler handler, bool machineWide = false)
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            Handler = handler;
+            Handler = handler ?? throw new ArgumentNullException(nameof(handler));
             MachineWide = machineWide;
         }
 

@@ -58,13 +58,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
         public StoreManageForm([NotNull] IStore store, [NotNull] IFeedCache feedCache)
         {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            if (feedCache == null) throw new ArgumentNullException(nameof(feedCache));
-            #endregion
-
-            _store = store;
-            _feedCache = feedCache;
+            _store = store ?? throw new ArgumentNullException(nameof(store));
+            _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
 
             InitializeComponent();
             buttonRunAsAdmin.AddShieldIcon();

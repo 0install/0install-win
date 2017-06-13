@@ -43,13 +43,8 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </returns>
         internal virtual bool Analyze([NotNull] DirectoryInfo baseDirectory, [NotNull] FileInfo file)
         {
-            #region Sanity checks
-            if (baseDirectory == null) throw new ArgumentNullException(nameof(baseDirectory));
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            #endregion
-
-            BaseDirectory = baseDirectory;
-            RelativePath = file.RelativeTo(BaseDirectory);
+            BaseDirectory = baseDirectory ?? throw new ArgumentNullException(nameof(baseDirectory));
+            RelativePath = file?.RelativeTo(BaseDirectory) ?? throw new ArgumentNullException(nameof(file));
             return true;
         }
 
@@ -132,10 +127,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>The <see cref="Command.Name"/> used by <see cref="CreateCommand"/>.</summary>
         protected string CommandName => (Path.GetFileNameWithoutExtension(RelativePath) ?? "unknown").Replace(" ", "-");
 
-        public override string ToString()
-        {
-            return RelativePath + " (" + GetType().Name + ")";
-        }
+        public override string ToString() => RelativePath + " (" + GetType().Name + ")";
 
         #region Equality
         protected bool Equals(Candidate other)

@@ -30,7 +30,6 @@ namespace ZeroInstall.Publish
     /// </summary>
     public class FeedEditing : CommandManager<Feed>
     {
-        #region Properties
         /// <summary>
         /// The (optionally signed) feed being edited.
         /// </summary>
@@ -46,9 +45,7 @@ namespace ZeroInstall.Publish
         /// <inheritdoc/>
         [NotNull]
         public override Feed Target { get => SignedFeed.Feed; set => SignedFeed.Feed = value; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Starts with a <see cref="Feed"/> loaded from a file.
         /// </summary>
@@ -57,12 +54,11 @@ namespace ZeroInstall.Publish
         public FeedEditing([NotNull] SignedFeed signedFeed, [NotNull] string path)
         {
             #region Sanity checks
-            if (signedFeed == null) throw new ArgumentNullException(nameof(signedFeed));
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
             #endregion
 
             Path = path;
-            SignedFeed = signedFeed;
+            SignedFeed = signedFeed ?? throw new ArgumentNullException(nameof(signedFeed));
         }
 
         /// <summary>
@@ -71,24 +67,15 @@ namespace ZeroInstall.Publish
         /// <param name="signedFeed">The feed to be edited.</param>
         public FeedEditing([NotNull] SignedFeed signedFeed)
         {
-            #region Sanity checks
-            if (signedFeed == null) throw new ArgumentNullException(nameof(signedFeed));
-            #endregion
-
             Changed = true; // Makes sure remind the user to save before closing
-            SignedFeed = signedFeed;
+            SignedFeed = signedFeed ?? throw new ArgumentNullException(nameof(signedFeed));
         }
 
         /// <summary>
         /// Starts with an empty <see cref="Feed"/>.
         /// </summary>
-        public FeedEditing()
-        {
-            SignedFeed = new SignedFeed(new Feed());
-        }
-        #endregion
+        public FeedEditing() => SignedFeed = new SignedFeed(new Feed());
 
-        #region Storage
         /// <summary>
         /// Loads a <see cref="Feed"/> from an XML file (feed).
         /// </summary>
@@ -98,10 +85,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         [NotNull]
-        public static FeedEditing Load([NotNull] string path)
-        {
-            return new FeedEditing(SignedFeed.Load(path), path);
-        }
+        public static FeedEditing Load([NotNull] string path) => new FeedEditing(SignedFeed.Load(path), path);
 
         /// <summary>
         /// Saves <see cref="Feed"/> to an XML file, adds the default stylesheet and signs it with <see cref="Publish.SignedFeed.SecretKey"/> (if specified).
@@ -119,6 +103,5 @@ namespace ZeroInstall.Publish
             Path = path;
             Reset();
         }
-        #endregion
     }
 }

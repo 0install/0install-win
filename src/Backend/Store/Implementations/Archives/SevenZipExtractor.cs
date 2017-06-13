@@ -45,13 +45,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         internal SevenZipExtractor([NotNull] Stream stream, [NotNull] string targetPath)
             : base(targetPath)
         {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-            #endregion
-
             if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.ExtractionOnlyOnWindows);
 
-            _stream = stream;
+            _stream = stream ?? throw new ArgumentNullException(nameof(stream));
         }
 
         protected override void Dispose(bool disposing)

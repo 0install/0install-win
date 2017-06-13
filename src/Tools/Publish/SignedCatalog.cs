@@ -52,15 +52,10 @@ namespace ZeroInstall.Publish
         /// <param name="secretKey">The secret key used to sign the <see cref="Catalog"/>; <c>null</c> for no signature.</param>
         public SignedCatalog([NotNull] Catalog catalog, [CanBeNull] OpenPgpSecretKey secretKey)
         {
-            #region Sanity checks
-            if (catalog == null) throw new ArgumentNullException(nameof(catalog));
-            #endregion
-
-            Catalog = catalog;
+            Catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             SecretKey = secretKey;
         }
 
-        #region Storage
         /// <summary>
         /// Loads a <see cref="Catalog"/> from an XML file and identifies the signature (if any).
         /// </summary>
@@ -114,6 +109,5 @@ namespace ZeroInstall.Publish
             openPgp.DeployPublicKey(SecretKey, directory);
             FeedUtils.DeployStylesheet(directory, @"catalog");
         }
-        #endregion
     }
 }

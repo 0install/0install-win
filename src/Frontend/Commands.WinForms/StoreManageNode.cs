@@ -51,13 +51,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="manageForm">The form hosting the management UI.</param>
         public StoreManageNode([NotNull] CacheNode backingNode, [NotNull] StoreManageForm manageForm)
         {
-            #region Sanity checks
-            if (backingNode == null) throw new ArgumentNullException(nameof(backingNode));
-            if (manageForm == null) throw new ArgumentNullException(nameof(manageForm));
-            #endregion
-
-            BackingNode = backingNode;
-            _manageForm = manageForm;
+            BackingNode = backingNode ?? throw new ArgumentNullException(nameof(backingNode));
+            _manageForm = manageForm ?? throw new ArgumentNullException(nameof(manageForm));
         }
         #endregion
 

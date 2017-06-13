@@ -59,12 +59,8 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         public CatalogManager([NotNull] ITrustManager trustManager, [NotNull] ITaskHandler handler)
         {
-            #region Sanity checks
-            if (trustManager == null) throw new ArgumentNullException(nameof(trustManager));
-            #endregion
-
-            _trustManager = trustManager;
-            _handler = handler;
+            _trustManager = trustManager ?? throw new ArgumentNullException(nameof(trustManager));
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
         #endregion
 

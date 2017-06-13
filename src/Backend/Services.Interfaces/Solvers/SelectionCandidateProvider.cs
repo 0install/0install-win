@@ -54,18 +54,12 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="languages">The preferred languages for the implementation.</param>
         public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] LanguageSet languages)
         {
-            #region Sanity checks
-            if (config == null) throw new ArgumentNullException(nameof(config));
-            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            if (packageManager == null) throw new ArgumentNullException(nameof(packageManager));
-            if (languages == null) throw new ArgumentNullException(nameof(languages));
-            #endregion
+            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
+            _isCached = BuildCacheChecker(store ?? throw new ArgumentNullException(nameof(store)));
+            _packageManager = packageManager ?? throw new ArgumentNullException(nameof(packageManager));
 
-            _config = config;
-            _feedManager = feedManager;
-            _isCached = BuildCacheChecker(store);
-            _packageManager = packageManager;
+            if (languages == null) throw new ArgumentNullException(nameof(languages));
             _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy, languages));
         }
 
@@ -154,10 +148,7 @@ namespace ZeroInstall.Services.Solvers
         }
 
         private static IEnumerable<FeedUri> GetNativeFeedPaths(FeedUri interfaceUri)
-        {
-            return Locations.GetLoadDataPaths("0install.net", true, "native_feeds", interfaceUri.PrettyEscape())
-                .Select(x => new FeedUri(x));
-        }
+            => Locations.GetLoadDataPaths("0install.net", true, "native_feeds", interfaceUri.PrettyEscape()).Select(x => new FeedUri(x));
 
         private static IEnumerable<FeedUri> GetSitePackagePaths(FeedUri interfaceUri)
         {
@@ -229,10 +220,7 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         public Implementation LookupOriginalImplementation(ImplementationSelection implemenationSelection)
         {
-            #region Sanity checks
             if (implemenationSelection == null) throw new ArgumentNullException(nameof(implemenationSelection));
-            #endregion
-
             return implemenationSelection.ID.StartsWith(ExternalImplementation.PackagePrefix)
                 ? _externalImplementations[implemenationSelection.ID]
                 : _feedManager[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri][implemenationSelection.ID];

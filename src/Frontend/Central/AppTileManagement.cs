@@ -57,20 +57,12 @@ namespace ZeroInstall.Central
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IIconCache iconCache, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
         {
-            #region Sanity checks
-            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
-            if (catalogManager == null) throw new ArgumentNullException(nameof(catalogManager));
-            if (iconCache == null) throw new ArgumentNullException(nameof(iconCache));
-            if (tileListMyApps == null) throw new ArgumentNullException(nameof(tileListMyApps));
-            if (tileListCatalog == null) throw new ArgumentNullException(nameof(tileListCatalog));
-            #endregion
+            _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
+            _catalogManager = catalogManager ?? throw new ArgumentNullException(nameof(catalogManager));
+            _iconCache = iconCache ?? throw new ArgumentNullException(nameof(iconCache));
 
-            _feedManager = feedManager;
-            _catalogManager = catalogManager;
-            _iconCache = iconCache;
-
-            _tileListMyApps = tileListMyApps;
-            _tileListCatalog = tileListCatalog;
+            _tileListMyApps = tileListMyApps ?? throw new ArgumentNullException(nameof(tileListMyApps));
+            _tileListCatalog = tileListCatalog ?? throw new ArgumentNullException(nameof(tileListCatalog));
             _machineWide = machineWide;
         }
         #endregion

@@ -43,15 +43,8 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public LanguageSet Languages
         {
-            get { return _languages; }
-            set
-            {
-                #region Sanity checks
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                #endregion
-
-                _languages = value;
-            }
+            get => _languages;
+            set => _languages = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>

@@ -78,13 +78,8 @@ namespace ZeroInstall.Store.Implementations.Manifests
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] IEnumerable<ManifestNode> nodes)
         {
-            #region Sanity checks
-            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
-            if (format == null) throw new ArgumentNullException(nameof(format));
-            #endregion
-
-            Format = format;
-            _nodes = nodes.ToArray(); // Make the collection immutable
+            Format = format ?? throw new ArgumentNullException(nameof(format));
+            _nodes = (nodes ?? throw new ArgumentNullException(nameof(nodes))).ToArray(); // Make the collection immutable
         }
 
         /// <summary>
@@ -94,13 +89,8 @@ namespace ZeroInstall.Store.Implementations.Manifests
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] params ManifestNode[] nodes)
         {
-            #region Sanity checks
-            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
-            if (format == null) throw new ArgumentNullException(nameof(format));
-            #endregion
-
-            Format = format;
-            _nodes = nodes;
+            Format = format ?? throw new ArgumentNullException(nameof(format));
+            _nodes = nodes ?? throw new ArgumentNullException(nameof(nodes));
         }
 
         /// <summary>

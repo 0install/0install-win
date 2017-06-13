@@ -38,13 +38,7 @@ namespace ZeroInstall.OneGet
         /// </summary>
         /// <param name="request">The OneGet request interface to pass to the constructor of the target <see cref="IOneGetContext"/> implementation.</param>
         public OneGetContextInterceptor([NotNull] Request request)
-        {
-            #region Sanity checks
-            if (request == null) throw new ArgumentNullException(nameof(request));
-            #endregion
-
-            _request = request;
-        }
+            => _request = request ?? throw new ArgumentNullException(nameof(request));
 
         [CanBeNull]
         private object _context;

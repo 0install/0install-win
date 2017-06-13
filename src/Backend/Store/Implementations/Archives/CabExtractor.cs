@@ -38,11 +38,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         internal CabExtractor([NotNull] Stream stream, [NotNull] string targetPath)
             : base(targetPath)
         {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-            #endregion
-
-            CabStream = stream;
+            CabStream = stream ?? throw new ArgumentNullException(nameof(stream));
 
             try
             {

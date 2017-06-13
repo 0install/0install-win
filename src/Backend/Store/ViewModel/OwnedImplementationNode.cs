@@ -49,14 +49,8 @@ namespace ZeroInstall.Store.ViewModel
         public OwnedImplementationNode(ManifestDigest digest, [NotNull] Implementation implementation, [NotNull] FeedNode parent, [NotNull] IStore store)
             : base(digest, store)
         {
-            #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException(nameof(implementation));
-            if (parent == null) throw new ArgumentNullException(nameof(parent));
-            if (store == null) throw new ArgumentNullException(nameof(store));
-            #endregion
-
-            _parent = parent;
-            _implementation = implementation;
+            _parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            _implementation = implementation ?? throw new ArgumentNullException(nameof(implementation));
         }
 
         /// <inheritdoc/>

@@ -62,23 +62,14 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         public ExternalSolver([NotNull] ISolver backingSolver, [NotNull] ISelectionsManager selectionsManager, [NotNull] IFetcher fetcher, [NotNull] IExecutor executor, [NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] ITaskHandler handler)
         {
-            #region Sanity checks
-            if (backingSolver == null) throw new ArgumentNullException(nameof(backingSolver));
-            if (selectionsManager == null) throw new ArgumentNullException(nameof(selectionsManager));
-            if (fetcher == null) throw new ArgumentNullException(nameof(fetcher));
-            if (executor == null) throw new ArgumentNullException(nameof(executor));
+            _backingSolver = backingSolver ?? throw new ArgumentNullException(nameof(backingSolver));
+            _selectionsManager = selectionsManager ?? throw new ArgumentNullException(nameof(selectionsManager));
+            _fetcher = fetcher ?? throw new ArgumentNullException(nameof(fetcher));
+            _executor = executor ?? throw new ArgumentNullException(nameof(executor));
+            _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
+
             if (config == null) throw new ArgumentNullException(nameof(config));
-            if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            _backingSolver = backingSolver;
-            _selectionsManager = selectionsManager;
-            _fetcher = fetcher;
-            _executor = executor;
-            _feedManager = feedManager;
-            _handler = handler;
-
             _solverRequirements = new Requirements(config.ExternalSolverUri);
         }
         #endregion
