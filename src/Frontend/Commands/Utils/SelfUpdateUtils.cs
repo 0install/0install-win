@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands.Utils
         /// </summary>
         public static bool NoAutoCheck
         {
-            get { return File.Exists(NoAutoCheckFlagFile); }
+            get => File.Exists(NoAutoCheckFlagFile);
             set
             {
                 if (value) FileUtils.Touch(NoAutoCheckFlagFile);

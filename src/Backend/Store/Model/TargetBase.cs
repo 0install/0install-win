@@ -67,13 +67,13 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Languages"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("langs"), DefaultValue("")]
-        public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
+        public string LanguagesString { get => _languages.ToString(); set => _languages = new LanguageSet(value); }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("arch"), DefaultValue("*-*")]
-        public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
+        public string ArchitectureString { get => Architecture.ToString(); set => Architecture = new Architecture(value); }
         #endregion
 
         #region Clone

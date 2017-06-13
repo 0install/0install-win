@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("distributions"), DefaultValue("")]
         public string DistributionsString
         {
-            get { return StringUtils.Join(" ", Distributions); }
+            get => StringUtils.Join(" ", Distributions);
             set
             {
                 Distributions.Clear();

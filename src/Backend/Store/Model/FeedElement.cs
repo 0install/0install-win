@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="IfZeroInstallVersion"/>
         [XmlAttribute("if-0install-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string IfZeroInstallVersionString { get { return IfZeroInstallVersion?.ToString(); } set { IfZeroInstallVersion = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+        public string IfZeroInstallVersionString { get => IfZeroInstallVersion?.ToString(); set => IfZeroInstallVersion = string.IsNullOrEmpty(value) ? null : new VersionRange(value); }
         #endregion
 
         #region Filter

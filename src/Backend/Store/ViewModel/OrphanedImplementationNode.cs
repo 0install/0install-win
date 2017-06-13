@@ -42,6 +42,6 @@ namespace ZeroInstall.Store.ViewModel
         {}
 
         /// <inheritdoc/>
-        public override string Name { get { return Resources.UnknownInterface + "\\" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get => Resources.UnknownInterface + "\\" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); set => throw new NotSupportedException(); }
     }
 }

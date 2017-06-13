@@ -79,7 +79,7 @@ namespace ZeroInstall.Services.Feeds
         /// <remarks>Setting this to <c>true</c> implicity also flushes the in-memory cache.</remarks>
         public bool Refresh
         {
-            get { return _refresh; }
+            get => _refresh;
             set
             {
                 _refresh = value;

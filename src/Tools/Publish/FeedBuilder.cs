@@ -48,7 +48,7 @@ namespace ZeroInstall.Publish
         /// <remarks>Setting a new value will automatically <see cref="IDisposable.Dispose"/> the previous one.</remarks>
         public TemporaryDirectory TemporaryDirectory
         {
-            get { return _temporaryDirectory; }
+            get => _temporaryDirectory;
             set
             {
                 _temporaryDirectory?.Dispose();

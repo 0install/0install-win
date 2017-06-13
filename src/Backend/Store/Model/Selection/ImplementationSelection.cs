@@ -58,12 +58,12 @@ namespace ZeroInstall.Store.Model.Selection
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get => InterfaceUri?.ToStringRfc(); set => InterfaceUri = (value == null) ? null : new FeedUri(value); }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="FromFeed"/>
         [XmlAttribute("from-feed"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string FromFeedString { get { return FromFeed?.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
+        public string FromFeedString { get => FromFeed?.ToStringRfc(); set => FromFeed = (value == null) ? null : new FeedUri(value); }
 
         /// <summary>
         /// Used for XML serialization.

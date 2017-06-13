@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish
 
         /// <inheritdoc/>
         [NotNull]
-        public override Feed Target { get { return SignedFeed.Feed; } set { SignedFeed.Feed = value; } }
+        public override Feed Target { get => SignedFeed.Feed; set => SignedFeed.Feed = value; }
         #endregion
 
         #region Constructor

@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// The UI path name of this node.
         /// </summary>
-        public string Name { get { return BackingNode.Name; } set { BackingNode.Name = value; } }
+        public string Name { get => BackingNode.Name; set => BackingNode.Name = value; }
 
         /// <inheritdoc/>
         public ContextMenu GetContextMenu()

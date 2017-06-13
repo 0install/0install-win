@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.ViewModel
         }
 
         /// <inheritdoc/>
-        public override string Name { get { return _parent.Name + "\\" + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get => _parent.Name + "\\" + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); set => throw new NotSupportedException(); }
 
         /// <summary>
         /// The URI of the feed describing the implementation.

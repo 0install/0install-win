@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="LastChecked"/>
         [XmlAttribute("last-checked"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public long LastCheckedUnix { get { return LastChecked.ToUnixTime(); } set { LastChecked = FileUtils.FromUnixTime(value); } }
+        public long LastCheckedUnix { get => LastChecked.ToUnixTime(); set => LastChecked = FileUtils.FromUnixTime(value); }
         #endregion
 
         /// <summary>

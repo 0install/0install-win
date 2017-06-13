@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// The base URI of the sync server. Automatically ensures the URI ends with a slash (/).
         /// </summary>
-        public Uri Uri { get { return _uri; } set { _uri = value.EnsureTrailingSlash(); } }
+        public Uri Uri { get => _uri; set => _uri = value.EnsureTrailingSlash(); }
 
         /// <summary>
         /// The username to authenticate with against the server at <see cref="Uri"/>.

@@ -101,13 +101,13 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string VersionString { get { return Version?.ToString(); } set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        public string VersionString { get => Version?.ToString(); set => Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
         #endregion
 
         /// <seealso cref="VersionString"/>
         [Obsolete("Use VersionString instead")]
         [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string VersionsString { get { return VersionString; } set { VersionString = value; } }
+        public string VersionsString { get => VersionString; set => VersionString = value; }
 
         /// <summary>
         /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.

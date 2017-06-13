@@ -75,31 +75,31 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("interface"), JsonIgnore]
-        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get => InterfaceUri?.ToStringRfc(); set => InterfaceUri = (value == null) ? null : new FeedUri(value); }
 
         /// <summary>Used for XML and JSON serialization.</summary>
         /// <seealso cref="Languages"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [DefaultValue(""), JsonProperty("langs", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
+        public string LanguagesString { get => _languages.ToString(); set => _languages = new LanguageSet(value); }
 
         /// <summary>Used for XML and JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(false), XmlAttribute("source"), JsonProperty("source")]
-        public bool Source { get { return Architecture.Cpu == Cpu.Source; } set { if (value) Architecture = new Architecture(Architecture.OS, Cpu.Source); } }
+        public bool Source { get => Architecture.Cpu == Cpu.Source; set { if (value) Architecture = new Architecture(Architecture.OS, Cpu.Source); } }
 
         /// <summary>Used for XML and JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue("*"), XmlAttribute("os"), JsonProperty("os", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string OSString { get { return Architecture.OS.ConvertToString(); } set { Architecture = new Architecture(value.ConvertFromString<OS>(), Architecture.Cpu); } }
+        public string OSString { get => Architecture.OS.ConvertToString(); set => Architecture = new Architecture(value.ConvertFromString<OS>(), Architecture.Cpu); }
 
         /// <summary>Used for XML and JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue("*"), XmlAttribute("machine"), JsonProperty("cpu", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string CpuString { get { return Architecture.Cpu.ConvertToString(); } set { Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); } }
+        public string CpuString { get => Architecture.Cpu.ConvertToString(); set => Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); }
         #endregion
 
         /// <summary>

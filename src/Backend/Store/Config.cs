@@ -38,7 +38,7 @@ namespace ZeroInstall.Store
         /// The maximum age a cached <see cref="Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
         [DefaultValue(typeof(TimeSpan), "7.00:00:00"), Category("Policy"), DisplayName(@"Freshness"), Description("The maximum age a cached feed may have until it is considered stale (needs to be updated).")]
-        public TimeSpan Freshness { get { return _freshness; } set { _freshness = value; } }
+        public TimeSpan Freshness { get => _freshness; set => _freshness = value; }
 
         /// <summary>
         /// Always prefer the newest versions, even if they have not been marked as <see cref="Stability.Stable"/> yet.
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store
         /// Automatically approve keys known by the <see cref="KeyInfoServer"/> and seen the first time a feed is fetched.
         /// </summary>
         [DefaultValue(true), Category("Policy"), DisplayName(@"Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
-        public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
+        public bool AutoApproveKeys { get => _autoApproveKeys; set => _autoApproveKeys = value; }
 
         private bool _allowApiHooking;
 
@@ -80,7 +80,7 @@ namespace ZeroInstall.Store
         /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
         /// </summary>
         [DefaultValue(false), Category("Policy"), DisplayName(@"Allow API hooking"), Description("WARNING! This feature is highly experimental!\r\nControls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
-        public bool AllowApiHooking { get { return _allowApiHooking; } set { _allowApiHooking = value; } }
+        public bool AllowApiHooking { get => _allowApiHooking; set => _allowApiHooking = value; }
 
         /// <summary>
         /// The default value for <see cref="FeedMirror"/>.
@@ -93,7 +93,7 @@ namespace ZeroInstall.Store
         /// The mirror server used to provide feeds when the original server is unavailable.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName(@"Feed mirror"), Description("The mirror server used to provide feeds when the original server is unavailable.")]
-        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value?.ReparseAsAbsolute(); } }
+        public Uri FeedMirror { get => _feedMirror; set => _feedMirror = value?.ReparseAsAbsolute(); }
 
         /// <summary>
         /// The default value for <see cref="KeyInfoServer"/>.
@@ -106,7 +106,7 @@ namespace ZeroInstall.Store
         /// The key information server used to get information about who signed a feed.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName(@"Key info server"), Description("The key information server used to get information about who signed a feed.")]
-        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value?.ReparseAsAbsolute(); } }
+        public Uri KeyInfoServer { get => _keyInfoServer; set => _keyInfoServer = value?.ReparseAsAbsolute(); }
 
         /// <summary>
         /// The default value for <see cref="SelfUpdateUri"/>.
@@ -119,7 +119,7 @@ namespace ZeroInstall.Store
         /// The feed URI used by the solver to search for updates for Zero Install itself.
         /// </summary>
         [DefaultValue(typeof(FeedUri), DefaultSelfUpdateUri), Category("Sources"), DisplayName(@"Self-update URI"), Description("The feed URI used by the solver to search for updates for Zero Install itself.")]
-        public FeedUri SelfUpdateUri { get { return _selfUpdateUri; } set { _selfUpdateUri = value; } }
+        public FeedUri SelfUpdateUri { get => _selfUpdateUri; set => _selfUpdateUri = value; }
 
         /// <summary>
         /// The default value for <see cref="ExternalSolverUri"/>.
@@ -132,7 +132,7 @@ namespace ZeroInstall.Store
         /// The feed URI used to get the external solver.
         /// </summary>
         [DefaultValue(typeof(FeedUri), DefaultExternalSolverUri), Category("Sources"), DisplayName(@"External Solver URI"), Description("The feed URI used to get the external solver.")]
-        public FeedUri ExternalSolverUri { get { return _externalSolverUri; } set { _externalSolverUri = value; } }
+        public FeedUri ExternalSolverUri { get => _externalSolverUri; set => _externalSolverUri = value; }
 
         /// <summary>
         /// The default value for <see cref="SyncServer"/>.
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
         [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName(@"Server"), Description("The sync server used to synchronize your app list between multiple computers.")]
-        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value?.ReparseAsAbsolute(); } }
+        public Uri SyncServer { get => _syncServer; set => _syncServer = value?.ReparseAsAbsolute(); }
 
         private string _syncServerUsername = "";
 
@@ -157,7 +157,7 @@ namespace ZeroInstall.Store
         /// <seealso cref="SyncServer"/>
         /// <seealso cref="SyncServerPassword"/>
         [DefaultValue(""), Category("Sync"), DisplayName(@"Username"), Description("The username to authenticate with against the Sync server.")]
-        public string SyncServerUsername { get { return _syncServerUsername; } set { _syncServerUsername = value; } }
+        public string SyncServerUsername { get => _syncServerUsername; set => _syncServerUsername = value; }
 
         private string _syncServerPassword = "";
 
@@ -167,7 +167,7 @@ namespace ZeroInstall.Store
         /// <seealso cref="SyncServer"/>
         /// <seealso cref="SyncServerUsername"/>
         [DefaultValue(""), PasswordPropertyText(true), Category("Sync"), DisplayName(@"Password"), Description("The password to authenticate with against the Sync server.")]
-        public string SyncServerPassword { get { return _syncServerPassword; } set { _syncServerPassword = value; } }
+        public string SyncServerPassword { get => _syncServerPassword; set => _syncServerPassword = value; }
 
         private string _syncCryptoKey = "";
 
@@ -175,7 +175,7 @@ namespace ZeroInstall.Store
         /// The local key used to encrypt data before sending it to the <see cref="SyncServer"/>.
         /// </summary>
         [DefaultValue(""), PasswordPropertyText(true), Category("Sync"), DisplayName(@"Crypto key"), Description("The local key used to encrypt data before sending it to the Sync server.")]
-        public string SyncCryptoKey { get { return _syncCryptoKey; } set { _syncCryptoKey = value; } }
+        public string SyncCryptoKey { get => _syncCryptoKey; set => _syncCryptoKey = value; }
 
         /// <summary>Provides meta-data for loading and saving settings properties.</summary>
         private readonly Dictionary<string, PropertyPointer<string>> _metaData;

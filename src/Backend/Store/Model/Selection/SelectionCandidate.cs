@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// A user-specified override for the <see cref="Stability"/> specified in the feed.
         /// </summary>
         [Description("A user-specified override for the stability specified in the feed.")]
-        public Stability UserStability { get { return _implementationPreferences.UserStability; } set { _implementationPreferences.UserStability = value; } }
+        public Stability UserStability { get => _implementationPreferences.UserStability; set => _implementationPreferences.UserStability = value; }
 
         /// <summary>
         /// The <see cref="UserStability"/> if it is set, otherwise <see cref="Stability"/>.

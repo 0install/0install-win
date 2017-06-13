@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         [Browsable(false)]
         [NotNull]
-        public string Name { get { return Fingerprint + "\\" + Domain.Value; } set { throw new NotSupportedException(); } }
+        public string Name { get => Fingerprint + "\\" + Domain.Value; set => throw new NotSupportedException(); }
 
         /// <summary>
         /// The <see cref="Key.Fingerprint"/>.

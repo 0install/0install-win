@@ -43,7 +43,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <inheritdoc/>
         public virtual Implementation ContainerRef
         {
-            get { return _containerRef; }
+            get => _containerRef;
             set
             {
                 _containerRef = value;

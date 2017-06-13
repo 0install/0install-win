@@ -49,7 +49,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         [Category("Details (Java)"), DisplayName(@"GUI only"), Description("Does this application have a graphical interface an no terminal output? Only enable if you are sure!")]
         [UsedImplicitly]
-        public bool GuiOnly { get { return !NeedsTerminal; } set { NeedsTerminal = !value; } }
+        public bool GuiOnly { get => !NeedsTerminal; set => NeedsTerminal = !value; }
 
         #region Equality
         protected bool Equals(Java other)

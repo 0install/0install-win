@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get => InterfaceUri?.ToStringRfc(); set => InterfaceUri = (value == null) ? null : new FeedUri(value); }
         #endregion
 
         /// <summary>

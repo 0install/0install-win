@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Source"/>
         [XmlAttribute("src"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string SourceString { get { return Source?.ToStringRfc(); } set { Source = (value == null) ? null : new FeedUri(value); } }
+        public string SourceString { get => Source?.ToStringRfc(); set => Source = (value == null) ? null : new FeedUri(value); }
         #endregion
 
         #region Normalize

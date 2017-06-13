@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private FeedEditing FeedEditing
         {
-            get { return _feedEditing; }
+            get => _feedEditing;
             set
             {
                 _feedEditing = value;

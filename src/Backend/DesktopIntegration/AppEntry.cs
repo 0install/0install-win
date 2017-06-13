@@ -88,12 +88,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get => InterfaceUri?.ToStringRfc(); set => InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); }
 
         /// <summary>Used for XML+JSON serialization.</summary>
         /// <seealso cref="Requirements"/>
         [XmlElement("requirements-json"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string RequirementsJson { get { return Requirements?.ToJsonString(); } set { Requirements = JsonStorage.FromJsonString<Requirements>(value); } }
+        public string RequirementsJson { get => Requirements?.ToJsonString(); set => Requirements = JsonStorage.FromJsonString<Requirements>(value); }
         #endregion
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <remarks>This value is ignored by clone and equality methods.</remarks>
         [Browsable(false)]
         [XmlAttribute("timestamp"), DefaultValue(0)]
-        public long TimestampUnix { get { return Timestamp.ToUnixTime(); } set { Timestamp = FileUtils.FromUnixTime(value); } }
+        public long TimestampUnix { get => Timestamp.ToUnixTime(); set => Timestamp = FileUtils.FromUnixTime(value); }
 
         /// <summary>
         /// Retrieves the first <see cref="Capability"/> that matches a specific type and ID and is compatible with <see cref="Architecture.CurrentSystem"/>.

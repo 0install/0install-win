@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Implementations.Build
         [CanBeNull]
         public string TargetSuffix
         {
-            get { return _targetSuffix; }
+            get => _targetSuffix;
             set
             {
                 _targetSuffix = value;

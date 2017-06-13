@@ -102,7 +102,7 @@ namespace ZeroInstall.Publish.EntryPoints
         [DefaultValue(typeof(OS), "Linux")]
         public OS OS
         {
-            get { return Architecture.OS; }
+            get => Architecture.OS;
             set
             {
                 if (value < OS.Linux || value >= OS.Cygwin) throw new ArgumentOutOfRangeException(nameof(value), "Must be a specific POSIX OS!");

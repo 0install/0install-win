@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.ViewModel
                 }
                 return builder.ToString();
             }
-            set { throw new NotSupportedException(); }
+            set => throw new NotSupportedException();
         }
 
         /// <summary>

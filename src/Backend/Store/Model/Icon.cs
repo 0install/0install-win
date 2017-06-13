@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Href"), Description("The URL used to locate the icon.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return Href?.ToStringRfc(); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
+        public string HrefString { get => Href?.ToStringRfc(); set => Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); }
         #endregion
 
         /// <summary>

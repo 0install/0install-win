@@ -144,30 +144,30 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return Uri?.ToStringRfc(); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public string UriString { get => Uri?.ToStringRfc(); set => Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="CatalogUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [Browsable(false)]
         [XmlAttribute("catalog-uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string CatalogUriString { get { return CatalogUri?.ToStringRfc(); } set { CatalogUri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public string CatalogUriString { get => CatalogUri?.ToStringRfc(); set => CatalogUri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="MinInjectorVersion"/>
         [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string MinInjectorVersionString { get { return MinInjectorVersion?.ToString(); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        public string MinInjectorVersionString { get => MinInjectorVersion?.ToString(); set => MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Homepage"/>
         [DisplayName(@"Homepage"), Category("Interface"), Description("The main website of the application.")]
         [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HomepageString { get { return Homepage?.ToStringRfc(); } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
+        public string HomepageString { get => Homepage?.ToStringRfc(); set => Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NeedsTerminal"/>
         [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
+        public string NeedsTerminalString { get => (NeedsTerminal ? "" : null); set => NeedsTerminal = (value != null); }
         #endregion
 
         /// <summary>

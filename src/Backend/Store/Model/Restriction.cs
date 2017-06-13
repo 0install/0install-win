@@ -63,12 +63,12 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return InterfaceUri?.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get => InterfaceUri?.ToStringRfc(); set => InterfaceUri = (value == null) ? null : new FeedUri(value); }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Versions"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string VersionsString { get { return Versions?.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+        public string VersionsString { get => Versions?.ToString(); set => Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); }
         #endregion
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("distribution"), DefaultValue("")]
         public string DistributionsString
         {
-            get { return StringUtils.Join(" ", Distributions); }
+            get => StringUtils.Join(" ", Distributions);
             set
             {
                 Distributions.Clear();

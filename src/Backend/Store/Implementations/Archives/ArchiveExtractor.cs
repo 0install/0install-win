@@ -64,8 +64,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [CanBeNull]
         public string TargetSuffix
         {
-            get { return DirectoryBuilder.TargetSuffix; }
-            set { DirectoryBuilder.TargetSuffix = value; }
+            get => DirectoryBuilder.TargetSuffix;
+            set => DirectoryBuilder.TargetSuffix = value;
         }
 
         /// <summary>

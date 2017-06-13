@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model.Preferences
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Description("The URI of the interface to be configured.")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public String UriString { get { return Uri?.ToStringRfc(); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        public String UriString { get => Uri?.ToStringRfc(); set => Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); }
         #endregion
 
         /// <summary>

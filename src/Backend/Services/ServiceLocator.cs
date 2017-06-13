@@ -65,7 +65,7 @@ namespace ZeroInstall.Services
         /// User settings controlling network behaviour, solving, etc.
         /// </summary>
         [NotNull]
-        public Config Config { get { return Get(ref _config, Config.Load); } set { _config = value; } }
+        public Config Config { get => Get(ref _config, Config.Load); set => _config = value; }
 
         private IStore _store;
 
@@ -73,7 +73,7 @@ namespace ZeroInstall.Services
         /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
         /// </summary>
         [NotNull]
-        public IStore Store { get { return Get(ref _store, StoreFactory.CreateDefault); } set { _store = value; } }
+        public IStore Store { get => Get(ref _store, StoreFactory.CreateDefault); set => _store = value; }
 
         private IOpenPgp _openPgp;
 
@@ -81,7 +81,7 @@ namespace ZeroInstall.Services
         /// Provides access to an encryption/signature system compatible with the OpenPGP standard.
         /// </summary>
         [NotNull]
-        public IOpenPgp OpenPgp { get { return Get(ref _openPgp, OpenPgpFactory.CreateDefault); } set { _openPgp = value; } }
+        public IOpenPgp OpenPgp { get => Get(ref _openPgp, OpenPgpFactory.CreateDefault); set => _openPgp = value; }
 
         private IFeedCache _feedCache;
 
@@ -89,7 +89,7 @@ namespace ZeroInstall.Services
         /// Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).
         /// </summary>
         [NotNull]
-        public IFeedCache FeedCache { get { return Get(ref _feedCache, () => FeedCacheFactory.CreateDefault(OpenPgp)); } set { _feedCache = value; } }
+        public IFeedCache FeedCache { get { return Get(ref _feedCache, () => FeedCacheFactory.CreateDefault(OpenPgp)); } set => _feedCache = value; }
 
         private TrustDB _trustDB;
 
@@ -97,7 +97,7 @@ namespace ZeroInstall.Services
         /// A database of OpenPGP signature fingerprints the users trusts to sign <see cref="Feed"/>s coming from specific domains.
         /// </summary>
         [NotNull]
-        public TrustDB TrustDB { get { return Get(ref _trustDB, TrustDB.LoadSafe); } set { _trustDB = value; } }
+        public TrustDB TrustDB { get => Get(ref _trustDB, TrustDB.LoadSafe); set => _trustDB = value; }
 
         private ITrustManager _trustManager;
 
@@ -105,7 +105,7 @@ namespace ZeroInstall.Services
         /// Methods for verifying signatures and user trust.
         /// </summary>
         [NotNull]
-        public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, TrustDB, FeedCache, Handler)); } set { _trustManager = value; } }
+        public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, TrustDB, FeedCache, Handler)); } set => _trustManager = value; }
 
         private IFeedManager _feedManager;
 
@@ -113,7 +113,7 @@ namespace ZeroInstall.Services
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
         [NotNull]
-        public IFeedManager FeedManager { get { return Get(ref _feedManager, () => new FeedManager(Config, FeedCache, TrustManager, Handler)); } set { _feedManager = value; } }
+        public IFeedManager FeedManager { get { return Get(ref _feedManager, () => new FeedManager(Config, FeedCache, TrustManager, Handler)); } set => _feedManager = value; }
 
         private ICatalogManager _catalogManager;
 
@@ -121,7 +121,7 @@ namespace ZeroInstall.Services
         /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
         /// </summary>
         [NotNull]
-        public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager, Handler)); } set { _catalogManager = value; } }
+        public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager, Handler)); } set => _catalogManager = value; }
 
         private IPackageManager _packageManager;
 
@@ -129,7 +129,7 @@ namespace ZeroInstall.Services
         /// An external package manager that can install <see cref="PackageImplementation"/>s.
         /// </summary>
         [NotNull]
-        public IPackageManager PackageManager { get { return Get(ref _packageManager, PackageManagerFactory.Create); } set { _packageManager = value; } }
+        public IPackageManager PackageManager { get => Get(ref _packageManager, PackageManagerFactory.Create); set => _packageManager = value; }
 
         private ISolver _solver;
 
@@ -149,7 +149,7 @@ namespace ZeroInstall.Services
                     return new FallbackSolver(backtrackingSolver, externalSolver);
                 });
             }
-            set { _solver = value; }
+            set => _solver = value;
         }
 
         private IFetcher _fetcher;
@@ -158,7 +158,7 @@ namespace ZeroInstall.Services
         /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
         [NotNull]
-        public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Config, Store, Handler)); } set { _fetcher = value; } }
+        public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Config, Store, Handler)); } set => _fetcher = value; }
 
         private IExecutor _executor;
 
@@ -166,7 +166,7 @@ namespace ZeroInstall.Services
         /// Executes a <see cref="Selections"/> document as a program using dependency injection.
         /// </summary>
         [NotNull]
-        public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }
+        public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set => _executor = value; }
 
         private ISelectionsManager _selectionsManager;
 
@@ -174,7 +174,7 @@ namespace ZeroInstall.Services
         /// Contains helper methods for filtering <see cref="Selections"/>.
         /// </summary>
         [NotNull]
-        public ISelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedManager, Store, PackageManager)); } set { _selectionsManager = value; } }
+        public ISelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedManager, Store, PackageManager)); } set => _selectionsManager = value; }
 
         private static T Get<T>(ref T value, Func<T> build) where T : class
         {

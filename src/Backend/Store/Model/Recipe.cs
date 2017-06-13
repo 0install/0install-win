@@ -48,12 +48,7 @@ namespace ZeroInstall.Store.Model
         [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(RenameStep)), XmlElement(typeof(RemoveStep)), XmlElement(typeof(CopyFromStep))]
         public object[] StepsArray
         {
-            get
-            {
-                // ReSharper disable CoVariantArrayConversion
-                return Steps.ToArray();
-                // ReSharper restore CoVariantArrayConversion
-            }
+            get => Steps.ToArray();
             set
             {
                 Steps.Clear();

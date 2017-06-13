@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.ViewModel
         }
 
         /// <inheritdoc/>
-        public override string Name { get { return Resources.TemporaryDirectories + "\\" + System.IO.Path.GetFileName(_path) + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get => Resources.TemporaryDirectories + "\\" + System.IO.Path.GetFileName(_path) + (SuffixCounter == 0 ? "" : " " + SuffixCounter); set => throw new NotSupportedException(); }
 
         private readonly string _path;
 

@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Category("Identity"), Description("A manifest digest is a means of uniquely identifying an Implementation and verifying its contents.")]
         [XmlElement("manifest-digest")]
-        public ManifestDigest ManifestDigest { get { return _manifestDigest; } set { _manifestDigest = value; } }
+        public ManifestDigest ManifestDigest { get => _manifestDigest; set => _manifestDigest = value; }
 
         #region Normalize
         /// <summary>
