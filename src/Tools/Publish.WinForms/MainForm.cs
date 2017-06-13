@@ -81,7 +81,7 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Constructor
         private readonly IOpenPgp _openPgp;
-        private IDisposable _implementationProviderRegistration;
+        private readonly IDisposable _implementationProviderRegistration;
 
         /// <summary>
         /// Creates a new feed editing form.

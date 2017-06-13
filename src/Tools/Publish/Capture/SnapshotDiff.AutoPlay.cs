@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         [CanBeNull]
-        private static Capability GetAutoPlay([NotNull] string handler, [NotNull] RegistryKey hive, [NotNull, ItemNotNull] IEnumerable<ComparableTuple<string>> autoPlayAssocs, [NotNull] CommandMapper commandMapper)
+        private static Capability GetAutoPlay([NotNull] string handler, [NotNull] RegistryKey hive, [NotNull] IEnumerable<ComparableTuple<string>> autoPlayAssocs, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException(nameof(handler));

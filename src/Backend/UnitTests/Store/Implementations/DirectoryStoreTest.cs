@@ -35,8 +35,8 @@ namespace ZeroInstall.Store.Implementations
     /// </summary>
     public class DirectoryStoreTest : IDisposable
     {
-        private MockTaskHandler _handler;
-        private TemporaryDirectory _tempDir;
+        private readonly MockTaskHandler _handler;
+        private readonly TemporaryDirectory _tempDir;
         private DirectoryStore _store;
 
         public DirectoryStoreTest()

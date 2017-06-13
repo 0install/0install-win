@@ -44,7 +44,7 @@ namespace ZeroInstall.Services.PackageManagers
         /// </summary>
         /// <param name="selection">The implementation selection to look up.</param>
         /// <exception cref="ImplementationNotFoundException"><paramref name="selection"/> does not refer to a package known to this package manager.</exception>
-        [NotNull, ItemNotNull]
+        [NotNull]
         ExternalImplementation Lookup([NotNull] ImplementationSelection selection);
     }
 }
