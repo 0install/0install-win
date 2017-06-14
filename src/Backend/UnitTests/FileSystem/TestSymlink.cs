@@ -58,9 +58,8 @@ namespace ZeroInstall.FileSystem
             string path = Path.Combine(parentPath, Name);
             (File.Exists(path) || Directory.Exists(path)).Should().BeTrue(because: $"Symlink '{path}' should exist.");
 
-            string target;
             bool isSymlink = UnixUtils.IsUnix
-                ? FileUtils.IsSymlink(path, out target)
+                ? FileUtils.IsSymlink(path, out string target)
                 : CygwinUtils.IsSymlink(path, out target);
             isSymlink.Should().BeTrue(because: $"'{path}' should be a symlink.");
             target.Should().Be(Target, because: $"Symlink '{path}' should point to correct target.");

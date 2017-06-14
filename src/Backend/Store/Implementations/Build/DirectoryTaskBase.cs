@@ -150,8 +150,7 @@ namespace ZeroInstall.Store.Implementations.Build
         {
             if (_sourceIsUnixFS)
             {
-                string symlinkTarget;
-                if (FileUtils.IsSymlink(entry.FullName, out symlinkTarget))
+                if (FileUtils.IsSymlink(entry.FullName, out string symlinkTarget))
                     HandleSymlink(entry, symlinkTarget);
                 else if (FileUtils.IsExecutable(entry.FullName))
                     HandleFile(entry, executable: true);
@@ -161,8 +160,7 @@ namespace ZeroInstall.Store.Implementations.Build
             }
             else
             {
-                string symlinkTarget;
-                if (CygwinUtils.IsSymlink(entry.FullName, out symlinkTarget))
+                if (CygwinUtils.IsSymlink(entry.FullName, out string symlinkTarget))
                     HandleSymlink(entry, symlinkTarget);
                 else if (externalSymlinks.Contains(entry.FullName))
                     HandleSymlink(entry, File.ReadAllText(entry.FullName, Encoding.UTF8));
@@ -180,8 +178,7 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the directory.</exception>
         private void HandleEntry([NotNull] DirectoryInfo entry)
         {
-            string target;
-            if (_sourceIsUnixFS && FileUtils.IsSymlink(entry.FullName, out target))
+            if (_sourceIsUnixFS && FileUtils.IsSymlink(entry.FullName, out string target))
                 HandleSymlink(entry, target);
             else
                 HandleDirectory(entry);

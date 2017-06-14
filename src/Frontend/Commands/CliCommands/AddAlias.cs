@@ -96,8 +96,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
-                AppEntry appEntry;
-                var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);
+                var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out var appEntry);
                 if (appAlias == null)
                 {
                     Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));

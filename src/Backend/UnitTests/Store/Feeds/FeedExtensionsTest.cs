@@ -40,8 +40,7 @@ namespace ZeroInstall.Store.Feeds
             var feed2 = new Feed {Elements = {implementation2}};
             var feeds = new[] {feed1, feed2};
 
-            Feed feed;
-            feeds.GetImplementation(digest1, out feed).Should().Be(implementation1);
+            feeds.GetImplementation(digest1, out var feed).Should().Be(implementation1);
             feed.Should().Be(feed1);
 
             feeds.GetImplementation(digest2, out feed).Should().Be(implementation2);

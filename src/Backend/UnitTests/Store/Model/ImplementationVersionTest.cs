@@ -35,16 +35,14 @@ namespace ZeroInstall.Store.Model
             var validVersions = new[] {"0.1", "1", "1.0", "1.1", "1.1-", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2--0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.3", "1.2.10", "3"};
             foreach (string version in validVersions)
             {
-                ImplementationVersion result;
-                ImplementationVersion.TryCreate(version, out result).Should().BeTrue(because: version);
+                ImplementationVersion.TryCreate(version, out var result).Should().BeTrue(because: version);
                 result.ToString().Should().Be(version);
             }
 
             var invalidVersions = new[] {"", "a", "pre-1", "1.0-1post"};
             foreach (string version in invalidVersions)
             {
-                ImplementationVersion result;
-                ImplementationVersion.TryCreate(version, out result).Should().BeFalse(because: version);
+                ImplementationVersion.TryCreate(version, out var result).Should().BeFalse(because: version);
             }
         }
 

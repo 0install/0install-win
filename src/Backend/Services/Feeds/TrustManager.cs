@@ -123,8 +123,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         private bool AskKeyApproval([NotNull] FeedUri uri, [NotNull] string fingerprint, Domain domain)
         {
-            bool goodVote;
-            var keyInformation = GetKeyInformation(fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
+            var keyInformation = GetKeyInformation(fingerprint, out bool goodVote) ?? Resources.NoKeyInfoServerData;
 
             // Automatically trust key for _new_ feeds if voted good by key server
             if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri))

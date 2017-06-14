@@ -111,8 +111,7 @@ namespace ZeroInstall.Store.Implementations.Deployment
                         {
                             if (UnixUtils.IsUnix)
                             {
-                                string symlinkTarget;
-                                if (UnixUtils.IsSymlink(sourcePath, out symlinkTarget))
+                                if (UnixUtils.IsSymlink(sourcePath, out string symlinkTarget))
                                     UnixUtils.CreateSymlink(tempPath, symlinkTarget);
                             }
                         }

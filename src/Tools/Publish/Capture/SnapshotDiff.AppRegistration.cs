@@ -57,8 +57,7 @@ namespace ZeroInstall.Publish.Capture
             if (string.IsNullOrEmpty(capabilitiesRegPath))
                 return null;
 
-            bool x64;
-            using (var capsKey = RegistryUtils.OpenHklmKey(capabilitiesRegPath, out x64))
+            using (var capsKey = RegistryUtils.OpenHklmKey(capabilitiesRegPath, out bool x64))
             {
                 if (string.IsNullOrEmpty(appName)) appName = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppName, "").ToString();
                 if (string.IsNullOrEmpty(appDescription)) appDescription = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppDescription, "").ToString();

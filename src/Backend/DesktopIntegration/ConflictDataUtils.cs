@@ -48,8 +48,8 @@ namespace ZeroInstall.DesktopIntegration
 
             foreach (var pair in newConflictData)
             {
-                ConflictData existingEntry, newEntry = pair.Value;
-                if (existingConflictData.TryGetValue(pair.Key, out existingEntry))
+                var newEntry = pair.Value;
+                if (existingConflictData.TryGetValue(pair.Key, out var existingEntry))
                 {
                     // Ignore conflicts that are actually just re-applications of existing access points
                     if (existingEntry != newEntry) throw ConflictException.NewConflict(existingEntry, newEntry);

@@ -89,11 +89,10 @@ namespace ZeroInstall.Hooking
         /// <returns>The value from the registry with any required substitutions applied or <c>null</c> if nothing was changed.</returns>
         private string GetFilteredValue(IntPtr hKey, string valueName)
         {
-            RegistryValueKind valueType;
             uint dataLength = 0;
 
             // Determine necessary buffer size and value type
-            uint result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, IntPtr.Zero, ref dataLength);
+            uint result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out var valueType, IntPtr.Zero, ref dataLength);
             if (result != 0 || dataLength == 0 || valueType != RegistryValueKind.String) return null;
 
             // Read string data to buffer
@@ -103,7 +102,7 @@ namespace ZeroInstall.Hooking
                 if (buffer != IntPtr.Zero) Marshal.FreeHGlobal(buffer);
                 buffer = Marshal.AllocHGlobal((int)dataLength);
 
-                result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out valueType, buffer, ref dataLength);
+                result = UnsafeNativeMethods.RegQueryValueExW(hKey, valueName, IntPtr.Zero, out _, buffer, ref dataLength);
             } while (result == UnsafeNativeMethods.ErrorMoreData);
 
             if (result == 0)

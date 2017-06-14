@@ -38,9 +38,8 @@ namespace ZeroInstall.Publish.Capture
             var commandArgs2 = new Command {Name = "args2", Path = "entry.exe", Arguments = {"--arg2", "long argument"}};
             var provider = new CommandMapper("installation directory", new[] {commandNoArgs, commandArgs1, commandArgs2});
 
-            string additionalArgs;
 
-            provider.GetCommand("installation directory" + Path.DirectorySeparatorChar + "entry.exe", out additionalArgs)
+            provider.GetCommand("installation directory" + Path.DirectorySeparatorChar + "entry.exe", out string additionalArgs)
                 .Should().BeSameAs(commandNoArgs);
             additionalArgs.Should().Be("");
 

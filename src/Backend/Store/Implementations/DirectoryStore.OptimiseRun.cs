@@ -121,8 +121,7 @@ namespace ZeroInstall.Store.Implementations
                         var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
                         var file = new StoreFile(implementationPath, Path.Combine(currentDirectory, x.Name));
 
-                        StoreFile existingFile;
-                        if (_fileHashes.TryGetValue(key, out existingFile))
+                        if (_fileHashes.TryGetValue(key, out var existingFile))
                         {
                             if (!FileUtils.AreHardlinked(file, existingFile))
                             {

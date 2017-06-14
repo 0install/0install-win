@@ -132,8 +132,7 @@ namespace ZeroInstall.Publish.Capture
                     commandLine = commandKey.GetValue("", "").ToString();
                 }
 
-                string additionalArgs;
-                var command = commandMapper.GetCommand(commandLine, out additionalArgs);
+                var command = commandMapper.GetCommand(commandLine, out string additionalArgs);
                 if (command == null) return null;
                 string commandName = command.Name;
 

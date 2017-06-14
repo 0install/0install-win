@@ -90,14 +90,9 @@ namespace ZeroInstall.Publish.Capture
             {
                 if (installInfoKey == null) return default(InstallCommands);
 
-                string reinstallArgs;
-                string reinstall = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueReinstallCommand, "").ToString(), installationDir, out reinstallArgs);
-
-                string showIconsArgs;
-                string showIcons = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueShowIconsCommand, "").ToString(), installationDir, out showIconsArgs);
-
-                string hideIconsArgs;
-                string hideIcons = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueHideIconsCommand, "").ToString(), installationDir, out hideIconsArgs);
+                string reinstall = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueReinstallCommand, "").ToString(), installationDir, out string reinstallArgs);
+                string showIcons = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueShowIconsCommand, "").ToString(), installationDir, out string showIconsArgs);
+                string hideIcons = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueHideIconsCommand, "").ToString(), installationDir, out string hideIconsArgs);
 
                 return new InstallCommands
                 {

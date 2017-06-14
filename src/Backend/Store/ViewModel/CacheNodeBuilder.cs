@@ -84,17 +84,13 @@ namespace ZeroInstall.Store.ViewModel
             State = TaskState.Complete;
         }
 
-        private void Add(Feed feed)
-        {
-            Add(new FeedNode(feed, _feedCache));
-        }
+        private void Add(Feed feed) => Add(new FeedNode(feed, _feedCache));
 
         private void Add(ManifestDigest digest)
         {
             try
             {
-                Feed feed;
-                var implementation = _feeds.GetImplementation(digest, out feed);
+                var implementation = _feeds.GetImplementation(digest, out var feed);
 
                 ImplementationNode implementationNode;
                 if (implementation == null) implementationNode = new OrphanedImplementationNode(digest, _store);
@@ -122,10 +118,7 @@ namespace ZeroInstall.Store.ViewModel
             #endregion
         }
 
-        private void Add(string path)
-        {
-            Add(new TempDirectoryNode(path, _store));
-        }
+        private void Add(string path) => Add(new TempDirectoryNode(path, _store));
 
         private void Add(CacheNode entry)
         {

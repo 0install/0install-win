@@ -75,8 +75,7 @@ namespace ZeroInstall.Hooking
                 // Can only detect WOW on Windows XP or newer
                 if (Environment.OSVersion.Platform != PlatformID.Win32NT || Environment.OSVersion.Version < new Version(5, 1)) return false;
 
-                bool retVal;
-                SafeNativeMethods.IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);
+                SafeNativeMethods.IsWow64Process(Process.GetCurrentProcess().Handle, out bool retVal);
                 return retVal;
             }
         }

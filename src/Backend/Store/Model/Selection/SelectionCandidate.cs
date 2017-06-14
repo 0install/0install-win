@@ -151,11 +151,7 @@ namespace ZeroInstall.Store.Model.Selection
         }
 
         private static bool Match(Requirements requirements, ImplementationVersion version)
-        {
-            VersionRange range;
-            if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceUri, out range)) return true;
-            return range.Match(version);
-        }
+            => !requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceUri, out var range) || range.Match(version);
 
         #region Conversion
         /// <summary>
