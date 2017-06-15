@@ -17,7 +17,6 @@
 
 using System;
 using JetBrains.Annotations;
-using NanoByte.Common.Dispatch;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration
@@ -34,18 +33,15 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The newly created <see cref="DefaultAccessPoint"/>.</returns>
         public static AccessPoint ToAcessPoint([NotNull] this Store.Model.Capabilities.DefaultCapability capability)
         {
-            #region Sanity checks
-            if (capability == null) throw new ArgumentNullException(nameof(capability));
-            #endregion
-
-            return new PerTypeDispatcher<Store.Model.Capabilities.DefaultCapability, DefaultAccessPoint>(ignoreMissing: false)
+            switch (capability ?? throw new ArgumentNullException(nameof(capability)))
             {
-                (Store.Model.Capabilities.AutoPlay x) => new AutoPlay {Capability = capability.ID},
-                (Store.Model.Capabilities.ContextMenu x) => new ContextMenu {Capability = capability.ID},
-                (Store.Model.Capabilities.DefaultProgram x) => new DefaultProgram {Capability = capability.ID},
-                (Store.Model.Capabilities.FileType x) => new FileType {Capability = capability.ID},
-                (Store.Model.Capabilities.UrlProtocol x) => new UrlProtocol {Capability = capability.ID},
-            }.Dispatch(capability);
+                case Store.Model.Capabilities.AutoPlay x: return new AutoPlay {Capability = x.ID};
+                case Store.Model.Capabilities.ContextMenu x: return new ContextMenu {Capability = x.ID};
+                case Store.Model.Capabilities.DefaultProgram x: return new DefaultProgram {Capability = x.ID};
+                case Store.Model.Capabilities.FileType x: return new FileType {Capability = x.ID};
+                case Store.Model.Capabilities.UrlProtocol x: return new UrlProtocol {Capability = x.ID};
+                default: throw new NotSupportedException($"Unknown capability: {capability}");
+            }
         }
     }
 }

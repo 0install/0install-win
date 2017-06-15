@@ -45,14 +45,17 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             }
             else
             { // Distribute existing CommandAccessPoints among type-specific binding lists
-                new PerTypeDispatcher<AccessPoint>(ignoreMissing: true)
+                foreach (var element in AppEntry.AccessPoints.Entries.CloneElements()) // Use clones so that user modifications can still be canceled
                 {
-                    (Action<MenuEntry>)MenuEntries.Add,
-                    (Action<DesktopIcon>)DesktopIcons.Add,
-                    (Action<SendTo>)SendTo.Add,
-                    (Action<AppAlias>)Aliases.Add,
-                    (Action<AutoStart>)AutoStarts.Add
-                }.Dispatch(AppEntry.AccessPoints.Entries.CloneElements()); // Use clones so that user modifications can still be canceled
+                    switch (element)
+                    {
+                        case MenuEntry x: MenuEntries.Add(x); break;
+                        case DesktopIcon x: DesktopIcons.Add(x); break;
+                        case SendTo x: SendTo.Add(x); break;
+                        case AppAlias x: Aliases.Add(x); break;
+                        case AutoStart x: AutoStarts.Add(x); break;
+                    }
+                }
             }
         }
 
@@ -66,14 +69,17 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             var currentAutoStarts = new List<AutoStart>();
             if (AppEntry.AccessPoints != null)
             {
-                new PerTypeDispatcher<AccessPoint>(ignoreMissing: true)
+                foreach (var entry in AppEntry.AccessPoints.Entries)
                 {
-                    (Action<MenuEntry>)currentMenuEntries.Add,
-                    (Action<DesktopIcon>)currentDesktopIcons.Add,
-                    (Action<SendTo>)currentSendTo.Add,
-                    (Action<AppAlias>)currentAliases.Add,
-                    (Action<AutoStart>)currentAutoStarts.Add
-                }.Dispatch(AppEntry.AccessPoints.Entries);
+                    switch (entry)
+                    {
+                        case MenuEntry x: currentMenuEntries.Add(x); break;
+                        case DesktopIcon x: currentDesktopIcons.Add(x); break;
+                        case SendTo x: currentSendTo.Add(x); break;
+                        case AppAlias x: currentAliases.Add(x); break;
+                        case AutoStart x: currentAutoStarts.Add(x); break;
+                    }
+                }
             }
 
             // Remove incomplete entries

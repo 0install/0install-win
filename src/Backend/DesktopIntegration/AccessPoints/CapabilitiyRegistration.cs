@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store;
@@ -63,26 +62,38 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capabilities = appEntry.CapabilityLists.CompatibleCapabilities().ToList();
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
 
-            var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);
-            if (WindowsUtils.IsWindows)
+            foreach (var capability in capabilities)
             {
-                dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, machineWide, handler));
-                dispatcher.Add((Store.Model.Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, machineWide, handler));
-                dispatcher.Add((Store.Model.Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, machineWide, handler));
-                dispatcher.Add((ComServer comServer) => Windows.ComServer.Register(target, comServer, machineWide, handler));
-                if (machineWide || WindowsUtils.IsWindows8)
-                    dispatcher.Add((AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, capabilities.OfType<VerbCapability>(), machineWide, handler));
-                if (machineWide)
-                    dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, handler));
-            }
-            else if (UnixUtils.IsUnix)
-            {
-                dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Unix.FileType.Register(target, fileType, machineWide, handler));
-                dispatcher.Add((Store.Model.Capabilities.UrlProtocol urlProtocol) => Unix.UrlProtocol.Register(target, urlProtocol, machineWide, handler));
-                dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) => Unix.DefaultProgram.Register(target, defaultProgram, machineWide, handler));
-            }
+                switch (capability)
+                {
+                    case Store.Model.Capabilities.FileType fileType:
+                        if (WindowsUtils.IsWindows) Windows.FileType.Register(target, fileType, machineWide, handler);
+                        else if (UnixUtils.IsUnix) Unix.FileType.Register(target, fileType, machineWide, handler);
+                        break;
 
-            dispatcher.Dispatch(capabilities);
+                    case Store.Model.Capabilities.UrlProtocol urlProtocol:
+                        if (WindowsUtils.IsWindows) Windows.UrlProtocol.Register(target, urlProtocol, machineWide, handler);
+                        else if (UnixUtils.IsUnix) Unix.UrlProtocol.Register(target, urlProtocol, machineWide, handler);
+                        break;
+
+                    case Store.Model.Capabilities.AutoPlay autoPlay:
+                        if (WindowsUtils.IsWindows) Windows.AutoPlay.Register(target, autoPlay, machineWide, handler);
+                        break;
+
+                    case AppRegistration appRegistration:
+                        if ((WindowsUtils.IsWindows && machineWide) || WindowsUtils.IsWindows8) Windows.AppRegistration.Register(target, appRegistration, capabilities.OfType<VerbCapability>(), machineWide, handler);
+                        break;
+
+                    case Store.Model.Capabilities.DefaultProgram defaultProgram:
+                        if (WindowsUtils.IsWindows && machineWide) Windows.DefaultProgram.Register(target, defaultProgram, handler);
+                        else if (UnixUtils.IsUnix) Unix.DefaultProgram.Register(target, defaultProgram, machineWide, handler);
+                        break;
+
+                    case ComServer comServer:
+                        if (WindowsUtils.IsWindows) Windows.ComServer.Register(target, comServer, machineWide, handler);
+                        break;
+                }
+            }
         }
 
         /// <inheritdoc/>
@@ -92,25 +103,38 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException(nameof(appEntry));
             #endregion
 
-            var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);
-            if (WindowsUtils.IsWindows)
+            foreach (var capability in appEntry.CapabilityLists.CompatibleCapabilities())
             {
-                dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, machineWide));
-                dispatcher.Add((Store.Model.Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, machineWide));
-                dispatcher.Add((Store.Model.Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, machineWide));
-                dispatcher.Add((ComServer comServer) => Windows.ComServer.Unregister(comServer, machineWide));
-                if (machineWide || WindowsUtils.IsWindows8)
-                    dispatcher.Add((AppRegistration appRegistration) => Windows.AppRegistration.Unregister(appRegistration, machineWide));
-                if (machineWide)
-                    dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Unregister(defaultProgram));
+                switch (capability)
+                {
+                    case Store.Model.Capabilities.FileType fileType:
+                        if (WindowsUtils.IsWindows) Windows.FileType.Unregister(fileType, machineWide);
+                        else if (UnixUtils.IsUnix) Unix.FileType.Unregister(fileType, machineWide);
+                        break;
+
+                    case Store.Model.Capabilities.UrlProtocol urlProtocol:
+                        if (WindowsUtils.IsWindows) Windows.UrlProtocol.Unregister(urlProtocol, machineWide);
+                        else if (UnixUtils.IsUnix) Unix.UrlProtocol.Unregister(urlProtocol, machineWide);
+                        break;
+
+                    case Store.Model.Capabilities.AutoPlay autoPlay:
+                        if (WindowsUtils.IsWindows) Windows.AutoPlay.Unregister(autoPlay, machineWide);
+                        break;
+
+                    case AppRegistration appRegistration:
+                        if ((WindowsUtils.IsWindows && machineWide) || WindowsUtils.IsWindows8) Windows.AppRegistration.Unregister(appRegistration, machineWide);
+                        break;
+
+                    case Store.Model.Capabilities.DefaultProgram defaultProgram:
+                        if (WindowsUtils.IsWindows && machineWide) Windows.DefaultProgram.Unregister(defaultProgram);
+                        else if (UnixUtils.IsUnix) Unix.DefaultProgram.Unregister(defaultProgram, machineWide);
+                        break;
+
+                    case ComServer comServer:
+                        if (WindowsUtils.IsWindows) Windows.ComServer.Unregister(comServer, machineWide);
+                        break;
+                }
             }
-            else if (UnixUtils.IsUnix)
-            {
-                dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Unix.FileType.Unregister(fileType, machineWide));
-                dispatcher.Add((Store.Model.Capabilities.UrlProtocol urlProtocol) => Unix.UrlProtocol.Unregister(urlProtocol, machineWide));
-                dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) => Unix.DefaultProgram.Unregister(defaultProgram, machineWide));
-            }
-            dispatcher.Dispatch(appEntry.CapabilityLists.CompatibleCapabilities());
         }
 
         #region Conversion

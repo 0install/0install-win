@@ -23,8 +23,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -100,13 +98,16 @@ namespace ZeroInstall.Services.Executors
             // Don't use bindings for PackageImplementations
             if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return;
 
-            new PerTypeDispatcher<Binding>(ignoreMissing: true)
+            foreach (var binding in bindingContainer.Bindings)
             {
-                (EnvironmentBinding environmentBinding) => ApplyEnvironmentBinding(environmentBinding, implementation),
-                //(OverlayBinding overlayBinding) => ApplyOverlayBinding(overlayBinding, implementation),
-                (ExecutableInVar executableInVar) => ApplyExecutableInVar(executableInVar, implementation),
-                (ExecutableInPath executableInPath) => ApplyExecutableInPath(executableInPath, implementation)
-            }.Dispatch(bindingContainer.Bindings);
+                switch (binding)
+                {
+                    case EnvironmentBinding environmentBinding: ApplyEnvironmentBinding(environmentBinding, implementation); break;
+                    //case OverlayBinding overlayBinding: ApplyOverlayBinding(overlayBinding, implementation); break;
+                    case ExecutableInVar executableInVar: ApplyExecutableInVar(executableInVar, implementation); break;
+                    case ExecutableInPath executableInPath: ApplyExecutableInPath(executableInPath, implementation); break;
+                }
+            }
         }
 
         /// <summary>

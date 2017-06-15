@@ -21,7 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -92,13 +91,12 @@ namespace ZeroInstall.Publish
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
                 {
-                    new PerTypeDispatcher<DownloadRetrievalMethod>(ignoreMissing: false)
+                    switch (retrievalMethod)
                     {
-                        // ReSharper disable AccessToDisposedClosure
-                        (Archive archive) => archive.Apply(downloadedFile, extractionDir, handler),
-                        (SingleFile file) => file.Apply(downloadedFile, extractionDir)
-                        // ReSharper restore AccessToDisposedClosure
-                    }.Dispatch(retrievalMethod);
+                        case Archive archive: archive.Apply(downloadedFile, extractionDir, handler); break;
+                        case SingleFile file: file.Apply(downloadedFile, extractionDir); break;
+                        default: throw new NotSupportedException($"Unknown retrieval method: ${retrievalMethod}");
+                    }
                 }
                     #region Error handling
                 catch
@@ -171,29 +169,29 @@ namespace ZeroInstall.Publish
             retrievalMethod.Validate();
 
             if (executor == null) executor = new SimpleCommandExecutor();
-            new PerTypeDispatcher<DownloadRetrievalMethod>(ignoreMissing: false)
+            switch (retrievalMethod)
             {
-                // ReSharper disable AccessToDisposedClosure
-                (Archive archive) =>
-                {
+                case Archive archive:
                     // Guess MIME types now because the file ending is not known later
                     if (string.IsNullOrEmpty(archive.MimeType))
                     {
                         string mimeType = Archive.GuessMimeType(archive.Href.OriginalString);
                         executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
                     }
-                },
-                (SingleFile file) =>
-                {
+                    break;
+
+                case SingleFile file:
                     // Guess file name based on URL
                     if (string.IsNullOrEmpty(file.Destination))
                     {
                         string destination = file.Href.GetLocalFileName();
                         executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                     }
-                }
-                // ReSharper restore AccessToDisposedClosure
-            }.Dispatch(retrievalMethod);
+                    break;
+
+                default:
+                    throw new NotSupportedException($"Unknown retrieval method: ${retrievalMethod}");
+            }
 
             // Download the file
             var href = ModelUtils.GetAbsoluteHref(retrievalMethod.Href, executor.Path);
@@ -234,11 +232,9 @@ namespace ZeroInstall.Publish
             var extractionDir = new TemporaryDirectory("0publish");
             try
             {
-                new PerTypeDispatcher<DownloadRetrievalMethod>(ignoreMissing: true)
+                switch (retrievalMethod)
                 {
-                    // ReSharper disable AccessToDisposedClosure
-                    (Archive archive) =>
-                    {
+                    case Archive archive:
                         // Guess MIME types now because the file ending is not known later
                         if (string.IsNullOrEmpty(archive.MimeType))
                         {
@@ -247,9 +243,9 @@ namespace ZeroInstall.Publish
                         }
 
                         archive.Apply(localPath, extractionDir, handler);
-                    },
-                    (SingleFile file) =>
-                    {
+                        break;
+
+                    case SingleFile file:
                         // Guess file name based on local path
                         if (string.IsNullOrEmpty(file.Destination))
                         {
@@ -258,9 +254,11 @@ namespace ZeroInstall.Publish
                         }
 
                         file.Apply(localPath, extractionDir, handler);
-                    }
-                    // ReSharper restore AccessToDisposedClosure
-                }.Dispatch(retrievalMethod);
+                        break;
+
+                    default:
+                        throw new NotSupportedException($"Unknown retrieval method: ${retrievalMethod}");
+                }
             }
                 #region Error handling
             catch

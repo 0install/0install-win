@@ -23,7 +23,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Services.Properties;
@@ -267,25 +266,35 @@ namespace ZeroInstall.Services.Executors
         private IList<string> ExpandCommandLine([NotNull, ItemNotNull] IEnumerable<ArgBase> commandLine)
         {
             var result = new List<string>();
-            new PerTypeDispatcher<ArgBase>(ignoreMissing: false)
+
+            foreach (var part in commandLine)
             {
-                (Arg arg) => result.Add(FileUtils.ExpandUnixVariables(arg.Value, _startInfo.EnvironmentVariables)),
-                (ForEachArgs forEach) =>
+                switch (part)
                 {
-                    string valueToSplit = _startInfo.EnvironmentVariables[forEach.ItemFrom];
-                    if (!string.IsNullOrEmpty(valueToSplit))
-                    {
-                        string[] items = valueToSplit.Split(
-                            new[] {forEach.Separator ?? Path.PathSeparator.ToString(CultureInfo.InvariantCulture)}, StringSplitOptions.None);
-                        foreach (string item in items)
+                    case Arg arg:
+                        result.Add(FileUtils.ExpandUnixVariables(arg.Value, _startInfo.EnvironmentVariables));
+                        break;
+
+                    case ForEachArgs forEach:
+                        string valueToSplit = _startInfo.EnvironmentVariables[forEach.ItemFrom];
+                        if (!string.IsNullOrEmpty(valueToSplit))
                         {
-                            _startInfo.EnvironmentVariables["item"] = item;
-                            result.AddRange(forEach.Arguments.Select(arg => FileUtils.ExpandUnixVariables(arg.Value, _startInfo.EnvironmentVariables)));
+                            string[] items = valueToSplit.Split(
+                                new[] {forEach.Separator ?? Path.PathSeparator.ToString(CultureInfo.InvariantCulture)}, StringSplitOptions.None);
+                            foreach (string item in items)
+                            {
+                                _startInfo.EnvironmentVariables["item"] = item;
+                                result.AddRange(forEach.Arguments.Select(arg => FileUtils.ExpandUnixVariables(arg.Value, _startInfo.EnvironmentVariables)));
+                            }
+                            _startInfo.EnvironmentVariables.Remove("item");
                         }
-                        _startInfo.EnvironmentVariables.Remove("item");
-                    }
+                        break;
+
+                    default:
+                        throw new NotSupportedException($"Unknown command-line part: {part}");
                 }
-            }.Dispatch(commandLine);
+            }
+
             return result;
         }
 

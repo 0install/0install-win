@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
@@ -62,26 +61,26 @@ namespace ZeroInstall.Store.Implementations.Build
             {
                 using (var downloadedEnum = downloadedFiles.GetEnumerator())
                 {
-                    // ReSharper disable AccessToDisposedClosure
-                    new PerTypeDispatcher<IRecipeStep>(ignoreMissing: false)
+                    foreach (var step in recipe.Steps)
                     {
-                        (Archive step) =>
+                        switch (step)
                         {
-                            downloadedEnum.MoveNext();
-                            if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
-                            step.Apply(downloadedEnum.Current, workingDir, handler, tag);
-                        },
-                        (SingleFile step) =>
-                        {
-                            downloadedEnum.MoveNext();
-                            if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
-                            step.Apply(downloadedEnum.Current, workingDir);
-                        },
-                        (RemoveStep step) => step.Apply(workingDir),
-                        (RenameStep step) => step.Apply(workingDir),
-                        (CopyFromStep step) => step.Apply(workingDir, handler, tag)
-                    }.Dispatch(recipe.Steps);
-                    // ReSharper restore AccessToDisposedClosure
+                            case Archive archive:
+                                downloadedEnum.MoveNext();
+                                if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
+                                archive.Apply(downloadedEnum.Current, workingDir, handler, tag);
+                                break;
+                            case SingleFile file:
+                                downloadedEnum.MoveNext();
+                                if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, nameof(downloadedFiles));
+                                file.Apply(downloadedEnum.Current, workingDir);
+                                break;
+                            case RemoveStep x: x.Apply(workingDir); break;
+                            case RenameStep x: x.Apply(workingDir); break;
+                            case CopyFromStep x: x.Apply(workingDir, handler, tag); break;
+                            default: throw new NotSupportedException($"Unknown recipe step: ${step}");
+                        }
+                    }
                 }
                 return workingDir;
             }

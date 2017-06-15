@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NanoByte.Common;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations.Manifests;
 using ZeroInstall.Store.Model;
@@ -95,10 +94,7 @@ namespace ZeroInstall.Store.Implementations
             /// Creates a new optimise run.
             /// </summary>
             /// <param name="storePath">The <see cref="IStore.DirectoryPath"/>.</param>
-            public OptimiseRun(string storePath)
-            {
-                _storePath = storePath;
-            }
+            public OptimiseRun(string storePath) => _storePath = storePath;
 
             /// <summary>
             /// Executes the work-step for a single implementation.
@@ -111,27 +107,32 @@ namespace ZeroInstall.Store.Implementations
                 var manifest = Manifest.Load(Path.Combine(implementationPath, Manifest.ManifestFile), ManifestFormat.FromPrefix(digestString));
 
                 string currentDirectory = "";
-                new AggregateDispatcher<ManifestNode>
+                foreach (var node in manifest)
                 {
-                    (ManifestDirectory x) => { currentDirectory = FileUtils.UnifySlashes(x.FullPath.TrimStart('/')); },
-                    (ManifestFileBase x) =>
+                    switch (node)
                     {
-                        if (x.Size == 0) return;
+                        case ManifestDirectory x:
+                            currentDirectory = FileUtils.UnifySlashes(x.FullPath.TrimStart('/'));
+                            break;
 
-                        var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
-                        var file = new StoreFile(implementationPath, Path.Combine(currentDirectory, x.Name));
+                        case ManifestFileBase x:
+                            if (x.Size == 0) return;
 
-                        if (_fileHashes.TryGetValue(key, out var existingFile))
-                        {
-                            if (!FileUtils.AreHardlinked(file, existingFile))
+                            var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
+                            var file = new StoreFile(implementationPath, Path.Combine(currentDirectory, x.Name));
+
+                            if (_fileHashes.TryGetValue(key, out var existingFile))
                             {
-                                if (JoinWithHardlink(file, existingFile))
-                                    SavedBytes += x.Size;
+                                if (!FileUtils.AreHardlinked(file, existingFile))
+                                {
+                                    if (JoinWithHardlink(file, existingFile))
+                                        SavedBytes += x.Size;
+                                }
                             }
-                        }
-                        else _fileHashes.Add(key, file);
+                            else _fileHashes.Add(key, file);
+                            break;
                     }
-                }.Dispatch(manifest);
+                }
             }
 
             private bool JoinWithHardlink(StoreFile file1, StoreFile file2)

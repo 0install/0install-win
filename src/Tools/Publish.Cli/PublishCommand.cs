@@ -24,7 +24,6 @@ using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -345,11 +344,19 @@ namespace ZeroInstall.Publish.Cli
 
         private void AddMissing(IEnumerable<Element> elements, ICommandExecutor executor)
         {
-            new PerTypeDispatcher<Element>(ignoreMissing: true)
+            foreach (var element in elements)
             {
-                (Implementation implementation) => implementation.AddMissing(_handler, executor, _keepDownloads),
-                (Group group) => AddMissing(group.Elements, executor) // recursion
-            }.Dispatch(elements);
+                switch (element)
+                {
+                    case Implementation implementation:
+                        implementation.AddMissing(_handler, executor, _keepDownloads);
+                        break;
+
+                    case Group group:
+                        AddMissing(group.Elements, executor); // recursion
+                        break;
+                }
+            }
         }
         #endregion
     }
