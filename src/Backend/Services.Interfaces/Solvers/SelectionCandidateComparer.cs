@@ -41,33 +41,26 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         /// <param name="config">Used to retrieve global configuration.</param>
         /// <param name="isCached">Used to determine which implementations are already cached in the <see cref="IStore"/>.</param>
-        /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice. Must not be <see cref="Stability.Unset"/>!</param>
+        /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice.</param>
         /// <param name="languages">The preferred languages for the implementation.</param>
         public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy, [NotNull] LanguageSet languages)
         {
-            #region Sanity check
             if (config == null) throw new ArgumentNullException(nameof(config));
-            if (isCached == null) throw new ArgumentNullException(nameof(isCached));
-            if (languages == null) throw new ArgumentNullException(nameof(languages));
-            #endregion
-
             _networkUse = config.NetworkUse;
-            _isCached = isCached;
             _stabilityPolicy = (stabilityPolicy == Stability.Unset)
                 ? (config.HelpWithTesting ? Stability.Testing : Stability.Stable)
                 : stabilityPolicy;
-            _languages = languages;
+
+            _isCached = isCached ?? throw new ArgumentNullException(nameof(isCached));
+            _languages = languages ?? throw new ArgumentNullException(nameof(languages));
         }
 
         /// <inheritdoc/>
         public int Compare(SelectionCandidate x, SelectionCandidate y)
         {
-            #region Sanity checks
-            if (x == null) throw new ArgumentNullException(nameof(x));
-            if (y == null) throw new ArgumentNullException(nameof(y));
-            #endregion
-
-            if (ReferenceEquals(x, y)) return 0;
+            if (ReferenceEquals(
+                x ?? throw new ArgumentNullException(nameof(x)),
+                y ?? throw new ArgumentNullException(nameof(y)))) return 0;
 
             // Preferred implementations come first
             if (x.EffectiveStability == Stability.Preferred && y.EffectiveStability != Stability.Preferred) return -1;

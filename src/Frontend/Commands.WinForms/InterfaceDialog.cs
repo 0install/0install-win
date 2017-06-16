@@ -81,7 +81,7 @@ namespace ZeroInstall.Commands.WinForms
 
             InitializeComponent();
             comboBoxStability.Items.AddRange(new object[] {Resources.UseDefaultSetting, Stability.Stable, Stability.Testing, Stability.Developer});
-            dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer);
+            dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Stable, Stability.Testing, Stability.Developer, Stability.Buggy, Stability.Insecure);
 
             _interfaceUri = interfaceUri;
             _mainFeed = feedManager[_interfaceUri];
