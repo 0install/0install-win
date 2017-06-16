@@ -33,6 +33,7 @@ namespace ZeroInstall.Store.Implementations
     /// <summary>
     /// Contains test methods for <see cref="DirectoryStore"/>.
     /// </summary>
+    [Collection("WorkingDir")]
     public class DirectoryStoreTest : IDisposable
     {
         private readonly MockTaskHandler _handler;

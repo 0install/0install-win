@@ -32,6 +32,7 @@ namespace ZeroInstall.Commands.CliCommands
     /// <summary>
     /// Contains integration tests for <see cref="StoreMan"/>.
     /// </summary>
+    [Collection("WorkingDir")]
     public class StoreManTest
     {
         internal abstract class StoreSubCommand<T> : CliCommandTest<T>
