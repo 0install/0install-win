@@ -44,7 +44,9 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <param name="sourceFilePath">The path of the original file to read.</param>
         /// <param name="targetDirPath">The path of the new directory to clone the file to.</param>
         public CloneFile([NotNull] string sourceFilePath, [NotNull] string targetDirPath)
-            : base(Path.GetDirectoryName(sourceFilePath), targetDirPath)
+            : base(
+                  sourcePath: Path.GetDirectoryName(sourceFilePath) ?? throw new ArgumentNullException(sourceFilePath),
+                  targetPath: targetDirPath ?? throw new ArgumentNullException(targetDirPath))
         {
             SourceFileName = Path.GetFileName(sourceFilePath);
             TargetFileName = SourceFileName;
@@ -53,21 +55,20 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <inheritdoc/>
         protected override void HandleFile(FileInfo file, bool executable = false)
         {
-            if ((file ?? throw new ArgumentNullException(nameof(file))).Name == SourceFileName)
-                base.HandleFile(file, executable);
+            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (file.Name == SourceFileName) base.HandleFile(file, executable);
         }
 
         /// <inheritdoc/>
         protected override void HandleSymlink(FileSystemInfo symlink, string target)
         {
-            if ((symlink ?? throw new ArgumentNullException(nameof(symlink))) .Name == SourceFileName)
-                DirectoryBuilder.CreateSymlink(TargetFileName, target ?? throw new ArgumentNullException(nameof(target)));
+            if (symlink == null) throw new ArgumentNullException(nameof(symlink));
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException(nameof(target));
+            if (symlink.Name == SourceFileName) DirectoryBuilder.CreateSymlink(TargetFileName, target);
         }
 
         /// <inheritdoc/>
-        protected override string NewFilePath(FileInfo file, bool executable)
-            => DirectoryBuilder.NewFilePath(
-                TargetFileName,
-                (file ?? throw new ArgumentNullException(nameof(file))).LastWriteTimeUtc, executable);
+        protected override string NewFilePath(FileInfo originalFile, DateTime? lastWriteTime, bool executable)
+            => DirectoryBuilder.NewFilePath(TargetFileName, lastWriteTime, executable);
     }
 }

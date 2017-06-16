@@ -132,10 +132,10 @@ namespace ZeroInstall.Store.Implementations.Build
         /// Prepares a new file path in the directory without creating the file itself yet.
         /// </summary>
         /// <param name="relativePath">A path relative to <see cref="EffectiveTargetPath"/>.</param>
-        /// <param name="lastWriteTime">The last write time to set for the file.</param>
-        /// <param name="executable"><c>true</c> if the file's executable bit is to be set; <c>false</c> otherwise.</param>
+        /// <param name="lastWriteTime">The last write time to set for the file later. This value is optional.</param>
+        /// <param name="executable"><c>true</c> if the file's executable bit is to be set later; <c>false</c> otherwise.</param>
         /// <returns>An absolute file path.</returns>
-        public string NewFilePath(string relativePath, DateTime lastWriteTime, bool executable = false)
+        public string NewFilePath(string relativePath, DateTime? lastWriteTime, bool executable = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException(nameof(relativePath));
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Implementations.Build
             string directoryPath = Path.GetDirectoryName(fullPath);
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
-            _pendingFileWriteTimes[relativePath] = lastWriteTime;
+            if (lastWriteTime.HasValue) _pendingFileWriteTimes[relativePath] = lastWriteTime.Value;
             if (executable) _pendingExecutableFiles.Add(relativePath);
             return fullPath;
         }

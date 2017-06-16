@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store.Properties;
@@ -57,7 +58,8 @@ namespace ZeroInstall.Store.Implementations.Build
         /// </summary>
         /// <param name="sourcePath">The path of the original directory to read.</param>
         /// <param name="targetPath">The path of the new directory to create.</param>
-        public CloneDirectory([NotNull] string sourcePath, string targetPath) : base(sourcePath) => DirectoryBuilder = new DirectoryBuilder(targetPath);
+        public CloneDirectory([NotNull] string sourcePath, [NotNull] string targetPath) : base(sourcePath)
+            => DirectoryBuilder = new DirectoryBuilder(targetPath ?? throw new ArgumentNullException(targetPath));
 
         /// <inheritdoc/>
         public override string Name => Resources.CopyFiles;
@@ -138,9 +140,14 @@ namespace ZeroInstall.Store.Implementations.Build
             #endregion
 
             if (UseHardlinks)
-                CopyFileAsHardlink(file.FullName, NewFilePath(file, executable));
+            {
+                // Timestamps for hardlinked files are linked by the filesystem itself on Unixoid systems
+                var lastWriteTime = UnixUtils.IsUnix ? (DateTime?)null : file.LastWriteTimeUtc;
+
+                CopyFileAsHardlink(file.FullName, NewFilePath(file, lastWriteTime, executable));
+            }
             else
-                CopyFile(file.FullName, NewFilePath(file, executable));
+                CopyFile(file.FullName, NewFilePath(file, file.LastWriteTimeUtc, executable));
 
             void CopyFileAsHardlink(string existingPath, string newPath)
             {
@@ -169,25 +176,29 @@ namespace ZeroInstall.Store.Implementations.Build
         /// <summary>
         /// Prepares a new file path in the directory without creating the file itself yet.
         /// </summary>
-        /// <param name="file">The original file to base the new one on.</param>
-        /// <param name="executable"><c>true</c> if the file's executable bit is to be set; <c>false</c> otherwise.</param>
+        /// <param name="originalFile">The original file to base the new one on.</param>
+        /// <param name="lastWriteTime">The last write time to set for the file later. This value is optional.</param>
+        /// <param name="executable"><c>true</c> if the file's executable bit is to be set later; <c>false</c> otherwise.</param>
         /// <returns>An absolute file path.</returns>
-        protected virtual string NewFilePath(FileInfo file, bool executable)
-            => DirectoryBuilder.NewFilePath(
-                (file ?? throw new ArgumentNullException(nameof(file))).RelativeTo(SourceDirectory),
-                file.LastWriteTimeUtc,
-                executable);
+        protected virtual string NewFilePath(FileInfo originalFile, DateTime? lastWriteTime, bool executable)
+        {
+            if (originalFile == null) throw new ArgumentNullException(nameof(originalFile));
+            return DirectoryBuilder.NewFilePath(originalFile.RelativeTo(SourceDirectory), lastWriteTime, executable);
+        }
 
         /// <inheritdoc/>
         protected override void HandleSymlink(FileSystemInfo symlink, string target)
-            => DirectoryBuilder.CreateSymlink(
-                (symlink ?? throw new ArgumentNullException(nameof(symlink))).RelativeTo(SourceDirectory),
-                target ?? throw new ArgumentNullException(nameof(target)));
+        {
+            if (symlink == null) throw new ArgumentNullException(nameof(symlink));
+            if (target == null) throw new ArgumentNullException(nameof(target));
+            DirectoryBuilder.CreateSymlink(symlink.RelativeTo(SourceDirectory), target);
+        }
 
         /// <inheritdoc/>
         protected override void HandleDirectory(DirectoryInfo directory)
-            => DirectoryBuilder.CreateDirectory(
-                (directory ?? throw new ArgumentNullException(nameof(directory))).RelativeTo(SourceDirectory),
-                directory.LastWriteTimeUtc);
+        {
+            if (directory == null) throw new ArgumentNullException(nameof(directory));
+            DirectoryBuilder.CreateDirectory(directory.RelativeTo(SourceDirectory), directory.LastWriteTimeUtc);
+        }
     }
 }
