@@ -178,7 +178,7 @@ namespace ZeroInstall.Store.Model.Preferences
             if (!base.Equals(other)) return false;
             if (Uri != other.Uri) return false;
             if (StabilityPolicy != other.StabilityPolicy) return false;
-            if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
+            if (!Feeds.SequencedEquals(other.Feeds)) return false;
             return true;
         }
 
@@ -198,7 +198,7 @@ namespace ZeroInstall.Store.Model.Preferences
                 int result = base.GetHashCode();
                 result = (result * 397) ^ Uri?.GetHashCode() ?? 0;
                 result = (result * 397) ^ StabilityPolicy.GetHashCode();
-                result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
+                result = (result * 397) ^ Feeds.GetSequencedHashCode();
                 return result;
             }
         }

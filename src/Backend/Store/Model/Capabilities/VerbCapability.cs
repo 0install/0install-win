@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         protected bool Equals(VerbCapability other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Verbs.UnsequencedEquals(other.Verbs);
+            return base.Equals(other) && Verbs.SequencedEquals(other.Verbs);
         }
 
         /// <inheritdoc/>
@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ Verbs.GetUnsequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Verbs.GetSequencedHashCode();
             }
         }
         #endregion

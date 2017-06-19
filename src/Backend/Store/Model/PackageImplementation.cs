@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(PackageImplementation other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Package == other.Package && Distributions.UnsequencedEquals(other.Distributions);
+            return base.Equals(other) && Package == other.Package && Distributions.SequencedEquals(other.Distributions);
         }
 
         /// <inheritdoc/>
@@ -170,7 +170,7 @@ namespace ZeroInstall.Store.Model
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ Package?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Distributions.GetSequencedHashCode();
                 return result;
             }
         }

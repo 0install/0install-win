@@ -479,16 +479,16 @@ namespace ZeroInstall.Store.Model
             if (Uri != other.Uri) return false;
             if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Name != other.Name) return false;
-            if (!Summaries.UnsequencedEquals(other.Summaries)) return false;
-            if (!Descriptions.UnsequencedEquals(other.Descriptions)) return false;
+            if (!Summaries.SequencedEquals(other.Summaries)) return false;
+            if (!Descriptions.SequencedEquals(other.Descriptions)) return false;
             if (Homepage != other.Homepage) return false;
             if (NeedsTerminal != other.NeedsTerminal) return false;
-            if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
-            if (!Categories.UnsequencedEquals(other.Categories)) return false;
-            if (!Icons.UnsequencedEquals(other.Icons)) return false;
-            if (!Elements.UnsequencedEquals(other.Elements)) return false;
-            if (!EntryPoints.UnsequencedEquals(other.EntryPoints)) return false;
-            if (!CapabilityLists.UnsequencedEquals(other.CapabilityLists)) return false;
+            if (!Feeds.SequencedEquals(other.Feeds)) return false;
+            if (!Categories.SequencedEquals(other.Categories)) return false;
+            if (!Icons.SequencedEquals(other.Icons)) return false;
+            if (!Elements.SequencedEquals(other.Elements)) return false;
+            if (!EntryPoints.SequencedEquals(other.EntryPoints)) return false;
+            if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             return true;
         }
 
@@ -509,16 +509,16 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ Uri?.GetHashCode() ?? 0;
                 result = (result * 397) ^ MinInjectorVersion?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Name?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Summaries.GetUnsequencedHashCode();
-                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Summaries.GetSequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ Homepage?.GetHashCode() ?? 0;
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
-                result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
-                result = (result * 397) ^ Categories.GetUnsequencedHashCode();
-                result = (result * 397) ^ Icons.GetUnsequencedHashCode();
-                result = (result * 397) ^ Elements.GetUnsequencedHashCode();
-                result = (result * 397) ^ EntryPoints.GetUnsequencedHashCode();
-                result = (result * 397) ^ CapabilityLists.GetUnsequencedHashCode();
+                result = (result * 397) ^ Feeds.GetSequencedHashCode();
+                result = (result * 397) ^ Categories.GetSequencedHashCode();
+                result = (result * 397) ^ Icons.GetSequencedHashCode();
+                result = (result * 397) ^ Elements.GetSequencedHashCode();
+                result = (result * 397) ^ EntryPoints.GetSequencedHashCode();
+                result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 return result;
             }
         }

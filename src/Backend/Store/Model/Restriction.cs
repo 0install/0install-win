@@ -174,7 +174,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-            return base.Equals(other) && InterfaceUri == other.InterfaceUri && OS == other.OS && Versions == other.Versions && Constraints.UnsequencedEquals(other.Constraints) && Distributions.UnsequencedEquals(other.Distributions);
+            return base.Equals(other) && InterfaceUri == other.InterfaceUri && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints) && Distributions.SequencedEquals(other.Distributions);
         }
 
         /// <inheritdoc/>
@@ -194,8 +194,8 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ InterfaceUri?.GetHashCode() ?? 0;
                 result = (result * 397) ^ (int)OS;
                 result = (result * 397) ^ Versions?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Constraints.GetUnsequencedHashCode();
-                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Constraints.GetSequencedHashCode();
+                result = (result * 397) ^ Distributions.GetSequencedHashCode();
                 return result;
             }
         }

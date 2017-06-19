@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Group other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Elements.UnsequencedEquals(other.Elements);
+            return base.Equals(other) && Elements.SequencedEquals(other.Elements);
         }
 
         /// <inheritdoc/>
@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ Elements.GetUnsequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Elements.GetSequencedHashCode();
             }
         }
         #endregion

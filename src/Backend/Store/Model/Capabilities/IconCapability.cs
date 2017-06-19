@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         protected bool Equals(IconCapability other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Descriptions.UnsequencedEquals(other.Descriptions) && Icons.UnsequencedEquals(other.Icons);
+            return base.Equals(other) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
         /// <inheritdoc/>
@@ -73,8 +73,8 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
-                result = (result * 397) ^ Icons.GetUnsequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
+                result = (result * 397) ^ Icons.GetSequencedHashCode();
                 return result;
             }
         }

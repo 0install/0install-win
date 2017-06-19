@@ -132,7 +132,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(Verb other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Name == Name && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended && Descriptions.UnsequencedEquals(other.Descriptions);
+            return base.Equals(other) && other.Name == Name && other.Command == Command && other.Arguments == Arguments && other.Extended == Extended && Descriptions.SequencedEquals(other.Descriptions);
         }
 
         /// <inheritdoc/>
@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 result = (result * 397) ^ Command?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Arguments?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Extended.GetHashCode();
-                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 return result;
             }
         }

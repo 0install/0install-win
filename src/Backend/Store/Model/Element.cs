@@ -386,7 +386,7 @@ namespace ZeroInstall.Store.Model
             if (other == null) return false;
             return base.Equals(other) &&
                    other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.ReleasedVerbatim == ReleasedVerbatim && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
-                   Commands.UnsequencedEquals(other.Commands) && Dependencies.UnsequencedEquals(other.Dependencies) && Restrictions.UnsequencedEquals(other.Restrictions) && Bindings.UnsequencedEquals(other.Bindings);
+                   Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Restrictions.SequencedEquals(other.Restrictions) && Bindings.SequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>
@@ -403,10 +403,10 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ Main?.GetHashCode() ?? 0;
                 result = (result * 397) ^ SelfTest?.GetHashCode() ?? 0;
                 result = (result * 397) ^ DocDir?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Commands.GetUnsequencedHashCode();
-                result = (result * 397) ^ Dependencies.GetUnsequencedHashCode();
-                result = (result * 397) ^ Restrictions.GetUnsequencedHashCode();
-                result = (result * 397) ^ Bindings.GetUnsequencedHashCode();
+                result = (result * 397) ^ Commands.GetSequencedHashCode();
+                result = (result * 397) ^ Dependencies.GetSequencedHashCode();
+                result = (result * 397) ^ Restrictions.GetSequencedHashCode();
+                result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 return result;
             }
         }

@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(FileType other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Extensions.UnsequencedEquals(other.Extensions);
+            return base.Equals(other) && Extensions.SequencedEquals(other.Extensions);
         }
 
         /// <inheritdoc/>
@@ -87,7 +87,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ Extensions.GetUnsequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Extensions.GetSequencedHashCode();
             }
         }
         #endregion

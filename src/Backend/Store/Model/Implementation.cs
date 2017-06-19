@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Implementation other)
         {
             if (other == null) return false;
-            return base.Equals(other) && RetrievalMethods.UnsequencedEquals(other.RetrievalMethods);
+            return base.Equals(other) && RetrievalMethods.SequencedEquals(other.RetrievalMethods);
         }
 
         /// <inheritdoc/>
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ RetrievalMethods.GetUnsequencedHashCode();
+                return (base.GetHashCode() * 397) ^ RetrievalMethods.GetSequencedHashCode();
             }
         }
         #endregion

@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ Languages.GetUnsequencedHashCode();
+                result = (result * 397) ^ Languages.GetSequencedHashCode();
                 result = (result * 397) ^ Architecture.GetHashCode();
                 return result;
             }

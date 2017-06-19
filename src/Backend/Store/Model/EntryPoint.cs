@@ -145,7 +145,7 @@ namespace ZeroInstall.Store.Model
             if (other == null) return false;
             return base.Equals(other) &&
                    Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
-                   Names.UnsequencedEquals(other.Names) && Summaries.UnsequencedEquals(other.Summaries) && Descriptions.UnsequencedEquals(other.Descriptions) && Icons.UnsequencedEquals(other.Icons);
+                   Names.SequencedEquals(other.Names) && Summaries.SequencedEquals(other.Summaries) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
         /// <inheritdoc/>
@@ -165,10 +165,10 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ Command?.GetHashCode() ?? 0;
                 result = (result * 397) ^ BinaryName?.GetHashCode() ?? 0;
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
-                result = (result * 397) ^ Names.GetUnsequencedHashCode();
-                result = (result * 397) ^ Summaries.GetUnsequencedHashCode();
-                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
-                result = (result * 397) ^ Icons.GetUnsequencedHashCode();
+                result = (result * 397) ^ Names.GetSequencedHashCode();
+                result = (result * 397) ^ Summaries.GetSequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
+                result = (result * 397) ^ Icons.GetSequencedHashCode();
                 return result;
             }
         }

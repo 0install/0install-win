@@ -207,7 +207,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Catalog other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Feeds.UnsequencedEquals(other.Feeds);
+            return base.Equals(other) && Feeds.SequencedEquals(other.Feeds);
         }
 
         /// <inheritdoc/>
@@ -223,7 +223,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ Feeds.GetUnsequencedHashCode();
+                return (base.GetHashCode() * 397) ^ Feeds.GetSequencedHashCode();
             }
         }
         #endregion

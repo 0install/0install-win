@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         public bool Equals(Dependency other)
         {
-            return base.Equals(other) && Importance == other.Importance && Use == other.Use && Bindings.UnsequencedEquals(other.Bindings);
+            return base.Equals(other) && Importance == other.Importance && Use == other.Use && Bindings.SequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Model
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (int)Importance;
                 result = (result * 397) ^ Use?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Bindings.GetUnsequencedHashCode();
+                result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 return result;
             }
         }

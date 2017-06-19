@@ -187,7 +187,7 @@ namespace ZeroInstall.DesktopIntegration
             if (Name != other.Name) return false;
             if (AutoUpdate != other.AutoUpdate) return false;
             if (!Equals(Requirements, other.Requirements)) return false;
-            if (!CapabilityLists.UnsequencedEquals(other.CapabilityLists)) return false;
+            if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             if (!Equals(AccessPoints, other.AccessPoints)) return false;
             return true;
         }
@@ -210,7 +210,7 @@ namespace ZeroInstall.DesktopIntegration
                 result = (result * 397) ^ Name?.GetHashCode() ?? 0;
                 result = (result * 397) ^ AutoUpdate.GetHashCode();
                 result = (result * 397) ^ Requirements?.GetHashCode() ?? 0;
-                result = (result * 397) ^ CapabilityLists.GetUnsequencedHashCode();
+                result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 result = (result * 397) ^ AccessPoints?.GetHashCode() ?? 0;
                 return result;
             }

@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             if (other == null) return false;
             return base.Equals(other) &&
                    other.Provider == Provider && Equals(other.Verb, Verb) &&
-                   Events.UnsequencedEquals(other.Events);
+                   Events.SequencedEquals(other.Events);
         }
 
         /// <inheritdoc/>
@@ -106,7 +106,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 result = (result * 397) ^ Provider?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Provider?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Verb?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Events.GetUnsequencedHashCode();
+                result = (result * 397) ^ Events.GetSequencedHashCode();
                 return result;
             }
         }

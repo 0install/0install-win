@@ -170,10 +170,10 @@ namespace ZeroInstall.Store.Model
             if (Name != other.Name) return false;
             if (Path != other.Path) return false;
             if (!Arguments.SequencedEquals(other.Arguments)) return false;
-            if (!Bindings.UnsequencedEquals(other.Bindings)) return false;
+            if (!Bindings.SequencedEquals(other.Bindings)) return false;
             if (!Equals(WorkingDir, other.WorkingDir)) return false;
-            if (!Dependencies.UnsequencedEquals(other.Dependencies)) return false;
-            if (!Restrictions.UnsequencedEquals(other.Restrictions)) return false;
+            if (!Dependencies.SequencedEquals(other.Dependencies)) return false;
+            if (!Restrictions.SequencedEquals(other.Restrictions)) return false;
             if (!Equals(Runner, other.Runner)) return false;
             return true;
         }
@@ -195,10 +195,10 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ Name?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Path?.GetHashCode() ?? 0;
                 result = (result * 397) ^ Arguments.GetSequencedHashCode();
-                result = (result * 397) ^ Bindings.GetUnsequencedHashCode();
+                result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 result = (result * 397) ^ WorkingDir?.GetHashCode() ?? 0;
-                result = (result * 397) ^ Dependencies.GetUnsequencedHashCode();
-                result = (result * 397) ^ Restrictions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Dependencies.GetSequencedHashCode();
+                result = (result * 397) ^ Restrictions.GetSequencedHashCode();
                 result = (result * 397) ^ Runner?.GetHashCode() ?? 0;
                 return result;
             }
