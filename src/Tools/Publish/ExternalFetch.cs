@@ -64,10 +64,14 @@ namespace ZeroInstall.Publish
                 CreateNoWindow = true
             }.Start();
 
-            process.StandardInput.WriteLine(new Feed {Elements = {_implementation}}.ToXmlString().Replace("\n", ""));
-
             using (CancellationToken.Register(process.Kill))
+            {
+                process.StandardInput.WriteLine(new Feed {Elements = {_implementation}}.ToXmlString().Replace("\n", ""));
                 process.WaitForExit();
+            }
+
+            CancellationToken.ThrowIfCancellationRequested();
+            State = TaskState.Complete;
         }
     }
 }
