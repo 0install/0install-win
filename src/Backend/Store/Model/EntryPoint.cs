@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -31,7 +32,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Feed.EntryPoints"/>
     [Description("Associates a command with a user-friendly name and description.")]
     [Serializable, XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
-    public sealed class EntryPoint : FeedElement, IIconContainer, ISummaryContainer, ICloneable, IEquatable<EntryPoint>
+    public sealed class EntryPoint : FeedElement, IIconContainer, ISummaryContainer, ICloneable<EntryPoint>, IEquatable<EntryPoint>
     {
         /// <summary>
         /// The name of the <see cref="Command"/> this entry point represents.
@@ -134,8 +135,6 @@ namespace ZeroInstall.Store.Model
             newEntryPoint.Icons.AddRange(Icons);
             return newEntryPoint;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

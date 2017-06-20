@@ -29,7 +29,7 @@ namespace ZeroInstall.Store
     /// User settings controlling network behaviour, solving, etc.
     /// </summary>
     [Serializable]
-    public sealed partial class Config : ICloneable, IEquatable<Config>
+    public sealed partial class Config : ICloneable<Config>, IEquatable<Config>
     {
         private static readonly TimeSpan _defaultFreshness = new TimeSpan(7, 0, 0, 0, 0); // 7 days
         private TimeSpan _freshness = _defaultFreshness;

@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Model
         public void TestClone()
         {
             var singleFile1 = CreateTestSingleFile();
-            var singleFile2 = singleFile1.CloneRecipeStep();
+            var singleFile2 = singleFile1.Clone();
 
             // Ensure data stayed the same
             singleFile2.Should().Be(singleFile1, because: "Cloned objects should be equal.");

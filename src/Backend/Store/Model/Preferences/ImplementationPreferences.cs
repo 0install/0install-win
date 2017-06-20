@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model.Preferences
 {
@@ -25,7 +26,7 @@ namespace ZeroInstall.Store.Model.Preferences
     /// Stores user-specific preferences for an <see cref="Implementation"/>.
     /// </summary>
     [XmlType("implementation-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class ImplementationPreferences : XmlUnknown, ICloneable, IEquatable<ImplementationPreferences>
+    public sealed class ImplementationPreferences : XmlUnknown, ICloneable<ImplementationPreferences>, IEquatable<ImplementationPreferences>
     {
         /// <summary>
         /// A unique identifier for the implementation. Coressponds to <see cref="ImplementationBase.ID"/>.
@@ -54,8 +55,6 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         /// <returns>The new copy of the <see cref="ImplementationPreferences"/>.</returns>
         public ImplementationPreferences Clone() => new ImplementationPreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, UserStability = UserStability};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion

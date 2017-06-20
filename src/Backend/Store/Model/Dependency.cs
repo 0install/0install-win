@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
@@ -45,7 +46,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("A reference to an interface that is required as dependency.")]
     [Serializable, XmlRoot("requires", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
-    public class Dependency : Restriction, IInterfaceUriBindingContainer, IEquatable<Dependency>
+    public class Dependency : Restriction, IInterfaceUriBindingContainer, ICloneable<Dependency>, IEquatable<Dependency>
     {
         /// <summary>
         /// Controls how important this dependency is (i.e. whether ignoring it is an option).
@@ -108,7 +109,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Dependency"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
-        public Dependency CloneDependency()
+        Dependency ICloneable<Dependency>.Clone()
         {
             var dependency = new Dependency {InterfaceUri = InterfaceUri, OS = OS, Versions = Versions, Importance = Importance, Use = Use};
             dependency.Constraints.AddRange(Constraints.CloneElements());
@@ -121,7 +122,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Dependency"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
-        public override Restriction Clone() => CloneDependency();
+        public override Restriction Clone() => ((ICloneable<Dependency>)this).Clone();
         #endregion
 
         #region Equality

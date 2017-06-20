@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.")]
     [Serializable, XmlRoot("rename", Namespace = Feed.XmlNamespace), XmlType("rename", Namespace = Feed.XmlNamespace)]
-    public sealed class RenameStep : FeedElement, IRecipeStep, IEquatable<RenameStep>, ICloneable
+    public sealed class RenameStep : FeedElement, IRecipeStep, IEquatable<RenameStep>
     {
         /// <summary>
         /// The source file or directory relative to the implementation root as a Unix-style path.
@@ -61,9 +61,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="RenameStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="RenameStep"/>.</returns>
-        public IRecipeStep CloneRecipeStep() => new RenameStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, Destination = Destination};
-
-        object ICloneable.Clone() => CloneRecipeStep();
+        public IRecipeStep Clone() => new RenameStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, Destination = Destination};
         #endregion
 
         #region Equality

@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
@@ -33,7 +34,7 @@ namespace ZeroInstall.Store.Model.Selection
     /// Represents a set of <see cref="ImplementationBase"/>s chosen by a solver.
     /// </summary>
     [Serializable, XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
-    public sealed class Selections : XmlUnknown, IInterfaceUri, ICloneable, IEquatable<Selections>
+    public sealed class Selections : XmlUnknown, IInterfaceUri, ICloneable<Selections>, IEquatable<Selections>
     {
         /// <summary>
         /// The URI or local path of the interface this selection is based on.
@@ -178,8 +179,6 @@ namespace ZeroInstall.Store.Model.Selection
             selections.Implementations.AddRange(Implementations.CloneElements());
             return selections;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion

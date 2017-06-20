@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
@@ -27,7 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// A capability tells the desktop environment what an application can do and in which fashion this can be represented to the user. It does not change the behaviour of existing UI elements.
     /// </summary>
     [XmlType("capability", Namespace = CapabilityList.XmlNamespace)]
-    public abstract class Capability : XmlUnknown, ICloneable
+    public abstract class Capability : XmlUnknown, ICloneable<Capability>
     {
         /// <summary>
         /// Indicates whether this capability can be registered only machine-wide and not per-user on Windows systems.
@@ -59,8 +60,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <returns>The new copy of the <see cref="Capability"/>.</returns>
         public abstract Capability Clone();
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

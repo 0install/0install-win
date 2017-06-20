@@ -195,7 +195,7 @@ namespace ZeroInstall.Services.Executors
             if (string.IsNullOrEmpty(overrideMain)) return _selections.MainImplementation;
 
             // Clone the first implementation so the command can replaced without affecting Selections
-            var mainImplementation = _selections.MainImplementation.CloneImplementation();
+            var mainImplementation = ((ICloneable<ImplementationSelection>)_selections.MainImplementation).Clone();
             var command = mainImplementation[_selections.Command];
             Debug.Assert(command != null);
 

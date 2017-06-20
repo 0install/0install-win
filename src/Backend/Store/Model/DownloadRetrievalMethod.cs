@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store.Model
@@ -84,7 +85,8 @@ namespace ZeroInstall.Store.Model
 
         #region Clone
         /// <inheritdoc/>
-        public abstract IRecipeStep CloneRecipeStep();
+        IRecipeStep ICloneable<IRecipeStep>.Clone() => (IRecipeStep)Clone();
+
         #endregion
 
         #region Equality

@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("Restricts the versions of an Implementation that are allowed without creating a dependency on the implementation if its was not already chosen.")]
     [Serializable, XmlRoot("restricts", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
-    public class Restriction : FeedElement, IInterfaceUri, ICloneable, IEquatable<Restriction>
+    public class Restriction : FeedElement, IInterfaceUri, ICloneable<Restriction>, IEquatable<Restriction>
     {
         /// <summary>
         /// The URI or local path used to identify the interface.
@@ -165,8 +165,6 @@ namespace ZeroInstall.Store.Model
             restriction.Distributions.AddRange(Distributions);
             return restriction;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

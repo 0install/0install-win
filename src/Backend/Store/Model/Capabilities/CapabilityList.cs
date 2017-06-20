@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -30,7 +31,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// </summary>
     [Description("Groups a number of application capabilities (for a specific operating system) that can be registered in a desktop environment.")]
     [Serializable, XmlRoot("capabilities", Namespace = XmlNamespace), XmlType("capabilities", Namespace = XmlNamespace)]
-    public sealed class CapabilityList : XmlUnknown, ICloneable, IEquatable<CapabilityList>
+    public sealed class CapabilityList : XmlUnknown, ICloneable<CapabilityList>, IEquatable<CapabilityList>
     {
         #region Constants
         /// <summary>
@@ -86,8 +87,6 @@ namespace ZeroInstall.Store.Model.Capabilities
             capabilityList.Entries.AddRange(Entries.CloneElements());
             return capabilityList;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion

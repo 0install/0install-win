@@ -18,6 +18,7 @@
 using System;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Trust
@@ -26,7 +27,7 @@ namespace ZeroInstall.Store.Trust
     /// A known OpenPGP key, trusted to sign feeds from a certain set of domains.
     /// </summary>
     [XmlType("key", Namespace = TrustDB.XmlNamespace)]
-    public sealed class Key : ICloneable, IEquatable<Key>
+    public sealed class Key : ICloneable<Key>, IEquatable<Key>
     {
         /// <summary>
         /// The cryptographic fingerprint of this key.
@@ -60,8 +61,6 @@ namespace ZeroInstall.Store.Trust
             key.Domains.AddRange(Domains.CloneElements());
             return key;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

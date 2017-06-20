@@ -22,6 +22,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;
@@ -74,7 +75,7 @@ namespace ZeroInstall.Store.Model
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
     [XmlType("element", Namespace = Feed.XmlNamespace)]
-    public abstract class Element : TargetBase, IBindingContainer, IDependencyContainer, ICloneable
+    public abstract class Element : TargetBase, IBindingContainer, IDependencyContainer, ICloneable<Element>
     {
         #region Constants
         /// <summary>
@@ -349,8 +350,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="Element"/>.</returns>
         public abstract Element Clone();
-
-        object ICloneable.Clone() => Clone();
 
         /// <summary>
         /// Copies all known values from one instance to another. Helper method for instance cloning.

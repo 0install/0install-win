@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("Removes or moves a file or directory. It is an error if the path is outside the implementation.")]
     [Serializable, XmlRoot("remove", Namespace = Feed.XmlNamespace), XmlType("remove", Namespace = Feed.XmlNamespace)]
-    public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>, ICloneable
+    public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>
     {
         /// <summary>
         /// The file or directory to be removed relative to the implementation root as a Unix-style path.
@@ -53,9 +53,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="RemoveStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="RemoveStep"/>.</returns>
-        public IRecipeStep CloneRecipeStep() => new RemoveStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Path = Path};
-
-        object ICloneable.Clone() => CloneRecipeStep();
+        public IRecipeStep Clone() => new RemoveStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Path = Path};
         #endregion
 
         #region Equality

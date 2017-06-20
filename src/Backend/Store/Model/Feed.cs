@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
-    public class Feed : XmlUnknown, IElementContainer, ISummaryContainer, IIconContainer, ICloneable, IEquatable<Feed>
+    public class Feed : XmlUnknown, IElementContainer, ISummaryContainer, IIconContainer, ICloneable<Feed>, IEquatable<Feed>
     {
         #region Constants
         /// <summary>
@@ -459,8 +459,6 @@ namespace ZeroInstall.Store.Model
             feed.CapabilityLists.AddRange(CapabilityLists.CloneElements());
             return feed;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion

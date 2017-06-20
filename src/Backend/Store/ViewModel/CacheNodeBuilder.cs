@@ -80,8 +80,6 @@ namespace ZeroInstall.Store.ViewModel
             }
             foreach (var digest in _store.ListAll()) Add(digest);
             foreach (string path in _store.ListAllTemp()) Add(path);
-
-            State = TaskState.Complete;
         }
 
         private void Add(Feed feed) => Add(new FeedNode(feed, _feedCache));

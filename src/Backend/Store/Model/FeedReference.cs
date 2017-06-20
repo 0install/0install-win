@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -28,7 +29,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Feed.Feeds"/>
     [Description("A linked feed that contains more implementations of this feed's interface. Is treated by the solver as if it were part of the main feed.")]
     [Serializable, XmlRoot("feed", Namespace = Feed.XmlNamespace), XmlType("feed", Namespace = Feed.XmlNamespace)]
-    public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
+    public sealed class FeedReference : TargetBase, ICloneable<FeedReference>, IEquatable<FeedReference>
     {
         /// <summary>
         /// The URL or local path used to locate the feed.
@@ -76,8 +77,6 @@ namespace ZeroInstall.Store.Model
             CloneFromTo(this, feedRereference);
             return feedRereference;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

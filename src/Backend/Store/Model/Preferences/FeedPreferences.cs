@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model.Preferences
     /// Stores user-specific preferences for a <see cref="Feed"/>.
     /// </summary>
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace), XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class FeedPreferences : XmlUnknown, ICloneable, IEquatable<FeedPreferences>
+    public sealed class FeedPreferences : XmlUnknown, ICloneable<FeedPreferences>, IEquatable<FeedPreferences>
     {
         /// <summary>
         /// The point in time this feed was last checked for updates.
@@ -179,8 +179,6 @@ namespace ZeroInstall.Store.Model.Preferences
             feedPreferences.Implementations.AddRange(Implementations.CloneElements());
             return feedPreferences;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion

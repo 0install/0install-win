@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model.Selection
 {
@@ -32,7 +33,7 @@ namespace ZeroInstall.Store.Model.Selection
     /// <seealso cref="Selections.Implementations"/>
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "IComparable is only used for deterministic ordering")]
-    public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>, IComparable<ImplementationSelection>
+    public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, ICloneable<ImplementationSelection>, IEquatable<ImplementationSelection>, IComparable<ImplementationSelection>
     {
         /// <inheritdoc/>
         internal override IEnumerable<Implementation> Implementations => Enumerable.Empty<Implementation>();
@@ -113,7 +114,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// Creates a deep copy of this <see cref="ImplementationSelection"/>
         /// </summary>
         /// <returns>The cloned <see cref="ImplementationSelection"/>.</returns>
-        public ImplementationSelection CloneImplementation()
+        ImplementationSelection ICloneable<ImplementationSelection>.Clone()
         {
             var implementation = new ImplementationSelection {InterfaceUri = InterfaceUri, FromFeed = FromFeed, QuickTestFile = QuickTestFile};
             CloneFromTo(this, implementation);
@@ -124,7 +125,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// Creates a deep copy of this <see cref="ImplementationSelection"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="ImplementationSelection"/>.</returns>
-        public override Element Clone() => CloneImplementation();
+        public override Element Clone() => ((ICloneable<ImplementationSelection>)this).Clone();
         #endregion
 
         #region Equality

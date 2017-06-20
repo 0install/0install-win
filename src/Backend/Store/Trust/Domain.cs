@@ -17,6 +17,7 @@
 
 using System;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Trust
 {
@@ -24,7 +25,7 @@ namespace ZeroInstall.Store.Trust
     /// A specific domain with feeds a <see cref="Key"/> is trusted to sign.
     /// </summary>
     [XmlType("domain", Namespace = TrustDB.XmlNamespace)]
-    public struct Domain : ICloneable, IEquatable<Domain>
+    public struct Domain : ICloneable<Domain>, IEquatable<Domain>
     {
         /// <summary>
         /// A valid domain name (not a full <see cref="Uri"/>!).
@@ -55,8 +56,6 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <returns>The new copy of the <see cref="Domain"/>.</returns>
         public Domain Clone() => new Domain(Value);
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

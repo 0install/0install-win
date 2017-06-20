@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -29,7 +30,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Command.WorkingDir"/>
     [Description("Switches the working directory of a process on startup to a location within an implementation.\r\nUseful for supporting legacy Windows applications which do not properly locate their installation directory.")]
     [Serializable, XmlRoot("working-dir", Namespace = Feed.XmlNamespace), XmlType("working-dir", Namespace = Feed.XmlNamespace)]
-    public sealed class WorkingDir : FeedElement, ICloneable, IEquatable<WorkingDir>
+    public sealed class WorkingDir : FeedElement, ICloneable<WorkingDir>, IEquatable<WorkingDir>
     {
         /// <summary>
         /// The relative path of the directory in the implementation to set as the working directory. Defaults to use the root of the implementation if unset.
@@ -52,8 +53,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
         public WorkingDir Clone() => new WorkingDir {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

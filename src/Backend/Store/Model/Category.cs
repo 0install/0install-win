@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -28,7 +29,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("An application category (e.g. Game or Office). Used for organizing application menus.")]
     [Serializable, XmlRoot("category", Namespace = Feed.XmlNamespace), XmlType("category", Namespace = Feed.XmlNamespace)]
-    public sealed class Category : FeedElement, IEquatable<Category>, ICloneable
+    public sealed class Category : FeedElement, IEquatable<Category>, ICloneable<Category>
     {
         #region Constants
         /// <summary>
@@ -99,8 +100,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The cloned category.</returns>
         public Category Clone() => new Category {Name = Name, TypeNamespace = TypeNamespace};
-
-        object ICloneable.Clone() => Clone();
         #endregion
     }
 }

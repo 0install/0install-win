@@ -69,8 +69,6 @@ namespace ZeroInstall.Store.Implementations.Build
 
             State = TaskState.Data;
             HandleEntries(entries);
-
-            State = TaskState.Complete;
         }
 
         /// <summary>

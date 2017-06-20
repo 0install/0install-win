@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("Copies files or directories from another implementation specified elsewhere in the same feed.")]
     [Serializable, XmlRoot("copy-from", Namespace = Feed.XmlNamespace), XmlType("copy-from", Namespace = Feed.XmlNamespace)]
-    public sealed class CopyFromStep : FeedElement, IRecipeStep, IEquatable<CopyFromStep>, ICloneable
+    public sealed class CopyFromStep : FeedElement, IRecipeStep, IEquatable<CopyFromStep>
     {
         /// <summary>
         /// The <see cref="ImplementationBase.ID"/> of the <see cref="Implementation"/> to copy from.
@@ -74,9 +74,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="CopyFromStep"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="CopyFromStep"/>.</returns>
-        public IRecipeStep CloneRecipeStep() => new CopyFromStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, ID = ID, Implementation = Implementation.CloneImplementation(), Source = Source, Destination = Destination};
-
-        object ICloneable.Clone() => CloneRecipeStep();
+        public IRecipeStep Clone() => new CopyFromStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, ID = ID, Implementation = Implementation.CloneImplementation(), Source = Source, Destination = Destination};
         #endregion
 
         #region Equality

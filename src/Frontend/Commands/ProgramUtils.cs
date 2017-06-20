@@ -92,11 +92,7 @@ namespace ZeroInstall.Commands
 
             ProcessUtils.SanitizeEnvironmentVariables();
             NetUtils.ApplyProxy();
-            ServicePointManager.SecurityProtocol =
-                SecurityProtocolType.Ssl3 |
-                SecurityProtocolType.Tls |
-                (SecurityProtocolType)768 | // Tls11
-                (SecurityProtocolType)3072; // Tls12
+            NetUtils.ConfigureTls();
         }
 
         /// <summary>

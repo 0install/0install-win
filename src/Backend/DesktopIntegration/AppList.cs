@@ -39,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
     //[XmlNamespace("feed", Feed.XmlNamespace)]
-    public sealed class AppList : XmlUnknown, ICloneable, IEquatable<AppList>
+    public sealed class AppList : XmlUnknown, ICloneable<AppList>, IEquatable<AppList>
     {
         #region Constants
         /// <summary>
@@ -265,8 +265,6 @@ namespace ZeroInstall.DesktopIntegration
 
             return appList;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

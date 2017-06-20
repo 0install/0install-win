@@ -293,8 +293,6 @@ namespace ZeroInstall.Store
             return newConfig;
         }
 
-        object ICloneable.Clone() => Clone();
-
         /// <summary>
         /// Returns the keys and values of all contained setings.
         /// </summary>

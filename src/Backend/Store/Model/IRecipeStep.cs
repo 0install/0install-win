@@ -16,13 +16,14 @@
  */
 
 using JetBrains.Annotations;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// A retrieval step is a part of a <see cref="Recipe"/>.
     /// </summary>
-    public interface IRecipeStep
+    public interface IRecipeStep : ICloneable<IRecipeStep>
     {
         /// <summary>
         /// Sets missing default values and handles legacy elements.
@@ -30,11 +31,5 @@ namespace ZeroInstall.Store.Model
         /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
         void Normalize([NotNull] FeedUri feedUri);
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="IRecipeStep"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="IRecipeStep"/>.</returns>
-        IRecipeStep CloneRecipeStep();
     }
 }

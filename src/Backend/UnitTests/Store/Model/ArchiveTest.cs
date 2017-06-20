@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Model
             Extract = "extract",
             Destination = "dest"
         };
-        
+
         /// <summary>
         /// Ensures that the class can be correctly cloned.
         /// </summary>
@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Model
         public void TestClone()
         {
             var archive1 = CreateTestArchive();
-            var archive2 = archive1.CloneRecipeStep();
+            var archive2 = archive1.Clone();
 
             // Ensure data stayed the same
             archive2.Should().Be(archive1, because: "Cloned objects should be equal.");

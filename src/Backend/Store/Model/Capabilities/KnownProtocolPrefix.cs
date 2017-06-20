@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
@@ -27,7 +28,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// <seealso cref="UrlProtocol.KnownPrefixes"/>
     [Description("Names a well-known protocol prefix. Used for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.")]
     [Serializable, XmlRoot("known-prefix", Namespace = CapabilityList.XmlNamespace), XmlType("known-prefix", Namespace = CapabilityList.XmlNamespace)]
-    public class KnownProtocolPrefix : XmlUnknown, ICloneable, IEquatable<KnownProtocolPrefix>
+    public class KnownProtocolPrefix : XmlUnknown, ICloneable<KnownProtocolPrefix>, IEquatable<KnownProtocolPrefix>
     {
         /// <summary>
         /// The value of the prefix (e.g. "http").
@@ -49,8 +50,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <returns>The new copy of the <see cref="KnownProtocolPrefix"/>.</returns>
         public KnownProtocolPrefix Clone() => new KnownProtocolPrefix {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

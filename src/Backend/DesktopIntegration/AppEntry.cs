@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
@@ -37,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration
     /// Represents an application in the <see cref="AppList"/> indentified by its interface URI.
     /// </summary>
     [XmlType("app", Namespace = AppList.XmlNamespace)]
-    public sealed class AppEntry : XmlUnknown, IMergeable<AppEntry>, ICloneable
+    public sealed class AppEntry : XmlUnknown, IMergeable<AppEntry>, ICloneable<AppEntry>
     {
         /// <summary>
         /// The URI or local path of the interface defining the application or the pet-name if <see cref="Requirements"/> is set.
@@ -173,8 +174,6 @@ namespace ZeroInstall.DesktopIntegration
 
             return appList;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

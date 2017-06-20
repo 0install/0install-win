@@ -145,7 +145,7 @@ namespace ZeroInstall.Services.Fetchers
 
                 try
                 {
-                    var mirrored = (DownloadRetrievalMethod)retrievalMethod.CloneRecipeStep();
+                    var mirrored = (DownloadRetrievalMethod)retrievalMethod.Clone();
                     mirrored.Href = GetMirrorUrl(retrievalMethod.Href);
                     return base.Download(mirrored, tag);
                 }

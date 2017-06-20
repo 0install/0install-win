@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// Contains a set of <see cref="AccessPoint"/>s to be registered in a desktop environment.
     /// </summary>
     [Serializable, XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
-    public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>
+    public sealed class AccessPointList : XmlUnknown, ICloneable<AccessPointList>, IEquatable<AccessPointList>
     {
         /// <summary>
         /// A list of <see cref="AccessPoint"/>s.
@@ -54,8 +54,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             return accessPointList;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion

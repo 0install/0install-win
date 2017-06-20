@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -30,7 +31,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Feed.ReplacedBy"/>
     [Description("A reference to an interface URI, e.g. for specifying which interface this feed implements or by which interface it is replaced.")]
     [Serializable, XmlRoot("feed-for", Namespace = Feed.XmlNamespace), XmlType("feed-for", Namespace = Feed.XmlNamespace)]
-    public sealed class InterfaceReference : FeedElement, ICloneable, IEquatable<InterfaceReference>
+    public sealed class InterfaceReference : FeedElement, ICloneable<InterfaceReference>, IEquatable<InterfaceReference>
     {
         /// <summary>
         /// The URI used to locate the interface.
@@ -72,8 +73,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
         public InterfaceReference Clone() => new InterfaceReference {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Target = Target};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

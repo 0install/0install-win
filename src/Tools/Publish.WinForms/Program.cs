@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
@@ -41,11 +40,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             ProcessUtils.SanitizeEnvironmentVariables();
             NetUtils.ApplyProxy();
-            ServicePointManager.SecurityProtocol =
-                SecurityProtocolType.Ssl3 |
-                SecurityProtocolType.Tls |
-                (SecurityProtocolType)768 | // Tls11
-                (SecurityProtocolType)3072; // Tls12
+            NetUtils.ConfigureTls();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

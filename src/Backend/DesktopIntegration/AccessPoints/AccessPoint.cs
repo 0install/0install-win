@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 
@@ -30,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// An access point represents changes to the desktop environment's UI which the user explicitly requested.
     /// </summary>
     [XmlType("access-point", Namespace = AppList.XmlNamespace)]
-    public abstract class AccessPoint : XmlUnknown, ICloneable
+    public abstract class AccessPoint : XmlUnknown, ICloneable<AccessPoint>
     {
         /// <summary>
         /// Retrieves identifiers from a namespace global to all <see cref="AccessPoint"/>s.
@@ -71,7 +72,5 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         /// <returns>The new copy of the <see cref="AccessPoint"/>.</returns>
         public abstract AccessPoint Clone();
-
-        object ICloneable.Clone() => Clone();
     }
 }

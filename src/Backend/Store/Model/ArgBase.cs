@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [TypeConverter(typeof(ArgBaseConverter))]
     [XmlType("arg-base", Namespace = Feed.XmlNamespace)]
-    public abstract class ArgBase : FeedElement, ICloneable
+    public abstract class ArgBase : FeedElement, ICloneable<ArgBase>
     {
         /// <summary>
         /// Performs sanity checks.
@@ -42,8 +42,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="ArgBase"/>.</returns>
         public abstract ArgBase Clone();
-
-        object ICloneable.Clone() => Clone();
 
         /// <summary>
         /// Convenience cast for turning strings into plain <see cref="Arg"/>s.

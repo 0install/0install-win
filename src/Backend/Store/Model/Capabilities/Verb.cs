@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -30,7 +31,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// </summary>
     [Description("The mapping of an action/verb (e.g. open, edit) to a Command.")]
     [Serializable, XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
-    public sealed class Verb : XmlUnknown, IDescriptionContainer, ICloneable, IEquatable<Verb>
+    public sealed class Verb : XmlUnknown, IDescriptionContainer, ICloneable<Verb>, IEquatable<Verb>
     {
         #region Constants
         /// <summary>
@@ -123,8 +124,6 @@ namespace ZeroInstall.Store.Model.Capabilities
             newVerb.Descriptions.AddRange(Descriptions.CloneElements());
             return newVerb;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

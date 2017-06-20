@@ -18,6 +18,7 @@
 using System;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -25,7 +26,7 @@ namespace ZeroInstall.Store.Model
     /// A retrieval method is a way of getting a copy of an <see cref="Implementation"/>.
     /// </summary>
     [XmlType("retrieval-method", Namespace = Feed.XmlNamespace)]
-    public abstract class RetrievalMethod : FeedElement, ICloneable
+    public abstract class RetrievalMethod : FeedElement, ICloneable<RetrievalMethod>
     {
         /// <summary>
         /// Sets missing default values and handles legacy elements.
@@ -41,7 +42,5 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="RetrievalMethod"/>.</returns>
         public abstract RetrievalMethod Clone();
-
-        object ICloneable.Clone() => Clone();
     }
 }

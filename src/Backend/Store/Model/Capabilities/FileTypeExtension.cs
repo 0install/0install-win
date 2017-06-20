@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
@@ -26,7 +27,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// </summary>
     [Description("A specific file extension used to identify a file type.")]
     [Serializable, XmlRoot("extension", Namespace = CapabilityList.XmlNamespace), XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
-    public class FileTypeExtension : XmlUnknown, ICloneable, IEquatable<FileTypeExtension>
+    public class FileTypeExtension : XmlUnknown, ICloneable<FileTypeExtension>, IEquatable<FileTypeExtension>
     {
         #region Constants
         /// <summary>
@@ -69,8 +70,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <returns>The new copy of the <see cref="FileTypeExtension"/>.</returns>
         public FileTypeExtension Clone() => new FileTypeExtension {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value, MimeType = MimeType, PerceivedType = PerceivedType};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

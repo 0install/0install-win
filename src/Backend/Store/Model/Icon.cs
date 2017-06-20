@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Net;
 using ZeroInstall.Store.Model.Design;
 
@@ -33,7 +34,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="EntryPoint.Icons"/>
     [Description("An icon representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..")]
     [Serializable, XmlRoot("icon", Namespace = Feed.XmlNamespace), XmlType("icon", Namespace = Feed.XmlNamespace)]
-    public class Icon : FeedElement, ICloneable, IEquatable<Icon>
+    public class Icon : FeedElement, ICloneable<Icon>, IEquatable<Icon>
     {
         #region Constants
         /// <summary>
@@ -109,8 +110,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="Icon"/>.</returns>
         public Icon Clone() => new Icon {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Href = Href, MimeType = MimeType};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

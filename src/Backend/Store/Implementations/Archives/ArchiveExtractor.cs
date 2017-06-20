@@ -202,7 +202,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             ExtractArchive();
 
             DirectoryBuilder.CompletePending();
-            State = TaskState.Complete;
         }
 
         /// <summary>

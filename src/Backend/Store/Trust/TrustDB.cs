@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Trust
     /// </summary>
     [XmlRoot("trusted-keys", Namespace = XmlNamespace), XmlType("trusted-keys", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
-    public sealed class TrustDB : ICloneable, IEquatable<TrustDB>
+    public sealed class TrustDB : ICloneable<TrustDB>, IEquatable<TrustDB>
     {
         #region Constants
         /// <summary>
@@ -192,8 +192,6 @@ namespace ZeroInstall.Store.Trust
             trust.Keys.AddRange(Keys.CloneElements());
             return trust;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

@@ -52,19 +52,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="SingleFile"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
-        private SingleFile CloneFile() => new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, Destination = Destination};
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="SingleFile"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
-        public override IRecipeStep CloneRecipeStep() => CloneFile();
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="SingleFile"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
-        public override RetrievalMethod Clone() => CloneFile();
+        public override RetrievalMethod Clone() => new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, Destination = Destination};
         #endregion
 
         #region Equality

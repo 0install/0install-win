@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model
     [Serializable, XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("feed", Feed.XmlNamespace)]
-    public class Catalog : XmlUnknown, ICloneable, IEquatable<Catalog>
+    public class Catalog : XmlUnknown, ICloneable<Catalog>, IEquatable<Catalog>
     {
         #region Constants
         /// <summary>
@@ -198,8 +198,6 @@ namespace ZeroInstall.Store.Model
             catalog.Feeds.AddRange(Feeds.CloneElements());
             return catalog;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

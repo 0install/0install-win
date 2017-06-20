@@ -16,6 +16,7 @@
  */
 
 using FluentAssertions;
+using NanoByte.Common;
 using Xunit;
 
 namespace ZeroInstall.Store.Model
@@ -47,7 +48,7 @@ namespace ZeroInstall.Store.Model
             dependency1.Should().Be(dependency1, because: "Equals() should be reflexive.");
             dependency1.GetHashCode().Should().Be(dependency1.GetHashCode(), because: "GetHashCode() should be reflexive.");
 
-            var dependency2 = dependency1.CloneDependency();
+            var dependency2 = ((ICloneable<Dependency>)dependency1).Clone();
             dependency2.Should().Be(dependency1, because: "Cloned objects should be equal.");
             dependency2.GetHashCode().Should().Be(dependency1.GetHashCode(), because: "Cloned objects' hashes should be equal.");
             ReferenceEquals(dependency1, dependency2).Should().BeFalse(because: "Cloning should not return the same reference.");

@@ -71,7 +71,6 @@ namespace ZeroInstall.Publish
             }
 
             CancellationToken.ThrowIfCancellationRequested();
-            State = TaskState.Complete;
         }
     }
 }

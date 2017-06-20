@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Model.Selection
         public void TestClone()
         {
             var implementation1 = CreateTestImplementation1();
-            var implementation2 = implementation1.CloneImplementation();
+            var implementation2 = implementation1.Clone();
 
             // Ensure data stayed the same
             implementation2.Should().Be(implementation1, because: "Cloned objects should be equal.");

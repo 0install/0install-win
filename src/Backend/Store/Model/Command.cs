@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -31,7 +32,7 @@ namespace ZeroInstall.Store.Model
     /// <seealso cref="Element.Commands"/>
     [Description("A command says how to run an implementation as a program.")]
     [Serializable, XmlRoot("command", Namespace = Feed.XmlNamespace), XmlType("command", Namespace = Feed.XmlNamespace)]
-    public class Command : FeedElement, IArgBaseContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
+    public class Command : FeedElement, IArgBaseContainer, IBindingContainer, IDependencyContainer, ICloneable<Command>, IEquatable<Command>
     {
         #region Constants
         /// <summary>
@@ -157,8 +158,6 @@ namespace ZeroInstall.Store.Model
 
             return newCommand;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

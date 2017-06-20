@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -27,7 +28,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("Restricts the set of versions from which the injector may choose an implementation.")]
     [Serializable, XmlRoot("constraint", Namespace = Feed.XmlNamespace), XmlType("constraint", Namespace = Feed.XmlNamespace)]
-    public class Constraint : FeedElement, ICloneable, IEquatable<Constraint>
+    public class Constraint : FeedElement, ICloneable<Constraint>, IEquatable<Constraint>
     {
         /// <summary>
         /// This is the lowest-numbered version that can be chosen.
@@ -68,8 +69,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <returns>The new copy of the <see cref="Constraint"/>.</returns>
         public Constraint Clone() => new Constraint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, NotBefore = NotBefore, Before = Before};
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Equality

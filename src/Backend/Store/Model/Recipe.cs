@@ -101,9 +101,7 @@ namespace ZeroInstall.Store.Model
         public override RetrievalMethod Clone()
         {
             var recipe = new Recipe {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
-            foreach (var step in Steps)
-                recipe.Steps.Add(step.CloneRecipeStep());
-
+            recipe.Steps.AddRange(Steps.CloneElements());
             return recipe;
         }
         #endregion

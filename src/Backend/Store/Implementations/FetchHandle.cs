@@ -17,6 +17,7 @@
 
 using System;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations

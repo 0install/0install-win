@@ -17,6 +17,7 @@
 
 using System;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -28,14 +29,12 @@ namespace ZeroInstall.Store.Model
     /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
     [XmlType("binding-base", Namespace = Feed.XmlNamespace)]
-    public abstract class Binding : FeedElement, ICloneable
+    public abstract class Binding : FeedElement, ICloneable<Binding>
     {
         /// <summary>
         /// Creates a deep copy of this <see cref="Binding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Binding"/>.</returns>
         public abstract Binding Clone();
-
-        object ICloneable.Clone() => Clone();
     }
 }

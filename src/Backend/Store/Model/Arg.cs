@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -26,7 +27,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     [Description("A single command-line arguments to be passed to an executable.")]
     [Serializable, XmlRoot("arg", Namespace = Feed.XmlNamespace), XmlType("arg", Namespace = Feed.XmlNamespace)]
-    public class Arg : ArgBase, IEquatable<Arg>
+    public class Arg : ArgBase, ICloneable<Arg>, IEquatable<Arg>
     {
         /// <summary>
         /// A single command-line arguments to be passed to an executable.
@@ -89,13 +90,13 @@ namespace ZeroInstall.Store.Model
         /// Creates a deep copy of this <see cref="Arg"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Arg"/>.</returns>
-        public Arg CloneArg() => new Arg {Value = Value};
+        Arg ICloneable<Arg>.Clone() => new Arg {Value = Value};
 
         /// <summary>
         /// Creates a deep copy of this <see cref="Arg"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Arg"/>.</returns>
-        public override ArgBase Clone() => CloneArg();
+        public override ArgBase Clone() => ((ICloneable<Arg>)this).Clone();
         #endregion
     }
 }

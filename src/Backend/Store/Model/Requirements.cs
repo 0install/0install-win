@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Values;
 using Newtonsoft.Json;
@@ -32,7 +33,7 @@ namespace ZeroInstall.Store.Model
     /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process. Used as input for the solver.
     /// </summary>
     [Serializable, XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
-    public class Requirements : IInterfaceUri, ICloneable, IEquatable<Requirements>
+    public class Requirements : IInterfaceUri, ICloneable<Requirements>, IEquatable<Requirements>
     {
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
@@ -173,11 +174,6 @@ namespace ZeroInstall.Store.Model
             requirements.ExtraRestrictions.AddRange(ExtraRestrictions);
             requirements.Distributions.AddRange(Distributions);
             return requirements;
-        }
-
-        object ICloneable.Clone()
-        {
-            return Clone();
         }
         #endregion
 

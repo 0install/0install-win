@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Model.Preferences
     /// Stores user-specific preferences for an interface.
     /// </summary>
     [XmlRoot("interface-preferences", Namespace = Feed.XmlNamespace), XmlType("interface-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class InterfacePreferences : XmlUnknown, ICloneable, IEquatable<InterfacePreferences>
+    public sealed class InterfacePreferences : XmlUnknown, ICloneable<InterfacePreferences>, IEquatable<InterfacePreferences>
     {
         /// <summary>
         /// The URI of the interface to be configured.
@@ -159,8 +159,6 @@ namespace ZeroInstall.Store.Model.Preferences
 
             return feed;
         }
-
-        object ICloneable.Clone() => Clone();
         #endregion
 
         #region Conversion
