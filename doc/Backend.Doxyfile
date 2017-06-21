@@ -1,5 +1,5 @@
 ﻿PROJECT_NAME = "Zero Install Backend API"
-PROJECT_NUMBER = "2.13.0"
+PROJECT_NUMBER = "2.13.1"
 
 INPUT = Backend.md ../src/Backend
 USE_MDFILE_AS_MAINPAGE = Backend.md
