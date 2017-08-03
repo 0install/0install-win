@@ -32,13 +32,10 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// Manages the interaction with the command-line interface of the external process.
         /// </summary>
-        private class CliControl : BundledCliAppControl
+        private class CliControl : CliAppControl
         {
             /// <inheritdoc/>
             protected override string AppBinary => "gpg";
-
-            /// <inheritdoc/>
-            protected override string AppDirName => "GnuPG";
 
             private static readonly object _gpgLock = new object();
 
