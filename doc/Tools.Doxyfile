@@ -1,4 +1,4 @@
-﻿PROJECT_NAME = "Zero Install Publishing API"
+﻿PROJECT_NAME = "Zero Install Publishing Tools API"
 PROJECT_NUMBER = "2.13.1"
 
 INPUT = Tools.md ../src/Tools
