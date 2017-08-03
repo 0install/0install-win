@@ -90,6 +90,8 @@ namespace ZeroInstall.Services.Solvers
                 Released = implementation.Released,
                 Stability = candidate.EffectiveStability,
                 License = implementation.License,
+                UnknownAttributes = implementation.UnknownAttributes,
+                UnknownElements = implementation.UnknownElements,
                 InterfaceUri = requirements.InterfaceUri
             };
             if (candidate.FeedUri != requirements.InterfaceUri) selection.FromFeed = candidate.FeedUri;

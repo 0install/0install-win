@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -341,6 +342,10 @@ namespace ZeroInstall.Store.Model
             Dependencies.AddRange(parent.Dependencies);
             Restrictions.AddRange(parent.Restrictions);
             Bindings.AddRange(parent.Bindings);
+
+            // Inherit unknown XML attributes and elements
+            UnknownAttributes = (UnknownAttributes ?? new XmlAttribute[0]).Concat(parent.UnknownAttributes ?? new XmlAttribute[0]).DistinctBy(x => x.Name).ToArray();
+            UnknownElements = (UnknownElements ?? new XmlElement[0]).Concat(parent.UnknownElements ?? new XmlElement[0]).ToArray();
         }
         #endregion
 

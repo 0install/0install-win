@@ -83,6 +83,7 @@
       <HintPath>..\..\packages\JetBrains.Annotations.10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'">
     <Reference Include="NanoByte.Common">
