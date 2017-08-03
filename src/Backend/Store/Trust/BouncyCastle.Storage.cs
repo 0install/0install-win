@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Trust
             }
             set
             {
-                // Lost-write races are OK, since public keys are easily reaquired
+                // Lost-write races are OK, since public keys are easily reacquired
                 _publicBundle = value;
                 using (var atomic = new AtomicWrite(_publicBundlePath))
                 {
