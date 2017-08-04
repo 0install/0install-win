@@ -225,7 +225,7 @@ namespace ZeroInstall.Services.Feeds
                 _handler.RunTask(download);
                 ImportFeed(download.GetData(), feedUri);
             }
-            catch (WebException ex) when (!feedUri.IsLoopback)
+            catch (WebException ex) when (!feedUri.IsLoopback && _config.FeedMirror != null)
             {
                 if (_handler.Verbosity == Verbosity.Batch)
                     Log.Info(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
@@ -233,7 +233,10 @@ namespace ZeroInstall.Services.Feeds
                     Log.Warn(string.Format(Resources.FeedDownloadError, feedUri) + " " + Resources.TryingFeedMirror);
                 try
                 {
-                    var download = new DownloadMemory(GetMirrorUrl(feedUri)) {NoCache = Refresh};
+                    var download = new DownloadMemory(new Uri($"{_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri}feeds/{feedUri.Scheme}/{feedUri.Host}/{string.Concat(feedUri.Segments).TrimStart('/').Replace("/", "%23")}/latest.xml"))
+                    {
+                        NoCache = Refresh
+                    };
                     _handler.RunTask(download);
                     ImportFeed(download.GetData(), feedUri);
                 }
@@ -243,12 +246,6 @@ namespace ZeroInstall.Services.Feeds
                     throw ex.PreserveStack();
                 }
             }
-        }
-
-        [NotNull]
-        private Uri GetMirrorUrl([NotNull] FeedUri feedUri)
-        {
-            return new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "feeds/" + feedUri.Scheme + "/" + feedUri.Host + "/" + string.Concat(feedUri.Segments).TrimStart('/').Replace("/", "%23") + "/latest.xml");
         }
 
         /// <summary>

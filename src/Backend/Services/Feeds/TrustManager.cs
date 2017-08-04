@@ -214,12 +214,12 @@ namespace ZeroInstall.Services.Feeds
             {
                 DownloadKey(new Uri(uri, signature.FormatKeyID() + ".gpg"));
             }
-            catch (WebException ex)
+            catch (WebException ex) when (_config.FeedMirror != null)
             {
                 Log.Warn(string.Format(Resources.UnableToLoadKeyFile, uri) + " " + Resources.TryingFeedMirror);
                 try
                 {
-                    DownloadKey(GetMirrorUrl(signature));
+                    DownloadKey(new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.FormatKeyID() + ".gpg"));
                 }
                 catch (WebException)
                 {
@@ -252,9 +252,5 @@ namespace ZeroInstall.Services.Feeds
             }
             #endregion
         }
-
-        [NotNull]
-        private Uri GetMirrorUrl([NotNull] MissingKeySignature signature)
-            => new Uri(_config.FeedMirror.EnsureTrailingSlash().AbsoluteUri + "keys/" + signature.FormatKeyID() + ".gpg");
     }
 }

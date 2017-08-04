@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Net;
 using ZeroInstall.Store.Model;
@@ -92,7 +93,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// The mirror server used to provide feeds when the original server is unavailable.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName(@"Feed mirror"), Description("The mirror server used to provide feeds when the original server is unavailable.")]
+        [DefaultValue(typeof(Uri), DefaultFeedMirror), CanBeNull, Category("Sources"), DisplayName(@"Feed mirror"), Description("The mirror server used to provide feeds when the original server is unavailable.")]
         public Uri FeedMirror { get => _feedMirror; set => _feedMirror = value?.ReparseAsAbsolute(); }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// The key information server used to get information about who signed a feed.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName(@"Key info server"), Description("The key information server used to get information about who signed a feed.")]
+        [DefaultValue(typeof(Uri), DefaultKeyInfoServer), CanBeNull, Category("Sources"), DisplayName(@"Key info server"), Description("The key information server used to get information about who signed a feed.")]
         public Uri KeyInfoServer { get => _keyInfoServer; set => _keyInfoServer = value?.ReparseAsAbsolute(); }
 
         /// <summary>
