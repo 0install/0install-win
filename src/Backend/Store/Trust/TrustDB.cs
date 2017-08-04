@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Trust
 
             Log.Debug($"Trusting {fingerprint} for {domain}");
 
-            Key targetKey = Keys.FirstOrDefault(key => key.Fingerprint == fingerprint);
+            var targetKey = Keys.FirstOrDefault(key => key.Fingerprint == fingerprint);
             if (targetKey == null)
             {
                 targetKey = new Key {Fingerprint = fingerprint};
@@ -113,13 +113,37 @@ namespace ZeroInstall.Store.Trust
 
             Log.Debug($"Untrusting {fingerprint} for {domain}");
 
-            foreach (Key key in Keys.Where(key => key.Fingerprint == fingerprint))
+            foreach (var key in Keys.Where(key => key.Fingerprint == fingerprint))
                 key.Domains.Remove(domain);
         }
 
         #region Storage
+        [CanBeNull]
+        private string _filePath;
+
         /// <summary>
-        /// Loads the <see cref="TrustDB"/> from its default location.
+        /// Loads the <see cref="TrustDB"/> from a file.
+        /// </summary>
+        /// <param name="path">The file to load from.</param>
+        /// <returns>The loaded <see cref="TrustDB"/>.</returns>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
+        [NotNull]
+        public static TrustDB Load([NotNull] string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
+            #endregion
+
+            Log.Debug("Loading trust database from: " + path);
+            var trustDB = XmlStorage.LoadXml<TrustDB>(path);
+            trustDB._filePath = path;
+            return trustDB;
+        }
+
+        /// <summary>
+        /// Tries to load the <see cref="TrustDB"/> from the default location.
         /// </summary>
         /// <returns>The loaded <see cref="TrustDB"/>.</returns>
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
@@ -127,18 +151,12 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         [NotNull]
         public static TrustDB Load()
-        {
-            string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
-            if (!File.Exists(path)) return new TrustDB();
-
-            Log.Debug("Loading trust database from: " + path);
-            return XmlStorage.LoadXml<TrustDB>(path);
-        }
+            => Load(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
 
         /// <summary>
-        /// Tries to load the <see cref="TrustDB"/> from its default location. Automatically falls back to defaults on errors.
+        /// Tries to load the <see cref="TrustDB"/> from the default location. Automatically falls back to defaults on errors.
         /// </summary>
-        /// <returns>The loaded <see cref="TrustDB"/>.</returns>
+        /// <returns>The loaded <see cref="TrustDB"/> or an empty <see cref="TrustDB"/> if there was a problem.</returns>
         [NotNull]
         public static TrustDB LoadSafe()
         {
@@ -147,6 +165,10 @@ namespace ZeroInstall.Store.Trust
                 return Load();
             }
                 #region Error handling
+            catch (FileNotFoundException)
+            {
+                return new TrustDB();
+            }
             catch (IOException ex)
             {
                 Log.Warn(Resources.ErrorLoadingTrustDB);
@@ -169,15 +191,20 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <summary>
-        /// Saves the this <see cref="TrustDB"/> to its default location.
+        /// Saves the this <see cref="TrustDB"/> to the location it was loaded from if possible.
         /// </summary>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         public void Save()
         {
-            string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
-            Log.Debug("Saving trust database to: " + path);
-            this.SaveXml(path);
+            if (_filePath == null)
+            {
+                Log.Warn("Trust database was not loaded from disk and can therefore not be saved");
+                return;
+            }
+
+            Log.Debug("Saving trust database to: " + _filePath);
+            this.SaveXml(_filePath);
         }
         #endregion
 
@@ -207,14 +234,12 @@ namespace ZeroInstall.Store.Trust
         {
             if (obj == null) return false;
             if (obj == this) return true;
-            return obj is TrustDB && Equals((TrustDB)obj);
+            var other = obj as TrustDB;
+            return other != null && Equals(other);
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return Keys.GetUnsequencedHashCode();
-        }
+        public override int GetHashCode() => Keys.GetUnsequencedHashCode();
         #endregion
     }
 }
