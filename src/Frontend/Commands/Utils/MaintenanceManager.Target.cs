@@ -105,10 +105,7 @@ namespace ZeroInstall.Commands.Utils
         /// <summary>
         /// Counterpart to <see cref="TargetMutexAquire"/>.
         /// </summary>
-        private void TargetMutexRelease()
-        {
-            _targetMutex?.Close();
-        }
+        private void TargetMutexRelease() => _targetMutex?.Close();
 
         /// <summary>
         /// Try to remove OneGet Bootstrap module to prevent future PowerShell sessions from loading it again.

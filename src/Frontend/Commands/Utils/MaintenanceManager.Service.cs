@@ -78,29 +78,26 @@ namespace ZeroInstall.Commands.Utils
         /// Starts the Zero Install Store Service.
         /// </summary>
         /// <remarks>Must call this after <see cref="TargetMutexRelease"/>.</remarks>
-        private void ServiceStart()
+        private void ServiceStart() => Handler.RunTask(new SimpleTask(Resources.StartService, () =>
         {
-            Handler.RunTask(new SimpleTask(Resources.StartService, () =>
+            var controller = new ServiceController(ServiceName);
+            try
             {
-                var controller = new ServiceController(ServiceName);
-                try
-                {
-                    controller.Start();
-                }
-                    #region Sanity checks
-                catch (InvalidOperationException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new IOException("Failed to start service.", ex);
-                }
-                catch (Win32Exception ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new IOException("Failed to start service.", ex);
-                }
-                #endregion
-            }));
-        }
+                controller.Start();
+            }
+            #region Sanity checks
+            catch (InvalidOperationException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException("Failed to start service.", ex);
+            }
+            catch (Win32Exception ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException("Failed to start service.", ex);
+            }
+            #endregion
+        }));
 
         private static readonly string _installUtilExe = Path.Combine(_runtimeDir, "InstallUtil.exe");
         private string ServiceExe => Path.Combine(TargetDir, ServiceName + ".exe");
@@ -108,30 +105,24 @@ namespace ZeroInstall.Commands.Utils
         /// <summary>
         /// Installs the Zero Install Store Service.
         /// </summary>
-        private void ServiceInstall()
-        {
-            Handler.RunTask(new SimpleTask(Resources.InstallService, () =>
-                new ProcessStartInfo(_installUtilExe, ServiceExe.EscapeArgument())
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WorkingDirectory = Path.GetTempPath()
-                }.Run()));
-        }
+        private void ServiceInstall() => Handler.RunTask(new SimpleTask(Resources.InstallService, () =>
+            new ProcessStartInfo(_installUtilExe, ServiceExe.EscapeArgument())
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = Path.GetTempPath()
+            }.Run()));
 
         /// <summary>
         /// Uninstalls the Zero Install Store Service.
         /// </summary>
-        private void ServiceUninstall()
-        {
-            Handler.RunTask(new SimpleTask(Resources.UninstallService, () =>
-                new ProcessStartInfo(_installUtilExe, new[] {"/u", ServiceExe}.JoinEscapeArguments())
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WorkingDirectory = Path.GetTempPath()
-                }.Run()));
-        }
+        private void ServiceUninstall() => Handler.RunTask(new SimpleTask(Resources.UninstallService, () =>
+            new ProcessStartInfo(_installUtilExe, new[] {"/u", ServiceExe}.JoinEscapeArguments())
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = Path.GetTempPath()
+            }.Run()));
 
         private void DeleteServiceLogFiles()
         {
