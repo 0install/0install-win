@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
@@ -39,26 +40,24 @@ namespace ZeroInstall.Commands.Utils
         /// <summary>
         /// Stops the Zero Install Store Service if it is running.
         /// </summary>
-        /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
-        private bool ServiceStop()
+        private void ServiceStop()
         {
             // Determine whether the service is installed and running
-            var service = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == ServiceName);
-            if (service == null) return false;
-            if (service.Status == ServiceControllerStatus.Stopped) return false;
+            var service = GetServiceController();
+            if (service == null) return;
+            if (service.Status != ServiceControllerStatus.Running) return;
 
             // Determine whether the service is installed in the target directory we are updating
             string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" + ServiceName, "ImagePath").Trim('"');
-            if (!imagePath.StartsWith(TargetDir)) return false;
+            if (!imagePath.StartsWith(TargetDir)) return;
 
             Handler.RunTask(new SimpleTask(Resources.StopService, () =>
             {
                 try
                 {
                     service.Stop();
-                    Thread.Sleep(2000);
                 }
-                    #region Sanity checks
+                #region Error handling
                 catch (InvalidOperationException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
@@ -70,22 +69,22 @@ namespace ZeroInstall.Commands.Utils
                     throw new IOException("Failed to stop service.", ex);
                 }
                 #endregion
+
+                Thread.Sleep(2000);
             }));
-            return true;
         }
 
         /// <summary>
         /// Starts the Zero Install Store Service.
         /// </summary>
-        /// <remarks>Must call this after <see cref="TargetMutexRelease"/>.</remarks>
+        /// <remarks>Must be called after <see cref="TargetMutexRelease"/>.</remarks>
         private void ServiceStart() => Handler.RunTask(new SimpleTask(Resources.StartService, () =>
         {
-            var controller = new ServiceController(ServiceName);
             try
             {
-                controller.Start();
+                GetServiceController()?.Start();
             }
-            #region Sanity checks
+            #region Error handling
             catch (InvalidOperationException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -98,6 +97,10 @@ namespace ZeroInstall.Commands.Utils
             }
             #endregion
         }));
+
+        [CanBeNull]
+        private static ServiceController GetServiceController()
+            => ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == ServiceName);
 
         private static readonly string _installUtilExe = Path.Combine(_runtimeDir, "InstallUtil.exe");
         private string ServiceExe => Path.Combine(TargetDir, ServiceName + ".exe");
