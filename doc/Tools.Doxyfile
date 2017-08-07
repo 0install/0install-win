@@ -1,5 +1,5 @@
 ﻿PROJECT_NAME = "Zero Install Publishing Tools API"
-PROJECT_NUMBER = "2.13.1"
+PROJECT_NUMBER = "2.13.2"
 
 INPUT = Tools.md ../src/Tools
 USE_MDFILE_AS_MAINPAGE = Tools.md
