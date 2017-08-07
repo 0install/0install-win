@@ -143,31 +143,22 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <summary>
-        /// Tries to load the <see cref="TrustDB"/> from the default location.
-        /// </summary>
-        /// <returns>The loaded <see cref="TrustDB"/>.</returns>
-        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        [NotNull]
-        public static TrustDB Load()
-            => Load(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
-
-        /// <summary>
         /// Tries to load the <see cref="TrustDB"/> from the default location. Automatically falls back to defaults on errors.
         /// </summary>
         /// <returns>The loaded <see cref="TrustDB"/> or an empty <see cref="TrustDB"/> if there was a problem.</returns>
         [NotNull]
         public static TrustDB LoadSafe()
         {
+            string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
+
             try
             {
-                return Load();
+                return Load(path);
             }
                 #region Error handling
             catch (FileNotFoundException)
             {
-                return new TrustDB();
+                return new TrustDB {_filePath = path};
             }
             catch (IOException ex)
             {
