@@ -1,5 +1,5 @@
 ﻿PROJECT_NAME = "Zero Install Frontend API"
-PROJECT_NUMBER = "2.13.2"
+PROJECT_NUMBER = "2.13.3"
 
 INPUT = Frontend.md ../src/Frontend
 USE_MDFILE_AS_MAINPAGE = Frontend.md
