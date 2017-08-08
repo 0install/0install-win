@@ -30,7 +30,7 @@ using System.Text;
 
 /// <summary>
 /// This helper executable launches a command-line specified in specific environment variables.
-/// <summary>
+/// </summary>
 public class RunEnv
 {
     public const int Win32RequestedOperationRequiresElevation = 740, Win32Cancelled = 1223;
