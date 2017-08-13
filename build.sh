@@ -1,6 +1,7 @@
 #!/bin/sh
-#Compiles the source code.
+set -e
 cd `dirname $0`
 
-#Create debug build
 src/build.sh
+doc/build.sh
+release/build.sh

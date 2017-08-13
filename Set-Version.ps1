@@ -1,23 +1,15 @@
 ﻿Param ([Parameter(Mandatory=$True)] [string]$NewVersion)
-#Sets a new version number in all relevant locations
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
+function SearchAndReplace($FilePath, $PatternLeft, $PatternRight)
+{
+  (Get-Content "$ScriptDir\$FilePath" -Encoding UTF8) `
+    -replace "$PatternLeft.*$PatternRight", ($PatternLeft.Replace('\', '') + $NewVersion + $PatternRight.Replace('\', '')) |
+    Set-Content "$ScriptDir\$FilePath" -Encoding UTF8
+}
+
 [System.IO.File]::WriteAllText("$ScriptDir\VERSION", $NewVersion)
-
-(Get-Content "$ScriptDir\src\GlobalAssemblyInfo.cs" -Encoding UTF8) `
-  -replace 'AssemblyVersion\(".*"\)', ('AssemblyVersion("' + $NewVersion + '")') |
-  Set-Content "$ScriptDir\src\GlobalAssemblyInfo.cs" -Encoding UTF8
-(Get-Content "$ScriptDir\src\Frontend\OneGet\provider.manifest" -Encoding UTF8) `
-  -replace 'version=".*" versionScheme="multipartnumeric"', ('version="' + $NewVersion + '.0" versionScheme="multipartnumeric"') |
-  Set-Content "$ScriptDir\src\Frontend\OneGet\provider.manifest" -Encoding UTF8
-
-(Get-Content "$ScriptDir\doc\Backend.Doxyfile" -Encoding UTF8) `
-  -replace 'PROJECT_NUMBER = ".*"', ('PROJECT_NUMBER = "' + $NewVersion + '"') |
-  Set-Content "$ScriptDir\doc\Backend.Doxyfile" -Encoding UTF8
-(Get-Content "$ScriptDir\doc\Frontend.Doxyfile" -Encoding UTF8) `
-  -replace 'PROJECT_NUMBER = ".*"', ('PROJECT_NUMBER = "' + $NewVersion + '"') |
-  Set-Content "$ScriptDir\doc\Frontend.Doxyfile" -Encoding UTF8
-(Get-Content "$ScriptDir\doc\Tools.Doxyfile" -Encoding UTF8) `
-  -replace 'PROJECT_NUMBER = ".*"', ('PROJECT_NUMBER = "' + $NewVersion + '"') |
-  Set-Content "$ScriptDir\doc\Tools.Doxyfile" -Encoding UTF8
+SearchAndReplace doc\Doxyfile -PatternLeft 'PROJECT_NUMBER = "' -PatternRight '"'
+SearchAndReplace src\GlobalAssemblyInfo.cs -PatternLeft 'AssemblyVersion\("' -PatternRight '"\)'
+SearchAndReplace src\OneGet\provider.manifest -PatternLeft 'version="' -PatternRight '" versionScheme="multipartnumeric"'

@@ -1,15 +1,11 @@
 #!/bin/sh
-#Compiles the xbuild solution.
+set -e
 cd `dirname $0`
 
 #Handle Windows-style paths in project files
 export MONO_IOMAP=all
 
-#Project settings
-SOLUTION_FILE=ZeroInstall_Mono.sln
+mono NuGet.exe restore -Verbosity quiet
+xbuild /nologo /v:q
 
-echo Restoring NuGet packages...
-mono NuGet.exe restore $SOLUTION_FILE -Verbosity quiet
-
-echo Compiling solution...
-xbuild $SOLUTION_FILE /nologo /v:q
+nuget pack ZeroInstall.Frontend.nuspec -Properties "Configuration=Release;Version=$(< ../VERSION)" -Symbols -OutputDirectory ..\build

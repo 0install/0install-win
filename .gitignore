@@ -1,11 +1,11 @@
 /build/
-/src/packages/*/
 /src/.vs/
-/src/.idea/
 /src/_ReSharper*/
-bin/
+/src/packages/
+/release/*.xml
+/release/*.tar.gz
 obj/
-test-results/
+bin/
 *.bak
 *.cache
 *.pidb
@@ -14,4 +14,3 @@ test-results/
 *.userprefs
 *.resources
 *.filtered.resx
-*.wixobj

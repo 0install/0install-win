@@ -1,33 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\ILRepack.2.0.13\build\ILRepack.props" Condition="Exists('..\packages\ILRepack.2.0.13\build\ILRepack.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B47068C-73D3-4F2F-BC96-8FE2B8FA4A7D}</ProjectGuid>
+    <ProjectGuid>{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall</RootNamespace>
-    <AssemblyName>0bootstrap</AssemblyName>
+    <RootNamespace>ZeroInstall.Store.Service</RootNamespace>
+    <AssemblyName>0store-service</AssemblyName>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
+    <ApplicationManifest>..\app.service.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\build\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Debug\0store-service.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
@@ -35,8 +35,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
+    <OutputPath>..\..\build\Release\</OutputPath>
+    <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.OpenPgp, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -51,14 +51,17 @@
     <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="LinFu.DynamicProxy, Version=1.0.4.16035, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
-      <HintPath>..\packages\LinFu.DynamicProxy.OfficialRelease.1.0.5\lib\net\LinFu.DynamicProxy.dll</HintPath>
+    <Reference Include="Microsoft.Deployment.Compression, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net20\Microsoft.Deployment.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.Compression.Cab, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net20\Microsoft.Deployment.Compression.Cab.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net20\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common, Version=2.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
       <HintPath>..\packages\NanoByte.Common.2.1.2\lib\net20\NanoByte.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="NanoByte.Common.WinForms, Version=2.1.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\NanoByte.Common.WinForms.2.1.2\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net20\Newtonsoft.Json.dll</HintPath>
@@ -67,23 +70,11 @@
       <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net20\SevenZipSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="NDesk.Options">
-      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="TaskDialog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fefb7635387ec9bb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NanoByte.Common.WinForms.2.1.2\lib\net20\TaskDialog.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="XZ.NET, Version=1.2.0.0, Culture=neutral, PublicKeyToken=326e09b309f60575, processorArchitecture=MSIL">
       <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net20\XZ.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="ZeroInstall.Services, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Services.2.13.4\lib\net20\ZeroInstall.Services.dll</HintPath>
-    </Reference>
-    <Reference Include="ZeroInstall.Services.Interfaces, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Services.Interfaces.2.13.4\lib\net20\ZeroInstall.Services.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ZeroInstall.Store, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
       <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net20\ZeroInstall.Store.dll</HintPath>
@@ -94,41 +85,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="BootstrapProcess.cs" />
-    <Compile Include="EmbeddedConfig.cs" />
-    <Compile Include="ExitCode.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GuiTaskHandler.cs" />
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OneGet\BootstrapPackageProvider.cs" />
-    <Compile Include="..\OneGet\IOneGetContext.cs">
-      <Link>OneGet\IOneGetContext.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\OneGetHandler.cs">
-      <Link>OneGet\OneGetHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\OneGetProgress.cs">
-      <Link>OneGet\OneGetProgress.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\PackageProviderBase.cs">
-      <Link>OneGet\PackageProviderBase.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\Sdk\Constants.cs">
-      <Link>OneGet\Sdk\Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\Sdk\ErrorCategory.cs">
-      <Link>OneGet\Sdk\ErrorCategory.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\Sdk\Request.cs">
-      <Link>OneGet\Sdk\Request.cs</Link>
-    </Compile>
-    <Compile Include="OneGet\OneGetContextInterceptor.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="SecureStore.cs" />
+    <Compile Include="StoreService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StoreServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StoreService.Designer.cs">
+      <DependentUpon>StoreService.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -138,45 +106,38 @@
     <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EmbeddedConfig.txt" />
+    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.el.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.tr.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\_clr2\App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\ZeroInstall.Store.2.13.4\build\ZeroInstall.Store.targets" Condition="Exists('..\packages\ZeroInstall.Store.2.13.4\build\ZeroInstall.Store.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ILRepack.2.0.13\build\ILRepack.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.2.0.13\build\ILRepack.props'))" />
+    <Error Condition="!Exists('..\packages\ZeroInstall.Store.2.13.4\build\ZeroInstall.Store.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ZeroInstall.Store.2.13.4\build\ZeroInstall.Store.targets'))" />
   </Target>
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)'=='Release'">
-    <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
-pushd "$(OutDir)"
-"$(ILRepack)" /target:winexe /targetplatform:v2 /ndebug /union /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll Microsoft.Deployment*.dll LinFu.DynamicProxy.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
-copy /y "$(ProjectDir)\App.config" "$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe.config"
-popd
-
-rem Create copy of EXE that won't be AuthentiCode-signed so it can be used as a template
-pushd "$(ProjectDir)\..\..\build\Bootstrap"
-copy zero-install.exe template.exe
-popd
-
-rem Common locations for command-line tools
-path %25path%25;%25ProgramFiles(x86)%25\Windows Kits\10\bin\x64;%25ProgramFiles(x86)%25\Windows Kits\8.1\bin\x64
-
-rem Add OneGet manifest to the EXE
-mt -manifest "$(ProjectDir)\..\OneGet\provider.manifest" -outputresource:"$(ProjectDir)\..\..\build\Bootstrap\zero-install.exe";#101</PostBuildEvent>
-  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
