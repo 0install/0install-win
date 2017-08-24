@@ -18,11 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -99,50 +100,34 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         protected override ExitCode ShowOutput()
         {
-            var builder = new StringBuilder();
-            foreach (var oldImplementation in _oldSelections.Implementations)
-            {
-                var interfaceUri = oldImplementation.InterfaceUri;
+            string diff = Selections.GetHumanReadableDiff(_oldSelections);
 
-                var newImplementation = Selections.GetImplementation(interfaceUri);
-                if (newImplementation == null)
-                { // Implementation removed
-                    builder.AppendLine(Resources.NoLongerUsed + interfaceUri);
-                }
-                else if (oldImplementation.Version != newImplementation.Version)
-                { // Implementation updated
-                    builder.AppendLine(interfaceUri + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
-                }
-            }
-            foreach (var newImplementation in Selections.Implementations)
-            {
-                var interfaceUri = newImplementation.InterfaceUri;
-                if (!_oldSelections.ContainsImplementation(interfaceUri))
-                { // Implementation added
-                    builder.AppendLine(interfaceUri + ": new -> " + newImplementation.Version);
-                }
-            }
+            var replacedBy = GetReplacedBy(Requirements.InterfaceUri);
+            if (replacedBy != null)
+                diff += string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, replacedBy) + Environment.NewLine;
 
-            // Detect replaced feeds
-            try
-            {
-                var feed = FeedCache.GetFeed(Requirements.InterfaceUri);
-                if (feed.ReplacedBy != null)
-                    builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, feed.ReplacedBy.Target));
-            }
-            catch (KeyNotFoundException)
-            {
-            }
-
-            if (builder.Length == 0)
+            if (diff.Length == 0)
             {
                 Handler.OutputLow(Resources.NoUpdatesFound, Resources.NoUpdatesFound);
                 return ExitCode.NoChanges;
             }
             else
             {
-                Handler.Output(Resources.ChangesFound, builder.ToString());
+                Handler.Output(Resources.ChangesFound, diff);
                 return ExitCode.OK;
+            }
+        }
+
+        private FeedUri GetReplacedBy(FeedUri feedUri)
+        {
+            try
+            {
+                var feed = FeedCache.GetFeed(feedUri);
+                return feed.ReplacedBy?.Target;
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
             }
         }
     }

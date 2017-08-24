@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands.CliCommands
             // Check for <replaced-by>
             GetMock<IFeedCache>().Setup(x => x.GetFeed(Fake.Feed1Uri)).Returns(Fake.Feed);
 
-            RunAndAssert("http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1" + Environment.NewLine, 0, selectionsNew,
+            RunAndAssert("http://0install.de/feeds/test/sub3.xml: new -> 0.1" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine, 0, selectionsNew,
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 
