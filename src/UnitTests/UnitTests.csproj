@@ -39,17 +39,17 @@
     <Reference Include="BouncyCastle.OpenPgp, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.OpenPGP.1.8.1\lib\net20\BouncyCastle.OpenPgp.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions.Core, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
       <HintPath>..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="INIFileParser, Version=2.0.4.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net40\INIFileParser.dll</HintPath>
+      <HintPath>..\packages\ZeroInstall.Store.2.13.5\lib\net40\INIFileParser.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
@@ -70,7 +70,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SevenZipSharp, Version=0.64.5901.1612, Culture=neutral, PublicKeyToken=e2e2030a8d2b2d46, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net40\SevenZipSharp.dll</HintPath>
+      <HintPath>..\packages\ZeroInstall.Store.2.13.5\lib\net40\SevenZipSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -95,25 +95,25 @@
       <HintPath>..\packages\Xunit.SkippableFact.1.3.3\lib\net452\Xunit.SkippableFact.dll</HintPath>
     </Reference>
     <Reference Include="XZ.NET, Version=1.2.0.0, Culture=neutral, PublicKeyToken=326e09b309f60575, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net40\XZ.NET.dll</HintPath>
+      <HintPath>..\packages\ZeroInstall.Store.2.13.5\lib\net40\XZ.NET.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroInstall.DesktopIntegration, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.DesktopIntegration.2.13.4\lib\net20\ZeroInstall.DesktopIntegration.dll</HintPath>
+    <Reference Include="ZeroInstall.DesktopIntegration, Version=2.13.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.DesktopIntegration.2.13.5\lib\net40\ZeroInstall.DesktopIntegration.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroInstall.DesktopIntegration.XmlSerializers, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.DesktopIntegration.2.13.4\lib\net20\ZeroInstall.DesktopIntegration.XmlSerializers.dll</HintPath>
+    <Reference Include="ZeroInstall.DesktopIntegration.XmlSerializers, Version=2.13.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.DesktopIntegration.2.13.5\lib\net40\ZeroInstall.DesktopIntegration.XmlSerializers.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroInstall.Services, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Services.2.13.4\lib\net40\ZeroInstall.Services.dll</HintPath>
+    <Reference Include="ZeroInstall.Services, Version=2.13.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Services.2.13.5\lib\net40\ZeroInstall.Services.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroInstall.Services.Interfaces, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Services.Interfaces.2.13.4\lib\net40\ZeroInstall.Services.Interfaces.dll</HintPath>
+    <Reference Include="ZeroInstall.Services.Interfaces, Version=2.13.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Services.Interfaces.2.13.5\lib\net40\ZeroInstall.Services.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroInstall.Store, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net40\ZeroInstall.Store.dll</HintPath>
+    <Reference Include="ZeroInstall.Store, Version=2.13.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Store.2.13.5\lib\net40\ZeroInstall.Store.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroInstall.Store.XmlSerializers, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroInstall.Store.2.13.4\lib\net40\ZeroInstall.Store.XmlSerializers.dll</HintPath>
+    <Reference Include="ZeroInstall.Store.XmlSerializers, Version=2.13.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZeroInstall.Store.2.13.5\lib\net40\ZeroInstall.Store.XmlSerializers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
