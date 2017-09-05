@@ -88,8 +88,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             if (feed.Elements.Count == 1)
             {
-                var singletonImplementation = feed.Elements[0] as Implementation;
-                if (singletonImplementation != null) suggestedStabilityPolicy = singletonImplementation.Stability;
+                if (feed.Elements[0] is Implementation singletonImplementation)
+                    suggestedStabilityPolicy = singletonImplementation.Stability;
             }
 
             return interfaces;

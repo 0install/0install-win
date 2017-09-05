@@ -574,8 +574,8 @@ namespace ZeroInstall.Central.WinForms
         {
             if (e.Error == null)
             {
-                var newCatalog = e.Result as Catalog;
-                if (newCatalog != null) _tileManagement.SetCatalog(newCatalog);
+                if (e.Result is Catalog newCatalog)
+                    _tileManagement.SetCatalog(newCatalog);
             }
             else
             {

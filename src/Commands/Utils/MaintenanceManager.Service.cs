@@ -44,8 +44,7 @@ namespace ZeroInstall.Commands.Utils
         {
             // Determine whether the service is installed and running
             var service = GetServiceController();
-            if (service == null) return;
-            if (service.Status != ServiceControllerStatus.Running) return;
+            if (service?.Status != ServiceControllerStatus.Running) return;
 
             // Determine whether the service is installed in the target directory we are updating
             string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" + ServiceName, "ImagePath").Trim('"');

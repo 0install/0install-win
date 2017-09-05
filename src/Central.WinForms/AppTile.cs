@@ -205,8 +205,8 @@ namespace ZeroInstall.Central.WinForms
         private void iconDownloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // Display icon in UI thread
-            var image = e.Result as Image;
-            if (image != null) pictureBoxIcon.Image = image;
+            if (e.Result is Image image)
+                pictureBoxIcon.Image = image;
         }
         #endregion
 

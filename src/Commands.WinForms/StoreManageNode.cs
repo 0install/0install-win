@@ -66,14 +66,12 @@ namespace ZeroInstall.Commands.WinForms
         {
             var menu = new List<MenuItem>();
 
-            var storeNode = BackingNode as StoreNode;
-            if (storeNode != null)
+            if (BackingNode is StoreNode storeNode)
             {
                 if (storeNode.Path != null)
                     menu.Add(new MenuItem(Resources.OpenInFileManager, delegate { ProcessUtils.Start(storeNode.Path); }));
 
-                var implementationNode = storeNode as ImplementationNode;
-                if (implementationNode != null)
+                if (storeNode is ImplementationNode implementationNode)
                 {
                     using (var handler = new DialogTaskHandler(_manageForm))
                     {

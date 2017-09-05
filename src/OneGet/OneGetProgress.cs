@@ -34,25 +34,19 @@ namespace ZeroInstall.OneGet
 
         public OneGetProgress([NotNull] string name, [NotNull] Request request, [NotNull] CancellationTokenSource cancellationTokenSource)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-            if (request == null) throw new ArgumentNullException(nameof(request));
-            if (cancellationTokenSource == null) throw new ArgumentNullException(nameof(cancellationTokenSource));
-            #endregion
-
-            _name = name;
-            _request = request;
-            _cancellationTokenSource = cancellationTokenSource;
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _request = request ?? throw new ArgumentNullException(nameof(request));
+            _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
             _request.Debug(name);
             _activityId = _request.StartProgress(0, name);
         }
 
-        public void Report(TaskSnapshot snapshot)
+        public void Report(TaskSnapshot value)
         {
             if (_request.IsCanceled) _cancellationTokenSource.Cancel();
 
-            switch (snapshot.State)
+            switch (value.State)
             {
                 case TaskState.Canceled:
                 case TaskState.IOError:
@@ -62,7 +56,7 @@ namespace ZeroInstall.OneGet
 
                 case TaskState.Header:
                 case TaskState.Data:
-                    _request.Progress(_activityId, (int)(snapshot.Value * 100), _name);
+                    _request.Progress(_activityId, (int)(value.Value * 100), _name);
                     break;
 
                 case TaskState.Complete:

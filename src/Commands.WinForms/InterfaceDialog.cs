@@ -389,8 +389,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                if (files != null) foreach (var file in files) AddCustomFeed(file);
+                if (e.Data.GetData(DataFormats.FileDrop) is string[] files)
+                {
+                    foreach (var file in files)
+                        AddCustomFeed(file);
+                }
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
                 AddCustomFeed((string)e.Data.GetData(DataFormats.Text));

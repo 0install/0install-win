@@ -53,12 +53,7 @@ namespace ZeroInstall.Store.Service
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
         public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity) : base(path)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
-            if (serviceIdentity == null) throw new ArgumentNullException(nameof(serviceIdentity));
-            #endregion
-
-            _serviceIdentity = serviceIdentity;
+            _serviceIdentity = serviceIdentity ?? throw new ArgumentNullException(nameof(serviceIdentity));
 
             Log.Info("Using implementation directory: " + path);
         }

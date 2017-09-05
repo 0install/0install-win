@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
@@ -101,8 +100,8 @@ namespace ZeroInstall.Central.WinForms
         private void comboBoxCommand_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Display entry point description
-            var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            if (entryPoint != null) labelSummary.Text = entryPoint.GetSummary();
+            if (comboBoxCommand.SelectedItem is EntryPointWrapper entryPoint)
+                labelSummary.Text = entryPoint.GetSummary();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

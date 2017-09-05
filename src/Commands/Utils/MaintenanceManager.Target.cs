@@ -24,7 +24,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Manifests;
 
 namespace ZeroInstall.Commands.Utils

@@ -52,14 +52,9 @@ namespace ZeroInstall.Commands.Utils
         /// <param name="destination">The path of the directory to export to.</param>
         public Exporter([NotNull] Selections selections, Architecture architecture, [NotNull] string destination)
         {
-            #region Sanity checks
-            if (selections == null) throw new ArgumentNullException(nameof(selections));
-            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException(nameof(destination));
-            #endregion
-
-            _selections = selections;
+            _selections = selections ?? throw new ArgumentNullException(nameof(selections));
             _architecture = architecture;
-            _destination = destination;
+            _destination = destination ?? throw new ArgumentNullException(nameof(destination));
 
             Directory.CreateDirectory(_destination);
         }

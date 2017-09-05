@@ -61,15 +61,9 @@ namespace ZeroInstall.Hooking
         /// <param name="relaunchControl">Stores information about how commands within an implementation can be relaunched. Used for Windows 7 taskbar pinning.</param>
         public EntryPoint(RemoteHooking.IContext inContext, string implentationDir, RegistryFilter registryFilter, RelaunchControl relaunchControl)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(implentationDir)) throw new ArgumentNullException(nameof(implentationDir));
-            if (registryFilter == null) throw new ArgumentNullException(nameof(registryFilter));
-            if (relaunchControl == null) throw new ArgumentNullException(nameof(relaunchControl));
-            #endregion
-
-            _implementationDir = implentationDir;
-            _registryFilter = registryFilter;
-            _relaunchControl = relaunchControl;
+            _implementationDir = implentationDir ?? throw new ArgumentNullException(nameof(implentationDir));
+            _registryFilter = registryFilter ?? throw new ArgumentNullException(nameof(registryFilter));
+            _relaunchControl = relaunchControl ?? throw new ArgumentNullException(nameof(relaunchControl));
             _relaunchInformation = relaunchControl.GetCurrentEntry();
         }
 

@@ -61,13 +61,13 @@ namespace ZeroInstall.Commands.Utils
                 foreach (string commandName in CommandFactory.CommandNames)
                 {
                     var command = CommandFactory.GetCommand(commandName, handler);
-                    var multiCommand = command as MultiCommand;
-                    if (multiCommand == null) action(command);
-                    else
+                    if (command is MultiCommand multiCommand)
                     {
                         foreach (string stringCommandName in multiCommand.SubCommandNames)
                             action(multiCommand.GetCommand(stringCommandName));
                     }
+                    else
+                        action(command);
                 }
             }
         }

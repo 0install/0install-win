@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Configures the <see cref="ISolver"/> mock to expect a call with <see cref="CreateTestRequirements"/>.
         /// </summary>
-        /// <returns>The selections returned by the mock; <see cref="FakeSelections.CreateTestSelections"/>.</returns>
+        /// <returns>The selections returned by the mock; <see cref="Fake.Selections"/>.</returns>
         protected Selections ExpectSolve()
         {
             var requirements = CreateTestRequirements();
