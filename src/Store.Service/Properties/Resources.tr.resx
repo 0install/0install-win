@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerine ekleyemedi.</value>
+    <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerine ekleyemedi.</value>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>&apos;{0}&apos; kullanıcısı için &apos;{1}&apos; üzerinde geçici bir dizin oluşturulamadı.</value>
+    <value>'{0}' kullanıcısı için '{1}' üzerinde geçici bir dizin oluşturulamadı.</value>
   </data>
   <data name="FailedToRemoveImplementation" xml:space="preserve">
-    <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerinden kaldıramadı.</value>
+    <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerinden kaldıramadı.</value>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>(&apos;{0}&apos; kullanıcısı için) &apos;{1}&apos; üzerinde oluşturulan geçici dizin kaldırılamadı.</value>
+    <value>('{0}' kullanıcısı için) '{1}' üzerinde oluşturulan geçici dizin kaldırılamadı.</value>
   </data>
   <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Paylaşılan bir bellekten yalnız yöneticiler bileşen kaldırabilir.</value>
@@ -139,9 +139,9 @@
     <value>Dosya izinleri ayarlanıyor</value>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerine ekledi.</value>
+    <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerine ekledi.</value>
   </data>
   <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
-    <value>&apos;{0}&apos; kullanıcısı &apos;{1}&apos; uygulamasını &apos;{2}&apos; üzerinden kaldırdı.</value>
+    <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerinden kaldırdı.</value>
   </data>
 </root>

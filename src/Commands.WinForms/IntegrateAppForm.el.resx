@@ -247,7 +247,7 @@
     <value>Αυτόματη ενημέρωση</value>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Περιλαμβάνει αυτή η εφαρμογή &quot;Ενημέρωση όλων&quot; ελέγχων.</value>
+    <value>Περιλαμβάνει αυτή η εφαρμογή "Ενημέρωση όλων" ελέγχων.</value>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>Προηγμένες ρυθμίσεις</value>
@@ -268,7 +268,7 @@
     <value>Αποστολή σε</value>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Μια καταχώρηση στο μενού &quot;Αποστολή σε&quot;</value>
+    <value>Μια καταχώρηση στο μενού "Αποστολή σε"</value>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Ψευδώνυμα γραμμής εντολών</value>
@@ -286,13 +286,13 @@
     <value>Τύποι αρχείων</value>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων (&quot;Άνοιγμα με&quot; λειτουργεί χωρίς αυτό το επίσης)</value>
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
     <value>URL πρωτόκολλα</value>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τα υποστηριζόμενα πρωτόκολλα URL (&quot;Άνοιγμα με&quot; λειτουργεί χωρίς αυτό το επίσης)</value>
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τα υποστηριζόμενα πρωτόκολλα URL ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
     <value>Αυτόματη αναπαραγωγή</value>

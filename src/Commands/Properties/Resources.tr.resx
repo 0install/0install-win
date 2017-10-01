@@ -118,26 +118,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Added0installToPath" xml:space="preserve">
-    <value>Komut satırı yoluna &apos;0install&apos; komutu eklendi.</value>
+    <value>Komut satırı yoluna '0install' komutu eklendi.</value>
   </data>
   <data name="AliasCreated" xml:space="preserve">
-    <value>&apos;{1}&apos; için &apos;{0}&apos; kısaltması oluşturuldu.</value>
+    <value>'{1}' için '{0}' kısaltması oluşturuldu.</value>
   </data>
   <data name="AliasNotFound" xml:space="preserve">
-    <value>&apos;{0}&apos; kısaltması bulunamadı.</value>
+    <value>'{0}' kısaltması bulunamadı.</value>
   </data>
   <data name="AliasRemoved" xml:space="preserve">
-    <value>&apos;{1}&apos; için &apos;{0}&apos; kısaltması silindi.</value>
+    <value>'{1}' için '{0}' kısaltması silindi.</value>
   </data>
   <data name="AllComponentsDownloaded" xml:space="preserve">
     <value>Gereken tüm bileşenler indirildi.</value>
   </data>
   <data name="AllComponentsExported" xml:space="preserve">
-    <value>{0} çalıştırmak için gerekli tüm bileşenler &apos;{1}&apos; üzerine verildi.
-Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyaları başka bir bilgisayara alabilirsiniz..</value>
+    <value>{0} çalıştırmak için gerekli tüm bileşenler '{1}' üzerine verildi.
+Alma betiği ya da '{1}' içindeki Bootstrap dosyası ile bu dosyaları başka bir bilgisayara alabilirsiniz..</value>
   </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
-    <value>&apos;{0}&apos; zaten özel uygulama önbellekleri listesinde var.</value>
+    <value>'{0}' zaten özel uygulama önbellekleri listesinde var.</value>
   </data>
   <data name="AppAlias" xml:space="preserve">
     <value>Uygulama kısaltması</value>
@@ -149,7 +149,7 @@ Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyalar�
     <value>Kurulum geçerli kullanıcı yerine (bilgisayardaki) tüm kullanıcılar için yapılsın mı?</value>
   </data>
   <data name="AskDeployNewTarget" xml:space="preserve">
-    <value>&apos;{0}&apos; üzerinde yeni bir Zero Install kopyası oluşturmak istediğinize emin misiniz?</value>
+    <value>'{0}' üzerinde yeni bir Zero Install kopyası oluşturmak istediğinize emin misiniz?</value>
   </data>
   <data name="AskDeployZeroInstall" xml:space="preserve">
     <value>Bu işlem sonucunda Zero Install başlat menüsü ve komut satırına eklenecek. Devam edilsin mi?</value>
@@ -159,8 +159,8 @@ Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyalar�
   </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Varolan masaüstü bütünleştirmelerini bu değişikliği yansıtacak şekilde güncelleştirmek ister misiniz?
-&apos;Evet&apos; seçilirse, uyumluluk sorunu olabilecek bütünleştirmeler silinir.
-&apos;Hayır&apos; seçilirse, Zero Install eski yetenekleri ile çalışmayı sürdürür.</value>
+'Evet' seçilirse, uyumluluk sorunu olabilecek bütünleştirmeler silinir.
+'Hayır' seçilirse, Zero Install eski yetenekleri ile çalışmayı sürdürür.</value>
   </data>
   <data name="CachedImplementations" xml:space="preserve">
     <value>Önbellekteki uygulamalar</value>
@@ -172,7 +172,7 @@ Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyalar�
     <value>İptal</value>
   </data>
   <data name="CapabilitiesChanged" xml:space="preserve">
-    <value>&apos;{0}&apos; uygulamasının yetenekleri değiştirildi.</value>
+    <value>'{0}' uygulamasının yetenekleri değiştirildi.</value>
   </data>
   <data name="CatalogAlreadyRegistered" xml:space="preserve">
     <value>{0} katalog İnternet adresi zaten kaydedilmiş.</value>
@@ -212,8 +212,8 @@ Alma betiği ya da &apos;{1}&apos; içindeki Bootstrap dosyası ile bu dosyalar�
 Eğer daha sonra gerekirse bu dosyalar yeniden indirilebilir.</value>
   </data>
   <data name="ConfirmRemoveAll" xml:space="preserve">
-    <value>Tüm uygulamaları &apos;Uygulamalarım&apos; listesinden kaldırmak ister misiniz? Bu ayrıca Zero Install kurulumunuzdan artakalan menü girişlerini de kaldırır.
-Bu listeyi yedeklemek için &apos;0install sync&apos; komutunu kullanın.</value>
+    <value>Tüm uygulamaları 'Uygulamalarım' listesinden kaldırmak ister misiniz? Bu ayrıca Zero Install kurulumunuzdan artakalan menü girişlerini de kaldırır.
+Bu listeyi yedeklemek için '0install sync' komutunu kullanın.</value>
   </data>
   <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
     <value>Yeni bir kayıt oluşturmak için son satıra metin girmeye başlayın.
@@ -233,7 +233,7 @@ Varsayılan olmasını istemediğiniz özelliğin ilgili onay kutusunu işaretle
     <value>Uygulama siliniyor</value>
   </data>
   <data name="DeployedPortable" xml:space="preserve">
-    <value>Zero Install taşınabilir sürümü &apos;{0}&apos; klasörüne yüklendi.
+    <value>Zero Install taşınabilir sürümü '{0}' klasörüne yüklendi.
 Başlatmak için klasördeki ZeroInstall.exe dosyasını çalıştırın.</value>
   </data>
   <data name="DeployMissingTargetForPortable" xml:space="preserve">
@@ -277,13 +277,13 @@ Başlatmak için klasördeki ZeroInstall.exe dosyasını çalıştırın.</value
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
     <value>Yapılandırma ayarlarını görüntüleyin ya da değiştirin.
-Değişken yoksa, tüm ayarlar ve geçerli olan değerler görüntülenir. Bir değişken varsa, adlandırılmış ayarın geçerli değeri görüntülenir. İki değişken varsa, ayara verilen değer ayarlanabilir ya da &quot;default&quot; değeri verilerek varsayılan ayarlar geri yüklenebilir.</value>
+Değişken yoksa, tüm ayarlar ve geçerli olan değerler görüntülenir. Bir değişken varsa, adlandırılmış ayarın geçerli değeri görüntülenir. İki değişken varsa, ayara verilen değer ayarlanabilir ya da "default" değeri verilerek varsayılan ayarlar geri yüklenebilir.</value>
   </data>
   <data name="DescriptionDigest" xml:space="preserve">
     <value>Bir klasör ya da arşiv için öge listesi dosyasını hazırlar.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
-    <value>&apos;0install select&apos; ile benzer şekilde davranır. Yalnızca önbellekte bulunmuyorsa seçilmiş sürümler de indirilir.
+    <value>'0install select' ile benzer şekilde davranır. Yalnızca önbellekte bulunmuyorsa seçilmiş sürümler de indirilir.
 Seçilmiş sürümler uygun ve önbelleğe indirilmiş ise çıkış durumu 0 olur. Diğer durumlarda çıkış durumu 1 olur.</value>
   </data>
   <data name="DescriptionExport" xml:space="preserve">
@@ -306,7 +306,7 @@ Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</val
     <value>Uygulama listenizdeki geçerli tüm uygulamalar listelenir. Eğer bir arama terimi girdiyseniz, yalnızca uygulamaların adlarını içeren dizgelerin olduğu sonuçlar görüntülenir (büyük küçük harf duyarlı).</value>
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
-    <value>&apos;0install add-feed&apos; kullanılarak İnternet adresine eklenmiş tüm fazladan akışlar listelenir.</value>
+    <value>'0install add-feed' kullanılarak İnternet adresine eklenmiş tüm fazladan akışlar listelenir.</value>
   </data>
   <data name="DescriptionMaintenanceDeploy" xml:space="preserve">
     <value>Zero Install yazılımını belirtilen {TARGET} klasörüne ya da varsayılan programlar klasörüne yükler ve sistem ile bütünleştirir.</value>
@@ -321,13 +321,13 @@ Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</val
     <value>Uygulama listesinden tüm uygulamalar kaldırılır ve masaüstü ortamı bütünleştirmeleri geri alınır.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
-    <value>Bir akışın kaydı kaldırılır, &apos;0install add-feed&apos; ile etkilenenler eski durumuna geri döndürülür.</value>
+    <value>Bir akışın kaydı kaldırılır, '0install add-feed' ile etkilenenler eski durumuna geri döndürülür.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
     <value>Uygulama listesindeki tüm uygulamaların masaüstü bütünleştirmeleri yeniden uygulanır.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
-    <value>&apos;0install download&apos; ile benzer şekilde davranır. Yalnızca yazılımın önbellekte olduğundan emin olunduktan sonra çalıştırılır.
+    <value>'0install download' ile benzer şekilde davranır. Yalnızca yazılımın önbellekte olduğundan emin olunduktan sonra çalıştırılır.
 İndirme adımı başarısız olursa çıkış durumu 1 olur. Diğer durumlarda çıkış durumu çalıştırılan yazılımın çıkış durumu olur.</value>
   </data>
   <data name="DescriptionSearch" xml:space="preserve">
@@ -351,11 +351,11 @@ Bir sürüm takımı seçildiğinde çıkış durumu 0 olur. Uygun bir takım bu
 Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   </data>
   <data name="DescriptionStoreCopy" xml:space="preserve">
-    <value>Bir uygulamayı önbelleğe kopyalar. &apos;0install store add&apos; komutuna benzer ancak düzen klasör adından ayıklanır.
+    <value>Bir uygulamayı önbelleğe kopyalar. '0install store add' komutuna benzer ancak düzen klasör adından ayıklanır.
 Ek bir değişken ile özel hedef önbellek konumu olarak belirtilebilir.</value>
   </data>
   <data name="DescriptionStoreExport" xml:space="preserve">
-    <value>Önbelleğe alınmış bir uygulama bir arşiv olarak (ZIP, TAR, vb.) dışa aktarılır. &apos;0install store add&apos; kullanılarak sonuç diğer makinelerde içe aktarılabilir.</value>
+    <value>Önbelleğe alınmış bir uygulama bir arşiv olarak (ZIP, TAR, vb.) dışa aktarılır. '0install store add' kullanılarak sonuç diğer makinelerde içe aktarılabilir.</value>
   </data>
   <data name="DescriptionStoreFind" xml:space="preserve">
     <value>Önbelleğe alınmış bir uygulamanın yolu belirlenir.</value>
@@ -391,7 +391,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Yazılım güncelleştirmelerini denetler ve yeni bir güncelleştirme bulunursa indirir.
-&apos;0install download --refresh&apos; komutuna benzer, ancak bir değişiklik bulunmasa da bilgileri görüntüler.</value>
+'0install download --refresh' komutuna benzer, ancak bir değişiklik bulunmasa da bilgileri görüntüler.</value>
   </data>
   <data name="DescriptionUpdateApps" xml:space="preserve">
     <value>Uygulama listesindeki tüm uygulamaları güncelleştirir.</value>
@@ -421,7 +421,7 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>{0} ve {1} seçenekleri birlikte kullanılamaz.</value>
   </data>
   <data name="ExistingInstance" xml:space="preserve">
-    <value>Çalışan bir Zero Install kopyası &apos;{0}&apos; bulundu.</value>
+    <value>Çalışan bir Zero Install kopyası '{0}' bulundu.</value>
   </data>
   <data name="ExportComplete" xml:space="preserve">
     <value>Verme işlemi tamamlandı.</value>
@@ -439,22 +439,22 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
     <value>Akış aşağıdaki arabirimler için başarıyla kaydedildi:</value>
   </data>
   <data name="FeedReplaced" xml:space="preserve">
-    <value>&apos;{0}&apos; yerine &apos;{1}&apos; yayınlandı. Güncelleştirmeyi düşünün.</value>
+    <value>'{0}' yerine '{1}' yayınlandı. Güncelleştirmeyi düşünün.</value>
   </data>
   <data name="FeedReplacedAsk" xml:space="preserve">
-    <value>&apos;{0}&apos; için akış &apos;{2}&apos; tarafından ({1}) olarak değiştirildi. Yeni akışı eski akışla değiştirerek kullanmak ister misiniz?</value>
+    <value>'{0}' için akış '{2}' tarafından ({1}) olarak değiştirildi. Yeni akışı eski akışla değiştirerek kullanmak ister misiniz?</value>
   </data>
   <data name="FeedsCached" xml:space="preserve">
     <value>Önbellekteki akışlar</value>
   </data>
   <data name="FeedsRegistered" xml:space="preserve">
-    <value>&apos;{0}&apos; için akış kaydedildi</value>
+    <value>'{0}' için akış kaydedildi</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
     <value>Aşağıdaki arabirimlerin akış kaydı başarıyla silindi:</value>
   </data>
   <data name="FileOrDirNotFound" xml:space="preserve">
-    <value>&apos;{0}&apos; olarak dosya ya da dizin bulunamıyor.</value>
+    <value>'{0}' olarak dosya ya da dizin bulunamıyor.</value>
   </data>
   <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
     <value>Mutlak yollar için file:/path değil file:///path kullanın.</value>
@@ -482,7 +482,7 @@ Akış uyumluluğu için bir &lt;feed-for&gt; kodu bulunmalıdır.</value>
     <value>Lütfen Zero Install görsel arayüzünü ya da komut satırı değişkenlerini kullanarak bütünleştirme seçeneklerinizi açık olarak belirtin.</value>
   </data>
   <data name="InvalidArgument" xml:space="preserve">
-    <value>Geçersiz değişken &apos;{0}&apos;.</value>
+    <value>Geçersiz değişken '{0}'.</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Bu yazılım yasaların izin verdiği ölçüde KESİNLİKLE GARANTİSİZ olarak gelir.
@@ -493,13 +493,13 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   </data>
   <data name="MaintenanceMissingManifest" xml:space="preserve">
     <value>Öge listesi dosyası eksik.
-Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalıştırın.</value>
+Sorunu çözmek için '0install self-update --force' komutunu çalıştırın.</value>
   </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Değişkenler eksik.</value>
   </data>
   <data name="MissingFeedFor" xml:space="preserve">
-    <value>&apos;{0}&apos; içindeki &lt;feed-for&gt; bileşeni eksik; bu nedenle başka bir arabirim için akış amacıyla kullanılamaz.</value>
+    <value>'{0}' içindeki &lt;feed-for&gt; bileşeni eksik; bu nedenle başka bir arabirim için akış amacıyla kullanılamaz.</value>
   </data>
   <data name="MissingOptionValue" xml:space="preserve">
     <value>{0} seçeneği için zorunlu değer eksik.</value>
@@ -541,7 +541,7 @@ Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalış
     <value>Bu işlem taşınabilir kipte kullanılamaz.</value>
   </data>
   <data name="NotInImplDirs" xml:space="preserve">
-    <value>&apos;{0}&apos; özel uygulama önbellekleri listesinde yok.</value>
+    <value>'{0}' özel uygulama önbellekleri listesinde yok.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Güncelleştirme bulunamadı</value>
@@ -578,10 +578,10 @@ Sorunu çözmek için &apos;0install self-update --force&apos; komutunu çalış
   </data>
   <data name="OptionCommand" xml:space="preserve">
     <value>Varsayılan komutu kullanmak yerine {COMMAND} kullanılır. Kullanılabilecek komut adları yazılımın arabiriminde belirtilmiştir.
-Seçim sırasında komut kullanılmaması için boş (&quot;&quot;) bırakın.</value>
+Seçim sırasında komut kullanılmaması için boş ("") bırakın.</value>
   </data>
   <data name="OptionConfigTab" xml:space="preserve">
-    <value>Ayar görsel ara yüzünde belirtilen sekmeyi açar. Kullanılabilecek {TAB} sekmeleri, güncelleştirmeler için &apos;updates&apos;, depolama için &apos;storage&apos;, katalog için &apos;catalog&apos;, güvenilirlik için &apos;trust&apos;, eşitleme için &apos;sync&apos; ve gelişmiş ayarlar için &apos;advanced&apos;.
+    <value>Ayar görsel ara yüzünde belirtilen sekmeyi açar. Kullanılabilecek {TAB} sekmeleri, güncelleştirmeler için 'updates', depolama için 'storage', katalog için 'catalog', güvenilirlik için 'trust', eşitleme için 'sync' ve gelişmiş ayarlar için 'advanced'.
 Metin kipinde bir etkisi yoktur.</value>
   </data>
   <data name="OptionCpu" xml:space="preserve">
@@ -631,7 +631,7 @@ Birden çok dil için bu seçenek birden çok kez kullanılabilir.</value>
     <value>Ayarları geçerli kullanıcı yerine makine çapında (tüm bilgisayar için) uygular.</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
-    <value>Varsayılan yerine belirtilen dosya {MAIN} çalıştırılır. &apos;/&apos; ya da &apos;\&apos; ile başlıyorsa yol uygulamanın kök klasörüne göre alınır. Bunun dışında yol varsayılan ana yazılımın bulunduğu klasöre göre alınır.
+    <value>Varsayılan yerine belirtilen dosya {MAIN} çalıştırılır. '/' ya da '\' ile başlıyorsa yol uygulamanın kök klasörüne göre alınır. Bunun dışında yol varsayılan ana yazılımın bulunduğu klasöre göre alınır.
 Komut satırı değişkenleri bulunamaz! Boşluklardan kaçınılması gerekmez.</value>
   </data>
   <data name="OptionMan" xml:space="preserve">
@@ -663,7 +663,7 @@ Komut satırı değişkenleri bulunamaz! Boşluklardan kaçınılması gerekmez.
     <value>Kullanılan tüm akışların yeni kopyalarını alır.</value>
   </data>
   <data name="OptionRestartCentral" xml:space="preserve">
-    <value>Güncelleştirmeden sonra &apos;0install central&apos; görsel arabirimini yeniden başlatır.</value>
+    <value>Güncelleştirmeden sonra '0install central' görsel arabirimini yeniden başlatır.</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Seçenekler:</value>
@@ -672,10 +672,10 @@ Komut satırı değişkenleri bulunamaz! Boşluklardan kaçınılması gerekmez.
     <value>Seçilmiş bileşenlerin diskte nerede depolandığını görün.</value>
   </data>
   <data name="OptionSource" xml:space="preserve">
-    <value>İkili yerine kaynak kodunu seçer. İçeride &apos;0compile&apos; tarafından kullanılır.</value>
+    <value>İkili yerine kaynak kodunu seçer. İçeride '0compile' tarafından kullanılır.</value>
   </data>
   <data name="OptionSyncReset" xml:space="preserve">
-    <value>Eşitleme verisini sıfırlar. Olası kipler {MODE} &apos;none&apos; (istemci ve sunucu verileri normal şekilde eşitlenir), &apos;client&apos; (istemci tarafındaki tüm veriyi sunucu verisi ile değiştirir) ve &apos;server&apos; (sunucu tarafındaki tüm veriyi istemci verisi ile değiştirir).</value>
+    <value>Eşitleme verisini sıfırlar. Olası kipler {MODE} 'none' (istemci ve sunucu verileri normal şekilde eşitlenir), 'client' (istemci tarafındaki tüm veriyi sunucu verisi ile değiştirir) ve 'server' (sunucu tarafındaki tüm veriyi istemci verisi ile değiştirir).</value>
   </data>
   <data name="OptionVerbose" xml:space="preserve">
     <value>Ayrıntılı bir çıktı üretir. Daha ayrıntılı çıktı için twice kullanın.</value>
@@ -686,7 +686,7 @@ Komut satırı değişkenleri bulunamaz! Boşluklardan kaçınılması gerekmez.
   <data name="OptionVersionRange" xml:space="preserve">
     <value>Ana yazılımın belirtilen aralıktaki {RANGE} bir sürümü istenir.
 Aralıklar çubuk (|) simgesi ile ayrılır.
-Her aralık &quot;BAŞLANGIÇ..!BİTİŞ&quot; biçimindedir. Aralığa uyan sürümler BAŞLANGIÇ &lt; SÜRÜM &lt; BİTİŞ şeklindedir. Başlangıç ya da bitiş gözardı edilebilir.
+Her aralık "BAŞLANGIÇ..!BİTİŞ" biçimindedir. Aralığa uyan sürümler BAŞLANGIÇ &lt; SÜRÜM &lt; BİTİŞ şeklindedir. Başlangıç ya da bitiş gözardı edilebilir.
 Bir aralık yerine tek bir sürüm rakamı kullanılarak, belirli bir sürüm istenebilir ya da !VERSION kullanılarak bu sürüm dışındaki tüm sürümler istenebilir.</value>
   </data>
   <data name="OptionVersionRangeFor" xml:space="preserve">
@@ -735,7 +735,7 @@ Komut satırı değişkenleri eklenebilir. Boşluklardan kaçınılmalıdır.</v
     <value>Listeyi ilk durumuna geri yüklemek ister misiniz?</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
-    <value>Bir katalog kullanılarak &apos;{0}&apos; yerine &apos;{1}&apos; olarak çözümlendi.</value>
+    <value>Bir katalog kullanılarak '{0}' yerine '{1}' olarak çözümlendi.</value>
   </data>
   <data name="RunNgen" xml:space="preserve">
     <value>Daha hızlı uygulama başlatımı için .NET ön derlemesi yapılıyor</value>
@@ -759,7 +759,7 @@ Komut satırı değişkenleri eklenebilir. Boşluklardan kaçınılmalıdır.</v
     <value>{0} için kararlılık ilkesi varsayılanlara sıfırlansın mı?</value>
   </data>
   <data name="StabilityPolicySingleImplementation" xml:space="preserve">
-    <value>Akışta yalnız tek bir uyarlama var ve kararlılık düzeyi &apos;{0}&apos;.</value>
+    <value>Akışta yalnız tek bir uyarlama var ve kararlılık düzeyi '{0}'.</value>
   </data>
   <data name="StartService" xml:space="preserve">
     <value>Zero Install Bellek Hizmeti başlatılıyor</value>
@@ -774,7 +774,7 @@ Komut satırı değişkenleri eklenebilir. Boşluklardan kaçınılmalıdır.</v
     <value>Bellek denetimi</value>
   </data>
   <data name="StoreVerfiyTryAuditInstead" xml:space="preserve">
-    <value>Bellekteki tüm uygulamaları denetlemek yerine &quot;0store audit&quot; kullanın.</value>
+    <value>Bellekteki tüm uygulamaları denetlemek yerine "0store audit" kullanın.</value>
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>{0} başarıyla kaldırıldı.</value>
@@ -799,13 +799,13 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
     <value>Yazılım kataloğu indirilemedi.</value>
   </data>
   <data name="UnableToLoadFeed" xml:space="preserve">
-    <value>&apos;{0}&apos; akışı yüklenemedi; atlanıyor.</value>
+    <value>'{0}' akışı yüklenemedi; atlanıyor.</value>
   </data>
   <data name="UninstallService" xml:space="preserve">
     <value>Zero Install Mağaza Hizmeti Kaldırılıyor</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
-    <value>Bilinmeyen komut &apos;{0}&apos;.</value>
+    <value>Bilinmeyen komut '{0}'.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Kullanım:</value>
@@ -814,7 +814,7 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
     <value>Varsayılan ayarı kullan</value>
   </data>
   <data name="UseInstead" xml:space="preserve">
-    <value>Yerine &apos;{0}&apos; kullanın.</value>
+    <value>Yerine '{0}' kullanın.</value>
   </data>
   <data name="UseSystemLanguage" xml:space="preserve">
     <value>Sistem dili kullanılsın</value>

@@ -154,7 +154,7 @@
     <value>Sync Kurulumu</value>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Yeni bir hesap açtıktan, e-posta adresinizi doğruladıktan ve oturum açma bilgilerinizi not ettikten sonra &apos;İleri&apos; düğmesini tıklatın.</value>
+    <value>Yeni bir hesap açtıktan, e-posta adresinizi doğruladıktan ve oturum açma bilgilerinizi not ettikten sonra 'İleri' düğmesini tıklatın.</value>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
     <value>Kaydol</value>
@@ -196,7 +196,7 @@
     <value>Yeni şifreleme &amp;anahtarı:</value>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Anahtarı diğer bilgisayarlardaki &apos;Seçenekler&apos; penceresine yazın. Yalnız ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
+    <value>Anahtarı diğer bilgisayarlardaki 'Seçenekler' penceresine yazın. Yalnız ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
     <value>Şifreleme anahtarı değiştirildi. Artık diğer tüm bilgisayarlara kurulmuş olan Zero Install Sync kopyaları için yeni şifreleme anahtarını kullanmanız gerekiyor.</value>

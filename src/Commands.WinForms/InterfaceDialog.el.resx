@@ -127,7 +127,7 @@
     <value>Προτιμώμενη σταθερότητα:</value>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Καθορίζει ποια σταθερότητα διαβάθμισης θα θεωρείται η &quot;καλύτερη&quot;</value>
+    <value>Καθορίζει ποια σταθερότητα διαβάθμισης θα θεωρείται η "καλύτερη"</value>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">
     <value>Εκδοση</value>

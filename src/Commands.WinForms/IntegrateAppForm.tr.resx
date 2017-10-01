@@ -247,7 +247,7 @@
     <value>Otomatik &amp;Güncelleştir</value>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Bu uygulama &quot;Tümünü güncelleştir&quot; denetimlerine katılır.</value>
+    <value>Bu uygulama "Tümünü güncelleştir" denetimlerine katılır.</value>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>Gelişmiş a&amp;yarlar</value>
@@ -268,7 +268,7 @@
     <value>Gönder</value>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>&quot;Gönder&quot; menüsünde bir öğe</value>
+    <value>"Gönder" menüsünde bir öğe</value>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Komut satırı kısaltmaları</value>
@@ -286,13 +286,13 @@
     <value>Dosya türleri</value>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Desteklenen dosya türleri için varsayılan işleyici (&quot;Birlikte aç&quot; bu seçenek olmadan da çalışır)</value>
+    <value>Desteklenen dosya türleri için varsayılan işleyici ("Birlikte aç" bu seçenek olmadan da çalışır)</value>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
     <value>İnternet adresi iletişim kuralları</value>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Desteklenen İnternet adresi iletişim kuralları için varsayılan işleyici (&quot;Birlikte aç&quot; bu seçenek olmadan da çalışır)</value>
+    <value>Desteklenen İnternet adresi iletişim kuralları için varsayılan işleyici ("Birlikte aç" bu seçenek olmadan da çalışır)</value>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
     <value>Otomatik Oynat</value>
