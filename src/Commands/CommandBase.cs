@@ -23,6 +23,7 @@ using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
@@ -178,7 +179,9 @@ namespace ZeroInstall.Commands
 
             try
             {
-                ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, new[] {command, "--background"}.Concat(args).ToArray()).Start();
+                var startInfo = ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, new[] {command, "--background"}.Concat(args).ToArray());
+                startInfo.WorkingDirectory = Locations.InstallBase; // Avoid locking the user's working directory
+                startInfo.Start();
             }
                 #region Error handling
             catch (OperationCanceledException)
