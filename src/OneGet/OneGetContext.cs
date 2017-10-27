@@ -114,9 +114,10 @@ namespace ZeroInstall.OneGet
             if (requiredVersion != null) versionRange = new VersionRange(requiredVersion);
             else if (minimumVersion != null || maximumVersion != null)
             {
-                versionRange = new VersionRange(
-                    (minimumVersion == null) ? null : new ImplementationVersion(minimumVersion),
-                    (maximumVersion == null) ? null : new ImplementationVersion(maximumVersion));
+                var constraint = new Constraint();
+                if (minimumVersion != null) constraint.NotBefore = new ImplementationVersion(minimumVersion);
+                if (maximumVersion != null) constraint.Before = new ImplementationVersion(maximumVersion);
+                versionRange = constraint;
             }
             else versionRange = null;
 
@@ -142,7 +143,7 @@ namespace ZeroInstall.OneGet
                 {
                     foreach (var implementation in FeedManager.GetFresh(feed.Uri).Implementations)
                     {
-                        var requirements = new Requirements(feed.Uri) {ExtraRestrictions = {{feed.Uri, new VersionRange(implementation.Version)}}};
+                        var requirements = new Requirements(feed.Uri) {ExtraRestrictions = {{feed.Uri, implementation.Version}}};
                         Yield(requirements, feed, implementation);
                     }
                 }

@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (_version != null)
                 Requirements.ExtraRestrictions[Requirements.InterfaceUri] = _version;
             else if (_notBefore != null || _before != null)
-                Requirements.ExtraRestrictions[Requirements.InterfaceUri] = new VersionRange(_notBefore, _before);
+                Requirements.ExtraRestrictions[Requirements.InterfaceUri] = new Constraint {NotBefore = _notBefore, Before = _before};
         }
 
         /// <inheritdoc/>
