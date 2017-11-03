@@ -104,6 +104,11 @@ namespace ZeroInstall.Commands
                 ? (WindowsUtils.IsInteractive ? "0install-win" : null)
                 : null; //(UnixUtils.HasGui ? "0install-gtk" : null);
 
+        private const string
+            RegKeyFSPolicyMachine = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem",
+            RegKeyFSPolicyUser = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy Objects\{B0D05113-7B6B-4D69-81E2-8E8836775C9C}Machine\System\CurrentControlSet\Control\FileSystem",
+            RegValueNameLongPaths = "LongPathsEnabled";
+
         /// <summary>
         /// Parses command-line arguments and performs the indicated action. Performs error handling.
         /// </summary>
@@ -253,6 +258,44 @@ namespace ZeroInstall.Commands
             {
                 handler.Error(ex);
                 return ExitCode.NotSupported;
+            }
+            catch (PathTooLongException ex) when (
+                //WindowsUtils.IsWindows10Redstone &&
+                WindowsUtils.IsWindowsNT && Environment.OSVersion.Version >= new Version(10, 0, 14393) &&
+                Environment.Version >= new Version(4, 6, 2) &&
+                RegistryUtils.GetDword(RegKeyFSPolicyUser, RegValueNameLongPaths, defaultValue: RegistryUtils.GetDword(RegKeyFSPolicyMachine, RegValueNameLongPaths)) != 1)
+            {
+                string message = $"{ex.Message} Enabling Windows support for Long Paths may solve this problem.";
+                if (handler.Ask($"{message} Do you want to try this now?", defaultAnswer: false, alternateMessage: message))
+                {
+                    try
+                    {
+                        RegistryUtils.SetDword(WindowsUtils.IsAdministrator ? RegKeyFSPolicyMachine : RegKeyFSPolicyUser, RegValueNameLongPaths, 1);
+                        return (ExitCode)ProcessUtils.Assembly(exeName, args).Run();
+                    }
+                    catch (PlatformNotSupportedException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.NotSupported;
+                    }
+                    catch (IOException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.IOError;
+                    }
+                    catch (NotAdminException ex2)
+                    {
+                        handler.Error(ex2);
+                        return ExitCode.AccessDenied;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
+                }
+
+                handler.Error(ex);
+                return ExitCode.IOError;
             }
             catch (IOException ex)
             {
