@@ -143,6 +143,25 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "command");
 
+            IDisposable CreateRunHook()
+            {
+                if (!NoWait && Config.AllowApiHooking && WindowsUtils.IsWindows)
+                {
+                    try
+                    {
+                        return new RunHook(Selections, Store, FeedManager, Handler);
+                    }
+                        #region Error handling
+                    catch (ImplementationNotFoundException)
+                    {
+                        Log.Warn(Resources.NoApiHookingNonCacheImpl);
+                    }
+                    #endregion
+                }
+
+                return null;
+            }
+
             using (CreateRunHook())
             {
                 return Executor
@@ -151,25 +170,6 @@ namespace ZeroInstall.Commands.CliCommands
                     .AddArguments(AdditionalArgs.ToArray())
                     .Start();
             }
-        }
-
-        private IDisposable CreateRunHook()
-        {
-            if (!NoWait && Config.AllowApiHooking && WindowsUtils.IsWindows)
-            {
-                try
-                {
-                    return new RunHook(Selections, Store, FeedManager, Handler);
-                }
-                    #region Error handling
-                catch (ImplementationNotFoundException)
-                {
-                    Log.Warn(Resources.NoApiHookingNonCacheImpl);
-                }
-                #endregion
-            }
-
-            return null;
         }
 
         /// <summary>
