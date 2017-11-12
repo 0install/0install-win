@@ -3,10 +3,11 @@ Zero Install for Windows
 
 Zero Install is a decentralized cross-platform software-installation system available under the LGPL.
 
-- **[Website](http://0install.de/)**
-- **[Developer information](http://0install.de/dev/)**
+[![TeamCity Build status](https://0install.de/teamcity/app/rest/builds/buildType:(id:ZeroInstall_Windows_Build)/statusIcon)](https://0install.de/teamcity/viewType.html?buildTypeId=ZeroInstall_Windows_Build&guest=1)
 
-Zero Install for Windows is built upon the [Zero Install .NET Backend](https://github.com/0install/dotnet-backend).
+**[Download Zero Install for Windows](http://0install.de/downloads/)**
+
+Zero Install for Windows is built upon the **[Zero Install .NET Backend](https://github.com/0install/0install-dotnet)**.
 
 Directory structure
 -------------------
