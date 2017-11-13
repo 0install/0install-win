@@ -260,8 +260,7 @@ namespace ZeroInstall.Commands
                 return ExitCode.NotSupported;
             }
             catch (PathTooLongException ex) when (
-                //WindowsUtils.IsWindows10Redstone &&
-                WindowsUtils.IsWindowsNT && Environment.OSVersion.Version >= new Version(10, 0, 14393) &&
+                WindowsUtils.IsWindows10Redstone &&
                 Environment.Version >= new Version(4, 6, 2) &&
                 RegistryUtils.GetDword(RegKeyFSPolicyUser, RegValueNameLongPaths, defaultValue: RegistryUtils.GetDword(RegKeyFSPolicyMachine, RegValueNameLongPaths)) != 1)
             {

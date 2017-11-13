@@ -177,11 +177,13 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         private void BackgroundUpdate()
         {
-            if (FeedManager.ShouldRefresh)
-            {
-                Log.Info("Starting background update because feeds have become stale");
-                StartCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Prepend("--batch"));
-            }
+            if (!FeedManager.ShouldRefresh) return;
+
+            // Prevent multiple concurrent updates
+            if (FeedManager.RateLimit(Requirements.InterfaceUri)) return;
+
+            Log.Info("Starting background update because feeds have become stale");
+            StartCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Prepend("--batch"));
         }
     }
 }

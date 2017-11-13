@@ -149,16 +149,15 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected void SelfUpdateCheck()
         {
-            if (SelfUpdateUtils.NoAutoCheck || ProgramUtils.IsRunningFromCache || Config.NetworkUse != NetworkLevel.Full || Handler.Verbosity == Verbosity.Batch) return;
+            if (SelfUpdateUtils.NoAutoCheck ||
+                ProgramUtils.IsRunningFromCache ||
+                Config.NetworkUse != NetworkLevel.Full ||
+                Handler.Verbosity == Verbosity.Batch ||
+                !FeedManager.IsStale(Config.SelfUpdateUri))
+                return;
 
-            Log.Debug("Determining whether self-update check is due");
-            if (!FeedManager.IsStale(Config.SelfUpdateUri)) return;
-            using (new MutexLock("ZeroInstall.SelfUpdateCheck"))
-            { // Prevent multiple concurrent self-update checks
-                if (FeedManager.IsStale(Config.SelfUpdateUri))
-                    return;
-                Services.Feeds.FeedManager.SetLastCheckAttempt(Config.SelfUpdateUri);
-            }
+            // Prevent multiple concurrent updates
+            if (FeedManager.RateLimit(Config.SelfUpdateUri)) return;
 
             Log.Info("Starting periodic background self-update check");
             StartCommandBackground(SelfUpdate.Name);
