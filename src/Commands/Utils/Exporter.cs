@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands.Utils
         /// <exception cref="IOException">The directory <paramref name="destination"/> could not be createdor.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="destination"/> is not permitted.</exception>
         public Exporter([NotNull] Selections selections, [NotNull] Requirements requirements, [NotNull] string destination)
-            : this(selections, requirements.GetEffective().First().Architecture, destination)
+            : this(selections, requirements.GetNormalizedAlternatives().First().Architecture, destination)
         {}
 
         /// <summary>
