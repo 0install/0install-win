@@ -81,13 +81,10 @@ namespace ZeroInstall.Commands.Utils
             {
                 AquireMutex();
             }
-                #region Error handling
-            catch (UnauthorizedAccessException)
+            catch (TimeoutException)
             {
-                // Replace exception to add more context
                 throw new UnauthorizedAccessException("You can only perform one maintenance operation at a time.");
             }
-            #endregion
         }
 
 

@@ -93,7 +93,7 @@ namespace ZeroInstall.Commands.Utils
                     Thread.Sleep(1000);
 
                 // Prevent new instances from starting
-                AppMutex.Create(targetMutex + "-update", out _targetMutex);
+                _targetMutex = AppMutex.Create(targetMutex + "-update");
 
                 // Detect any new instances that started in the short time between detecting existing ones and blocking new ones
                 while (AppMutex.Probe(targetMutex))

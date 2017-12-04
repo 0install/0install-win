@@ -16,14 +16,12 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -100,13 +98,9 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         protected override ExitCode ShowOutput()
         {
-            string diff = Selections.GetHumanReadableDiff(_oldSelections);
+            var diff = SelectionsManager.GetDiff(_oldSelections, Selections).ToList();
 
-            var replacedBy = GetReplacedBy(Requirements.InterfaceUri);
-            if (replacedBy != null)
-                diff += string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, replacedBy) + Environment.NewLine;
-
-            if (diff.Length == 0)
+            if (diff.Count == 0)
             {
                 Handler.OutputLow(Resources.NoUpdatesFound, Resources.NoUpdatesFound);
                 return ExitCode.NoChanges;
@@ -115,19 +109,6 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 Handler.Output(Resources.ChangesFound, diff);
                 return ExitCode.OK;
-            }
-        }
-
-        private FeedUri GetReplacedBy(FeedUri feedUri)
-        {
-            try
-            {
-                var feed = FeedCache.GetFeed(feedUri);
-                return feed.ReplacedBy?.Target;
-            }
-            catch (KeyNotFoundException)
-            {
-                return null;
             }
         }
     }

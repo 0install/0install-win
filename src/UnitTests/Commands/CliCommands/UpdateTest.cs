@@ -19,10 +19,12 @@ using System;
 using Moq;
 using NanoByte.Common.Storage;
 using Xunit;
+using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
+using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -43,6 +45,7 @@ namespace ZeroInstall.Commands.CliCommands
             GetMock<ISolver>().SetupSequence(x => x.Solve(requirements))
                 .Returns(selectionsOld)
                 .Returns(selectionsNew);
+            GetMock<IFeedCache>().Setup(x => x.GetFeed(Fake.Feed1Uri)).Returns(Fake.Feed);
 
             // Download uncached implementations
             ExpectFetchUncached(selectionsNew,
@@ -50,10 +53,10 @@ namespace ZeroInstall.Commands.CliCommands
                 new Implementation {ID = "id2"},
                 new Implementation {ID = "id3"});
 
-            // Check for <replaced-by>
-            GetMock<IFeedCache>().Setup(x => x.GetFeed(Fake.Feed1Uri)).Returns(Fake.Feed);
+            var diffNodes = new[] {new SelectionsDiffNode(Fake.Feed2Uri)};
+            GetMock<ISelectionsManager>().Setup(x => x.GetDiff(selectionsOld, selectionsNew)).Returns(diffNodes);
 
-            RunAndAssert("http://0install.de/feeds/test/sub3.xml: new -> 0.1" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine, 0, selectionsNew,
+            RunAndAssert(diffNodes, 0,
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 

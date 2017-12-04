@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -26,7 +25,6 @@ using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
@@ -266,17 +264,9 @@ namespace ZeroInstall.Commands.CliCommands
 
         protected virtual ExitCode ShowOutput()
         {
-            Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            if (ShowXml) Handler.Output(Resources.SelectedImplementations, Selections.ToXmlString());
+            else Handler.Output(Resources.SelectedImplementations, SelectionsManager.GetTree(Selections));
             return ExitCode.OK;
-        }
-
-        /// <summary>
-        /// Returns the content of <see cref="Selections"/> formated as the user requested it.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        protected string GetSelectionsOutput()
-        {
-            return ShowXml ? Selections.ToXmlString() : Selections.GetHumanReadable(Store);
         }
     }
 }

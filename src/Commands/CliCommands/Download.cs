@@ -141,9 +141,9 @@ namespace ZeroInstall.Commands.CliCommands
 
         protected override ExitCode ShowOutput()
         {
-            if (_show || ShowXml) Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            else Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            if (_show || ShowXml) return base.ShowOutput();
 
+            Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             return ExitCode.OK;
         }
     }

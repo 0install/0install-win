@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
@@ -32,7 +33,7 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// A minimalistic <see cref="ICommandHandler"/> that allows you to pre-record answers and retrieve output.
     /// </summary>
-    public class MockCommandHandler : SilentTaskHandler, ICommandHandler
+    public class MockCommandHandler : TaskHandlerBase, ICommandHandler
     {
         /// <summary>
         /// Always returns <c>false</c>.
@@ -51,8 +52,6 @@ namespace ZeroInstall.Commands
             // No UI, so nothing to do
         }
 
-        public override Verbosity Verbosity { get; set; }
-
         /// <summary>
         /// The prerecorded result for <see cref="Ask"/>.
         /// </summary>
@@ -62,6 +61,11 @@ namespace ZeroInstall.Commands
         /// Last question passed to <see cref="Ask"/>.
         /// </summary>
         public string LastQuestion { get; private set; }
+
+        protected override void LogHandler(LogSeverity severity, string message)
+        {}
+
+        public override void RunTask(ITask task) => task.Run(CancellationToken, CredentialProvider);
 
         /// <summary>
         /// Fakes asking the user a question.
@@ -131,5 +135,10 @@ namespace ZeroInstall.Commands
         /// Fakes showing tabular data to the user.
         /// </summary>
         public override void Output<T>(string title, IEnumerable<T> data) => LastOutputObjects = data;
+
+        public override void Error(Exception exception)
+        {}
+
+        public override ICredentialProvider CredentialProvider => null;
     }
 }

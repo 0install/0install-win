@@ -25,7 +25,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Like <see cref="SilentTaskHandler"/> but with <see cref="Msg"/> for <see cref="ITaskHandler.Ask(string)"/>.
     /// </summary>
-    public class MinimalTaskHandler : SilentTaskHandler
+    public class MinimalTaskHandler : GuiTaskHandlerBase
     {
         private readonly Control _owner;
 
@@ -33,10 +33,10 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new minimal handler.
         /// </summary>
         /// <param name="owner">The parent window owning the handler.</param>
-        public MinimalTaskHandler(Control owner)
-        {
-            _owner = owner;
-        }
+        public MinimalTaskHandler(Control owner) => _owner = owner;
+
+        /// <inheritdoc/>
+        public override void RunTask(ITask task) => task.Run(CancellationToken, CredentialProvider);
 
         /// <inheritdoc/>
         protected override bool Ask(string question, MsgSeverity severity)
