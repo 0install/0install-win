@@ -36,9 +36,6 @@ namespace ZeroInstall.Commands.WinForms
         public MinimalTaskHandler(Control owner) => _owner = owner;
 
         /// <inheritdoc/>
-        public override void RunTask(ITask task) => task.Run(CancellationToken, CredentialProvider);
-
-        /// <inheritdoc/>
         protected override bool Ask(string question, MsgSeverity severity)
         {
             bool result = false;

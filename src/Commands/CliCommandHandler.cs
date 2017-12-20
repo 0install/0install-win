@@ -60,16 +60,10 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void CustomizeSelections(Func<Selections> solveCallback)
-        {
-            throw new NeedGuiException(Resources.NoCustomizeSelectionsInCli);
-        }
+        public void CustomizeSelections(Func<Selections> solveCallback) => throw new NeedGuiException(Resources.NoCustomizeSelectionsInCli);
 
         /// <inheritdoc/>
-        public void ShowIntegrateApp(IntegrationState state)
-        {
-            throw new NeedGuiException(Resources.IntegrateAppUseGui);
-        }
+        public void ShowIntegrateApp(IntegrationState state) => throw new NeedGuiException(Resources.IntegrateAppUseGui);
 
         /// <inheritdoc/>
         public void ShowFeedSearch(SearchQuery query)
@@ -92,9 +86,6 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void ManageStore(IStore store, IFeedCache feedCache)
-        {
-            throw new NeedGuiException();
-        }
+        public void ManageStore(IStore store, IFeedCache feedCache) => throw new NeedGuiException();
     }
 }

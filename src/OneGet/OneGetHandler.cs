@@ -30,10 +30,7 @@ namespace ZeroInstall.OneGet
     {
         private readonly Request _request;
 
-        public OneGetHandler(Request request)
-        {
-            _request = request;
-        }
+        public OneGetHandler(Request request) => _request = request;
 
         /// <summary>
         /// Outputs <see cref="Log"/> messages using the OneGet <see cref="Request"/> object.

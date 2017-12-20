@@ -65,8 +65,6 @@ namespace ZeroInstall.Commands
         protected override void LogHandler(LogSeverity severity, string message)
         {}
 
-        public override void RunTask(ITask task) => task.Run(CancellationToken, CredentialProvider);
-
         /// <summary>
         /// Fakes asking the user a question.
         /// </summary>

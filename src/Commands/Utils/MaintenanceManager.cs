@@ -87,7 +87,6 @@ namespace ZeroInstall.Commands.Utils
             }
         }
 
-
         /// <summary>
         /// Runs the deployment process.
         /// </summary>
