@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (_machineWide && !WindowsUtils.IsAdministrator)
                 throw new NotAdminException(Resources.MustBeAdminForMachineWide);
 
-            return (ExitCode)ProcessUtils.Assembly(WindowsUtils.IsWindows ? "ZeroInstall" : "ZeroInstall-gtk").Run();
+            return (ExitCode)ProcessUtils.Assembly("ZeroInstall").Run();
         }
     }
 }

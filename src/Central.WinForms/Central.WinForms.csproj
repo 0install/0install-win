@@ -155,7 +155,7 @@
     <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\_clr2\App.config" />
+    <None Include="..\App.config" />
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
     <Content Include="Resources\AppAdd.png" />

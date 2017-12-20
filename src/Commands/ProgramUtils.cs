@@ -100,9 +100,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         [CanBeNull]
         public static readonly string GuiAssemblyName =
-            WindowsUtils.IsWindows
-                ? (WindowsUtils.IsInteractive ? "0install-win" : null)
-                : null; //(UnixUtils.HasGui ? "0install-gtk" : null);
+            WindowsUtils.IsWindows && WindowsUtils.IsInteractive ? "0install-win" : null;
 
         private const string
             RegKeyFSPolicyMachine = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem",

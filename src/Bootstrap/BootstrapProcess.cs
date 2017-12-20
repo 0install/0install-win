@@ -356,9 +356,7 @@ namespace ZeroInstall
             string existingInstall = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
             if (!string.IsNullOrEmpty(existingInstall))
             {
-                string launchAssembly = _gui
-                    ? "0install-win" //(WindowsUtils.IsWindows ? "0install-win" : "0install-gtk")
-                    : "0install";
+                string launchAssembly = _gui ? "0install-win" : "0install";
 
                 if (File.Exists(Path.Combine(existingInstall, launchAssembly + ".exe")))
                     return ProcessUtils.Assembly(Path.Combine(existingInstall, launchAssembly), _targetArgs.ToArray());

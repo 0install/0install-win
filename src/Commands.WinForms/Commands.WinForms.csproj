@@ -241,7 +241,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\_clr2\App.config" />
+    <None Include="..\App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
