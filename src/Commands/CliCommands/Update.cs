@@ -63,20 +63,12 @@ namespace ZeroInstall.Commands.CliCommands
                 Log.Info("Running Refresh Solve to find updates");
                 RefreshSolve();
             }
-                #region Error handling
-            catch (WebException ex) when (Handler.Background)
-            {
-                Log.Info("Suppressed network-related error message due to background mode");
-                Log.Info(ex);
-                return ExitCode.WebError;
-            }
             catch (SolverException ex) when (Handler.Background)
             {
                 Log.Info("Suppressed Solver-related error message due to background mode");
                 Log.Info(ex);
                 return ExitCode.SolverError;
             }
-            #endregion
 
             DownloadUncachedImplementations();
             SelfUpdateCheck();
