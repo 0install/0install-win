@@ -8,6 +8,11 @@ http://code.google.com/p/moq-contrib/
 New BSD license: http://opensource.org/licenses/BSD-3-Clause
 NuGet package: Moq.Contrib
 
+Mono.Posix
+https://github.com/mono/mono/tree/master/mcs/class/Mono.Posix
+MIT license: http://opensource.org/licenses/MIT
+Pre-compiled managed DLL taken from GTK# 2.12: Mono.Posix.dll (used as reference assembly)
+
 ICSharpCode.SharpZipLib (patched)
 http://www.icsharpcode.net/OpenSource/SharpZipLib/ + https://github.com/nano-byte/SharpZipLib
 GNU GPL with GNU Classpath exception
