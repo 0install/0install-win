@@ -57,19 +57,16 @@ namespace ZeroInstall.Commands.WinForms
             });
         }
 
-        protected override void Dispose(bool disposing)
+        public override void Dispose()
         {
             try
             {
-                if (disposing)
-                {
-                    _customizeSelectionsWaitHandle.Close();
-                    _wrapper.Dispose();
-                }
+                _customizeSelectionsWaitHandle.Close();
+                _wrapper.Dispose();
             }
             finally
             {
-                base.Dispose(disposing);
+                base.Dispose();
             }
         }
         #endregion

@@ -180,6 +180,10 @@ namespace ZeroInstall.Central.WinForms
                 #region Error handling
             catch (OperationCanceledException)
             {}
+            catch (UriFormatException ex)
+            {
+                Log.Warn(ex);
+            }
             catch (WebException ex)
             {
                 Log.Warn(ex);

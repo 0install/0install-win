@@ -39,7 +39,7 @@ namespace ZeroInstall
             });
         }
 
-        protected override void Dispose(bool disposing)
+        public override void Dispose()
         {
             try
             {
@@ -47,7 +47,7 @@ namespace ZeroInstall
             }
             finally
             {
-                base.Dispose(disposing);
+                base.Dispose();
             }
         }
 
