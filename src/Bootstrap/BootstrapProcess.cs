@@ -62,12 +62,6 @@ namespace ZeroInstall
         [NotNull]
         private readonly List<string> _targetArgs = new List<string>();
 
-        /// <summary>
-        /// <c>true</c> if <see cref="Program.ExeName"/> file name indicates unattended installations should be per-user; <c>false</c> if they should be machine-wide.
-        /// </summary>
-        /// <remarks>Old installers were seperated into per-user and machine-wide. We now emulate this by looking at the EXE file name.</remarks>
-        private static bool IsPerUser => StringUtils.EqualsIgnoreCase(Program.ExeName, "zero-install-per-user");
-
         private string HelpText
         {
             get
@@ -190,22 +184,6 @@ namespace ZeroInstall
                     }
                 }
             };
-
-            if (EmbeddedConfig.Instance.AppMode == BootstrapMode.None)
-            {
-                _options.Add("silent", () => "Deploy Zero Install in unattended mode. Equivalent to \"maintenance deploy --batch\".", _ =>
-                {
-                    _targetArgs.Clear();
-                    _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch"});
-                    if (!IsPerUser) _targetArgs.Add("--machine");
-                });
-                _options.Add("verysilent", () => "Deploy Zero Install in unattended mode with no UI. Equivalent to \"maintenance deploy --batch --background\".", _ =>
-                {
-                    _targetArgs.Clear();
-                    _targetArgs.AddRange(new[] {"maintenance", "deploy", "--batch", "--background"});
-                    if (!IsPerUser) _targetArgs.Add("--machine");
-                });
-            }
         }
         #endregion
 
