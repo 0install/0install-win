@@ -22,6 +22,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
+using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.Utils;
@@ -177,7 +178,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         private void BackgroundUpdate()
         {
-            if (!FeedManager.ShouldRefresh) return;
+            if (!FeedManager.ShouldRefresh || !NetUtils.IsInternetConnected()) return;
 
             // Prevent multiple concurrent updates
             if (FeedManager.RateLimit(Requirements.InterfaceUri)) return;

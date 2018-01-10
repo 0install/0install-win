@@ -23,6 +23,7 @@ using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
@@ -151,6 +152,7 @@ namespace ZeroInstall.Commands
         {
             if (SelfUpdateUtils.NoAutoCheck ||
                 ProgramUtils.IsRunningFromCache ||
+                !NetUtils.IsInternetConnected() ||
                 Config.NetworkUse != NetworkLevel.Full ||
                 Handler.Verbosity == Verbosity.Batch ||
                 !FeedManager.IsStale(Config.SelfUpdateUri))
