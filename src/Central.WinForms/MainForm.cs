@@ -123,7 +123,7 @@ namespace ZeroInstall.Central.WinForms
 
             if (ProgramUtils.IsRunningFromCache && ProgramUtils.FindOtherInstance() == null)
                 deployTimer.Enabled = true;
-            else if (!SelfUpdateUtils.NoAutoCheck)
+            if (!ProgramUtils.IsRunningFromCache && !SelfUpdateUtils.NoAutoCheck)
                 selfUpdateWorker.RunWorkerAsync();
         }
 
