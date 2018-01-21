@@ -30,7 +30,6 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 using Icon = ZeroInstall.Store.Model.Icon;
 using SharedResources = ZeroInstall.Central.Properties.Resources;
@@ -54,9 +53,9 @@ namespace ZeroInstall.Central.WinForms
 
         private static readonly ITaskHandler _handler = new SilentTaskHandler();
 
-        /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
+        /// <summary>The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
         [CanBeNull]
-        private readonly IIconCache _iconCache;
+        private readonly IIconStore _iconStore;
         #endregion
 
         #region Properties
@@ -109,11 +108,11 @@ namespace ZeroInstall.Central.WinForms
                 // Get application summary from feed
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
 
-                if (_iconCache != null)
+                if (_iconStore != null)
                 {
                     // Load application icon in background
                     var icon = value.GetIcon(Icon.MimeTypePng);
-                    if (icon != null) iconDownloadWorker.RunWorkerAsync(icon.Href);
+                    if (icon != null) iconDownloadWorker.RunWorkerAsync(icon);
                     else pictureBoxIcon.Image = Resources.AppIcon; // Fall back to default icon
                 }
                 else pictureBoxIcon.Image = Resources.AppIcon; // Fall back to default icon
@@ -128,9 +127,9 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</param>
+        /// <param name="iconStore">The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false)
+        public AppTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconStore iconStore = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -138,7 +137,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             _machineWide = machineWide;
-            _iconCache = iconCache;
+            _iconStore = iconStore;
 
             InitializeComponent();
             buttonRun.Text = buttonRun2.Text = _runButtonText;
@@ -169,11 +168,11 @@ namespace ZeroInstall.Central.WinForms
         private void iconDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             // Download and load icon in background
-            var uri = (Uri)e.Argument;
+            var icon = (Icon)e.Argument;
             try
             {
-                Debug.Assert(_iconCache != null);
-                string path = _iconCache.GetIcon(uri, _handler);
+                Debug.Assert(_iconStore != null);
+                string path = _iconStore.GetPath(icon, _machineWide);
                 using (var stream = File.OpenRead(path))
                     e.Result = Image.FromStream(stream);
             }
@@ -190,17 +189,17 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (IOException ex)
             {
-                Log.Warn($"Failed to store icon from {uri}");
+                Log.Warn($"Failed to store {icon}");
                 Log.Warn(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn($"Failed to store icon from {uri}");
+                Log.Warn($"Failed to store {icon}");
                 Log.Warn(ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Warn($"Failed to parse icon from {uri}");
+                Log.Warn($"Failed to parse {icon}");
                 Log.Warn(ex);
             }
             #endregion

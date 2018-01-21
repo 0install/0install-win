@@ -28,6 +28,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Services.Feeds;
@@ -110,13 +111,14 @@ namespace ZeroInstall.Commands.Utils
                     string processCommandLine = Path.Combine(_implementationDir, command.Path);
 
                     string registryCommandLine;
+                    var iconStore = new IconStore(_handler);
                     try
                     { // Try to use a machine-wide stub if possible
-                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, _handler, machineWide: true);
+                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, iconStore, machineWide: true);
                     }
                     catch (UnauthorizedAccessException)
                     { // Fall back to per-user stub
-                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, _handler);
+                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, iconStore);
                     }
 
                     // Apply filter with normal and with escaped string
@@ -199,7 +201,7 @@ namespace ZeroInstall.Commands.Utils
         private string GetIconPath([CanBeNull] string command = null)
         {
             var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            return icon == null ? null : IconProvider.GetIconPath(icon, _handler, machineWide: false);
+            return (icon == null) ? null : new IconStore(_handler).GetPath(icon);
         }
         #endregion
 

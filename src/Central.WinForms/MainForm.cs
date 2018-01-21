@@ -39,7 +39,6 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -74,9 +73,10 @@ namespace ZeroInstall.Central.WinForms
 
             _machineWide = machineWide;
 
-            var services = new ServiceLocator(new MinimalTaskHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
+            var handler = new MinimalTaskHandler(this);
+            var services = new ServiceLocator(handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager, IconCacheProvider.GetInstance(),
+                services.FeedManager, services.CatalogManager, new IconStore(handler),
                 tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion

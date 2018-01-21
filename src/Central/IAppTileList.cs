@@ -19,7 +19,6 @@ using System;
 using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central
 {
@@ -34,10 +33,10 @@ namespace ZeroInstall.Central
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <param name="iconCache">The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons; can be <c>null</c>.</param>
+        /// <param name="iconStore">The icon store used by newly created <see cref="IAppTile"/>s to retrieve application icons; can be <c>null</c>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="InvalidOperationException">The list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
-        IAppTile QueueNewTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false);
+        IAppTile QueueNewTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconStore iconStore = null, bool machineWide = false);
 
         /// <summary>
         /// Adds all new tiles queued by <see cref="IAppTileList.QueueNewTile"/> calls.

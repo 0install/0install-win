@@ -25,8 +25,8 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -131,7 +131,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region Access
         /// <inheritdoc/>
-        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconCache iconCache = null, bool machineWide = false)
+        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore iconStore = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -139,7 +139,7 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.ContainsKey(interfaceUri)) throw new InvalidOperationException("Duplicate interface URI");
             #endregion
 
-            var tile = new AppTile(interfaceUri, appName, status, iconCache, machineWide) {Width = _flowLayout.Width};
+            var tile = new AppTile(interfaceUri, appName, status, iconStore, machineWide) {Width = _flowLayout.Width};
 
             if (appName.ContainsIgnoreCase(TextSearch.Text))
             {

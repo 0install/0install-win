@@ -27,7 +27,6 @@ using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -41,7 +40,7 @@ namespace ZeroInstall.Central
         #region Dependencies
         private readonly IFeedManager _feedManager;
         private readonly ICatalogManager _catalogManager;
-        private readonly IIconCache _iconCache;
+        private readonly IIconStore _iconStore;
 
         private readonly IAppTileList _tileListMyApps, _tileListCatalog;
         private readonly bool _machineWide;
@@ -51,15 +50,15 @@ namespace ZeroInstall.Central
         /// </summary>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="catalogManager">Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.</param>
-        /// <param name="iconCache">The icon cache used by newly created <see cref="IAppTile"/>s to retrieve application icons.</param>
+        /// <param name="iconStore">The icon store used by newly created <see cref="IAppTile"/>s to retrieve application icons.</param>
         /// <param name="tileListMyApps">The <see cref="IAppTileList"/> used to represent the "my apps" <see cref="AppList"/>.</param>
         /// <param name="tileListCatalog">The <see cref="IAppTileList"/> used to represent the merged <see cref="Catalog"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IIconCache iconCache, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
+        public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IIconStore iconStore, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
         {
             _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
             _catalogManager = catalogManager ?? throw new ArgumentNullException(nameof(catalogManager));
-            _iconCache = iconCache ?? throw new ArgumentNullException(nameof(iconCache));
+            _iconStore = iconStore ?? throw new ArgumentNullException(nameof(iconStore));
 
             _tileListMyApps = tileListMyApps ?? throw new ArgumentNullException(nameof(tileListMyApps));
             _tileListCatalog = tileListCatalog ?? throw new ArgumentNullException(nameof(tileListCatalog));
@@ -92,7 +91,7 @@ namespace ZeroInstall.Central
                     try
                     {
                         var status = (entry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
-                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceUri, entry.Name, status, _iconCache, _machineWide);
+                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceUri, entry.Name, status, _iconStore, _machineWide);
                         tiles.Add(tile);
 
                         // Update "added" status of tile in catalog list
@@ -225,7 +224,7 @@ namespace ZeroInstall.Central
                 var status = (appEntry == null)
                     ? AppStatus.Candidate
                     : ((appEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
-                var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _iconCache, _machineWide);
+                var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _iconStore, _machineWide);
                 tile.Feed = feed;
             }
                 #region Error handling
