@@ -169,10 +169,17 @@ namespace ZeroInstall.Central.WinForms
             textBoxCustomServer.Enabled = optionCustomServer.Checked;
             textBoxFileShare.Enabled = buttonFileShareBrowse.Enabled = optionFileShare.Checked;
 
-            pageServer.AllowNext =
-                optionOfficalServer.Checked ||
-                (optionCustomServer.Checked && !string.IsNullOrEmpty(textBoxCustomServer.Text) && textBoxCustomServer.IsValid) ||
-                (optionFileShare.Checked && !string.IsNullOrEmpty(textBoxFileShare.Text) && Path.IsPathRooted(textBoxFileShare.Text));
+            try
+            {
+                pageServer.AllowNext =
+                    optionOfficalServer.Checked ||
+                    (optionCustomServer.Checked && !string.IsNullOrEmpty(textBoxCustomServer.Text) && textBoxCustomServer.IsValid) ||
+                    (optionFileShare.Checked && !string.IsNullOrEmpty(textBoxFileShare.Text) && Path.IsPathRooted(textBoxFileShare.Text));
+            }
+            catch (ArgumentException)
+            {
+                pageServer.AllowNext = false;
+            }
         }
 
         private void linkCustomServer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
