@@ -323,19 +323,13 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Trust
         private void LoadTrust()
-        {
-            treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
-        }
+            => treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
 
         private void SaveTrust()
-        {
-            treeViewTrustedKeys.Nodes.ToTrustDB().Save();
-        }
+            => treeViewTrustedKeys.Nodes.ToTrustDB().Save();
 
         private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
-        {
-            buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);
-        }
+            => buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);
 
         private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
         {

@@ -53,10 +53,7 @@ namespace ZeroInstall.OneGet
         /// </summary>
         /// <param name="request">The OneGet request callback object.</param>
         public OneGetContext([NotNull] Request request)
-            : base(new OneGetHandler(request))
-        {
-            _request = request;
-        }
+            : base(new OneGetHandler(request)) => _request = request;
 
         /// <inheritdoc/>
         public void Dispose() => Handler.Dispose();
@@ -178,11 +175,7 @@ namespace ZeroInstall.OneGet
         public void FindPackageBy(string identifier)
         {
             FeedManager.Refresh = Refresh;
-
-            var uri = GetCanonicalUri(identifier);
-            var requirements = new Requirements(uri);
-
-            Yield(requirements);
+            Yield(new Requirements(GetCanonicalUri(identifier)));
         }
 
         public void GetInstalledPackages(string name)
