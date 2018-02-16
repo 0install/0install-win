@@ -326,7 +326,7 @@ namespace ZeroInstall.Commands.WinForms
             => treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
 
         private void SaveTrust()
-            => treeViewTrustedKeys.Nodes.ToTrustDB().Save();
+            => treeViewTrustedKeys.Nodes.ToTrustDB().Save(TrustDB.DefaultLocation);
 
         private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
             => buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);
