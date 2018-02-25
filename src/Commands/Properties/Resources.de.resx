@@ -157,6 +157,9 @@ Sie können das Import Skript oder das Bootstrap Programm in '{1}' verwenden, um
   <data name="AskRemoveZeroInstall" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie Zero Install von diesem Computer entfernen möchten?</value>
   </data>
+  <data name="AskTryNow" xml:space="preserve">
+    <value>Möchten Sie das jetzt versuchen?</value>
+  </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Möchten Sie die bestehende Desktopintegration daran anpassen?
 Wenn Sie 'Ja' wählen werden möglicherweise nicht mehr kompatible Integrationen entfernt.
@@ -516,6 +519,9 @@ Führen Sie '0install self-update --force' aus, um dies zu beheben.</value>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>
+  <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
+    <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
+  </data>
   <data name="NoIntegrationFromCache" xml:space="preserve">
     <value>Zero Install muss auf Ihrem System eingerichtet werden, damit Desktopintegration funktioniert.</value>
   </data>
@@ -527,9 +533,6 @@ Führen Sie '0install self-update --force' aus, um dies zu beheben.</value>
   </data>
   <data name="NoMachineWideIntegrationFromPerUser" xml:space="preserve">
     <value>Zero Install läuft aus einem benutzerspezifischen Verzeichnis heraus. Es muss in einem für alle Benutzer zugänglichen Verzeichnis abgelegt werden, damit maschinenweite Desktopintegration funktioniert.</value>
-  </data>
-  <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
-    <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Beim Ausführen einer Implementierung darf der Command nicht leer sein.</value>
@@ -778,6 +781,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>{0} wurde erfolgreich entfernt.</value>
+  </data>
+  <data name="SuggestLongPath" xml:space="preserve">
+    <value>Die Windows Unterstützung für lange Pfade zu aktiveren, könnte dieses Problem lösen.</value>
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Unterstützte Werte: {0}</value>

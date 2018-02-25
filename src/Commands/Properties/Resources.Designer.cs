@@ -19,7 +19,7 @@ namespace ZeroInstall.Commands.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -175,6 +175,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string AskRemoveZeroInstall {
             get {
                 return ResourceManager.GetString("AskRemoveZeroInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to try this now?.
+        /// </summary>
+        public static string AskTryNow {
+            get {
+                return ResourceManager.GetString("AskTryNow", resourceCulture);
             }
         }
         
@@ -1406,7 +1415,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Switch to a specific tab in the configuration GUI. Possible {TAB}s are &apos;updates&apos;, &apos;storage&apos;, &apos;catalog&apos;, &apos;trust&apos;, &apos;sync&apos; and &apos;advanced&apos;.
+        ///   Looks up a localized string similar to Switch to a specific tab in the configuration GUI. Possible {TAB}s are &apos;updates&apos;, &apos;storage&apos;, &apos;catalog&apos;, &apos;trust&apos;, &apos;sync&apos;, &apos;language&apos;, &apos;language&apos; and &apos;advanced&apos;.
         ///Has no effect in text-mode..
         /// </summary>
         public static string OptionConfigTab {
@@ -1979,6 +1988,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string SuccessfullyRemoved {
             get {
                 return ResourceManager.GetString("SuccessfullyRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabling Windows support for Long Paths may solve this problem..
+        /// </summary>
+        public static string SuggestLongPath {
+            get {
+                return ResourceManager.GetString("SuggestLongPath", resourceCulture);
             }
         }
         

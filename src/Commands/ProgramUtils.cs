@@ -262,8 +262,8 @@ namespace ZeroInstall.Commands
                 Environment.Version >= new Version(4, 6, 2) &&
                 RegistryUtils.GetDword(RegKeyFSPolicyUser, RegValueNameLongPaths, defaultValue: RegistryUtils.GetDword(RegKeyFSPolicyMachine, RegValueNameLongPaths)) != 1)
             {
-                string message = $"{ex.Message} Enabling Windows support for Long Paths may solve this problem.";
-                if (handler.Ask($"{message} Do you want to try this now?", defaultAnswer: false, alternateMessage: message))
+                string message = ex.Message + @" " + Resources.SuggestLongPath;
+                if (handler.Ask(message + @" " + Resources.AskTryNow, defaultAnswer: false, alternateMessage: message))
                 {
                     try
                     {

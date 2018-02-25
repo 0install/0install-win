@@ -157,6 +157,9 @@ You can use the import script or Bootstrap executable in '{1}' to import these f
   <data name="AskRemoveZeroInstall" xml:space="preserve">
     <value>Are you sure you want to remove Zero Install from this computer?</value>
   </data>
+  <data name="AskTryNow" xml:space="preserve">
+    <value>Do you want to try this now?</value>
+  </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Do you wish to update any existing desktop integration to reflect this?
 If you select 'Yes' potentially incompatible integrations will be removed.
@@ -778,6 +781,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>Successfully removed {0}.</value>
+  </data>
+  <data name="SuggestLongPath" xml:space="preserve">
+    <value>Enabling Windows support for Long Paths may solve this problem.</value>
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Supported values: {0}</value>
