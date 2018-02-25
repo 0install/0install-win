@@ -115,9 +115,7 @@ namespace ZeroInstall.Commands.CliCommands
             /// Indicates whether any desktop integration for apps has been performed yet.
             /// </summary>
             private static bool ExistingDesktopIntegration(bool machineWide)
-            {
-                return AppList.LoadSafe(machineWide).Entries.Any(x => x.AccessPoints != null);
-            }
+                => AppList.LoadSafe(machineWide).Entries.Any(x => x.AccessPoints != null);
 
             /// <summary>
             /// Deploys a portable copy of Zero Install to a temp directory and delegates the actual removal of the current instance to this copy.
