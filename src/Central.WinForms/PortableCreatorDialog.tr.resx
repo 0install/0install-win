@@ -127,7 +127,7 @@
     <value>&amp;Yükle</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Zero Install ayarları ile önbellekteki uygulamaları tek klasörde depolar.
+    <value>- Zero Install ayarları ile ön bellekteki uygulamaları tek klasörde depolar.
 - Zero Install Taşınabilir, uygulamaları otomatik olarak başlatamaz.
 - Zero Install Taşınabilir, masaüstü ile bütünleşemez (başlat menüsü kayıtları oluşturamaz gibi).
 - Farklı bilgisayarlarda kullanmak için taşınabilir sürüm yerine Zero Install Sync özelliğini kullanmayı düşünün.</value>

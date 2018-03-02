@@ -143,7 +143,7 @@ Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü bütünleştirmele
     <value>Geçerli kullanıcı için</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>'{0}' için çift uygulama listesi kaydı yoksayılıyor.</value>
+    <value>'{0}' için çift uygulama listesi kaydı yok sayılıyor.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Yükleme bütünleştirmesi</value>
@@ -225,7 +225,7 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Hayır
-Değişiklikleri yoksay</value>
+Değişiklikleri yok say</value>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>Evet
@@ -254,7 +254,7 @@ Değişiklikleri kaydet</value>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Hayır
-varolan ayarları düzenle</value>
+var olan ayarları düzenle</value>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Evet
@@ -271,7 +271,7 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
     <value>'{0}' uygulama listesi kaydı için akış yüklenemedi.</value>
   </data>
   <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Güncelleştirme denetimi yapılamadı.</value>
+    <value>Güncelleme denetimi yapılamadı.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sync sunucusu ile şifresiz bir bağlantı kurmak istediğinize emin misiniz?
@@ -281,8 +281,8 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
     <value>&amp;Güncelle</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Bu işlem güncelleştirme sonrasında artık gerek duyulmayan uygulamaları önbellekten siler. Devam etmek ister misiniz?
-Uyarı: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da önbellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrimiçi olmanız gerekecek.</value>
+    <value>Bu işlem güncelleme sonrasında artık gerek duyulmayan uygulamaları ön bellekten siler. Devam etmek ister misiniz?
+Uyarı: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da ön bellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrimiçi olmanız gerekecek.</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>İşleniyor...</value>

@@ -124,7 +124,7 @@
     <value>Güncelle ve &amp;temizle</value>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Tümünü &amp;güncelleştir</value>
+    <value>Tümünü &amp;güncelle</value>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
     <value>Eşitle</value>
@@ -148,10 +148,10 @@
     <value>Anahtar &amp;sözcük arayın</value>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>&amp;Akışın İnternet adresini yazın (tek bir uygulama)</value>
+    <value>&amp;Akışın adresini yazın (tek bir uygulama)</value>
   </data>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Bir &amp;kataloğun İnternet adresini yazın (akış koleksiyonu)</value>
+    <value>Bir &amp;kataloğun adresini yazın (akış koleksiyonu)</value>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
     <value>Y&amp;eni bir akış oluşturmak için akış düzenleyicisini kullanın</value>

@@ -148,7 +148,7 @@
     <value>Ağ kullanımı</value>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Güncelleştirmeler</value>
+    <value>Güncellemeler</value>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
     <value>&amp;Sil</value>
@@ -160,7 +160,7 @@
     <value>&amp;Ekle</value>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>&amp;Uygulama önbellek dizinleri</value>
+    <value>&amp;Uygulama ön bellek klasörleri</value>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
     <value>Depolama</value>
@@ -220,7 +220,7 @@ Notlar:
     <value>Dil</value>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Lütfen uygulama önbelleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
+    <value>Lütfen uygulama ön belleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install yapılandırması</value>
