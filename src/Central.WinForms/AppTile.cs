@@ -25,7 +25,6 @@ using System.Net;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.DesktopIntegration;
@@ -50,8 +49,6 @@ namespace ZeroInstall.Central.WinForms
 
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
-
-        private static readonly ITaskHandler _handler = new SilentTaskHandler();
 
         /// <summary>The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
         [CanBeNull]
@@ -111,7 +108,7 @@ namespace ZeroInstall.Central.WinForms
                 if (_iconStore != null)
                 {
                     // Load application icon in background
-                    var icon = value.GetIcon(Icon.MimeTypePng);
+                    var icon = value.GetIcon(Icon.MimeTypePng) ?? value.GetIcon(Icon.MimeTypeIco);
                     if (icon != null) iconDownloadWorker.RunWorkerAsync(icon);
                     else pictureBoxIcon.Image = Resources.AppIcon; // Fall back to default icon
                 }
@@ -172,9 +169,7 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 Debug.Assert(_iconStore != null);
-                string path = _iconStore.GetPath(icon, _machineWide);
-                using (var stream = File.OpenRead(path))
-                    e.Result = Image.FromStream(stream);
+                e.Result = Image.FromFile(_iconStore.GetPath(icon, _machineWide));
             }
                 #region Error handling
             catch (OperationCanceledException)
