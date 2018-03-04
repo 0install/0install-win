@@ -110,14 +110,24 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override ExitCode Execute()
             {
-                var store = (AdditionalArgs.Count == 2) ? new DirectoryStore(AdditionalArgs[1]) : Store;
-                string path = AdditionalArgs[0];
-                Debug.Assert(path != null);
-                var manifestDigest = new ManifestDigest(Path.GetFileName(path));
-
+                ManifestDigest manifestDigest;
+                string path = Path.GetFullPath(AdditionalArgs[0]).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                 try
                 {
-                    store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
+                    manifestDigest = new ManifestDigest(Path.GetFileName(path));
+                }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new IOException(ex.Message);
+                }
+                #endregion
+
+                var store = (AdditionalArgs.Count == 2) ? new DirectoryStore(AdditionalArgs[1]) : Store;
+                try
+                {
+                    store.AddDirectory(path, manifestDigest, Handler);
                     return ExitCode.OK;
                 }
                 catch (ImplementationAlreadyInStoreException ex)
