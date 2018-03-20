@@ -1,0 +1,25 @@
+image: Visual Studio 2017
+
+before_build:
+  - ps: Update-AppveyorBuild -Version "$(Get-Content VERSION).build.$env:APPVEYOR_BUILD_NUMBER"
+
+build_script:
+  - ps: src\build.ps1
+  - ps: powershell\build.ps1
+  - ps: doc\build.ps1
+  - ps: release\build.ps1
+
+test_script:
+  - ps: src\test.ps1
+
+artifacts:
+  - path: release\ZeroInstall-*.*
+    name: Release
+  - path: build\Bootstrap
+    name: Bootstrap
+  - path: build\PowerShellModules
+    name: PowerShellModules
+  - path: build\*.symbols.nupkg
+    name: Symbols
+  - path: build\Documentation
+    name: Documentation
