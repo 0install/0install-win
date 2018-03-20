@@ -52,8 +52,10 @@ namespace ZeroInstall.OneGet
         /// Creates a new OneGet command.
         /// </summary>
         /// <param name="request">The OneGet request callback object.</param>
-        public OneGetContext([NotNull] Request request)
-            : base(new OneGetHandler(request)) => _request = request;
+        public OneGetContext([NotNull] Request request) : base(new OneGetHandler(request))
+        {
+            _request = request;
+        }
 
         /// <inheritdoc/>
         public void Dispose() => Handler.Dispose();
