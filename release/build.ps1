@@ -1,10 +1,12 @@
 $ErrorActionPreference = "Stop"
 pushd $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 
+# Ensure 0install is in the PATH
+if (!(Get-Command 0install -ErrorAction SilentlyContinue)) { $env:PATH = "$(Resolve-Path ..\build\Release);$env:PATH" }
+
 rm -Force ..\build\Release\*.xml
 rm -Force ..\build\Release\*.pdb
 
-if ($Host.Name -ne 'ConsoleHost') {$ErrorActionPreference = "ContinueSilent"} # Avoid treating stderr output as failure condition
-..\build\Release\0install.exe run --batch http://0install.net/tools/0template.xml ZeroInstall.xml.template version=$(Get-Content ..\VERSION)
+cmd /c "0install run --batch http://0install.net/tools/0template.xml ZeroInstall.xml.template version=$(Get-Content ..\VERSION) 2>&1" # Redirect stderr to stdout
 
 popd

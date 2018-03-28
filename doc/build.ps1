@@ -1,6 +1,9 @@
 $ErrorActionPreference = "Stop"
 pushd $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 
+# Ensure 0install is in the PATH
+if (!(Get-Command 0install -ErrorAction SilentlyContinue)) { $env:PATH = "$(Resolve-Path ..\build\Release);$env:PATH" }
+
 if (Test-Path ..\build\Documentation) {rm -Recurse -Force ..\build\Documentation}
 mkdir ..\build\Documentation | Out-Null
 
@@ -8,6 +11,6 @@ mkdir ..\build\Documentation | Out-Null
 Invoke-WebRequest http://nano-byte.de/common/api/nanobyte-common.tag -OutFile nanobyte-common.tag
 Invoke-WebRequest http://0install.de/api/backend/0install-dotnet.tag -OutFile 0install-dotnet.tag
 
-..\build\Release\0install.exe run --batch http://0install.de/feeds/Doxygen.xml
+cmd /c "0install run --batch http://0install.de/feeds/Doxygen.xml 2>&1" # Redirect stderr to stdout
 
 popd
