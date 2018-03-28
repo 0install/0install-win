@@ -6,7 +6,7 @@ USE_MDFILE_AS_MAINPAGE = main.md
 STRIP_FROM_PATH = ../src
 RECURSIVE = YES
 EXCLUDE_PATTERNS = */packages/* */UnitTests/* */Properties/* */obj/* */bin/* *.NativeMethods.cs
-TAGFILES = nanobyte-common.tag=http://nano-byte.de/common/api/ 0install-backend.tag=http://0install.de/api/backend/
+TAGFILES = nanobyte-common.tag=http://nano-byte.de/common/api/ 0install-dotnet.tag=http://0install.de/api/backend/
 
 OUTPUT_DIRECTORY = ../build/Documentation
 HTML_OUTPUT = .

@@ -6,7 +6,7 @@ mkdir ..\build\Documentation | Out-Null
 
 # Download tag files for external references
 Invoke-WebRequest http://nano-byte.de/common/api/nanobyte-common.tag -OutFile nanobyte-common.tag
-Invoke-WebRequest http://0install.de/api/backend.tag -OutFile 0install-backend.tag
+Invoke-WebRequest http://0install.de/api/backend/0install-dotnet.tag -OutFile 0install-dotnet.tag
 
 ..\build\Release\0install.exe run --batch http://0install.de/feeds/Doxygen.xml
 
