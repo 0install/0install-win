@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -66,7 +67,8 @@ namespace ZeroInstall
         {
             get
             {
-                string exeName = Program.ExeName.EscapeArgument();
+                string exeName = Path.GetFileNameWithoutExtension(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
+
                 string help;
                 using (var buffer = new MemoryStream())
                 {

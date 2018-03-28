@@ -23,6 +23,13 @@ using ZeroInstall.Store;
 
 namespace ZeroInstall
 {
+    public enum BootstrapMode
+    {
+        None,
+        Run,
+        Integrate,
+    }
+
     /// <summary>
     /// Represents configuration embedded into the exectuable itself.
     /// This is used to create customized bootstrappers that use Zero Install to run or integrate another application.

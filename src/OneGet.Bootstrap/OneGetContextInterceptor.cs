@@ -86,16 +86,10 @@ namespace ZeroInstall.OneGet
         /// Gets the path of the directory to load the Zero Install OneGet provider assembly from.
         /// </summary>
         /// <returns>The full path of the directory containing the provider assembly.</returns>
-        [NotNull]
         private string GetProviderDirectory()
         {
             using (var handler = new OneGetHandler(_request))
-            {
-                var bootstrap = new BootstrapProcess(handler, gui: false);
-
-                // ReSharper disable once AssignNullToNotNullAttribute
-                return Path.GetDirectoryName(bootstrap.GetStartInfo().FileName);
-            }
+                return Path.GetDirectoryName(ProgramUtils.GetStartInfo(handler).FileName);
         }
 
         /// <summary>

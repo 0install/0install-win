@@ -20,7 +20,6 @@ using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Store;
 
 namespace ZeroInstall
 {

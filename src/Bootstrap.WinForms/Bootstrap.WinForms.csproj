@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\ILRepack.2.0.15\build\ILRepack.props" Condition="Exists('..\packages\ILRepack.2.0.15\build\ILRepack.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2FAC835-333A-4219-9872-50B1172167E5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZeroInstall</RootNamespace>
+    <AssemblyName>zero-install</AssemblyName>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <NoWarn>1591</NoWarn>
+    <WarningLevel>4</WarningLevel>
+    <RestorePackages>true</RestorePackages>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common, Version=2.1.11.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.2.1.11\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.WinForms, Version=2.1.11.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.1.11\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="TaskDialog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fefb7635387ec9bb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.1.11\lib\net20\TaskDialog.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GuiTaskHandler.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bootstrap\Bootstrap.csproj">
+      <Project>{4b47068c-73d3-4f2f-bc96-8fe2b8fa4a7d}</Project>
+      <Name>Bootstrap</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)'=='Release'">
+    <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
+pushd "$(OutDir)"
+"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll TaskDialog.dll
+copy /y "$(ProjectDir)\App.config" "$(ProjectDir)\..\..\build\Bootstrap\$(TargetName).exe.config"
+popd</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ILRepack.2.0.15\build\ILRepack.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.2.0.15\build\ILRepack.props'))" />
+  </Target>
+</Project>

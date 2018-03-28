@@ -23,10 +23,6 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using PackageManagement.Sdk;
-using ZeroInstall.Services.Executors;
-using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.OneGet
 {
@@ -125,24 +121,7 @@ namespace ZeroInstall.OneGet
             {
                 request.Error(ErrorCategory.InvalidData, "", ex.Message);
             }
-            catch (SignatureException ex)
-            {
-                request.Error(ErrorCategory.MetadataError, "", ex.Message);
-            }
-            catch (DigestMismatchException ex)
-            {
-                Log.Info(ex.LongMessage);
-                request.Error(ErrorCategory.MetadataError, "", ex.Message);
-            }
-            catch (SolverException ex)
-            {
-                request.Error(ErrorCategory.MetadataError, "", ex.Message);
-            }
-            catch (ExecutorException ex)
-            {
-                request.Error(ErrorCategory.MetadataError, "", ex.Message);
-            }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
                 request.Error(ErrorCategory.MetadataError, "", ex.Message);
             }

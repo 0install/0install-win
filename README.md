@@ -15,7 +15,6 @@ Directory structure
 - `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - `doc` contains scripts for generating source code documentation.
 - `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
-- `powershell` contains scripts for creating PowerShell modules.
 - `build` contains the results of various compilation processes. It is created on first usage.
 - `release` contains scripts for creating a Zero Install feed and archive for publishing a build.
 
