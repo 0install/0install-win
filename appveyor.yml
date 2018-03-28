@@ -14,7 +14,7 @@ test_script:
 
 artifacts:
   - path: release\ZeroInstall-*.*
-    name: Release
+    name: Feeds
   - path: build\Bootstrap
     name: Bootstrap
   - path: build\PowerShellModules
