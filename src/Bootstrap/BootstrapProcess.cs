@@ -250,11 +250,11 @@ namespace ZeroInstall
             {
                 switch (arg)
                 {
-                    case "batch":
+                    case "--batch":
                         Handler.Verbosity = Verbosity.Batch;
                         break;
-                    case "o":
-                    case "offline":
+                    case "-o":
+                    case "--offline":
                         Config.NetworkUse = NetworkLevel.Offline;
                         break;
                 }
