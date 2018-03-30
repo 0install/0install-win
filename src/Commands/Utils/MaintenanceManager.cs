@@ -95,7 +95,7 @@ namespace ZeroInstall.Commands.Utils
         public void Deploy()
         {
             if (TargetDir == Locations.InstallBase)
-                throw new IOException(string.Format(Resources.SourceAndTargetSame, TargetDir));
+                throw new IOException(string.Format(Resources.AlreadyDeployedTo, TargetDir));
 
             var newManifest = LoadManifest(Locations.InstallBase);
             if (newManifest == null) throw new IOException(Resources.MaintenanceMissingManifest);

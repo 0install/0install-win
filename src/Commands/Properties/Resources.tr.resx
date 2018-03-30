@@ -749,9 +749,6 @@ Komut satırı değişkenleri eklenebilir. Boşluklardan kaçınılmalıdır.</v
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>Bu Zero Install kopyası uygulama olarak başka bir Zero Install kopyasını başlattı. Bu nedenle kendini güncelleyemedi.</value>
   </data>
-  <data name="SourceAndTargetSame" xml:space="preserve">
-    <value>Kaynak ve hedef klasörler aynı: {0}</value>
-  </data>
   <data name="StabilityPolicyAutoSet" xml:space="preserve">
     <value>{0} için kararlılık ilkesi eşleşecek şekilde ayarlansın mı?</value>
   </data>

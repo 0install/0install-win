@@ -136,6 +136,9 @@
     <value>Alle Komponenten, die benötigten werden um {0} auszuführen, wurden nach '{1}' exportiert.
 Sie können das Import Skript oder das Bootstrap Programm in '{1}' verwenden, um diese Dateien auf einem anderen Rechner zu importieren.</value>
   </data>
+  <data name="AlreadyDeployedTo" xml:space="preserve">
+    <value>Zero Install ist bereits in '{0}' eingerichtet. Verwenden Sie '0install self-update' um die eingerichtete Version zu ändern.</value>
+  </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
     <value>'{0}' ist bereits in der Liste der benutzerdefinierten Implementierungscaches.</value>
   </data>
@@ -751,9 +754,6 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
-  </data>
-  <data name="SourceAndTargetSame" xml:space="preserve">
-    <value>Das Quell- und das Zielverzeichnis sind identisch: {0}</value>
   </data>
   <data name="StabilityPolicyAutoSet" xml:space="preserve">
     <value>Stabilitäts-Policy für {0} entsprechend setzten?</value>

@@ -136,6 +136,9 @@
     <value>All components required to run {0} have been exported to '{1}'.
 You can use the import script or Bootstrap executable in '{1}' to import these files on another computer.</value>
   </data>
+  <data name="AlreadyDeployedTo" xml:space="preserve">
+    <value>Zero Install is already deployed to '{0}'. Use '0install self-update' to change the deployed version.</value>
+  </data>
   <data name="AlreadyInImplDirs" xml:space="preserve">
     <value>'{0}' is already in the list of custom implementation caches.</value>
   </data>
@@ -751,9 +754,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SelfUpdateBlocked" xml:space="preserve">
     <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
-  </data>
-  <data name="SourceAndTargetSame" xml:space="preserve">
-    <value>The source and destination directories are the same: {0}</value>
   </data>
   <data name="StabilityPolicyAutoSet" xml:space="preserve">
     <value>Set stability policy for {0} to match?</value>

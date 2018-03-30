@@ -116,6 +116,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zero Install is already deployed to &apos;{0}&apos;. Use &apos;0install self-update&apos; to change the deployed version..
+        /// </summary>
+        public static string AlreadyDeployedTo {
+            get {
+                return ResourceManager.GetString("AlreadyDeployedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is already in the list of custom implementation caches..
         /// </summary>
         public static string AlreadyInImplDirs {
@@ -1898,15 +1907,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string SelfUpdateBlocked {
             get {
                 return ResourceManager.GetString("SelfUpdateBlocked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The source and destination directories are the same: {0}.
-        /// </summary>
-        public static string SourceAndTargetSame {
-            get {
-                return ResourceManager.GetString("SourceAndTargetSame", resourceCulture);
             }
         }
         
