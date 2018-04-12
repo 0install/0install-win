@@ -34,11 +34,11 @@ namespace ZeroInstall.Commands
         public bool NeedsMachineWide { get; }
 
         /// <inheritdoc/>
-        public UnsuitableInstallBaseException()
-        {}
+        public UnsuitableInstallBaseException() {}
 
         /// <inheritdoc/>
-        public UnsuitableInstallBaseException(string message) : base(message)
+        public UnsuitableInstallBaseException(string message)
+            : base(message)
         {}
 
         /// <summary>
@@ -46,20 +46,23 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="message">A message describing why the current location in unsuitable.</param>
         /// <param name="needsMachineWide"><c>true</c> if a machine-wide location is required; <c>false</c> if a user-specific location will also do.</param>
-        public UnsuitableInstallBaseException(string message, bool needsMachineWide) : base(message)
+        public UnsuitableInstallBaseException(string message, bool needsMachineWide)
+            : base(message)
         {
             NeedsMachineWide = needsMachineWide;
         }
 
         /// <inheritdoc/>
-        public UnsuitableInstallBaseException(string message, Exception innerException) : base(message, innerException)
+        public UnsuitableInstallBaseException(string message, Exception innerException)
+            : base(message, innerException)
         {}
 
         #region Serialization
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
-        private UnsuitableInstallBaseException(SerializationInfo info, StreamingContext context) : base(info, context)
+        private UnsuitableInstallBaseException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
             #region Sanity checks
             if (info == null) throw new ArgumentNullException(nameof(info));

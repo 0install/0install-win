@@ -45,7 +45,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMin => 2;
 
-            public Add([NotNull] ICommandHandler handler) : base(handler)
+            public Add([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -104,7 +105,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 2;
 
-            public Copy([NotNull] ICommandHandler handler) : base(handler)
+            public Copy([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -151,7 +153,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 3;
 
-            public Export([NotNull] ICommandHandler handler) : base(handler)
+            public Export([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -187,7 +190,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 1;
 
-            public Find([NotNull] ICommandHandler handler) : base(handler)
+            public Find([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -213,7 +217,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMin => 1;
 
-            public Remove([NotNull] ICommandHandler handler) : base(handler)
+            public Remove([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -241,7 +246,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 2;
 
-            public Verify([NotNull] ICommandHandler handler) : base(handler)
+            public Verify([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 

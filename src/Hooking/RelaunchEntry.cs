@@ -99,10 +99,7 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// Returns the rule in the form "RelaunchEntry (Name): Target". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return $"RelaunchEntry ({Name}): {Target}";
-        }
+        public override string ToString() => $"RelaunchEntry ({Name}): {Target}";
         #endregion
     }
 }

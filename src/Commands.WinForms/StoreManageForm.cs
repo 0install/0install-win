@@ -186,7 +186,7 @@ namespace ZeroInstall.Commands.WinForms
                             node.Delete(handler);
                     }
                 }
-                    #region Error handling
+                #region Error handling
                 catch (OperationCanceledException)
                 {}
                 catch (KeyNotFoundException ex)
@@ -201,7 +201,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 }
-                    #endregion
+                #endregion
 
                 finally
                 {
@@ -220,7 +220,7 @@ namespace ZeroInstall.Commands.WinForms
                         entry.Verify(handler);
                 }
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -237,14 +237,10 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
-        {
-            RefreshList();
-        }
+            => RefreshList();
 
         private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+            => Close();
         #endregion
     }
 }

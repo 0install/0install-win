@@ -42,7 +42,7 @@ namespace ZeroInstall
             {
                 return new BootstrapProcess(handler, gui).Execute(args);
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {
                 return ExitCode.UserCanceled;

@@ -47,7 +47,8 @@ namespace ZeroInstall.Commands.CliCommands
         private ConfigTab _configTab;
 
         /// <inheritdoc/>
-        public Configure([NotNull] ICommandHandler handler) : base(handler)
+        public Configure([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("tab=", () => Resources.OptionConfigTab, (ConfigTab tab) => _configTab = tab);
         }
@@ -82,7 +83,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 Handler.Output(key, Config.GetOption(key));
             }
-                #region Error handling
+            #region Error handling
             catch (KeyNotFoundException)
             {
                 throw new OptionException(string.Format(Resources.InvalidArgument, key), key);
@@ -97,7 +98,7 @@ namespace ZeroInstall.Commands.CliCommands
                 if (value == "default") Config.ResetOption(key);
                 else Config.SetOption(key, value);
             }
-                #region Error handling
+            #region Error handling
             catch (KeyNotFoundException)
             {
                 throw new OptionException(string.Format(Resources.InvalidArgument, key), key);

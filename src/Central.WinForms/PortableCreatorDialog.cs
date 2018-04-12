@@ -26,15 +26,9 @@ namespace ZeroInstall.Central.WinForms
 {
     public partial class PortableCreatorDialog : Form
     {
-        public PortableCreatorDialog()
-        {
-            InitializeComponent();
-        }
+        public PortableCreatorDialog() => InitializeComponent();
 
-        private void PortableCreatorDialog_Load(object sender, System.EventArgs e)
-        {
-            this.CenterOnParent();
-        }
+        private void PortableCreatorDialog_Load(object sender, System.EventArgs e) { this.CenterOnParent(); }
 
         private void buttonSelectTarget_Click(object sender, System.EventArgs e)
         {
@@ -48,9 +42,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void textBoxTarget_TextChanged(object sender, System.EventArgs e)
-        {
-            buttonDeploy.Enabled = !string.IsNullOrEmpty(textBoxTarget.Text);
-        }
+            => buttonDeploy.Enabled = !string.IsNullOrEmpty(textBoxTarget.Text);
 
         private void buttonDeploy_Click(object sender, System.EventArgs e)
         {
@@ -65,8 +57,6 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonCancel_Click(object sender, System.EventArgs e)
-        {
-            Close();
-        }
+            => Close();
     }
 }

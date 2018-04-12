@@ -58,8 +58,8 @@ namespace ZeroInstall.Commands.Utils
                 feedCacheMock.Setup(x => x.GetPath(Fake.SubFeed2Uri)).Returns(feedFile2);
 
                 var signature = new ValidSignature(123, new byte[0], new DateTime(2000, 1, 1));
-                feedCacheMock.Setup(x => x.GetSignatures(Fake.SubFeed1Uri)).Returns(new OpenPgpSignature[] { signature });
-                feedCacheMock.Setup(x => x.GetSignatures(Fake.SubFeed2Uri)).Returns(new OpenPgpSignature[] { signature });
+                feedCacheMock.Setup(x => x.GetSignatures(Fake.SubFeed1Uri)).Returns(new OpenPgpSignature[] {signature});
+                feedCacheMock.Setup(x => x.GetSignatures(Fake.SubFeed2Uri)).Returns(new OpenPgpSignature[] {signature});
 
                 var openPgpMock = CreateMock<IOpenPgp>();
                 openPgpMock.Setup(x => x.ExportKey(signature)).Returns("abc");

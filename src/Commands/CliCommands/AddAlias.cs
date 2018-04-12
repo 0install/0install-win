@@ -58,7 +58,8 @@ namespace ZeroInstall.Commands.CliCommands
         private bool _remove;
 
         /// <inheritdoc/>
-        public AddAlias([NotNull] ICommandHandler handler) : base(handler)
+        public AddAlias([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
 

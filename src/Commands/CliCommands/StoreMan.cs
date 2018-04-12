@@ -36,7 +36,8 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "store";
 
         /// <inheritdoc/>
-        public StoreMan([NotNull] ICommandHandler handler) : base(handler)
+        public StoreMan([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
         #endregion
 
@@ -92,7 +93,8 @@ namespace ZeroInstall.Commands.CliCommands
         {
             protected override string ParentName => StoreMan.Name;
 
-            protected StoreSubCommand([NotNull] ICommandHandler handler) : base(handler)
+            protected StoreSubCommand([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
 
             /// <summary>
@@ -104,7 +106,8 @@ namespace ZeroInstall.Commands.CliCommands
                 else
                 {
                     foreach (string path in AdditionalArgs)
-                        if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
+                        if (!Directory.Exists(path))
+                            throw new DirectoryNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
 
                     return new CompositeStore(
                         AdditionalArgs.Select(x => (IStore)new DirectoryStore(x, useWriteProtection: false)));

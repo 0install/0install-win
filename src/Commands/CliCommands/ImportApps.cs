@@ -46,7 +46,8 @@ namespace ZeroInstall.Commands.CliCommands
 
         #region State
         /// <inheritdoc/>
-        public ImportApps([NotNull] ICommandHandler handler) : base(handler)
+        public ImportApps([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
         }

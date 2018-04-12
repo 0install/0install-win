@@ -49,7 +49,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected ICollection<Implementation> UncachedImplementations;
 
         /// <inheritdoc/>
-        public Download([NotNull] ICommandHandler handler) : base(handler)
+        public Download([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("show", () => Resources.OptionShow, _ => _show = true);
         }
@@ -69,7 +70,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                 DownloadUncachedImplementations();
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex) when (Handler.Background)
             {
                 Log.Info("Suppressed network-related error message due to background mode");
@@ -99,7 +100,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 UncachedImplementations = SelectionsManager.GetUncachedImplementations(Selections);
             }
-                #region Error handling
+            #region Error handling
             catch (InvalidDataException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -128,7 +129,7 @@ namespace ZeroInstall.Commands.CliCommands
                 {
                     Fetcher.Fetch(UncachedImplementations);
                 }
-                    #region Error handling
+                #region Error handling
                 catch
                 {
                     // Suppress any left-over errors if the user canceled anyway

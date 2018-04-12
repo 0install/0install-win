@@ -53,7 +53,8 @@ namespace ZeroInstall.Commands.CliCommands
         private bool _restartCentral;
 
         /// <inheritdoc/>
-        public SelfUpdate([NotNull] ICommandHandler handler) : base(handler)
+        public SelfUpdate([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             NoWait = true;
             FeedManager.Refresh = true;
@@ -93,7 +94,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 Solve();
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex) when (Handler.Background)
             {
                 Log.Info("Suppressed network-related error message due to background mode");
@@ -122,9 +123,6 @@ namespace ZeroInstall.Commands.CliCommands
             else return ExitCode.OK;
         }
 
-        private bool UpdateFound()
-        {
-            return _force || (Selections.MainImplementation.Version > new ImplementationVersion(AppInfo.CurrentLibrary.Version));
-        }
+        private bool UpdateFound() => _force || (Selections.MainImplementation.Version > new ImplementationVersion(AppInfo.CurrentLibrary.Version));
     }
 }

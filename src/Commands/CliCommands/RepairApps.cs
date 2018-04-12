@@ -45,7 +45,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public RepairApps([NotNull] ICommandHandler handler) : base(handler)
+        public RepairApps([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
 
         /// <inheritdoc/>

@@ -46,7 +46,8 @@ namespace ZeroInstall.Commands
         /// Creates a new command base.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        protected CommandBase([NotNull] ITaskHandler handler) : base(handler)
+        protected CommandBase([NotNull] ITaskHandler handler)
+            : base(handler)
         {}
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace ZeroInstall.Commands
 
                 return new FeedUri(path);
             }
-                #region Error handling
+            #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -188,7 +189,7 @@ namespace ZeroInstall.Commands
                 startInfo.WorkingDirectory = Locations.InstallBase; // Avoid locking the user's working directory
                 startInfo.Start();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)

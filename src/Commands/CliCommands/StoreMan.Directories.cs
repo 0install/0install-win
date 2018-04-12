@@ -41,16 +41,14 @@ namespace ZeroInstall.Commands.CliCommands
             /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
             protected bool MachineWide { get; private set; }
 
-            protected DirCommand([NotNull] ICommandHandler handler) : base(handler)
+            protected DirCommand([NotNull] ICommandHandler handler)
+                : base(handler)
             {
                 Options.Add("m|machine", () => Resources.OptionMachine, _ => MachineWide = true);
             }
             #endregion
 
-            protected string GetPath()
-            {
-                return Locations.IsPortable ? AdditionalArgs[0] : Path.GetFullPath(AdditionalArgs[0]);
-            }
+            protected string GetPath() => Locations.IsPortable ? AdditionalArgs[0] : Path.GetFullPath(AdditionalArgs[0]);
 
             protected IEnumerable<string> GetImplementationDirs()
             {
@@ -74,7 +72,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override string Description => Resources.DescriptionStoreAddDir;
 
-            public AddDir([NotNull] ICommandHandler handler) : base(handler)
+            public AddDir([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -107,7 +106,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override string Description => Resources.DescriptionStoreRemoveDir;
 
-            public RemoveDir([NotNull] ICommandHandler handler) : base(handler)
+            public RemoveDir([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -140,7 +140,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 0;
 
-            public List([NotNull] ICommandHandler handler) : base(handler)
+            public List([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 

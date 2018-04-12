@@ -43,7 +43,8 @@ namespace ZeroInstall.Commands.CliCommands
         private Selections _oldSelections;
 
         /// <inheritdoc/>
-        public Update([NotNull] ICommandHandler handler) : base(handler)
+        public Update([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             //Options.Remove("o|offline");
             //Options.Remove("r|refresh");

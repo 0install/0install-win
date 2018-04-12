@@ -41,7 +41,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 0;
 
-            public Manage([NotNull] ICommandHandler handler) : base(handler)
+            public Manage([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -64,7 +65,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 1;
 
-            public ListImplementations([NotNull] ICommandHandler handler) : base(handler)
+            public ListImplementations([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -102,7 +104,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override string Usage => "[CACHE-DIR+]";
 
-            public Audit([NotNull] ICommandHandler handler) : base(handler)
+            public Audit([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -127,7 +130,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override string Usage => "[CACHE-DIR+]";
 
-            public Optimise([NotNull] ICommandHandler handler) : base(handler)
+            public Optimise([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -149,7 +153,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override string Usage => "[CACHE-DIR+]";
 
-            public Purge([NotNull] ICommandHandler handler) : base(handler)
+            public Purge([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 

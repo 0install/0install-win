@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands.WinForms
                 var selections = _solveCallback();
                 _candidates = selections[_interfaceUri].Candidates ?? GenerateDummyCandidates();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {
                 _candidates = Enumerable.Empty<SelectionCandidate>();
@@ -184,7 +184,7 @@ namespace ZeroInstall.Commands.WinForms
                 var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
                 return feed.Implementations.Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
             }
-                #region Error handling
+            #region Error handling
             catch (KeyNotFoundException)
             {
                 return Enumerable.Empty<SelectionCandidate>();
@@ -229,7 +229,7 @@ namespace ZeroInstall.Commands.WinForms
                     candidate.FeedPreferences.SaveFor(candidate.FeedUri);
                 }
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -299,7 +299,7 @@ namespace ZeroInstall.Commands.WinForms
                             }));
                     }
                 }
-                    #region Error handling
+                #region Error handling
                 catch (OperationCanceledException)
                 {
                     return;
@@ -328,7 +328,9 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Ensure a matching <feed-for> is present for online feeds
                 if (feed.FeedFor.All(entry => entry.Target != _interfaceUri))
+                {
                     if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn)) return;
+                }
             }
 
             var reference = new FeedReference {Source = feedUri};
@@ -373,9 +375,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Global buttons
         private void checkBoxShowAllVersions_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateDataGridVersions();
-        }
+            => UpdateDataGridVersions();
 
         private void buttonOKApply_Click(object sender, EventArgs e)
         {

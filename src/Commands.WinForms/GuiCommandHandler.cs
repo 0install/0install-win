@@ -105,10 +105,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public void CloseUI()
-        {
-            _wrapper.Close();
-        }
+        public void CloseUI() => _wrapper.Close();
         #endregion
 
         #region Question

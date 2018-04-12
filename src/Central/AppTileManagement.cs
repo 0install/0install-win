@@ -98,7 +98,7 @@ namespace ZeroInstall.Central
                         var catalogTile = _tileListCatalog.GetTile(entry.InterfaceUri);
                         if (catalogTile != null) catalogTile.Status = tile.Status;
                     }
-                        #region Error handling
+                    #region Error handling
                     catch (KeyNotFoundException)
                     {
                         Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, entry.InterfaceUri));
@@ -135,7 +135,7 @@ namespace ZeroInstall.Central
             {
                 return _feedManager.GetFresh(feedUri);
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {
                 return null;
@@ -227,7 +227,7 @@ namespace ZeroInstall.Central
                 var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _iconStore, _machineWide);
                 tile.Feed = feed;
             }
-                #region Error handling
+            #region Error handling
             catch (InvalidOperationException)
             {
                 Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, feed.Uri));

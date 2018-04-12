@@ -81,7 +81,7 @@ namespace ZeroInstall.Commands.WinForms
                             {
                                 implementationNode.Verify(handler);
                             }
-                                #region Error handling
+                            #region Error handling
                             catch (OperationCanceledException)
                             {}
                             catch (IOException ex)
@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands.WinForms
                         {
                             handler.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(handler)));
                         }
-                            #region Error handling
+                        #region Error handling
                         catch (KeyNotFoundException ex)
                         {
                             Msg.Inform(null, ex.Message, MsgSeverity.Error);

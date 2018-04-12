@@ -65,7 +65,7 @@ namespace ZeroInstall.OneGet
         }
 
         /// <inheritdoc/>
-        public override Verbosity Verbosity { get { return _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; } set { } }
+        public override Verbosity Verbosity { get { return _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; } set {} }
 
         /// <inheritdoc/>
         protected override bool Ask(string question, MsgSeverity severity) => _request.OptionKeys.Contains("Force") || _request.ShouldContinue(question, "Zero Install");

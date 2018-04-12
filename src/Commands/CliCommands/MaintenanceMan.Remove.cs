@@ -36,7 +36,8 @@ namespace ZeroInstall.Commands.CliCommands
     {
         internal abstract class RemoveSubCommandBase : MaintenanceSubCommand
         {
-            protected RemoveSubCommandBase([NotNull] ICommandHandler handler) : base(handler)
+            protected RemoveSubCommandBase([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
 
             [NotNull]
@@ -73,7 +74,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 0;
 
-            public Remove([NotNull] ICommandHandler handler) : base(handler)
+            public Remove([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 
@@ -153,7 +155,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 1;
 
-            public RemoveHelper([NotNull] ICommandHandler handler) : base(handler)
+            public RemoveHelper([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 

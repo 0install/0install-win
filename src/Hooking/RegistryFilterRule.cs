@@ -61,25 +61,15 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// Returns the rule in the form "ProcessValue = RegistryValue". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return ProcessValue + " = " + RegistryValue;
-        }
+        public override string ToString() => ProcessValue + " = " + RegistryValue;
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(RegistryFilterRule other)
-        {
-            return Equals(ProcessValue, other.ProcessValue) && Equals(RegistryValue, other.RegistryValue);
-        }
+        public bool Equals(RegistryFilterRule other) => Equals(ProcessValue, other.ProcessValue) && Equals(RegistryValue, other.RegistryValue);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            return obj is RegistryFilterRule && Equals((RegistryFilterRule)obj);
-        }
+        public override bool Equals(object obj) => obj != null && obj is RegistryFilterRule rule && Equals(rule);
 
         /// <inheritdoc/>
         public override int GetHashCode()
@@ -93,16 +83,10 @@ namespace ZeroInstall.Hooking
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(RegistryFilterRule left, RegistryFilterRule right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(RegistryFilterRule left, RegistryFilterRule right) => left.Equals(right);
 
         /// <inheritdoc/>
-        public static bool operator !=(RegistryFilterRule left, RegistryFilterRule right)
-        {
-            return !left.Equals(right);
-        }
+        public static bool operator !=(RegistryFilterRule left, RegistryFilterRule right) => !left.Equals(right);
         #endregion
 
         #region Comparison
@@ -115,28 +99,16 @@ namespace ZeroInstall.Hooking
         }
 
         /// <inheritdoc/>
-        public static bool operator <(RegistryFilterRule left, RegistryFilterRule right)
-        {
-            return left.CompareTo(right) < 0;
-        }
+        public static bool operator <(RegistryFilterRule left, RegistryFilterRule right) => left.CompareTo(right) < 0;
 
         /// <inheritdoc/>
-        public static bool operator >(RegistryFilterRule left, RegistryFilterRule right)
-        {
-            return left.CompareTo(right) > 0;
-        }
+        public static bool operator >(RegistryFilterRule left, RegistryFilterRule right) => left.CompareTo(right) > 0;
 
         /// <inheritdoc/>
-        public static bool operator <=(RegistryFilterRule left, RegistryFilterRule right)
-        {
-            return left.CompareTo(right) <= 0;
-        }
+        public static bool operator <=(RegistryFilterRule left, RegistryFilterRule right) => left.CompareTo(right) <= 0;
 
         /// <inheritdoc/>
-        public static bool operator >=(RegistryFilterRule left, RegistryFilterRule right)
-        {
-            return left.CompareTo(right) >= 0;
-        }
+        public static bool operator >=(RegistryFilterRule left, RegistryFilterRule right) => left.CompareTo(right) >= 0;
         #endregion
     }
 }

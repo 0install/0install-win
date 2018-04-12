@@ -52,7 +52,8 @@ namespace ZeroInstall.OneGet
         /// Creates a new OneGet command.
         /// </summary>
         /// <param name="request">The OneGet request callback object.</param>
-        public OneGetContext([NotNull] Request request) : base(new OneGetHandler(request))
+        public OneGetContext([NotNull] Request request)
+            : base(new OneGetHandler(request))
         {
             _request = request;
         }
@@ -261,7 +262,7 @@ namespace ZeroInstall.OneGet
             {
                 selections.Name = FeedCache.GetFeed(selections.InterfaceUri).Name;
             }
-                #region Error handling
+            #region Error handling
             catch (KeyNotFoundException)
             {
                 // Fall back to using feed file name
@@ -341,10 +342,7 @@ namespace ZeroInstall.OneGet
             Yield(requirements);
         }
 
-        private static Requirements ParseReference(string fastPackageReference)
-        {
-            return JsonStorage.FromJsonString<Requirements>(fastPackageReference);
-        }
+        private static Requirements ParseReference(string fastPackageReference) => JsonStorage.FromJsonString<Requirements>(fastPackageReference);
 
         private void Yield([NotNull] Requirements requirements, [CanBeNull] Feed feed = null, [CanBeNull] ImplementationBase implementation = null)
         {

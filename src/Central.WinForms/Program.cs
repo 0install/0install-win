@@ -72,7 +72,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 Application.Run(new MainForm(machineWide: args.Contains("-m") || args.Contains("--machine")));
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Log.Error(ex);

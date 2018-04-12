@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Always returns <c>false</c>.
         /// </summary>
-        public bool Background { get { return false; } set { } }
+        public bool Background { get { return false; } set {} }
 
         /// <inheritdoc/>
         public void DisableUI()
@@ -62,8 +62,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         public string LastQuestion { get; private set; }
 
-        protected override void LogHandler(LogSeverity severity, string message)
-        {}
+        protected override void LogHandler(LogSeverity severity, string message) {}
 
         /// <summary>
         /// Fakes asking the user a question.
@@ -134,8 +133,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         public override void Output<T>(string title, IEnumerable<T> data) => LastOutputObjects = data;
 
-        public override void Error(Exception exception)
-        {}
+        public override void Error(Exception exception) {}
 
         public override ICredentialProvider CredentialProvider => null;
     }

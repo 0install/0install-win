@@ -52,21 +52,12 @@ namespace ZeroInstall.Central.WinForms
             }
 
             [CanBeNull]
-            public string GetSummary()
-            {
-                return _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
-            }
+            public string GetSummary() => _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
 
-            public override string ToString()
-            {
-                return _feed.GetBestName(CultureInfo.CurrentUICulture, _entryPoint.Command);
-            }
+            public override string ToString() => _feed.GetBestName(CultureInfo.CurrentUICulture, _entryPoint.Command);
 
             [NotNull]
-            public string GetCommand()
-            {
-                return _entryPoint.Command ?? Command.NameRun;
-            }
+            public string GetCommand() => _entryPoint.Command ?? Command.NameRun;
         }
         #endregion
 
@@ -116,7 +107,7 @@ namespace ZeroInstall.Central.WinForms
                 ProcessUtils.Assembly(Commands.WinForms.Program.ExeName,
                     "run", "--no-wait", "--command", command, _target.Uri.ToStringRfc(), textBoxArgs.Text).Start();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -129,8 +120,6 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+            => Close();
     }
 }

@@ -169,8 +169,8 @@
   </Target>
   <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" />
   <Import Project="..\packages\ZeroInstall.Store.2.14.7\build\ZeroInstall.Store.targets" Condition="Exists('..\packages\ZeroInstall.Store.2.14.7\build\ZeroInstall.Store.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+      Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">

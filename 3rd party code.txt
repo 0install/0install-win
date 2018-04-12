@@ -46,7 +46,7 @@ NuGet package: TaskScheduler
 ELFSharp
 http://antmicro.com/projects/elfsharp/
 X11 license: ELFSharp.license.txt
-NuGet package: ELFSharp 
+NuGet package: ELFSharp
 
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/

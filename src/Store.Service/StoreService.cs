@@ -41,10 +41,7 @@ namespace ZeroInstall.Store.Service
     /// </summary>
     public partial class StoreService : ServiceBase
     {
-        public StoreService()
-        {
-            InitializeComponent();
-        }
+        public StoreService() => InitializeComponent();
 
         /// <summary>IPC channel for providing services to clients.</summary>
         private IChannelReceiver _serverChannel;
@@ -68,7 +65,7 @@ namespace ZeroInstall.Store.Service
                     EventLog.CreateEventSource(eventLog.Source, eventLog.Log);
                 Log.Handler += LogHandler;
             }
-                #region Sanity checks
+            #region Sanity checks
             catch (SecurityException ex)
             {
                 Log.Error(ex);
@@ -94,7 +91,8 @@ namespace ZeroInstall.Store.Service
                     {
                         {"name", IpcStore.IpcPortName},
                         {"portName", IpcStore.IpcPortName},
-                        {"secure", true}, {"impersonate", true} // Use identity of client in server threads
+                        {"secure", true},
+                        {"impersonate", true} // Use identity of client in server threads
                     },
                     new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
 #if !__MonoCS__
@@ -117,7 +115,7 @@ namespace ZeroInstall.Store.Service
                 var lease = (ILease)RemotingServices.GetLifetimeService(_store);
                 lease.Renew(TimeSpan.FromDays(365));
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Log.Error("Failed to open cache directory:" + Environment.NewLine + ex);

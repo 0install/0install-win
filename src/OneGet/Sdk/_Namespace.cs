@@ -1,5 +1,4 @@
-﻿
-#pragma warning disable 1587
+﻿#pragma warning disable 1587
 // ReSharper disable EmptyNamespace
 // ReSharper disable CheckNamespace
 
@@ -8,5 +7,4 @@
 /// </summary>
 
 namespace PackageManagement.Sdk
-{
-}
+{}

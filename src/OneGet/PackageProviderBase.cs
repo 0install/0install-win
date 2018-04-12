@@ -45,10 +45,7 @@ namespace ZeroInstall.OneGet
         }
 
         [PublicAPI]
-        public void InitializeProvider(Request request)
-        {
-            request.Debug("Calling '{0}::InitializeProvider'", PackageProviderName);
-        }
+        public void InitializeProvider(Request request) { request.Debug("Calling '{0}::InitializeProvider'", PackageProviderName); }
 
         [PublicAPI]
         public void GetFeatures(Request request)
@@ -76,7 +73,7 @@ namespace ZeroInstall.OneGet
                 case "install":
                     request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
                     request.YieldDynamicOption("DeferDownload", Constants.OptionType.Switch, isRequired: false);
-                    request.YieldDynamicOption("Scope", Constants.OptionType.String, isRequired: false, permittedValues: new[] { "CurrentUser", "AllUsers" });
+                    request.YieldDynamicOption("Scope", Constants.OptionType.String, isRequired: false, permittedValues: new[] {"CurrentUser", "AllUsers"});
                     break;
 
                 case "source":
@@ -94,7 +91,7 @@ namespace ZeroInstall.OneGet
                 using (var context = BuildContext(request))
                     action(context);
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (FormatException ex)

@@ -99,10 +99,7 @@ namespace ZeroInstall.OneGet
         {
             private readonly Request _request;
 
-            public RequestInterceptor([NotNull] Request request)
-            {
-                _request = request;
-            }
+            public RequestInterceptor([NotNull] Request request) => _request = request;
 
             public object Intercept(InvocationInfo info) => DuckType(_request, info);
         }

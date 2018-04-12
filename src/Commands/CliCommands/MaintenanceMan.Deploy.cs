@@ -56,7 +56,8 @@ namespace ZeroInstall.Commands.CliCommands
             /// <summary>Indicates whether the installer shall restart the <see cref="Central"/> GUI after the installation.</summary>
             private bool _restartCentral;
 
-            public Deploy([NotNull] ICommandHandler handler) : base(handler)
+            public Deploy([NotNull] ICommandHandler handler)
+                : base(handler)
             {
                 Options.Add("m|machine", () => Resources.OptionMachine, _ => _machineWide = true);
                 Options.Add("p|portable", () => Resources.OptionPortable, _ => _portable = true);

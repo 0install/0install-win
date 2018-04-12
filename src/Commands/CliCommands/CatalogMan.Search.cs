@@ -33,7 +33,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             public override string Usage => "[QUERY]";
 
-            public Search([NotNull] ICommandHandler handler) : base(handler)
+            public Search([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 

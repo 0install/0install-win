@@ -52,7 +52,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected MultiCommand([NotNull] ICommandHandler handler) : base(handler)
+        protected MultiCommand([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             // Defer all option parsing to the sub-commands
             Options.Clear();

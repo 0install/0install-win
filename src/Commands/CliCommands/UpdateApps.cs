@@ -55,7 +55,8 @@ namespace ZeroInstall.Commands.CliCommands
         private bool _clean;
 
         /// <inheritdoc/>
-        public UpdateApps([NotNull] ICommandHandler handler) : base(handler)
+        public UpdateApps([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("c|clean", () => Resources.OptionClean, _ => _clean = true);
         }
@@ -123,7 +124,7 @@ namespace ZeroInstall.Commands.CliCommands
                 var toDownload = SelectionsManager.GetImplementations(uncachedImplementations);
                 Fetcher.Fetch(toDownload);
             }
-                #region Error handling
+            #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway

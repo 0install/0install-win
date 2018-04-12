@@ -48,7 +48,8 @@ namespace ZeroInstall.Commands.CliCommands
 
         #region State
         /// <inheritdoc/>
-        public AddApp([NotNull] ICommandHandler handler) : base(handler)
+        public AddApp([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
         }
@@ -76,7 +77,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                 return ExitCode.OK;
             }
-                #region Error handling
+            #region Error handling
             catch (InvalidOperationException ex)
                 // WebException is a subclass of InvalidOperationException but we don't want to catch it here
                 when (!(ex is WebException))

@@ -46,7 +46,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public RemoveAllApps([NotNull] ICommandHandler handler) : base(handler)
+        public RemoveAllApps([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
 
         /// <inheritdoc/>

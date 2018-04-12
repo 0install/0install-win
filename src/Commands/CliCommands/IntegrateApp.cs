@@ -62,7 +62,8 @@ namespace ZeroInstall.Commands.CliCommands
         private readonly List<string> _removeCategories = new List<string>();
 
         /// <inheritdoc/>
-        public IntegrateApp([NotNull] ICommandHandler handler) : base(handler)
+        public IntegrateApp([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
 
@@ -112,7 +113,7 @@ namespace ZeroInstall.Commands.CliCommands
                 {
                     state.ApplyChanges();
                 }
-                    #region Error handling
+                #region Error handling
                 catch (ConflictException ex)
                 {
                     if (Handler.Ask(
@@ -140,26 +141,17 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Determines whether the user specified only removals. This means we do not need to fetch any feeds.
         /// </summary>
-        private bool RemoveOnly()
-        {
-            return !_addCategories.Any() && _removeCategories.Any();
-        }
+        private bool RemoveOnly() => !_addCategories.Any() && _removeCategories.Any();
 
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> specified by the user.
         /// </summary>
-        private void RemoveOnly(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
-        {
-            integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceUri], _removeCategories.ToArray());
-        }
+        private void RemoveOnly(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri) { integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceUri], _removeCategories.ToArray()); }
 
         /// <summary>
         /// Determines whether the user specified no integration changes. This means we need a GUI to ask what to do.
         /// </summary>
-        private bool NoSpecifiedIntegrations()
-        {
-            return !_addCategories.Any() && !_removeCategories.Any();
-        }
+        private bool NoSpecifiedIntegrations() => !_addCategories.Any() && !_removeCategories.Any();
 
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> and <see cref="_addCategories"/> specified by the user.

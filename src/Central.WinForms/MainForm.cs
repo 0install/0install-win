@@ -115,7 +115,9 @@ namespace ZeroInstall.Central.WinForms
             bool firstRun = OnFirstRun();
             if (_tileManagement.AppList.Entries.Count == 0)
             {
-                if (firstRun) using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
+                if (firstRun)
+                    using (var dialog = new IntroDialog())
+                        dialog.ShowDialog(this);
 
                 // Show catalog automatically if AppList is empty
                 tabControlApps.SelectTab(tabPageCatalog);
@@ -139,7 +141,7 @@ namespace ZeroInstall.Central.WinForms
                 if (!File.Exists(firstRunFlag)) firstRun = true;
                 FileUtils.Touch(firstRunFlag);
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Log.Error(ex);
@@ -257,9 +259,7 @@ namespace ZeroInstall.Central.WinForms
         private Action _notificationBarClickHandler;
 
         private void labelNotificationBar_Click(object sender, EventArgs e)
-        {
-            _notificationBarClickHandler?.Invoke();
-        }
+            => _notificationBarClickHandler?.Invoke();
         #endregion
 
         #region Buttons
@@ -296,7 +296,7 @@ namespace ZeroInstall.Central.WinForms
                 var config = Config.Load();
                 return config.ToSyncServer().IsValid && !string.IsNullOrEmpty(config.SyncCryptoKey);
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -316,9 +316,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonUpdateAll_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(_machineWide, UpdateApps.Name);
-        }
+            => Program.RunCommand(_machineWide, UpdateApps.Name);
 
         private void buttonUpdateAllClean_Click(object sender, EventArgs e)
         {
@@ -327,14 +325,10 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
-        {
-            LoadCatalogAsync();
-        }
+            => LoadCatalogAsync();
 
         private void buttonSearch_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(Search.Name);
-        }
+            => Program.RunCommand(Search.Name);
 
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
@@ -343,24 +337,16 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonAddCatalog_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(Configure.Name, "--tab=catalog");
-        }
+            => Program.RunCommand(Configure.Name, "--tab=catalog");
 
         private void buttonFeedEditor_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(Run.Name, "http://0install.de/feeds/ZeroInstall_Tools.xml");
-        }
+            => Program.RunCommand(Run.Name, "http://0install.de/feeds/ZeroInstall_Tools.xml");
 
         private void buttonOptions_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(Configure.Name);
-        }
+            => Program.RunCommand(Configure.Name);
 
         private void buttonStoreManage_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(StoreMan.Name, "manage");
-        }
+            => Program.RunCommand(StoreMan.Name, "manage");
 
         private void buttonCommandLine_Click(object sender, EventArgs e)
         {
@@ -374,9 +360,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonPortableCreator_Click(object sender, EventArgs e)
-        {
-            new PortableCreatorDialog().Show(this);
-        }
+            => new PortableCreatorDialog().Show(this);
 
         private void buttonDocumentation_Click(object sender, EventArgs e)
         {
@@ -384,7 +368,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 ProcessUtils.Start("http://0install.de/docs/");
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -395,9 +379,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonIntro_Click(object sender, EventArgs e)
-        {
-            new IntroDialog().Show(this);
-        }
+            => new IntroDialog().Show(this);
         #endregion
 
         //--------------------//
@@ -414,7 +396,6 @@ namespace ZeroInstall.Central.WinForms
 
             base.WndProc(ref m);
         }
-
         #endregion
 
         #region Deploy
@@ -462,7 +443,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 e.Result = SelfUpdateUtils.SilentCheck();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -512,7 +493,7 @@ namespace ZeroInstall.Central.WinForms
                         Program.RunCommand(SelfUpdate.Name, "--batch", "--restart-central");
                         Close();
                     }
-                        #region Error handling
+                    #region Error handling
                     catch (OperationCanceledException)
                     {}
                     catch (IOException ex)
@@ -566,9 +547,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            e.Result = _tileManagement.GetCatalogOnline();
-        }
+            => e.Result = _tileManagement.GetCatalogOnline();
 
         private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

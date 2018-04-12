@@ -50,7 +50,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public DefaultCommand([NotNull] ICommandHandler handler) : base(handler)
+        public DefaultCommand([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("V|version", () => Resources.OptionVersion, _ =>
             {

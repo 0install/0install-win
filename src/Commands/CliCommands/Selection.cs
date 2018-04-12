@@ -77,7 +77,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected bool ShowXml;
 
         /// <inheritdoc/>
-        public Selection([NotNull] ICommandHandler handler) : base(handler)
+        public Selection([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("customize", () => Resources.OptionCustomize, _ => CustomizeSelections = true);
 
@@ -195,7 +196,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 Selections = Solver.Solve(Requirements);
             }
-                #region Error handling
+            #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
@@ -208,7 +209,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 Selections.Name = FeedCache.GetFeed(Selections.InterfaceUri).Name;
             }
-                #region Error handling
+            #region Error handling
             catch (KeyNotFoundException)
             {
                 // Fall back to using feed file name

@@ -56,7 +56,8 @@ namespace ZeroInstall.Commands.CliCommands
         private BootstrapMode _bootstrapType = BootstrapMode.Run;
 
         /// <inheritdoc/>
-        public Export([NotNull] ICommandHandler handler) : base(handler)
+        public Export([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             //Options.Remove("xml");
             //Options.Remove("show");
@@ -77,7 +78,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 _outputPath = Path.GetFullPath(AdditionalArgs[0]);
             }
-                #region Error handling
+            #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -134,7 +135,7 @@ namespace ZeroInstall.Commands.CliCommands
                     Selections.Implementations.AddRange(selfSelections.Implementations);
                     UncachedImplementations.AddRange(SelectionsManager.GetUncachedImplementations(selfSelections));
                 }
-                    #region Error handling
+                #region Error handling
                 catch
                 {
                     // Suppress any left-over errors if the user canceled anyway

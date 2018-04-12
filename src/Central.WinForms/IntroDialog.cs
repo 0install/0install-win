@@ -30,10 +30,7 @@ namespace ZeroInstall.Central.WinForms
     public partial class IntroDialog : Form
     {
         #region Startup
-        public IntroDialog()
-        {
-            InitializeComponent();
-        }
+        public IntroDialog() => InitializeComponent();
 
         private void IntroDialog_Load(object sender, EventArgs e)
         {
@@ -66,14 +63,10 @@ namespace ZeroInstall.Central.WinForms
         }
 
         private void buttonReplay_Click(object sender, EventArgs e)
-        {
-            PlayIntro();
-        }
+            => PlayIntro();
 
         private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+            => Close();
         #endregion
 
         //--------------------//
@@ -104,81 +97,69 @@ namespace ZeroInstall.Central.WinForms
         #region Actions
         private TimedActionQueue _actions;
 
-        private AppTile GetCatalogTile(FeedUri interfaceUri)
-        {
-            return (AppTile)tileListCatalog.GetTile(interfaceUri);
-        }
+        private AppTile GetCatalogTile(FeedUri interfaceUri) => (AppTile)tileListCatalog.GetTile(interfaceUri);
 
-        private AppTile GetMyAppsTile(FeedUri interfaceUri)
-        {
-            return (AppTile)tileListMyApps.GetTile(interfaceUri);
-        }
+        private AppTile GetMyAppsTile(FeedUri interfaceUri) => (AppTile)tileListMyApps.GetTile(interfaceUri);
 
-        private void FillActions()
+        private void FillActions() => _actions = new TimedActionQueue
         {
-            _actions = new TimedActionQueue
+            // Welcome
+            {3000, () => PrintSubtitles(Resources.IntroSubtitlesWelcome)},
+            {6000, labelSubtitles.Hide},
+            // Catalog search
+            {1000, () => PrintSubtitles(Resources.IntroSubtitlesCatalogSearch)},
+            {3000, tabControlApps.Show},
+            {2500, arrowSearch.Show},
+            {500, arrowSearch.Hide},
+            {500, arrowSearch.Show},
+            {1500, () => TypeText(tileListCatalog.TextSearch, "C")},
+            {500, () => TypeText(tileListCatalog.TextSearch, "Co")},
+            {500, () => TypeText(tileListCatalog.TextSearch, "Coo")},
+            {500, () => TypeText(tileListCatalog.TextSearch, "Cool")},
+            {500, arrowSearch.Hide},
+            {2000, labelSubtitles.Hide},
+            // Run app
+            {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
+            {2000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonRun)},
+            {4000, GetCatalogTile(_coolApp).Refresh},
+            {1000, labelSubtitles.Hide},
+            // Add app
+            {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
+            {4000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonAdd)},
+            {2000, () => { GetCatalogTile(_coolApp).Status = AppStatus.Added; }},
+            {3000, GetCatalogTile(_coolApp).Refresh},
+            {1000, labelSubtitles.Hide},
+            // My apps
+            {2000, arrowMyApps.Show},
+            {500, arrowMyApps.Hide},
+            {500, arrowMyApps.Show},
+            {1500, () => tabControlApps.SelectTab(tabPageAppList)},
+            {1000, () => PrintSubtitles(Resources.IntroSubtitlesMyApps)},
+            {4000, arrowMyApps.Hide},
+            {1000, labelSubtitles.Hide},
+            // Integrate app
+            {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
+            {5000, () => FlashRectangle(GetMyAppsTile(_coolApp).buttonIntegrate)},
+            {2000, () => { GetMyAppsTile(_coolApp).Status = AppStatus.Integrated; }},
+            {3000, GetMyAppsTile(_coolApp).Refresh},
+            {1500, labelSubtitles.Hide},
+            // Thanks
+            {2000, () => PrintSubtitles(Resources.IntroSubtitlesThanks)},
             {
-                // Welcome
-                {3000, () => PrintSubtitles(Resources.IntroSubtitlesWelcome)},
-                {6000, labelSubtitles.Hide},
-                // Catalog search
-                {1000, () => PrintSubtitles(Resources.IntroSubtitlesCatalogSearch)},
-                {3000, tabControlApps.Show},
-                {2500, arrowSearch.Show},
-                {500, arrowSearch.Hide},
-                {500, arrowSearch.Show},
-                {1500, () => TypeText(tileListCatalog.TextSearch, "C")},
-                {500, () => TypeText(tileListCatalog.TextSearch, "Co")},
-                {500, () => TypeText(tileListCatalog.TextSearch, "Coo")},
-                {500, () => TypeText(tileListCatalog.TextSearch, "Cool")},
-                {500, arrowSearch.Hide},
-                {2000, labelSubtitles.Hide},
-                // Run app
-                {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
-                {2000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonRun)},
-                {4000, GetCatalogTile(_coolApp).Refresh},
-                {1000, labelSubtitles.Hide},
-                // Add app
-                {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
-                {4000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonAdd)},
-                {2000, () => { GetCatalogTile(_coolApp).Status = AppStatus.Added; }},
-                {3000, GetCatalogTile(_coolApp).Refresh},
-                {1000, labelSubtitles.Hide},
-                // My apps
-                {2000, arrowMyApps.Show},
-                {500, arrowMyApps.Hide},
-                {500, arrowMyApps.Show},
-                {1500, () => tabControlApps.SelectTab(tabPageAppList)},
-                {1000, () => PrintSubtitles(Resources.IntroSubtitlesMyApps)},
-                {4000, arrowMyApps.Hide},
-                {1000, labelSubtitles.Hide},
-                // Integrate app
-                {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
-                {5000, () => FlashRectangle(GetMyAppsTile(_coolApp).buttonIntegrate)},
-                {2000, () => { GetMyAppsTile(_coolApp).Status = AppStatus.Integrated; }},
-                {3000, GetMyAppsTile(_coolApp).Refresh},
-                {1500, labelSubtitles.Hide},
-                // Thanks
-                {2000, () => PrintSubtitles(Resources.IntroSubtitlesThanks)},
+                4000, () =>
                 {
-                    4000, () =>
-                    {
-                        tabControlApps.Hide();
-                        labelVideo.Hide();
-                        buttonReplay.Visible = buttonClose.Visible = true;
-                    }
+                    tabControlApps.Hide();
+                    labelVideo.Hide();
+                    buttonReplay.Visible = buttonClose.Visible = true;
                 }
-            };
-        }
+            }
+        };
         #endregion
 
         #region Actions helpers
         private class TimedActionQueue : Queue<KeyValuePair<int, Action>>
         {
-            public void Add(int time, Action action)
-            {
-                Enqueue(new KeyValuePair<int, Action>(time, action));
-            }
+            public void Add(int time, Action action) => Enqueue(new KeyValuePair<int, Action>(time, action));
         }
 
         private void PrintSubtitles(string text)

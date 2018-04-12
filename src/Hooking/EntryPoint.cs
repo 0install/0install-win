@@ -47,10 +47,14 @@ namespace ZeroInstall.Hooking
 
         private readonly RelaunchEntry _relaunchInformation;
 
-        private LocalHook _regQueryValueExWHook, _regQueryValueExAHook,
-            _regSetValueExWHook, _regSetValueExAHook,
-            _createProcessWHook, _createProcessAHook,
-            _createWindowExWHook, _createWindowExAHook;
+        private LocalHook _regQueryValueExWHook,
+            _regQueryValueExAHook,
+            _regSetValueExWHook,
+            _regSetValueExAHook,
+            _createProcessWHook,
+            _createProcessAHook,
+            _createWindowExWHook,
+            _createWindowExAHook;
 
         /// <summary>
         /// Creates a new entry point.
@@ -80,7 +84,7 @@ namespace ZeroInstall.Hooking
             {
                 SetupHooks();
             }
-                #region Error handling
+            #region Error handling
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
@@ -89,7 +93,7 @@ namespace ZeroInstall.Hooking
                 EventLog.WriteEntry("Zero Install", ex.ToString(), EventLogEntryType.Error);
                 return;
             }
-                #endregion
+            #endregion
 
             finally
             {

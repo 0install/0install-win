@@ -66,7 +66,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected bool NoWait;
 
         /// <inheritdoc/>
-        public Run([NotNull] ICommandHandler handler) : base(handler)
+        public Run([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             //Options.Remove("xml");
             //Options.Remove("show");
@@ -152,7 +153,7 @@ namespace ZeroInstall.Commands.CliCommands
                     {
                         return new RunHook(Selections, Store, FeedManager, Handler);
                     }
-                        #region Error handling
+                    #region Error handling
                     catch (ImplementationNotFoundException)
                     {
                         Log.Warn(Resources.NoApiHookingNonCacheImpl);

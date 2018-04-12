@@ -279,9 +279,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Cancel();
-        }
+            => Cancel();
 
         /// <summary>
         /// Hides the window and then starts canceling the current process asynchronously.

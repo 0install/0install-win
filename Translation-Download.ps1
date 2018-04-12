@@ -1,4 +1,4 @@
-Param ([Parameter(Mandatory=$True)][String]$User, [Parameter(Mandatory=$True)][String]$Password)
+﻿Param ([Parameter(Mandatory=$True)][String]$User, [Parameter(Mandatory=$True)][String]$Password)
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 

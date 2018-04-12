@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SoftwareIdentity
-	name="Zero Install Provider for OneGet"
+    name="Zero Install Provider for OneGet"
     version="2.14.7" versionScheme="multipartnumeric"
-	media="(windows) and (PackageManagement) and (min-PackageManagement.api:2)"
-	xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd">
+    media="(windows) and (PackageManagement) and (min-PackageManagement.api:2)"
+    xmlns="http://standards.iso.org/iso/19770/-2/2015/schema.xsd">
 
 </SoftwareIdentity>

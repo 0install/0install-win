@@ -46,7 +46,8 @@ namespace ZeroInstall.Commands.CliCommands
         private SyncResetMode _syncResetMode = SyncResetMode.None;
 
         /// <inheritdoc/>
-        public SyncApps([NotNull] ICommandHandler handler) : base(handler)
+        public SyncApps([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("reset=", () => Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
         }
@@ -62,14 +63,14 @@ namespace ZeroInstall.Commands.CliCommands
                 using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFresh, Handler, MachineWide))
                     syncManager.Sync(_syncResetMode);
             }
-                #region Error handling
+            #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
                 Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
-                #endregion
+            #endregion
 
             finally
             {

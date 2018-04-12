@@ -120,7 +120,8 @@ namespace ZeroInstall
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
-        public BootstrapProcess([NotNull] ITaskHandler handler, bool gui) : base(handler)
+        public BootstrapProcess([NotNull] ITaskHandler handler, bool gui)
+            : base(handler)
         {
             _gui = gui;
 
@@ -274,7 +275,7 @@ namespace ZeroInstall
                 {
                     FeedManager.ImportFeed(path);
                 }
-                    #region Error handling
+                #region Error handling
                 catch (ReplayAttackException)
                 {
                     Log.Info("Ignored feed because a newer version is already in cache");
@@ -306,7 +307,7 @@ namespace ZeroInstall
                             }
                         }, digest, Handler);
                     }
-                        #region Error handling
+                    #region Error handling
                     catch (ImplementationAlreadyInStoreException)
                     {}
                     #endregion
@@ -391,10 +392,7 @@ namespace ZeroInstall
         /// <summary>
         /// Runs the Solver to select a version of Zero Install.
         /// </summary>
-        private void Solve()
-        {
-            _selections = Solver.Solve(_requirements);
-        }
+        private void Solve() => _selections = Solver.Solve(_requirements);
 
         /// <summary>
         /// Runs the Solver in refresh mode (re-download all feeds).

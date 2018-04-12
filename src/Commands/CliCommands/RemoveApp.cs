@@ -48,7 +48,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public RemoveApp([NotNull] ICommandHandler handler) : base(handler)
+        public RemoveApp([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
 
         /// <inheritdoc/>
@@ -63,7 +64,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 integrationManager.RemoveApp(integrationManager.AppList[interfaceUri]);
             }
-                #region Sanity checks
+            #region Sanity checks
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed

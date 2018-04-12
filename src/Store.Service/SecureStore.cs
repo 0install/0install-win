@@ -51,7 +51,8 @@ namespace ZeroInstall.Store.Service
         /// <param name="serviceIdentity">The identity the service was launched with.</param>
         /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
-        public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity) : base(path)
+        public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity)
+            : base(path)
         {
             _serviceIdentity = serviceIdentity ?? throw new ArgumentNullException(nameof(serviceIdentity));
 
@@ -82,7 +83,7 @@ namespace ZeroInstall.Store.Service
                     Directory.SetAccessControl(path, acl);
                     return path;
                 }
-                    #region Error handling
+                #region Error handling
                 catch (Exception ex)
                 {
                     Log.Error(string.Format(Resources.FailedToCreateTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message);
@@ -116,7 +117,7 @@ namespace ZeroInstall.Store.Service
                         directory.Delete(true);
                     }
                 }
-                    #region Error handling
+                #region Error handling
                 catch (Exception ex)
                 {
                     Log.Error(string.Format(Resources.FailedToRemoveTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message);
@@ -190,7 +191,7 @@ namespace ZeroInstall.Store.Service
                 {
                     removed = base.Remove(manifestDigest, handler);
                 }
-                    #region Error handling
+                #region Error handling
                 catch (Exception)
                 {
                     Log.Warn(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
@@ -208,16 +209,12 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.
         /// </summary>
-        public override void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
-        {}
+        public override void Verify(ManifestDigest manifestDigest, ITaskHandler handler) {}
 
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.
         /// </summary>
-        public override long Optimise(ITaskHandler handler)
-        {
-            return 0;
-        }
+        public override long Optimise(ITaskHandler handler) => 0;
         #endregion
 
         //--------------------//
@@ -226,18 +223,12 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Returns the Store in the form "SecureStore: DirectoryPath". Not safe for parsing!
         /// </summary>
-        public override string ToString()
-        {
-            return "SecureStore: " + DirectoryPath;
-        }
+        public override string ToString() => "SecureStore: " + DirectoryPath;
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(SecureStore other)
-        {
-            return base.Equals(other);
-        }
+        public bool Equals(SecureStore other) => base.Equals(other);
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
@@ -248,10 +239,7 @@ namespace ZeroInstall.Store.Service
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
         #endregion
     }
 }

@@ -136,8 +136,16 @@ namespace ZeroInstall.Commands.Utils
 
         private static readonly string[] _ngenAssemblies =
         {
-            "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "0store-service.exe", "ZeroInstall.exe",
-            "ZeroInstall.OneGet.dll", "ZeroInstall.Store.XmlSerializers.dll", "ZeroInstall.DesktopIntegration.XmlSerializers.dll"
+            "0install.exe",
+            "0install-win.exe",
+            "0launch.exe",
+            "0alias.exe",
+            "0store.exe",
+            "0store-service.exe",
+            "ZeroInstall.exe",
+            "ZeroInstall.OneGet.dll",
+            "ZeroInstall.Store.XmlSerializers.dll",
+            "ZeroInstall.DesktopIntegration.XmlSerializers.dll"
         };
 
         /// <summary>

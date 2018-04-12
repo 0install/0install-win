@@ -20,7 +20,7 @@ function upload_filtered($slug, $pathBase) {
         $filteredKeys.Add($dict.Key.ToString());
     }
     $reader.Dispose()
-    
+
     $reader = New-Object Resources.ResXResourceReader -ArgumentList "$pathBase.resx"
     $writer = New-Object Resources.ResXResourceWriter -ArgumentList "$pathBase.filtered.resx"
     $dict = $reader.GetEnumerator()
@@ -32,7 +32,7 @@ function upload_filtered($slug, $pathBase) {
     }
     $writer.Dispose()
     $reader.Dispose()
-    
+
     put "resource/$slug/content/" "$pathBase.filtered.resx"
     put "resource/$slug/translation/de/" "$pathBase.de.resx"
 }

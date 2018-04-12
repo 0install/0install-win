@@ -92,7 +92,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 _config = Config.Load();
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Log.Error(ex);
@@ -124,7 +124,7 @@ namespace ZeroInstall.Central.WinForms
                 config.Save();
                 return true;
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Log.Error(ex);
@@ -188,7 +188,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 ProcessUtils.Start("http://0install.de/docs/sync/");
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -234,7 +234,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     _server.Uri = new Uri(textBoxFileShare.Text);
                 }
-                    #region Sanity checks
+                #region Sanity checks
                 catch (UriFormatException ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Warn);
@@ -258,7 +258,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 ProcessUtils.Start(Config.DefaultSyncServer + "register");
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -271,9 +271,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region pageCredentials
         private void textBoxCredentials_TextChanged(object sender, EventArgs e)
-        {
-            pageCredentials.AllowNext = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
-        }
+            => pageCredentials.AllowNext = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
 
         private void pageCredentials_Commit(object sender, WizardPageConfirmEventArgs e)
         {
@@ -285,7 +283,7 @@ namespace ZeroInstall.Central.WinForms
                 using (var handler = new DialogTaskHandler(this))
                     handler.RunTask(new SimpleTask(Text, CheckCredentials));
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex)
             {
                 Log.Warn(ex);
@@ -317,7 +315,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 request.GetResponse();
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex)
                 when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
             {
@@ -329,20 +327,13 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageExistingCryptoKey
-        private void pageExistingCryptoKey_Initialize(object sender, WizardPageInitEventArgs e)
-        {
-            textBoxCryptoKey.Text = _config.SyncCryptoKey;
-        }
+        private void pageExistingCryptoKey_Initialize(object sender, WizardPageInitEventArgs e) { textBoxCryptoKey.Text = _config.SyncCryptoKey; }
 
         private void buttonForgotKey_Click(object sender, EventArgs e)
-        {
-            wizardControl.NextPage(pageResetCryptoKey, skipCommit: true);
-        }
+            => wizardControl.NextPage(pageResetCryptoKey, skipCommit: true);
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
-        {
-            pageExistingCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
-        }
+            => pageExistingCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
 
         private void pageExistingCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
         {
@@ -353,7 +344,7 @@ namespace ZeroInstall.Central.WinForms
                 using (var handler = new DialogTaskHandler(this))
                     handler.RunTask(new SimpleTask(Text, CheckCryptoKey));
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex)
             {
                 Log.Warn(ex);
@@ -389,7 +380,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _cryptoKey);
                 }
-                    #region Error handling
+                #region Error handling
                 catch (WebException ex)
                     when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -409,14 +400,10 @@ namespace ZeroInstall.Central.WinForms
 
         #region pageResetCryptoKey
         private void pageResetCryptoKey_Initialize(object sender, WizardPageInitEventArgs e)
-        {
-            textBoxCryptoKeyReset.Text = StringUtils.GeneratePassword(16);
-        }
+            => textBoxCryptoKeyReset.Text = StringUtils.GeneratePassword(16);
 
         private void textBoxCryptoKeyReset_TextChanged(object sender, EventArgs e)
-        {
-            pageResetCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyReset.Text);
-        }
+            => pageResetCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyReset.Text);
 
         private void pageResetCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
         {
@@ -427,7 +414,7 @@ namespace ZeroInstall.Central.WinForms
                 using (var sync = CreateSync(_cryptoKey))
                     sync.Sync(SyncResetMode.Server);
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex)
             {
                 Log.Warn(ex);
@@ -450,7 +437,8 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             if (_troubleshooting)
-                if (!SaveConfig()) e.Cancel = true;
+                if (!SaveConfig())
+                    e.Cancel = true;
         }
         #endregion
 
@@ -469,19 +457,13 @@ namespace ZeroInstall.Central.WinForms
 
         #region pageNewCryptoKey
         private void pageNewCryptoKey_Initialize(object sender, WizardPageInitEventArgs e)
-        {
-            textBoxCryptoKeyNew.Text = StringUtils.GeneratePassword(16);
-        }
+            => textBoxCryptoKeyNew.Text = StringUtils.GeneratePassword(16);
 
         private void textBoxCryptoKeyNew_TextChanged(object sender, EventArgs e)
-        {
-            pageNewCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyNew.Text);
-        }
+            => pageNewCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyNew.Text);
 
         private void pageNewCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
-        {
-            _cryptoKey = textBoxCryptoKeyNew.Text;
-        }
+            => _cryptoKey = textBoxCryptoKeyNew.Text;
         #endregion
 
         #region pageSetupFinished
@@ -499,36 +481,24 @@ namespace ZeroInstall.Central.WinForms
 
         #region pageResetWelcome
         private void pageResetWelcome_Initialize(object sender, WizardPageInitEventArgs e)
-        {
-            _server = _config.ToSyncServer();
-        }
+            => _server = _config.ToSyncServer();
 
         private void buttonChangeCryptoKey_Click(object sender, EventArgs e)
-        {
-            wizardControl.NextPage(pageExistingCryptoKey);
-        }
+            => wizardControl.NextPage(pageExistingCryptoKey);
 
         private void buttonResetServer_Click(object sender, EventArgs e)
-        {
-            wizardControl.NextPage(pageResetServer);
-        }
+            => wizardControl.NextPage(pageResetServer);
 
         private void buttonResetClient_Click(object sender, EventArgs e)
-        {
-            wizardControl.NextPage(pageResetClient);
-        }
+            => wizardControl.NextPage(pageResetClient);
         #endregion
 
         #region pageChangeCryptoKey
         private void pageChangeCryptoKey_Initialize(object sender, WizardPageInitEventArgs e)
-        {
-            textBoxCryptoKeyChange.Text = StringUtils.GeneratePassword(16);
-        }
+            => textBoxCryptoKeyChange.Text = StringUtils.GeneratePassword(16);
 
         private void textBoxCryptoKeyChange_TextChanged(object sender, EventArgs e)
-        {
-            pageChangeCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyChange.Text);
-        }
+            => pageChangeCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyChange.Text);
 
         private void pageChangeCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
         {
@@ -542,7 +512,7 @@ namespace ZeroInstall.Central.WinForms
                 using (var sync = CreateSync(newKey))
                     sync.Sync(SyncResetMode.Server);
             }
-                #region Error handling
+            #region Error handling
             catch (WebException ex)
             {
                 Log.Warn(ex);
@@ -567,22 +537,17 @@ namespace ZeroInstall.Central.WinForms
             _cryptoKey = newKey;
 
             if (_troubleshooting)
-                if (!SaveConfig()) e.Cancel = true;
+                if (!SaveConfig())
+                    e.Cancel = true;
         }
         #endregion
 
         #region pageResetServer
-        private void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e)
-        {
-            Program.RunCommand(_machineWide, SyncApps.Name, "--reset=server");
-        }
+        private void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e) { Program.RunCommand(_machineWide, SyncApps.Name, "--reset=server"); }
         #endregion
 
         #region pageResetClient
-        private void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e)
-        {
-            Program.RunCommand(_machineWide, SyncApps.Name, "--reset=client");
-        }
+        private void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e) { Program.RunCommand(_machineWide, SyncApps.Name, "--reset=client"); }
         #endregion
     }
 }

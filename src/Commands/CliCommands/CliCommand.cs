@@ -126,7 +126,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// Creates a new command.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        protected CliCommand([NotNull] ICommandHandler handler) : base(handler)
+        protected CliCommand([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Handler = handler;
 

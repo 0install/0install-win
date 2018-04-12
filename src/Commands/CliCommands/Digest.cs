@@ -56,7 +56,8 @@ namespace ZeroInstall.Commands.CliCommands
         private bool _printManifest, _printDigest;
 
         /// <inheritdoc/>
-        public Digest([NotNull] ICommandHandler handler) : base(handler)
+        public Digest([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("manifest", () => Resources.OptionManifest, _ => _printManifest = true);
             Options.Add("digest", () => Resources.OptionDigest, _ => _printDigest = true);
@@ -67,7 +68,7 @@ namespace ZeroInstall.Commands.CliCommands
                     {
                         _algorithm = ManifestFormat.FromPrefix(algorithm);
                     }
-                        #region Error handling
+                    #region Error handling
                     catch (ArgumentException ex)
                     {
                         // Wrap exception since only certain exception types are allowed

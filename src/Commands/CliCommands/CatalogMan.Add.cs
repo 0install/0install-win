@@ -42,7 +42,8 @@ namespace ZeroInstall.Commands.CliCommands
             #region State
             private bool _skipVerify;
 
-            public Add([NotNull] ICommandHandler handler) : base(handler)
+            public Add([NotNull] ICommandHandler handler)
+                : base(handler)
             {
                 Options.Add("skip-verify", () => Resources.OptionCatalogAddSkipVerify, _ => _skipVerify = true);
             }

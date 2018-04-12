@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
@@ -28,7 +28,8 @@ namespace ZeroInstall.Commands.CliCommands
         protected bool MachineWide { get; private set; }
 
         /// <inheritdoc/>
-        protected IntegrationCommand([NotNull] ICommandHandler handler) : base(handler)
+        protected IntegrationCommand([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);

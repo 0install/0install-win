@@ -171,7 +171,7 @@ namespace ZeroInstall.Central.WinForms
                 Debug.Assert(_iconStore != null);
                 e.Result = Image.FromFile(_iconStore.GetPath(icon, _machineWide));
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (UriFormatException ex)
@@ -232,7 +232,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 ProcessUtils.Start(InterfaceUri.OriginalString);
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -292,7 +292,9 @@ namespace ZeroInstall.Central.WinForms
             if (InterfaceUri.IsFake) return;
 
             if (Status == AppStatus.Integrated)
+            {
                 if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn)) return;
+            }
 
             // Disable buttons while operation is running
             buttonIntegrate.Enabled = false;

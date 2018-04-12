@@ -41,7 +41,8 @@ namespace ZeroInstall.Commands.CliCommands
 
         #region State
         /// <inheritdoc/>
-        public ExportHelp([NotNull] ICommandHandler handler) : base(handler)
+        public ExportHelp([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
         #endregion
 

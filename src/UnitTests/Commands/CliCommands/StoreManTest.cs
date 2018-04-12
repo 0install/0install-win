@@ -36,12 +36,12 @@ namespace ZeroInstall.Commands.CliCommands
     public class StoreManTest
     {
         internal abstract class StoreSubCommand<T> : CliCommandTest<T>
-            where T:StoreMan.StoreSubCommand
+            where T : StoreMan.StoreSubCommand
         {
             protected Mock<IStore> StoreMock => GetMock<IStore>();
         }
 
-            internal class Add : StoreSubCommand<StoreMan.Add>
+        internal class Add : StoreSubCommand<StoreMan.Add>
         {
             [Fact]
             public void Archive()
@@ -163,7 +163,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Audit : StoreSubCommand<StoreMan.Audit>
+        internal class Audit : StoreSubCommand<StoreMan.Audit>
         {
             [Fact]
             public void TestAudit()
@@ -176,7 +176,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Copy : StoreSubCommand<StoreMan.Copy>
+        internal class Copy : StoreSubCommand<StoreMan.Copy>
         {
             [Fact]
             public void Normal()
@@ -206,7 +206,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Find : StoreSubCommand<StoreMan.Find>
+        internal class Find : StoreSubCommand<StoreMan.Find>
         {
             [Fact]
             public void Test()
@@ -219,16 +219,13 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class List : StoreSubCommand<StoreMan.List>
+        internal class List : StoreSubCommand<StoreMan.List>
         {
             [Fact]
-            public void Test()
-            {
-                RunAndAssert(new[] {StoreMock.Object}, ExitCode.OK);
-            }
+            public void Test() { RunAndAssert(new[] {StoreMock.Object}, ExitCode.OK); }
         }
 
-            internal class ListImplementations : StoreSubCommand<StoreMan.ListImplementations>
+        internal class ListImplementations : StoreSubCommand<StoreMan.ListImplementations>
         {
             [Fact]
             public void ListAll()
@@ -253,7 +250,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Optimise : StoreSubCommand<StoreMan.Optimise>
+        internal class Optimise : StoreSubCommand<StoreMan.Optimise>
         {
             [Fact]
             public void Test()
@@ -264,7 +261,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Purge : StoreSubCommand<StoreMan.Purge>
+        internal class Purge : StoreSubCommand<StoreMan.Purge>
         {
             [Fact]
             public void Test()
@@ -278,7 +275,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Remove : StoreSubCommand<StoreMan.Remove>
+        internal class Remove : StoreSubCommand<StoreMan.Remove>
         {
             [Fact]
             public void Test()
@@ -291,7 +288,7 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-            internal class Verify : StoreSubCommand<StoreMan.Verify>
+        internal class Verify : StoreSubCommand<StoreMan.Verify>
         {
             [Fact]
             public void Pass()

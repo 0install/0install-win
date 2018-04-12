@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Service
 
             // NOTE: Do not block updater from starting because it will automatically stop service
 
-            ServiceBase.Run(new ServiceBase[] { new StoreService() });
+            ServiceBase.Run(new ServiceBase[] {new StoreService()});
             return 0;
         }
     }

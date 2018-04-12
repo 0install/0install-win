@@ -45,7 +45,8 @@ namespace ZeroInstall.Commands.CliCommands
         private bool _machineWide;
 
         /// <inheritdoc/>
-        public Central([NotNull] ICommandHandler handler) : base(handler)
+        public Central([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("m|machine", () => Resources.OptionMachine, _ => _machineWide = true);
         }

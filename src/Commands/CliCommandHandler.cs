@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Always returns <c>false</c>.
         /// </summary>
-        public bool Background { get { return false; } set { } }
+        public bool Background { get { return false; } set {} }
 
         /// <inheritdoc/>
         public void DisableUI()

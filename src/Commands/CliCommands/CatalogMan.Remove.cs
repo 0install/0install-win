@@ -37,7 +37,8 @@ namespace ZeroInstall.Commands.CliCommands
 
             protected override int AdditionalArgsMax => 1;
 
-            public Remove([NotNull] ICommandHandler handler) : base(handler)
+            public Remove([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
             #endregion
 

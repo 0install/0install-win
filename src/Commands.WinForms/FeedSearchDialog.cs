@@ -65,10 +65,7 @@ namespace ZeroInstall.Commands.WinForms
             backgroundWorker.RunWorkerAsync(textKeywords.Text);
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            e.Result = SearchQuery.Perform(Config.Load(), (string)e.Argument);
-        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e) { e.Result = SearchQuery.Perform(Config.Load(), (string)e.Argument); }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -100,7 +97,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Assembly(Program.ExeName, "run", "--no-wait", result.Uri.ToStringRfc()).Start();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -119,7 +116,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Assembly(Program.ExeName, "add", result.Uri.ToStringRfc()).Start();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -138,7 +135,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Assembly(Program.ExeName, "integrate", result.Uri.ToStringRfc()).Start();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -157,7 +154,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Start(result.Uri.ToStringRfc());
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)

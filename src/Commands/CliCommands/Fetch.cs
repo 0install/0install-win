@@ -42,7 +42,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public Fetch([NotNull] ICommandHandler handler) : base(handler)
+        public Fetch([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
 
         /// <inheritdoc/>

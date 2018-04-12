@@ -36,7 +36,8 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "maintenance";
 
         /// <inheritdoc/>
-        public MaintenanceMan([NotNull] ICommandHandler handler) : base(handler)
+        public MaintenanceMan([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
         #endregion
 
@@ -67,7 +68,8 @@ namespace ZeroInstall.Commands.CliCommands
         {
             protected override string ParentName => MaintenanceMan.Name;
 
-            protected MaintenanceSubCommand([NotNull] ICommandHandler handler) : base(handler)
+            protected MaintenanceSubCommand([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
 
             /// <summary>

@@ -214,8 +214,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\ZeroInstall.Store.2.14.7\build\ZeroInstall.Store.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ZeroInstall.Store.2.14.7\build\ZeroInstall.Store.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+      Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">

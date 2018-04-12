@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010-2016 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,8 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected AppCommand([NotNull] ICommandHandler handler) : base(handler)
+        protected AppCommand([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
 
         /// <inheritdoc/>

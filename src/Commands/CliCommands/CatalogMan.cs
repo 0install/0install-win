@@ -35,7 +35,8 @@ namespace ZeroInstall.Commands.CliCommands
         public new const string Name = "catalog";
 
         /// <inheritdoc/>
-        public CatalogMan([NotNull] ICommandHandler handler) : base(handler)
+        public CatalogMan([NotNull] ICommandHandler handler)
+            : base(handler)
         {}
         #endregion
 
@@ -72,7 +73,8 @@ namespace ZeroInstall.Commands.CliCommands
         {
             protected override string ParentName => CatalogMan.Name;
 
-            protected CatalogSubCommand([NotNull] ICommandHandler handler) : base(handler)
+            protected CatalogSubCommand([NotNull] ICommandHandler handler)
+                : base(handler)
             {}
         }
     }

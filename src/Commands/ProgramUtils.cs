@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands
                 var command = CommandFactory.CreateAndParse(args, handler);
                 return command.Execute();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {
                 return ExitCode.UserCanceled;
@@ -335,7 +335,7 @@ namespace ZeroInstall.Commands
                 handler.Error(ex);
                 return ExitCode.Conflict;
             }
-                #endregion
+            #endregion
 
             finally
             {

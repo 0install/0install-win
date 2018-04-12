@@ -94,21 +94,27 @@ namespace ZeroInstall.Central.WinForms
 
             TextSearch = new HintTextBox
             {
-                Dock = DockStyle.Top, Height = 20,
-                HintText = Resources.Search, ShowClearButton = true,
+                Dock = DockStyle.Top,
+                Height = 20,
+                HintText = Resources.Search,
+                ShowClearButton = true,
                 TabIndex = 0
             };
             TextSearch.TextChanged += delegate { RefilterTiles(); };
 
             _flowLayout = new FlowLayoutPanel
             {
-                Location = new Point(0, 0), Size = Size.Empty, Margin = Padding.Empty,
+                Location = new Point(0, 0),
+                Size = Size.Empty,
+                Margin = Padding.Empty,
                 FlowDirection = FlowDirection.TopDown
             };
             _scrollPanel = new Panel
             {
-                Dock = DockStyle.Fill, Margin = Padding.Empty,
-                AutoScroll = true, Controls = {_flowLayout},
+                Dock = DockStyle.Fill,
+                Margin = Padding.Empty,
+                AutoScroll = true,
+                Controls = {_flowLayout},
                 TabIndex = 1
             };
 

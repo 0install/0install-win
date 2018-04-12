@@ -186,7 +186,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Start((string)listBoxImplDirs.SelectedItem);
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -251,7 +251,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     ProcessUtils.Start(listBoxCatalogSources.SelectedItem.ToString());
                 }
-                    #region Error handling
+                #region Error handling
                 catch (OperationCanceledException)
                 {}
                 catch (IOException ex)
@@ -285,7 +285,7 @@ namespace ZeroInstall.Commands.WinForms
                 // Trusted keys may have changed as a side-effect
                 LoadTrust();
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (UriFormatException ex)
@@ -358,7 +358,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.Start(syncServer + "account");
             }
-                #region Error handling
+            #region Error handling
             catch (OperationCanceledException)
             {}
             catch (IOException ex)
@@ -369,9 +369,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
-        {
-            Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
-        }
+            => Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
 
         private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
         {
@@ -405,10 +403,7 @@ namespace ZeroInstall.Commands.WinForms
             propertyGridAdvanced.Visible = true;
         }
 
-        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            ConfigToControls();
-        }
+        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) { ConfigToControls(); }
         #endregion
 
         #region Language
@@ -416,15 +411,9 @@ namespace ZeroInstall.Commands.WinForms
         {
             public readonly CultureInfo Culture;
 
-            public LanguageWrapper(CultureInfo culture)
-            {
-                Culture = culture;
-            }
+            public LanguageWrapper(CultureInfo culture) => Culture = culture;
 
-            public override string ToString()
-            {
-                return Culture.DisplayName;
-            }
+            public override string ToString() => Culture.DisplayName;
 
             public override bool Equals(object obj)
             {
@@ -433,10 +422,7 @@ namespace ZeroInstall.Commands.WinForms
                 return obj is LanguageWrapper && Culture.Equals(((LanguageWrapper)obj).Culture);
             }
 
-            public override int GetHashCode()
-            {
-                return Culture.GetHashCode();
-            }
+            public override int GetHashCode() => Culture.GetHashCode();
         }
 
         private void LoadLanguages()

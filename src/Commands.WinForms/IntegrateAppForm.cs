@@ -89,14 +89,10 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private void buttonHelpCommandAccessPoint_Click(object sender, EventArgs e)
-        {
-            Msg.Inform(this, Resources.DataGridCommandAccessPointHelp, MsgSeverity.Info);
-        }
+            => Msg.Inform(this, Resources.DataGridCommandAccessPointHelp, MsgSeverity.Info);
 
         private void buttonHelpDefaultAccessPoint_Click(object sender, EventArgs e)
-        {
-            Msg.Inform(this, Resources.DataGridDefaultAccessPointHelp, MsgSeverity.Info);
-        }
+            => Msg.Inform(this, Resources.DataGridDefaultAccessPointHelp, MsgSeverity.Info);
 
         private void accessPointDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
@@ -184,7 +180,10 @@ namespace ZeroInstall.Commands.WinForms
             SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, labelDefaultProgramsSimple, checkBoxDefaultProgramsAll, _state.DefaultProgram);
 
             // File type associations cannot be set programmatically on Windows 8, so hide the option
-            _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false; };
+            _switchToBasicMode += () =>
+            {
+                if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false;
+            };
 
             SetDefaultAccessPoints();
         }
@@ -201,7 +200,10 @@ namespace ZeroInstall.Commands.WinForms
             where T : CapabilityModel
         {
             bool suppressEvent = false;
-            checkBoxSelectAll.CheckedChanged += delegate { if (!suppressEvent) model.SetAllUse(checkBoxSelectAll.Checked); };
+            checkBoxSelectAll.CheckedChanged += delegate
+            {
+                if (!suppressEvent) model.SetAllUse(checkBoxSelectAll.Checked);
+            };
 
             _switchToBasicMode += () => SetDefaultAccessPointCheckBox(checkBoxSimple, labelSimple, model);
             _switchToAdvancedMode += () =>

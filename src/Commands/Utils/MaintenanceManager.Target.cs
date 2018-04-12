@@ -134,7 +134,7 @@ namespace ZeroInstall.Commands.Utils
                 }
                 Directory.Delete(dirPath);
             }
-                #region Error handling
+            #region Error handling
             catch (IOException ex)
             {
                 Log.Debug(ex);

@@ -46,7 +46,8 @@ namespace ZeroInstall.Commands.CliCommands
 
         #region State
         /// <inheritdoc/>
-        protected AddRemoveFeedCommand([NotNull] ICommandHandler handler) : base(handler)
+        protected AddRemoveFeedCommand([NotNull] ICommandHandler handler)
+            : base(handler)
         {
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
