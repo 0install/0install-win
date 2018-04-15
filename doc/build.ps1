@@ -12,5 +12,6 @@ Invoke-WebRequest http://nano-byte.de/common/api/nanobyte-common.tag -OutFile na
 Invoke-WebRequest http://0install.de/api/backend/0install-dotnet.tag -OutFile 0install-dotnet.tag
 
 cmd /c "0install run --batch http://0install.de/feeds/Doxygen.xml 2>&1" # Redirect stderr to stdout
+if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 
 popd
