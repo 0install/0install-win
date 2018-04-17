@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.IO;
@@ -38,7 +24,9 @@ namespace ZeroInstall.OneGet
         /// </summary>
         /// <param name="request">The OneGet request interface to pass to the constructor of the target <see cref="IOneGetContext"/> implementation.</param>
         public OneGetContextInterceptor([NotNull] Request request)
-            => _request = request ?? throw new ArgumentNullException(nameof(request));
+        {
+            _request = request ?? throw new ArgumentNullException(nameof(request));
+        }
 
         [CanBeNull]
         private object _context;
@@ -77,7 +65,7 @@ namespace ZeroInstall.OneGet
 
             var assembly = Assembly.LoadFrom(Path.Combine(providerDirectory, "ZeroInstall.OneGet.dll"));
             var requestType = assembly.GetType("PackageManagement.Sdk.Request", throwOnError: true);
-            object requestProxy = new ProxyFactory().CreateProxy(requestType, new RequestInterceptor(_request));
+            var requestProxy = new ProxyFactory().CreateProxy(requestType, new RequestInterceptor(_request));
             var contextType = assembly.GetType("ZeroInstall.OneGet.OneGetContext", throwOnError: true);
             return Activator.CreateInstance(contextType, requestProxy);
         }
@@ -99,7 +87,10 @@ namespace ZeroInstall.OneGet
         {
             private readonly Request _request;
 
-            public RequestInterceptor([NotNull] Request request) => _request = request;
+            public RequestInterceptor([NotNull] Request request)
+            {
+                _request = request;
+            }
 
             public object Intercept(InvocationInfo info) => DuckType(_request, info);
         }

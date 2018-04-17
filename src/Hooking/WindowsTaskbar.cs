@@ -1,24 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.Collections.Generic;
@@ -211,7 +192,7 @@ namespace ZeroInstall.Hooking
 
             // ITaskbarList3
             [PreserveSig]
-            void SetProgressValue(IntPtr hwnd, UInt64 ullCompleted, UInt64 ullTotal);
+            void SetProgressValue(IntPtr hwnd, ulong ullCompleted, ulong ullTotal);
 
             [PreserveSig]
             void SetProgressState(IntPtr hwnd, ProgressBarState tbpFlags);
@@ -260,7 +241,10 @@ namespace ZeroInstall.Hooking
             void SetAppID([MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
 
             [PreserveSig]
-            uint BeginList(out uint cMaxSlots, ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
+            uint BeginList(out uint cMaxSlots,
+                           ref Guid riid,
+                           [Out, MarshalAs(UnmanagedType.Interface)]
+                           out object ppvObject);
 
             [PreserveSig]
             uint AppendCategory([MarshalAs(UnmanagedType.LPWStr)] string pszCategory, [MarshalAs(UnmanagedType.Interface)] IObjectArray poa);
@@ -271,7 +255,11 @@ namespace ZeroInstall.Hooking
             uint AddUserTasks([MarshalAs(UnmanagedType.Interface)] IObjectArray poa);
 
             void CommitList();
-            void GetRemovedDestinations(ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
+
+            void GetRemovedDestinations(ref Guid riid,
+                                        [Out, MarshalAs(UnmanagedType.Interface)]
+                                        out object ppvObject);
+
             void DeleteList([MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
             void AbortList();
         }
@@ -284,7 +272,11 @@ namespace ZeroInstall.Hooking
         private interface IObjectArray
         {
             void GetCount(out uint cObjects);
-            void GetAt(uint iIndex, ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
+
+            void GetAt(uint iIndex,
+                       ref Guid riid,
+                       [Out, MarshalAs(UnmanagedType.Interface)]
+                       out object ppvObject);
         }
 
         [ComImport, Guid("5632B1A4-E38A-400A-928A-D4CD63230295"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -295,7 +287,10 @@ namespace ZeroInstall.Hooking
             void GetCount(out uint cObjects);
 
             [PreserveSig]
-            void GetAt(uint iIndex, ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
+            void GetAt(uint iIndex,
+                       ref Guid riid,
+                       [Out, MarshalAs(UnmanagedType.Interface)]
+                       out object ppvObject);
 
             // IObjectCollection
             void AddObject([MarshalAs(UnmanagedType.Interface)] object pvObject);
@@ -405,7 +400,7 @@ namespace ZeroInstall.Hooking
 
             try
             {
-                IPropertyStore propertyStore = GetWindowPropertyStore(hwnd);
+                var propertyStore = GetWindowPropertyStore(hwnd);
 
                 var stringFormat = new Guid("{9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3}");
                 SetPropertyValue(propertyStore, new PropertyKey(stringFormat, 5), appID);

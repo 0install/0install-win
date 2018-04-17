@@ -1,20 +1,7 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
+using System;
 using System.IO;
 using System.Windows.Forms;
 using NanoByte.Common;
@@ -26,11 +13,14 @@ namespace ZeroInstall.Central.WinForms
 {
     public partial class PortableCreatorDialog : Form
     {
-        public PortableCreatorDialog() => InitializeComponent();
+        public PortableCreatorDialog()
+        {
+            InitializeComponent();
+        }
 
-        private void PortableCreatorDialog_Load(object sender, System.EventArgs e) { this.CenterOnParent(); }
+        private void PortableCreatorDialog_Load(object sender, EventArgs e) => this.CenterOnParent();
 
-        private void buttonSelectTarget_Click(object sender, System.EventArgs e)
+        private void buttonSelectTarget_Click(object sender, EventArgs e)
         {
             using (var folderBrowserDialog = new FolderBrowserDialog {SelectedPath = textBoxTarget.Text})
             {
@@ -41,10 +31,10 @@ namespace ZeroInstall.Central.WinForms
             textBoxTarget.Focus();
         }
 
-        private void textBoxTarget_TextChanged(object sender, System.EventArgs e)
+        private void textBoxTarget_TextChanged(object sender, EventArgs e)
             => buttonDeploy.Enabled = !string.IsNullOrEmpty(textBoxTarget.Text);
 
-        private void buttonDeploy_Click(object sender, System.EventArgs e)
+        private void buttonDeploy_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(textBoxTarget.Text) && Directory.GetFileSystemEntries(textBoxTarget.Text).Length != 0)
             {
@@ -56,7 +46,7 @@ namespace ZeroInstall.Central.WinForms
             Close();
         }
 
-        private void buttonCancel_Click(object sender, System.EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
             => Close();
     }
 }

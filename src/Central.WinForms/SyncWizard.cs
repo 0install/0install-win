@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.IO;
@@ -327,7 +313,8 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageExistingCryptoKey
-        private void pageExistingCryptoKey_Initialize(object sender, WizardPageInitEventArgs e) { textBoxCryptoKey.Text = _config.SyncCryptoKey; }
+        private void pageExistingCryptoKey_Initialize(object sender, WizardPageInitEventArgs e)
+            => textBoxCryptoKey.Text = _config.SyncCryptoKey;
 
         private void buttonForgotKey_Click(object sender, EventArgs e)
             => wizardControl.NextPage(pageResetCryptoKey, skipCommit: true);
@@ -437,8 +424,10 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             if (_troubleshooting)
+            {
                 if (!SaveConfig())
                     e.Cancel = true;
+            }
         }
         #endregion
 
@@ -537,17 +526,21 @@ namespace ZeroInstall.Central.WinForms
             _cryptoKey = newKey;
 
             if (_troubleshooting)
+            {
                 if (!SaveConfig())
                     e.Cancel = true;
+            }
         }
         #endregion
 
         #region pageResetServer
-        private void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e) { Program.RunCommand(_machineWide, SyncApps.Name, "--reset=server"); }
+        private void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e)
+            => Program.RunCommand(_machineWide, SyncApps.Name, "--reset=server");
         #endregion
 
         #region pageResetClient
-        private void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e) { Program.RunCommand(_machineWide, SyncApps.Name, "--reset=client"); }
+        private void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e)
+            => Program.RunCommand(_machineWide, SyncApps.Name, "--reset=client");
         #endregion
     }
 }

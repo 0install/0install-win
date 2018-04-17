@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Commands.WinForms
+namespace ZeroInstall.Commands.WinForms
 {
     partial class StoreManageForm
     {

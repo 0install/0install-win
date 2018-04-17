@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.Diagnostics;
@@ -184,13 +170,10 @@ namespace ZeroInstall.Commands.CliCommands
         /// Use cmd.exe to delete own installation directory after 8s delay
         /// </summary>
         private static void WindowsSelfDelete()
-        {
-            // Abuse ping to acheive delay without any 3rd party tools
-            new ProcessStartInfo("cmd.exe", "/c (ping 127.0.0.1 -n 8 || ping ::1 -n 8) & rd /s /q " + Locations.InstallBase.EscapeArgument())
+            => new ProcessStartInfo("cmd.exe", "/c (ping 127.0.0.1 -n 8 || ping ::1 -n 8) & rd /s /q " + Locations.InstallBase.EscapeArgument())
             {
                 UseShellExecute = false,
                 CreateNoWindow = true
             }.Start();
-        }
     }
 }

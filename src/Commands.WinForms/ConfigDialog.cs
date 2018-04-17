@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.Collections.Generic;
@@ -209,7 +195,7 @@ namespace ZeroInstall.Commands.WinForms
 
             if (Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn))
             {
-                foreach (var store in toRemove)
+                foreach (string store in toRemove)
                     listBoxImplDirs.Items.Remove(store);
             }
         }
@@ -222,11 +208,8 @@ namespace ZeroInstall.Commands.WinForms
             listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources().Cast<object>().ToArray());
         }
 
-        private void SaveCatalogSources()
-        {
-            CatalogManager.SetSources(
-                listBoxCatalogSources.Items.OfType<FeedUri>());
-        }
+        private void SaveCatalogSources() => CatalogManager.SetSources(
+            listBoxCatalogSources.Items.OfType<FeedUri>());
 
         private void listBoxCatalogSources_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -403,7 +386,7 @@ namespace ZeroInstall.Commands.WinForms
             propertyGridAdvanced.Visible = true;
         }
 
-        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) { ConfigToControls(); }
+        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) => ConfigToControls();
         #endregion
 
         #region Language
@@ -411,7 +394,10 @@ namespace ZeroInstall.Commands.WinForms
         {
             public readonly CultureInfo Culture;
 
-            public LanguageWrapper(CultureInfo culture) => Culture = culture;
+            public LanguageWrapper(CultureInfo culture)
+            {
+                Culture = culture;
+            }
 
             public override string ToString() => Culture.DisplayName;
 

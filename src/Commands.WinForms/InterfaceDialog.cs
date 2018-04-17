@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.Collections.Generic;
@@ -193,10 +179,8 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private SelectionCandidate GenerateDummyCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation)
-        {
-            return new SelectionCandidate(feedUri, feedPreferences, implementation,
+            => new SelectionCandidate(feedUri, feedPreferences, implementation,
                 new Requirements(_interfaceUri, Command.NameRun, new Architecture(Architecture.CurrentSystem.OS, Cpu.All)));
-        }
 
         /// <summary>
         /// Gets a list of <see cref="SelectionCandidate"/>s from the <see cref="ISolver"/> to populate <see cref="dataGridVersions"/>.
@@ -216,7 +200,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 // Read interface stability policy from ComboBox
-                if (comboBoxStability.SelectedItem is Stability) _interfacePreferences.StabilityPolicy = (Stability)comboBoxStability.SelectedItem;
+                if (comboBoxStability.SelectedItem is Stability stability) _interfacePreferences.StabilityPolicy = stability;
                 else _interfacePreferences.StabilityPolicy = Stability.Unset;
 
                 // Save interface preferences
@@ -328,9 +312,8 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Ensure a matching <feed-for> is present for online feeds
                 if (feed.FeedFor.All(entry => entry.Target != _interfaceUri))
-                {
-                    if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn)) return;
-                }
+                    if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn))
+                        return;
             }
 
             var reference = new FeedReference {Source = feedUri};
@@ -353,10 +336,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Feed buttons
         private void listBoxFeeds_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Enable remove button if there is at least one removable object selected
-            buttonRemoveFeed.Enabled = listBoxFeeds.SelectedItems.OfType<FeedReference>().Any();
-        }
+            => buttonRemoveFeed.Enabled = listBoxFeeds.SelectedItems.OfType<FeedReference>().Any();
 
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
@@ -391,7 +371,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 if (e.Data.GetData(DataFormats.FileDrop) is string[] files)
                 {
-                    foreach (var file in files)
+                    foreach (string file in files)
                         AddCustomFeed(file);
                 }
             }
@@ -400,11 +380,9 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private void listBoxFeeds_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
+            => e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
                 ? DragDropEffects.Copy
                 : DragDropEffects.None;
-        }
         #endregion
     }
 }

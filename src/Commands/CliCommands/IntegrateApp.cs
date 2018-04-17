@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.Collections.Generic;
@@ -141,17 +127,20 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Determines whether the user specified only removals. This means we do not need to fetch any feeds.
         /// </summary>
-        private bool RemoveOnly() => !_addCategories.Any() && _removeCategories.Any();
+        private bool RemoveOnly()
+            => !_addCategories.Any() && _removeCategories.Any();
 
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> specified by the user.
         /// </summary>
-        private void RemoveOnly(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri) { integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceUri], _removeCategories.ToArray()); }
+        private void RemoveOnly(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
+            => integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceUri], _removeCategories.ToArray());
 
         /// <summary>
         /// Determines whether the user specified no integration changes. This means we need a GUI to ask what to do.
         /// </summary>
-        private bool NoSpecifiedIntegrations() => !_addCategories.Any() && !_removeCategories.Any();
+        private bool NoSpecifiedIntegrations()
+            => !_addCategories.Any() && !_removeCategories.Any();
 
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> and <see cref="_addCategories"/> specified by the user.

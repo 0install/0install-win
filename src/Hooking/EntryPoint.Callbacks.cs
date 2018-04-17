@@ -1,19 +1,5 @@
-﻿/*
- * Copyright 2010-2016 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -96,7 +82,7 @@ namespace ZeroInstall.Hooking
             if (result != 0 || dataLength == 0 || valueType != RegistryValueKind.String) return null;
 
             // Read string data to buffer
-            IntPtr buffer = IntPtr.Zero;
+            var buffer = IntPtr.Zero;
             do
             {
                 if (buffer != IntPtr.Zero) Marshal.FreeHGlobal(buffer);
@@ -131,7 +117,7 @@ namespace ZeroInstall.Hooking
         {
             // Encode the data for storage in the buffer
             uint bufferSize = dataLength;
-            byte[] encodedData = (unicode ? Encoding.Unicode : Encoding.Default).GetBytes(data);
+            var encodedData = (unicode ? Encoding.Unicode : Encoding.Default).GetBytes(data);
             dataLength = (uint)encodedData.Length;
 
             // Write the data to the buffer if it fits
@@ -186,7 +172,7 @@ namespace ZeroInstall.Hooking
             // Start the process suspended
             if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
 
-            var result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+            bool result = UnsafeNativeMethods.CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
 
             // Inject the hooking DLL (and resume the process)
             if (needsInjection)
@@ -216,7 +202,7 @@ namespace ZeroInstall.Hooking
             // Start the process suspended
             if (needsInjection) dwCreationFlags |= UnsafeNativeMethods.CreateSuspended;
 
-            var result = UnsafeNativeMethods.CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
+            bool result = UnsafeNativeMethods.CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, out lpProcessInformation);
 
             // Inject the hooking DLL (and resume the process)
             if (needsInjection)

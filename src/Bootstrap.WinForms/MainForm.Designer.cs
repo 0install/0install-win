@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall
+namespace ZeroInstall
 {
     partial class MainForm
     {

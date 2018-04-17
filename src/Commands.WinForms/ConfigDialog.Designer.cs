@@ -1,4 +1,4 @@
-﻿using NanoByte.Common.Controls;
+using NanoByte.Common.Controls;
 
 namespace ZeroInstall.Commands.WinForms
 {
