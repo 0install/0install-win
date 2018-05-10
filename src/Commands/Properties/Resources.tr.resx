@@ -157,6 +157,9 @@ Alma betiği ya da '{1}' içindeki Bootstrap dosyası ile bu dosyaları başka b
   <data name="AskRemoveZeroInstall" xml:space="preserve">
     <value>Zero Install yazılımını bu bilgisayardan kaldırmak istediğinize emin misiniz?</value>
   </data>
+  <data name="AskTryNow" xml:space="preserve">
+    <value>Bunu şimdi denemek ister misiniz?</value>
+  </data>
   <data name="AskUpdateCapabilities" xml:space="preserve">
     <value>Var olan masaüstü bütünleştirmelerini bu değişikliği yansıtacak şekilde güncellemek ister misiniz?
 'Evet' seçilirse, uyumluluk sorunu olabilecek bütünleştirmeler silinir.
@@ -775,6 +778,9 @@ Komut satırı değişkenleri eklenebilir. Boşluklardan kaçınılmalıdır.</v
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>{0} başarıyla kaldırıldı.</value>
+  </data>
+  <data name="SuggestLongPath" xml:space="preserve">
+    <value>Windows için uzun yol adları desteğini etkinleştirmek bu sorunu çözebilir.</value>
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Desteklenen değerler: {0}</value>
