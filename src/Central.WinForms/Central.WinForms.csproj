@@ -158,6 +158,12 @@
     <None Include="..\App.config" />
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
+    <Content Include="Logo_150.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logo_70.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\AppAdd.png" />
     <Content Include="Resources\AppIcon.png" />
     <Content Include="Resources\AppIntegrate.png" />
@@ -167,6 +173,9 @@
     <Content Include="Resources\ArrowRight.png" />
     <Content Include="Resources\ArrowUp.png" />
     <None Include="packages.config" />
+    <Content Include="ZeroInstall.VisualElementsManifest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IntroDialog.de.resx">
