@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands.Utils
 
                     if (WindowsUtils.IsWindows)
                     {
-                        RegistryApply();
+                        RegistryApply(newManifest.TotalSize);
                         WindowsUtils.BroadcastMessage(PerformedWindowMessageID);
                         RemoveOneGetBootstrap();
                     }

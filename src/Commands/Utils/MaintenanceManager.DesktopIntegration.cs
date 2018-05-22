@@ -54,8 +54,9 @@ namespace ZeroInstall.Commands.Utils
         /// <summary>
         /// Update the registry entries.
         /// </summary>
+        /// <param name="size">The size of the installed files in bytes.</param>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        private void RegistryApply()
+        private void RegistryApply(long size)
         {
             var hive = MachineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var uninsKey = hive.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1"))
@@ -70,6 +71,7 @@ namespace ZeroInstall.Commands.Utils
                 uninsKey.SetValue("MajorVersion", AppInfo.CurrentLibrary.Version.Major, RegistryValueKind.DWord);
                 uninsKey.SetValue("MinorVersion", AppInfo.CurrentLibrary.Version.Minor, RegistryValueKind.DWord);
                 uninsKey.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
+                uninsKey.SetValue("EstimatedSize", size / 1024, RegistryValueKind.DWord);
 
                 uninsKey.SetValue("DisplayIcon", Path.Combine(TargetDir, "ZeroInstall.exe"));
                 uninsKey.SetValue("UninstallString", new[] {Path.Combine(TargetDir, "0install-win.exe"), MaintenanceMan.Name, MaintenanceMan.Remove.Name}.JoinEscapeArguments());
