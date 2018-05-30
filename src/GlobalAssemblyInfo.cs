@@ -1,4 +1,4 @@
-// This file contains shared assembly information for all projects except Tools
+﻿// This file contains shared assembly information for all projects except Tools
 
 using System.Reflection;
 
@@ -8,4 +8,4 @@ using System.Reflection;
 [assembly: AssemblyCopyright("Copyright Bastian Eicher et al.")]
 
 // Version information
-[assembly: AssemblyVersion("2.14.7")]
+[assembly: AssemblyVersion("2.15.1")]

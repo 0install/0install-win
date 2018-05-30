@@ -42,11 +42,11 @@
     <Reference Include="Mono.Posix">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="NanoByte.Common, Version=2.1.11.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\NanoByte.Common.2.1.11\lib\net20\NanoByte.Common.dll</HintPath>
+    <Reference Include="NanoByte.Common, Version=2.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.2.2.1\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
-    <Reference Include="NanoByte.Common.WinForms, Version=2.1.11.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\NanoByte.Common.WinForms.2.1.11\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
+    <Reference Include="NanoByte.Common.WinForms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.2.1\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -56,7 +56,7 @@
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
     <Reference Include="TaskDialog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fefb7635387ec9bb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NanoByte.Common.WinForms.2.1.11\lib\net20\TaskDialog.dll</HintPath>
+      <HintPath>..\packages\NanoByte.Common.WinForms.2.2.1\lib\net20\TaskDialog.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

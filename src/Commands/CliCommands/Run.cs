@@ -164,7 +164,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         private void BackgroundUpdate()
         {
-            if (!FeedManager.ShouldRefresh || !NetUtils.IsInternetConnected()) return;
+            if (!FeedManager.ShouldRefresh || !NetUtils.IsInternetConnected) return;
 
             // Prevent multiple concurrent updates
             if (FeedManager.RateLimit(Requirements.InterfaceUri)) return;

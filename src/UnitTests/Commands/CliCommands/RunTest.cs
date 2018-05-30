@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands.CliCommands
             GetMock<IExecutor>().Setup(x => x.Inject(selections, "Main")).Returns(envBuilderMock.Object);
             envBuilderMock.Setup(x => x.AddWrapper("Wrapper")).Returns(envBuilderMock.Object);
             envBuilderMock.Setup(x => x.AddArguments("--arg1", "--arg2")).Returns(envBuilderMock.Object);
-            envBuilderMock.Setup(x => x.Start()).Returns<Process>(null);
+            envBuilderMock.Setup(x => x.Start()).Returns((Process)null);
 
             RunAndAssert(null, 0, selections,
                 "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0",
@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands.CliCommands
             GetMock<IExecutor>().Setup(x => x.Inject(selections, null)).Returns(envBuilderMock.Object);
             envBuilderMock.Setup(x => x.AddWrapper(null)).Returns(envBuilderMock.Object);
             envBuilderMock.Setup(x => x.AddArguments("--arg1", "--arg2")).Returns(envBuilderMock.Object);
-            envBuilderMock.Setup(x => x.Start()).Returns<Process>(null);
+            envBuilderMock.Setup(x => x.Start()).Returns((Process)null);
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {

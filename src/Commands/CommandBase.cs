@@ -139,7 +139,7 @@ namespace ZeroInstall.Commands
         {
             if (SelfUpdateUtils.NoAutoCheck ||
                 ProgramUtils.IsRunningFromCache ||
-                !NetUtils.IsInternetConnected() ||
+                !NetUtils.IsInternetConnected ||
                 Config.NetworkUse != NetworkLevel.Full ||
                 Handler.Verbosity == Verbosity.Batch ||
                 !FeedManager.IsStale(Config.SelfUpdateUri))

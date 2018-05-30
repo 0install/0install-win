@@ -42,8 +42,8 @@
     <Reference Include="Mono.Posix">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="NanoByte.Common, Version=2.1.11.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
-      <HintPath>..\packages\NanoByte.Common.2.1.11\lib\net20\NanoByte.Common.dll</HintPath>
+    <Reference Include="NanoByte.Common, Version=2.2.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoByte.Common.2.2.1\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="NDesk.Options">
