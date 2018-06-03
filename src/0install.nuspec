@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>0install</id>
+        <version>$version$</version>
+        <authors>Bastian Eicher</authors>
+        <owners>0install.de</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>https://0install.de/downloads/license/</licenseUrl>
+        <projectUrl>https://0install.de/</projectUrl>
+        <description>Zero Install is a decentralized cross-platform software-installation system.</description>
+        <copyright>Copyright Bastian Eicher et al.</copyright>
+        <tags>PackageManagement Provider PSModule</tags>
+    </metadata>
+    <files>
+        <file src="OneGet.Bootstrap\0install.psd1" />
+        <file src="..\build\Bootstrap\0install.dll" />
+    </files>
+</package>

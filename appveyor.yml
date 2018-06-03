@@ -16,9 +16,23 @@ artifacts:
     name: Feeds
   - path: build\Bootstrap
     name: Bootstrap
-  - path: build\PowerShellModules
+  - path: build\0install.*.nupkg
     name: PowerShellModules
   - path: build\*.symbols.nupkg
     name: Symbols
   - path: build\Documentation
     name: Documentation
+
+deploy:
+  - provider: Environment
+    name: github.com
+    on:
+      appveyor_repo_tag: true
+  - provider: Environment
+    name: PowerShellGallery.com
+    on:
+      appveyor_repo_tag: true
+  - provider: Environment
+    name: SymbolSource.org
+    on:
+      appveyor_repo_tag: true
