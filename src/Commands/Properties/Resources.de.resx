@@ -519,9 +519,6 @@ Führen Sie '0install self-update --force' aus, um dies zu beheben.</value>
   <data name="MyApps" xml:space="preserve">
     <value>Meine Anwendungen</value>
   </data>
-  <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
-    <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
-  </data>
   <data name="NoCustomizeSelectionsInCli" xml:space="preserve">
     <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>

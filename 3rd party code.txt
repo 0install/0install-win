@@ -82,9 +82,3 @@ WiX Toolset 3.8
 http://wixtoolset.org/
 Microsoft Reciprocal License: http://opensource.org/licenses/MS-RL
 Pre-compiled managed DLLs: Microsoft.Deployment.*.dll
-
-EasyHook 2.6
-http://easyhook.codeplex.com/
-GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
-Pre-compiled managed DLL: EasyHook.dll
-Pre-compiled unmanaged DLLs: EasyHook32.dll, EasyHook64.dll

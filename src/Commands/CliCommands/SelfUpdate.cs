@@ -44,7 +44,6 @@ namespace ZeroInstall.Commands.CliCommands
         {
             NoWait = true;
             FeedManager.Refresh = true;
-            Config.AllowApiHooking = false;
 
             //Options.Remove("no-wait");
             //Options.Remove("refresh");

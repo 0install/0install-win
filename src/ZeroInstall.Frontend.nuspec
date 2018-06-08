@@ -18,7 +18,6 @@ API documentation: http://0install.de/api/frontend/</description>
         <file src="..\build\Release\ZeroInstall.Commands.*" target="lib\net20" />
         <file src="..\build\Release\ZeroInstall.OneGet.*" target="lib\net20" />
         <file src="..\build\Release\ZeroInstall.Central.*" target="lib\net20" />
-        <file src="..\build\Release\ZeroInstall.Hooking.*" target="lib\net20" />
         <file src="..\build\Release\0install.*" target="lib\net20" />
         <file src="..\build\Release\0install-win.*" target="lib\net20" />
         <file src="..\build\Release\0store.*" target="lib\net20" />

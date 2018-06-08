@@ -41,9 +41,6 @@
     <Reference Include="BouncyCastle.OpenPgp, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.OpenPgp.1.8.1.1\lib\net20\BouncyCastle.OpenPgp.dll</HintPath>
     </Reference>
-    <Reference Include="EasyHook">
-      <HintPath>..\..\lib\EasyHook.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
       <HintPath>..\packages\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -172,7 +169,6 @@
     <Compile Include="Utils\MaintenanceManager.DesktopIntegration.cs" />
     <Compile Include="Utils\MaintenanceManager.Service.cs" />
     <Compile Include="Utils\MaintenanceManager.Target.cs" />
-    <Compile Include="Utils\RunHook.cs" />
     <Compile Include="Utils\SelfUpdateUtils.cs" />
     <Compile Include="Utils\SyncUtils.cs" />
     <Compile Include="Utils\_Namespace.cs" />
@@ -193,12 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hooking\Hooking.csproj">
-      <Project>{08A3AE07-4A76-4DE7-8CC7-CDB8A5014707}</Project>
-      <Name>Hooking</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

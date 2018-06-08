@@ -1,7 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
@@ -11,7 +10,6 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Commands.Utils;
 using ZeroInstall.Services.Executors;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
@@ -131,32 +129,10 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "command");
 
-            IDisposable CreateRunHook()
-            {
-                if (!NoWait && Config.AllowApiHooking && WindowsUtils.IsWindows)
-                {
-                    try
-                    {
-                        return new RunHook(Selections, Store, FeedManager, Handler);
-                    }
-                    #region Error handling
-                    catch (ImplementationNotFoundException)
-                    {
-                        Log.Warn(Resources.NoApiHookingNonCacheImpl);
-                    }
-                    #endregion
-                }
-
-                return null;
-            }
-
-            using (CreateRunHook())
-            {
-                return Executor.Inject(Selections, _overrideMain)
-                               .AddWrapper(_wrapper)
-                               .AddArguments(AdditionalArgs.ToArray())
-                               .Start();
-            }
+            return Executor.Inject(Selections, _overrideMain)
+                            .AddWrapper(_wrapper)
+                            .AddArguments(AdditionalArgs.ToArray())
+                            .Start();
         }
 
         /// <summary>

@@ -1225,15 +1225,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to API hooking not possible due to non-cached implementation..
-        /// </summary>
-        public static string NoApiHookingNonCacheImpl {
-            get {
-                return ResourceManager.GetString("NoApiHookingNonCacheImpl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The graphical policy editor is not available in command-line mode..
         /// </summary>
         public static string NoCustomizeSelectionsInCli {

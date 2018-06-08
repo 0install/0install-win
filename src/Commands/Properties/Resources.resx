@@ -519,9 +519,6 @@ Run '0install self-update --force' to fix this.</value>
   <data name="MyApps" xml:space="preserve">
     <value>My applications</value>
   </data>
-  <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
-    <value>API hooking not possible due to non-cached implementation.</value>
-  </data>
   <data name="NoIntegrationFromCache" xml:space="preserve">
     <value>Zero Install needs to be setup on your system for desktop integration to work.</value>
   </data>

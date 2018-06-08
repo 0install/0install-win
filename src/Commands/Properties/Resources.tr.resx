@@ -516,9 +516,6 @@ Sorunu çözmek için '0install self-update --force' komutunu çalıştırın.</
   <data name="MyApps" xml:space="preserve">
     <value>Uygulamalarım</value>
   </data>
-  <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
-    <value>API çengellemesi ön belleklenmemiş uygulama nedeniyle olanaksız.</value>
-  </data>
   <data name="NoIntegrationFromCache" xml:space="preserve">
     <value>Masaüstü bütünleştirmesinin çalışabilmesi için Zero Install yazılımının yüklenmesi gerekir.</value>
   </data>
