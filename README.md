@@ -2,7 +2,7 @@ Zero Install for Windows
 ========================
 
 Zero Install is a decentralized cross-platform software-installation system available under the LGPL.  
-Zero Install for Windows is built upon the **[Zero Install .NET Backend](https://github.com/0install/0install-dotnet)**.
+Zero Install for Windows is built upon **[Zero Install .NET](https://github.com/0install/0install-dotnet)**.
 
 [![API documentation](https://img.shields.io/badge/api-docs-orange.svg)](http://0install.de/api/frontend/)
 [![Build status](https://img.shields.io/appveyor/ci/0install/0install-win.svg)](https://ci.appveyor.com/project/0install/0install-win)
