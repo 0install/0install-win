@@ -2,7 +2,6 @@
 /src/.vs/
 /src/_ReSharper*/
 /src/packages/
-/doc/*.tag
 /release/*.xml
 /release/*.tar.gz
 obj/
