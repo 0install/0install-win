@@ -12,24 +12,23 @@ test_script:
 
 artifacts:
   - path: release\ZeroInstall-*.*
-    name: Feeds
   - path: build\Bootstrap
-    name: Bootstrap
+    name: bootstrap
   - path: build\0install.*.nupkg
-    name: PowerShellModules
+    name: powershell
   - path: build\*.symbols.nupkg
-    name: Symbols
+    name: symbols
 
 deploy:
   - provider: Environment
-    name: github.com
+    name: GitHub Releases
     on:
       appveyor_repo_tag: true
   - provider: Environment
-    name: PowerShellGallery.com
+    name: PowerShell Gallery
     on:
       appveyor_repo_tag: true
   - provider: Environment
-    name: SymbolSource.org
+    name: SymbolSource
     on:
       appveyor_repo_tag: true
