@@ -73,10 +73,10 @@ http://github.com/rickyah/ini-parser
 MIT license: http://opensource.org/licenses/MIT
 Pre-compiled managed DLL: INIFileParser.dll
 
-NDesk.Options post-0.2.1-GIT-checkout (patched)
+NDesk.Options (patched)
 http://ndesk.org/Options + https://github.com/nano-byte/NDesk.Options
 MIT license: http://opensource.org/licenses/MIT
-Self-compiled managed DLL: NDesk.Options.dll
+NuGet package: NDesk.Options.Patched
 
 WiX Toolset 3.8
 http://wixtoolset.org/

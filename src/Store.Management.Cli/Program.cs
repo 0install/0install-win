@@ -3,7 +3,7 @@
 
 using NanoByte.Common.Collections;
 using ZeroInstall.Commands;
-using ZeroInstall.Commands.CliCommands;
+using ZeroInstall.Commands.Basic;
 
 namespace ZeroInstall.Store.Management.Cli
 {

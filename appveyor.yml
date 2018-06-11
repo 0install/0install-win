@@ -7,9 +7,6 @@ build_script:
   - ps: src\build.ps1
   - ps: release\build.ps1 -GitHubRelease:$($env:APPVEYOR_REPO_TAG -eq "true")
 
-test_script:
-  - ps: src\test.ps1
-
 artifacts:
   - path: release\*.xml
   - path: release\*.tar.gz

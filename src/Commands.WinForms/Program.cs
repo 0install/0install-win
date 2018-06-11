@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             #endregion
 
-            if (Locations.IsPortable || ProgramUtils.IsRunningFromCache)
+            if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache)
                 WindowsTaskbar.PreventPinning(form.Handle);
 
             string appUserModelID = AppUserModelID;

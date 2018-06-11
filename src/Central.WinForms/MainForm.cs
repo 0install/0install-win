@@ -16,10 +16,12 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
-using ZeroInstall.Commands.CliCommands;
-using ZeroInstall.Commands.Utils;
+using ZeroInstall.Commands.Basic;
+using ZeroInstall.Commands.Desktop;
+using ZeroInstall.Commands.Desktop.Maintenance;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
@@ -111,9 +113,9 @@ namespace ZeroInstall.Central.WinForms
                 tabControlApps.SelectTab(tabPageCatalog);
             }
 
-            if (ProgramUtils.IsRunningFromCache && ProgramUtils.FindOtherInstance() == null)
-                deployTimer.Enabled = true;
-            if (!ProgramUtils.IsRunningFromCache && !SelfUpdateUtils.NoAutoCheck)
+            if (ZeroInstallInstance.IsRunningFromCache && ZeroInstallInstance.FindOther() == null)
+                    deployTimer.Enabled = true;
+            if (ZeroInstallInstance.IsBackgroundUpdateAllowed)
                 selfUpdateWorker.RunWorkerAsync();
         }
 
@@ -426,7 +428,8 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                e.Result = SelfUpdateUtils.SilentCheck();
+                using (var handler = new SilentTaskHandler())
+                    e.Result = ZeroInstallInstance.UpdateCheck(handler);
             }
             #region Error handling
             catch (OperationCanceledException)

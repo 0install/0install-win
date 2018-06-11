@@ -12,7 +12,8 @@ using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.Commands.CliCommands;
+using ZeroInstall.Commands.Basic;
+using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -250,7 +251,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            Program.RunCommand(Commands.CliCommands.Update.Name, InterfaceUri.ToStringRfc());
+            Program.RunCommand(Commands.Basic.Update.Name, InterfaceUri.ToStringRfc());
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)

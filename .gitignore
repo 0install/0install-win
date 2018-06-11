@@ -1,7 +1,6 @@
 /build/
 /src/.vs/
 /src/_ReSharper*/
-/src/packages/
 /release/*.xml
 /release/*.tar.gz
 obj/

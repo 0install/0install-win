@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Commands.CliCommands;
+using ZeroInstall.Commands.Desktop;
 
 namespace ZeroInstall.Central.WinForms
 {

@@ -13,8 +13,9 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
+using ZeroInstall.Commands.Basic.Exporters;
+using ZeroInstall.Commands.Desktop.Maintenance;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Commands.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
@@ -30,7 +31,7 @@ namespace ZeroInstall.OneGet
     /// <summary>
     /// Provides an execution context for handling a single OneGet <see cref="Request"/>.
     /// </summary>
-    public sealed class OneGetContext : CommandBase, IOneGetContext
+    public sealed class OneGetContext : OperationBase, IOneGetContext
     {
         private readonly Request _request;
 
@@ -201,7 +202,7 @@ namespace ZeroInstall.OneGet
             }
             catch (UnsuitableInstallBaseException ex)
             {
-                string installLocation = ProgramUtils.FindOtherInstance(ex.NeedsMachineWide);
+                string installLocation = ZeroInstallInstance.FindOther(ex.NeedsMachineWide);
                 if (installLocation == null)
                 {
                     if (Handler.Ask(Resources.AskDeployZeroInstall + Environment.NewLine + ex.Message,
@@ -219,8 +220,8 @@ namespace ZeroInstall.OneGet
         private void Install(Requirements requirements)
         {
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
-            if (MachineWide && ProgramUtils.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
-            if (ProgramUtils.IsRunningFromCache) throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
+            if (MachineWide && ZeroInstallInstance.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
+            if (ZeroInstallInstance.IsRunningFromCache) throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
 
             FeedManager.Refresh = Refresh || !DeferDownload;
 

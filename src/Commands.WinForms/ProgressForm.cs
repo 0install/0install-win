@@ -10,7 +10,6 @@ using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
@@ -22,7 +21,7 @@ using CancellationTokenSource = NanoByte.Common.Tasks.CancellationTokenSource;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Displays the progress of a <see cref="CliCommand"/> and <see cref="ITask"/>s.
+    /// Displays the progress of a <see cref="CommandBase"/> and <see cref="ITask"/>s.
     /// </summary>
     public partial class ProgressForm : Form
     {
