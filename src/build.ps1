@@ -7,8 +7,8 @@ $msBuild = "$vsDir\MSBuild\15.0\Bin\amd64\MSBuild.exe"
 nuget restore
 . $msBuild -v:Quiet -t:Build -p:Configuration=Release
 
-# Package PowerShell Module
-nuget pack 0install.nuspec -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\build
+# Package OneGet Bootstrap as PowerShell Module
+nuget pack OneGet.Bootstrap\0install.nuspec -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\build
 
 # Package Symbols
 nuget pack ZeroInstall.Frontend.nuspec -Symbols -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\build

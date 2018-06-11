@@ -13,7 +13,7 @@
         <tags>PackageManagement Provider PSModule</tags>
     </metadata>
     <files>
-        <file src="OneGet.Bootstrap\0install.psd1" />
-        <file src="..\build\Bootstrap\0install.dll" />
+        <file src="0install.psd1" />
+        <file src="bin\Release\0install.dll" />
     </files>
 </package>

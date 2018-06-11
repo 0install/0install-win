@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
-    <AssemblyName>0install</AssemblyName>
+    <AssemblyName>ZeroInstall.OneGet.Bootstrap</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
@@ -86,14 +86,14 @@
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)'=='Release'">
     <PostBuildEvent>rem Repack the DLLs into a single standalone DLL
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\0install.dll" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll LinFu.DynamicProxy.dll
+"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"$(TargetDir)0install.dll" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll LinFu.DynamicProxy.dll
 popd
 
 rem Common locations for command-line tools
 path %25path%25;%25ProgramFiles(x86)%25\Windows Kits\10\bin\x64;%25ProgramFiles(x86)%25\Windows Kits\8.1\bin\x64
 
 rem Add OneGet manifest to the DLL
-mt -manifest "$(ProjectDir)\..\OneGet\provider.manifest" -outputresource:"$(ProjectDir)\..\..\build\Bootstrap\0install.dll";#101</PostBuildEvent>
+mt -manifest "$(ProjectDir)\..\OneGet\provider.manifest" -outputresource:"$(TargetDir)0install.dll";#101</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
