@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
 // Assembly info
-[assembly: AssemblyTitle("Zero Install Bootstrapper")]
-[assembly: AssemblyDescription("Downloads and runs Zero Install showing a GUI or command-line interface.")]
+[assembly: AssemblyTitle("Zero Install Bootstrapper GUI")]
+[assembly: AssemblyDescription("Downloads and runs Zero Install optionally showing a GUI.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en")]
 
