@@ -28,7 +28,7 @@ Konzeptuell können Sie sich vorstellen, dass die Software nur auf einem Server 
       <arg>deploy</arg>
       <arg>--batch</arg>
     </command>
-    <implementation version="{version}" stability="stable" local-path="../build/Release">
+    <implementation version="{version}" stability="{stability}" local-path="../build/Release">
       <archive href="ZeroInstall-{version}.tar.gz" />
     </implementation>
   </group>
