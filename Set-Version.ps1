@@ -10,7 +10,6 @@ function SearchAndReplace($FilePath, $PatternLeft, $PatternRight)
 }
 
 [System.IO.File]::WriteAllText("$ScriptDir\VERSION", $NewVersion)
-SearchAndReplace doc\Doxyfile -PatternLeft 'PROJECT_NUMBER = "' -PatternRight '"'
 SearchAndReplace src\GlobalAssemblyInfo.cs -PatternLeft 'AssemblyVersion\("' -PatternRight '"\)'
 SearchAndReplace src\OneGet\provider.manifest -PatternLeft 'version="' -PatternRight '" versionScheme="multipartnumeric"'
 SearchAndReplace src\OneGet.Bootstrap\0install.psd1 -PatternLeft "ModuleVersion = '" -PatternRight "'"
