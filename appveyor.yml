@@ -10,8 +10,10 @@ build_script:
 artifacts:
   - path: release\*.xml
   - path: release\*.tar.gz
-  - path: build\Bootstrap
-    name: bootstrap
+  - path: build\Bootstrap\0install
+    name: 0install
+  - path: build\Bootstrap\zero-install
+    name: zero-install
   - path: build\0install.*.nupkg
     name: powershell
   - path: build\*.symbols.nupkg

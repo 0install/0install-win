@@ -66,9 +66,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)'=='Release'">
     <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
+set TARGET_DIR=$(ProjectDir)\..\..\build\Bootstrap\$(TargetName)
+mkdir "%TARGET_DIR%"
+
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"$(ProjectDir)\..\..\build\Bootstrap\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll
-copy /y "$(ProjectDir)\App.config" "$(ProjectDir)\..\..\build\Bootstrap\$(TargetName).exe.config"
+"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll
+copy /y "$(ProjectDir)\App.config" "%TARGET_DIR%\$(TargetName).exe.config"
 popd</PostBuildEvent>
   </PropertyGroup>
 </Project>
