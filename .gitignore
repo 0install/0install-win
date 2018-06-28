@@ -1,4 +1,4 @@
-/build/
+/artifacts/
 /src/.vs/
 /src/_ReSharper*/
 /release/*.xml

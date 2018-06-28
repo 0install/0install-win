@@ -9,9 +9,9 @@ release\build.ps1
 
 if ($Deploy) {
   if ($Machine) {
-    build\Bootstrap\zero-install.exe --feed="$RootDir\release\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch --machine
+    artifacts\Bootstrap\zero-install.exe --feed="$RootDir\release\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch --machine
   } else {
-    build\Bootstrap\zero-install.exe --feed="$RootDir\release\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch
+    artifacts\Bootstrap\zero-install.exe --feed="$RootDir\release\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch
   }
 }
 

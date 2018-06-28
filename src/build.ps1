@@ -7,10 +7,10 @@ $msBuild = "$vsDir\MSBuild\15.0\Bin\amd64\MSBuild.exe"
 . $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=Release
 
 # Package OneGet Bootstrap as PowerShell Module
-nuget pack OneGet.Bootstrap\0install.nuspec -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\build
+nuget pack OneGet.Bootstrap\0install.nuspec -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\artifacts
 
 # Package Symbols
-nuget pack ZeroInstall.Frontend.nuspec -Symbols -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\build
-Remove-Item "..\build\ZeroInstall.Frontend.$(Get-Content ..\VERSION).nupkg"
+nuget pack ZeroInstall.Frontend.nuspec -Symbols -Properties Version=$(Get-Content ..\VERSION) -OutputDirectory ..\artifacts
+Remove-Item "..\artifacts\ZeroInstall.Frontend.$(Get-Content ..\VERSION).nupkg"
 
 popd

@@ -15,16 +15,16 @@ API documentation: http://0install.de/api/frontend/</description>
 
     <files>
         <!-- Binaries -->
-        <file src="..\build\Release\ZeroInstall.Commands.*" target="lib\net20" />
-        <file src="..\build\Release\ZeroInstall.OneGet.*" target="lib\net20" />
-        <file src="..\build\Release\ZeroInstall.Central.*" target="lib\net20" />
-        <file src="..\build\Release\0install.*" target="lib\net20" />
-        <file src="..\build\Release\0install-win.*" target="lib\net20" />
-        <file src="..\build\Release\0store.*" target="lib\net20" />
-        <file src="..\build\Release\0store-service.*" target="lib\net20" />
-        <file src="..\build\Release\0alias.*" target="lib\net20" />
-        <file src="..\build\Release\ZeroInstall.exe" target="lib\net20" />
-        <file src="..\build\Release\ZeroInstall.pdb" target="lib\net20" />
+        <file src="..\artifacts\Release\ZeroInstall.Commands.*" target="lib\net20" />
+        <file src="..\artifacts\Release\ZeroInstall.OneGet.*" target="lib\net20" />
+        <file src="..\artifacts\Release\ZeroInstall.Central.*" target="lib\net20" />
+        <file src="..\artifacts\Release\0install.*" target="lib\net20" />
+        <file src="..\artifacts\Release\0install-win.*" target="lib\net20" />
+        <file src="..\artifacts\Release\0store.*" target="lib\net20" />
+        <file src="..\artifacts\Release\0store-service.*" target="lib\net20" />
+        <file src="..\artifacts\Release\0alias.*" target="lib\net20" />
+        <file src="..\artifacts\Release\ZeroInstall.exe" target="lib\net20" />
+        <file src="..\artifacts\Release\ZeroInstall.pdb" target="lib\net20" />
 
         <!-- Source code -->
         <file src="**\*.cs" target="src" />

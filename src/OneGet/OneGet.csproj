@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Debug\ZeroInstall.Commands.xml</DocumentationFile>
+    <OutputPath>..\..\artifacts\Debug\</OutputPath>
+    <DocumentationFile>..\..\artifacts\Debug\ZeroInstall.Commands.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
@@ -33,8 +33,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\Release\</OutputPath>
-    <DocumentationFile>..\..\build\Release\ZeroInstall.Commands.xml</DocumentationFile>
+    <OutputPath>..\..\artifacts\Release\</OutputPath>
+    <DocumentationFile>..\..\artifacts\Release\ZeroInstall.Commands.xml</DocumentationFile>
     <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
   <ItemGroup>

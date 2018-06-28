@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://zero-install.sourceforge.net/2004/injector/interface http://0install.de/schema/injector/interface/interface.xsd http://0install.de/schema/desktop-integration/capabilities http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+  <name>Zero Install for Windows</name>
+  <summary xml:lang="en">decentralised installation system</summary>
+  <summary xml:lang="de">dezentrales Installationssystem</summary>
+  <description xml:lang="en">Zero Install is a cross-platform, decentralised installation system. Instead of having a central repository in which all software is placed under a naming scheme managed by some central authority, programs and libraries in Zero Install are identified by URIs. Anyone who can create a web-page can publish software. Anyone can install software (not just administrators).</description>
+  <description xml:lang="de">Zero Install ist ein plattformunabhängiges, dezentrales Installationssystem. Anstelle einer zentralen Stelle, die alle verfügbaren Anwendungen nach einem Namensgebungsschema einer zentralen Instanz sortiert, werden bei Zero Install Anwendungen und Bibliotheken durch URIs identifiziert. Jeder der eine Website erstellen kann, kann auch Software veröffentlichen. Jeder kann Software installieren (nicht nur Administratoren).</description>
+  <icon href="http://0install.de/feed-icons/ZeroInstall.png" type="image/png" />
+  <icon href="http://0install.de/feed-icons/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
+  <homepage>http://0install.de/</homepage>
+  <feed-for interface="http://0install.de/feeds/0install-win.xml" />
+  <group license="LGPL v3 (GNU Lesser General Public License)">
+    <command name="run" path="0install.exe">
+      <runner interface="http://repo.roscidus.com/dotnet/clr" command="run" />
+    </command>
+    <command name="run-gui" path="0install-win.exe">
+      <runner interface="http://repo.roscidus.com/dotnet/clr" command="run-gui" />
+    </command>
+    <command name="central" path="ZeroInstall.exe">
+      <runner interface="http://repo.roscidus.com/dotnet/clr" command="run-gui" />
+    </command>
+    <command name="update" path="0install-win.exe">
+      <arg>maintenance</arg>
+      <arg>deploy</arg>
+      <arg>--batch</arg>
+    </command>
+    <implementation version="{version}" stability="{stability}" local-path="../artifacts/Release">
+      <archive href="ZeroInstall-{version}.tar.gz" />
+    </implementation>
+  </group>
+</interface>
