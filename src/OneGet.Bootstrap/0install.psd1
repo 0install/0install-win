@@ -1,5 +1,5 @@
 ﻿@{
-    ModuleVersion = '2.15.2'
+    ModuleVersion = '0.1.0'
     GUID = '89e16ee9-f9dd-4efd-b7a2-e0374958f6c0'
     Author = 'Bastian Eicher'
     CompanyName = '0install.de'

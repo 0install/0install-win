@@ -1,11 +1,11 @@
-﻿Param ([Switch]$Deploy, [Switch]$Machine)
+﻿Param ($Version = "0.1.0-pre", [Switch]$Deploy, [Switch]$Machine)
 $ErrorActionPreference = "Stop"
 
 $RootDir = $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 pushd $RootDir
 
-src\build.ps1
-release\build.ps1
+src\build.ps1 $Version
+release\build.ps1 $Version
 
 if ($Deploy) {
   if ($Machine) {

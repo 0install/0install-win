@@ -1,0 +1,8 @@
+mode: ContinuousDeployment
+branches:
+  master:
+    tag: rc
+    increment: patch
+  develop:
+    tag: pre
+    increment: patch

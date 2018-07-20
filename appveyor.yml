@@ -1,11 +1,11 @@
 image: Visual Studio 2017
 
 before_build:
-  - ps: Update-AppveyorBuild -Version "$(Get-Content VERSION).build.$env:APPVEYOR_BUILD_NUMBER"
+  - gitversion /l console /output buildserver
 
 build_script:
-  - ps: src\build.ps1
-  - ps: release\build.ps1 -GitHubRelease:$($env:APPVEYOR_REPO_TAG -eq "true")
+  - ps: src\build.ps1 $env:GitVersion_NuGetVersion
+  - ps: release\build.ps1 $env:GitVersion_NuGetVersion -GitHubRelease:$($env:APPVEYOR_REPO_TAG -eq "true")
 
 artifacts:
   - path: release\*.xml
@@ -16,8 +16,6 @@ artifacts:
     name: zero-install
   - path: artifacts\0install.*.nupkg
     name: powershell
-  - path: artifacts\*.symbols.nupkg
-    name: symbols
 
 deploy:
   - provider: Environment
@@ -26,9 +24,5 @@ deploy:
       appveyor_repo_tag: true
   - provider: Environment
     name: PowerShell Gallery
-    on:
-      appveyor_repo_tag: true
-  - provider: Environment
-    name: SymbolSource
     on:
       appveyor_repo_tag: true

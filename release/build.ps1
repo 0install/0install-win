@@ -1,9 +1,6 @@
-﻿Param ([switch]$GitHubRelease)
+﻿Param ($Version = "0.1.0-pre", [switch]$GitHubRelease)
 $ErrorActionPreference = "Stop"
 pushd $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
-
-$Version = Get-Content ..\VERSION
-if ($GitHubRelease -ne "stable") {$Version += "-pre"}
 
 # Ensure 0install is in the PATH
 if (!(Get-Command 0install -ErrorAction SilentlyContinue)) { $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH" }
