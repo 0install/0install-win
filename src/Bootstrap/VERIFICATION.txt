@@ -1,0 +1,7 @@
+VERIFICATION
+Verification is intended to assist the Chocolatey moderators and community
+in verifying that this package's contents are trustworthy.
+ 
+This package is published by the Zero Install Project itself. The binary
+0install.exe is identical to the file that can be downloaded from:
+https://0install.de/files/0install.exe

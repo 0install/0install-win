@@ -13,6 +13,7 @@ function SearchAndReplace($Value, $FilePath, $PatternLeft, $PatternRight)
 Set-Content -Path "Central.WinForms\VERSION" -Value $Version -Encoding UTF8
 $AssemblyVersion = $Version.Split("-")[0]
 SearchAndReplace $AssemblyVersion GlobalAssemblyInfo.cs -PatternLeft 'AssemblyVersion\("' -PatternRight '"\)'
+SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' maintenance'
 SearchAndReplace $AssemblyVersion OneGet\provider.manifest -PatternLeft 'version="' -PatternRight '" versionScheme="multipartnumeric"'
 SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "ModuleVersion = '" -PatternRight "'"
 
@@ -23,6 +24,10 @@ $msBuild = "$vsDir\MSBuild\15.0\Bin\amd64\MSBuild.exe"
 
 # Ensure 0install is in the PATH
 if (!(Get-Command 0install -ErrorAction SilentlyContinue)) { $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH" }
+
+# Generate bootstrap package for Chocolatey
+New-Item -Force -ItemType Directory -Path ..\artifacts\Bootstrap\Chocolatey | Out-Null
+0install run --batch http://repo.roscidus.com/utils/chocolatey pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts\Bootstrap\Chocolatey 
 
 # Generate bootstrap package for PowerShell Gallery (OneGet)
 0install run --batch http://repo.roscidus.com/dotnet/nuget pack OneGet.Bootstrap\PowerShell.nuspec -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap\PowerShell
