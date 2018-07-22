@@ -14,7 +14,7 @@ artifacts:
     name: 0install
   - path: artifacts\Bootstrap\zero-install
     name: zero-install
-  - path: artifacts\0install.*.nupkg
+  - path: artifacts\Bootstrap\PowerShell\0install.*.nupkg
     name: powershell
 
 deploy:

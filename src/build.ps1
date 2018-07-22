@@ -21,7 +21,10 @@ $vsDir = . "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.e
 $msBuild = "$vsDir\MSBuild\15.0\Bin\amd64\MSBuild.exe"
 . $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=Release
 
-# Package OneGet Bootstrap as PowerShell Module
-nuget pack OneGet.Bootstrap\0install.nuspec -Properties Version=$Version -OutputDirectory ..\artifacts
+# Ensure 0install is in the PATH
+if (!(Get-Command 0install -ErrorAction SilentlyContinue)) { $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH" }
+
+# Generate bootstrap package for PowerShell Gallery (OneGet)
+0install run --batch http://repo.roscidus.com/dotnet/nuget pack OneGet.Bootstrap\PowerShell.nuspec -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap\PowerShell
 
 popd
