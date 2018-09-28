@@ -9,7 +9,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <licenseUrl>https://0install.de/downloads/license/</licenseUrl>
         <projectUrl>https://0install.de/</projectUrl>
-        <iconUrl>http://0install.de/feed-icons/ZeroInstall.png</iconUrl>
+        <iconUrl>https://raw.githubusercontent.com/0install/0install-win/master/icon.png</iconUrl>
         <summary>OneGet Package Provider for Zero Install</summary>
         <description>This installs the OneGet Package Provider for Zero Install, a decentralized cross-distribution software installation system.</description>
         <copyright>Copyright Bastian Eicher et al.</copyright>

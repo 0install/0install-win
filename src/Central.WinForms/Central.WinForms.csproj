@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Central.WinForms</RootNamespace>
     <AssemblyName>ZeroInstall</AssemblyName>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
@@ -100,7 +100,6 @@
   <ItemGroup>
     <None Include="..\App.config" />
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
-    <Content Include="Icon.ico" />
     <Content Include="Logo_150.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
