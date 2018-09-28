@@ -1,8 +1,8 @@
 /artifacts/
 /src/.vs/
 /src/_ReSharper*/
-/release/*.xml
-/release/*.tar.gz
+/feed/*.xml
+/feed/*.tar.gz
 obj/
 bin/
 *.bak

@@ -3,7 +3,9 @@ $ErrorActionPreference = "Stop"
 pushd $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 
 # Ensure 0install is in the PATH
-if (!(Get-Command 0install -ErrorAction SilentlyContinue)) { $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH" }
+if (!(Get-Command 0install -ErrorAction SilentlyContinue)) {
+    $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH"
+}
 
 # Exclude .NET XML Documentation and Debug Symbols from release
 rm -Force ..\artifacts\Release\*.xml,..\artifacts\Release\*.pdb -Exclude *.VisualElementsManifest.xml

@@ -5,13 +5,13 @@ $RootDir = $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 pushd $RootDir
 
 src\build.ps1 $Version
-release\build.ps1 $Version
+feed\build.ps1 $Version
 
 if ($Deploy) {
   if ($Machine) {
-    artifacts\Bootstrap\zero-install.exe --feed="$RootDir\release\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch --machine
+    artifacts\Bootstrap\zero-install.exe --feed="$RootDir\feed\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch --machine
   } else {
-    artifacts\Bootstrap\zero-install.exe --feed="$RootDir\release\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch
+    artifacts\Bootstrap\zero-install.exe --feed="$RootDir\feed\ZeroInstall-$(Get-Content VERSION).xml" maintenance deploy --batch
   }
 }
 

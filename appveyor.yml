@@ -5,11 +5,11 @@ before_build:
 
 build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
-  - ps: release\build.ps1 $env:GitVersion_NuGetVersion
+  - ps: feed\build.ps1 $env:GitVersion_NuGetVersion
 
 artifacts:
-  - path: release\*.xml
-  - path: release\*.tar.gz
+  - path: feed\*.xml
+  - path: feed\*.tar.gz
   - path: artifacts\Bootstrap\0install
     name: 0install
   - path: artifacts\Bootstrap\zero-install
