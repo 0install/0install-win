@@ -11,7 +11,7 @@
         <projectUrl>https://0install.de/</projectUrl>
         <iconUrl>http://0install.de/feed-icons/ZeroInstall.png</iconUrl>
         <summary>OneGet Package Provider for Zero Install</summary>
-        <description>This installs the OneGet Package Provider for Zero Install, a decentralised cross-distribution software installation system.</description>
+        <description>This installs the OneGet Package Provider for Zero Install, a decentralized cross-distribution software installation system.</description>
         <copyright>Copyright Bastian Eicher et al.</copyright>
         <tags>PackageManagement Provider PSModule</tags>
     </metadata>
