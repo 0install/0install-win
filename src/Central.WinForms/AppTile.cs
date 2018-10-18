@@ -179,7 +179,7 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn($"Failed to store {icon}");
                 Log.Warn(ex);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 Log.Warn($"Failed to parse {icon}");
                 Log.Warn(ex);
