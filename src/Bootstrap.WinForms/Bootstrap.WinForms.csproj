@@ -35,7 +35,7 @@
     <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NanoByte.Common.WinForms" Version="2.2.1" />
+    <PackageReference Include="NanoByte.Common.WinForms" Version="2.2.2" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.1" />
     <PackageReference Include="NanoByte.Common.WinForms" Version="2.2.2" />
   </ItemGroup>
