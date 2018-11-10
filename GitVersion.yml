@@ -3,9 +3,9 @@ mode: ContinuousDeployment
 # Generate 0install-compatible version numbers
 branches:
   # Stabilization branches
-  release[/-]:
+  release:
     tag: rc
-  hotfix[/-]:
+  hotfix:
     tag: rc
 
   # Mainline branches
@@ -16,7 +16,7 @@ branches:
     increment: patch
 
   # Topic branches
-  feature[/-]:
+  feature:
     tag: pre-pre
-  (pull|pull\-requests|pr)[/-]:
+  pull-request:
     tag: pre-pre
