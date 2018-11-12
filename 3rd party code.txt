@@ -1,13 +1,3 @@
-Moq
-http://github.com/Moq/moq4
-New BSD license: http://opensource.org/licenses/BSD-3-Clause
-NuGet package: Moq
-
-Moq.Contrib
-http://code.google.com/p/moq-contrib/
-New BSD license: http://opensource.org/licenses/BSD-3-Clause
-NuGet package: Moq.Contrib
-
 Mono.Posix
 https://github.com/mono/mono/tree/master/mcs/class/Mono.Posix
 MIT license: http://opensource.org/licenses/MIT
@@ -17,11 +7,6 @@ ICSharpCode.SharpZipLib (patched)
 http://www.icsharpcode.net/OpenSource/SharpZipLib/ + https://github.com/nano-byte/SharpZipLib
 GNU GPL with GNU Classpath exception
 NuGet package: ICSharpCode.SharpZipLib.Patched
-
-ICSharpCode.TextEditor
-http://www.icsharpcode.net/OpenSource/SD/
-GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
-NuGet package: NanoByte.Common.WinForms
 
 TaskDialog
 http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
@@ -37,16 +22,6 @@ Bouncy Castle (OpenPGP-only version)
 http://www.bouncycastle.org/csharp
 Bouncy Castle license: http://www.bouncycastle.org/csharp/licence.html
 NuGet package: BouncyCastle.OpenPgp
-
-Task Scheduler Managed Wrapper
-http://taskscheduler.codeplex.com/
-MIT license: http://opensource.org/licenses/MIT
-NuGet package: TaskScheduler
-
-ELFSharp
-http://antmicro.com/projects/elfsharp/
-X11 license: ELFSharp.license.txt
-NuGet package: ELFSharp
 
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/
