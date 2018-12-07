@@ -14,9 +14,9 @@ artifacts:
     name: 0install
   - path: artifacts\Bootstrap\zero-install
     name: zero-install
-  - path: artifacts\Bootstrap\Chocolatey\0install.*.nupkg
+  - path: artifacts\Bootstrap\0install.chocolatey.*.nupkg
     name: chocolatey
-  - path: artifacts\Bootstrap\PowerShell\0install.*.nupkg
+  - path: artifacts\Bootstrap\0install.powershell.*.nupkg
     name: powershell
 
 deploy:

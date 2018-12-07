@@ -81,6 +81,6 @@ rem Common locations for command-line tools
 path %25path%25;%25ProgramFiles(x86)%25\Windows Kits\10\bin\x64;%25ProgramFiles(x86)%25\Windows Kits\8.1\bin\x64
 
 rem Add OneGet manifest to the DLL
-mt -manifest "$(ProjectDir)\..\OneGet\provider.manifest" -outputresource:"$(TargetDir)0install.dll";#101</PostBuildEvent>
+mt -manifest "$(ProjectDir)..\OneGet\provider.manifest" -outputresource:"$(TargetDir)0install.dll";#101</PostBuildEvent>
   </PropertyGroup>
 </Project>
