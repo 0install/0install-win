@@ -40,7 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NanoByte.Common.WinForms" Version="2.2.2" />
-    <PackageReference Include="ZeroInstall.Commands" Version="2.15.2-rc-pre0058" />
+    <PackageReference Include="ZeroInstall.Commands" Version="2.16.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
