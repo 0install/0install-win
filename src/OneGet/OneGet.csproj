@@ -38,7 +38,7 @@
     <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.Commands" Version="2.16.0" />
+    <PackageReference Include="ZeroInstall.Commands" Version="2.16.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

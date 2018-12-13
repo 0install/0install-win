@@ -38,8 +38,8 @@
     <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.DesktopIntegration" Version="2.16.0" />
-    <PackageReference Include="ZeroInstall.Services.Interfaces" Version="2.16.0" />
+    <PackageReference Include="ZeroInstall.DesktopIntegration" Version="2.16.1" />
+    <PackageReference Include="ZeroInstall.Services.Interfaces" Version="2.16.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
