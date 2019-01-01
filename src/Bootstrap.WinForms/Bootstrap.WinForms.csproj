@@ -93,7 +93,7 @@ set TARGET_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap\$(TargetName)
 mkdir "%TARGET_DIR%"
 
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NDesk.Options.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NanoByte.Common*.dll JetBrains.Annotations.dll ICSharpCode.SharpZipLib.dll
+"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common*.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 copy /y "$(ProjectDir)\App.config" "%TARGET_DIR%\$(TargetName).exe.config"
 popd</PostBuildEvent>
   </PropertyGroup>
