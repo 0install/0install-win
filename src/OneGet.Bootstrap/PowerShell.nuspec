@@ -7,7 +7,7 @@
         <authors>Bastian Eicher</authors>
         <owners>bastian.eicher</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <licenseUrl>https://0install.de/downloads/license/</licenseUrl>
+        <license type="expression">LGPL-3.0-or-later</license>
         <projectUrl>https://0install.de/</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/0install/0install-win/master/icon.png</iconUrl>
         <summary>OneGet Package Provider for Zero Install</summary>
