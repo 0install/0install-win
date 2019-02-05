@@ -34,6 +34,14 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet4|AnyCPU'">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\ReleaseNet4\</OutputPath>
+    <DefineConstants>TRACE;NET40;ERROR_REPORT</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.16" />
     <PackageReference Include="NanoByte.Common.WinForms" Version="2.3.1" />
@@ -67,7 +75,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -86,14 +93,25 @@
       <Name>Bootstrap</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <PostBuildEvent>set TARGET_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap\$(TargetName)
 mkdir "%TARGET_DIR%"
 
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common*.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
+"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common*.dll TaskDialog.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 copy /y "$(ProjectDir)\App.config" "%TARGET_DIR%\$(TargetName).exe.config"
+popd</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='ReleaseNet4'">
+    <PostBuildEvent>set TARGET_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap
+mkdir "%TARGET_DIR%"
+
+pushd "$(OutDir)"
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common*.dll TaskDialog.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 popd</PostBuildEvent>
   </PropertyGroup>
 </Project>

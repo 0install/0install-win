@@ -34,6 +34,14 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet4|AnyCPU'">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\ReleaseNet4\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.16" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.1" />
@@ -57,10 +65,10 @@
     <Compile Include="_Namespace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="EmbeddedConfig.txt" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -70,6 +78,14 @@ mkdir "%TARGET_DIR%"
 pushd "$(OutDir)"
 "$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll NanoByte.Common.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 copy /y "$(ProjectDir)\App.config" "%TARGET_DIR%\$(TargetName).exe.config"
+popd</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='ReleaseNet4'">
+    <PostBuildEvent>set TARGET_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap
+mkdir "%TARGET_DIR%"
+
+pushd "$(OutDir)"
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%TARGET_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll NanoByte.Common.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 popd</PostBuildEvent>
   </PropertyGroup>
 </Project>
