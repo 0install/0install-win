@@ -63,9 +63,8 @@
     <EmbeddedResource Include="EmbeddedConfig.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)'=='Release'">
-    <PostBuildEvent>rem Repack the EXE and its DLLs into a single standalone EXE
-set TARGET_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap\$(TargetName)
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PostBuildEvent>set TARGET_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap\$(TargetName)
 mkdir "%TARGET_DIR%"
 
 pushd "$(OutDir)"

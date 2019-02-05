@@ -71,16 +71,12 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)'=='Release'">
-    <PostBuildEvent>rem Repack the DLLs into a single standalone DLL
-pushd "$(OutDir)"
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PostBuildEvent>pushd "$(OutDir)"
 "$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"$(TargetDir)0install.dll" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common.dll LinFu.DynamicProxy.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 popd
 
-rem Common locations for command-line tools
 path %25path%25;%25ProgramFiles(x86)%25\Windows Kits\10\bin\x64;%25ProgramFiles(x86)%25\Windows Kits\8.1\bin\x64
-
-rem Add OneGet manifest to the DLL
 mt -manifest "$(ProjectDir)..\OneGet\provider.manifest" -outputresource:"$(TargetDir)0install.dll";#101</PostBuildEvent>
   </PropertyGroup>
 </Project>
