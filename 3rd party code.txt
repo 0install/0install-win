@@ -23,37 +23,37 @@ http://www.bouncycastle.org/csharp
 Bouncy Castle license: http://www.bouncycastle.org/csharp/licence.html
 NuGet package: BouncyCastle.OpenPgp
 
+INI File Parser
+http://github.com/rickyah/ini-parser
+MIT license: http://opensource.org/licenses/MIT
+NuGet package: ini-parser
+
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/
-GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
-Self-compiled managed DLL: SevenZipSharp.dll
+GNU LGPL 3.0: http://opensource.org/licenses/LGPL-3.0
+NuGet package: SevenZipSharp
 
-7-Zip Extra files
+7z.dll
 http://www.7-zip.org/
-GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
-Pre-compiled native DLLs: 7zxa.dll, 7zxa-x64.dll
+GNU LGPL 3.0: http://opensource.org/licenses/LGPL-3.0
+NuGet package: SevenZipSharp.Interop
 
 XZ.NET
 https://github.com/RomanBelkov/XZ.NET
 MIT license: http://opensource.org/licenses/MIT
-Self-compiled managed DLL: XZ.NET.dll
+NuGet package: XZ.NET
 
 liblzma (XZ Utils)
 http://tukaani.org/xz/
 Public domain
-Pre-compiled native DLLs: liblzma.dll, liblzma64.dll
+NuGet package: XZ.NET
 
-INI File Parser 2.0.4
-http://github.com/rickyah/ini-parser
-MIT license: http://opensource.org/licenses/MIT
-Pre-compiled managed DLL: INIFileParser.dll
+WiX Toolset
+http://wixtoolset.org/
+Microsoft Reciprocal License: http://opensource.org/licenses/MS-RL
+NuGet package: wix-libs
 
 NDesk.Options (patched)
 http://ndesk.org/Options + https://github.com/nano-byte/NDesk.Options
 MIT license: http://opensource.org/licenses/MIT
 NuGet package: NDesk.Options.Patched
-
-WiX Toolset 3.8
-http://wixtoolset.org/
-Microsoft Reciprocal License: http://opensource.org/licenses/MS-RL
-Pre-compiled managed DLLs: Microsoft.Deployment.*.dll
