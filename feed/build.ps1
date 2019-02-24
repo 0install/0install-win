@@ -1,8 +1,8 @@
-﻿Param ($Version = "0.1.0-pre")
+﻿Param ($Version = "1.0.0-pre")
 $ErrorActionPreference = "Stop"
 pushd $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 
-# Ensure 0install is in the PATH
+# Ensure 0install is in PATH
 if (!(Get-Command 0install -ErrorAction SilentlyContinue)) {
     $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH"
 }
