@@ -2,6 +2,8 @@ image: Visual Studio 2017
 
 cache:
   - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
+  - '%LOCALAPPDATA%\0install.net'
+  - '%APPDATA%\0install.net'
 
 before_build:
   - gitversion /l console /output buildserver
