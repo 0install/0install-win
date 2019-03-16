@@ -1,10 +1,2 @@
-#pragma warning disable 1587
-// ReSharper disable EmptyNamespace
-// ReSharper disable CheckNamespace
-
-/// <summary>
-/// Embedded OneGet SDK classes.
-/// </summary>
-
-namespace PackageManagement.Sdk
-{}
+//! \namespace PackageManagement.Sdk
+//! \brief Embedded OneGet SDK classes.
