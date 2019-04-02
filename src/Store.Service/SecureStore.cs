@@ -22,7 +22,7 @@ namespace ZeroInstall.Store.Service
     /// Models a cache directory that stores <see cref="Implementation"/>s using ACLs and impersonation to ensure security in IPC scenarios.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class SecureStore : DirectoryStore, IEquatable<SecureStore>
+    public class SecureStore : DiskImplementationStore, IEquatable<SecureStore>
     {
         #region Variables
         /// <summary>The identity the service was launched with.</summary>

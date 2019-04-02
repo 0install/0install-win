@@ -24,12 +24,12 @@ using ZeroInstall.Store.ViewModel;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
+    /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IImplementationStore"/>) in a combined tree view.
     /// </summary>
     public sealed partial class StoreManageForm : Form
     {
         #region Variables
-        private readonly IStore _store;
+        private readonly IImplementationStore _store;
         private readonly IFeedCache _feedCache;
 
         // Don't use WinForms designer for this, since it doesn't understand generics
@@ -40,9 +40,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new store management window.
         /// </summary>
-        /// <param name="store">The <see cref="IStore"/> to manage.</param>
+        /// <param name="store">The <see cref="IImplementationStore"/> to manage.</param>
         /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
-        public StoreManageForm([NotNull] IStore store, [NotNull] IFeedCache feedCache)
+        public StoreManageForm([NotNull] IImplementationStore store, [NotNull] IFeedCache feedCache)
         {
             _store = store ?? throw new ArgumentNullException(nameof(store));
             _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
@@ -82,7 +82,6 @@ namespace ZeroInstall.Commands.WinForms
         private void refreshListWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             _store.Flush();
-            _feedCache.Flush();
 
             var nodeBuilder = new CacheNodeBuilder(_store, _feedCache);
             nodeBuilder.Run();

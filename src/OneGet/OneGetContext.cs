@@ -31,7 +31,7 @@ namespace ZeroInstall.OneGet
     /// <summary>
     /// Provides an execution context for handling a single OneGet <see cref="Request"/>.
     /// </summary>
-    public sealed class OneGetContext : OperationBase, IOneGetContext
+    public sealed class OneGetContext : ScopedOperation, IOneGetContext
     {
         private readonly Request _request;
 
@@ -183,7 +183,7 @@ namespace ZeroInstall.OneGet
 
             var exporter = new Exporter(selections, requirements, location);
             exporter.ExportFeeds(FeedCache, OpenPgp);
-            exporter.ExportImplementations(Store, Handler);
+            exporter.ExportImplementations(ImplementationStore, Handler);
             exporter.DeployImportScript();
             exporter.DeployBootstrapIntegrate(Handler);
 

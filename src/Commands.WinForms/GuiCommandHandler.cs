@@ -20,7 +20,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Uses <see cref="System.Windows.Forms"/> to allow users to interact with <see cref="CommandBase"/>s.
+    /// Uses <see cref="System.Windows.Forms"/> to allow users to interact with <see cref="CliCommand"/>s.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
@@ -247,7 +247,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public void ManageStore(IStore store, IFeedCache feedCache)
+        public void ManageStore(IImplementationStore store, IFeedCache feedCache)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException(nameof(store));

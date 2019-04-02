@@ -143,10 +143,10 @@ namespace ZeroInstall.Commands.WinForms
 
         private void LoadImplementationDirs()
         {
-            var allImplDirs = StoreConfig.GetImplementationDirs().ToList();
+            var allImplDirs = ImplementationStores.GetDirectories().ToList();
             listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
 
-            var userImplDirs = StoreConfig.GetUserImplementationDirs();
+            var userImplDirs = ImplementationStores.GetUserDirectories();
             _lockedImplDirs = allImplDirs.Except(userImplDirs).ToList();
         }
 
@@ -154,7 +154,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             var allImplDirs = listBoxImplDirs.Items.Cast<string>();
             var userImplDirs = allImplDirs.Except(_lockedImplDirs);
-            StoreConfig.SetUserImplementationDirs(userImplDirs);
+            ImplementationStores.SetUserDirectories(userImplDirs);
         }
 
         private void listBoxImplDirs_SelectedIndexChanged(object sender, EventArgs e)

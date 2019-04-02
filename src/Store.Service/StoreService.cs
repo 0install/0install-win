@@ -78,27 +78,27 @@ namespace ZeroInstall.Store.Service
                 _serverChannel = new IpcServerChannel(
                     new Hashtable
                     {
-                        {"name", IpcStore.IpcPortName},
-                        {"portName", IpcStore.IpcPortName},
+                        {"name", IpcImplementationStore.IpcPortName},
+                        {"portName", IpcImplementationStore.IpcPortName},
                         {"secure", true},
                         {"impersonate", true} // Use identity of client in server threads
                     },
                     new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
 #if !__MonoCS__
-                    , IpcStore.IpcAcl
+                    , IpcImplementationStore.IpcAcl
 #endif
                 );
                 _clientChannel = new IpcClientChannel(
                     new Hashtable
                     {
-                        {"name", IpcStore.IpcPortName + ".Callback"}
+                        {"name", IpcImplementationStore.IpcPortName + ".Callback"}
                     },
                     new BinaryClientFormatterSinkProvider());
 
                 ChannelServices.RegisterChannel(_serverChannel, ensureSecurity: false);
                 ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
                 _store = CreateStore();
-                _objRef = RemotingServices.Marshal(_store, IpcStore.IpcObjectUri, typeof(IStore));
+                _objRef = RemotingServices.Marshal(_store, IpcImplementationStore.IpcObjectUri, typeof(IImplementationStore));
 
                 // Prevent the service from expiring on Windows 10
                 var lease = (ILease)RemotingServices.GetLifetimeService(_store);
@@ -159,9 +159,9 @@ namespace ZeroInstall.Store.Service
             var identity = WindowsIdentity.GetCurrent();
             Debug.Assert(identity != null);
 
-            var paths = StoreConfig.GetImplementationDirs(serviceMode: true);
-            var stores = paths.Select(path => new SecureStore(path, identity)).Cast<IStore>();
-            return new CompositeStore(stores);
+            var paths = ImplementationStores.GetDirectories(serviceMode: true);
+            var stores = paths.Select(path => new SecureStore(path, identity)).Cast<IImplementationStore>();
+            return new CompositeImplementationStore(stores);
         }
 
         /// <summary>

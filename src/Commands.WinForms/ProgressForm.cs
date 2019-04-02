@@ -21,7 +21,7 @@ using CancellationTokenSource = NanoByte.Common.Tasks.CancellationTokenSource;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Displays the progress of a <see cref="CommandBase"/> and <see cref="ITask"/>s.
+    /// Displays the progress of a <see cref="CliCommand"/> and <see cref="ITask"/>s.
     /// </summary>
     public partial class ProgressForm : Form
     {
@@ -183,7 +183,13 @@ namespace ZeroInstall.Commands.WinForms
         private string _pendingQuestion;
         private Future<DialogResult> _pendingResult;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Asks the user a Yes/No/Cancel question.
+        /// </summary>
+        /// <param name="question">The question and comprehensive information to help the user make an informed decision.</param>
+        /// <param name="severity">The severity/possible impact of the question.</param>
+        /// <returns><c>true</c> if the user answered with 'Yes'; <c>false</c> if the user answered with 'No'.</returns>
+        /// <exception cref="OperationCanceledException">The user selected 'Cancel'.</exception>
         public Future<DialogResult> Ask(string question, MsgSeverity severity)
         {
             #region Sanity checks

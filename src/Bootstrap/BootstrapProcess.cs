@@ -271,7 +271,7 @@ namespace ZeroInstall
         }
 
         /// <summary>
-        /// Imports implementation archives into the <see cref="IStore"/>.
+        /// Imports implementation archives into the <see cref="IImplementationStore"/>.
         /// </summary>
         private void ImportArchives()
         {
@@ -280,11 +280,11 @@ namespace ZeroInstall
                 Debug.Assert(path != null);
                 var digest = new ManifestDigest();
                 digest.ParseID(Path.GetFileNameWithoutExtension(path));
-                if (digest.Best != null && !Store.Contains(digest))
+                if (digest.Best != null && !ImplementationStore.Contains(digest))
                 {
                     try
                     {
-                        Store.AddArchives(new[]
+                        ImplementationStore.AddArchives(new[]
                         {
                             new ArchiveFileInfo
                             {
