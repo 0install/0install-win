@@ -1,6 +1,5 @@
 ﻿Param ([Parameter(Mandatory=$True)][String]$User, [Parameter(Mandatory=$True)][String]$Password)
 $ErrorActionPreference = "Stop"
-$ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 function put ($relativeUri, $filePath) {
     0install run http://repo.roscidus.com/utils/curl -k -L --user "${User}:${Password}" -i -X PUT -F "file=@$filePath" "https://www.transifex.com/api/2/project/0install-win/$relativeUri"
@@ -37,17 +36,17 @@ function upload_filtered($slug, $pathBase) {
     put "resource/$slug/translation/de/" "$pathBase.de.resx"
 }
 
-upload commands "$ScriptDir\src\Commands\Properties\Resources"
-upload store-service "$ScriptDir\src\Store.Service\Properties\Resources"
-upload central "$ScriptDir\src\Central\Properties\Resources"
+upload commands "$PSScriptRoot\src\Commands\Properties\Resources"
+upload store-service "$PSScriptRoot\src\Store.Service\Properties\Resources"
+upload central "$PSScriptRoot\src\Central\Properties\Resources"
 
-upload_filtered window-central_winforms_introdialog "$ScriptDir\src\Central.WinForms\IntroDialog"
-upload_filtered window-central_winforms_mainform "$ScriptDir\src\Central.WinForms\MainForm"
-upload_filtered window-central_winforms_portablecreatordialog "$ScriptDir\src\Central.WinForms\PortableCreatorDialog"
-upload_filtered window-central_winforms_selectcommanddialog "$ScriptDir\src\Central.WinForms\SelectCommandDialog"
-upload_filtered window-central_winforms_syncwizard "$ScriptDir\src\Central.WinForms\SyncWizard"
-upload_filtered window-commands_winforms_configdialog "$ScriptDir\src\Commands.WinForms\ConfigDialog"
-upload_filtered window-commands_winforms_feedsearchdialog "$ScriptDir\src\Commands.WinForms\FeedSearchDialog"
-upload_filtered window-commands_winforms_integrateappform "$ScriptDir\src\Commands.WinForms\IntegrateAppForm"
-upload_filtered window-commands_winforms_interfacedialog "$ScriptDir\src\Commands.WinForms\InterfaceDialog"
-upload_filtered window-commands_winforms_storemanageform "$ScriptDir\src\Commands.WinForms\StoreManageForm"
+upload_filtered window-central_winforms_introdialog "$PSScriptRoot\src\Central.WinForms\IntroDialog"
+upload_filtered window-central_winforms_mainform "$PSScriptRoot\src\Central.WinForms\MainForm"
+upload_filtered window-central_winforms_portablecreatordialog "$PSScriptRoot\src\Central.WinForms\PortableCreatorDialog"
+upload_filtered window-central_winforms_selectcommanddialog "$PSScriptRoot\src\Central.WinForms\SelectCommandDialog"
+upload_filtered window-central_winforms_syncwizard "$PSScriptRoot\src\Central.WinForms\SyncWizard"
+upload_filtered window-commands_winforms_configdialog "$PSScriptRoot\src\Commands.WinForms\ConfigDialog"
+upload_filtered window-commands_winforms_feedsearchdialog "$PSScriptRoot\src\Commands.WinForms\FeedSearchDialog"
+upload_filtered window-commands_winforms_integrateappform "$PSScriptRoot\src\Commands.WinForms\IntegrateAppForm"
+upload_filtered window-commands_winforms_interfacedialog "$PSScriptRoot\src\Commands.WinForms\InterfaceDialog"
+upload_filtered window-commands_winforms_storemanageform "$PSScriptRoot\src\Commands.WinForms\StoreManageForm"

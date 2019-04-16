@@ -1,7 +1,7 @@
 ﻿Param ($Version = "1.0.0-pre", [Switch]$Deploy, [Switch]$Machine)
 $ErrorActionPreference = "Stop"
 
-$RootDir = $(Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
+$RootDir = $PSScriptRoot
 pushd $RootDir
 
 src\build.ps1 $Version
