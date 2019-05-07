@@ -4,9 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
@@ -154,7 +160,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             DisableUI();
 
-            if (Background) OutputBalloon(title, message);
+            if (Background) OutputNotification(title, message);
             else base.Output(title, message);
         }
 
@@ -166,20 +172,60 @@ namespace ZeroInstall.Commands.WinForms
             if (Background)
             {
                 string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
-                OutputBalloon(title, message);
+                OutputNotification(title, message);
             }
             else base.Output(title, data);
         }
 
         /// <summary>
-        /// Displays a tray icon with balloon message detached from the main GUI. Will stick around even after the process ends until the user mouses over.
+        /// Displays a notification message detached from the main GUI. Will stick around even after the process ends.
         /// </summary>
-        /// <param name="title">The title of the balloon message.</param>
-        /// <param name="message">The balloon message text.</param>
-        private static void OutputBalloon(string title, string message)
+        /// <param name="title">The title of the message.</param>
+        /// <param name="message">The message text.</param>
+        private static void OutputNotification(string title, string message)
+        {
+            if (WindowsUtils.IsWindows10 && !ZeroInstallInstance.IsRunningFromCache && !Locations.IsPortable)
+                ShowModernNotification(title, message);
+            else
+                ShowLegacyNotification(title, message);
+        }
+
+        private static void ShowLegacyNotification(string title, string message)
         {
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static void ShowModernNotification(string title, string message)
+        {
+            var doc = new XmlDocument();
+
+            XmlElement Element(string tagName, IEnumerable<IXmlNode> children = null, IDictionary<string, string> attributes = null, string innerText = null)
+            {
+                var element = doc.CreateElement(tagName);
+                foreach (var child in children ?? Enumerable.Empty<IXmlNode>())
+                    element.AppendChild(child);
+                foreach ((string key, string value) in attributes ?? new Dictionary<string, string>())
+                    element.SetAttribute(key, value);
+                if (innerText != null) element.InnerText = innerText;
+                return element;
+            }
+
+            doc.AppendChild(Element("toast", new[]
+            {
+                Element("visual", new[]
+                {
+                    Element("binding", new[]
+                    {
+                        Element("text", innerText: title),
+                        Element("text", innerText: message)
+                    }, new Dictionary<string, string> {["template"] = "ToastGeneric"})
+                })
+            }));
+
+            ToastNotificationManager.CreateToastNotifier("ZeroInstall")
+                                    .Show(new ToastNotification(doc));
         }
 
         /// <inheritdoc/>
