@@ -21,7 +21,9 @@ SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "M
 $vsDir = . "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath -format value
 $msBuild = if (Test-Path "$vsDir\MSBuild\Current") {"$vsDir\MSBuild\Current\Bin\amd64\MSBuild.exe"} else {"$vsDir\MSBuild\15.0\Bin\amd64\MSBuild.exe"}
 . $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=Release
+if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 . $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=ReleaseBootstrapNet4
+if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 
 # Ensure 0install is in PATH
 if (!(Get-Command 0install -ErrorAction SilentlyContinue)) {
