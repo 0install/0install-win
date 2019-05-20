@@ -89,7 +89,7 @@ namespace ZeroInstall.Central.WinForms
 
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (_machineWide) Text += @" - " + Resources.MachineWideMode;
-            labelVersion.Text = @"v" + ZeroInstallInstance.Version;
+            labelVersion.Text = @"v" + AppInfo.Current.Version;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

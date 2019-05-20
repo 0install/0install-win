@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.WinForms
 
             checkBoxAutoUpdate.Checked = _state.AppEntry.AutoUpdate;
             checkBoxCapabilities.Visible = (_state.AppEntry.CapabilityLists.Count != 0);
-            checkBoxCapabilities.Checked = _state.CapabilitiyRegistration;
+            checkBoxCapabilities.Checked = _state.CapabilityRegistration;
 
             SetupCommandAccessPoints();
             SetupDefaultAccessPoints();
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands.WinForms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Apply changes made in "Simple View"
-            _state.CapabilitiyRegistration = checkBoxCapabilities.Checked;
+            _state.CapabilityRegistration = checkBoxCapabilities.Checked;
             _state.AppEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
         }
 

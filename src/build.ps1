@@ -10,10 +10,10 @@ function SearchAndReplace($Value, $FilePath, $PatternLeft, $PatternRight)
 }
 
 # Inject version number
-Set-Content -Path "Central.WinForms\VERSION" -Value $Version -Encoding UTF8
+SearchAndReplace $Version GlobalAssemblyInfo.cs -PatternLeft 'AssemblyInformationalVersion\("' -PatternRight '"\)'
+SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' maintenance'
 $AssemblyVersion = $Version.Split("-")[0]
 SearchAndReplace $AssemblyVersion GlobalAssemblyInfo.cs -PatternLeft 'AssemblyVersion\("' -PatternRight '"\)'
-SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' maintenance'
 SearchAndReplace $AssemblyVersion OneGet\provider.manifest -PatternLeft 'version="' -PatternRight '" versionScheme="multipartnumeric"'
 SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "ModuleVersion = '" -PatternRight "'"
 

@@ -9,3 +9,4 @@ using System.Reflection;
 
 // Version information
 [assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyInformationalVersion("1.0.0-pre")]
