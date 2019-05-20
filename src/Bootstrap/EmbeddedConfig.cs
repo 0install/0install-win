@@ -17,8 +17,8 @@ namespace ZeroInstall
     }
 
     /// <summary>
-    /// Represents configuration embedded into the exectuable itself.
-    /// This is used to create customized bootstrappers that use Zero Install to run or integrate another application.
+    /// Represents configuration embedded into the executable itself.
+    /// This is used to create a customized bootstrapper that uses Zero Install to run or integrate another application.
     /// </summary>
     public class EmbeddedConfig
     {

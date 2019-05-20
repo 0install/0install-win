@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>
         /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.
-        /// Returns immediatley.
+        /// Returns immediately.
         /// </summary>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>

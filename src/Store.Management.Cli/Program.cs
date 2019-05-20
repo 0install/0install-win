@@ -8,7 +8,7 @@ using ZeroInstall.Commands.Basic;
 namespace ZeroInstall.Store.Management.Cli
 {
     /// <summary>
-    /// A shorcut for '0install store'.
+    /// A shortcut for '0install store'.
     /// </summary>
     /// <seealso cref="StoreMan"/>
     public static class Program

@@ -385,7 +385,7 @@ namespace ZeroInstall
         }
 
         /// <summary>
-        /// Runs the Solver in offlie mode.
+        /// Runs the Solver in offline mode.
         /// </summary>
         private void SolveOffline()
         {

@@ -211,7 +211,7 @@ namespace ZeroInstall.OneGet
                     else return;
                 }
 
-                // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply prentend we are running from a different source
+                // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply pretend we are running from a different source
                 Locations.OverrideInstallBase(installLocation);
                 Install(requirements);
             }

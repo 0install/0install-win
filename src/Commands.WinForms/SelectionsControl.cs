@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// A list of <see cref="TaskControl"/>s adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.
+        /// A list of <see cref="TaskControl"/>s addressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.
         /// Missing entries are transparently created on request.
         /// </summary>
         internal readonly TransparentCache<ManifestDigest, TaskControl> TaskControls;

@@ -181,7 +181,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="labelSimple">A simple mode description for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -256,7 +256,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
         /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, Label label, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -267,7 +267,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Advanced mode
         /// <summary>
-        /// Displays the advabced configuration view. Transfers data from checkboxes to models.
+        /// Displays the advanced configuration view. Transfers data from checkboxes to models.
         /// </summary>
         /// <remarks>Must be called before form close.</remarks>
         private Action _switchToAdvancedMode;
@@ -308,7 +308,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
             where T : CapabilityModel
         {

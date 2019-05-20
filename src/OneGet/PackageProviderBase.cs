@@ -13,7 +13,7 @@ using PackageManagement.Sdk;
 namespace ZeroInstall.OneGet
 {
     /// <summary>
-    /// Common base for OneGet package providers. Implements OneGet's duck-typing interface.
+    /// Common base for OneGet package providers. Implements OneGet duck-typing interface.
     /// </summary>
     public abstract class PackageProviderBase
     {

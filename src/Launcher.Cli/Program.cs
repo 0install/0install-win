@@ -8,7 +8,7 @@ using ZeroInstall.Commands.Basic;
 namespace ZeroInstall.Launcher.Cli
 {
     /// <summary>
-    /// A shorcut for '0install run'.
+    /// A shortcut for '0install run'.
     /// </summary>
     /// <seealso cref="Run"/>
     public static class Program

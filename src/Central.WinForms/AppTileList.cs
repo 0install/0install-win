@@ -189,7 +189,7 @@ namespace ZeroInstall.Central.WinForms
             if (tile == null) throw new ArgumentNullException(nameof(tile));
             #endregion
 
-            // Flush queue first, to allow propper recoloring
+            // Flush queue first, to allow proper recoloring
             AddQueuedTiles();
 
             _flowLayout.Controls.Remove(tile);
