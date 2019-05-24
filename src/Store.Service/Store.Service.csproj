@@ -39,7 +39,7 @@
     <DefineConstants>TRACE;NET20</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.Store" Version="2.16.5-rc-pre0010" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Store" Version="2.16.6" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
