@@ -136,7 +136,7 @@
     <value>Der Dienst kann nicht im Portablen Modus laufen!</value>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Setzte Dateizugriffsrechte</value>
+    <value>Setze Dateizugriffsrechte</value>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>Der Benutzer '{0}' hat die Implementierung '{1}' erfolgreich in '{2}' hinzugefügt.</value>
