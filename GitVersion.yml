@@ -20,3 +20,7 @@ branches:
     tag: pre-pre
   pull-request:
     tag: pre-pre
+  renovate:
+    regex: renovate?[/-]
+    source-branches: ['master']
+    tag: pre-pre
