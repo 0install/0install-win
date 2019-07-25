@@ -10,7 +10,7 @@ before_build:
 
 build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
-  - ps: feed\build.ps1 $env:GitVersion_NuGetVersion
+  - ps: feed\build.ps1 $env:GitVersion_NuGetVersion -GitHubRelease:$($env:APPVEYOR_REPO_TAG -eq "true")
 
 artifacts:
   - path: feed\*.xml

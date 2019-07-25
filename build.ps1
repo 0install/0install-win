@@ -9,9 +9,9 @@ feed\build.ps1 $Version
 
 if ($Deploy) {
   if ($Machine) {
-    artifacts\Bootstrap\0install\0install.exe --feed="$RootDir\feed\ZeroInstall-$Version.xml" maintenance deploy --batch --machine
+    artifacts\Bootstrap\0install\0install.exe --feed="$RootDir\feed\0install-win-$Version.xml" maintenance deploy --batch --machine
   } else {
-    artifacts\Bootstrap\0install\0install.exe --feed="$RootDir\feed\ZeroInstall-$Version.xml" maintenance deploy --batch
+    artifacts\Bootstrap\0install\0install.exe --feed="$RootDir\feed\0install-win-$Version.xml" maintenance deploy --batch
   }
 }
 
