@@ -39,8 +39,8 @@
     <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NanoByte.Common.WinForms" Version="2.3.2" />
-    <PackageReference Include="ZeroInstall.Commands" Version="2.16.6" PrivateAssets="None" />
+    <PackageReference Include="NanoByte.Common.WinForms" Version="2.3.3" />
+    <PackageReference Include="ZeroInstall.Commands" Version="2.16.7" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

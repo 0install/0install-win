@@ -19,6 +19,8 @@ namespace ZeroInstall.OneGet
         public OneGetHandler(Request request)
         {
             _request = request;
+
+            Verbosity = _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch;
         }
 
         /// <summary>
@@ -52,9 +54,6 @@ namespace ZeroInstall.OneGet
 
             task.Run(CancellationToken, CredentialProvider, new OneGetProgress(task.Name, _request, CancellationTokenSource));
         }
-
-        /// <inheritdoc/>
-        public override Verbosity Verbosity { get => _request.IsInteractive ? Verbosity.Normal : Verbosity.Batch; set {} }
 
         /// <inheritdoc/>
         protected override bool Ask(string question, MsgSeverity severity) => _request.OptionKeys.Contains("Force") || _request.ShouldContinue(question, "Zero Install");
