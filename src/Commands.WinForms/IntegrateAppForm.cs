@@ -13,6 +13,7 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Store.Model;
 
@@ -91,9 +92,9 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Commmand access points
         /// <summary>
-        /// Sets up the UI elements for configuring <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s.
+        /// Sets up the UI elements for configuring <see cref="CommandAccessPoint"/>s.
         /// </summary>
-        /// <remarks>Users create <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
+        /// <remarks>Users create <see cref="CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
         private void SetupCommandAccessPoints()
         {
             SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _state.MenuEntries, () => Suggest.MenuEntries(_state.Feed));
@@ -137,15 +138,15 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Hooks up event handlers for <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s.
+        /// Hooks up event handlers for <see cref="CommandAccessPoint"/>s.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
-        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="labelSimple">A simple mode description for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="accessPoints">A list of applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="labelSimple">A simple mode description for this type of <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="accessPoints">A list of applied <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
         private void SetupCommandAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, ICollection<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
-            where T : DesktopIntegration.AccessPoints.CommandAccessPoint
+            where T : CommandAccessPoint
         {
             _switchToBasicMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, labelSimple, accessPoints, getSuggestions);
             _switchToAdvancedMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, accessPoints, getSuggestions);
@@ -154,9 +155,9 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Default access points
         /// <summary>
-        /// Sets up the UI elements for configuring <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s.
+        /// Sets up the UI elements for configuring <see cref="DefaultAccessPoint"/>s.
         /// </summary>
-        /// <remarks>Users enable or disable predefined <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s based on <see cref="Store.Model.Capabilities.DefaultCapability"/>s.</remarks>
+        /// <remarks>Users enable or disable predefined <see cref="DefaultAccessPoint"/>s based on <see cref="Store.Model.Capabilities.DefaultCapability"/>s.</remarks>
         private void SetupDefaultAccessPoints()
         {
             SetupDefaultAccessPoint(checkBoxFileTypesSimple, labelFileTypesSimple, checkBoxFileTypesAll, _state.FileTypes);
@@ -175,12 +176,12 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Hooks up event handlers for <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s.
+        /// Hooks up event handlers for <see cref="DefaultAccessPoint"/>s.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
-        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="labelSimple">A simple mode description for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="labelSimple">A simple mode description for this type of <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
         /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
             where T : CapabilityModel
@@ -236,24 +237,24 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
+        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="CommandAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
         /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-        /// <param name="accessPoints">The currently applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        /// <param name="accessPoints">The currently applied <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
         private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, Label label, IEnumerable<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
-            where T : DesktopIntegration.AccessPoints.CommandAccessPoint
+            where T : CommandAccessPoint
         {
             checkBox.Checked = accessPoints.Any();
             label.Visible = checkBox.Visible = getSuggestions().Any();
         }
 
         /// <summary>
-        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> configuration.
+        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="DefaultAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
         /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
         /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
@@ -281,14 +282,14 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Sets the state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
+        /// Sets the state of a <see cref="CheckBox"/> for simple <see cref="CommandAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-        /// <param name="current">The currently applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        /// <param name="current">The currently applied <see cref="CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
         private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
-            where T : DesktopIntegration.AccessPoints.CommandAccessPoint
+            where T : CommandAccessPoint
         {
             if (!checkBox.Visible) return;
 
@@ -304,9 +305,9 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> configuration.
+        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="DefaultAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
         /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
