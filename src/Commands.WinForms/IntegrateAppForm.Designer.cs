@@ -119,6 +119,8 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonBasicMode = new System.Windows.Forms.Button();
             this.panelBasic = new System.Windows.Forms.Panel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
+            this.textBoxCommandLine = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
@@ -142,6 +144,7 @@ namespace ZeroInstall.Commands.WinForms
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
             this.flowLayoutBasic.SuspendLayout();
             this.panelBasic.SuspendLayout();
+            this.groupBoxCommandLine.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -758,6 +761,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxStartMenuSimple, "checkBoxStartMenuSimple");
             this.checkBoxStartMenuSimple.Name = "checkBoxStartMenuSimple";
             this.checkBoxStartMenuSimple.UseVisualStyleBackColor = true;
+            this.checkBoxStartMenuSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelStartMenuSimple
             // 
@@ -769,6 +773,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxDesktopSimple, "checkBoxDesktopSimple");
             this.checkBoxDesktopSimple.Name = "checkBoxDesktopSimple";
             this.checkBoxDesktopSimple.UseVisualStyleBackColor = true;
+            this.checkBoxDesktopSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelDesktopSimple
             // 
@@ -780,6 +785,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxSendToSimple, "checkBoxSendToSimple");
             this.checkBoxSendToSimple.Name = "checkBoxSendToSimple";
             this.checkBoxSendToSimple.UseVisualStyleBackColor = true;
+            this.checkBoxSendToSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelSendToSimple
             // 
@@ -791,6 +797,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxAliasesSimple, "checkBoxAliasesSimple");
             this.checkBoxAliasesSimple.Name = "checkBoxAliasesSimple";
             this.checkBoxAliasesSimple.UseVisualStyleBackColor = true;
+            this.checkBoxAliasesSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelAliasesSimple
             // 
@@ -802,6 +809,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxAutoStartSimple, "checkBoxAutoStartSimple");
             this.checkBoxAutoStartSimple.Name = "checkBoxAutoStartSimple";
             this.checkBoxAutoStartSimple.UseVisualStyleBackColor = true;
+            this.checkBoxAutoStartSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelAutoStartSimple
             // 
@@ -813,6 +821,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxFileTypesSimple, "checkBoxFileTypesSimple");
             this.checkBoxFileTypesSimple.Name = "checkBoxFileTypesSimple";
             this.checkBoxFileTypesSimple.UseVisualStyleBackColor = true;
+            this.checkBoxFileTypesSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelFileTypesSimple
             // 
@@ -824,6 +833,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxUrlProtocolsSimple, "checkBoxUrlProtocolsSimple");
             this.checkBoxUrlProtocolsSimple.Name = "checkBoxUrlProtocolsSimple";
             this.checkBoxUrlProtocolsSimple.UseVisualStyleBackColor = true;
+            this.checkBoxUrlProtocolsSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelUrlProtocolsSimple
             // 
@@ -835,6 +845,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxAutoPlaySimple, "checkBoxAutoPlaySimple");
             this.checkBoxAutoPlaySimple.Name = "checkBoxAutoPlaySimple";
             this.checkBoxAutoPlaySimple.UseVisualStyleBackColor = true;
+            this.checkBoxAutoPlaySimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelAutoPlaySimple
             // 
@@ -846,6 +857,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxContextMenuSimple, "checkBoxContextMenuSimple");
             this.checkBoxContextMenuSimple.Name = "checkBoxContextMenuSimple";
             this.checkBoxContextMenuSimple.UseVisualStyleBackColor = true;
+            this.checkBoxContextMenuSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelContextMenuSimple
             // 
@@ -857,6 +869,7 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxDefaultProgramsSimple, "checkBoxDefaultProgramsSimple");
             this.checkBoxDefaultProgramsSimple.Name = "checkBoxDefaultProgramsSimple";
             this.checkBoxDefaultProgramsSimple.UseVisualStyleBackColor = true;
+            this.checkBoxDefaultProgramsSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelDefaultProgramsSimple
             // 
@@ -876,17 +889,31 @@ namespace ZeroInstall.Commands.WinForms
             this.panelBasic.Controls.Add(this.flowLayoutBasic);
             this.panelBasic.Name = "panelBasic";
             // 
+            // groupBoxCommandLine
+            // 
+            resources.ApplyResources(this.groupBoxCommandLine, "groupBoxCommandLine");
+            this.groupBoxCommandLine.Controls.Add(this.textBoxCommandLine);
+            this.groupBoxCommandLine.Name = "groupBoxCommandLine";
+            this.groupBoxCommandLine.TabStop = false;
+            // 
+            // textBoxCommandLine
+            // 
+            resources.ApplyResources(this.textBoxCommandLine, "textBoxCommandLine");
+            this.textBoxCommandLine.Name = "textBoxCommandLine";
+            this.textBoxCommandLine.ReadOnly = true;
+            // 
             // IntegrateAppForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBoxCommandLine);
             this.Controls.Add(this.panelBasic);
-            this.Controls.Add(this.buttonBasicMode);
             this.Controls.Add(this.buttonAdvancedMode);
             this.Controls.Add(this.labelLastDataError);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.checkBoxAutoUpdate);
             this.Controls.Add(this.checkBoxCapabilities);
+            this.Controls.Add(this.buttonBasicMode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
@@ -894,15 +921,16 @@ namespace ZeroInstall.Commands.WinForms
             this.ShowIcon = true;
             this.ShowInTaskbar = true;
             this.Load += new System.EventHandler(this.IntegrateAppForm_Load);
+            this.Controls.SetChildIndex(this.buttonBasicMode, 0);
             this.Controls.SetChildIndex(this.checkBoxCapabilities, 0);
             this.Controls.SetChildIndex(this.checkBoxAutoUpdate, 0);
             this.Controls.SetChildIndex(this.tabControl, 0);
-            this.Controls.SetChildIndex(this.buttonOK, 0);
-            this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelLastDataError, 0);
             this.Controls.SetChildIndex(this.buttonAdvancedMode, 0);
-            this.Controls.SetChildIndex(this.buttonBasicMode, 0);
             this.Controls.SetChildIndex(this.panelBasic, 0);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.groupBoxCommandLine, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageStartMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
@@ -933,6 +961,8 @@ namespace ZeroInstall.Commands.WinForms
             this.flowLayoutBasic.PerformLayout();
             this.panelBasic.ResumeLayout(false);
             this.panelBasic.PerformLayout();
+            this.groupBoxCommandLine.ResumeLayout(false);
+            this.groupBoxCommandLine.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1029,5 +1059,7 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Label labelContextMenuSimple;
         private System.Windows.Forms.Label labelDefaultProgramsSimple;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.GroupBox groupBoxCommandLine;
+        private System.Windows.Forms.TextBox textBoxCommandLine;
     }
 }

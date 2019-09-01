@@ -232,7 +232,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             _switchToBasicMode();
 
-            buttonAdvancedMode.Visible = panelBasic.Visible = true;
+            buttonAdvancedMode.Visible = panelBasic.Visible = groupBoxCommandLine.Visible = true;
             buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = false;
         }
 
@@ -264,6 +264,25 @@ namespace ZeroInstall.Commands.WinForms
             checkBox.Checked = model.Any(element => element.Use);
             label.Visible = checkBox.Visible = model.Any();
         }
+
+        private void UpdateCommandLine(object sender, EventArgs e)
+        {
+            var commandLine = new List<string> {"0install", "integrate", _state.Feed.Uri.ToStringRfc(), "--add=" + CapabilityRegistration.CategoryName};
+
+            void AddIfChecked(CheckBox checkBox, string category)
+            {
+                if (checkBox.Checked)
+                    commandLine.Add("--add=" + category);
+            }
+
+            AddIfChecked(checkBoxStartMenuSimple, MenuEntry.CategoryName);
+            AddIfChecked(checkBoxDesktopSimple, DesktopIcon.CategoryName);
+            AddIfChecked(checkBoxSendToSimple, SendTo.CategoryName);
+            AddIfChecked(checkBoxAliasesSimple, AppAlias.CategoryName);
+            AddIfChecked(checkBoxAutoStartSimple, AutoStart.CategoryName);
+
+            textBoxCommandLine.Text = commandLine.JoinEscapeArguments();
+        }
         #endregion
 
         #region Advanced mode
@@ -278,7 +297,7 @@ namespace ZeroInstall.Commands.WinForms
             _switchToAdvancedMode();
 
             buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
-            buttonAdvancedMode.Visible = panelBasic.Visible = false;
+            buttonAdvancedMode.Visible = panelBasic.Visible = groupBoxCommandLine.Visible = false;
         }
 
         /// <summary>

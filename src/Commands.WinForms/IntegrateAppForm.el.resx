@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>Μενού έναρξης</value>
+  </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
     <value>Ονομα</value>
   </data>
@@ -126,8 +129,8 @@
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
     <value>Εντολή</value>
   </data>
-  <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Μενού έναρξης</value>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>Επιφάνεια εργασίας</value>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
     <value>Ονομα</value>
@@ -135,8 +138,8 @@
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
     <value>Εντολή</value>
   </data>
-  <data name="tabPageDesktop.Text" xml:space="preserve">
-    <value>Επιφάνεια εργασίας</value>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Αποστολή σε</value>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
     <value>Ονομα</value>
@@ -144,8 +147,8 @@
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>Εντολή</value>
   </data>
-  <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Αποστολή σε</value>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>Ψευδώνυμα γραμμής εντολών</value>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
     <value>Ονομα</value>
@@ -153,8 +156,8 @@
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
     <value>Εντολή</value>
   </data>
-  <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Ψευδώνυμα γραμμής εντολών</value>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Αυτόματη εκκίνηση</value>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
     <value>Ονομα</value>
@@ -162,8 +165,8 @@
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
     <value>Εντολή</value>
   </data>
-  <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>Αυτόματη εκκίνηση</value>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>Τύποι αρχείων</value>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
     <value>Επιλογη ολων</value>
@@ -177,8 +180,8 @@
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
     <value>Επεκτάσεις</value>
   </data>
-  <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>Τύποι αρχείων</value>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>URL πρωτόκολλα</value>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
     <value>Επιλογη ολων</value>
@@ -192,8 +195,8 @@
   <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
     <value>Πρωτόκολλα</value>
   </data>
-  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>URL πρωτόκολλα</value>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>Αυτόματη αναπαραγωγή</value>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
     <value>Επιλογη ολων</value>
@@ -207,8 +210,8 @@
   <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
     <value>Εκδηλώσεις</value>
   </data>
-  <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>Αυτόματη αναπαραγωγή</value>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>Μενού περιβάλλοντος</value>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
     <value>Επιλογη ολων</value>
@@ -219,8 +222,8 @@
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
     <value>Ονομα καταχώρησης</value>
   </data>
-  <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Μενού περιβάλλοντος</value>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>Προεπιλεγμένα προγράμματα</value>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
     <value>Επιλογη ολων</value>
@@ -233,9 +236,6 @@
   </data>
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
     <value>Υπηρεσία</value>
-  </data>
-  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Προεπιλεγμένα προγράμματα</value>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>Εγγραφή δυνατοτήτων</value>
