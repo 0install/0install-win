@@ -32,7 +32,7 @@ namespace ZeroInstall.Central.WinForms
         private static readonly string _runButtonText = SharedResources.Run;
         private static readonly Bitmap _addImage = Resources.AppAdd, _removeImage = Resources.AppRemove, _integrateImage = Resources.AppIntegrate, _modifyImage = Resources.AppModify;
         private static readonly string _addText = SharedResources.MyAppsAdd, _removeText = SharedResources.MyAppsRemove, _integrateText = SharedResources.Integrate, _modifyIntegrationText = SharedResources.ModifyIntegration;
-        private static readonly string _runCommandText = SharedResources.RunCommand, _runVersionText = SharedResources.RunVersion, _updateText = SharedResources.Update;
+        private static readonly string _runWithOptionsText = SharedResources.RunWithOptions, _updateText = SharedResources.Update;
 
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
@@ -84,10 +84,10 @@ namespace ZeroInstall.Central.WinForms
                 _feed = value;
                 if (value == null)
                 {
-                    buttonRunCommand.Visible = false;
+                    buttonRunWithOptions.Visible = false;
                     return;
                 }
-                else buttonRunCommand.Visible = true;
+                else buttonRunWithOptions.Visible = true;
 
                 // Get application summary from feed
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
@@ -125,8 +125,7 @@ namespace ZeroInstall.Central.WinForms
 
             InitializeComponent();
             buttonRun.Text = buttonRun2.Text = _runButtonText;
-            buttonRunCommand.Text = _runCommandText;
-            buttonRunVersion.Text = _runVersionText;
+            buttonRunWithOptions.Text = _runWithOptionsText;
             buttonUpdate.Text = _updateText;
 
             buttonAdd.Image = _addImage;
@@ -236,13 +235,7 @@ namespace ZeroInstall.Central.WinForms
             else Program.RunCommand(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
-        private void buttonRunVersion_Click(object sender, EventArgs e)
-        {
-            if (InterfaceUri.IsFake) return;
-            Program.RunCommand(Run.Name, "--no-wait", "--customize", InterfaceUri.ToStringRfc());
-        }
-
-        private void buttonRunCommand_Click(object sender, EventArgs e)
+        private void buttonRunWithOptions_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake || Feed == null) return;
             new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);

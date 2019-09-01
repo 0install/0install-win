@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
@@ -17,11 +18,11 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
-    /// A dialog box asking the the user to select an <see cref="Command"/>.
+    /// A dialog box allowing the user to specify additional options for running a feed.
     /// </summary>
     public partial class SelectCommandDialog : OKCancelDialog
     {
-        #region Inner classe
+        #region Inner class
         private class EntryPointWrapper
         {
             private readonly Feed _feed;
@@ -64,23 +65,17 @@ namespace ZeroInstall.Central.WinForms
 
         private void SelectCommandDialog_Load(object sender, EventArgs e)
         {
-            Text = string.Format(Resources.SelectCommand, _target.Feed.Name);
+            Text = Resources.Run + @" " + _target.Feed.Name;
 
             this.CenterOnParent();
 
             foreach (var entryPoint in _target.Feed.EntryPoints)
                 comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, entryPoint));
+
             if (comboBoxCommand.Items.Count == 0)
                 comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, Command.NameRun));
 
             comboBoxCommand.SelectedIndex = 0;
-        }
-
-        private void comboBoxCommand_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Display entry point description
-            if (comboBoxCommand.SelectedItem is EntryPointWrapper entryPoint)
-                labelSummary.Text = entryPoint.GetSummary();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -104,15 +99,29 @@ namespace ZeroInstall.Central.WinForms
         private void buttonCancel_Click(object sender, EventArgs e)
             => Close();
 
+        private void UpdateDescription(object sender, EventArgs e)
+        {
+            labelSummary.Text = (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetSummary();
+            textBoxCommandLine.Text = GetArgs().Except("--no-wait").Prepend("0install").JoinEscapeArguments();
+        }
+
         private IEnumerable<string> GetArgs()
         {
             yield return "run";
             yield return "--no-wait";
-            yield return "--command";
-            yield return (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetCommand() ?? comboBoxCommand.Text;
 
-            if (checkBoxSpecificVersion.Checked)
+            string command = (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetCommand() ?? comboBoxCommand.Text;
+            if (!string.IsNullOrEmpty(command) && command != Command.NameRun)
+            {
+                yield return "--command";
+                yield return command;
+            }
+
+            if (checkBoxCustomizeVersion.Checked)
                 yield return "--customize";
+
+            if (checkBoxRefresh.Checked)
+                yield return "--refresh";
 
             yield return _target.Uri.ToStringRfc();
 

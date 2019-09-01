@@ -29,12 +29,17 @@ namespace ZeroInstall.Central.WinForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectCommandDialog));
+            this.labelCommand = new System.Windows.Forms.Label();
             this.comboBoxCommand = new System.Windows.Forms.ComboBox();
             this.labelSummary = new System.Windows.Forms.Label();
-            this.textBoxArgs = new System.Windows.Forms.TextBox();
+            this.labelOptions = new System.Windows.Forms.Label();
+            this.checkBoxCustomizeVersion = new System.Windows.Forms.CheckBox();
+            this.checkBoxRefresh = new System.Windows.Forms.CheckBox();
             this.labelArgs = new System.Windows.Forms.Label();
-            this.labelCommand = new System.Windows.Forms.Label();
-            this.checkBoxSpecificVersion = new System.Windows.Forms.CheckBox();
+            this.textBoxArgs = new System.Windows.Forms.TextBox();
+            this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
+            this.textBoxCommandLine = new System.Windows.Forms.TextBox();
+            this.groupBoxCommandLine.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -47,6 +52,11 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // labelCommand
+            // 
+            resources.ApplyResources(this.labelCommand, "labelCommand");
+            this.labelCommand.Name = "labelCommand";
+            // 
             // comboBoxCommand
             // 
             resources.ApplyResources(this.comboBoxCommand, "comboBoxCommand");
@@ -54,7 +64,8 @@ namespace ZeroInstall.Central.WinForms
             this.comboBoxCommand.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCommand.FormattingEnabled = true;
             this.comboBoxCommand.Name = "comboBoxCommand";
-            this.comboBoxCommand.SelectedIndexChanged += new System.EventHandler(this.comboBoxCommand_SelectedIndexChanged);
+            this.comboBoxCommand.SelectedIndexChanged += new System.EventHandler(this.UpdateDescription);
+            this.comboBoxCommand.TextChanged += new System.EventHandler(this.UpdateDescription);
             // 
             // labelSummary
             // 
@@ -62,48 +73,78 @@ namespace ZeroInstall.Central.WinForms
             this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Name = "labelSummary";
             // 
-            // textBoxArgs
+            // labelOptions
             // 
-            resources.ApplyResources(this.textBoxArgs, "textBoxArgs");
-            this.textBoxArgs.Name = "textBoxArgs";
+            resources.ApplyResources(this.labelOptions, "labelOptions");
+            this.labelOptions.Name = "labelOptions";
+            // 
+            // checkBoxCustomizeVersion
+            // 
+            resources.ApplyResources(this.checkBoxCustomizeVersion, "checkBoxCustomizeVersion");
+            this.checkBoxCustomizeVersion.Name = "checkBoxCustomizeVersion";
+            this.checkBoxCustomizeVersion.UseVisualStyleBackColor = true;
+            this.checkBoxCustomizeVersion.CheckedChanged += new System.EventHandler(this.UpdateDescription);
+            // 
+            // checkBoxRefresh
+            // 
+            resources.ApplyResources(this.checkBoxRefresh, "checkBoxRefresh");
+            this.checkBoxRefresh.Name = "checkBoxRefresh";
+            this.checkBoxRefresh.UseVisualStyleBackColor = true;
+            this.checkBoxRefresh.CheckedChanged += new System.EventHandler(this.UpdateDescription);
             // 
             // labelArgs
             // 
             resources.ApplyResources(this.labelArgs, "labelArgs");
             this.labelArgs.Name = "labelArgs";
             // 
-            // labelCommand
+            // textBoxArgs
             // 
-            resources.ApplyResources(this.labelCommand, "labelCommand");
-            this.labelCommand.Name = "labelCommand";
+            resources.ApplyResources(this.textBoxArgs, "textBoxArgs");
+            this.textBoxArgs.Name = "textBoxArgs";
+            this.textBoxArgs.TextChanged += new System.EventHandler(this.UpdateDescription);
             // 
-            // checkBoxSpecificVersion
+            // groupBoxCommandLine
             // 
-            resources.ApplyResources(this.checkBoxSpecificVersion, "checkBoxSpecificVersion");
-            this.checkBoxSpecificVersion.Name = "checkBoxSpecificVersion";
-            this.checkBoxSpecificVersion.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.groupBoxCommandLine, "groupBoxCommandLine");
+            this.groupBoxCommandLine.Controls.Add(this.textBoxCommandLine);
+            this.groupBoxCommandLine.Name = "groupBoxCommandLine";
+            this.groupBoxCommandLine.TabStop = false;
+            // 
+            // textBoxCommandLine
+            // 
+            resources.ApplyResources(this.textBoxCommandLine, "textBoxCommandLine");
+            this.textBoxCommandLine.Name = "textBoxCommandLine";
+            this.textBoxCommandLine.ReadOnly = true;
             // 
             // SelectCommandDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.checkBoxSpecificVersion);
-            this.Controls.Add(this.labelCommand);
-            this.Controls.Add(this.comboBoxCommand);
-            this.Controls.Add(this.labelSummary);
+            this.Controls.Add(this.groupBoxCommandLine);
             this.Controls.Add(this.textBoxArgs);
             this.Controls.Add(this.labelArgs);
+            this.Controls.Add(this.checkBoxRefresh);
+            this.Controls.Add(this.checkBoxCustomizeVersion);
+            this.Controls.Add(this.labelOptions);
+            this.Controls.Add(this.labelSummary);
+            this.Controls.Add(this.comboBoxCommand);
+            this.Controls.Add(this.labelCommand);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Name = "SelectCommandDialog";
             this.Load += new System.EventHandler(this.SelectCommandDialog_Load);
             this.Controls.SetChildIndex(this.buttonOK, 0);
-            this.Controls.SetChildIndex(this.labelArgs, 0);
-            this.Controls.SetChildIndex(this.textBoxArgs, 0);
-            this.Controls.SetChildIndex(this.labelSummary, 0);
-            this.Controls.SetChildIndex(this.comboBoxCommand, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelCommand, 0);
-            this.Controls.SetChildIndex(this.checkBoxSpecificVersion, 0);
+            this.Controls.SetChildIndex(this.comboBoxCommand, 0);
+            this.Controls.SetChildIndex(this.labelSummary, 0);
+            this.Controls.SetChildIndex(this.labelOptions, 0);
+            this.Controls.SetChildIndex(this.checkBoxCustomizeVersion, 0);
+            this.Controls.SetChildIndex(this.checkBoxRefresh, 0);
+            this.Controls.SetChildIndex(this.labelArgs, 0);
+            this.Controls.SetChildIndex(this.textBoxArgs, 0);
+            this.Controls.SetChildIndex(this.groupBoxCommandLine, 0);
+            this.groupBoxCommandLine.ResumeLayout(false);
+            this.groupBoxCommandLine.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,11 +152,15 @@ namespace ZeroInstall.Central.WinForms
 
         #endregion
 
+        private System.Windows.Forms.Label labelCommand;
         private System.Windows.Forms.ComboBox comboBoxCommand;
         private System.Windows.Forms.Label labelSummary;
-        private System.Windows.Forms.TextBox textBoxArgs;
+        private System.Windows.Forms.Label labelOptions;
+        private System.Windows.Forms.CheckBox checkBoxCustomizeVersion;
+        private System.Windows.Forms.CheckBox checkBoxRefresh;
         private System.Windows.Forms.Label labelArgs;
-        private System.Windows.Forms.Label labelCommand;
-        private System.Windows.Forms.CheckBox checkBoxSpecificVersion;
+        private System.Windows.Forms.TextBox textBoxArgs;
+        private System.Windows.Forms.GroupBox groupBoxCommandLine;
+        private System.Windows.Forms.TextBox textBoxCommandLine;
     }
 }

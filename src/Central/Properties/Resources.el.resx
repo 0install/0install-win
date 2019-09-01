@@ -198,12 +198,6 @@
   <data name="Run" xml:space="preserve">
     <value>Εκτελεση</value>
   </data>
-  <data name="RunCommand" xml:space="preserve">
-    <value>Επιλογή εντολής</value>
-  </data>
-  <data name="RunVersion" xml:space="preserve">
-    <value>Επιλογή έκδοσης</value>
-  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Θέλετε να αποθηκεύσετε τις αλλαγές που έγιναν;</value>
   </data>
@@ -217,9 +211,6 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Αναζήτηση</value>
-  </data>
-  <data name="SelectCommand" xml:space="preserve">
-    <value>Επιλογή εντολής για {0}</value>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Κάντε κλικ για εγκατάσταση...</value>

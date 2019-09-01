@@ -33,8 +33,8 @@ namespace ZeroInstall.Central.WinForms
             this.labelSummary = new System.Windows.Forms.Label();
             this.buttonRun = new NanoByte.Common.Controls.DropDownButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonRunCommand = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonRunVersion = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonRun2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonRunWithOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.runMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -45,7 +45,6 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
-            this.buttonRun2 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuRun.SuspendLayout();
             this.contextMenuIntegrate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
@@ -95,38 +94,38 @@ namespace ZeroInstall.Central.WinForms
             // 
             this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonRun2,
-            this.buttonRunCommand,
-            this.buttonRunVersion,
+            this.buttonRunWithOptions,
             this.runMenuSeparator,
             this.buttonUpdate});
             this.contextMenuRun.Name = "contextMenuRun";
-            this.contextMenuRun.Size = new System.Drawing.Size(162, 120);
+            this.contextMenuRun.Size = new System.Drawing.Size(181, 98);
             this.contextMenuRun.Text = "(Run)";
             // 
-            // buttonRunCommand
+            // buttonRun2
             // 
-            this.buttonRunCommand.Name = "buttonRunCommand";
-            this.buttonRunCommand.Size = new System.Drawing.Size(161, 22);
-            this.buttonRunCommand.Text = "(Run command)";
-            this.buttonRunCommand.Visible = false;
-            this.buttonRunCommand.Click += new System.EventHandler(this.buttonRunCommand_Click);
+            this.buttonRun2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRun2.Name = "buttonRun2";
+            this.buttonRun2.Size = new System.Drawing.Size(180, 22);
+            this.buttonRun2.Text = "(Run)";
+            this.buttonRun2.Click += new System.EventHandler(this.buttonRun_Click);
             // 
-            // buttonRunVersion
+            // buttonRunWithOptions
             // 
-            this.buttonRunVersion.Name = "buttonRunVersion";
-            this.buttonRunVersion.Size = new System.Drawing.Size(161, 22);
-            this.buttonRunVersion.Text = "(Run version)";
-            this.buttonRunVersion.Click += new System.EventHandler(this.buttonRunVersion_Click);
+            this.buttonRunWithOptions.Name = "buttonRunWithOptions";
+            this.buttonRunWithOptions.Size = new System.Drawing.Size(180, 22);
+            this.buttonRunWithOptions.Text = "(Run with options)";
+            this.buttonRunWithOptions.Visible = false;
+            this.buttonRunWithOptions.Click += new System.EventHandler(this.buttonRunWithOptions_Click);
             // 
             // runMenuSeparator
             // 
             this.runMenuSeparator.Name = "runMenuSeparator";
-            this.runMenuSeparator.Size = new System.Drawing.Size(158, 6);
+            this.runMenuSeparator.Size = new System.Drawing.Size(177, 6);
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(161, 22);
+            this.buttonUpdate.Size = new System.Drawing.Size(180, 22);
             this.buttonUpdate.Text = "(Update)";
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
@@ -198,14 +197,6 @@ namespace ZeroInstall.Central.WinForms
             this.pictureBoxIcon.TabStop = false;
             this.pictureBoxIcon.Click += new System.EventHandler(this.LinkClicked);
             // 
-            // buttonRun2
-            // 
-            this.buttonRun2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRun2.Name = "buttonRun2";
-            this.buttonRun2.Size = new System.Drawing.Size(161, 22);
-            this.buttonRun2.Text = "(Run)";
-            this.buttonRun2.Click += new System.EventHandler(this.buttonRun_Click);
-            // 
             // AppTile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,8 +230,7 @@ namespace ZeroInstall.Central.WinForms
         internal System.Windows.Forms.Button buttonAdd;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
-        private System.Windows.Forms.ToolStripMenuItem buttonRunVersion;
-        private System.Windows.Forms.ToolStripMenuItem buttonRunCommand;
+        private System.Windows.Forms.ToolStripMenuItem buttonRunWithOptions;
         private System.Windows.Forms.ToolStripSeparator runMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
         internal NanoByte.Common.Controls.DropDownButton buttonIntegrate;

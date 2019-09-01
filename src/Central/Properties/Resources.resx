@@ -214,11 +214,8 @@ Are you sure you want place a portable version of Zero Install there?</value>
   <data name="Run" xml:space="preserve">
     <value>Run</value>
   </data>
-  <data name="RunCommand" xml:space="preserve">
-    <value>Run specific &amp;command</value>
-  </data>
-  <data name="RunVersion" xml:space="preserve">
-    <value>Run specific &amp;version</value>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Run with &amp;options</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Do you wish to save any changes made?</value>
@@ -233,9 +230,6 @@ Save changes</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
-  </data>
-  <data name="SelectCommand" xml:space="preserve">
-    <value>Select command for {0}</value>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Click to update to Zero Install v{0}...</value>

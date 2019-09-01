@@ -117,13 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelCommand.Text" xml:space="preserve">
+    <value>&amp;Befehl:</value>
+  </data>
+  <data name="labelOptions.Text" xml:space="preserve">
+    <value>Optionen:</value>
+  </data>
+  <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
+    <value>&amp;Version anpassen</value>
+  </data>
+  <data name="checkBoxRefresh.Text" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
+  </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>&amp;Argumente:</value>
   </data>
-  <data name="labelCommand.Text" xml:space="preserve">
-    <value>&amp;Kommando:</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Kommand auswählen</value>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Entsprechende Befehlszeile</value>
   </data>
 </root>

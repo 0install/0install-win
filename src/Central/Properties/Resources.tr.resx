@@ -214,12 +214,6 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
   <data name="Run" xml:space="preserve">
     <value>Çalıştır</value>
   </data>
-  <data name="RunCommand" xml:space="preserve">
-    <value>Belirli bir &amp;komut yürüt</value>
-  </data>
-  <data name="RunVersion" xml:space="preserve">
-    <value>Belirli bir &amp;sürüm yürüt</value>
-  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
   </data>
@@ -233,9 +227,6 @@ Değişiklikleri kaydet</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Arama</value>
-  </data>
-  <data name="SelectCommand" xml:space="preserve">
-    <value>{0} için komut seçin</value>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Zero Install v{0} sürümüne güncellemek için tıklayın...</value>

@@ -214,11 +214,8 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
   <data name="Run" xml:space="preserve">
     <value>Start</value>
   </data>
-  <data name="RunCommand" xml:space="preserve">
-    <value>Bestimmten &amp;Befehl starten</value>
-  </data>
-  <data name="RunVersion" xml:space="preserve">
-    <value>Bestimmte &amp;Version starten</value>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Start mit &amp;Optionen</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
@@ -233,9 +230,6 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
   </data>
   <data name="Search" xml:space="preserve">
     <value>Suche</value>
-  </data>
-  <data name="SelectCommand" xml:space="preserve">
-    <value>Kommando für {0} auswählen</value>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Klicken um auf Zero Install v{0} zu aktualisieren...</value>

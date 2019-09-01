@@ -19,7 +19,7 @@ namespace ZeroInstall.Central.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -344,20 +344,11 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run specific &amp;command.
+        ///   Looks up a localized string similar to Run with &amp;options.
         /// </summary>
-        public static string RunCommand {
+        public static string RunWithOptions {
             get {
-                return ResourceManager.GetString("RunCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Run specific &amp;version.
-        /// </summary>
-        public static string RunVersion {
-            get {
-                return ResourceManager.GetString("RunVersion", resourceCulture);
+                return ResourceManager.GetString("RunWithOptions", resourceCulture);
             }
         }
         
@@ -396,15 +387,6 @@ namespace ZeroInstall.Central.Properties {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select command for {0}.
-        /// </summary>
-        public static string SelectCommand {
-            get {
-                return ResourceManager.GetString("SelectCommand", resourceCulture);
             }
         }
         
