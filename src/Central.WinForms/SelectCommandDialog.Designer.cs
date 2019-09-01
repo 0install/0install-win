@@ -34,6 +34,7 @@ namespace ZeroInstall.Central.WinForms
             this.textBoxArgs = new System.Windows.Forms.TextBox();
             this.labelArgs = new System.Windows.Forms.Label();
             this.labelCommand = new System.Windows.Forms.Label();
+            this.checkBoxSpecificVersion = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -76,10 +77,17 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.labelCommand, "labelCommand");
             this.labelCommand.Name = "labelCommand";
             // 
+            // checkBoxSpecificVersion
+            // 
+            resources.ApplyResources(this.checkBoxSpecificVersion, "checkBoxSpecificVersion");
+            this.checkBoxSpecificVersion.Name = "checkBoxSpecificVersion";
+            this.checkBoxSpecificVersion.UseVisualStyleBackColor = true;
+            // 
             // SelectCommandDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBoxSpecificVersion);
             this.Controls.Add(this.labelCommand);
             this.Controls.Add(this.comboBoxCommand);
             this.Controls.Add(this.labelSummary);
@@ -95,6 +103,7 @@ namespace ZeroInstall.Central.WinForms
             this.Controls.SetChildIndex(this.comboBoxCommand, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelCommand, 0);
+            this.Controls.SetChildIndex(this.checkBoxSpecificVersion, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,5 +116,6 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.TextBox textBoxArgs;
         private System.Windows.Forms.Label labelArgs;
         private System.Windows.Forms.Label labelCommand;
+        private System.Windows.Forms.CheckBox checkBoxSpecificVersion;
     }
 }

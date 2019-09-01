@@ -2,8 +2,10 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
@@ -83,15 +85,9 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            // Differentiate between entry point describing a command and a direct command
-            var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            string command = entryPoint?.GetCommand() ?? comboBoxCommand.Text;
-
             try
             {
-                // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
-                ProcessUtils.Assembly(Commands.WinForms.Program.ExeName,
-                    "run", "--no-wait", "--command", command, _target.Uri.ToStringRfc(), textBoxArgs.Text).Start();
+                ProcessUtils.Assembly(Commands.WinForms.Program.ExeName, GetArgs().ToArray()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)
@@ -107,5 +103,24 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCancel_Click(object sender, EventArgs e)
             => Close();
+
+        private IEnumerable<string> GetArgs()
+        {
+            yield return "run";
+            yield return "--no-wait";
+            yield return "--command";
+            yield return (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetCommand() ?? comboBoxCommand.Text;
+
+            if (checkBoxSpecificVersion.Checked)
+                yield return "--customize";
+
+            yield return _target.Uri.ToStringRfc();
+
+            if (!string.IsNullOrEmpty(textBoxArgs.Text))
+            {
+                foreach (string arg in WindowsUtils.SplitArgs(textBoxArgs.Text))
+                    yield return arg;
+            }
+        }
     }
 }
