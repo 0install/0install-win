@@ -120,7 +120,19 @@
   <data name="labelCommand.Text" xml:space="preserve">
     <value>&amp;Komut:</value>
   </data>
+  <data name="labelOptions.Text" xml:space="preserve">
+    <value>Seçenekler:</value>
+  </data>
+  <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
+    <value>&amp;Sürümü özelleştir</value>
+  </data>
+  <data name="checkBoxRefresh.Text" xml:space="preserve">
+    <value>&amp;Yenile</value>
+  </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>&amp;Değişkenler:</value>
+  </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Eşdeğer komut satırı</value>
   </data>
 </root>

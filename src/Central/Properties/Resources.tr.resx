@@ -214,6 +214,9 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
   <data name="Run" xml:space="preserve">
     <value>Çalıştır</value>
   </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>&amp;Seçenekler ile çalıştır</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
   </data>

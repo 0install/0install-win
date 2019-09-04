@@ -36,7 +36,6 @@ function upload_filtered($slug, $pathBase) {
     put "resource/$slug/translation/de/" "$pathBase.de.resx"
 }
 
-upload commands "$PSScriptRoot\src\Commands\Properties\Resources"
 upload store-service "$PSScriptRoot\src\Store.Service\Properties\Resources"
 upload central "$PSScriptRoot\src\Central\Properties\Resources"
 

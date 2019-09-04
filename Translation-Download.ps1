@@ -10,7 +10,6 @@ function download($slug, $pathBase) {
     get "resource/$slug/translation/tr/?file" "$pathBase.tr.resx"
 }
 
-download commands "$PSScriptRoot\src\Commands\Properties\Resources"
 download store-service "$PSScriptRoot\src\Store.Service\Properties\Resources"
 download central "$PSScriptRoot\src\Central\Properties\Resources"
 
