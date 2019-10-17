@@ -59,30 +59,28 @@ namespace ZeroInstall.Commands.WinForms
 
                 if (storeNode is ImplementationNode implementationNode)
                 {
-                    using (var handler = new DialogTaskHandler(_manageForm))
+                    menu.Add(new MenuItem(Resources.Verify, delegate
                     {
-                        menu.Add(new MenuItem(Resources.Verify, delegate
+                        try
                         {
-                            try
-                            {
+                            using (var handler = new DialogTaskHandler(_manageForm))
                                 implementationNode.Verify(handler);
-                            }
-                            #region Error handling
-                            catch (OperationCanceledException)
-                            {}
-                            catch (IOException ex)
-                            {
-                                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                            }
-                            catch (UnauthorizedAccessException ex)
-                            {
-                                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                            }
-                            #endregion
+                        }
+                        #region Error handling
+                        catch (OperationCanceledException)
+                        {}
+                        catch (IOException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                        }
+                        #endregion
 
-                            _manageForm.RefreshList();
-                        }));
-                    }
+                        _manageForm.RefreshList();
+                    }));
                 }
             }
 
