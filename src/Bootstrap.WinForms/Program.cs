@@ -17,10 +17,11 @@ namespace ZeroInstall
 
             if (WindowsUtils.IsWindows)
             {
-                if (WindowsUtils.AttachConsole()) return (int)RunCliRedirect(args);
-                else return (int)RunGui(args);
+                if (WindowsUtils.AttachConsole())
+                    return (int)RunCliRedirect(args);
+                else
+                    return (int)RunGui(args);
             }
-            else if (UnixUtils.HasGui) return (int)RunGui(args);
             else return (int)RunCli(args);
         }
 
