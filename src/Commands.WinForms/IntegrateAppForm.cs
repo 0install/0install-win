@@ -267,6 +267,8 @@ namespace ZeroInstall.Commands.WinForms
 
         private void UpdateCommandLine(object sender, EventArgs e)
         {
+            if (_state.Feed.Uri == null) return;
+
             var commandLine = new List<string> {"0install", "integrate", _state.Feed.Uri.ToStringRfc(), "--add=" + CapabilityRegistration.CategoryName};
 
             void AddIfChecked(CheckBox checkBox, string category)
