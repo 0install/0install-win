@@ -12,6 +12,8 @@
     <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>annotations</Nullable>
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>

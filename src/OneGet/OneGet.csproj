@@ -10,6 +10,8 @@
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>annotations</Nullable>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
