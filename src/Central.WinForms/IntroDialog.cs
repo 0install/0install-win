@@ -175,9 +175,9 @@ namespace ZeroInstall.Central.WinForms
 
         private static void DrawRectangle(Control target)
         {
-            using (var graphics = target.Parent.CreateGraphics())
-            using (var pen = new Pen(Color.Red, 4))
-                graphics.DrawRectangle(pen, new Rectangle(target.Location, target.Size));
+            using var graphics = target.Parent.CreateGraphics();
+            using var pen = new Pen(Color.Red, 4);
+            graphics.DrawRectangle(pen, new Rectangle(target.Location, target.Size));
         }
 
         private void ScheduleNextAction()

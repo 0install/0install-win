@@ -98,21 +98,19 @@ namespace ZeroInstall.Commands.WinForms
         protected override bool Ask(string question, MsgSeverity severity)
         {
             Log.Debug("Question: " + question);
-            using (var future = _wrapper.Post(form => form.Ask(question, severity)))
+            using var future = _wrapper.Post(form => form.Ask(question, severity));
+            switch (future.Get())
             {
-                switch (future.Get())
-                {
-                    case DialogResult.Yes:
-                        Log.Debug("Answer: Yes");
-                        return true;
-                    case DialogResult.No:
-                        Log.Debug("Answer: No");
-                        return false;
-                    case DialogResult.Cancel:
-                    default:
-                        Log.Debug("Answer: Cancel");
-                        throw new OperationCanceledException();
-                }
+                case DialogResult.Yes:
+                    Log.Debug("Answer: Yes");
+                    return true;
+                case DialogResult.No:
+                    Log.Debug("Answer: No");
+                    return false;
+                case DialogResult.Cancel:
+                default:
+                    Log.Debug("Answer: Cancel");
+                    throw new OperationCanceledException();
             }
         }
         #endregion
@@ -224,8 +222,8 @@ namespace ZeroInstall.Commands.WinForms
 
             ThreadUtils.RunSta(() =>
             {
-                using (var dialog = new FeedSearchDialog(query))
-                    dialog.ShowDialog();
+                using var dialog = new FeedSearchDialog(query);
+                dialog.ShowDialog();
             });
         }
 
@@ -238,11 +236,9 @@ namespace ZeroInstall.Commands.WinForms
 
             ThreadUtils.RunSta(() =>
             {
-                using (var dialog = new ConfigDialog(config))
-                {
-                    dialog.SelectTab(configTab);
-                    if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
-                }
+                using var dialog = new ConfigDialog(config);
+                dialog.SelectTab(configTab);
+                if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
             });
         }
 
@@ -256,8 +252,8 @@ namespace ZeroInstall.Commands.WinForms
 
             ThreadUtils.RunSta(() =>
             {
-                using (var form = new StoreManageForm(store, feedCache))
-                    form.ShowDialog();
+                using var form = new StoreManageForm(store, feedCache);
+                form.ShowDialog();
             });
         }
         #endregion

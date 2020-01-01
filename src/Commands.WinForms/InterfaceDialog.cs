@@ -105,8 +105,8 @@ namespace ZeroInstall.Commands.WinForms
             if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
             #endregion
 
-            using (var dialog = new InterfaceDialog(interfaceUri, solveCallback, feedManager))
-                dialog.ShowDialog(owner);
+            using var dialog = new InterfaceDialog(interfaceUri, solveCallback, feedManager);
+            dialog.ShowDialog(owner);
         }
         #endregion
 
@@ -273,15 +273,13 @@ namespace ZeroInstall.Commands.WinForms
                 Feed feed = null;
                 try
                 {
-                    using (var handler = new DialogTaskHandler(this))
-                    {
-                        handler.RunTask(new SimpleTask(Resources.CheckingFeed,
-                            delegate
-                            {
-                                using (var webClient = new WebClientTimeout())
-                                    feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedUri));
-                            }));
-                    }
+                    using var handler = new DialogTaskHandler(this);
+                    handler.RunTask(new SimpleTask(Resources.CheckingFeed,
+                        delegate
+                        {
+                            using var webClient = new WebClientTimeout();
+                            feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedUri));
+                        }));
                 }
                 #region Error handling
                 catch (OperationCanceledException)

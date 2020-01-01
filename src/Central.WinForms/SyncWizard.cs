@@ -44,8 +44,8 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
         public static void Setup(bool machineWide, [CanBeNull] IWin32Window owner = null)
         {
-            using (var wizard = new SyncWizard(machineWide))
-                wizard.ShowDialog(owner);
+            using var wizard = new SyncWizard(machineWide);
+            wizard.ShowDialog(owner);
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
         public static void Troubleshooting(bool machineWide, [CanBeNull] IWin32Window owner = null)
         {
-            using (var wizard = new SyncWizard(machineWide, troubleshooting: true))
-                wizard.ShowDialog(owner);
+            using var wizard = new SyncWizard(machineWide, troubleshooting: true);
+            wizard.ShowDialog(owner);
         }
 
         #region Shared
@@ -185,11 +185,9 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonFileShareBrowse_Click(object sender, EventArgs e)
         {
-            using (var openFileDialog = new FolderBrowserDialog {RootFolder = Environment.SpecialFolder.MyComputer})
-            {
-                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-                    textBoxFileShare.Text = openFileDialog.SelectedPath;
-            }
+            using var openFileDialog = new FolderBrowserDialog {RootFolder = Environment.SpecialFolder.MyComputer};
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                textBoxFileShare.Text = openFileDialog.SelectedPath;
         }
 
         private void pageServer_Commit(object sender, WizardPageConfirmEventArgs e)
@@ -265,8 +263,8 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                using (var handler = new DialogTaskHandler(this))
-                    handler.RunTask(new SimpleTask(Text, CheckCredentials));
+                using var handler = new DialogTaskHandler(this);
+                handler.RunTask(new SimpleTask(Text, CheckCredentials));
             }
             #region Error handling
             catch (WebException ex)
@@ -327,8 +325,8 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                using (var handler = new DialogTaskHandler(this))
-                    handler.RunTask(new SimpleTask(Text, CheckCryptoKey));
+                using var handler = new DialogTaskHandler(this);
+                handler.RunTask(new SimpleTask(Text, CheckCryptoKey));
             }
             #region Error handling
             catch (WebException ex)
@@ -356,31 +354,29 @@ namespace ZeroInstall.Central.WinForms
         {
             var appListUri = new Uri(_server.Uri, new Uri("app-list", UriKind.Relative));
 
-            using (var webClient = new WebClientTimeout
+            using var webClient = new WebClientTimeout
             {
                 Credentials = _server.Credentials,
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
-            })
+            };
+            try
             {
-                try
-                {
-                    AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _cryptoKey);
-                }
-                #region Error handling
-                catch (WebException ex)
-                    when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    // Wrap exception to add context information
-                    throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
-                }
-                catch (ZipException ex)
-                {
-                    // Wrap exception to add context information
-                    if (ex.Message == "Invalid password for AES") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
-                    else throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-                }
-                #endregion
+                AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _cryptoKey);
             }
+            #region Error handling
+            catch (WebException ex)
+                when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                // Wrap exception to add context information
+                throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
+            }
+            catch (ZipException ex)
+            {
+                // Wrap exception to add context information
+                if (ex.Message == "Invalid password for AES") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
+                else throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -397,8 +393,8 @@ namespace ZeroInstall.Central.WinForms
 
             try
             {
-                using (var sync = CreateSync(_cryptoKey))
-                    sync.Sync(SyncResetMode.Server);
+                using var sync = CreateSync(_cryptoKey);
+                sync.Sync(SyncResetMode.Server);
             }
             #region Error handling
             catch (WebException ex)

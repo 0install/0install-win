@@ -165,11 +165,9 @@ namespace ZeroInstall.Commands.WinForms
             {
                 try
                 {
-                    using (var handler = new DialogTaskHandler(this))
-                    {
-                        foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
-                            node.Delete(handler);
-                    }
+                    using var handler = new DialogTaskHandler(this);
+                    foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
+                        node.Delete(handler);
                 }
                 #region Error handling
                 catch (OperationCanceledException)
@@ -199,11 +197,9 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                using (var handler = new DialogTaskHandler(this))
-                {
-                    foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
-                        entry.Verify(handler);
-                }
+                using var handler = new DialogTaskHandler(this);
+                foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
+                    entry.Verify(handler);
             }
             #region Error handling
             catch (OperationCanceledException)

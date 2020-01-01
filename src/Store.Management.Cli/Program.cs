@@ -20,8 +20,8 @@ namespace ZeroInstall.Store.Management.Cli
         {
             ProgramUtils.Init();
 
-            using (var handler = new CliCommandHandler())
-                return (int)ProgramUtils.Run("0install", args.Prepend(StoreMan.Name), handler);
+            using var handler = new CliCommandHandler();
+            return (int)ProgramUtils.Run("0install", args.Prepend(StoreMan.Name), handler);
         }
     }
 }

@@ -41,8 +41,8 @@ namespace ZeroInstall.Commands.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
-            using (var handler = new GuiCommandHandler())
-                return (int)ProgramUtils.Run(ExeName, args, handler);
+            using var handler = new GuiCommandHandler();
+            return (int)ProgramUtils.Run(ExeName, args, handler);
         }
 
         #region Taskbar

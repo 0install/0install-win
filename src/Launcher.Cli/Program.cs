@@ -20,8 +20,8 @@ namespace ZeroInstall.Launcher.Cli
         {
             ProgramUtils.Init();
 
-            using (var handler = new CliCommandHandler())
-                return (int)ProgramUtils.Run("0install", args.Prepend(Run.Name), handler);
+            using var handler = new CliCommandHandler();
+            return (int)ProgramUtils.Run("0install", args.Prepend(Run.Name), handler);
         }
     }
 }

@@ -32,8 +32,8 @@ namespace ZeroInstall
         /// <returns>The exit status code to end the process with.</returns>
         public static ExitCode RunCli(string[] args)
         {
-            using (var handler = new CliTaskHandler())
-                return ProgramUtils.Run(args, handler, gui: false);
+            using var handler = new CliTaskHandler();
+            return ProgramUtils.Run(args, handler, gui: false);
         }
 
         /// <summary>
@@ -43,20 +43,18 @@ namespace ZeroInstall
         /// <returns>The exit status code to end the process with.</returns>
         public static ExitCode RunCliRedirect(string[] args)
         {
-            using (var handler = new CliTaskHandler())
+            using var handler = new CliTaskHandler();
+            try
             {
-                try
+                Console.WriteLine();
+                return ProgramUtils.Run(args, handler, gui: false);
+            }
+            finally
+            {
+                if (handler.Verbosity != Verbosity.Batch)
                 {
                     Console.WriteLine();
-                    return ProgramUtils.Run(args, handler, gui: false);
-                }
-                finally
-                {
-                    if (handler.Verbosity != Verbosity.Batch)
-                    {
-                        Console.WriteLine();
-                        Console.Write(Environment.CurrentDirectory + @">");
-                    }
+                    Console.Write(Environment.CurrentDirectory + @">");
                 }
             }
         }
@@ -73,8 +71,8 @@ namespace ZeroInstall
 
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
-            using (var handler = new GuiTaskHandler())
-                return ProgramUtils.Run(args, handler, gui: true);
+            using var handler = new GuiTaskHandler();
+            return ProgramUtils.Run(args, handler, gui: true);
         }
     }
 }

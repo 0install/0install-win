@@ -264,11 +264,9 @@ namespace ZeroInstall.OneGet
         {
             Log.Info(Resources.DesktopIntegrationApply);
             var feed = FeedManager[requirements.InterfaceUri];
-            using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
-            {
-                var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
-                integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
-            }
+            using var integrationManager = new CategoryIntegrationManager(Handler, MachineWide);
+            var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
+            integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
         }
 
         private static void ApplyVersionRestrictions(Requirements requirements, Selections selections)
@@ -317,8 +315,8 @@ namespace ZeroInstall.OneGet
 
             var requirements = ParseReference(fastPackageReference);
 
-            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
-                integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
+            using var integrationManager = new IntegrationManager(Handler, MachineWide);
+            integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
         }
 
         public void GetPackageDetails(string fastPackageReference)

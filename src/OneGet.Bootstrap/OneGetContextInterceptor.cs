@@ -76,8 +76,8 @@ namespace ZeroInstall.OneGet
         /// <returns>The full path of the directory containing the provider assembly.</returns>
         private string GetProviderDirectory()
         {
-            using (var handler = new OneGetHandler(_request))
-                return Path.GetDirectoryName(ProgramUtils.GetStartInfo(handler).FileName);
+            using var handler = new OneGetHandler(_request);
+            return Path.GetDirectoryName(ProgramUtils.GetStartInfo(handler).FileName);
         }
 
         /// <summary>

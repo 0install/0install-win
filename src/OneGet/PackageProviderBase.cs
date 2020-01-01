@@ -74,8 +74,8 @@ namespace ZeroInstall.OneGet
         {
             try
             {
-                using (var context = BuildContext(request))
-                    action(context);
+                using var context = BuildContext(request);
+                action(context);
             }
             #region Error handling
             catch (OperationCanceledException)

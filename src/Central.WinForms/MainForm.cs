@@ -105,8 +105,8 @@ namespace ZeroInstall.Central.WinForms
             {
                 if (firstRun)
                 {
-                    using (var dialog = new IntroDialog())
-                        dialog.ShowDialog(this);
+                    using var dialog = new IntroDialog();
+                    dialog.ShowDialog(this);
                 }
 
                 // Show catalog automatically if AppList is empty

@@ -11,8 +11,8 @@ namespace ZeroInstall
         {
             ProgramUtils.Init();
 
-            using (var handler = new CliTaskHandler())
-                return (int)ProgramUtils.Run(args, handler, gui: false);
+            using var handler = new CliTaskHandler();
+            return (int)ProgramUtils.Run(args, handler, gui: false);
         }
     }
 }

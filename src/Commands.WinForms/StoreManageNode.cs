@@ -63,8 +63,8 @@ namespace ZeroInstall.Commands.WinForms
                     {
                         try
                         {
-                            using (var handler = new DialogTaskHandler(_manageForm))
-                                implementationNode.Verify(handler);
+                            using var handler = new DialogTaskHandler(_manageForm);
+                            implementationNode.Verify(handler);
                         }
                         #region Error handling
                         catch (OperationCanceledException)
@@ -86,31 +86,29 @@ namespace ZeroInstall.Commands.WinForms
 
             menu.Add(new MenuItem(Resources.Remove, delegate
             {
-                using (var handler = new DialogTaskHandler(_manageForm))
+                using var handler = new DialogTaskHandler(_manageForm);
+                if (handler.Ask(Resources.DeleteEntry))
                 {
-                    if (handler.Ask(Resources.DeleteEntry))
+                    try
                     {
-                        try
-                        {
-                            handler.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(handler)));
-                        }
-                        #region Error handling
-                        catch (KeyNotFoundException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                        }
-                        #endregion
-
-                        _manageForm.RefreshList();
+                        handler.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(handler)));
                     }
+                    #region Error handling
+                    catch (KeyNotFoundException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    catch (IOException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    #endregion
+
+                    _manageForm.RefreshList();
                 }
             }));
 
