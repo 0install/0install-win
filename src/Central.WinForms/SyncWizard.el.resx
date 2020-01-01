@@ -135,7 +135,7 @@
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
   </data>
-  <data name="optionOfficalServer.Text" xml:space="preserve">
+  <data name="optionOfficialServer.Text" xml:space="preserve">
     <value>χρησιμοποιήστε το διακομιστή 0install.de (συνιστάται)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

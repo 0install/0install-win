@@ -141,7 +141,7 @@
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>Verwende &amp;eigenen Server:</value>
   </data>
-  <data name="optionOfficalServer.Text" xml:space="preserve">
+  <data name="optionOfficialServer.Text" xml:space="preserve">
     <value>Verwende den &amp;0install.de Server (empfohlen)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

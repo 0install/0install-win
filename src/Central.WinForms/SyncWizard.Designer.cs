@@ -38,7 +38,7 @@ namespace ZeroInstall.Central.WinForms
             this.pageServer = new AeroWizard.WizardPage();
             this.optionFileShare = new System.Windows.Forms.RadioButton();
             this.optionCustomServer = new System.Windows.Forms.RadioButton();
-            this.optionOfficalServer = new System.Windows.Forms.RadioButton();
+            this.optionOfficialServer = new System.Windows.Forms.RadioButton();
             this.labelServerType = new System.Windows.Forms.Label();
             this.labelServer = new System.Windows.Forms.Label();
             this.groupCustomServer = new System.Windows.Forms.GroupBox();
@@ -174,7 +174,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             this.pageServer.Controls.Add(this.optionFileShare);
             this.pageServer.Controls.Add(this.optionCustomServer);
-            this.pageServer.Controls.Add(this.optionOfficalServer);
+            this.pageServer.Controls.Add(this.optionOfficialServer);
             this.pageServer.Controls.Add(this.labelServerType);
             this.pageServer.Controls.Add(this.labelServer);
             this.pageServer.Controls.Add(this.groupCustomServer);
@@ -197,14 +197,14 @@ namespace ZeroInstall.Central.WinForms
             this.optionCustomServer.UseVisualStyleBackColor = true;
             this.optionCustomServer.CheckedChanged += new System.EventHandler(this.pageServer_InputChanged);
             // 
-            // optionOfficalServer
+            // optionOfficialServer
             // 
-            resources.ApplyResources(this.optionOfficalServer, "optionOfficalServer");
-            this.optionOfficalServer.Checked = true;
-            this.optionOfficalServer.Name = "optionOfficalServer";
-            this.optionOfficalServer.TabStop = true;
-            this.optionOfficalServer.UseVisualStyleBackColor = true;
-            this.optionOfficalServer.CheckedChanged += new System.EventHandler(this.pageServer_InputChanged);
+            resources.ApplyResources(this.optionOfficialServer, "optionOfficialServer");
+            this.optionOfficialServer.Checked = true;
+            this.optionOfficialServer.Name = "optionOfficialServer";
+            this.optionOfficialServer.TabStop = true;
+            this.optionOfficialServer.UseVisualStyleBackColor = true;
+            this.optionOfficialServer.CheckedChanged += new System.EventHandler(this.pageServer_InputChanged);
             // 
             // labelServerType
             // 
@@ -644,7 +644,7 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Label labelSetupWelcome;
         private NanoByte.Common.Controls.UriTextBox textBoxCustomServer;
         private System.Windows.Forms.RadioButton optionCustomServer;
-        private System.Windows.Forms.RadioButton optionOfficalServer;
+        private System.Windows.Forms.RadioButton optionOfficialServer;
         private System.Windows.Forms.Label labelServerType;
         private System.Windows.Forms.Label labelServer;
         private System.Windows.Forms.Label labelRegister2;

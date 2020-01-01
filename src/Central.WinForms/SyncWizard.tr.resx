@@ -135,7 +135,7 @@
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>Ö&amp;zel bir sunucu kullanacağım:</value>
   </data>
-  <data name="optionOfficalServer.Text" xml:space="preserve">
+  <data name="optionOfficialServer.Text" xml:space="preserve">
     <value>&amp;0install.de sunucusunu kullan (önerilir)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

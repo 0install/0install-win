@@ -297,34 +297,34 @@
   <data name="&gt;&gt;optionCustomServer.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="optionOfficalServer.AutoSize" type="System.Boolean, mscorlib">
+  <data name="optionOfficialServer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="optionOfficalServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="optionOfficialServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="optionOfficalServer.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="optionOfficialServer.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 95</value>
   </data>
-  <data name="optionOfficalServer.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="optionOfficialServer.Size" type="System.Drawing.Size, System.Drawing">
     <value>243, 19</value>
   </data>
-  <data name="optionOfficalServer.TabIndex" type="System.Int32, mscorlib">
+  <data name="optionOfficialServer.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="optionOfficalServer.Text" xml:space="preserve">
+  <data name="optionOfficialServer.Text" xml:space="preserve">
     <value>Use the &amp;0install.de server (recommended)</value>
   </data>
-  <data name="&gt;&gt;optionOfficalServer.Name" xml:space="preserve">
-    <value>optionOfficalServer</value>
+  <data name="&gt;&gt;optionOfficialServer.Name" xml:space="preserve">
+    <value>optionOfficialServer</value>
   </data>
-  <data name="&gt;&gt;optionOfficalServer.Type" xml:space="preserve">
+  <data name="&gt;&gt;optionOfficialServer.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;optionOfficalServer.Parent" xml:space="preserve">
+  <data name="&gt;&gt;optionOfficialServer.Parent" xml:space="preserve">
     <value>pageServer</value>
   </data>
-  <data name="&gt;&gt;optionOfficalServer.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;optionOfficialServer.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="labelServerType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

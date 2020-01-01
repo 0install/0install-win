@@ -157,7 +157,7 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 pageServer.AllowNext =
-                    optionOfficalServer.Checked ||
+                    optionOfficialServer.Checked ||
                     (optionCustomServer.Checked && !string.IsNullOrEmpty(textBoxCustomServer.Text) && textBoxCustomServer.IsValid) ||
                     (optionFileShare.Checked && !string.IsNullOrEmpty(textBoxFileShare.Text) && Path.IsPathRooted(textBoxFileShare.Text));
             }
@@ -194,7 +194,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void pageServer_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            if (optionOfficalServer.Checked)
+            if (optionOfficialServer.Checked)
             {
                 _server.Uri = new Uri(Config.DefaultSyncServer);
                 pageServer.NextPage = _existingAccount ? pageCredentials : pageRegister;
