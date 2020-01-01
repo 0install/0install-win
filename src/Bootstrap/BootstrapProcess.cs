@@ -216,17 +216,12 @@ namespace ZeroInstall
         /// Gets implicit command-line arguments based on the <see cref="EmbeddedConfig"/>, if any.
         /// </summary>
         private static IEnumerable<string> GetEmbeddedArgs()
-        {
-            switch (EmbeddedConfig.Instance.AppMode)
+            => EmbeddedConfig.Instance.AppMode switch
             {
-                case BootstrapMode.Run:
-                    return new[] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()};
-                case BootstrapMode.Integrate:
-                    return new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()};
-                default:
-                    return new string[0];
-            }
-        }
+                BootstrapMode.Run => new[] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()},
+                BootstrapMode.Integrate => new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()},
+                _ => new string[0]
+            };
 
         /// <summary>
         /// Handles arguments passed to the target that are also applicable to the bootstrapper.

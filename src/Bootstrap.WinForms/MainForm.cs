@@ -21,16 +21,12 @@ namespace ZeroInstall
             _cancellationTokenSource = cancellationTokenSource;
             InitializeComponent();
 
-            switch (EmbeddedConfig.Instance.AppMode)
+            labelLoading.Text = EmbeddedConfig.Instance.AppMode switch
             {
-                case BootstrapMode.Run:
-                    labelLoading.Text = $"Preparing to run {EmbeddedConfig.Instance.AppName}...";
-                    break;
-
-                case BootstrapMode.Integrate:
-                    labelLoading.Text = $"Preparing to integrate {EmbeddedConfig.Instance.AppName}...";
-                    break;
-            }
+                BootstrapMode.Run => $"Preparing to run {EmbeddedConfig.Instance.AppName}...",
+                BootstrapMode.Integrate => $"Preparing to integrate {EmbeddedConfig.Instance.AppName}...",
+                _ => "Loading..."
+            };
 
             HandleCreated += delegate
             {

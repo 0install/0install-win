@@ -64,17 +64,12 @@ namespace ZeroInstall
         }
 
         private static BootstrapMode GetAppMode(string value)
-        {
-            switch (value)
+            => value switch
             {
-                case "run":
-                    return BootstrapMode.Run;
-                case "integrate":
-                    return BootstrapMode.Integrate;
-                default:
-                    return BootstrapMode.None;
-            }
-        }
+                "run" => BootstrapMode.Run,
+                "integrate" => BootstrapMode.Integrate,
+                _ => BootstrapMode.None
+            };
 
         /// <summary>
         /// The embedded config as a singleton.

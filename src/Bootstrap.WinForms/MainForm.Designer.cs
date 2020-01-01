@@ -70,7 +70,6 @@ namespace ZeroInstall
             this.labelLoading.Name = "labelLoading";
             this.labelLoading.Size = new System.Drawing.Size(374, 89);
             this.labelLoading.TabIndex = 0;
-            this.labelLoading.Text = "Loading...";
             this.labelLoading.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // buttonClose

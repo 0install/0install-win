@@ -189,18 +189,12 @@ namespace ZeroInstall.Store.Service
         }
 
         private static EventLogEntryType? GetEntryType(LogSeverity severity)
-        {
-            switch (severity)
+            => severity switch
             {
-                case LogSeverity.Info:
-                    return EventLogEntryType.Information;
-                case LogSeverity.Warn:
-                    return EventLogEntryType.Warning;
-                case LogSeverity.Error:
-                    return EventLogEntryType.Error;
-                default:
-                    return null;
-            }
-        }
+                LogSeverity.Info => EventLogEntryType.Information,
+                LogSeverity.Warn => EventLogEntryType.Warning,
+                LogSeverity.Error => EventLogEntryType.Error,
+                _ => null
+            };
     }
 }
