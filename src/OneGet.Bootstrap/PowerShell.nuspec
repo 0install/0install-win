@@ -9,6 +9,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">LGPL-3.0-or-later</license>
         <projectUrl>https://0install.de/</projectUrl>
+        <icon>icon.png</icon>
         <iconUrl>https://raw.githubusercontent.com/0install/0install-win/master/icon.png</iconUrl>
         <summary>OneGet Package Provider for Zero Install</summary>
         <description>This installs the OneGet Package Provider for Zero Install, a decentralized cross-distribution software installation system.</description>
@@ -16,6 +17,7 @@
         <tags>PackageManagement Provider PSModule</tags>
     </metadata>
     <files>
+        <file src="..\..\icon.png" />
         <file src="0install.psd1" />
         <file src="bin\Release\0install.dll" />
     </files>
