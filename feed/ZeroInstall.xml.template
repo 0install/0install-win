@@ -13,13 +13,13 @@
 
   <group license="LGPL v3 (GNU Lesser General Public License)">
     <command name="run" path="0install.exe">
-      <runner command="run" interface="http://repo.roscidus.com/dotnet/clr"/>
+      <runner command="run" interface="https://apps.0install.net/dotnet/clr.xml"/>
     </command>
     <command name="run-gui" path="0install-win.exe">
-      <runner command="run-gui" interface="http://repo.roscidus.com/dotnet/clr"/>
+      <runner command="run-gui" interface="https://apps.0install.net/dotnet/clr.xml"/>
     </command>
     <command name="central" path="ZeroInstall.exe">
-      <runner command="run-gui" interface="http://repo.roscidus.com/dotnet/clr"/>
+      <runner command="run-gui" interface="https://apps.0install.net/dotnet/clr.xml"/>
     </command>
     <command name="update" path="0install-win.exe">
       <arg>maintenance</arg>
