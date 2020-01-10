@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -136,7 +136,7 @@
     <value>Ö&amp;zel bir sunucu kullanacağım:</value>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>&amp;0install.de sunucusunu kullan (önerilir)</value>
+    <value>&amp;0install.de sunucusu kullanılsın (önerilir)</value>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
     <value>Hangi sunucuyu kullanmak istiyorsunuz?</value>

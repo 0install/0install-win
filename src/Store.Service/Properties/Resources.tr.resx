@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -130,7 +130,7 @@
     <value>('{0}' kullanıcısı için) '{1}' üzerinde oluşturulan geçici dizin kaldırılamadı.</value>
   </data>
   <data name="MustBeAdminToRemove" xml:space="preserve">
-    <value>Paylaşılan bir bellekten yalnız yöneticiler bileşen kaldırabilir.</value>
+    <value>Yalnız yöneticiler paylaşılan bir depodan bileşen kaldırabilir.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>Bu hizmet taşınabilir kipte çalıştırılamaz!</value>
