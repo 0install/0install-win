@@ -221,7 +221,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="message">The message to display in the notification bar.</param>
         /// <param name="clickHandler">A callback to execute when the notification bar is clicked.</param>
-        public void ShowNotificactionBar([NotNull] string message, [NotNull] Action clickHandler)
+        public void ShowNotificationBar([NotNull] string message, [NotNull] Action clickHandler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(message)) throw new ArgumentNullException(nameof(message));
@@ -389,7 +389,7 @@ namespace ZeroInstall.Central.WinForms
         private void deployTimer_Tick(object sender, EventArgs e)
         {
             deployTimer.Enabled = false;
-            ShowNotificactionBar(Resources.DeployNotification, () =>
+            ShowNotificationBar(Resources.DeployNotification, () =>
             {
                 bool machineWide;
 
@@ -474,7 +474,7 @@ namespace ZeroInstall.Central.WinForms
             var selfUpdateVersion = e.Result as ImplementationVersion;
             if (selfUpdateVersion != null)
             {
-                ShowNotificactionBar(string.Format(Resources.SelfUpdateNotification, selfUpdateVersion), delegate
+                ShowNotificationBar(string.Format(Resources.SelfUpdateNotification, selfUpdateVersion), delegate
                 {
                     try
                     {
