@@ -5,8 +5,8 @@ pushd $PSScriptRoot
 function SearchAndReplace($Value, $FilePath, $PatternLeft, $PatternRight)
 {
   (Get-Content $FilePath -Encoding UTF8) `
-    -replace "$PatternLeft.*$PatternRight", ($PatternLeft.Replace('\', '') + $Value + $PatternRight.Replace('\', '')) |
-    Set-Content $FilePath -Encoding UTF8
+  -replace "$PatternLeft.*$PatternRight", ($PatternLeft.Replace('\', '') + $Value + $PatternRight.Replace('\', '')) |
+  Set-Content $FilePath -Encoding UTF8
 }
 
 # Inject version number
@@ -25,17 +25,26 @@ if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 . $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=ReleaseBootstrapNet4
 if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 
-# Ensure 0install is in PATH
-if (!(Get-Command 0install -ErrorAction SilentlyContinue)) {
-    $env:PATH = "$(Resolve-Path ..\artifacts\Release);$env:PATH"
+# Add additional directories to PATH
+$env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64;$(Resolve-Path ..\artifacts\Release)"
+
+# Generate bootstrap package for PowerShell Gallery (OneGet)
+if (Get-Command mt -ErrorAction SilentlyContinue) {
+  mt -nologo -manifest OneGet\provider.manifest -outputresource:"..\artifacts\Release\ZeroInstall.OneGet.dll;#101"
+  mt -nologo -manifest OneGet\provider.manifest -outputresource:"OneGet.Bootstrap\bin\Release\0install.dll;#101"
+
+  0install run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -NoPackageAnalysis -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap
+  move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.powershell.$Version.nupkg
+} else {
+  Write-Host -ForegroundColor yellow "WARNING: You need mt.exe to build the 0install OneGet provider"
 }
 
 # Generate bootstrap package for Chocolatey
-0install run --batch https://apps.0install.net/utils/chocolatey.xml pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts\Bootstrap
-move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.chocolatey.$Version.nupkg
-
-# Generate bootstrap package for PowerShell Gallery (OneGet)
-0install run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap
-move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.powershell.$Version.nupkg
+if (Get-Command choco -ErrorAction SilentlyContinue) {
+  choco pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts\Bootstrap
+  move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.chocolatey.$Version.nupkg
+} else {
+  Write-Host -ForegroundColor yellow "WARNING: You need choco.exe to build the 0install Chocolatey package"
+}
 
 popd
