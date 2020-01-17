@@ -2,7 +2,7 @@
 $ErrorActionPreference = "Stop"
 
 function put ($relativeUri, $filePath) {
-    0install run http://repo.roscidus.com/utils/curl -k -L --user "${User}:${Password}" -i -X PUT -F "file=@$filePath" "https://www.transifex.com/api/2/project/0install-win/$relativeUri"
+    curl.exe -k -L --user "${User}:${Password}" -i -X PUT -F "file=@$filePath" "https://www.transifex.com/api/2/project/0install-win/$relativeUri"
 }
 
 function upload($slug, $pathBase) {
