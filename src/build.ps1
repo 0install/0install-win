@@ -31,11 +31,11 @@ if (!(Get-Command 0install -ErrorAction SilentlyContinue)) {
 }
 
 # Generate bootstrap package for Chocolatey
-0install run --batch http://repo.roscidus.com/utils/chocolatey pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts\Bootstrap
+0install run --batch https://apps.0install.net/utils/chocolatey.xml pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts\Bootstrap
 move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.chocolatey.$Version.nupkg
 
 # Generate bootstrap package for PowerShell Gallery (OneGet)
-0install run --batch http://repo.roscidus.com/dotnet/nuget pack OneGet.Bootstrap\PowerShell.nuspec -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap
+0install run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap
 move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.powershell.$Version.nupkg
 
 popd
