@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands.WinForms
         private InterfacePreferences _interfacePreferences;
 
         /// <summary>The last implementation selected for this interface.</summary>
-        private IEnumerable<SelectionCandidate> _candidates;
+        private IEnumerable<SelectionCandidate> _candidates = Enumerable.Empty<SelectionCandidate>();
         #endregion
 
         #region Constructor
@@ -118,30 +118,28 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void Solve()
         {
+            _candidates = Enumerable.Empty<SelectionCandidate>();
+
             try
             {
-                var selections = _solveCallback();
-                _candidates = selections[_interfaceUri].Candidates ?? GenerateDummyCandidates();
+                _candidates = _solveCallback()[_interfaceUri].Candidates ?? GenerateDummyCandidates();
             }
             #region Error handling
+            catch (KeyNotFoundException)
+            {}
             catch (OperationCanceledException)
-            {
-                _candidates = Enumerable.Empty<SelectionCandidate>();
-            }
+            {}
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             #endregion
 
