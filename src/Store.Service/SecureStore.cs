@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -37,7 +36,7 @@ namespace ZeroInstall.Store.Service
         /// <param name="serviceIdentity">The identity the service was launched with.</param>
         /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
-        public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity)
+        public SecureStore(string path, WindowsIdentity serviceIdentity)
             : base(path)
         {
             _serviceIdentity = serviceIdentity ?? throw new ArgumentNullException(nameof(serviceIdentity));

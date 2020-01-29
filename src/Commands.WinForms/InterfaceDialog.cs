@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -57,7 +56,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
-        private InterfaceDialog([NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedManager feedManager)
+        private InterfaceDialog(FeedUri interfaceUri, Func<Selections> solveCallback, IFeedManager feedManager)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -96,7 +95,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
-        public static void Show([CanBeNull] IWin32Window owner, [NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedManager feedManager)
+        public static void Show(IWin32Window? owner, FeedUri interfaceUri, Func<Selections> solveCallback, IFeedManager feedManager)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));

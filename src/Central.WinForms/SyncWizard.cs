@@ -8,7 +8,6 @@ using System.Net.Cache;
 using System.Windows.Forms;
 using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
@@ -42,7 +41,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="machineWide">Configure Sync for machine-wide data instead of just for the current user.</param>
         /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
-        public static void Setup(bool machineWide, [CanBeNull] IWin32Window owner = null)
+        public static void Setup(bool machineWide, IWin32Window? owner = null)
         {
             using var wizard = new SyncWizard(machineWide);
             wizard.ShowDialog(owner);
@@ -53,22 +52,20 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="machineWide">Configure Sync for machine-wide data instead of just for the current user.</param>
         /// <param name="owner">The parent window the displayed window is modal to; can be <c>null</c>.</param>
-        public static void Troubleshooting(bool machineWide, [CanBeNull] IWin32Window owner = null)
+        public static void Troubleshooting(bool machineWide, IWin32Window? owner = null)
         {
             using var wizard = new SyncWizard(machineWide, troubleshooting: true);
             wizard.ShowDialog(owner);
         }
 
         #region Shared
-        private SyncServer _server;
-
-        private SyncIntegrationManager CreateSync(string cryptoKey)
+        private void Sync(SyncResetMode resetMode = SyncResetMode.None)
         {
             var services = new ServiceLocator(new DialogTaskHandler(this));
-            return new SyncIntegrationManager(_server, cryptoKey, services.FeedManager.GetFresh, services.Handler, _machineWide);
+            using var sync = new SyncIntegrationManager(SyncConfig.From(_config), services.FeedManager.GetFresh, services.Handler, _machineWide);
+            sync.Sync(resetMode);
         }
 
-        private string _cryptoKey;
         private Config _config;
 
         private void SyncWizard_Load(object sender, EventArgs e)
@@ -103,10 +100,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                var config = Config.Load();
-                config.FromSyncServer(_server);
-                config.SyncCryptoKey = _cryptoKey;
-                config.Save();
+                _config.Save();
                 return true;
             }
             #region Error handling
@@ -194,7 +188,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (optionOfficialServer.Checked)
             {
-                _server.Uri = new Uri(Config.DefaultSyncServer);
+                _config.SyncServer = new FeedUri(Config.DefaultSyncServer);
                 pageServer.NextPage = _existingAccount ? pageCredentials : pageRegister;
             }
             else if (optionCustomServer.Checked)
@@ -208,14 +202,14 @@ namespace ZeroInstall.Central.WinForms
                     }
                 }
 
-                _server.Uri = textBoxCustomServer.Uri;
+                _config.SyncServer = new FeedUri(textBoxCustomServer.Uri);
                 pageServer.NextPage = pageCredentials;
             }
             else if (optionFileShare.Checked)
             {
                 try
                 {
-                    _server.Uri = new Uri(textBoxFileShare.Text);
+                    _config.SyncServer = new FeedUri(textBoxFileShare.Text);
                 }
                 #region Sanity checks
                 catch (UriFormatException ex)
@@ -226,8 +220,8 @@ namespace ZeroInstall.Central.WinForms
                 }
                 #endregion
 
-                _server.Username = null;
-                _server.Password = null;
+                _config.SyncServerUsername = null;
+                _config.SyncServerPassword = null;
                 pageServer.NextPage = _existingAccount ? pageExistingCryptoKey : pageNewCryptoKey;
             }
             else e.Cancel = true;
@@ -258,8 +252,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void pageCredentials_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            _server.Username = textBoxUsername.Text;
-            _server.Password = textBoxPassword.Text;
+            _config.SyncServerUsername = textBoxUsername.Text;
+            _config.SyncServerPassword = textBoxPassword.Text;
 
             try
             {
@@ -286,11 +280,11 @@ namespace ZeroInstall.Central.WinForms
 
         private void CheckCredentials()
         {
-            var appListUri = new Uri(_server.Uri, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(_config.SyncServer, new Uri("app-list", UriKind.Relative));
 
             var request = WebRequest.Create(appListUri);
             request.Method = "HEAD";
-            request.Credentials = _server.Credentials;
+            request.Credentials = new NetworkCredential(_config.SyncServerUsername, _config.SyncServerPassword);
             request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
             request.Timeout = WebClientTimeout.DefaultTimeout;
 
@@ -321,7 +315,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void pageExistingCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            _cryptoKey = textBoxCryptoKey.Text;
+            _config.SyncCryptoKey = textBoxCryptoKey.Text;
 
             try
             {
@@ -352,16 +346,16 @@ namespace ZeroInstall.Central.WinForms
 
         private void CheckCryptoKey()
         {
-            var appListUri = new Uri(_server.Uri, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(_config.SyncServer, new Uri("app-list", UriKind.Relative));
 
             using var webClient = new WebClientTimeout
             {
-                Credentials = _server.Credentials,
+                Credentials = new NetworkCredential(_config.SyncServerUsername, _config.SyncServerPassword),
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             };
             try
             {
-                AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _cryptoKey);
+                AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _config.SyncCryptoKey);
             }
             #region Error handling
             catch (WebException ex)
@@ -389,12 +383,11 @@ namespace ZeroInstall.Central.WinForms
 
         private void pageResetCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            _cryptoKey = textBoxCryptoKeyReset.Text;
+            _config.SyncCryptoKey = textBoxCryptoKeyReset.Text;
 
             try
             {
-                using var sync = CreateSync(_cryptoKey);
-                sync.Sync(SyncResetMode.Server);
+                Sync(SyncResetMode.Server);
             }
             #region Error handling
             catch (WebException ex)
@@ -447,7 +440,7 @@ namespace ZeroInstall.Central.WinForms
             => pageNewCryptoKey.AllowNext = !string.IsNullOrEmpty(textBoxCryptoKeyNew.Text);
 
         private void pageNewCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
-            => _cryptoKey = textBoxCryptoKeyNew.Text;
+            => _config.SyncCryptoKey = textBoxCryptoKeyNew.Text;
         #endregion
 
         #region pageSetupFinished
@@ -464,9 +457,6 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageResetWelcome
-        private void pageResetWelcome_Initialize(object sender, WizardPageInitEventArgs e)
-            => _server = _config.ToSyncServer();
-
         private void buttonChangeCryptoKey_Click(object sender, EventArgs e)
             => wizardControl.NextPage(pageExistingCryptoKey);
 
@@ -486,39 +476,44 @@ namespace ZeroInstall.Central.WinForms
 
         private void pageChangeCryptoKey_Commit(object sender, WizardPageConfirmEventArgs e)
         {
-            string oldKey = _cryptoKey;
-            string newKey = textBoxCryptoKeyChange.Text;
+            string oldKey = _config.SyncCryptoKey;
+
+            void Rollback()
+            {
+                _config.SyncCryptoKey = oldKey;
+                e.Cancel = true;
+            }
+
+            void Error(Exception ex)
+            {
+                Rollback();
+                Log.Warn(ex);
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            }
 
             try
             {
-                using (var sync = CreateSync(oldKey))
-                    sync.Sync();
-                using (var sync = CreateSync(newKey))
-                    sync.Sync(SyncResetMode.Server);
+                Sync();
+                _config.SyncCryptoKey = textBoxCryptoKeyChange.Text;
+                Sync(SyncResetMode.Server);
             }
             #region Error handling
             catch (WebException ex)
             {
-                Log.Warn(ex);
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                e.Cancel = true;
+                Error(ex);
                 return;
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn(ex);
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                e.Cancel = true;
+                Error(ex);
                 return;
             }
             catch (OperationCanceledException)
             {
-                e.Cancel = true;
+                Rollback();
                 return;
             }
             #endregion
-
-            _cryptoKey = newKey;
 
             if (_troubleshooting)
             {

@@ -11,7 +11,7 @@ function SearchAndReplace($Value, $FilePath, $PatternLeft, $PatternRight)
 
 # Inject version number
 SearchAndReplace $Version GlobalAssemblyInfo.cs -PatternLeft 'AssemblyInformationalVersion\("' -PatternRight '"\)'
-SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' maintenance'
+SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
 $AssemblyVersion = $Version.Split("-")[0]
 SearchAndReplace $AssemblyVersion GlobalAssemblyInfo.cs -PatternLeft 'AssemblyVersion\("' -PatternRight '"\)'
 SearchAndReplace $AssemblyVersion OneGet\provider.manifest -PatternLeft 'version="' -PatternRight '" versionScheme="multipartnumeric"'

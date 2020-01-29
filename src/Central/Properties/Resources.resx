@@ -264,9 +264,6 @@ You can replace the data stored on the server by choosing that you don't remembe
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Unable to load feed for application list entry '{0}'.</value>
   </data>
-  <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Unable to perform self-update check.</value>
-  </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
 Encrypted connections use an https:// prefix.</value>

@@ -2,7 +2,6 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
-using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using PackageManagement.Sdk;
 
@@ -18,7 +17,7 @@ namespace ZeroInstall.OneGet
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly int _activityId;
 
-        public OneGetProgress([NotNull] string name, [NotNull] Request request, [NotNull] CancellationTokenSource cancellationTokenSource)
+        public OneGetProgress(string name, Request request, CancellationTokenSource cancellationTokenSource)
         {
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _request = request ?? throw new ArgumentNullException(nameof(request));

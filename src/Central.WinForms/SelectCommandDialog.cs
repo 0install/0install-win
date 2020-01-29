@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -28,25 +27,23 @@ namespace ZeroInstall.Central.WinForms
             private readonly Feed _feed;
             private readonly EntryPoint _entryPoint;
 
-            public EntryPointWrapper([NotNull] Feed feed, [NotNull] EntryPoint entryPoint)
+            public EntryPointWrapper(Feed feed, EntryPoint entryPoint)
             {
                 _feed = feed;
                 _entryPoint = entryPoint;
             }
 
-            public EntryPointWrapper([NotNull] Feed feed, [NotNull] string commandName)
+            public EntryPointWrapper(Feed feed, string commandName)
             {
                 _feed = feed;
                 _entryPoint = new EntryPoint {Command = commandName};
             }
 
-            [CanBeNull]
-            public string GetSummary() => _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
+            public string? GetSummary() => _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
 
             public override string ToString() => _feed.GetBestName(CultureInfo.CurrentUICulture, _entryPoint.Command);
 
-            [NotNull]
-            public string GetCommand() => _entryPoint.Command ?? Command.NameRun;
+                public string GetCommand() => _entryPoint.Command ?? Command.NameRun;
         }
         #endregion
 

@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
 using LinFu.DynamicProxy;
 using NanoByte.Common;
 using PackageManagement.Sdk;
@@ -23,13 +22,12 @@ namespace ZeroInstall.OneGet
         /// Creates a new <see cref="IOneGetContext"/> interceptor.
         /// </summary>
         /// <param name="request">The OneGet request interface to pass to the constructor of the target <see cref="IOneGetContext"/> implementation.</param>
-        public OneGetContextInterceptor([NotNull] Request request)
+        public OneGetContextInterceptor(Request request)
         {
             _request = request ?? throw new ArgumentNullException(nameof(request));
         }
 
-        [CanBeNull]
-        private object _context;
+        private object? _context;
 
         // NOTE: Static/shared lock, to avoid multiple deployments being started in parallel
         private static readonly object _initLock = new object();
@@ -57,7 +55,6 @@ namespace ZeroInstall.OneGet
         /// <summary>
         /// Initializes an <see cref="IOneGetContext"/> loaded from an external OneGet provider assembly.
         /// </summary>
-        [NotNull]
         private object InitExternalContext()
         {
             string providerDirectory = GetProviderDirectory();
@@ -87,7 +84,7 @@ namespace ZeroInstall.OneGet
         {
             private readonly Request _request;
 
-            public RequestInterceptor([NotNull] Request request)
+            public RequestInterceptor(Request request)
             {
                 _request = request;
             }

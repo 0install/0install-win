@@ -264,9 +264,6 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>'{0}' uygulama listesi kaydı için akış yüklenemedi.</value>
   </data>
-  <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Güncelleme denetimi yapılamadı.</value>
-  </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sync sunucusu ile şifresiz bir bağlantı kurmak istediğinize emin misiniz?
 Şifrelenmiş bağlantılar https:// ile başlar.</value>

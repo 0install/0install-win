@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -33,20 +32,17 @@ namespace ZeroInstall
         private readonly bool _gui;
 
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
-        [NotNull]
         private readonly OptionSet _options;
 
         private bool _noExisting;
 
         /// <summary>A specific version of Zero Install to download.</summary>
-        [CanBeNull]
-        private VersionRange _version;
+        private VersionRange? _version;
 
         /// <summary>A directory to search for feeds and archives to import.</summary>
         private string _contentDir = Path.Combine(Locations.InstallBase, "content");
 
         /// <summary>Arguments passed through to the target process.</summary>
-        [NotNull]
         private readonly List<string> _targetArgs = new List<string>();
 
         private string HelpText
@@ -66,10 +62,10 @@ namespace ZeroInstall
                             writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
                             writer.WriteLine();
                             writer.WriteLine("Samples:");
-                            writer.WriteLine("  {0} central             Open main Zero Install GUI.", exeName);
-                            writer.WriteLine("  {0} maintenance deploy  Deploy Zero Install to this computer.", exeName);
-                            writer.WriteLine("  {0} run vlc             Run VLC via Zero Install.", exeName);
-                            writer.WriteLine("  {0} -- --help           Show help for Zero Install instead of Bootstrapper.", exeName);
+                            writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
+                            writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
+                            writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
+                            writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
                             break;
                         case BootstrapMode.Run:
                             writer.WriteLine("This bootstrapper downloads and runs {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
@@ -106,7 +102,7 @@ namespace ZeroInstall
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
-        public BootstrapProcess([NotNull] ITaskHandler handler, bool gui)
+        public BootstrapProcess(ITaskHandler handler, bool gui)
             : base(handler)
         {
             _gui = gui;
@@ -181,7 +177,7 @@ namespace ZeroInstall
         /// </summary>
         /// <param name="args">The command-line arguments to handle.</param>
         /// <returns>The exit status code to end the process with.</returns>
-        public ExitCode Execute([NotNull, ItemNotNull] IEnumerable<string> args)
+        public ExitCode Execute(IEnumerable<string> args)
         {
             // Write any customized configuration to the user profile
             // NOTE: This must be done before parsing command-line options, since they may manipulate Config
@@ -281,11 +277,7 @@ namespace ZeroInstall
                     {
                         ImplementationStore.AddArchives(new[]
                         {
-                            new ArchiveFileInfo
-                            {
-                                Path = path,
-                                MimeType = Archive.GuessMimeType(path)
-                            }
+                            new ArchiveFileInfo(path, Archive.GuessMimeType(path))
                         }, digest, Handler);
                     }
                     #region Error handling
@@ -299,15 +291,13 @@ namespace ZeroInstall
         /// <summary>
         /// Returns process start information for an instance of Zero Install.
         /// </summary>
-        [NotNull]
         public ProcessStartInfo GetStartInfo()
             => _noExisting ? GetCached() : (GetExistingInstance() ?? GetCached());
 
         /// <summary>
         /// Returns process start information for an existing (local) instance of Zero Install.
         /// </summary>
-        [CanBeNull]
-        private ProcessStartInfo GetExistingInstance()
+        private ProcessStartInfo? GetExistingInstance()
         {
             if (!WindowsUtils.IsWindows) return null;
 
@@ -328,7 +318,6 @@ namespace ZeroInstall
         /// <summary>
         /// Returns process start information for a cached (downloaded) instance of Zero Install.
         /// </summary>
-        [NotNull]
         private ProcessStartInfo GetCached()
         {
             _requirements = new Requirements(Config.SelfUpdateUri, _gui ? Command.NameRunGui : Command.NameRun);

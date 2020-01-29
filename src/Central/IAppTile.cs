@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -18,13 +17,11 @@ namespace ZeroInstall.Central
         /// <summary>
         /// The interface URI of the application this tile represents.
         /// </summary>
-        [NotNull]
         FeedUri InterfaceUri { get; }
 
         /// <summary>
         /// The name of the application this tile represents.
         /// </summary>
-        [NotNull]
         string AppName { get; }
 
         /// <summary>
@@ -40,7 +37,6 @@ namespace ZeroInstall.Central
         /// </summary>
         /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        [CanBeNull]
-        Feed Feed { get; set; }
+        Feed? Feed { get; set; }
     }
 }

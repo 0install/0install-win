@@ -5,7 +5,6 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -30,7 +29,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new progress tracking form.
         /// </summary>
         /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
-        public ProgressForm([NotNull] CancellationTokenSource cancellationTokenSource)
+        public ProgressForm(CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
@@ -125,7 +124,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName)
+        public IProgress<TaskSnapshot> GetProgressControl(string taskName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
@@ -147,7 +146,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <param name="tag">A digest used to associate the task with a specific implementation.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName, ManifestDigest tag)
+        public IProgress<TaskSnapshot> GetProgressControl(string taskName, ManifestDigest tag)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));

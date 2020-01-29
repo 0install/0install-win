@@ -100,25 +100,27 @@ namespace ZeroInstall.Commands.WinForms
 
         private void ConfigToControls()
         {
-            switch (_config.NetworkUse)
+            (_config.NetworkUse switch
             {
-                case NetworkLevel.Full:
-                    radioNetworkUseFull.Checked = true;
-                    break;
-                case NetworkLevel.Minimal:
-                    radioNetworkUseMinimal.Checked = true;
-                    break;
-                case NetworkLevel.Offline:
-                    radioNetworkUseOffline.Checked = true;
-                    break;
-            }
+                NetworkLevel.Full => radioNetworkUseFull,
+                NetworkLevel.Minimal => radioNetworkUseMinimal,
+                NetworkLevel.Offline => radioNetworkUseOffline,
+                _ => radioNetworkUseFull
+            }).Checked = true;
+            radioNetworkUseFull.Enabled = radioNetworkUseMinimal.Enabled = radioNetworkUseMinimal.Enabled = !Config.IsOptionLocked("network_policy");
             checkBoxHelpWithTesting.Checked = _config.HelpWithTesting;
+            checkBoxHelpWithTesting.Enabled = !Config.IsOptionLocked("help_with_testing");
             checkBoxAutoApproveKeys.Checked = _config.AutoApproveKeys;
+            checkBoxAutoApproveKeys.Enabled = !Config.IsOptionLocked("auto_approve_keys");
 
             textBoxSyncServer.Uri = _config.SyncServer;
+            textBoxSyncServer.Enabled = !Config.IsOptionLocked("sync_server");
             textBoxSyncUsername.Text = _config.SyncServerUsername;
+            textBoxSyncUsername.Enabled = !Config.IsOptionLocked("sync_serveR_user");
             textBoxSyncPassword.Text = _config.SyncServerPassword;
+            textBoxSyncPassword.Enabled = !Config.IsOptionLocked("sync_server_password");
             textBoxSyncCryptoKey.Text = _config.SyncCryptoKey;
+            textBoxSyncCryptoKey.Enabled = !Config.IsOptionLocked("sync_crypto_key");
 
             propertyGridAdvanced.SelectedObject = _config;
         }
@@ -356,7 +358,9 @@ namespace ZeroInstall.Commands.WinForms
 
         private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
         {
-            _config.SyncServer = (!textBoxSyncServer.IsValid || string.IsNullOrEmpty(textBoxSyncServer.Text)) ? new Uri(Config.DefaultSyncServer) : textBoxSyncServer.Uri;
+            _config.SyncServer = !textBoxSyncServer.IsValid || string.IsNullOrEmpty(textBoxSyncServer.Text)
+                ? new FeedUri(Config.DefaultSyncServer)
+                : new FeedUri(textBoxSyncServer.Uri);
             propertyGridAdvanced.Refresh();
         }
 

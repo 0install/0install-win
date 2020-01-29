@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -87,14 +86,14 @@ namespace ZeroInstall.Central.WinForms
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand([NotNull] params string[] args) => RunCommand(false, args);
+        internal static void RunCommand(params string[] args) => RunCommand(false, args);
 
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
         /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(bool machineWide, [NotNull] params string[] args) => RunCommand(null, machineWide, args);
+        internal static void RunCommand(bool machineWide, params string[] args) => RunCommand(null, machineWide, args);
 
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
@@ -102,7 +101,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread. Can be <c>null</c>.</param>
         /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand([CanBeNull] Action callback, bool machineWide, [NotNull] params string[] args)
+        internal static void RunCommand(Action? callback, bool machineWide, params string[] args)
         {
             if (machineWide) args = args.Append("--machine");
 
@@ -137,7 +136,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="form">The window to configure.</param>
         /// <param name="name">The name for the taskbar entry.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method operates only on windows and not on individual controls.")]
-        internal static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name)
+        internal static void ConfigureTaskbar(Form form, string name)
         {
             #region Sanity checks
             if (form == null) throw new ArgumentNullException(nameof(form));

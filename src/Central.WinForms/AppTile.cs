@@ -9,7 +9,6 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
@@ -38,8 +37,7 @@ namespace ZeroInstall.Central.WinForms
         private readonly bool _machineWide;
 
         /// <summary>The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
-        [CanBeNull]
-        private readonly IIconStore _iconStore;
+        private readonly IIconStore? _iconStore;
         #endregion
 
         #region Properties
@@ -113,7 +111,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconStore">The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconStore iconStore = null, bool machineWide = false)
+        public AppTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore? iconStore = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));

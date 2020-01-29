@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
@@ -54,7 +53,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; can be <c>null</c>.</param>
         /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; can be <c>null</c>.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Taskbar operations are always per-window.")]
-        public static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name, [CanBeNull] string subCommand = null, [CanBeNull] string arguments = null)
+        public static void ConfigureTaskbar(Form form, string name, string? subCommand = null, string? arguments = null)
         {
             #region Sanity checks
             if (form == null) throw new ArgumentNullException(nameof(form));

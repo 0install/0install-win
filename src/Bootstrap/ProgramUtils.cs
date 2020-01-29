@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
@@ -39,7 +38,7 @@ namespace ZeroInstall
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
         /// <returns>The exit status code to end the process with.</returns>
-        public static ExitCode Run([NotNull] string[] args, [NotNull] ITaskHandler handler, bool gui)
+        public static ExitCode Run(string[] args, ITaskHandler handler, bool gui)
         {
             try
             {
@@ -112,8 +111,7 @@ namespace ZeroInstall
         /// <summary>
         /// Returns process start information for an instance of Zero Install.
         /// </summary>
-        [NotNull]
-        public static ProcessStartInfo GetStartInfo([NotNull] ITaskHandler handler)
+        public static ProcessStartInfo GetStartInfo(ITaskHandler handler)
             => new BootstrapProcess(handler, gui: false).GetStartInfo();
     }
 }

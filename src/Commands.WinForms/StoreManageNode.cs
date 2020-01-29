@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
@@ -25,7 +24,6 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// The underlying <see cref="CacheNode"/> containing the cache information.
         /// </summary>
-        [NotNull]
         public CacheNode BackingNode { get; }
 
         private readonly StoreManageForm _manageForm;
@@ -35,7 +33,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="backingNode">The underlying <see cref="CacheNode"/> containing the cache information.</param>
         /// <param name="manageForm">The form hosting the management UI.</param>
-        public StoreManageNode([NotNull] CacheNode backingNode, [NotNull] StoreManageForm manageForm)
+        public StoreManageNode(CacheNode backingNode, StoreManageForm manageForm)
         {
             BackingNode = backingNode ?? throw new ArgumentNullException(nameof(backingNode));
             _manageForm = manageForm ?? throw new ArgumentNullException(nameof(manageForm));
@@ -48,18 +46,18 @@ namespace ZeroInstall.Commands.WinForms
         public string Name { get => BackingNode.Name; set => BackingNode.Name = value; }
 
         /// <inheritdoc/>
-        public ContextMenu GetContextMenu()
+        public ContextMenuStrip GetContextMenu()
         {
-            var menu = new List<MenuItem>();
+            var menu = new ContextMenuStrip();
 
             if (BackingNode is StoreNode storeNode)
             {
                 if (storeNode.Path != null)
-                    menu.Add(new MenuItem(Resources.OpenInFileManager, delegate { ProcessUtils.Start(storeNode.Path); }));
+                    menu.Items.Add(Resources.OpenInFileManager, null, delegate { ProcessUtils.Start(storeNode.Path); });
 
                 if (storeNode is ImplementationNode implementationNode)
                 {
-                    menu.Add(new MenuItem(Resources.Verify, delegate
+                    menu.Items.Add(Resources.Verify, null, delegate
                     {
                         try
                         {
@@ -80,11 +78,11 @@ namespace ZeroInstall.Commands.WinForms
                         #endregion
 
                         _manageForm.RefreshList();
-                    }));
+                    });
                 }
             }
 
-            menu.Add(new MenuItem(Resources.Remove, delegate
+            menu.Items.Add(Resources.Remove, null, delegate
             {
                 using var handler = new DialogTaskHandler(_manageForm);
                 if (handler.Ask(Resources.DeleteEntry))
@@ -110,9 +108,9 @@ namespace ZeroInstall.Commands.WinForms
 
                     _manageForm.RefreshList();
                 }
-            }));
+            });
 
-            return new ContextMenu(menu.ToArray());
+            return menu;
         }
 
         #region Comparison

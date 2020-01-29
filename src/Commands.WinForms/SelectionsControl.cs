@@ -4,7 +4,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
@@ -55,7 +54,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void SetSelections([NotNull] Selections selections, [NotNull] IFeedManager feedManager)
+        public void SetSelections(Selections selections, IFeedManager feedManager)
         {
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
 

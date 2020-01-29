@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
@@ -14,7 +13,7 @@ using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic.Exporters;
-using ZeroInstall.Commands.Desktop.Maintenance;
+using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
@@ -39,7 +38,7 @@ namespace ZeroInstall.OneGet
         /// Creates a new OneGet command.
         /// </summary>
         /// <param name="request">The OneGet request callback object.</param>
-        public OneGetContext([NotNull] Request request)
+        public OneGetContext(Request request)
             : base(new OneGetHandler(request))
         {
             _request = request;
@@ -112,7 +111,7 @@ namespace ZeroInstall.OneGet
             else CatalogSearch(name, versionRange);
         }
 
-        private void MirrorSearch([CanBeNull] string name, [CanBeNull] VersionRange versionRange)
+        private void MirrorSearch(string? name, VersionRange? versionRange)
         {
             foreach (var result in SearchQuery.Perform(Config, name).Results)
             {
@@ -122,7 +121,7 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        private void CatalogSearch([CanBeNull] string name, [CanBeNull] VersionRange versionRange)
+        private void CatalogSearch(string? name, VersionRange? versionRange)
         {
             foreach (var feed in GetCatalogResults(name))
             {
@@ -143,8 +142,7 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        [NotNull, ItemNotNull]
-        private IEnumerable<Feed> GetCatalogResults([CanBeNull] string query)
+        private IEnumerable<Feed> GetCatalogResults(string? query)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -302,7 +300,7 @@ namespace ZeroInstall.OneGet
             string installLocation = Path.Combine(programFiles, "Zero Install");
 
             Log.Info("Deploying Zero Install to " + installLocation);
-            using (var manager = new MaintenanceManager(installLocation, Handler, machineWide, portable: false))
+            using (var manager = new SelfManager(installLocation, Handler, machineWide, portable: false))
                 manager.Deploy();
             Log.Warn(Resources.Added0installToPath + Environment.NewLine + Resources.ReopenTerminal);
 
@@ -329,7 +327,7 @@ namespace ZeroInstall.OneGet
 
         private static Requirements ParseReference(string fastPackageReference) => JsonStorage.FromJsonString<Requirements>(fastPackageReference);
 
-        private void Yield([NotNull] Requirements requirements, [CanBeNull] Feed feed = null, [CanBeNull] ImplementationBase implementation = null)
+        private void Yield(Requirements requirements, Feed? feed = null, ImplementationBase? implementation = null)
         {
             if (implementation == null)
             {

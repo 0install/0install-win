@@ -264,9 +264,6 @@ Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie au
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Konnte Feed für Anwendungslisteneintrag '{0}' nicht laden.</value>
   </data>
-  <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Konnte Selbstupdate-Prüfung nicht durchführen.</value>
-  </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
 Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>

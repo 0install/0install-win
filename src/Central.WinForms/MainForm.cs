@@ -8,27 +8,22 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
-using ZeroInstall.Commands.Desktop.Maintenance;
+using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
-using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -113,10 +108,12 @@ namespace ZeroInstall.Central.WinForms
                 tabControlApps.SelectTab(tabPageCatalog);
             }
 
-            if (ZeroInstallInstance.IsRunningFromCache && ZeroInstallInstance.FindOther() == null)
+            if (ZeroInstallInstance.IsRunningFromCache)
+            {
+                if (ZeroInstallInstance.FindOther() == null)
                     deployTimer.Enabled = true;
-            if (ZeroInstallInstance.IsBackgroundUpdateAllowed)
-                selfUpdateWorker.RunWorkerAsync();
+            }
+            else selfUpdateWorker.RunWorkerAsync();
         }
 
         /// <summary>
@@ -221,7 +218,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="message">The message to display in the notification bar.</param>
         /// <param name="clickHandler">A callback to execute when the notification bar is clicked.</param>
-        public void ShowNotificationBar([NotNull] string message, [NotNull] Action clickHandler)
+        public void ShowNotificationBar(string message, Action clickHandler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(message)) throw new ArgumentNullException(nameof(message));
@@ -280,26 +277,13 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                var config = Config.Load();
-                return config.ToSyncServer().IsValid && !string.IsNullOrEmpty(config.SyncCryptoKey);
+                SyncConfig.From(Config.LoadSafe());
             }
-            #region Error handling
-            catch (IOException ex)
+            catch (InvalidDataException)
             {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return true;
+                return false;
             }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return true;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
-                return true;
-            }
-            #endregion
+            return true;
         }
 
         private void buttonUpdateAll_Click(object sender, EventArgs e)
@@ -378,7 +362,7 @@ namespace ZeroInstall.Central.WinForms
                 BeginInvoke(new Action(UpdateAppListAsync));
             else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
                 tabControlApps.SelectedTab = tabPageAppList;
-            else if (m.Msg == MaintenanceManager.PerformedWindowMessageID)
+            else if (m.Msg == SelfManager.PerformedWindowMessageID)
                 labelNotificationBar.Hide();
 
             base.WndProc(ref m);
@@ -417,7 +401,7 @@ namespace ZeroInstall.Central.WinForms
                     machineWide = _machineWide;
                 }
 
-                Program.RunCommand(machineWide, MaintenanceMan.Name, "deploy", "--batch", "--restart-central");
+                Program.RunCommand(machineWide, Self.Name, Self.Deploy.Name, "--batch", "--restart-central");
                 Close();
             });
         }
@@ -426,47 +410,7 @@ namespace ZeroInstall.Central.WinForms
         #region Self-update
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
-                using (var handler = new SilentTaskHandler())
-                    e.Result = ZeroInstallInstance.UpdateCheck(handler);
-            }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Log.Warn(Resources.UnableToSelfUpdate);
-                Log.Warn(ex);
-            }
-            catch (WebException)
-            {}
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn(Resources.UnableToSelfUpdate);
-                Log.Warn(ex);
-            }
-            catch (SignatureException ex)
-            {
-                Log.Warn(Resources.UnableToSelfUpdate);
-                Log.Warn(ex);
-            }
-            catch (UriFormatException ex)
-            {
-                Log.Warn(Resources.UnableToSelfUpdate);
-                Log.Warn(ex);
-            }
-            catch (SolverException ex)
-            {
-                Log.Warn(Resources.UnableToSelfUpdate);
-                Log.Warn(ex);
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Warn(Resources.UnableToSelfUpdate);
-                Log.Warn(ex);
-            }
-            #endregion
+            e.Result = ZeroInstallInstance.SilentUpdateCheck();
         }
 
         private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -478,7 +422,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     try
                     {
-                        Program.RunCommand(SelfUpdate.Name, "--batch", "--restart-central");
+                        Program.RunCommand(Self.Name, Self.Update.Name, "--batch", "--restart-central");
                         Close();
                     }
                     #region Error handling

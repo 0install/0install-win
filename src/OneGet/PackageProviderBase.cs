@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using PackageManagement.Sdk;
@@ -17,23 +16,18 @@ namespace ZeroInstall.OneGet
     /// </summary>
     public abstract class PackageProviderBase
     {
-        [PublicAPI]
         public abstract string PackageProviderName { get; }
 
-        [PublicAPI]
         public string ProviderVersion => AppInfo.CurrentLibrary.Version.ToString();
 
-        [PublicAPI]
         public void OnUnhandledException(string methodName, Exception exception)
         {
             Log.Error("Unexpected exception thrown in " + PackageProviderName + "::" + methodName);
             Log.Error(exception);
         }
 
-        [PublicAPI]
         public void InitializeProvider(Request request) => request.Debug("Calling '{0}::InitializeProvider'", PackageProviderName);
 
-        [PublicAPI]
         public void GetFeatures(Request request)
         {
             request.Debug("Calling '{0}::GetFeatures'", PackageProviderName);
@@ -44,7 +38,6 @@ namespace ZeroInstall.OneGet
             });
         }
 
-        [PublicAPI]
         public void GetDynamicOptions(string category, Request request)
         {
             request.Debug("Calling '{0}::GetDynamicOptions'", PackageProviderName);
@@ -114,17 +107,14 @@ namespace ZeroInstall.OneGet
         /// <summary>
         /// Creates a <see cref="IOneGetContext"/> for a given <see cref="Request"/>.
         /// </summary>
-        [NotNull]
         protected abstract IOneGetContext BuildContext(Request request);
 
-        [PublicAPI]
         public void ResolvePackageSources(Request request)
         {
             request.Debug("Calling '{0}::ResolvePackageSources'", PackageProviderName);
             Do(request, x => x.ResolvePackageSources());
         }
 
-        [PublicAPI]
         public void AddPackageSource(string name, string location, bool trusted, Request request)
         {
             request.Debug("Calling '{0}::AddPackageSource'", PackageProviderName);
@@ -136,7 +126,6 @@ namespace ZeroInstall.OneGet
             Do(request, x => x.AddPackageSource(location));
         }
 
-        [PublicAPI]
         public void RemovePackageSource(string name, Request request)
         {
             request.Debug("Calling '{0}::RemovePackageSource'", PackageProviderName);
@@ -149,14 +138,12 @@ namespace ZeroInstall.OneGet
             Do(request, x => x.RemovePackageSource(name));
         }
 
-        [PublicAPI]
         public void FindPackage(string name, string requiredVersion, string minimumVersion, string maximumVersion, int id, Request request)
         {
             request.Debug("Calling '{0}::FindPackage'", PackageProviderName);
             Do(request, x => x.FindPackage(name, requiredVersion, minimumVersion, maximumVersion));
         }
 
-        [PublicAPI]
         public void FindPackageByFile(string file, int id, Request request)
         {
             request.Debug("Calling '{0}::FindPackageByFile'", PackageProviderName);
@@ -168,7 +155,6 @@ namespace ZeroInstall.OneGet
             Do(request, x => x.FindPackageBy(file));
         }
 
-        [PublicAPI]
         public void FindPackageByUri(Uri uri, int id, Request request)
         {
             request.Debug("Calling '{0}::FindPackageByUri'", PackageProviderName);
@@ -180,7 +166,6 @@ namespace ZeroInstall.OneGet
             Do(request, x => x.FindPackageBy(uri.OriginalString));
         }
 
-        [PublicAPI]
         public void DownloadPackage(string fastPackageReference, string location, Request request)
         {
             request.Debug("Calling '{0}::DownloadPackage'", PackageProviderName);
@@ -192,28 +177,24 @@ namespace ZeroInstall.OneGet
             Do(request, x => x.DownloadPackage(fastPackageReference, location));
         }
 
-        [PublicAPI]
         public void InstallPackage(string fastPackageReference, Request request)
         {
             request.Debug("Calling '{0}::InstallPackage'", PackageProviderName);
             Do(request, x => x.InstallPackage(fastPackageReference));
         }
 
-        [PublicAPI]
         public void UninstallPackage(string fastPackageReference, Request request)
         {
             request.Debug("Calling '{0}::UninstallPackage'", PackageProviderName);
             Do(request, x => x.UninstallPackage(fastPackageReference));
         }
 
-        [PublicAPI]
         public void GetInstalledPackages(string name, string requiredVersion, string minimumVersion, string maximumVersion, Request request)
         {
             request.Debug("Calling '{0}::GetInstalledPackages'", PackageProviderName);
             Do(request, x => x.GetInstalledPackages(name));
         }
 
-        [PublicAPI]
         public void GetPackageDetails(string fastPackageReference, Request request)
         {
             request.Debug("Calling '{0}::GetPackageDetails'", PackageProviderName);

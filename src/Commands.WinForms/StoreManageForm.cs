@@ -8,7 +8,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -42,7 +41,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="store">The <see cref="IImplementationStore"/> to manage.</param>
         /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
-        public StoreManageForm([NotNull] IImplementationStore store, [NotNull] IFeedCache feedCache)
+        public StoreManageForm(IImplementationStore store, IFeedCache feedCache)
         {
             _store = store ?? throw new ArgumentNullException(nameof(store));
             _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));

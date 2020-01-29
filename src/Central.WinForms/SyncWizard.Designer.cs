@@ -465,7 +465,6 @@ namespace ZeroInstall.Central.WinForms
             this.pageResetWelcome.Name = "pageResetWelcome";
             this.pageResetWelcome.ShowNext = false;
             resources.ApplyResources(this.pageResetWelcome, "pageResetWelcome");
-            this.pageResetWelcome.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageResetWelcome_Initialize);
             // 
             // buttonResetClient
             // 

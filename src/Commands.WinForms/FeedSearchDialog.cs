@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -24,7 +23,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new feed search dialog.
         /// </summary>
         /// <param name="query">An already executed query to visualize.</param>
-        public FeedSearchDialog([NotNull] SearchQuery query)
+        public FeedSearchDialog(SearchQuery query)
         {
             #region Sanity checks
             if (query == null) throw new ArgumentNullException(nameof(query));

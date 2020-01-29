@@ -3,7 +3,6 @@
 
 using System;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 
@@ -16,7 +15,7 @@ namespace ZeroInstall
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
 
-        public MainForm([NotNull] CancellationTokenSource cancellationTokenSource)
+        public MainForm(CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource;
             InitializeComponent();
@@ -36,7 +35,7 @@ namespace ZeroInstall
             };
         }
 
-        public IProgress<TaskSnapshot> GetProgressControl([NotNull] string taskName)
+        public IProgress<TaskSnapshot> GetProgressControl(string taskName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));

@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
@@ -53,7 +52,6 @@ namespace ZeroInstall.Central.WinForms
         /// <seealso cref="TileColorDark"/>
         [Category("Appearance"), Description("The light background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "Window")]
-        [PublicAPI]
         public Color TileColorLight { get; set; } = SystemColors.Window;
 
         /// <summary>
@@ -62,7 +60,6 @@ namespace ZeroInstall.Central.WinForms
         /// <seealso cref="TileColorLight"/>
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "Control")]
-        [PublicAPI]
         public Color TileColorDark { get; set; } = SystemColors.Control;
         #endregion
 

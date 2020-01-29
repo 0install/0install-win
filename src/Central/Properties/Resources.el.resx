@@ -245,9 +245,6 @@
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας για την είσοδο λίστας εφαρμογών '{0}'.</value>
   </data>
-  <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Δεν είναι δυνατή η διενέργεια του ελέγχου της αυτόματης ενημέρωσης.</value>
-  </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Είστε σίγουροι ότι θέλετε να χρησιμοποιήσετε μια σύνδεση χωρίς κρυπτογράφηση σε ένα διακομιστή συγχρονισμού;
 Κρυπτογραφημένες συνδέσεις χρησιμοποιούν ένα https: // πρόθεμα.</value>

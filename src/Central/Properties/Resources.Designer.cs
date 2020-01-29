@@ -484,15 +484,6 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to perform self-update check..
-        /// </summary>
-        public static string UnableToSelfUpdate {
-            get {
-                return ResourceManager.GetString("UnableToSelfUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to use an unencrypted connection to a Sync server?
         ///Encrypted connections use an https:// prefix..
         /// </summary>
