@@ -22,8 +22,6 @@ $vsDir = . "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.e
 $msBuild = if (Test-Path "$vsDir\MSBuild\Current") {"$vsDir\MSBuild\Current\Bin\amd64\MSBuild.exe"} else {"$vsDir\MSBuild\15.0\Bin\amd64\MSBuild.exe"}
 . $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=Release
 if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
-. $msBuild -v:Quiet -t:Restore -t:Build -p:Configuration=ReleaseBootstrapNet4
-if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 
 # Add additional directories to PATH
 $env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64;$(Resolve-Path ..\artifacts\Release)"

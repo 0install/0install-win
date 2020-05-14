@@ -11,7 +11,7 @@
     <AssemblyName>0launch</AssemblyName>
     <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <SignAssembly>true</SignAssembly>
@@ -20,8 +20,6 @@
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,7 +28,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\artifacts\Debug\</OutputPath>
     <DocumentationFile>..\..\artifacts\Debug\0launch.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
@@ -38,7 +36,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\artifacts\Release\</OutputPath>
-    <DefineConstants>TRACE;NET20</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ZeroInstall.Commands" Version="2.17.2" PrivateAssets="None" />
@@ -51,9 +49,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Namespace.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\App.config" />

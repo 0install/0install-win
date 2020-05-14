@@ -11,7 +11,7 @@
     <AssemblyName>0install-win</AssemblyName>
     <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <SignAssembly>true</SignAssembly>
@@ -20,8 +20,6 @@
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,7 +28,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\artifacts\Debug\</OutputPath>
     <DocumentationFile>..\..\artifacts\Debug\0install-win.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
@@ -38,7 +36,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\artifacts\Release\</OutputPath>
-    <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
+    <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NanoByte.Common.WinForms" Version="2.4.0" />
@@ -105,9 +103,6 @@
     </Compile>
     <Compile Include="StoreManageNode.cs" />
     <Compile Include="_Namespace.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConfigDialog.de.resx">

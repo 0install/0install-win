@@ -11,14 +11,12 @@
     <AssemblyName>zero-install</AssemblyName>
     <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -26,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
@@ -34,15 +32,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NET20;ERROR_REPORT</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNet4|AnyCPU'">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\ReleaseNet4\</OutputPath>
-    <DefineConstants>TRACE;NET40;ERROR_REPORT</DefineConstants>
+    <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.18" />
@@ -99,18 +89,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+  <PropertyGroup>
     <PostBuildEvent>set ARTIFACT_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap\$(TargetName)
-mkdir "%ARTIFACT_DIR%"
-
-pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v2 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common*.dll TaskDialog.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
-copy /y "$(ProjectDir)\App.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
-copy /y "%ARTIFACT_DIR%\$(TargetName).exe" "%ARTIFACT_DIR%\..\$(TargetName)-net20.exe"
-popd</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='ReleaseNet4'">
-    <PostBuildEvent>set ARTIFACT_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap
 mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"

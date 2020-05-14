@@ -13,7 +13,3 @@ using System.Security.Permissions;
 // Security settings
 [assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
-#if !NET40
-[assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
-#endif

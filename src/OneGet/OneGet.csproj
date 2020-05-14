@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <SignAssembly>false</SignAssembly>
@@ -18,8 +18,6 @@
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -28,7 +26,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\artifacts\Debug\</OutputPath>
     <DocumentationFile>..\..\artifacts\Debug\ZeroInstall.Commands.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
@@ -37,7 +35,7 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\artifacts\Release\</OutputPath>
     <DocumentationFile>..\..\artifacts\Release\ZeroInstall.Commands.xml</DocumentationFile>
-    <DefineConstants>TRACE;NET20</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ZeroInstall.Commands" Version="2.17.2" PrivateAssets="None" />

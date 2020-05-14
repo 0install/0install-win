@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Central</RootNamespace>
     <AssemblyName>ZeroInstall.Central</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
     <Nullable>annotations</Nullable>
     <SignAssembly>true</SignAssembly>
@@ -18,8 +18,6 @@
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>
     <RestorePackages>true</RestorePackages>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -28,7 +26,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\artifacts\Debug\</OutputPath>
     <DocumentationFile>..\..\artifacts\Debug\ZeroInstall.Central.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;NET20</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
@@ -37,7 +35,7 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\artifacts\Release\</OutputPath>
     <DocumentationFile>..\..\artifacts\Release\ZeroInstall.Central.xml</DocumentationFile>
-    <DefineConstants>TRACE;NET20</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ZeroInstall.DesktopIntegration" Version="2.17.2" PrivateAssets="None" />
@@ -73,10 +71,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.tr.resx" />
   </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
       Other similar extension points exist, see Microsoft.Common.targets.
