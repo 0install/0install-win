@@ -5,12 +5,12 @@ This is the Windows version of Zero Install. It extends the cross-platform core 
 
 Zero Install is a decentralized cross-platform software installation system. You can learn more at [0install.net](http://0install.net/).
 
-**[Download Zero Install for Windows](http://0install.de/downloads/)**
+**[Download Zero Install for Windows](https://0install.net/injector.html#windows)**
 
 ## Building
 
 The source code is in [`src/`](src/) and generated build artifacts are placed in `artifacts/`.  
-There is a template in [`feed/`](feed/) for generating a [Zero Install feed](https://0install.github.io/docs/packaging/) from the artifacts. For official releases this is published at: http://0install.de/feeds/ZeroInstall.xml
+There is a template in [`feed/`](feed/) for generating a [Zero Install feed](https://0install.github.io/docs/packaging/) from the artifacts. For official releases this is published at: https://apps.0install.net/0install/0install-win.xml
 
 You need [Visual Studio 2019](https://www.visualstudio.com/downloads/) to build this project.
 
