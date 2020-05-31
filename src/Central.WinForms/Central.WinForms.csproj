@@ -40,7 +40,7 @@
     <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AeroWizard" Version="2.2.4" />
+    <PackageReference Include="AeroWizard" Version="2.2.5" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
