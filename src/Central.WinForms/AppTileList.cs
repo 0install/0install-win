@@ -120,7 +120,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region Access
         /// <inheritdoc/>
-        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore iconStore = null, bool machineWide = false)
+        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore? iconStore = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -156,7 +156,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         /// <inheritdoc/>
-        public IAppTile GetTile(FeedUri interfaceUri)
+        public IAppTile? GetTile(FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));

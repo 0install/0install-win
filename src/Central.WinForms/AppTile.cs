@@ -67,10 +67,10 @@ namespace ZeroInstall.Central.WinForms
             }
         }
 
-        private Feed _feed;
+        private Feed? _feed;
 
         /// <inheritdoc/>
-        public Feed Feed
+        public Feed? Feed
         {
             get { return _feed; }
             set

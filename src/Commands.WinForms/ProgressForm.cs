@@ -226,7 +226,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="messageType">The type icon to display next to the balloon message.</param>
         /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void ShowTrayIcon(string information = null, ToolTipIcon messageType = ToolTipIcon.None)
+        public void ShowTrayIcon(string? information = null, ToolTipIcon messageType = ToolTipIcon.None)
         {
             #region Sanity checks
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");

@@ -18,7 +18,7 @@ namespace ZeroInstall.OneGet
     {
         public abstract string PackageProviderName { get; }
 
-        public string ProviderVersion => AppInfo.CurrentLibrary.Version.ToString();
+        public string ProviderVersion => AppInfo.CurrentLibrary.Version;
 
         public void OnUnhandledException(string methodName, Exception exception)
         {
@@ -38,10 +38,10 @@ namespace ZeroInstall.OneGet
             });
         }
 
-        public void GetDynamicOptions(string category, Request request)
+        public void GetDynamicOptions(string? category, Request request)
         {
             request.Debug("Calling '{0}::GetDynamicOptions'", PackageProviderName);
-            switch ((category ?? string.Empty).ToLowerInvariant())
+            switch ((category ?? "").ToLowerInvariant())
             {
                 case "package":
                     request.YieldDynamicOption("Refresh", Constants.OptionType.Switch, isRequired: false);
