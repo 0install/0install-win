@@ -10,9 +10,9 @@ using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central

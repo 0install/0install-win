@@ -14,7 +14,8 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Store.Model;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -45,7 +46,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Startup
         /// <summary>
-        /// Loads the <see cref="Store.Model.Capabilities.Capability"/>s into the controls of this form.
+        /// Loads the <see cref="Capability"/>s into the controls of this form.
         /// </summary>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
@@ -65,7 +66,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Event handlers
         /// <summary>
-        /// Integrates all <see cref="Store.Model.Capabilities.Capability"/>s chosen by the user.
+        /// Integrates all <see cref="Capability"/>s chosen by the user.
         /// </summary>
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -156,7 +157,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Sets up the UI elements for configuring <see cref="DefaultAccessPoint"/>s.
         /// </summary>
-        /// <remarks>Users enable or disable predefined <see cref="DefaultAccessPoint"/>s based on <see cref="Store.Model.Capabilities.DefaultCapability"/>s.</remarks>
+        /// <remarks>Users enable or disable predefined <see cref="DefaultAccessPoint"/>s based on <see cref="DefaultCapability"/>s.</remarks>
         private void SetupDefaultAccessPoints()
         {
             SetupDefaultAccessPoint(checkBoxFileTypesSimple, labelFileTypesSimple, checkBoxFileTypesAll, _state.FileTypes);
@@ -181,7 +182,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
         /// <param name="labelSimple">A simple mode description for this type of <see cref="CommandAccessPoint"/>.</param>
         /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
-        /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model representing the underlying <see cref="DefaultCapability"/>s and their selection states.</param>
         private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -256,7 +257,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
         /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-        /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model representing the underlying <see cref="DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, Label label, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -329,7 +330,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-        /// <param name="model">A model representing the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model representing the underlying <see cref="DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
             where T : CapabilityModel
         {

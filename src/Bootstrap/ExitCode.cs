@@ -7,9 +7,9 @@ using System.Net;
 using NDesk.Options;
 using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Selection;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall

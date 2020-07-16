@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -21,9 +20,9 @@ using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -59,7 +58,7 @@ namespace ZeroInstall.Central.WinForms
             var handler = new MinimalTaskHandler(this);
             var services = new ServiceLocator(handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager, new IconStore(handler),
+                services.FeedManager, services.CatalogManager, new IconStore(Config.LoadSafe(), handler),
                 tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion
@@ -244,13 +243,13 @@ namespace ZeroInstall.Central.WinForms
         #region Buttons
         private void buttonSync_Click(object sender, EventArgs e)
         {
-            if (IsSyncConfigValid()) Program.RunCommand(_machineWide, SyncApps.Name);
+            if (Config.LoadSafe().IsSyncConfigured) Program.RunCommand(_machineWide, SyncApps.Name);
             else SyncWizard.Setup(_machineWide, this);
         }
 
         private void buttonSyncSetup_Click(object sender, EventArgs e)
         {
-            if (IsSyncConfigValid())
+            if (Config.LoadSafe().IsSyncConfigured)
             {
                 if (!Msg.YesNo(this, Resources.SyncReplaceConfigAsk, MsgSeverity.Warn, Resources.SyncReplaceConfigYes, Resources.SyncReplaceConfigNo))
                 {
@@ -264,21 +263,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonSyncTroubleshoot_Click(object sender, EventArgs e)
         {
-            if (IsSyncConfigValid()) SyncWizard.Troubleshooting(_machineWide, this);
+            if (Config.LoadSafe().IsSyncConfigured) SyncWizard.Troubleshooting(_machineWide, this);
             else Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
-        }
-
-        private bool IsSyncConfigValid()
-        {
-            try
-            {
-                SyncConfig.From(Config.LoadSafe());
-            }
-            catch (InvalidDataException)
-            {
-                return false;
-            }
-            return true;
         }
 
         private void buttonUpdateAll_Click(object sender, EventArgs e)

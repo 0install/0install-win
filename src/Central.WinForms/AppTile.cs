@@ -14,9 +14,9 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
-using Icon = ZeroInstall.Store.Model.Icon;
+using Icon = ZeroInstall.Model.Icon;
 using SharedResources = ZeroInstall.Central.Properties.Resources;
 
 namespace ZeroInstall.Central.WinForms

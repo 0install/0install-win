@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms

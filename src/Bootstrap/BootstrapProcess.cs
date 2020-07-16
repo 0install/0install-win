@@ -13,13 +13,13 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
-using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall
 {

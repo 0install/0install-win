@@ -16,14 +16,13 @@ using ZeroInstall.Commands.Basic.Exporters;
 using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Preferences;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.OneGet
 {
@@ -262,7 +261,7 @@ namespace ZeroInstall.OneGet
         {
             Log.Info(Resources.DesktopIntegrationApply);
             var feed = FeedManager[requirements.InterfaceUri];
-            using var integrationManager = new CategoryIntegrationManager(Handler, MachineWide);
+            using var integrationManager = new CategoryIntegrationManager(Config, Handler, MachineWide);
             var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
             integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
         }
@@ -313,7 +312,7 @@ namespace ZeroInstall.OneGet
 
             var requirements = ParseReference(fastPackageReference);
 
-            using var integrationManager = new IntegrationManager(Handler, MachineWide);
+            using var integrationManager = new IntegrationManager(Config, Handler, MachineWide);
             integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
         }
 

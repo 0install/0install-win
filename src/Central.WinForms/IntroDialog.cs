@@ -8,8 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
 {

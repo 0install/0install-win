@@ -3,6 +3,7 @@
 
 using System;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Central

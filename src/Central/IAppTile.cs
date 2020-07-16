@@ -4,8 +4,7 @@
 using System;
 using System.ComponentModel;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Central
 {

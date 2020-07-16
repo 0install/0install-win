@@ -7,12 +7,11 @@ using System.Windows.Forms;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Preferences;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.WinForms
 {

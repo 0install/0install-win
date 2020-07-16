@@ -10,12 +10,12 @@ using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -69,8 +69,8 @@ namespace ZeroInstall.Commands.WinForms
 
             Log.Debug("Task: " + task.Name);
 
-            var progress = _wrapper.Post(form => (task.Tag is ManifestDigest)
-                ? form.GetProgressControl(task.Name, (ManifestDigest)task.Tag)
+            var progress = _wrapper.Post(form => (task.Tag is ManifestDigest tag)
+                ? form.GetProgressControl(task.Name, tag)
                 : form.GetProgressControl(task.Name));
 
             task.Run(CancellationToken, CredentialProvider, progress);

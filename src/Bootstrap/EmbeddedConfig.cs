@@ -5,7 +5,7 @@ using System;
 using System.Configuration;
 using NanoByte.Common;
 using NanoByte.Common.Streams;
-using ZeroInstall.Store;
+using ZeroInstall.Model;
 
 namespace ZeroInstall
 {

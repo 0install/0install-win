@@ -14,6 +14,7 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
@@ -62,7 +63,7 @@ namespace ZeroInstall.Central.WinForms
         private void Sync(SyncResetMode resetMode = SyncResetMode.None)
         {
             var services = new ServiceLocator(new DialogTaskHandler(this));
-            using var sync = new SyncIntegrationManager(SyncConfig.From(_config), services.FeedManager.GetFresh, services.Handler, _machineWide);
+            using var sync = new SyncIntegrationManager(_config, services.FeedManager.GetFresh, services.Handler, _machineWide);
             sync.Sync(resetMode);
         }
 
