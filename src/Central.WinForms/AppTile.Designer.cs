@@ -38,7 +38,6 @@ namespace ZeroInstall.Central.WinForms
             this.runMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.iconDownloadWorker = new System.ComponentModel.BackgroundWorker();
             this.buttonIntegrate = new NanoByte.Common.Controls.DropDownButton();
             this.contextMenuIntegrate = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonIntegrate2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,11 +140,6 @@ namespace ZeroInstall.Central.WinForms
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // iconDownloadWorker
-            // 
-            this.iconDownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.iconDownloadWorker_DoWork);
-            this.iconDownloadWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.iconDownloadWorker_RunWorkerCompleted);
-            // 
             // buttonIntegrate
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -228,7 +222,6 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Label labelSummary;
         internal NanoByte.Common.Controls.DropDownButton buttonRun;
         internal System.Windows.Forms.Button buttonAdd;
-        private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
         private System.Windows.Forms.ToolStripMenuItem buttonRunWithOptions;
         private System.Windows.Forms.ToolStripSeparator runMenuSeparator;

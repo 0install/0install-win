@@ -3,11 +3,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using ZeroInstall.Central.WinForms.Properties;
@@ -87,17 +88,8 @@ namespace ZeroInstall.Central.WinForms
                 }
                 else buttonRunWithOptions.Visible = true;
 
-                // Get application summary from feed
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
-
-                if (_iconStore != null)
-                {
-                    // Load application icon in background
-                    var icon = value.GetIcon(Icon.MimeTypePng) ?? value.GetIcon(Icon.MimeTypeIco);
-                    if (icon != null) iconDownloadWorker.RunWorkerAsync(icon);
-                    else pictureBoxIcon.Image = Resources.AppIcon; // Fall back to default icon
-                }
-                else pictureBoxIcon.Image = Resources.AppIcon; // Fall back to default icon
+                SetIcon(value.GetIcon(Icon.MimeTypePng) ?? value.GetIcon(Icon.MimeTypeIco));
             }
         }
         #endregion
@@ -145,50 +137,57 @@ namespace ZeroInstall.Central.WinForms
 
         //--------------------//
 
-        #region Feed processing
-        private void iconDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
+        #region Icon
+        private async void SetIcon(Icon? icon)
         {
-            // Download and load icon in background
-            var icon = (Icon)e.Argument;
-            try
-            {
-                Debug.Assert(_iconStore != null);
-                e.Result = Image.FromFile(_iconStore.GetPath(icon, _machineWide));
-            }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (UriFormatException ex)
-            {
-                Log.Warn(ex);
-            }
-            catch (WebException ex)
-            {
-                Log.Warn(ex);
-            }
-            catch (IOException ex)
-            {
-                Log.Warn($"Failed to store {icon}");
-                Log.Warn(ex);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn($"Failed to store {icon}");
-                Log.Warn(ex);
-            }
-            catch (Exception ex)
-            {
-                Log.Warn($"Failed to parse {icon}");
-                Log.Warn(ex);
-            }
-            #endregion
+            pictureBoxIcon.Image = await GetIconAsync(icon);
         }
 
-        private void iconDownloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private static readonly SemaphoreSlim _iconSemaphore = new SemaphoreSlim(initialCount: 5);
+
+        private async Task<Image> GetIconAsync(Icon? icon)
         {
-            // Display icon in UI thread
-            if (e.Result is Image image)
-                pictureBoxIcon.Image = image;
+            if (icon != null && _iconStore != null)
+            {
+                await _iconSemaphore.WaitAsync(); // Limit number of concurrent icon downloads
+                try
+                {
+                    return await Task.Run(() => Image.FromFile(_iconStore.GetPath(icon)));
+                }
+                #region Error handling
+                catch (OperationCanceledException)
+                {}
+                catch (UriFormatException ex)
+                {
+                    Log.Warn(ex);
+                }
+                catch (WebException ex)
+                {
+                    Log.Warn(ex);
+                }
+                catch (IOException ex)
+                {
+                    Log.Warn($"Failed to store {icon}");
+                    Log.Warn(ex);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Warn($"Failed to store {icon}");
+                    Log.Warn(ex);
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn($"Failed to parse {icon}");
+                    Log.Warn(ex);
+                }
+                #endregion
+                finally
+                {
+                    _iconSemaphore.Release();
+                }
+            }
+
+            return Resources.AppIcon; // Fallback default icon
         }
         #endregion
 
