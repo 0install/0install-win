@@ -93,7 +93,7 @@ namespace ZeroInstall.Central.WinForms
 
             UpdateAppListAsync();
             _tileManagement.LoadCachedCatalog();
-            LoadCatalogAsync();
+            if (NetUtils.IsInternetConnected) LoadCatalogAsync();
 
             bool firstRun = OnFirstRun();
             if (_tileManagement.AppList.Entries.Count == 0)
