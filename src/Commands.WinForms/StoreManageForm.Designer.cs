@@ -43,7 +43,6 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonVerify = new System.Windows.Forms.Button();
             this.buttonRunAsAdmin = new System.Windows.Forms.Button();
-            this.refreshListWorker = new System.ComponentModel.BackgroundWorker();
             this.labelLoading = new System.Windows.Forms.Label();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -150,11 +149,6 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonRunAsAdmin.UseVisualStyleBackColor = true;
             this.buttonRunAsAdmin.Click += new System.EventHandler(this.buttonRunAsAdmin_Click);
             // 
-            // refreshListWorker
-            // 
-            this.refreshListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refreshListWorker_DoWork);
-            this.refreshListWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.refreshListWorker_RunWorkerCompleted);
-            // 
             // labelLoading
             // 
             resources.ApplyResources(this.labelLoading, "labelLoading");
@@ -198,7 +192,6 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Label labelTotalSize;
         private System.Windows.Forms.Button buttonVerify;
         private System.Windows.Forms.Button buttonRunAsAdmin;
-        private System.ComponentModel.BackgroundWorker refreshListWorker;
         private System.Windows.Forms.Label labelLoading;
 
     }

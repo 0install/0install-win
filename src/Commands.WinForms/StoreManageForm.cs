@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands.WinForms
                 else if (WindowsUtils.HasUac) buttonRunAsAdmin.Visible = true;
             };
 
-            Shown += delegate { RefreshList(); };
+            Shown += async delegate { await RefreshListAsync(); };
 
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
@@ -71,41 +71,33 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Fills the <see cref="_treeView"/> with entries.
         /// </summary>
-        internal void RefreshList()
+        internal async Task RefreshListAsync()
         {
             buttonRefresh.Enabled = false;
             labelLoading.Visible = true;
-            refreshListWorker.RunWorkerAsync();
-        }
 
-        private void refreshListWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
             _store.Flush();
 
-            var nodeBuilder = new CacheNodeBuilder(_store, _feedCache);
-            nodeBuilder.Run();
-            e.Result = nodeBuilder;
-        }
-
-        private void refreshListWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            #region Error handling
-            var ex = e.Error;
-            if (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException)
+            try
             {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
-                Close();
+                var nodeBuilder = await Task.Run(() =>
+                {
+                    var builder = new CacheNodeBuilder(_store, _feedCache);
+                    builder.Run();
+                    return builder;
+                });
+
+                var nodes = nodeBuilder.Nodes!.Select(x => new StoreManageNode(x, this));
+                _treeView.Nodes = new NamedCollection<StoreManageNode>(nodes);
+                textTotalSize.Text = nodeBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
+
+                OnCheckedEntriesChanged(null, EventArgs.Empty);
             }
-            else if (ex != null) throw ex.PreserveStack();
-            #endregion
+            catch (Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
 
-            var nodeListBuilder = (CacheNodeBuilder)e.Result;
-            var nodes = nodeListBuilder.Nodes.Select(x => new StoreManageNode(x, this));
-
-            _treeView.Nodes = new NamedCollection<StoreManageNode>(nodes);
-            textTotalSize.Text = nodeListBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
-
-            OnCheckedEntriesChanged(null, EventArgs.Empty);
             labelLoading.Visible = false;
             buttonRefresh.Enabled = true;
         }
@@ -158,7 +150,7 @@ namespace ZeroInstall.Commands.WinForms
             Close();
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private async void buttonRemove_Click(object sender, EventArgs e)
         {
             if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Count), MsgSeverity.Warn))
             {
@@ -187,12 +179,12 @@ namespace ZeroInstall.Commands.WinForms
 
                 finally
                 {
-                    RefreshList();
+                    await RefreshListAsync();
                 }
             }
         }
 
-        private void buttonVerify_Click(object sender, EventArgs e)
+        private async void buttonVerify_Click(object sender, EventArgs e)
         {
             try
             {
@@ -213,11 +205,11 @@ namespace ZeroInstall.Commands.WinForms
             }
             #endregion
 
-            RefreshList();
+            await RefreshListAsync();
         }
 
-        private void buttonRefresh_Click(object sender, EventArgs e)
-            => RefreshList();
+        private async void buttonRefresh_Click(object sender, EventArgs e)
+            => await RefreshListAsync();
 
         private void buttonClose_Click(object sender, EventArgs e)
             => Close();

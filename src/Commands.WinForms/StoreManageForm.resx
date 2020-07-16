@@ -555,9 +555,6 @@
   <data name="&gt;&gt;buttonRunAsAdmin.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="refreshListWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="labelLoading.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -924,12 +921,6 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install cache management</value>
-  </data>
-  <data name="&gt;&gt;refreshListWorker.Name" xml:space="preserve">
-    <value>refreshListWorker</value>
-  </data>
-  <data name="&gt;&gt;refreshListWorker.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>StoreManageForm</value>

@@ -52,9 +52,6 @@ namespace ZeroInstall.Central.WinForms
             this.buttonAddCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFeedEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
-            this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
-            this.catalogWorker = new System.ComponentModel.BackgroundWorker();
-            this.appListWorker = new System.ComponentModel.BackgroundWorker();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.buttonOptions = new System.Windows.Forms.ToolStripButton();
@@ -247,21 +244,6 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
             this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
             // 
-            // selfUpdateWorker
-            // 
-            this.selfUpdateWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.selfUpdateWorker_DoWork);
-            this.selfUpdateWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.selfUpdateWorker_RunWorkerCompleted);
-            // 
-            // catalogWorker
-            // 
-            this.catalogWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.catalogWorker_DoWork);
-            this.catalogWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.catalogWorker_RunWorkerCompleted);
-            // 
-            // appListWorker
-            // 
-            this.appListWorker.WorkerSupportsCancellation = true;
-            this.appListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.appListWorker_DoWork);
-            // 
             // panelBottom
             // 
             this.panelBottom.Controls.Add(this.toolStrip);
@@ -408,12 +390,9 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
-        private System.ComponentModel.BackgroundWorker catalogWorker;
         private System.Windows.Forms.Button buttonRefreshCatalog;
-        private System.ComponentModel.BackgroundWorker appListWorker;
         private NanoByte.Common.Controls.DropDownButton buttonMoreApps;
         private NanoByte.Common.Controls.DropDownButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;

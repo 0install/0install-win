@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 if (storeNode is ImplementationNode implementationNode)
                 {
-                    menu.Items.Add(Resources.Verify, null, delegate
+                    menu.Items.Add(Resources.Verify, null, async delegate
                     {
                         try
                         {
@@ -77,12 +77,12 @@ namespace ZeroInstall.Commands.WinForms
                         }
                         #endregion
 
-                        _manageForm.RefreshList();
+                        await _manageForm.RefreshListAsync();
                     });
                 }
             }
 
-            menu.Items.Add(Resources.Remove, null, delegate
+            menu.Items.Add(Resources.Remove, null, async delegate
             {
                 using var handler = new DialogTaskHandler(_manageForm);
                 if (handler.Ask(Resources.DeleteEntry))
@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms
                     }
                     #endregion
 
-                    _manageForm.RefreshList();
+                    await _manageForm.RefreshListAsync();
                 }
             });
 

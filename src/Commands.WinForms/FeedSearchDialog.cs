@@ -3,8 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using ZeroInstall.Store;
@@ -42,28 +43,25 @@ namespace ZeroInstall.Commands.WinForms
             dataGrid.DataSource = _results = query.Results;
         }
 
-        private void queryTimer_Tick(object sender, EventArgs e)
-        {
-            if (backgroundWorker.IsBusy) return;
+        private static readonly SemaphoreSlim _querySemaphore = new SemaphoreSlim(initialCount: 1);
 
+        private async void queryTimer_Tick(object sender, EventArgs e)
+        {
             queryTimer.Stop();
-            backgroundWorker.RunWorkerAsync(textKeywords.Text);
-        }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-            => e.Result = SearchQuery.Perform(Config.Load(), (string)e.Argument);
-
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error == null)
+            await _querySemaphore.WaitAsync(); // Prevent concurrent queries
+            try
             {
-                errorProvider.Clear();
-                dataGrid.DataSource = _results = ((SearchQuery)e.Result).Results;
+                _results = await Task.Run(() => SearchQuery.Perform(Config.Load(), textKeywords.Text).Results);
             }
-            else
+            catch (Exception ex)
             {
                 errorProvider.SetIconAlignment(textKeywords, ErrorIconAlignment.MiddleLeft);
-                errorProvider.SetError(textKeywords, e.Error.Message);
+                errorProvider.SetError(textKeywords, ex.Message);
+            }
+            finally
+            {
+                _querySemaphore.Release();
             }
         }
 

@@ -2,17 +2,17 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
@@ -113,7 +113,7 @@ namespace ZeroInstall.Central.WinForms
                 if (ZeroInstallInstance.FindOther() == null)
                     deployTimer.Enabled = true;
             }
-            else selfUpdateWorker.RunWorkerAsync();
+            else SelfUpdateCheckAsync();
         }
 
         /// <summary>
@@ -147,11 +147,6 @@ namespace ZeroInstall.Central.WinForms
             WindowsUtils.UnregisterApplicationRestart();
 
             Visible = false;
-
-            // Wait for background tasks to shut down
-            appListWorker.CancelAsync();
-            while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
-                Application.DoEvents();
         }
 
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)
@@ -408,33 +403,27 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Self-update
-        private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
+        private async void SelfUpdateCheckAsync()
         {
-            e.Result = ZeroInstallInstance.SilentUpdateCheck();
-        }
+            var availableVersion = await Task.Run(ZeroInstallInstance.SilentUpdateCheck);
+            if (availableVersion == null) return;
 
-        private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            var selfUpdateVersion = e.Result as ImplementationVersion;
-            if (selfUpdateVersion != null)
+            ShowNotificationBar(string.Format(Resources.SelfUpdateNotification, availableVersion), delegate
             {
-                ShowNotificationBar(string.Format(Resources.SelfUpdateNotification, selfUpdateVersion), delegate
+                try
                 {
-                    try
-                    {
-                        Program.RunCommand(Self.Name, Self.Update.Name, "--batch", "--restart-central");
-                        Close();
-                    }
-                    #region Error handling
-                    catch (OperationCanceledException)
-                    {}
-                    catch (IOException ex)
-                    {
-                        Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                    }
-                    #endregion
-                });
-            }
+                    Program.RunCommand(Self.Name, Self.Update.Name, "--batch", "--restart-central");
+                    Close();
+                }
+                #region Error handling
+                catch (OperationCanceledException)
+                {}
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                #endregion
+            });
         }
         #endregion
 
@@ -442,24 +431,12 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Loads the "my applications" list and displays it, loading additional data from feeds in the background.
         /// </summary>
-        private void UpdateAppListAsync()
+        private async void UpdateAppListAsync()
         {
-            if (appListWorker.IsBusy) return;
-
-            var tiles = _tileManagement.UpdateMyApps();
-            appListWorker.RunWorkerAsync(tiles);
-        }
-
-        private void appListWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var tiles = (IEnumerable<IAppTile>)e.Argument;
-            foreach (var tile in tiles)
+            foreach (var tile in _tileManagement.UpdateMyApps())
             {
-                if (appListWorker.CancellationPending) return;
-
-                var tile1 = tile;
-                var feed = _tileManagement.LoadFeedSafe(tile.InterfaceUri);
-                if (feed != null) BeginInvoke(new Action(() => tile1.Feed = feed));
+                var feed = await Task.Run(() => _tileManagement.LoadFeedSafe(tile.InterfaceUri));
+                if (feed != null) tile.Feed = feed;
             }
         }
         #endregion
@@ -468,30 +445,20 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Loads the "new applications" catalog in the background and displays it.
         /// </summary>
-        private void LoadCatalogAsync()
+        private async void LoadCatalogAsync()
         {
-            if (catalogWorker.IsBusy) return;
             buttonRefreshCatalog.Visible = false;
             labelLoadingCatalog.Visible = true;
 
             labelLastCatalogError.Visible = false;
-            catalogWorker.RunWorkerAsync();
-        }
-
-        private void catalogWorker_DoWork(object sender, DoWorkEventArgs e)
-            => e.Result = _tileManagement.GetCatalogOnline();
-
-        private void catalogWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error == null)
+            try
             {
-                if (e.Result is Catalog newCatalog)
-                    _tileManagement.SetCatalog(newCatalog);
+                _tileManagement.SetCatalog(await Task.Run(_tileManagement.GetCatalogOnline));
             }
-            else
+            catch (Exception ex)
             {
-                Log.Error(e.Error);
-                labelLastCatalogError.Text = e.Error.Message;
+                Log.Error(ex);
+                labelLastCatalogError.Text = ex.Message;
                 labelLastCatalogError.Visible = true;
             }
 
