@@ -1,5 +1,17 @@
 {
   "extends": [
     "config:base"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": ["AeroWizard"],
+      "groupName": "aerowizard",
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "packagePatterns": ["ZeroInstall.*", "NanoByte.*"],
+      "groupName": "0install-dotnet"
+    }
   ]
 }
