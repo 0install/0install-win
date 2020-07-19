@@ -4,14 +4,14 @@
   ],
   "packageRules": [
     {
-      "packagePatterns": ["AeroWizard"],
-      "groupName": "aerowizard",
-      "automerge": true,
-      "automergeType": "branch"
+      "packagePatterns": ["ZeroInstall", "NanoByte"],
+      "groupName": "Zero Install .NET",
+      "groupSlug": "0install-dotnet"
     },
     {
-      "packagePatterns": ["ZeroInstall.*", "NanoByte.*"],
-      "groupName": "0install-dotnet"
+      "packagePatterns": ["AeroWizard"],
+      "automerge": true,
+      "automergeType": "branch"
     }
   ]
 }
