@@ -92,7 +92,7 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        public void FindPackage(string name, string requiredVersion, string minimumVersion, string maximumVersion)
+        public void FindPackage(string? name, string? requiredVersion, string? minimumVersion, string? maximumVersion)
         {
             FeedManager.Refresh = Refresh;
 
@@ -334,7 +334,7 @@ namespace ZeroInstall.OneGet
                 var selections = Solver.TrySolve(requirements);
                 if (selections != null) implementation = selections.MainImplementation;
             }
-            if (feed == null) feed = FeedManager[requirements.InterfaceUri];
+            feed ??= FeedManager[requirements.InterfaceUri];
 
             var sourceUri = feed.CatalogUri ?? feed.Uri;
             _request.YieldSoftwareIdentity(

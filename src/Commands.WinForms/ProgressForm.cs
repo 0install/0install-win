@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands.WinForms
         private bool _selectionsShown;
 
         /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="CustomizeSelections"/>.</summary>
-        private EventWaitHandle _customizeSelectionsWaitHandle;
+        private EventWaitHandle? _customizeSelectionsWaitHandle;
 
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
@@ -179,8 +179,8 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Question
-        private string _pendingQuestion;
-        private Future<DialogResult> _pendingResult;
+        private string? _pendingQuestion;
+        private Future<DialogResult>? _pendingResult;
 
         /// <summary>
         /// Asks the user a Yes/No/Cancel question.
@@ -204,7 +204,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 ShowTrayIcon(question.GetLeftPartAtFirstOccurrence(Environment.NewLine) + Environment.NewLine + Resources.ClickToChoose, ToolTipIcon.Info);
 
-                return _pendingResult;
+                return _pendingResult!;
             }
         }
 
@@ -212,7 +212,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (_pendingQuestion != null)
             {
-                _pendingResult.Set(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
+                _pendingResult!.Set(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
                 _pendingQuestion = null;
             }
         }
