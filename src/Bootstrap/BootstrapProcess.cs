@@ -51,49 +51,45 @@ namespace ZeroInstall
             {
                 string exeName = Path.GetFileNameWithoutExtension(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
 
-                string help;
-                using (var buffer = new MemoryStream())
+                using var buffer = new MemoryStream();
+                var writer = new StreamWriter(buffer);
+                switch (EmbeddedConfig.Instance.AppMode)
                 {
-                    var writer = new StreamWriter(buffer);
-                    switch (EmbeddedConfig.Instance.AppMode)
-                    {
-                        case BootstrapMode.None:
-                            writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
-                            writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
-                            writer.WriteLine();
-                            writer.WriteLine("Samples:");
-                            writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
-                            writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
-                            writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
-                            writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
-                            break;
-                        case BootstrapMode.Run:
-                            writer.WriteLine("This bootstrapper downloads and runs {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
-                            writer.WriteLine();
-                            writer.WriteLine("Samples:");
-                            writer.WriteLine("  {0}               Run {1}.", exeName, EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, EmbeddedConfig.Instance.AppName);
-                            break;
-                        case BootstrapMode.Integrate:
-                            writer.WriteLine("This bootstrapper downloads and integrates {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("Usage: {0} [OPTIONS] [[--] INTEGRATE-ARGS]", exeName);
-                            writer.WriteLine();
-                            writer.WriteLine("Samples:");
-                            writer.WriteLine("  {0}             Show GUI for integrating {1}.", exeName, EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("  {0} --add=menu  Add {1} to start menu.", exeName, EmbeddedConfig.Instance.AppName);
-                            writer.WriteLine("  {0} -- --help   Show help for {1} integration instead of Bootstrapper.", exeName, EmbeddedConfig.Instance.AppName);
-                            break;
-                    }
-                    writer.WriteLine();
-                    writer.WriteLine("Options:");
-                    _options.WriteOptionDescriptions(writer);
-                    writer.Flush();
-                    help = buffer.ReadToString();
+                    case BootstrapMode.None:
+                        writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
+                        writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
+                        writer.WriteLine();
+                        writer.WriteLine("Samples:");
+                        writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
+                        writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
+                        writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
+                        writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
+                        break;
+                    case BootstrapMode.Run:
+                        writer.WriteLine("This bootstrapper downloads and runs {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
+                        writer.WriteLine();
+                        writer.WriteLine("Samples:");
+                        writer.WriteLine("  {0}               Run {1}.", exeName, EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, EmbeddedConfig.Instance.AppName);
+                        break;
+                    case BootstrapMode.Integrate:
+                        writer.WriteLine("This bootstrapper downloads and integrates {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("Usage: {0} [OPTIONS] [[--] INTEGRATE-ARGS]", exeName);
+                        writer.WriteLine();
+                        writer.WriteLine("Samples:");
+                        writer.WriteLine("  {0}             Show GUI for integrating {1}.", exeName, EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("  {0} --add=menu  Add {1} to start menu.", exeName, EmbeddedConfig.Instance.AppName);
+                        writer.WriteLine("  {0} -- --help   Show help for {1} integration instead of Bootstrapper.", exeName, EmbeddedConfig.Instance.AppName);
+                        break;
                 }
-                return help;
+                writer.WriteLine();
+                writer.WriteLine("Options:");
+                _options.WriteOptionDescriptions(writer);
+                writer.Flush();
+                return buffer.ReadToString();
             }
         }
 
