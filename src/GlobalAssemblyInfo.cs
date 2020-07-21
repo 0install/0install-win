@@ -3,7 +3,7 @@
 using System.Reflection;
 
 // Assembly info
-[assembly: AssemblyCompany("0install.de")]
+[assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright Bastian Eicher et al.")]
 

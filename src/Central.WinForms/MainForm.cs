@@ -306,7 +306,7 @@ namespace ZeroInstall.Central.WinForms
             => Program.RunCommand(Configure.Name, "--tab=catalog");
 
         private void buttonFeedEditor_Click(object sender, EventArgs e)
-            => Program.RunCommand(Run.Name, "http://0install.de/feeds/ZeroInstall_Tools.xml");
+            => Program.RunCommand(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
 
         private void buttonOptions_Click(object sender, EventArgs e)
             => Program.RunCommand(Configure.Name);
@@ -332,7 +332,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.Start("http://0install.de/docs/");
+                ProcessUtils.Start("https://docs.0install.net/");
             }
             #region Error handling
             catch (OperationCanceledException)

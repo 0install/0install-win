@@ -165,7 +165,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.Start("http://0install.de/docs/sync/");
+                ProcessUtils.Start("https://docs.0install.net/details/sync/");
             }
             #region Error handling
             catch (OperationCanceledException)

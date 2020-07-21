@@ -3,7 +3,7 @@
 [![Build status](https://img.shields.io/appveyor/ci/0install/0install-win.svg)](https://ci.appveyor.com/project/0install/0install-win)  
 This is the Windows version of Zero Install. It extends the cross-platform core [Zero Install .NET](https://github.com/0install/0install-dotnet) with a GUI and various OS-specific integrations.
 
-Zero Install is a decentralized cross-platform software installation system. You can learn more at [0install.net](http://0install.net/).
+Zero Install is a decentralized cross-platform software installation system. You can learn more at [0install.net](https://0install.net/).
 
 **[Download Zero Install for Windows](https://0install.net/injector.html#windows)**
 
@@ -20,6 +20,6 @@ If you wish to deploy the build after compilation as the default Zero Install in
 
 ## Contributing
 
-We welcome contributions to this project such as bug reports, recommendations, pull requests and [translations](https://www.transifex.com/eicher/0install-win/). If you have any questions feel free to pitch in on our [friendly mailing list](http://0install.net/support.html#lists).
+We welcome contributions to this project such as bug reports, recommendations, pull requests and [translations](https://www.transifex.com/eicher/0install-win/). If you have any questions feel free to pitch in on our [friendly mailing list](https://0install.net/support.html#lists).
 
 This repository contains an [EditorConfig](http://editorconfig.org/) file. Please make sure to use an editor that supports it to ensure consistent code style, file encoding, etc.. For full tooling support for all style and naming conventions consider using JetBrain's [ReSharper](https://www.jetbrains.com/resharper/) or [Rider](https://www.jetbrains.com/rider/) products.
