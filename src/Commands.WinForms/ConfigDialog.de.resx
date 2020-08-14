@@ -131,19 +131,19 @@
     <value>&amp;Benutzername:</value>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>&amp;Beta-Versionen von Anwendungen verwenden wenn verfügbar</value>
+    <value>Beim Testen neuer Versionen &amp;helfen</value>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Netzwerknutzung</value>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>&amp;Offline (gar nichts herunterladen)</value>
+    <value>&amp;Offline (Netzwerk nicht verwenden)</value>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>&amp;Minimal (nur herunterladen wenn unbedingt notwendig)</value>
+    <value>&amp;Minimal (gecachte Versionen bevorzugen)</value>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>&amp;Vollständig (immer beste Version herunterladen)</value>
+    <value>&amp;Vollständig (normale Netzwerknutzung)</value>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
     <value>Speicher</value>

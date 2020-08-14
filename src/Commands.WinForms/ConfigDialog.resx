@@ -430,7 +430,7 @@
     <value>3</value>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>&amp;Use beta versions of applications when available</value>
+    <value>&amp;Help test new versions</value>
   </data>
   <data name="&gt;&gt;checkBoxHelpWithTesting.Name" xml:space="preserve">
     <value>checkBoxHelpWithTesting</value>
@@ -460,7 +460,7 @@
     <value>2</value>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>&amp;Offline mode (do not download anything)</value>
+    <value>&amp;Offline (do not use the network)</value>
   </data>
   <data name="&gt;&gt;radioNetworkUseOffline.Name" xml:space="preserve">
     <value>radioNetworkUseOffline</value>
@@ -487,7 +487,7 @@
     <value>1</value>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>&amp;Minimal mode (only download when absolutely necessary)</value>
+    <value>&amp;Minimal (prefer cached versions)</value>
   </data>
   <data name="&gt;&gt;radioNetworkUseMinimal.Name" xml:space="preserve">
     <value>radioNetworkUseMinimal</value>
@@ -514,7 +514,7 @@
     <value>0</value>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>&amp;Full mode (always download best version)</value>
+    <value>&amp;Full (normal network use)</value>
   </data>
   <data name="&gt;&gt;radioNetworkUseFull.Name" xml:space="preserve">
     <value>radioNetworkUseFull</value>
