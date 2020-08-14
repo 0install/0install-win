@@ -130,6 +130,9 @@
   <data name="labelSyncUsername.Text" xml:space="preserve">
     <value>&amp;Benutzername:</value>
   </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Stabilität</value>
+  </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
     <value>Beim Testen neuer Versionen &amp;helfen</value>
   </data>
@@ -144,6 +147,9 @@
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
     <value>&amp;Vollständig (normale Netzwerknutzung)</value>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>&amp;Aktualität</value>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
     <value>Speicher</value>

@@ -43,7 +43,10 @@ namespace ZeroInstall.Commands.WinForms
             this.labelSyncUsername = new System.Windows.Forms.Label();
             this.tabOptions = new System.Windows.Forms.TabControl();
             this.tabPageUpdates = new System.Windows.Forms.TabPage();
+            this.groupStability = new System.Windows.Forms.GroupBox();
             this.checkBoxHelpWithTesting = new System.Windows.Forms.CheckBox();
+            this.groupFreshness = new System.Windows.Forms.GroupBox();
+            this.timespanFreshness = new NanoByte.Common.Controls.TimeSpanControl();
             this.groupNetworkUse = new System.Windows.Forms.GroupBox();
             this.radioNetworkUseOffline = new System.Windows.Forms.RadioButton();
             this.radioNetworkUseMinimal = new System.Windows.Forms.RadioButton();
@@ -77,6 +80,8 @@ namespace ZeroInstall.Commands.WinForms
             this.implDirBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabOptions.SuspendLayout();
             this.tabPageUpdates.SuspendLayout();
+            this.groupStability.SuspendLayout();
+            this.groupFreshness.SuspendLayout();
             this.groupNetworkUse.SuspendLayout();
             this.tabPageStorage.SuspendLayout();
             this.groupImplDirs.SuspendLayout();
@@ -173,11 +178,19 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // tabPageUpdates
             // 
-            this.tabPageUpdates.Controls.Add(this.checkBoxHelpWithTesting);
+            this.tabPageUpdates.Controls.Add(this.groupStability);
+            this.tabPageUpdates.Controls.Add(this.groupFreshness);
             this.tabPageUpdates.Controls.Add(this.groupNetworkUse);
             resources.ApplyResources(this.tabPageUpdates, "tabPageUpdates");
             this.tabPageUpdates.Name = "tabPageUpdates";
             this.tabPageUpdates.UseVisualStyleBackColor = true;
+            // 
+            // groupStability
+            // 
+            resources.ApplyResources(this.groupStability, "groupStability");
+            this.groupStability.Controls.Add(this.checkBoxHelpWithTesting);
+            this.groupStability.Name = "groupStability";
+            this.groupStability.TabStop = false;
             // 
             // checkBoxHelpWithTesting
             // 
@@ -185,6 +198,20 @@ namespace ZeroInstall.Commands.WinForms
             this.checkBoxHelpWithTesting.Name = "checkBoxHelpWithTesting";
             this.checkBoxHelpWithTesting.UseVisualStyleBackColor = true;
             this.checkBoxHelpWithTesting.CheckedChanged += new System.EventHandler(this.checkBoxHelpWithTesting_CheckedChanged);
+            // 
+            // groupFreshness
+            // 
+            resources.ApplyResources(this.groupFreshness, "groupFreshness");
+            this.groupFreshness.Controls.Add(this.timespanFreshness);
+            this.groupFreshness.Name = "groupFreshness";
+            this.groupFreshness.TabStop = false;
+            // 
+            // timespanFreshness
+            // 
+            resources.ApplyResources(this.timespanFreshness, "timespanFreshness");
+            this.timespanFreshness.Name = "timespanFreshness";
+            this.timespanFreshness.Value = System.TimeSpan.Parse("00:00:00");
+            this.timespanFreshness.Validated += new System.EventHandler(this.timespanFreshness_Validated);
             // 
             // groupNetworkUse
             // 
@@ -442,7 +469,9 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.tabOptions.ResumeLayout(false);
             this.tabPageUpdates.ResumeLayout(false);
-            this.tabPageUpdates.PerformLayout();
+            this.groupStability.ResumeLayout(false);
+            this.groupStability.PerformLayout();
+            this.groupFreshness.ResumeLayout(false);
             this.groupNetworkUse.ResumeLayout(false);
             this.groupNetworkUse.PerformLayout();
             this.tabPageStorage.ResumeLayout(false);
@@ -473,8 +502,10 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.CheckBox checkBoxHelpWithTesting;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.GroupBox groupCatalogSources;
+        private System.Windows.Forms.GroupBox groupFreshness;
         private System.Windows.Forms.GroupBox groupImplDirs;
         private System.Windows.Forms.GroupBox groupNetworkUse;
+        private System.Windows.Forms.GroupBox groupStability;
         private System.Windows.Forms.GroupBox groupTrustedKeys;
         private System.Windows.Forms.FolderBrowserDialog implDirBrowserDialog;
         private System.Windows.Forms.Label labelAdvancedWarning;
@@ -503,6 +534,7 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.TextBox textBoxSyncPassword;
         private NanoByte.Common.Controls.UriTextBox textBoxSyncServer;
         private System.Windows.Forms.TextBox textBoxSyncUsername;
+        private NanoByte.Common.Controls.TimeSpanControl timespanFreshness;
         #endregion
     }
 }

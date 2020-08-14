@@ -109,6 +109,7 @@ namespace ZeroInstall.Commands.WinForms
                 _ => radioNetworkUseFull
             }).Checked = true;
             radioNetworkUseFull.Enabled = radioNetworkUseMinimal.Enabled = radioNetworkUseMinimal.Enabled = !Config.IsOptionLocked("network_policy");
+            timespanFreshness.Value = _config.Freshness;
             checkBoxHelpWithTesting.Checked = _config.HelpWithTesting;
             checkBoxHelpWithTesting.Enabled = !Config.IsOptionLocked("help_with_testing");
             checkBoxAutoApproveKeys.Checked = _config.AutoApproveKeys;
@@ -131,6 +132,12 @@ namespace ZeroInstall.Commands.WinForms
             if (radioNetworkUseFull.Checked) _config.NetworkUse = NetworkLevel.Full;
             else if (radioNetworkUseMinimal.Checked) _config.NetworkUse = NetworkLevel.Minimal;
             else if (radioNetworkUseOffline.Checked) _config.NetworkUse = NetworkLevel.Offline;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void timespanFreshness_Validated(object sender, EventArgs e)
+        {
+            _config.Freshness = timespanFreshness.Value;
             propertyGridAdvanced.Refresh();
         }
 
