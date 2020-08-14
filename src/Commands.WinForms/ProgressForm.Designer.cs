@@ -24,7 +24,6 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -44,7 +43,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.Location = new System.Drawing.Point(447, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
@@ -55,14 +54,14 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Icon = ((System.Drawing.Icon) (resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "Zero Install";
             this.notifyIcon.BalloonTipClicked += new System.EventHandler(this.notifyIcon_BalloonTipClicked);
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // buttonHide
             // 
-            this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonHide.Location = new System.Drawing.Point(366, 226);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
@@ -74,9 +73,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // selectionsControl
             // 
-            this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
             this.selectionsControl.Size = new System.Drawing.Size(505, 208);
@@ -85,8 +82,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // taskControl
             // 
-            this.taskControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.taskControl.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.taskControl.Location = new System.Drawing.Point(24, 24);
             this.taskControl.Name = "taskControl";
             this.taskControl.Size = new System.Drawing.Size(486, 54);
@@ -95,7 +91,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // buttonCustomizeSelectionsDone
             // 
-            this.buttonCustomizeSelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeSelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCustomizeSelectionsDone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonCustomizeSelectionsDone.Location = new System.Drawing.Point(12, 226);
             this.buttonCustomizeSelectionsDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
@@ -118,7 +114,7 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 225);
             this.Name = "ProgressForm";
@@ -128,17 +124,15 @@ namespace ZeroInstall.Commands.WinForms
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
             this.Shown += new System.EventHandler(this.ProgressForm_Shown);
             this.ResumeLayout(false);
-
         }
-        #endregion
 
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonCustomizeSelectionsDone;
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private ZeroInstall.Commands.WinForms.SelectionsControl selectionsControl;
-        private System.Windows.Forms.ToolTip toolTip;
         private NanoByte.Common.Controls.TaskControl taskControl;
-        private System.Windows.Forms.Button buttonCustomizeSelectionsDone;
-
+        private System.Windows.Forms.ToolTip toolTip;
+        #endregion
     }
 }

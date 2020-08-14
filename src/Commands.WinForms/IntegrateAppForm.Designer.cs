@@ -21,7 +21,6 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -123,25 +122,25 @@ namespace ZeroInstall.Commands.WinForms
             this.textBoxCommandLine = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridStartMenu)).BeginInit();
             this.tabPageDesktop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridDesktop)).BeginInit();
             this.tabPageSendTo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridSendTo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridSendTo)).BeginInit();
             this.tabPageAliases.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridAliases)).BeginInit();
             this.tabPageAutoStart.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoStart)).BeginInit();
             this.tabPageFileTypes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileTypes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridFileTypes)).BeginInit();
             this.tabPageUrlProtocols.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridUrlProtocols)).BeginInit();
             this.tabPageAutoPlay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoPlay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoPlay)).BeginInit();
             this.tabPageContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridContextMenu)).BeginInit();
             this.tabPageDefaultPrograms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridDefaultPrograms)).BeginInit();
             this.flowLayoutBasic.SuspendLayout();
             this.panelBasic.SuspendLayout();
             this.groupBoxCommandLine.SuspendLayout();
@@ -190,10 +189,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridStartMenu
             // 
             this.dataGridStartMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridStartMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridStartMenuColumnName,
-            this.dataGridStartMenuColumnCategory,
-            this.dataGridStartMenuColumnCommand});
+            this.dataGridStartMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridStartMenuColumnName, this.dataGridStartMenuColumnCategory, this.dataGridStartMenuColumnCommand});
             resources.ApplyResources(this.dataGridStartMenu, "dataGridStartMenu");
             this.dataGridStartMenu.Name = "dataGridStartMenu";
             this.dataGridStartMenu.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -242,9 +238,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridDesktop
             // 
             this.dataGridDesktop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDesktop.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridDesktopColumnName,
-            this.dataGridDesktopColumnCommand});
+            this.dataGridDesktop.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridDesktopColumnName, this.dataGridDesktopColumnCommand});
             resources.ApplyResources(this.dataGridDesktop, "dataGridDesktop");
             this.dataGridDesktop.Name = "dataGridDesktop";
             this.dataGridDesktop.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -285,9 +279,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridSendTo
             // 
             this.dataGridSendTo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridSendTo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridSendToColumnName,
-            this.dataGridSendToColumnCommand});
+            this.dataGridSendTo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridSendToColumnName, this.dataGridSendToColumnCommand});
             resources.ApplyResources(this.dataGridSendTo, "dataGridSendTo");
             this.dataGridSendTo.Name = "dataGridSendTo";
             this.dataGridSendTo.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -328,9 +320,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridAliases
             // 
             this.dataGridAliases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridAliasesColumnName,
-            this.dataGridAliasesColumnCommand});
+            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridAliasesColumnName, this.dataGridAliasesColumnCommand});
             resources.ApplyResources(this.dataGridAliases, "dataGridAliases");
             this.dataGridAliases.Name = "dataGridAliases";
             this.dataGridAliases.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -371,9 +361,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridAutoStart
             // 
             this.dataGridAutoStart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAutoStart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridAutoStartColumnName,
-            this.dataGridAutoStartColumnCommand});
+            this.dataGridAutoStart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridAutoStartColumnName, this.dataGridAutoStartColumnCommand});
             resources.ApplyResources(this.dataGridAutoStart, "dataGridAutoStart");
             this.dataGridAutoStart.Name = "dataGridAutoStart";
             this.dataGridAutoStart.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -425,10 +413,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridFileTypes.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridFileTypes, "dataGridFileTypes");
             this.dataGridFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFileTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridFileTypesColumnDefault,
-            this.dataGridFileTypesColumnDescription,
-            this.dataGridFileTypesColumnExtensions});
+            this.dataGridFileTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridFileTypesColumnDefault, this.dataGridFileTypesColumnDescription, this.dataGridFileTypesColumnExtensions});
             this.dataGridFileTypes.Name = "dataGridFileTypes";
             this.dataGridFileTypes.RowHeadersVisible = false;
             // 
@@ -488,10 +473,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridUrlProtocols.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridUrlProtocols, "dataGridUrlProtocols");
             this.dataGridUrlProtocols.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridUrlProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridUrlProtocolsColumnDefault,
-            this.dataGridUrlProtocolsColumnDescription,
-            this.dataGridUrlProtocolsColumnProtocols});
+            this.dataGridUrlProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridUrlProtocolsColumnDefault, this.dataGridUrlProtocolsColumnDescription, this.dataGridUrlProtocolsColumnProtocols});
             this.dataGridUrlProtocols.Name = "dataGridUrlProtocols";
             this.dataGridUrlProtocols.RowHeadersVisible = false;
             // 
@@ -551,10 +533,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridAutoPlay.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridAutoPlay, "dataGridAutoPlay");
             this.dataGridAutoPlay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAutoPlay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridAutoPlayColumnDefault,
-            this.dataGridAutoPlayColumnDescription,
-            this.dataGridAutoPlayColumnEvents});
+            this.dataGridAutoPlay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridAutoPlayColumnDefault, this.dataGridAutoPlayColumnDescription, this.dataGridAutoPlayColumnEvents});
             this.dataGridAutoPlay.Name = "dataGridAutoPlay";
             this.dataGridAutoPlay.RowHeadersVisible = false;
             // 
@@ -614,9 +593,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridContextMenu.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridContextMenu, "dataGridContextMenu");
             this.dataGridContextMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridContextMenuColumnEnabled,
-            this.dataGridContextMenuColumnName});
+            this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridContextMenuColumnEnabled, this.dataGridContextMenuColumnName});
             this.dataGridContextMenu.Name = "dataGridContextMenu";
             this.dataGridContextMenu.RowHeadersVisible = false;
             // 
@@ -668,10 +645,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridDefaultPrograms.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridDefaultPrograms, "dataGridDefaultPrograms");
             this.dataGridDefaultPrograms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridDefaultProgramsColumnDefault,
-            this.dataGridDefaultProgramsColumnDescription,
-            this.dataGridDefaultProgramsColumnService});
+            this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridDefaultProgramsColumnDefault, this.dataGridDefaultProgramsColumnDescription, this.dataGridDefaultProgramsColumnService});
             this.dataGridDefaultPrograms.Name = "dataGridDefaultPrograms";
             this.dataGridDefaultPrograms.RowHeadersVisible = false;
             // 
@@ -933,30 +907,30 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.SetChildIndex(this.groupBoxCommandLine, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageStartMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridStartMenu)).EndInit();
             this.tabPageDesktop.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridDesktop)).EndInit();
             this.tabPageSendTo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridSendTo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridSendTo)).EndInit();
             this.tabPageAliases.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridAliases)).EndInit();
             this.tabPageAutoStart.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoStart)).EndInit();
             this.tabPageFileTypes.ResumeLayout(false);
             this.tabPageFileTypes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileTypes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridFileTypes)).EndInit();
             this.tabPageUrlProtocols.ResumeLayout(false);
             this.tabPageUrlProtocols.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridUrlProtocols)).EndInit();
             this.tabPageAutoPlay.ResumeLayout(false);
             this.tabPageAutoPlay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoPlay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoPlay)).EndInit();
             this.tabPageContextMenu.ResumeLayout(false);
             this.tabPageContextMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridContextMenu)).EndInit();
             this.tabPageDefaultPrograms.ResumeLayout(false);
             this.tabPageDefaultPrograms.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridDefaultPrograms)).EndInit();
             this.flowLayoutBasic.ResumeLayout(false);
             this.flowLayoutBasic.PerformLayout();
             this.panelBasic.ResumeLayout(false);
@@ -965,101 +939,99 @@ namespace ZeroInstall.Commands.WinForms
             this.groupBoxCommandLine.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
-        #endregion
-
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPageFileTypes;
-        private System.Windows.Forms.TabPage tabPageUrlProtocols;
-        private System.Windows.Forms.DataGridView dataGridFileTypes;
-        private System.Windows.Forms.DataGridView dataGridUrlProtocols;
-        private System.Windows.Forms.TabPage tabPageDefaultPrograms;
-        private System.Windows.Forms.TabPage tabPageStartMenu;
-        private System.Windows.Forms.DataGridView dataGridDefaultPrograms;
-        private System.Windows.Forms.TabPage tabPageContextMenu;
-        private System.Windows.Forms.DataGridView dataGridContextMenu;
-        private System.Windows.Forms.CheckBox checkBoxCapabilities;
-        private System.Windows.Forms.CheckBox checkBoxAutoUpdate;
-        private System.Windows.Forms.DataGridView dataGridStartMenu;
-        private System.Windows.Forms.TabPage tabPageDesktop;
-        private System.Windows.Forms.DataGridView dataGridDesktop;
-        private System.Windows.Forms.TabPage tabPageSendTo;
-        private System.Windows.Forms.DataGridView dataGridSendTo;
-        private System.Windows.Forms.TabPage tabPageAutoPlay;
-        private System.Windows.Forms.DataGridView dataGridAutoPlay;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridUrlProtocolsColumnDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnProtocols;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridAutoPlayColumnDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnEvents;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridContextMenuColumnEnabled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridContextMenuColumnName;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridDefaultProgramsColumnDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnService;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridStartMenuColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridStartMenuColumnCategory;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridStartMenuColumnCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDesktopColumnName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridDesktopColumnCommand;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridSendToColumnName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridSendToColumnCommand;
-        private System.Windows.Forms.TabPage tabPageAliases;
-        private System.Windows.Forms.DataGridView dataGridAliases;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAliasesColumnName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridAliasesColumnCommand;
-        private System.Windows.Forms.TabPage tabPageAutoStart;
-        private System.Windows.Forms.DataGridView dataGridAutoStart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoStartColumnName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridAutoStartColumnCommand;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridFileTypesColumnDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypesColumnDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypesColumnExtensions;
-        private System.Windows.Forms.CheckBox checkBoxFileTypesAll;
-        private System.Windows.Forms.CheckBox checkBoxUrlProtocolsAll;
-        private System.Windows.Forms.CheckBox checkBoxAutoPlayAll;
-        private System.Windows.Forms.CheckBox checkBoxContextMenuAll;
-        private System.Windows.Forms.CheckBox checkBoxDefaultProgramsAll;
-        private System.Windows.Forms.Label labelLastDataError;
+        private System.Windows.Forms.Button buttonAdvancedMode;
+        private System.Windows.Forms.Button buttonBasicMode;
         private System.Windows.Forms.Button buttonHelpAliases;
-        private System.Windows.Forms.Button buttonHelpAutoStart;
-        private System.Windows.Forms.Button buttonHelpFileTypes;
-        private System.Windows.Forms.Button buttonHelpUrlProtocols;
         private System.Windows.Forms.Button buttonHelpAutoPlay;
+        private System.Windows.Forms.Button buttonHelpAutoStart;
         private System.Windows.Forms.Button buttonHelpContextMenu;
         private System.Windows.Forms.Button buttonHelpDefaultPrograms;
         private System.Windows.Forms.Button buttonHelpDesktop;
+        private System.Windows.Forms.Button buttonHelpFileTypes;
         private System.Windows.Forms.Button buttonHelpSendTo;
-        private System.Windows.Forms.Button buttonAdvancedMode;
         private System.Windows.Forms.Button buttonHelpStartMenu;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutBasic;
-        private System.Windows.Forms.CheckBox checkBoxStartMenuSimple;
-        private System.Windows.Forms.CheckBox checkBoxDesktopSimple;
-        private System.Windows.Forms.CheckBox checkBoxSendToSimple;
+        private System.Windows.Forms.Button buttonHelpUrlProtocols;
         private System.Windows.Forms.CheckBox checkBoxAliasesSimple;
-        private System.Windows.Forms.CheckBox checkBoxAutoStartSimple;
-        private System.Windows.Forms.CheckBox checkBoxFileTypesSimple;
+        private System.Windows.Forms.CheckBox checkBoxAutoPlayAll;
         private System.Windows.Forms.CheckBox checkBoxAutoPlaySimple;
-        private System.Windows.Forms.CheckBox checkBoxUrlProtocolsSimple;
+        private System.Windows.Forms.CheckBox checkBoxAutoStartSimple;
+        private System.Windows.Forms.CheckBox checkBoxAutoUpdate;
+        private System.Windows.Forms.CheckBox checkBoxCapabilities;
+        private System.Windows.Forms.CheckBox checkBoxContextMenuAll;
         private System.Windows.Forms.CheckBox checkBoxContextMenuSimple;
+        private System.Windows.Forms.CheckBox checkBoxDefaultProgramsAll;
         private System.Windows.Forms.CheckBox checkBoxDefaultProgramsSimple;
-        private System.Windows.Forms.Button buttonBasicMode;
-        private System.Windows.Forms.Panel panelBasic;
-        private System.Windows.Forms.Label labelStartMenuSimple;
-        private System.Windows.Forms.Label labelDesktopSimple;
-        private System.Windows.Forms.Label labelSendToSimple;
+        private System.Windows.Forms.CheckBox checkBoxDesktopSimple;
+        private System.Windows.Forms.CheckBox checkBoxFileTypesAll;
+        private System.Windows.Forms.CheckBox checkBoxFileTypesSimple;
+        private System.Windows.Forms.CheckBox checkBoxSendToSimple;
+        private System.Windows.Forms.CheckBox checkBoxStartMenuSimple;
+        private System.Windows.Forms.CheckBox checkBoxUrlProtocolsAll;
+        private System.Windows.Forms.CheckBox checkBoxUrlProtocolsSimple;
+        private System.Windows.Forms.DataGridView dataGridAliases;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridAliasesColumnCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAliasesColumnName;
+        private System.Windows.Forms.DataGridView dataGridAutoPlay;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridAutoPlayColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnEvents;
+        private System.Windows.Forms.DataGridView dataGridAutoStart;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridAutoStartColumnCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoStartColumnName;
+        private System.Windows.Forms.DataGridView dataGridContextMenu;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridContextMenuColumnEnabled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridContextMenuColumnName;
+        private System.Windows.Forms.DataGridView dataGridDefaultPrograms;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridDefaultProgramsColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnService;
+        private System.Windows.Forms.DataGridView dataGridDesktop;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridDesktopColumnCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDesktopColumnName;
+        private System.Windows.Forms.DataGridView dataGridFileTypes;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridFileTypesColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypesColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridFileTypesColumnExtensions;
+        private System.Windows.Forms.DataGridView dataGridSendTo;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridSendToColumnCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridSendToColumnName;
+        private System.Windows.Forms.DataGridView dataGridStartMenu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridStartMenuColumnCategory;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridStartMenuColumnCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridStartMenuColumnName;
+        private System.Windows.Forms.DataGridView dataGridUrlProtocols;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridUrlProtocolsColumnDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridUrlProtocolsColumnProtocols;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutBasic;
+        private System.Windows.Forms.GroupBox groupBoxCommandLine;
         private System.Windows.Forms.Label labelAliasesSimple;
-        private System.Windows.Forms.Label labelAutoStartSimple;
-        private System.Windows.Forms.Label labelFileTypesSimple;
-        private System.Windows.Forms.Label labelUrlProtocolsSimple;
         private System.Windows.Forms.Label labelAutoPlaySimple;
+        private System.Windows.Forms.Label labelAutoStartSimple;
         private System.Windows.Forms.Label labelContextMenuSimple;
         private System.Windows.Forms.Label labelDefaultProgramsSimple;
-        private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.GroupBox groupBoxCommandLine;
+        private System.Windows.Forms.Label labelDesktopSimple;
+        private System.Windows.Forms.Label labelFileTypesSimple;
+        private System.Windows.Forms.Label labelLastDataError;
+        private System.Windows.Forms.Label labelSendToSimple;
+        private System.Windows.Forms.Label labelStartMenuSimple;
+        private System.Windows.Forms.Label labelUrlProtocolsSimple;
+        private System.Windows.Forms.Panel panelBasic;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPageAliases;
+        private System.Windows.Forms.TabPage tabPageAutoPlay;
+        private System.Windows.Forms.TabPage tabPageAutoStart;
+        private System.Windows.Forms.TabPage tabPageContextMenu;
+        private System.Windows.Forms.TabPage tabPageDefaultPrograms;
+        private System.Windows.Forms.TabPage tabPageDesktop;
+        private System.Windows.Forms.TabPage tabPageFileTypes;
+        private System.Windows.Forms.TabPage tabPageSendTo;
+        private System.Windows.Forms.TabPage tabPageStartMenu;
+        private System.Windows.Forms.TabPage tabPageUrlProtocols;
         private System.Windows.Forms.TextBox textBoxCommandLine;
+        private System.Windows.Forms.ToolTip toolTip;
+        #endregion
     }
 }

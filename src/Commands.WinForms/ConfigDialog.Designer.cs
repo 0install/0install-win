@@ -23,7 +23,6 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -68,13 +67,13 @@ namespace ZeroInstall.Commands.WinForms
             this.panelTrustedKeys = new System.Windows.Forms.Panel();
             this.buttonRemoveTrustedKey = new System.Windows.Forms.Button();
             this.tabPageSync = new System.Windows.Forms.TabPage();
+            this.tabPageLanguage = new System.Windows.Forms.TabPage();
+            this.labelLanguage = new System.Windows.Forms.Label();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
             this.buttonAdvancedShow = new System.Windows.Forms.Button();
             this.labelAdvancedWarning = new System.Windows.Forms.Label();
             this.propertyGridAdvanced = new NanoByte.Common.Controls.ResettablePropertyGrid();
-            this.tabPageLanguage = new System.Windows.Forms.TabPage();
-            this.labelLanguage = new System.Windows.Forms.Label();
-            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.implDirBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabOptions.SuspendLayout();
             this.tabPageUpdates.SuspendLayout();
@@ -86,8 +85,8 @@ namespace ZeroInstall.Commands.WinForms
             this.tabPageTrust.SuspendLayout();
             this.groupTrustedKeys.SuspendLayout();
             this.tabPageSync.SuspendLayout();
-            this.tabPageAdvanced.SuspendLayout();
             this.tabPageLanguage.SuspendLayout();
+            this.tabPageAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -375,6 +374,26 @@ namespace ZeroInstall.Commands.WinForms
             this.tabPageSync.Name = "tabPageSync";
             this.tabPageSync.UseVisualStyleBackColor = true;
             // 
+            // tabPageLanguage
+            // 
+            this.tabPageLanguage.Controls.Add(this.labelLanguage);
+            this.tabPageLanguage.Controls.Add(this.comboBoxLanguage);
+            resources.ApplyResources(this.tabPageLanguage, "tabPageLanguage");
+            this.tabPageLanguage.Name = "tabPageLanguage";
+            this.tabPageLanguage.UseVisualStyleBackColor = true;
+            // 
+            // labelLanguage
+            // 
+            resources.ApplyResources(this.labelLanguage, "labelLanguage");
+            this.labelLanguage.Name = "labelLanguage";
+            // 
+            // comboBoxLanguage
+            // 
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
+            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            // 
             // tabPageAdvanced
             // 
             this.tabPageAdvanced.Controls.Add(this.buttonAdvancedShow);
@@ -402,26 +421,6 @@ namespace ZeroInstall.Commands.WinForms
             this.propertyGridAdvanced.Name = "propertyGridAdvanced";
             this.propertyGridAdvanced.ToolbarVisible = false;
             this.propertyGridAdvanced.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridAdvanced_PropertyValueChanged);
-            // 
-            // tabPageLanguage
-            // 
-            this.tabPageLanguage.Controls.Add(this.labelLanguage);
-            this.tabPageLanguage.Controls.Add(this.comboBoxLanguage);
-            resources.ApplyResources(this.tabPageLanguage, "tabPageLanguage");
-            this.tabPageLanguage.Name = "tabPageLanguage";
-            this.tabPageLanguage.UseVisualStyleBackColor = true;
-            // 
-            // labelLanguage
-            // 
-            resources.ApplyResources(this.labelLanguage, "labelLanguage");
-            this.labelLanguage.Name = "labelLanguage";
-            // 
-            // comboBoxLanguage
-            // 
-            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
-            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Name = "comboBoxLanguage";
             // 
             // implDirBrowserDialog
             // 
@@ -455,57 +454,55 @@ namespace ZeroInstall.Commands.WinForms
             this.groupTrustedKeys.ResumeLayout(false);
             this.tabPageSync.ResumeLayout(false);
             this.tabPageSync.PerformLayout();
-            this.tabPageAdvanced.ResumeLayout(false);
             this.tabPageLanguage.ResumeLayout(false);
+            this.tabPageAdvanced.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
-        #endregion
-
+        private System.Windows.Forms.Button buttonAddCatalogSource;
+        private System.Windows.Forms.Button buttonAddImplDir;
+        private System.Windows.Forms.Button buttonAdvancedShow;
+        private System.Windows.Forms.Button buttonGoToCatalogSource;
+        private System.Windows.Forms.Button buttonGoToImplDir;
+        private System.Windows.Forms.Button buttonRemoveCatalogSource;
+        private System.Windows.Forms.Button buttonRemoveImplDir;
+        private System.Windows.Forms.Button buttonRemoveTrustedKey;
+        private System.Windows.Forms.Button buttonResetCatalogSources;
         private System.Windows.Forms.Button buttonSyncCryptoKey;
-        private System.Windows.Forms.TextBox textBoxSyncCryptoKey;
+        private System.Windows.Forms.CheckBox checkBoxAutoApproveKeys;
+        private System.Windows.Forms.CheckBox checkBoxHelpWithTesting;
+        private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.GroupBox groupCatalogSources;
+        private System.Windows.Forms.GroupBox groupImplDirs;
+        private System.Windows.Forms.GroupBox groupNetworkUse;
+        private System.Windows.Forms.GroupBox groupTrustedKeys;
+        private System.Windows.Forms.FolderBrowserDialog implDirBrowserDialog;
+        private System.Windows.Forms.Label labelAdvancedWarning;
+        private System.Windows.Forms.Label labelLanguage;
+        private System.Windows.Forms.Label labelServer;
         private System.Windows.Forms.Label labelSyncCryptoKey;
-        private System.Windows.Forms.TextBox textBoxSyncPassword;
         private System.Windows.Forms.Label labelSyncPassword;
-        private System.Windows.Forms.TextBox textBoxSyncUsername;
         private System.Windows.Forms.Label labelSyncUsername;
         private System.Windows.Forms.LinkLabel linkSyncAccount;
-        private UriTextBox textBoxSyncServer;
-        private System.Windows.Forms.Label labelServer;
-        private System.Windows.Forms.TabControl tabOptions;
-        private System.Windows.Forms.TabPage tabPageUpdates;
-        private System.Windows.Forms.TabPage tabPageStorage;
-        private System.Windows.Forms.TabPage tabPageCatalog;
-        private System.Windows.Forms.TabPage tabPageTrust;
-        private System.Windows.Forms.TabPage tabPageSync;
-        private System.Windows.Forms.GroupBox groupNetworkUse;
-        private System.Windows.Forms.RadioButton radioNetworkUseOffline;
-        private System.Windows.Forms.RadioButton radioNetworkUseMinimal;
-        private System.Windows.Forms.RadioButton radioNetworkUseFull;
-        private System.Windows.Forms.CheckBox checkBoxHelpWithTesting;
-        private System.Windows.Forms.CheckBox checkBoxAutoApproveKeys;
-        private System.Windows.Forms.GroupBox groupTrustedKeys;
-        private System.Windows.Forms.GroupBox groupImplDirs;
-        private System.Windows.Forms.ListBox listBoxImplDirs;
-        private System.Windows.Forms.Button buttonRemoveImplDir;
-        private System.Windows.Forms.Button buttonAddImplDir;
-        private System.Windows.Forms.Button buttonRemoveTrustedKey;
-        private System.Windows.Forms.FolderBrowserDialog implDirBrowserDialog;
-        private System.Windows.Forms.Panel panelTrustedKeys;
-        private System.Windows.Forms.Button buttonGoToImplDir;
-        private System.Windows.Forms.GroupBox groupCatalogSources;
-        private System.Windows.Forms.Button buttonRemoveCatalogSource;
-        private System.Windows.Forms.Button buttonGoToCatalogSource;
-        private System.Windows.Forms.Button buttonAddCatalogSource;
         private System.Windows.Forms.ListBox listBoxCatalogSources;
-        private System.Windows.Forms.Button buttonResetCatalogSources;
-        private System.Windows.Forms.TabPage tabPageAdvanced;
+        private System.Windows.Forms.ListBox listBoxImplDirs;
+        private System.Windows.Forms.Panel panelTrustedKeys;
         private NanoByte.Common.Controls.ResettablePropertyGrid propertyGridAdvanced;
-        private System.Windows.Forms.Label labelAdvancedWarning;
-        private System.Windows.Forms.Button buttonAdvancedShow;
+        private System.Windows.Forms.RadioButton radioNetworkUseFull;
+        private System.Windows.Forms.RadioButton radioNetworkUseMinimal;
+        private System.Windows.Forms.RadioButton radioNetworkUseOffline;
+        private System.Windows.Forms.TabControl tabOptions;
+        private System.Windows.Forms.TabPage tabPageAdvanced;
+        private System.Windows.Forms.TabPage tabPageCatalog;
         private System.Windows.Forms.TabPage tabPageLanguage;
-        private System.Windows.Forms.Label labelLanguage;
-        private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.TabPage tabPageStorage;
+        private System.Windows.Forms.TabPage tabPageSync;
+        private System.Windows.Forms.TabPage tabPageTrust;
+        private System.Windows.Forms.TabPage tabPageUpdates;
+        private System.Windows.Forms.TextBox textBoxSyncCryptoKey;
+        private System.Windows.Forms.TextBox textBoxSyncPassword;
+        private NanoByte.Common.Controls.UriTextBox textBoxSyncServer;
+        private System.Windows.Forms.TextBox textBoxSyncUsername;
+        #endregion
     }
 }

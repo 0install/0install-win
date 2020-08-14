@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -198,15 +198,6 @@
   <data name="tabPageSync.Text" xml:space="preserve">
     <value>Eşitle</value>
   </data>
-  <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Gelişmiş &amp;seçenekleri görüntüle</value>
-  </data>
-  <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Uyarı: Bu ayarların değiştirilmesi Zero Install yazılımının düzgün çalışmasını engelleyebilir.</value>
-  </data>
-  <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Gelişmiş</value>
-  </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Bu seçenek şu dilleri etkiler:
 - Zero Install dili
@@ -218,6 +209,15 @@ Notlar:
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
     <value>Dil</value>
+  </data>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>Gelişmiş &amp;seçenekleri görüntüle</value>
+  </data>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>Uyarı: Bu ayarların değiştirilmesi Zero Install yazılımının düzgün çalışmasını engelleyebilir.</value>
+  </data>
+  <data name="tabPageAdvanced.Text" xml:space="preserve">
+    <value>Gelişmiş</value>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
     <value>Lütfen uygulama ön belleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>

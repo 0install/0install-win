@@ -21,7 +21,6 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -51,7 +50,7 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonApply = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageVersions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridVersions)).BeginInit();
             this.tabPageFeeds.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,14 +108,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridVersions.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridVersions, "dataGridVersions");
             this.dataGridVersions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridVersions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataColumnVersion,
-            this.dataColumnReleased,
-            this.dataColumnStability,
-            this.dataColumnUserStability,
-            this.dataColumnArchitecture,
-            this.dataColumnNotes,
-            this.dataColumnSource});
+            this.dataGridVersions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataColumnVersion, this.dataColumnReleased, this.dataColumnStability, this.dataColumnUserStability, this.dataColumnArchitecture, this.dataColumnNotes, this.dataColumnSource});
             this.dataGridVersions.Name = "dataGridVersions";
             // 
             // dataColumnVersion
@@ -237,32 +229,30 @@ namespace ZeroInstall.Commands.WinForms
             this.tabControl.ResumeLayout(false);
             this.tabPageVersions.ResumeLayout(false);
             this.tabPageVersions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridVersions)).EndInit();
             this.tabPageFeeds.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
-        #endregion
-
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPageVersions;
-        private System.Windows.Forms.TabPage tabPageFeeds;
-        private System.Windows.Forms.DataGridView dataGridVersions;
-        private System.Windows.Forms.Button buttonRemoveFeed;
         private System.Windows.Forms.Button buttonAddFeed;
-        private System.Windows.Forms.ListBox listBoxFeeds;
-        private System.Windows.Forms.Label labelStability;
-        private System.Windows.Forms.ComboBox comboBoxStability;
+        private System.Windows.Forms.Button buttonApply;
+        private System.Windows.Forms.Button buttonRemoveFeed;
         private System.Windows.Forms.CheckBox checkBoxShowAllVersions;
-        private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnVersion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnReleased;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnStability;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataColumnUserStability;
+        private System.Windows.Forms.ComboBox comboBoxStability;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnArchitecture;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnNotes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnReleased;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnSource;
-        private System.Windows.Forms.Button buttonApply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnStability;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataColumnUserStability;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataColumnVersion;
+        private System.Windows.Forms.DataGridView dataGridVersions;
+        private System.Windows.Forms.Label labelStability;
+        private System.Windows.Forms.ListBox listBoxFeeds;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPageFeeds;
+        private System.Windows.Forms.TabPage tabPageVersions;
+        private System.Windows.Forms.ToolTip toolTip;
+        #endregion
     }
 }

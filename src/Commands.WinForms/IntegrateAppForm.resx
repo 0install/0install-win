@@ -112,12 +112,12 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
     <value>306, 258</value>
   </data>
@@ -125,7 +125,7 @@
     <value>buttonOK</value>
   </data>
   <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
     <value>$this</value>
@@ -140,7 +140,7 @@
     <value>buttonCancel</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -148,160 +148,31 @@
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="&gt;&gt;tabPageStartMenu.Name" xml:space="preserve">
-    <value>tabPageStartMenu</value>
+  <data name="buttonHelpStartMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;tabPageStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonHelpStartMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 168</value>
   </data>
-  <data name="&gt;&gt;tabPageStartMenu.Parent" xml:space="preserve">
-    <value>tabControl</value>
+  <data name="buttonHelpStartMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 23</value>
   </data>
-  <data name="&gt;&gt;tabPageStartMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.Name" xml:space="preserve">
-    <value>tabPageDesktop</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageDesktop.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tabPageSendTo.Name" xml:space="preserve">
-    <value>tabPageSendTo</value>
-  </data>
-  <data name="&gt;&gt;tabPageSendTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageSendTo.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageSendTo.ZOrder" xml:space="preserve">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonHelpStartMenu.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;tabPageAliases.Name" xml:space="preserve">
-    <value>tabPageAliases</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageAliases.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoStart.Name" xml:space="preserve">
-    <value>tabPageAutoStart</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoStart.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoStart.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Name" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Name" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Name" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageAutoPlay.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.Name" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageContextMenu.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Name" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 35</value>
-  </data>
-  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>450, 217</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabControl.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="buttonHelpStartMenu.Text" xml:space="preserve">
+    <value>?</value>
   </data>
   <data name="&gt;&gt;buttonHelpStartMenu.Name" xml:space="preserve">
     <value>buttonHelpStartMenu</value>
   </data>
   <data name="&gt;&gt;buttonHelpStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpStartMenu.Parent" xml:space="preserve">
     <value>tabPageStartMenu</value>
@@ -309,11 +180,41 @@
   <data name="&gt;&gt;buttonHelpStartMenu.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="dataGridStartMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridStartMenuColumnCategory.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <metadata name="dataGridStartMenuColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridStartMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridStartMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridStartMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridStartMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;dataGridStartMenu.Name" xml:space="preserve">
     <value>dataGridStartMenu</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenu.Parent" xml:space="preserve">
     <value>tabPageStartMenu</value>
@@ -340,7 +241,7 @@
     <value>tabPageStartMenu</value>
   </data>
   <data name="&gt;&gt;tabPageStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageStartMenu.Parent" xml:space="preserve">
     <value>tabControl</value>
@@ -348,90 +249,26 @@
   <data name="&gt;&gt;tabPageStartMenu.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonHelpStartMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonHelpDesktop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonHelpStartMenu.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonHelpDesktop.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 168</value>
   </data>
-  <data name="buttonHelpStartMenu.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonHelpDesktop.Size" type="System.Drawing.Size, System.Drawing">
     <value>21, 23</value>
   </data>
-  <data name="buttonHelpStartMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonHelpStartMenu.Text" xml:space="preserve">
-    <value>?</value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.Name" xml:space="preserve">
-    <value>buttonHelpStartMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.Parent" xml:space="preserve">
-    <value>tabPageStartMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpStartMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="dataGridStartMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridStartMenuColumnCategory.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridStartMenuColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridStartMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dataGridStartMenu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dataGridStartMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 185</value>
-  </data>
-  <data name="dataGridStartMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.Name" xml:space="preserve">
-    <value>dataGridStartMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.Parent" xml:space="preserve">
-    <value>tabPageStartMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridStartMenu.ZOrder" xml:space="preserve">
+  <data name="buttonHelpDesktop.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <metadata name="dataGridStartMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <metadata name="dataGridStartMenuColumnCategory.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
-    <value>Category</value>
-  </data>
-  <metadata name="dataGridStartMenuColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
-    <value>Command</value>
+  <data name="buttonHelpDesktop.Text" xml:space="preserve">
+    <value>?</value>
   </data>
   <data name="&gt;&gt;buttonHelpDesktop.Name" xml:space="preserve">
     <value>buttonHelpDesktop</value>
   </data>
   <data name="&gt;&gt;buttonHelpDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpDesktop.Parent" xml:space="preserve">
     <value>tabPageDesktop</value>
@@ -439,11 +276,35 @@
   <data name="&gt;&gt;buttonHelpDesktop.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="dataGridDesktopColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridDesktopColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridDesktop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridDesktop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridDesktop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridDesktop.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;dataGridDesktop.Name" xml:space="preserve">
     <value>dataGridDesktop</value>
   </data>
   <data name="&gt;&gt;dataGridDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDesktop.Parent" xml:space="preserve">
     <value>tabPageDesktop</value>
@@ -470,7 +331,7 @@
     <value>tabPageDesktop</value>
   </data>
   <data name="&gt;&gt;tabPageDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageDesktop.Parent" xml:space="preserve">
     <value>tabControl</value>
@@ -478,81 +339,26 @@
   <data name="&gt;&gt;tabPageDesktop.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="buttonHelpDesktop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonHelpSendTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonHelpDesktop.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonHelpSendTo.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 168</value>
   </data>
-  <data name="buttonHelpDesktop.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonHelpSendTo.Size" type="System.Drawing.Size, System.Drawing">
     <value>21, 23</value>
   </data>
-  <data name="buttonHelpDesktop.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonHelpSendTo.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="buttonHelpDesktop.Text" xml:space="preserve">
+  <data name="buttonHelpSendTo.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.Name" xml:space="preserve">
-    <value>buttonHelpDesktop</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.Parent" xml:space="preserve">
-    <value>tabPageDesktop</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDesktop.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="dataGridDesktopColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridDesktopColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridDesktop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dataGridDesktop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dataGridDesktop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 185</value>
-  </data>
-  <data name="dataGridDesktop.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.Name" xml:space="preserve">
-    <value>dataGridDesktop</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.Parent" xml:space="preserve">
-    <value>tabPageDesktop</value>
-  </data>
-  <data name="&gt;&gt;dataGridDesktop.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="dataGridDesktopColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <metadata name="dataGridDesktopColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
-    <value>Command</value>
   </data>
   <data name="&gt;&gt;buttonHelpSendTo.Name" xml:space="preserve">
     <value>buttonHelpSendTo</value>
   </data>
   <data name="&gt;&gt;buttonHelpSendTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpSendTo.Parent" xml:space="preserve">
     <value>tabPageSendTo</value>
@@ -560,11 +366,35 @@
   <data name="&gt;&gt;buttonHelpSendTo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridSendTo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridSendTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridSendTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridSendTo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;dataGridSendTo.Name" xml:space="preserve">
     <value>dataGridSendTo</value>
   </data>
   <data name="&gt;&gt;dataGridSendTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridSendTo.Parent" xml:space="preserve">
     <value>tabPageSendTo</value>
@@ -591,7 +421,7 @@
     <value>tabPageSendTo</value>
   </data>
   <data name="&gt;&gt;tabPageSendTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageSendTo.Parent" xml:space="preserve">
     <value>tabControl</value>
@@ -599,81 +429,26 @@
   <data name="&gt;&gt;tabPageSendTo.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="buttonHelpSendTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonHelpAliases.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonHelpSendTo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonHelpAliases.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 168</value>
   </data>
-  <data name="buttonHelpSendTo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonHelpAliases.Size" type="System.Drawing.Size, System.Drawing">
     <value>21, 23</value>
   </data>
-  <data name="buttonHelpSendTo.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonHelpAliases.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="buttonHelpSendTo.Text" xml:space="preserve">
+  <data name="buttonHelpAliases.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="&gt;&gt;buttonHelpSendTo.Name" xml:space="preserve">
-    <value>buttonHelpSendTo</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpSendTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpSendTo.Parent" xml:space="preserve">
-    <value>tabPageSendTo</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpSendTo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridSendTo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dataGridSendTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dataGridSendTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 185</value>
-  </data>
-  <data name="dataGridSendTo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridSendTo.Name" xml:space="preserve">
-    <value>dataGridSendTo</value>
-  </data>
-  <data name="&gt;&gt;dataGridSendTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridSendTo.Parent" xml:space="preserve">
-    <value>tabPageSendTo</value>
-  </data>
-  <data name="&gt;&gt;dataGridSendTo.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
-    <value>Command</value>
   </data>
   <data name="&gt;&gt;buttonHelpAliases.Name" xml:space="preserve">
     <value>buttonHelpAliases</value>
   </data>
   <data name="&gt;&gt;buttonHelpAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpAliases.Parent" xml:space="preserve">
     <value>tabPageAliases</value>
@@ -681,11 +456,35 @@
   <data name="&gt;&gt;buttonHelpAliases.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="dataGridAliasesColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridAliasesColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridAliases.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridAliases.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridAliases.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridAliases.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;dataGridAliases.Name" xml:space="preserve">
     <value>dataGridAliases</value>
   </data>
   <data name="&gt;&gt;dataGridAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAliases.Parent" xml:space="preserve">
     <value>tabPageAliases</value>
@@ -712,7 +511,7 @@
     <value>tabPageAliases</value>
   </data>
   <data name="&gt;&gt;tabPageAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageAliases.Parent" xml:space="preserve">
     <value>tabControl</value>
@@ -720,81 +519,26 @@
   <data name="&gt;&gt;tabPageAliases.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="buttonHelpAliases.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonHelpAutoStart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="buttonHelpAliases.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonHelpAutoStart.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 168</value>
   </data>
-  <data name="buttonHelpAliases.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonHelpAutoStart.Size" type="System.Drawing.Size, System.Drawing">
     <value>21, 23</value>
   </data>
-  <data name="buttonHelpAliases.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonHelpAutoStart.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="buttonHelpAliases.Text" xml:space="preserve">
+  <data name="buttonHelpAutoStart.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.Name" xml:space="preserve">
-    <value>buttonHelpAliases</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.Parent" xml:space="preserve">
-    <value>tabPageAliases</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAliases.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="dataGridAliasesColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridAliasesColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAliases.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dataGridAliases.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dataGridAliases.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 185</value>
-  </data>
-  <data name="dataGridAliases.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.Name" xml:space="preserve">
-    <value>dataGridAliases</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.Parent" xml:space="preserve">
-    <value>tabPageAliases</value>
-  </data>
-  <data name="&gt;&gt;dataGridAliases.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="dataGridAliasesColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <metadata name="dataGridAliasesColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
-    <value>Command</value>
   </data>
   <data name="&gt;&gt;buttonHelpAutoStart.Name" xml:space="preserve">
     <value>buttonHelpAutoStart</value>
   </data>
   <data name="&gt;&gt;buttonHelpAutoStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpAutoStart.Parent" xml:space="preserve">
     <value>tabPageAutoStart</value>
@@ -802,11 +546,35 @@
   <data name="&gt;&gt;buttonHelpAutoStart.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridAutoStart.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridAutoStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridAutoStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridAutoStart.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;dataGridAutoStart.Name" xml:space="preserve">
     <value>dataGridAutoStart</value>
   </data>
   <data name="&gt;&gt;dataGridAutoStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoStart.Parent" xml:space="preserve">
     <value>tabPageAutoStart</value>
@@ -833,146 +601,13 @@
     <value>tabPageAutoStart</value>
   </data>
   <data name="&gt;&gt;tabPageAutoStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPageAutoStart.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
   <data name="&gt;&gt;tabPageAutoStart.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="buttonHelpAutoStart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonHelpAutoStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 168</value>
-  </data>
-  <data name="buttonHelpAutoStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>21, 23</value>
-  </data>
-  <data name="buttonHelpAutoStart.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonHelpAutoStart.Text" xml:space="preserve">
-    <value>?</value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoStart.Name" xml:space="preserve">
-    <value>buttonHelpAutoStart</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoStart.Parent" xml:space="preserve">
-    <value>tabPageAutoStart</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoStart.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAutoStart.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dataGridAutoStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dataGridAutoStart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>436, 185</value>
-  </data>
-  <data name="dataGridAutoStart.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoStart.Name" xml:space="preserve">
-    <value>dataGridAutoStart</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoStart.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoStart.Parent" xml:space="preserve">
-    <value>tabPageAutoStart</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoStart.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
-    <value>Command</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.Name" xml:space="preserve">
-    <value>buttonHelpFileTypes</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.Parent" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpFileTypes.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.Name" xml:space="preserve">
-    <value>checkBoxFileTypesAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.Parent" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFileTypesAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.Name" xml:space="preserve">
-    <value>dataGridFileTypes</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.Parent" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;dataGridFileTypes.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPageFileTypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPageFileTypes.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPageFileTypes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>442, 191</value>
-  </data>
-  <data name="tabPageFileTypes.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>File types</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Name" xml:space="preserve">
-    <value>tabPageFileTypes</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabPageFileTypes.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="buttonHelpFileTypes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -988,13 +623,12 @@
   </data>
   <data name="buttonHelpFileTypes.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonHelpFileTypes.Name" xml:space="preserve">
     <value>buttonHelpFileTypes</value>
   </data>
   <data name="&gt;&gt;buttonHelpFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpFileTypes.Parent" xml:space="preserve">
     <value>tabPageFileTypes</value>
@@ -1024,7 +658,7 @@
     <value>checkBoxFileTypesAll</value>
   </data>
   <data name="&gt;&gt;checkBoxFileTypesAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxFileTypesAll.Parent" xml:space="preserve">
     <value>tabPageFileTypes</value>
@@ -1032,17 +666,32 @@
   <data name="&gt;&gt;checkBoxFileTypesAll.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="dataGridFileTypesColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridFileTypesColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridFileTypesColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="dataGridFileTypes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="dataGridFileTypesColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.Width" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <metadata name="dataGridFileTypesColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <metadata name="dataGridFileTypesColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>Extensions</value>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.Width" type="System.Int32, mscorlib">
+    <value>83</value>
   </data>
   <data name="dataGridFileTypes.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1057,7 +706,7 @@
     <value>dataGridFileTypes</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypes.Parent" xml:space="preserve">
     <value>tabPageFileTypes</value>
@@ -1065,92 +714,32 @@
   <data name="&gt;&gt;dataGridFileTypes.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="dataGridFileTypesColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="dataGridFileTypesColumnDefault.Width" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <metadata name="dataGridFileTypesColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <metadata name="dataGridFileTypesColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>Extensions</value>
-  </data>
-  <data name="dataGridFileTypesColumnExtensions.Width" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.Name" xml:space="preserve">
-    <value>buttonHelpUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.Parent" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpUrlProtocols.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.Name" xml:space="preserve">
-    <value>checkBoxUrlProtocolsAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.Parent" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;checkBoxUrlProtocolsAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.Name" xml:space="preserve">
-    <value>dataGridUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.Parent" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
-  </data>
-  <data name="&gt;&gt;dataGridUrlProtocols.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPageUrlProtocols.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageFileTypes.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPageUrlProtocols.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageFileTypes.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPageUrlProtocols.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageFileTypes.Size" type="System.Drawing.Size, System.Drawing">
     <value>442, 191</value>
   </data>
-  <data name="tabPageUrlProtocols.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="tabPageFileTypes.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>URL protocols</value>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>File types</value>
   </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Name" xml:space="preserve">
-    <value>tabPageUrlProtocols</value>
+  <data name="&gt;&gt;tabPageFileTypes.Name" xml:space="preserve">
+    <value>tabPageFileTypes</value>
   </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabPageFileTypes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageFileTypes.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
-  <data name="&gt;&gt;tabPageUrlProtocols.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="&gt;&gt;tabPageFileTypes.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="buttonHelpUrlProtocols.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1166,13 +755,12 @@
   </data>
   <data name="buttonHelpUrlProtocols.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonHelpUrlProtocols.Name" xml:space="preserve">
     <value>buttonHelpUrlProtocols</value>
   </data>
   <data name="&gt;&gt;buttonHelpUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpUrlProtocols.Parent" xml:space="preserve">
     <value>tabPageUrlProtocols</value>
@@ -1202,7 +790,7 @@
     <value>checkBoxUrlProtocolsAll</value>
   </data>
   <data name="&gt;&gt;checkBoxUrlProtocolsAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxUrlProtocolsAll.Parent" xml:space="preserve">
     <value>tabPageUrlProtocols</value>
@@ -1210,17 +798,32 @@
   <data name="&gt;&gt;checkBoxUrlProtocolsAll.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="dataGridUrlProtocolsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridUrlProtocolsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridUrlProtocolsColumnProtocols.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="dataGridUrlProtocols.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="dataGridUrlProtocolsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.Width" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <metadata name="dataGridUrlProtocolsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <metadata name="dataGridUrlProtocolsColumnProtocols.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>Protocols</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.Width" type="System.Int32, mscorlib">
+    <value>76</value>
   </data>
   <data name="dataGridUrlProtocols.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1235,7 +838,7 @@
     <value>dataGridUrlProtocols</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocols.Parent" xml:space="preserve">
     <value>tabPageUrlProtocols</value>
@@ -1243,92 +846,32 @@
   <data name="&gt;&gt;dataGridUrlProtocols.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="dataGridUrlProtocolsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="dataGridUrlProtocolsColumnDefault.Width" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <metadata name="dataGridUrlProtocolsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <metadata name="dataGridUrlProtocolsColumnProtocols.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
-    <value>Protocols</value>
-  </data>
-  <data name="dataGridUrlProtocolsColumnProtocols.Width" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.Name" xml:space="preserve">
-    <value>buttonHelpAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.Parent" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpAutoPlay.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.Name" xml:space="preserve">
-    <value>checkBoxAutoPlayAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.Parent" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;checkBoxAutoPlayAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.Name" xml:space="preserve">
-    <value>dataGridAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.Parent" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
-  </data>
-  <data name="&gt;&gt;dataGridAutoPlay.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPageAutoPlay.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageUrlProtocols.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPageAutoPlay.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageUrlProtocols.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPageAutoPlay.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageUrlProtocols.Size" type="System.Drawing.Size, System.Drawing">
     <value>442, 191</value>
   </data>
-  <data name="tabPageAutoPlay.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="tabPageUrlProtocols.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>URL protocols</value>
   </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Name" xml:space="preserve">
-    <value>tabPageAutoPlay</value>
+  <data name="&gt;&gt;tabPageUrlProtocols.Name" xml:space="preserve">
+    <value>tabPageUrlProtocols</value>
   </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabPageUrlProtocols.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPageAutoPlay.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageUrlProtocols.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
-  <data name="&gt;&gt;tabPageAutoPlay.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;tabPageUrlProtocols.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="buttonHelpAutoPlay.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1344,13 +887,12 @@
   </data>
   <data name="buttonHelpAutoPlay.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonHelpAutoPlay.Name" xml:space="preserve">
     <value>buttonHelpAutoPlay</value>
   </data>
   <data name="&gt;&gt;buttonHelpAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpAutoPlay.Parent" xml:space="preserve">
     <value>tabPageAutoPlay</value>
@@ -1380,7 +922,7 @@
     <value>checkBoxAutoPlayAll</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoPlayAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoPlayAll.Parent" xml:space="preserve">
     <value>tabPageAutoPlay</value>
@@ -1388,17 +930,32 @@
   <data name="&gt;&gt;checkBoxAutoPlayAll.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="dataGridAutoPlayColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridAutoPlayColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridAutoPlayColumnEvents.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="dataGridAutoPlay.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="dataGridAutoPlayColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.Width" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <metadata name="dataGridAutoPlayColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <metadata name="dataGridAutoPlayColumnEvents.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.Width" type="System.Int32, mscorlib">
+    <value>65</value>
   </data>
   <data name="dataGridAutoPlay.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1413,7 +970,7 @@
     <value>dataGridAutoPlay</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlay.Parent" xml:space="preserve">
     <value>tabPageAutoPlay</value>
@@ -1421,92 +978,32 @@
   <data name="&gt;&gt;dataGridAutoPlay.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="dataGridAutoPlayColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="dataGridAutoPlayColumnDefault.Width" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <metadata name="dataGridAutoPlayColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <metadata name="dataGridAutoPlayColumnEvents.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
-    <value>Events</value>
-  </data>
-  <data name="dataGridAutoPlayColumnEvents.Width" type="System.Int32, mscorlib">
-    <value>65</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.Name" xml:space="preserve">
-    <value>buttonHelpContextMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.Parent" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpContextMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.Name" xml:space="preserve">
-    <value>checkBoxContextMenuAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.Parent" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;checkBoxContextMenuAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.Name" xml:space="preserve">
-    <value>dataGridContextMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.Parent" xml:space="preserve">
-    <value>tabPageContextMenu</value>
-  </data>
-  <data name="&gt;&gt;dataGridContextMenu.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPageContextMenu.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageAutoPlay.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPageContextMenu.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageAutoPlay.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPageContextMenu.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageAutoPlay.Size" type="System.Drawing.Size, System.Drawing">
     <value>442, 191</value>
   </data>
-  <data name="tabPageContextMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="tabPageAutoPlay.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Context menu</value>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>AutoPlay</value>
   </data>
-  <data name="&gt;&gt;tabPageContextMenu.Name" xml:space="preserve">
-    <value>tabPageContextMenu</value>
+  <data name="&gt;&gt;tabPageAutoPlay.Name" xml:space="preserve">
+    <value>tabPageAutoPlay</value>
   </data>
-  <data name="&gt;&gt;tabPageContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabPageAutoPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPageContextMenu.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageAutoPlay.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
-  <data name="&gt;&gt;tabPageContextMenu.ZOrder" xml:space="preserve">
-    <value>8</value>
+  <data name="&gt;&gt;tabPageAutoPlay.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="buttonHelpContextMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1522,13 +1019,12 @@
   </data>
   <data name="buttonHelpContextMenu.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonHelpContextMenu.Name" xml:space="preserve">
     <value>buttonHelpContextMenu</value>
   </data>
   <data name="&gt;&gt;buttonHelpContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpContextMenu.Parent" xml:space="preserve">
     <value>tabPageContextMenu</value>
@@ -1558,7 +1054,7 @@
     <value>checkBoxContextMenuAll</value>
   </data>
   <data name="&gt;&gt;checkBoxContextMenuAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxContextMenuAll.Parent" xml:space="preserve">
     <value>tabPageContextMenu</value>
@@ -1566,14 +1062,23 @@
   <data name="&gt;&gt;checkBoxContextMenuAll.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="dataGridContextMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.Width" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Entry name</value>
   </data>
   <data name="dataGridContextMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1588,7 +1093,7 @@
     <value>dataGridContextMenu</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenu.Parent" xml:space="preserve">
     <value>tabPageContextMenu</value>
@@ -1596,83 +1101,32 @@
   <data name="&gt;&gt;dataGridContextMenu.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
-    <value>Enabled</value>
-  </data>
-  <data name="dataGridContextMenuColumnEnabled.Width" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
-  <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Entry name</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.Name" xml:space="preserve">
-    <value>buttonHelpDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.Parent" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;buttonHelpDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.Name" xml:space="preserve">
-    <value>checkBoxDefaultProgramsAll</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.Parent" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDefaultProgramsAll.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.Name" xml:space="preserve">
-    <value>dataGridDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.Parent" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
-  </data>
-  <data name="&gt;&gt;dataGridDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabPageDefaultPrograms.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tabPageContextMenu.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPageDefaultPrograms.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tabPageContextMenu.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tabPageDefaultPrograms.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPageContextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>442, 191</value>
   </data>
-  <data name="tabPageDefaultPrograms.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="tabPageContextMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Default programs</value>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>Context menu</value>
   </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Name" xml:space="preserve">
-    <value>tabPageDefaultPrograms</value>
+  <data name="&gt;&gt;tabPageContextMenu.Name" xml:space="preserve">
+    <value>tabPageContextMenu</value>
   </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabPageContextMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tabPageContextMenu.Parent" xml:space="preserve">
     <value>tabControl</value>
   </data>
-  <data name="&gt;&gt;tabPageDefaultPrograms.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;tabPageContextMenu.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <data name="buttonHelpDefaultPrograms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1688,13 +1142,12 @@
   </data>
   <data name="buttonHelpDefaultPrograms.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonHelpDefaultPrograms.Name" xml:space="preserve">
     <value>buttonHelpDefaultPrograms</value>
   </data>
   <data name="&gt;&gt;buttonHelpDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelpDefaultPrograms.Parent" xml:space="preserve">
     <value>tabPageDefaultPrograms</value>
@@ -1724,7 +1177,7 @@
     <value>checkBoxDefaultProgramsAll</value>
   </data>
   <data name="&gt;&gt;checkBoxDefaultProgramsAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxDefaultProgramsAll.Parent" xml:space="preserve">
     <value>tabPageDefaultPrograms</value>
@@ -1732,17 +1185,32 @@
   <data name="&gt;&gt;checkBoxDefaultProgramsAll.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="dataGridDefaultProgramsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridDefaultProgramsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridDefaultProgramsColumnService.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="dataGridDefaultPrograms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="dataGridDefaultProgramsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.Width" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <metadata name="dataGridDefaultProgramsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <metadata name="dataGridDefaultProgramsColumnService.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.Width" type="System.Int32, mscorlib">
+    <value>68</value>
   </data>
   <data name="dataGridDefaultPrograms.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1757,7 +1225,7 @@
     <value>dataGridDefaultPrograms</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultPrograms.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultPrograms.Parent" xml:space="preserve">
     <value>tabPageDefaultPrograms</value>
@@ -1765,33 +1233,57 @@
   <data name="&gt;&gt;dataGridDefaultPrograms.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="dataGridDefaultProgramsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Default</value>
+  <data name="tabPageDefaultPrograms.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
-  <data name="dataGridDefaultProgramsColumnDefault.Width" type="System.Int32, mscorlib">
-    <value>66</value>
+  <data name="tabPageDefaultPrograms.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <metadata name="dataGridDefaultProgramsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
-    <value>Description</value>
+  <data name="tabPageDefaultPrograms.Size" type="System.Drawing.Size, System.Drawing">
+    <value>442, 191</value>
   </data>
-  <metadata name="dataGridDefaultProgramsColumnService.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
-    <value>Service</value>
+  <data name="tabPageDefaultPrograms.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="dataGridDefaultProgramsColumnService.Width" type="System.Int32, mscorlib">
-    <value>68</value>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>Default programs</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="&gt;&gt;tabPageDefaultPrograms.Name" xml:space="preserve">
+    <value>tabPageDefaultPrograms</value>
+  </data>
+  <data name="&gt;&gt;tabPageDefaultPrograms.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageDefaultPrograms.Parent" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabPageDefaultPrograms.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 35</value>
+  </data>
+  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>450, 217</value>
+  </data>
+  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabControl.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="checkBoxCapabilities.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1807,6 +1299,9 @@
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>&amp;Register capabilities</value>
   </data>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Tells the operating system about the application's capabilities, such as the file types it can handle.</value>
   </data>
@@ -1817,7 +1312,7 @@
     <value>checkBoxCapabilities</value>
   </data>
   <data name="&gt;&gt;checkBoxCapabilities.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxCapabilities.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1850,7 +1345,7 @@
     <value>checkBoxAutoUpdate</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoUpdate.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1872,7 +1367,6 @@
   </data>
   <data name="labelLastDataError.Text" xml:space="preserve">
     <value>(Last data error)</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="labelLastDataError.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1881,7 +1375,7 @@
     <value>labelLastDataError</value>
   </data>
   <data name="&gt;&gt;labelLastDataError.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelLastDataError.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1908,7 +1402,7 @@
     <value>buttonAdvancedMode</value>
   </data>
   <data name="&gt;&gt;buttonAdvancedMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonAdvancedMode.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1947,7 +1441,7 @@
     <value>checkBoxStartMenuSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxStartMenuSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxStartMenuSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -1980,7 +1474,7 @@
     <value>labelStartMenuSimple</value>
   </data>
   <data name="&gt;&gt;labelStartMenuSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelStartMenuSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2013,7 +1507,7 @@
     <value>checkBoxDesktopSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxDesktopSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxDesktopSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2046,7 +1540,7 @@
     <value>labelDesktopSimple</value>
   </data>
   <data name="&gt;&gt;labelDesktopSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelDesktopSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2079,7 +1573,7 @@
     <value>checkBoxSendToSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxSendToSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxSendToSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2112,7 +1606,7 @@
     <value>labelSendToSimple</value>
   </data>
   <data name="&gt;&gt;labelSendToSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelSendToSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2145,7 +1639,7 @@
     <value>checkBoxAliasesSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxAliasesSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxAliasesSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2178,7 +1672,7 @@
     <value>labelAliasesSimple</value>
   </data>
   <data name="&gt;&gt;labelAliasesSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelAliasesSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2211,7 +1705,7 @@
     <value>checkBoxAutoStartSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoStartSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoStartSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2244,7 +1738,7 @@
     <value>labelAutoStartSimple</value>
   </data>
   <data name="&gt;&gt;labelAutoStartSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelAutoStartSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2277,7 +1771,7 @@
     <value>checkBoxFileTypesSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxFileTypesSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxFileTypesSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2310,7 +1804,7 @@
     <value>labelFileTypesSimple</value>
   </data>
   <data name="&gt;&gt;labelFileTypesSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelFileTypesSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2346,7 +1840,7 @@
     <value>checkBoxUrlProtocolsSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxUrlProtocolsSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxUrlProtocolsSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2379,7 +1873,7 @@
     <value>labelUrlProtocolsSimple</value>
   </data>
   <data name="&gt;&gt;labelUrlProtocolsSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelUrlProtocolsSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2412,7 +1906,7 @@
     <value>checkBoxAutoPlaySimple</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoPlaySimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxAutoPlaySimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2445,7 +1939,7 @@
     <value>labelAutoPlaySimple</value>
   </data>
   <data name="&gt;&gt;labelAutoPlaySimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelAutoPlaySimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2481,7 +1975,7 @@
     <value>checkBoxContextMenuSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxContextMenuSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxContextMenuSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2514,7 +2008,7 @@
     <value>labelContextMenuSimple</value>
   </data>
   <data name="&gt;&gt;labelContextMenuSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelContextMenuSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2550,7 +2044,7 @@
     <value>checkBoxDefaultProgramsSimple</value>
   </data>
   <data name="&gt;&gt;checkBoxDefaultProgramsSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxDefaultProgramsSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2583,7 +2077,7 @@
     <value>labelDefaultProgramsSimple</value>
   </data>
   <data name="&gt;&gt;labelDefaultProgramsSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelDefaultProgramsSimple.Parent" xml:space="preserve">
     <value>flowLayoutBasic</value>
@@ -2607,7 +2101,7 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;flowLayoutBasic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;flowLayoutBasic.Parent" xml:space="preserve">
     <value>panelBasic</value>
@@ -2640,7 +2134,7 @@
     <value>buttonBasicMode</value>
   </data>
   <data name="&gt;&gt;buttonBasicMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonBasicMode.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2667,7 +2161,7 @@
     <value>panelBasic</value>
   </data>
   <data name="&gt;&gt;panelBasic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panelBasic.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2675,17 +2169,26 @@
   <data name="&gt;&gt;panelBasic.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 19</value>
+  </data>
+  <data name="textBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>430, 20</value>
+  </data>
+  <data name="textBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;textBoxCommandLine.Name" xml:space="preserve">
     <value>textBoxCommandLine</value>
   </data>
   <data name="&gt;&gt;textBoxCommandLine.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxCommandLine.Parent" xml:space="preserve">
     <value>groupBoxCommandLine</value>
@@ -2709,7 +2212,7 @@
     <value>groupBoxCommandLine</value>
   </data>
   <data name="&gt;&gt;groupBoxCommandLine.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBoxCommandLine.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2717,31 +2220,7 @@
   <data name="&gt;&gt;groupBoxCommandLine.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="textBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 19</value>
-  </data>
-  <data name="textBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 20</value>
-  </data>
-  <data name="textBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBoxCommandLine.Name" xml:space="preserve">
-    <value>textBoxCommandLine</value>
-  </data>
-  <data name="&gt;&gt;textBoxCommandLine.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxCommandLine.Parent" xml:space="preserve">
-    <value>groupBoxCommandLine</value>
-  </data>
-  <data name="&gt;&gt;textBoxCommandLine.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
@@ -3862,162 +3341,162 @@
     <value>dataGridStartMenuColumnName</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenuColumnName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenuColumnCategory.Name" xml:space="preserve">
     <value>dataGridStartMenuColumnCategory</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenuColumnCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenuColumnCommand.Name" xml:space="preserve">
     <value>dataGridStartMenuColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridStartMenuColumnCommand.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDesktopColumnName.Name" xml:space="preserve">
     <value>dataGridDesktopColumnName</value>
   </data>
   <data name="&gt;&gt;dataGridDesktopColumnName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDesktopColumnCommand.Name" xml:space="preserve">
     <value>dataGridDesktopColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridDesktopColumnCommand.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridSendToColumnName.Name" xml:space="preserve">
     <value>dataGridSendToColumnName</value>
   </data>
   <data name="&gt;&gt;dataGridSendToColumnName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridSendToColumnCommand.Name" xml:space="preserve">
     <value>dataGridSendToColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridSendToColumnCommand.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAliasesColumnName.Name" xml:space="preserve">
     <value>dataGridAliasesColumnName</value>
   </data>
   <data name="&gt;&gt;dataGridAliasesColumnName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAliasesColumnCommand.Name" xml:space="preserve">
     <value>dataGridAliasesColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridAliasesColumnCommand.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoStartColumnName.Name" xml:space="preserve">
     <value>dataGridAutoStartColumnName</value>
   </data>
   <data name="&gt;&gt;dataGridAutoStartColumnName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoStartColumnCommand.Name" xml:space="preserve">
     <value>dataGridAutoStartColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridAutoStartColumnCommand.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnDefault.Name" xml:space="preserve">
     <value>dataGridFileTypesColumnDefault</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnDefault.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnDescription.Name" xml:space="preserve">
     <value>dataGridFileTypesColumnDescription</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnExtensions.Name" xml:space="preserve">
     <value>dataGridFileTypesColumnExtensions</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnExtensions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocolsColumnDefault.Name" xml:space="preserve">
     <value>dataGridUrlProtocolsColumnDefault</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocolsColumnDefault.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocolsColumnDescription.Name" xml:space="preserve">
     <value>dataGridUrlProtocolsColumnDescription</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocolsColumnDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocolsColumnProtocols.Name" xml:space="preserve">
     <value>dataGridUrlProtocolsColumnProtocols</value>
   </data>
   <data name="&gt;&gt;dataGridUrlProtocolsColumnProtocols.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlayColumnDefault.Name" xml:space="preserve">
     <value>dataGridAutoPlayColumnDefault</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlayColumnDefault.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlayColumnDescription.Name" xml:space="preserve">
     <value>dataGridAutoPlayColumnDescription</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlayColumnDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlayColumnEvents.Name" xml:space="preserve">
     <value>dataGridAutoPlayColumnEvents</value>
   </data>
   <data name="&gt;&gt;dataGridAutoPlayColumnEvents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenuColumnEnabled.Name" xml:space="preserve">
     <value>dataGridContextMenuColumnEnabled</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenuColumnEnabled.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenuColumnName.Name" xml:space="preserve">
     <value>dataGridContextMenuColumnName</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenuColumnName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultProgramsColumnDefault.Name" xml:space="preserve">
     <value>dataGridDefaultProgramsColumnDefault</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultProgramsColumnDefault.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultProgramsColumnDescription.Name" xml:space="preserve">
     <value>dataGridDefaultProgramsColumnDescription</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultProgramsColumnDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultProgramsColumnService.Name" xml:space="preserve">
     <value>dataGridDefaultProgramsColumnService</value>
   </data>
   <data name="&gt;&gt;dataGridDefaultProgramsColumnService.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolTip.Name" xml:space="preserve">
     <value>toolTip</value>
   </data>
   <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>IntegrateAppForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.3.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.4.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
