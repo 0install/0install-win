@@ -133,16 +133,22 @@
     <value>&amp;Kullanıcı adı:</value>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>&amp;Yayınlandığında uygulamaların önizleme sürümleri kullanılsın</value>
+    <value>&amp;Yeni sürümleri deneyin</value>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Kararlılık</value>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>Y&amp;enilik</value>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Çe&amp;vrimdışı kip (hiçbir şey indirilmesin)</value>
+    <value>Çevrim&amp;dışı (ağ kullanılmasın)</value>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>En &amp;küçük kip (yalnız kesinlikle gerekenler indirilsin)</value>
+    <value>&amp;Minimal (ön bellekli sürümler yeğlensin)</value>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>&amp;Tam kip (her zaman en iyi sürüm indirilsin)</value>
+    <value>&amp;Tam (normal ağ kullanımı)</value>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Ağ kullanımı</value>
