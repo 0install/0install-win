@@ -281,6 +281,10 @@ namespace ZeroInstall.Commands.WinForms
             #region Error handling
             catch (OperationCanceledException)
             {}
+            catch (ArgumentException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
             catch (UriFormatException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);

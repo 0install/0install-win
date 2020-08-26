@@ -162,7 +162,9 @@ namespace ZeroInstall.Central.WinForms
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
             #endregion
 
-            return _tileDictionary.ContainsKey(interfaceUri) ? _tileDictionary[interfaceUri] : null;
+            return _tileDictionary.TryGetValue(interfaceUri ?? throw new ArgumentNullException(nameof(interfaceUri)), out var tile)
+                ? tile
+                : null;
         }
 
         /// <inheritdoc/>
