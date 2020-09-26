@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands.WinForms
 
             HandleCreated += delegate
             {
-                Program.ConfigureTaskbar(this, Text, subCommand: ".Store.Manage", arguments: StoreMan.Name + " manage");
+                if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache) WindowsTaskbar.PreventPinning(Handle);
                 if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
                 if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
                 else if (WindowsUtils.HasUac) buttonRunAsAdmin.Visible = true;

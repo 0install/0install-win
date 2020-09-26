@@ -15,7 +15,6 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
-using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Services;
@@ -39,7 +38,10 @@ namespace ZeroInstall.Commands.WinForms
             InitializeComponent();
 
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, subCommand: ".Config", arguments: Configure.Name); };
+            HandleCreated += delegate
+            {
+                if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache) WindowsTaskbar.PreventPinning(Handle);
+            };
 
             _config = config;
             ConfigToControls();

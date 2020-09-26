@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -12,7 +11,6 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
 
@@ -29,18 +27,13 @@ namespace ZeroInstall.Central.WinForms
         public const string ExeName = "ZeroInstall";
 
         /// <summary>
-        /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
-        /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + Locations.InstallBase.GetHashCode() + ".Central";
-
-        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread] // Required for WinForms
         private static int Main(string[] args)
         {
             ProgramUtils.Init();
-            WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
+            WindowsUtils.SetCurrentProcessAppID("ZeroInstall");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
@@ -126,29 +119,6 @@ namespace ZeroInstall.Central.WinForms
                     }
                 },
                 "0install-win (" + args.JoinEscapeArguments() + ")");
-        }
-        #endregion
-
-        #region Taskbar
-        /// <summary>
-        /// Configures the Windows 7 taskbar for a specific window.
-        /// </summary>
-        /// <param name="form">The window to configure.</param>
-        /// <param name="name">The name for the taskbar entry.</param>
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method operates only on windows and not on individual controls.")]
-        internal static void ConfigureTaskbar(Form form, string name)
-        {
-            #region Sanity checks
-            if (form == null) throw new ArgumentNullException(nameof(form));
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-            #endregion
-
-            if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache)
-                WindowsTaskbar.PreventPinning(form.Handle);
-
-            string appUserModelID = AppUserModelID;
-            string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
-            WindowsTaskbar.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument(), exePath, name);
         }
         #endregion
     }

@@ -68,12 +68,20 @@ namespace ZeroInstall.Central.WinForms
         #region Form
         private void MainForm_HandleCreated(object sender, EventArgs e)
         {
-            Program.ConfigureTaskbar(this, Text);
-            WindowsTaskbar.AddTaskLinks(Program.AppUserModelID, new[]
+            if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache)
+                WindowsTaskbar.PreventPinning(Handle);
+            else
             {
-                new WindowsTaskbar.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name),
-                new WindowsTaskbar.ShellLink(buttonUpdateAll.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), UpdateApps.Name)
-            });
+                string exePath = Path.Combine(Locations.InstallBase, Program.ExeName + ".exe");
+                string commandsExe = Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe");
+                WindowsTaskbar.SetWindowAppID(Handle, "ZeroInstall", exePath.EscapeArgument(), exePath, "Zero Install");
+                WindowsTaskbar.AddTaskLinks("ZeroInstall", new[]
+                {
+                    new WindowsTaskbar.ShellLink(buttonSync.Text.Replace("&", ""), commandsExe, SyncApps.Name),
+                    new WindowsTaskbar.ShellLink(buttonUpdateAll.Text.Replace("&", ""), commandsExe, UpdateApps.Name),
+                    new WindowsTaskbar.ShellLink(buttonOptions.Text.Replace("&", ""), commandsExe, Configure.Name)
+                });
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
