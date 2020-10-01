@@ -40,7 +40,7 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.Commands" Version="2.18.1" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Commands" Version="2.18.2" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

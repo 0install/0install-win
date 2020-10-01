@@ -108,7 +108,7 @@ namespace ZeroInstall.OneGet
             }
             catch (TargetInvocationException ex) when (ex.InnerException != null)
             {
-                throw ex.InnerException.PreserveStack();
+                throw ex.InnerException.Rethrow();
             }
         }
     }

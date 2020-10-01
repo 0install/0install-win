@@ -89,7 +89,7 @@ namespace ZeroInstall.Central.WinForms
                 else buttonRunWithOptions.Visible = true;
 
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
-                SetIcon(value.GetIcon(Icon.MimeTypePng) ?? value.GetIcon(Icon.MimeTypeIco));
+                SetIcon(value.Icons.GetIcon(Icon.MimeTypePng) ?? value.Icons.GetIcon(Icon.MimeTypeIco));
             }
         }
         #endregion
