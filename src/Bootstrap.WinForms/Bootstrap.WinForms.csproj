@@ -96,7 +96,7 @@
 mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common*.dll TaskDialog.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll System.ValueTuple.dll NanoByte.Common*.dll TaskDialog.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 popd</PostBuildEvent>
   </PropertyGroup>
 </Project>
