@@ -19,7 +19,7 @@
 
 Zero Install does not define a new packaging format; unmodified tarballs or zip archives can be used. Instead, it defines an XML metadata format to describe these packages and the dependencies between them. A single metadata file can be used on multiple platforms (e.g. Windows, Ubuntu, Debian, Fedora, FreeBSD and Mac OS X).
 
-Zero Install also has some [interesting features](https://docs.0install.net/about/features/) not often found in traditional package managers. For example, while it will share libraries whenever possible, it can always install multiple versions of a package in parallel when there are conflicting requirements. Installation is always side-effect-free (each package is unpacked to its own directory and will not touch shared directories), making it ideal for use with sandboxing technologies and virtualization.</description>
+Zero Install also has some [interesting features](https://docs.0install.net/features/) not often found in traditional package managers. For example, while it will share libraries whenever possible, it can always install multiple versions of a package in parallel when there are conflicting requirements. Installation is always side-effect-free (each package is unpacked to its own directory and will not touch shared directories), making it ideal for use with sandboxing technologies and virtualization.</description>
         <releaseNotes>[News](https://0install.net/#news)</releaseNotes>
         <copyright>Copyright Bastian Eicher et al.</copyright>
         <tags>0install Zero Install Package Manager</tags>
