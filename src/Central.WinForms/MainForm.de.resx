@@ -127,7 +127,7 @@
     <value>&amp;Befehlszeile</value>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Den Feed Editor verwenden um einen neuen Feed zu erstellen</value>
+    <value>&amp;Publishing Tools verwenden um einen neue App zu paketieren</value>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
