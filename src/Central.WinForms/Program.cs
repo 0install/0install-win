@@ -2,10 +2,9 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -79,46 +78,23 @@ namespace ZeroInstall.Central.WinForms
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(params string[] args) => RunCommand(false, args);
+        internal static Task RunCommandAsync(params string[] args) => RunCommandAsync(false, args);
 
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
         /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(bool machineWide, params string[] args) => RunCommand(null, machineWide, args);
-
-        /// <summary>
-        /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
-        /// </summary>
-        /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread. Can be <c>null</c>.</param>
-        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
-        /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(Action? callback, bool machineWide, params string[] args)
+        internal static Task RunCommandAsync(bool machineWide, params string[] args)
         {
             if (machineWide) args = args.Append("--machine");
 
-            var context = SynchronizationContext.Current;
-            ThreadUtils.StartAsync(
-                () =>
-                {
-                    Log.Debug($"Launching {Commands.WinForms.Program.ExeName} in-process with arguments: {args.JoinEscapeArguments()}");
-                    using (var handler = new GuiCommandHandler())
-                        ProgramUtils.Run(Commands.WinForms.Program.ExeName, args, handler);
-
-                    if (callback != null)
-                    {
-                        try
-                        {
-                            context.Send(state => callback(), null);
-                        }
-                        catch (InvalidAsynchronousStateException)
-                        {
-                            // Ignore callback if UI was closed in the meantime
-                        }
-                    }
-                },
-                "0install-win (" + args.JoinEscapeArguments() + ")");
+            return Task.Run(() => ThreadUtils.RunSta(() =>
+            {
+                Log.Debug($"Launching {Commands.WinForms.Program.ExeName} in-process with arguments: {args.JoinEscapeArguments()}");
+                using var handler = new GuiCommandHandler();
+                ProgramUtils.Run(Commands.WinForms.Program.ExeName, args, handler);
+            }));
         }
         #endregion
     }

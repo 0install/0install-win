@@ -445,7 +445,7 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageSetupFinished
-        private void pageSetupFinished_Commit(object sender, WizardPageConfirmEventArgs e)
+        private async void pageSetupFinished_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             if (!SaveConfig())
             {
@@ -453,7 +453,7 @@ namespace ZeroInstall.Central.WinForms
                 return;
             }
 
-            Program.RunCommand(SyncApps.Name);
+            await Program.RunCommandAsync(SyncApps.Name);
         }
         #endregion
 
@@ -525,13 +525,13 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageResetServer
-        private void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e)
-            => Program.RunCommand(_machineWide, SyncApps.Name, "--reset=server");
+        private async void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e)
+            => await Program.RunCommandAsync(_machineWide, SyncApps.Name, "--reset=server");
         #endregion
 
         #region pageResetClient
-        private void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e)
-            => Program.RunCommand(_machineWide, SyncApps.Name, "--reset=client");
+        private async void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e)
+            => await Program.RunCommandAsync(_machineWide, SyncApps.Name, "--reset=client");
         #endregion
     }
 }

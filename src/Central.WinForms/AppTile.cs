@@ -225,11 +225,11 @@ namespace ZeroInstall.Central.WinForms
             #endregion
         }
 
-        private void buttonRun_Click(object sender, EventArgs e)
+        private async void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
             if (Feed != null && Feed.NeedsTerminal) new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
-            else Program.RunCommand(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
+            else await Program.RunCommandAsync(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
         private void buttonRunWithOptions_Click(object sender, EventArgs e)
@@ -238,33 +238,35 @@ namespace ZeroInstall.Central.WinForms
             new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private async void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            Program.RunCommand(Commands.Basic.Update.Name, InterfaceUri.ToStringRfc());
+            await Program.RunCommandAsync(Commands.Basic.Update.Name, InterfaceUri.ToStringRfc());
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private async void buttonAdd_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
 
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, AddApp.Name, InterfaceUri.ToStringRfc());
+            await Program.RunCommandAsync(_machineWide, AddApp.Name, InterfaceUri.ToStringRfc());
+            UpdateButtons();
         }
 
-        private void buttonIntegrate_Click(object sender, EventArgs e)
+        private async void buttonIntegrate_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
 
             // Disable buttons while operation is running
             buttonIntegrate.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, IntegrateApp.Name, InterfaceUri.ToStringRfc());
+            await Program.RunCommandAsync(_machineWide, IntegrateApp.Name, InterfaceUri.ToStringRfc());
+            UpdateButtons();
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private async void buttonRemove_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
 
@@ -275,7 +277,8 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonIntegrate.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
+            await Program.RunCommandAsync(_machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
+            UpdateButtons();
         }
         #endregion
     }

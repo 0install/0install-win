@@ -42,7 +42,7 @@ namespace ZeroInstall.Central.WinForms
                     return;
             }
 
-            Program.RunCommand(Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text);
+            Program.RunCommandAsync(Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text);
             Close();
         }
 

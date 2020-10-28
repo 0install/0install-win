@@ -120,7 +120,7 @@ namespace ZeroInstall.Central.WinForms
                 if (ZeroInstallInstance.FindOther() == null)
                     ShowDeployNotification();
             }
-            else SelfUpdateCheckAsync();
+            else SelfUpdateCheck();
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceUri">The URI of the interface to be added.</param>
         private void AddCustomInterface(string interfaceUri)
         {
-            Program.RunCommand(_machineWide, AddApp.Name, interfaceUri);
+            Program.RunCommandAsync(_machineWide, AddApp.Name, interfaceUri);
             tabControlApps.SelectTab(tabPageAppList);
         }
 
@@ -247,19 +247,19 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Buttons
-        private void buttonSync_Click(object sender, EventArgs e)
+        private async void buttonSync_Click(object sender, EventArgs e)
         {
-            if (Config.LoadSafe().IsSyncConfigured) Program.RunCommand(_machineWide, SyncApps.Name);
+            if (Config.LoadSafe().IsSyncConfigured) await Program.RunCommandAsync(_machineWide, SyncApps.Name);
             else SyncWizard.Setup(_machineWide, this);
         }
 
-        private void buttonSyncSetup_Click(object sender, EventArgs e)
+        private async void buttonSyncSetup_Click(object sender, EventArgs e)
         {
             if (Config.LoadSafe().IsSyncConfigured)
             {
                 if (!Msg.YesNo(this, Resources.SyncReplaceConfigAsk, MsgSeverity.Warn, Resources.SyncReplaceConfigYes, Resources.SyncReplaceConfigNo))
                 {
-                    Program.RunCommand(Configure.Name, "--tab=sync");
+                    await Program.RunCommandAsync(Configure.Name, "--tab=sync");
                     return;
                 }
             }
@@ -273,38 +273,38 @@ namespace ZeroInstall.Central.WinForms
             else Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
         }
 
-        private void buttonUpdateAll_Click(object sender, EventArgs e)
-            => Program.RunCommand(_machineWide, UpdateApps.Name);
+        private async void buttonUpdateAll_Click(object sender, EventArgs e)
+            => await Program.RunCommandAsync(_machineWide, UpdateApps.Name);
 
-        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
+        private async void buttonUpdateAllClean_Click(object sender, EventArgs e)
         {
             if (Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel))
-                Program.RunCommand(_machineWide, UpdateApps.Name, "--clean");
+                await Program.RunCommandAsync(_machineWide, UpdateApps.Name, "--clean");
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
             => LoadCatalogAsync();
 
         private void buttonSearch_Click(object sender, EventArgs e)
-            => Program.RunCommand(Search.Name);
+            => Program.RunCommandAsync(Search.Name);
 
-        private void buttonAddFeed_Click(object sender, EventArgs e)
+        private async void buttonAddFeed_Click(object sender, EventArgs e)
         {
             string interfaceUri = InputBox.Show(this, Text, Resources.EnterFeedUrl);
-            if (!string.IsNullOrEmpty(interfaceUri)) Program.RunCommand(_machineWide, AddApp.Name, interfaceUri);
+            if (!string.IsNullOrEmpty(interfaceUri)) await Program.RunCommandAsync(_machineWide, AddApp.Name, interfaceUri);
         }
 
         private void buttonAddCatalog_Click(object sender, EventArgs e)
-            => Program.RunCommand(Configure.Name, "--tab=catalog");
+            => Program.RunCommandAsync(Configure.Name, "--tab=catalog");
 
         private void buttonFeedEditor_Click(object sender, EventArgs e)
-            => Program.RunCommand(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
+            => Program.RunCommandAsync(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
 
         private void buttonOptions_Click(object sender, EventArgs e)
-            => Program.RunCommand(Configure.Name);
+            => Program.RunCommandAsync(Configure.Name);
 
         private void buttonStoreManage_Click(object sender, EventArgs e)
-            => Program.RunCommand(StoreMan.Name, "manage");
+            => Program.RunCommandAsync(StoreMan.Name, "manage");
 
         private void buttonCommandLine_Click(object sender, EventArgs e)
         {
@@ -388,14 +388,14 @@ namespace ZeroInstall.Central.WinForms
                     machineWide = _machineWide;
                 }
 
-                Program.RunCommand(machineWide, Self.Name, Self.Deploy.Name, "--batch", "--restart-central");
+                Program.RunCommandAsync(machineWide, Self.Name, Self.Deploy.Name, "--batch", "--restart-central");
                 Close();
             });
         }
         #endregion
 
         #region Self-update
-        private async void SelfUpdateCheckAsync()
+        private async void SelfUpdateCheck()
         {
             var availableVersion = await Task.Run(ZeroInstallInstance.SilentUpdateCheck);
             if (availableVersion == null) return;
@@ -404,7 +404,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 try
                 {
-                    Program.RunCommand(Self.Name, Self.Update.Name, "--batch", "--restart-central");
+                    Program.RunCommandAsync(Self.Name, Self.Update.Name, "--batch", "--restart-central");
                     Close();
                 }
                 #region Error handling
