@@ -65,7 +65,6 @@ namespace ZeroInstall.Central.WinForms
             this.labelVersion = new System.Windows.Forms.ToolStripLabel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.labelNotificationBar = new System.Windows.Forms.Label();
-            this.deployTimer = new System.Windows.Forms.Timer(this.components);
             this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabControlApps.SuspendLayout();
@@ -340,11 +339,6 @@ namespace ZeroInstall.Central.WinForms
             this.labelNotificationBar.Name = "labelNotificationBar";
             this.labelNotificationBar.Click += new System.EventHandler(this.labelNotificationBar_Click);
             // 
-            // deployTimer
-            // 
-            this.deployTimer.Interval = 1000;
-            this.deployTimer.Tick += new System.EventHandler(this.deployTimer_Tick);
-            // 
             // tileListMyApps
             // 
             resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
@@ -414,7 +408,6 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.ToolStripMenuItem buttonIntro;
         private System.Windows.Forms.ToolStripMenuItem buttonStoreManage;
         private System.Windows.Forms.ToolStripMenuItem buttonCommandLine;
-        private System.Windows.Forms.Timer deployTimer;
         private System.Windows.Forms.ToolStripMenuItem buttonPortableCreator;
         private System.Windows.Forms.ContextMenuStrip menuMoreApps;
         private System.Windows.Forms.ToolStripMenuItem buttonSearch;

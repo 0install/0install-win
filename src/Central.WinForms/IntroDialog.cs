@@ -2,9 +2,9 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
@@ -14,20 +14,28 @@ namespace ZeroInstall.Central.WinForms
 {
     public partial class IntroDialog : Form
     {
-        #region Startup
+        private static readonly FeedUri _coolApp = new FeedUri(FeedUri.FakePrefix + "http://cool_app/");
+        private static readonly FeedUri _commonApp = new FeedUri(FeedUri.FakePrefix + "http://common_app/");
+        private static readonly FeedUri _otherApp = new FeedUri(FeedUri.FakePrefix + "http://other_app/");
+
         public IntroDialog()
         {
             InitializeComponent();
         }
 
-        private void IntroDialog_Load(object sender, EventArgs e)
+        private async void IntroDialog_Load(object sender, EventArgs e)
         {
             this.CenterOnParent();
-
-            PlayIntro();
+            await Play();
         }
 
-        private void PlayIntro()
+        private async void buttonReplay_Click(object sender, EventArgs e)
+            => await Play();
+
+        private void buttonClose_Click(object sender, EventArgs e)
+            => Close();
+
+        private async Task Play()
         {
             buttonReplay.Visible = buttonClose.Visible = false;
             labelVideo.Visible = true;
@@ -37,32 +45,19 @@ namespace ZeroInstall.Central.WinForms
             labelSubtitles.Visible = false;
 
             SetupTiles();
-            FillActions();
-            ScheduleNextAction();
+
+            await PlayWelcome();
+            await PlayCatalogSearch();
+            await PlayRunApp();
+            await PlayAddApp();
+            await PlayMyApps();
+            await PlayIntegrateApp();
+            await PlayThanks();
+
+            tabControlApps.Hide();
+            labelVideo.Hide();
+            buttonReplay.Visible = buttonClose.Visible = true;
         }
-        #endregion
-
-        #region Event handlers
-        private void timerActions_Tick(object sender, EventArgs e)
-        {
-            timerActions.Enabled = false;
-            _actions.Dequeue().Value();
-            ScheduleNextAction();
-        }
-
-        private void buttonReplay_Click(object sender, EventArgs e)
-            => PlayIntro();
-
-        private void buttonClose_Click(object sender, EventArgs e)
-            => Close();
-        #endregion
-
-        //--------------------//
-
-        #region Tiles
-        private static readonly FeedUri _coolApp = new FeedUri(FeedUri.FakePrefix + "http://cool_app/");
-        private static readonly FeedUri _commonApp = new FeedUri(FeedUri.FakePrefix + "http://common_app/");
-        private static readonly FeedUri _otherApp = new FeedUri(FeedUri.FakePrefix + "http://other_app/");
 
         private void SetupTiles()
         {
@@ -80,75 +75,137 @@ namespace ZeroInstall.Central.WinForms
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
             tileListMyApps.AddQueuedTiles();
         }
-        #endregion
 
-        #region Actions
-        private TimedActionQueue _actions;
+        private async Task PlayWelcome()
+        {
+            await Task.Delay(3000);
+            PrintSubtitles(Resources.IntroSubtitlesWelcome);
+
+            await Task.Delay(6000);
+            labelSubtitles.Hide();
+        }
+
+        private async Task PlayCatalogSearch()
+        {
+            await Task.Delay(1000);
+            PrintSubtitles(Resources.IntroSubtitlesCatalogSearch);
+
+            await Task.Delay(3000);
+            tabControlApps.Show();
+
+            await Task.Delay(2500);
+            arrowSearch.Show();
+
+            await Task.Delay(500);
+            arrowSearch.Hide();
+
+            await Task.Delay(500);
+            arrowSearch.Show();
+
+            await Task.Delay(1500);
+            TypeText(tileListCatalog.TextSearch, "C");
+
+            await Task.Delay(500);
+            TypeText(tileListCatalog.TextSearch, "Co");
+
+            await Task.Delay(500);
+            TypeText(tileListCatalog.TextSearch, "Coo");
+
+            await Task.Delay(500);
+            TypeText(tileListCatalog.TextSearch, "Cool");
+
+            await Task.Delay(500);
+            arrowSearch.Hide();
+
+            await Task.Delay(2000);
+            labelSubtitles.Hide();
+        }
+
+        private async Task PlayRunApp()
+        {
+            await Task.Delay(1000);
+            PrintSubtitles(Resources.IntroSubtitlesRunApp);
+
+            await Task.Delay(2000);
+            FlashRectangle(GetCatalogTile(_coolApp).buttonRun);
+
+            await Task.Delay(4000);
+            GetCatalogTile(_coolApp).Refresh();
+
+            await Task.Delay(1000);
+            labelSubtitles.Hide();
+        }
+
+        private async Task PlayAddApp()
+        {
+            await Task.Delay(2000);
+            PrintSubtitles(Resources.IntroSubtitlesAddApp);
+
+            await Task.Delay(4000);
+            FlashRectangle(GetCatalogTile(_coolApp).buttonAdd);
+
+            await Task.Delay(2000);
+            GetCatalogTile(_coolApp).Status = AppStatus.Added;
+
+            await Task.Delay(3000);
+            GetCatalogTile(_coolApp).Refresh();
+
+            await Task.Delay(1000);
+            labelSubtitles.Hide();
+        }
+
+        private async Task PlayMyApps()
+        {
+            await Task.Delay(2000);
+            arrowMyApps.Show();
+
+            await Task.Delay(500);
+            arrowMyApps.Hide();
+
+            await Task.Delay(500);
+            arrowMyApps.Show();
+
+            await Task.Delay(1500);
+            tabControlApps.SelectTab(tabPageAppList);
+
+            await Task.Delay(1000);
+            PrintSubtitles(Resources.IntroSubtitlesMyApps);
+
+            await Task.Delay(4000);
+            arrowMyApps.Hide();
+
+            await Task.Delay(1000);
+            labelSubtitles.Hide();
+        }
+
+        private async Task PlayIntegrateApp()
+        {
+            await Task.Delay(1000);
+            PrintSubtitles(Resources.IntroSubtitlesIntegrateApp);
+
+            await Task.Delay(5000);
+            FlashRectangle(GetMyAppsTile(_coolApp).buttonIntegrate);
+
+            await Task.Delay(2000);
+            GetMyAppsTile(_coolApp).Status = AppStatus.Integrated;
+
+            await Task.Delay(3000);
+            GetMyAppsTile(_coolApp).Refresh();
+
+            await Task.Delay(1500);
+            labelSubtitles.Hide();
+        }
+
+        private async Task PlayThanks()
+        {
+            await Task.Delay(2000);
+            PrintSubtitles(Resources.IntroSubtitlesThanks);
+            await Task.Delay(4000);
+        }
 
         private AppTile GetCatalogTile(FeedUri interfaceUri) => (AppTile)tileListCatalog.GetTile(interfaceUri);
 
         private AppTile GetMyAppsTile(FeedUri interfaceUri) => (AppTile)tileListMyApps.GetTile(interfaceUri);
-
-        private void FillActions() => _actions = new TimedActionQueue
-        {
-            // Welcome
-            {3000, () => PrintSubtitles(Resources.IntroSubtitlesWelcome)},
-            {6000, labelSubtitles.Hide},
-            // Catalog search
-            {1000, () => PrintSubtitles(Resources.IntroSubtitlesCatalogSearch)},
-            {3000, tabControlApps.Show},
-            {2500, arrowSearch.Show},
-            {500, arrowSearch.Hide},
-            {500, arrowSearch.Show},
-            {1500, () => TypeText(tileListCatalog.TextSearch, "C")},
-            {500, () => TypeText(tileListCatalog.TextSearch, "Co")},
-            {500, () => TypeText(tileListCatalog.TextSearch, "Coo")},
-            {500, () => TypeText(tileListCatalog.TextSearch, "Cool")},
-            {500, arrowSearch.Hide},
-            {2000, labelSubtitles.Hide},
-            // Run app
-            {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
-            {2000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonRun)},
-            {4000, GetCatalogTile(_coolApp).Refresh},
-            {1000, labelSubtitles.Hide},
-            // Add app
-            {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
-            {4000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonAdd)},
-            {2000, () => { GetCatalogTile(_coolApp).Status = AppStatus.Added; }},
-            {3000, GetCatalogTile(_coolApp).Refresh},
-            {1000, labelSubtitles.Hide},
-            // My apps
-            {2000, arrowMyApps.Show},
-            {500, arrowMyApps.Hide},
-            {500, arrowMyApps.Show},
-            {1500, () => tabControlApps.SelectTab(tabPageAppList)},
-            {1000, () => PrintSubtitles(Resources.IntroSubtitlesMyApps)},
-            {4000, arrowMyApps.Hide},
-            {1000, labelSubtitles.Hide},
-            // Integrate app
-            {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
-            {5000, () => FlashRectangle(GetMyAppsTile(_coolApp).buttonIntegrate)},
-            {2000, () => { GetMyAppsTile(_coolApp).Status = AppStatus.Integrated; }},
-            {3000, GetMyAppsTile(_coolApp).Refresh},
-            {1500, labelSubtitles.Hide},
-            // Thanks
-            {2000, () => PrintSubtitles(Resources.IntroSubtitlesThanks)},
-            {
-                4000, () =>
-                {
-                    tabControlApps.Hide();
-                    labelVideo.Hide();
-                    buttonReplay.Visible = buttonClose.Visible = true;
-                }
-            }
-        };
-        #endregion
-
-        #region Actions helpers
-        private class TimedActionQueue : Queue<KeyValuePair<int, Action>>
-        {
-            public void Add(int time, Action action) => Enqueue(new KeyValuePair<int, Action>(time, action));
-        }
 
         private void PrintSubtitles(string text)
         {
@@ -178,15 +235,5 @@ namespace ZeroInstall.Central.WinForms
             using var pen = new Pen(Color.Red, 4);
             graphics.DrawRectangle(pen, new Rectangle(target.Location, target.Size));
         }
-
-        private void ScheduleNextAction()
-        {
-            if (_actions.Count > 0)
-            {
-                timerActions.Interval = _actions.Peek().Key;
-                timerActions.Enabled = true;
-            }
-        }
-        #endregion
     }
 }

@@ -118,7 +118,7 @@ namespace ZeroInstall.Central.WinForms
             if (ZeroInstallInstance.IsRunningFromCache)
             {
                 if (ZeroInstallInstance.FindOther() == null)
-                    deployTimer.Enabled = true;
+                    ShowDeployNotification();
             }
             else SelfUpdateCheckAsync();
         }
@@ -220,7 +220,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="message">The message to display in the notification bar.</param>
         /// <param name="clickHandler">A callback to execute when the notification bar is clicked.</param>
-        public void ShowNotificationBar(string message, Action clickHandler)
+        public async void ShowNotificationBar(string message, Action clickHandler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(message)) throw new ArgumentNullException(nameof(message));
@@ -231,12 +231,10 @@ namespace ZeroInstall.Central.WinForms
             labelNotificationBar.Location -= new Size(0, labelNotificationBar.Height);
             labelNotificationBar.Text = message;
             labelNotificationBar.Visible = true;
-            var timer = new Timer {Interval = 10, Enabled = true};
-            components.Add(timer);
-            timer.Tick += delegate
+            while (labelNotificationBar.Location != targetLocation)
             {
+                await Task.Delay(10);
                 labelNotificationBar.Location += new Size(0, 1);
-                if (labelNotificationBar.Location == targetLocation) timer.Enabled = false;
             };
 
             _notificationBarClickHandler = clickHandler;
@@ -359,9 +357,9 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Deploy
-        private void deployTimer_Tick(object sender, EventArgs e)
+        private async void ShowDeployNotification()
         {
-            deployTimer.Enabled = false;
+            await Task.Delay(1000);
             ShowNotificationBar(Resources.DeployNotification, () =>
             {
                 bool machineWide;

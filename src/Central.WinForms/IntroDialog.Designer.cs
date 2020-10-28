@@ -36,7 +36,6 @@ namespace ZeroInstall.Central.WinForms
             this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
-            this.timerActions = new System.Windows.Forms.Timer(this.components);
             this.labelVideo = new System.Windows.Forms.Label();
             this.buttonReplay = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
@@ -85,10 +84,6 @@ namespace ZeroInstall.Central.WinForms
             // 
             resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
             this.tileListCatalog.Name = "tileListCatalog";
-            // 
-            // timerActions
-            // 
-            this.timerActions.Tick += new System.EventHandler(this.timerActions_Tick);
             // 
             // labelVideo
             // 
@@ -158,7 +153,6 @@ namespace ZeroInstall.Central.WinForms
         private AppTileList tileListMyApps;
         private System.Windows.Forms.TabPage tabPageCatalog;
         private AppTileList tileListCatalog;
-        private System.Windows.Forms.Timer timerActions;
         private System.Windows.Forms.Label labelVideo;
         private System.Windows.Forms.Button buttonReplay;
         private System.Windows.Forms.Button buttonClose;
