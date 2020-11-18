@@ -26,7 +26,7 @@ Zero Install also has some [interesting features](https://docs.0install.net/feat
     </metadata>
     <files>
         <file src="chocolatey*.ps1" target="tools" />
-        <file src="..\..\artifacts\Bootstrap\0install\0install.*" target="tools" />
+        <file src="..\..\artifacts\Bootstrap\0install.*" target="tools" />
         <file src="0install.exe.ignore" target="tools" />
         <file src="VERIFICATION.txt" target="tools" />
         <file src="..\..\LICENSE.txt" target="tools" />

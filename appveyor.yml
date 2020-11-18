@@ -16,16 +16,9 @@ build_script:
 artifacts:
   - path: feed\*.xml
   - path: feed\*.tar.gz
-  - path: artifacts\Bootstrap\0install\0install.exe
-  - path: artifacts\Bootstrap\zero-install\zero-install.exe
-  - path: artifacts\Bootstrap\0install
-    name: 0install
-  - path: artifacts\Bootstrap\zero-install
-    name: zero-install
-  - path: artifacts\Bootstrap\0install.chocolatey.*.nupkg
-    name: chocolatey
-  - path: artifacts\Bootstrap\0install.powershell.*.nupkg
-    name: powershell
+  - path: artifacts\Bootstrap
+  - path: artifacts\0install.chocolatey.*.nupkg
+  - path: artifacts\0install.powershell.*.nupkg
 
 deploy:
   - provider: Environment

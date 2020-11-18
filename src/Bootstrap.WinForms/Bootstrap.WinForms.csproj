@@ -92,7 +92,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set ARTIFACT_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap\$(TargetName)
+    <PostBuildEvent>set ARTIFACT_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap
 mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"

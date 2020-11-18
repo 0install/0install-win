@@ -44,16 +44,16 @@ if (Get-Command mt -ErrorAction SilentlyContinue) {
   mt -nologo -manifest OneGet\provider.manifest -outputresource:"..\artifacts\Release\ZeroInstall.OneGet.dll;#101"
   mt -nologo -manifest OneGet\provider.manifest -outputresource:"OneGet.Bootstrap\bin\Release\0install.dll;#101"
 
-  0install run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -NoPackageAnalysis -Properties Version=$Version -OutputDirectory ..\artifacts\Bootstrap
-  move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.powershell.$Version.nupkg
+  0install run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -NoPackageAnalysis -Properties Version=$Version -OutputDirectory ..\artifacts
+  move -Force ..\artifacts\0install.$Version.nupkg ..\artifacts\0install.powershell.$Version.nupkg
 } else {
   Write-Warning "You need mt.exe to build the 0install OneGet provider"
 }
 
 # Generate bootstrap package for Chocolatey
 if (Get-Command choco -ErrorAction SilentlyContinue) {
-  choco pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts\Bootstrap
-  move -Force ..\artifacts\Bootstrap\0install.$Version.nupkg ..\artifacts\Bootstrap\0install.chocolatey.$Version.nupkg
+  choco pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts
+  move -Force ..\artifacts\0install.$Version.nupkg ..\artifacts\0install.chocolatey.$Version.nupkg
 } else {
   Write-Warning "You need choco.exe to build the 0install Chocolatey package"
 }
