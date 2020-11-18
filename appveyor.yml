@@ -2,8 +2,6 @@ image: Visual Studio 2019
 
 cache:
   - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
-  - '%LOCALAPPDATA%\0install.net'
-  - '%APPDATA%\0install.net'
 
 before_build:
   - choco install GitVersion.Portable --version 4.0.0
@@ -13,21 +11,12 @@ build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
 
 artifacts:
-  - path: artifacts\0install-win-*.tar.gz
-  - path: artifacts\Bootstrap
-  - path: artifacts\0install.chocolatey.*.nupkg
-  - path: artifacts\0install.powershell.*.nupkg
+  - path: artifacts
 
 deploy:
-  - provider: Environment
-    name: GitHub Releases
-    on:
-      appveyor_repo_tag: true
-  - provider: Environment
-    name: Chocolatey
-    on:
-      appveyor_repo_tag: true
-  - provider: Environment
-    name: PowerShell Gallery
-    on:
-      appveyor_repo_tag: true
+  - provider: Webhook
+    url: https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/Integrations/AppVeyor?ProjectSlug=win&SigningPolicySlug=release-signing
+    authorization:
+       secure: 1lrrvByUN3qR7P/QQN6XXy4LWmh8ls/veOESoeVffvyF4kOqo28JxoZtIxYOZZpAZKlbAv8tWQaLFZiUxXFHmA==
+    #on:
+    #  appveyor_repo_tag: true

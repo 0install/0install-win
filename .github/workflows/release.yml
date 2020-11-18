@@ -1,0 +1,63 @@
+name: Release
+on:
+  repository_dispatch:
+    types: [signpath]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Prepare
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.5.x'
+      - uses: gittools/actions/gitversion/execute@v0.9.7
+        id: gitversion
+
+      # Download
+      - run: |
+          curl -H "Authorization: Bearer ${{secrets.SIGNPATH_APIKEY}}" -o artifacts.zip https://app.signpath.io/API/v1/${{github.event.client_payload.organization_id}}/SigningRequest/${{github.event.client_payload.request_id}}/SignedArtifact
+          mkdir artifacts
+          unzip artifacts.zip -d artifacts
+
+      # Package
+      - name: Package Release
+        run: |
+          cd artifacts/Release
+          tar -czf ../0install-win-${{steps.gitversion.outputs.nuGetVersion}}.tar.gz --exclude '*.pdb' *
+      - name: Package Bootstrapper
+        run: |
+          cd artifacts/Bootstrap
+          zip -9 ../0install.zip 0install.*
+          zip -9 ../zero-install.zip zero-install.*
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: artifacts
+
+      # Release
+      #- name: Create GitHub Release
+      #  if: steps.gitversion.outputs.preReleaseLabel == ''
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  with:
+      #    tag_name: ${{steps.gitversion.outputs.nuGetVersion}}
+      #    release_name: ${{steps.gitversion.outputs.nuGetVersion}}
+      #  env:
+      #    GITHUB_TOKEN: ${{github.token}}
+      #- name: Upload Release Asset
+      #  if: steps.gitversion.outputs.preReleaseLabel == ''
+      #  uses: actions/upload-release-asset@v1
+      #  with:
+      #    upload_url: ${{steps.create_release.outputs.upload_url}}
+      #    asset_path: artifacts/0install-win-${{steps.gitversion.outputs.nuGetVersion}}.tar.gz
+      #    asset_name: 0install-win-${{steps.gitversion.outputs.nuGetVersion}}.tar.gz
+      #    asset_content_type: application/gzip
+      #  env:
+      #    GITHUB_TOKEN: ${{github.token}}
+      # TODO: Chocolatey
+      # TODO: PowerShell Gallery
+      # TODO: Bootstrapper
