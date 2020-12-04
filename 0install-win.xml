@@ -20,9 +20,7 @@
       <runner command="run-gui" interface="https://apps.0install.net/dotnet/clr.xml" version="4.5.."/>
     </command>
 
-    <implementation version="{version}" stability="{stability}" local-path="../artifacts/Release">
-      <manifest-digest/>
-      <archive href="0install-win-{version}.tar.gz"/>
-    </implementation>
+    <!-- Use very high version number to treat local build as newer than any public version. -->
+    <implementation id="./artifacts/Release" version="100-pre"/>
   </group>
 </interface>

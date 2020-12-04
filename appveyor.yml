@@ -11,11 +11,9 @@ before_build:
 
 build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
-  - ps: feed\build.ps1 $env:GitVersion_NuGetVersion
 
 artifacts:
-  - path: feed\*.xml
-  - path: feed\*.tar.gz
+  - path: artifacts\0install-win-*.tar.gz
   - path: artifacts\Bootstrap
   - path: artifacts\0install.chocolatey.*.nupkg
   - path: artifacts\0install.powershell.*.nupkg
