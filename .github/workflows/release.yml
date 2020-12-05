@@ -1,0 +1,61 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+      signing_request_id:
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
+          unzip artifacts.zip
+
+      - name: Package Bootstrapper
+        run: |
+          cd Bootstrap
+          zip -9 ../0install.zip 0install.*
+          zip -9 ../zero-install.zip zero-install.*
+      - name: Upload Bootstrapper
+        uses: actions/upload-artifact@v2
+        with:
+          name: bootstrap
+          path: |
+            0install.zip
+            zero-install.zip
+            Bootstrap/0install.exe
+            Bootstrap/zero-install.exe
+      # TODO: Update on get.0install.net
+
+      - name: Package Release
+        run: |
+          cd Release
+          tar -czf ../0install-win-${{github.event.inputs.version}}.tar.gz --exclude '*.pdb' *
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{github.event.inputs.version}}
+          release_name: ${{github.event.inputs.version}}
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+      - name: Upload Release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{steps.create_release.outputs.upload_url}}
+          asset_path: 0install-win-${{github.event.inputs.version}}.tar.gz
+          asset_name: 0install-win-${{github.event.inputs.version}}.tar.gz
+          asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+      # TODO: Trigger 0install/apps worklow
+
+      - name: Push Chocolatey package
+        run: dotnet nuget push 0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
+
+      - name: Push PowerShell Gallery package
+        run: dotnet nuget push 0install.chocolatey.*.nupkg --source https://www.powershellgallery.com/ --api-key ${{secrets.POWERSHELL_GALLERY_API_KEY}}

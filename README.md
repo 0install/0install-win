@@ -20,3 +20,9 @@ If you wish to deploy the build after compilation as the default Zero Install in
 We welcome contributions to this project such as bug reports, recommendations, pull requests and [translations](https://www.transifex.com/eicher/0install-win/). If you have any questions feel free to pitch in on our [friendly mailing list](https://0install.net/support.html#lists).
 
 This repository contains an [EditorConfig](http://editorconfig.org/) file. Please make sure to use an editor that supports it to ensure consistent code style, file encoding, etc.. For full tooling support for all style and naming conventions consider using JetBrains' [ReSharper](https://www.jetbrains.com/resharper/) or [Rider](https://www.jetbrains.com/rider/) products.
+
+## Privacy and code signing policy
+
+Zero Install for Windows contacts various servers automatically during normal operation (e.g., to check for updates). No personal information is transmitted to these systems unless specifically requested by the user (e.g., to synchronize apps between computers). See the [documentation](https://docs.0install.net/) for details.
+
+This program uses free code signing provided by [SignPath.io](https://signpath.io/) and a certificate by the [SignPath Foundation](https://sig.fo/). Signed releases are published by [Bastian Eicher](https://github.com/bastianeicher).
