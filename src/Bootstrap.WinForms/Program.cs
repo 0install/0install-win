@@ -69,7 +69,7 @@ namespace ZeroInstall
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
+            ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));
 
             using var handler = new GuiTaskHandler();
             return ProgramUtils.Run(args, handler, gui: true);

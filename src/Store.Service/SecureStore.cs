@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Service
                     // Give the calling user write access
                     var acl = Directory.GetAccessControl(path);
                     acl.CanonicalizeAcl();
-                    acl.AddAccessRule(new FileSystemAccessRule(callingIdentity.User, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                    acl.AddAccessRule(new(callingIdentity.User, FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
                     Directory.SetAccessControl(path, acl);
                     return path;
                 }

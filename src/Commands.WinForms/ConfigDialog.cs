@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands.WinForms
         #region Global
         // Don't use WinForms designer for this, since it doesn't understand generics
         // ReSharper disable once InconsistentNaming
-        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new() {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
 
         public ConfigDialog(Config config)
         {
@@ -373,8 +373,8 @@ namespace ZeroInstall.Commands.WinForms
         private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
         {
             _config.SyncServer = !textBoxSyncServer.IsValid || string.IsNullOrEmpty(textBoxSyncServer.Text)
-                ? new FeedUri(Config.DefaultSyncServer)
-                : new FeedUri(textBoxSyncServer.Uri);
+                ? new(Config.DefaultSyncServer)
+                : new(textBoxSyncServer.Uri);
             propertyGridAdvanced.Refresh();
         }
 

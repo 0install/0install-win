@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
         /// <summary>A wait handle used by <see cref="CustomizeSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
-        private readonly AutoResetEvent _customizeSelectionsWaitHandle = new AutoResetEvent(false);
+        private readonly AutoResetEvent _customizeSelectionsWaitHandle = new(false);
 
         public GuiCommandHandler()
         {

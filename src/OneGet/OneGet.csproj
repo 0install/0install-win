@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <Nullable>annotations</Nullable>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>

@@ -74,19 +74,19 @@ namespace ZeroInstall.OneGet
 
         public void ResolvePackageSources()
         {
-            var registerdSources = Services.Feeds.CatalogManager.GetSources();
+            var registeredSources = Services.Feeds.CatalogManager.GetSources();
 
             if (_request.Sources.Any())
             {
-                foreach (var uri in _request.Sources.TrySelect<string, FeedUri, UriFormatException>(x => new FeedUri(x)))
+                foreach (var uri in _request.Sources.TrySelect<string, FeedUri, UriFormatException>(x => new(x)))
                 {
-                    bool isRegistered = registerdSources.Contains(uri);
+                    bool isRegistered = registeredSources.Contains(uri);
                     _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: isRegistered, isRegistered: isRegistered, isValidated: false);
                 }
             }
             else
             {
-                foreach (var uri in registerdSources)
+                foreach (var uri in registeredSources)
                     _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: true, isRegistered: true, isValidated: false);
             }
         }
@@ -262,7 +262,7 @@ namespace ZeroInstall.OneGet
             Log.Info(Resources.DesktopIntegrationApply);
             var feed = FeedManager[requirements.InterfaceUri];
             using var integrationManager = new CategoryIntegrationManager(Config, Handler, MachineWide);
-            var appEntry = integrationManager.AddApp(new FeedTarget(requirements.InterfaceUri, feed));
+            var appEntry = integrationManager.AddApp(new(requirements.InterfaceUri, feed));
             integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
         }
 

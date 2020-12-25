@@ -175,7 +175,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         private SelectionCandidate GenerateDummyCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation)
-            => new SelectionCandidate(feedUri, feedPreferences, implementation,
+            => new(feedUri, feedPreferences, implementation,
                 new Requirements(_interfaceUri, "", new Architecture(Architecture.CurrentSystem.OS, Cpu.All)));
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands.WinForms
             FeedUri feedUri;
             try
             {
-                feedUri = new FeedUri(input);
+                feedUri = new(input);
             }
             catch (UriFormatException ex)
             {

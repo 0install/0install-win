@@ -78,7 +78,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.Assembly(Commands.WinForms.Program.ExeName, GetArgs().ToArray()).Start();
+                ProcessUtils.Assembly("0install-win", GetArgs().ToArray()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)

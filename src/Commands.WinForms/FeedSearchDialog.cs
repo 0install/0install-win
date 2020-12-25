@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands.WinForms
             dataGrid.DataSource = _results = query.Results;
         }
 
-        private static readonly SemaphoreSlim _querySemaphore = new SemaphoreSlim(initialCount: 1);
+        private static readonly SemaphoreSlim _querySemaphore = new(initialCount: 1);
 
         private async void queryTimer_Tick(object sender, EventArgs e)
         {
@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Assembly(Program.ExeName, "run", "--no-wait", result.Uri.ToStringRfc()).Start();
+                ProcessUtils.Assembly("0install-win", "run", "--no-wait", result.Uri.ToStringRfc()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)
@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Assembly(Program.ExeName, "add", result.Uri.ToStringRfc()).Start();
+                ProcessUtils.Assembly("0install-win", "add", result.Uri.ToStringRfc()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)
@@ -117,7 +117,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Assembly(Program.ExeName, "integrate", result.Uri.ToStringRfc()).Start();
+                ProcessUtils.Assembly("0install-win", "integrate", result.Uri.ToStringRfc()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)

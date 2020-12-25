@@ -10,7 +10,7 @@
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet.Bootstrap</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <Nullable>annotations</Nullable>
     <NoWarn>1591</NoWarn>
     <WarningLevel>4</WarningLevel>

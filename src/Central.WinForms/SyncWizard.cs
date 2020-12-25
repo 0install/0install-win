@@ -14,7 +14,6 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
@@ -189,7 +188,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (optionOfficialServer.Checked)
             {
-                _config.SyncServer = new FeedUri(Config.DefaultSyncServer);
+                _config.SyncServer = new(Config.DefaultSyncServer);
                 pageServer.NextPage = _existingAccount ? pageCredentials : pageRegister;
             }
             else if (optionCustomServer.Checked)
@@ -203,14 +202,14 @@ namespace ZeroInstall.Central.WinForms
                     }
                 }
 
-                _config.SyncServer = new FeedUri(textBoxCustomServer.Uri);
+                _config.SyncServer = new(textBoxCustomServer.Uri);
                 pageServer.NextPage = pageCredentials;
             }
             else if (optionFileShare.Checked)
             {
                 try
                 {
-                    _config.SyncServer = new FeedUri(textBoxFileShare.Text);
+                    _config.SyncServer = new(textBoxFileShare.Text);
                 }
                 #region Sanity checks
                 catch (UriFormatException ex)

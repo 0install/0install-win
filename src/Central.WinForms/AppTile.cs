@@ -27,7 +27,6 @@ namespace ZeroInstall.Central.WinForms
     /// </summary>
     public sealed partial class AppTile : UserControl, IAppTile
     {
-        #region Variables
         // Static resource preload
         private static readonly string _runButtonText = SharedResources.Run;
         private static readonly Bitmap _addImage = Resources.AppAdd, _removeImage = Resources.AppRemove, _integrateImage = Resources.AppIntegrate, _modifyImage = Resources.AppModify;
@@ -39,9 +38,7 @@ namespace ZeroInstall.Central.WinForms
 
         /// <summary>The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
         private readonly IIconStore? _iconStore;
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         public FeedUri InterfaceUri { get; }
 
@@ -54,11 +51,11 @@ namespace ZeroInstall.Central.WinForms
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public AppStatus Status
         {
-            get { return _status; }
+            get => _status;
             set
             {
                 #region Sanity checks
-                if (value < AppStatus.Candidate || value > AppStatus.Integrated) throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(AppStatus));
+                if (value is (< AppStatus.Candidate or > AppStatus.Integrated)) throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(AppStatus));
                 if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
                 #endregion
 
@@ -92,9 +89,7 @@ namespace ZeroInstall.Central.WinForms
                 SetIcon(value.Icons.GetIcon(Icon.MimeTypePng) ?? value.Icons.GetIcon(Icon.MimeTypeIco));
             }
         }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
@@ -105,11 +100,6 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         public AppTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore? iconStore = null, bool machineWide = false)
         {
-            #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
-            if (appName == null) throw new ArgumentNullException(nameof(appName));
-            #endregion
-
             _machineWide = machineWide;
             _iconStore = iconStore;
 
@@ -125,25 +115,20 @@ namespace ZeroInstall.Central.WinForms
             buttonRemove.Text = _removeText;
             buttonIntegrate.Image = _integrateImage;
 
-            InterfaceUri = interfaceUri;
-            labelName.Text = appName;
+            InterfaceUri = interfaceUri ?? throw new ArgumentNullException(nameof(interfaceUri));
+            labelName.Text = appName ?? throw new ArgumentNullException(nameof(appName));
             labelSummary.Text = "";
             Status = status;
 
-
             CreateHandle();
         }
-        #endregion
 
-        //--------------------//
-
-        #region Icon
         private async void SetIcon(Icon? icon)
         {
             pictureBoxIcon.Image = await GetIconAsync(icon);
         }
 
-        private static readonly SemaphoreSlim _iconSemaphore = new SemaphoreSlim(initialCount: 5);
+        private static readonly SemaphoreSlim _iconSemaphore = new(initialCount: 5);
 
         private async Task<Image> GetIconAsync(Icon? icon)
         {
@@ -189,9 +174,7 @@ namespace ZeroInstall.Central.WinForms
 
             return Resources.AppIcon; // Fallback default icon
         }
-        #endregion
 
-        #region Buttons
         /// <summary>
         /// Updates the visibility and icons of buttons based on the <see cref="Status"/>.
         /// </summary>
@@ -228,14 +211,14 @@ namespace ZeroInstall.Central.WinForms
         private async void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            if (Feed != null && Feed.NeedsTerminal) new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
+            if (Feed != null && Feed.NeedsTerminal) new SelectCommandDialog(new(InterfaceUri, Feed)).Show(this);
             else await Program.RunCommandAsync(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
         private void buttonRunWithOptions_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake || Feed == null) return;
-            new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
+            new SelectCommandDialog(new(InterfaceUri, Feed)).Show(this);
         }
 
         private async void buttonUpdate_Click(object sender, EventArgs e)
@@ -280,6 +263,5 @@ namespace ZeroInstall.Central.WinForms
             await Program.RunCommandAsync(_machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
             UpdateButtons();
         }
-        #endregion
     }
 }

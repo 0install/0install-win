@@ -30,7 +30,7 @@ namespace ZeroInstall.OneGet
         private object? _context;
 
         // NOTE: Static/shared lock, to avoid multiple deployments being started in parallel
-        private static readonly object _initLock = new object();
+        private static readonly object _initLock = new();
 
         public object Intercept(InvocationInfo info)
         {

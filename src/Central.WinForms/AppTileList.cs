@@ -33,13 +33,13 @@ namespace ZeroInstall.Central.WinForms
         private readonly Panel _scrollPanel;
 
         /// <summary>Maps interface URIs to <see cref="AppTile"/>s.</summary>
-        private readonly IDictionary<FeedUri, AppTile> _tileDictionary = new Dictionary<FeedUri, AppTile>();
+        private readonly Dictionary<FeedUri, AppTile> _tileDictionary = new();
 
         /// <summary><c>true</c> if the last tile used <see cref="TileColorLight"/>; <c>false</c> if the last tile used <see cref="TileColorDark"/>.</summary>
         private bool _lastTileLight;
 
         /// <summary><see cref="AppTile"/>s prepared by <see cref="QueueNewTile"/>, waiting to be added to <see cref="_flowLayout"/>.</summary>
-        private readonly List<Control> _appTileQueue = new List<Control>();
+        private readonly List<Control> _appTileQueue = new();
 
         /// <summary>The combined height of all <see cref="AppTile"/>s in <see cref="_appTileQueue"/>.</summary>
         private int _appTileQueueHeight;

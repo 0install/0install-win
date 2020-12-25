@@ -55,7 +55,7 @@ namespace ZeroInstall.Central
         /// Stores the data currently displayed in <see cref="_tileListMyApps"/>.
         /// Used for comparison/merging when updating the list.
         /// </summary>
-        public AppList AppList { get; private set; } = new AppList();
+        public AppList AppList { get; private set; } = new();
 
         /// <summary>
         /// Loads the current <see cref="AppList"/> from the disk and updates the "My Apps" <see cref="IAppTileList"/>.
@@ -160,7 +160,7 @@ namespace ZeroInstall.Central
         /// Stores the data currently displayed in <see cref="_tileListCatalog"/>.
         /// Used for comparison/merging when updating the list.
         /// </summary>
-        public Catalog Catalog { get; private set; } = new Catalog();
+        public Catalog Catalog { get; private set; } = new();
 
         /// <summary>
         /// Loads a cached version of the catalog from the disk and passes it to <see cref="SetCatalog"/>.

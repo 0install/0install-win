@@ -48,7 +48,7 @@ namespace ZeroInstall
 
             try
             {
-                AppUri = new FeedUri(ConfigurationManager.AppSettings["app_uri"] ?? lines[0].TrimEnd());
+                AppUri = new(ConfigurationManager.AppSettings["app_uri"] ?? lines[0].TrimEnd());
                 Log.Info("Embedded config: AppUri: " + AppUri);
 
                 AppName = ConfigurationManager.AppSettings["app_name"] ?? lines[1].TrimEnd();
@@ -74,6 +74,6 @@ namespace ZeroInstall
         /// <summary>
         /// The embedded config as a singleton.
         /// </summary>
-        public static readonly EmbeddedConfig Instance = new EmbeddedConfig();
+        public static readonly EmbeddedConfig Instance = new();
     }
 }

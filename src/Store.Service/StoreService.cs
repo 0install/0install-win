@@ -33,16 +33,16 @@ namespace ZeroInstall.Store.Service
         }
 
         /// <summary>IPC channel for providing services to clients.</summary>
-        private IChannelReceiver _serverChannel;
+        private IChannelReceiver? _serverChannel;
 
         /// <summary>IPC channel for launching callbacks in clients.</summary>
-        private IChannelSender _clientChannel;
+        private IChannelSender? _clientChannel;
 
         /// <summary>The store to provide to clients as a service.</summary>
-        private MarshalByRefObject _store;
+        private MarshalByRefObject? _store;
 
         /// <summary>The IPC remoting reference for <see cref="_store"/>.</summary>
-        private ObjRef _objRef;
+        private ObjRef? _objRef;
 
         private const int IncorrectFunction = 1, AccessDenied = 5, InvalidHandle = 6, UnableToWriteToDevice = 29;
 

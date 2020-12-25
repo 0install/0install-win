@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly IFeedCache _feedCache;
 
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly FilteredTreeView<StoreManageNode> _treeView = new FilteredTreeView<StoreManageNode> {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<StoreManageNode> _treeView = new() {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Constructor
@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                ProcessUtils.Assembly(Program.ExeName, StoreMan.Name, "manage").AsAdmin().Start();
+                ProcessUtils.Assembly("0install-win", StoreMan.Name, "manage").AsAdmin().Start();
             }
             catch (PlatformNotSupportedException ex)
             {

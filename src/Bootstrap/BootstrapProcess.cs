@@ -43,7 +43,7 @@ namespace ZeroInstall
         private string _contentDir = Path.Combine(Locations.InstallBase, "content");
 
         /// <summary>Arguments passed through to the target process.</summary>
-        private readonly List<string> _targetArgs = new List<string>();
+        private readonly List<string> _targetArgs = new();
 
         private string HelpText
         {
@@ -139,7 +139,7 @@ namespace ZeroInstall
                 {
                     "feed=", () => "Specify an alternative {FEED} for Zero Install. Must be an absolute URI. Implies --no-existing.", feed =>
                     {
-                        Config.SelfUpdateUri = new FeedUri(feed);
+                        Config.SelfUpdateUri = new(feed);
                         _noExisting = true;
                     }
                 },

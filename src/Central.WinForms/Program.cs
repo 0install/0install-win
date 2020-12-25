@@ -21,11 +21,6 @@ namespace ZeroInstall.Central.WinForms
     public static class Program
     {
         /// <summary>
-        /// The canonical EXE name (without the file ending) for this binary.
-        /// </summary>
-        public const string ExeName = "ZeroInstall";
-
-        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread] // Required for WinForms
@@ -35,7 +30,7 @@ namespace ZeroInstall.Central.WinForms
             WindowsUtils.SetCurrentProcessAppID("ZeroInstall");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
+            ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));
             return Run(args);
         }
 
@@ -73,7 +68,6 @@ namespace ZeroInstall.Central.WinForms
             return 0;
         }
 
-        #region Embed
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
@@ -85,17 +79,16 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <c>true</c>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static Task RunCommandAsync(bool machineWide, params string[] args)
+        internal static Task<ExitCode> RunCommandAsync(bool machineWide, params string[] args)
         {
             if (machineWide) args = args.Append("--machine");
 
             return Task.Run(() => ThreadUtils.RunSta(() =>
             {
-                Log.Debug($"Launching {Commands.WinForms.Program.ExeName} in-process with arguments: {args.JoinEscapeArguments()}");
+                Log.Debug($"Launching 0install-win in-process with arguments: {args.JoinEscapeArguments()}");
                 using var handler = new GuiCommandHandler();
-                ProgramUtils.Run(Commands.WinForms.Program.ExeName, args, handler);
+                return ProgramUtils.Run("0install-win", args, handler);
             }));
         }
-        #endregion
     }
 }

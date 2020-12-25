@@ -72,8 +72,8 @@ namespace ZeroInstall.Central.WinForms
                 WindowsTaskbar.PreventPinning(Handle);
             else
             {
-                string exePath = Path.Combine(Locations.InstallBase, Program.ExeName + ".exe");
-                string commandsExe = Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe");
+                string exePath = Path.Combine(Locations.InstallBase, "ZeroInstall.exe");
+                string commandsExe = Path.Combine(Locations.InstallBase, "0install-win.exe");
                 WindowsTaskbar.SetWindowAppID(Handle, "ZeroInstall", exePath.EscapeArgument(), exePath, "Zero Install");
                 WindowsTaskbar.AddTaskLinks("ZeroInstall", new[]
                 {
