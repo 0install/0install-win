@@ -304,7 +304,7 @@
     <value>$this</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Portable Creator</value>
+    <value>Portable creator</value>
   </data>
   <data name="&gt;&gt;labelInfo2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

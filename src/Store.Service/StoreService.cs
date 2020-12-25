@@ -83,11 +83,8 @@ namespace ZeroInstall.Store.Service
                         {"secure", true},
                         {"impersonate", true} // Use identity of client in server threads
                     },
-                    new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
-#if !__MonoCS__
-                    , IpcImplementationStore.IpcAcl
-#endif
-                );
+                    new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
+                    IpcImplementationStore.IpcAcl);
                 _clientChannel = new IpcClientChannel(
                     new Hashtable
                     {

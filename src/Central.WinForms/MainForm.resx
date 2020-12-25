@@ -645,7 +645,7 @@
     <value>181, 22</value>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>&amp;Portable Creator</value>
+    <value>&amp;Portable creator</value>
   </data>
   <data name="buttonTools.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>

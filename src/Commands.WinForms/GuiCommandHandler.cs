@@ -201,7 +201,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             var doc = new XmlDocument();
 
-            XmlElement Element(string tagName, IEnumerable<IXmlNode> children = null, IDictionary<string, string> attributes = null, string innerText = null)
+            XmlElement Element(string tagName, IEnumerable<IXmlNode>? children = null, IDictionary<string, string>? attributes = null, string? innerText = null)
             {
                 var element = doc.CreateElement(tagName);
                 foreach (var child in children ?? Enumerable.Empty<IXmlNode>())

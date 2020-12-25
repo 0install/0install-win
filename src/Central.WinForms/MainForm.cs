@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -20,7 +21,6 @@ using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
 
@@ -91,7 +91,7 @@ namespace ZeroInstall.Central.WinForms
 
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (_machineWide) Text += @" - " + Resources.MachineWideMode;
-            labelVersion.Text = @"v" + ImplementationVersion.ZeroInstall;
+            labelVersion.Text = @"v" + AppInfo.Current.Version;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -235,7 +235,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 await Task.Delay(10);
                 labelNotificationBar.Location += new Size(0, 1);
-            };
+            }
 
             _notificationBarClickHandler = clickHandler;
         }

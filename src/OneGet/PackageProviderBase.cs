@@ -18,7 +18,7 @@ namespace ZeroInstall.OneGet
     {
         public abstract string PackageProviderName { get; }
 
-        public string ProviderVersion => AppInfo.CurrentLibrary.Version;
+        public string ProviderVersion => AppInfo.CurrentLibrary.Version ?? "1.0.0-pre";
 
         public void OnUnhandledException(string methodName, Exception exception)
         {

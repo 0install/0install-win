@@ -273,8 +273,8 @@ namespace ZeroInstall.Central.WinForms
             this.buttonTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonStoreManage,
-            this.buttonCommandLine,
-            this.buttonPortableCreator});
+            this.buttonPortableCreator,
+            this.buttonCommandLine});
             resources.ApplyResources(this.buttonTools, "buttonTools");
             this.buttonTools.Name = "buttonTools";
             // 
