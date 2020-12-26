@@ -13,7 +13,6 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
-using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
@@ -29,8 +28,8 @@ namespace ZeroInstall.Central.WinForms
     {
         // Static resource preload
         private static readonly string _runButtonText = SharedResources.Run;
-        private static readonly Bitmap _addImage = Resources.AppAdd, _removeImage = Resources.AppRemove, _integrateImage = Resources.AppIntegrate, _modifyImage = Resources.AppModify;
-        private static readonly string _addText = SharedResources.MyAppsAdd, _removeText = SharedResources.MyAppsRemove, _integrateText = SharedResources.Integrate, _modifyIntegrationText = SharedResources.ModifyIntegration;
+        private static readonly Bitmap _candidateImage = Resources.AppCandidate, _addedImage = Resources.AppAdded, _integratedImage = Resources.AppIntegrated;
+        private static readonly string _candidateText = SharedResources.MyAppsAdd, _addedText = SharedResources.Integrate, _integrateText = SharedResources.ModifyIntegration;
         private static readonly string _runWithOptionsText = SharedResources.RunWithOptions, _updateText = SharedResources.Update;
 
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
@@ -54,14 +53,18 @@ namespace ZeroInstall.Central.WinForms
             get => _status;
             set
             {
-                #region Sanity checks
-                if (value is (< AppStatus.Candidate or > AppStatus.Integrated)) throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(AppStatus));
                 if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
-                #endregion
+
+                (buttonIntegrate.AccessibleName, buttonIntegrate.Image) = (value switch
+                {
+                    AppStatus.Candidate => (_candidateText, _candidateImage),
+                    AppStatus.Added => (_addedText, _addedImage),
+                    AppStatus.Integrated => (_integrateText, _integratedImage),
+                    _ => throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(AppStatus))
+                });
+                toolTip.SetToolTip(buttonIntegrate, buttonIntegrate.AccessibleName);
 
                 _status = value;
-
-                UpdateButtons();
             }
         }
 
@@ -107,13 +110,6 @@ namespace ZeroInstall.Central.WinForms
             buttonRun.Text = buttonRun2.Text = _runButtonText;
             buttonRunWithOptions.Text = _runWithOptionsText;
             buttonUpdate.Text = _updateText;
-
-            buttonAdd.Image = _addImage;
-            buttonAdd.AccessibleName = _addText;
-            toolTip.SetToolTip(buttonAdd, _addText);
-            buttonRemove.Image = _removeImage;
-            buttonRemove.Text = _removeText;
-            buttonIntegrate.Image = _integrateImage;
 
             InterfaceUri = interfaceUri ?? throw new ArgumentNullException(nameof(interfaceUri));
             labelName.Text = appName ?? throw new ArgumentNullException(nameof(appName));
@@ -175,22 +171,6 @@ namespace ZeroInstall.Central.WinForms
             return Resources.AppIcon; // Fallback default icon
         }
 
-        /// <summary>
-        /// Updates the visibility and icons of buttons based on the <see cref="Status"/>.
-        /// </summary>
-        private void UpdateButtons()
-        {
-            buttonAdd.Enabled = buttonAdd.Visible = (Status == AppStatus.Candidate);
-
-            string integrateText = (Status == AppStatus.Integrated) ? _modifyIntegrationText : _integrateText;
-            buttonIntegrate.AccessibleName = integrateText;
-            toolTip.SetToolTip(buttonIntegrate, integrateText);
-            buttonIntegrate.Image = (Status == AppStatus.Integrated) ? _modifyImage : _integrateImage;
-            buttonIntegrate.Visible = (Status >= AppStatus.Added);
-            buttonIntegrate.Enabled = true;
-            buttonIntegrate2.Text = integrateText;
-        }
-
         private void LinkClicked(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
@@ -227,41 +207,11 @@ namespace ZeroInstall.Central.WinForms
             await Program.RunCommandAsync(Commands.Basic.Update.Name, InterfaceUri.ToStringRfc());
         }
 
-        private async void buttonAdd_Click(object sender, EventArgs e)
+        private void buttonIntegrate_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-
-            // Disable button while operation is running
-            buttonAdd.Enabled = false;
-
-            await Program.RunCommandAsync(_machineWide, AddApp.Name, InterfaceUri.ToStringRfc());
-            UpdateButtons();
-        }
-
-        private async void buttonIntegrate_Click(object sender, EventArgs e)
-        {
-            if (InterfaceUri.IsFake) return;
-
-            // Disable buttons while operation is running
-            buttonIntegrate.Enabled = false;
-
-            await Program.RunCommandAsync(_machineWide, IntegrateApp.Name, InterfaceUri.ToStringRfc());
-            UpdateButtons();
-        }
-
-        private async void buttonRemove_Click(object sender, EventArgs e)
-        {
-            if (InterfaceUri.IsFake) return;
-
-            if (Status == AppStatus.Integrated)
-                if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn))
-                    return;
-
-            // Disable buttons while operation is running
-            buttonIntegrate.Enabled = false;
-
-            await Program.RunCommandAsync(_machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
-            UpdateButtons();
+            new AppPopup(InterfaceUri, Status, _machineWide)
+               .ShowAt(buttonIntegrate);
         }
     }
 }

@@ -63,9 +63,19 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AppAdd {
+        internal static System.Drawing.Bitmap AppAdded {
             get {
-                object obj = ResourceManager.GetObject("AppAdd", resourceCulture);
+                object obj = ResourceManager.GetObject("AppAdded", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppCandidate {
+            get {
+                object obj = ResourceManager.GetObject("AppCandidate", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,29 +93,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AppIntegrate {
+        internal static System.Drawing.Bitmap AppIntegrated {
             get {
-                object obj = ResourceManager.GetObject("AppIntegrate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AppModify {
-            get {
-                object obj = ResourceManager.GetObject("AppModify", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AppRemove {
-            get {
-                object obj = ResourceManager.GetObject("AppRemove", resourceCulture);
+                object obj = ResourceManager.GetObject("AppIntegrated", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

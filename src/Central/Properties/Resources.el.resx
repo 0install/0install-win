@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppRemoveConfirm" xml:space="preserve">
-    <value>Είστε βέβαιοι ότι θέλετε να καταργήσετε '{0}' από τη λίστα την αίτησή σας; 
-Αυτό θα αφαιρέσει επίσης κάθε ολοκλήρωση της επιφάνειας εργασίας που εφαρμόζεται για την εφαρμογή αυτή.</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Ακύρωση</value>
   </data>
@@ -186,11 +182,11 @@
   <data name="MyAppsAdd" xml:space="preserve">
     <value>Προσθήκη στα "εφαρμογές μου"</value>
   </data>
-  <data name="MyAppsRemove" xml:space="preserve">
-    <value>Αφαιρεση από το "εφαρμογές μου"</value>
-  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Φορητή λειτουργία</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Αφαιρεση από το "εφαρμογές μου"</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Θέλετε να αφαιρέσετε τις {0} καταχωρήσεις από τη λίστα;</value>

@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppRemoveConfirm" xml:space="preserve">
-    <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
-Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
@@ -146,7 +142,7 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
     <value>Ignoriere doppelten App-Eintrag für '{0}'.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Integration einrichten</value>
+    <value>Integrieren (Startmenü, etc.)</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Normale App</value>
@@ -198,8 +194,11 @@ um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>Zu "Meine Apps" hinzufügen</value>
   </data>
-  <data name="MyAppsRemove" xml:space="preserve">
-    <value>Aus "Meine Apps" &amp;entfernen</value>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Zu "Meine Apps" hinzugefügt.</value>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Zu "Meine Apps" hinzugefügt und in Desktopumgebung integriert.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.
@@ -207,6 +206,9 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>&amp;Entfernen</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>

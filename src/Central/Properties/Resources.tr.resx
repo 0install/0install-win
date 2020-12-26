@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppRemoveConfirm" xml:space="preserve">
-    <value>'{0}' uygulamasını uygulama listenizden kaldırmak istiyor musunuz?
-Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü bütünleştirmelerini de kaldıracaktır.</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>İptal</value>
   </data>
@@ -198,15 +194,15 @@ ya da masaüstüne ekleyerek "bütünleştirin".</value>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>"Uygulamalarım"a ekle</value>
   </data>
-  <data name="MyAppsRemove" xml:space="preserve">
-    <value>"Uygulamalarım"dan kaldı&amp;r</value>
-  </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>{0} klasörü boş değil.
 Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emin misiniz?</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Taşınabilir kip</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>"Uygulamalarım"dan kaldı&amp;r</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Listeden seçilmiş {0} kaydı kaldırmak istediğinize emin misiniz?</value>

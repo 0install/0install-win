@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppRemoveConfirm" xml:space="preserve">
-    <value>Are you sure you want to remove '{0}' from your application list?
-This will also remove any desktop integration applied for this application.</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -146,7 +142,7 @@ This will also remove any desktop integration applied for this application.</val
     <value>Ignoring duplicate app entry for '{0}'.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Setup integration</value>
+    <value>Integrate (start menu, etc.)</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Common app</value>
@@ -198,8 +194,11 @@ in the start menu or on the desktop.</value>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>Add to "My apps"</value>
   </data>
-  <data name="MyAppsRemove" xml:space="preserve">
-    <value>&amp;Remove from "My apps"</value>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Added to "My apps".</value>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Added to "My apps" and integrated in desktop environment.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>The directory {0} is not empty.
@@ -207,6 +206,9 @@ Are you sure you want place a portable version of Zero Install there?</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>&amp;Remove</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>

@@ -142,7 +142,7 @@ namespace ZeroInstall.Central.WinForms
             PrintSubtitles(Resources.IntroSubtitlesAddApp);
 
             await Task.Delay(4000);
-            FlashRectangle(GetCatalogTile(_coolApp).buttonAdd);
+            FlashRectangle(GetCatalogTile(_coolApp).buttonIntegrate);
 
             await Task.Delay(2000);
             GetCatalogTile(_coolApp).Status = AppStatus.Added;

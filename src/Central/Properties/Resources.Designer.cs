@@ -61,16 +61,6 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
-        ///This will also remove any desktop integration applied for this application..
-        /// </summary>
-        public static string AppRemoveConfirm {
-            get {
-                return ResourceManager.GetString("AppRemoveConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -143,7 +133,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setup integration.
+        ///   Looks up a localized string similar to Integrate (start menu, etc.).
         /// </summary>
         public static string Integrate {
             get {
@@ -298,11 +288,20 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Remove from &quot;My apps&quot;.
+        ///   Looks up a localized string similar to Added to &quot;My apps&quot;..
         /// </summary>
-        public static string MyAppsRemove {
+        public static string MyAppsAdded {
             get {
-                return ResourceManager.GetString("MyAppsRemove", resourceCulture);
+                return ResourceManager.GetString("MyAppsAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added to &quot;My apps&quot; and integrated in desktop environment..
+        /// </summary>
+        public static string MyAppsAddedAndIntegrate {
+            get {
+                return ResourceManager.GetString("MyAppsAddedAndIntegrate", resourceCulture);
             }
         }
         
@@ -322,6 +321,15 @@ namespace ZeroInstall.Central.Properties {
         public static string PortableMode {
             get {
                 return ResourceManager.GetString("PortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         

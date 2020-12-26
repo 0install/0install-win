@@ -55,6 +55,12 @@
     <Compile Include="AppTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="AppPopup.Designer.cs">
+      <DependentUpon>AppPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AppTile.Designer.cs">
       <DependentUpon>AppTile.cs</DependentUpon>
     </Compile>
@@ -112,7 +118,6 @@
     <Content Include="Resources\AppIcon.png" />
     <Content Include="Resources\AppIntegrate.png" />
     <Content Include="Resources\AppModify.png" />
-    <Content Include="Resources\AppRemove.png" />
     <Content Include="Resources\ArrowDown.png" />
     <Content Include="Resources\ArrowRight.png" />
     <Content Include="Resources\ArrowUp.png" />
