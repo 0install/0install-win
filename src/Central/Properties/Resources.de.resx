@@ -143,7 +143,7 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
     <value>Für aktuellen Benutzer</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignoriere doppelten Anwendungslisteneintrag für '{0}'.</value>
+    <value>Ignoriere doppelten App-Eintrag für '{0}'.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integration einrichten</value>
@@ -168,7 +168,7 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Wenn Ihnen eine Anwendung gefällt,
-fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
+fügen Sie sie zu "Meine Apps" hinzu.</value>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>Suchen Sie nach einer Anwendung im "Katalog"...</value>
@@ -196,10 +196,10 @@ um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
     <value>Integration ändern</value>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Zu "Meine Anwendungen" hinzufügen</value>
+    <value>Zu "Meine Apps" hinzufügen</value>
   </data>
   <data name="MyAppsRemove" xml:space="preserve">
-    <value>Aus "Meine Anwendungen" &amp;entfernen</value>
+    <value>Aus "Meine Apps" &amp;entfernen</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.
@@ -262,7 +262,7 @@ Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie au
     <value>Konnte Anwendungskatalog nicht runterladen.</value>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Konnte Feed für Anwendungslisteneintrag '{0}' nicht laden.</value>
+    <value>Konnte Feed für App-Eintrag '{0}' nicht laden.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
@@ -273,7 +273,7 @@ Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Dies entfernt automatisch Implementierungen, die nach dem Update nicht mehr benötigt werden, aus dem Cache. Fortsetzen?
-Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Anwendungen" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
+Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Apps" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite...</value>

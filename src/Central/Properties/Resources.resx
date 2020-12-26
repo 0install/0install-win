@@ -143,7 +143,7 @@ This will also remove any desktop integration applied for this application.</val
     <value>For current user</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignoring duplicate application list entry for '{0}'.</value>
+    <value>Ignoring duplicate app entry for '{0}'.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Setup integration</value>
@@ -168,7 +168,7 @@ This will also remove any desktop integration applied for this application.</val
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>If you like an app,
-add it to "My applications".</value>
+add it to "My apps".</value>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>Search for an app in the "Catalog"...</value>
@@ -196,10 +196,10 @@ in the start menu or on the desktop.</value>
     <value>Modify integration</value>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Add to "my applications"</value>
+    <value>Add to "My apps"</value>
   </data>
   <data name="MyAppsRemove" xml:space="preserve">
-    <value>&amp;Remove from "my applications"</value>
+    <value>&amp;Remove from "My apps"</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>The directory {0} is not empty.
@@ -262,7 +262,7 @@ You can replace the data stored on the server by choosing that you don't remembe
     <value>Unable to download application catalog.</value>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Unable to load feed for application list entry '{0}'.</value>
+    <value>Unable to load feed for app entry '{0}'.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Are you sure you want to use an unencrypted connection to a Sync server?
@@ -273,7 +273,7 @@ Encrypted connections use an https:// prefix.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
-Important: Applications you have "Run" previously without adding them to "My applications" will also be removed from the cache.  You will need to be online if you decide to run them again.</value>
+Important: Applications you have "Run" previously without adding them to "My apps" will also be removed from the cache.  You will need to be online if you decide to run them again.</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Working...</value>

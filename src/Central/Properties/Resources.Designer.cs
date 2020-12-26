@@ -134,7 +134,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ignoring duplicate application list entry for &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Ignoring duplicate app entry for &apos;{0}&apos;..
         /// </summary>
         public static string IgnoringDuplicateAppListEntry {
             get {
@@ -207,7 +207,7 @@ namespace ZeroInstall.Central.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to If you like an app,
-        ///add it to &quot;My applications&quot;..
+        ///add it to &quot;My apps&quot;..
         /// </summary>
         public static string IntroSubtitlesAddApp {
             get {
@@ -289,7 +289,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
+        ///   Looks up a localized string similar to Add to &quot;My apps&quot;.
         /// </summary>
         public static string MyAppsAdd {
             get {
@@ -298,7 +298,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Remove from &quot;my applications&quot;.
+        ///   Looks up a localized string similar to &amp;Remove from &quot;My apps&quot;.
         /// </summary>
         public static string MyAppsRemove {
             get {
@@ -475,7 +475,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load feed for application list entry &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Unable to load feed for app entry &apos;{0}&apos;..
         /// </summary>
         public static string UnableToLoadFeedForApp {
             get {
@@ -504,7 +504,7 @@ namespace ZeroInstall.Central.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
-        ///Important: Applications you have &quot;Run&quot; previously without adding them to &quot;My applications&quot; will also be removed from the cache.  You will need to be online if you decide to run them again..
+        ///Important: Applications you have &quot;Run&quot; previously without adding them to &quot;My apps&quot; will also be removed from the cache.  You will need to be online if you decide to run them again..
         /// </summary>
         public static string UpdateAllCleanWillRemove {
             get {

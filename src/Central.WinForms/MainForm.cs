@@ -421,7 +421,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region MyApps
         /// <summary>
-        /// Loads the "my applications" list and displays it, loading additional data from feeds in the background.
+        /// Loads the "My apps" list and displays it, loading additional data from feeds in the background.
         /// </summary>
         private async void UpdateAppListAsync()
         {

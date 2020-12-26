@@ -181,7 +181,7 @@
     <value>Lade Katalog vom Server...</value>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Meine Anwendungen</value>
+    <value>Meine Apps</value>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Katalog</value>
