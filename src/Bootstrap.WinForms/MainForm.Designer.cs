@@ -32,7 +32,7 @@ namespace ZeroInstall
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.taskControl = new NanoByte.Common.Controls.TaskControl();
             this.labelLoading = new System.Windows.Forms.Label();
-            this.buttonClose = new System.Windows.Forms.Label();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.labelBorder = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
@@ -76,14 +76,16 @@ namespace ZeroInstall
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.buttonClose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.buttonClose.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonClose.Location = new System.Drawing.Point(373, 0);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(25, 25);
             this.buttonClose.TabIndex = 2;
+            this.buttonClose.TabStop = false;
             this.buttonClose.Text = "X";
-            this.buttonClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // labelBorder
@@ -126,7 +128,7 @@ namespace ZeroInstall
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private NanoByte.Common.Controls.TaskControl taskControl;
         private System.Windows.Forms.Label labelLoading;
-        private System.Windows.Forms.Label buttonClose;
+        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Label labelBorder;
     }
 }
