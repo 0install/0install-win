@@ -35,13 +35,10 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
         public IntegrateAppForm(IntegrationState state)
         {
-            #region Sanity checks
-            if (state == null) throw new ArgumentNullException(nameof(state));
-            #endregion
-
             InitializeComponent();
+            Shown += UpdateCommandLine;
 
-            _state = state;
+            _state = state ?? throw new ArgumentNullException(nameof(state));
         }
 
         #region Startup
@@ -60,7 +57,7 @@ namespace ZeroInstall.Commands.WinForms
 
             SetupCommandAccessPoints();
             SetupDefaultAccessPoints();
-            _switchToBasicMode();
+            _switchToBasicMode?.Invoke();
         }
         #endregion
 
@@ -70,7 +67,12 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Apply changes made in "Simple View"
+            if (buttonAdvancedMode.Visible)
+            {
+                // Apply changes made in "Simple View"
+                _switchToAdvancedMode?.Invoke();
+            }
+
             _state.CapabilityRegistration = checkBoxCapabilities.Checked;
             _state.AppEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
         }
@@ -226,11 +228,11 @@ namespace ZeroInstall.Commands.WinForms
         /// Displays the basic configuration view. Transfers data from models to checkboxes.
         /// </summary>
         /// <remarks>Must be called after form setup.</remarks>
-        private Action _switchToBasicMode;
+        private Action? _switchToBasicMode;
 
         private void buttonBasicMode_Click(object sender, EventArgs e)
         {
-            _switchToBasicMode();
+            _switchToBasicMode?.Invoke();
 
             buttonAdvancedMode.Visible = panelBasic.Visible = groupBoxCommandLine.Visible = true;
             buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = false;
@@ -269,7 +271,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (_state.Feed.Uri == null) return;
 
-            var commandLine = new List<string> {"0install", "integrate", _state.Feed.Uri.ToStringRfc(), "--add=" + CapabilityRegistration.CategoryName};
+            var commandLine = new List<string> {"0install", "integrate", _state.Feed.Uri.ToStringRfc()};
 
             void AddIfChecked(CheckBox checkBox, string category)
             {
@@ -277,6 +279,7 @@ namespace ZeroInstall.Commands.WinForms
                     commandLine.Add("--add=" + category);
             }
 
+            AddIfChecked(checkBoxCapabilities, CapabilityRegistration.CategoryName);
             AddIfChecked(checkBoxStartMenuSimple, MenuEntry.CategoryName);
             AddIfChecked(checkBoxDesktopSimple, DesktopIcon.CategoryName);
             AddIfChecked(checkBoxSendToSimple, SendTo.CategoryName);
@@ -292,11 +295,11 @@ namespace ZeroInstall.Commands.WinForms
         /// Displays the advanced configuration view. Transfers data from checkboxes to models.
         /// </summary>
         /// <remarks>Must be called before form close.</remarks>
-        private Action _switchToAdvancedMode;
+        private Action? _switchToAdvancedMode;
 
         private void buttonAdvancedMode_Click(object sender, EventArgs e)
         {
-            _switchToAdvancedMode();
+            _switchToAdvancedMode?.Invoke();
 
             buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
             buttonAdvancedMode.Visible = panelBasic.Visible = groupBoxCommandLine.Visible = false;

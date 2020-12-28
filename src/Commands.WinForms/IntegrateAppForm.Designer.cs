@@ -682,6 +682,7 @@ namespace ZeroInstall.Commands.WinForms
             this.checkBoxCapabilities.Name = "checkBoxCapabilities";
             this.toolTip.SetToolTip(this.checkBoxCapabilities, resources.GetString("checkBoxCapabilities.ToolTip"));
             this.checkBoxCapabilities.UseVisualStyleBackColor = true;
+            this.checkBoxCapabilities.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // checkBoxAutoUpdate
             // 

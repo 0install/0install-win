@@ -171,7 +171,7 @@ namespace ZeroInstall.Commands.WinForms
 
             if (Background)
             {
-                string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
+                string message = StringUtils.Join(Environment.NewLine, data.Select(x => x?.ToString() ?? ""));
                 OutputNotification(title, message);
             }
             else base.Output(title, data);
@@ -245,15 +245,10 @@ namespace ZeroInstall.Commands.WinForms
             if (state == null) throw new ArgumentNullException(nameof(state));
             #endregion
 
-            var result = _wrapper.Post(form =>
-            {
-                var integrationForm = new IntegrateAppForm(state);
-
-                // The progress form and integration form take turns in being visible
-                form.Hide();
-
-                return integrationForm.ShowDialog();
-            });
+            // The progress form and integration form take turns in being visible
+            Background = true;
+            var result = _wrapper.Post(_ => new IntegrateAppForm(state).ShowDialog());
+            Background = false;
 
             if (result == DialogResult.OK) _wrapper.Post(form => form.Show());
             else throw new OperationCanceledException();
