@@ -39,7 +39,7 @@
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.18" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.1" />
-    <PackageReference Include="ZeroInstall.Services" Version="2.18.3" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Services" Version="2.18.4" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Posix">
