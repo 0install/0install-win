@@ -3,7 +3,6 @@
 
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
@@ -127,7 +126,7 @@ namespace ZeroInstall.Central.WinForms
             PrintSubtitles(Resources.IntroSubtitlesRunApp);
 
             await Task.Delay(2000);
-            FlashRectangle(GetCatalogTile(_coolApp).buttonRun);
+            await FlashRectangleAsync(GetCatalogTile(_coolApp).buttonRun);
 
             await Task.Delay(4000);
             GetCatalogTile(_coolApp).Refresh();
@@ -142,7 +141,7 @@ namespace ZeroInstall.Central.WinForms
             PrintSubtitles(Resources.IntroSubtitlesAddApp);
 
             await Task.Delay(4000);
-            FlashRectangle(GetCatalogTile(_coolApp).buttonIntegrate);
+            await FlashRectangleAsync(GetCatalogTile(_coolApp).buttonIntegrate);
 
             await Task.Delay(2000);
             GetCatalogTile(_coolApp).Status = AppStatus.Added;
@@ -184,7 +183,7 @@ namespace ZeroInstall.Central.WinForms
             PrintSubtitles(Resources.IntroSubtitlesIntegrateApp);
 
             await Task.Delay(5000);
-            FlashRectangle(GetMyAppsTile(_coolApp).buttonIntegrate);
+            await FlashRectangleAsync(GetMyAppsTile(_coolApp).buttonIntegrate);
 
             await Task.Delay(2000);
             GetMyAppsTile(_coolApp).Status = AppStatus.Integrated;
@@ -203,9 +202,11 @@ namespace ZeroInstall.Central.WinForms
             await Task.Delay(4000);
         }
 
-        private AppTile GetCatalogTile(FeedUri interfaceUri) => (AppTile)tileListCatalog.GetTile(interfaceUri);
+        private AppTile GetCatalogTile(FeedUri interfaceUri)
+            => (AppTile)tileListCatalog.GetTile(interfaceUri) ?? throw new InvalidOperationException();
 
-        private AppTile GetMyAppsTile(FeedUri interfaceUri) => (AppTile)tileListMyApps.GetTile(interfaceUri);
+        private AppTile GetMyAppsTile(FeedUri interfaceUri)
+            => (AppTile)tileListMyApps.GetTile(interfaceUri) ?? throw new InvalidOperationException();
 
         private void PrintSubtitles(string text)
         {
@@ -220,12 +221,12 @@ namespace ZeroInstall.Central.WinForms
             textBox.SelectionLength = 0;
         }
 
-        private static void FlashRectangle(Control target)
+        private async Task FlashRectangleAsync(Control target)
         {
             DrawRectangle(target);
-            Thread.Sleep(500);
+            await Task.Delay(500);
             target.Parent.Refresh();
-            Thread.Sleep(500);
+            await Task.Delay(500);
             DrawRectangle(target);
         }
 
