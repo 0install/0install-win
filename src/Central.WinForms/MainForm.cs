@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Info;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -91,7 +90,7 @@ namespace ZeroInstall.Central.WinForms
 
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (_machineWide) Text += @" - " + Resources.MachineWideMode;
-            labelVersion.Text = @"v" + AppInfo.Current.Version;
+            labelVersion.Text = @"v" + ZeroInstallInstance.Version;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
