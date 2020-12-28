@@ -43,7 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AeroWizard" Version="2.2.8" />
-    <PackageReference Include="ZeroInstall.Model" Version="2.18.2" />
+    <PackageReference Include="ZeroInstall.Model" Version="2.18.3" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
