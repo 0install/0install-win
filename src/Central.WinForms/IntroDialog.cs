@@ -102,18 +102,7 @@ namespace ZeroInstall.Central.WinForms
             arrowSearch.Show();
 
             await Task.Delay(1500);
-            TypeText(tileListCatalog.TextSearch, "C");
-
-            await Task.Delay(500);
-            TypeText(tileListCatalog.TextSearch, "Co");
-
-            await Task.Delay(500);
-            TypeText(tileListCatalog.TextSearch, "Coo");
-
-            await Task.Delay(500);
-            TypeText(tileListCatalog.TextSearch, "Cool");
-
-            await Task.Delay(500);
+            await TypeTextAsync(tileListCatalog.TextSearch, "Cool");
             arrowSearch.Hide();
 
             await Task.Delay(2000);
@@ -214,27 +203,31 @@ namespace ZeroInstall.Central.WinForms
             labelSubtitles.Visible = true;
         }
 
-        private static void TypeText(TextBox textBox, string text)
+        private static async Task TypeTextAsync(TextBox textBox, string text)
         {
-            textBox.Text = text;
-            textBox.SelectionStart = text.Length;
-            textBox.SelectionLength = 0;
+            for (int i = 1; i <= text.Length; i++)
+            {
+                textBox.Text = text.Substring(0, i);
+                textBox.SelectionStart = i;
+                textBox.SelectionLength = 0;
+                await Task.Delay(500);
+            }
         }
 
-        private async Task FlashRectangleAsync(Control target)
+        private static async Task FlashRectangleAsync(Control target)
         {
             DrawRectangle(target);
             await Task.Delay(500);
-            target.Parent.Refresh();
+            target.Parent?.Refresh();
             await Task.Delay(500);
             DrawRectangle(target);
         }
 
         private static void DrawRectangle(Control target)
         {
-            using var graphics = target.Parent.CreateGraphics();
+            using var graphics = target.Parent?.CreateGraphics();
             using var pen = new Pen(Color.Red, 4);
-            graphics.DrawRectangle(pen, new Rectangle(target.Location, target.Size));
+            graphics?.DrawRectangle(pen, new Rectangle(target.Location, target.Size));
         }
     }
 }
