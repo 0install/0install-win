@@ -2,8 +2,6 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        required: true
       signing_request_id:
         required: true
 
@@ -12,14 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download signed artifacts
+        id: download
         run: |
           curl -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
           unzip artifacts.zip
+          echo "::set-output name=version::$(cat VERSION)"
 
       - name: Create archives
         run: |
           pushd Release
-          tar -czf ../0install-win-${{github.event.inputs.version}}.tar.gz --exclude '*.pdb' *
+          tar -czf ../0install-win-${{steps.download.outputs.version}}.tar.gz --exclude '*.pdb' *
           popd
           pushd Bootstrap
           zip -9 ../0install.zip 0install.*
@@ -29,9 +29,9 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{github.event.inputs.version}}
+          tag_name: ${{steps.download.outputs.version}}
           files: |
-            0install-win-${{github.event.inputs.version}}.tar.gz 
+            0install-win-${{steps.download.outputs.version}}.tar.gz 
             0install.zip
             zero-install.zip
             Bootstrap/0install.exe
