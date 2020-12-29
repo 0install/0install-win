@@ -46,7 +46,10 @@ namespace ZeroInstall.Commands.WinForms
 
             _config = config;
             ConfigToControls();
-            LoadImplementationDirs();
+
+            var allImplDirs = ImplementationStores.GetDirectories().ToList();
+            listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
+            _lockedImplDirs = allImplDirs.Except(ImplementationStores.GetUserDirectories()).ToList();
 
             LoadCatalogSources();
 
@@ -152,16 +155,7 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Storage
-        private List<string> _lockedImplDirs;
-
-        private void LoadImplementationDirs()
-        {
-            var allImplDirs = ImplementationStores.GetDirectories().ToList();
-            listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
-
-            var userImplDirs = ImplementationStores.GetUserDirectories();
-            _lockedImplDirs = allImplDirs.Except(userImplDirs).ToList();
-        }
+        private readonly List<string> _lockedImplDirs;
 
         private void SaveImplementationDirs()
         {
@@ -322,7 +316,7 @@ namespace ZeroInstall.Commands.WinForms
             => treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
 
         private void SaveTrust()
-            => treeViewTrustedKeys.Nodes.ToTrustDB().Save(TrustDB.DefaultLocation);
+            => treeViewTrustedKeys.Nodes!.ToTrustDB().Save(TrustDB.DefaultLocation);
 
         private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
             => buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);
@@ -334,7 +328,7 @@ namespace ZeroInstall.Commands.WinForms
             if (Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn))
             {
                 foreach (var node in checkedNodes)
-                    treeViewTrustedKeys.Nodes.Remove(node);
+                    treeViewTrustedKeys.Nodes!.Remove(node);
             }
         }
 
@@ -367,9 +361,9 @@ namespace ZeroInstall.Commands.WinForms
 
         private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
         {
-            _config.SyncServer = !textBoxSyncServer.IsValid || string.IsNullOrEmpty(textBoxSyncServer.Text)
-                ? new(Config.DefaultSyncServer)
-                : new(textBoxSyncServer.Uri);
+            _config.SyncServer = textBoxSyncServer.IsValid && textBoxSyncServer.Uri != null
+                ? new(textBoxSyncServer.Uri)
+                : new(Config.DefaultSyncServer);
             propertyGridAdvanced.Refresh();
         }
 
@@ -403,25 +397,9 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Language
-        private sealed class LanguageWrapper
+        private sealed record LanguageWrapper(CultureInfo Culture)
         {
-            public readonly CultureInfo Culture;
-
-            public LanguageWrapper(CultureInfo culture)
-            {
-                Culture = culture;
-            }
-
             public override string ToString() => Culture.DisplayName;
-
-            public override bool Equals(object obj)
-            {
-                if (obj == null) return false;
-                if (obj == this) return true;
-                return obj is LanguageWrapper && Culture.Equals(((LanguageWrapper)obj).Culture);
-            }
-
-            public override int GetHashCode() => Culture.GetHashCode();
         }
 
         private void LoadLanguages()

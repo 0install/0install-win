@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands.WinForms
 
             InitializeComponent();
 
-            textKeywords.Text = query.Keywords;
+            textKeywords.Text = query.Keywords ?? "";
             textKeywords.TextChanged += delegate
             {
                 queryTimer.Stop();
@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Assembly("0install-win", "run", "--no-wait", result.Uri.ToStringRfc()).Start();
+                ProcessUtils.Assembly("0install-win", "run", "--no-wait", result.Uri!.ToStringRfc()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)
@@ -99,7 +99,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Assembly("0install-win", "add", result.Uri.ToStringRfc()).Start();
+                ProcessUtils.Assembly("0install-win", "add", result.Uri!.ToStringRfc()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)
@@ -118,7 +118,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Assembly("0install-win", "integrate", result.Uri.ToStringRfc()).Start();
+                ProcessUtils.Assembly("0install-win", "integrate", result.Uri!.ToStringRfc()).Start();
             }
             #region Error handling
             catch (OperationCanceledException)
@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                Process.Start(result.Uri.ToStringRfc());
+                Process.Start(result.Uri!.ToStringRfc());
             }
             #region Error handling
             catch (Exception ex)

@@ -67,7 +67,7 @@ namespace ZeroInstall.Central.WinForms
             sync.Sync(resetMode);
         }
 
-        private Config _config;
+        private Config _config = default!;
 
         private void SyncWizard_Load(object sender, EventArgs e)
         {
@@ -192,7 +192,7 @@ namespace ZeroInstall.Central.WinForms
             }
             else if (optionCustomServer.Checked)
             {
-                if (textBoxCustomServer.Uri.Scheme != "https")
+                if (textBoxCustomServer.Uri?.Scheme != "https")
                 {
                     if (!Msg.YesNo(this, Resources.UnencryptedSyncServer, MsgSeverity.Warn))
                     {
@@ -201,7 +201,7 @@ namespace ZeroInstall.Central.WinForms
                     }
                 }
 
-                _config.SyncServer = new(textBoxCustomServer.Uri);
+                _config.SyncServer = new(textBoxCustomServer.Uri!);
                 pageServer.NextPage = pageCredentials;
             }
             else if (optionFileShare.Checked)
@@ -219,8 +219,8 @@ namespace ZeroInstall.Central.WinForms
                 }
                 #endregion
 
-                _config.SyncServerUsername = null;
-                _config.SyncServerPassword = null;
+                _config.SyncServerUsername = "";
+                _config.SyncServerPassword = "";
                 pageServer.NextPage = _existingAccount ? pageExistingCryptoKey : pageNewCryptoKey;
             }
             else e.Cancel = true;
@@ -277,7 +277,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void CheckCredentials()
         {
-            var appListUri = new Uri(_config.SyncServer, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(_config.SyncServer!, new Uri("app-list", UriKind.Relative));
 
             var request = WebRequest.Create(appListUri);
             request.Method = "HEAD";
@@ -343,7 +343,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void CheckCryptoKey()
         {
-            var appListUri = new Uri(_config.SyncServer, new Uri("app-list", UriKind.Relative));
+            var appListUri = new Uri(_config.SyncServer!, new Uri("app-list", UriKind.Relative));
 
             using var webClient = new WebClientTimeout
             {
