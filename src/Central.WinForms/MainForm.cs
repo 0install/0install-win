@@ -323,12 +323,10 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.Start("https://docs.0install.net/");
+                Process.Start("https://docs.0install.net/");
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

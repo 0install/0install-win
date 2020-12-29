@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
@@ -53,7 +54,7 @@ namespace ZeroInstall.Commands.WinForms
             if (BackingNode is StoreNode storeNode)
             {
                 if (storeNode.Path != null)
-                    menu.Items.Add(Resources.OpenInFileManager, null, delegate { ProcessUtils.Start(storeNode.Path); });
+                    menu.Items.Add(Resources.OpenInFileManager, null, delegate { Process.Start(storeNode.Path); });
 
                 if (storeNode is ImplementationNode implementationNode)
                 {

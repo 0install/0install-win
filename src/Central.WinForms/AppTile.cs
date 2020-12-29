@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -176,12 +177,10 @@ namespace ZeroInstall.Central.WinForms
             if (InterfaceUri.IsFake) return;
             try
             {
-                ProcessUtils.Start(InterfaceUri.OriginalString);
+                Process.Start(InterfaceUri.OriginalString);
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

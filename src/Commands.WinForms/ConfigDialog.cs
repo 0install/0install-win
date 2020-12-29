@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -182,12 +183,10 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                ProcessUtils.Start((string)listBoxImplDirs.SelectedItem);
+                Process.Start((string)listBoxImplDirs.SelectedItem);
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
@@ -244,12 +243,10 @@ namespace ZeroInstall.Commands.WinForms
             {
                 try
                 {
-                    ProcessUtils.Start(listBoxCatalogSources.SelectedItem.ToString());
+                    Process.Start(listBoxCatalogSources.SelectedItem.ToString());
                 }
                 #region Error handling
-                catch (OperationCanceledException)
-                {}
-                catch (IOException ex)
+                catch (Exception ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 }
@@ -355,12 +352,10 @@ namespace ZeroInstall.Commands.WinForms
             if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
             try
             {
-                ProcessUtils.Start(syncServer + "account");
+                Process.Start(syncServer + "account");
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

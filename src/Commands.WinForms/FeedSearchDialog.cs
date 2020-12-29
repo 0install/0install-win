@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -136,12 +137,10 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                ProcessUtils.Start(result.Uri.ToStringRfc());
+                Process.Start(result.Uri.ToStringRfc());
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

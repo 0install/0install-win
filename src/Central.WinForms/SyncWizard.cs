@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Cache;
@@ -165,12 +166,10 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.Start("https://docs.0install.net/details/sync/");
+                Process.Start("https://docs.0install.net/details/sync/");
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
@@ -233,12 +232,10 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.Start(Config.DefaultSyncServer + "register");
+                Process.Start(Config.DefaultSyncServer + "register");
             }
             #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
