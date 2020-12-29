@@ -39,7 +39,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{github.token}} 
 
-      # TODO: Trigger 0install/apps "Update" worklow
+      - name: Trigger feed update
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          repo: 0install/apps
+          workflow: Update
+          token: ${{secrets.PERSONAL_TOKEN}}
 
       - name: Push Chocolatey package
         run: dotnet nuget push 0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
