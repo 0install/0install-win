@@ -10,6 +10,9 @@ before_build:
 build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
 
+after_build:
+  - artifacts\Release\0install.exe self deploy --batch
+
 artifacts:
   - path: artifacts
 
