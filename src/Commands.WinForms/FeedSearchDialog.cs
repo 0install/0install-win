@@ -34,39 +34,40 @@ namespace ZeroInstall.Commands.WinForms
             InitializeComponent();
 
             textKeywords.Text = query.Keywords ?? "";
-            textKeywords.TextChanged += delegate
-            {
-                queryTimer.Stop();
-                queryTimer.Start();
-            };
+            textKeywords.TextChanged += textKeywords_TextChanged;
 
             dataGrid.AutoGenerateColumns = false;
             dataGrid.DataSource = _results = query.Results;
         }
 
-        private static readonly SemaphoreSlim _querySemaphore = new(initialCount: 1);
-
-        private async void queryTimer_Tick(object sender, EventArgs e)
+        private async void textKeywords_TextChanged(object sender, EventArgs e)
         {
-            queryTimer.Stop();
+            var cancellationToken = PreventConcurrentRequests();
+            string keywords = textKeywords.Text;
 
-            await _querySemaphore.WaitAsync(); // Prevent concurrent queries
             try
             {
-                _results = await Task.Run(() => SearchQuery.Perform(Config.Load(), textKeywords.Text).Results);
+                await Task.Delay(200, cancellationToken);
+                dataGrid.DataSource = _results = await Task.Run(() => SearchQuery.Perform(Config.Load(), keywords).Results, cancellationToken);
             }
+            catch (OperationCanceledException)
+            {}
             catch (Exception ex)
             {
                 errorProvider.SetIconAlignment(textKeywords, ErrorIconAlignment.MiddleLeft);
                 errorProvider.SetError(textKeywords, ex.Message);
             }
-            finally
-            {
-                _querySemaphore.Release();
-            }
         }
 
-        #region Context menu
+        private CancellationTokenSource _cts = new();
+
+        private CancellationToken PreventConcurrentRequests()
+        {
+            _cts.Cancel();
+            _cts = new();
+            return _cts.Token;
+        }
+
         private void dataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == columnUri.Index)
@@ -146,6 +147,5 @@ namespace ZeroInstall.Commands.WinForms
             }
             #endregion
         }
-        #endregion
     }
 }

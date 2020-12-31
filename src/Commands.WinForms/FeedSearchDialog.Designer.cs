@@ -47,7 +47,6 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonIntegrate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.textKeywords = new NanoByte.Common.Controls.HintTextBox();
-            this.queryTimer = new System.Windows.Forms.Timer(this.components);
             this.labelInfo = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             separator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -165,10 +164,6 @@ namespace ZeroInstall.Commands.WinForms
             this.textKeywords.Name = "textKeywords";
             this.textKeywords.ShowClearButton = true;
             // 
-            // queryTimer
-            // 
-            this.queryTimer.Tick += new System.EventHandler(this.queryTimer_Tick);
-            // 
             // labelInfo
             // 
             resources.ApplyResources(this.labelInfo, "labelInfo");
@@ -207,7 +202,6 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.DataGridView dataGrid;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.Timer queryTimer;
         private NanoByte.Common.Controls.HintTextBox textKeywords;
         #endregion
     }
