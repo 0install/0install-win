@@ -71,6 +71,7 @@ mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"
 "$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll System.ValueTuple.dll System.Runtime.InteropServices.RuntimeInformation.dll NanoByte.Common.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
+copy /y "$(TargetName).exe.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
 popd</PostBuildEvent>
   </PropertyGroup>
 </Project>
