@@ -78,7 +78,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     new WindowsTaskbar.ShellLink(buttonSync.Text.Replace("&", ""), commandsExe, SyncApps.Name),
                     new WindowsTaskbar.ShellLink(buttonUpdateAll.Text.Replace("&", ""), commandsExe, UpdateApps.Name),
-                    new WindowsTaskbar.ShellLink(buttonOptions.Text.Replace("&", ""), commandsExe, Configure.Name)
+                    new WindowsTaskbar.ShellLink(buttonStoreManage.Text.Replace("&", ""), commandsExe, StoreMan.Name + " manage")
                 });
             }
         }
