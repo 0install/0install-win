@@ -142,7 +142,7 @@
     <value>'{0}' için çift uygulama listesi kaydı yok sayılıyor.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Yükleme bütünleştirmesi</value>
+    <value>Bütünleştir (başlat menüsü, vb)</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Sıradan uygulama</value>
@@ -193,6 +193,12 @@ ya da masaüstüne ekleyerek "bütünleştirin".</value>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>"Uygulamalarım"a ekle</value>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>"Uygulamalarım"a eklendi.</value>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>"Uygulamalarım"a eklendi ve masaüstü ortamı ile bütünleştirildi.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>{0} klasörü boş değil.
@@ -258,7 +264,7 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
     <value>Uygulama kataloğu indirilemedi.</value>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>'{0}' uygulama listesi kaydı için akış yüklenemedi.</value>
+    <value>'{0}' uygulama kaydının akışı yüklenemedi.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sync sunucusu ile şifresiz bir bağlantı kurmak istediğinize emin misiniz?
