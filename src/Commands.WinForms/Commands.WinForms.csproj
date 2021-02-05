@@ -42,7 +42,7 @@
     <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NanoByte.Common.WinForms" Version="2.5.2" />
+    <PackageReference Include="NanoByte.Common.WinForms" Version="2.6.1" />
     <PackageReference Include="ZeroInstall.Commands" Version="2.18.6" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
