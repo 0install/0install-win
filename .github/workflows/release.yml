@@ -47,6 +47,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           repo: 0install/apps
+          ref: refs/heads/master
           workflow: Update
           token: ${{secrets.PERSONAL_TOKEN}}
 
