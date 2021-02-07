@@ -124,7 +124,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public NanoByte.Common.Tasks.IProgress<TaskSnapshot> GetProgressControl(string taskName)
+        public IProgress<TaskSnapshot> GetProgressControl(string taskName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
@@ -146,7 +146,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <param name="tag">A digest used to associate the task with a specific implementation.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public NanoByte.Common.Tasks.IProgress<TaskSnapshot> GetProgressControl(string taskName, ManifestDigest tag)
+        public IProgress<TaskSnapshot> GetProgressControl(string taskName, ManifestDigest tag)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));

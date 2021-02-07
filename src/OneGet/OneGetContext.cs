@@ -112,7 +112,7 @@ namespace ZeroInstall.OneGet
 
         private void MirrorSearch(string? name, VersionRange? versionRange)
         {
-            foreach (var result in SearchQuery.Perform(Config, name).Results)
+            foreach (var result in SearchResults.Query(Config, name))
             {
                 var requirements = new Requirements(result.Uri);
                 if (versionRange != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = versionRange;

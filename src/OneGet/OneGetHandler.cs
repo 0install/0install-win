@@ -56,7 +56,8 @@ namespace ZeroInstall.OneGet
         }
 
         /// <inheritdoc/>
-        protected override bool Ask(string question, MsgSeverity severity) => _request.OptionKeys.Contains("Force") || _request.ShouldContinue(question, "Zero Install");
+        public override bool Ask(string question, bool? defaultAnswer = null, string? alternateMessage = null)
+            => _request.OptionKeys.Contains("Force") || _request.ShouldContinue(question, "Zero Install");
 
         /// <inheritdoc/>
         public override void Error(Exception exception) => _request.Warning(exception.Message);

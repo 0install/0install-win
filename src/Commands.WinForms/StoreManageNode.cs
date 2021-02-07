@@ -19,7 +19,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Wraps a <see cref="CacheNode"/> to add a context menu.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
-    public sealed class StoreManageNode : INamed<StoreManageNode>, IContextMenu
+    public sealed class StoreManageNode : INamed, IContextMenu
     {
         #region Dependencies
         /// <summary>
@@ -113,17 +113,5 @@ namespace ZeroInstall.Commands.WinForms
 
             return menu;
         }
-
-        #region Comparison
-        /// <inheritdoc/>
-        public int CompareTo(StoreManageNode other)
-        {
-            #region Sanity checks
-            if (other == null) throw new ArgumentNullException(nameof(other));
-            #endregion
-
-            return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
-        }
-        #endregion
     }
 }

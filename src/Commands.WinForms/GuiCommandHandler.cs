@@ -101,8 +101,21 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         /// <inheritdoc/>
-        protected override bool Ask(string question, MsgSeverity severity)
+        public override bool Ask(string question, bool? defaultAnswer = null, string? alternateMessage = null)
         {
+            #region Sanity checks
+            if (question == null) throw new ArgumentNullException(nameof(question));
+            #endregion
+
+            if (Verbosity <= Verbosity.Batch && defaultAnswer.HasValue)
+            {
+                if (!string.IsNullOrEmpty(alternateMessage)) Log.Warn(alternateMessage);
+                return defaultAnswer.Value;
+            }
+
+            // Treat messages that default to "Yes" as less severe than those that default to "No"
+            var severity = defaultAnswer == true ? MsgSeverity.Info : MsgSeverity.Warn;
+
             Log.Debug("Question: " + question);
             using var future = _wrapper.Post(form => form.Ask(question, severity));
             switch (future.Get())
@@ -174,7 +187,32 @@ namespace ZeroInstall.Commands.WinForms
                 string message = StringUtils.Join(Environment.NewLine, data.Select(x => x?.ToString() ?? ""));
                 OutputNotification(title, message);
             }
-            else base.Output(title, data);
+            else
+            {
+                switch (data)
+                {
+                    case IEnumerable<SearchResult> results:
+                        ThreadUtils.RunSta(() =>
+                        {
+                            using var dialog = new FeedSearchDialog(title, results);
+                            dialog.ShowDialog();
+                        });
+                        break;
+
+                    case Config config:
+                        ThreadUtils.RunSta(() =>
+                        {
+                            using var dialog = new ConfigDialog(config);
+                            if (dialog.ShowDialog() == DialogResult.OK) config.Save();
+                            else throw new OperationCanceledException();
+                        });
+                        break;
+
+                    default:
+                        base.Output(title, data);
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -252,35 +290,6 @@ namespace ZeroInstall.Commands.WinForms
 
             if (result == DialogResult.OK) _wrapper.Post(form => form.Show());
             else throw new OperationCanceledException();
-        }
-
-        /// <inheritdoc/>
-        public void ShowFeedSearch(SearchQuery query)
-        {
-            #region Sanity checks
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            #endregion
-
-            ThreadUtils.RunSta(() =>
-            {
-                using var dialog = new FeedSearchDialog(query);
-                dialog.ShowDialog();
-            });
-        }
-
-        /// <inheritdoc/>
-        public void ShowConfig(Config config, ConfigTab configTab)
-        {
-            #region Sanity checks
-            if (config == null) throw new ArgumentNullException(nameof(config));
-            #endregion
-
-            ThreadUtils.RunSta(() =>
-            {
-                using var dialog = new ConfigDialog(config);
-                dialog.SelectTab(configTab);
-                if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
-            });
         }
 
         /// <inheritdoc/>

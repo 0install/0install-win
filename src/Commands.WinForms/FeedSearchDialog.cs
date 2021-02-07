@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,20 +25,17 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new feed search dialog.
         /// </summary>
-        /// <param name="query">An already executed query to visualize.</param>
-        public FeedSearchDialog(SearchQuery query)
+        /// <param name="keywords">The keywords that were searched for.</param>
+        /// <param name="results">The results of the search.</param>
+        public FeedSearchDialog(string? keywords, IEnumerable<SearchResult> results)
         {
-            #region Sanity checks
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            #endregion
-
             InitializeComponent();
 
-            textKeywords.Text = query.Keywords ?? "";
+            textKeywords.Text = keywords ?? "";
             textKeywords.TextChanged += textKeywords_TextChanged;
 
             dataGrid.AutoGenerateColumns = false;
-            dataGrid.DataSource = _results = query.Results;
+            dataGrid.DataSource = _results = results.ToList();
         }
 
         private async void textKeywords_TextChanged(object sender, EventArgs e)
@@ -48,7 +46,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 await Task.Delay(200, cancellationToken);
-                dataGrid.DataSource = _results = await Task.Run(() => SearchQuery.Perform(Config.Load(), keywords).Results, cancellationToken);
+                dataGrid.DataSource = _results = await Task.Run(() => SearchResults.Query(Config.Load(), keywords), cancellationToken);
             }
             catch (OperationCanceledException)
             {}

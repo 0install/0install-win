@@ -35,7 +35,7 @@ namespace ZeroInstall
             };
         }
 
-        public NanoByte.Common.Tasks.IProgress<TaskSnapshot> GetProgressControl(string taskName)
+        public IProgress<TaskSnapshot> GetProgressControl(string taskName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));

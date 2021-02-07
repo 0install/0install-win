@@ -6,10 +6,10 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 
-namespace ZeroInstall.Commands.WinForms
+namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
-    /// Like <see cref="SilentTaskHandler"/> but with <see cref="Msg"/> for <see cref="ITaskHandler.Ask(string)"/>.
+    /// Like <see cref="SilentTaskHandler"/> but with <see cref="Msg"/> for <see cref="ITaskHandler.Ask"/>.
     /// </summary>
     public class MinimalTaskHandler : GuiTaskHandlerBase
     {
@@ -25,11 +25,11 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        protected override bool Ask(string question, MsgSeverity severity)
+        public override bool Ask(string question, bool? defaultAnswer = null, string? alternateMessage = null)
         {
             bool result = false;
             Log.Debug("Question: " + question);
-            _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, severity)));
+            _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
             Log.Debug("Answer: " + result);
             return result;
         }

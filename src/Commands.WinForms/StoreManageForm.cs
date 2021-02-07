@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly IFeedCache _feedCache;
 
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly FilteredTreeView<StoreManageNode> _treeView = new() {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<StoreManageNode> _treeView = new() {CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Constructor

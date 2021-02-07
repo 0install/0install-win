@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.WinForms
         #region Global
         // Don't use WinForms designer for this, since it doesn't understand generics
         // ReSharper disable once InconsistentNaming
-        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new() {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new() {CheckBoxes = true, Dock = DockStyle.Fill};
 
         public ConfigDialog(Config config)
         {
@@ -59,15 +59,8 @@ namespace ZeroInstall.Commands.WinForms
 
             if (WindowsUtils.IsWindows) LoadLanguages();
             else tabPageLanguage.Visible = false;
-        }
 
-        /// <summary>
-        /// Switch to a specific tab in the configuration GUI.
-        /// </summary>
-        /// <param name="configTab">The tab to switch to.</param>
-        public void SelectTab(ConfigTab configTab)
-        {
-            switch (configTab)
+            switch (config.InitialTab)
             {
                 case ConfigTab.Updates:
                     tabOptions.SelectTab(tabPageUpdates);
