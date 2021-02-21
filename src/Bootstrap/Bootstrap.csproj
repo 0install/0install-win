@@ -1,70 +1,37 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project>
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
+
+  <!-- Project properties -->
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B47068C-73D3-4F2F-BC96-8FE2B8FA4A7D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>0install</AssemblyName>
-    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
+    <Product>Zero Install Bootstrapper</Product>
+    <Description>Downloads and runs Zero Install.</Description>
+    <OutputType>Exe</OutputType>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>annotations</Nullable>
-    <NoWarn>1591</NoWarn>
-    <WarningLevel>4</WarningLevel>
-    <RestorePackages>true</RestorePackages>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
+
+  <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.18" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
     <PackageReference Include="ZeroInstall.Services" Version="2.18.7" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Configuration" />
     <Reference Include="Mono.Posix">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="BootstrapProcess.cs" />
-    <Compile Include="EmbeddedConfig.cs" />
-    <Compile Include="ExitCode.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="ProgramUtils.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_Namespace.cs" />
-  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedConfig.txt" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <None Include="App.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <!-- Merge DLLs into EXEs -->
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
   <PropertyGroup>
     <PostBuildEvent>set ARTIFACT_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap
 mkdir "%ARTIFACT_DIR%"
@@ -74,4 +41,5 @@ pushd "$(OutDir)"
 copy /y "$(TargetName).exe.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
 popd</PostBuildEvent>
   </PropertyGroup>
+
 </Project>

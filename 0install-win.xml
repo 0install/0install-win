@@ -21,6 +21,6 @@
     </command>
 
     <!-- Use very high version number to treat local build as newer than any public version. -->
-    <implementation id="./artifacts/Release" version="100-pre"/>
+    <implementation id="./artifacts/Release/net45/win" version="100-pre"/>
   </group>
 </interface>

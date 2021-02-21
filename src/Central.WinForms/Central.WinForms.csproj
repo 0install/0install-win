@@ -1,217 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Project properties -->
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Central.WinForms</RootNamespace>
     <AssemblyName>ZeroInstall</AssemblyName>
-    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
+    <Product>Zero Install Central WinForms GUI</Product>
+    <Description>The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</Description>
+    <OutputType>WinExe</OutputType>
+    <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>annotations</Nullable>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
-    <NoWarn>1591</NoWarn>
-    <WarningLevel>4</WarningLevel>
-    <RestorePackages>true</RestorePackages>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\artifacts\Debug\</OutputPath>
-    <DocumentationFile>..\..\artifacts\Debug\ZeroInstall.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\artifacts\Release\</OutputPath>
-    <DocumentationFile>..\..\artifacts\Release\ZeroInstall.xml</DocumentationFile>
-    <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
-  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\App.config" />
+  </ItemGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup>
+    <ProjectReference Include="..\Central\Central.csproj" />
+    <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AeroWizard" Version="2.2.9" />
     <PackageReference Include="ZeroInstall.Model" Version="2.18.7" />
   </ItemGroup>
+
+  <!-- Start menu tile -->
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="AppTile.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="AppPopup.Designer.cs">
-      <DependentUpon>AppPopup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AppPopup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AppTile.Designer.cs">
-      <DependentUpon>AppTile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AppTileList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="IntroDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IntroDialog.Designer.cs">
-      <DependentUpon>IntroDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MinimalTaskHandler.cs" />
-    <Compile Include="PortableCreatorDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PortableCreatorDialog.Designer.cs">
-      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SelectCommandDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SelectCommandDialog.Designer.cs">
-      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="SyncWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SyncWizard.Designer.cs">
-      <DependentUpon>SyncWizard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="_Namespace.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\App.config" />
-    <Content Include="Logo_150.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Logo_70.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\AppAdd.png" />
-    <Content Include="Resources\AppIcon.png" />
-    <Content Include="Resources\AppIntegrate.png" />
-    <Content Include="Resources\AppModify.png" />
-    <Content Include="Resources\ArrowDown.png" />
-    <Content Include="Resources\ArrowRight.png" />
-    <Content Include="Resources\ArrowUp.png" />
     <Content Include="ZeroInstall.VisualElementsManifest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Logo_*.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="IntroDialog.de.resx">
-      <DependentUpon>IntroDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntroDialog.el.resx">
-      <DependentUpon>IntroDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntroDialog.resx">
-      <DependentUpon>IntroDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntroDialog.tr.resx">
-      <DependentUpon>IntroDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.de.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.el.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.tr.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortableCreatorDialog.de.resx">
-      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortableCreatorDialog.el.resx">
-      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortableCreatorDialog.resx">
-      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortableCreatorDialog.tr.resx">
-      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectCommandDialog.de.resx">
-      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectCommandDialog.el.resx">
-      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectCommandDialog.resx">
-      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectCommandDialog.tr.resx">
-      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SyncWizard.de.resx">
-      <DependentUpon>SyncWizard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SyncWizard.el.resx">
-      <DependentUpon>SyncWizard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SyncWizard.resx">
-      <DependentUpon>SyncWizard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SyncWizard.tr.resx">
-      <DependentUpon>SyncWizard.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Central\Central.csproj">
-      <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
-      <Name>Central</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj">
-      <Project>{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}</Project>
-      <Name>Commands.WinForms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-      Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -1,81 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project>
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
+
+  <!-- Project properties -->
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{187CD9C1-DD75-49E8-AEBB-F73D8E4F9BE3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet.Bootstrap</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>annotations</Nullable>
-    <NoWarn>1591</NoWarn>
-    <WarningLevel>4</WarningLevel>
-    <RestorePackages>true</RestorePackages>
+    <Product>Zero Install OneGet Bootstrapper</Product>
+    <Description>Downloads and proxies to the Zero Install OneGet Provider.</Description>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup>
+    <ProjectReference Include="..\Bootstrap\Bootstrap.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.18" />
     <PackageReference Include="LinFu.DynamicProxy.OfficialRelease" Version="1.0.5" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Configuration" />
     <Reference Include="Mono.Posix">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="BootstrapPackageProvider.cs" />
     <Compile Include="..\OneGet\IOneGetContext.cs" />
     <Compile Include="..\OneGet\OneGetHandler.cs" />
     <Compile Include="..\OneGet\OneGetProgress.cs" />
     <Compile Include="..\OneGet\PackageProviderBase.cs" />
-    <Compile Include="..\OneGet\Sdk\Constants.cs">
-      <Link>Sdk\Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\Sdk\ErrorCategory.cs">
-      <Link>Sdk\ErrorCategory.cs</Link>
-    </Compile>
-    <Compile Include="..\OneGet\Sdk\Request.cs">
-      <Link>Sdk\Request.cs</Link>
-    </Compile>
-    <Compile Include="OneGetContextInterceptor.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\OneGet\Sdk\*.cs" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\Bootstrap\Bootstrap.csproj">
-      <Project>{4b47068c-73d3-4f2f-bc96-8fe2b8fa4a7d}</Project>
-      <Name>Bootstrap</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+
+  <!-- Merge DLLs into EXEs -->
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
+  <PropertyGroup>
     <PostBuildEvent>pushd "$(OutDir)"
 "$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"$(TargetDir)0install.dll" "$(TargetPath)" 0install.exe ZeroInstall.*.dll System.ValueTuple.dll System.Runtime.InteropServices.RuntimeInformation.dll NanoByte.Common.dll LinFu.DynamicProxy.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
 popd</PostBuildEvent>
   </PropertyGroup>
+
 </Project>

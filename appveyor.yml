@@ -11,7 +11,7 @@ build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
 
 after_build:
-  - artifacts\Release\0install.exe self deploy --batch
+  - artifacts\Release\net45\win\0install.exe self deploy --batch
 
 artifacts:
   - path: artifacts

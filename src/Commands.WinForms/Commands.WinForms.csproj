@@ -1,201 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Project properties -->
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Commands.WinForms</RootNamespace>
     <AssemblyName>0install-win</AssemblyName>
-    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
+    <Product>Zero Install Command WinForms GUI</Product>
+    <Description>A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</Description>
+    <OutputType>WinExe</OutputType>
+    <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>annotations</Nullable>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
-    <NoWarn>1591</NoWarn>
-    <WarningLevel>4</WarningLevel>
-    <RestorePackages>true</RestorePackages>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\artifacts\Debug\</OutputPath>
-    <DocumentationFile>..\..\artifacts\Debug\0install-win.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\artifacts\Release\</OutputPath>
-    <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
-  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\App.config" />
+  </ItemGroup>
+
+  <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="NanoByte.Common.WinForms" Version="2.6.1" />
     <PackageReference Include="ZeroInstall.Commands" Version="2.18.7" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Windows.Data" />
     <Reference Include="Windows.UI" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="ConfigDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigDialog.Designer.cs">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FeedSearchDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FeedSearchDialog.Designer.cs">
-      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GuiCommandHandler.cs" />
-    <Compile Include="IntegrateAppForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IntegrateAppForm.Designer.cs">
-      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InterfaceDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InterfaceDialog.Designer.cs">
-      <DependentUpon>InterfaceDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProgressForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProgressForm.Designer.cs">
-      <DependentUpon>ProgressForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="SelectionsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SelectionsControl.Designer.cs">
-      <DependentUpon>SelectionsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StoreManageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StoreManageForm.Designer.cs">
-      <DependentUpon>StoreManageForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StoreManageNode.cs" />
-    <Compile Include="_Namespace.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ConfigDialog.de.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigDialog.el.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigDialog.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigDialog.tr.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FeedSearchDialog.de.resx">
-      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FeedSearchDialog.el.resx">
-      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FeedSearchDialog.resx">
-      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FeedSearchDialog.tr.resx">
-      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntegrateAppForm.de.resx">
-      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntegrateAppForm.el.resx">
-      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntegrateAppForm.resx">
-      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IntegrateAppForm.tr.resx">
-      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InterfaceDialog.de.resx">
-      <DependentUpon>InterfaceDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InterfaceDialog.el.resx">
-      <DependentUpon>InterfaceDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InterfaceDialog.resx">
-      <DependentUpon>InterfaceDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InterfaceDialog.tr.resx">
-      <DependentUpon>InterfaceDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProgressForm.resx">
-      <DependentUpon>ProgressForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StoreManageForm.de.resx">
-      <DependentUpon>StoreManageForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StoreManageForm.el.resx">
-      <DependentUpon>StoreManageForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StoreManageForm.resx">
-      <DependentUpon>StoreManageForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StoreManageForm.tr.resx">
-      <DependentUpon>StoreManageForm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\App.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-      Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

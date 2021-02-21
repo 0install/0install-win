@@ -25,6 +25,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap.WinForms", "Boots
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGet.Bootstrap", "OneGet.Bootstrap\OneGet.Bootstrap.csproj", "{187CD9C1-DD75-49E8-AEBB-F73D8E4F9BE3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FF4B5DDF-618F-4D5A-82CF-A41C13740BEB}"
+ProjectSection(SolutionItems) = preProject
+	Directory.Build.props = Directory.Build.props
+	app.cli.manifest = app.cli.manifest
+	app.service.manifest = app.service.manifest
+	app.winforms.manifest = app.winforms.manifest
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

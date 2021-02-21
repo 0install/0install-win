@@ -1,0 +1,35 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Build configuration -->
+    <LangVersion>9.0</LangVersion>
+    <TargetFramework>net45</TargetFramework>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <Nullable>annotations</Nullable>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn><!-- Missing XML comments -->
+    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
+
+    <!-- Metadata -->
+    <Copyright>Copyright Bastian Eicher et al.</Copyright>
+    <RepositoryUrl>https://github.com/0install/0install-win</RepositoryUrl>
+
+    <!-- Include native dependencies in output -->
+    <RuntimeIdentifier>win</RuntimeIdentifier>
+
+    <!-- Dummy version number, overridden by GitVersion -->
+    <Version>1.0.0-pre</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
