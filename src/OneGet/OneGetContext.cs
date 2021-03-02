@@ -273,15 +273,15 @@ namespace ZeroInstall.OneGet
             // TODO
             Log.Warn($"You have applied a version restriction to this app. Zero Install will continue to apply this restriction to any future updates. You will need to run '0install select --customize {requirements.InterfaceUri}' to undo this.");
 
-            foreach (var restriction in requirements.ExtraRestrictions)
+            foreach (var (feedUri, _) in requirements.ExtraRestrictions)
             {
-                var selection = selections.GetImplementation(restriction.Key);
+                var selection = selections.GetImplementation(feedUri);
                 if (selection != null)
                 {
-                    var pref = FeedPreferences.LoadForSafe(restriction.Key);
+                    var pref = FeedPreferences.LoadForSafe(feedUri);
                     pref.Implementations.Clear();
                     pref[selection.ID].UserStability = Stability.Preferred;
-                    pref.SaveFor(restriction.Key);
+                    pref.SaveFor(feedUri);
                 }
             }
         }
