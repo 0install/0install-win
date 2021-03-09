@@ -49,7 +49,7 @@ SearchAndReplace $AssemblyVersion OneGet\provider.manifest -PatternLeft 'version
 SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "ModuleVersion = '" -PatternRight "'"
 
 # Compile source code
-Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release
+Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
 
 # Generate bootstrap package for PowerShell Gallery (OneGet)
