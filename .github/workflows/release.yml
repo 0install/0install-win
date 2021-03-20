@@ -31,17 +31,17 @@ jobs:
         with:
           tag_name: ${{steps.download.outputs.version}}
           files: |
-            0install-win-${{steps.download.outputs.version}}.tar.gz 
+            0install-win-${{steps.download.outputs.version}}.tar.gz
             0install.zip
             zero-install.zip
             Bootstrap/0install.exe
             Bootstrap/zero-install.exe
           body: |
             **[Download Zero Install for Windows](https://get.0install.net/#windows)**
-            
+
             Based on [Zero Install .NET ${{steps.download.outputs.version}}](https://github.com/0install/0install-dotnet/releases/${{steps.download.outputs.version}}).
         env:
-          GITHUB_TOKEN: ${{github.token}} 
+          GITHUB_TOKEN: ${{github.token}}
 
       - name: Trigger feed update
         uses: benc-uk/workflow-dispatch@v1
