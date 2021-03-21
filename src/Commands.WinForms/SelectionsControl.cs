@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands.WinForms
             InitializeComponent();
             CreateHandle();
 
-            TaskControls = new TransparentCache<ManifestDigest, TaskControl>(CreateTaskControls);
+            TaskControls = new(CreateTaskControls);
         }
         #endregion
 
@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Called after preferences have been changed and the <see cref="ISolver"/> needs to be rerun.
         /// Is set between <see cref="BeginCustomizeSelections"/> and <see cref="EndCustomizeSelections"/>; is <c>null</c> otherwise.
         /// </summary>
-        private Func<Selections> _solveCallback;
+        private Func<Selections>? _solveCallback;
 
         /// <summary>
         /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.

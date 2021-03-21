@@ -688,7 +688,6 @@ namespace ZeroInstall.Commands.WinForms
             // 
             resources.ApplyResources(this.checkBoxAutoUpdate, "checkBoxAutoUpdate");
             this.checkBoxAutoUpdate.Name = "checkBoxAutoUpdate";
-            this.checkBoxAutoUpdate.Tag = "";
             this.toolTip.SetToolTip(this.checkBoxAutoUpdate, resources.GetString("checkBoxAutoUpdate.ToolTip"));
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
