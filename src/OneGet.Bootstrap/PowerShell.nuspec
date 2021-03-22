@@ -25,6 +25,6 @@ Zero Install also has some interesting features not often found in traditional p
     <files>
         <file src="..\..\icon.png" />
         <file src="0install.psd1" />
-        <file src="bin\Release\net45\win\0install.dll" />
+        <file src="bin\Release\net472\win\0install.dll" />
     </files>
 </package>

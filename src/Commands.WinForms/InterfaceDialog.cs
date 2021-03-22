@@ -163,7 +163,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 var feed = _feedManager[feedUri];
-                var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
+                var feedPreferences = _feedManager.GetPreferences(feedUri);
                 return feed.Implementations.Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
             }
             #region Error handling

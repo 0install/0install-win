@@ -6,9 +6,9 @@ src\build.ps1 $Version
 
 if ($Deploy) {
   if ($Machine) {
-    artifacts\Release\net45\win\0install.exe self deploy --batch --machine
+    artifacts\Release\net472\win\0install.exe self deploy --batch --machine
   } else {
-    artifacts\Release\net45\win\0install.exe self deploy --batch
+    artifacts\Release\net472\win\0install.exe self deploy --batch
   }
 }
 

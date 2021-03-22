@@ -11,7 +11,6 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
     <UseWindowsForms>True</UseWindowsForms>
-    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <!-- Dependencies -->
@@ -20,7 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.18" />
-    <PackageReference Include="NanoByte.Common.WinForms" Version="2.6.1" />
+    <PackageReference Include="NanoByte.Common.WinForms" Version="2.7.4" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +38,7 @@
 mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll System.ValueTuple.dll System.Runtime.InteropServices.RuntimeInformation.dll NanoByte.Common*.dll TaskDialog.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common.dll NanoByte.Common.WinForms.dll TaskDialog.dll System.ValueTuple.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll
 copy /y "$(TargetName).exe.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
 popd</PostBuildEvent>
   </PropertyGroup>

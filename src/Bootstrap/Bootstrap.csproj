@@ -10,14 +10,13 @@
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
-    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.18" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
-    <PackageReference Include="ZeroInstall.Services" Version="2.18.7" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Services" Version="2.19.0" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
@@ -37,7 +36,7 @@
 mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll System.ValueTuple.dll System.Runtime.InteropServices.RuntimeInformation.dll NanoByte.Common.dll ICSharpCode.SharpZipLib.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll NDesk.Options.dll
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll NanoByte.Common.dll System.ValueTuple.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll
 copy /y "$(TargetName).exe.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
 popd</PostBuildEvent>
   </PropertyGroup>

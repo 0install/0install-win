@@ -16,7 +16,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
@@ -63,6 +62,9 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         /// <inheritdoc/>
+        public bool IsGui => true;
+
+        /// <inheritdoc/>
         public bool Background { get; set; }
 
         #region Task tracking
@@ -75,7 +77,7 @@ namespace ZeroInstall.Commands.WinForms
 
             Log.Debug("Task: " + task.Name);
 
-            var progress = _wrapper.Post(form => (task.Tag is ManifestDigest tag)
+            var progress = _wrapper.Post(form => (task.Tag is string tag)
                 ? form.GetProgressControl(task.Name, tag)
                 : form.GetProgressControl(task.Name));
 

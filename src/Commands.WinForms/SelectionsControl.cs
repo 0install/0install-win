@@ -137,15 +137,15 @@ namespace ZeroInstall.Commands.WinForms
         /// A list of <see cref="TaskControl"/>s addressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.
         /// Missing entries are transparently created on request.
         /// </summary>
-        internal readonly TransparentCache<ManifestDigest, TaskControl> TaskControls;
+        internal readonly TransparentCache<string, TaskControl> TaskControls;
 
-        private TaskControl CreateTaskControls(ManifestDigest manifestDigest)
+        private TaskControl CreateTaskControls(string tag)
         {
             var trackingControl = new TaskControl {Dock = DockStyle.Fill};
             trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
 
-            int i = _selections.Implementations.FindIndex(x => x.ManifestDigest.PartialEquals(manifestDigest));
-            tableLayout.Controls.Add(trackingControl, 2, i);
+            int index = _selections.Implementations.FindIndex(x => x.ManifestDigest.Best == tag);
+            tableLayout.Controls.Add(trackingControl, 2, index);
 
             return trackingControl;
         }

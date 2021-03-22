@@ -8,11 +8,10 @@
     <Description>Implements a OneGet Provider for Zero Install, exposing package installation functionality.</Description>
     <OutputType>Library</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
-    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <!-- Dependencies -->
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.Commands" Version="2.18.7" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Commands" Version="2.19.0" PrivateAssets="None" />
   </ItemGroup>
 </Project>

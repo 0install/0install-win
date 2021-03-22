@@ -21,7 +21,7 @@ namespace ZeroInstall.Store.Service
     /// Models a cache directory that stores <see cref="Implementation"/>s using ACLs and impersonation to ensure security in IPC scenarios.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class SecureStore : DiskImplementationStore, IEquatable<SecureStore>
+    public class SecureStore : ImplementationStore, IEquatable<SecureStore>
     {
         #region Variables
         /// <summary>The identity the service was launched with.</summary>
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Service
                 #region Error handling
                 catch (Exception ex)
                 {
-                    Log.Error(string.Format(Resources.FailedToCreateTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message);
+                    Log.Error(string.Format(Resources.FailedToCreateTempDir, callingIdentity.Name, Path) + Environment.NewLine + ex.Message);
                     throw;
                 }
                 #endregion
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Service
                 #region Error handling
                 catch (Exception ex)
                 {
-                    Log.Error(string.Format(Resources.FailedToRemoveTempDir, callingIdentity.Name, DirectoryPath) + Environment.NewLine + ex.Message);
+                    Log.Error(string.Format(Resources.FailedToRemoveTempDir, callingIdentity.Name, Path) + Environment.NewLine + ex.Message);
                     throw;
                 }
                 #endregion
@@ -128,10 +128,10 @@ namespace ZeroInstall.Store.Service
             {
                 try
                 {
-                    var tempDirectory = new DirectoryInfo(Path.Combine(DirectoryPath, tempID));
+                    var tempDirectory = new DirectoryInfo(System.IO.Path.Combine(Path, tempID));
                     try
                     {
-                        handler.RunTask(new SimpleTask(Resources.SettingFilePermissions, tempDirectory.ResetAcl) {Tag = expectedDigest});
+                        handler.RunTask(new SimpleTask($"{Resources.SettingFilePermissions} ({expectedDigest.Best})", tempDirectory.ResetAcl) {Tag = expectedDigest.Best});
                     }
                     catch (IndexOutOfRangeException)
                     {
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Service
                     }
 
                     string result = base.VerifyAndAdd(tempID, expectedDigest, handler);
-                    Log.Info(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath));
+                    Log.Info(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), Path));
                     return result;
                 }
                 catch (OperationCanceledException)
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Service
                 }
                 catch (Exception ex)
                 {
-                    Log.Warn(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath) + Environment.NewLine + ex.Message);
+                    Log.Warn(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), Path) + Environment.NewLine + ex.Message);
                     throw;
                 }
             }
@@ -179,12 +179,12 @@ namespace ZeroInstall.Store.Service
                 #region Error handling
                 catch (Exception)
                 {
-                    Log.Warn(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
+                    Log.Warn(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, Path));
                     throw;
                 }
                 #endregion
 
-                if (removed) Log.Info(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
+                if (removed) Log.Info(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, Path));
                 return removed;
             }
         }
@@ -206,9 +206,9 @@ namespace ZeroInstall.Store.Service
 
         #region Conversion
         /// <summary>
-        /// Returns the Store in the form "SecureStore: DirectoryPath". Not safe for parsing!
+        /// Returns the Store in the form "SecureStore: Path". Not safe for parsing!
         /// </summary>
-        public override string ToString() => "SecureStore: " + DirectoryPath;
+        public override string ToString() => "SecureStore: " + Path;
         #endregion
 
         #region Equality
@@ -216,7 +216,7 @@ namespace ZeroInstall.Store.Service
         public bool Equals(SecureStore other) => base.Equals(other);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null) return false;
             if (obj == this) return true;

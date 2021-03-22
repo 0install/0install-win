@@ -2,7 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System.ServiceProcess;
-using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Service;
 

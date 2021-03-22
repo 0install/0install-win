@@ -55,8 +55,8 @@ Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
 # Generate bootstrap package for PowerShell Gallery (OneGet)
 $env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64"
 if (Get-Command mt -ErrorAction SilentlyContinue) {
-    Add-Manifest OneGet\provider.manifest ..\artifacts\Release\net45\win\ZeroInstall.OneGet.dll
-    Add-Manifest OneGet\provider.manifest OneGet.Bootstrap\bin\Release\net45\win\0install.dll
+    Add-Manifest OneGet\provider.manifest ..\artifacts\Release\net472\win\ZeroInstall.OneGet.dll
+    Add-Manifest OneGet\provider.manifest OneGet.Bootstrap\bin\Release\net472\win\0install.dll
 
     ..\0install.ps1 run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -NoPackageAnalysis -Properties Version=$Version -OutputDirectory ..\artifacts
     move -Force ..\artifacts\0install.$Version.nupkg ..\artifacts\0install.powershell.$Version.nupkg
