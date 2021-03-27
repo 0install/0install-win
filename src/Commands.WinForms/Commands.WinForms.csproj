@@ -18,7 +18,7 @@
   <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="NanoByte.Common.WinForms" Version="2.7.4" />
-    <PackageReference Include="ZeroInstall.Commands" Version="2.19.0" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Commands" Version="2.19.1" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
