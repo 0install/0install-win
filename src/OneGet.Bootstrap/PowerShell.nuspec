@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-    <metadata>
-        <id>0install</id>
-        <title>Zero Install OneGet Provider</title>
-        <version>$version$</version>
-        <authors>Bastian Eicher</authors>
-        <owners>bastian.eicher</owners>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <license type="expression">LGPL-3.0-or-later</license>
-        <projectUrl>https://0install.net/</projectUrl>
-        <icon>icon.png</icon>
-        <iconUrl>https://raw.githubusercontent.com/0install/0install-win/master/icon.png</iconUrl>
-        <summary>OneGet Package Provider for Zero Install</summary>
-        <description>This installs the OneGet Package Provider for Zero Install, a decentralized cross-distribution software installation system.
+  <metadata>
+    <id>0install</id>
+    <title>Zero Install OneGet Provider</title>
+    <version>$version$</version>
+    <authors>Bastian Eicher</authors>
+    <owners>bastian.eicher</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">LGPL-3.0-or-later</license>
+    <projectUrl>https://0install.net/</projectUrl>
+    <icon>icon.png</icon>
+    <iconUrl>https://raw.githubusercontent.com/0install/0install-win/master/icon.png</iconUrl>
+    <summary>OneGet Package Provider for Zero Install</summary>
+    <description>This installs the OneGet Package Provider for Zero Install, a decentralized cross-distribution software installation system.
 
 Zero Install is a decentralized cross-platform software-installation system available under the LGPL. It allows software developers to publish programs directly from their own web-sites, while supporting features familiar from centralized distribution repositories such as shared libraries, automatic updates and digital signatures. It is intended to complement, rather than replace, the operating system’s package management. 0install packages never interfere with those provided by the distribution.
 
 Zero Install does not define a new packaging format; unmodified tarballs or zip archives can be used. Instead, it defines an [XML metadata format](https://docs.0install.net/specifications/feed/) to describe these packages and the dependencies between them. A single metadata file can be used on multiple platforms (e.g. Windows, Ubuntu, Debian, Fedora, FreeBSD and Mac OS X).
 
 Zero Install also has some interesting features not often found in traditional package managers. For example, while it will share libraries whenever possible, it can always install multiple versions of a package in parallel when there are conflicting requirements. Installation is always side-effect-free (each package is unpacked to its own directory and will not touch shared directories), making it ideal for use with sandboxing technologies and virtualization.</description>
-        <copyright>Copyright Bastian Eicher et al.</copyright>
-        <tags>PackageManagement Provider PSModule</tags>
-    </metadata>
-    <files>
-        <file src="..\..\icon.png" />
-        <file src="0install.psd1" />
-        <file src="bin\Release\net472\win\0install.dll" />
-    </files>
+    <copyright>Copyright Bastian Eicher et al.</copyright>
+    <tags>PackageManagement Provider PSModule</tags>
+  </metadata>
+  <files>
+    <file src="..\..\icon.png" />
+    <file src="0install.psd1" />
+    <file src="bin\Release\net472\win\0install.dll" />
+  </files>
 </package>

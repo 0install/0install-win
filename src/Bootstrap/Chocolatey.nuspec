@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-    <metadata>
-        <id>0install</id>
-        <title>Zero Install</title>
-        <version>$version$</version>
-        <authors>Bastian Eicher</authors>
-        <owners>bastian.eicher</owners>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <licenseUrl>https://opensource.org/licenses/lgpl-license</licenseUrl>
-        <projectUrl>https://0install.net/</projectUrl>
-        <iconUrl>https://cdn.rawgit.com/dtgm/chocolatey-packages/23daa374e2e649e33d1f4b3ffe2ce07cb1614cd3/icons/0install.png</iconUrl>
-        <projectSourceUrl>https://github.com/0install/0install-win</projectSourceUrl>
-        <packageSourceUrl>https://github.com/0install/0install-win/tree/master/src/Bootstrap</packageSourceUrl>
-        <docsUrl>https://docs.0install.net/</docsUrl>
-        <mailingListUrl>https://0install.net/support.html#lists</mailingListUrl>
-        <summary>Decentralized cross-distribution software installation system</summary>
-        <description>[Zero Install](https://0install.net/) is a decentralized cross-platform software-installation system available under the LGPL. It allows software developers to publish programs directly from their own web-sites, while supporting features familiar from centralized distribution repositories such as shared libraries, automatic updates and digital signatures. It is intended to complement, rather than replace, the operating system’s package management. 0install packages never interfere with those provided by the distribution.
+  <metadata>
+    <id>0install</id>
+    <title>Zero Install</title>
+    <version>$version$</version>
+    <authors>Bastian Eicher</authors>
+    <owners>bastian.eicher</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://opensource.org/licenses/lgpl-license</licenseUrl>
+    <projectUrl>https://0install.net/</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/dtgm/chocolatey-packages/23daa374e2e649e33d1f4b3ffe2ce07cb1614cd3/icons/0install.png</iconUrl>
+    <projectSourceUrl>https://github.com/0install/0install-win</projectSourceUrl>
+    <packageSourceUrl>https://github.com/0install/0install-win/tree/master/src/Bootstrap</packageSourceUrl>
+    <docsUrl>https://docs.0install.net/</docsUrl>
+    <mailingListUrl>https://0install.net/support.html#lists</mailingListUrl>
+    <summary>Decentralized cross-distribution software installation system</summary>
+    <description>[Zero Install](https://0install.net/) is a decentralized cross-platform software-installation system available under the LGPL. It allows software developers to publish programs directly from their own web-sites, while supporting features familiar from centralized distribution repositories such as shared libraries, automatic updates and digital signatures. It is intended to complement, rather than replace, the operating system’s package management. 0install packages never interfere with those provided by the distribution.
 
 Zero Install does not define a new packaging format; unmodified tarballs or zip archives can be used. Instead, it defines an XML metadata format to describe these packages and the dependencies between them. A single metadata file can be used on multiple platforms (e.g. Windows, Ubuntu, Debian, Fedora, FreeBSD and Mac OS X).
 
 Zero Install also has some [interesting features](https://docs.0install.net/features/) not often found in traditional package managers. For example, while it will share libraries whenever possible, it can always install multiple versions of a package in parallel when there are conflicting requirements. Installation is always side-effect-free (each package is unpacked to its own directory and will not touch shared directories), making it ideal for use with sandboxing technologies and virtualization.</description>
-        <releaseNotes>[News](https://0install.net/#news)</releaseNotes>
-        <copyright>Copyright Bastian Eicher et al.</copyright>
-        <tags>0install Zero Install Package Manager</tags>
-    </metadata>
-    <files>
-        <file src="chocolatey*.ps1" target="tools" />
-        <file src="..\..\artifacts\Bootstrap\0install.*" target="tools" />
-        <file src="0install.exe.ignore" target="tools" />
-        <file src="VERIFICATION.txt" target="tools" />
-        <file src="..\..\LICENSE.txt" target="tools" />
-    </files>
+    <releaseNotes>[News](https://0install.net/#news)</releaseNotes>
+    <copyright>Copyright Bastian Eicher et al.</copyright>
+    <tags>0install Zero Install Package Manager</tags>
+  </metadata>
+  <files>
+    <file src="chocolatey*.ps1" target="tools" />
+    <file src="..\..\artifacts\Bootstrap\0install.*" target="tools" />
+    <file src="0install.exe.ignore" target="tools" />
+    <file src="VERIFICATION.txt" target="tools" />
+    <file src="..\..\LICENSE.txt" target="tools" />
+  </files>
 </package>
