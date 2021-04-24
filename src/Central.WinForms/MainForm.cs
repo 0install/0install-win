@@ -305,15 +305,15 @@ namespace ZeroInstall.Central.WinForms
             => Program.RunCommandAsync(StoreMan.Name, "manage");
 
         private void buttonCommandLine_Click(object sender, EventArgs e)
-        {
-            var cmd = new ProcessStartInfo("cmd.exe", "/k echo " + Resources.CommandLineHint)
+            => new ProcessStartInfo("powershell.exe", new[] {"-NoExit", "-Command", $"Write-Host \"{Resources.CommandLineHint}\""}.JoinEscapeArguments())
             {
                 UseShellExecute = false,
-                WorkingDirectory = Locations.IsPortable ? Locations.PortableBase : Locations.HomeDir
-            };
-            cmd.EnvironmentVariables["Path"] = Locations.InstallBase + Path.PathSeparator + Environment.GetEnvironmentVariable("Path");
-            cmd.Start();
-        }
+                WorkingDirectory = Locations.IsPortable ? Locations.PortableBase : Locations.HomeDir,
+                Environment =
+                {
+                    ["Path"] = Locations.InstallBase + Path.PathSeparator + Environment.GetEnvironmentVariable("Path")
+                }
+            }.Start();
 
         private void buttonPortableCreator_Click(object sender, EventArgs e)
             => new PortableCreatorDialog().Show(this);
