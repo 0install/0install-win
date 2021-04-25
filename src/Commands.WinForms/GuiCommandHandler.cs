@@ -119,8 +119,7 @@ namespace ZeroInstall.Commands.WinForms
             var severity = defaultAnswer == true ? MsgSeverity.Info : MsgSeverity.Warn;
 
             Log.Debug("Question: " + question);
-            using var future = _wrapper.Post(form => form.Ask(question, severity));
-            switch (future.Get())
+            switch (_wrapper.Post(form => form.AskAsync(question, severity)).Result)
             {
                 case DialogResult.Yes:
                     Log.Debug("Answer: Yes");

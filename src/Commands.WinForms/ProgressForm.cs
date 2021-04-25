@@ -4,13 +4,13 @@
 using System;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
@@ -180,7 +180,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         private string? _pendingQuestion;
-        private Future<DialogResult>? _pendingResult;
+        private TaskCompletionSource<DialogResult>? _pendingResult;
 
         /// <summary>
         /// Asks the user a Yes/No/Cancel question.
@@ -189,31 +189,32 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="severity">The severity/possible impact of the question.</param>
         /// <returns><c>true</c> if the user answered with 'Yes'; <c>false</c> if the user answered with 'No'.</returns>
         /// <exception cref="OperationCanceledException">The user selected 'Cancel'.</exception>
-        public Future<DialogResult> Ask(string question, MsgSeverity severity)
+        public Task<DialogResult> AskAsync(string question, MsgSeverity severity)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException(nameof(question));
             #endregion
 
             if (Visible)
-                return Msg.YesNoCancel(this, question, severity);
+                return Task.FromResult(Msg.YesNoCancel(this, question, severity));
             else
             {
                 _pendingQuestion = question;
-                _pendingResult = new Future<DialogResult>();
+                _pendingResult = new();
 
                 ShowTrayIcon(question.GetLeftPartAtFirstOccurrence(Environment.NewLine) + Environment.NewLine + Resources.ClickToChoose, ToolTipIcon.Info);
 
-                return _pendingResult!;
+                return _pendingResult!.Task;
             }
         }
 
         private void ProgressForm_Shown(object sender, EventArgs e)
         {
-            if (_pendingQuestion != null)
+            if (_pendingQuestion != null && _pendingResult != null)
             {
-                _pendingResult!.Set(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
+                _pendingResult.SetResult(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
                 _pendingQuestion = null;
+                _pendingResult = null;
             }
         }
         #endregion
