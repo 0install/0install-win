@@ -58,7 +58,6 @@ namespace ZeroInstall.Central.WinForms
             // buttonIntegrate
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonIntegrate.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.AppIntegrated;
             this.buttonIntegrate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonIntegrate.Location = new System.Drawing.Point(12, 50);
             this.buttonIntegrate.Name = "buttonIntegrate";
@@ -73,7 +72,6 @@ namespace ZeroInstall.Central.WinForms
             // buttonRemove
             // 
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemove.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.AppCandidate;
             this.buttonRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRemove.Location = new System.Drawing.Point(12, 82);
             this.buttonRemove.Name = "buttonRemove";

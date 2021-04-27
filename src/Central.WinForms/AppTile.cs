@@ -17,8 +17,6 @@ using ZeroInstall.Commands.Basic;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
-using Icon = ZeroInstall.Model.Icon;
-using SharedResources = ZeroInstall.Central.Properties.Resources;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -27,12 +25,6 @@ namespace ZeroInstall.Central.WinForms
     /// </summary>
     public sealed partial class AppTile : UserControl, IAppTile
     {
-        // Static resource preload
-        private static readonly string _runButtonText = SharedResources.Run;
-        private static readonly Bitmap _candidateImage = Resources.AppCandidate, _addedImage = Resources.AppAdded, _integratedImage = Resources.AppIntegrated;
-        private static readonly string _candidateText = SharedResources.MyAppsAdd, _addedText = SharedResources.Integrate, _integrateText = SharedResources.ModifyIntegration;
-        private static readonly string _runWithOptionsText = SharedResources.RunWithOptions, _updateText = SharedResources.Update;
-
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
 
@@ -55,17 +47,8 @@ namespace ZeroInstall.Central.WinForms
             set
             {
                 if (InvokeRequired) throw new InvalidOperationException("Property set from a non UI thread.");
-
-                (buttonIntegrate.AccessibleName, buttonIntegrate.Image) = (value switch
-                {
-                    AppStatus.Candidate => (_candidateText, _candidateImage),
-                    AppStatus.Added => (_addedText, _addedImage),
-                    AppStatus.Integrated => (_integrateText, _integratedImage),
-                    _ => throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(AppStatus))
-                });
-                toolTip.SetToolTip(buttonIntegrate, buttonIntegrate.AccessibleName);
-
                 _status = value;
+                RefreshStatus();
             }
         }
 
@@ -90,7 +73,9 @@ namespace ZeroInstall.Central.WinForms
                 else buttonRunWithOptions.Visible = true;
 
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
-                SetIcon(value.Icons.GetIcon(Icon.MimeTypePng) ?? value.Icons.GetIcon(Icon.MimeTypeIco));
+                SetIcon(
+                    value.Icons.GetIcon(Model.Icon.MimeTypePng)
+                 ?? value.Icons.GetIcon(Model.Icon.MimeTypeIco));
             }
         }
 
@@ -108,33 +93,46 @@ namespace ZeroInstall.Central.WinForms
             _iconStore = iconStore;
 
             InitializeComponent();
-            buttonRun.Text = buttonRun2.Text = _runButtonText;
-            buttonRunWithOptions.Text = _runWithOptionsText;
-            buttonUpdate.Text = _updateText;
+            buttonRun.Text = buttonRun2.Text = AppResources.RunText;
+            buttonRunWithOptions.Text = AppResources.RunWithOptionsText;
+            buttonUpdate.Text = AppResources.UpdateText;
 
             InterfaceUri = interfaceUri ?? throw new ArgumentNullException(nameof(interfaceUri));
             labelName.Text = appName ?? throw new ArgumentNullException(nameof(appName));
             labelSummary.Text = "";
-            Status = status;
+            _status = status;
+
+            HandleCreated += delegate { RefreshStatus(); };
 
             CreateHandle();
         }
 
-        private async void SetIcon(Icon? icon)
+        private void RefreshStatus()
         {
-            pictureBoxIcon.Image = await GetIconAsync(icon);
+            (string text, var image) = (_status switch
+            {
+                AppStatus.Candidate => (AppResources.CandidateText, AppResources.CandidateImage),
+                AppStatus.Added => (AppResources.AddedText, AppResources.AddedImage),
+                AppStatus.Integrated => (AppResources.IntegrateText, AppResources.IntegratedImage),
+                _ => throw new InvalidOperationException()
+            });
+
+            buttonIntegrate.AccessibleName = text;
+            buttonIntegrate.Image = image;
+            toolTip.SetToolTip(buttonIntegrate, text);
         }
 
         private static readonly SemaphoreSlim _iconSemaphore = new(initialCount: 5);
 
-        private async Task<Image> GetIconAsync(Icon? icon)
+        private async void SetIcon(Model.Icon? icon)
         {
             if (icon != null && _iconStore != null)
             {
                 await _iconSemaphore.WaitAsync(); // Limit number of concurrent icon downloads
                 try
                 {
-                    return await Task.Run(() => Image.FromFile(_iconStore.GetPath(icon)));
+                    pictureBoxIcon.Image = await Task.Run(() => Image.FromFile(_iconStore.GetPath(icon)));
+                    return;
                 }
                 #region Error handling
                 catch (OperationCanceledException)
@@ -169,7 +167,7 @@ namespace ZeroInstall.Central.WinForms
                 }
             }
 
-            return Resources.AppIcon; // Fallback default icon
+            pictureBoxIcon.Image = Resources.AppIcon; // Fallback image
         }
 
         private void LinkClicked(object sender, EventArgs e)

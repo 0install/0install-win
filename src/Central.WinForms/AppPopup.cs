@@ -8,7 +8,6 @@ using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
-using SharedResources = ZeroInstall.Central.Properties.Resources;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -19,6 +18,7 @@ namespace ZeroInstall.Central.WinForms
     {
         private readonly FeedUri _interfaceUri;
         private readonly bool _machineWide;
+        private AppStatus _status;
 
         /// <summary>
         /// Creates a new app popup.
@@ -33,7 +33,9 @@ namespace ZeroInstall.Central.WinForms
 
             _interfaceUri = interfaceUri;
             _machineWide = machineWide;
-            SetStatus(status);
+            _status = status;
+
+            HandleCreated += delegate { RefreshStatus(); };
         }
 
         /// <summary>
@@ -45,28 +47,28 @@ namespace ZeroInstall.Central.WinForms
             Show(control);
         }
 
-        private void SetStatus(AppStatus status)
+        private void RefreshStatus()
         {
-            switch (status)
+            switch (_status)
             {
                 case AppStatus.Candidate:
                     AddApp();
-                    iconStatus.Image = Resources.AppCandidate;
+                    iconStatus.Image = AppResources.CandidateImage;
                     break;
 
                 case AppStatus.Added:
-                    iconStatus.Image = Resources.AppAdded;
-                    labelStatus.Text = SharedResources.MyAppsAdded;
-                    buttonIntegrate.Text = SharedResources.Integrate;
-                    buttonRemove.Text = SharedResources.Remove;
+                    iconStatus.Image = AppResources.AddedImage;
+                    labelStatus.Text = AppResources.AddedText;
+                    buttonIntegrate.Text = AppResources.IntegrateText;
+                    buttonRemove.Text = AppResources.RemoveText;
                     ShowButtons();
                     break;
 
                 case AppStatus.Integrated:
-                    iconStatus.Image = Resources.AppIntegrated;
-                    labelStatus.Text = SharedResources.MyAppsAddedAndIntegrate;
-                    buttonIntegrate.Text = SharedResources.ModifyIntegration;
-                    buttonRemove.Text = SharedResources.Remove;
+                    iconStatus.Image = AppResources.IntegratedImage;
+                    labelStatus.Text = AppResources.IntegratedText;
+                    buttonIntegrate.Text = AppResources.ModifyText;
+                    buttonRemove.Text = AppResources.RemoveText;
                     ShowButtons();
                     break;
             }
@@ -74,22 +76,28 @@ namespace ZeroInstall.Central.WinForms
 
         private void ShowButtons()
         {
+            buttonIntegrate.Image = AppResources.IntegratedImage;
+            buttonRemove.Image = AppResources.CandidateImage;
             buttonIntegrate.Visible = buttonRemove.Visible = true;
             buttonIntegrate.Focus();
         }
 
         private async void AddApp()
         {
-            labelStatus.Text = SharedResources.Working;
+            labelStatus.Text = AppResources.Working;
 
             var exitCode = await Program.RunCommandAsync(_machineWide, Commands.Desktop.AddApp.Name, "--background", _interfaceUri.ToStringRfc());
-            if (exitCode == ExitCode.OK) SetStatus(AppStatus.Added);
+            if (exitCode == ExitCode.OK)
+            {
+                _status = AppStatus.Added;
+                RefreshStatus();
+            }
             else Close();
         }
 
         private async void buttonIntegrate_Click(object sender, EventArgs e)
         {
-            labelStatus.Text = SharedResources.Working;
+            labelStatus.Text = AppResources.Working;
             Enabled = false;
             await Program.RunCommandAsync(_machineWide, IntegrateApp.Name, _interfaceUri.ToStringRfc());
             Close();
@@ -97,7 +105,7 @@ namespace ZeroInstall.Central.WinForms
 
         private async void buttonRemove_Click(object sender, EventArgs e)
         {
-            labelStatus.Text = SharedResources.Working;
+            labelStatus.Text = AppResources.Working;
             Enabled = false;
             await Program.RunCommandAsync(_machineWide, RemoveApp.Name, _interfaceUri.ToStringRfc());
             Close();
