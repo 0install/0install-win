@@ -4,6 +4,7 @@
 using System;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
+using NanoByte.Common.Threading;
 
 namespace ZeroInstall
 {

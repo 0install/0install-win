@@ -56,7 +56,7 @@ namespace ZeroInstall.OneGet
         }
 
         /// <inheritdoc/>
-        public override bool Ask(string question, bool? defaultAnswer = null, string? alternateMessage = null)
+        protected override bool AskInteractive(string question, bool defaultAnswer)
             => _request.OptionKeys.Contains("Force") || _request.ShouldContinue(question, "Zero Install");
 
         /// <inheritdoc/>

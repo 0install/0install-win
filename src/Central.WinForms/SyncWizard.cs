@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;

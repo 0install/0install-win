@@ -4,6 +4,7 @@
 using System;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Central.WinForms
@@ -25,7 +26,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         /// <inheritdoc/>
-        public override bool Ask(string question, bool? defaultAnswer = null, string? alternateMessage = null)
+        protected override bool AskInteractive(string question, bool defaultAnswer)
         {
             bool result = false;
             Log.Debug("Question: " + question);

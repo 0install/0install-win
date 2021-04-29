@@ -10,6 +10,7 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
+using NanoByte.Common.Threading;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
 

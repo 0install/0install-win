@@ -17,7 +17,7 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.Store" Version="2.19.1" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Store" Version="2.19.2" PrivateAssets="None" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration.Install" />

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 

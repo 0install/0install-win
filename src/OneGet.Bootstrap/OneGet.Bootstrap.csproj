@@ -38,7 +38,7 @@
   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
   <PropertyGroup>
     <PostBuildEvent>pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"$(TargetDir)0install.dll" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common.dll System.ValueTuple.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll LinFu.DynamicProxy.dll
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"$(TargetDir)0install.dll" "$(TargetPath)" 0install.exe ZeroInstall.*.dll NanoByte.Common.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll LinFu.DynamicProxy.dll
 popd</PostBuildEvent>
   </PropertyGroup>
 

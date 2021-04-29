@@ -11,9 +11,11 @@ using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using NanoByte.Common.Threading;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model.Selection;
@@ -103,20 +105,14 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         /// <inheritdoc/>
-        public override bool Ask(string question, bool? defaultAnswer = null, string? alternateMessage = null)
+        protected override bool AskInteractive(string question, bool defaultAnswer)
         {
             #region Sanity checks
             if (question == null) throw new ArgumentNullException(nameof(question));
             #endregion
 
-            if (Verbosity == Verbosity.Batch && defaultAnswer.HasValue)
-            {
-                if (!string.IsNullOrEmpty(alternateMessage)) Log.Warn(alternateMessage);
-                return defaultAnswer.Value;
-            }
-
             // Treat messages that default to "Yes" as less severe than those that default to "No"
-            var severity = defaultAnswer == true ? MsgSeverity.Info : MsgSeverity.Warn;
+            var severity = defaultAnswer ? MsgSeverity.Info : MsgSeverity.Warn;
 
             Log.Debug("Question: " + question);
             switch (_wrapper.Post(form => form.AskAsync(question, severity)).Result)

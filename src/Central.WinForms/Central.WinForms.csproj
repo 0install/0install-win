@@ -22,7 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AeroWizard" Version="2.2.9" />
-    <PackageReference Include="ZeroInstall.Model" Version="2.19.1" />
+    <PackageReference Include="ZeroInstall.Model" Version="2.19.2" />
   </ItemGroup>
 
   <!-- Start menu tile -->

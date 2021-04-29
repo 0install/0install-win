@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
