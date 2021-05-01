@@ -309,9 +309,6 @@
   <data name="textBoxSyncServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="textBoxSyncServer.HintText" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 6</value>
   </data>
