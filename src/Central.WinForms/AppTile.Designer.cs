@@ -68,7 +68,6 @@ namespace ZeroInstall.Central.WinForms
             // buttonRun
             // 
             this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRun.AutoSize = true;
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.DropDownMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -118,7 +117,6 @@ namespace ZeroInstall.Central.WinForms
             // buttonIntegrate
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonIntegrate.AutoSize = true;
             this.buttonIntegrate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);

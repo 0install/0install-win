@@ -119,7 +119,7 @@ namespace ZeroInstall.Central.WinForms
             });
 
             buttonIntegrate.AccessibleName = text;
-            buttonIntegrate.Image = image;
+            buttonIntegrate.Image = image.Get(this.GetDpiScale());
             toolTip.SetToolTip(buttonIntegrate, text);
         }
 

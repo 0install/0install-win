@@ -2,7 +2,9 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
+using NanoByte.Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
@@ -35,7 +37,11 @@ namespace ZeroInstall.Central.WinForms
             _machineWide = machineWide;
             _status = status;
 
-            HandleCreated += delegate { RefreshStatus(); };
+            HandleCreated += delegate
+            {
+                DpiScalingWorkaround();
+                RefreshStatus();
+            };
         }
 
         /// <summary>
@@ -47,17 +53,39 @@ namespace ZeroInstall.Central.WinForms
             Show(control);
         }
 
+        private void DpiScalingWorkaround()
+        {
+            iconStatus.Location -= this.GetDpiScale() switch
+            {
+                2f => new Size(4, 2),
+                1.75f => new Size(4, 1),
+                1.5f => new Size(1, 1),
+                1.25f => new Size(2, 1),
+                _ => new Size()
+            };
+        }
+
         private void RefreshStatus()
         {
+            float scale = this.GetDpiScale();
+
+            void ShowButtons()
+            {
+                buttonIntegrate.Image = AppResources.IntegratedImage.Get(scale);
+                buttonRemove.Image = AppResources.CandidateImage.Get(scale);
+                buttonIntegrate.Visible = buttonRemove.Visible = true;
+                buttonIntegrate.Focus();
+            }
+
             switch (_status)
             {
                 case AppStatus.Candidate:
                     AddApp();
-                    iconStatus.Image = AppResources.CandidateImage;
+                    iconStatus.Image = AppResources.CandidateImage.Get(scale);
                     break;
 
                 case AppStatus.Added:
-                    iconStatus.Image = AppResources.AddedImage;
+                    iconStatus.Image = AppResources.AddedImage.Get(scale);
                     labelStatus.Text = AppResources.AddedText;
                     buttonIntegrate.Text = AppResources.IntegrateText;
                     buttonRemove.Text = AppResources.RemoveText;
@@ -65,21 +93,13 @@ namespace ZeroInstall.Central.WinForms
                     break;
 
                 case AppStatus.Integrated:
-                    iconStatus.Image = AppResources.IntegratedImage;
+                    iconStatus.Image = AppResources.IntegratedImage.Get(scale);
                     labelStatus.Text = AppResources.IntegratedText;
                     buttonIntegrate.Text = AppResources.ModifyText;
                     buttonRemove.Text = AppResources.RemoveText;
                     ShowButtons();
                     break;
             }
-        }
-
-        private void ShowButtons()
-        {
-            buttonIntegrate.Image = AppResources.IntegratedImage;
-            buttonRemove.Image = AppResources.CandidateImage;
-            buttonIntegrate.Visible = buttonRemove.Visible = true;
-            buttonIntegrate.Focus();
         }
 
         private async void AddApp()

@@ -1,7 +1,7 @@
 ﻿// Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System.Drawing;
+using NanoByte.Common.Drawing;
 using SharedResources = ZeroInstall.Central.Properties.Resources;
 
 namespace ZeroInstall.Central.WinForms.Properties
@@ -11,10 +11,10 @@ namespace ZeroInstall.Central.WinForms.Properties
     /// </summary>
     internal static class AppResources
     {
-        public static readonly Bitmap
-            CandidateImage = Resources.AppCandidate,
-            AddedImage = Resources.AppAdded,
-            IntegratedImage = Resources.AppIntegrated;
+        public static readonly ScalableImage
+            CandidateImage = new(Resources.AppCandidate),
+            AddedImage = new(Resources.AppAdded),
+            IntegratedImage = new (Resources.AppIntegrated);
 
         public static readonly string
             CandidateText = SharedResources.MyAppsAdd,

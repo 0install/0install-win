@@ -100,6 +100,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // iconStatus
             // 
+            this.iconStatus.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.iconStatus.Location = new System.Drawing.Point(191, 4);
             this.iconStatus.Name = "iconStatus";
             this.iconStatus.Size = new System.Drawing.Size(16, 16);
@@ -111,10 +112,10 @@ namespace ZeroInstall.Central.WinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(240, 120);
-            this.Controls.Add(this.iconStatus);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonIntegrate);
+            this.Controls.Add(this.iconStatus);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelBorder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -124,10 +125,9 @@ namespace ZeroInstall.Central.WinForms
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Label iconStatus;
-
         private System.Windows.Forms.Label labelBorder;
         private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Label iconStatus;
         private System.Windows.Forms.Button buttonIntegrate;
         private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Button buttonClose;
