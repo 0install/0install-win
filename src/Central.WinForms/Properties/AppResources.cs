@@ -18,7 +18,7 @@ namespace ZeroInstall.Central.WinForms.Properties
 
         public static readonly string
             CandidateText = SharedResources.MyAppsAdd,
-            AddedText = SharedResources.Integrate,
+            AddedText = SharedResources.MyAppsAdded,
             IntegratedText = SharedResources.MyAppsAddedAndIntegrate;
 
         public static readonly string
