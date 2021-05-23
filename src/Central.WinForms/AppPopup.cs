@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Storage;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
@@ -73,8 +74,14 @@ namespace ZeroInstall.Central.WinForms
             {
                 buttonIntegrate.Image = AppResources.IntegratedImage.Get(scale);
                 buttonRemove.Image = AppResources.CandidateImage.Get(scale);
-                buttonIntegrate.Visible = buttonRemove.Visible = true;
-                buttonIntegrate.Focus();
+                buttonRemove.Visible = true;
+                if (Locations.IsPortable)
+                    buttonClose.Focus();
+                else
+                {
+                    buttonIntegrate.Visible = true;
+                    buttonIntegrate.Focus();
+                }
             }
 
             switch (_status)
