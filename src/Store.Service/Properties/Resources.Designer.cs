@@ -79,29 +79,11 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user &apos;{0}&apos; failed to removed the implementation &apos;{1}&apos; from &apos;{2}&apos;..
-        /// </summary>
-        internal static string FailedToRemoveImplementation {
-            get {
-                return ResourceManager.GetString("FailedToRemoveImplementation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Failed to remove the temporary directory &apos;{1}&apos; (created for the user &apos;{0}&apos;)..
         /// </summary>
         internal static string FailedToRemoveTempDir {
             get {
                 return ResourceManager.GetString("FailedToRemoveTempDir", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only administrators can remove elements from a shared store..
-        /// </summary>
-        internal static string MustBeAdminToRemove {
-            get {
-                return ResourceManager.GetString("MustBeAdminToRemove", resourceCulture);
             }
         }
         
@@ -129,15 +111,6 @@ namespace ZeroInstall.Store.Service.Properties {
         internal static string SuccessfullyAddedImplementation {
             get {
                 return ResourceManager.GetString("SuccessfullyAddedImplementation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The user &apos;{0}&apos; successfully removed the implementation &apos;{1}&apos; from &apos;{2}&apos;..
-        /// </summary>
-        internal static string SuccessfullyRemovedImplementation {
-            get {
-                return ResourceManager.GetString("SuccessfullyRemovedImplementation", resourceCulture);
             }
         }
     }

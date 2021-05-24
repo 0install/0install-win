@@ -123,14 +123,8 @@
   <data name="FailedToCreateTempDir" xml:space="preserve">
     <value>Failed to create a temporary directory for the user '{0}' in '{1}'.</value>
   </data>
-  <data name="FailedToRemoveImplementation" xml:space="preserve">
-    <value>The user '{0}' failed to removed the implementation '{1}' from '{2}'.</value>
-  </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
     <value>Failed to remove the temporary directory '{1}' (created for the user '{0}').</value>
-  </data>
-  <data name="MustBeAdminToRemove" xml:space="preserve">
-    <value>Only administrators can remove elements from a shared store.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>The service cannot run in portable mode!</value>
@@ -140,8 +134,5 @@
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>The user '{0}' successfully added the implementation '{1}' to '{2}'.</value>
-  </data>
-  <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
-    <value>The user '{0}' successfully removed the implementation '{1}' from '{2}'.</value>
   </data>
 </root>

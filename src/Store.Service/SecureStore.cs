@@ -155,42 +155,12 @@ namespace ZeroInstall.Store.Service
         }
         #endregion
 
-        #region Remove
-        /// <inheritdoc/>
-        public override bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-            #endregion
-
-            if (!Contains(manifestDigest)) return false;
-            if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
-
-            var callingIdentity = WindowsIdentity.GetCurrent();
-            Debug.Assert(callingIdentity != null);
-
-            using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
-            {
-                bool removed;
-                try
-                {
-                    removed = base.Remove(manifestDigest, handler);
-                }
-                #region Error handling
-                catch (Exception)
-                {
-                    Log.Warn(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, Path));
-                    throw;
-                }
-                #endregion
-
-                if (removed) Log.Info(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, Path));
-                return removed;
-            }
-        }
-        #endregion
-
         #region Nop
+        /// <summary>
+        /// Does nothing. Should be handled by an administrator directly instead of using the service.
+        /// </summary>
+        public override bool Remove(ManifestDigest manifestDigest, ITaskHandler handler) => false;
+
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.
         /// </summary>

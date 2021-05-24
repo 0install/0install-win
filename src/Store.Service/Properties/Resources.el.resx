@@ -123,14 +123,8 @@
   <data name="FailedToCreateTempDir" xml:space="preserve">
     <value>Απέτυχε η δημιουργία ενός προσωρινού καταλόγου για το χρήστη '{0}' στο '{1}'.</value>
   </data>
-  <data name="FailedToRemoveImplementation" xml:space="preserve">
-    <value>Ο χρήστης '{0}' απέτυχε να αφαιρεσεί την εφαρμογή '{1}' από '{2}'.</value>
-  </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
     <value>Αποτυχία για την απομάκρυνση του προσωρινού καταλόγου '{1}' (που έχει δημιουργηθεί για το χρήστη '{0}').</value>
-  </data>
-  <data name="MustBeAdminToRemove" xml:space="preserve">
-    <value>Μόνο οι διαχειριστές μπορούν να αφαιρέσουν στοιχεία από ένα κοινό κατάστημα.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>Η υπηρεσία δεν μπορεί να εκτελεστεί σε φορητή λειτουργία!.</value>
@@ -140,8 +134,5 @@
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>Ο χρήστης '{0}' εχει προσθέσει επιτυχώς την εφαρμογή '{1}' στο '{2}'.</value>
-  </data>
-  <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
-    <value>Ο χρήστης '{0}' αφαιρεσε με επιτυχία την εφαρμογή '{1}' από '{2}'</value>
   </data>
 </root>

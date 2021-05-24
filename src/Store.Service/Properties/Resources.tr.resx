@@ -123,14 +123,8 @@
   <data name="FailedToCreateTempDir" xml:space="preserve">
     <value>'{0}' kullanıcısı için '{1}' üzerinde geçici bir dizin oluşturulamadı.</value>
   </data>
-  <data name="FailedToRemoveImplementation" xml:space="preserve">
-    <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerinden kaldıramadı.</value>
-  </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
     <value>('{0}' kullanıcısı için) '{1}' üzerinde oluşturulan geçici dizin kaldırılamadı.</value>
-  </data>
-  <data name="MustBeAdminToRemove" xml:space="preserve">
-    <value>Yalnız yöneticiler paylaşılan bir depodan bileşen kaldırabilir.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>Bu hizmet taşınabilir kipte çalıştırılamaz!</value>
@@ -140,8 +134,5 @@
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerine ekledi.</value>
-  </data>
-  <data name="SuccessfullyRemovedImplementation" xml:space="preserve">
-    <value>'{0}' kullanıcısı '{1}' uygulamasını '{2}' üzerinden kaldırdı.</value>
   </data>
 </root>
