@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands.WinForms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
-            this.Shown += new System.EventHandler(this.ProgressForm_Shown);
+            this.VisibleChanged += new System.EventHandler(this.ProgressForm_VisibleChanged);
             this.ResumeLayout(false);
         }
 

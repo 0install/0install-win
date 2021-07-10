@@ -209,9 +209,9 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
-        private void ProgressForm_Shown(object sender, EventArgs e)
+        private void ProgressForm_VisibleChanged(object sender, EventArgs e)
         {
-            if (_pendingQuestion != null && _pendingResult != null)
+            if (Visible && _pendingQuestion != null && _pendingResult != null)
             {
                 _pendingResult.SetResult(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
                 _pendingQuestion = null;
