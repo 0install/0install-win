@@ -356,8 +356,7 @@ namespace ZeroInstall.Central.WinForms
                 AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _config.SyncCryptoKey);
             }
             #region Error handling
-            catch (WebException ex)
-                when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
+            catch (WebException ex) when (ex.Response is HttpWebResponse {StatusCode: HttpStatusCode.Unauthorized})
             {
                 // Wrap exception to add context information
                 throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
