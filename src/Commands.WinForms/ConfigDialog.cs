@@ -19,7 +19,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 using ZeroInstall.Store.ViewModel;
@@ -255,7 +255,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 using (var handler = new DialogTaskHandler(this))
                 {
-                    var services = new ServiceLocator(handler);
+                    var services = new ServiceProvider(handler);
                     services.CatalogManager.DownloadCatalog(uri);
                 }
                 listBoxCatalogSources.Items.Add(uri);

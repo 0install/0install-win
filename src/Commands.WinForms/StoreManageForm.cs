@@ -76,8 +76,6 @@ namespace ZeroInstall.Commands.WinForms
             buttonRefresh.Enabled = false;
             labelLoading.Visible = true;
 
-            _store.Flush();
-
             try
             {
                 var nodeBuilder = await Task.Run(() =>

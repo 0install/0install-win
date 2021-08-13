@@ -16,7 +16,6 @@ using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
-using CancellationTokenSource = NanoByte.Common.Tasks.CancellationTokenSource;
 
 namespace ZeroInstall.Commands.WinForms
 {

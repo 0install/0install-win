@@ -19,8 +19,10 @@ using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Configuration;
+using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -54,9 +56,9 @@ namespace ZeroInstall.Central.WinForms
             _machineWide = machineWide;
 
             var handler = new MinimalTaskHandler(this);
-            var services = new ServiceLocator(handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
+            var services = new ServiceProvider(handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager, new IconStore(Config.LoadSafe(), handler),
+                services.FeedManager, services.CatalogManager, IconStores.Default(handler),
                 tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion

@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;

@@ -16,18 +16,11 @@
     <Copyright>Copyright Bastian Eicher et al.</Copyright>
     <RepositoryUrl>https://github.com/0install/0install-win</RepositoryUrl>
 
-    <!-- Include native dependencies in output -->
+    <!-- Deploy native libs to output -->
     <RuntimeIdentifier>win</RuntimeIdentifier>
 
     <!-- Dummy version number, overridden by GitVersion -->
     <Version>1.0.0-pre</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>

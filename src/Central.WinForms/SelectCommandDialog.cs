@@ -42,7 +42,7 @@ namespace ZeroInstall.Central.WinForms
 
             public override string ToString() => _feed.GetBestName(CultureInfo.CurrentUICulture, _entryPoint.Command);
 
-                public string GetCommand() => _entryPoint.Command ?? Command.NameRun;
+                public string GetCommand() => _entryPoint.Command;
         }
         #endregion
 

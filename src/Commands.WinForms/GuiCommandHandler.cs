@@ -19,7 +19,7 @@ using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 

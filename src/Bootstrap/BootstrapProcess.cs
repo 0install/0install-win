@@ -13,20 +13,20 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
+using ZeroInstall.Archives.Extractors;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Implementations.Archives;
 
 namespace ZeroInstall
 {
     /// <summary>
     /// Represents the process of downloading and running an instance of Zero Install. Handles command-line arguments.
     /// </summary>
-    public class BootstrapProcess : ServiceLocator
+    public class BootstrapProcess : ServiceProvider
     {
         #region Command-line options
         private readonly bool _gui;
@@ -271,10 +271,13 @@ namespace ZeroInstall
                 {
                     try
                     {
-                        ImplementationStore.AddArchives(new[]
+                        ImplementationStore.Add(digest, builder =>
                         {
-                            new ArchiveFileInfo(path, Archive.GuessMimeType(path))
-                        }, digest, Handler);
+                            var extractor = ArchiveExtractor.For(Archive.GuessMimeType(path), Handler);
+                            extractor.Tag = digest.Best;
+                            using var stream = File.OpenRead(path);
+                            extractor.Extract(builder, stream);
+                        });
                     }
                     #region Error handling
                     catch (ImplementationAlreadyInStoreException)
@@ -379,8 +382,8 @@ namespace ZeroInstall
         /// </summary>
         private void Fetch()
         {
-            var uncached = SelectionsManager.GetUncachedImplementations(_selections);
-            Fetcher.Fetch(uncached);
+            foreach (var implementation in SelectionsManager.GetUncachedImplementations(_selections!))
+                Fetcher.Fetch(implementation);
         }
     }
 }

@@ -16,8 +16,9 @@ using NanoByte.Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
 {

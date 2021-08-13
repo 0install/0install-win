@@ -78,7 +78,7 @@ namespace ZeroInstall.OneGet
 
             if (_request.Sources.Any())
             {
-                foreach (var uri in _request.Sources.TrySelect<string, FeedUri, UriFormatException>(x => new(x)))
+                foreach (var uri in _request.Sources.TrySelect(x => new FeedUri(x), (UriFormatException _) => {}))
                 {
                     bool isRegistered = registeredSources.Contains(uri);
                     _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: isRegistered, isRegistered: isRegistered, isValidated: false);
@@ -176,7 +176,8 @@ namespace ZeroInstall.OneGet
         {
             var requirements = ParseReference(fastPackageReference);
             var selections = Solve(requirements);
-            Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
+            foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
+                Fetcher.Fetch(implementation);
 
             var exporter = new Exporter(selections, requirements, location);
             exporter.ExportFeeds(FeedCache, OpenPgp);
@@ -226,7 +227,11 @@ namespace ZeroInstall.OneGet
 
             ApplyIntegration(requirements);
             ApplyVersionRestrictions(requirements, selections);
-            if (!DeferDownload) Fetcher.Fetch(SelectionsManager.GetUncachedImplementations(selections));
+            if (!DeferDownload)
+            {
+                foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
+                    Fetcher.Fetch(implementation);
+            }
             Yield(requirements);
         }
 

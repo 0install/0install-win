@@ -13,7 +13,6 @@ using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Serialization.Formatters;
 using System.Security;
-using System.Security.Principal;
 using System.ServiceProcess;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
@@ -78,24 +77,25 @@ namespace ZeroInstall.Store.Service
                 _serverChannel = new IpcServerChannel(
                     new Hashtable
                     {
-                        {"name", IpcImplementationStore.IpcPortName},
-                        {"portName", IpcImplementationStore.IpcPortName},
+                        {"name", ServiceImplementationStore.IpcPort},
+                        {"portName", ServiceImplementationStore.IpcPort},
                         {"secure", true},
-                        {"impersonate", true} // Use identity of client in server threads
                     },
                     new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
-                    IpcImplementationStore.IpcAcl);
+                    ServiceImplementationStore.IpcAcl);
                 _clientChannel = new IpcClientChannel(
                     new Hashtable
                     {
-                        {"name", IpcImplementationStore.IpcPortName + ".Callback"}
+                        {"name", ServiceImplementationStore.IpcCallbackPort}
                     },
                     new BinaryClientFormatterSinkProvider());
 
                 ChannelServices.RegisterChannel(_serverChannel, ensureSecurity: false);
                 ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
-                _store = CreateStore();
-                _objRef = RemotingServices.Marshal(_store, IpcImplementationStore.IpcObjectUri, typeof(IImplementationStore));
+                _store = new CompositeImplementationStore(
+                    ImplementationStores.GetDirectories(serviceMode: true)
+                                        .Select(path => new ImplementationStore(path)));
+                _objRef = RemotingServices.Marshal(_store, nameof(IImplementationSink), typeof(IImplementationSink));
 
                 // Prevent the service from expiring on Windows 10
                 var lease = (ILease)RemotingServices.GetLifetimeService(_store);
@@ -144,21 +144,6 @@ namespace ZeroInstall.Store.Service
             _clientChannel = null;
 
             Log.Handler -= LogHandler;
-        }
-
-        /// <summary>
-        /// Creates the store to provide to clients as a service.
-        /// </summary>
-        /// <exception cref="IOException">A cache directory could not be created or the underlying filesystem can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Creating a cache directory is not permitted.</exception>
-        private static MarshalByRefObject CreateStore()
-        {
-            var identity = WindowsIdentity.GetCurrent();
-            Debug.Assert(identity != null);
-
-            var paths = ImplementationStores.GetDirectories(serviceMode: true);
-            var stores = paths.Select(path => new SecureStore(path, identity)).Cast<IImplementationStore>();
-            return new CompositeImplementationStore(stores);
         }
 
         /// <summary>

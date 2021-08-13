@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms

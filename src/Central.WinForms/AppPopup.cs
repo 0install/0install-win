@@ -10,6 +10,7 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms

@@ -10,9 +10,10 @@ using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central
@@ -71,7 +72,6 @@ namespace ZeroInstall.Central
                 theirs: newAppList.Entries, mine: AppList.Entries,
                 added: entry =>
                 {
-                    if (entry.InterfaceUri == null || entry.Name == null) return;
                     try
                     {
                         var status = (entry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
@@ -95,7 +95,6 @@ namespace ZeroInstall.Central
                 },
                 removed: entry =>
                 {
-                    if (entry.InterfaceUri == null) return;
                     _tileListMyApps.RemoveTile(entry.InterfaceUri);
 
                     // Update "added" status of tile in catalog list
@@ -162,7 +161,10 @@ namespace ZeroInstall.Central
             Merge.TwoWay(
                 theirs: newCatalog.Feeds, mine: Catalog.Feeds,
                 added: QueueCatalogTile,
-                removed: feed => _tileListCatalog.RemoveTile(feed.Uri));
+                removed: feed =>
+                {
+                    if (feed.Uri != null) _tileListCatalog.RemoveTile(feed.Uri);
+                });
             _tileListCatalog.AddQueuedTiles();
             _tileListCatalog.ShowCategories();
 
@@ -174,7 +176,7 @@ namespace ZeroInstall.Central
         /// </summary>
         private void QueueCatalogTile(Feed feed)
         {
-            if (string.IsNullOrEmpty(feed.UriString) || feed.Name == null) return;
+            if (feed.Uri == null) return;
             try
             {
                 var appEntry = AppList.GetEntry(feed.Uri);

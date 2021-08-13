@@ -18,7 +18,7 @@ using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
+using ZeroInstall.Store.Configuration;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -63,7 +63,7 @@ namespace ZeroInstall.Central.WinForms
         #region Shared
         private void Sync(SyncResetMode resetMode = SyncResetMode.None)
         {
-            var services = new ServiceLocator(new DialogTaskHandler(this));
+            var services = new ServiceProvider(new DialogTaskHandler(this));
             using var sync = new SyncIntegrationManager(_config, services.FeedManager.GetFresh, services.Handler, _machineWide);
             sync.Sync(resetMode);
         }
