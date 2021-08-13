@@ -173,7 +173,7 @@ namespace ZeroInstall.Store.Service
 
             const int maxMessageLength = 16000;
             if (message.Length > maxMessageLength)
-                message = message.Substring(0, maxMessageLength) + Environment.NewLine + "[MESSAGE TRIMMED DUE TO LENGTH]";
+                message = message[..maxMessageLength] + Environment.NewLine + "[MESSAGE TRIMMED DUE TO LENGTH]";
 
             try
             {

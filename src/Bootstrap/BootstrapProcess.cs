@@ -49,7 +49,7 @@ namespace ZeroInstall
         {
             get
             {
-                string exeName = Path.GetFileNameWithoutExtension(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
+                string exeName = Path.GetFileNameWithoutExtension(new Uri(Assembly.GetEntryAssembly()!.CodeBase).LocalPath);
 
                 using var buffer = new MemoryStream();
                 var writer = new StreamWriter(buffer);
@@ -308,15 +308,15 @@ namespace ZeroInstall
             return null;
         }
 
-        private Requirements _requirements;
-        private Selections _selections;
+        private Requirements? _requirements;
+        private Selections? _selections;
 
         /// <summary>
         /// Returns process start information for a cached (downloaded) instance of Zero Install.
         /// </summary>
         private ProcessStartInfo GetCached()
         {
-            _requirements = new Requirements(Config.SelfUpdateUri, _gui ? Command.NameRunGui : Command.NameRun);
+            _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _gui ? Command.NameRunGui : Command.NameRun);
             if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
             Solve();
@@ -345,7 +345,7 @@ namespace ZeroInstall
                 Fetch();
             }
 
-            return Executor.Inject(_selections)
+            return Executor.Inject(_selections!)
                            .AddArguments(_targetArgs.ToArray())
                            .ToStartInfo();
         }
@@ -353,7 +353,7 @@ namespace ZeroInstall
         /// <summary>
         /// Runs the Solver to select a version of Zero Install.
         /// </summary>
-        private void Solve() => _selections = Solver.Solve(_requirements);
+        private void Solve() => _selections = Solver.Solve(_requirements!);
 
         /// <summary>
         /// Runs the Solver in refresh mode (re-download all feeds).
