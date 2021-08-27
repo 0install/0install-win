@@ -208,7 +208,7 @@
     <value>Etkinlikler</value>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>Otomatik Oynat</value>
+    <value>Otomatik oynat</value>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
     <value>Tümünü &amp;seç</value>
@@ -235,7 +235,7 @@
     <value>Hizmet</value>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Varsayılan programlar</value>
+    <value>Varsayılan uygulamalar</value>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>&amp;Yetenekleri kaydet</value>
@@ -244,7 +244,7 @@
     <value>İşlenecek dosya türleri gibi uygulama özelliklerini işletim sistemine iletir.</value>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Otomatik &amp;Güncelleme</value>
+    <value>Otomatik &amp;güncelleme</value>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
     <value>Bu uygulama "Tümünü güncelle" denetimlerine katılır.</value>
@@ -280,7 +280,7 @@
     <value>Otomatik başlat</value>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Kullanıcı oturum açtığında program kendiliğinden başlasın</value>
+    <value>Kullanıcı oturum açtığında uygulama otomatik olarak başlatılsın</value>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
     <value>Dosya türleri</value>
@@ -295,22 +295,22 @@
     <value>Desteklenen adres iletişim kuralları için varsayılan işleyici ("Birlikte aç" bu seçenek olmadan da çalışır)</value>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>Otomatik Oynat</value>
+    <value>Otomatik oynat</value>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Uygun ortam takıldığında kendiliğinden oynatılsın (DVD, USB sürücü vb.)</value>
+    <value>Uygun ortam takıldığında otomatik olarak oynatılsın (DVD, USB sürücü vb.)</value>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
     <value>İçerik menüsü</value>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Windows Gezginindeki içerik menüsü girdileri</value>
+    <value>Windows Gezginindeki içerik menüsü kayıtları</value>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Varsayılan program</value>
+    <value>Varsayılan uygulama</value>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Web tarayıcı ya da e-posta istemcisi gibi görevler için varsayılan program</value>
+    <value>Web tarayıcı ya da e-posta istemcisi gibi görevler için varsayılan uygulama</value>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
     <value>&amp;Temel ayarlar</value>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -121,21 +121,21 @@
     <value>İptal</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Bu bölümden Zero Install yazılımını USB disk sürücü gibi taşınabilir bir ortama yükleyebilirsiniz. Hedef sürücü NTFS biçiminde olmalıdır.</value>
+    <value>Bu bölümden Zero Install uygulamasını USB disk sürücü gibi taşınabilir bir ortama kuralbilirsiniz. Hedef sürücü NTFS biçiminde olmalıdır.</value>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>&amp;Yükle</value>
+    <value>&amp;Hazırla</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Zero Install ayarları ile ön bellekteki uygulamaları tek klasörde depolar.
-- Zero Install Taşınabilir, uygulamaları otomatik olarak başlatamaz.
-- Zero Install Taşınabilir, masaüstü ile bütünleşemez (başlat menüsü kayıtları oluşturamaz gibi).
+    <value>- Zero Install yapılandırması ile ön bellekteki uygulamaları tek klasörde depolar.
+- Zero Install taşınabilir sürümü, uygulamaları otomatik olarak başlatamaz.
+- Zero Install taşınabilir sürümü, masaüstü ile bütünleşemez (başlat menüsü kayıtları oluşturamaz gibi).
 - Farklı bilgisayarlarda kullanmak için taşınabilir sürüm yerine Zero Install Sync özelliğini kullanmayı düşünün.</value>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Hedef Klasör</value>
+    <value>Hedef klasör</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Taşınabilir Oluşturucu</value>
+    <value>Taşınabilir oluşturucu</value>
   </data>
 </root>

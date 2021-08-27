@@ -166,7 +166,7 @@
     <value>&amp;Ekle</value>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>&amp;Uygulama ön bellek klasörleri</value>
+    <value>&amp;Uyarlama ön belleği klasörleri</value>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
     <value>Depolama</value>
@@ -190,7 +190,7 @@
     <value>Katalog</value>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>&amp;Yeni anahtarlar kendiliğinden onaylansın (anahtar sunucusu tarafından biliniyorsa)</value>
+    <value>&amp;Yeni anahtarlar otomatik onaylansın (anahtar sunucusu tarafından biliniyorsa)</value>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
     <value>&amp;Sil</value>
@@ -220,13 +220,13 @@ Notlar:
     <value>Gelişmiş &amp;seçenekleri görüntüle</value>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Uyarı: Bu ayarların değiştirilmesi Zero Install yazılımının düzgün çalışmasını engelleyebilir.</value>
+    <value>Uyarı: Bu ayarların değiştirilmesi Zero Install uygulamasının düzgün çalışmasını engelleyebilir.</value>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Gelişmiş</value>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Lütfen uygulama ön belleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
+    <value>Lütfen uyarlama ön belleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install yapılandırması</value>

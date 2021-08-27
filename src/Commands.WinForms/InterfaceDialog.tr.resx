@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
-    <value>Tüm &amp;sürümlere bakın</value>
+    <value>Tüm &amp;sürümler görüntülensin</value>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
     <value>Bu sistem tarafından desteklenmeyen sürümler de görüntülensin</value>
@@ -157,13 +157,13 @@
     <value>&amp;Sil</value>
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
-    <value>Bu arabirim için bir uygulama kaynağını siler</value>
+    <value>Bu arabirim için bir uyarlama kaynağını siler</value>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>&amp;Ekle</value>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Bu arabirim için yeni bir uygulama kaynağı ekler</value>
+    <value>Bu arabirim için yeni bir uyarlama kaynağı ekler</value>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
     <value>Akışlar</value>

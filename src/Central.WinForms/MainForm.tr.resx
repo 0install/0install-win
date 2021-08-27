@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -136,7 +136,7 @@
     <value>&amp;Sorun giderme</value>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Eşitle</value>
+    <value>&amp;Sync</value>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
     <value>Uygulamalarım</value>
@@ -175,7 +175,7 @@
     <value>K&amp;omut satırı</value>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Taşınabilir &amp;Oluşturucu</value>
+    <value>Taşınabilir &amp;oluşturucu</value>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
     <value>&amp;Araçlar</value>
@@ -184,7 +184,7 @@
     <value>&amp;Belgeler</value>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>Başlangıç &amp;Videosu</value>
+    <value>Tanıtım &amp;görüntüsü</value>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Yardım</value>

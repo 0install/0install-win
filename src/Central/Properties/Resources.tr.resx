@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -127,7 +127,7 @@
     <value>Devam</value>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Zero Install yazılımını bu bilgisayara yüklemek için tıklayın...</value>
+    <value>Zero Install uygulamasını bu bilgisayara kurmak için tıklayın...</value>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Lütfen buraya bir Zero Install akışının adresini yazın:</value>
@@ -164,7 +164,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Bir uygulamayı beğendiyseniz,
-"Uygulamalarım"a ekleyin.</value>
+"Uygulamalarım" içine ekleyin.</value>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>"Katalog" içinde bir uygulama arayın...</value>
@@ -183,22 +183,22 @@ ya da masaüstüne ekleyerek "bütünleştirin".</value>
     <value>Eğlenin!</value>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Zero Install ile artık uygulamaları yüklemek zorunda değilsiniz.</value>
+    <value>Zero Install ile artık uygulamaları kurmak zorunda değilsiniz.</value>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Makine çapında geçerli kip</value>
+    <value>Bilgisayar genelinde geçerli kip</value>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
     <value>Bütünleştirmeyi değiştir</value>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>"Uygulamalarım"a ekle</value>
+    <value>"Uygulamalarım" içine ekle</value>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>"Uygulamalarım"a eklendi.</value>
+    <value>"Uygulamalarım" içine eklendi.</value>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>"Uygulamalarım"a eklendi ve masaüstü ortamı ile bütünleştirildi.</value>
+    <value>"Uygulamalarım" içine eklendi ve masaüstü ortamı ile bütünleştirildi.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>{0} klasörü boş değil.
@@ -208,7 +208,7 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
     <value>Taşınabilir kip</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>"Uygulamalarım"dan kaldı&amp;r</value>
+    <value>"Uygulamalarım" içinden kaldı&amp;r</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Listeden seçilmiş {0} kaydı kaldırmak istediğinize emin misiniz?</value>
@@ -237,7 +237,7 @@ Değişiklikleri kaydet</value>
     <value>Zero Install v{0} sürümüne güncellemek için tıklayın...</value>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Önce Sync Yüklemesi tamamlanmalıdır.</value>
+    <value>Önce Sync kurulumu tamamlanmalıdır.</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>Yazdığınız kullanıcı adı ya da parola hatalı.</value>
@@ -274,7 +274,7 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
     <value>&amp;Güncelle</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Bu işlem güncelleme sonrasında artık gerek duyulmayan uygulamaları ön bellekten siler. Devam etmek ister misiniz?
+    <value>Bu işlem, güncelleme sonrasında otomatik olarak artık gerek duyulmayan uyarlamaları ön bellekten siler. Devam etmek ister misiniz?
 Uyarı: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da ön bellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrimiçi olmanız gerekecek.</value>
   </data>
   <data name="Working" xml:space="preserve">

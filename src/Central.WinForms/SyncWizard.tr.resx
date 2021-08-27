@@ -127,10 +127,10 @@
     <value>Zero Install Sync ilk kez bu bilgisayarda mı ayarlanacak?</value>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync uygulama listenizi ve Masaüstü bütünleştirmelerinizi alarak diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
+    <value>Zero Install Sync uygulama listenizi ve Masaüstü bütünleştirmelerinizi alarak otomatik olarak diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Windows &amp;dosya paylaşımı kullan:</value>
+    <value>Windows &amp;dosya paylaşımı kullanılsın:</value>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>Ö&amp;zel bir sunucu kullanacağım:</value>
@@ -151,16 +151,16 @@
     <value>Klasör yolu</value>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Sync Kurulumu</value>
+    <value>Sync kurulumu</value>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Yeni bir hesap açtıktan, e-posta adresinizi doğruladıktan ve oturum açma bilgilerinizi not ettikten sonra 'İleri' düğmesini tıklatın.</value>
+    <value>Yeni bir hesap açtıktan, e-posta adresinizi doğruladıktan ve oturum açma bilgilerinizi not ettikten sonra 'İleri' düğmesine tıklayın.</value>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Kaydol</value>
+    <value>Kayıt ol</value>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Tarayıcınızdan yeni bir Sync hesabı oluşturmak için şu bağlantıyı tıklatın:</value>
+    <value>Web tarayıcınızdan yeni bir Sync hesabı oluşturmak için şu bağlantıya tıklayın:</value>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
     <value>&amp;Parola:</value>
@@ -196,10 +196,10 @@
     <value>Yeni şifreleme &amp;anahtarı:</value>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Anahtarı diğer bilgisayarlardaki 'Seçenekler' penceresine yazın. Yalnız ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
+    <value>Anahtarı diğer bilgisayarlardaki 'Seçenekler' bölümüne yazın. Yalnız ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Şifreleme anahtarı değiştirildi. Artık diğer tüm bilgisayarlara kurulmuş olan Zero Install Sync kopyaları için yeni şifreleme anahtarını kullanmanız gerekiyor.</value>
+    <value>Şifreleme anahtarı değiştirildi. Artık tüm diğer bilgisayarlara kurulmuş olan Zero Install Sync kopyaları için yeni şifreleme anahtarını kullanmanız gerekiyor.</value>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Şifreleme anahtarı değiştirildi</value>
@@ -220,7 +220,7 @@
     <value>Zero Install Sync kurulumu tamamlandı ve kullanılmaya hazır. Bu bilgisayar ile eşitlemek istediğiniz diğer bilgisayarlar üzerinde de bu yardımcıyı çalıştırın.</value>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Sync Kurulumu tamamlandı</value>
+    <value>Sync kurulumu tamamlandı</value>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
     <value>Şifreleme anahtarı</value>

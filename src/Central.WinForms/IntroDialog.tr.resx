@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -124,7 +124,7 @@
     <value>Katalog</value>
   </data>
   <data name="labelVideo.Text" xml:space="preserve">
-    <value>Kısa bilgilendirme videosu</value>
+    <value>Kısa bilgilendirme görüntüsü</value>
   </data>
   <data name="buttonReplay.Text" xml:space="preserve">
     <value>Yeniden &amp;oynat</value>

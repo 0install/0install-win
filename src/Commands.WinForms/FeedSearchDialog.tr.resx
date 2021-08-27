@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -136,10 +136,10 @@
     <value>Çalıştı&amp;r</value>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>"Uygulamalarım"a &amp;ekle</value>
+    <value>"Uygulamalarım" içine &amp;ekle</value>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>&amp;Yükleme bütünleştirmesi</value>
+    <value>&amp;Kurulum bütünleştirmesi</value>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>&amp;Ayrıntılar</value>
@@ -148,7 +148,7 @@
     <value>Anahtar sözcükler</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Bu arama sonuçları yansı sunucusu tarafından sağlanıyor. Varsayılan yansı sunucusunun bilinen tüm akışları kalitesine bakmadan dizine eklediğini unutmayın. Programları çalıştırmadan önce güvenilir olup olmadığına siz karar vermelisiniz.</value>
+    <value>Bu arama sonuçları yansı sunucusu tarafından sağlanıyor. Varsayılan yansı sunucusunun bilinen tüm akışları kalitesine bakmadan dizine eklediğini unutmayın. Uygulamaları çalıştırmadan önce güvenilir olup olmadığına siz karar vermelisiniz.</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install akış araması</value>
