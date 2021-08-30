@@ -1,15 +1,14 @@
 {
-  "extends": [
-    "config:base"
-  ],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", ":disableDependencyDashboard"],
   "packageRules": [
     {
-      "packagePatterns": ["ZeroInstall", "NanoByte"],
+      "matchPackagePatterns": ["ZeroInstall", "NanoByte"],
       "groupName": "Zero Install .NET",
       "groupSlug": "0install-dotnet"
     },
     {
-      "packagePatterns": ["AeroWizard"],
+      "matchPackagePatterns": ["AeroWizard"],
       "automerge": true,
       "automergeType": "branch"
     }
