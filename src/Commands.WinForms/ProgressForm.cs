@@ -53,8 +53,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
         private bool _selectionsShown;
 
-        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="CustomizeSelections"/>.</summary>
-        private EventWaitHandle? _customizeSelectionsWaitHandle;
+        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="CustomizeSelectionsAsync"/>.</summary>
+        private TaskCompletionSource<bool>? _customizeSelectionsComplete;
 
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
@@ -79,13 +79,12 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>
         /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.
-        /// Returns immediately.
         /// </summary>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
-        /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
         /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
+        /// <returns>A task that completes once the user has finished customization the selections.</returns>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void CustomizeSelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
+        public async Task CustomizeSelectionsAsync(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
@@ -95,13 +94,14 @@ namespace ZeroInstall.Commands.WinForms
             Visible = true;
             notifyIcon.Visible = false;
 
-            _customizeSelectionsWaitHandle = waitHandle ?? throw new ArgumentNullException(nameof(waitHandle));
-
             // Show "modify selections" UI
             selectionsControl.BeginCustomizeSelections(solveCallback);
             buttonCustomizeSelectionsDone.Visible = true;
             buttonCustomizeSelectionsDone.Focus();
             buttonHide.Visible = false;
+
+            _customizeSelectionsComplete = new();
+            await _customizeSelectionsComplete.Task;
         }
 
         private void buttonCustomizeSelectionsDone_Click(object sender, EventArgs e)
@@ -111,11 +111,7 @@ namespace ZeroInstall.Commands.WinForms
             selectionsControl.EndCustomizeSelections();
 
             // Signal the waiting thread modification is complete
-            if (_customizeSelectionsWaitHandle != null)
-            {
-                _customizeSelectionsWaitHandle.Set();
-                _customizeSelectionsWaitHandle = null;
-            }
+            _customizeSelectionsComplete?.SetResult(true);
         }
         #endregion
 
@@ -283,7 +279,7 @@ namespace ZeroInstall.Commands.WinForms
             _cancellationTokenSource.Cancel();
 
             // Unblock any waiting thread
-            _customizeSelectionsWaitHandle?.Set();
+            _customizeSelectionsComplete?.SetResult(false);
         }
 
         /// <summary>

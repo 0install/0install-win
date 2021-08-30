@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Windows.Forms;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
@@ -35,9 +34,6 @@ namespace ZeroInstall.Commands.WinForms
         #region Resources
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
-        /// <summary>A wait handle used by <see cref="CustomizeSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
-        private readonly AutoResetEvent _customizeSelectionsWaitHandle = new(false);
-
         public GuiCommandHandler()
         {
             _wrapper = new AsyncFormWrapper<ProgressForm>(delegate
@@ -53,7 +49,6 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                _customizeSelectionsWaitHandle.Close();
                 _wrapper.Dispose();
             }
             finally
@@ -157,10 +152,8 @@ namespace ZeroInstall.Commands.WinForms
                 form.Show();
                 Application.DoEvents();
 
-                form.CustomizeSelections(solveCallback, _customizeSelectionsWaitHandle);
-            });
-
-            _customizeSelectionsWaitHandle.WaitOne();
+                return form.CustomizeSelectionsAsync(solveCallback);
+            }).Wait(CancellationToken);
         }
         #endregion
 
