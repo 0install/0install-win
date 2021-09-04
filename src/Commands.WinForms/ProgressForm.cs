@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            taskControl.Visible = false;
+            panelProgress.Visible = false;
             _selectionsShown = selectionsControl.Visible = true;
             selectionsControl.SetSelections(selections, feedManager);
         }
@@ -117,33 +117,38 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// Gets a GUI element for reporting progress of a generic <see cref="ITask"/>. Should only be one running at a time.
+        /// Adds a GUI element for reporting progress of a generic <see cref="ITask"/>. Should only be one running at a time.
         /// </summary>
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public IProgress<TaskSnapshot> GetProgressControl(string taskName)
+        public IProgress<TaskSnapshot> AddProgressControl(string taskName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            taskControl.Visible = true;
+            panelProgress.Visible = true;
 
             // Hide other stuff
-            if (_selectionsShown) selectionsControl.Hide();
+            if (_selectionsShown) selectionsControl.Visible = false;
 
-            taskControl.TaskName = taskName;
+            var taskControl = new TaskControl
+            {
+                TaskName = taskName,
+                Dock = DockStyle.Top
+            };
+            panelProgress.Controls.Add(taskControl);
             return taskControl;
         }
 
         /// <summary>
-        /// Gets a GUI element for reporting progress of a <see cref="ITask"/> for a specific implementation. May run multiple in parallel.
+        /// Adds a GUI element for reporting progress of a <see cref="ITask"/> for a specific implementation. May run multiple in parallel.
         /// </summary>
         /// <param name="taskName">The name of the task to be tracked.</param>
         /// <param name="tag">A digest used to associate the task with a specific implementation.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public IProgress<TaskSnapshot> GetProgressControl(string taskName, string tag)
+        public IProgress<TaskSnapshot> AddProgressControl(string taskName, string tag)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
@@ -151,7 +156,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             // Hide other stuff
-            taskControl.Hide();
+            panelProgress.Visible = false;
 
             if (_selectionsShown)
             {
@@ -159,17 +164,19 @@ namespace ZeroInstall.Commands.WinForms
                 control.TaskName = taskName;
                 return control;
             }
-            else return GetProgressControl(taskName);
+            else return AddProgressControl(taskName);
         }
 
         /// <summary>
-        /// Restores the UI activated by <see cref="ShowSelections"/> and hidden by <see cref="GetProgressControl(string)"/> after an <see cref="ITask.Run"/> completes.
+        /// Removes a progress control from the GUI.
         /// </summary>
-        public void RestoreSelections()
+        public void RemoveProgressControl(IProgress<TaskSnapshot> control)
         {
-            if (_selectionsShown)
+            panelProgress.Controls.Remove((Control)control);
+
+            if (panelProgress.Controls.Count == 0 && _selectionsShown)
             {
-                taskControl.Visible = false;
+                panelProgress.Visible = false;
                 selectionsControl.Visible = true;
             }
         }

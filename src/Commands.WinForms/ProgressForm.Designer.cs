@@ -35,65 +35,65 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonCancel = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
+            this.panelProgress = new System.Windows.Forms.Panel();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.taskControl = new NanoByte.Common.Controls.TaskControl();
             this.buttonCustomizeSelectionsDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(447, 226);
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Location = new System.Drawing.Point(447, 253);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 3;
+            this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "(Cancel)";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = ((System.Drawing.Icon) (resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "Zero Install";
             this.notifyIcon.BalloonTipClicked += new System.EventHandler(this.notifyIcon_BalloonTipClicked);
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // buttonHide
             // 
-            this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(366, 226);
+            this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHide.Location = new System.Drawing.Point(366, 253);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
-            this.buttonHide.TabIndex = 2;
+            this.buttonHide.TabIndex = 3;
             this.buttonHide.Text = "(Hide)";
             this.toolTip.SetToolTip(this.buttonHide, "Hides the window and continues running the process as a tray icon");
             this.buttonHide.UseVisualStyleBackColor = true;
             this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
             // 
+            // panelProgress
+            // 
+            this.panelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelProgress.AutoScroll = true;
+            this.panelProgress.Location = new System.Drawing.Point(20, 20);
+            this.panelProgress.Name = "panelProgress";
+            this.panelProgress.Size = new System.Drawing.Size(489, 219);
+            this.panelProgress.TabIndex = 2;
+            // 
             // selectionsControl
             // 
-            this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
-            this.selectionsControl.Size = new System.Drawing.Size(505, 208);
+            this.selectionsControl.Size = new System.Drawing.Size(505, 235);
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
-            // taskControl
-            // 
-            this.taskControl.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.taskControl.Location = new System.Drawing.Point(24, 24);
-            this.taskControl.Name = "taskControl";
-            this.taskControl.Size = new System.Drawing.Size(486, 54);
-            this.taskControl.TabIndex = 5;
-            this.taskControl.Visible = false;
-            // 
             // buttonCustomizeSelectionsDone
             // 
-            this.buttonCustomizeSelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCustomizeSelectionsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCustomizeSelectionsDone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonCustomizeSelectionsDone.Location = new System.Drawing.Point(12, 226);
+            this.buttonCustomizeSelectionsDone.Location = new System.Drawing.Point(12, 253);
             this.buttonCustomizeSelectionsDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
             this.buttonCustomizeSelectionsDone.Name = "buttonCustomizeSelectionsDone";
             this.buttonCustomizeSelectionsDone.Size = new System.Drawing.Size(75, 23);
@@ -108,13 +108,13 @@ namespace ZeroInstall.Commands.WinForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(534, 261);
+            this.ClientSize = new System.Drawing.Size(534, 288);
             this.Controls.Add(this.buttonCustomizeSelectionsDone);
-            this.Controls.Add(this.taskControl);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
-            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
+            this.Controls.Add(this.panelProgress);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 225);
             this.Name = "ProgressForm";
@@ -130,8 +130,8 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Button buttonCustomizeSelectionsDone;
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.Panel panelProgress;
         private ZeroInstall.Commands.WinForms.SelectionsControl selectionsControl;
-        private NanoByte.Common.Controls.TaskControl taskControl;
         private System.Windows.Forms.ToolTip toolTip;
         #endregion
     }

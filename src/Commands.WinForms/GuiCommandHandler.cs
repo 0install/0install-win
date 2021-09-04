@@ -75,12 +75,12 @@ namespace ZeroInstall.Commands.WinForms
             Log.Debug("Task: " + task.Name);
 
             var progress = _wrapper.Post(form => (task.Tag is string tag)
-                ? form.GetProgressControl(task.Name, tag)
-                : form.GetProgressControl(task.Name));
+                ? form.AddProgressControl(task.Name, tag)
+                : form.AddProgressControl(task.Name));
 
             task.Run(CancellationToken, CredentialProvider, progress);
 
-            _wrapper.Post(form => form.RestoreSelections());
+            _wrapper.Post(form => form.RemoveProgressControl(progress));
         }
         #endregion
 
