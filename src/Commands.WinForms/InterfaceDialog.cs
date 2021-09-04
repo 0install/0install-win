@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -41,7 +40,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly Func<Selections> _solveCallback;
 
         /// <summary>The interface preferences being modified.</summary>
-        private InterfacePreferences _interfacePreferences;
+        private readonly InterfacePreferences _interfacePreferences;
 
         /// <summary>The last implementation selected for this interface.</summary>
         private IEnumerable<SelectionCandidate> _candidates = Enumerable.Empty<SelectionCandidate>();
@@ -70,13 +69,13 @@ namespace ZeroInstall.Commands.WinForms
             _mainFeed = feedManager[_interfaceUri];
             _solveCallback = solveCallback;
             _feedManager = feedManager;
+            _interfacePreferences = InterfacePreferences.LoadForSafe(_interfaceUri);
         }
 
         private void InterfaceDialog_Load(object sender, EventArgs e)
         {
             Text = string.Format(Resources.PropertiesFor, _mainFeed.Name);
 
-            _interfacePreferences = InterfacePreferences.LoadForSafe(_interfaceUri);
             if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = Resources.UseDefaultSetting;
             else comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
 
@@ -182,9 +181,12 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void UpdateDataGridVersions()
         {
-            var candidates = checkBoxShowAllVersions.Checked ? _candidates : _candidates.Where(candidate => candidate.IsSuitable);
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
-            list.AddRange(candidates);
+            foreach (var candidate in _candidates)
+            {
+                if (candidate.IsSuitable || checkBoxShowAllVersions.Checked)
+                    list.Add(candidate);
+            }
             dataGridVersions.DataSource = list;
         }
         #endregion
