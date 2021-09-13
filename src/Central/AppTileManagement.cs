@@ -123,31 +123,7 @@ namespace ZeroInstall.Central
             {
                 return null;
             }
-            catch (UriFormatException ex)
-            {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
-                Log.Warn(ex);
-                return null;
-            }
-            catch (IOException ex)
-            {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
-                Log.Warn(ex);
-                return null;
-            }
-            catch (WebException ex)
-            {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
-                Log.Warn(ex);
-                return null;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
-                Log.Warn(ex);
-                return null;
-            }
-            catch (SignatureException ex)
+            catch (Exception ex) when (ex is UriFormatException or IOException or WebException or WebException or UnauthorizedAccessException or SignatureException or InvalidDataException)
             {
                 Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
                 Log.Warn(ex);
