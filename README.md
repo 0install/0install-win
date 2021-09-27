@@ -23,6 +23,6 @@ This repository contains an [EditorConfig](http://editorconfig.org/) file. Pleas
 
 ## Privacy and code signing policy
 
-Zero Install for Windows contacts various servers automatically during normal operation (e.g., to check for updates). No personal information is transmitted to these systems unless specifically requested by the user (e.g., to synchronize apps between computers). See the [documentation](https://docs.0install.net/) for details.
+Zero Install for Windows contacts various servers automatically during normal operation (e.g., to check for updates). No personal information is transmitted to these systems unless specifically requested by the user (e.g., to synchronize apps between computers). See the [documentation](https://docs.0install.net/details/servers/) for details.
 
 This program uses free code signing provided by [SignPath.io](https://signpath.io/) and a certificate by the [SignPath Foundation](https://sig.fo/). Signed releases are published by [Bastian Eicher](https://github.com/bastianeicher).
