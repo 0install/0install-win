@@ -114,28 +114,19 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void Solve()
         {
-            _candidates = Enumerable.Empty<SelectionCandidate>();
-
             try
             {
                 _candidates = _solveCallback()[_interfaceUri].Candidates ?? GenerateDummyCandidates();
             }
             #region Error handling
-            catch (KeyNotFoundException)
-            {}
-            catch (OperationCanceledException)
-            {}
-            catch (UnauthorizedAccessException ex)
+            catch (Exception ex) when (ex is KeyNotFoundException or OperationCanceledException)
             {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
-            catch (IOException ex)
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException or WebException)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (WebException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             #endregion
 
