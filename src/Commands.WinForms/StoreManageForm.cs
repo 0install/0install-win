@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IImplementationStore"/>) in a combined tree view.
     /// </summary>
+    [SuppressMessage("ReSharper", "AsyncVoidLambda")]
     public sealed partial class StoreManageForm : Form
     {
         #region Variables
@@ -102,7 +104,7 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Event handlers
-        private void OnSelectedEntryChanged(object sender, EventArgs e)
+        private void OnSelectedEntryChanged(object? sender, EventArgs e)
         {
             var node = _treeView.SelectedEntry?.BackingNode;
             propertyGrid.SelectedObject = node;
@@ -112,7 +114,7 @@ namespace ZeroInstall.Commands.WinForms
             textCurrentSize.Text = implementationEntry?.Size.FormatBytes(CultureInfo.CurrentCulture) ?? "-";
         }
 
-        private void OnCheckedEntriesChanged(object sender, EventArgs e)
+        private void OnCheckedEntriesChanged(object? sender, EventArgs e)
         {
             if (_treeView.CheckedEntries.Count == 0)
             {
@@ -130,7 +132,7 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
-        private void buttonRunAsAdmin_Click(object sender, EventArgs e)
+        private void buttonRunAsAdmin_Click(object? sender, EventArgs e)
         {
             try
             {
@@ -148,7 +150,7 @@ namespace ZeroInstall.Commands.WinForms
             Close();
         }
 
-        private async void buttonRemove_Click(object sender, EventArgs e)
+        private async void buttonRemove_Click(object? sender, EventArgs e)
         {
             if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Count), MsgSeverity.Warn))
             {
@@ -182,7 +184,7 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
-        private async void buttonVerify_Click(object sender, EventArgs e)
+        private async void buttonVerify_Click(object? sender, EventArgs e)
         {
             try
             {

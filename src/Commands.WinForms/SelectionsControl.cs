@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using NanoByte.Common.Collections;
@@ -20,15 +21,6 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public sealed partial class SelectionsControl : UserControl
     {
-        #region Variables
-        /// <summary>The selections being visualized.</summary>
-        private Selections _selections;
-
-        /// <summary>The feed cache used to retrieve feeds for additional information about implementations.</summary>
-        private IFeedManager _feedManager;
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new <see cref="Selections"/> control.
         /// </summary>
@@ -39,11 +31,13 @@ namespace ZeroInstall.Commands.WinForms
 
             TaskControls = new(CreateTaskControls);
         }
-        #endregion
 
-        //--------------------//
+        /// <summary>The selections being visualized.</summary>
+        private Selections? _selections;
 
-        #region Selections
+        /// <summary>The feed cache used to retrieve feeds for additional information about implementations.</summary>
+        private IFeedManager? _feedManager;
+
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
         /// </summary>
@@ -53,6 +47,8 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
+        [MemberNotNull(nameof(_selections))]
+        [MemberNotNull(nameof(_feedManager))]
         public void SetSelections(Selections selections, IFeedManager feedManager)
         {
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
@@ -66,6 +62,8 @@ namespace ZeroInstall.Commands.WinForms
 
         private void BuildTable()
         {
+            if (_selections == null || _feedManager == null) return;
+
             tableLayout.Controls.Clear();
             tableLayout.RowStyles.Clear();
 
@@ -81,12 +79,10 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
-                tableLayout.Controls.Add(new Label {Text = implementation.Version?.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
+                tableLayout.Controls.Add(new Label {Text = implementation.Version.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
             }
         }
-        #endregion
 
-        #region Modify selections
         /// <summary>
         /// Called after preferences have been changed and the <see cref="ISolver"/> needs to be rerun.
         /// Is set between <see cref="BeginCustomizeSelections"/> and <see cref="EndCustomizeSelections"/>; is <c>null</c> otherwise.
@@ -101,6 +97,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
+        [MemberNotNull(nameof(_solveCallback))]
         public void BeginCustomizeSelections(Func<Selections> solveCallback)
         {
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
@@ -111,14 +108,14 @@ namespace ZeroInstall.Commands.WinForms
 
         private void CreateLinkLabels()
         {
-            for (int i = 0; i < _selections.Implementations.Count; i++)
+            for (int i = 0; i < _selections!.Implementations.Count; i++)
                 tableLayout.Controls.Add(CreateLinkLabel(_selections.Implementations[i].InterfaceUri), 2, i);
         }
 
         private LinkLabel CreateLinkLabel(FeedUri interfaceUri)
         {
             var linkLabel = new LinkLabel {Text = Resources.Change, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
-            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceUri, _solveCallback, _feedManager); };
+            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceUri, _solveCallback!, _feedManager!); };
             return linkLabel;
         }
 
@@ -130,9 +127,7 @@ namespace ZeroInstall.Commands.WinForms
             _solveCallback = null;
             BuildTable();
         }
-        #endregion
 
-        #region Task tracking
         /// <summary>
         /// A list of <see cref="TaskControl"/>s addressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.
         /// Missing entries are transparently created on request.
@@ -144,11 +139,10 @@ namespace ZeroInstall.Commands.WinForms
             var trackingControl = new TaskControl {Dock = DockStyle.Fill};
             trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
 
-            int index = _selections.Implementations.FindIndex(x => x.ManifestDigest.Best == tag);
+            int index = _selections!.Implementations.FindIndex(x => x.ManifestDigest.Best == tag);
             tableLayout.Controls.Add(trackingControl, 2, index);
 
             return trackingControl;
         }
-        #endregion
     }
 }

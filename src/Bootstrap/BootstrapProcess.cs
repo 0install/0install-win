@@ -161,7 +161,7 @@ namespace ZeroInstall
                         _targetArgs.Add(value);
 
                         // Stop using options parser, treat everything from here on as unknown
-                        _options.Clear();
+                        _options!.Clear();
                     }
                 }
             };

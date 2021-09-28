@@ -19,6 +19,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Wraps a <see cref="CacheNode"/> to add a context menu.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
+    [SuppressMessage("ReSharper", "AsyncVoidLambda")]
     public sealed class StoreManageNode : INamed, IContextMenu
     {
         #region Dependencies
@@ -90,6 +91,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     try
                     {
+                        // ReSharper disable once AccessToDisposedClosure
                         handler.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(handler)));
                     }
                     #region Error handling
