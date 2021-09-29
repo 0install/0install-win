@@ -37,7 +37,7 @@ function upload_filtered($slug, $pathBase) {
 }
 
 upload store-service "$PSScriptRoot\src\Store.Service\Properties\Resources"
-upload central "$PSScriptRoot\src\Central\Properties\Resources"
+upload central "$PSScriptRoot\src\Central.WinForms\Properties\Resources"
 
 upload_filtered window-central_winforms_introdialog "$PSScriptRoot\src\Central.WinForms\IntroDialog"
 upload_filtered window-central_winforms_mainform "$PSScriptRoot\src\Central.WinForms\MainForm"

@@ -106,14 +106,14 @@ namespace ZeroInstall.Central.WinForms
             // 
             // arrowMyApps
             // 
-            this.arrowMyApps.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowDown;
+            this.arrowMyApps.Image = global::ZeroInstall.Central.WinForms.Properties.ImageResources.ArrowDown;
             resources.ApplyResources(this.arrowMyApps, "arrowMyApps");
             this.arrowMyApps.Name = "arrowMyApps";
             this.arrowMyApps.TabStop = false;
             // 
             // arrowSearch
             // 
-            this.arrowSearch.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.ArrowRight;
+            this.arrowSearch.Image = global::ZeroInstall.Central.WinForms.Properties.ImageResources.ArrowRight;
             resources.ApplyResources(this.arrowSearch, "arrowSearch");
             this.arrowSearch.Name = "arrowSearch";
             this.arrowSearch.TabStop = false;

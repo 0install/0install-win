@@ -11,7 +11,7 @@ function download($slug, $pathBase) {
 }
 
 download store-service "$PSScriptRoot\src\Store.Service\Properties\Resources"
-download central "$PSScriptRoot\src\Central\Properties\Resources"
+download central "$PSScriptRoot\src\Central.WinForms\Properties\Resources"
 
 download window-central_winforms_introdialog "$PSScriptRoot\src\Central.WinForms\IntroDialog"
 download window-central_winforms_mainform "$PSScriptRoot\src\Central.WinForms\MainForm"

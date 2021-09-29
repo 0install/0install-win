@@ -17,7 +17,6 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <ProjectReference Include="..\Central\Central.csproj" />
     <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj" />
   </ItemGroup>
   <ItemGroup>

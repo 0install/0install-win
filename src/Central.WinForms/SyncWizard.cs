@@ -13,7 +13,7 @@ using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Central.Properties;
+using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;

@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 14.0.23107.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central.WinForms", "Central.WinForms\Central.WinForms.csproj", "{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central", "Central\Central.csproj", "{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.WinForms", "Commands.WinForms\Commands.WinForms.csproj", "{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher.Cli", "Launcher.Cli\Launcher.Cli.csproj", "{B56D8478-0900-47C2-9113-1DC086A2D129}"
@@ -43,10 +41,6 @@ Global
 		{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}.Release|Any CPU.ActiveCfg = Release|Any CPU

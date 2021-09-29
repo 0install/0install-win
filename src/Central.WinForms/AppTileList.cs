@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
-using ZeroInstall.Central.Properties;
+using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Icons;

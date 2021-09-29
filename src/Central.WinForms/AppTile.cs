@@ -169,7 +169,7 @@ namespace ZeroInstall.Central.WinForms
                 }
             }
 
-            pictureBoxIcon.Image = Resources.AppIcon; // Fallback image
+            pictureBoxIcon.Image = ImageResources.AppIcon; // Fallback image
         }
 
         private void LinkClicked(object sender, EventArgs e)

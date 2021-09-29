@@ -2,7 +2,6 @@
 // Licensed under the GNU Lesser Public License
 
 using NanoByte.Common.Drawing;
-using SharedResources = ZeroInstall.Central.Properties.Resources;
 
 namespace ZeroInstall.Central.WinForms.Properties
 {
@@ -12,22 +11,22 @@ namespace ZeroInstall.Central.WinForms.Properties
     internal static class AppResources
     {
         public static readonly ScalableImage
-            CandidateImage = new(Resources.AppCandidate),
-            AddedImage = new(Resources.AppAdded),
-            IntegratedImage = new (Resources.AppIntegrated);
+            CandidateImage = new(ImageResources.AppCandidate),
+            AddedImage = new(ImageResources.AppAdded),
+            IntegratedImage = new (ImageResources.AppIntegrated);
 
         public static readonly string
-            CandidateText = SharedResources.MyAppsAdd,
-            AddedText = SharedResources.MyAppsAdded,
-            IntegratedText = SharedResources.MyAppsAddedAndIntegrate;
+            CandidateText = Resources.MyAppsAdd,
+            AddedText = Resources.MyAppsAdded,
+            IntegratedText = Resources.MyAppsAddedAndIntegrate;
 
         public static readonly string
-            RunText = SharedResources.Run,
-            RunWithOptionsText = SharedResources.RunWithOptions,
-            UpdateText = SharedResources.Update,
-            IntegrateText = SharedResources.Integrate,
-            ModifyText = SharedResources.ModifyIntegration,
-            RemoveText = SharedResources.Remove,
-            Working = SharedResources.Working;
+            RunText = Resources.Run,
+            RunWithOptionsText = Resources.RunWithOptions,
+            UpdateText = Resources.Update,
+            IntegrateText = Resources.Integrate,
+            ModifyText = Resources.ModifyIntegration,
+            RemoveText = Resources.Remove,
+            Working = Resources.Working;
     }
 }

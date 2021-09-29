@@ -19,7 +19,7 @@ namespace ZeroInstall.Central.WinForms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,72 +61,471 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static System.Drawing.Bitmap AppAdded {
+        internal static string Cancel {
             get {
-                object obj = ResourceManager.GetObject("AppAdded", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Enter &apos;0install --help&apos; to see a list of available commands..
         /// </summary>
-        internal static System.Drawing.Bitmap AppCandidate {
+        internal static string CommandLineHint {
             get {
-                object obj = ResourceManager.GetObject("AppCandidate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("CommandLineHint", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Continue.
         /// </summary>
-        internal static System.Drawing.Bitmap AppIcon {
+        internal static string Continue {
             get {
-                object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Click to setup Zero Install on this computer....
         /// </summary>
-        internal static System.Drawing.Bitmap AppIntegrated {
+        internal static string DeployNotification {
             get {
-                object obj = ResourceManager.GetObject("AppIntegrated", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("DeployNotification", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Please enter the URL of a Zero Install feed here:.
         /// </summary>
-        internal static System.Drawing.Bitmap ArrowDown {
+        internal static string EnterFeedUrl {
             get {
-                object obj = ResourceManager.GetObject("ArrowDown", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("EnterFeedUrl", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to For all users.
         /// </summary>
-        internal static System.Drawing.Bitmap ArrowRight {
+        internal static string ForAllUsers {
             get {
-                object obj = ResourceManager.GetObject("ArrowRight", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ForAllUsers", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to For current user.
         /// </summary>
-        internal static System.Drawing.Bitmap ArrowUp {
+        internal static string ForCurrentUser {
             get {
-                object obj = ResourceManager.GetObject("ArrowUp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ForCurrentUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignoring duplicate app entry for &apos;{0}&apos;..
+        /// </summary>
+        internal static string IgnoringDuplicateAppListEntry {
+            get {
+                return ResourceManager.GetString("IgnoringDuplicateAppListEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integrate (start menu, etc.).
+        /// </summary>
+        internal static string Integrate {
+            get {
+                return ResourceManager.GetString("Integrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common app.
+        /// </summary>
+        internal static string IntroCommonApp {
+            get {
+                return ResourceManager.GetString("IntroCommonApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to does the usual stuff.
+        /// </summary>
+        internal static string IntroCommonAppSummary {
+            get {
+                return ResourceManager.GetString("IntroCommonAppSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cool app.
+        /// </summary>
+        internal static string IntroCoolApp {
+            get {
+                return ResourceManager.GetString("IntroCoolApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to does something cool.
+        /// </summary>
+        internal static string IntroCoolAppSummary {
+            get {
+                return ResourceManager.GetString("IntroCoolAppSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other app.
+        /// </summary>
+        internal static string IntroOtherApp {
+            get {
+                return ResourceManager.GetString("IntroOtherApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to does something else.
+        /// </summary>
+        internal static string IntroOtherAppSummary {
+            get {
+                return ResourceManager.GetString("IntroOtherAppSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you like an app,
+        ///add it to &quot;My apps&quot;..
+        /// </summary>
+        internal static string IntroSubtitlesAddApp {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesAddApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for an app in the &quot;Catalog&quot;....
+        /// </summary>
+        internal static string IntroSubtitlesCatalogSearch {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesCatalogSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Integrate&quot; an app to put it
+        ///in the start menu or on the desktop..
+        /// </summary>
+        internal static string IntroSubtitlesIntegrateApp {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesIntegrateApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can manage your list of favorite apps here..
+        /// </summary>
+        internal static string IntroSubtitlesMyApps {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesMyApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ... and run it!.
+        /// </summary>
+        internal static string IntroSubtitlesRunApp {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesRunApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have fun!.
+        /// </summary>
+        internal static string IntroSubtitlesThanks {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Zero Install you don&apos;t have to install apps..
+        /// </summary>
+        internal static string IntroSubtitlesWelcome {
+            get {
+                return ResourceManager.GetString("IntroSubtitlesWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Machine-wide mode.
+        /// </summary>
+        internal static string MachineWideMode {
+            get {
+                return ResourceManager.GetString("MachineWideMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify integration.
+        /// </summary>
+        internal static string ModifyIntegration {
+            get {
+                return ResourceManager.GetString("ModifyIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to &quot;My apps&quot;.
+        /// </summary>
+        internal static string MyAppsAdd {
+            get {
+                return ResourceManager.GetString("MyAppsAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added to &quot;My apps&quot;..
+        /// </summary>
+        internal static string MyAppsAdded {
+            get {
+                return ResourceManager.GetString("MyAppsAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added to &quot;My apps&quot; and integrated in desktop environment..
+        /// </summary>
+        internal static string MyAppsAddedAndIntegrate {
+            get {
+                return ResourceManager.GetString("MyAppsAddedAndIntegrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The directory {0} is not empty.
+        ///Are you sure you want place a portable version of Zero Install there?.
+        /// </summary>
+        internal static string PortableDirNotEmptyAsk {
+            get {
+                return ResourceManager.GetString("PortableDirNotEmptyAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portable mode.
+        /// </summary>
+        internal static string PortableMode {
+            get {
+                return ResourceManager.GetString("PortableMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Remove.
+        /// </summary>
+        internal static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the {0} selected entries from the list?.
+        /// </summary>
+        internal static string RemoveSelectedEntries {
+            get {
+                return ResourceManager.GetString("RemoveSelectedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run.
+        /// </summary>
+        internal static string Run {
+            get {
+                return ResourceManager.GetString("Run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run with &amp;options.
+        /// </summary>
+        internal static string RunWithOptions {
+            get {
+                return ResourceManager.GetString("RunWithOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you wish to save any changes made?.
+        /// </summary>
+        internal static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No
+        ///Discard changes.
+        /// </summary>
+        internal static string SaveChangesNo {
+            get {
+                return ResourceManager.GetString("SaveChangesNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes
+        ///Save changes.
+        /// </summary>
+        internal static string SaveChangesYes {
+            get {
+                return ResourceManager.GetString("SaveChangesYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to update to Zero Install v{0}....
+        /// </summary>
+        internal static string SelfUpdateNotification {
+            get {
+                return ResourceManager.GetString("SelfUpdateNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to complete Sync Setup first..
+        /// </summary>
+        internal static string SyncCompleteSetupFirst {
+            get {
+                return ResourceManager.GetString("SyncCompleteSetupFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username and/or password you entered are incorrect..
+        /// </summary>
+        internal static string SyncCredentialsInvalid {
+            get {
+                return ResourceManager.GetString("SyncCredentialsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Crypto key you entered is incorrect..
+        /// </summary>
+        internal static string SyncCryptoKeyInvalid {
+            get {
+                return ResourceManager.GetString("SyncCryptoKeyInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you wish to reset the Sync settings and start from scratch?.
+        /// </summary>
+        internal static string SyncReplaceConfigAsk {
+            get {
+                return ResourceManager.GetString("SyncReplaceConfigAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No
+        ///edit the existing settings.
+        /// </summary>
+        internal static string SyncReplaceConfigNo {
+            get {
+                return ResourceManager.GetString("SyncReplaceConfigNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes
+        ///start from scratch.
+        /// </summary>
+        internal static string SyncReplaceConfigYes {
+            get {
+                return ResourceManager.GetString("SyncReplaceConfigYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
+        ///You can replace the data stored on the server by choosing that you don&apos;t remember the Crypto key..
+        /// </summary>
+        internal static string SyncServerDataDamaged {
+            get {
+                return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to download application catalog..
+        /// </summary>
+        internal static string UnableToDownloadCatalog {
+            get {
+                return ResourceManager.GetString("UnableToDownloadCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load feed for app entry &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToLoadFeedForApp {
+            get {
+                return ResourceManager.GetString("UnableToLoadFeedForApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to use an unencrypted connection to a Sync server?
+        ///Encrypted connections use an https:// prefix..
+        /// </summary>
+        internal static string UnencryptedSyncServer {
+            get {
+                return ResourceManager.GetString("UnencryptedSyncServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Update.
+        /// </summary>
+        internal static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
+        ///Important: Applications you have &quot;Run&quot; previously without adding them to &quot;My apps&quot; will also be removed from the cache.  You will need to be online if you decide to run them again..
+        /// </summary>
+        internal static string UpdateAllCleanWillRemove {
+            get {
+                return ResourceManager.GetString("UpdateAllCleanWillRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working....
+        /// </summary>
+        internal static string Working {
+            get {
+                return ResourceManager.GetString("Working", resourceCulture);
             }
         }
     }

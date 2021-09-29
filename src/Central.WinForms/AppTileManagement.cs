@@ -8,7 +8,7 @@ using System.IO;
 using System.Net;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
-using ZeroInstall.Central.Properties;
+using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
@@ -16,7 +16,7 @@ using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Central
+namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
     /// Helper methods for keeping <see cref="IAppTileList"/>s in sync with <see cref="AppList"/>s and <see cref="Catalog"/>s.
