@@ -17,7 +17,7 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <PackageReference Include="ZeroInstall.Store" Version="2.20.0" />
+    <PackageReference Include="ZeroInstall.Store" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration.Install" />

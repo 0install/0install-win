@@ -3,11 +3,6 @@
   "extends": ["config:base", ":disableDependencyDashboard"],
   "packageRules": [
     {
-      "matchPackagePatterns": ["ZeroInstall", "NanoByte"],
-      "groupName": "Zero Install .NET",
-      "groupSlug": "0install-dotnet"
-    },
-    {
       "matchPackagePatterns": ["AeroWizard"],
       "automerge": true,
       "automergeType": "branch"
