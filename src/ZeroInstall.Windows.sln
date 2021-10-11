@@ -29,6 +29,7 @@ ProjectSection(SolutionItems) = preProject
 	app.cli.manifest = app.cli.manifest
 	app.service.manifest = app.service.manifest
 	app.winforms.manifest = app.winforms.manifest
+	nuget.config = nuget.config
 EndProjectSection
 EndProject
 Global
