@@ -20,6 +20,7 @@ using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall
 {
@@ -179,6 +180,8 @@ namespace ZeroInstall
             // NOTE: This must be done before parsing command-line options, since they may manipulate Config
             Config.Save();
 
+            TrustKeys();
+
             _targetArgs.AddRange(GetEmbeddedArgs());
             _targetArgs.AddRange(_options.Parse(args));
 
@@ -205,15 +208,54 @@ namespace ZeroInstall
         }
 
         /// <summary>
+        /// Adds keys for Zero Install (and optionally an app) to the <see cref="TrustDB"/>.
+        /// </summary>
+        private static void TrustKeys()
+        {
+            try
+            {
+                var trust = TrustDB.Load();
+                trust.TrustKey("88C8A1F375928691D7365C0259AA3927C24E4E1E", new Domain("apps.0install.net"));
+                if (!string.IsNullOrEmpty(EmbeddedConfig.Instance.AppFingerprint) && EmbeddedConfig.Instance.AppUri != null)
+                    trust.TrustKey(EmbeddedConfig.Instance.AppFingerprint, new Domain(EmbeddedConfig.Instance.AppUri.Host));
+                trust.Save();
+            }
+            #region Error handling
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
+        }
+
+        /// <summary>
         /// Gets implicit command-line arguments based on the <see cref="EmbeddedConfig"/>, if any.
         /// </summary>
         private static IEnumerable<string> GetEmbeddedArgs()
-            => EmbeddedConfig.Instance.AppMode switch
+        {
+            var config = EmbeddedConfig.Instance;
+            if (config.AppUri == null) yield break;
+
+            switch (config.AppMode)
             {
-                BootstrapMode.Run => new[] {"run", EmbeddedConfig.Instance.AppUri.ToStringRfc()},
-                BootstrapMode.Integrate => new[] {"integrate", EmbeddedConfig.Instance.AppUri.ToStringRfc()},
-                _ => new string[0]
-            };
+                case BootstrapMode.Run:
+                    yield return "run";
+                    break;
+                case BootstrapMode.Integrate:
+                    yield return "integrate";
+                    break;
+                default:
+                    yield break;
+            }
+
+            yield return config.AppUri.ToStringRfc();
+
+            if (!string.IsNullOrEmpty(config.AppArgs))
+            {
+                foreach (string arg in WindowsUtils.SplitArgs(config.AppArgs))
+                    yield return arg;
+            }
+        }
 
         /// <summary>
         /// Handles arguments passed to the target that are also applicable to the bootstrapper.
