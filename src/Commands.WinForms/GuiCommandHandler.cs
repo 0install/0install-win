@@ -12,7 +12,6 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
 using ZeroInstall.Commands.WinForms.Properties;
@@ -212,7 +211,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="message">The message text.</param>
         private static void OutputNotification(string title, string message)
         {
-            if (WindowsUtils.IsWindows10 && !ZeroInstallInstance.IsRunningFromCache && !Locations.IsPortable)
+            if (WindowsUtils.IsWindows10 && ZeroInstallInstance.IsIntegrated)
                 ShowModernNotification(title, message);
             else
                 ShowLegacyNotification(title, message);

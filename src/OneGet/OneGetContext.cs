@@ -187,7 +187,7 @@ namespace ZeroInstall.OneGet
 
             Yield(requirements);
 
-            SelfUpdateCheck();
+            BackgroundSelfUpdate();
         }
 
         public void InstallPackage(string fastPackageReference)
@@ -196,18 +196,12 @@ namespace ZeroInstall.OneGet
             try
             {
                 Install(requirements);
-                SelfUpdateCheck();
+                BackgroundSelfUpdate();
             }
             catch (UnsuitableInstallBaseException ex)
             {
-                string installLocation = ZeroInstallInstance.FindOther(ex.NeedsMachineWide);
-                if (installLocation == null)
-                {
-                    if (Handler.Ask(Resources.AskDeployZeroInstall + Environment.NewLine + ex.Message,
-                        defaultAnswer: true, alternateMessage: ex.Message))
-                        installLocation = DeployInstance(ex.NeedsMachineWide);
-                    else return;
-                }
+                string installLocation = ZeroInstallInstance.FindOther(ex.NeedsMachineWide)
+                                      ?? DeployInstance(ex.NeedsMachineWide);
 
                 // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply pretend we are running from a different source
                 Locations.OverrideInstallBase(installLocation);
@@ -218,7 +212,7 @@ namespace ZeroInstall.OneGet
         private void Install(Requirements requirements)
         {
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
-            if (MachineWide && ZeroInstallInstance.IsRunningFromPerUserDir) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
+            if (MachineWide && !ZeroInstallInstance.IsMachineWide) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
             if (ZeroInstallInstance.IsRunningFromCache) throw new UnsuitableInstallBaseException(Resources.NoIntegrationFromCache, MachineWide);
 
             FeedManager.Refresh = Refresh || !DeferDownload;
@@ -304,9 +298,8 @@ namespace ZeroInstall.OneGet
             string installLocation = Path.Combine(programFiles, "Zero Install");
 
             Log.Info("Deploying Zero Install to " + installLocation);
-            using (var manager = new SelfManager(installLocation, Handler, machineWide, portable: false))
-                manager.Deploy();
-            Log.Warn(Resources.Added0installToPath + Environment.NewLine + Resources.ReopenTerminal);
+            using (var manager = new SelfManager(installLocation, Handler, machineWide))
+                manager.Deploy(libraryMode: true);
 
             return installLocation;
         }

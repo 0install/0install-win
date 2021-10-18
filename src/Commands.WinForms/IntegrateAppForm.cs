@@ -279,12 +279,12 @@ namespace ZeroInstall.Commands.WinForms
                     commandLine.Add("--add=" + category);
             }
 
-            AddIfChecked(checkBoxCapabilities, CapabilityRegistration.CategoryName);
-            AddIfChecked(checkBoxStartMenuSimple, MenuEntry.CategoryName);
-            AddIfChecked(checkBoxDesktopSimple, DesktopIcon.CategoryName);
-            AddIfChecked(checkBoxSendToSimple, SendTo.CategoryName);
-            AddIfChecked(checkBoxAliasesSimple, AppAlias.CategoryName);
-            AddIfChecked(checkBoxAutoStartSimple, AutoStart.CategoryName);
+            AddIfChecked(checkBoxCapabilities, CapabilityRegistration.TagName);
+            AddIfChecked(checkBoxStartMenuSimple, MenuEntry.TagName);
+            AddIfChecked(checkBoxDesktopSimple, DesktopIcon.TagName);
+            AddIfChecked(checkBoxSendToSimple, SendTo.TagName);
+            AddIfChecked(checkBoxAliasesSimple, AppAlias.TagName);
+            AddIfChecked(checkBoxAutoStartSimple, AutoStart.TagName);
 
             textBoxCommandLine.Text = commandLine.JoinEscapeArguments();
         }

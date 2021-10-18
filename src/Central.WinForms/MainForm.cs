@@ -17,7 +17,6 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
-using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
@@ -115,12 +114,8 @@ namespace ZeroInstall.Central.WinForms
                 tabControlApps.SelectTab(tabPageCatalog);
             }
 
-            if (ZeroInstallInstance.IsRunningFromCache)
-            {
-                if (ZeroInstallInstance.FindOther() == null)
-                    ShowDeployNotification();
-            }
-            else SelfUpdateCheck();
+            if (!ZeroInstallInstance.IsIntegrated) ShowDeployNotification();
+            if (!ZeroInstallInstance.IsRunningFromCache) SelfUpdateCheck();
         }
 
         /// <summary>
@@ -347,8 +342,6 @@ namespace ZeroInstall.Central.WinForms
                 BeginInvoke(new Action(UpdateAppListAsync));
             else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
                 tabControlApps.SelectedTab = tabPageAppList;
-            else if (m.Msg == SelfManager.PerformedWindowMessageID)
-                labelNotificationBar.Hide();
 
             base.WndProc(ref m);
         }
