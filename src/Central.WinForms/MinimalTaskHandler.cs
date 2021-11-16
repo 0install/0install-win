@@ -1,7 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
@@ -30,7 +29,7 @@ namespace ZeroInstall.Central.WinForms
         {
             bool result = false;
             Log.Debug("Question: " + question);
-            _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
+            _owner.Invoke(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info));
             Log.Debug("Answer: " + result);
             return result;
         }
