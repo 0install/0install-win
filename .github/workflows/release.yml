@@ -12,7 +12,7 @@ jobs:
       - name: Download signed artifacts
         id: download
         run: |
-          curl -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
+          curl -sSf -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
           unzip artifacts.zip
           echo "::set-output name=version::$(cat VERSION)"
 
