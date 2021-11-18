@@ -22,7 +22,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the progress of a <see cref="CliCommand"/> and <see cref="ITask"/>s.
     /// </summary>
-    public partial class ProgressForm : Form
+    public sealed partial class ProgressForm : Form
     {
         #region Constructor
         /// <summary>
@@ -39,7 +39,6 @@ namespace ZeroInstall.Commands.WinForms
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
 
-            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
             Shown += delegate { this.SetForegroundWindow(); };
