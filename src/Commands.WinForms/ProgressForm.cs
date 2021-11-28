@@ -34,6 +34,8 @@ namespace ZeroInstall.Commands.WinForms
             _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
             InitializeComponent();
+            notifyIcon.Text = Text;
+            notifyIcon.Icon = Icon;
 
             buttonCustomizeSelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
