@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
@@ -12,21 +13,21 @@ namespace ZeroInstall
     /// <summary>
     /// The main GUI for the Bootstrapper.
     /// </summary>
-    public partial class MainForm : Form
+    public sealed partial class MainForm : Form
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
 
         public MainForm(CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource;
-            InitializeComponent();
 
-            labelLoading.Text = EmbeddedConfig.Instance.AppMode switch
+            InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            if (EmbeddedConfig.Instance.AppName != null)
             {
-                BootstrapMode.Run => $"Preparing to run {EmbeddedConfig.Instance.AppName}...",
-                BootstrapMode.Integrate => $"Preparing to integrate {EmbeddedConfig.Instance.AppName}...",
-                _ => "Loading..."
-            };
+                Text = $"{EmbeddedConfig.Instance.AppName} (Zero Install)";
+                labelAppName.Text = EmbeddedConfig.Instance.AppName;
+            }
 
             HandleCreated += delegate
             {
