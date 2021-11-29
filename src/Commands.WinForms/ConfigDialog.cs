@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.WinForms
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             HandleCreated += delegate
             {
-                if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache) WindowsTaskbar.PreventPinning(Handle);
+                if (!ZeroInstallInstance.IsDeployed) WindowsTaskbar.PreventPinning(Handle);
             };
 
             _config = config;

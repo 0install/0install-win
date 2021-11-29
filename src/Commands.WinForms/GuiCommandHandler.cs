@@ -17,6 +17,7 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Configuration;
@@ -67,6 +68,9 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <inheritdoc/>
         public bool Background { get; set; }
+
+        /// <inheritdoc/>
+        public FeedUri? FeedUri { get; set; }
 
         #region Task tracking
         /// <inheritdoc/>

@@ -21,7 +21,6 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Configuration;
-using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -64,7 +63,7 @@ namespace ZeroInstall.Central.WinForms
             _handler = new(this);
             var services = new ServiceProvider(_handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager, IconStores.Default(_handler),
+                services.FeedManager, services.CatalogManager, IconStores.Cache(services.Config, services.Handler),
                 tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion
@@ -74,9 +73,7 @@ namespace ZeroInstall.Central.WinForms
         #region Form
         private void MainForm_HandleCreated(object sender, EventArgs e)
         {
-            if (Locations.IsPortable || ZeroInstallInstance.IsRunningFromCache)
-                WindowsTaskbar.PreventPinning(Handle);
-            else
+            if (ZeroInstallInstance.IsDeployed)
             {
                 string exePath = Path.Combine(Locations.InstallBase, "ZeroInstall.exe");
                 string commandsExe = Path.Combine(Locations.InstallBase, "0install-win.exe");
@@ -88,6 +85,7 @@ namespace ZeroInstall.Central.WinForms
                     new WindowsTaskbar.ShellLink(buttonStoreManage.Text.Replace("&", ""), commandsExe, StoreMan.Name + " manage")
                 });
             }
+            else WindowsTaskbar.PreventPinning(Handle);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -112,7 +110,7 @@ namespace ZeroInstall.Central.WinForms
             }
 
             if (!ZeroInstallInstance.IsIntegrated) ShowDeployNotification();
-            if (!ZeroInstallInstance.IsRunningFromCache) SelfUpdateCheck();
+            if (ZeroInstallInstance.IsDeployed) SelfUpdateCheck();
         }
 
         /// <summary>
@@ -336,7 +334,7 @@ namespace ZeroInstall.Central.WinForms
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == IntegrationManager.ChangedWindowMessageID)
-                BeginInvoke(new Action(UpdateAppListAsync));
+                this.BeginInvoke(UpdateAppListAsync);
             else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
                 tabControlApps.SelectedTab = tabPageAppList;
 

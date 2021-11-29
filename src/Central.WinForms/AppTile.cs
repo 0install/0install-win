@@ -133,7 +133,7 @@ namespace ZeroInstall.Central.WinForms
                 await _iconSemaphore.WaitAsync(); // Limit number of concurrent icon downloads
                 try
                 {
-                    pictureBoxIcon.Image = await Task.Run(() => Image.FromFile(_iconStore.GetPath(icon)));
+                    pictureBoxIcon.Image = await Task.Run(() => Image.FromFile(_iconStore.Get(icon)));
                     return;
                 }
                 #region Error handling
