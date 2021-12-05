@@ -43,8 +43,7 @@ namespace ZeroInstall.OneGet
             {
                 lock (_initLock)
                 {
-                    if (_context == null)
-                        _context = InitExternalContext();
+                    _context ??= InitExternalContext();
                 }
             }
 
@@ -74,7 +73,9 @@ namespace ZeroInstall.OneGet
         private string GetProviderDirectory()
         {
             using var handler = new OneGetHandler(_request);
-            return Path.GetDirectoryName(ProgramUtils.GetStartInfo(handler).FileName);
+            var bootstrap = new BootstrapProcess(handler, gui: false);
+            var startInfo = bootstrap.GetZeroInstallDeployed() ?? bootstrap.GetZeroInstallCached();
+            return Path.GetDirectoryName(startInfo.FileName)!;
         }
 
         /// <summary>

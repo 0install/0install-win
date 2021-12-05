@@ -8,48 +8,21 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall
 {
-    public enum BootstrapMode
-    {
-        None,
-        Run,
-        Integrate,
-    }
-
     /// <summary>
     /// Represents configuration embedded into the executable itself.
     /// This is used to create a customized bootstrapper that uses Zero Install to run or integrate another application.
     /// </summary>
-    public class EmbeddedConfig
+    /// <param name="AppName">The name of the target application to bootstrap.</param>
+    /// <param name="AppUri">The feed URI of the target application to bootstrap.</param>
+    /// <param name="AppFingerprint">The GnuPG key fingerprint to trust for signing the application's feed.</param>
+    /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
+    /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
+    public record EmbeddedConfig(string? AppName, FeedUri? AppUri, string? AppFingerprint, string? AppArgs, string? IntegrateArgs)
     {
-        /// <summary>
-        /// The name of the target application to bootstrap.
-        /// </summary>
-        public string? AppName { get; }
-
-        /// <summary>
-        /// The feed URI of the target application to bootstrap.
-        /// </summary>
-        public FeedUri? AppUri { get; }
-
-        /// <summary>
-        /// The application bootstrapping mode to use.
-        /// </summary>
-        public BootstrapMode AppMode { get; }
-
-        /// <summary>
-        /// Additional command-line arguments to pass to the application (if <see cref="AppMode"/> is <see cref="BootstrapMode.Run"/>) or <c>0install-win integrate</c> (if <see cref="AppMode"/> is <see cref="BootstrapMode.Integrate"/>).
-        /// </summary>
-        public string? AppArgs { get; }
-
-        /// <summary>
-        /// The GnuPG key fingerprint to trust for signing the application's feed.
-        /// </summary>
-        public string? AppFingerprint { get; }
-
         /// <summary>
         /// Loads the embedded configuration.
         /// </summary>
-        private EmbeddedConfig()
+        public static EmbeddedConfig Load()
         {
             string[] lines = typeof(EmbeddedConfig).GetEmbeddedString("EmbeddedConfig.txt").SplitMultilineText();
 
@@ -72,24 +45,13 @@ namespace ZeroInstall
                 return null;
             }
 
-            AppUri = ReadConfig("app_uri", lineNumber: 0, nameof(AppUri))?.To(x => new FeedUri(x));
-            AppName = ReadConfig("app_name", lineNumber: 1, placeholder: nameof(AppName));
-            AppMode = GetAppMode(ReadConfig("app_mode", lineNumber: 2, placeholder: nameof(AppMode)));
-            AppArgs = ReadConfig("app_args", lineNumber: 3, placeholder: nameof(AppArgs));
-            AppFingerprint = ReadConfig("app_fingerprint", lineNumber: 4, placeholder: nameof(AppFingerprint));
+            return new(
+                AppUri: ReadConfig("app_uri", lineNumber: 0, nameof(AppUri))?.To(x => new FeedUri(x)),
+                AppName: ReadConfig("app_name", lineNumber: 1, placeholder: nameof(AppName)),
+                AppFingerprint: ReadConfig("app_fingerprint", lineNumber: 2, placeholder: nameof(AppFingerprint)),
+                AppArgs: ReadConfig("app_args", lineNumber: 3, placeholder: nameof(AppArgs)),
+                IntegrateArgs: ReadConfig("integrate_args", lineNumber: 4, placeholder: nameof(IntegrateArgs))
+            );
         }
-
-        private static BootstrapMode GetAppMode(string? value)
-            => value switch
-            {
-                "run" => BootstrapMode.Run,
-                "integrate" => BootstrapMode.Integrate,
-                _ => BootstrapMode.None
-            };
-
-        /// <summary>
-        /// The embedded config as a singleton.
-        /// </summary>
-        public static readonly EmbeddedConfig Instance = new();
     }
 }

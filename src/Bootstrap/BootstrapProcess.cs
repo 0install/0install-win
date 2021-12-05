@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -29,6 +31,8 @@ namespace ZeroInstall
     /// </summary>
     public class BootstrapProcess : ServiceProvider
     {
+        private readonly EmbeddedConfig _embeddedConfig = EmbeddedConfig.Load();
+
         #region Command-line options
         private readonly bool _gui;
 
@@ -44,7 +48,7 @@ namespace ZeroInstall
         private string _contentDir = Path.Combine(Locations.InstallBase, "content");
 
         /// <summary>Arguments passed through to the target process.</summary>
-        private readonly List<string> _targetArgs = new();
+        private readonly List<string> _userArgs = new();
 
         private string HelpText
         {
@@ -54,37 +58,27 @@ namespace ZeroInstall
 
                 using var buffer = new MemoryStream();
                 var writer = new StreamWriter(buffer);
-                switch (EmbeddedConfig.Instance.AppMode)
+                if (_embeddedConfig.AppUri == null)
                 {
-                    case BootstrapMode.None:
-                        writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
-                        writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
-                        writer.WriteLine();
-                        writer.WriteLine("Samples:");
-                        writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
-                        writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
-                        writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
-                        writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
-                        break;
-                    case BootstrapMode.Run:
-                        writer.WriteLine("This bootstrapper downloads and runs {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
-                        writer.WriteLine();
-                        writer.WriteLine("Samples:");
-                        writer.WriteLine("  {0}               Run {1}.", exeName, EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, EmbeddedConfig.Instance.AppName);
-                        break;
-                    case BootstrapMode.Integrate:
-                        writer.WriteLine("This bootstrapper downloads and integrates {0} using Zero Install.", EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("Usage: {0} [OPTIONS] [[--] INTEGRATE-ARGS]", exeName);
-                        writer.WriteLine();
-                        writer.WriteLine("Samples:");
-                        writer.WriteLine("  {0}             Show GUI for integrating {1}.", exeName, EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("  {0} --add=menu  Add {1} to start menu.", exeName, EmbeddedConfig.Instance.AppName);
-                        writer.WriteLine("  {0} -- --help   Show help for {1} integration instead of Bootstrapper.", exeName, EmbeddedConfig.Instance.AppName);
-                        break;
+                    writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
+                    writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
+                    writer.WriteLine();
+                    writer.WriteLine("Samples:");
+                    writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
+                    writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
+                    writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
+                    writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
+                }
+                else
+                {
+                    writer.WriteLine("This bootstrapper downloads and {0} {1} using Zero Install.", string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs) ? "runs" : "integrates", _embeddedConfig.AppName);
+                    writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
+                    writer.WriteLine();
+                    writer.WriteLine("Samples:");
+                    writer.WriteLine("  {0}               Run {1}.", exeName, _embeddedConfig.AppName);
+                    writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, _embeddedConfig.AppName);
+                    writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, _embeddedConfig.AppName);
+                    writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, _embeddedConfig.AppName);
                 }
                 writer.WriteLine();
                 writer.WriteLine("Options:");
@@ -159,7 +153,7 @@ namespace ZeroInstall
                 {
                     "<>", value =>
                     {
-                        _targetArgs.Add(value);
+                        _userArgs.Add(value);
 
                         // Stop using options parser, treat everything from here on as unknown
                         _options!.Clear();
@@ -180,44 +174,78 @@ namespace ZeroInstall
             // NOTE: This must be done before parsing command-line options, since they may manipulate Config
             Config.Save();
 
+            _userArgs.AddRange(_options.Parse(args));
+            if (_embeddedConfig.AppUri == null) ShareArgsWithZeroInstall();
+
             TrustKeys();
+            ImportContent();
 
-            _targetArgs.AddRange(GetEmbeddedArgs());
-            _targetArgs.AddRange(_options.Parse(args));
-
-            if (_targetArgs.Count == 0)
+            if (_embeddedConfig.AppUri != null && !string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs))
             {
-                if (_gui) _targetArgs.Add("central");
+                var integrateExitCode = RunZeroInstall(
+                    new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
+                       .Concat(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs))
+                       .ToArray());
+                if (integrateExitCode != ExitCode.OK) return integrateExitCode;
+            }
+
+            var zeroInstallArgs = new List<string>();
+            if (_embeddedConfig.AppUri != null)
+            {
+                zeroInstallArgs.AddRange(new [] {"run", _embeddedConfig.AppUri.ToStringRfc()});
+                zeroInstallArgs.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
+            }
+            zeroInstallArgs.AddRange(_userArgs);
+
+            if (zeroInstallArgs.Count == 0)
+            {
+                if (_gui) zeroInstallArgs.Add("central");
                 else
                 {
                     Handler.Output("Help", HelpText);
                     return ExitCode.UserCanceled;
                 }
             }
-            else HandleSharedOptions();
 
-            if (Directory.Exists(_contentDir))
-            {
-                ImportFeeds();
-                ImportArchives();
-            }
-
-            var startInfo = GetStartInfo();
+            var exitCode = RunZeroInstall(zeroInstallArgs.ToArray());
             Handler.Dispose();
-            return (ExitCode)startInfo.Run();
+            return exitCode;
+        }
+
+        /// <summary>
+        /// Handles arguments passed to 0install that are also applicable to the bootstrapper.
+        /// </summary>
+        private void ShareArgsWithZeroInstall()
+        {
+            foreach (string arg in _userArgs)
+            {
+                switch (arg)
+                {
+                    case "--batch":
+                        Handler.Verbosity = Verbosity.Batch;
+                        break;
+                    case "--verbose":
+                        Handler.Verbosity = Verbosity.Verbose;
+                        break;
+                    case "-o":
+                    case "--offline":
+                        Config.NetworkUse = NetworkLevel.Offline;
+                        break;
+                }
+            }
         }
 
         /// <summary>
         /// Adds keys for Zero Install (and optionally an app) to the <see cref="TrustDB"/>.
         /// </summary>
-        private static void TrustKeys()
+        private void TrustKeys()
         {
             try
             {
                 var trust = TrustDB.Load();
                 trust.TrustKey("88C8A1F375928691D7365C0259AA3927C24E4E1E", new Domain("apps.0install.net"));
-                if (!string.IsNullOrEmpty(EmbeddedConfig.Instance.AppFingerprint) && EmbeddedConfig.Instance.AppUri != null)
-                    trust.TrustKey(EmbeddedConfig.Instance.AppFingerprint, new Domain(EmbeddedConfig.Instance.AppUri.Host));
+                if (!string.IsNullOrEmpty(_embeddedConfig.AppFingerprint) && _embeddedConfig.AppUri != null)
+                    trust.TrustKey(_embeddedConfig.AppFingerprint, new Domain(_embeddedConfig.AppUri.Host));
                 trust.Save();
             }
             #region Error handling
@@ -229,63 +257,15 @@ namespace ZeroInstall
         }
 
         /// <summary>
-        /// Gets implicit command-line arguments based on the <see cref="EmbeddedConfig"/>, if any.
+        /// Imports bundled feeds and implementations/archives.
         /// </summary>
-        private static IEnumerable<string> GetEmbeddedArgs()
-        {
-            var config = EmbeddedConfig.Instance;
-            if (config.AppUri == null) yield break;
-
-            switch (config.AppMode)
-            {
-                case BootstrapMode.Run:
-                    yield return "run";
-                    break;
-                case BootstrapMode.Integrate:
-                    yield return "integrate";
-                    break;
-                default:
-                    yield break;
-            }
-
-            yield return config.AppUri.ToStringRfc();
-
-            if (!string.IsNullOrEmpty(config.AppArgs))
-            {
-                foreach (string arg in WindowsUtils.SplitArgs(config.AppArgs))
-                    yield return arg;
-            }
-        }
-
-        /// <summary>
-        /// Handles arguments passed to the target that are also applicable to the bootstrapper.
-        /// </summary>
-        private void HandleSharedOptions()
-        {
-            foreach (string arg in _targetArgs)
-            {
-                switch (arg)
-                {
-                    case "--batch":
-                        Handler.Verbosity = Verbosity.Batch;
-                        break;
-                    case "-o":
-                    case "--offline":
-                        Config.NetworkUse = NetworkLevel.Offline;
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Imports bundled feeds and GnuPG keys.
-        /// </summary>
-        private void ImportFeeds()
+        private void ImportContent()
         {
             if (!Directory.Exists(_contentDir)) return;
 
             foreach (string path in Directory.GetFiles(_contentDir, "*.xml"))
             {
+                Log.Info($"Importing feed from {path}");
                 try
                 {
                     FeedManager.ImportFeed(path);
@@ -297,29 +277,18 @@ namespace ZeroInstall
                 }
                 #endregion
             }
-        }
 
-        /// <summary>
-        /// Imports implementation archives into the <see cref="IImplementationStore"/>.
-        /// </summary>
-        private void ImportArchives()
-        {
             foreach (string path in Directory.GetFiles(_contentDir))
             {
-                Debug.Assert(path != null);
-                var digest = new ManifestDigest();
-                digest.ParseID(Path.GetFileNameWithoutExtension(path));
-                if (digest.Best != null && !ImplementationStore.Contains(digest))
+                var manifestDigest = new ManifestDigest();
+                manifestDigest.ParseID(Path.GetFileNameWithoutExtension(path));
+                if (manifestDigest.Best != null)
                 {
+                    Log.Info($"Importing implementation {manifestDigest.Best} from {path}");
                     try
                     {
-                        ImplementationStore.Add(digest, builder =>
-                        {
-                            var extractor = ArchiveExtractor.For(Archive.GuessMimeType(path), Handler);
-                            extractor.Tag = digest.Best;
-                            using var stream = File.OpenRead(path);
-                            extractor.Extract(builder, stream);
-                        });
+                        var extractor = ArchiveExtractor.For(Archive.GuessMimeType(path), Handler);
+                        ImplementationStore.Add(manifestDigest, builder => Handler.RunTask(new ReadFile(path, stream => extractor.Extract(builder, stream))));
                     }
                     #region Error handling
                     catch (ImplementationAlreadyInStoreException)
@@ -330,15 +299,29 @@ namespace ZeroInstall
         }
 
         /// <summary>
-        /// Returns process start information for an instance of Zero Install.
+        /// Runs an instance of Zero Install.
         /// </summary>
-        public ProcessStartInfo GetStartInfo()
-            => _noExisting ? GetCached() : (GetExistingInstance() ?? GetCached());
+        private ExitCode RunZeroInstall(params string[] args)
+        {
+            // Forwards bootstrapper arguments that are also applicable to 0install
+            args = Handler.Verbosity switch
+            {
+                Verbosity.Batch => args.Prepend("--batch"),
+                Verbosity.Verbose => args.Prepend("--verbose"),
+                Verbosity.Debug => args.Prepend("--verbose").Prepend("--verbose"),
+                _ => args
+            };
+            if (Config.NetworkUse == NetworkLevel.Offline)
+                args = args.Prepend("--offline");
+
+            var startInfo = _noExisting ? GetZeroInstallCached(args) : GetZeroInstallDeployed(args) ?? GetZeroInstallCached(args);
+            return (ExitCode)startInfo.Run();
+        }
 
         /// <summary>
-        /// Returns process start information for an existing (local) instance of Zero Install.
+        /// Returns process start information for a deployed instance of Zero Install.
         /// </summary>
-        private ProcessStartInfo? GetExistingInstance()
+        public ProcessStartInfo? GetZeroInstallDeployed(params string[] args)
         {
             if (!WindowsUtils.IsWindows) return null;
 
@@ -348,7 +331,7 @@ namespace ZeroInstall
                 string launchAssembly = _gui ? "0install-win" : "0install";
 
                 if (File.Exists(Path.Combine(existingInstall, launchAssembly + ".exe")))
-                    return ProcessUtils.Assembly(Path.Combine(existingInstall, launchAssembly), _targetArgs.ToArray());
+                    return ProcessUtils.Assembly(Path.Combine(existingInstall, launchAssembly), args);
             }
             return null;
         }
@@ -359,7 +342,7 @@ namespace ZeroInstall
         /// <summary>
         /// Returns process start information for a cached (downloaded) instance of Zero Install.
         /// </summary>
-        private ProcessStartInfo GetCached()
+        public ProcessStartInfo GetZeroInstallCached(params string[] args)
         {
             _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _gui ? Command.NameRunGui : Command.NameRun);
             if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
@@ -391,7 +374,7 @@ namespace ZeroInstall
             }
 
             return Executor.Inject(_selections!)
-                           .AddArguments(_targetArgs.ToArray())
+                           .AddArguments(args)
                            .ToStartInfo();
         }
 

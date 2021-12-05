@@ -2,7 +2,6 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using NanoByte.Common;
@@ -107,11 +106,5 @@ namespace ZeroInstall
             }
             #endregion
         }
-
-        /// <summary>
-        /// Returns process start information for an instance of Zero Install.
-        /// </summary>
-        public static ProcessStartInfo GetStartInfo(ITaskHandler handler)
-            => new BootstrapProcess(handler, gui: false).GetStartInfo();
     }
 }

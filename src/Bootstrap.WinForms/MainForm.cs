@@ -23,10 +23,11 @@ namespace ZeroInstall
 
             InitializeComponent();
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            if (EmbeddedConfig.Instance.AppName != null)
+            var embeddedConfig = EmbeddedConfig.Load();
+            if (embeddedConfig.AppName != null)
             {
-                Text = $"{EmbeddedConfig.Instance.AppName} (Zero Install)";
-                labelAppName.Text = EmbeddedConfig.Instance.AppName;
+                Text = $"{embeddedConfig.AppName} (Zero Install)";
+                labelAppName.Text = embeddedConfig.AppName;
             }
 
             HandleCreated += delegate
