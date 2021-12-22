@@ -180,36 +180,8 @@ namespace ZeroInstall
             TrustKeys();
             ImportContent();
 
-            if (_embeddedConfig.AppUri != null && !string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs))
-            {
-                var integrateExitCode = RunZeroInstall(
-                    new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
-                       .Concat(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs))
-                       .ToArray());
-                if (integrateExitCode != ExitCode.OK) return integrateExitCode;
-            }
-
-            var zeroInstallArgs = new List<string>();
-            if (_embeddedConfig.AppUri != null)
-            {
-                zeroInstallArgs.AddRange(new [] {"run", _embeddedConfig.AppUri.ToStringRfc()});
-                zeroInstallArgs.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
-            }
-            zeroInstallArgs.AddRange(_userArgs);
-
-            if (zeroInstallArgs.Count == 0)
-            {
-                if (_gui) zeroInstallArgs.Add("central");
-                else
-                {
-                    Handler.Output("Help", HelpText);
-                    return ExitCode.UserCanceled;
-                }
-            }
-
-            var exitCode = RunZeroInstall(zeroInstallArgs.ToArray());
-            Handler.Dispose();
-            return exitCode;
+            return RunIntegrate()
+                ?? RunZeroInstall();
         }
 
         /// <summary>
@@ -299,9 +271,59 @@ namespace ZeroInstall
         }
 
         /// <summary>
-        /// Runs an instance of Zero Install.
+        /// Runs <c>0install integrate</c> if requested by <see cref="_embeddedConfig"/>.
         /// </summary>
-        private ExitCode RunZeroInstall(params string[] args)
+        private ExitCode? RunIntegrate()
+        {
+            if (_embeddedConfig.AppUri != null && !string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs))
+            {
+                var startInfo = ZeroInstall(
+                    new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
+                       .Concat(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs))
+                       .ToArray());
+                var exitCode = ExitCode.UserCanceled;
+                Handler.RunTask(new SimpleTask(
+                    $"Integrating {_embeddedConfig.AppName}",
+                    () => exitCode = (ExitCode)startInfo.Run()));
+                if (exitCode != ExitCode.OK) return exitCode;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Runs <c>0install</c> with <c>run</c>, <c>central</c> or other user-provided arguments.
+        /// </summary>
+        private ExitCode RunZeroInstall()
+        {
+            var args = new List<string>();
+            if (_embeddedConfig.AppUri != null)
+            {
+                args.AddRange(new[] {"run", _embeddedConfig.AppUri.ToStringRfc()});
+                args.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
+            }
+
+            args.AddRange(_userArgs);
+
+            if (args.Count == 0)
+            {
+                if (_gui) args.Add("central");
+                else
+                {
+                    Handler.Output("Help", HelpText);
+                    return ExitCode.UserCanceled;
+                }
+            }
+
+            var startInfo = ZeroInstall(args.ToArray());
+            Handler.Dispose(); // Close Bootstrap UI
+            return (ExitCode)startInfo.Run();
+        }
+
+        /// <summary>
+        /// Returns process start information for an instance of Zero Install.
+        /// </summary>
+        private ProcessStartInfo ZeroInstall(params string[] args)
         {
             // Forwards bootstrapper arguments that are also applicable to 0install
             args = Handler.Verbosity switch
@@ -314,14 +336,13 @@ namespace ZeroInstall
             if (Config.NetworkUse == NetworkLevel.Offline)
                 args = args.Prepend("--offline");
 
-            var startInfo = _noExisting ? GetZeroInstallCached(args) : GetZeroInstallDeployed(args) ?? GetZeroInstallCached(args);
-            return (ExitCode)startInfo.Run();
+            return _noExisting ? ZeroInstallCached(args) : ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
         }
 
         /// <summary>
         /// Returns process start information for a deployed instance of Zero Install.
         /// </summary>
-        public ProcessStartInfo? GetZeroInstallDeployed(params string[] args)
+        public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
         {
             if (!WindowsUtils.IsWindows) return null;
 
@@ -342,7 +363,7 @@ namespace ZeroInstall
         /// <summary>
         /// Returns process start information for a cached (downloaded) instance of Zero Install.
         /// </summary>
-        public ProcessStartInfo GetZeroInstallCached(params string[] args)
+        public ProcessStartInfo ZeroInstallCached(params string[] args)
         {
             _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _gui ? Command.NameRunGui : Command.NameRun);
             if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;

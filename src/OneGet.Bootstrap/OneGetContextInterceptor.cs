@@ -74,7 +74,7 @@ namespace ZeroInstall.OneGet
         {
             using var handler = new OneGetHandler(_request);
             var bootstrap = new BootstrapProcess(handler, gui: false);
-            var startInfo = bootstrap.GetZeroInstallDeployed() ?? bootstrap.GetZeroInstallCached();
+            var startInfo = bootstrap.ZeroInstallDeployed() ?? bootstrap.ZeroInstallCached();
             return Path.GetDirectoryName(startInfo.FileName)!;
         }
 
