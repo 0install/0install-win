@@ -31,6 +31,8 @@ namespace ZeroInstall.Central.WinForms
     internal partial class MainForm : Form
     {
         #region Variables
+        private readonly MinimalTaskHandler _handler;
+
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
 
@@ -54,10 +56,10 @@ namespace ZeroInstall.Central.WinForms
 
             _machineWide = machineWide;
 
-            var handler = new MinimalTaskHandler(this);
-            var services = new ServiceProvider(handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
+            _handler = new(this);
+            var services = new ServiceProvider(_handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager, IconStores.Default(handler),
+                services.FeedManager, services.CatalogManager, IconStores.Default(_handler),
                 tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion
