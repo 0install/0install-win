@@ -20,7 +20,7 @@
     <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AeroWizard" Version="2.2.9" />
+    <PackageReference Include="AeroWizard" Version="2.3.0" />
     <PackageReference Include="ZeroInstall.Model" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
 
