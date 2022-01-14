@@ -12,10 +12,8 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -33,17 +31,16 @@ namespace ZeroInstall.Commands.WinForms
     public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     {
         #region Resources
-        private static readonly System.Drawing.Icon _icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath)!;
+        private readonly Lazy<FeedBranding> _branding;
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
         public GuiCommandHandler()
         {
+            _branding = new(() => new(FeedUri));
+
             _wrapper = new AsyncFormWrapper<ProgressForm>(delegate
             {
-                string title = "Zero Install";
-                if (Locations.IsPortable) title += @" - " + Resources.PortableMode;
-
-                var form = new ProgressForm(title, _icon, CancellationTokenSource);
+                var form = new ProgressForm(_branding.Value, CancellationTokenSource);
                 if (Background) form.ShowTrayIcon();
                 else form.Show();
                 return form;
@@ -55,6 +52,8 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 _wrapper.Dispose();
+                if (_branding.IsValueCreated)
+                    _branding.Value.Dispose();
             }
             finally
             {
@@ -218,7 +217,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="title">The title of the message.</param>
         /// <param name="message">The message text.</param>
-        private static void OutputNotification(string title, string message)
+        private void OutputNotification(string title, string message)
         {
             if (WindowsUtils.IsWindows10 && ZeroInstallInstance.IsIntegrated)
                 ShowModernNotification(title, message);
@@ -226,9 +225,9 @@ namespace ZeroInstall.Commands.WinForms
                 ShowLegacyNotification(title, message);
         }
 
-        private static void ShowLegacyNotification(string title, string message)
+        private void ShowLegacyNotification(string title, string message)
         {
-            var icon = new NotifyIcon {Visible = true, Icon = _icon};
+            var icon = new NotifyIcon {Visible = true, Text = _branding.Value.Title, Icon = _branding.Value.Icon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
         }
 

@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,17 +27,16 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new progress tracking window.
         /// </summary>
-        /// <param name="title">The title of the window.</param>
-        /// <param name="icon">The icon of the window</param>
+        /// <param name="branding">Branding to apply to the window.</param>
         /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
-        public ProgressForm(string title, Icon icon, CancellationTokenSource cancellationTokenSource)
+        public ProgressForm(FeedBranding branding, CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
             InitializeComponent();
 
-            Text = notifyIcon.Text = title;
-            Icon = notifyIcon.Icon = icon;
+            Text = notifyIcon.Text = branding.Title;
+            Icon = notifyIcon.Icon = branding.Icon;
 
             buttonCustomizeSelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
