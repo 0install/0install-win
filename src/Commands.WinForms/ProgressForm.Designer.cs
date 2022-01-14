@@ -112,13 +112,11 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
             this.Controls.Add(this.panelProgress);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 225);
             this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Zero Install";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.ProgressForm_VisibleChanged);
             this.ResumeLayout(false);

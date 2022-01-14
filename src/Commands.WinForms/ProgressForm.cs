@@ -3,13 +3,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model.Preferences;
@@ -26,22 +26,23 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Constructor
         /// <summary>
-        /// Creates a new progress tracking form.
+        /// Creates a new progress tracking window.
         /// </summary>
+        /// <param name="title">The title of the window.</param>
+        /// <param name="icon">The icon of the window</param>
         /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
-        public ProgressForm(CancellationTokenSource cancellationTokenSource)
+        public ProgressForm(string title, Icon icon, CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
             InitializeComponent();
-            notifyIcon.Text = Text;
-            notifyIcon.Icon = Icon;
+
+            Text = notifyIcon.Text = title;
+            Icon = notifyIcon.Icon = icon;
 
             buttonCustomizeSelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
-
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
             Shown += delegate { this.SetForegroundWindow(); };
         }

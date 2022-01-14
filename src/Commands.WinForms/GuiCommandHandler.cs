@@ -12,9 +12,10 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
-using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
@@ -31,13 +32,17 @@ namespace ZeroInstall.Commands.WinForms
     public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     {
         #region Resources
+        private static readonly System.Drawing.Icon _icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath)!;
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
         public GuiCommandHandler()
         {
             _wrapper = new AsyncFormWrapper<ProgressForm>(delegate
             {
-                var form = new ProgressForm(CancellationTokenSource);
+                string title = "Zero Install";
+                if (Locations.IsPortable) title += @" - " + Resources.PortableMode;
+
+                var form = new ProgressForm(title, _icon, CancellationTokenSource);
                 if (Background) form.ShowTrayIcon();
                 else form.Show();
                 return form;
@@ -219,7 +224,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private static void ShowLegacyNotification(string title, string message)
         {
-            var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
+            var icon = new NotifyIcon {Visible = true, Icon = _icon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
         }
 
