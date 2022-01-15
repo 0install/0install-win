@@ -28,7 +28,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// The main GUI for Zero Install.
     /// </summary>
-    internal partial class MainForm : Form
+    internal sealed partial class MainForm : Form
     {
         #region Variables
         private readonly MinimalTaskHandler _handler;
@@ -51,6 +51,11 @@ namespace ZeroInstall.Central.WinForms
         public MainForm(bool machineWide)
         {
             InitializeComponent();
+
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+            if (_machineWide) Text += @" - " + Resources.MachineWideMode;
+            labelVersion.Text = @"v" + ZeroInstallInstance.Version;
+
             HandleCreated += MainForm_HandleCreated;
             MouseWheel += MainForm_MouseWheel;
 
@@ -83,16 +88,6 @@ namespace ZeroInstall.Central.WinForms
                     new WindowsTaskbar.ShellLink(buttonStoreManage.Text.Replace("&", ""), commandsExe, StoreMan.Name + " manage")
                 });
             }
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            string brandingPath = Path.Combine(Locations.InstallBase, "_branding");
-            if (File.Exists(brandingPath + ".txt")) Text = File.ReadAllText(brandingPath + ".txt");
-
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-            if (_machineWide) Text += @" - " + Resources.MachineWideMode;
-            labelVersion.Text = @"v" + ZeroInstallInstance.Version;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
