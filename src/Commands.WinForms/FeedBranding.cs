@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
@@ -34,6 +35,11 @@ namespace ZeroInstall.Commands.WinForms
         public SystemIcon Icon { get; }
 
         /// <summary>
+        /// An optional splash screen to display during downloads, etc..
+        /// </summary>
+        public Image? SplashScreen { get; }
+
+        /// <summary>
         /// Loads visual branding information for a specific <paramref name="feedUri"/> or falls back to defaults.
         /// </summary>
         public FeedBranding(FeedUri? feedUri)
@@ -51,12 +57,18 @@ namespace ZeroInstall.Commands.WinForms
                  ?.To(iconStore.GetCached)
                  ?.To(path => new SystemIcon(path))
                 ?? SystemIcon.ExtractAssociatedIcon(Application.ExecutablePath)!;
+
+            SplashScreen = feed
+                         ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
+                         ?.To(iconStore.GetCached)
+                         ?.To(Image.FromFile);
         }
 
         /// <inheritdoc/>
         public void Dispose()
         {
             Icon.Dispose();
+            SplashScreen?.Dispose();
         }
     }
 }

@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,6 +38,15 @@ namespace ZeroInstall.Commands.WinForms
 
             Text = notifyIcon.Text = branding.Title;
             Icon = notifyIcon.Icon = branding.Icon;
+
+            if (branding.SplashScreen != null)
+            {
+                pictureBoxSplashScreen.Visible = true;
+                pictureBoxSplashScreen.Image = branding.SplashScreen;
+
+                MinimumSize += new Size(width: 0, height: pictureBoxSplashScreen.Height);
+                selectionsControl.Location += new Size(width: 0, height: pictureBoxSplashScreen.Height);
+            }
 
             buttonCustomizeSelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
