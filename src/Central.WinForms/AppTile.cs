@@ -7,12 +7,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Threading;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.DesktopIntegration;
@@ -126,50 +126,61 @@ namespace ZeroInstall.Central.WinForms
 
         private static readonly SemaphoreSlim _iconSemaphore = new(initialCount: 5);
 
+        private static readonly JobQueue _iconUpdates = NewJobQueue();
+
+        private static JobQueue NewJobQueue()
+        {
+            var cts = new CancellationTokenSource();
+            Application.ApplicationExit += delegate { cts.Cancel(); };
+            return new(cts.Token);
+        }
+
         private async void SetIcon(Model.Icon? icon)
         {
-            if (icon != null && _iconStore != null)
+            if (icon == null || _iconStore == null)
             {
-                await _iconSemaphore.WaitAsync(); // Limit number of concurrent icon downloads
-                try
-                {
-                    pictureBoxIcon.Image = await Task.Run(() => Image.FromFile(_iconStore.Get(icon)));
-                    return;
-                }
-                #region Error handling
-                catch (OperationCanceledException)
-                {}
-                catch (UriFormatException ex)
-                {
-                    Log.Warn(ex);
-                }
-                catch (WebException ex)
-                {
-                    Log.Warn(ex);
-                }
-                catch (IOException ex)
-                {
-                    Log.Warn($"Failed to store {icon}");
-                    Log.Warn(ex);
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Log.Warn($"Failed to store {icon}");
-                    Log.Warn(ex);
-                }
-                catch (Exception ex)
-                {
-                    Log.Warn($"Failed to parse {icon}");
-                    Log.Warn(ex);
-                }
-                #endregion
-                finally
-                {
-                    _iconSemaphore.Release();
-                }
+                pictureBoxIcon.Image = ImageResources.AppIcon;
+                return;
             }
 
-            pictureBoxIcon.Image = ImageResources.AppIcon; // Fallback image
+            await _iconSemaphore.WaitAsync();
+            try
+            {
+                bool stale = false;
+                string path = await Task.Run(() => _iconStore.Get(icon, out stale));
+
+                if (stale)
+                {
+                    // Copy icon into memory to avoid conflicts with background update
+                    pictureBoxIcon.Image = await Task.Run(() => Image.FromStream(new MemoryStream(File.ReadAllBytes(path))));
+
+                    _iconUpdates.Enqueue(() =>
+                    {
+                        try
+                        {
+                            string newPath = _iconStore.GetFresh(icon);
+                            this.Invoke(() => pictureBoxIcon.LoadAsync(newPath));
+                        }
+                        catch (OperationCanceledException)
+                        {}
+                        catch (Exception ex)
+                        {
+                            Log.Warn(ex);
+                        }
+                    });
+                }
+                else pictureBoxIcon.LoadAsync(path);
+            }
+            catch (OperationCanceledException)
+            {}
+            catch (Exception ex)
+            {
+                Log.Warn(ex);
+            }
+            finally
+            {
+                _iconSemaphore.Release();
+            }
         }
 
         private void LinkClicked(object sender, EventArgs e)

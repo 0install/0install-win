@@ -61,7 +61,7 @@ namespace ZeroInstall.Central.WinForms
             _machineWide = machineWide;
 
             _handler = new(this);
-            var services = new ServiceProvider(_handler) {Config = {NetworkUse = NetworkLevel.Minimal}};
+            var services = new ServiceProvider(_handler);
             _tileManagement = new AppTileManagement(
                 services.FeedManager, services.CatalogManager, IconStores.Cache(services.Config, services.Handler),
                 tileListMyApps, tileListCatalog, _machineWide);
