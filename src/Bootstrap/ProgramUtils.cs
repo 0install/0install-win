@@ -27,7 +27,6 @@ namespace ZeroInstall
         {
             ProcessUtils.SanitizeEnvironmentVariables();
             NetUtils.ApplyProxy();
-            NetUtils.ConfigureTls();
         }
 
         /// <summary>
