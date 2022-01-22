@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Launcher.Cli</RootNamespace>
     <AssemblyName>0launch</AssemblyName>
-    <Product>Zero Install Launcher CLI</Product>
     <Description>A shorcut for '0install run'.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

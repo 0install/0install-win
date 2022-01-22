@@ -5,7 +5,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet.Bootstrap</AssemblyName>
-    <Product>Zero Install OneGet Bootstrapper</Product>
     <Description>Downloads and proxies to the Zero Install OneGet Provider.</Description>
     <OutputType>Library</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>

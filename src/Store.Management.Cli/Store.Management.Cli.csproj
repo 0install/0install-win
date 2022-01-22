@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Store.Management.Cli</RootNamespace>
     <AssemblyName>0store</AssemblyName>
-    <Product>Zero Install Store Management CLI</Product>
     <Description>Manages caches of Zero Install implementations via the command-line.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

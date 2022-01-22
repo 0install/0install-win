@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Central.WinForms</RootNamespace>
     <AssemblyName>ZeroInstall</AssemblyName>
-    <Product>Zero Install Central WinForms GUI</Product>
     <Description>The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

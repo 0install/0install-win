@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Commands.WinForms</RootNamespace>
     <AssemblyName>0install-win</AssemblyName>
-    <Product>Zero Install Command WinForms GUI</Product>
     <Description>A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

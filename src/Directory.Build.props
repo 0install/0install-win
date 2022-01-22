@@ -13,6 +13,7 @@
     <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
 
     <!-- Metadata -->
+    <Product>Zero Install</Product>
     <Copyright>Copyright Bastian Eicher et al.</Copyright>
     <RepositoryUrl>https://github.com/0install/0install-win</RepositoryUrl>
 

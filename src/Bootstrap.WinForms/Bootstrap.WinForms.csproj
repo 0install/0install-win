@@ -5,7 +5,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>zero-install</AssemblyName>
-    <Product>Zero Install Bootstrapper GUI</Product>
     <Description>Downloads and runs Zero Install optionally showing a GUI.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>

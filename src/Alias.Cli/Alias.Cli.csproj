@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Alias.Cli</RootNamespace>
     <AssemblyName>0alias</AssemblyName>
-    <Product>Zero Install Alias CLI</Product>
     <Description>A shortcut for '0install add-alias'.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Store.Service</RootNamespace>
     <AssemblyName>0store-service</AssemblyName>
-    <Product>Zero Install Store Service</Product>
     <Description>Windows service for managing a Zero Install implementation cache shared between all users.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

@@ -4,7 +4,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.OneGet</RootNamespace>
     <AssemblyName>ZeroInstall.OneGet</AssemblyName>
-    <Product>Zero Install OneGet Provider</Product>
     <Description>Implements a OneGet Provider for Zero Install, exposing package installation functionality.</Description>
     <OutputType>Library</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>

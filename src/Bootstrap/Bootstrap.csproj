@@ -5,7 +5,6 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>0install</AssemblyName>
-    <Product>Zero Install Bootstrapper</Product>
     <Description>Downloads and runs Zero Install.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
