@@ -27,7 +27,6 @@ namespace ZeroInstall
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.taskControl = new NanoByte.Common.Controls.TaskControl();
             this.labelAppName = new System.Windows.Forms.Label();
