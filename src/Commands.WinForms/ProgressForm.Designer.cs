@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.WinForms
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(477, 253);
+            this.buttonCancel.Location = new System.Drawing.Point(473, 253);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands.WinForms
             // buttonHide
             // 
             this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(396, 253);
+            this.buttonHide.Location = new System.Drawing.Point(392, 253);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
             this.buttonHide.TabIndex = 3;
@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands.WinForms
             this.pictureBoxSplashScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSplashScreen.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxSplashScreen.Name = "pictureBoxSplashScreen";
-            this.pictureBoxSplashScreen.Size = new System.Drawing.Size(564, 400);
+            this.pictureBoxSplashScreen.Size = new System.Drawing.Size(560, 250);
             this.pictureBoxSplashScreen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxSplashScreen.TabIndex = 0;
             this.pictureBoxSplashScreen.TabStop = false;
@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
             this.panelProgress.AutoScroll = true;
             this.panelProgress.Location = new System.Drawing.Point(20, 20);
             this.panelProgress.Name = "panelProgress";
-            this.panelProgress.Size = new System.Drawing.Size(519, 219);
+            this.panelProgress.Size = new System.Drawing.Size(515, 219);
             this.panelProgress.TabIndex = 2;
             // 
             // selectionsControl
@@ -95,7 +95,7 @@ namespace ZeroInstall.Commands.WinForms
             this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionsControl.Location = new System.Drawing.Point(12, 12);
             this.selectionsControl.Name = "selectionsControl";
-            this.selectionsControl.Size = new System.Drawing.Size(535, 235);
+            this.selectionsControl.Size = new System.Drawing.Size(531, 235);
             this.selectionsControl.TabIndex = 1;
             this.selectionsControl.Visible = false;
             // 
@@ -118,7 +118,7 @@ namespace ZeroInstall.Commands.WinForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(564, 288);
+            this.ClientSize = new System.Drawing.Size(560, 288);
             this.Controls.Add(this.buttonCustomizeSelectionsDone);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
