@@ -163,6 +163,8 @@ namespace ZeroInstall.Central.WinForms
                         }
                         catch (OperationCanceledException)
                         {}
+                        catch (InvalidOperationException) // AppTile already disposed
+                        {}
                         catch (Exception ex)
                         {
                             Log.Warn(ex);
