@@ -16,7 +16,6 @@ using NanoByte.Common.Threading;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Icons;
 
@@ -25,7 +24,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// Represents an application as a tile with buttons for launching, managing, etc..
     /// </summary>
-    public sealed partial class AppTile : UserControl, IAppTile
+    public sealed partial class AppTile : UserControl
     {
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
@@ -33,17 +32,25 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</summary>
         private readonly IIconStore? _iconStore;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// The interface URI of the application this tile represents.
+        /// </summary>
         public FeedUri InterfaceUri { get; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// The name of the application this tile represents.
+        /// </summary>
         public string AppName => labelName.Text;
 
-        private AppStatus _status;
+        private AppTileStatus _status;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public AppStatus Status
+        public AppTileStatus Status
         {
             get => _status;
             set
@@ -56,7 +63,11 @@ namespace ZeroInstall.Central.WinForms
 
         private Feed? _feed;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// A <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries and icons.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
         public Feed? Feed
         {
             get { return _feed; }
@@ -89,7 +100,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconStore">The icon store used to retrieve icons specified in <see cref="Feed"/>; can be <c>null</c>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore? iconStore = null, bool machineWide = false)
+        public AppTile(FeedUri interfaceUri, string appName, AppTileStatus status, IIconStore? iconStore = null, bool machineWide = false)
         {
             _machineWide = machineWide;
             _iconStore = iconStore;
@@ -113,9 +124,9 @@ namespace ZeroInstall.Central.WinForms
         {
             (string text, var image) = (_status switch
             {
-                AppStatus.Candidate => (AppResources.CandidateText, AppResources.CandidateImage),
-                AppStatus.Added => (AppResources.AddedText, AppResources.AddedImage),
-                AppStatus.Integrated => (AppResources.IntegrateText, AppResources.IntegratedImage),
+                AppTileStatus.Candidate => (AppResources.CandidateText, AppResources.CandidateImage),
+                AppTileStatus.Added => (AppResources.AddedText, AppResources.AddedImage),
+                AppTileStatus.Integrated => (AppResources.IntegrateText, AppResources.IntegratedImage),
                 _ => throw new InvalidOperationException()
             });
 

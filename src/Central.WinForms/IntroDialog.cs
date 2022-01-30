@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
@@ -62,16 +61,16 @@ namespace ZeroInstall.Central.WinForms
         private void SetupTiles()
         {
             tileListCatalog.Clear();
-            tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppStatus.Candidate).Feed =
+            tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
-            tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppStatus.Candidate).Feed =
+            tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppTileStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroCommonAppSummary}};
-            tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppStatus.Candidate).Feed =
+            tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppTileStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroOtherAppSummary}};
             tileListCatalog.AddQueuedTiles();
 
             tileListMyApps.Clear();
-            tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppStatus.Added).Feed =
+            tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Added).Feed =
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
             tileListMyApps.AddQueuedTiles();
         }
@@ -134,7 +133,7 @@ namespace ZeroInstall.Central.WinForms
             await FlashRectangleAsync(GetCatalogTile(_coolApp).buttonIntegrate);
 
             await Task.Delay(2000);
-            GetCatalogTile(_coolApp).Status = AppStatus.Added;
+            GetCatalogTile(_coolApp).Status = AppTileStatus.Added;
 
             await Task.Delay(3000);
             GetCatalogTile(_coolApp).Refresh();
@@ -176,7 +175,7 @@ namespace ZeroInstall.Central.WinForms
             await FlashRectangleAsync(GetMyAppsTile(_coolApp).buttonIntegrate);
 
             await Task.Delay(2000);
-            GetMyAppsTile(_coolApp).Status = AppStatus.Integrated;
+            GetMyAppsTile(_coolApp).Status = AppTileStatus.Integrated;
 
             await Task.Delay(3000);
             GetMyAppsTile(_coolApp).Refresh();

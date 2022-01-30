@@ -10,7 +10,6 @@ using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Icons;
@@ -19,7 +18,7 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
-    /// Helper methods for keeping <see cref="IAppTileList"/>s in sync with <see cref="AppList"/>s and <see cref="Catalog"/>s.
+    /// Helper methods for keeping <see cref="AppTileList"/>s in sync with <see cref="AppList"/>s and <see cref="Catalog"/>s.
     /// </summary>
     public class AppTileManagement
     {
@@ -28,7 +27,7 @@ namespace ZeroInstall.Central.WinForms
         private readonly ICatalogManager _catalogManager;
         private readonly IIconStore _iconStore;
 
-        private readonly IAppTileList _tileListMyApps, _tileListCatalog;
+        private readonly AppTileList _tileListMyApps, _tileListCatalog;
         private readonly bool _machineWide;
 
         /// <summary>
@@ -36,11 +35,11 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="catalogManager">Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.</param>
-        /// <param name="iconStore">The icon store used by newly created <see cref="IAppTile"/>s to retrieve application icons.</param>
-        /// <param name="tileListMyApps">The <see cref="IAppTileList"/> used to represent the "my apps" <see cref="AppList"/>.</param>
-        /// <param name="tileListCatalog">The <see cref="IAppTileList"/> used to represent the merged <see cref="Catalog"/>.</param>
+        /// <param name="iconStore">The icon store used by newly created <see cref="AppTile"/>s to retrieve application icons.</param>
+        /// <param name="tileListMyApps">The <see cref="AppTileList"/> used to represent the "my apps" <see cref="AppList"/>.</param>
+        /// <param name="tileListCatalog">The <see cref="AppTileList"/> used to represent the merged <see cref="Catalog"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTileManagement(IFeedManager feedManager, ICatalogManager catalogManager, IIconStore iconStore, IAppTileList tileListMyApps, IAppTileList tileListCatalog, bool machineWide)
+        public AppTileManagement(IFeedManager feedManager, ICatalogManager catalogManager, IIconStore iconStore, AppTileList tileListMyApps, AppTileList tileListCatalog, bool machineWide)
         {
             _feedManager = feedManager ?? throw new ArgumentNullException(nameof(feedManager));
             _catalogManager = catalogManager ?? throw new ArgumentNullException(nameof(catalogManager));
@@ -59,13 +58,13 @@ namespace ZeroInstall.Central.WinForms
         public AppList AppList { get; private set; } = new();
 
         /// <summary>
-        /// Loads the current <see cref="AppList"/> from the disk and updates the "My Apps" <see cref="IAppTileList"/>.
+        /// Loads the current <see cref="AppList"/> from the disk and updates the "My Apps" <see cref="AppTileList"/>.
         /// </summary>
-        /// <returns>A list of <see cref="IAppTile"/>s that need to be injected with <see cref="Feed"/> data.</returns>
-        public IEnumerable<IAppTile> UpdateMyApps()
+        /// <returns>A list of <see cref="AppTile"/>s that need to be injected with <see cref="Feed"/> data.</returns>
+        public IEnumerable<AppTile> UpdateMyApps()
         {
             var newAppList = AppList.LoadSafe(_machineWide);
-            var tiles = new List<IAppTile>();
+            var tiles = new List<AppTile>();
 
             // Update the displayed AppList based on changes detected between the current and the new AppList
             Merge.TwoWay(
@@ -74,7 +73,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     try
                     {
-                        var status = (entry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
+                        var status = (entry.AccessPoints == null) ? AppTileStatus.Added : AppTileStatus.Integrated;
                         var tile = _tileListMyApps.QueueNewTile(entry.InterfaceUri, entry.Name, status, _iconStore, _machineWide);
                         tiles.Add(tile);
 
@@ -99,7 +98,7 @@ namespace ZeroInstall.Central.WinForms
 
                     // Update "added" status of tile in catalog list
                     var catalogTile = _tileListCatalog.GetTile(entry.InterfaceUri);
-                    if (catalogTile != null) catalogTile.Status = AppStatus.Candidate;
+                    if (catalogTile != null) catalogTile.Status = AppTileStatus.Candidate;
                 });
             _tileListMyApps.AddQueuedTiles();
             AppList = newAppList;
@@ -166,7 +165,6 @@ namespace ZeroInstall.Central.WinForms
                     if (feed.Uri != null) _tileListCatalog.RemoveTile(feed.Uri);
                 });
             _tileListCatalog.AddQueuedTiles();
-            _tileListCatalog.ShowCategories();
 
             Catalog = newCatalog;
         }
@@ -182,8 +180,8 @@ namespace ZeroInstall.Central.WinForms
                 var appEntry = AppList.GetEntry(feed.Uri);
 
                 var status = (appEntry == null)
-                    ? AppStatus.Candidate
-                    : ((appEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
+                    ? AppTileStatus.Candidate
+                    : ((appEntry.AccessPoints == null) ? AppTileStatus.Added : AppTileStatus.Integrated);
                 var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _iconStore, _machineWide);
                 tile.Feed = feed;
             }

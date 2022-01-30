@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Icons;
 
@@ -19,7 +19,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// Displays a list of <see cref="AppTile"/>s.
     /// </summary>
-    public class AppTileList : UserControl, IAppTileList
+    public class AppTileList : UserControl
     {
         #region Variables
         /// <summary>
@@ -120,8 +120,16 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Access
-        /// <inheritdoc/>
-        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, IIconStore? iconStore = null, bool machineWide = false)
+        /// <summary>
+        /// Prepares a new <see cref="AppTile"/> to be added to the list. Will be added in bulk when <see cref="AppTileList.AddQueuedTiles"/> is called.
+        /// </summary>
+        /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
+        /// <param name="appName">The name of the application this tile represents.</param>
+        /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
+        /// <param name="iconStore">The icon store used by newly created <see cref="AppTile"/>s to retrieve application icons; can be <c>null</c>.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <exception cref="InvalidOperationException">The list already contains an <see cref="AppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
+        public AppTile QueueNewTile(FeedUri interfaceUri, string appName, AppTileStatus status, IIconStore? iconStore = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -146,7 +154,9 @@ namespace ZeroInstall.Central.WinForms
             return tile;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Adds all new tiles queued by <see cref="AppTileList.QueueNewTile"/> calls.
+        /// </summary>
         public void AddQueuedTiles()
         {
             _flowLayout.Height += _appTileQueueHeight;
@@ -156,8 +166,13 @@ namespace ZeroInstall.Central.WinForms
             _appTileQueue.Clear();
         }
 
-        /// <inheritdoc/>
-        public IAppTile? GetTile(FeedUri interfaceUri)
+
+        /// <summary>
+        /// Retrieves a specific application tile from the list.
+        /// </summary>
+        /// <param name="interfaceUri">The interface URI of the application the tile to retrieve represents.</param>
+        /// <returns>The requested <see cref="AppTile"/>; <c>null</c> if no matching entry was found.</returns>
+        public AppTile? GetTile(FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -168,7 +183,10 @@ namespace ZeroInstall.Central.WinForms
                 : null;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Removes an application tile from the list. Does nothing if no matching tile can be found.
+        /// </summary>
+        /// <param name="interfaceUri">The interface URI of the application the tile to remove represents.</param>
         public void RemoveTile(FeedUri interfaceUri)
         {
             if (_tileDictionary.TryGetValue(interfaceUri ?? throw new ArgumentNullException(nameof(interfaceUri)), out var tile))
@@ -197,7 +215,9 @@ namespace ZeroInstall.Central.WinForms
             RecolorTiles();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Removes all application tiles from the list.
+        /// </summary>
         public void Clear()
         {
             _appTileQueue.Clear();
@@ -208,15 +228,6 @@ namespace ZeroInstall.Central.WinForms
 
             _tileDictionary.Clear();
             _lastTileLight = false;
-        }
-
-        /// <inheritdoc/>
-        public void ShowCategories()
-        {
-            // Accumulate all categories
-            //var categories = from tile in _tileDictionary.Values from category in tile.Feed.Categories select category.Name;
-
-            // TODO: Show category GUI
         }
 
         /// <summary>

@@ -10,7 +10,6 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
@@ -22,7 +21,7 @@ namespace ZeroInstall.Central.WinForms
     {
         private readonly FeedUri _interfaceUri;
         private readonly bool _machineWide;
-        private AppStatus _status;
+        private AppTileStatus _status;
 
         /// <summary>
         /// Creates a new app popup.
@@ -30,7 +29,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceUri">The interface URI of the application.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppPopup(FeedUri interfaceUri, AppStatus status, bool machineWide)
+        public AppPopup(FeedUri interfaceUri, AppTileStatus status, bool machineWide)
         {
             InitializeComponent();
             Deactivate += delegate { Close(); };
@@ -87,12 +86,12 @@ namespace ZeroInstall.Central.WinForms
 
             switch (_status)
             {
-                case AppStatus.Candidate:
+                case AppTileStatus.Candidate:
                     AddApp();
                     iconStatus.Image = AppResources.CandidateImage.Get(scale);
                     break;
 
-                case AppStatus.Added:
+                case AppTileStatus.Added:
                     iconStatus.Image = AppResources.AddedImage.Get(scale);
                     labelStatus.Text = AppResources.AddedText;
                     buttonIntegrate.Text = AppResources.IntegrateText;
@@ -100,7 +99,7 @@ namespace ZeroInstall.Central.WinForms
                     ShowButtons();
                     break;
 
-                case AppStatus.Integrated:
+                case AppTileStatus.Integrated:
                     iconStatus.Image = AppResources.IntegratedImage.Get(scale);
                     labelStatus.Text = AppResources.IntegratedText;
                     buttonIntegrate.Text = AppResources.ModifyText;
@@ -117,7 +116,7 @@ namespace ZeroInstall.Central.WinForms
             var exitCode = await Program.RunCommandAsync(_machineWide, Commands.Desktop.AddApp.Name, "--background", _interfaceUri.ToStringRfc());
             if (exitCode == ExitCode.OK)
             {
-                _status = AppStatus.Added;
+                _status = AppTileStatus.Added;
                 RefreshStatus();
             }
             else Close();

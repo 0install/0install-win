@@ -18,7 +18,6 @@ using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Configuration;
 
@@ -35,7 +34,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
 
-        /// <summary>Manages <see cref="IAppTileList"/>s.</summary>
+        /// <summary>Manages <see cref="AppTileList"/>s.</summary>
         private readonly AppTileManagement _tileManagement;
         #endregion
 
