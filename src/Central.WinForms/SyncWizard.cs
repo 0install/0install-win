@@ -63,8 +63,9 @@ namespace ZeroInstall.Central.WinForms
         #region Shared
         private void Sync(SyncResetMode resetMode = SyncResetMode.None)
         {
-            var services = new ServiceProvider(new DialogTaskHandler(this));
-            using var sync = new SyncIntegrationManager(_config, services.FeedManager.GetFresh, services.Handler, _machineWide);
+            using var handler = new DialogTaskHandler(this);
+            var services = new ServiceProvider(handler);
+            using var sync = new SyncIntegrationManager(_config, services.FeedManager.GetFresh, handler, _machineWide);
             sync.Sync(resetMode);
         }
 
