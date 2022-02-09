@@ -35,22 +35,22 @@ namespace ZeroInstall.Commands.WinForms
             _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
             InitializeComponent();
+            MinimumSize = new Size(350, 150).Multiply(this.GetDpiScale());
+            buttonCustomizeSelectionsDone.Text = Resources.Done;
+            buttonHide.Text = Resources.Hide;
+            buttonCancel.Text = Resources.Cancel;
 
             Text = notifyIcon.Text = branding.Title;
             Icon = notifyIcon.Icon = branding.Icon;
-
             if (branding.SplashScreen != null)
             {
                 pictureBoxSplashScreen.Visible = true;
                 pictureBoxSplashScreen.Image = branding.SplashScreen;
-
-                MinimumSize += new Size(width: 0, height: pictureBoxSplashScreen.Height);
-                selectionsControl.Location += new Size(width: 0, height: pictureBoxSplashScreen.Height);
+                var offset = new Size(width: 0, height: pictureBoxSplashScreen.Height);
+                MinimumSize += offset;
+                selectionsControl.Location += offset;
+                selectionsControl.Size -= offset;
             }
-
-            buttonCustomizeSelectionsDone.Text = Resources.Done;
-            buttonHide.Text = Resources.Hide;
-            buttonCancel.Text = Resources.Cancel;
 
             Shown += delegate { this.SetForegroundWindow(); };
         }

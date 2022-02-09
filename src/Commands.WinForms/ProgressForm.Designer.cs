@@ -126,7 +126,6 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.pictureBoxSplashScreen);
             this.Controls.Add(this.panelProgress);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(350, 150);
             this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
