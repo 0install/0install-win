@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace ZeroInstall
     /// <summary>
     /// Represents the process of downloading and running an instance of Zero Install. Handles command-line arguments.
     /// </summary>
-    public class BootstrapProcess : ServiceProvider
+    public sealed class BootstrapProcess : ServiceProvider
     {
         private readonly EmbeddedConfig _embeddedConfig = EmbeddedConfig.Load();
 
@@ -160,6 +161,9 @@ namespace ZeroInstall
                     }
                 }
             };
+
+            // Reset changes made to self-update URI in user configuration
+            Config.SelfUpdateUri = new(ConfigurationManager.AppSettings["self_update_uri"] ?? Config.DefaultSelfUpdateUri);
         }
         #endregion
 
