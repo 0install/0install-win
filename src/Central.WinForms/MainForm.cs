@@ -18,7 +18,6 @@ using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services;
 using ZeroInstall.Store.Configuration;
 
 namespace ZeroInstall.Central.WinForms
@@ -60,10 +59,7 @@ namespace ZeroInstall.Central.WinForms
             _machineWide = machineWide;
 
             _handler = new(this);
-            var services = new ServiceProvider(_handler);
-            _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager, IconStores.Cache(services.Config, services.Handler),
-                tileListMyApps, tileListCatalog, _machineWide);
+            _tileManagement = new AppTileManagement(tileListMyApps, tileListCatalog, _machineWide, _handler);
         }
         #endregion
 
@@ -91,12 +87,12 @@ namespace ZeroInstall.Central.WinForms
         {
             WindowsUtils.RegisterApplicationRestart(_machineWide ? "--restart --machine" : "--restart");
 
-            UpdateAppListAsync();
+            _tileManagement.UpdateMyApps();
             _tileManagement.LoadCachedCatalog();
             if (NetUtils.IsInternetConnected) LoadCatalogAsync();
 
             bool firstRun = OnFirstRun();
-            if (_tileManagement.AppList.Entries.Count == 0)
+            if (_tileManagement.IsMyAppsEmpty)
             {
                 if (firstRun)
                 {
@@ -143,6 +139,7 @@ namespace ZeroInstall.Central.WinForms
             WindowsUtils.UnregisterApplicationRestart();
 
             Visible = false;
+            // TODO: _handler.Cancel();
         }
 
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)
@@ -333,7 +330,7 @@ namespace ZeroInstall.Central.WinForms
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == IntegrationManager.ChangedWindowMessageID)
-                this.BeginInvoke(UpdateAppListAsync);
+                this.BeginInvoke(_tileManagement.UpdateMyApps);
             else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
                 tabControlApps.SelectedTab = tabPageAppList;
 
@@ -404,20 +401,6 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region MyApps
-        /// <summary>
-        /// Loads the "My apps" list and displays it, loading additional data from feeds in the background.
-        /// </summary>
-        private async void UpdateAppListAsync()
-        {
-            foreach (var tile in _tileManagement.UpdateMyApps())
-            {
-                var feed = await Task.Run(() => _tileManagement.LoadFeedSafe(tile.InterfaceUri));
-                if (feed != null) tile.Feed = feed;
-            }
-        }
-        #endregion
-
         #region Catalog
         /// <summary>
         /// Loads the "new applications" catalog in the background and displays it.
@@ -430,7 +413,7 @@ namespace ZeroInstall.Central.WinForms
             labelLastCatalogError.Visible = false;
             try
             {
-                _tileManagement.SetCatalog(await Task.Run(_tileManagement.GetCatalogOnline));
+                await _tileManagement.UpdateCatalogAsync();
             }
             catch (Exception ex)
             {

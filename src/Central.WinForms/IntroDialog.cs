@@ -61,17 +61,17 @@ namespace ZeroInstall.Central.WinForms
         private void SetupTiles()
         {
             tileListCatalog.Clear();
-            tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Candidate).Feed =
-                new Feed {Summaries = {Resources.IntroCoolAppSummary}};
-            tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppTileStatus.Candidate).Feed =
-                new Feed {Summaries = {Resources.IntroCommonAppSummary}};
-            tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppTileStatus.Candidate).Feed =
-                new Feed {Summaries = {Resources.IntroOtherAppSummary}};
+            tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Candidate)
+                           .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}});
+            tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppTileStatus.Candidate)
+                           .SetFeed(new() {Summaries = {Resources.IntroCommonAppSummary}});
+            tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppTileStatus.Candidate)
+                           .SetFeed(new() {Summaries = {Resources.IntroOtherAppSummary}});
             tileListCatalog.AddQueuedTiles();
 
             tileListMyApps.Clear();
-            tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Added).Feed =
-                new Feed {Summaries = {Resources.IntroCoolAppSummary}};
+            tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Added)
+                          .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}});
             tileListMyApps.AddQueuedTiles();
         }
 

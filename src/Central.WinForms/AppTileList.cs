@@ -12,7 +12,6 @@ using NanoByte.Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -62,6 +61,12 @@ namespace ZeroInstall.Central.WinForms
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
         [DefaultValue(typeof(Color), "Control")]
         public Color TileColorDark { get; set; } = SystemColors.Control;
+
+        /// <summary>
+        /// Apply operations machine-wide instead of just for the current user.
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool MachineWide { get; set; }
         #endregion
 
         #region Constructor
@@ -126,10 +131,8 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <param name="iconStore">The icon store used by newly created <see cref="AppTile"/>s to retrieve application icons; can be <c>null</c>.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="InvalidOperationException">The list already contains an <see cref="AppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
-        public AppTile QueueNewTile(FeedUri interfaceUri, string appName, AppTileStatus status, IIconStore? iconStore = null, bool machineWide = false)
+        public AppTile QueueNewTile(FeedUri interfaceUri, string appName, AppTileStatus status)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException(nameof(interfaceUri));
@@ -137,7 +140,7 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.ContainsKey(interfaceUri)) throw new InvalidOperationException("Duplicate interface URI");
             #endregion
 
-            var tile = new AppTile(interfaceUri, appName, status, iconStore, machineWide) {Width = _flowLayout.Width};
+            var tile = new AppTile(interfaceUri, appName, status, MachineWide) {Width = _flowLayout.Width};
 
             if (appName.ContainsIgnoreCase(TextSearch.Text))
             {
