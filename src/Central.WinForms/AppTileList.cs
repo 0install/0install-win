@@ -253,7 +253,8 @@ namespace ZeroInstall.Central.WinForms
             foreach (var tile in _tileDictionary.Values)
             {
                 // Check if new filter changes visibility
-                bool shouldBeVisible = tile.AppName.ContainsIgnoreCase(TextSearch.Text);
+                bool shouldBeVisible = tile.AppName.ContainsIgnoreCase(TextSearch.Text)
+                                    || tile.AppSummary.ContainsIgnoreCase(TextSearch.Text);
                 if (tile.Visible != shouldBeVisible)
                 {
                     // Update list length

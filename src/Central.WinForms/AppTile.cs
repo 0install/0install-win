@@ -33,6 +33,11 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         public string AppName => labelName.Text;
 
+        /// <summary>
+        /// A summary of the application this tile represents.
+        /// </summary>
+        public string AppSummary => labelSummary.Text;
+
         private AppTileStatus _status;
 
         /// <summary>
