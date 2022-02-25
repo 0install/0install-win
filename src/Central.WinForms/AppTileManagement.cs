@@ -9,7 +9,6 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using NanoByte.Common;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
@@ -230,23 +229,35 @@ namespace ZeroInstall.Central.WinForms
                     {
                         try
                         {
-                            string newPath = _iconStore.GetFresh(icon);
-                            tile.Invoke(() => tile.SetIcon(newPath));
+                            tile.BeginInvoke(
+                                (Action<string>)tile.SetIcon,
+                                _iconStore.GetFresh(icon));
                         }
+                        #region Error handling
                         catch (OperationCanceledException)
                         {}
+                        catch (WebException ex)
+                        {
+                            Log.Info(ex);
+                        }
                         catch (InvalidOperationException) // AppTile already disposed
                         {}
                         catch (Exception ex)
                         {
                             Log.Warn(ex);
                         }
+                        #endregion
                     });
                 }
                 else tile.SetIcon(path);
             }
+            #region Error handling
             catch (OperationCanceledException)
             {}
+            catch (WebException ex)
+            {
+                Log.Info(ex);
+            }
             catch (Exception ex)
             {
                 Log.Warn(ex);
@@ -255,6 +266,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 _iconDownloadSemaphore.Release();
             }
+            #endregion
         }
     }
 }

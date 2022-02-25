@@ -139,7 +139,7 @@ namespace ZeroInstall.Central.WinForms
             WindowsUtils.UnregisterApplicationRestart();
 
             Visible = false;
-            // TODO: _handler.Cancel();
+            _handler.Cancel();
         }
 
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)

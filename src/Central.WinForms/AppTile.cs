@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
@@ -112,7 +113,16 @@ namespace ZeroInstall.Central.WinForms
         /// Shows an icon on the tile loaded from a file on disk.
         /// </summary>
         public void SetIcon(string path)
-            => pictureBoxIcon.LoadAsync(path ?? throw new ArgumentNullException(nameof(path)));
+        {
+            try
+            {
+                pictureBoxIcon.LoadAsync(path);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
 
         private void RefreshStatus()
         {

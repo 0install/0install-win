@@ -33,5 +33,11 @@ namespace ZeroInstall.Central.WinForms
             Log.Debug("Answer: " + result);
             return result;
         }
+
+        /// <summary>
+        /// Cancels currently running <see cref="ITask"/>s.
+        /// </summary>
+        public void Cancel()
+            => CancellationTokenSource.Cancel();
     }
 }
