@@ -51,6 +51,9 @@ namespace ZeroInstall
         /// <summary>Arguments passed through to the target process.</summary>
         private readonly List<string> _userArgs = new();
 
+        /// <summary>Download the app but do not run it.</summary>
+        private bool _noRun;
+
         private string HelpText
         {
             get
@@ -150,6 +153,16 @@ namespace ZeroInstall
                     "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
                 }
             };
+
+            if (_embeddedConfig is {AppUri: not null, AppName: not null})
+            {
+                _options.Add("no-run", () => $"Download {_embeddedConfig.AppName} but do not run it.", _ => _noRun = true);
+                _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
+                {
+                    _noRun = true;
+                    Handler.Verbosity = Verbosity.Batch;
+                });
+            }
 
             // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
             _options.Add("<>", value =>
@@ -302,12 +315,18 @@ namespace ZeroInstall
 
             if (_embeddedConfig is {AppUri: not null, AppName: not null})
             {
-                args.AddRange(new[] {"run", _embeddedConfig.AppUri.ToStringRfc()});
-                string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
-                if (appArgs.Length != 0)
+                string appUri = _embeddedConfig.AppUri.ToStringRfc();
+                if (_noRun)
+                    args.AddRange(new[] {"download", appUri});
+                else
                 {
-                    args.Add("--");
-                    args.AddRange(appArgs);
+                    args.AddRange(new[] {"run", appUri});
+                    string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
+                    if (appArgs.Length != 0)
+                    {
+                        args.Add("--");
+                        args.AddRange(appArgs);
+                    }
                 }
             }
 
