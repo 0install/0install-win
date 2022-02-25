@@ -59,18 +59,7 @@ namespace ZeroInstall
 
                 using var buffer = new MemoryStream();
                 var writer = new StreamWriter(buffer);
-                if (_embeddedConfig.AppUri == null)
-                {
-                    writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
-                    writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
-                    writer.WriteLine();
-                    writer.WriteLine("Samples:");
-                    writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
-                    writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
-                    writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
-                    writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
-                }
-                else
+                if (_embeddedConfig is {AppUri: not null, AppName: not null})
                 {
                     writer.WriteLine("This bootstrapper downloads and {0} {1} using Zero Install.", string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs) ? "runs" : "integrates", _embeddedConfig.AppName);
                     writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
@@ -80,6 +69,17 @@ namespace ZeroInstall
                     writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, _embeddedConfig.AppName);
                     writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, _embeddedConfig.AppName);
                     writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, _embeddedConfig.AppName);
+                }
+                else
+                {
+                    writer.WriteLine("This bootstrapper downloads and runs Zero Install.");
+                    writer.WriteLine("Usage: {0} [OPTIONS] [[--] 0INSTALL-ARGS]", exeName);
+                    writer.WriteLine();
+                    writer.WriteLine("Samples:");
+                    writer.WriteLine("  {0} self deploy  Deploy Zero Install to this computer.", exeName);
+                    writer.WriteLine("  {0} central      Open main Zero Install GUI.", exeName);
+                    writer.WriteLine("  {0} run vlc      Run VLC via Zero Install.", exeName);
+                    writer.WriteLine("  {0} -- --help    Show help for Zero Install instead of Bootstrapper.", exeName);
                 }
                 writer.WriteLine();
                 writer.WriteLine("Options:");
@@ -148,19 +148,17 @@ namespace ZeroInstall
                 },
                 {
                     "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
-                },
-
-                // Disable interspersed arguments (needed for passing arguments through to target)
-                {
-                    "<>", value =>
-                    {
-                        _userArgs.Add(value);
-
-                        // Stop using options parser, treat everything from here on as unknown
-                        _options!.Clear();
-                    }
                 }
             };
+
+            // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
+            _options.Add("<>", value =>
+            {
+                _userArgs.Add(value);
+
+                // Stop using options parser, treat everything from here on as unknown
+                _options.Clear();
+            });
 
             // Reset changes made to self-update URI in user configuration
             Config.SelfUpdateUri = new(ConfigurationManager.AppSettings["self_update_uri"] ?? Config.DefaultSelfUpdateUri);
@@ -220,7 +218,7 @@ namespace ZeroInstall
             {
                 var trust = TrustDB.Load();
                 trust.TrustKey("88C8A1F375928691D7365C0259AA3927C24E4E1E", new Domain("apps.0install.net"));
-                if (!string.IsNullOrEmpty(_embeddedConfig.AppFingerprint) && _embeddedConfig.AppUri != null)
+                if (_embeddedConfig is {AppUri: not null, AppName: not null, AppFingerprint: not null})
                     trust.TrustKey(_embeddedConfig.AppFingerprint, new Domain(_embeddedConfig.AppUri.Host));
                 trust.Save();
             }
@@ -279,7 +277,7 @@ namespace ZeroInstall
         /// </summary>
         private ExitCode? RunIntegrate()
         {
-            if (_embeddedConfig.AppUri != null && !string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs))
+            if (_embeddedConfig is {AppUri: not null, IntegrateArgs: not null})
             {
                 var startInfo = ZeroInstall(
                     new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
@@ -301,10 +299,16 @@ namespace ZeroInstall
         private ExitCode RunZeroInstall()
         {
             var args = new List<string>();
-            if (_embeddedConfig.AppUri != null)
+
+            if (_embeddedConfig is {AppUri: not null, AppName: not null})
             {
                 args.AddRange(new[] {"run", _embeddedConfig.AppUri.ToStringRfc()});
-                args.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
+                string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
+                if (appArgs.Length != 0)
+                {
+                    args.Add("--");
+                    args.AddRange(appArgs);
+                }
             }
 
             args.AddRange(_userArgs);
