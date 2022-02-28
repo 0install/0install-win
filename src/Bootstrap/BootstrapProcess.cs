@@ -174,7 +174,7 @@ namespace ZeroInstall
             });
 
             // Reset changes made to self-update URI in user configuration
-            Config.SelfUpdateUri = new(ConfigurationManager.AppSettings["self_update_uri"] ?? Config.DefaultSelfUpdateUri);
+            Config.SelfUpdateUri = new(_embeddedConfig.SelfUpdateUri ?? Config.DefaultSelfUpdateUri);
         }
         #endregion
 
