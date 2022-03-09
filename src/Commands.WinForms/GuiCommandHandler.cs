@@ -32,6 +32,8 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Resources
         private readonly Lazy<FeedBranding> _branding;
+        private FeedBranding Branding => _branding.Value;
+
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
         public GuiCommandHandler()
@@ -40,7 +42,7 @@ namespace ZeroInstall.Commands.WinForms
 
             _wrapper = new AsyncFormWrapper<ProgressForm>(delegate
             {
-                var form = new ProgressForm(_branding.Value, CancellationTokenSource);
+                var form = new ProgressForm(Branding, CancellationTokenSource);
                 if (Background) form.ShowTrayIcon();
                 else form.Show();
                 return form;
@@ -52,8 +54,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 _wrapper.Dispose();
-                if (_branding.IsValueCreated)
-                    _branding.Value.Dispose();
+                if (_branding.IsValueCreated) Branding.Dispose();
             }
             finally
             {
@@ -92,12 +93,9 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region UI control
-        private bool _disabled;
-
         /// <inheritdoc/>
         public void DisableUI()
         {
-            _disabled = true;
             _wrapper.SendLow(x => x.Enabled = false);
         }
 
@@ -170,7 +168,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             DisableUI();
 
-            if (Background) OutputNotification(title, message);
+            if (Background) ShowNotification(title, message);
             else base.Output(title, message);
         }
 
@@ -182,7 +180,7 @@ namespace ZeroInstall.Commands.WinForms
             if (Background)
             {
                 string message = StringUtils.Join(Environment.NewLine, data.Select(x => x?.ToString() ?? ""));
-                OutputNotification(title, message);
+                ShowNotification(title, message);
             }
             else
             {
@@ -225,22 +223,23 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="title">The title of the message.</param>
         /// <param name="message">The message text.</param>
-        private void OutputNotification(string title, string message)
+        /// <param name="icon">The icon to display next to the notification.</param>
+        private void ShowNotification(string title, string message, ToolTipIcon icon = ToolTipIcon.Info)
         {
             if (WindowsUtils.IsWindows10 && ZeroInstallInstance.IsIntegrated)
-                ShowModernNotification(title, message);
+                ShowNotificationModern(title, message);
             else
-                ShowLegacyNotification(title, message);
+                ShowNotificationClassic(title, message, icon);
         }
 
-        private void ShowLegacyNotification(string title, string message)
+        private void ShowNotificationClassic(string title, string message, ToolTipIcon icon)
         {
-            var icon = new NotifyIcon {Visible = true, Text = _branding.Value.Title, Icon = _branding.Value.Icon};
-            icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
+            new NotifyIcon {Visible = true, Text = Branding.Title, Icon = Branding.Icon}
+               .ShowBalloonTip(10000, title, message, icon);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ShowModernNotification(string title, string message)
+        private static void ShowNotificationModern(string title, string message)
         {
             var doc = new XmlDocument();
 
@@ -321,24 +320,22 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="message">The message text of the entry.</param>
         protected override void LogHandler(LogSeverity severity, string message)
         {
-            if (_disabled) return;
-
             base.LogHandler(severity, message);
 
-            switch (severity)
+            // Avoid dead-lock
+            if (!_branding.IsValueCreated) return;
+
+            if (severity == LogSeverity.Debug && Verbosity >= Verbosity.Debug
+             || severity == LogSeverity.Info && Verbosity >= Verbosity.Verbose
+             || severity >= LogSeverity.Warn)
             {
-                case LogSeverity.Debug:
-                    if (Verbosity >= Verbosity.Debug) _wrapper.SendLow(form => form.ShowTrayIcon(message));
-                    break;
-                case LogSeverity.Info:
-                    if (Verbosity >= Verbosity.Verbose) _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Info));
-                    break;
-                case LogSeverity.Warn:
-                    _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Warning));
-                    break;
-                case LogSeverity.Error:
-                    _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Error));
-                    break;
+                ShowNotification(Branding.Title, message, severity switch
+                {
+                    LogSeverity.Info => ToolTipIcon.Info,
+                    LogSeverity.Warn => ToolTipIcon.Warning,
+                    LogSeverity.Error => ToolTipIcon.Error,
+                    _ =>ToolTipIcon.None
+                });
             }
         }
         #endregion

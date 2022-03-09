@@ -215,7 +215,7 @@ namespace ZeroInstall.Commands.WinForms
                 _pendingQuestion = question;
                 _pendingResult = new();
 
-                ShowTrayIcon(question.GetLeftPartAtFirstOccurrence(Environment.NewLine) + Environment.NewLine + Resources.ClickToChoose, ToolTipIcon.Info);
+                ShowTrayIcon(question.GetLeftPartAtFirstOccurrence(Environment.NewLine) + Environment.NewLine + Resources.ClickToChoose);
 
                 return _pendingResult!.Task;
             }
@@ -234,20 +234,18 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Tray icon
         /// <summary>
-        /// Shows the tray icon with an associated balloon message.
+        /// Shows the tray icon.
         /// </summary>
-        /// <param name="information">The balloon message text.</param>
-        /// <param name="messageType">The type icon to display next to the balloon message.</param>
-        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
+        /// <param name="notificationMessage">An optional notification message to associate with the tray icon.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void ShowTrayIcon(string? information = null, ToolTipIcon messageType = ToolTipIcon.None)
+        public void ShowTrayIcon(string? notificationMessage = null)
         {
             #region Sanity checks
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
             notifyIcon.Visible = true;
-            if (!string.IsNullOrEmpty(information)) notifyIcon.ShowBalloonTip(7500, "Zero Install", information, messageType);
+            if (!string.IsNullOrEmpty(notificationMessage)) notifyIcon.ShowBalloonTip(7500, Text, notificationMessage, ToolTipIcon.Info);
         }
 
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
