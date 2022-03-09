@@ -212,6 +212,14 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
+        /// <inheritdoc/>
+        public override void Output<T>(string title, NamedCollection<T> data)
+        {
+            DisableUI();
+
+            base.Output(title, data);
+        }
+
         /// <summary>
         /// Displays a notification message detached from the main GUI. Will stick around even after the process ends.
         /// </summary>
