@@ -172,9 +172,6 @@ namespace ZeroInstall
                 // Stop using options parser, treat everything from here on as unknown
                 _options.Clear();
             });
-
-            // Reset changes made to self-update URI in user configuration
-            Config.SelfUpdateUri = new(_embeddedConfig.SelfUpdateUri ?? Config.DefaultSelfUpdateUri);
         }
         #endregion
 
@@ -185,6 +182,13 @@ namespace ZeroInstall
         /// <returns>The exit status code to end the process with.</returns>
         public ExitCode Execute(IEnumerable<string> args)
         {
+            // Aggressively restore default self-update URI (e.g., to "fix" broken deployments)
+            if (_embeddedConfig.SelfUpdateUri == null)
+                Config.SelfUpdateUri = new FeedUri(Config.DefaultSelfUpdateUri);
+            // Only apply custom self-update URI if 0install isn't deployed yet and the URI hasn't already been customized
+            else if (Config.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri) && _deployedInstance == null)
+                Config.SelfUpdateUri = _embeddedConfig.SelfUpdateUri;
+
             // Write potentially customized config to the user profile
             // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
             Config.Save();

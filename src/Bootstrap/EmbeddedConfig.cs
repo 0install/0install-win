@@ -18,7 +18,7 @@ namespace ZeroInstall
     /// <param name="AppFingerprint">The GnuPG key fingerprint to trust for signing <paramref cref="AppUri"/>.</param>
     /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
     /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
-    public record EmbeddedConfig(string? SelfUpdateUri, FeedUri? AppUri, string? AppName, string? AppFingerprint, string? AppArgs, string? IntegrateArgs)
+    public record EmbeddedConfig(FeedUri? SelfUpdateUri, FeedUri? AppUri, string? AppName, string? AppFingerprint, string? AppArgs, string? IntegrateArgs)
     {
         /// <summary>
         /// Loads the embedded configuration.
@@ -47,7 +47,7 @@ namespace ZeroInstall
             }
 
             return new(
-                SelfUpdateUri: ReadConfig("self_update_uri", lineNumber: 0, placeholder: nameof(SelfUpdateUri)),
+                SelfUpdateUri: ReadConfig("self_update_uri", lineNumber: 0, placeholder: nameof(SelfUpdateUri))?.To(x => new FeedUri(x)),
                 AppUri: ReadConfig("app_uri", lineNumber: 1, nameof(AppUri))?.To(x => new FeedUri(x)),
                 AppName: ReadConfig("app_name", lineNumber: 2, placeholder: nameof(AppName)),
                 AppFingerprint: ReadConfig("app_fingerprint", lineNumber: 3, placeholder: nameof(AppFingerprint)),
