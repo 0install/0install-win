@@ -54,6 +54,9 @@ namespace ZeroInstall
         /// <summary>Do not run the application after downloading it.</summary>
         private bool _noRun;
 
+        /// <summary>Do not integrate the application into the desktop environment.</summary>
+        private bool _noIntegrate;
+
         private string HelpText
         {
             get
@@ -162,6 +165,8 @@ namespace ZeroInstall
                     _noRun = true;
                     Handler.Verbosity = Verbosity.Batch;
                 });
+                if (_embeddedConfig.IntegrateArgs != null)
+                    _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
             }
 
             // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
@@ -293,7 +298,7 @@ namespace ZeroInstall
         /// </summary>
         private ExitCode RunZeroInstallIntegrate()
         {
-            if (_embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
+            if (_noIntegrate || _embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
                 return ExitCode.OK;
 
             var startInfo = ZeroInstall(
