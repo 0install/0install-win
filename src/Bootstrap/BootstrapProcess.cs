@@ -39,7 +39,8 @@ namespace ZeroInstall
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         private readonly OptionSet _options;
 
-        private bool _noExisting;
+        /// <summary>The path of a Zero Install instance already deployed on this machine, if any.</summary>
+        private string? _deployedInstance = WindowsUtils.IsWindows ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation") : null;
 
         /// <summary>A specific version of Zero Install to download.</summary>
         private VersionRange? _version;
@@ -125,20 +126,20 @@ namespace ZeroInstall
                     }
                 },
                 {
-                    "no-existing", () => "Do not detect and use existing Zero Install instances. Always use downloaded and cached instance.", _ => _noExisting = true
+                    "no-existing", () => "Do not detect and use existing Zero Install instances. Always use downloaded and cached instance.", _ => _deployedInstance = null
                 },
                 {
                     "version=", () => "Select a specific {VERSION} of Zero Install. Implies --no-existing.", (VersionRange range) =>
                     {
                         _version = range;
-                        _noExisting = true;
+                        _deployedInstance = null;
                     }
                 },
                 {
                     "feed=", () => "Specify an alternative {FEED} for Zero Install. Must be an absolute URI. Implies --no-existing.", feed =>
                     {
                         Config.SelfUpdateUri = new(feed);
-                        _noExisting = true;
+                        _deployedInstance = null;
                     }
                 },
                 {
@@ -361,7 +362,7 @@ namespace ZeroInstall
             if (Config.NetworkUse == NetworkLevel.Offline)
                 args = args.Prepend("--offline");
 
-            return _noExisting ? ZeroInstallCached(args) : ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
+            return ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
         }
 
         /// <summary>
@@ -369,15 +370,11 @@ namespace ZeroInstall
         /// </summary>
         public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
         {
-            if (!WindowsUtils.IsWindows) return null;
-
-            string existingInstall = RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation");
-            if (!string.IsNullOrEmpty(existingInstall))
+            if (!string.IsNullOrEmpty(_deployedInstance))
             {
                 string launchAssembly = _gui ? "0install-win" : "0install";
-
-                if (File.Exists(Path.Combine(existingInstall, launchAssembly + ".exe")))
-                    return ProcessUtils.Assembly(Path.Combine(existingInstall, launchAssembly), args);
+                if (File.Exists(Path.Combine(_deployedInstance, launchAssembly + ".exe")))
+                    return ProcessUtils.Assembly(Path.Combine(_deployedInstance, launchAssembly), args);
             }
             return null;
         }
