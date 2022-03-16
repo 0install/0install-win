@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -51,7 +50,7 @@ namespace ZeroInstall
         /// <summary>Arguments passed through to the target process.</summary>
         private readonly List<string> _userArgs = new();
 
-        /// <summary>Download the app but do not run it.</summary>
+        /// <summary>Do not run the application after downloading it.</summary>
         private bool _noRun;
 
         private string HelpText
@@ -64,7 +63,7 @@ namespace ZeroInstall
                 var writer = new StreamWriter(buffer);
                 if (_embeddedConfig is {AppUri: not null, AppName: not null})
                 {
-                    writer.WriteLine("This bootstrapper downloads and {0} {1} using Zero Install.", string.IsNullOrEmpty(_embeddedConfig.IntegrateArgs) ? "runs" : "integrates", _embeddedConfig.AppName);
+                    writer.WriteLine("This bootstrapper downloads and {0} {1} using Zero Install.", _embeddedConfig.IntegrateArgs == null ? "runs" : "integrates", _embeddedConfig.AppName);
                     writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
                     writer.WriteLine();
                     writer.WriteLine("Samples:");
@@ -156,7 +155,7 @@ namespace ZeroInstall
 
             if (_embeddedConfig is {AppUri: not null, AppName: not null})
             {
-                _options.Add("no-run", () => $"Download {_embeddedConfig.AppName} but do not run it.", _ => _noRun = true);
+                _options.Add("no-run", () => $"Do not run {_embeddedConfig.AppName} after downloading it.", _ => _noRun = true);
                 _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
                 {
                     _noRun = true;
@@ -185,8 +184,8 @@ namespace ZeroInstall
         /// <returns>The exit status code to end the process with.</returns>
         public ExitCode Execute(IEnumerable<string> args)
         {
-            // Write any customized configuration to the user profile
-            // NOTE: This must be done before parsing command-line options, since they may manipulate Config
+            // Write potentially customized config to the user profile
+            // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
             Config.Save();
 
             _userArgs.AddRange(_options.Parse(args));
@@ -211,11 +210,10 @@ namespace ZeroInstall
                     case "--batch":
                         Handler.Verbosity = Verbosity.Batch;
                         break;
-                    case "--verbose":
+                    case "--verbose" or "-v":
                         Handler.Verbosity = Verbosity.Verbose;
                         break;
-                    case "-o":
-                    case "--offline":
+                    case "--offline" or "-o":
                         Config.NetworkUse = NetworkLevel.Offline;
                         break;
                 }

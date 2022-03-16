@@ -15,7 +15,7 @@ namespace ZeroInstall
     /// <param name="SelfUpdateUri">The feed URI used to download and update Zero Install itself.</param>
     /// <param name="AppUri">The feed URI of the target application to bootstrap.</param>
     /// <param name="AppName">The name of the target application to bootstrap.</param>
-    /// <param name="AppFingerprint">The GnuPG key fingerprint to trust for signing the application's feed.</param>
+    /// <param name="AppFingerprint">The GnuPG key fingerprint to trust for signing <paramref cref="AppUri"/>.</param>
     /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
     /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
     public record EmbeddedConfig(string? SelfUpdateUri, FeedUri? AppUri, string? AppName, string? AppFingerprint, string? AppArgs, string? IntegrateArgs)
