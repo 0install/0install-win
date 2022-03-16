@@ -199,8 +199,8 @@ namespace ZeroInstall
             TrustKeys();
             ImportContent();
 
-            return RunIntegrate()
-                ?? RunZeroInstall();
+            var exitCode = RunZeroInstallIntegrate();
+            return exitCode == ExitCode.OK ? RunZeroInstall() : exitCode;
         }
 
         /// <summary>
@@ -291,22 +291,21 @@ namespace ZeroInstall
         /// <summary>
         /// Runs <c>0install integrate</c> if requested by <see cref="_embeddedConfig"/>.
         /// </summary>
-        private ExitCode? RunIntegrate()
+        private ExitCode RunZeroInstallIntegrate()
         {
-            if (_embeddedConfig is {AppUri: not null, IntegrateArgs: not null})
-            {
-                var startInfo = ZeroInstall(
-                    new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
-                       .Concat(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs))
-                       .ToArray());
-                var exitCode = ExitCode.UserCanceled;
-                Handler.RunTask(new SimpleTask(
-                    $"Integrating {_embeddedConfig.AppName}",
-                    () => exitCode = (ExitCode)startInfo.Run()));
-                if (exitCode != ExitCode.OK) return exitCode;
-            }
+            if (_embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
+                return ExitCode.OK;
 
-            return null;
+            var startInfo = ZeroInstall(
+                new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
+                   .Concat(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs))
+                   .ToArray());
+
+            var exitCode = ExitCode.UserCanceled;
+            Handler.RunTask(new SimpleTask(
+                $"Integrating {_embeddedConfig.AppName}",
+                () => exitCode = (ExitCode)startInfo.Run()));
+            return exitCode;
         }
 
         /// <summary>
