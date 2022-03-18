@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// The icon of the window.
         /// </summary>
-        public SystemIcon Icon { get; }
+        public SystemIcon? Icon { get; }
 
         /// <summary>
         /// An optional splash screen to display during downloads, etc..
@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands.WinForms
                  ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
                  ?.To(iconStore.GetCached)
                  ?.To(path => new SystemIcon(path))
-                ?? SystemIcon.ExtractAssociatedIcon(Application.ExecutablePath)!;
+                ?? GetDefaultIcon();
 
             SplashScreen = feed
                          ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
@@ -64,10 +64,22 @@ namespace ZeroInstall.Commands.WinForms
                          ?.To(Image.FromFile);
         }
 
+        private static SystemIcon? GetDefaultIcon()
+        {
+            try
+            {
+                return SystemIcon.ExtractAssociatedIcon(Application.ExecutablePath);
+            }
+            catch (ArgumentException) // Running from network path, can't extract icon
+            {
+                return null;
+            }
+        }
+
         /// <inheritdoc/>
         public void Dispose()
         {
-            Icon.Dispose();
+            Icon?.Dispose();
             SplashScreen?.Dispose();
         }
     }

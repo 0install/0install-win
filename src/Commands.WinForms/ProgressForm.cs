@@ -40,8 +40,8 @@ namespace ZeroInstall.Commands.WinForms
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
 
-            Text = notifyIcon.Text = branding.Title;
-            Icon = notifyIcon.Icon = branding.Icon;
+            Text = branding.Title;
+            if (branding.Icon != null) Icon = branding.Icon;
             if (branding.SplashScreen != null)
             {
                 pictureBoxSplashScreen.Visible = true;
@@ -51,6 +51,9 @@ namespace ZeroInstall.Commands.WinForms
                 selectionsControl.Location += offset;
                 selectionsControl.Size -= offset;
             }
+
+            notifyIcon.Text = Text;
+            notifyIcon.Icon = Icon;
 
             Shown += delegate { this.SetForegroundWindow(); };
         }

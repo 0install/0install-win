@@ -22,7 +22,14 @@ namespace ZeroInstall
             _cancellationTokenSource = cancellationTokenSource;
 
             InitializeComponent();
-            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+            try
+            {
+                Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            }
+            catch (ArgumentException) // Running from network path, can't extract icon
+            {}
+
             var embeddedConfig = EmbeddedConfig.Load();
             if (embeddedConfig.AppName != null)
             {
