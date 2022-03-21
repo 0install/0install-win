@@ -40,12 +40,12 @@ namespace ZeroInstall.Central.WinForms
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.contextMenuRun.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBoxIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // labelName
             // 
-            this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelName.AutoEllipsis = true;
             this.labelName.AutoSize = true;
             this.labelName.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -58,7 +58,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // labelSummary
             // 
-            this.labelSummary.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Location = new System.Drawing.Point(60, 24);
             this.labelSummary.Name = "labelSummary";
@@ -67,7 +67,8 @@ namespace ZeroInstall.Central.WinForms
             // 
             // buttonRun
             // 
-            this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRun.AutoSize = true;
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.DropDownMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -81,14 +82,14 @@ namespace ZeroInstall.Central.WinForms
             // 
             // contextMenuRun
             // 
-            this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.buttonRun2, this.buttonRunWithOptions, this.runMenuSeparator, this.buttonUpdate});
+            this.contextMenuRun.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonRun2, this.buttonRunWithOptions, this.runMenuSeparator, this.buttonUpdate });
             this.contextMenuRun.Name = "contextMenuRun";
             this.contextMenuRun.Size = new System.Drawing.Size(173, 76);
             this.contextMenuRun.Text = "(Run)";
             // 
             // buttonRun2
             // 
-            this.buttonRun2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.buttonRun2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRun2.Name = "buttonRun2";
             this.buttonRun2.Size = new System.Drawing.Size(172, 22);
             this.buttonRun2.Text = "(Run)";
@@ -116,7 +117,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // buttonIntegrate
             // 
-            this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
@@ -129,7 +130,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // pictureBoxIcon
             // 
-            this.pictureBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxIcon.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxIcon.Location = new System.Drawing.Point(6, 6);
             this.pictureBoxIcon.Name = "pictureBoxIcon";
@@ -149,13 +150,11 @@ namespace ZeroInstall.Central.WinForms
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelSummary);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.MaximumSize = new System.Drawing.Size(4096, 60);
-            this.MinimumSize = new System.Drawing.Size(220, 60);
             this.Name = "AppTile";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Size = new System.Drawing.Size(400, 60);
             this.contextMenuRun.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBoxIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }

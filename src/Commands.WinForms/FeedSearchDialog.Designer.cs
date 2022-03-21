@@ -51,9 +51,9 @@ namespace ZeroInstall.Commands.WinForms
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             separator1 = new System.Windows.Forms.ToolStripSeparator();
             separator2 = new System.Windows.Forms.ToolStripSeparator();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.contextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // separator1
@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.columnUri, this.columnName, this.columnScore, this.columnSummary, this.columnCategories});
+            this.dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.columnUri, this.columnName, this.columnScore, this.columnSummary, this.columnCategories });
             this.dataGrid.MultiSelect = false;
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.ReadOnly = true;
@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // contextMenu
             // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.buttonRun, separator1, this.buttonAdd, this.buttonIntegrate, separator2, this.buttonDetails});
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonRun, separator1, this.buttonAdd, this.buttonIntegrate, separator2, this.buttonDetails });
             this.contextMenu.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenu, "contextMenu");
             // 
@@ -183,9 +183,9 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.dataGrid);
             this.Name = "FeedSearchDialog";
             this.ShowIcon = false;
-            ((System.ComponentModel.ISupportInitialize) (this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.contextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }

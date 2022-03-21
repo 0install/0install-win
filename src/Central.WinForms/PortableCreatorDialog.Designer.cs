@@ -21,7 +21,6 @@ namespace ZeroInstall.Central.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -96,7 +95,6 @@ namespace ZeroInstall.Central.WinForms
             this.Load += new System.EventHandler(this.PortableCreatorDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

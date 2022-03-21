@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonApply = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageVersions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridVersions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).BeginInit();
             this.tabPageFeeds.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridVersions.AllowUserToDeleteRows = false;
             resources.ApplyResources(this.dataGridVersions, "dataGridVersions");
             this.dataGridVersions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridVersions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataColumnVersion, this.dataColumnReleased, this.dataColumnStability, this.dataColumnUserStability, this.dataColumnArchitecture, this.dataColumnNotes, this.dataColumnSource});
+            this.dataGridVersions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataColumnVersion, this.dataColumnReleased, this.dataColumnStability, this.dataColumnUserStability, this.dataColumnArchitecture, this.dataColumnNotes, this.dataColumnSource });
             this.dataGridVersions.Name = "dataGridVersions";
             // 
             // dataColumnVersion
@@ -229,7 +229,7 @@ namespace ZeroInstall.Commands.WinForms
             this.tabControl.ResumeLayout(false);
             this.tabPageVersions.ResumeLayout(false);
             this.tabPageVersions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridVersions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).EndInit();
             this.tabPageFeeds.ResumeLayout(false);
             this.ResumeLayout(false);
         }

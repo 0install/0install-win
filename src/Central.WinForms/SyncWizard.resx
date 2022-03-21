@@ -112,16 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="wizardControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonSetupSubsequent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -131,7 +131,7 @@
   <data name="buttonSetupSubsequent.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 35</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonSetupSubsequent.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -142,7 +142,7 @@
     <value>buttonSetupSubsequent</value>
   </data>
   <data name="&gt;&gt;buttonSetupSubsequent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonSetupSubsequent.Parent" xml:space="preserve">
     <value>pageSetupWelcome</value>
@@ -169,7 +169,7 @@
     <value>buttonSetupFirst</value>
   </data>
   <data name="&gt;&gt;buttonSetupFirst.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonSetupFirst.Parent" xml:space="preserve">
     <value>pageSetupWelcome</value>
@@ -199,7 +199,7 @@
     <value>labelSetup</value>
   </data>
   <data name="&gt;&gt;labelSetup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelSetup.Parent" xml:space="preserve">
     <value>pageSetupWelcome</value>
@@ -229,7 +229,7 @@
     <value>labelSetupWelcome</value>
   </data>
   <data name="&gt;&gt;labelSetupWelcome.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelSetupWelcome.Parent" xml:space="preserve">
     <value>pageSetupWelcome</value>
@@ -259,7 +259,7 @@
     <value>optionFileShare</value>
   </data>
   <data name="&gt;&gt;optionFileShare.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;optionFileShare.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -289,7 +289,7 @@
     <value>optionCustomServer</value>
   </data>
   <data name="&gt;&gt;optionCustomServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;optionCustomServer.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -319,7 +319,7 @@
     <value>optionOfficialServer</value>
   </data>
   <data name="&gt;&gt;optionOfficialServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;optionOfficialServer.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -352,7 +352,7 @@
     <value>labelServerType</value>
   </data>
   <data name="&gt;&gt;labelServerType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelServerType.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -382,7 +382,7 @@
     <value>labelServer</value>
   </data>
   <data name="&gt;&gt;labelServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelServer.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -415,7 +415,7 @@
     <value>textBoxCustomServer</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.1.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Parent" xml:space="preserve">
     <value>groupCustomServer</value>
@@ -442,7 +442,7 @@
     <value>linkCustomServer</value>
   </data>
   <data name="&gt;&gt;linkCustomServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;linkCustomServer.Parent" xml:space="preserve">
     <value>groupCustomServer</value>
@@ -463,7 +463,7 @@
     <value>groupCustomServer</value>
   </data>
   <data name="&gt;&gt;groupCustomServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupCustomServer.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -496,7 +496,7 @@
     <value>buttonFileShareBrowse</value>
   </data>
   <data name="&gt;&gt;buttonFileShareBrowse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonFileShareBrowse.Parent" xml:space="preserve">
     <value>groupFileShare</value>
@@ -526,7 +526,7 @@
     <value>textBoxFileShare</value>
   </data>
   <data name="&gt;&gt;textBoxFileShare.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.1.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxFileShare.Parent" xml:space="preserve">
     <value>groupFileShare</value>
@@ -547,7 +547,7 @@
     <value>groupFileShare</value>
   </data>
   <data name="&gt;&gt;groupFileShare.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupFileShare.Parent" xml:space="preserve">
     <value>pageServer</value>
@@ -568,7 +568,7 @@
     <value>pageServer</value>
   </data>
   <data name="&gt;&gt;pageServer.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageSetupWelcome.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -583,7 +583,7 @@
     <value>pageSetupWelcome</value>
   </data>
   <data name="&gt;&gt;pageSetupWelcome.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelRegister2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -605,7 +605,7 @@
     <value>labelRegister2</value>
   </data>
   <data name="&gt;&gt;labelRegister2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelRegister2.Parent" xml:space="preserve">
     <value>pageRegister</value>
@@ -635,7 +635,7 @@
     <value>linkRegister</value>
   </data>
   <data name="&gt;&gt;linkRegister.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;linkRegister.Parent" xml:space="preserve">
     <value>pageRegister</value>
@@ -662,7 +662,7 @@
     <value>labelRegister</value>
   </data>
   <data name="&gt;&gt;labelRegister.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelRegister.Parent" xml:space="preserve">
     <value>pageRegister</value>
@@ -686,7 +686,7 @@
     <value>textBoxPassword</value>
   </data>
   <data name="&gt;&gt;textBoxPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxPassword.Parent" xml:space="preserve">
     <value>pageCredentials</value>
@@ -716,7 +716,7 @@
     <value>labelPassword</value>
   </data>
   <data name="&gt;&gt;labelPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelPassword.Parent" xml:space="preserve">
     <value>pageCredentials</value>
@@ -740,7 +740,7 @@
     <value>textBoxUsername</value>
   </data>
   <data name="&gt;&gt;textBoxUsername.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxUsername.Parent" xml:space="preserve">
     <value>pageCredentials</value>
@@ -770,7 +770,7 @@
     <value>labelUsername</value>
   </data>
   <data name="&gt;&gt;labelUsername.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelUsername.Parent" xml:space="preserve">
     <value>pageCredentials</value>
@@ -800,7 +800,7 @@
     <value>labelCredentials</value>
   </data>
   <data name="&gt;&gt;labelCredentials.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCredentials.Parent" xml:space="preserve">
     <value>pageCredentials</value>
@@ -821,7 +821,7 @@
     <value>pageCredentials</value>
   </data>
   <data name="&gt;&gt;pageCredentials.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageRegister.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -836,7 +836,7 @@
     <value>pageRegister</value>
   </data>
   <data name="&gt;&gt;pageRegister.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="buttonForgotKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -857,7 +857,7 @@
     <value>buttonForgotKey</value>
   </data>
   <data name="&gt;&gt;buttonForgotKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonForgotKey.Parent" xml:space="preserve">
     <value>pageExistingCryptoKey</value>
@@ -881,7 +881,7 @@
     <value>textBoxCryptoKey</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKey.Parent" xml:space="preserve">
     <value>pageExistingCryptoKey</value>
@@ -911,7 +911,7 @@
     <value>labelCryptoKey</value>
   </data>
   <data name="&gt;&gt;labelCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCryptoKey.Parent" xml:space="preserve">
     <value>pageExistingCryptoKey</value>
@@ -941,7 +941,7 @@
     <value>labelExistingCryptoKey</value>
   </data>
   <data name="&gt;&gt;labelExistingCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelExistingCryptoKey.Parent" xml:space="preserve">
     <value>pageExistingCryptoKey</value>
@@ -962,7 +962,7 @@
     <value>pageExistingCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageExistingCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelResetCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -986,7 +986,7 @@
     <value>labelResetCryptoKey</value>
   </data>
   <data name="&gt;&gt;labelResetCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetCryptoKey.Parent" xml:space="preserve">
     <value>pageResetCryptoKey</value>
@@ -1010,7 +1010,7 @@
     <value>textBoxCryptoKeyReset</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKeyReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKeyReset.Parent" xml:space="preserve">
     <value>pageResetCryptoKey</value>
@@ -1040,7 +1040,7 @@
     <value>labelCryptoKeyReset</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyReset.Parent" xml:space="preserve">
     <value>pageResetCryptoKey</value>
@@ -1070,7 +1070,7 @@
     <value>labelCryptoKeyChangedHint</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyChangedHint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyChangedHint.Parent" xml:space="preserve">
     <value>pageCryptoKeyChanged</value>
@@ -1100,7 +1100,7 @@
     <value>labelCryptoKeyChanged</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyChanged.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyChanged.Parent" xml:space="preserve">
     <value>pageCryptoKeyChanged</value>
@@ -1121,7 +1121,7 @@
     <value>pageCryptoKeyChanged</value>
   </data>
   <data name="&gt;&gt;pageCryptoKeyChanged.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageResetCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1136,7 +1136,7 @@
     <value>pageResetCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageResetCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelNewCryptoKeyHint.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1160,7 +1160,7 @@
     <value>labelNewCryptoKeyHint</value>
   </data>
   <data name="&gt;&gt;labelNewCryptoKeyHint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelNewCryptoKeyHint.Parent" xml:space="preserve">
     <value>pageNewCryptoKey</value>
@@ -1184,7 +1184,7 @@
     <value>textBoxCryptoKeyNew</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKeyNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKeyNew.Parent" xml:space="preserve">
     <value>pageNewCryptoKey</value>
@@ -1214,7 +1214,7 @@
     <value>labelCryptoKeyNew</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyNew.Parent" xml:space="preserve">
     <value>pageNewCryptoKey</value>
@@ -1244,7 +1244,7 @@
     <value>labelNewCryptoKey</value>
   </data>
   <data name="&gt;&gt;labelNewCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelNewCryptoKey.Parent" xml:space="preserve">
     <value>pageNewCryptoKey</value>
@@ -1274,7 +1274,7 @@
     <value>labelSetupFinished</value>
   </data>
   <data name="&gt;&gt;labelSetupFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelSetupFinished.Parent" xml:space="preserve">
     <value>pageSetupFinished</value>
@@ -1295,7 +1295,7 @@
     <value>pageSetupFinished</value>
   </data>
   <data name="&gt;&gt;pageSetupFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageNewCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1310,7 +1310,7 @@
     <value>pageNewCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageNewCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="buttonResetClient.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1331,7 +1331,7 @@
     <value>buttonResetClient</value>
   </data>
   <data name="&gt;&gt;buttonResetClient.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonResetClient.Parent" xml:space="preserve">
     <value>pageResetWelcome</value>
@@ -1358,7 +1358,7 @@
     <value>buttonResetServer</value>
   </data>
   <data name="&gt;&gt;buttonResetServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonResetServer.Parent" xml:space="preserve">
     <value>pageResetWelcome</value>
@@ -1385,7 +1385,7 @@
     <value>buttonChangeCryptoKey</value>
   </data>
   <data name="&gt;&gt;buttonChangeCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonChangeCryptoKey.Parent" xml:space="preserve">
     <value>pageResetWelcome</value>
@@ -1415,7 +1415,7 @@
     <value>labelResetWelcome</value>
   </data>
   <data name="&gt;&gt;labelResetWelcome.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetWelcome.Parent" xml:space="preserve">
     <value>pageResetWelcome</value>
@@ -1436,7 +1436,7 @@
     <value>pageResetWelcome</value>
   </data>
   <data name="&gt;&gt;pageResetWelcome.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelChangeCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1460,7 +1460,7 @@
     <value>labelChangeCryptoKey</value>
   </data>
   <data name="&gt;&gt;labelChangeCryptoKey.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelChangeCryptoKey.Parent" xml:space="preserve">
     <value>pageChangeCryptoKey</value>
@@ -1484,7 +1484,7 @@
     <value>textBoxCryptoKeyChange</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKeyChange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;textBoxCryptoKeyChange.Parent" xml:space="preserve">
     <value>pageChangeCryptoKey</value>
@@ -1514,7 +1514,7 @@
     <value>labelCryptoKeyChange</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyChange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelCryptoKeyChange.Parent" xml:space="preserve">
     <value>pageChangeCryptoKey</value>
@@ -1535,7 +1535,7 @@
     <value>pageChangeCryptoKey</value>
   </data>
   <data name="&gt;&gt;pageChangeCryptoKey.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelResetServer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1559,7 +1559,7 @@
     <value>labelResetServer</value>
   </data>
   <data name="&gt;&gt;labelResetServer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetServer.Parent" xml:space="preserve">
     <value>pageResetServer</value>
@@ -1589,7 +1589,7 @@
     <value>labelResetServerFinishedHint</value>
   </data>
   <data name="&gt;&gt;labelResetServerFinishedHint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetServerFinishedHint.Parent" xml:space="preserve">
     <value>pageResetServerFinished</value>
@@ -1619,7 +1619,7 @@
     <value>labelResetServerFinished</value>
   </data>
   <data name="&gt;&gt;labelResetServerFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetServerFinished.Parent" xml:space="preserve">
     <value>pageResetServerFinished</value>
@@ -1640,7 +1640,7 @@
     <value>pageResetServerFinished</value>
   </data>
   <data name="&gt;&gt;pageResetServerFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageResetServer.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1655,7 +1655,7 @@
     <value>pageResetServer</value>
   </data>
   <data name="&gt;&gt;pageResetServer.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="labelResetClient.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1679,7 +1679,7 @@
     <value>labelResetClient</value>
   </data>
   <data name="&gt;&gt;labelResetClient.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetClient.Parent" xml:space="preserve">
     <value>pageResetClient</value>
@@ -1709,7 +1709,7 @@
     <value>labelResetClientFinished</value>
   </data>
   <data name="&gt;&gt;labelResetClientFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelResetClientFinished.Parent" xml:space="preserve">
     <value>pageResetClientFinished</value>
@@ -1730,7 +1730,7 @@
     <value>pageResetClientFinished</value>
   </data>
   <data name="&gt;&gt;pageResetClientFinished.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="pageResetClient.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
@@ -1745,7 +1745,7 @@
     <value>pageResetClient</value>
   </data>
   <data name="&gt;&gt;pageResetClient.Type" xml:space="preserve">
-    <value>AeroWizard.WizardPage, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardPage, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="wizardControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>574, 415</value>
@@ -2859,7 +2859,7 @@
     <value>wizardControl</value>
   </data>
   <data name="&gt;&gt;wizardControl.Type" xml:space="preserve">
-    <value>AeroWizard.WizardControl, AeroWizard, Version=2.0.42.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
+    <value>AeroWizard.WizardControl, AeroWizard, Version=2.3.1.0, Culture=neutral, PublicKeyToken=915e74f5d64b8f37</value>
   </data>
   <data name="&gt;&gt;wizardControl.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2867,7 +2867,7 @@
   <data name="&gt;&gt;wizardControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
@@ -3988,6 +3988,6 @@
     <value>SyncWizard</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

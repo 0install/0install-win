@@ -21,14 +21,12 @@ namespace ZeroInstall.Central.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntroDialog));
             this.labelSubtitles = new System.Windows.Forms.Label();
             this.tabControlApps = new System.Windows.Forms.TabControl();
@@ -142,7 +140,6 @@ namespace ZeroInstall.Central.WinForms
             ((System.ComponentModel.ISupportInitialize)(this.arrowMyApps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.arrowSearch)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

@@ -122,25 +122,25 @@ namespace ZeroInstall.Commands.WinForms
             this.textBoxCommandLine = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridStartMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
             this.tabPageDesktop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridDesktop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).BeginInit();
             this.tabPageSendTo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridSendTo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSendTo)).BeginInit();
             this.tabPageAliases.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridAliases)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).BeginInit();
             this.tabPageAutoStart.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoStart)).BeginInit();
             this.tabPageFileTypes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridFileTypes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileTypes)).BeginInit();
             this.tabPageUrlProtocols.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridUrlProtocols)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).BeginInit();
             this.tabPageAutoPlay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoPlay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoPlay)).BeginInit();
             this.tabPageContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridContextMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).BeginInit();
             this.tabPageDefaultPrograms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridDefaultPrograms)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).BeginInit();
             this.flowLayoutBasic.SuspendLayout();
             this.panelBasic.SuspendLayout();
             this.groupBoxCommandLine.SuspendLayout();
@@ -189,7 +189,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridStartMenu
             // 
             this.dataGridStartMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridStartMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridStartMenuColumnName, this.dataGridStartMenuColumnCategory, this.dataGridStartMenuColumnCommand});
+            this.dataGridStartMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridStartMenuColumnName, this.dataGridStartMenuColumnCategory, this.dataGridStartMenuColumnCommand });
             resources.ApplyResources(this.dataGridStartMenu, "dataGridStartMenu");
             this.dataGridStartMenu.Name = "dataGridStartMenu";
             this.dataGridStartMenu.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -238,7 +238,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridDesktop
             // 
             this.dataGridDesktop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDesktop.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridDesktopColumnName, this.dataGridDesktopColumnCommand});
+            this.dataGridDesktop.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridDesktopColumnName, this.dataGridDesktopColumnCommand });
             resources.ApplyResources(this.dataGridDesktop, "dataGridDesktop");
             this.dataGridDesktop.Name = "dataGridDesktop";
             this.dataGridDesktop.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -279,7 +279,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridSendTo
             // 
             this.dataGridSendTo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridSendTo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridSendToColumnName, this.dataGridSendToColumnCommand});
+            this.dataGridSendTo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridSendToColumnName, this.dataGridSendToColumnCommand });
             resources.ApplyResources(this.dataGridSendTo, "dataGridSendTo");
             this.dataGridSendTo.Name = "dataGridSendTo";
             this.dataGridSendTo.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -320,7 +320,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridAliases
             // 
             this.dataGridAliases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridAliasesColumnName, this.dataGridAliasesColumnCommand});
+            this.dataGridAliases.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridAliasesColumnName, this.dataGridAliasesColumnCommand });
             resources.ApplyResources(this.dataGridAliases, "dataGridAliases");
             this.dataGridAliases.Name = "dataGridAliases";
             this.dataGridAliases.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -361,7 +361,7 @@ namespace ZeroInstall.Commands.WinForms
             // dataGridAutoStart
             // 
             this.dataGridAutoStart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAutoStart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridAutoStartColumnName, this.dataGridAutoStartColumnCommand});
+            this.dataGridAutoStart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridAutoStartColumnName, this.dataGridAutoStartColumnCommand });
             resources.ApplyResources(this.dataGridAutoStart, "dataGridAutoStart");
             this.dataGridAutoStart.Name = "dataGridAutoStart";
             this.dataGridAutoStart.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
@@ -413,7 +413,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridFileTypes.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridFileTypes, "dataGridFileTypes");
             this.dataGridFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFileTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridFileTypesColumnDefault, this.dataGridFileTypesColumnDescription, this.dataGridFileTypesColumnExtensions});
+            this.dataGridFileTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridFileTypesColumnDefault, this.dataGridFileTypesColumnDescription, this.dataGridFileTypesColumnExtensions });
             this.dataGridFileTypes.Name = "dataGridFileTypes";
             this.dataGridFileTypes.RowHeadersVisible = false;
             // 
@@ -473,7 +473,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridUrlProtocols.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridUrlProtocols, "dataGridUrlProtocols");
             this.dataGridUrlProtocols.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridUrlProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridUrlProtocolsColumnDefault, this.dataGridUrlProtocolsColumnDescription, this.dataGridUrlProtocolsColumnProtocols});
+            this.dataGridUrlProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridUrlProtocolsColumnDefault, this.dataGridUrlProtocolsColumnDescription, this.dataGridUrlProtocolsColumnProtocols });
             this.dataGridUrlProtocols.Name = "dataGridUrlProtocols";
             this.dataGridUrlProtocols.RowHeadersVisible = false;
             // 
@@ -533,7 +533,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridAutoPlay.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridAutoPlay, "dataGridAutoPlay");
             this.dataGridAutoPlay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAutoPlay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridAutoPlayColumnDefault, this.dataGridAutoPlayColumnDescription, this.dataGridAutoPlayColumnEvents});
+            this.dataGridAutoPlay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridAutoPlayColumnDefault, this.dataGridAutoPlayColumnDescription, this.dataGridAutoPlayColumnEvents });
             this.dataGridAutoPlay.Name = "dataGridAutoPlay";
             this.dataGridAutoPlay.RowHeadersVisible = false;
             // 
@@ -593,7 +593,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridContextMenu.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridContextMenu, "dataGridContextMenu");
             this.dataGridContextMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridContextMenuColumnEnabled, this.dataGridContextMenuColumnName});
+            this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridContextMenuColumnEnabled, this.dataGridContextMenuColumnName });
             this.dataGridContextMenu.Name = "dataGridContextMenu";
             this.dataGridContextMenu.RowHeadersVisible = false;
             // 
@@ -645,7 +645,7 @@ namespace ZeroInstall.Commands.WinForms
             this.dataGridDefaultPrograms.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataGridDefaultPrograms, "dataGridDefaultPrograms");
             this.dataGridDefaultPrograms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {this.dataGridDefaultProgramsColumnDefault, this.dataGridDefaultProgramsColumnDescription, this.dataGridDefaultProgramsColumnService});
+            this.dataGridDefaultPrograms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridDefaultProgramsColumnDefault, this.dataGridDefaultProgramsColumnDescription, this.dataGridDefaultProgramsColumnService });
             this.dataGridDefaultPrograms.Name = "dataGridDefaultPrograms";
             this.dataGridDefaultPrograms.RowHeadersVisible = false;
             // 
@@ -906,30 +906,30 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.SetChildIndex(this.groupBoxCommandLine, 0);
             this.tabControl.ResumeLayout(false);
             this.tabPageStartMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridStartMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
             this.tabPageDesktop.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridDesktop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).EndInit();
             this.tabPageSendTo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridSendTo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSendTo)).EndInit();
             this.tabPageAliases.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridAliases)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).EndInit();
             this.tabPageAutoStart.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoStart)).EndInit();
             this.tabPageFileTypes.ResumeLayout(false);
             this.tabPageFileTypes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridFileTypes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFileTypes)).EndInit();
             this.tabPageUrlProtocols.ResumeLayout(false);
             this.tabPageUrlProtocols.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridUrlProtocols)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridUrlProtocols)).EndInit();
             this.tabPageAutoPlay.ResumeLayout(false);
             this.tabPageAutoPlay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridAutoPlay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAutoPlay)).EndInit();
             this.tabPageContextMenu.ResumeLayout(false);
             this.tabPageContextMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridContextMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridContextMenu)).EndInit();
             this.tabPageDefaultPrograms.ResumeLayout(false);
             this.tabPageDefaultPrograms.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.dataGridDefaultPrograms)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDefaultPrograms)).EndInit();
             this.flowLayoutBasic.ResumeLayout(false);
             this.flowLayoutBasic.PerformLayout();
             this.panelBasic.ResumeLayout(false);

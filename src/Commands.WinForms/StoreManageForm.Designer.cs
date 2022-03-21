@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonVerify = new System.Windows.Forms.Button();
             this.buttonRunAsAdmin = new System.Windows.Forms.Button();
             this.labelLoading = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelSize.SuspendLayout();
@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands.WinForms
             this.Name = "StoreManageForm";
             this.ShowIcon = false;
             this.splitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelSize.ResumeLayout(false);
             this.tableLayoutPanelSize.PerformLayout();

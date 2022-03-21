@@ -122,13 +122,13 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="separator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 6</value>
+    <value>165, 6</value>
   </data>
   <metadata name="separator2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
   <data name="separator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 6</value>
+    <value>165, 6</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="dataGrid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -205,7 +205,7 @@
     <value>287, 17</value>
   </metadata>
   <data name="buttonRun.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
     <value>&amp;Run</value>
@@ -224,7 +224,7 @@
 </value>
   </data>
   <data name="buttonAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
     <value>&amp;Add to "My apps"</value>
@@ -243,7 +243,7 @@
 </value>
   </data>
   <data name="buttonIntegrate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
     <value>Setup &amp;integration</value>
@@ -311,13 +311,13 @@
 </value>
   </data>
   <data name="buttonDetails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 22</value>
+    <value>168, 22</value>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>&amp;Details</value>
   </data>
   <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 104</value>
+    <value>169, 104</value>
   </data>
   <data name="&gt;&gt;contextMenu.Name" xml:space="preserve">
     <value>contextMenu</value>
@@ -344,7 +344,7 @@
     <value>textKeywords</value>
   </data>
   <data name="&gt;&gt;textKeywords.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.4.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textKeywords.Parent" xml:space="preserve">
     <value>$this</value>

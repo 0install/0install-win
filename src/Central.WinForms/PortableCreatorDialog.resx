@@ -112,46 +112,52 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonSelectTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 42</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;buttonSelectTarget.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonDeploy.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;buttonDeploy.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>364, 230</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
-  <data name="labelInfo2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;buttonSelectTarget.Name" xml:space="preserve">
-    <value>buttonSelectTarget</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="labelInfo2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 108</value>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
   </data>
-  <data name="&gt;&gt;buttonDeploy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="labelInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="labelInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 9</value>
+  </data>
+  <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>427, 32</value>
   </data>
   <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -159,89 +165,23 @@
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Here you can create a portable version of Zero Install, e.g. for use on a USB thumb drive. The target must be NTFS formatted.</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonSelectTarget.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;labelInfo.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>PortableCreatorDialog</value>
-  </data>
-  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;textBoxTarget.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.1.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="buttonDeploy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 72</value>
-  </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="&gt;&gt;labelInfo.Name" xml:space="preserve">
+    <value>labelInfo</value>
   </data>
   <data name="&gt;&gt;labelInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
-    <value>labelInfo2</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectTarget.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="buttonDeploy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>451, 265</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="&gt;&gt;buttonDeploy.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;textBoxTarget.Name" xml:space="preserve">
-    <value>textBoxTarget</value>
-  </data>
-  <data name="textBoxTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelInfo.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonDeploy.Name" xml:space="preserve">
-    <value>buttonDeploy</value>
+  <data name="&gt;&gt;labelInfo.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>&amp;Deploy</value>
+  <data name="textBoxTarget.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="buttonSelectTarget.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>364, 230</value>
-  </data>
-  <data name="buttonSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>29, 23</value>
-  </data>
-  <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Stores Zero Install configuration and cached applications within a single directory.
-- Does not automatically make the applications launched via Zero Install portable as well.
-- Portable versions of Zero Install cannot perform desktop integration (e.g. create start menu entries).
-- Consider using regular Zero Install on multiple computers with Zero Install Sync instead.</value>
+  <data name="textBoxTarget.HintText" xml:space="preserve">
+    <value>Target directory</value>
   </data>
   <data name="textBoxTarget.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 44</value>
@@ -249,38 +189,14 @@
   <data name="textBoxTarget.Size" type="System.Drawing.Size, System.Drawing">
     <value>392, 20</value>
   </data>
-  <data name="&gt;&gt;labelInfo2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
-  </data>
-  <data name="textBoxTarget.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;labelInfo.Name" xml:space="preserve">
-    <value>labelInfo</value>
-  </data>
-  <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 110</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectTarget.ZOrder" xml:space="preserve">
+  <data name="textBoxTarget.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Target directory</value>
+  <data name="&gt;&gt;textBoxTarget.Name" xml:space="preserve">
+    <value>textBoxTarget</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="labelInfo2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="buttonDeploy.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;textBoxTarget.Type" xml:space="preserve">
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxTarget.Parent" xml:space="preserve">
     <value>$this</value>
@@ -288,31 +204,115 @@
   <data name="&gt;&gt;textBoxTarget.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="buttonSelectTarget.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="buttonDeploy.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonDeploy.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 72</value>
   </data>
-  <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 32</value>
+  <data name="buttonDeploy.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="buttonDeploy.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;labelInfo2.Parent" xml:space="preserve">
+  <data name="buttonDeploy.Text" xml:space="preserve">
+    <value>&amp;Deploy</value>
+  </data>
+  <data name="&gt;&gt;buttonDeploy.Name" xml:space="preserve">
+    <value>buttonDeploy</value>
+  </data>
+  <data name="&gt;&gt;buttonDeploy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDeploy.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Portable creator</value>
-  </data>
-  <data name="&gt;&gt;labelInfo2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonDeploy.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="buttonSelectTarget.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="buttonSelectTarget.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonSelectTarget.Location" type="System.Drawing.Point, System.Drawing">
+    <value>410, 42</value>
+  </data>
+  <data name="buttonSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 23</value>
+  </data>
+  <data name="buttonSelectTarget.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonSelectTarget.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectTarget.Name" xml:space="preserve">
+    <value>buttonSelectTarget</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectTarget.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectTarget.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectTarget.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelInfo2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="labelInfo2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 110</value>
+  </data>
+  <data name="labelInfo2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>427, 108</value>
+  </data>
+  <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="labelInfo2.Text" xml:space="preserve">
+    <value>- Stores Zero Install configuration and cached applications within a single directory.
+- Does not automatically make the applications launched via Zero Install portable as well.
+- Portable versions of Zero Install cannot perform desktop integration (e.g. create start menu entries).
+- Consider using regular Zero Install on multiple computers with Zero Install Sync instead.</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
+    <value>labelInfo2</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelInfo2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>451, 265</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Portable creator</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PortableCreatorDialog</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

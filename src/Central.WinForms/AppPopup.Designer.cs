@@ -48,7 +48,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // labelStatus
             // 
-            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStatus.Location = new System.Drawing.Point(12, 9);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(173, 33);
@@ -57,7 +57,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // buttonIntegrate
             // 
-            this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonIntegrate.Location = new System.Drawing.Point(12, 50);
             this.buttonIntegrate.Name = "buttonIntegrate";
@@ -71,7 +71,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRemove.Location = new System.Drawing.Point(12, 82);
             this.buttonRemove.Name = "buttonRemove";
@@ -85,7 +85,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -100,7 +100,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // iconStatus
             // 
-            this.iconStatus.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.iconStatus.Location = new System.Drawing.Point(191, 4);
             this.iconStatus.Name = "iconStatus";
             this.iconStatus.Size = new System.Drawing.Size(16, 16);

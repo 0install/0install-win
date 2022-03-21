@@ -172,7 +172,7 @@
     <value>buttonUpdateAll</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.1.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -193,28 +193,28 @@
     <value>Segoe UI, 9pt, style=Bold</value>
   </data>
   <data name="buttonSync2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>160, 22</value>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
     <value>Sync</value>
   </data>
   <data name="separator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 6</value>
+    <value>157, 6</value>
   </data>
   <data name="buttonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>160, 22</value>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>&amp;Setup</value>
   </data>
   <data name="buttonSyncTroubleshoot.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>160, 22</value>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>&amp;Troubleshooting</value>
   </data>
   <data name="menuSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 76</value>
+    <value>161, 76</value>
   </data>
   <data name="&gt;&gt;menuSync.Name" xml:space="preserve">
     <value>menuSync</value>
@@ -241,7 +241,7 @@
     <value>buttonSync</value>
   </data>
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.1.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -265,7 +265,7 @@
     <value>tileListMyApps</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.12.1.1, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -501,7 +501,7 @@
     <value>buttonMoreApps</value>
   </data>
   <data name="&gt;&gt;buttonMoreApps.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.1.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonMoreApps.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
@@ -555,7 +555,7 @@
     <value>tileListCatalog</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.12.1.1, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
@@ -635,23 +635,23 @@
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>&amp;Cache management</value>
   </data>
-  <data name="buttonCommandLine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 22</value>
-  </data>
-  <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>C&amp;ommand-line</value>
-  </data>
   <data name="buttonPortableCreator.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 22</value>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
     <value>&amp;Portable creator</value>
   </data>
+  <data name="buttonCommandLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>C&amp;ommand-line</value>
+  </data>
   <data name="buttonTools.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="buttonTools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 20</value>
+    <value>47, 20</value>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
     <value>&amp;Tools</value>
@@ -1188,9 +1188,6 @@
         rEGAAKxBAACsQYABrEHAAaxB8AOsQfgHrEH8B6xB8AOsQeAHrEHgf6xB//+sQQ==
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
@@ -1284,16 +1281,16 @@
   <data name="&gt;&gt;buttonStoreManage.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonCommandLine.Name" xml:space="preserve">
-    <value>buttonCommandLine</value>
-  </data>
-  <data name="&gt;&gt;buttonCommandLine.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;buttonPortableCreator.Name" xml:space="preserve">
     <value>buttonPortableCreator</value>
   </data>
   <data name="&gt;&gt;buttonPortableCreator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCommandLine.Name" xml:space="preserve">
+    <value>buttonCommandLine</value>
+  </data>
+  <data name="&gt;&gt;buttonCommandLine.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonHelp.Name" xml:space="preserve">

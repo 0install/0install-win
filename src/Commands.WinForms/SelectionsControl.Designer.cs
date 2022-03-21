@@ -21,9 +21,8 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         #region Component Designer generated code
-
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -39,8 +38,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // tableLayout
             // 
-            this.tableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayout.AutoSize = true;
             this.tableLayout.ColumnCount = 3;
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
@@ -106,7 +104,6 @@ namespace ZeroInstall.Commands.WinForms
             this.scrollPanel.ResumeLayout(false);
             this.scrollPanel.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

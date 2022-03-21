@@ -21,7 +21,6 @@ namespace ZeroInstall.Central.WinForms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -42,6 +41,7 @@ namespace ZeroInstall.Central.WinForms
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.labelLastCatalogError = new System.Windows.Forms.Label();
@@ -52,21 +52,20 @@ namespace ZeroInstall.Central.WinForms
             this.buttonAddCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFeedEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
+            this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.buttonOptions = new System.Windows.Forms.ToolStripButton();
             this.buttonTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonStoreManage = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonCommandLine = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonPortableCreator = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonCommandLine = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonDocumentation = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
             this.labelVersion = new System.Windows.Forms.ToolStripLabel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
             this.labelNotificationBar = new System.Windows.Forms.Label();
-            this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
-            this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.menuUpdateAll.SuspendLayout();
@@ -109,9 +108,7 @@ namespace ZeroInstall.Central.WinForms
             // menuUpdateAll
             // 
             this.menuUpdateAll.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.menuUpdateAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonUpdateAll2,
-            this.buttonUpdateAllClean});
+            this.menuUpdateAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonUpdateAll2, this.buttonUpdateAllClean });
             this.menuUpdateAll.Name = "contextMenuUpdateAll";
             resources.ApplyResources(this.menuUpdateAll, "menuUpdateAll");
             // 
@@ -140,11 +137,7 @@ namespace ZeroInstall.Central.WinForms
             // menuSync
             // 
             this.menuSync.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.menuSync.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonSync2,
-            this.separator1,
-            this.buttonSyncSetup,
-            this.buttonSyncTroubleshoot});
+            this.menuSync.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonSync2, this.separator1, this.buttonSyncSetup, this.buttonSyncTroubleshoot });
             this.menuSync.Name = "menuSync";
             resources.ApplyResources(this.menuSync, "menuSync");
             // 
@@ -170,6 +163,11 @@ namespace ZeroInstall.Central.WinForms
             this.buttonSyncTroubleshoot.Name = "buttonSyncTroubleshoot";
             resources.ApplyResources(this.buttonSyncTroubleshoot, "buttonSyncTroubleshoot");
             this.buttonSyncTroubleshoot.Click += new System.EventHandler(this.buttonSyncTroubleshoot_Click);
+            // 
+            // tileListMyApps
+            // 
+            resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
+            this.tileListMyApps.Name = "tileListMyApps";
             // 
             // tabPageCatalog
             // 
@@ -204,11 +202,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // menuMoreApps
             // 
-            this.menuMoreApps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonSearch,
-            this.buttonAddFeed,
-            this.buttonAddCatalog,
-            this.buttonFeedEditor});
+            this.menuMoreApps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonSearch, this.buttonAddFeed, this.buttonAddCatalog, this.buttonFeedEditor });
             this.menuMoreApps.Name = "contextMenuStrip1";
             resources.ApplyResources(this.menuMoreApps, "menuMoreApps");
             // 
@@ -243,6 +237,11 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
             this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
             // 
+            // tileListCatalog
+            // 
+            resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
+            this.tileListCatalog.Name = "tileListCatalog";
+            // 
             // panelBottom
             // 
             this.panelBottom.Controls.Add(this.toolStrip);
@@ -253,11 +252,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             resources.ApplyResources(this.toolStrip, "toolStrip");
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonOptions,
-            this.buttonTools,
-            this.buttonHelp,
-            this.labelVersion});
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonOptions, this.buttonTools, this.buttonHelp, this.labelVersion });
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             // 
@@ -271,10 +266,7 @@ namespace ZeroInstall.Central.WinForms
             // buttonTools
             // 
             this.buttonTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.buttonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonStoreManage,
-            this.buttonPortableCreator,
-            this.buttonCommandLine});
+            this.buttonTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonStoreManage, this.buttonPortableCreator, this.buttonCommandLine });
             resources.ApplyResources(this.buttonTools, "buttonTools");
             this.buttonTools.Name = "buttonTools";
             // 
@@ -284,24 +276,22 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.buttonStoreManage, "buttonStoreManage");
             this.buttonStoreManage.Click += new System.EventHandler(this.buttonStoreManage_Click);
             // 
-            // buttonCommandLine
-            // 
-            this.buttonCommandLine.Name = "buttonCommandLine";
-            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
-            this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
-            // 
             // buttonPortableCreator
             // 
             this.buttonPortableCreator.Name = "buttonPortableCreator";
             resources.ApplyResources(this.buttonPortableCreator, "buttonPortableCreator");
             this.buttonPortableCreator.Click += new System.EventHandler(this.buttonPortableCreator_Click);
             // 
+            // buttonCommandLine
+            // 
+            this.buttonCommandLine.Name = "buttonCommandLine";
+            resources.ApplyResources(this.buttonCommandLine, "buttonCommandLine");
+            this.buttonCommandLine.Click += new System.EventHandler(this.buttonCommandLine_Click);
+            // 
             // buttonHelp
             // 
             this.buttonHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.buttonHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonDocumentation,
-            this.buttonIntro});
+            this.buttonHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.buttonDocumentation, this.buttonIntro });
             resources.ApplyResources(this.buttonHelp, "buttonHelp");
             this.buttonHelp.Name = "buttonHelp";
             // 
@@ -339,16 +329,6 @@ namespace ZeroInstall.Central.WinForms
             this.labelNotificationBar.Name = "labelNotificationBar";
             this.labelNotificationBar.Click += new System.EventHandler(this.labelNotificationBar_Click);
             // 
-            // tileListMyApps
-            // 
-            resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
-            this.tileListMyApps.Name = "tileListMyApps";
-            // 
-            // tileListCatalog
-            // 
-            resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
-            this.tileListCatalog.Name = "tileListCatalog";
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -375,7 +355,6 @@ namespace ZeroInstall.Central.WinForms
             this.toolStrip.PerformLayout();
             this.rootTable.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -383,7 +362,7 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private AppTileList tileListMyApps;
+        private ZeroInstall.Central.WinForms.AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private NanoByte.Common.Controls.DropDownButton buttonMoreApps;
