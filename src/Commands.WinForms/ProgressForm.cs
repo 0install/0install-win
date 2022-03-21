@@ -44,6 +44,7 @@ namespace ZeroInstall.Commands.WinForms
             if (branding.Icon != null) Icon = branding.Icon;
             if (branding.SplashScreen != null)
             {
+                ShowIcon = false;
                 pictureBoxSplashScreen.Visible = true;
                 pictureBoxSplashScreen.Image = branding.SplashScreen;
                 var offset = new Size(width: 0, height: pictureBoxSplashScreen.Height);

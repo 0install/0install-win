@@ -167,6 +167,7 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.labelLoading);
             this.Name = "StoreManageForm";
+            this.ShowIcon = false;
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);

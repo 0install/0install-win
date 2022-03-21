@@ -182,6 +182,7 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.textKeywords);
             this.Controls.Add(this.dataGrid);
             this.Name = "FeedSearchDialog";
+            this.ShowIcon = false;
             ((System.ComponentModel.ISupportInitialize) (this.dataGrid)).EndInit();
             this.contextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.errorProvider)).EndInit();

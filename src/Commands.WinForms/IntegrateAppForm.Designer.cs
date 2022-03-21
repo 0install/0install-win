@@ -892,7 +892,6 @@ namespace ZeroInstall.Commands.WinForms
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "IntegrateAppForm";
-            this.ShowIcon = true;
             this.ShowInTaskbar = true;
             this.Load += new System.EventHandler(this.IntegrateAppForm_Load);
             this.Controls.SetChildIndex(this.buttonBasicMode, 0);
