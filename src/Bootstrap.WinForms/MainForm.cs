@@ -33,7 +33,7 @@ namespace ZeroInstall
             var embeddedConfig = EmbeddedConfig.Load();
             if (embeddedConfig.AppName != null)
             {
-                Text = $"{embeddedConfig.AppName} (Zero Install)";
+                Text = $"{embeddedConfig.AppName} (powered by Zero Install)";
                 labelAppName.Text = embeddedConfig.AppName;
             }
 

@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands.WinForms
             var feedCache = FeedCaches.Default(OpenPgp.Verifying());
             var feed = feedUri?.To(feedCache.GetFeed);
 
-            Title = feed?.To(x => $"{x.Name} (Zero Install)")
+            Title = feed?.To(x => $"{x.Name} (powered by Zero Install)")
                  ?? "Zero Install";
             if (Locations.IsPortable) Title += @" - " + Resources.PortableMode;
 
