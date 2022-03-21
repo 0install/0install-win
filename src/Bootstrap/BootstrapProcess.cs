@@ -327,7 +327,10 @@ namespace ZeroInstall
                     args.AddRange(new[] {"download", appUri});
                 else
                 {
-                    args.AddRange(new[] {"run", appUri});
+                    args.Add("run");
+                    if (_gui) args.Add("--no-wait");
+                    args.Add(appUri);
+
                     string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
                     if (appArgs.Length != 0)
                     {
