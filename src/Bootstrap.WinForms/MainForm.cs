@@ -5,7 +5,8 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using NanoByte.Common.Native;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 
 namespace ZeroInstall
@@ -35,14 +36,8 @@ namespace ZeroInstall
             {
                 Text = $"{embeddedConfig.AppName} (powered by Zero Install)";
                 labelAppName.Text = embeddedConfig.AppName;
+                Size += new Size(0, 50).Multiply(this.GetDpiScale());
             }
-
-            HandleCreated += delegate
-            {
-                this.EnableWindowDrag();
-                labelBorder.EnableWindowDrag();
-                pictureBoxLogo.EnableWindowDrag();
-            };
         }
 
         public IProgress<TaskSnapshot> GetProgressControl(string taskName)
@@ -64,8 +59,6 @@ namespace ZeroInstall
             // Start proper cancellation instead
             Cancel();
         }
-
-        private void buttonClose_Click(object sender, EventArgs e) => Cancel();
 
         /// <summary>
         /// Hides the window and then starts canceling the current process asynchronously.
