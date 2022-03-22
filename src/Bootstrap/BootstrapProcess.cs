@@ -239,8 +239,13 @@ namespace ZeroInstall
             {
                 var trust = TrustDB.Load();
                 trust.TrustKey("88C8A1F375928691D7365C0259AA3927C24E4E1E", new Domain("apps.0install.net"));
-                if (_embeddedConfig is {AppUri: not null, AppName: not null, AppFingerprint: not null})
-                    trust.TrustKey(_embeddedConfig.AppFingerprint, new Domain(_embeddedConfig.AppUri.Host));
+                if (_embeddedConfig.KeyFingerprint != null)
+                {
+                    if (_embeddedConfig is {AppUri: not null, AppName: not null})
+                        trust.TrustKey(_embeddedConfig.KeyFingerprint, new Domain(_embeddedConfig.AppUri.Host));
+                    else if (_embeddedConfig.SelfUpdateUri != null)
+                        trust.TrustKey(_embeddedConfig.KeyFingerprint, new Domain(_embeddedConfig.SelfUpdateUri.Host));
+                }
                 trust.Save();
             }
             #region Error handling

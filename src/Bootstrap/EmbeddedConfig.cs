@@ -13,12 +13,12 @@ namespace ZeroInstall
     /// This is used to create a customized bootstrapper that uses Zero Install to run or integrate another application.
     /// </summary>
     /// <param name="SelfUpdateUri">The feed URI used to download and update Zero Install itself.</param>
+    /// <param name="KeyFingerprint">The GnuPG key fingerprint to trust for signing <see cref="SelfUpdateUri"/> or <paramref cref="AppUri"/>.</param>
     /// <param name="AppUri">The feed URI of the target application to bootstrap.</param>
     /// <param name="AppName">The name of the target application to bootstrap.</param>
-    /// <param name="AppFingerprint">The GnuPG key fingerprint to trust for signing <paramref cref="AppUri"/>.</param>
     /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
     /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
-    public record EmbeddedConfig(FeedUri? SelfUpdateUri, FeedUri? AppUri, string? AppName, string? AppFingerprint, string? AppArgs, string? IntegrateArgs)
+    public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs)
     {
         /// <summary>
         /// Loads the embedded configuration.
@@ -48,9 +48,9 @@ namespace ZeroInstall
 
             return new(
                 SelfUpdateUri: ReadConfig("self_update_uri", lineNumber: 0, placeholder: nameof(SelfUpdateUri))?.To(x => new FeedUri(x)),
-                AppUri: ReadConfig("app_uri", lineNumber: 1, nameof(AppUri))?.To(x => new FeedUri(x)),
-                AppName: ReadConfig("app_name", lineNumber: 2, placeholder: nameof(AppName)),
-                AppFingerprint: ReadConfig("app_fingerprint", lineNumber: 3, placeholder: nameof(AppFingerprint)),
+                KeyFingerprint: ReadConfig("key_fingerprint", lineNumber: 1, placeholder: nameof(KeyFingerprint)),
+                AppUri: ReadConfig("app_uri", lineNumber: 2, nameof(AppUri))?.To(x => new FeedUri(x)),
+                AppName: ReadConfig("app_name", lineNumber: 3, placeholder: nameof(AppName)),
                 AppArgs: ReadConfig("app_args", lineNumber: 4, placeholder: nameof(AppArgs)),
                 IntegrateArgs: ReadConfig("integrate_args", lineNumber: 5, placeholder: nameof(IntegrateArgs))
             );
