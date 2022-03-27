@@ -19,7 +19,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the results of a feed search to the user and allows them to perform additional searches.
     /// </summary>
-    public partial class FeedSearchDialog : Form
+    public sealed partial class FeedSearchDialog : Form
     {
         private List<SearchResult> _results;
 

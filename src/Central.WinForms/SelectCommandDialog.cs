@@ -18,7 +18,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// A dialog box allowing the user to specify additional options for running a feed.
     /// </summary>
-    public partial class SelectCommandDialog : OKCancelDialog
+    public sealed partial class SelectCommandDialog : OKCancelDialog
     {
         #region Inner class
         private class EntryPointWrapper

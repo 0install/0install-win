@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Service
     /// <summary>
     /// Represents a Windows service.
     /// </summary>
-    public partial class StoreService : ServiceBase
+    public sealed partial class StoreService : ServiceBase
     {
         public StoreService()
         {

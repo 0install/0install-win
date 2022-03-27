@@ -24,7 +24,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Dialog for modifying <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/>.
     /// </summary>
-    public partial class InterfaceDialog : OKCancelDialog
+    public sealed partial class InterfaceDialog : OKCancelDialog
     {
         #region Variables
         /// <summary>The interface to modify the preferences for.</summary>

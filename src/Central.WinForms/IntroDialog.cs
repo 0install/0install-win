@@ -11,7 +11,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
 {
-    public partial class IntroDialog : Form
+    public sealed partial class IntroDialog : Form
     {
         private static readonly FeedUri _coolApp = new(FeedUri.FakePrefix + "http://cool_app/");
         private static readonly FeedUri _commonApp = new(FeedUri.FakePrefix + "http://common_app/");

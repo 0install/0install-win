@@ -11,7 +11,7 @@ using ZeroInstall.Commands.Desktop;
 
 namespace ZeroInstall.Central.WinForms
 {
-    public partial class PortableCreatorDialog : Form
+    public sealed partial class PortableCreatorDialog : Form
     {
         public PortableCreatorDialog()
         {
