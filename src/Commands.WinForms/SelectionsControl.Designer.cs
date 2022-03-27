@@ -40,18 +40,16 @@ namespace ZeroInstall.Commands.WinForms
             // 
             this.tableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayout.AutoSize = true;
-            this.tableLayout.ColumnCount = 3;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayout.Controls.Add(this.labelName, 0, 0);
             this.tableLayout.Controls.Add(this.labelVersion, 1, 0);
             this.tableLayout.Controls.Add(this.labelTask, 2, 0);
             this.tableLayout.Location = new System.Drawing.Point(0, 0);
             this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 1;
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayout.Size = new System.Drawing.Size(279, 19);
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayout.Size = new System.Drawing.Size(279, 20);
             this.tableLayout.TabIndex = 0;
             // 
             // labelName
@@ -66,7 +64,7 @@ namespace ZeroInstall.Commands.WinForms
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(68, 0);
+            this.labelVersion.Location = new System.Drawing.Point(44, 0);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(42, 13);
             this.labelVersion.TabIndex = 1;
@@ -75,7 +73,7 @@ namespace ZeroInstall.Commands.WinForms
             // labelTask
             // 
             this.labelTask.AutoSize = true;
-            this.labelTask.Location = new System.Drawing.Point(128, 0);
+            this.labelTask.Location = new System.Drawing.Point(92, 0);
             this.labelTask.Name = "labelTask";
             this.labelTask.Size = new System.Drawing.Size(31, 13);
             this.labelTask.TabIndex = 2;

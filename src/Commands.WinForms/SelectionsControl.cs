@@ -64,13 +64,15 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (_selections == null || _feedManager == null) return;
 
+            tableLayout.SuspendLayout();
+
             tableLayout.Controls.Clear();
             tableLayout.RowStyles.Clear();
 
             tableLayout.RowCount = _selections.Implementations.Count;
             for (int i = 0; i < _selections.Implementations.Count; i++)
             {
-                // Lines have a fixed height but a variable width
+                // Give lines a fixed width so they don't resize when task progress bars are added
                 tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58 * AutoScaleDimensions.Height / 13F));
 
                 // Get feed for each selected implementation
@@ -78,9 +80,11 @@ namespace ZeroInstall.Commands.WinForms
                 var feed = _feedManager[implementation.InterfaceUri];
 
                 // Display application name and implementation version
-                tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
-                tableLayout.Controls.Add(new Label {Text = implementation.Version.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
+                tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
+                tableLayout.Controls.Add(new Label {Text = implementation.Version.ToString(), Dock = DockStyle.Fill, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
             }
+
+            tableLayout.ResumeLayout();
         }
 
         /// <summary>
