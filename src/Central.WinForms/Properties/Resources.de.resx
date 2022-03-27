@@ -243,7 +243,7 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
     <value>Der Benutzername und/oder das Passwort sind nicht korrekt.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Der Crypto-Schlüssel ist nicht korrekt.</value>
+    <value>Der Krypto-Key ist nicht korrekt.</value>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
     <value>Möchten Sie die bestehenden Sync-Einstellungen zurücksetzen und von vorne anfangen?</value>
@@ -258,7 +258,7 @@ von vorne anfangen</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
-Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie auswählen, dass Sie sich nicht an den Crypto-Schlüssel erinnern.</value>
+Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie auswählen, dass Sie sich nicht an den Krypto-Key erinnern.</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Konnte Anwendungskatalog nicht runterladen.</value>

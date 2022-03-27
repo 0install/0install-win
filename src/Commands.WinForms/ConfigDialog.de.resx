@@ -122,7 +122,7 @@
     <value>Account verwalten</value>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>&amp;Crypto-Schlüssel:</value>
+    <value>&amp;Krypto-Key:</value>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
     <value>&amp;Passwort:</value>

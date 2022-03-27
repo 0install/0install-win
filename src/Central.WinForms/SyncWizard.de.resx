@@ -178,43 +178,43 @@
     <value>Sync Konto</value>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Schlüssel &amp;vergessen</value>
+    <value>Key &amp;vergessen</value>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Crypto-Schlüssel:</value>
+    <value>Krypto-Key:</value>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Geben Sie den Crypto-Schlüssel ein, den Sie zuvor auf diesem und/oder anderen Rechnern verwendet haben:</value>
+    <value>Geben Sie den Krypto-Key ein, den Sie zuvor auf diesem und/oder anderen Rechnern verwendet haben:</value>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Crypto-Schlüssel</value>
+    <value>Krypto-Key</value>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
     <value>Alle Änderungen, die Sie auf anderen Rechnern gemacht aber noch nicht mit diesem synchronisiert haben, gehen hierbei verloren!</value>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>Neuer Crypto-&amp;Schlüssel:</value>
+    <value>Neuer Crypto-&amp;Key:</value>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Geben Sie den Schlüssel auf anderen Computern mit dem 'Optionen' Fenster ein. Verwenden Sie dort nicht diesen Assistenten, da er nur zur ersten Änderung benötigt wird.</value>
+    <value>Geben Sie den Key auf anderen Computern mit dem 'Optionen' Fenster ein. Verwenden Sie dort nicht diesen Assistenten, da er nur zur ersten Änderung benötigt wird.</value>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Der Crypto-Schlüssel wurde geändert. Sie müssen nun den neuen Schlüssel auf allen anderen Computern, die Sie bereits für Zero Install Sync eingerichtet haben, ebenfalls eintragen.</value>
+    <value>Der Krypto-Key wurde geändert. Sie müssen nun den neuen Key auf allen anderen Computern, die Sie bereits für Zero Install Sync eingerichtet haben, ebenfalls eintragen.</value>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Crypto-Schlüssel geändert</value>
+    <value>Krypto-Key geändert</value>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Crypto-Schlüssel zurücksetzen</value>
+    <value>Krypto-Key zurücksetzen</value>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden würde.</value>
+    <value>Halten Sie diesen Key geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden würde.</value>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Crypto-&amp;Schlüssel:</value>
+    <value>Crypto-&amp;Key:</value>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Der Crypto-Schlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden. Schreiben Sie sich den vorgeschlagenen auf oder wählen Sie einen eigenen.</value>
+    <value>Der Krypto-Key wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden. Schreiben Sie sich den vorgeschlagenen auf oder wählen Sie einen eigenen.</value>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
     <value>Zero Install Sync ist nun eingerichtet und bereit zum Einsatz. Führen Sie diesen Assistenten auf allen anderen Rechnern aus, die Sie mit diesem synchronisieren möchten.</value>
@@ -223,7 +223,7 @@
     <value>Abgeschlossen</value>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Crypto-Schlüssel</value>
+    <value>Krypto-Key</value>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>Ich möchte meine &amp;lokalen Daten ersetzen</value>
@@ -232,7 +232,7 @@
     <value>Die &amp;Serverdaten sind beschädigt</value>
   </data>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Ich möchte meinen &amp;Crypto-Schlüssel ändern</value>
+    <value>Ich möchte meinen &amp;Krypto-Key ändern</value>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
     <value>Dieser Assistent kann Ihnen dabei helfen, eine Reihe möglicher Sync Probleme zu beheben. Um welchen Sachverhalt geht es?</value>
@@ -244,10 +244,10 @@
     <value>Sie sollten Zero Install Sync nicht auf anderen Rechner ausführen während dieser Prozess läuft.</value>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>Neuer Crypto-&amp;Schlüssel:</value>
+    <value>Neuer Crypto-&amp;Key:</value>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Crypto-Schlüssel ändern</value>
+    <value>Krypto-Key ändern</value>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
     <value>Sie sind dabei die Daten, die auf dem Sync Server gespeichert sind, mit Ihrer lokalen Anwendungsliste zu ersetzen. Alle Änderungen, die Sie auf anderen Rechnern gemacht aber noch nicht mit diesem synchronisiert haben, gehen dabei verloren!</value>
