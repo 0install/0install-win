@@ -62,16 +62,20 @@ namespace ZeroInstall.Central.WinForms
         {
             tileListCatalog.Clear();
             tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Candidate)
-                           .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}});
+                           .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}})
+                           .SetIcon(ImageResources.AppIcon);
             tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppTileStatus.Candidate)
-                           .SetFeed(new() {Summaries = {Resources.IntroCommonAppSummary}});
+                           .SetFeed(new() {Summaries = {Resources.IntroCommonAppSummary}})
+                           .SetIcon(ImageResources.AppIcon);
             tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppTileStatus.Candidate)
-                           .SetFeed(new() {Summaries = {Resources.IntroOtherAppSummary}});
+                           .SetFeed(new() {Summaries = {Resources.IntroOtherAppSummary}})
+                           .SetIcon(ImageResources.AppIcon);
             tileListCatalog.AddQueuedTiles();
 
             tileListMyApps.Clear();
             tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Added)
-                          .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}});
+                          .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}})
+                          .SetIcon(ImageResources.AppIcon);
             tileListMyApps.AddQueuedTiles();
         }
 

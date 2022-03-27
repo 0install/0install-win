@@ -89,7 +89,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Sets the <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries.
         /// </summary>
-        public void SetFeed(Feed? feed)
+        public AppTile SetFeed(Feed? feed)
         {
             _feed = feed;
             if (feed == null)
@@ -101,6 +101,7 @@ namespace ZeroInstall.Central.WinForms
                 buttonRunWithOptions.Visible = true;
                 labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
             }
+            return this;
         }
 
         /// <summary>
