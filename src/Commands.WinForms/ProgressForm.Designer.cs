@@ -45,9 +45,9 @@ namespace ZeroInstall.Commands.WinForms
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(473, 253);
+            this.buttonCancel.Location = new System.Drawing.Point(463, 253);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(85, 23);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "(Cancel)";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -61,9 +61,9 @@ namespace ZeroInstall.Commands.WinForms
             // buttonHide
             // 
             this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(392, 253);
+            this.buttonHide.Location = new System.Drawing.Point(372, 253);
             this.buttonHide.Name = "buttonHide";
-            this.buttonHide.Size = new System.Drawing.Size(75, 23);
+            this.buttonHide.Size = new System.Drawing.Size(85, 23);
             this.buttonHide.TabIndex = 3;
             this.buttonHide.Text = "(Hide)";
             this.toolTip.SetToolTip(this.buttonHide, "Hides the window and continues running the process as a tray icon");
@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonCustomizeSelectionsDone.Location = new System.Drawing.Point(12, 253);
             this.buttonCustomizeSelectionsDone.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
             this.buttonCustomizeSelectionsDone.Name = "buttonCustomizeSelectionsDone";
-            this.buttonCustomizeSelectionsDone.Size = new System.Drawing.Size(75, 23);
+            this.buttonCustomizeSelectionsDone.Size = new System.Drawing.Size(85, 23);
             this.buttonCustomizeSelectionsDone.TabIndex = 6;
             this.buttonCustomizeSelectionsDone.Text = "(Done)";
             this.buttonCustomizeSelectionsDone.UseVisualStyleBackColor = true;

@@ -184,7 +184,7 @@
     <value>16, 42</value>
   </data>
   <data name="dataGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 273</value>
+    <value>802, 323</value>
   </data>
   <data name="dataGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -335,7 +335,7 @@
     <value>16, 16</value>
   </data>
   <data name="textKeywords.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 20</value>
+    <value>802, 20</value>
   </data>
   <data name="textKeywords.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -356,10 +356,10 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="labelInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 318</value>
+    <value>17, 368</value>
   </data>
   <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>651, 30</value>
+    <value>801, 30</value>
   </data>
   <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -389,7 +389,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>684, 361</value>
+    <value>834, 411</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

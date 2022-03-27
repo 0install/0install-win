@@ -31,9 +31,10 @@ namespace ZeroInstall.Commands.WinForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InterfaceDialog));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageVersions = new System.Windows.Forms.TabPage();
-            this.checkBoxShowAllVersions = new System.Windows.Forms.CheckBox();
+            this.panelStability = new System.Windows.Forms.FlowLayoutPanel();
             this.labelStability = new System.Windows.Forms.Label();
             this.comboBoxStability = new System.Windows.Forms.ComboBox();
+            this.checkBoxShowAllVersions = new System.Windows.Forms.CheckBox();
             this.dataGridVersions = new System.Windows.Forms.DataGridView();
             this.dataColumnVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataColumnReleased = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +51,7 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonApply = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageVersions.SuspendLayout();
+            this.panelStability.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).BeginInit();
             this.tabPageFeeds.SuspendLayout();
             this.SuspendLayout();
@@ -73,21 +75,19 @@ namespace ZeroInstall.Commands.WinForms
             // 
             // tabPageVersions
             // 
+            this.tabPageVersions.Controls.Add(this.panelStability);
             this.tabPageVersions.Controls.Add(this.checkBoxShowAllVersions);
-            this.tabPageVersions.Controls.Add(this.labelStability);
-            this.tabPageVersions.Controls.Add(this.comboBoxStability);
             this.tabPageVersions.Controls.Add(this.dataGridVersions);
             resources.ApplyResources(this.tabPageVersions, "tabPageVersions");
             this.tabPageVersions.Name = "tabPageVersions";
             this.tabPageVersions.UseVisualStyleBackColor = true;
             // 
-            // checkBoxShowAllVersions
+            // panelStability
             // 
-            resources.ApplyResources(this.checkBoxShowAllVersions, "checkBoxShowAllVersions");
-            this.checkBoxShowAllVersions.Name = "checkBoxShowAllVersions";
-            this.toolTip.SetToolTip(this.checkBoxShowAllVersions, resources.GetString("checkBoxShowAllVersions.ToolTip"));
-            this.checkBoxShowAllVersions.UseVisualStyleBackColor = true;
-            this.checkBoxShowAllVersions.CheckedChanged += new System.EventHandler(this.checkBoxShowAllVersions_CheckedChanged);
+            resources.ApplyResources(this.panelStability, "panelStability");
+            this.panelStability.Controls.Add(this.labelStability);
+            this.panelStability.Controls.Add(this.comboBoxStability);
+            this.panelStability.Name = "panelStability";
             // 
             // labelStability
             // 
@@ -101,6 +101,14 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.comboBoxStability, "comboBoxStability");
             this.comboBoxStability.Name = "comboBoxStability";
             this.toolTip.SetToolTip(this.comboBoxStability, resources.GetString("comboBoxStability.ToolTip"));
+            // 
+            // checkBoxShowAllVersions
+            // 
+            resources.ApplyResources(this.checkBoxShowAllVersions, "checkBoxShowAllVersions");
+            this.checkBoxShowAllVersions.Name = "checkBoxShowAllVersions";
+            this.toolTip.SetToolTip(this.checkBoxShowAllVersions, resources.GetString("checkBoxShowAllVersions.ToolTip"));
+            this.checkBoxShowAllVersions.UseVisualStyleBackColor = true;
+            this.checkBoxShowAllVersions.CheckedChanged += new System.EventHandler(this.checkBoxShowAllVersions_CheckedChanged);
             // 
             // dataGridVersions
             // 
@@ -229,11 +237,14 @@ namespace ZeroInstall.Commands.WinForms
             this.tabControl.ResumeLayout(false);
             this.tabPageVersions.ResumeLayout(false);
             this.tabPageVersions.PerformLayout();
+            this.panelStability.ResumeLayout(false);
+            this.panelStability.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVersions)).EndInit();
             this.tabPageFeeds.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.FlowLayoutPanel panelStability;
         private System.Windows.Forms.Button buttonAddFeed;
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonRemoveFeed;

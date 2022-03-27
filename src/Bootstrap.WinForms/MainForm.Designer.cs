@@ -57,7 +57,7 @@ namespace ZeroInstall
             // 
             this.labelAppName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAppName.AutoEllipsis = true;
-            this.labelAppName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAppName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F);
             this.labelAppName.Location = new System.Drawing.Point(12, 202);
             this.labelAppName.Name = "labelAppName";
             this.labelAppName.Size = new System.Drawing.Size(536, 40);

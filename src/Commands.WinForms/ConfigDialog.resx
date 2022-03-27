@@ -153,7 +153,7 @@
     <value>True</value>
   </data>
   <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 81</value>
+    <value>99, 81</value>
   </data>
   <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 13</value>
@@ -208,10 +208,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 111</value>
+    <value>99, 111</value>
   </data>
   <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 20</value>
+    <value>256, 20</value>
   </data>
   <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -259,10 +259,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 58</value>
+    <value>99, 58</value>
   </data>
   <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 20</value>
+    <value>281, 20</value>
   </data>
   <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -310,10 +310,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 6</value>
+    <value>99, 6</value>
   </data>
   <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 20</value>
+    <value>281, 20</value>
   </data>
   <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -364,10 +364,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 32</value>
+    <value>99, 32</value>
   </data>
   <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 20</value>
+    <value>281, 20</value>
   </data>
   <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -667,10 +667,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemoveImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>293, 211</value>
+    <value>286, 211</value>
   </data>
   <data name="buttonRemoveImplDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonRemoveImplDir.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -700,10 +700,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGoToImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 211</value>
+    <value>110, 211</value>
   </data>
   <data name="buttonGoToImplDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonGoToImplDir.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -730,10 +730,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAddImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 211</value>
+    <value>198, 211</value>
   </data>
   <data name="buttonAddImplDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonAddImplDir.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -841,7 +841,7 @@
     <value>6, 211</value>
   </data>
   <data name="buttonResetCatalogSources.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonResetCatalogSources.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -871,10 +871,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemoveCatalogSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>293, 211</value>
+    <value>286, 211</value>
   </data>
   <data name="buttonRemoveCatalogSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonRemoveCatalogSource.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -904,10 +904,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGoToCatalogSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 211</value>
+    <value>110, 211</value>
   </data>
   <data name="buttonGoToCatalogSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonGoToCatalogSource.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -934,10 +934,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAddCatalogSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 211</value>
+    <value>198, 211</value>
   </data>
   <data name="buttonAddCatalogSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonAddCatalogSource.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1096,10 +1096,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemoveTrustedKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>293, 183</value>
+    <value>286, 183</value>
   </data>
   <data name="buttonRemoveTrustedKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonRemoveTrustedKey.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1288,10 +1288,10 @@ Notes:
     <value>Top</value>
   </data>
   <data name="buttonAdvancedShow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 61</value>
+    <value>103, 61</value>
   </data>
   <data name="buttonAdvancedShow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 23</value>
+    <value>187, 23</value>
   </data>
   <data name="buttonAdvancedShow.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

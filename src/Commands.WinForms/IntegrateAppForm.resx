@@ -1288,7 +1288,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxCapabilities.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 12</value>
+    <value>115, 12</value>
   </data>
   <data name="checkBoxCapabilities.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 17</value>

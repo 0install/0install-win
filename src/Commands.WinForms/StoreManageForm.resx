@@ -184,7 +184,7 @@
     <value>117, 41</value>
   </data>
   <data name="textTotalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 13</value>
+    <value>154, 13</value>
   </data>
   <data name="textTotalSize.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -211,7 +211,7 @@
     <value>117, 3</value>
   </data>
   <data name="textCurrentSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 13</value>
+    <value>154, 13</value>
   </data>
   <data name="textCurrentSize.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -238,7 +238,7 @@
     <value>117, 22</value>
   </data>
   <data name="textCheckedSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 13</value>
+    <value>154, 13</value>
   </data>
   <data name="textCheckedSize.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -325,13 +325,13 @@
     <value>5</value>
   </data>
   <data name="tableLayoutPanelSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 360</value>
+    <value>0, 357</value>
   </data>
   <data name="tableLayoutPanelSize.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="tableLayoutPanelSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 58</value>
+    <value>274, 58</value>
   </data>
   <data name="tableLayoutPanelSize.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -358,7 +358,7 @@
     <value>0, 0</value>
   </data>
   <data name="propertyGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 354</value>
+    <value>274, 351</value>
   </data>
   <data name="propertyGrid.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -388,10 +388,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>490, 421</value>
+    <value>550, 418</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>243</value>
+    <value>272</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -412,10 +412,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>427, 439</value>
+    <value>480, 436</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonClose.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -439,10 +439,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>346, 439</value>
+    <value>392, 436</value>
   </data>
   <data name="buttonRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonRefresh.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -469,10 +469,10 @@
     <value>False</value>
   </data>
   <data name="buttonRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 439</value>
+    <value>12, 436</value>
   </data>
   <data name="buttonRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonRemove.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -499,10 +499,10 @@
     <value>False</value>
   </data>
   <data name="buttonVerify.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 439</value>
+    <value>100, 436</value>
   </data>
   <data name="buttonVerify.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>82, 23</value>
   </data>
   <data name="buttonVerify.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -526,10 +526,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonRunAsAdmin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 439</value>
+    <value>246, 436</value>
   </data>
   <data name="buttonRunAsAdmin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 23</value>
+    <value>140, 23</value>
   </data>
   <data name="buttonRunAsAdmin.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -559,7 +559,7 @@
     <value>True</value>
   </data>
   <data name="labelLoading.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 444</value>
+    <value>188, 441</value>
   </data>
   <data name="labelLoading.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 13</value>
@@ -592,7 +592,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>514, 474</value>
+    <value>574, 471</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -911,7 +911,7 @@
 </value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>490, 250</value>
+    <value>550, 250</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
