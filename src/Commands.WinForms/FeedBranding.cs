@@ -17,12 +17,12 @@ namespace ZeroInstall.Commands.WinForms;
 public class FeedBranding : IDisposable
 {
     /// <summary>
-    /// The title of the window.
+    /// The name of the app.
     /// </summary>
-    public string Title { get; }
+    public string? Name { get; }
 
     /// <summary>
-    /// The icon of the window.
+    /// The icon of the app.
     /// </summary>
     public SystemIcon? Icon { get; }
 
@@ -39,9 +39,7 @@ public class FeedBranding : IDisposable
         var feedCache = FeedCaches.Default(OpenPgp.Verifying());
         var feed = feedUri?.To(feedCache.GetFeed);
 
-        Title = feed?.To(x => $"{x.Name} (powered by Zero Install)")
-             ?? "Zero Install";
-        if (Locations.IsPortable) Title += @" - " + Resources.PortableMode;
+        Name = feed?.Name;
 
         var iconStore = IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false);
         Icon = feed

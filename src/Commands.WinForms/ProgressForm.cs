@@ -30,7 +30,7 @@ public sealed partial class ProgressForm : Form
         buttonHide.Text = Resources.Hide;
         buttonCancel.Text = Resources.Cancel;
 
-        Text = branding.Title;
+        if (branding.Name != null) Text = branding.Name;
         if (branding.Icon != null) Icon = branding.Icon;
         if (branding.SplashScreen != null)
         {
@@ -42,6 +42,8 @@ public sealed partial class ProgressForm : Form
             selectionsControl.Location += offset;
             selectionsControl.Size -= offset;
         }
+
+        if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
         notifyIcon.Text = Text;
         notifyIcon.Icon = Icon;

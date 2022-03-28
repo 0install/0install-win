@@ -225,7 +225,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
 
     private void ShowNotificationClassic(string title, string message, ToolTipIcon icon)
     {
-        new NotifyIcon {Visible = true, Text = Branding.Title, Icon = Branding.Icon}
+        new NotifyIcon {Visible = true, Text = Branding.Name ?? "Zero Install", Icon = Branding.Icon}
            .ShowBalloonTip(10000, title, message, icon);
     }
 
@@ -320,7 +320,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
          || severity == LogSeverity.Info && Verbosity >= Verbosity.Verbose
          || severity >= LogSeverity.Warn)
         {
-            ShowNotification(Branding.Title, message, severity switch
+            ShowNotification(Branding.Name ?? "Zero Install", message, severity switch
             {
                 LogSeverity.Info => ToolTipIcon.Info,
                 LogSeverity.Warn => ToolTipIcon.Warning,
