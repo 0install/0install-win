@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
@@ -17,6 +18,7 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Configuration;
 
@@ -150,25 +152,22 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Drag and drop handling
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        private async void MainForm_DragDrop(object sender, DragEventArgs e)
         {
+            bool added = false;
+
+            async Task AddAsync(string interfaceUri)
+                => added |= await RunCommandAsync(AddApp.Name, interfaceUri) == ExitCode.OK;
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 foreach (string path in (string[])e.Data.GetData(DataFormats.FileDrop))
-                    AddCustomInterface(path);
+                    await AddAsync(path);
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
-                AddCustomInterface((string)e.Data.GetData(DataFormats.Text));
-        }
+                await AddAsync((string)e.Data.GetData(DataFormats.Text));
 
-        /// <summary>
-        /// Adds a custom interface to <see cref="tileListCatalog"/>.
-        /// </summary>
-        /// <param name="interfaceUri">The URI of the interface to be added.</param>
-        private void AddCustomInterface(string interfaceUri)
-        {
-            Program.RunCommandAsync(_machineWide, AddApp.Name, interfaceUri);
-            tabControlApps.SelectTab(tabPageAppList);
+            if (added) tabControlApps.SelectTab(tabPageAppList);
         }
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)
@@ -233,19 +232,19 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Buttons
-        private async void buttonSync_Click(object sender, EventArgs e)
+        private void buttonSync_Click(object sender, EventArgs e)
         {
-            if (Config.LoadSafe().IsSyncConfigured) await Program.RunCommandAsync(_machineWide, SyncApps.Name);
+            if (Config.LoadSafe().IsSyncConfigured) RunCommandAsync(SyncApps.Name);
             else SyncWizard.Setup(_machineWide, this);
         }
 
-        private async void buttonSyncSetup_Click(object sender, EventArgs e)
+        private void buttonSyncSetup_Click(object sender, EventArgs e)
         {
             if (Config.LoadSafe().IsSyncConfigured)
             {
                 if (!Msg.YesNo(this, Resources.SyncReplaceConfigAsk, MsgSeverity.Warn, Resources.SyncReplaceConfigYes, Resources.SyncReplaceConfigNo))
                 {
-                    await Program.RunCommandAsync(Configure.Name, "--tab=sync");
+                    CommandUtils.Start(Configure.Name, "--tab=sync");
                     return;
                 }
             }
@@ -259,38 +258,38 @@ namespace ZeroInstall.Central.WinForms
             else Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
         }
 
-        private async void buttonUpdateAll_Click(object sender, EventArgs e)
-            => await Program.RunCommandAsync(_machineWide, UpdateApps.Name);
+        private void buttonUpdateAll_Click(object sender, EventArgs e)
+            => RunCommandAsync(UpdateApps.Name);
 
-        private async void buttonUpdateAllClean_Click(object sender, EventArgs e)
+        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
         {
             if (Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel))
-                await Program.RunCommandAsync(_machineWide, UpdateApps.Name, "--clean");
+                RunCommandAsync(UpdateApps.Name, "--clean");
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
             => LoadCatalogAsync();
 
         private void buttonSearch_Click(object sender, EventArgs e)
-            => Program.RunCommandAsync(Search.Name);
+            => CommandUtils.Start(Search.Name);
 
-        private async void buttonAddFeed_Click(object sender, EventArgs e)
+        private void buttonAddFeed_Click(object sender, EventArgs e)
         {
             string interfaceUri = InputBox.Show(this, Text, Resources.EnterFeedUrl);
-            if (!string.IsNullOrEmpty(interfaceUri)) await Program.RunCommandAsync(_machineWide, AddApp.Name, interfaceUri);
+            if (!string.IsNullOrEmpty(interfaceUri)) RunCommandAsync(AddApp.Name, interfaceUri);
         }
 
         private void buttonAddCatalog_Click(object sender, EventArgs e)
-            => Program.RunCommandAsync(Configure.Name, "--tab=catalog");
+            => CommandUtils.Start(Configure.Name, "--tab=catalog");
 
         private void buttonFeedEditor_Click(object sender, EventArgs e)
-            => Program.RunCommandAsync(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
+            => CommandUtils.Start(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
 
         private void buttonOptions_Click(object sender, EventArgs e)
-            => Program.RunCommandAsync(Configure.Name);
+            => CommandUtils.Start(Configure.Name);
 
         private void buttonStoreManage_Click(object sender, EventArgs e)
-            => Program.RunCommandAsync(StoreMan.Name, "manage");
+            => CommandUtils.Start(StoreMan.Name, "manage");
 
         private void buttonCommandLine_Click(object sender, EventArgs e)
             => new ProcessStartInfo("powershell.exe", new[] {"-NoExit", "-Command", $"Write-Host \"{Resources.CommandLineHint}\""}.JoinEscapeArguments())
@@ -370,7 +369,9 @@ namespace ZeroInstall.Central.WinForms
                     machineWide = _machineWide;
                 }
 
-                Program.RunCommandAsync(machineWide, Self.Name, Self.Deploy.Name, "--batch", "--restart-central");
+                CommandUtils.Start(machineWide
+                    ? new[] {Self.Name, Self.Deploy.Name, "--batch", "--restart-central", "--machine"}
+                    : new[] {Self.Name, Self.Deploy.Name, "--batch", "--restart-central"});
                 Close();
             });
         }
@@ -386,7 +387,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 try
                 {
-                    Program.RunCommandAsync(Self.Name, Self.Update.Name, "--batch", "--restart-central");
+                    CommandUtils.Start(Self.Name, Self.Update.Name, "--batch", "--restart-central");
                     Close();
                 }
                 #region Error handling
@@ -426,5 +427,11 @@ namespace ZeroInstall.Central.WinForms
             labelLoadingCatalog.Visible = false;
         }
         #endregion
+
+        private Task<ExitCode> RunCommandAsync(params string[] args)
+        {
+            if (_machineWide) args = args.Append("--machine");
+            return CommandUtils.RunAsync(args);
+        }
     }
 }

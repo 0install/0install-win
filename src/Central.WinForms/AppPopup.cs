@@ -3,12 +3,15 @@
 
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Storage;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 
@@ -113,7 +116,7 @@ namespace ZeroInstall.Central.WinForms
         {
             labelStatus.Text = AppResources.Working;
 
-            var exitCode = await Program.RunCommandAsync(_machineWide, Commands.Desktop.AddApp.Name, "--background", _interfaceUri.ToStringRfc());
+            var exitCode = await RunCommandAsync(Commands.Desktop.AddApp.Name, "--background", _interfaceUri.ToStringRfc());
             if (exitCode == ExitCode.OK)
             {
                 _status = AppTileStatus.Added;
@@ -126,7 +129,7 @@ namespace ZeroInstall.Central.WinForms
         {
             labelStatus.Text = AppResources.Working;
             Enabled = false;
-            await Program.RunCommandAsync(_machineWide, IntegrateApp.Name, _interfaceUri.ToStringRfc());
+            await RunCommandAsync(IntegrateApp.Name, _interfaceUri.ToStringRfc());
             Close();
         }
 
@@ -134,8 +137,14 @@ namespace ZeroInstall.Central.WinForms
         {
             labelStatus.Text = AppResources.Working;
             Enabled = false;
-            await Program.RunCommandAsync(_machineWide, RemoveApp.Name, _interfaceUri.ToStringRfc());
+            await RunCommandAsync(RemoveApp.Name, _interfaceUri.ToStringRfc());
             Close();
+        }
+
+        private Task<ExitCode> RunCommandAsync(params string[] args)
+        {
+            if (_machineWide) args = args.Append("--machine");
+            return CommandUtils.RunAsync(args);
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

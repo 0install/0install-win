@@ -15,6 +15,7 @@ using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Desktop;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
@@ -442,7 +443,7 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageSetupFinished
-        private async void pageSetupFinished_Commit(object sender, WizardPageConfirmEventArgs e)
+        private void pageSetupFinished_Commit(object sender, WizardPageConfirmEventArgs e)
         {
             if (!SaveConfig())
             {
@@ -450,7 +451,7 @@ namespace ZeroInstall.Central.WinForms
                 return;
             }
 
-            await Program.RunCommandAsync(SyncApps.Name);
+            CommandUtils.Start(SyncApps.Name);
         }
         #endregion
 
@@ -522,13 +523,18 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region pageResetServer
-        private async void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e)
-            => await Program.RunCommandAsync(_machineWide, SyncApps.Name, "--reset=server");
+        private void pageResetServer_Commit(object sender, WizardPageConfirmEventArgs e)
+            => ResetSync("server");
         #endregion
 
         #region pageResetClient
-        private async void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e)
-            => await Program.RunCommandAsync(_machineWide, SyncApps.Name, "--reset=client");
+        private void pageResetClient_Commit(object sender, WizardPageConfirmEventArgs e)
+            => ResetSync("client");
+
+        private void ResetSync(string target)
+            => CommandUtils.Start(_machineWide
+                ? new[] {SyncApps.Name, $"--reset={target}", "--machine"}
+                : new[] {SyncApps.Name, $"--reset={target}"});
         #endregion
     }
 }

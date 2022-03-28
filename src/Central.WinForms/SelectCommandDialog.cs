@@ -4,13 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
@@ -76,19 +76,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ProcessUtils.Assembly("0install-win", GetArgs().ToArray()).Start();
-            }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-
+            CommandUtils.Start(GetArgs().ToArray());
             Close();
         }
 

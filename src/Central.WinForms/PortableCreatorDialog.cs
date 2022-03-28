@@ -8,6 +8,7 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Desktop;
+using ZeroInstall.Commands.WinForms;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -34,7 +35,7 @@ namespace ZeroInstall.Central.WinForms
         private void textBoxTarget_TextChanged(object sender, EventArgs e)
             => buttonDeploy.Enabled = !string.IsNullOrEmpty(textBoxTarget.Text);
 
-        private void buttonDeploy_Click(object sender, EventArgs e)
+        private async void buttonDeploy_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(textBoxTarget.Text) && Directory.GetFileSystemEntries(textBoxTarget.Text).Length != 0)
             {
@@ -42,7 +43,8 @@ namespace ZeroInstall.Central.WinForms
                     return;
             }
 
-            Program.RunCommandAsync(Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text);
+            Enabled = false;
+            await CommandUtils.RunAsync(Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text);
             Close();
         }
 

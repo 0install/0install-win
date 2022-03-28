@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                ProcessUtils.Assembly("0install-win", StoreMan.Name, "manage").AsAdmin().Start();
+                ProcessUtils.Assembly(CommandUtils.ExeName, StoreMan.Name, "manage").AsAdmin().Start();
             }
             catch (PlatformNotSupportedException ex)
             {

@@ -4,13 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NanoByte.Common;
 using NanoByte.Common.Controls;
+using ZeroInstall.Commands.Basic;
+using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Feeds;
 
@@ -78,18 +78,7 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            try
-            {
-                ProcessUtils.Assembly("0install-win", "run", "--no-wait", result.Uri!.ToStringRfc()).Start();
-            }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            CommandUtils.Start(Run.Name, "--no-wait", result.Uri!.ToStringRfc());
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -97,18 +86,7 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            try
-            {
-                ProcessUtils.Assembly("0install-win", "add", result.Uri!.ToStringRfc()).Start();
-            }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            CommandUtils.Start(AddApp.Name, result.Uri!.ToStringRfc());
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
@@ -116,18 +94,7 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            try
-            {
-                ProcessUtils.Assembly("0install-win", "integrate", result.Uri!.ToStringRfc()).Start();
-            }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            CommandUtils.Start(IntegrateApp.Name, result.Uri!.ToStringRfc());
         }
 
         private void buttonDetails_Click(object sender, EventArgs e)

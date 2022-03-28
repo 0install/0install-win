@@ -11,6 +11,7 @@ using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Basic;
+using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 
@@ -155,11 +156,11 @@ namespace ZeroInstall.Central.WinForms
             #endregion
         }
 
-        private async void buttonRun_Click(object sender, EventArgs e)
+        private void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
             if (_feed is {NeedsTerminal: true}) new SelectCommandDialog(new(InterfaceUri, _feed)).Show(this);
-            else await Program.RunCommandAsync(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
+            else CommandUtils.Start(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
         private void buttonRunWithOptions_Click(object sender, EventArgs e)
@@ -168,10 +169,10 @@ namespace ZeroInstall.Central.WinForms
             new SelectCommandDialog(new(InterfaceUri, _feed)).Show(this);
         }
 
-        private async void buttonUpdate_Click(object sender, EventArgs e)
+        private void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            await Program.RunCommandAsync(Commands.Basic.Update.Name, InterfaceUri.ToStringRfc());
+            CommandUtils.Start(Commands.Basic.Update.Name, InterfaceUri.ToStringRfc());
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
