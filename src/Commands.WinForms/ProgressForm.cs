@@ -292,27 +292,13 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void Cancel()
         {
-            Hide();
+            Visible = false;
+            notifyIcon.Visible = false;
 
             _cancellationTokenSource.Cancel();
 
             // Unblock any waiting thread
             _customizeSelectionsComplete?.SetResult(false);
-        }
-
-        /// <summary>
-        /// Hides the form and the tray icon.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
-        public new void Hide()
-        {
-            #region Sanity checks
-            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
-
-            Visible = false;
-            notifyIcon.Visible = false;
         }
         #endregion
     }
