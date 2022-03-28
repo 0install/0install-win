@@ -9,65 +9,64 @@ using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 
-namespace ZeroInstall
+namespace ZeroInstall;
+
+/// <summary>
+/// The main GUI for the Bootstrapper.
+/// </summary>
+public sealed partial class MainForm : Form
 {
-    /// <summary>
-    /// The main GUI for the Bootstrapper.
-    /// </summary>
-    public sealed partial class MainForm : Form
+    private readonly CancellationTokenSource _cancellationTokenSource;
+
+    public MainForm(CancellationTokenSource cancellationTokenSource)
     {
-        private readonly CancellationTokenSource _cancellationTokenSource;
+        _cancellationTokenSource = cancellationTokenSource;
 
-        public MainForm(CancellationTokenSource cancellationTokenSource)
+        InitializeComponent();
+
+        try
         {
-            _cancellationTokenSource = cancellationTokenSource;
-
-            InitializeComponent();
-
-            try
-            {
-                Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            }
-            catch (ArgumentException) // Running from network path, can't extract icon
-            {}
-
-            var embeddedConfig = EmbeddedConfig.Load();
-            if (embeddedConfig.AppName != null)
-            {
-                Text = $"{embeddedConfig.AppName} (powered by Zero Install)";
-                labelAppName.Text = embeddedConfig.AppName;
-                Size += new Size(0, 50).Multiply(this.GetDpiScale());
-            }
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
+        catch (ArgumentException) // Running from network path, can't extract icon
+        {}
 
-        public IProgress<TaskSnapshot> GetProgressControl(string taskName)
+        var embeddedConfig = EmbeddedConfig.Load();
+        if (embeddedConfig.AppName != null)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
-            #endregion
-
-            taskControl.TaskName = taskName;
-            taskControl.Visible = true;
-            return taskControl;
+            Text = $"{embeddedConfig.AppName} (powered by Zero Install)";
+            labelAppName.Text = embeddedConfig.AppName;
+            Size += new Size(0, 50).Multiply(this.GetDpiScale());
         }
+    }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Never allow the user to directly close the window
-            e.Cancel = true;
+    public IProgress<TaskSnapshot> GetProgressControl(string taskName)
+    {
+        #region Sanity checks
+        if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
+        #endregion
 
-            // Start proper cancellation instead
-            Cancel();
-        }
+        taskControl.TaskName = taskName;
+        taskControl.Visible = true;
+        return taskControl;
+    }
 
-        /// <summary>
-        /// Hides the window and then starts canceling the current process asynchronously.
-        /// </summary>
-        private void Cancel()
-        {
-            Hide();
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        // Never allow the user to directly close the window
+        e.Cancel = true;
 
-            _cancellationTokenSource.Cancel();
-        }
+        // Start proper cancellation instead
+        Cancel();
+    }
+
+    /// <summary>
+    /// Hides the window and then starts canceling the current process asynchronously.
+    /// </summary>
+    private void Cancel()
+    {
+        Hide();
+
+        _cancellationTokenSource.Cancel();
     }
 }

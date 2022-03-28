@@ -6,54 +6,53 @@ using NanoByte.Common;
 using NanoByte.Common.Streams;
 using ZeroInstall.Model;
 
-namespace ZeroInstall
+namespace ZeroInstall;
+
+/// <summary>
+/// Represents configuration embedded into the executable itself.
+/// This is used to create a customized bootstrapper that uses Zero Install to run or integrate another application.
+/// </summary>
+/// <param name="SelfUpdateUri">The feed URI used to download and update Zero Install itself.</param>
+/// <param name="KeyFingerprint">The GnuPG key fingerprint to trust for signing <see cref="SelfUpdateUri"/> or <paramref cref="AppUri"/>.</param>
+/// <param name="AppUri">The feed URI of the target application to bootstrap.</param>
+/// <param name="AppName">The name of the target application to bootstrap.</param>
+/// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
+/// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
+public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs)
 {
     /// <summary>
-    /// Represents configuration embedded into the executable itself.
-    /// This is used to create a customized bootstrapper that uses Zero Install to run or integrate another application.
+    /// Loads the embedded configuration.
     /// </summary>
-    /// <param name="SelfUpdateUri">The feed URI used to download and update Zero Install itself.</param>
-    /// <param name="KeyFingerprint">The GnuPG key fingerprint to trust for signing <see cref="SelfUpdateUri"/> or <paramref cref="AppUri"/>.</param>
-    /// <param name="AppUri">The feed URI of the target application to bootstrap.</param>
-    /// <param name="AppName">The name of the target application to bootstrap.</param>
-    /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
-    /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
-    public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs)
+    public static EmbeddedConfig Load()
     {
-        /// <summary>
-        /// Loads the embedded configuration.
-        /// </summary>
-        public static EmbeddedConfig Load()
+        string[] lines = typeof(EmbeddedConfig).GetEmbeddedString("EmbeddedConfig.txt").SplitMultilineText();
+
+        string? ReadConfig(string key, int lineNumber, string placeholder)
         {
-            string[] lines = typeof(EmbeddedConfig).GetEmbeddedString("EmbeddedConfig.txt").SplitMultilineText();
-
-            string? ReadConfig(string key, int lineNumber, string placeholder)
+            string setting = ConfigurationManager.AppSettings[key];
+            if (!string.IsNullOrEmpty(setting))
             {
-                string setting = ConfigurationManager.AppSettings[key];
-                if (!string.IsNullOrEmpty(setting))
-                {
-                    Log.Info($"AppSettings config: {key}: {setting}");
-                    return setting;
-                }
-
-                string line = lines[lineNumber].TrimEnd();
-                if (!string.IsNullOrEmpty(line) && !(line.Contains(placeholder) && line.StartsWith("--") && line.EndsWith("--")))
-                {
-                    Log.Info($"Embedded config: {key}: {line}");
-                    return line;
-                }
-
-                return null;
+                Log.Info($"AppSettings config: {key}: {setting}");
+                return setting;
             }
 
-            return new(
-                SelfUpdateUri: ReadConfig("self_update_uri", lineNumber: 0, placeholder: nameof(SelfUpdateUri))?.To(x => new FeedUri(x)),
-                KeyFingerprint: ReadConfig("key_fingerprint", lineNumber: 1, placeholder: nameof(KeyFingerprint)),
-                AppUri: ReadConfig("app_uri", lineNumber: 2, nameof(AppUri))?.To(x => new FeedUri(x)),
-                AppName: ReadConfig("app_name", lineNumber: 3, placeholder: nameof(AppName)),
-                AppArgs: ReadConfig("app_args", lineNumber: 4, placeholder: nameof(AppArgs)),
-                IntegrateArgs: ReadConfig("integrate_args", lineNumber: 5, placeholder: nameof(IntegrateArgs))
-            );
+            string line = lines[lineNumber].TrimEnd();
+            if (!string.IsNullOrEmpty(line) && !(line.Contains(placeholder) && line.StartsWith("--") && line.EndsWith("--")))
+            {
+                Log.Info($"Embedded config: {key}: {line}");
+                return line;
+            }
+
+            return null;
         }
+
+        return new(
+            SelfUpdateUri: ReadConfig("self_update_uri", lineNumber: 0, placeholder: nameof(SelfUpdateUri))?.To(x => new FeedUri(x)),
+            KeyFingerprint: ReadConfig("key_fingerprint", lineNumber: 1, placeholder: nameof(KeyFingerprint)),
+            AppUri: ReadConfig("app_uri", lineNumber: 2, nameof(AppUri))?.To(x => new FeedUri(x)),
+            AppName: ReadConfig("app_name", lineNumber: 3, placeholder: nameof(AppName)),
+            AppArgs: ReadConfig("app_args", lineNumber: 4, placeholder: nameof(AppArgs)),
+            IntegrateArgs: ReadConfig("integrate_args", lineNumber: 5, placeholder: nameof(IntegrateArgs))
+        );
     }
 }

@@ -24,326 +24,325 @@ using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.OneGet
+namespace ZeroInstall.OneGet;
+
+/// <summary>
+/// Provides an execution context for handling a single OneGet <see cref="Request"/>.
+/// </summary>
+public sealed class OneGetContext : ScopedOperation, IOneGetContext
 {
+    private readonly Request _request;
+
     /// <summary>
-    /// Provides an execution context for handling a single OneGet <see cref="Request"/>.
+    /// Creates a new OneGet command.
     /// </summary>
-    public sealed class OneGetContext : ScopedOperation, IOneGetContext
+    /// <param name="request">The OneGet request callback object.</param>
+    public OneGetContext(Request request)
+        : base(new OneGetHandler(request))
     {
-        private readonly Request _request;
+        _request = request;
+    }
 
-        /// <summary>
-        /// Creates a new OneGet command.
-        /// </summary>
-        /// <param name="request">The OneGet request callback object.</param>
-        public OneGetContext(Request request)
-            : base(new OneGetHandler(request))
+    /// <inheritdoc/>
+    public void Dispose() => Handler.Dispose();
+
+    private bool Refresh => _request.OptionKeys.Contains("Refresh");
+    private bool AllVersions => _request.OptionKeys.Contains("AllVersions");
+    private bool GlobalSearch => _request.OptionKeys.Contains("GlobalSearch");
+    private bool DeferDownload => _request.OptionKeys.Contains("DeferDownload");
+    private bool MachineWide => StringUtils.EqualsIgnoreCase(_request.GetOptionValue("Scope"), "AllUsers");
+
+    public void AddPackageSource(string uri)
+    {
+        var feedUri = new FeedUri(uri);
+
+        CatalogManager.DownloadCatalog(feedUri);
+
+        if (CatalogManager.AddSource(feedUri))
+            CatalogManager.GetOnlineSafe();
+        else
+            Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, feedUri.ToStringRfc()));
+    }
+
+    public void RemovePackageSource(string uri)
+    {
+        var feedUri = new FeedUri(uri);
+
+        if (!CatalogManager.RemoveSource(feedUri))
+            Log.Warn(string.Format(Resources.CatalogNotRegistered, feedUri.ToStringRfc()));
+    }
+
+    public void ResolvePackageSources()
+    {
+        var registeredSources = Services.Feeds.CatalogManager.GetSources();
+
+        if (_request.Sources.Any())
         {
-            _request = request;
-        }
-
-        /// <inheritdoc/>
-        public void Dispose() => Handler.Dispose();
-
-        private bool Refresh => _request.OptionKeys.Contains("Refresh");
-        private bool AllVersions => _request.OptionKeys.Contains("AllVersions");
-        private bool GlobalSearch => _request.OptionKeys.Contains("GlobalSearch");
-        private bool DeferDownload => _request.OptionKeys.Contains("DeferDownload");
-        private bool MachineWide => StringUtils.EqualsIgnoreCase(_request.GetOptionValue("Scope"), "AllUsers");
-
-        public void AddPackageSource(string uri)
-        {
-            var feedUri = new FeedUri(uri);
-
-            CatalogManager.DownloadCatalog(feedUri);
-
-            if (CatalogManager.AddSource(feedUri))
-                CatalogManager.GetOnlineSafe();
-            else
-                Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, feedUri.ToStringRfc()));
-        }
-
-        public void RemovePackageSource(string uri)
-        {
-            var feedUri = new FeedUri(uri);
-
-            if (!CatalogManager.RemoveSource(feedUri))
-                Log.Warn(string.Format(Resources.CatalogNotRegistered, feedUri.ToStringRfc()));
-        }
-
-        public void ResolvePackageSources()
-        {
-            var registeredSources = Services.Feeds.CatalogManager.GetSources();
-
-            if (_request.Sources.Any())
+            foreach (var uri in _request.Sources.TrySelect(x => new FeedUri(x), (UriFormatException _) => {}))
             {
-                foreach (var uri in _request.Sources.TrySelect(x => new FeedUri(x), (UriFormatException _) => {}))
+                bool isRegistered = registeredSources.Contains(uri);
+                _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: isRegistered, isRegistered: isRegistered, isValidated: false);
+            }
+        }
+        else
+        {
+            foreach (var uri in registeredSources)
+                _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: true, isRegistered: true, isValidated: false);
+        }
+    }
+
+    public void FindPackage(string? name, string? requiredVersion, string? minimumVersion, string? maximumVersion)
+    {
+        FeedManager.Refresh = Refresh;
+
+        VersionRange versionRange;
+        if (requiredVersion != null) versionRange = new VersionRange(requiredVersion);
+        else if (minimumVersion != null || maximumVersion != null)
+        {
+            var constraint = new Constraint();
+            if (minimumVersion != null) constraint.NotBefore = new ImplementationVersion(minimumVersion);
+            if (maximumVersion != null) constraint.Before = new ImplementationVersion(maximumVersion);
+            versionRange = constraint;
+        }
+        else versionRange = null;
+
+        if (GlobalSearch) MirrorSearch(name, versionRange);
+        else CatalogSearch(name, versionRange);
+    }
+
+    private void MirrorSearch(string? name, VersionRange? versionRange)
+    {
+        foreach (var result in SearchResults.Query(Config, name))
+        {
+            var requirements = new Requirements(result.Uri);
+            if (versionRange != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = versionRange;
+            Yield(requirements, result.ToPseudoFeed());
+        }
+    }
+
+    private void CatalogSearch(string? name, VersionRange? versionRange)
+    {
+        foreach (var feed in GetCatalogResults(name))
+        {
+            if (AllVersions)
+            {
+                foreach (var implementation in FeedManager.GetFresh(feed.Uri).Implementations)
                 {
-                    bool isRegistered = registeredSources.Contains(uri);
-                    _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: isRegistered, isRegistered: isRegistered, isValidated: false);
+                    var requirements = new Requirements(feed.Uri) {ExtraRestrictions = {{feed.Uri, implementation.Version}}};
+                    Yield(requirements, feed, implementation);
                 }
             }
             else
             {
-                foreach (var uri in registeredSources)
-                    _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: true, isRegistered: true, isValidated: false);
-            }
-        }
-
-        public void FindPackage(string? name, string? requiredVersion, string? minimumVersion, string? maximumVersion)
-        {
-            FeedManager.Refresh = Refresh;
-
-            VersionRange versionRange;
-            if (requiredVersion != null) versionRange = new VersionRange(requiredVersion);
-            else if (minimumVersion != null || maximumVersion != null)
-            {
-                var constraint = new Constraint();
-                if (minimumVersion != null) constraint.NotBefore = new ImplementationVersion(minimumVersion);
-                if (maximumVersion != null) constraint.Before = new ImplementationVersion(maximumVersion);
-                versionRange = constraint;
-            }
-            else versionRange = null;
-
-            if (GlobalSearch) MirrorSearch(name, versionRange);
-            else CatalogSearch(name, versionRange);
-        }
-
-        private void MirrorSearch(string? name, VersionRange? versionRange)
-        {
-            foreach (var result in SearchResults.Query(Config, name))
-            {
-                var requirements = new Requirements(result.Uri);
+                var requirements = new Requirements(feed.Uri);
                 if (versionRange != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = versionRange;
-                Yield(requirements, result.ToPseudoFeed());
+                Yield(requirements, feed);
             }
         }
+    }
 
-        private void CatalogSearch(string? name, VersionRange? versionRange)
+    private IEnumerable<Feed> GetCatalogResults(string? query)
+    {
+        if (string.IsNullOrEmpty(query))
         {
-            foreach (var feed in GetCatalogResults(name))
-            {
-                if (AllVersions)
-                {
-                    foreach (var implementation in FeedManager.GetFresh(feed.Uri).Implementations)
-                    {
-                        var requirements = new Requirements(feed.Uri) {ExtraRestrictions = {{feed.Uri, implementation.Version}}};
-                        Yield(requirements, feed, implementation);
-                    }
-                }
-                else
-                {
-                    var requirements = new Requirements(feed.Uri);
-                    if (versionRange != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = versionRange;
-                    Yield(requirements, feed);
-                }
-            }
+            Log.Info("Returning entire catalog");
+            return GetCatalog().Feeds;
         }
 
-        private IEnumerable<Feed> GetCatalogResults(string? query)
+        Log.Info("Searching for short-name match in Catalog: " + query);
+        var feed = FindByShortName(query);
+        if (feed == null)
         {
-            if (string.IsNullOrEmpty(query))
-            {
-                Log.Info("Returning entire catalog");
-                return GetCatalog().Feeds;
-            }
-
-            Log.Info("Searching for short-name match in Catalog: " + query);
-            var feed = FindByShortName(query);
-            if (feed == null)
-            {
-                Log.Info("Searching for partial match in Catalog: " + query);
-                return CatalogManager.GetCachedSafe().Search(query);
-            }
-            else return new[] {feed};
+            Log.Info("Searching for partial match in Catalog: " + query);
+            return CatalogManager.GetCachedSafe().Search(query);
         }
+        else return new[] {feed};
+    }
 
-        public void FindPackageBy(string identifier)
+    public void FindPackageBy(string identifier)
+    {
+        FeedManager.Refresh = Refresh;
+        Yield(new Requirements(GetCanonicalUri(identifier)));
+    }
+
+    public void GetInstalledPackages(string name)
+    {
+        var appList = AppList.LoadSafe(MachineWide);
+        foreach (var entry in appList.Search(name))
+            Yield(entry.EffectiveRequirements);
+    }
+
+    public void DownloadPackage(string fastPackageReference, string location)
+    {
+        var requirements = ParseReference(fastPackageReference);
+        var selections = Solve(requirements);
+        foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
+            Fetcher.Fetch(implementation);
+
+        var exporter = new Exporter(selections, requirements, location);
+        exporter.ExportFeeds(FeedCache, OpenPgp);
+        exporter.ExportImplementations(ImplementationStore, Handler);
+        exporter.DeployImportScript();
+        exporter.DeployBootstrapIntegrate(Handler);
+
+        Yield(requirements);
+
+        BackgroundSelfUpdate();
+    }
+
+    public void InstallPackage(string fastPackageReference)
+    {
+        var requirements = ParseReference(fastPackageReference);
+        try
         {
-            FeedManager.Refresh = Refresh;
-            Yield(new Requirements(GetCanonicalUri(identifier)));
-        }
-
-        public void GetInstalledPackages(string name)
-        {
-            var appList = AppList.LoadSafe(MachineWide);
-            foreach (var entry in appList.Search(name))
-                Yield(entry.EffectiveRequirements);
-        }
-
-        public void DownloadPackage(string fastPackageReference, string location)
-        {
-            var requirements = ParseReference(fastPackageReference);
-            var selections = Solve(requirements);
-            foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
-                Fetcher.Fetch(implementation);
-
-            var exporter = new Exporter(selections, requirements, location);
-            exporter.ExportFeeds(FeedCache, OpenPgp);
-            exporter.ExportImplementations(ImplementationStore, Handler);
-            exporter.DeployImportScript();
-            exporter.DeployBootstrapIntegrate(Handler);
-
-            Yield(requirements);
-
+            Install(requirements);
             BackgroundSelfUpdate();
         }
-
-        public void InstallPackage(string fastPackageReference)
+        catch (UnsuitableInstallBaseException ex)
         {
-            var requirements = ParseReference(fastPackageReference);
-            try
-            {
-                Install(requirements);
-                BackgroundSelfUpdate();
-            }
-            catch (UnsuitableInstallBaseException ex)
-            {
-                string installLocation = ZeroInstallInstance.FindOther(ex.NeedsMachineWide)
-                                      ?? DeployInstance(ex.NeedsMachineWide);
+            string installLocation = ZeroInstallInstance.FindOther(ex.NeedsMachineWide)
+                                  ?? DeployInstance(ex.NeedsMachineWide);
 
-                // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply pretend we are running from a different source
-                Locations.OverrideInstallBase(installLocation);
-                Install(requirements);
-            }
+            // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply pretend we are running from a different source
+            Locations.OverrideInstallBase(installLocation);
+            Install(requirements);
         }
+    }
 
-        private void Install(Requirements requirements)
+    private void Install(Requirements requirements)
+    {
+        if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+        if (MachineWide && !ZeroInstallInstance.IsMachineWide) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
+        if (!ZeroInstallInstance.IsDeployed) throw new UnsuitableInstallBaseException(Resources.NoIntegrationDeployRequired, MachineWide);
+
+        FeedManager.Refresh = Refresh || !DeferDownload;
+
+        var selections = Solve(requirements);
+
+        ApplyIntegration(requirements);
+        ApplyVersionRestrictions(requirements, selections);
+        if (!DeferDownload)
         {
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
-            if (MachineWide && !ZeroInstallInstance.IsMachineWide) throw new UnsuitableInstallBaseException(Resources.NoMachineWideIntegrationFromPerUser, MachineWide);
-            if (!ZeroInstallInstance.IsDeployed) throw new UnsuitableInstallBaseException(Resources.NoIntegrationDeployRequired, MachineWide);
-
-            FeedManager.Refresh = Refresh || !DeferDownload;
-
-            var selections = Solve(requirements);
-
-            ApplyIntegration(requirements);
-            ApplyVersionRestrictions(requirements, selections);
-            if (!DeferDownload)
-            {
-                foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
-                    Fetcher.Fetch(implementation);
-            }
-            Yield(requirements);
+            foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
+                Fetcher.Fetch(implementation);
         }
+        Yield(requirements);
+    }
 
-        private Selections Solve(Requirements requirements)
+    private Selections Solve(Requirements requirements)
+    {
+        var selections = Solver.Solve(requirements);
+
+        if (FeedManager.ShouldRefresh || SelectionsManager.GetUncachedSelections(selections).Any())
         {
-            var selections = Solver.Solve(requirements);
-
-            if (FeedManager.ShouldRefresh || SelectionsManager.GetUncachedSelections(selections).Any())
-            {
-                FeedManager.Stale = false;
-                FeedManager.Refresh = true;
-                selections = Solver.Solve(requirements);
-                FeedManager.Refresh = false;
-            }
-
-            try
-            {
-                selections.Name = FeedCache.GetFeed(selections.InterfaceUri).Name;
-            }
-            #region Error handling
-            catch (KeyNotFoundException)
-            {
-                // Fall back to using feed file name
-                selections.Name = selections.InterfaceUri.ToString().GetRightPartAtLastOccurrence('/');
-            }
-            #endregion
-
-            return selections;
-        }
-
-        private void ApplyIntegration(Requirements requirements)
-        {
-            Log.Info(Resources.DesktopIntegrationApply);
-            var feed = FeedManager[requirements.InterfaceUri];
-            using var integrationManager = new CategoryIntegrationManager(Config, Handler, MachineWide);
-            var appEntry = integrationManager.AddApp(new(requirements.InterfaceUri, feed));
-            integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
-        }
-
-        private static void ApplyVersionRestrictions(Requirements requirements, Selections selections)
-        {
-            if (requirements.ExtraRestrictions.Count == 0) return;
-
-            // TODO
-            Log.Warn($"You have applied a version restriction to this app. Zero Install will continue to apply this restriction to any future updates. You will need to run '0install select --customize {requirements.InterfaceUri}' to undo this.");
-
-            foreach (var (feedUri, _) in requirements.ExtraRestrictions)
-            {
-                var selection = selections.GetImplementation(feedUri);
-                if (selection != null)
-                {
-                    var pref = FeedPreferences.LoadForSafe(feedUri);
-                    pref.Implementations.Clear();
-                    pref[selection.ID].UserStability = Stability.Preferred;
-                    pref.SaveFor(feedUri);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Deploys a Zero Install instance to this machine.
-        /// </summary>
-        /// <param name="machineWide"><c>true</c> to deploy to a location for all users; <c>false</c> to deploy to a location for the current user only.</param>
-        /// <returns>The director Zero Install was deployed to.</returns>
-        private string DeployInstance(bool machineWide)
-        {
-            string programFiles = machineWide
-                ? Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
-                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Programs");
-            string installLocation = Path.Combine(programFiles, "Zero Install");
-
-            Log.Info("Deploying Zero Install to " + installLocation);
-            using (var manager = new SelfManager(installLocation, Handler, machineWide))
-                manager.Deploy(libraryMode: true);
-
-            return installLocation;
-        }
-
-        public void UninstallPackage(string fastPackageReference)
-        {
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
-
-            var requirements = ParseReference(fastPackageReference);
-
-            using var integrationManager = new IntegrationManager(Config, Handler, MachineWide);
-            integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
-        }
-
-        public void GetPackageDetails(string fastPackageReference)
-        {
+            FeedManager.Stale = false;
             FeedManager.Refresh = true;
-
-            var requirements = ParseReference(fastPackageReference);
-            Yield(requirements);
+            selections = Solver.Solve(requirements);
+            FeedManager.Refresh = false;
         }
 
-        private static Requirements ParseReference(string fastPackageReference) => JsonStorage.FromJsonString<Requirements>(fastPackageReference);
-
-        private void Yield(Requirements requirements, Feed? feed = null, ImplementationBase? implementation = null)
+        try
         {
-            if (implementation == null)
-            {
-                var selections = Solver.TrySolve(requirements);
-                if (selections != null) implementation = selections.MainImplementation;
-            }
-            feed ??= FeedManager[requirements.InterfaceUri];
-
-            var sourceUri = feed.CatalogUri ?? feed.Uri;
-            _request.YieldSoftwareIdentity(
-                fastPath: requirements.ToJsonString(),
-                name: feed.Name,
-                version: implementation?.Version?.ToString(),
-                versionScheme: null,
-                summary: feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture),
-                source: sourceUri?.ToStringRfc(),
-                searchKey: feed.Name,
-                fullPath: null,
-                packageFileName: feed.Name);
+            selections.Name = FeedCache.GetFeed(selections.InterfaceUri).Name;
         }
+        #region Error handling
+        catch (KeyNotFoundException)
+        {
+            // Fall back to using feed file name
+            selections.Name = selections.InterfaceUri.ToString().GetRightPartAtLastOccurrence('/');
+        }
+        #endregion
+
+        return selections;
+    }
+
+    private void ApplyIntegration(Requirements requirements)
+    {
+        Log.Info(Resources.DesktopIntegrationApply);
+        var feed = FeedManager[requirements.InterfaceUri];
+        using var integrationManager = new CategoryIntegrationManager(Config, Handler, MachineWide);
+        var appEntry = integrationManager.AddApp(new(requirements.InterfaceUri, feed));
+        integrationManager.AddAccessPointCategories(appEntry, feed, CategoryIntegrationManager.StandardCategories);
+    }
+
+    private static void ApplyVersionRestrictions(Requirements requirements, Selections selections)
+    {
+        if (requirements.ExtraRestrictions.Count == 0) return;
+
+        // TODO
+        Log.Warn($"You have applied a version restriction to this app. Zero Install will continue to apply this restriction to any future updates. You will need to run '0install select --customize {requirements.InterfaceUri}' to undo this.");
+
+        foreach (var (feedUri, _) in requirements.ExtraRestrictions)
+        {
+            var selection = selections.GetImplementation(feedUri);
+            if (selection != null)
+            {
+                var pref = FeedPreferences.LoadForSafe(feedUri);
+                pref.Implementations.Clear();
+                pref[selection.ID].UserStability = Stability.Preferred;
+                pref.SaveFor(feedUri);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Deploys a Zero Install instance to this machine.
+    /// </summary>
+    /// <param name="machineWide"><c>true</c> to deploy to a location for all users; <c>false</c> to deploy to a location for the current user only.</param>
+    /// <returns>The director Zero Install was deployed to.</returns>
+    private string DeployInstance(bool machineWide)
+    {
+        string programFiles = machineWide
+            ? Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Programs");
+        string installLocation = Path.Combine(programFiles, "Zero Install");
+
+        Log.Info("Deploying Zero Install to " + installLocation);
+        using (var manager = new SelfManager(installLocation, Handler, machineWide))
+            manager.Deploy(libraryMode: true);
+
+        return installLocation;
+    }
+
+    public void UninstallPackage(string fastPackageReference)
+    {
+        if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
+
+        var requirements = ParseReference(fastPackageReference);
+
+        using var integrationManager = new IntegrationManager(Config, Handler, MachineWide);
+        integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
+    }
+
+    public void GetPackageDetails(string fastPackageReference)
+    {
+        FeedManager.Refresh = true;
+
+        var requirements = ParseReference(fastPackageReference);
+        Yield(requirements);
+    }
+
+    private static Requirements ParseReference(string fastPackageReference) => JsonStorage.FromJsonString<Requirements>(fastPackageReference);
+
+    private void Yield(Requirements requirements, Feed? feed = null, ImplementationBase? implementation = null)
+    {
+        if (implementation == null)
+        {
+            var selections = Solver.TrySolve(requirements);
+            if (selections != null) implementation = selections.MainImplementation;
+        }
+        feed ??= FeedManager[requirements.InterfaceUri];
+
+        var sourceUri = feed.CatalogUri ?? feed.Uri;
+        _request.YieldSoftwareIdentity(
+            fastPath: requirements.ToJsonString(),
+            name: feed.Name,
+            version: implementation?.Version?.ToString(),
+            versionScheme: null,
+            summary: feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture),
+            source: sourceUri?.ToStringRfc(),
+            searchKey: feed.Name,
+            fullPath: null,
+            packageFileName: feed.Name);
     }
 }
