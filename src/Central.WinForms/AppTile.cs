@@ -128,7 +128,7 @@ public sealed partial class AppTile : UserControl
         });
 
         buttonIntegrate.AccessibleName = text;
-        buttonIntegrate.Image = image.Get(this.GetDpiScale());
+        buttonIntegrate.Image = image.Get(this.GetScaleFactor());
         toolTip.SetToolTip(buttonIntegrate, text);
     }
 

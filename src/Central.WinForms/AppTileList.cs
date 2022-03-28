@@ -104,7 +104,7 @@ public class AppTileList : UserControl
         Resize += delegate
         {
             _flowLayout.SuspendLayout();
-            _flowLayout.Width = _scrollPanel.Width - (int)(20 * AutoScaleDimensions.Width / 6F);
+            _flowLayout.Width = _scrollPanel.Width - (int)Math.Round(20 * this.GetScaleFactor().Width);
             foreach (Control control in _flowLayout.Controls)
                 control.Width = _flowLayout.Width;
             _flowLayout.ResumeLayout(false);

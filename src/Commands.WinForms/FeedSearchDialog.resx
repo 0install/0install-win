@@ -344,7 +344,7 @@
     <value>textKeywords</value>
   </data>
   <data name="&gt;&gt;textKeywords.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textKeywords.Parent" xml:space="preserve">
     <value>$this</value>

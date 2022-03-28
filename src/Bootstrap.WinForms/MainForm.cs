@@ -28,7 +28,7 @@ public sealed partial class MainForm : Form
         {
             Text = embeddedConfig.AppName;
             labelAppName.Text = embeddedConfig.AppName;
-            Size += new Size(0, 50).Multiply(this.GetDpiScale());
+            Size += new Size(0, 50).ApplyScale(this);
         }
     }
 

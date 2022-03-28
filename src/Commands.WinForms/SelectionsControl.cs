@@ -65,7 +65,7 @@ public sealed partial class SelectionsControl : UserControl
         for (int i = 0; i < _selections.Implementations.Count; i++)
         {
             // Give lines a fixed width so they don't resize when task progress bars are added
-            tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58 * AutoScaleDimensions.Height / 13F));
+            tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58 * this.GetScaleFactor().Height));
 
             // Get feed for each selected implementation
             var implementation = _selections.Implementations[i];

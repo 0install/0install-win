@@ -50,19 +50,19 @@ public sealed partial class AppPopup : Form
 
     private void DpiScalingWorkaround()
     {
-        iconStatus.Location -= this.GetDpiScale() switch
+        iconStatus.Location -= this.GetScaleFactor().Width switch
         {
-            2f => new Size(4, 2),
-            1.75f => new Size(4, 1),
-            1.5f => new Size(1, 1),
-            1.25f => new Size(2, 1),
-            _ => new Size()
+            2f => new(4, 2),
+            1.75f => new(4, 1),
+            1.5f => new(1, 1),
+            1.25f => new(2, 1),
+            _ => new()
         };
     }
 
     private void RefreshStatus()
     {
-        float scale = this.GetDpiScale();
+        var scale = this.GetScaleFactor();
 
         void ShowButtons()
         {
