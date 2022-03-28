@@ -129,7 +129,7 @@ internal sealed partial class MainForm : Form
     {
         WindowsUtils.UnregisterApplicationRestart();
 
-        Visible = false;
+        Hide();
         _handler.Cancel();
     }
 
@@ -204,7 +204,7 @@ internal sealed partial class MainForm : Form
         var targetLocation = labelNotificationBar.Location;
         labelNotificationBar.Location -= new Size(0, labelNotificationBar.Height);
         labelNotificationBar.Text = message;
-        labelNotificationBar.Visible = true;
+        labelNotificationBar.Show();
         while (labelNotificationBar.Location != targetLocation)
         {
             await Task.Delay(10);
@@ -397,10 +397,10 @@ internal sealed partial class MainForm : Form
     /// </summary>
     private async void LoadCatalogAsync()
     {
-        buttonRefreshCatalog.Visible = false;
-        labelLoadingCatalog.Visible = true;
+        buttonRefreshCatalog.Hide();
+        labelLoadingCatalog.Show();
 
-        labelLastCatalogError.Visible = false;
+        labelLastCatalogError.Hide();
         try
         {
             await _tileManagement.UpdateCatalogAsync();
@@ -409,11 +409,11 @@ internal sealed partial class MainForm : Form
         {
             Log.Error(ex);
             labelLastCatalogError.Text = ex.Message;
-            labelLastCatalogError.Visible = true;
+            labelLastCatalogError.Show();
         }
 
-        buttonRefreshCatalog.Visible = true;
-        labelLoadingCatalog.Visible = false;
+        buttonRefreshCatalog.Show();
+        labelLoadingCatalog.Hide();
     }
     #endregion
 

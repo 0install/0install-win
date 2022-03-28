@@ -140,7 +140,7 @@ public class AppTileList : UserControl
             tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
             _lastTileLight = !_lastTileLight;
         }
-        else tile.Visible = false;
+        else tile.Hide();
 
         _appTileQueue.Add(tile);
         _tileDictionary.Add(interfaceUri, tile);

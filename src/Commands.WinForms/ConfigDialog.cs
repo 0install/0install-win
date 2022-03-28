@@ -44,7 +44,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
         treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
 
         if (WindowsUtils.IsWindows) LoadLanguages();
-        else tabPageLanguage.Visible = false;
+        else tabPageLanguage.Hide();
 
         switch (config.InitialTab)
         {
@@ -368,8 +368,9 @@ public sealed partial class ConfigDialog : OKCancelDialog
     #region Advanced
     private void buttonAdvancedShow_Click(object sender, EventArgs e)
     {
-        labelAdvancedWarning.Visible = buttonAdvancedShow.Visible = false;
-        propertyGridAdvanced.Visible = true;
+        labelAdvancedWarning.Hide();
+        buttonAdvancedShow.Hide();
+        propertyGridAdvanced.Show();
     }
 
     private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) => ConfigToControls();

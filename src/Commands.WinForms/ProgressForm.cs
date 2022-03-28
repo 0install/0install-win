@@ -35,7 +35,7 @@ public sealed partial class ProgressForm : Form
         if (branding.SplashScreen != null)
         {
             ShowIcon = false;
-            pictureBoxSplashScreen.Visible = true;
+            pictureBoxSplashScreen.Show();
             pictureBoxSplashScreen.Image = branding.SplashScreen;
             var offset = new Size(width: 0, height: pictureBoxSplashScreen.Height);
             MinimumSize += offset;
@@ -75,8 +75,9 @@ public sealed partial class ProgressForm : Form
         if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
         #endregion
 
-        panelProgress.Visible = false;
-        _selectionsShown = selectionsControl.Visible = true;
+        _selectionsShown = true;
+        panelProgress.Hide();
+        selectionsControl.Show();
         selectionsControl.SetSelections(selections, feedManager);
     }
 
@@ -99,9 +100,9 @@ public sealed partial class ProgressForm : Form
 
         // Show "modify selections" UI
         selectionsControl.BeginCustomizeSelections(solveCallback);
-        buttonCustomizeSelectionsDone.Visible = true;
+        buttonCustomizeSelectionsDone.Show();
         buttonCustomizeSelectionsDone.Focus();
-        buttonHide.Visible = false;
+        buttonHide.Hide();
 
         _customizeSelectionsComplete = new();
         await _customizeSelectionsComplete.Task;
@@ -109,8 +110,8 @@ public sealed partial class ProgressForm : Form
 
     private void buttonCustomizeSelectionsDone_Click(object sender, EventArgs e)
     {
-        buttonHide.Visible = true;
-        buttonCustomizeSelectionsDone.Visible = false;
+        buttonHide.Show();
+        buttonCustomizeSelectionsDone.Hide();
         selectionsControl.EndCustomizeSelections();
 
         // Signal the waiting thread modification is complete
@@ -131,10 +132,10 @@ public sealed partial class ProgressForm : Form
         if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
         #endregion
 
-        panelProgress.Visible = true;
+        panelProgress.Show();
 
         // Hide other stuff
-        if (_selectionsShown) selectionsControl.Visible = false;
+        if (_selectionsShown) selectionsControl.Hide();
 
         var taskControl = new TaskControl
         {
@@ -159,7 +160,7 @@ public sealed partial class ProgressForm : Form
         #endregion
 
         // Hide other stuff
-        panelProgress.Visible = false;
+        panelProgress.Hide();
 
         if (_selectionsShown)
         {
@@ -179,8 +180,8 @@ public sealed partial class ProgressForm : Form
 
         if (panelProgress.Controls.Count == 0 && _selectionsShown)
         {
-            panelProgress.Visible = false;
-            selectionsControl.Visible = true;
+            panelProgress.Hide();
+            selectionsControl.Show();
         }
     }
     #endregion

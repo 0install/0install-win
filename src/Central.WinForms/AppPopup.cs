@@ -68,12 +68,12 @@ public sealed partial class AppPopup : Form
         {
             buttonIntegrate.Image = AppResources.IntegratedImage.Get(scale);
             buttonRemove.Image = AppResources.CandidateImage.Get(scale);
-            buttonRemove.Visible = true;
+            buttonRemove.Show();
             if (Locations.IsPortable)
                 buttonClose.Focus();
             else
             {
-                buttonIntegrate.Visible = true;
+                buttonIntegrate.Show();
                 buttonIntegrate.Focus();
             }
         }

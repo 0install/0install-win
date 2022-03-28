@@ -42,7 +42,7 @@ public sealed partial class StoreManageForm : Form
             if (!ZeroInstallInstance.IsDeployed) WindowsTaskbar.PreventPinning(Handle);
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
-            else if (WindowsUtils.HasUac) buttonRunAsAdmin.Visible = true;
+            else if (WindowsUtils.HasUac) buttonRunAsAdmin.Show();
         };
 
         Shown += async delegate { await RefreshListAsync(); };
@@ -62,7 +62,7 @@ public sealed partial class StoreManageForm : Form
     internal async Task RefreshListAsync()
     {
         buttonRefresh.Enabled = false;
-        labelLoading.Visible = true;
+        labelLoading.Show();
 
         try
         {
@@ -84,7 +84,7 @@ public sealed partial class StoreManageForm : Form
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
         }
 
-        labelLoading.Visible = false;
+        labelLoading.Hide();
         buttonRefresh.Enabled = true;
     }
     #endregion

@@ -30,12 +30,13 @@ public sealed partial class IntroDialog : Form
 
     private async Task Play()
     {
-        buttonReplay.Visible = buttonClose.Visible = false;
-        labelVideo.Visible = true;
-        tabControlApps.Visible = false;
+        buttonReplay.Hide();
+        buttonClose.Hide();
+        labelVideo.Show();
+        tabControlApps.Hide();
         tabControlApps.SelectTab(tabPageCatalog);
         tileListCatalog.TextSearch.Text = "";
-        labelSubtitles.Visible = false;
+        labelSubtitles.Hide();
 
         SetupTiles();
 
@@ -49,7 +50,8 @@ public sealed partial class IntroDialog : Form
 
         tabControlApps.Hide();
         labelVideo.Hide();
-        buttonReplay.Visible = buttonClose.Visible = true;
+        buttonReplay.Hide();
+        buttonClose.Show();
     }
 
     private void SetupTiles()
@@ -198,7 +200,7 @@ public sealed partial class IntroDialog : Form
     private void PrintSubtitles(string text)
     {
         labelSubtitles.Text = text;
-        labelSubtitles.Visible = true;
+        labelSubtitles.Show();
     }
 
     private static async Task TypeTextAsync(TextBox textBox, string text)

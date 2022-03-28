@@ -39,7 +39,7 @@ public sealed partial class MainForm : Form
         #endregion
 
         taskControl.TaskName = taskName;
-        taskControl.Visible = true;
+        taskControl.Show();
         return taskControl;
     }
 
