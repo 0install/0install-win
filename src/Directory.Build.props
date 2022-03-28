@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Build configuration -->
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <TargetFramework>net472</TargetFramework>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <Nullable>annotations</Nullable>
