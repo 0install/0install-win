@@ -288,7 +288,7 @@ public sealed partial class ProgressForm : Form
         _cancellationTokenSource.Cancel();
 
         // Unblock any waiting thread
-        _customizeSelectionsComplete?.SetResult(false);
+        _customizeSelectionsComplete?.TrySetResult(false);
     }
     #endregion
 }
