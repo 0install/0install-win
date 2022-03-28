@@ -12,13 +12,10 @@ function Find-MSBuild {
 }
 
 function Run-MSBuild {
-    $msbuild = Find-MSBuild
-    if ($msbuild) {
-        . $msbuild @args
-        if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
-    } else {
-        throw "You need Visual Studio 2022 or newer build this project"
-    }
+    $msbuild = Find-Msbuild
+    if (!$msbuild) { throw "You need Visual Studio 2022 or newer to build this project" }
+    . $msbuild @args
+    if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 }
 
 function SearchAndReplace($Value, $FilePath, $PatternLeft, $PatternRight) {
