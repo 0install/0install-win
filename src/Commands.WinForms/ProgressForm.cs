@@ -1,6 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using System.Diagnostics;
 using NanoByte.Common.Native;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
@@ -30,7 +31,11 @@ public sealed partial class ProgressForm : Form
         buttonHide.Text = Resources.Hide;
         buttonCancel.Text = Resources.Cancel;
 
-        if (branding.Name != null) Text = branding.Name;
+        if (branding.Name != null)
+        {
+            Text = branding.Name;
+            linkPoweredBy.Show();
+        }
         if (branding.Icon != null) Icon = branding.Icon;
         if (branding.SplashScreen != null)
         {
@@ -102,6 +107,7 @@ public sealed partial class ProgressForm : Form
 
         // Show "modify selections" UI
         selectionsControl.BeginCustomizeSelections(solveCallback);
+        linkPoweredBy.Hide();
         buttonCustomizeSelectionsDone.Show();
         buttonCustomizeSelectionsDone.Focus();
         buttonHide.Hide();
@@ -294,4 +300,7 @@ public sealed partial class ProgressForm : Form
         _customizeSelectionsComplete?.TrySetResult(false);
     }
     #endregion
+
+    private void linkPoweredBy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        => Process.Start("https://0install.net/");
 }

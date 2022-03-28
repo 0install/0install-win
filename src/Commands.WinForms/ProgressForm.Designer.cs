@@ -39,6 +39,7 @@ namespace ZeroInstall.Commands.WinForms
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonCustomizeSelectionsDone = new System.Windows.Forms.Button();
+            this.linkPoweredBy = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSplashScreen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,12 +114,26 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonCustomizeSelectionsDone.Visible = false;
             this.buttonCustomizeSelectionsDone.Click += new System.EventHandler(this.buttonCustomizeSelectionsDone_Click);
             // 
+            // linkPoweredBy
+            // 
+            this.linkPoweredBy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.linkPoweredBy.AutoSize = true;
+            this.linkPoweredBy.Location = new System.Drawing.Point(12, 258);
+            this.linkPoweredBy.Name = "linkPoweredBy";
+            this.linkPoweredBy.Size = new System.Drawing.Size(118, 13);
+            this.linkPoweredBy.TabIndex = 7;
+            this.linkPoweredBy.TabStop = true;
+            this.linkPoweredBy.Text = "Powered by Zero Install";
+            this.linkPoweredBy.Visible = false;
+            this.linkPoweredBy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPoweredBy_LinkClicked);
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(560, 288);
+            this.Controls.Add(this.linkPoweredBy);
             this.Controls.Add(this.buttonCustomizeSelectionsDone);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
@@ -134,8 +149,10 @@ namespace ZeroInstall.Commands.WinForms
             this.VisibleChanged += new System.EventHandler(this.ProgressForm_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSplashScreen)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
+        private System.Windows.Forms.LinkLabel linkPoweredBy;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonCustomizeSelectionsDone;
         private System.Windows.Forms.Button buttonHide;
