@@ -1,19 +1,11 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
 using System.Net.Cache;
-using System.Windows.Forms;
 using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
-using NanoByte.Common;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
-using NanoByte.Common.Tasks;
-using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;

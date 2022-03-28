@@ -1,17 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;

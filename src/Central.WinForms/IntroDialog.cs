@@ -1,13 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using NanoByte.Common.Native;
-using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms;
 

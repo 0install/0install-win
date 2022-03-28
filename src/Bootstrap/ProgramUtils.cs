@@ -1,12 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.IO;
-using System.Net;
-using NanoByte.Common;
 using NanoByte.Common.Net;
-using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;

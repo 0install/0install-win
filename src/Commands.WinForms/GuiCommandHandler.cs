@@ -1,21 +1,12 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Configuration;

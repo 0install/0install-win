@@ -3,7 +3,6 @@
 
 using System.ServiceProcess;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using ZeroInstall.Store.Service;
 
 // Encode installation path into mutex name to allow instance detection during updates

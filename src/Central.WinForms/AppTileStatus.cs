@@ -2,7 +2,6 @@
 // Licensed under the GNU Lesser Public License
 
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms;
 

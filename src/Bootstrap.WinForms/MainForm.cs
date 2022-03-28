@@ -1,14 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Controls;
-using NanoByte.Common.Tasks;
-
 namespace ZeroInstall;
 
 /// <summary>
@@ -26,7 +18,7 @@ public sealed partial class MainForm : Form
 
         try
         {
-            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            Icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
         catch (ArgumentException) // Running from network path, can't extract icon
         {}

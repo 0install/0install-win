@@ -1,14 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Windows.Forms;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
-using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;

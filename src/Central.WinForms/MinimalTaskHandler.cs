@@ -1,11 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Controls;
-using NanoByte.Common.Tasks;
-
 namespace ZeroInstall.Central.WinForms;
 
 /// <summary>

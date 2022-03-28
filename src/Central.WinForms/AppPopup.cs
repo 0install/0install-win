@@ -1,19 +1,10 @@
 ﻿// Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
-using NanoByte.Common.Storage;
-using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms;
 

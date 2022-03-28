@@ -1,13 +1,9 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.IO;
-using System.Net;
 using NDesk.Options;
 using ZeroInstall.Services.Executors;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;

@@ -1,13 +1,6 @@
 ﻿// Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
-
 namespace ZeroInstall.Commands.WinForms;
 
 /// <summary>

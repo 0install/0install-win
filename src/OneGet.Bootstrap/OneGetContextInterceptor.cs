@@ -1,12 +1,8 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using LinFu.DynamicProxy;
-using NanoByte.Common;
 using PackageManagement.Sdk;
 
 namespace ZeroInstall.OneGet;

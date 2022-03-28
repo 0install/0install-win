@@ -1,11 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using NanoByte.Common;
 using NanoByte.Common.Info;
 using PackageManagement.Sdk;
 

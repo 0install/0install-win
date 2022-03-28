@@ -1,22 +1,8 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Basic;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.ViewModel;

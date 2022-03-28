@@ -1,22 +1,13 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic.Exporters;
 using ZeroInstall.Commands.Desktop.SelfManagement;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;

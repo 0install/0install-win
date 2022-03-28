@@ -1,20 +1,9 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using NanoByte.Common;
 using NanoByte.Common.Dispatch;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Threading;
-using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Icons;

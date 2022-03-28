@@ -12,6 +12,11 @@
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
+  <!-- Global usings -->
+  <ItemGroup>
+    <Using Include="NanoByte.Common.Controls" />
+  </ItemGroup>
+
   <!-- Dependencies -->
   <ItemGroup>
     <ProjectReference Include="..\Bootstrap\Bootstrap.csproj" />

@@ -1,20 +1,10 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Commands.WinForms;

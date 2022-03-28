@@ -1,15 +1,7 @@
 ﻿// Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Icons;

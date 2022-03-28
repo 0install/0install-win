@@ -5,6 +5,7 @@
     <LangVersion>10.0</LangVersion>
     <TargetFramework>net472</TargetFramework>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>annotations</Nullable>
     <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
@@ -27,5 +28,20 @@
     <NanoByteCommonVersion>2.11.2</NanoByteCommonVersion>
     <ZeroInstallVersion>2.23.0</ZeroInstallVersion>
   </PropertyGroup>
+
+  <!-- Global usings -->
+  <ItemGroup>
+    <Using Include="System.ComponentModel" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Net" />
+    <Using Include="System.Globalization" />
+    <Using Include="JetBrains.Annotations" />
+    <Using Include="NanoByte.Common" />
+    <Using Include="NanoByte.Common.Collections" />
+    <Using Include="NanoByte.Common.Storage" />
+    <Using Include="NanoByte.Common.Tasks" />
+    <Using Include="ZeroInstall" />
+    <Using Include="ZeroInstall.Model" />
+  </ItemGroup>
 
 </Project>

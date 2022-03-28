@@ -1,16 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Controls;
-using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.WinForms;

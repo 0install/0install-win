@@ -1,17 +1,8 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands.WinForms;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms;
 

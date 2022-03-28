@@ -1,20 +1,9 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
-using NanoByte.Common.Storage;
-using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
