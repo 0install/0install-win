@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 186</value>
+    <value>267, 191</value>
   </data>
   <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
     <value>buttonOK</value>
@@ -131,10 +131,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>348, 186</value>
+    <value>348, 191</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -146,7 +146,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelCommand.AutoSize" type="System.Boolean, mscorlib">
@@ -174,7 +174,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelCommand.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="comboBoxCommand.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -199,7 +199,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxCommand.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="labelSummary.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -211,7 +211,7 @@
     <value>94, 36</value>
   </data>
   <data name="labelSummary.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 43</value>
+    <value>328, 48</value>
   </data>
   <data name="labelSummary.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -226,7 +226,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelSummary.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="labelOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -259,7 +259,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelOptions.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="checkBoxCustomizeVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -271,13 +271,16 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxCustomizeVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 82</value>
+    <value>0, 0</value>
+  </data>
+  <data name="checkBoxCustomizeVersion.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
   </data>
   <data name="checkBoxCustomizeVersion.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 17</value>
   </data>
   <data name="checkBoxCustomizeVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>0</value>
   </data>
   <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
     <value>Customize &amp;version</value>
@@ -289,10 +292,10 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxCustomizeVersion.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panelOptions</value>
   </data>
   <data name="&gt;&gt;checkBoxCustomizeVersion.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>0</value>
   </data>
   <data name="checkBoxRefresh.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -304,13 +307,16 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 82</value>
+    <value>114, 0</value>
+  </data>
+  <data name="checkBoxRefresh.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
   </data>
   <data name="checkBoxRefresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 17</value>
   </data>
   <data name="checkBoxRefresh.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>1</value>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>&amp;Refresh</value>
@@ -322,10 +328,10 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;checkBoxRefresh.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panelOptions</value>
   </data>
   <data name="&gt;&gt;checkBoxRefresh.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="labelArgs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -343,7 +349,7 @@
     <value>60, 13</value>
   </data>
   <data name="labelArgs.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>&amp;Arguments:</value>
@@ -358,7 +364,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelArgs.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="textBoxArgs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -370,7 +376,7 @@
     <value>328, 20</value>
   </data>
   <data name="textBoxArgs.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;textBoxArgs.Name" xml:space="preserve">
     <value>textBoxArgs</value>
@@ -382,7 +388,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxArgs.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -412,13 +418,13 @@
     <value>0</value>
   </data>
   <data name="groupBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 131</value>
+    <value>12, 136</value>
   </data>
   <data name="groupBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
     <value>410, 49</value>
   </data>
   <data name="groupBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Equivalent command-line</value>
@@ -433,6 +439,30 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBoxCommandLine.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panelOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="panelOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>94, 81</value>
+  </data>
+  <data name="panelOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>328, 18</value>
+  </data>
+  <data name="panelOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.Name" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -442,10 +472,10 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>434, 221</value>
+    <value>434, 226</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>320, 220</value>
+    <value>320, 240</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Run</value>

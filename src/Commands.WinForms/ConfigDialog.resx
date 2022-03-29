@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>256, 296</value>
+    <value>266, 296</value>
   </data>
   <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
     <value>buttonOK</value>
@@ -134,7 +134,7 @@
     <value>1</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 296</value>
+    <value>347, 296</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -448,7 +448,7 @@
     <value>6, 165</value>
   </data>
   <data name="groupStability.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 46</value>
+    <value>384, 46</value>
   </data>
   <data name="groupStability.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -478,7 +478,7 @@
     <value>6, 19</value>
   </data>
   <data name="timespanFreshness.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 29</value>
+    <value>372, 29</value>
   </data>
   <data name="timespanFreshness.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -499,7 +499,7 @@
     <value>6, 105</value>
   </data>
   <data name="groupFreshness.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 54</value>
+    <value>384, 54</value>
   </data>
   <data name="groupFreshness.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -607,7 +607,7 @@
     <value>6, 6</value>
   </data>
   <data name="groupNetworkUse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 93</value>
+    <value>384, 93</value>
   </data>
   <data name="groupNetworkUse.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -634,7 +634,7 @@
     <value>3, 3, 9, 3</value>
   </data>
   <data name="tabPageUpdates.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>402, 252</value>
   </data>
   <data name="tabPageUpdates.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1396,7 +1396,7 @@ Notes:
     <value>12, 12</value>
   </data>
   <data name="tabOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 278</value>
+    <value>410, 278</value>
   </data>
   <data name="tabOptions.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1426,7 +1426,7 @@ Notes:
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>424, 331</value>
+    <value>434, 331</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2528,7 +2528,7 @@ Notes:
 </value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>400, 330</value>
+    <value>430, 340</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

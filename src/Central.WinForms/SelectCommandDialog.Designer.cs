@@ -38,7 +38,9 @@ namespace ZeroInstall.Central.WinForms
             this.textBoxArgs = new System.Windows.Forms.TextBox();
             this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
             this.textBoxCommandLine = new System.Windows.Forms.TextBox();
+            this.panelOptions = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBoxCommandLine.SuspendLayout();
+            this.panelOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -115,15 +117,21 @@ namespace ZeroInstall.Central.WinForms
             this.textBoxCommandLine.Name = "textBoxCommandLine";
             this.textBoxCommandLine.ReadOnly = true;
             // 
+            // panelOptions
+            // 
+            resources.ApplyResources(this.panelOptions, "panelOptions");
+            this.panelOptions.Controls.Add(this.checkBoxCustomizeVersion);
+            this.panelOptions.Controls.Add(this.checkBoxRefresh);
+            this.panelOptions.Name = "panelOptions";
+            // 
             // SelectCommandDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.groupBoxCommandLine);
             this.Controls.Add(this.textBoxArgs);
             this.Controls.Add(this.labelArgs);
-            this.Controls.Add(this.checkBoxRefresh);
-            this.Controls.Add(this.checkBoxCustomizeVersion);
             this.Controls.Add(this.labelOptions);
             this.Controls.Add(this.labelSummary);
             this.Controls.Add(this.comboBoxCommand);
@@ -137,13 +145,14 @@ namespace ZeroInstall.Central.WinForms
             this.Controls.SetChildIndex(this.comboBoxCommand, 0);
             this.Controls.SetChildIndex(this.labelSummary, 0);
             this.Controls.SetChildIndex(this.labelOptions, 0);
-            this.Controls.SetChildIndex(this.checkBoxCustomizeVersion, 0);
-            this.Controls.SetChildIndex(this.checkBoxRefresh, 0);
             this.Controls.SetChildIndex(this.labelArgs, 0);
             this.Controls.SetChildIndex(this.textBoxArgs, 0);
             this.Controls.SetChildIndex(this.groupBoxCommandLine, 0);
+            this.Controls.SetChildIndex(this.panelOptions, 0);
             this.groupBoxCommandLine.ResumeLayout(false);
             this.groupBoxCommandLine.PerformLayout();
+            this.panelOptions.ResumeLayout(false);
+            this.panelOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -154,6 +163,7 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.ComboBox comboBoxCommand;
         private System.Windows.Forms.Label labelSummary;
         private System.Windows.Forms.Label labelOptions;
+        private System.Windows.Forms.FlowLayoutPanel panelOptions;
         private System.Windows.Forms.CheckBox checkBoxCustomizeVersion;
         private System.Windows.Forms.CheckBox checkBoxRefresh;
         private System.Windows.Forms.Label labelArgs;
