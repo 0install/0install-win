@@ -47,6 +47,9 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <summary>Do not integrate the application into the desktop environment.</summary>
     private bool _noIntegrate;
 
+    /// <summary>Integrate the application machine-wide (for the entire computer) instead of just for the current user.</summary>
+    private bool _machine;
+
     private string HelpText
     {
         get
@@ -156,7 +159,11 @@ public sealed class BootstrapProcess : ServiceProvider
                 Handler.Verbosity = Verbosity.Batch;
             });
             if (_embeddedConfig.IntegrateArgs != null)
+            {
                 _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
+                if (!_embeddedConfig.IntegrateArgs.Contains("--machine"))
+                    _options.Add("machine", () => $"Integrate {_embeddedConfig.AppName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machine = true);
+            }
         }
 
         // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
@@ -296,10 +303,11 @@ public sealed class BootstrapProcess : ServiceProvider
         if (_noIntegrate || _embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
             return ExitCode.OK;
 
-        var startInfo = ZeroInstall(
-            new[] {"integrate", _embeddedConfig.AppUri.ToStringRfc()}
-               .Concat(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs))
-               .ToArray());
+        var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc()};
+        if (_machine) args.Add("--machine");
+        args.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
+
+        var startInfo = ZeroInstall(args.ToArray());
 
         var exitCode = ExitCode.UserCanceled;
         Handler.RunTask(new SimpleTask(
