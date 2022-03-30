@@ -1,0 +1,40 @@
+name: Translate
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 6 15 * *'
+  push:
+    branches: [master]
+    paths: ['**.resx']
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Transifex Push
+        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} push --source
+      - name: Transifex Pull
+        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --mode translator --all
+      - name: DeepL Cache
+        uses: actions/cache@v3
+        with:
+          path: '**/*.a.resx'
+          key: deepl
+      - name: DeepL
+        uses: Yeah69/MrMeeseeks.ResXTranslationCombinator@main
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+        with:
+          auth: ${{secrets.DEEPL_API_KEY}}
+          source-lang: en
+          localization-filter: de;el;es-ES;fr;it;ja;nl;pl;pt-BR;pt-PT;ro;ru;tr;zh
+          excludes-regex: .*(filtered|ImageResources).*
+          filter-keys-with-overrides: true
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@main
+        with:
+          branch: translate
+          commit-message: Update translations
+          title: Update translations
+          body: Translations downloaded from Transifex and generated with DeepL

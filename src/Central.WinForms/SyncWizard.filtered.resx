@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>No, I have already set up &amp;other computers</value>
+  </data>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Yes, this is the &amp;first computer</value>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Is this the first computer you are setting up for Zero Install Sync?</value>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync takes your application list and desktop integrations and automatically transfers them to your other computers.</value>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Use a Windows &amp;file share:</value>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>Use a c&amp;ustom server:</value>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value>Use the &amp;0install.de server (recommended)</value>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Which server do you want to use?</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>0install.de provides free accounts for storing Sync data. All data is encrypted locally before it is transmitted to the server. You can use your own server for storage instead if you wish.</value>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>How do I set up my own Sync server?</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Directory path</value>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Sync Setup</value>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Once you have created an account, verified your e-mail address and noted your login credentials, click on 'Next'.
+</value>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Click on the following link to create a new Sync account in your browser:</value>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>&amp;Password:</value>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>&amp;Username:</value>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Please enter your login credentials for the Sync server below:</value>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value>Sync account</value>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Sync account</value>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>&amp;Forgot key</value>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Crypto &amp;key:</value>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Please enter the crypto key you used previously on this and/or other computers:</value>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Crypto key</value>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>New crypto &amp;key:</value>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Enter the key on other computers using the 'Options' window. Do not use this wizard there since it is only required to perform the initial change.</value>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>The crypto key has been changed. Now you will need to enter the new key on all other computers you have already set up for Zero Install Sync.</value>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Crypto key changed</value>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Reset crypto key</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Crypto &amp;key:</value>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>The crypto key is used to encrypt your data locally before transmitting it to the server. Write down the suggested one or choose your own.</value>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Zero Install Sync is now set up and ready to use. Run this wizard on any other computers you wish to keep synchronized with this one.</value>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Sync Setup complete</value>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Crypto key</value>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value>I want to replace my &amp;local data</value>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value>The data stored on the &amp;server is damaged</value>
+  </data>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>I want to &amp;change my crypto key</value>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>This wizard can help you solve a number of possible Sync problems. What issue do you wish to resolve?</value>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Sync troubleshooting</value>
+  </data>
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value>You should not run Zero Install Sync on other computers while this process is running.</value>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value>New crypto &amp;key:</value>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Change crypto key</value>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>You are about to replace the data stored on the Sync server with your local application list. Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>You may also wish to reset the local data on other computers you are using Zero Install Sync on.</value>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>The server data is being reset. You can now continue using Zero Install.</value>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value>Reset Sync server</value>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Reset Sync server</value>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value>You are about to replace your local application list with the data stored on the Sync server. Any changes you have made locally but not synchronized yet will be lost!</value>
+  </data>
+  <data name="labelResetClientFinished.Text" xml:space="preserve">
+    <value>The local application list is being reset. You can now continue using Zero Install.</value>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Reset local data</value>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value>Reset local data</value>
+  </data>
+</root>

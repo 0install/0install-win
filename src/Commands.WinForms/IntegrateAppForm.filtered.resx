@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>Start menu</value>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Send to</value>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>Command-line aliases</value>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Auto start</value>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
+    <value>Select &amp;all</value>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>Extensions</value>
+  </data>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>File types</value>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
+    <value>Select &amp;all</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>Protocols</value>
+  </data>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>URL protocols</value>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
+    <value>Select &amp;all</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>AutoPlay</value>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
+    <value>Select &amp;all</value>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Entry name</value>
+  </data>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>Context menu</value>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
+    <value>Select &amp;all</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>Default programs</value>
+  </data>
+  <data name="checkBoxCapabilities.Text" xml:space="preserve">
+    <value>&amp;Register capabilities</value>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>Tells the operating system about the application's capabilities, such as the file types it can handle.</value>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
+    <value>Auto &amp;Update</value>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Includes this application in "Update all" checks.</value>
+  </data>
+  <data name="buttonAdvancedMode.Text" xml:space="preserve">
+    <value>Ad&amp;vanced settings</value>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>Start menu</value>
+  </data>
+  <data name="labelStartMenuSimple.Text" xml:space="preserve">
+    <value>One or more entries in the start menu</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="labelDesktopSimple.Text" xml:space="preserve">
+    <value>An icon on the desktop</value>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>Send to</value>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>An entry in the "Send to" menu</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>Command-line aliases</value>
+  </data>
+  <data name="labelAliasesSimple.Text" xml:space="preserve">
+    <value>Access from the command-line interface</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>Auto start</value>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>Start program automatically when the user logs in</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>File types</value>
+  </data>
+  <data name="labelFileTypesSimple.Text" xml:space="preserve">
+    <value>Default handler for supported file types ("Open with" works without this too)</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>URL protocols</value>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>Default handler for supported URL protocols ("Open with" works without this too)</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>AutoPlay</value>
+  </data>
+  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
+    <value>Automatically launch when suitable media (DVD, USB drive, etc.) is inserted</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>Context menu</value>
+  </data>
+  <data name="labelContextMenuSimple.Text" xml:space="preserve">
+    <value>Context menu entries in Windows Explorer</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Default program</value>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Default program for tasks like web browser or e-mail client</value>
+  </data>
+  <data name="buttonBasicMode.Text" xml:space="preserve">
+    <value>&amp;Basic settings</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Integrate application</value>
+  </data>
+</root>
