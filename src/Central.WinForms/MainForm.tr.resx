@@ -171,11 +171,11 @@
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>Ö&amp;nbellek yönetimi</value>
   </data>
-  <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>K&amp;omut satırı</value>
-  </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
     <value>Taşınabilir &amp;oluşturucu</value>
+  </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>K&amp;omut satırı</value>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
     <value>&amp;Araçlar</value>

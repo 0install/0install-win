@@ -120,6 +120,12 @@
   <data name="labelCommand.Text" xml:space="preserve">
     <value>Εντολή:</value>
   </data>
+  <data name="labelOptions.Text" xml:space="preserve">
+    <value>Επιλογές:</value>
+  </data>
+  <data name="checkBoxRefresh.Text" xml:space="preserve">
+    <value>Ανανέωση </value>
+  </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>Επιχειρήματα:</value>
   </data>

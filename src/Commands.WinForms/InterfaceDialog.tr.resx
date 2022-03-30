@@ -117,17 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
-    <value>Tüm &amp;sürümler görüntülensin</value>
-  </data>
-  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Bu sistem tarafından desteklenmeyen sürümler de görüntülensin</value>
-  </data>
   <data name="labelStability.Text" xml:space="preserve">
     <value>Yeğlenen &amp;kararlılık:</value>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
     <value>Hangi kararlılık düzeyinin "en uygun" olarak değerlendirileceğini belirler</value>
+  </data>
+  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
+    <value>Tüm &amp;sürümler görüntülensin</value>
+  </data>
+  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
+    <value>Bu sistem tarafından desteklenmeyen sürümler de görüntülensin</value>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">
     <value>Sürüm</value>

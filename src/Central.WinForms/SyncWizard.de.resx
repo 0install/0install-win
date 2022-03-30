@@ -117,163 +117,164 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>Ja, dies ist der &amp;erste Rechner</value>
-  </data>
-  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Nein, ich habe bereits &amp;andere Rechner eingerichtet</value>
-  </data>
-  <data name="labelSetup.Text" xml:space="preserve">
-    <value>Ist dies der erste Rechner, den Sie für Zero Install Sync einrichten?</value>
-  </data>
-  <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync nimmt Ihre Anwendungsliste und Desktopintegrationen und gleicht diese automatisch mit Ihren anderen Rechnern ab.</value>
-  </data>
-  <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Verwende Windows &amp;Dateifreigabe:</value>
-  </data>
-  <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Verzeichnispfad</value>
-  </data>
-  <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Wie richte ich meinen eigenen Sync Server ein?</value>
-  </data>
-  <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Verwende &amp;eigenen Server:</value>
-  </data>
-  <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Verwende den &amp;0install.de Server (empfohlen)</value>
-  </data>
-  <data name="labelServerType.Text" xml:space="preserve">
-    <value>Welchen Server möchten Sie verwenden?</value>
-  </data>
-  <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de bietet kostenlose Konten zum Speichern von Sync-Daten an. Alle Daten werden verschlüsselt bevor sie zum Server übermittelt werden. Sie können auch einen eigenen Server verwenden, wenn Sie möchten.</value>
-  </data>
-  <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Sync einrichten</value>
-  </data>
-  <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Nachdem Sie einen Account angelegt, Ihre E-Mail Adresse verifiziert und Ihre Logindaten vermerkt haben haben, klicken Sie auf "Fortsetzen".</value>
-  </data>
-  <data name="linkRegister.Text" xml:space="preserve">
-    <value>Registieren</value>
-  </data>
-  <data name="labelRegister.Text" xml:space="preserve">
-    <value>Klicken Sie auf diesen Link um einen neuen Sync Account in Ihrem Browser anzulegen:</value>
-  </data>
-  <data name="labelPassword.Text" xml:space="preserve">
-    <value>&amp;Passwort:</value>
-  </data>
-  <data name="labelUsername.Text" xml:space="preserve">
-    <value>&amp;Benutzername:</value>
-  </data>
-  <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Bitte geben Sie Ihre Zugangsdaten für den Sync-Server ein:</value>
-  </data>
-  <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sync Konto</value>
-  </data>
-  <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sync Konto</value>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>Ich möchte meinen &amp;Kryptoschlüssel ändern</value>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Key &amp;vergessen</value>
-  </data>
-  <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Krypto-Key:</value>
-  </data>
-  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Geben Sie den Krypto-Key ein, den Sie zuvor auf diesem und/oder anderen Rechnern verwendet haben:</value>
-  </data>
-  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Krypto-Key</value>
-  </data>
-  <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Alle Änderungen, die Sie auf anderen Rechnern gemacht aber noch nicht mit diesem synchronisiert haben, gehen hierbei verloren!</value>
-  </data>
-  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>Neuer Crypto-&amp;Key:</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Geben Sie den Key auf anderen Computern mit dem 'Optionen' Fenster ein. Verwenden Sie dort nicht diesen Assistenten, da er nur zur ersten Änderung benötigt wird.</value>
-  </data>
-  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Der Krypto-Key wurde geändert. Sie müssen nun den neuen Key auf allen anderen Computern, die Sie bereits für Zero Install Sync eingerichtet haben, ebenfalls eintragen.</value>
-  </data>
-  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Krypto-Key geändert</value>
-  </data>
-  <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Krypto-Key zurücksetzen</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Halten Sie diesen Key geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden würde.</value>
-  </data>
-  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Crypto-&amp;Key:</value>
-  </data>
-  <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Der Krypto-Key wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden. Schreiben Sie sich den vorgeschlagenen auf oder wählen Sie einen eigenen.</value>
-  </data>
-  <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync ist nun eingerichtet und bereit zum Einsatz. Führen Sie diesen Assistenten auf allen anderen Rechnern aus, die Sie mit diesem synchronisieren möchten.</value>
-  </data>
-  <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Abgeschlossen</value>
-  </data>
-  <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Krypto-Key</value>
+    <value>Schlüssel vergessen</value>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>Ich möchte meine &amp;lokalen Daten ersetzen</value>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Die &amp;Serverdaten sind beschädigt</value>
+    <value>Die auf dem &amp;Server gespeicherten Daten sind beschädigt</value>
   </data>
-  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Ich möchte meinen &amp;Krypto-Key ändern</value>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Ja, dies ist der &amp;erste Computer</value>
   </data>
-  <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Dieser Assistent kann Ihnen dabei helfen, eine Reihe möglicher Sync Probleme zu beheben. Um welchen Sachverhalt geht es?</value>
-  </data>
-  <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Sync Problembehebung</value>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Nein, ich habe bereits &amp;andere Computer eingerichtet</value>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Sie sollten Zero Install Sync nicht auf anderen Rechner ausführen während dieser Prozess läuft.</value>
+    <value>Sie sollten Zero Install Sync nicht auf anderen Computern ausführen, während dieser Prozess läuft.</value>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Bitte geben Sie Ihre Zugangsdaten für den Sync-Server ein:</value>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Kryptoschlüssel:</value>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>Neuer Crypto-&amp;Key:</value>
+    <value>Neuer Kryptoschlüssel:</value>
   </data>
-  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Krypto-Key ändern</value>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Der Kryptoschlüssel wurde geändert. Nun müssen Sie den neuen Schlüssel auf allen anderen Computern eingeben, die Sie bereits für Zero Install Sync eingerichtet haben.</value>
   </data>
-  <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Sie sind dabei die Daten, die auf dem Sync Server gespeichert sind, mit Ihrer lokalen Anwendungsliste zu ersetzen. Alle Änderungen, die Sie auf anderen Rechnern gemacht aber noch nicht mit diesem synchronisiert haben, gehen dabei verloren!</value>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Geben Sie den Schlüssel auf anderen Computern über das Fenster "Optionen" ein. Verwenden Sie diesen Assistenten dort nicht, da er nur für die erste Änderung erforderlich ist.</value>
   </data>
-  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Sie sollten die lokalen Daten auf den anderen Rechnern, auf denen Sie Zero Install Sync verwenden, ebenfalls zurücksetzen.</value>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Kryptoschlüssel:</value>
   </data>
-  <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Die Serverdaten werden zurückgesetzt. Sie können nun Zero Install weiter nutzen.</value>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>Neuer Kryptoschlüssel:</value>
   </data>
-  <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Sync Server zurücksetzen</value>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Bitte geben Sie den Kryptoschlüssel ein, den Sie zuvor auf diesem und/oder anderen Computern verwendet haben:</value>
   </data>
-  <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Sync Server zurücksetzen</value>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>Der Kryptoschlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übertragen werden. Schreiben Sie den vorgeschlagenen Schlüssel auf oder wählen Sie Ihren eigenen.</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Halten Sie diesen Schlüssel geheim und verwenden Sie ein anderes Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden sollte.</value>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>&amp;Passwort:</value>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Klicken Sie auf den folgenden Link, um ein neues Sync-Konto in Ihrem Browser zu erstellen:</value>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Sobald Sie ein Konto erstellt, Ihre E-Mail-Adresse verifiziert und Ihre Anmeldedaten notiert haben, klicken Sie auf "Fortsetzen".
+</value>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Sie sind dabei Ihre lokale Anwendungsliste mit den Daten, die auf dem Sync Server gespeichert sind, zu ersetzen. Alle Änderungen, die Sie lokal gemacht aber noch nicht synchronisiert haben, gehen dabei verloren!</value>
+    <value>Sie sind dabei, Ihre lokale Anwendungsliste durch die auf dem Sync-Server gespeicherten Daten zu ersetzen. Alle Änderungen, die Sie lokal vorgenommen, aber noch nicht synchronisiert haben, gehen verloren!</value>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
     <value>Die lokale Anwendungsliste wird zurückgesetzt. Sie können nun Zero Install weiter nutzen.</value>
   </data>
-  <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Lokale Daten zurücksetzen</value>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Alle Änderungen, die Sie auf anderen Computern vorgenommen haben, die aber noch nicht mit diesem Computer synchronisiert wurden, gehen verloren!</value>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>Sie sind dabei, die auf dem Sync-Server gespeicherten Daten durch Ihre lokale Anwendungsliste zu ersetzen. Alle Änderungen, die Sie auf anderen Computern vorgenommen haben, die aber noch nicht mit diesem Computer synchronisiert wurden, gehen verloren!</value>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>Die Serverdaten werden zurückgesetzt. Sie können nun mit Zero Install fortfahren.</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>Möglicherweise möchten Sie auch die lokalen Daten auf anderen Computern, auf denen Sie Zero Install Sync verwenden, zurücksetzen.</value>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>Dieser Assistent kann Ihnen helfen, eine Reihe von möglichen Synchronisierungsproblemen zu lösen. Welches Problem möchten Sie beheben?</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>0install.de bietet kostenlose Konten zum Speichern von Sync-Daten an. Alle Daten werden lokal verschlüsselt, bevor sie an den Server übertragen werden. Sie können stattdessen Ihren eigenen Server für die Speicherung verwenden, wenn Sie dies wünschen.</value>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Welchen Server möchten Sie verwenden?</value>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Ist dies der erste Computer, den Sie für Zero Install Sync einrichten?</value>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Zero Install Sync ist nun eingerichtet und einsatzbereit. Führen Sie diesen Assistenten auf allen anderen Computern aus, die Sie mit diesem synchronisieren möchten.</value>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync übernimmt Ihre Anwendungsliste und Desktop-Integrationen und überträgt sie automatisch auf Ihre anderen Computer.</value>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>&amp;Benutzername:</value>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>Wie kann ich meinen eigenen Sync-Server einrichten?</value>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>Registieren</value>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>Verwende &amp;eigenen Server:</value>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Verwende Windows &amp;Dateifreigabe:</value>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value>Verwende den &amp;0install.de Server (empfohlen)</value>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Kryptoschlüssel ändern</value>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value>Sync Konto</value>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Kryptoschlüssel geändert</value>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Kryptoschlüssel</value>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Kryptoschlüssel</value>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Sync Konto</value>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Lokale Daten zurücksetzen</value>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Lokale Daten zurücksetzen</value>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Kryptoschlüssel zurücksetzen</value>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Sync-Server zurücksetzen</value>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value>Sync-Server zurücksetzen</value>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Sync-Fehlerbehebung</value>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Sync-Setup abgeschlossen</value>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Sync einrichten</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Verzeichnispfad</value>
   </data>
 </root>
