@@ -4,8 +4,7 @@ on:
   schedule:
     - cron: '0 6 15 * *'
   push:
-    branches: [master]
-    paths: ['**.resx']
+    branches: [master, temp]
 
 jobs:
   translate:
