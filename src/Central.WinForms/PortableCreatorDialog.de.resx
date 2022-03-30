@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Portable Ersteller</value>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
-  </data>
-  <data name="labelInfo.Text" xml:space="preserve">
-    <value>Hier können Sie eine Portable Version von Zero Install erstellen, z.B. für einen USB Stick. Das Ziel muss NTFS formatiert sein.</value>
-  </data>
-  <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Zielverzeichnis</value>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
     <value>&amp;Erstellen</value>
   </data>
-  <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Speichert Zero Install Konfiguration und gecachte Anwendungen innerhalb eines einzelnen Verzeichnisses.
-- Macht nicht die über Zero Install gestarteten Anwendungen automatisch auch portable.
-- Portable Versionen von Zero Install können keine Desktopintegration durchführen (z.B. Startmenüeinträge anlegen).
-- Ziehen Sie in Betracht, stattdessen das normale Zero Install auf mehreren Rechnern mit Zero Install Sync einzusetzen.</value>
+  <data name="labelInfo.Text" xml:space="preserve">
+    <value>Hier können Sie eine portable Version von Zero Install erstellen, z. B. für die Verwendung auf einem USB-Stick. Das Ziel muss NTFS-formatiert sein.</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Portable Ersteller</value>
+  <data name="labelInfo2.Text" xml:space="preserve">
+    <value>- Speichert die Zero Install-Konfiguration und gecachte Anwendungen in einem einzigen Verzeichnis.
+- Macht die über Zero Install gestarteten Anwendungen nicht automatisch auch portabel.
+- Portable Versionen von Zero Install können keine Desktop-Integration durchführen (z. B. Startmenüeinträge erstellen).
+- Ziehen Sie stattdessen die Verwendung des regulären Zero Install auf mehreren Computern mit Zero Install Sync in Betracht.</value>
+  </data>
+  <data name="textBoxTarget.HintText" xml:space="preserve">
+    <value>Zielverzeichnis</value>
   </data>
 </root>

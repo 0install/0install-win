@@ -201,7 +201,7 @@ in the start menu or on the desktop.</value>
     <value>Added to "My apps" and integrated in desktop environment.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>The directory {0} is not empty.
+    <value>The directory '{0}' is not empty.
 Are you sure you want place a portable version of Zero Install there?</value>
   </data>
   <data name="PortableMode" xml:space="preserve">

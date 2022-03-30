@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textKeywords.HintText" xml:space="preserve">
-    <value>Stichwörter</value>
-  </data>
-  <data name="labelInfo.Text" xml:space="preserve">
-    <value>Diese Sucheregbnisse werden vom Mirror-Server geliefert. Beachten Sie, dass der Standard Mirror-Server alle bekannten Feeds unabhängig von Qualität indiziert. Sie müssen selber entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie starten.</value>
-  </data>
-  <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Treffer (%)</value>
-  </data>
-  <data name="columnSummary.HeaderText" xml:space="preserve">
-    <value>Beschreibung</value>
-  </data>
-  <data name="columnCategories.HeaderText" xml:space="preserve">
-    <value>Kategorien</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install Feedsuche</value>
   </data>
@@ -147,10 +132,25 @@
   <data name="buttonRun.Text" xml:space="preserve">
     <value>&amp;Starten</value>
   </data>
+  <data name="columnCategories.HeaderText" xml:space="preserve">
+    <value>Kategorien</value>
+  </data>
   <data name="columnName.HeaderText" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="columnScore.HeaderText" xml:space="preserve">
+    <value>Treffer (%)</value>
+  </data>
+  <data name="columnSummary.HeaderText" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
     <value>URI</value>
+  </data>
+  <data name="labelInfo.Text" xml:space="preserve">
+    <value>Diese Suchergebnisse werden vom Mirror-Server bereitgestellt. Beachten Sie, dass der Mirror-Server alle bekannten Feeds indiziert, unabhängig von der Qualität. Sie müssen selber entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie ausführen.</value>
+  </data>
+  <data name="textKeywords.HintText" xml:space="preserve">
+    <value>Stichwörter</value>
   </data>
 </root>

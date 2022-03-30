@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Die URL von einem Katalog (einer Sammlung von Feeds) eingeben</value>
+    <value>Die URL eines Katalogs (einer Sammlung von Feeds) eingeben</value>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Die URL von einem Feed eingeben (eine einzelne Anwendung)</value>
+    <value>Die URL eines Feeds eingeben (eine einzelne App)</value>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
     <value>&amp;Befehlszeile</value>
+  </data>
+  <data name="buttonDocumentation.Text" xml:space="preserve">
+    <value>&amp;Dokumentation</value>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
     <value>&amp;Publishing Tools verwenden um einen neue App zu paketieren</value>
@@ -133,10 +136,10 @@
     <value>&amp;Hilfe</value>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>&amp;Intro Video</value>
+    <value>Einführungsv&amp;ideo</value>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>&amp;Mehr Anwendungen</value>
+    <value>&amp;Weitere Anwendungen</value>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
     <value>&amp;Optionen</value>
@@ -148,10 +151,10 @@
     <value>Liste &amp;aktualisieren</value>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Eine Stichwortsuche durchführen</value>
+    <value>Stichwortsuche durchführen</value>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>&amp;Cache Verwaltung</value>
+    <value>&amp;Cache-Verwaltung</value>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
     <value>&amp;Sync</value>
@@ -160,10 +163,10 @@
     <value>Sync</value>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>&amp;Einrichten</value>
+    <value>&amp;Einrichtung</value>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>&amp;Problembehebung</value>
+    <value>&amp;Fehlersuche</value>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
     <value>&amp;Tools</value>
@@ -178,15 +181,12 @@
     <value>Aktualisieren und aufräumen</value>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Lade Katalog vom Server...</value>
+    <value>Katalog vom Server laden...</value>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
     <value>Meine Apps</value>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Katalog</value>
-  </data>
-  <data name="buttonDocumentation.Text" xml:space="preserve">
-    <value>&amp;Dokumentation</value>
   </data>
 </root>

@@ -123,6 +123,9 @@
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Bu bölümden Zero Install uygulamasını USB disk sürücü gibi taşınabilir bir ortama kuralbilirsiniz. Hedef sürücü NTFS biçiminde olmalıdır.</value>
   </data>
+  <data name="textBoxTarget.HintText" xml:space="preserve">
+    <value>Hedef klasör</value>
+  </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
     <value>&amp;Hazırla</value>
   </data>
@@ -131,9 +134,6 @@
 - Zero Install taşınabilir sürümü, uygulamaları otomatik olarak başlatamaz.
 - Zero Install taşınabilir sürümü, masaüstü ile bütünleşemez (başlat menüsü kayıtları oluşturamaz gibi).
 - Farklı bilgisayarlarda kullanmak için taşınabilir sürüm yerine Zero Install Sync özelliğini kullanmayı düşünün.</value>
-  </data>
-  <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Hedef klasör</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Taşınabilir oluşturucu</value>

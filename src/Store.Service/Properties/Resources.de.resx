@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>Der Benutzer '{0}' konnte die Implementierung '{1}' nicht in '{2}' hinzufügen.</value>
+    <value>Der Benutzer '{0}' konnte die Implementierung '{1}' nicht zu '{2}' hinzufügen.</value>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Konnte kein temporäres Verzeichnis für den Benutzer '{0}' in '{1}' anlegen.</value>
+    <value>Es konnte kein temporäres Verzeichnis für den Benutzer '{0}' in '{1}' erstellt werden.</value>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Konnte das temporäre Verzeichnis '{1}' (für den Benutzer '{0}' angelegt) nicht enfernen.</value>
+    <value>Das temporäre Verzeichnis '{1}' (erstellt für den Benutzer '{0}') konnte nicht entfernt werden.</value>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Der Dienst kann nicht im Portablen Modus laufen!</value>
+    <value>Der Dienst kann nicht im portablen Modus laufen!</value>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Setze Dateizugriffsrechte</value>
+    <value>Festlegen von Dateiberechtigungen</value>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>Der Benutzer '{0}' hat die Implementierung '{1}' erfolgreich in '{2}' hinzugefügt.</value>
+    <value>Der Benutzer '{0}' hat erfolgreich die Implementierung '{1}' zu '{2}' hinzugefügt.</value>
   </data>
 </root>

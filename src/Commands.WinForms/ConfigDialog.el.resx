@@ -135,6 +135,9 @@
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
     <value>Χρησιμοποιήστε beta εκδόσεις των εφαρμογών όταν είναι διαθέσιμη</value>
   </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Σταθερότητα</value>
+  </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
     <value>Λειτουργία εκτός σύνδεσης (μην κατεβάσετε τίποτα)</value>
   </data>

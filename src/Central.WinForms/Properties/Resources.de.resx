@@ -130,7 +130,7 @@
     <value>Klicken um Zero Install auf diesem Rechner einzurichten...</value>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Bitte geben Sie die URL eines Zero Install Feeds hier ein:</value>
+    <value>Bitte geben Sie hier die URL eines Zero Install Feeds ein:</value>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
     <value>Für alle Benutzer</value>
@@ -142,32 +142,32 @@
     <value>Ignoriere doppelten App-Eintrag für '{0}'.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Integrieren (Startmenü, etc.)</value>
+    <value>Integrieren (Startmenü, usw.)</value>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Normale App</value>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>tut das Übliche</value>
+    <value>macht die üblichen Sachen</value>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
     <value>Cool App</value>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>tut etwas Cooles</value>
+    <value>macht etwas Cooles</value>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
     <value>Andere App</value>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>tut etwas Anderes</value>
+    <value>macht etwas anderes</value>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Wenn Ihnen eine Anwendung gefällt,
 fügen Sie sie zu "Meine Apps" hinzu.</value>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Suchen Sie nach einer Anwendung im "Katalog"...</value>
+    <value>Suchen Sie im "Katalog" nach einer App...</value>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>"Integrieren" Sie eine Anwendung,
@@ -198,7 +198,7 @@ um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
     <value>Zu "Meine Apps" hinzugefügt.</value>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Zu "Meine Apps" hinzugefügt und in Desktopumgebung integriert.</value>
+    <value>Zu "Meine Apps" hinzugefügt und in die Desktopumgebung integriert.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.
@@ -220,7 +220,7 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
     <value>Start mit &amp;Optionen</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
+    <value>Möchten Sie die vorgenommenen Änderungen speichern?</value>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Nein
@@ -237,45 +237,45 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
     <value>Klicken um auf Zero Install v{0} zu aktualisieren...</value>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Sie müssen Sync Setup zuerst abschließen.</value>
+    <value>Sie müssen zuerst das Sync-Setup abschließen.</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>Der Benutzername und/oder das Passwort sind nicht korrekt.</value>
+    <value>Der von Ihnen eingegebene Benutzername und/oder das Passwort sind falsch.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Der Krypto-Key ist nicht korrekt.</value>
+    <value>Der von Ihnen eingegebene Kryptoschlüssel ist falsch.</value>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Möchten Sie die bestehenden Sync-Einstellungen zurücksetzen und von vorne anfangen?</value>
+    <value>Möchten Sie die Sync-Einstellungen zurücksetzen und von vorne beginnen?</value>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Nein
-bestehende Einstellungen bearbeiten</value>
+die bestehenden Einstellungen bearbeiten</value>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Ja
 von vorne anfangen</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
-Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie auswählen, dass Sie sich nicht an den Krypto-Key erinnern.</value>
+    <value>Die derzeit auf dem Sync-Server gespeicherten Daten sind beschädigt.
+Sie können die auf dem Server gespeicherten Daten ersetzen, indem Sie auswählen, dass Sie sich nicht mehr an den Kryptoschlüssel erinnern.</value>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Konnte Anwendungskatalog nicht runterladen.</value>
+    <value>Konnte Anwendungskatalog nicht herunterladen.</value>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Konnte Feed für App-Eintrag '{0}' nicht laden.</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
-Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
+Verschlüsselte Verbindungen verwenden ein https://-Präfix.</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>&amp;Aktualisieren</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Dies entfernt automatisch Implementierungen, die nach dem Update nicht mehr benötigt werden, aus dem Cache. Fortsetzen?
-Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Apps" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
+    <value>Dies entfernt automatisch Implementierungen aus dem Cache, die nach der Aktualisierung nicht mehr benötigt werden. Fortfahren?
+Wichtig: Anwendungen, die Sie zuvor mit"Start" aufgerufen haben, ohne sie zu "Meine Apps" hinzuzufügen, werden ebenfalls aus dem Cache entfernt. Wenn Sie sie erneut ausführen möchten, müssen Sie online sein.</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite...</value>
