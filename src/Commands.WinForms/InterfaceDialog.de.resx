@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,66 +53,112 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="dataColumnVersion.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnReleased.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnStability.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnArchitecture.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnNotes.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnSource.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Text" type="System.Drawing.Point, System.Drawing">
     <value>Interface Eigenschaften</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonAddFeed.Text" xml:space="preserve">
+  <data name="buttonAddFeed.Text" type="System.Drawing.Point, System.Drawing">
     <value>&amp;Hinzufügen</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonAddFeed.ToolTip" xml:space="preserve">
+  <data name="buttonAddFeed.ToolTip" type="System.Drawing.Point, System.Drawing">
     <value>Fügt eine neue Quelle von Implementierungen für dieses Interface hinzu</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonApply.Text" xml:space="preserve">
+  <data name="buttonApply.Text" type="System.Drawing.Point, System.Drawing">
     <value>Übernehmen</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonRemoveFeed.Text" xml:space="preserve">
+  <data name="buttonRemoveFeed.Text" type="System.Drawing.Point, System.Drawing">
     <value>&amp;Entfernen</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
+  <data name="buttonRemoveFeed.ToolTip" type="System.Drawing.Point, System.Drawing">
     <value>Entfernt eine Quelle von Implementierungen für dieses Interface</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
+  <data name="checkBoxShowAllVersions.Text" type="System.Drawing.Point, System.Drawing">
     <value>Alle &amp;Versionen anzeigen</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
+  <data name="checkBoxShowAllVersions.ToolTip" type="System.Drawing.Point, System.Drawing">
     <value>Versionen anzeigen, die auf diesem System nicht unterstützt werden</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="comboBoxStability.ToolTip" xml:space="preserve">
+  <data name="comboBoxStability.ToolTip" type="System.Drawing.Point, System.Drawing">
     <value>Bestimmt, welche Stabilitätsbewertung als die "beste" angesehen wird</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
+  <data name="dataColumnArchitecture.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Architektur</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnNotes.HeaderText" xml:space="preserve">
+  <data name="dataColumnNotes.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Hinweise</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnReleased.HeaderText" xml:space="preserve">
+  <data name="dataColumnReleased.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Veröffentlicht</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnSource.HeaderText" xml:space="preserve">
+  <data name="dataColumnSource.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Quelle</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnStability.HeaderText" xml:space="preserve">
+  <data name="dataColumnStability.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Stabilität</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
+  <data name="dataColumnUserStability.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Überschreiben</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="dataColumnVersion.HeaderText" xml:space="preserve">
+  <data name="dataColumnVersion.HeaderText" type="System.Drawing.Point, System.Drawing">
     <value>Version</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelStability.Text" xml:space="preserve">
+  <data name="labelStability.Text" type="System.Drawing.Point, System.Drawing">
     <value>Bevorzugte &amp;Stabilität:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageFeeds.Text" xml:space="preserve">
+  <data name="tabPageFeeds.Text" type="System.Drawing.Point, System.Drawing">
     <value>Feeds</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageVersions.Text" xml:space="preserve">
+  <data name="tabPageVersions.Text" type="System.Drawing.Point, System.Drawing">
     <value>Versionen</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

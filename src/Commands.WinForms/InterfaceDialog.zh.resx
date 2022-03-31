@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="dataColumnVersion.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnReleased.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnStability.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnArchitecture.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnNotes.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataColumnSource.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Text" type="System.Drawing.Point, System.Drawing">
+    <value>接口属性</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.Text" type="System.Drawing.Point, System.Drawing">
+    <value>添加</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>为该接口添加一个新的实现源</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonApply.Text" type="System.Drawing.Point, System.Drawing">
+    <value>申请</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveFeed.Text" type="System.Drawing.Point, System.Drawing">
+    <value>移除</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveFeed.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>移除该接口的一个实现源</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxShowAllVersions.Text" type="System.Drawing.Point, System.Drawing">
+    <value>显示所有版本</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxShowAllVersions.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>显示该系统不支持的版本</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="comboBoxStability.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>决定了哪一个稳定性等级将被认为是 "最好的"</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnArchitecture.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>建筑学</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnNotes.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>笔记</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnReleased.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>已发布</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnSource.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>来源</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnStability.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>稳定性</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnUserStability.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>覆盖</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnVersion.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>版本</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStability.Text" type="System.Drawing.Point, System.Drawing">
+    <value>优选的稳定性。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFeeds.Text" type="System.Drawing.Point, System.Drawing">
+    <value>饲料</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageVersions.Text" type="System.Drawing.Point, System.Drawing">
+    <value>版本</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

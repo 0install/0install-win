@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="menuUpdateAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>549, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <metadata name="menuSync.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>794, 17</value>
+  </metadata>
+  <metadata name="menuMoreApps.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1254, 17</value>
+  </metadata>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1156, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="buttonAddCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Εισάγετε τη διεύθυνση URL ενός καταλόγου (μια συλλογή feeds)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonAddFeed.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Εισάγετε τη διεύθυνση URL μιας τροφοδοσίας (μια απλή εφαρμογή)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonCommandLine.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Γραμμή εντολών</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonDocumentation.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Τεκμηρίωση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonFeedEditor.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Χρησιμοποιήστε τα Εργαλεία δημοσίευσης για να συσκευάσετε μια νέα εφαρμογή</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonHelp.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Βοήθεια</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonIntro.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Εισαγωγικό βίντεο</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonMoreApps.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Περισσότερες εφαρμογές</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonOptions.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Επιλογές</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonPortableCreator.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Φορητός δημιουργός</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonRefreshCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ανανέωση λίστας</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSearch.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Εκτελέστε μια αναζήτηση με λέξεις-κλειδιά</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonStoreManage.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Διαχείριση κρυφής μνήμης</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSync.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Συγχρονισμός</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSync2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Συγχρονισμός</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSyncSetup.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ρύθμιση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Αντιμετώπιση προβλημάτων</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonTools.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Εργαλεία</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonUpdateAll.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ενημέρωση όλων</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonUpdateAll2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ενημέρωση όλων</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonUpdateAllClean.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ενημέρωση όλων και καθαρισμός</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelLoadingCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Φόρτωση καταλόγου από το διακομιστή...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageAppList.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Οι εφαρμογές μου</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Κατάλογος</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

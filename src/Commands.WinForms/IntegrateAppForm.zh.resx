@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="dataGridStartMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridStartMenuColumnCategory.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridStartMenuColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDesktopColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDesktopColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAliasesColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAliasesColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnProtocols.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnEvents.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnService.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Text" type="System.Drawing.Point, System.Drawing">
+    <value>整合应用</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdvancedMode.Text" type="System.Drawing.Point, System.Drawing">
+    <value>高级设置</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonBasicMode.Text" type="System.Drawing.Point, System.Drawing">
+    <value>基本设置</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>命令行别名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>自动播放</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>自动启动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" type="System.Drawing.Point, System.Drawing">
+    <value>自动更新</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>在 "更新所有 "检查中包括该应用程序。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.Text" type="System.Drawing.Point, System.Drawing">
+    <value>登记能力</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>告诉操作系统关于该应用程序的能力，如它能处理的文件类型。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>上下文菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>默认程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>桌面</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>文件类型</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxSendToSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>发送至</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>开始菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>URL协议</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>活动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>已启用</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>入选名称</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>服务</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>延伸</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>类别</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>议定书</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAliasesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>从命令行界面访问</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoPlaySimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>当合适的媒体（DVD、USB驱动器等）被插入时自动启动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoStartSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>当用户登录时自动启动程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelContextMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Windows资源管理器中的上下文菜单条目</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>网络浏览器或电子邮件客户端等任务的默认程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDesktopSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>桌面上的一个图标</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelFileTypesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>支持的文件类型的默认处理程序（"用 "打开，没有这个也行）。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSendToSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>发送到 "菜单中的一个条目</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStartMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>开始菜单中的一个或多个条目</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>支持的URL协议的默认处理程序（"用 "打开，没有这个也行）。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAliases.Text" type="System.Drawing.Point, System.Drawing">
+    <value>命令行别名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoPlay.Text" type="System.Drawing.Point, System.Drawing">
+    <value>自动播放</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoStart.Text" type="System.Drawing.Point, System.Drawing">
+    <value>自动启动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageContextMenu.Text" type="System.Drawing.Point, System.Drawing">
+    <value>上下文菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" type="System.Drawing.Point, System.Drawing">
+    <value>默认程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDesktop.Text" type="System.Drawing.Point, System.Drawing">
+    <value>桌面</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFileTypes.Text" type="System.Drawing.Point, System.Drawing">
+    <value>文件类型</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageSendTo.Text" type="System.Drawing.Point, System.Drawing">
+    <value>发送至</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageStartMenu.Text" type="System.Drawing.Point, System.Drawing">
+    <value>开始菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageUrlProtocols.Text" type="System.Drawing.Point, System.Drawing">
+    <value>URL协议</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

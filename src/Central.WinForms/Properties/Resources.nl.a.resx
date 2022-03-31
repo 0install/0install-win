@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Voer '0install --help' in om een lijst van beschikbare commando's te zien.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Ga door</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Klik om Zero te installeren op deze computer...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Voer hier de URL van een Zero Install feed in:</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Voor alle gebruikers</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Voor huidige gebruiker</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Negeer dubbele app vermelding voor '{0}'.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integreren (startmenu, enz.)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Gemeenschappelijke app</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>doet de gebruikelijke dingen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Leuke app</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>doet iets cools</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Andere app</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>doet iets anders</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Als je een app leuk vindt,
+voeg het toe aan "Mijn apps".</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Zoek naar een app in de "Catalogus"...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Integreer" een app om het
+in het startmenu of op het bureaublad te zetten.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>U kunt uw lijst met favoriete apps hier beheren.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... en voer het uit!</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Veel plezier!</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Met Zero Install hoeft u geen apps te installeren.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Machine-wijde modus</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Integratie wijzigen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Toevoegen aan "Mijn apps"</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Toegevoegd aan "Mijn apps".</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Toegevoegd aan "Mijn apps" en geïntegreerd in desktop omgeving.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>De directory {0} is niet leeg.
+Weet u zeker dat u daar een portable versie van Zero Install wilt plaatsen?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Draagbare modus</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijder</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Wilt u de {0} geselecteerde items uit de lijst verwijderen?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Run</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Uitvoeren met opties</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Wilt u de gemaakte wijzigingen opslaan?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Geen
+Veranderingen weggooien</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ja
+Wijzigingen opslaan</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoeken op</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Klik om te updaten naar Zero Install v{0}...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>U moet eerst de Sync Setup voltooien.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>De door u ingevoerde gebruikersnaam en/of wachtwoord is onjuist.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>De door u ingevoerde Crypto-sleutel is onjuist.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Wilt u de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Geen
+de bestaande instellingen wijzigen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Ja
+vanaf nul beginnen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>De gegevens die momenteel op de Sync server zijn opgeslagen zijn beschadigd.
+U kunt de gegevens die op de server zijn opgeslagen vervangen door te kiezen dat u de Crypto sleutel niet meer weet.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Kan applicatiecatalogus niet downloaden.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Kan feed niet laden voor app item '{0}'.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Weet u zeker dat u een onversleutelde verbinding met een Sync server wilt gebruiken?
+Versleutelde verbindingen gebruiken een https:// prefix.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Dit zal automatisch implementaties uit de cache verwijderen die na de update niet meer nodig zijn. Doorgaan?
+Belangrijk: Toepassingen die u eerder hebt "Uitgevoerd" zonder ze toe te voegen aan "Mijn toepassingen" zullen ook uit de cache worden verwijderd.  U zult online moeten zijn als u besluit ze opnieuw uit te voeren.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Werken...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

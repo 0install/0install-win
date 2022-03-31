@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="menuUpdateAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>549, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <metadata name="menuSync.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>794, 17</value>
+  </metadata>
+  <metadata name="menuMoreApps.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1254, 17</value>
+  </metadata>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1156, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="buttonAddCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Insira a URL de um catálogo (uma coleção de feeds)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Digite a URL de um feed (um único aplicativo)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonCommandLine.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Linha de comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonDocumentation.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Documentação</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonFeedEditor.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Use ferramentas de publicação para empacotar um novo aplicativo</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelp.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonIntro.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Vídeo de apresentação</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonMoreApps.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Mais aplicações</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonOptions.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Opções</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonPortableCreator.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Criador portátil</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRefreshCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Lista de atualização</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSearch.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Executar uma pesquisa por palavra-chave</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonStoreManage.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Gerenciamento de cache</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSync.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Sincronia</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSync2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Sincronia</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSyncSetup.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Configuração</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Solução de problemas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonTools.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ferramentas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAll.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Atualizar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAll2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Atualizar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAllClean.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Atualizar tudo e limpar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelLoadingCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Carregando catálogo a partir do servidor...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAppList.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Minhas aplicações</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Catálogo</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

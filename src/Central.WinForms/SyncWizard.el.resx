@@ -1,104 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,163 +58,222 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Όχι, δεν έχω συστήσει σε άλλους υπολογιστές</value>
-  </data>
-  <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>Ναι, αυτό είναι ο πρώτος υπολογιστής</value>
-  </data>
-  <data name="labelSetup.Text" xml:space="preserve">
-    <value>Είναι αυτό το πρώτο υπολογιστή που εγκαθίστανται για Zero Install Sync;</value>
-  </data>
-  <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync παίρνει λίστα εφαρμογών σας και του επιτραπέζιου εντάξεις και αυτόματα τα μεταφέρει σε άλλους υπολογιστές σας.</value>
-  </data>
-  <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Windows μερίδιο αρχείο:</value>
-  </data>
-  <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
-  </data>
-  <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>χρησιμοποιήστε το διακομιστή 0install.de (συνιστάται)</value>
-  </data>
-  <data name="labelServerType.Text" xml:space="preserve">
-    <value>Θέλετε να χρησιμοποιήσετε τον διακομιστή 0install.de;</value>
-  </data>
-  <data name="labelServer.Text" xml:space="preserve">
-    <value>Το 0install.de παρέχει δωρεάν λογαριασμούς για την αποθήκευση δεδομένων συγχρονισμού. Όλα τα δεδομένα είναι κρυπτογραφημένα τοπικά προτού μεταδοθούν στο διακομιστή. Μπορείτε να χρησιμοποιήσετε το δικό σας διακομιστή για την αποθήκευση αν το επιθυμείτε.</value>
-  </data>
-  <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Πώς μπορώ να δημιουργήσει ένα διακομιστή Sync;</value>
-  </data>
-  <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Διαδρομή καταλόγου</value>
-  </data>
-  <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Εγκατάσταση συγχρονισμού</value>
-  </data>
-  <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Αφού έχετε δημιουργήσει ένα λογαριασμό, επαλήθευστε την διεύθυνση του e-mail σας και αφου σημείωσετε τα διαπιστευτήρια της σύνδεσής σας, κάντε κλικ στο 'Επόμενο'.</value>
-  </data>
-  <data name="linkRegister.Text" xml:space="preserve">
-    <value>Εγγραφή</value>
-  </data>
-  <data name="labelRegister.Text" xml:space="preserve">
-    <value>Κάντε κλικ στον παρακάτω σύνδεσμο για να δημιουργήσετε ένα νέο λογαριασμός συγχρονισμού στο πρόγραμμα περιήγησής σας:</value>
-  </data>
-  <data name="labelPassword.Text" xml:space="preserve">
-    <value>Κωδικός:</value>
-  </data>
-  <data name="labelUsername.Text" xml:space="preserve">
-    <value>Όνομα Χρήστη:</value>
-  </data>
-  <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Παρακαλούμε εισάγετε τα στοιχεία σύνδεσής για τον διακομιστή συγχρονισμού παρακάτω:</value>
-  </data>
-  <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Λογαριασμός συγχρονισμού </value>
-  </data>
-  <data name="pageRegister.Text" xml:space="preserve">
-    <value>Λογαριασμός συγχρονισμού </value>
-  </data>
-  <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Ξεχάσατε το κλειδί</value>
-  </data>
-  <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Crypto κλειδί:</value>
-  </data>
-  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Παρακαλούμε εισάγετε το κλειδί Crypto που χρησιμοποιηθηκε στο παρελθόν σε αυτόν ή/και σε άλλους υπολογιστές:</value>
-  </data>
-  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Crypto κλειδί</value>
-  </data>
-  <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι με αυτό θα χαθούν!</value>
-  </data>
-  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>Νέο Crypto κλειδί:</value>
-  </data>
-  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Πληκτρολογήστε το κλειδί σε άλλους υπολογιστές, χρησιμοποιώντας το παράθυρο «Επιλογές». Μην χρησιμοποιείτε αυτόν τον οδηγό εκεί, δεδομένου ότι απαιτείται μόνο για να εκτελέσει την αρχική αλλαγή.</value>
-  </data>
-  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Το Crypto κλειδί έχει αλλάξει. Τώρα θα πρέπει να εισάγετε το νέο κλειδί για όλους τους άλλους υπολογιστές που έχουν ήδη συσταθεί για το Zero Install Sync.</value>
-  </data>
-  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Το κλειδί Crypto άλλαξε</value>
-  </data>
-  <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Επαναφορά Crypto κλειδιου</value>
-  </data>
-  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Φυλάξτε αυτό το βασικό μυστικό και να χρησιμοποιήσετε κάτι διαφορετικό για τον κωδικό πρόσβασής σας. Με αυτό τον τρόπο κανείς δεν μπορεί να έχει πρόσβαση στα δεδομένα σας, ακόμα και αν ο διακομιστής τεθεί σε κίνδυνο.</value>
-  </data>
-  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Crypto κλειδί:</value>
-  </data>
-  <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Το Crypto κλειδί χρησιμοποιείται για την κρυπτογράφηση των δεδομένων σας σε τοπικό επίπεδο πριν τη μετάδοσή τους στο διακομιστή. Γράψτε κάτω την προτεινόμενη μία ή επιλέξτε τη δική σας.</value>
-  </data>
-  <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Το Zero Install Sync τώρα έχει συσταθεί και είναι έτοιμο για χρήση. Εκτέλεση αυτού του οδηγού για τυχόν άλλους υπολογιστές θέλετε να διατηρήσετε συγχρονισμένα με αυτό.</value>
-  </data>
-  <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Εγκατάσταση συγχρονισμού πλήρη</value>
-  </data>
-  <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Crypto κλειδί</value>
-  </data>
-  <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>Θέλω να αντικαταστήσετε τα τοπικά δεδομένα μου</value>
-  </data>
-  <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Τα δεδομένα που αποθηκεύονται στο διακομιστή είναι κατεστραμμένο</value>
-  </data>
-  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="buttonChangeCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
     <value>Θέλω να αλλάχθει το κλειδί Crypto μου</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Αυτός ο οδηγός μπορεί να σας βοηθήσει να λύσετε μια σειρά πιθανών προβλημάτων συγχρονισμού. Ποιο θέμα θέλετε να επιλύσετε;</value>
+  <data name="buttonForgotKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ξεχάσατε το κλειδί</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Αντιμετώπιση προβλημάτων συγχρονισμού </value>
+  <data name="buttonResetClient.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Θέλω να αντικαταστήσετε τα τοπικά δεδομένα μου</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+  <data name="buttonResetServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Τα δεδομένα που αποθηκεύονται στο διακομιστή είναι κατεστραμμένο</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonSetupFirst.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ναι, αυτό είναι ο πρώτος υπολογιστής</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonSetupSubsequent.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Όχι, δεν έχω συστήσει σε άλλους υπολογιστές</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelChangeCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
     <value>Δεν πρέπει να εκτελέσετε το Zero Install Sync σε άλλους υπολογιστές, ενώ η διαδικασία αυτή βρίσκεται σε λειτουργία.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+  <data name="labelCredentials.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Παρακαλούμε εισάγετε τα στοιχεία σύνδεσής για τον διακομιστή συγχρονισμού παρακάτω:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Crypto κλειδί:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelCryptoKeyChange.Text" type="System.Drawing.Point, System.Drawing">
     <value>Νέο Crypto κλειδί:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Αλλαγή Crypto κλειδιου</value>
+  <data name="labelCryptoKeyChanged.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Το Crypto κλειδί έχει αλλάξει. Τώρα θα πρέπει να εισάγετε το νέο κλειδί για όλους τους άλλους υπολογιστές που έχουν ήδη συσταθεί για το Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Είστε έτοιμοι να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού με την τοπική λίστα εφαρμογών σας. Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι θα χαθούν!</value>
+  <data name="labelCryptoKeyChangedHint.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Πληκτρολογήστε το κλειδί σε άλλους υπολογιστές, χρησιμοποιώντας το παράθυρο «Επιλογές». Μην χρησιμοποιείτε αυτόν τον οδηγό εκεί, δεδομένου ότι απαιτείται μόνο για να εκτελέσει την αρχική αλλαγή.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Μπορεί επίσης να θέλετε να επαναφέρετε τα τοπικά δεδομένα σε άλλους υπολογιστές που χρησιμοποιείτε το Zero Install Sync </value>
+  <data name="labelCryptoKeyNew.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Crypto κλειδί:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Τα δεδομένα του διακομιστή επαναφέρθηκαν. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
+  <data name="labelCryptoKeyReset.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Νέο Crypto κλειδί:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Επαναφορά του διακομιστή συγχρονισμού</value>
+  <data name="labelExistingCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Παρακαλούμε εισάγετε το κλειδί Crypto που χρησιμοποιηθηκε στο παρελθόν σε αυτόν ή/και σε άλλους υπολογιστές:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Επαναφορά του διακομιστή συγχρονισμού</value>
+  <data name="labelNewCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Το Crypto κλειδί χρησιμοποιείται για την κρυπτογράφηση των δεδομένων σας σε τοπικό επίπεδο πριν τη μετάδοσή τους στο διακομιστή. Γράψτε κάτω την προτεινόμενη μία ή επιλέξτε τη δική σας.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelResetClient.Text" xml:space="preserve">
+  <data name="labelNewCryptoKeyHint.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Φυλάξτε αυτό το βασικό μυστικό και να χρησιμοποιήσετε κάτι διαφορετικό για τον κωδικό πρόσβασής σας. Με αυτό τον τρόπο κανείς δεν μπορεί να έχει πρόσβαση στα δεδομένα σας, ακόμα και αν ο διακομιστής τεθεί σε κίνδυνο.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelPassword.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Κωδικός:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelRegister.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Κάντε κλικ στον παρακάτω σύνδεσμο για να δημιουργήσετε ένα νέο λογαριασμός συγχρονισμού στο πρόγραμμα περιήγησής σας:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelRegister2.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αφού έχετε δημιουργήσει ένα λογαριασμό, επαλήθευστε την διεύθυνση του e-mail σας και αφου σημείωσετε τα διαπιστευτήρια της σύνδεσής σας, κάντε κλικ στο 'Επόμενο'.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelResetClient.Text" type="System.Drawing.Point, System.Drawing">
     <value>Είστε έτοιμοι να αντικαταστήσετε την τοπική λίστα εφαρμογών σας με τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού. Τυχόν αλλαγές που έχετε κάνει σε τοπικό επίπεδο, αλλά δεν συγχρονίστηκαν όμως θα χαθούν!</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelResetClientFinished.Text" xml:space="preserve">
+  <data name="labelResetClientFinished.Text" type="System.Drawing.Point, System.Drawing">
     <value>Η τοπική λίστα εφαρμογών επαναφέρετε. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Επαναφορά τοπικών δεδομένων</value>
+  <data name="labelResetCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι με αυτό θα χαθούν!</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="pageResetClient.Text" xml:space="preserve">
+  <data name="labelResetServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Είστε έτοιμοι να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού με την τοπική λίστα εφαρμογών σας. Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι θα χαθούν!</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelResetServerFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Τα δεδομένα του διακομιστή επαναφέρθηκαν. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μπορεί επίσης να θέλετε να επαναφέρετε τα τοπικά δεδομένα σε άλλους υπολογιστές που χρησιμοποιείτε το Zero Install Sync </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelResetWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αυτός ο οδηγός μπορεί να σας βοηθήσει να λύσετε μια σειρά πιθανών προβλημάτων συγχρονισμού. Ποιο θέμα θέλετε να επιλύσετε;</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Το 0install.de παρέχει δωρεάν λογαριασμούς για την αποθήκευση δεδομένων συγχρονισμού. Όλα τα δεδομένα είναι κρυπτογραφημένα τοπικά προτού μεταδοθούν στο διακομιστή. Μπορείτε να χρησιμοποιήσετε το δικό σας διακομιστή για την αποθήκευση αν το επιθυμείτε.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelServerType.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Θέλετε να χρησιμοποιήσετε τον διακομιστή 0install.de;</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSetup.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Είναι αυτό το πρώτο υπολογιστή που εγκαθίστανται για Zero Install Sync;</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSetupFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Το Zero Install Sync τώρα έχει συσταθεί και είναι έτοιμο για χρήση. Εκτέλεση αυτού του οδηγού για τυχόν άλλους υπολογιστές θέλετε να διατηρήσετε συγχρονισμένα με αυτό.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSetupWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Zero Install Sync παίρνει λίστα εφαρμογών σας και του επιτραπέζιου εντάξεις και αυτόματα τα μεταφέρει σε άλλους υπολογιστές σας.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelUsername.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Όνομα Χρήστη:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="linkCustomServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Πώς μπορώ να δημιουργήσει ένα διακομιστή Sync;</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="linkRegister.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Εγγραφή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="optionCustomServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="optionFileShare.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Windows μερίδιο αρχείο:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="optionOfficialServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>χρησιμοποιήστε το διακομιστή 0install.de (συνιστάται)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageChangeCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αλλαγή Crypto κλειδιου</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageCredentials.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Λογαριασμός συγχρονισμού </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Το κλειδί Crypto άλλαξε</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageExistingCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Crypto κλειδί</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageNewCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Crypto κλειδί</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageRegister.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Λογαριασμός συγχρονισμού </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetClient.Text" type="System.Drawing.Point, System.Drawing">
     <value>Επαναφορά τοπικών δεδομένων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetClientFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επαναφορά τοπικών δεδομένων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επαναφορά Crypto κλειδιου</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επαναφορά του διακομιστή συγχρονισμού</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetServerFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επαναφορά του διακομιστή συγχρονισμού</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αντιμετώπιση προβλημάτων συγχρονισμού </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageSetupFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Εγκατάσταση συγχρονισμού πλήρη</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageSetupWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Εγκατάσταση συγχρονισμού</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="textBoxFileShare.HintText" type="System.Drawing.Point, System.Drawing">
+    <value>Διαδρομή καταλόγου</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

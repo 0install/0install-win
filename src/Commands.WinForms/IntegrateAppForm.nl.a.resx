@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="dataGridStartMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridStartMenuColumnCategory.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridStartMenuColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDesktopColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDesktopColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAliasesColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAliasesColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnProtocols.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnEvents.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnService.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Toepassing integreren</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonAdvancedMode.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Geavanceerde instellingen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonBasicMode.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Basisinstellingen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Opdrachtregel aliassen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Kies alle</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>AutoPlay</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Automatische start</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Automatisch bijwerken</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>Neemt deze toepassing op in "Alles bijwerken"-controles.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxCapabilities.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Register mogelijkheden</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>Vertelt het besturingssysteem over de mogelijkheden van de toepassing, zoals de bestandstypen die het kan verwerken.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Kies alle</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Context menu</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Kies alle</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard programma</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Desktop</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Kies alle</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Bestandstypes</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxSendToSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Stuur naar</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Start menu</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Kies alle</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>URL-protocollen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Opdracht</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Naam</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Beschrijving</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Evenementen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Opdracht</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Naam</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ingeschakeld</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Naam ingang</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Beschrijving</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Dienst</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Opdracht</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Naam</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Beschrijving</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Uitbreidingen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Opdracht</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Naam</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Categorie</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Opdracht</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Naam</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Beschrijving</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Protocollen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelAliasesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Toegang via de command-line interface</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelAutoPlaySimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Start automatisch op wanneer een geschikt medium (DVD, USB-stick, enz.) wordt geplaatst</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelAutoStartSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Programma start automatisch wanneer de gebruiker inlogt</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelContextMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Contextmenu-items in Windows Verkenner</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Standaardprogramma voor taken zoals webbrowser of e-mailclient</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelDesktopSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Een pictogram op het bureaublad</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelFileTypesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard handler voor ondersteunde bestandstypes ("Openen met" werkt ook zonder dit)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSendToSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Een item in het "Verzenden naar" menu</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelStartMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Een of meer vermeldingen in het startmenu</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard handler voor ondersteunde URL protocollen ("Openen met" werkt ook zonder dit)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageAliases.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Opdrachtregel aliassen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageAutoPlay.Text" type="System.Drawing.Point, System.Drawing">
+    <value>AutoPlay</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageAutoStart.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Automatische start</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageContextMenu.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Context menu</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Standaard programma's</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageDesktop.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Desktop</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageFileTypes.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Bestandstypes</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageSendTo.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Stuur naar</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageStartMenu.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Start menu</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageUrlProtocols.Text" type="System.Drawing.Point, System.Drawing">
+    <value>URL-protocollen</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

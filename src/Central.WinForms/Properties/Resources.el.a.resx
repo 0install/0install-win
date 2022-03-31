@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Πληκτρολογήστε '0install --help' για να δείτε μια λίστα με τις διαθέσιμες εντολές.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Συνεχίστε</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Κάντε κλικ για να εγκαταστήσετε το Zero Install σε αυτόν τον υπολογιστή...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Παρακαλούμε εισάγετε τη διεύθυνση URL μιας τροφοδοσίας Zero Install εδώ:</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Για όλους τους χρήστες</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Για τον τρέχοντα χρήστη</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Αγνόηση διπλής καταχώρησης εφαρμογής για το '{0}'.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Ενσωμάτωση (μενού εκκίνησης κ.λπ.)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Κοινή εφαρμογή</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>κάνει τα συνηθισμένα πράγματα</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Ωραία εφαρμογή</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>κάνει κάτι ωραίο</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Άλλη εφαρμογή</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>κάνει κάτι άλλο</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Αν σας αρέσει μια εφαρμογή,
+προσθέστε την στο "Οι εφαρμογές μου".</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Αναζητήστε μια εφαρμογή στον "Κατάλογο"...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Ενσωματώστε" μια εφαρμογή για να την βάλετε
+στο μενού έναρξης ή στην επιφάνεια εργασίας.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Μπορείτε να διαχειριστείτε τη λίστα με τις αγαπημένες σας εφαρμογές εδώ.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... και τρέξτε το!</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Καλή διασκέδαση!</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Με το Zero Install δεν χρειάζεται να εγκαταστήσετε εφαρμογές.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Λειτουργία σε όλη τη μηχανή</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Τροποποίηση της ενσωμάτωσης</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Προσθήκη στο "Οι εφαρμογές μου"</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Προστέθηκε στο "Οι εφαρμογές μου".</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Προστέθηκε στο "Οι εφαρμογές μου" και ενσωματώθηκε στο περιβάλλον εργασίας.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Ο κατάλογος {0} δεν είναι άδειος.
+Είστε σίγουροι ότι θέλετε να τοποθετήσετε μια φορητή έκδοση του Zero Install εκεί</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Φορητή λειτουργία</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Αφαιρέστε το</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Θέλετε να αφαιρέσετε τις επιλεγμένες καταχωρήσεις {0} από τη λίστα</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Εκτέλεση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Εκτέλεση με επιλογές</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Θέλετε να αποθηκεύσετε τις αλλαγές που έγιναν</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Όχι
+Απόρριψη αλλαγών</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ναι
+Αποθήκευση αλλαγών</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Κάντε κλικ για να ενημερώσετε το Zero Install v{0}...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Πρέπει πρώτα να ολοκληρώσετε τη ρύθμιση συγχρονισμού.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Το όνομα χρήστη ή/και ο κωδικός πρόσβασης που καταχωρήσατε είναι λανθασμένα.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Το κλειδί κρυπτογράφησης που εισαγάγατε είναι λανθασμένο.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Θέλετε να επαναφέρετε τις ρυθμίσεις συγχρονισμού και να ξεκινήσετε από την αρχή</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Όχι
+επεξεργασία των υφιστάμενων ρυθμίσεων</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Ναι
+ξεκινήστε από το μηδέν</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Τα δεδομένα που είναι αποθηκευμένα στον διακομιστή Sync έχουν υποστεί ζημιά.
+Μπορείτε να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή επιλέγοντας ότι δεν θυμάστε το κλειδί κρυπτογράφησης.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Αδυναμία λήψης καταλόγου εφαρμογών.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Δεν είναι δυνατή η φόρτωση της τροφοδοσίας για την καταχώρηση της εφαρμογής '{0}'.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να χρησιμοποιήσετε μια μη κρυπτογραφημένη σύνδεση σε έναν διακομιστή Sync
+Οι κρυπτογραφημένες συνδέσεις χρησιμοποιούν ένα πρόθεμα https://.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Ενημέρωση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Αυτό θα αφαιρέσει αυτόματα τις υλοποιήσεις από τη μνήμη cache που δεν χρειάζονται πλέον μετά την ενημέρωση. Συνεχίστε
+Σημαντικό: Οι εφαρμογές που έχετε "Εκτελέσει" στο παρελθόν χωρίς να τις προσθέσετε στις "Εφαρμογές μου" θα αφαιρεθούν επίσης από τη μνήμη cache.  Θα πρέπει να είστε συνδεδεμένοι αν αποφασίσετε να τις εκτελέσετε ξανά.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Εργασία...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

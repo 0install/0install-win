@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="buttonChangeCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号鍵を変更したい</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonForgotKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>キーを忘れた</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonResetClient.Text" type="System.Drawing.Point, System.Drawing">
+    <value>ローカルデータを入れ替えたい</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonResetServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>サーバーに保存されているデータが破損した</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSetupFirst.Text" type="System.Drawing.Point, System.Drawing">
+    <value>はい、これが最初のコンピュータです</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSetupSubsequent.Text" type="System.Drawing.Point, System.Drawing">
+    <value>いいえ、すでに他のコンピュータをセットアップしています</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelChangeCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>このプロセスの実行中は、他のコンピューターでZero Install Syncを実行しないでください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCredentials.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Syncサーバーのログイン情報を以下に入力してください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号キー。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCryptoKeyChange.Text" type="System.Drawing.Point, System.Drawing">
+    <value>新しい暗号鍵です。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号キーが変更されました。ここで、すでにZero Install Syncを設定した他のすべてのコンピュータに新しいキーを入力する必要があります。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" type="System.Drawing.Point, System.Drawing">
+    <value>他のコンピュータでは、「オプション」ウィンドウを使ってキーを入力します。このウィザードは、最初の変更にのみ必要ですので、そこでは使用しないでください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCryptoKeyNew.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号キー。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelCryptoKeyReset.Text" type="System.Drawing.Point, System.Drawing">
+    <value>新しい暗号鍵です。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelExistingCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>このコンピュータまたは他のコンピュータで以前に使用した暗号鍵を入力してください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelNewCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号キーは、データをサーバーに送信する前にローカルで暗号化するために使用されます。推奨されるものを書き留めるか、自分で選んでください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" type="System.Drawing.Point, System.Drawing">
+    <value>この鍵は秘密にし、パスワードは別のものを使用します。こうすることで、万が一サーバーに侵入されたとしても、誰もあなたのデータにアクセスすることができなくなります。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelPassword.Text" type="System.Drawing.Point, System.Drawing">
+    <value>パスワード</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelRegister.Text" type="System.Drawing.Point, System.Drawing">
+    <value>以下のリンクをクリックして、ブラウザで新規にSyncアカウントを作成してください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelRegister2.Text" type="System.Drawing.Point, System.Drawing">
+    <value>アカウントの作成、メールアドレスの確認、ログイン認証が完了したら、「次へ」をクリックしてください。
+</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetClient.Text" type="System.Drawing.Point, System.Drawing">
+    <value>ローカルのアプリケーションリストを、シンクサーバーに保存されているデータに置き換えるところです。ローカルで行った変更で、まだ同期していないものはすべて失われます!</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetClientFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>ローカルアプリケーションのリストをリセットしています。これでZero Installを引き続き使用することができます。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>他のコンピュータで行った変更で、このコンピュータとまだ同期していないものはすべて失われます。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Syncサーバーに保存されているデータを、ローカルのアプリケーションリストと入れ替えるところです。他のコンピュータで行った変更で、まだこのコンピュータと同期していないものはすべて失われます</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetServerFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>サーバーのデータをリセットしています。これでZero Installを引き続き使用することができます。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" type="System.Drawing.Point, System.Drawing">
+    <value>また、Zero Install Syncを使用している他のコンピュータのローカルデータをリセットすることもできます。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelResetWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>このウィザードは、シンクに関する様々な問題を解決するのに役立ちます。どのような問題を解決したいですか？</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>0install.de では、Sync データを保存するためのアカウントを無料で提供しています。データはすべてローカルで暗号化されてからサーバーに転送されます。ご希望であれば、ご自身のサーバーをストレージとして使用することも可能です。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelServerType.Text" type="System.Drawing.Point, System.Drawing">
+    <value>どのサーバーを使うか？</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSetup.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Zero Install Syncを設定する最初のコンピューターですか？</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSetupFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>これでZero Install Syncのセットアップが完了し、すぐに使用できるようになりました。このコンピュータと同期させたい他のコンピュータでも、このウィザードを実行してください。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSetupWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Zero Install Syncは、アプリケーションリストとデスクトップ統合を取得し、自動的に他のコンピュータに転送します。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelUsername.Text" type="System.Drawing.Point, System.Drawing">
+    <value>ユーザー名</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="linkCustomServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>独自のSyncサーバーを構築するにはどうすればよいですか？</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="linkRegister.Text" type="System.Drawing.Point, System.Drawing">
+    <value>登録</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="optionCustomServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>カスタムサーバーを使用する。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="optionFileShare.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Windowsのファイル共有を利用する。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="optionOfficialServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>0install.deサーバーを使用する（推奨）</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageChangeCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号鍵の変更</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageCredentials.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクアカウント</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号鍵の変更</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageExistingCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号キー</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageNewCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号キー</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageRegister.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクアカウント</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageResetClient.Text" type="System.Drawing.Point, System.Drawing">
+    <value>ローカルデータのリセット</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageResetClientFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>ローカルデータのリセット</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageResetCryptoKey.Text" type="System.Drawing.Point, System.Drawing">
+    <value>暗号鍵のリセット</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageResetServer.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクサーバーのリセット</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageResetServerFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクサーバーのリセット</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageResetWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクのトラブルシューティング</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageSetupFinished.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクセットアップ完了</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="pageSetupWelcome.Text" type="System.Drawing.Point, System.Drawing">
+    <value>シンクの設定</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="textBoxFileShare.HintText" type="System.Drawing.Point, System.Drawing">
+    <value>ディレクトリパス</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

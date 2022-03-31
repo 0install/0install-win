@@ -1,104 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,205 +58,356 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Ονομα</value>
-  </data>
-  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
-    <value>Κατηγορία</value>
-  </data>
-  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
-    <value>Εντολή</value>
-  </data>
-  <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Μενού έναρξης</value>
-  </data>
-  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
-    <value>Ονομα</value>
-  </data>
-  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
-    <value>Εντολή</value>
-  </data>
-  <data name="tabPageDesktop.Text" xml:space="preserve">
-    <value>Επιφάνεια εργασίας</value>
-  </data>
-  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
-    <value>Ονομα</value>
-  </data>
-  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
-    <value>Εντολή</value>
-  </data>
-  <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Αποστολή σε</value>
-  </data>
-  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
-    <value>Ονομα</value>
-  </data>
-  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
-    <value>Εντολή</value>
-  </data>
-  <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Ψευδώνυμα γραμμής εντολών</value>
-  </data>
-  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
-    <value>Ονομα</value>
-  </data>
-  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
-    <value>Εντολή</value>
-  </data>
-  <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>Αυτόματη εκκίνηση</value>
-  </data>
-  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
-  </data>
-  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Προεπιλογή</value>
-  </data>
-  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
-    <value>Περιγραφή</value>
-  </data>
-  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>Επεκτάσεις</value>
-  </data>
-  <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>Τύποι αρχείων</value>
-  </data>
-  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
-  </data>
-  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Προεπιλογή</value>
-  </data>
-  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
-    <value>Περιγραφή</value>
-  </data>
-  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
-    <value>Πρωτόκολλα</value>
-  </data>
-  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>URL πρωτόκολλα</value>
-  </data>
-  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
-  </data>
-  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Προεπιλογή</value>
-  </data>
-  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
-    <value>Περιγραφή</value>
-  </data>
-  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
-    <value>Εκδηλώσεις</value>
-  </data>
-  <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>Αυτόματη αναπαραγωγή</value>
-  </data>
-  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
-  </data>
-  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
-    <value>Ενεργοποιήθηκε</value>
-  </data>
-  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Ονομα καταχώρησης</value>
-  </data>
-  <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Μενού περιβάλλοντος</value>
-  </data>
-  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
-  </data>
-  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Προεπιλογή</value>
-  </data>
-  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
-    <value>Περιγραφή</value>
-  </data>
-  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
-    <value>Υπηρεσία</value>
-  </data>
-  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Προεπιλεγμένα προγράμματα</value>
-  </data>
-  <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Εγγραφή δυνατοτήτων</value>
-  </data>
-  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Λέει το λειτουργικό σύστημα σχετικά με τις δυνατότητες της εφαρμογής, όπως τους τύπους αρχείων που μπορεί να χειριστεί.</value>
-  </data>
-  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Αυτόματη ενημέρωση</value>
-  </data>
-  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Περιλαμβάνει αυτή η εφαρμογή "Ενημέρωση όλων" ελέγχων.</value>
-  </data>
-  <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>Προηγμένες ρυθμίσεις</value>
-  </data>
-  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Μενού έναρξης</value>
-  </data>
-  <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Μία ή περισσότερες καταχωρήσεις στο μενού έναρξης</value>
-  </data>
-  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
-    <value>Επιφάνεια εργασίας</value>
-  </data>
-  <data name="labelDesktopSimple.Text" xml:space="preserve">
-    <value>Ένα εικονίδιο στην επιφάνεια εργασίας</value>
-  </data>
-  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Αποστολή σε</value>
-  </data>
-  <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Μια καταχώρηση στο μενού "Αποστολή σε"</value>
-  </data>
-  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Ψευδώνυμα γραμμής εντολών</value>
-  </data>
-  <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Πρόσβαση από τη διεπαφή γραμμής εντολών</value>
-  </data>
-  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>Αυτόματη εκκίνηση</value>
-  </data>
-  <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Ξεκινήστε το πρόγραμμα αυτόματα όταν ο χρήστης συνδέεται </value>
-  </data>
-  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>Τύποι αρχείων</value>
-  </data>
-  <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
-  </data>
-  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>URL πρωτόκολλα</value>
-  </data>
-  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τα υποστηριζόμενα πρωτόκολλα URL ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
-  </data>
-  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>Αυτόματη αναπαραγωγή</value>
-  </data>
-  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Ξεκινάει αυτόματα όταν τα κατάλληλα μέσα (DVD, USB drive, κ.λπ.) εισαγθουν</value>
-  </data>
-  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
-    <value>Μενού περιβάλλοντος</value>
-  </data>
-  <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Καταχωρίσεις μενού περιβάλλοντος στο Windows Explorer</value>
-  </data>
-  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα</value>
-  </data>
-  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα για λειτουργίες όπως προγράμμα περιήγησης ή e-mail client</value>
-  </data>
-  <data name="buttonBasicMode.Text" xml:space="preserve">
-    <value>Βασικές ρυθμίσεις</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="dataGridStartMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridStartMenuColumnCategory.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridStartMenuColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDesktopColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDesktopColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAliasesColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAliasesColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridFileTypesColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridUrlProtocolsColumnProtocols.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridAutoPlayColumnEvents.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridDefaultProgramsColumnService.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Text" type="System.Drawing.Point, System.Drawing">
     <value>Ενσωμάτωση εφαρμογής</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonAdvancedMode.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Προηγμένες ρυθμίσεις</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonBasicMode.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Βασικές ρυθμίσεις</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ψευδώνυμα γραμμής εντολών</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιλογη ολων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αυτόματη αναπαραγωγή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αυτόματη εκκίνηση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αυτόματη ενημέρωση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>Περιλαμβάνει αυτή η εφαρμογή "Ενημέρωση όλων" ελέγχων.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxCapabilities.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Εγγραφή δυνατοτήτων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" type="System.Drawing.Point, System.Drawing">
+    <value>Λέει το λειτουργικό σύστημα σχετικά με τις δυνατότητες της εφαρμογής, όπως τους τύπους αρχείων που μπορεί να χειριστεί.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιλογη ολων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μενού περιβάλλοντος</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιλογη ολων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλεγμένο πρόγραμμα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιφάνεια εργασίας</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιλογη ολων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Τύποι αρχείων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxSendToSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αποστολή σε</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μενού έναρξης</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιλογη ολων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>URL πρωτόκολλα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Εντολή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ονομα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλογή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Περιγραφή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Εκδηλώσεις</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Εντολή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ονομα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ενεργοποιήθηκε</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ονομα καταχώρησης</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλογή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Περιγραφή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Υπηρεσία</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Εντολή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ονομα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλογή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Περιγραφή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Επεκτάσεις</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Εντολή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ονομα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Κατηγορία</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Εντολή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Ονομα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλογή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Περιγραφή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" type="System.Drawing.Point, System.Drawing">
+    <value>Πρωτόκολλα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelAliasesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Πρόσβαση από τη διεπαφή γραμμής εντολών</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelAutoPlaySimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ξεκινάει αυτόματα όταν τα κατάλληλα μέσα (DVD, USB drive, κ.λπ.) εισαγθουν</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelAutoStartSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ξεκινήστε το πρόγραμμα αυτόματα όταν ο χρήστης συνδέεται </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelContextMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Καταχωρίσεις μενού περιβάλλοντος στο Windows Explorer</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλεγμένο πρόγραμμα για λειτουργίες όπως προγράμμα περιήγησης ή e-mail client</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelDesktopSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ένα εικονίδιο στην επιφάνεια εργασίας</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelFileTypesSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSendToSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μια καταχώρηση στο μενού "Αποστολή σε"</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelStartMenuSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μία ή περισσότερες καταχωρήσεις στο μενού έναρξης</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τα υποστηριζόμενα πρωτόκολλα URL ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageAliases.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Ψευδώνυμα γραμμής εντολών</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageAutoPlay.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αυτόματη αναπαραγωγή</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageAutoStart.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αυτόματη εκκίνηση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageContextMenu.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μενού περιβάλλοντος</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Προεπιλεγμένα προγράμματα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageDesktop.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Επιφάνεια εργασίας</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageFileTypes.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Τύποι αρχείων</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageSendTo.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Αποστολή σε</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageStartMenu.Text" type="System.Drawing.Point, System.Drawing">
+    <value>Μενού έναρξης</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageUrlProtocols.Text" type="System.Drawing.Point, System.Drawing">
+    <value>URL πρωτόκολλα</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>
