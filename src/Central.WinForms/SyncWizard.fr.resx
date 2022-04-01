@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>Je veux changer ma clé cryptographique</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>&amp;Clé oubliée</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value>Je veux remplacer mes &amp;données locales. </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value>Les données enregistrées sur le serveur sont endommagées. </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Oui, c'est le premier ordinateur</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Non, j'ai déjà configuré d'autres ordinateurs</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value>Lors de ce processus, ne lancez pas Zero Install Sync sur d'autres ordinateurs. </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Veuillez entrer vos identifiants de connexion au serveur Sync ci-dessous :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Clé cryptographique :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value>Nouvelle clé cryptographique :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>La clé cryptographique a été modifiée. Vous devez maintenant entrer la nouvelle clé sur tous les autres ordinateurs que vous avez déjà configurés pour Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Entrez la clé sur d'autres ordinateurs en utilisant la fenêtre "Options". N'utilisez pas cet assistant à cet endroit car il n'est nécessaire que pour effectuer le changement initial.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Clé cryptographique :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>Nouvelle clé cryptographique :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Veuillez saisir la clé cryptographique que vous avez utilisée précédemment sur cet ordinateur et/ou d'autres ordinateurs :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>La clé cryptographique est utilisée pour chiffrer vos données localement avant de les transmettre au serveur. Notez celle qui vous est proposée ou choisissez la vôtre.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Gardez cette clé secrète et utilisez un mot de passe différent. Ainsi, personne ne pourra accéder à vos données, même si le serveur est compromis.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>&amp;Mot de passe:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Cliquez sur le lien suivant pour créer un nouveau compte Sync dans votre navigateur :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Une fois le compte créé, e-mail vérifié et données d'accès au compte enregistrées, cliquer sur 'Next'
+</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value>Vous êtes sur le point de remplacer votre liste d'applications locales par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetClientFinished.Text" xml:space="preserve">
+    <value>La liste des applications locales est en cours de réinitialisation. Vous pouvez maintenant continuer à utiliser Zero Install.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Toutes les modifications que vous avez apportées sur d'autres ordinateurs mais qui n'ont pas encore été synchronisées avec celui-ci seront perdues !</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>Vous êtes sur le point de remplacer les données stockées sur le serveur Sync par votre liste d'applications locales. Toutes les modifications que vous avez apportées sur d'autres ordinateurs mais qui n'ont pas encore été synchronisées avec celui-ci seront perdues !</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>Les données du serveur sont remis à zéro. Vous pouvez continuer d'utiliser Zero Install. </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>Vous pouvez également souhaiter réinitialiser les données locales sur les autres ordinateurs sur lesquels vous utilisez Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>Cet assistant peut vous aider à résoudre un certain nombre de problèmes de synchronisation possibles. Quel est le problème que vous souhaitez résoudre ?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>0install.de vous fournit des comptes gratuits pour sauvegarder vos données de synchronisation. Toutes les données sont cryptées localement avant d'être transmises au serveur. Si vous voulez, vous pouvez utiliser votre propre serveur aux fins de stockage. </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Quel serveur souhaitez-vous utiliser ?</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Est-ce le premier ordinateur que vous configurer pour Zero Install Sync? </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Zero Install Sync est maintenant configuré et prêt à être utilisé. Exécutez cet assistant sur tous les autres ordinateurs que vous souhaitez garder synchronisés avec celui-ci.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync prend votre liste d'applications et vos intégrations de bureau et les transfère automatiquement vers vos autres ordinateurs.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>&amp;Nom d'utilisateur:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>Comment configurer son propre serveur de synchronisation? </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>S'enregistrer</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>Utilisez un serveur personnalisé :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Utilisez un partage de fichiers Windows :</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value>Utiliser serveur &amp;0install.de (recommandé)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Changer la clé cryptographique</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value>Synchroniser le compte</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Clé cryptographique modifiée</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Clé cryptographique</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Clé cryptographique</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Synchroniser le compte</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value>Réinitialisation des données locales</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Réinitialisation des données locales</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Réinitialisation de la clé cryptographique</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Réinitialisation du serveur de synchronisation</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value>Réinitialisation du serveur de synchronisation</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Résolution de problèmes de synchronisation. </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Configuration de la synchronisation terminée</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Configuration de la synchronisation</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Chemin du répertoire</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

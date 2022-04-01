@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install フィード検索</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdd.Text" xml:space="preserve">
+    <value>"マイアプリ "に追加する</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonDetails.Text" xml:space="preserve">
+    <value>詳細</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonIntegrate.Text" xml:space="preserve">
+    <value>セットアップ・インテグレーション</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRun.Text" xml:space="preserve">
+    <value>実行</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="columnCategories.HeaderText" xml:space="preserve">
+    <value>カテゴリー</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="columnName.HeaderText" xml:space="preserve">
+    <value>名称</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="columnScore.HeaderText" xml:space="preserve">
+    <value>一致率(%)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="columnSummary.HeaderText" xml:space="preserve">
+    <value>概要</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="columnUri.HeaderText" xml:space="preserve">
+    <value>ユーアールアイ</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelInfo.Text" xml:space="preserve">
+    <value>これらの検索結果は、ミラーサーバーから提供されます。デフォルトのミラーサーバは、品質に関係なく、すべての既知のフィードをインデックス化することに注意してください。プログラムを実行する前に、信頼するかどうかを決定する必要があります。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textKeywords.HintText" xml:space="preserve">
+    <value>キーワード</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>
