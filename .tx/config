@@ -1,0 +1,65 @@
+[main]
+host = https://www.transifex.com
+type = RESX
+source_lang = en
+lang_map = pt_PT: pt-PT, pt_BR: pt-BR, ro_RO: ro, da_DK: da, vi_VN: vi
+
+[o:eicher:p:0install-win:r:store-service]
+source_file = src/Store.Service/Properties/Resources.resx
+file_filter = src/Store.Service/Properties/Resources.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:central]
+source_file = src/Central.WinForms/Properties/Resources.resx
+file_filter = src/Central.WinForms/Properties/Resources.<lang>.o.resx
+minimum_perc = 70
+
+[o:eicher:p:0install-win:r:window-central_winforms_introdialog]
+source_file = src/Central.WinForms/IntroDialog.resx
+file_filter = src/Central.WinForms/IntroDialog.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-central_winforms_mainform]
+source_file = src/Central.WinForms/MainForm.resx
+file_filter = src/Central.WinForms/MainForm.<lang>.o.resx
+minimum_perc = 70
+
+[o:eicher:p:0install-win:r:window-central_winforms_portablecreatordialog]
+source_file = src/Central.WinForms/PortableCreatorDialog.resx
+file_filter = src/Central.WinForms/PortableCreatorDialog.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-central_winforms_selectcommanddialog]
+source_file = src/Central.WinForms/SelectCommandDialog.resx
+file_filter = src/Central.WinForms/SelectCommandDialog.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-central_winforms_syncwizard]
+source_file = src/Central.WinForms/SyncWizard.resx
+file_filter = src/Central.WinForms/SyncWizard.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-commands_winforms_configdialog]
+source_file = src/Commands.WinForms/ConfigDialog.resx
+file_filter = src/Commands.WinForms/ConfigDialog.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-commands_winforms_feedsearchdialog]
+source_file = src/Commands.WinForms/FeedSearchDialog.resx
+file_filter = src/Commands.WinForms/FeedSearchDialog.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-commands_winforms_integrateappform]
+source_file = src/Commands.WinForms/IntegrateAppForm.resx
+file_filter = src/Commands.WinForms/IntegrateAppForm.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-commands_winforms_interfacedialog]
+source_file = src/Commands.WinForms/InterfaceDialog.resx
+file_filter = src/Commands.WinForms/InterfaceDialog.<lang>.o.resx
+minimum_perc = 30
+
+[o:eicher:p:0install-win:r:window-commands_winforms_storemanageform]
+source_file = src/Commands.WinForms/StoreManageForm.resx
+file_filter = src/Commands.WinForms/StoreManageForm.<lang>.o.resx
+minimum_perc = 30
