@@ -9,7 +9,7 @@ branches:
     tag: rc
 
   # Mainline branches
-  master: 
+  master:
     tag: rc-pre
   develop:
     tag: pre
@@ -22,5 +22,9 @@ branches:
     tag: pre-pre
   renovate:
     regex: renovate?[/-]
+    source-branches: ['master']
+    tag: pre-pre
+  translate:
+    regex: translate
     source-branches: ['master']
     tag: pre-pre

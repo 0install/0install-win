@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Proprietăți de interfață</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>Adăugați</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.ToolTip" xml:space="preserve">
+    <value>Adaugă o nouă sursă de implementări pentru această interfață</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonApply.Text" xml:space="preserve">
+    <value>Aplicați</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveFeed.Text" xml:space="preserve">
+    <value>Eliminați</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
+    <value>Elimină o sursă de implementări pentru această interfață</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
+    <value>Afișați toate versiunile</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
+    <value>Afișați versiunile care nu sunt acceptate pe acest sistem</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="comboBoxStability.ToolTip" xml:space="preserve">
+    <value>Determină ce rating de stabilitate va fi considerat "cel mai bun"</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
+    <value>Arhitectură</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnNotes.HeaderText" xml:space="preserve">
+    <value>Note</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnReleased.HeaderText" xml:space="preserve">
+    <value>Eliberat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnSource.HeaderText" xml:space="preserve">
+    <value>Sursa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnStability.HeaderText" xml:space="preserve">
+    <value>Stabilitate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
+    <value>Anulare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnVersion.HeaderText" xml:space="preserve">
+    <value>Versiunea</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStability.Text" xml:space="preserve">
+    <value>Stabilitate preferată:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFeeds.Text" xml:space="preserve">
+    <value>Hrană</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageVersions.Text" xml:space="preserve">
+    <value>Versiuni</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

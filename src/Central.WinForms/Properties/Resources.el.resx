@@ -1,104 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,140 +60,216 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>Ακύρωση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Πληκτρολογήστε '0install --help' για να δείτε μια λίστα με τις διαθέσιμες εντολές.</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Συνέχεια</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Κάντε κλικ για να εγκαταστήσετε το Zero Install σε αυτόν τον υπολογιστή...</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Παρακαλώ εισάγετε το URL της Zero Install τροφοδοσίας εδώ:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Για όλους τους χρήστες</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Για τον τρέχοντα χρήστη</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Παράβλεψη διπλής καταχώρησης λίστας εφαρμογών για '{0}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Ενσωμάτωση εγκατάστασης</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Κοινή εφαρμογή</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
     <value>κάνει τα συνηθισμένα</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
     <value>Cool εφαρμογή</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
     <value>κάνει κάτι cool</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
     <value>Άλλη εφαρμογή</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
     <value>Κάνει κάτι άλλο</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Αν σας αρέσει μια εφαρμογή, 
 προσθέστε το στο "Οι εφαρμογές μου".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>Αναζήτηση για μια εφαρμογή στο "Κατάλογος"...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>"Ενσωμάτωση" μια εφαρμογή για να μπει
 στο μενού έναρξης ή στην επιφάνεια εργασίας.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Μπορείτε να διαχειριστείτε τη λίστα με τις αγαπημένες εφαρμογές εδώ.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
     <value>... Και να την εκτελέσετε!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
     <value>Καλή διασκέδαση!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
     <value>Με Zero Install δεν χρειάζεται να εγκαταστήσετε εφαρμογές.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Λειτουργία μηχανήματος σε επίπεδο</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
     <value>Τροποποίηση ολοκλήρωσης</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>Προσθήκη στα "εφαρμογές μου"</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Προστέθηκε στο "Οι εφαρμογές μου".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Προστέθηκε στο "Οι εφαρμογές μου" και ενσωματώθηκε στο περιβάλλον εργασίας.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Ο κατάλογος {0} δεν είναι άδειος.
+Είστε σίγουροι ότι θέλετε να τοποθετήσετε μια φορητή έκδοση του Zero Install εκεί</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Φορητή λειτουργία</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Αφαιρεση από το "εφαρμογές μου"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Θέλετε να αφαιρέσετε τις {0} καταχωρήσεις από τη λίστα;</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Εκτελεση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Εκτέλεση με επιλογές</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Θέλετε να αποθηκεύσετε τις αλλαγές που έγιναν;</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>No
 Απορρίψη αλλαγων</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>Ναι
 Αποθήκευση αλλαγών</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Αναζήτηση</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Κάντε κλικ για εγκατάσταση...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>Θα πρέπει να ολοκληρωθεί ο συγχρονισμός πρώτης εγκατάστασης.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>Το όνομα χρήστη και/ή ο κωδικός πρόσβασης που εισάγατε δεν είναι σωστος.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>Το κλειδί Κρυπτογραφίας που εισαγατε είναι λάθος.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
     <value>Θέλετε να επαναφέρετε τις ρυθμίσεις και να αρχίσει από το μηδέν;</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>όχι
 επεξεργαστείτε τις υπάρχουσες ρυθμίσεις</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>ναί
 να ξεκινήσει από το μηδέν</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Τα δεδομένα που είναι σήμερα αποθηκευμένα στο διακομιστή Συγχρονισμός είναι κατεστραμμένα.
 Μπορείτε να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή, επιλέγοντας το κλειδί Κρυπτογραφίας.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Δεν είναι δυνατή η ληψη του κατάλογου της εφαρμογής.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας για την είσοδο λίστας εφαρμογών '{0}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Είστε σίγουροι ότι θέλετε να χρησιμοποιήσετε μια σύνδεση χωρίς κρυπτογράφηση σε ένα διακομιστή συγχρονισμού;
 Κρυπτογραφημένες συνδέσεις χρησιμοποιούν ένα https: // πρόθεμα.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Ενημέρωση</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Αυτό θα απομακρύνει αυτόματα τις εφαρμογές από την κρυφή μνήμη που δεν χρειάζονται πλέον μετά την ενημέρωση. Συνέχεια;
 Σημαντικό: Εφαρμογές που έχετε "Εκτέλεση" στο παρελθόν, χωρίς την προσθήκη τους στο "Οι εφαρμογές μου" θα πρέπει επίσης να αφαιρεθούν από την κρυφή μνήμη. Θα πρέπει να είναι σε απευθείας σύνδεση, αν αποφασίσετε να τις εκτελέσετε ξανά.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Εργασία...</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

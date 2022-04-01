@@ -1,104 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,92 +58,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Hesabı yönet</value>
-  </data>
-  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Şi&amp;freleme anahtarı:</value>
-  </data>
-  <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>&amp;Parola:</value>
-  </data>
-  <data name="labelServer.Text" xml:space="preserve">
-    <value>&amp;Sunucu:</value>
-  </data>
-  <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>&amp;Kullanıcı adı:</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>&amp;Yeni sürümleri deneyin</value>
-  </data>
-  <data name="groupStability.Text" xml:space="preserve">
-    <value>Kararlılık</value>
-  </data>
-  <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Y&amp;enilik</value>
-  </data>
-  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Çevrim&amp;dışı (ağ kullanılmasın)</value>
-  </data>
-  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>&amp;Minimal (ön bellekli sürümler yeğlensin)</value>
-  </data>
-  <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>&amp;Tam (normal ağ kullanımı)</value>
-  </data>
-  <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Ağ kullanımı</value>
-  </data>
-  <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Güncellemeler</value>
-  </data>
-  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>&amp;Sil</value>
-  </data>
-  <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Şuraya &amp;git</value>
-  </data>
-  <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>&amp;Ekle</value>
-  </data>
-  <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>&amp;Uyarlama ön belleği klasörleri</value>
-  </data>
-  <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Depolama</value>
-  </data>
-  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>&amp;Sıfırla</value>
-  </data>
-  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>&amp;Sil</value>
-  </data>
-  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Şuraya &amp;git</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install yapılandırması</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
     <value>&amp;Ekle</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>&amp;Katalog kaynakları</value>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>&amp;Ekle</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Katalog</value>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>Gelişmiş &amp;seçenekleri görüntüle</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>&amp;Yeni anahtarlar otomatik onaylansın (anahtar sunucusu tarafından biliniyorsa)</value>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>Şuraya &amp;git</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>Şuraya &amp;git</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Sil</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>&amp;Sil</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
     <value>&amp;Sil</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
+    <value>&amp;Sıfırla</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>&amp;Yeni anahtarlar otomatik onaylansın (anahtar sunucusu tarafından biliniyorsa)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>&amp;Yeni sürümleri deneyin</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupCatalogSources.Text" xml:space="preserve">
+    <value>&amp;Katalog kaynakları</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>Y&amp;enilik</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>&amp;Uyarlama ön belleği klasörleri</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>Ağ kullanımı</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Kararlılık</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
     <value>&amp;Güvenilir anahtarlar</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Güven</value>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>Lütfen uyarlama ön belleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Eşitle</value>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>Uyarı: Bu ayarların değiştirilmesi Zero Install uygulamasının düzgün çalışmasını engelleyebilir.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Bu seçenek şu dilleri etkiler:
@@ -212,23 +146,66 @@
 Notlar:
 - Tüm diller için çeviri bulunamayabilir
 - Dil değişikliğinin geçerli olması için Zero Install yeniden başlatılmalıdır.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>Dil</value>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>&amp;Sunucu:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Gelişmiş &amp;seçenekleri görüntüle</value>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>Şi&amp;freleme anahtarı:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Uyarı: Bu ayarların değiştirilmesi Zero Install uygulamasının düzgün çalışmasını engelleyebilir.</value>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>&amp;Parola:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>&amp;Kullanıcı adı:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Hesabı yönet</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>&amp;Tam (normal ağ kullanımı)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>&amp;Minimal (ön bellekli sürümler yeğlensin)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>Çevrim&amp;dışı (ağ kullanılmasın)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Gelişmiş</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Lütfen uyarlama ön belleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install yapılandırması</value>
+  <data name="tabPageLanguage.Text" xml:space="preserve">
+    <value>Dil</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>Depolama</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>Eşitle</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>Güven</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>Güncellemeler</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>
