@@ -1,104 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,165 +60,216 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>İptal</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Kullanılabilecek komutları görmek için '0install --help' yazın.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Devam</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
     <value>Zero Install uygulamasını bu bilgisayara kurmak için tıklayın...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Lütfen buraya bir Zero Install akışının adresini yazın:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
     <value>Tüm kullanıcılar için</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
     <value>Geçerli kullanıcı için</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>'{0}' için çift uygulama listesi kaydı yok sayılıyor.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Bütünleştir (başlat menüsü, vb)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Sıradan uygulama</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
     <value>sıradan işler yapıyor</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
     <value>Harika uygulama</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
     <value>harika işler yapıyor</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
     <value>Diğer uygulama</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
     <value>başka işler yapıyor</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Bir uygulamayı beğendiyseniz,
 "Uygulamalarım" içine ekleyin.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>"Katalog" içinde bir uygulama arayın...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>Bir uygulamayı başlat menüsü
 ya da masaüstüne ekleyerek "bütünleştirin".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Sık kullandığınız uygulamaların listesini buradan yönetebilirsiniz.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
     <value>... ve çalıştırın!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
     <value>Eğlenin!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
     <value>Zero Install ile artık uygulamaları kurmak zorunda değilsiniz.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Bilgisayar genelinde geçerli kip</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
     <value>Bütünleştirmeyi değiştir</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>"Uygulamalarım" içine ekle</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
     <value>"Uygulamalarım" içine eklendi.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
     <value>"Uygulamalarım" içine eklendi ve masaüstü ortamı ile bütünleştirildi.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>{0} klasörü boş değil.
+    <value>'{0}' klasörü boş değil.
 Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emin misiniz?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Taşınabilir kip</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>"Uygulamalarım" içinden kaldı&amp;r</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Listeden seçilmiş {0} kaydı kaldırmak istediğinize emin misiniz?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Çalıştır</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
     <value>&amp;Seçenekler ile çalıştır</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Hayır
 Değişiklikleri yok say</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>Evet
 Değişiklikleri kaydet</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Arama</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Zero Install v{0} sürümüne güncellemek için tıklayın...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>Önce Sync kurulumu tamamlanmalıdır.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>Yazdığınız kullanıcı adı ya da parola hatalı.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>Yazdığınız şifreleme anahtarı hatalı.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
     <value>Sync ayarlarınızı sıfırlamak ve baştan başlamak ister misiniz?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Hayır
 var olan ayarları düzenle</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Evet
 baştan başla</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Sync sunucusundaki kayıtlı veri bozulmuş.
 Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum seçeneğini kullanın.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Uygulama kataloğu indirilemedi.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>'{0}' uygulama kaydının akışı yüklenemedi.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sync sunucusu ile şifresiz bir bağlantı kurmak istediğinize emin misiniz?
 Şifrelenmiş bağlantılar https:// ile başlar.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Update" xml:space="preserve">
     <value>&amp;Güncelle</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Bu işlem, güncelleme sonrasında otomatik olarak artık gerek duyulmayan uyarlamaları ön bellekten siler. Devam etmek ister misiniz?
 Uyarı: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da ön bellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrimiçi olmanız gerekecek.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
     <value>İşleniyor...</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

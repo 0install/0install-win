@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>整合应用</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdvancedMode.Text" xml:space="preserve">
+    <value>高级设置</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonBasicMode.Text" xml:space="preserve">
+    <value>基本设置</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>命令行别名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>自动播放</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>自动启动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
+    <value>自动更新</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>在 "更新所有 "检查中包括该应用程序。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.Text" xml:space="preserve">
+    <value>登记能力</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>告诉操作系统关于该应用程序的能力，如它能处理的文件类型。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>上下文菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>默认程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>桌面</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>文件类型</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>发送至</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>开始菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
+    <value>选择所有</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>URL协议</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>活动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>已启用</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>入选名称</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>服务</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>延伸</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>类别</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>指挥部</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>命名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>默认情况下</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>描述</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>议定书</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAliasesSimple.Text" xml:space="preserve">
+    <value>从命令行界面访问</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
+    <value>当合适的媒体（DVD、USB驱动器等）被插入时自动启动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>当用户登录时自动启动程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelContextMenuSimple.Text" xml:space="preserve">
+    <value>Windows资源管理器中的上下文菜单条目</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>网络浏览器或电子邮件客户端等任务的默认程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDesktopSimple.Text" xml:space="preserve">
+    <value>桌面上的一个图标</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelFileTypesSimple.Text" xml:space="preserve">
+    <value>支持的文件类型的默认处理程序（"用 "打开，没有这个也行）。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>发送到 "菜单中的一个条目</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStartMenuSimple.Text" xml:space="preserve">
+    <value>开始菜单中的一个或多个条目</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>支持的URL协议的默认处理程序（"用 "打开，没有这个也行）。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>命令行别名</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>自动播放</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>自动启动</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>上下文菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>默认程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>桌面</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>文件类型</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>发送至</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>开始菜单</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>URL协议</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>
