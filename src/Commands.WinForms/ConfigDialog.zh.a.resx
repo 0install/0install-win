@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>零安装配置</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonAddCatalogSource.Text" xml:space="preserve">
+    <value>添加</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>添加</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>显示高级选项</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>转到</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>转到</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>移除</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>移除</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
+    <value>移除</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
+    <value>复位</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>自动批准新的钥匙（如果被钥匙服务器知道）。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>帮助测试新版本</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="groupCatalogSources.Text" xml:space="preserve">
+    <value>目录来源</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>新鲜感</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>实施缓存目录</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>网络使用</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>稳定性</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="groupTrustedKeys.Text" xml:space="preserve">
+    <value>受信任的钥匙</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>请选择或创建一个目录，作为执行缓存使用。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>警告。改变这些选项可能会使 "零点安装 "无法正常工作。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>这可以控制以下语言。
+- 零点安装 "本身和
+- 零安装 "下载的应用程序。
+
+注意。
+- 并非所有语言都有翻译。
+- 你需要重新启动 "零点安装 "才能使语言变化生效。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>服务器。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>加密密钥。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>密码。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>用户名。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>管理账户</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>完全（正常网络使用）</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>最低限度（倾向于缓存版本）。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>离线（不使用网络）</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageAdvanced.Text" xml:space="preserve">
+    <value>高级</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>目录</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageLanguage.Text" xml:space="preserve">
+    <value>语言</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>储存</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>同步</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>信任</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>更新</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

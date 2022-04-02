@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Entrez '0install --help' pour voir une liste de commandes disponibles.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continuer</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Cliquez pour configurer Zero Installer sur cet ordinateur...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Veuillez saisir l'URL d'un flux Zero Install ici :</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Pour tous les utilisateurs</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Pour l'utilisateur actuel</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Ignorer l'entrée d'application en double pour '{0}'.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Intégrer (menu de démarrage, etc.)</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Application commune</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>fait les choses habituelles</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Une application intéressante</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>fait quelque chose de cool</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Autre application</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>fait autre chose</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Si vous aimez une application,
+ajoutez-la à "Mes applications".</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Recherchez une application dans le "Catalogue"...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Intégrer" une application pour la mettre
+dans le menu de démarrage ou sur le bureau.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Vous pouvez gérer votre liste d'applications favorites ici.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... et l'exécuter !</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Amusez-vous bien !</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Avec Zero Install, vous n'avez pas à installer d'applications.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Mode machine</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Modifier l'intégration</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Ajouter à "Mes applications</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Ajouté à "Mes applications".</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Ajouté à "Mes applications" et intégré dans l'environnement de bureau.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Le répertoire {0} n'est pas vide.
+Êtes-vous sûr de vouloir y placer une version portable de Zero Install ?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Mode portable</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Retirer</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Voulez-vous supprimer les entrées sélectionnées {0} de la liste ?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Exécuter</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Exécuter avec des options</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Souhaitez-vous enregistrer les modifications apportées ?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Non
+Rejeter les modifications</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Oui
+Sauvegarder les changements</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Recherche</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Cliquez pour mettre à jour vers Zero Install v{0}...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Vous devez d'abord terminer la configuration de la synchronisation.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Le nom d'utilisateur et/ou le mot de passe que vous avez saisi sont incorrects.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>La clé cryptographique que vous avez entrée est incorrecte.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Souhaitez-vous réinitialiser les paramètres de la synchronisation et repartir de zéro ?</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Non
+modifier les paramètres existants</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Oui
+commencer à partir de zéro</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Les données actuellement stockées sur le serveur Sync sont endommagées.
+Vous pouvez remplacer les données stockées sur le serveur en choisissant que vous ne vous souvenez pas de la clé Crypto.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Impossible de télécharger le catalogue des applications.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Impossible de charger le flux pour l'entrée d'application '{0}'.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir utiliser une connexion non cryptée à un serveur Sync ?
+Les connexions cryptées utilisent un préfixe https://.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mise à jour</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Cela supprimera automatiquement du cache les implémentations qui ne sont plus nécessaires après la mise à jour. Continuer ?
+Important : Les applications que vous avez "exécutées" précédemment sans les ajouter à "Mes applications" seront également supprimées de la mémoire cache.  Vous devrez être en ligne si vous décidez de les exécuter à nouveau.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Travailler...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

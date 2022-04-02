@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Bir &amp;kataloğun adresini yazın (akış koleksiyonu)</value>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>&amp;Akışın adresini yazın (tek bir uygulama)</value>
+  </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>K&amp;omut satırı</value>
+  </data>
+  <data name="buttonDocumentation.Text" xml:space="preserve">
+    <value>&amp;Belgeler</value>
+  </data>
+  <data name="buttonFeedEditor.Text" xml:space="preserve">
+    <value>Y&amp;eni bir akış oluşturmak için akış düzenleyicisini kullanın</value>
+  </data>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>&amp;Yardım</value>
+  </data>
+  <data name="buttonIntro.Text" xml:space="preserve">
+    <value>Tanıtım &amp;görüntüsü</value>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>&amp;Diğer uygulamalar</value>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>&amp;Seçenekler</value>
+  </data>
+  <data name="buttonPortableCreator.Text" xml:space="preserve">
+    <value>Taşınabilir &amp;oluşturucu</value>
+  </data>
+  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
+    <value>Listeyi &amp;yenile</value>
+  </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Anahtar &amp;sözcük arayın</value>
+  </data>
+  <data name="buttonStoreManage.Text" xml:space="preserve">
+    <value>Ö&amp;nbellek yönetimi</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Sync</value>
+  </data>
+  <data name="buttonSync2.Text" xml:space="preserve">
+    <value>Eşitle</value>
+  </data>
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
+    <value>&amp;Kurulum</value>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
+    <value>&amp;Sorun giderme</value>
+  </data>
+  <data name="buttonTools.Text" xml:space="preserve">
+    <value>&amp;Araçlar</value>
+  </data>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;güncelle</value>
+  </data>
+  <data name="buttonUpdateAll2.Text" xml:space="preserve">
+    <value>Tümünü güncelle</value>
+  </data>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Güncelle ve &amp;temizle</value>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Katalog sunucudan yükleniyor...</value>
+  </data>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Uygulamalarım</value>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+</root>

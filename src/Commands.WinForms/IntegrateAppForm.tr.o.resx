@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Uygulamayı bütünleştir</value>
+  </data>
+  <data name="buttonAdvancedMode.Text" xml:space="preserve">
+    <value>Gelişmiş a&amp;yarlar</value>
+  </data>
+  <data name="buttonBasicMode.Text" xml:space="preserve">
+    <value>&amp;Temel ayarlar</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>Komut satırı kısaltmaları</value>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;seç</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>Otomatik oynat</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>Otomatik başlat</value>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
+    <value>Otomatik &amp;güncelleme</value>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Bu uygulama "Tümünü güncelle" denetimlerine katılır.</value>
+  </data>
+  <data name="checkBoxCapabilities.Text" xml:space="preserve">
+    <value>&amp;Yetenekleri kaydet</value>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>İşlenecek dosya türleri gibi uygulama özelliklerini işletim sistemine iletir.</value>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;seç</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>İçerik menüsü</value>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;seç</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Varsayılan uygulama</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>Masaüstü</value>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;seç</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>Dosya türleri</value>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>Başlat menüsü</value>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
+    <value>Tümünü &amp;seç</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>Adres iletişim kuralları</value>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>Etkinlikler</value>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>Etkin</value>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Kayıt adı</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>Hizmet</value>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>Uzantılar</value>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>Komut</value>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>İletişim kuralları</value>
+  </data>
+  <data name="labelAliasesSimple.Text" xml:space="preserve">
+    <value>Komut satırı arabiriminden erişim</value>
+  </data>
+  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
+    <value>Uygun ortam takıldığında otomatik olarak oynatılsın (DVD, USB sürücü vb.)</value>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>Kullanıcı oturum açtığında uygulama otomatik olarak başlatılsın</value>
+  </data>
+  <data name="labelContextMenuSimple.Text" xml:space="preserve">
+    <value>Windows Gezginindeki içerik menüsü kayıtları</value>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Web tarayıcı ya da e-posta istemcisi gibi görevler için varsayılan uygulama</value>
+  </data>
+  <data name="labelDesktopSimple.Text" xml:space="preserve">
+    <value>Masaüstünde bir simge</value>
+  </data>
+  <data name="labelFileTypesSimple.Text" xml:space="preserve">
+    <value>Desteklenen dosya türleri için varsayılan işleyici ("Birlikte aç" bu seçenek olmadan da çalışır)</value>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>"Gönder" menüsünde bir öge</value>
+  </data>
+  <data name="labelStartMenuSimple.Text" xml:space="preserve">
+    <value>Bir ya da birkaç kayıt başlat menüsünde</value>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>Desteklenen adres iletişim kuralları için varsayılan işleyici ("Birlikte aç" bu seçenek olmadan da çalışır)</value>
+  </data>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>Komut satırı kısaltmaları</value>
+  </data>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>Otomatik oynat</value>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Otomatik başlat</value>
+  </data>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>İçerik menüsü</value>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>Varsayılan uygulamalar</value>
+  </data>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>Masaüstü</value>
+  </data>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>Dosya türleri</value>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>Başlat menüsü</value>
+  </data>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>Adres iletişim kuralları</value>
+  </data>
+</root>

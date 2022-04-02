@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme anahtarımı &amp;değiştirmek istiyorum</value>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>Anahtarı &amp;unut</value>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value>&amp;Yerel verilerimi değiştirmek istiyorum</value>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value>&amp;Sunucudaki veriler bozuk</value>
+  </data>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Evet, bu ilk bilgisayar</value>
+  </data>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Hayır, diğer bilgisayarlarda zaten ayarlamıştım</value>
+  </data>
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value>Bu işlem yapılırken diğer bilgisayarlarda Zero Install Sync çalışmamalıdır.</value>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Lütfen Sync sunucusu için oturum açma bilgilerinizi aşağıya yazın:</value>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme &amp;anahtarı:</value>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value>&amp;Yeni şifreleme anahtarı:</value>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Şifreleme anahtarı değiştirildi. Artık tüm diğer bilgisayarlara kurulmuş olan Zero Install Sync kopyaları için yeni şifreleme anahtarını kullanmanız gerekiyor.</value>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Anahtarı diğer bilgisayarlardaki 'Seçenekler' bölümüne yazın. Yalnız ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Şifreleme &amp;anahtarı:</value>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>Yeni şifreleme &amp;anahtarı:</value>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Lütfen daha önce bu ve diğer bilgisayarlarda kullanılan şifreleme anahtarını yazın:</value>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme anahtarı, verilerinizin sunucuya iletilmeden önce yerel olarak şifrelenmesi için kullanılır. Önerilen ya da sizin seçeceğiniz bir anahtarı yazın.</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Bu anahtarı gizli tutun ve parolanızdan farklı olmasına özen gösterin. Böylece sunucuya kötü niyetli bir saldırı yapılsa bile kimse verilerinize erişemez.</value>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>&amp;Parola:</value>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Web tarayıcınızdan yeni bir Sync hesabı oluşturmak için şu bağlantıya tıklayın:</value>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Yeni bir hesap açtıktan, e-posta adresinizi doğruladıktan ve oturum açma bilgilerinizi not ettikten sonra 'İleri' düğmesine tıklayın.</value>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value>Sync sunucusundaki verileri yerel uygulama listeniz ile eşitlemek üzeresiniz. Yerel olarak yaptığınız ve sunucu ile eşitlemediğiniz değişiklikler kaybolacak!</value>
+  </data>
+  <data name="labelResetClientFinished.Text" xml:space="preserve">
+    <value>Yerel uygulama listesi sıfırlandı. Zero Install kullanmaya devam edebilirsiniz.</value>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Diğer bilgisayarlarda yapılmış ve bu bilgisayar ile eşitlenmemiş değişiklikler kaybolacak!</value>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>Sync sunucusu üzerindeki verileri yerel uygulama listeniz ile değiştirmek üzeresiniz. Diğer bilgisayarlarda yapılmış ve eşitlenmemiş değişiklikler kaybolacak!</value>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>Sunucu verileri sıfırlandı. Zero Install kullanmaya devam edebilirsiniz.</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>Zero Install Sync kullanılan diğer bilgisayarlar üzerindeki yerel verileri de sıfırlamak isteyebilirsiniz.</value>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>Bu yardımcı olası Sync sorunlarını çözmenize yardımcı olabilir. Yaşadığınız sorun nedir?</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>0install.de üzerinde Sync verilerini depolamak için ücretsiz hesap açabilirsiniz. Sunucuya gönderilmeden önce tüm veriler yerel olarak şifrelenir. Dilerseniz depolama için kendi sunucunuzu da kullanabilirsiniz.</value>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Hangi sunucuyu kullanmak istiyorsunuz?</value>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Zero Install Sync ilk kez bu bilgisayarda mı ayarlanacak?</value>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Zero Install Sync kurulumu tamamlandı ve kullanılmaya hazır. Bu bilgisayar ile eşitlemek istediğiniz diğer bilgisayarlar üzerinde de bu yardımcıyı çalıştırın.</value>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync uygulama listenizi ve Masaüstü bütünleştirmelerinizi alarak otomatik olarak diğer bilgisayarlarınıza aktarılmasını sağlar.</value>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>&amp;Kullanıcı adı:</value>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>Kendi Sync sunucumu nasıl kurarım?</value>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>Kayıt ol</value>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>Ö&amp;zel bir sunucu kullanacağım:</value>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Windows &amp;dosya paylaşımı kullanılsın:</value>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value>&amp;0install.de sunucusu kullanılsın (önerilir)</value>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme anahtarını değiştir</value>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value>Sync hesabı</value>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Şifreleme anahtarı değiştirildi</value>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme anahtarı</value>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme anahtarı</value>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Sync hesabı</value>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value>Yerel veriyi sıfırla</value>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Yerel veriyi sıfırla</value>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Şifreleme anahtarını sıfırla</value>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Sync sunucusunu sıfırla</value>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value>Sync sunucusunu sıfırla</value>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Eşitleme sorunlarını gider</value>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Sync kurulumu tamamlandı</value>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Sync kurulumu</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Klasör yolu</value>
+  </data>
+</root>

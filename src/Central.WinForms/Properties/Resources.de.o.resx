@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Geben Sie '0install --help' ein, um eine Liste der verfügbaren Befehle anzuzeigen.</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Fortsetzen</value>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Klicken um Zero Install auf diesem Rechner einzurichten...</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Bitte geben Sie hier die URL eines Zero Install Feeds ein:</value>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Für alle Benutzer</value>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Für aktuellen Benutzer</value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Ignoriere doppelten App-Eintrag für '{0}'.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integrieren (Startmenü, usw.)</value>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Normale App</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>macht die üblichen Sachen</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Cool App</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>macht etwas Cooles</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Andere App</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>macht etwas anderes</value>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Wenn Ihnen eine Anwendung gefällt,
+fügen Sie sie zu "Meine Apps" hinzu.</value>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Suchen Sie im "Katalog" nach einer App...</value>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Integrieren" Sie eine Anwendung,
+um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Hier können Sie Ihre Liste an Lieblingsanwendungen verwalten.</value>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... und Starten Sie sie!</value>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Viel Spaß!</value>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Mit Zero Install müssen Sie Anwendungen nicht installieren.</value>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Maschinenweiter Modus</value>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Integration ändern</value>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Zu "Meine Apps" hinzufügen</value>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Zu "Meine Apps" hinzugefügt.</value>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Zu "Meine Apps" hinzugefügt und in die Desktopumgebung integriert.</value>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' ist nicht leer.
+Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen möchten?</value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portabler Modus</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Start mit &amp;Optionen</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Möchten Sie die vorgenommenen Änderungen speichern?</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Nein
+Änderungen verwerfen</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ja
+Änderungen speichern</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Suche</value>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Klicken um auf Zero Install v{0} zu aktualisieren...</value>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Sie müssen zuerst das Sync-Setup abschließen.</value>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Der von Ihnen eingegebene Benutzername und/oder das Passwort sind falsch.</value>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Der von Ihnen eingegebene Kryptoschlüssel ist falsch.</value>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Möchten Sie die Sync-Einstellungen zurücksetzen und von vorne beginnen?</value>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Nein
+die bestehenden Einstellungen bearbeiten</value>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Ja
+von vorne anfangen</value>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Die derzeit auf dem Sync-Server gespeicherten Daten sind beschädigt.
+Sie können die auf dem Server gespeicherten Daten ersetzen, indem Sie auswählen, dass Sie sich nicht mehr an den Kryptoschlüssel erinnern.</value>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Konnte Anwendungskatalog nicht herunterladen.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Konnte Feed für App-Eintrag '{0}' nicht laden.</value>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
+Verschlüsselte Verbindungen verwenden ein https://-Präfix.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Dies entfernt automatisch Implementierungen aus dem Cache, die nach der Aktualisierung nicht mehr benötigt werden. Fortfahren?
+Wichtig: Anwendungen, die Sie zuvor mit"Start" aufgerufen haben, ohne sie zu "Meine Apps" hinzuzufügen, werden ebenfalls aus dem Cache entfernt. Wenn Sie sie erneut ausführen möchten, müssen Sie online sein.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Arbeite...</value>
+  </data>
+</root>

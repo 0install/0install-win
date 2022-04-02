@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install Konfiguration</value>
+  </data>
+  <data name="buttonAddCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Hinzufügen</value>
+  </data>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>&amp;Hinzufügen</value>
+  </data>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>&amp;Erweiterte Optionen anzeigen</value>
+  </data>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Gehe zu</value>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>&amp;Gehe zu</value>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
+  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
+  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
+    <value>&amp;Zurücksetzen</value>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>Dem Schlüsselserver bekannte Schlüssel &amp;automatisch akzeptieren</value>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>Beim Testen neuer Versionen &amp;helfen</value>
+  </data>
+  <data name="groupCatalogSources.Text" xml:space="preserve">
+    <value>Katalog&amp;quellen</value>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>&amp;Aktualität</value>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>&amp;Implementierungscacheverzeichnisse</value>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>Netzwerknutzung</value>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Stabilität</value>
+  </data>
+  <data name="groupTrustedKeys.Text" xml:space="preserve">
+    <value>&amp;Vertraute Schlüssel</value>
+  </data>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>Bitte wählen Sie ein Verzeichnis aus, das als Implementierungscache genutzt werden soll.</value>
+  </data>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>Warnung: Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren.</value>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Dies steuert die Sprache von:
+- Zero Install selber und
+- Anwendungen die von Zero Install heruntergeladen werden.
+
+Hinweise:
+- Übersetzungen sind nicht für alle Sprachen verfügbar.
+- Sie müssen Zero Install nuestarten, damit Sprachänderungen wirksam werden.</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>&amp;Server:</value>
+  </data>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>&amp;Kryptoschlüssel:</value>
+  </data>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>&amp;Passwort:</value>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>&amp;Benutzername:</value>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Account verwalten</value>
+  </data>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>&amp;Vollständig (normale Netzwerknutzung)</value>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>&amp;Minimal (gecachte Versionen bevorzugen)</value>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>&amp;Offline (Netzwerk nicht verwenden)</value>
+  </data>
+  <data name="tabPageAdvanced.Text" xml:space="preserve">
+    <value>Erweitert</value>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="tabPageLanguage.Text" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>Speicher</value>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>Vertrauen</value>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+</root>

@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Ενσωμάτωση εφαρμογής</value>
+  </data>
+  <data name="buttonAdvancedMode.Text" xml:space="preserve">
+    <value>Προηγμένες ρυθμίσεις</value>
+  </data>
+  <data name="buttonBasicMode.Text" xml:space="preserve">
+    <value>Βασικές ρυθμίσεις</value>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>Ψευδώνυμα γραμμής εντολών</value>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
+    <value>Επιλογη ολων</value>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>Αυτόματη αναπαραγωγή</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>Αυτόματη εκκίνηση</value>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
+    <value>Αυτόματη ενημέρωση</value>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Περιλαμβάνει αυτή η εφαρμογή "Ενημέρωση όλων" ελέγχων.</value>
+  </data>
+  <data name="checkBoxCapabilities.Text" xml:space="preserve">
+    <value>Εγγραφή δυνατοτήτων</value>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>Λέει το λειτουργικό σύστημα σχετικά με τις δυνατότητες της εφαρμογής, όπως τους τύπους αρχείων που μπορεί να χειριστεί.</value>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
+    <value>Επιλογη ολων</value>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>Μενού περιβάλλοντος</value>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
+    <value>Επιλογη ολων</value>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Προεπιλεγμένο πρόγραμμα</value>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>Επιφάνεια εργασίας</value>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
+    <value>Επιλογη ολων</value>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>Τύποι αρχείων</value>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>Αποστολή σε</value>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>Μενού έναρξης</value>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
+    <value>Επιλογη ολων</value>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>URL πρωτόκολλα</value>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>Εντολή</value>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>Ονομα</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>Εκδηλώσεις</value>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Εντολή</value>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>Ονομα</value>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>Ενεργοποιήθηκε</value>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Ονομα καταχώρησης</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>Υπηρεσία</value>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>Εντολή</value>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>Ονομα</value>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>Επεκτάσεις</value>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Εντολή</value>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>Ονομα</value>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>Κατηγορία</value>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>Εντολή</value>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Ονομα</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>Πρωτόκολλα</value>
+  </data>
+  <data name="labelAliasesSimple.Text" xml:space="preserve">
+    <value>Πρόσβαση από τη διεπαφή γραμμής εντολών</value>
+  </data>
+  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
+    <value>Ξεκινάει αυτόματα όταν τα κατάλληλα μέσα (DVD, USB drive, κ.λπ.) εισαγθουν</value>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>Ξεκινήστε το πρόγραμμα αυτόματα όταν ο χρήστης συνδέεται </value>
+  </data>
+  <data name="labelContextMenuSimple.Text" xml:space="preserve">
+    <value>Καταχωρίσεις μενού περιβάλλοντος στο Windows Explorer</value>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Προεπιλεγμένο πρόγραμμα για λειτουργίες όπως προγράμμα περιήγησης ή e-mail client</value>
+  </data>
+  <data name="labelDesktopSimple.Text" xml:space="preserve">
+    <value>Ένα εικονίδιο στην επιφάνεια εργασίας</value>
+  </data>
+  <data name="labelFileTypesSimple.Text" xml:space="preserve">
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>Μια καταχώρηση στο μενού "Αποστολή σε"</value>
+  </data>
+  <data name="labelStartMenuSimple.Text" xml:space="preserve">
+    <value>Μία ή περισσότερες καταχωρήσεις στο μενού έναρξης</value>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τα υποστηριζόμενα πρωτόκολλα URL ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
+  </data>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>Ψευδώνυμα γραμμής εντολών</value>
+  </data>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>Αυτόματη αναπαραγωγή</value>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Αυτόματη εκκίνηση</value>
+  </data>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>Μενού περιβάλλοντος</value>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>Προεπιλεγμένα προγράμματα</value>
+  </data>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>Επιφάνεια εργασίας</value>
+  </data>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>Τύποι αρχείων</value>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Αποστολή σε</value>
+  </data>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>Μενού έναρξης</value>
+  </data>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>URL πρωτόκολλα</value>
+  </data>
+</root>

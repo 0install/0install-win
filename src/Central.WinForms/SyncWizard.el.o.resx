@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>Θέλω να αλλάχθει το κλειδί Crypto μου</value>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>Ξεχάσατε το κλειδί</value>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value>Θέλω να αντικαταστήσετε τα τοπικά δεδομένα μου</value>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value>Τα δεδομένα που αποθηκεύονται στο διακομιστή είναι κατεστραμμένο</value>
+  </data>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Ναι, αυτό είναι ο πρώτος υπολογιστής</value>
+  </data>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Όχι, δεν έχω συστήσει σε άλλους υπολογιστές</value>
+  </data>
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value>Δεν πρέπει να εκτελέσετε το Zero Install Sync σε άλλους υπολογιστές, ενώ η διαδικασία αυτή βρίσκεται σε λειτουργία.</value>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Παρακαλούμε εισάγετε τα στοιχεία σύνδεσής για τον διακομιστή συγχρονισμού παρακάτω:</value>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Crypto κλειδί:</value>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value>Νέο Crypto κλειδί:</value>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Το Crypto κλειδί έχει αλλάξει. Τώρα θα πρέπει να εισάγετε το νέο κλειδί για όλους τους άλλους υπολογιστές που έχουν ήδη συσταθεί για το Zero Install Sync.</value>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Πληκτρολογήστε το κλειδί σε άλλους υπολογιστές, χρησιμοποιώντας το παράθυρο «Επιλογές». Μην χρησιμοποιείτε αυτόν τον οδηγό εκεί, δεδομένου ότι απαιτείται μόνο για να εκτελέσει την αρχική αλλαγή.</value>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Crypto κλειδί:</value>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>Νέο Crypto κλειδί:</value>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Παρακαλούμε εισάγετε το κλειδί Crypto που χρησιμοποιηθηκε στο παρελθόν σε αυτόν ή/και σε άλλους υπολογιστές:</value>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>Το Crypto κλειδί χρησιμοποιείται για την κρυπτογράφηση των δεδομένων σας σε τοπικό επίπεδο πριν τη μετάδοσή τους στο διακομιστή. Γράψτε κάτω την προτεινόμενη μία ή επιλέξτε τη δική σας.</value>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Φυλάξτε αυτό το βασικό μυστικό και να χρησιμοποιήσετε κάτι διαφορετικό για τον κωδικό πρόσβασής σας. Με αυτό τον τρόπο κανείς δεν μπορεί να έχει πρόσβαση στα δεδομένα σας, ακόμα και αν ο διακομιστής τεθεί σε κίνδυνο.</value>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>Κωδικός:</value>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Κάντε κλικ στον παρακάτω σύνδεσμο για να δημιουργήσετε ένα νέο λογαριασμός συγχρονισμού στο πρόγραμμα περιήγησής σας:</value>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Αφού έχετε δημιουργήσει ένα λογαριασμό, επαλήθευστε την διεύθυνση του e-mail σας και αφου σημείωσετε τα διαπιστευτήρια της σύνδεσής σας, κάντε κλικ στο 'Επόμενο'.</value>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value>Είστε έτοιμοι να αντικαταστήσετε την τοπική λίστα εφαρμογών σας με τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού. Τυχόν αλλαγές που έχετε κάνει σε τοπικό επίπεδο, αλλά δεν συγχρονίστηκαν όμως θα χαθούν!</value>
+  </data>
+  <data name="labelResetClientFinished.Text" xml:space="preserve">
+    <value>Η τοπική λίστα εφαρμογών επαναφέρετε. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι με αυτό θα χαθούν!</value>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>Είστε έτοιμοι να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού με την τοπική λίστα εφαρμογών σας. Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι θα χαθούν!</value>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>Τα δεδομένα του διακομιστή επαναφέρθηκαν. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>Μπορεί επίσης να θέλετε να επαναφέρετε τα τοπικά δεδομένα σε άλλους υπολογιστές που χρησιμοποιείτε το Zero Install Sync </value>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>Αυτός ο οδηγός μπορεί να σας βοηθήσει να λύσετε μια σειρά πιθανών προβλημάτων συγχρονισμού. Ποιο θέμα θέλετε να επιλύσετε;</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>Το 0install.de παρέχει δωρεάν λογαριασμούς για την αποθήκευση δεδομένων συγχρονισμού. Όλα τα δεδομένα είναι κρυπτογραφημένα τοπικά προτού μεταδοθούν στο διακομιστή. Μπορείτε να χρησιμοποιήσετε το δικό σας διακομιστή για την αποθήκευση αν το επιθυμείτε.</value>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Θέλετε να χρησιμοποιήσετε τον διακομιστή 0install.de;</value>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Είναι αυτό το πρώτο υπολογιστή που εγκαθίστανται για Zero Install Sync;</value>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Το Zero Install Sync τώρα έχει συσταθεί και είναι έτοιμο για χρήση. Εκτέλεση αυτού του οδηγού για τυχόν άλλους υπολογιστές θέλετε να διατηρήσετε συγχρονισμένα με αυτό.</value>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync παίρνει λίστα εφαρμογών σας και του επιτραπέζιου εντάξεις και αυτόματα τα μεταφέρει σε άλλους υπολογιστές σας.</value>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>Όνομα Χρήστη:</value>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>Πώς μπορώ να δημιουργήσει ένα διακομιστή Sync;</value>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>Εγγραφή</value>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Windows μερίδιο αρχείο:</value>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value>χρησιμοποιήστε το διακομιστή 0install.de (συνιστάται)</value>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Αλλαγή Crypto κλειδιου</value>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value>Λογαριασμός συγχρονισμού </value>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Το κλειδί Crypto άλλαξε</value>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Crypto κλειδί</value>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Crypto κλειδί</value>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Λογαριασμός συγχρονισμού </value>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value>Επαναφορά τοπικών δεδομένων</value>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Επαναφορά τοπικών δεδομένων</value>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Επαναφορά Crypto κλειδιου</value>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Επαναφορά του διακομιστή συγχρονισμού</value>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value>Επαναφορά του διακομιστή συγχρονισμού</value>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Αντιμετώπιση προβλημάτων συγχρονισμού </value>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Εγκατάσταση συγχρονισμού πλήρη</value>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Εγκατάσταση συγχρονισμού</value>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Διαδρομή καταλόγου</value>
+  </data>
+</root>

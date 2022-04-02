@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε το URL της Zero Install τροφοδοσίας εδώ:</value>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Παράβλεψη διπλής καταχώρησης λίστας εφαρμογών για '{0}'.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Ενσωμάτωση εγκατάστασης</value>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Κοινή εφαρμογή</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>κάνει τα συνηθισμένα</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Cool εφαρμογή</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>κάνει κάτι cool</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Άλλη εφαρμογή</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>Κάνει κάτι άλλο</value>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Αν σας αρέσει μια εφαρμογή, 
+προσθέστε το στο "Οι εφαρμογές μου".</value>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Αναζήτηση για μια εφαρμογή στο "Κατάλογος"...</value>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Ενσωμάτωση" μια εφαρμογή για να μπει
+στο μενού έναρξης ή στην επιφάνεια εργασίας.</value>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Μπορείτε να διαχειριστείτε τη λίστα με τις αγαπημένες εφαρμογές εδώ.</value>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... Και να την εκτελέσετε!</value>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Καλή διασκέδαση!</value>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Με Zero Install δεν χρειάζεται να εγκαταστήσετε εφαρμογές.</value>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Λειτουργία μηχανήματος σε επίπεδο</value>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Τροποποίηση ολοκλήρωσης</value>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Προσθήκη στα "εφαρμογές μου"</value>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Φορητή λειτουργία</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Αφαιρεση από το "εφαρμογές μου"</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Θέλετε να αφαιρέσετε τις {0} καταχωρήσεις από τη λίστα;</value>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Εκτελεση</value>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Θέλετε να αποθηκεύσετε τις αλλαγές που έγιναν;</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>No
+Απορρίψη αλλαγων</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ναι
+Αποθήκευση αλλαγών</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Κάντε κλικ για εγκατάσταση...</value>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Θα πρέπει να ολοκληρωθεί ο συγχρονισμός πρώτης εγκατάστασης.</value>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Το όνομα χρήστη και/ή ο κωδικός πρόσβασης που εισάγατε δεν είναι σωστος.</value>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Το κλειδί Κρυπτογραφίας που εισαγατε είναι λάθος.</value>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Θέλετε να επαναφέρετε τις ρυθμίσεις και να αρχίσει από το μηδέν;</value>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>όχι
+επεξεργαστείτε τις υπάρχουσες ρυθμίσεις</value>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>ναί
+να ξεκινήσει από το μηδέν</value>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Τα δεδομένα που είναι σήμερα αποθηκευμένα στο διακομιστή Συγχρονισμός είναι κατεστραμμένα.
+Μπορείτε να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή, επιλέγοντας το κλειδί Κρυπτογραφίας.</value>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ληψη του κατάλογου της εφαρμογής.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας για την είσοδο λίστας εφαρμογών '{0}'.</value>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να χρησιμοποιήσετε μια σύνδεση χωρίς κρυπτογράφηση σε ένα διακομιστή συγχρονισμού;
+Κρυπτογραφημένες συνδέσεις χρησιμοποιούν ένα https: // πρόθεμα.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Ενημέρωση</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Αυτό θα απομακρύνει αυτόματα τις εφαρμογές από την κρυφή μνήμη που δεν χρειάζονται πλέον μετά την ενημέρωση. Συνέχεια;
+Σημαντικό: Εφαρμογές που έχετε "Εκτέλεση" στο παρελθόν, χωρίς την προσθήκη τους στο "Οι εφαρμογές μου" θα πρέπει επίσης να αφαιρεθούν από την κρυφή μνήμη. Θα πρέπει να είναι σε απευθείας σύνδεση, αν αποφασίσετε να τις εκτελέσετε ξανά.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Εργασία...</value>
+  </data>
+</root>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="menuUpdateAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>549, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <metadata name="menuSync.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>794, 17</value>
+  </metadata>
+  <metadata name="menuMoreApps.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1254, 17</value>
+  </metadata>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1156, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="buttonAddCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>カタログ（フィードの集合体）のURLを入力します。</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonAddFeed.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>フィード（単体アプリ）のURLを入力する</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonCommandLine.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>コマンドライン</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonDocumentation.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>ドキュメンテーション</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonFeedEditor.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>パブリッシングツールを使って新しいアプリをパッケージ化する</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonHelp.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>ヘルプ</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonIntro.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>イントロビデオ</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonMoreApps.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>その他のアプリケーション</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonOptions.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>オプション</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonPortableCreator.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>ポータブルクリエーター</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonRefreshCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>リフレッシュリスト</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSearch.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>キーワード検索を行う</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonStoreManage.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>キャッシュの管理</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSync.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>シンク</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSync2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>シンク</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSyncSetup.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>セットアップ</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>トラブルシューティング</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonTools.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>ツール</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonUpdateAll.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>すべて更新</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonUpdateAll2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>すべて更新</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonUpdateAllClean.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>すべてアップデートしてクリーンアップ</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelLoadingCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>サーバーからカタログを読み込んでいます...</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageAppList.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>マイアプリ</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="tabPageCatalog.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>カタログ</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>

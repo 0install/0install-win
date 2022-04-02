@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Φορητός δημιουργός</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonCancel.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ακύρωση</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="buttonDeploy.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Ανάπτυξη</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelInfo.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Εδώ μπορείτε να δημιουργήσετε μια φορητή έκδοση του Zero Install, π.χ. για χρήση σε ένα στικάκι USB. Ο στόχος πρέπει να είναι διαμορφωμένος με NTFS.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="labelInfo2.Text" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>- Αποθηκεύει τη διαμόρφωση της Zero Install και τις εφαρμογές που έχουν αποθηκευτεί στην προσωρινή μνήμη σε έναν ενιαίο κατάλογο.
+- Δεν καθιστά αυτόματα φορητές και τις εφαρμογές που εκκινούνται μέσω του Zero Install.
+- Οι φορητές εκδόσεις του Zero Install δεν μπορούν να πραγματοποιήσουν ενσωμάτωση στην επιφάνεια εργασίας (π.χ. δημιουργία καταχωρήσεων στο μενού εκκίνησης).
+- Εξετάστε το ενδεχόμενο να χρησιμοποιήσετε το κανονικό Zero Install σε πολλούς υπολογιστές με το Zero Install Sync.</value>
+    <comment>Automatically Translated</comment>
+  </data>
+  <data name="textBoxTarget.HintText" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Κατάλογος-στόχος</value>
+    <comment>Automatically Translated</comment>
+  </data>
+</root>
