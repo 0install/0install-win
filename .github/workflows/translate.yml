@@ -1,11 +1,8 @@
 name: Translate
 on:
   workflow_dispatch: {}
-  schedule:
-    - cron: '0 6 15 * *'
   push:
-    branches: [master]
-    paths: ['**.resx']
+    branches: [master, temp]
 
 jobs:
   translate:
@@ -35,7 +32,7 @@ jobs:
           path: '**/*.a.resx'
           key: deepl
       - name: DeepL
-        uses: Yeah69/MrMeeseeks.ResXTranslationCombinator@main
+        uses: bastianeicher/MrMeeseeks.ResXTranslationCombinator@main
         env:
           GITHUB_TOKEN: ${{github.token}}
         with:
