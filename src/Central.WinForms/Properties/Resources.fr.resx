@@ -169,7 +169,7 @@ dans le menu démarrer ou sur le bureau.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Le répertoire {0} n'est pas vide.
+    <value>Le répertoire '{0}' n'est pas vide.
 Êtes-vous sûr de vouloir y placer une version portable de Zero Install ?</value>
     <comment>Automatically translated.</comment>
   </data>

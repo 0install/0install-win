@@ -169,7 +169,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Ο κατάλογος {0} δεν είναι άδειος.
+    <value>Ο κατάλογος '{0}' δεν είναι άδειος.
 Είστε σίγουροι ότι θέλετε να τοποθετήσετε μια φορητή έκδοση του Zero Install εκεί</value>
     <comment>Automatically translated.</comment>
   </data>

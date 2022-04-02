@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Пожалуйста, введите криптографический ключ, который вы использовали ранее на этом и/или других компьютерах:</value>
+    <value>Введите криптографический ключ, который вы использовали ранее на этом и/или других компьютерах:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">

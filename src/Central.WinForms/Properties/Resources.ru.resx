@@ -169,7 +169,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Каталог {0} не пуст.
+    <value>Каталог '{0}' не пуст.
 Вы уверены, что хотите поместить туда портативную версию Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>

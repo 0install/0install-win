@@ -169,7 +169,7 @@ in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>De directory {0} is niet leeg.
+    <value>De directory '{0}' is niet leeg.
 Weet u zeker dat u daar een portable versie van Zero Install wilt plaatsen?</value>
     <comment>Automatically translated.</comment>
   </data>

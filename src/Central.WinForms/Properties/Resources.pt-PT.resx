@@ -169,7 +169,7 @@ no menu inicial ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>O directório {0} não está vazio.
+    <value>O directório '{0}' não está vazio.
 Tem a certeza de que quer colocar uma versão portátil de Zero Install lá?</value>
     <comment>Automatically translated.</comment>
   </data>

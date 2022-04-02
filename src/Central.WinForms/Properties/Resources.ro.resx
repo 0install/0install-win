@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continuă</value>
+    <value>Continuați</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -169,7 +169,7 @@ adăugați-o la "Aplicațiile mele".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Directorul {0} nu este gol.
+    <value>Directorul '{0}' nu este gol.
 Sunteți sigur că doriți să plasați acolo o versiune portabilă a programului Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>

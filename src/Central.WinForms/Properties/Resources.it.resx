@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Per l'utente attuale</value>
+    <value>Per l'utente corrente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>App comune</value>
+    <value>Applicazione comune</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -169,7 +169,7 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>La directory {0} non è vuota.
+    <value>La directory '{0}' non è vuota.
 Sei sicuro di voler mettere lì una versione portatile di Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
