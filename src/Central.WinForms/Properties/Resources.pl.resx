@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Wpisz '0install --help', aby wyświetlić listę dostępnych poleceń.</value>
+    <value>Wpisz '{0}', aby wyświetlić listę dostępnych poleceń.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -169,7 +169,7 @@ w menu startowym lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Katalog {0} nie jest pusty.
+    <value>Katalog '{0}' nie jest pusty.
 Czy na pewno chcesz umieścić tam przenośną wersję programu Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>

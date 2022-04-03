@@ -148,11 +148,11 @@
   </data>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
     <value>Default</value>
@@ -168,11 +168,11 @@
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
     <value>Abilitato</value>
@@ -196,11 +196,11 @@
   </data>
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
     <value>Default</value>
@@ -216,11 +216,11 @@
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
     <value>Categoria</value>
@@ -228,11 +228,11 @@
   </data>
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
     <value>Default</value>

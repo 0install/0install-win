@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Azzerare</value>
+    <value>Resettare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
@@ -107,8 +107,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Fonti del catalogo</value>
-    <comment>Automatically translated.</comment>
+    <value>Catalogo &amp;fonti</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
     <value>Freschezza</value>
@@ -186,7 +186,7 @@ Note:
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Catalogo</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
     <value>Lingua</value>

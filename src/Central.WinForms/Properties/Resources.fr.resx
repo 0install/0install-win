@@ -63,8 +63,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Entrez '0install --help'  pour voir la liste des commandes disponibles.</value>
-    <comment>Manually overriden.</comment>
+    <value>Entrez '{0}' pour voir une liste des commandes disponibles.</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuer</value>
@@ -169,7 +169,7 @@ dans le menu démarrer ou sur le bureau.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Le répertoire {0} n'est pas vide.
+    <value>Le répertoire '{0}' n'est pas vide.
 Êtes-vous sûr de vouloir y placer une version portable de Zero Install ?</value>
     <comment>Automatically translated.</comment>
   </data>

@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>输入'0install --help'可以看到可用的命令列表。</value>
+    <value>输入'{0}'，可以看到可用的命令列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -145,7 +145,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>使用 "零安装"，你不必安装应用程序。</value>
+    <value>有了 "零安装"，你就不必再安装应用程序。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -169,8 +169,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>目录{0} 并不是空的。
-你确定要在那里放置 "零安装 "的便携版本吗？</value>
+    <value>目录'{0}'不是空的。
+你确定你要在那里放置零点安装的便携版本吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -265,7 +265,7 @@
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
-重要提示：你以前 "运行 "过的应用程序，如果没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
+重要的是：你以前 "运行 "过的应用程序，没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

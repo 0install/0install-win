@@ -59,153 +59,153 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Конфигурация Zero Install</value>
+    <value>Configuración de la instalación cero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Добавить</value>
+    <value>Añadir</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Добавить</value>
+    <value>Añadir</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Показать дополнительные параметры</value>
+    <value>Mostrar opciones avanzadas</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Перейти к</value>
+    <value>Ir a</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Перейти к</value>
+    <value>Ir a</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Eliminar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Eliminar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Eliminar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Сброс</value>
+    <value>Reiniciar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Автоматическое утверждение новых ключей (если они известны серверу ключей)</value>
+    <value>Aprobar automáticamente las nuevas claves (si las conoce el servidor de claves)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Помощь в тестировании новых версий</value>
+    <value>Ayudar a probar nuevas versiones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Источники каталога</value>
+    <value>Fuentes del catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Свежесть</value>
+    <value>Frescura</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Каталоги кэша реализации</value>
+    <value>Implementación de directorios de caché</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Использование сети</value>
+    <value>Uso de la red</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
-    <value>Стабильность</value>
+    <value>Estabilidad</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Доверенные ключи</value>
+    <value>Llaves de confianza</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Пожалуйста, выберите или создайте каталог для использования в качестве кэша реализации.</value>
+    <value>Seleccione o cree un directorio para utilizarlo como caché de implementación.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Внимание: Изменение этих параметров может помешать корректной работе Zero Install.</value>
+    <value>Advertencia: El cambio de estas opciones puede impedir que la Instalación Cero funcione correctamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Это контролирует язык:
-- Самого Zero Install и
-- приложений, загружаемых Zero Install.
+    <value>Esto controla el idioma de:
+- La propia Zero Install y
+- las aplicaciones descargadas por la Instalación Cero.
 
-Примечания:
-- Переводы доступны не для всех языков.
-- Чтобы изменения языка вступили в силу, необходимо перезапустить Zero Install.</value>
+Notas:
+- Las traducciones no están disponibles para todos los idiomas.
+- Es necesario reiniciar Zero Install para que los cambios de idioma surtan efecto.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>Сервер:</value>
+    <value>Servidor:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Криптографический ключ:</value>
+    <value>Clave criptográfica:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>Пароль:</value>
+    <value>Contraseña:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>Имя пользователя:</value>
+    <value>Nombre de usuario:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Управление счетом</value>
+    <value>Gestionar la cuenta</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Полный (обычное использование сети)</value>
+    <value>Completo (uso normal de la red)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Минимальные (предпочитают кэшированные версии)</value>
+    <value>Mínimo (prefiero las versiones en caché)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>В автономном режиме (не использовать сеть)</value>
+    <value>Fuera de línea (no utilizar la red)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Расширенный</value>
+    <value>Avanzado</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Каталог</value>
+    <value>Catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>Язык</value>
+    <value>Idioma</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Хранение</value>
+    <value>Almacenamiento</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Синхронизация</value>
+    <value>Sincronización</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Доверие</value>
+    <value>Confíe en</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Обновления</value>
+    <value>Actualizaciones</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

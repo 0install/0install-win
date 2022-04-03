@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancella</value>
-    <comment>Automatically translated.</comment>
+    <value>Annulla</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
     <value>Distribuire</value>

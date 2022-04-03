@@ -58,28 +58,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
-    <value>Personalizza la versione</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Gestión de la caché de la instalación cero</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>Aggiorna</value>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>Cerrar</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Linea di comando equivalente</value>
+  <data name="buttonRefresh.Text" xml:space="preserve">
+    <value>Actualizar</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="labelArgs.Text" xml:space="preserve">
-    <value>Argomenti:</value>
+  <data name="buttonRemove.Text" xml:space="preserve">
+    <value>Eliminar</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="labelCommand.Text" xml:space="preserve">
-    <value>&amp;Comando:</value>
-    <comment>Manually overriden.</comment>
+  <data name="buttonRunAsAdmin.Text" xml:space="preserve">
+    <value>Ejecutar como administrador</value>
+    <comment>Automatically translated.</comment>
   </data>
-  <data name="labelOptions.Text" xml:space="preserve">
-    <value>Opzioni:</value>
+  <data name="buttonVerify.Text" xml:space="preserve">
+    <value>Verificar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCheckedSize.Text" xml:space="preserve">
+    <value>Comprobado el tamaño de las entradas:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCurrentSize.Text" xml:space="preserve">
+    <value>Tamaño actual de la entrada:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelLoading.Text" xml:space="preserve">
+    <value>Cargando...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelTotalSize.Text" xml:space="preserve">
+    <value>Tamaño total:</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

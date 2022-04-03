@@ -58,28 +58,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
-    <value>Personalizza la versione</value>
-    <comment>Automatically translated.</comment>
+  <data name="$this.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
-  <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>Aggiorna</value>
-    <comment>Automatically translated.</comment>
-  </data>
-  <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Linea di comando equivalente</value>
-    <comment>Automatically translated.</comment>
-  </data>
-  <data name="labelArgs.Text" xml:space="preserve">
-    <value>Argomenti:</value>
-    <comment>Automatically translated.</comment>
-  </data>
-  <data name="labelCommand.Text" xml:space="preserve">
-    <value>&amp;Comando:</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Відмінити</value>
     <comment>Manually overriden.</comment>
   </data>
-  <data name="labelOptions.Text" xml:space="preserve">
-    <value>Opzioni:</value>
-    <comment>Automatically translated.</comment>
+  <data name="buttonDeploy.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelInfo.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelInfo2.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="textBoxTarget.HintText" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
 </root>

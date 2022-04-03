@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digite '0install --help' para ver uma lista de comandos disponíveis.</value>
+    <value>Digite '{0}' para ver uma lista dos comandos disponíveis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -169,7 +169,7 @@ no menu inicial ou na área de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>O diretório {0} não está vazio.
+    <value>O diretório '{0}' não está vazio.
 Você tem certeza de que quer colocar uma versão portátil de Zero Install lá?</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -247,7 +247,7 @@ Você pode substituir os dados armazenados no servidor escolhendo que você não
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Não é possível fazer o download do catálogo de aplicativos.</value>
+    <value>Não é possível fazer o download do catálogo de aplicações.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">

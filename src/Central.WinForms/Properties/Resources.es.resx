@@ -59,217 +59,217 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Cancelar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Введите '{0}', чтобы увидеть список доступных команд.</value>
+    <value>Introduzca '{0}' para ver una lista de comandos disponibles.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Продолжить</value>
+    <value>Continuar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Нажмите для установки Zero Install на этом компьютере...</value>
+    <value>Haga clic para configurar la Instalación Cero en este ordenador...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Пожалуйста, введите URL-адрес фида Zero Install:</value>
+    <value>Por favor, introduzca aquí la URL de un feed de Zero Install:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>Для всех пользователей</value>
+    <value>Para todos los usuarios</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Для текущего пользователя</value>
+    <value>Para el usuario actual</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Игнорирование дублирующей записи приложения для '{0}'.</value>
+    <value>Ignorando la entrada duplicada de la aplicación para '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Интегрировать (меню "Пуск" и т.д.)</value>
+    <value>Integrar (menú de inicio, etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>Общее приложение</value>
+    <value>Aplicación común</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>занимается обычными делами</value>
+    <value>hace las cosas habituales</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Классное приложение</value>
+    <value>Una aplicación genial</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>делает что-то крутое</value>
+    <value>hace algo genial</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Другое приложение</value>
+    <value>Otra aplicación</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>делает что-то ещё</value>
+    <value>hace algo más</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Если вам нравится какое-либо приложение,
-добавьте его в "Мои приложения".</value>
+    <value>Si te gusta una aplicación
+añádela a "Mis aplicaciones".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Поиск приложения в "Каталоге"...</value>
+    <value>Buscar una aplicación en el "Catálogo"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Интегрировать" приложение, чтобы поместить его
-в стартовое меню или на рабочий стол.</value>
+    <value>"Integrar" una aplicación para ponerla
+en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Вы можете управлять списком любимых приложений здесь.</value>
+    <value>Aquí puedes gestionar tu lista de aplicaciones favoritas.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... и запустить его!</value>
+    <value>... ¡y a correr!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Веселитесь!</value>
+    <value>Diviértete</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>С Zero Install вам не придется устанавливать приложения.</value>
+    <value>Con Zero Install no tienes que instalar aplicaciones.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Общемашинный режим</value>
+    <value>Modo máquina</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Изменить интеграцию</value>
+    <value>Modificar la integración</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Добавить в "Мои приложения"</value>
+    <value>Añadir a "Mis aplicaciones"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Добавлено в "Мои приложения".</value>
+    <value>Añadido a "Mis aplicaciones".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Добавлено в "Мои приложения" и интегрировано в среду рабочего стола.</value>
+    <value>Añadido a "Mis aplicaciones" e integrado en el entorno de escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Каталог '{0}' не пуст.
-Вы уверены, что хотите поместить туда портативную версию Zero Install?</value>
+    <value>El directorio '{0}' no está vacío.
+¿Está seguro de que quiere colocar allí una versión portátil de la Instalación Cero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Портативный режим</value>
+    <value>Modo portátil</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Eliminar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Вы хотите удалить из списка {0} выбранные записи?</value>
+    <value>¿Desea eliminar de la lista las entradas seleccionadas en {0}?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Запускайте</value>
+    <value>Ejecutar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Запуск с опциями</value>
+    <value>Ejecutar con opciones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Хотите ли вы сохранить сделанные изменения?</value>
+    <value>¿Desea guardar los cambios realizados?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
-    <value>Нет
-Отбросить изменения</value>
+    <value>No
+Descartar cambios</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
-    <value>Да
-Сохранить изменения</value>
+    <value>Sí
+Guardar los cambios</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Поиск</value>
+    <value>Busque en</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Нажмите для обновления до Zero Install v{0}...</value>
+    <value>Haga clic para actualizar a Zero Install v{0}...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Сначала необходимо завершить настройку синхронизации.</value>
+    <value>Primero tienes que completar la configuración de la sincronización.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>Введенные вами имя пользователя и/или пароль неверны.</value>
+    <value>El nombre de usuario y/o la contraseña que has introducido son incorrectos.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Введенный вами криптографический ключ неверен.</value>
+    <value>La clave criptográfica que ha introducido es incorrecta.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Хотите ли вы сбросить настройки синхронизации и начать все с нуля?</value>
+    <value>¿Desea restablecer la configuración de la sincronización y empezar de cero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
-    <value>Нет
-редактировать существующие настройки</value>
+    <value>No
+editar la configuración existente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
-    <value>Да
-начать с нуля</value>
+    <value>Sí
+empezar de cero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Данные, хранящиеся в настоящее время на сервере синхронизации, повреждены.
-Вы можете заменить данные, хранящиеся на сервере, выбрав, что вы не помните криптографический ключ.</value>
+    <value>Los datos almacenados actualmente en el servidor de sincronización están dañados.
+Puede reemplazar los datos almacenados en el servidor eligiendo que no recuerda la clave Crypto.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Невозможно загрузить каталог приложений.</value>
+    <value>No se puede descargar el catálogo de aplicaciones.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Невозможно загрузить фид для записи приложения '{0}'.</value>
+    <value>No se ha podido cargar el feed de la entrada de la aplicación '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Вы уверены, что хотите использовать незашифрованное соединение с сервером синхронизации?
-В зашифрованных соединениях используется префикс https://.</value>
+    <value>¿Está seguro de que desea utilizar una conexión no cifrada con un servidor de sincronización?
+Las conexiones cifradas utilizan un prefijo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Обновление</value>
+    <value>Actualización</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Это автоматически удалит из кэша реализации, которые больше не нужны после обновления. Продолжить?
-Важно: Приложения, которые вы ранее "Запустили", не добавив их в "Мои приложения", также будут удалены из кэша.  Если вы решите запустить их снова, вам нужно будет подключиться к сети.</value>
+    <value>Esto eliminará automáticamente las implementaciones de la caché que ya no sean necesarias después de la actualización. ¿Continuar?
+Importante: Las aplicaciones que hayas "ejecutado" previamente sin añadirlas a "Mis aplicaciones" también se eliminarán de la caché.  Tendrás que estar conectado si decides volver a ejecutarlas.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Работа...</value>
+    <value>Trabajando...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -58,28 +58,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
-    <value>Personalizza la versione</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Cómo empezar</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>Aggiorna</value>
+  <data name="buttonClose.Text" xml:space="preserve">
+    <value>Cerrar</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Linea di comando equivalente</value>
+  <data name="buttonReplay.Text" xml:space="preserve">
+    <value>Volver a jugar</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="labelArgs.Text" xml:space="preserve">
-    <value>Argomenti:</value>
+  <data name="labelVideo.Text" xml:space="preserve">
+    <value>Un breve vídeo de presentación</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="labelCommand.Text" xml:space="preserve">
-    <value>&amp;Comando:</value>
-    <comment>Manually overriden.</comment>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Mis aplicaciones</value>
+    <comment>Automatically translated.</comment>
   </data>
-  <data name="labelOptions.Text" xml:space="preserve">
-    <value>Opzioni:</value>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

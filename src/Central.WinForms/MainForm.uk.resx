@@ -59,99 +59,99 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Saisissez l'URL d'un catalogue (une collection de flux)</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Entrez l'URL d'un flux (une seule application)</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>Ligne de commande</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonDocumentation.Text" xml:space="preserve">
-    <value>&amp;Documentation</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Utilisez les outils de publication pour emballer une nouvelle application</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
-    <value>&amp;Aide</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>&amp;Vidéo d'introduction</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>&amp;Plus d'applications</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
-    <value>Options</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Créateur portable</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>&amp;Actualiser la liste</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Effectuer une recherche par mot-clé</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Gestion des caches</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>&amp;Synchroniser</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
-    <value>Synchroniser</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>&amp;Installer</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>&amp;Résolution de problèmes</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
-    <value>&amp;Outils</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>&amp; Tout mettre à jour</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Tout mettre à jour</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Mettre à jour tout et nettoyer</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Téléchargement catalogue à partir de serveur...</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Mes applications</value>
-    <comment>Automatically translated.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Catalogue</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
 </root>

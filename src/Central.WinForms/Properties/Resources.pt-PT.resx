@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduza '0install --help' para ver uma lista de comandos disponíveis.</value>
+    <value>Digite '{0}' para ver uma lista dos comandos disponíveis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -169,7 +169,7 @@ no menu inicial ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>O directório {0} não está vazio.
+    <value>O directório '{0}' não está vazio.
 Tem a certeza de que quer colocar uma versão portátil de Zero Install lá?</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -216,7 +216,7 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>É necessário completar primeiro o Sync Setup.</value>
+    <value>É necessário completar primeiro a Configuração de Sincronização.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">

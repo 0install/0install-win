@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetClientFinished.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
+  </data>
+</root>

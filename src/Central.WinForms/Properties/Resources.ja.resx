@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>0install --help」と入力すると、利用可能なコマンドの一覧が表示されます。</value>
+    <value>{0}' を入力すると、利用可能なコマンドの一覧が表示されます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -169,8 +169,8 @@ My apps」に追加する。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>{0} というディレクトリは空ではありません。
-本当にそこにポータブル版のZero Installを置きたいのでしょうか？</value>
+    <value>ディレクトリ '{0}' は空ではありません。
+本当にZero Installのポータブル版をそこに置くのですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">

@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value>Anulează</value>
-    <comment>Automatically translated.</comment>
+    <value>Anulare</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduceți "0install --help" pentru a vedea o listă de comenzi disponibile.</value>
+    <value>Introduceți '{0}' pentru a vedea o listă de comenzi disponibile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continuă</value>
+    <value>Continuați</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -169,7 +169,7 @@ adăugați-o la "Aplicațiile mele".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Directorul {0} nu este gol.
+    <value>Directorul '{0}' nu este gol.
 Sunteți sigur că doriți să plasați acolo o versiune portabilă a programului Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -208,8 +208,8 @@ Salvați modificările</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Căutare</value>
-    <comment>Automatically translated.</comment>
+    <value>Caută</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Faceți clic pentru a actualiza la Zero Install v{0}...</value>

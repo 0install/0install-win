@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancella</value>
-    <comment>Automatically translated.</comment>
+    <value>Annulla</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digita '0install --help' per vedere una lista di comandi disponibili.</value>
+    <value>Digita '{0}' per vedere una lista di comandi disponibili.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -169,7 +169,7 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>La directory {0} non è vuota.
+    <value>La directory '{0}' non è vuota.
 Sei sicuro di voler mettere lì una versione portatile di Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -209,7 +209,7 @@ Salva le modifiche</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Cerca</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Clicca per aggiornare a Zero Install v{0}...</value>

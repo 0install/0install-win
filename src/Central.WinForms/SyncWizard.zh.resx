@@ -148,7 +148,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>你在其他电脑上所做的、但尚未与这台电脑同步的任何修改都会丢失！你可以在这台电脑上进行修改。</value>
+    <value>你在其他电脑上所做的但尚未与这台电脑同步的任何修改都会丢失</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -168,7 +168,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de提供免费账户来存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
+    <value>0install.de提供免费账户用于存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

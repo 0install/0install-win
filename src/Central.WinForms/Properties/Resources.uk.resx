@@ -59,217 +59,212 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value>Ακύρωση</value>
+    <value>Відмінити</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Πληκτρολογήστε '{0}' για να δείτε μια λίστα με τις διαθέσιμες εντολές.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Συνέχεια</value>
+    <value>Продовжити</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Κάντε κλικ για να εγκαταστήσετε το Zero Install σε αυτόν τον υπολογιστή...</value>
+    <value>Натисніть, щоб встановити Zero Install на цей комп'ютер. </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Παρακαλώ εισάγετε το URL της Zero Install τροφοδοσίας εδώ:</value>
+    <value>Будь ласка, введіть тут посилання на потік Zero Install: </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>Για όλους τους χρήστες</value>
+    <value>Для всіх користувачів</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Για τον τρέχοντα χρήστη</value>
+    <value>Для поточного користувача</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Παράβλεψη διπλής καταχώρησης λίστας εφαρμογών για '{0}'.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Ενσωμάτωση εγκατάστασης</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>Κοινή εφαρμογή</value>
+    <value>Поширені застосунки</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>κάνει τα συνηθισμένα</value>
+    <value>робить звичайні речі</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Cool εφαρμογή</value>
+    <value>Файний застосунок</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>κάνει κάτι cool</value>
+    <value>робить щось прикольне</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Άλλη εφαρμογή</value>
+    <value>Інші застосунки</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>Κάνει κάτι άλλο</value>
+    <value>робить щось інше</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Αν σας αρέσει μια εφαρμογή, 
-προσθέστε το στο "Οι εφαρμογές μου".</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Αναζήτηση για μια εφαρμογή στο "Κατάλογος"...</value>
+    <value>Шукати застосунок в "Каталозі"</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Ενσωμάτωση" μια εφαρμογή για να μπει
-στο μενού έναρξης ή στην επιφάνεια εργασίας.</value>
+    <value>Інтегрувати застосунок та додати його
+в меню Старт або на Робочий стіл. </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Μπορείτε να διαχειριστείτε τη λίστα με τις αγαπημένες εφαρμογές εδώ.</value>
+    <value>Тут ви можете конфігурувати перелік улюблених застосунків. </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... Και να την εκτελέσετε!</value>
+    <value>... та запускайте!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Καλή διασκέδαση!</value>
+    <value>Розважайтеся!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Με Zero Install δεν χρειάζεται να εγκαταστήσετε εφαρμογές.</value>
+    <value>Із Zero Install вам не потрібно встановлювати застосунки. </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Λειτουργία μηχανήματος σε επίπεδο</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Τροποποίηση ολοκλήρωσης</value>
+    <value>Модифікувати інтеграцію.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Προσθήκη στα "εφαρμογές μου"</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Προστέθηκε στο "Οι εφαρμογές μου".</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Προστέθηκε στο "Οι εφαρμογές μου" και ενσωματώθηκε στο περιβάλλον εργασίας.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Ο κατάλογος {0} δεν είναι άδειος.
-Είστε σίγουροι ότι θέλετε να τοποθετήσετε μια φορητή έκδοση του Zero Install εκεί</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Φορητή λειτουργία</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Αφαιρεση από το "εφαρμογές μου"</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Θέλετε να αφαιρέσετε τις {0} καταχωρήσεις από τη λίστα;</value>
+    <value>Ви хочете видалити {0} занесень, обраних з переліку?</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Εκτελεση</value>
+    <value>Запустити</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Εκτέλεση με επιλογές</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Θέλετε να αποθηκεύσετε τις αλλαγές που έγιναν;</value>
+    <value>Зберегти зміни?</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
-    <value>No
-Απορρίψη αλλαγων</value>
+    <value>Ні
+Відкинути зміни</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
-    <value>Ναι
-Αποθήκευση αλλαγών</value>
+    <value>Так
+Зберегти зміни</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Αναζήτηση</value>
+    <value>Шукати</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Κάντε κλικ για εγκατάσταση...</value>
+    <value>Натисніть, щоб обновити Zero Install до версії {0}</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Θα πρέπει να ολοκληρωθεί ο συγχρονισμός πρώτης εγκατάστασης.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>Το όνομα χρήστη και/ή ο κωδικός πρόσβασης που εισάγατε δεν είναι σωστος.</value>
+    <value>Ім'я користувача та/або пароль невірні. </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Το κλειδί Κρυπτογραφίας που εισαγατε είναι λάθος.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Θέλετε να επαναφέρετε τις ρυθμίσεις και να αρχίσει από το μηδέν;</value>
+    <value>Ви хочете скинути налаштування Синхронізації та почати з початку?</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
-    <value>όχι
-επεξεργαστείτε τις υπάρχουσες ρυθμίσεις</value>
+    <value>Ні
+редагувати існуючі налаштування</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
-    <value>ναί
-να ξεκινήσει από το μηδέν</value>
+    <value>Так
+почати з початку</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Τα δεδομένα που είναι σήμερα αποθηκευμένα στο διακομιστή Συγχρονισμός είναι κατεστραμμένα.
-Μπορείτε να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή, επιλέγοντας το κλειδί Κρυπτογραφίας.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Δεν είναι δυνατή η ληψη του κατάλογου της εφαρμογής.</value>
+    <value>Неможливо завантажити каталог застосунків. </value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας για την είσοδο λίστας εφαρμογών '{0}'.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Είστε σίγουροι ότι θέλετε να χρησιμοποιήσετε μια σύνδεση χωρίς κρυπτογράφηση σε ένα διακομιστή συγχρονισμού;
-Κρυπτογραφημένες συνδέσεις χρησιμοποιούν ένα https: // πρόθεμα.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Ενημέρωση</value>
+    <value>&amp;Обновити</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Αυτό θα απομακρύνει αυτόματα τις εφαρμογές από την κρυφή μνήμη που δεν χρειάζονται πλέον μετά την ενημέρωση. Συνέχεια;
-Σημαντικό: Εφαρμογές που έχετε "Εκτέλεση" στο παρελθόν, χωρίς την προσθήκη τους στο "Οι εφαρμογές μου" θα πρέπει επίσης να αφαιρεθούν από την κρυφή μνήμη. Θα πρέπει να είναι σε απευθείας σύνδεση, αν αποφασίσετε να τις εκτελέσετε ξανά.</value>
-    <comment>Manually overriden.</comment>
+    <value></value>
+    <comment>Neither a manually overriden nor an automatically translated value found</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Εργασία...</value>
+    <value>Обробка...</value>
     <comment>Manually overriden.</comment>
   </data>
 </root>
