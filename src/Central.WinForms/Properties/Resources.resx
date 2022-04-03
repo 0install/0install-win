@@ -121,7 +121,7 @@
     <value>Cancel</value>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Enter '0install --help' to see a list of available commands.</value>
+    <value>Enter '{0}' to see a list of available commands.</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,169 +53,222 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
     <value>Ich möchte meinen &amp;Kryptoschlüssel ändern</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
     <value>Schlüssel vergessen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>Ich möchte meine &amp;lokalen Daten ersetzen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
     <value>Die auf dem &amp;Server gespeicherten Daten sind beschädigt</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
     <value>Ja, dies ist der &amp;erste Computer</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
     <value>Nein, ich habe bereits &amp;andere Computer eingerichtet</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Sie sollten Zero Install Sync nicht auf anderen Computern ausführen, während dieser Prozess läuft.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
     <value>Bitte geben Sie Ihre Zugangsdaten für den Sync-Server ein:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
     <value>Kryptoschlüssel:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
     <value>Neuer Kryptoschlüssel:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
     <value>Der Kryptoschlüssel wurde geändert. Nun müssen Sie den neuen Schlüssel auf allen anderen Computern eingeben, die Sie bereits für Zero Install Sync eingerichtet haben.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>Geben Sie den Schlüssel auf anderen Computern über das Fenster "Optionen" ein. Verwenden Sie diesen Assistenten dort nicht, da er nur für die erste Änderung erforderlich ist.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
     <value>Kryptoschlüssel:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
     <value>Neuer Kryptoschlüssel:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
     <value>Bitte geben Sie den Kryptoschlüssel ein, den Sie zuvor auf diesem und/oder anderen Computern verwendet haben:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
     <value>Der Kryptoschlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übertragen werden. Schreiben Sie den vorgeschlagenen Schlüssel auf oder wählen Sie Ihren eigenen.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
     <value>Halten Sie diesen Schlüssel geheim und verwenden Sie ein anderes Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden sollte.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
     <value>&amp;Passwort:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
     <value>Klicken Sie auf den folgenden Link, um ein neues Sync-Konto in Ihrem Browser zu erstellen:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
     <value>Sobald Sie ein Konto erstellt, Ihre E-Mail-Adresse verifiziert und Ihre Anmeldedaten notiert haben, klicken Sie auf "Fortsetzen".
 </value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
     <value>Sie sind dabei, Ihre lokale Anwendungsliste durch die auf dem Sync-Server gespeicherten Daten zu ersetzen. Alle Änderungen, die Sie lokal vorgenommen, aber noch nicht synchronisiert haben, gehen verloren!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
     <value>Die lokale Anwendungsliste wird zurückgesetzt. Sie können nun Zero Install weiter nutzen.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
     <value>Alle Änderungen, die Sie auf anderen Computern vorgenommen haben, die aber noch nicht mit diesem Computer synchronisiert wurden, gehen verloren!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
     <value>Sie sind dabei, die auf dem Sync-Server gespeicherten Daten durch Ihre lokale Anwendungsliste zu ersetzen. Alle Änderungen, die Sie auf anderen Computern vorgenommen haben, die aber noch nicht mit diesem Computer synchronisiert wurden, gehen verloren!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
     <value>Die Serverdaten werden zurückgesetzt. Sie können nun mit Zero Install fortfahren.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
     <value>Möglicherweise möchten Sie auch die lokalen Daten auf anderen Computern, auf denen Sie Zero Install Sync verwenden, zurücksetzen.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
     <value>Dieser Assistent kann Ihnen helfen, eine Reihe von möglichen Synchronisierungsproblemen zu lösen. Welches Problem möchten Sie beheben?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
     <value>0install.de bietet kostenlose Konten zum Speichern von Sync-Daten an. Alle Daten werden lokal verschlüsselt, bevor sie an den Server übertragen werden. Sie können stattdessen Ihren eigenen Server für die Speicherung verwenden, wenn Sie dies wünschen.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
     <value>Welchen Server möchten Sie verwenden?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
     <value>Ist dies der erste Computer, den Sie für Zero Install Sync einrichten?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
     <value>Zero Install Sync ist nun eingerichtet und einsatzbereit. Führen Sie diesen Assistenten auf allen anderen Computern aus, die Sie mit diesem synchronisieren möchten.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
     <value>Zero Install Sync übernimmt Ihre Anwendungsliste und Desktop-Integrationen und überträgt sie automatisch auf Ihre anderen Computer.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
     <value>&amp;Benutzername:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
     <value>Wie kann ich meinen eigenen Sync-Server einrichten?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
     <value>Registieren</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
     <value>Verwende &amp;eigenen Server:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
     <value>Verwende Windows &amp;Dateifreigabe:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
     <value>Verwende den &amp;0install.de Server (empfohlen)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
     <value>Kryptoschlüssel ändern</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
     <value>Sync Konto</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Kryptoschlüssel geändert</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
     <value>Kryptoschlüssel</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
     <value>Kryptoschlüssel</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
     <value>Sync Konto</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Lokale Daten zurücksetzen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
     <value>Lokale Daten zurücksetzen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
     <value>Kryptoschlüssel zurücksetzen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
     <value>Sync-Server zurücksetzen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
     <value>Sync-Server zurücksetzen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
     <value>Sync-Fehlerbehebung</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Sync-Setup abgeschlossen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Sync einrichten</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
     <value>Verzeichnispfad</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

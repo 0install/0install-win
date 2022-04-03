@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>输入'{0}'，可以看到可用的命令列表。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>继续</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>点击设置 "零 "安装在此计算机上...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>请在此输入 "零安装 "的URL。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>针对所有用户</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>对于当前用户</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>忽略了 "{0}"的重复应用条目。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>整合（开始菜单，等）。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>常见应用</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>照旧的东西</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>酷的应用程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>做一些很酷的事情</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>其他应用程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>做其他事情</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>如果你喜欢一个应用程序。
+把它添加到 "我的应用程序"。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>在 "目录 "中搜索一个应用程序...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"整合 "一个应用程序，把它
+在开始菜单或桌面上。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>你可以在这里管理你喜欢的应用程序列表。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>......并运行它!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>玩得开心!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>有了 "零安装"，你就不必再安装应用程序。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>全机模式</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>修改整合</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>添加到 "我的应用程序"</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>添加到 "我的应用程序 "中。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>添加到 "我的应用程序 "并集成到桌面环境中。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>目录'{0}'不是空的。
+你确定你要在那里放置零点安装的便携版本吗？</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>便携式模式</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>你想从列表中删除{0} 所选的条目吗？</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>运转</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>使用选项运行</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>你是否希望保存所做的任何修改？</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>没有
+丢弃变化</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>有
+保存更改</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>点击更新到零安装 v{0}...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>你需要先完成同步设置。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>你输入的用户名和/或密码不正确。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>你输入的加密密钥不正确。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>你是否希望重置同步设置并从头开始？</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>没有
+编辑现有的设置</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>是的
+从头开始</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>当前存储在同步服务器上的数据已经损坏。
+你可以通过选择你不记得加密密钥来替换存储在服务器上的数据。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>无法下载应用程序目录。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>无法为应用程序条目'{0}'加载饲料。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>你确定你要使用一个未加密的连接到同步服务器吗？
+加密连接使用一个https:// 前缀。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>更新</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
+重要的是：你以前 "运行 "过的应用程序，没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>工作...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

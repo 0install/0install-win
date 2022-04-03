@@ -1,104 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,89 +58,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Διαχείριση του λογαριασμού</value>
-  </data>
-  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Crypto κλειδί:</value>
-  </data>
-  <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>Κωδικός:</value>
-  </data>
-  <data name="labelServer.Text" xml:space="preserve">
-    <value>Διακομιστής:</value>
-  </data>
-  <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>Όνομα Χρήστη:</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Χρησιμοποιήστε beta εκδόσεις των εφαρμογών όταν είναι διαθέσιμη</value>
-  </data>
-  <data name="groupStability.Text" xml:space="preserve">
-    <value>Σταθερότητα</value>
-  </data>
-  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Λειτουργία εκτός σύνδεσης (μην κατεβάσετε τίποτα)</value>
-  </data>
-  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Ελάχιστη λειτουργία (μόνο λήψη όταν είναι απολύτως απαραίτητη)</value>
-  </data>
-  <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Πλήρης λειτουργία (κατεβάστε πάντα την καλύτερη εκδοχή)</value>
-  </data>
-  <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Χρήση του δικτύου</value>
-  </data>
-  <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Ενημερώσεις</value>
-  </data>
-  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Αφαίρεση</value>
-  </data>
-  <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Μετάβαση στο</value>
-  </data>
-  <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Προσθήκη</value>
-  </data>
-  <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>καταλόγος μνήμης cache </value>
-  </data>
-  <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Αποθήκευση</value>
-  </data>
-  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Επαναφορά </value>
-  </data>
-  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Αφαίρεση</value>
-  </data>
-  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Μετάβαση στο</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Zero Install διαμόρφωση</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
     <value>Προσθήκη</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Κατάλογος και πηγές</value>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>Προσθήκη</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Κατάλογος</value>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>Εμφάνιση επιλογών για προχωρημένους</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Αυτόματη έγκριση νέων κλειδιών (αν είναι γνωστή από το κλειδί διακομιστή)</value>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>Μετάβαση στο</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>Μετάβαση στο</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>Αφαίρεση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>Αφαίρεση</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
     <value>Αφαίρεση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
+    <value>Επαναφορά </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>Αυτόματη έγκριση νέων κλειδιών (αν είναι γνωστή από το κλειδί διακομιστή)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>Χρησιμοποιήστε beta εκδόσεις των εφαρμογών όταν είναι διαθέσιμη</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupCatalogSources.Text" xml:space="preserve">
+    <value>Κατάλογος και πηγές</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>Φρεσκάδα</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>καταλόγος μνήμης cache </value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>Χρήση του δικτύου</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Σταθερότητα</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
     <value>Αξιόπιστα κλειδιά</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Αξιόπιστα κλειδιά</value>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>Επιλέξτε ή δημιουργήστε ένα κατάλογο που θα χρησιμοποιηθεί σαν κρυφή μνήμη της εφαρμογής.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Συγχρονισμος</value>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>Προσοχή: Η αλλαγή αυτών των επιλογών μπορεί να αποτρέψει Zero Install  την σωστή λειτουργία του.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Αυτό ελέγχει τη γλώσσα του:
@@ -209,23 +146,66 @@
 Σημειώσεις:
 - μεταφράσεις δεν είναι διαθέσιμη για όλες τις γλώσσες.
 - Πρέπει να ξαναξεκινήσετε Zero Install για γλωσσικές αλλαγές για να εφαρμοστείτε.</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>γλώσσα</value>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>Διακομιστής:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Εμφάνιση επιλογών για προχωρημένους</value>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>Crypto κλειδί:</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Προσοχή: Η αλλαγή αυτών των επιλογών μπορεί να αποτρέψει Zero Install  την σωστή λειτουργία του.</value>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>Κωδικός:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>Όνομα Χρήστη:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Διαχείριση του λογαριασμού</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>Πλήρης λειτουργία (κατεβάστε πάντα την καλύτερη εκδοχή)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>Ελάχιστη λειτουργία (μόνο λήψη όταν είναι απολύτως απαραίτητη)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>Λειτουργία εκτός σύνδεσης (μην κατεβάσετε τίποτα)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Προχωρημένη</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Επιλέξτε ή δημιουργήστε ένα κατάλογο που θα χρησιμοποιηθεί σαν κρυφή μνήμη της εφαρμογής.</value>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Κατάλογος</value>
+    <comment>Manually overriden.</comment>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install διαμόρφωση</value>
+  <data name="tabPageLanguage.Text" xml:space="preserve">
+    <value>γλώσσα</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>Αποθήκευση</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>Συγχρονισμος</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>Αξιόπιστα κλειδιά</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>Ενημερώσεις</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

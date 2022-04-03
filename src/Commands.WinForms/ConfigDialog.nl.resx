@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Nul installatie configuratie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddCatalogSource.Text" xml:space="preserve">
+    <value>Toevoegen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>Toevoegen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>Toon geavanceerde opties</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>Ga naar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>Ga naar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>Verwijder</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>Verwijder</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
+    <value>Verwijder</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
+    <value>Reset</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>Automatisch goedkeuren van nieuwe sleutels (indien bekend bij de keyserver)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>Nieuwe versies helpen testen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupCatalogSources.Text" xml:space="preserve">
+    <value>Catalogus bronnen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>Versheid</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>Implementatie cache mappen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>Gebruik van het netwerk</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>Stabiliteit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupTrustedKeys.Text" xml:space="preserve">
+    <value>Vertrouwde sleutels</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>Selecteer of maak een map om als implementatie-cache te gebruiken.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>Waarschuwing: Het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet correct werkt.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Dit regelt de taal van:
+- Zero Install zelf en
+- applicaties die door Zero Install worden gedownload.
+
+Opmerkingen:
+- Vertalingen zijn niet voor alle talen beschikbaar.
+- U moet Zero Install opnieuw starten voordat de taalwijzigingen van kracht worden.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>Server:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>Crypto sleutel:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>Wachtwoord:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>Gebruikersnaam:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>Beheer account</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>Volledig (normaal netwerkgebruik)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>Minimaal (liever cache-versies)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>Offline (geen gebruik maken van het netwerk)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAdvanced.Text" xml:space="preserve">
+    <value>Geavanceerd</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Catalogus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageLanguage.Text" xml:space="preserve">
+    <value>Taal</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>Opslag</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>Sync</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>Vertrouwen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>Updates</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

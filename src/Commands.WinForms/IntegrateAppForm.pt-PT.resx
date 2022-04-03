@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Integrar aplicação</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdvancedMode.Text" xml:space="preserve">
+    <value>Configurações avançadas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonBasicMode.Text" xml:space="preserve">
+    <value>Configurações básicas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>Pseudónimos de linha de comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
+    <value>Seleccionar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>AutoPlay</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>Arranque automático</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
+    <value>Actualização automática</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Inclui esta aplicação em verificações de "Actualizar tudo".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.Text" xml:space="preserve">
+    <value>Capacidades de registo</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>Informa o sistema operativo sobre as capacidades da aplicação, tais como os tipos de ficheiro que pode tratar.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
+    <value>Seleccionar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>Menu de contexto</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
+    <value>Seleccionar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Programa predefinido</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>Ambiente de trabalho</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
+    <value>Seleccionar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>Tipos de ficheiros</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>Enviar para</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>Menu inicial</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
+    <value>Seleccionar todos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>Protocolos URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>Comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>Nome</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>Predefinição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>Descrição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>Eventos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>Nome</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>Activado</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Nome de entrada</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Predefinição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Descrição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>Serviço</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>Comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>Nome</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>Predefinição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>Descrição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>Extensões</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>Nome</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>Categoria</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>Comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>Nome</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>Predefinição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>Descrição</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>Protocolos</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAliasesSimple.Text" xml:space="preserve">
+    <value>Acesso a partir da interface da linha de comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
+    <value>Lançamento automático quando é inserido um suporte adequado (DVD, unidade USB, etc.)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>Iniciar o programa automaticamente quando o utilizador inicia a sessão</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelContextMenuSimple.Text" xml:space="preserve">
+    <value>Entradas do menu de contexto no Explorador do Windows</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>Programa predefinido para tarefas como navegador web ou cliente de e-mail</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDesktopSimple.Text" xml:space="preserve">
+    <value>Um ícone no ambiente de trabalho</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelFileTypesSimple.Text" xml:space="preserve">
+    <value>Manipulador predefinido para tipos de ficheiros suportados ("Abrir com" funciona sem isto também)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>Uma entrada no menu "Enviar para"</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStartMenuSimple.Text" xml:space="preserve">
+    <value>Uma ou mais entradas no menu inicial</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>Manipulador predefinido para protocolos URL suportados ("Abrir com" funciona sem isto também)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>Pseudónimos de linha de comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>AutoPlay</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Arranque automático</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>Menu de contexto</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>Programas por defeito</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>Ambiente de trabalho</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>Tipos de ficheiros</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Enviar para</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>Menu inicial</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>Protocolos URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>
