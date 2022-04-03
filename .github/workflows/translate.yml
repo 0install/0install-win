@@ -5,7 +5,6 @@ on:
     - cron: '0 6 15 * *'
   push:
     branches: [master]
-    paths: ['**.resx']
 
 jobs:
   translate:
@@ -24,8 +23,8 @@ jobs:
             git update-index --assume-unchanged $file.FullName
           }
 
-      - name: Transifex Push
-        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} push --source
+      #- name: Transifex Push
+      #  run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} push --source
       - name: Transifex Pull
         run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --mode translator --all
 
@@ -34,6 +33,7 @@ jobs:
         with:
           path: '**/*.a.resx'
           key: deepl
+      - run: shopt -s globstar; rm **/*.a.resx
       - name: DeepL
         uses: Yeah69/MrMeeseeks.ResXTranslationCombinator@main
         env:
