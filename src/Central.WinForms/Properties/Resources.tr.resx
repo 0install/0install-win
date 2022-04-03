@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Kullanılabilecek komutları görmek için '0install --help' yazın.</value>
+    <value>Kullanılabilecek komutları görmek için '{0}' yazın.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

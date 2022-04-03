@@ -281,7 +281,7 @@ internal sealed partial class MainForm : Form
         => CommandUtils.Start(StoreMan.Name, "manage");
 
     private void buttonCommandLine_Click(object sender, EventArgs e)
-        => new ProcessStartInfo("powershell.exe", new[] {"-NoExit", "-Command", $"Write-Host \"{Resources.CommandLineHint}\""}.JoinEscapeArguments())
+        => new ProcessStartInfo("powershell.exe", new[] {"-NoExit", "-Command", $"Write-Host \"{string.Format(Resources.CommandLineHint, "0install --help")}\""}.JoinEscapeArguments())
         {
             UseShellExecute = false,
             WorkingDirectory = Locations.IsPortable ? Locations.PortableBase : Locations.HomeDir,

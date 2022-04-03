@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Πληκτρολογήστε '0install --help' για να δείτε μια λίστα με τις διαθέσιμες εντολές.</value>
+    <value>Πληκτρολογήστε '{0}' για να δείτε μια λίστα με τις διαθέσιμες εντολές.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

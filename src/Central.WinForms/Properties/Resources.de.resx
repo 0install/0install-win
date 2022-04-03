@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Geben Sie '0install --help' ein, um eine Liste der verfügbaren Befehle anzuzeigen.</value>
+    <value>Geben Sie '{0}' ein, um eine Liste der verfügbaren Befehle anzuzeigen.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
