@@ -246,6 +246,10 @@
     <value>İletişim kuralları</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Eşdeğer komut satırı</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Komut satırı arabiriminden erişim</value>
     <comment>Manually overriden.</comment>

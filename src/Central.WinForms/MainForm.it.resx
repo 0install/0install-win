@@ -147,8 +147,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Le mie applicazioni</value>
-    <comment>Automatically translated.</comment>
+    <value>Le mie app</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Catalogo</value>

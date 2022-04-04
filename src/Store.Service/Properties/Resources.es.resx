@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>El servicio no puede funcionar en modo portátil</value>
+    <value>El servicio no puede ejecutarse en modo portable</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">

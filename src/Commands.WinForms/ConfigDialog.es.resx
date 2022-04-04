@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Configuración de la instalación cero</value>
+    <value>Configuración de Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -135,13 +135,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Advertencia: El cambio de estas opciones puede impedir que la Instalación Cero funcione correctamente.</value>
+    <value>Advertencia: El cambio de estas opciones puede impedir que la Zero Install funcione correctamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Esto controla el idioma de:
 - La propia Zero Install y
-- las aplicaciones descargadas por la Instalación Cero.
+- las aplicaciones descargadas por la Zero Install.
 
 Notas:
 - Las traducciones no están disponibles para todos los idiomas.

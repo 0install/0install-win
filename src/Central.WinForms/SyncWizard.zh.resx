@@ -168,7 +168,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de提供免费账户用于存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
+    <value>0install.de提供免费账户来存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -259,12 +259,20 @@
     <value>同步故障排除</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>同步服务器</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>同步设置完成</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>同步设置</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>服务器URI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

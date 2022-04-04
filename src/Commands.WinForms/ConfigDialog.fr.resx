@@ -124,7 +124,7 @@
   </data>
   <data name="groupStability.Text" xml:space="preserve">
     <value>Stabilité</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
     <value>&amp;Les clés de confiance</value>
@@ -153,15 +153,15 @@ Remarques :
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Clé cryptographique :</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Clé crypto :</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>&amp;Mot de passe:</value>
+    <value>&amp;Mot de passe :</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>&amp;Nom d'utilisateur:</value>
+    <value>&amp;Nom d'utilisateur :</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
@@ -169,16 +169,16 @@ Remarques :
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Complet (utilisation normale du réseau)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Total (toujours télécharger la meilleure version)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimal (préférez les versions en cache)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Minimal (télécharger si absolument nécessaire)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Hors ligne (n'utilisez pas le réseau)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Offline (ne rien télécharger)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Avancé</value>
@@ -197,7 +197,7 @@ Remarques :
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Synchroniser</value>
+    <value>Sync</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">

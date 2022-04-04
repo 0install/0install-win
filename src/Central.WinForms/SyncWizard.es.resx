@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>No debe ejecutar la Sincronización de la Instalación Cero en otros ordenadores mientras se esté ejecutando este proceso.</value>
+    <value>No debe ejecutar Zero Install Sync en otros ordenadores mientras se esté ejecutando este proceso.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>La clave criptográfica ha sido cambiada. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para la Sincronización de la Instalación Cero.</value>
+    <value>La clave criptográfica ha sido cambiada. Ahora tendrá que introducir la nueva clave en todos los demás equipos que ya haya configurado para Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -144,7 +144,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>La lista de aplicaciones locales se está restableciendo. Ahora puede seguir utilizando la Instalación Cero.</value>
+    <value>La lista de aplicaciones locales se está restableciendo. Ahora puede seguir utilizando Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -156,7 +156,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Los datos del servidor se están restableciendo. Ahora puede seguir utilizando la Instalación Cero.</value>
+    <value>Los datos del servidor se están restableciendo. Ahora puede seguir utilizando Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
@@ -176,11 +176,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>¿Es éste el primer ordenador que está configurando para la Sincronización de Instalación Cero?</value>
+    <value>¿Es éste el primer ordenador que está configurando para Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>La Sincronización de Instalación Cero está ahora configurada y lista para ser utilizada. Ejecute este asistente en cualquier otro ordenador que desee mantener sincronizado con éste.</value>
+    <value>Zero Install Sync está ahora configurado y listo para ser utilizado. Ejecute este asistente en cualquier otro ordenador que desee mantener sincronizado con éste.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -259,12 +259,20 @@
     <value>Solución de problemas de sincronización</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Servidor de sincronización</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Configuración de la sincronización completa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Configuración de la sincronización</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>URI del servidor</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

@@ -259,12 +259,20 @@
     <value>Resolução de problemas de sincronização</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Servidor de Sincronização</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Configuração de sincronização completa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Sync Setup</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Servidor URI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

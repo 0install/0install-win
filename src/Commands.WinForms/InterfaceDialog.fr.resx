@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Ajouter</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Ajouter</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
     <value>Ajoute une nouvelle source d'implémentations pour cette interface</value>
@@ -72,7 +72,7 @@
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
     <value>Appliquer</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRemoveFeed.Text" xml:space="preserve">
     <value>&amp;Supprimer</value>
@@ -103,8 +103,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
-    <value>Libéré</value>
-    <comment>Automatically translated.</comment>
+    <value>Publié</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
     <value>Source</value>
@@ -112,7 +112,7 @@
   </data>
   <data name="dataColumnStability.HeaderText" xml:space="preserve">
     <value>Stabilité</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
     <value>Remplacer</value>
@@ -123,12 +123,12 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>Stabilité préférée :</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Stabilité préférée</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Alimentation</value>
-    <comment>Automatically translated.</comment>
+    <value>Feeds</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">
     <value>Versions</value>

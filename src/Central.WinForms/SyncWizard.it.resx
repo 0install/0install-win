@@ -168,7 +168,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de fornisce account gratuiti per memorizzare i dati di sincronizzazione. Tutti i dati sono criptati localmente prima di essere trasmessi al server. Puoi invece usare il tuo server per l'archiviazione, se lo desideri.</value>
+    <value>0install.de fornisce account gratuiti per memorizzare i dati di sincronizzazione. Tutti i dati sono criptati localmente prima di essere trasmessi al server. Puoi invece usare il tuo server per l'archiviazione se lo desideri.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -259,12 +259,20 @@
     <value>Risoluzione dei problemi di sincronizzazione</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Server di sincronizzazione</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Impostazione della sincronizzazione completata</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Impostazione della sincronizzazione</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>URI del server</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

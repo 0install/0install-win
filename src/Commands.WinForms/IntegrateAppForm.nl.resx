@@ -246,6 +246,10 @@
     <value>Protocollen</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Gelijkwaardige command-line</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Toegang via de command-line interface</value>
     <comment>Automatically translated.</comment>

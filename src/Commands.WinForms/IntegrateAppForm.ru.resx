@@ -246,6 +246,10 @@
     <value>Протоколы</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Эквивалент командной строки</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Доступ из интерфейса командной строки</value>
     <comment>Automatically translated.</comment>

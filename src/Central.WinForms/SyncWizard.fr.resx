@@ -259,12 +259,20 @@
     <value>Résolution de problèmes de synchronisation. </value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Serveur de synchronisation</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Configuration de la synchronisation terminée</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Configuration de la synchronisation</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>URI du serveur</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

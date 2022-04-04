@@ -246,12 +246,16 @@
     <value>Protocolos</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Acesso a partir da interface da linha de comando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Lançamento automático quando é inserido um suporte adequado (DVD, unidade USB, etc.)</value>
+    <value>Lançamento automático quando são inseridos suportes adequados (DVD, unidade USB, etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -259,7 +263,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Entradas do menu de contexto no Explorador do Windows</value>
+    <value>Entradas do menu de contexto no Windows Explorer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">

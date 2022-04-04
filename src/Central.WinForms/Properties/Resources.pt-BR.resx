@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digite '{0}' para ver uma lista dos comandos disponíveis.</value>
+    <value>Digite '0install --help' para ver uma lista de comandos disponíveis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

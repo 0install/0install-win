@@ -246,6 +246,10 @@
     <value>Protocoles</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Ligne de commande équivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Accès à partir de l'interface de ligne de commande</value>
     <comment>Automatically translated.</comment>

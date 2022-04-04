@@ -258,12 +258,20 @@
     <value>Αντιμετώπιση προβλημάτων συγχρονισμού </value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Διακομιστής συγχρονισμού</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Εγκατάσταση συγχρονισμού πλήρη</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Εγκατάσταση συγχρονισμού</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Διακομιστής URI</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

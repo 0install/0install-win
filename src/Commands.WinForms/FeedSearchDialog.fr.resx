@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Ajouter à "Mes applications</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Ajouter à "mes apps"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>&amp;Détails</value>
