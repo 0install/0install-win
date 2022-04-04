@@ -271,4 +271,10 @@
     <value>Verzeichnispfad</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Sync Server</value>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Server URI</value>
+  </data>
 </root>
