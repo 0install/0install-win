@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduceți '{0}' pentru a vedea o listă de comenzi disponibile.</value>
+    <value>Introduceți "0install --help" pentru a vedea o listă de comenzi disponibile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

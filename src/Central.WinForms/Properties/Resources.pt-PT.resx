@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digite '{0}' para ver uma lista dos comandos disponíveis.</value>
+    <value>Introduza '0install --help' para ver uma lista de comandos disponíveis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -216,7 +216,7 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>É necessário completar primeiro a Configuração de Sincronização.</value>
+    <value>É necessário completar primeiro o Sync Setup.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">

@@ -63,8 +63,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Entrez '{0}' pour voir une liste des commandes disponibles.</value>
-    <comment>Automatically translated.</comment>
+    <value>Entrez '{0}' pour voir la liste des commandes disponibles.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuer</value>
@@ -87,12 +87,12 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorer l'entrée d'application en double pour '{0}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>Ignorer le duplicata d'entrée dans la liste d'applications pour '{0}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Intégrer (menu de démarrage, etc.)</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
     <value>Applications courantes</value>
@@ -120,8 +120,8 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Si vous aimez une application,
-ajoutez-la à "Mes applications".</value>
-    <comment>Automatically translated.</comment>
+ajoutez-la à "Mes apps".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>Rechercher une application dans le "Catalogue"...</value>
@@ -157,21 +157,21 @@ dans le menu démarrer ou sur le bureau.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Ajouter à "Mes applications</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Ajouter à "mes apps"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Ajouté à "Mes applications".</value>
-    <comment>Automatically translated.</comment>
+    <value>Ajouté à "mes apps"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Ajouté à "Mes applications" et intégré dans l'environnement de bureau.</value>
-    <comment>Automatically translated.</comment>
+    <value>Ajouté à "mes apps" et intégré dans l'environnement de bureau.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>Le répertoire '{0}' n'est pas vide.
-Êtes-vous sûr de vouloir y placer une version portable de Zero Install ?</value>
-    <comment>Automatically translated.</comment>
+    <value>Le dossier '{0}' n'est pas vide.
+Etes-vous sûr d'y vouloir enregistrer la version  portable du Zero Install?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Mode portable.</value>
@@ -190,8 +190,8 @@ dans le menu démarrer ou sur le bureau.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Exécuter avec des options</value>
-    <comment>Automatically translated.</comment>
+    <value>Lancer avec des &amp;options</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Souhaitez-vous enregistrer tout changement réalisé ?</value>
@@ -251,8 +251,8 @@ Vous pouvez remplacer les données stockées sur le serveur en choisissant de ne
     <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Impossible de charger le flux pour l'entrée d'application '{0}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>Impossible de charger le flux de l'entrée de la liste d'application '{0}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir utiliser une connexion non chiffrée vers le serveur de synchronisation ?
@@ -264,9 +264,9 @@ Les connexions chiffrées utilisent le préfixe https://.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Cela supprimera automatiquement du cache les implémentations qui ne sont plus nécessaires après la mise à jour. Continuer ?
-Important : Les applications que vous avez "exécutées" précédemment sans les ajouter à "Mes applications" seront également supprimées de la mémoire cache.  Vous devrez être en ligne si vous décidez de les exécuter à nouveau.</value>
-    <comment>Automatically translated.</comment>
+    <value>Cela va automatiquement supprimer les implémentations du cache qui ne sont plus nécessaires après la mise à jour. Souhaitez-vous continuer ?
+Attention : les applications que vous avez "Lancer" auparavant sans les ajouter à "Mes apps" seront également supprimées du cache. Vous devrez être connectés afin de pouvoir les lancer à nouveau.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Travail en cours...</value>

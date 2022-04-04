@@ -75,8 +75,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Mes applications</value>
-    <comment>Automatically translated.</comment>
+    <value>Mes apps</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Catalogue</value>

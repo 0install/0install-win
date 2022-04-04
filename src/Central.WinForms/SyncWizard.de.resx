@@ -259,6 +259,10 @@
     <value>Sync-Fehlerbehebung</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Sync Server</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Sync-Setup abgeschlossen</value>
     <comment>Manually overriden.</comment>
@@ -267,14 +271,12 @@
     <value>Sync einrichten</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Server URI</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
     <value>Verzeichnispfad</value>
     <comment>Manually overriden.</comment>
-  </data>
-  <data name="pageServer.Text" xml:space="preserve">
-    <value>Sync Server</value>
-  </data>
-  <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>Server URI</value>
   </data>
 </root>

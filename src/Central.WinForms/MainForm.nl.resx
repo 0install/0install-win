@@ -148,7 +148,7 @@
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
     <value>Mijn apps</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Catalogus</value>

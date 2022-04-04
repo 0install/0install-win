@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>{0}' を入力すると、利用可能なコマンドの一覧が表示されます。</value>
+    <value>0install --help」と入力すると、利用可能なコマンドの一覧が表示されます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>{0}' の重複するアプリケーションエントリを無視します。</value>
+    <value>{0}' の重複するアプリのエントリーを無視します。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -264,7 +264,7 @@ My apps」に追加する。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>これにより、アップデート後に不要となった実装が自動的にキャッシュから削除されます。続行しますか？
+    <value>これにより、アップデート後に不要になった実装がキャッシュから自動的に削除されます。続行しますか？
 重要：以前、「マイアプリケーション」に追加せずに「実行」したアプリケーションもキャッシュから削除されます。  再び実行する場合は、オンラインである必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>

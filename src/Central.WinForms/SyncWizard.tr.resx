@@ -103,7 +103,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Anahtarı diğer bilgisayarlardaki 'Seçenekler' bölümüne yazın. Yalnız ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
+    <value>Anahtarı diğer bilgisayarlardaki 'Seçenekler' bölümüne yazın. Yalnızca ilk değişiklik için gerekli olduğundan diğer bilgisayarlarda bu yardımcıyı kullanmayın.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -258,12 +258,20 @@
     <value>Eşitleme sorunlarını gider</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Sync Sunucusu</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>Sync kurulumu tamamlandı</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Sync kurulumu</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Sunucu İnternet adresi</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

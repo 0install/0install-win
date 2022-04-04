@@ -246,6 +246,10 @@
     <value>プロトコル</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>相当するコマンドライン</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>コマンドラインインターフェースからのアクセス</value>
     <comment>Automatically translated.</comment>

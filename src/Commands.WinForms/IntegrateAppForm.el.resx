@@ -246,6 +246,10 @@
     <value>Πρωτόκολλα</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Ισοδύναμη γραμμή εντολών</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Πρόσβαση από τη διεπαφή γραμμής εντολών</value>
     <comment>Manually overriden.</comment>

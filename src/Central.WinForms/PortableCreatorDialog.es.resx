@@ -71,13 +71,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aquí puede crear una versión portátil de la Instalación Cero, por ejemplo, para utilizarla en una unidad USB. El destino debe estar formateado en NTFS.</value>
+    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una unidad USB. El destino debe estar formateado en NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Almacena la configuración de la Instalación Cero y las aplicaciones en caché dentro de un único directorio.
-- No hace que las aplicaciones lanzadas a través de la Instalación Cero sean también portátiles automáticamente.
-- Las versiones portátiles de la Zero Install no pueden realizar la integración en el escritorio (por ejemplo, crear entradas en el menú de inicio).
+    <value>- Almacena la configuración de Zero Install y las aplicaciones en caché en un único directorio.
+- No hace que las aplicaciones lanzadas a través de la Zero Install sean automáticamente también portables.
+- Las versiones portátiles de Zero Install no pueden realizar la integración en el escritorio (por ejemplo, crear entradas en el menú de inicio).
 - Considere la posibilidad de utilizar la Zero Install normal en varios ordenadores con la Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>

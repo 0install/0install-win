@@ -246,6 +246,10 @@
     <value>议定书</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>相等的命令行</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>从命令行界面访问</value>
     <comment>Automatically translated.</comment>

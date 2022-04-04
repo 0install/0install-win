@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>暗号キー。</value>
+    <value>暗号キーです。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
@@ -259,12 +259,20 @@
     <value>シンクのトラブルシューティング</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>シンクサーバー</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
     <value>シンクセットアップ完了</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>シンクの設定</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>サーバーURI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

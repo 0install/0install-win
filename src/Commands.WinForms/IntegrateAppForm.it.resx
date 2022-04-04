@@ -246,6 +246,10 @@
     <value>Protocolli</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linea di comando equivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Accesso dall'interfaccia a riga di comando</value>
     <comment>Automatically translated.</comment>
