@@ -18,6 +18,7 @@
   <!-- Global usings -->
   <ItemGroup>
     <Using Include="NanoByte.Common.Controls" />
+    <Using Include="NanoByte.Common.Drawing" />
   </ItemGroup>
 
   <!-- Dependencies -->

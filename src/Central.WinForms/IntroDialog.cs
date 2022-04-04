@@ -14,6 +14,7 @@ public sealed partial class IntroDialog : Form
     public IntroDialog()
     {
         InitializeComponent();
+        Font = DefaultFonts.Modern;
     }
 
     private async void IntroDialog_Load(object sender, EventArgs e)

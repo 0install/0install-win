@@ -15,6 +15,7 @@ public sealed partial class MainForm : Form
         _cancellationTokenSource = cancellationTokenSource;
 
         InitializeComponent();
+        Font = DefaultFonts.Modern;
 
         try
         {

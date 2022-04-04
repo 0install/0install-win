@@ -39,6 +39,7 @@ internal sealed partial class MainForm : Form
     public MainForm(bool machineWide)
     {
         InitializeComponent();
+        Font = DefaultFonts.Modern;
 
         if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
         if (_machineWide) Text += @" - " + Resources.MachineWideMode;

@@ -1420,7 +1420,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxStartMenuSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxStartMenuSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1486,7 +1486,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxDesktopSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxDesktopSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 45</value>
@@ -1552,7 +1552,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxSendToSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxSendToSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 90</value>
@@ -1618,7 +1618,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxAliasesSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxAliasesSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 135</value>
@@ -1684,7 +1684,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxAutoStartSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxAutoStartSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 180</value>
@@ -1750,7 +1750,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxFileTypesSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxFileTypesSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 225</value>
@@ -1816,7 +1816,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxUrlProtocolsSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1885,7 +1885,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxAutoPlaySimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxAutoPlaySimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 315</value>
@@ -1951,7 +1951,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxContextMenuSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxContextMenuSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2020,7 +2020,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+    <value>Segoe UI, 9.75pt, style=Bold</value>
   </data>
   <data name="checkBoxDefaultProgramsSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

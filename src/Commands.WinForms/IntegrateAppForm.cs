@@ -26,6 +26,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     public IntegrateAppForm(IntegrationState state)
     {
         InitializeComponent();
+        Font = DefaultFonts.Modern;
         Shown += UpdateCommandLine;
 
         _state = state ?? throw new ArgumentNullException(nameof(state));

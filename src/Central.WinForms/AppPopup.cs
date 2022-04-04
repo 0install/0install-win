@@ -26,6 +26,7 @@ public sealed partial class AppPopup : Form
     public AppPopup(FeedUri interfaceUri, AppTileStatus status, bool machineWide)
     {
         InitializeComponent();
+        Font = DefaultFonts.Modern;
         Deactivate += delegate { Close(); };
 
         _interfaceUri = interfaceUri;

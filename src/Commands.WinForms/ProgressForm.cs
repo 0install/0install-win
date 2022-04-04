@@ -26,6 +26,7 @@ public sealed partial class ProgressForm : Form
         _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
         InitializeComponent();
+        Font = DefaultFonts.Modern;
         MinimumSize = new Size(350, 150).ApplyScale(this);
         buttonCustomizeSelectionsDone.Text = Resources.Done;
         buttonHide.Text = Resources.Hide;

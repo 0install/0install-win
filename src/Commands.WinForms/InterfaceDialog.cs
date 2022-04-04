@@ -50,6 +50,8 @@ public sealed partial class InterfaceDialog : OKCancelDialog
         #endregion
 
         InitializeComponent();
+        Font = DefaultFonts.Modern;
+
         comboBoxStability.Items.AddRange(new object[] {Resources.UseDefaultSetting, Stability.Stable, Stability.Testing, Stability.Developer});
         dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Stable, Stability.Testing, Stability.Developer, Stability.Buggy, Stability.Insecure);
 

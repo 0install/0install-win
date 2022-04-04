@@ -12,6 +12,7 @@ public sealed partial class PortableCreatorDialog : Form
     public PortableCreatorDialog()
     {
         InitializeComponent();
+        Font = DefaultFonts.Modern;
     }
 
     private void PortableCreatorDialog_Load(object sender, EventArgs e) => this.CenterOnParent();

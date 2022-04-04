@@ -49,7 +49,7 @@ namespace ZeroInstall.Central.WinForms
             this.labelName.AutoEllipsis = true;
             this.labelName.AutoSize = true;
             this.labelName.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            this.labelName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
             this.labelName.Location = new System.Drawing.Point(60, 6);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(0, 18);

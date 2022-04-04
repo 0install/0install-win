@@ -62,6 +62,7 @@ public sealed partial class AppTile : UserControl
         _machineWide = machineWide;
 
         InitializeComponent();
+        Font = DefaultFonts.Modern;
         buttonRun.Text = buttonRun2.Text = AppResources.RunText;
         buttonRunWithOptions.Text = AppResources.RunWithOptionsText;
         buttonUpdate.Text = AppResources.UpdateText;

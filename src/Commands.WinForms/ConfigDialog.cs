@@ -23,6 +23,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
     public ConfigDialog(Config config)
     {
         InitializeComponent();
+        Font = DefaultFonts.Modern;
 
         if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
         HandleCreated += delegate

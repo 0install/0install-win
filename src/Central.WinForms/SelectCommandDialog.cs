@@ -48,6 +48,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         _target = target;
 
         InitializeComponent();
+        Font = DefaultFonts.Modern;
     }
 
     private void SelectCommandDialog_Load(object sender, EventArgs e)

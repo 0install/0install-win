@@ -20,6 +20,7 @@
   <!-- Global usings -->
   <ItemGroup>
     <Using Include="NanoByte.Common.Controls" />
+    <Using Include="NanoByte.Common.Drawing" />
     <Using Include="ZeroInstall.Central.WinForms.Properties" />
   </ItemGroup>
 

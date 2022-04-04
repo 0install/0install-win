@@ -35,6 +35,7 @@ public sealed partial class StoreManageForm : Form
         _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
 
         InitializeComponent();
+        Font = DefaultFonts.Modern;
         buttonRunAsAdmin.AddShieldIcon();
 
         HandleCreated += delegate
