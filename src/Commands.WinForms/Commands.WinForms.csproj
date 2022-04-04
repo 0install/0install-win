@@ -10,6 +10,9 @@
     <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DefineConstants>ERROR_REPORT</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="..\App.config" />
   </ItemGroup>
