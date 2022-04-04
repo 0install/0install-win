@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>266, 296</value>
+    <value>286, 296</value>
   </data>
   <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
     <value>buttonOK</value>
@@ -134,7 +134,7 @@
     <value>1</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>347, 296</value>
+    <value>367, 296</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -153,7 +153,7 @@
     <value>True</value>
   </data>
   <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 81</value>
+    <value>112, 81</value>
   </data>
   <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 13</value>
@@ -181,7 +181,7 @@
     <value>Top, Right</value>
   </data>
   <data name="buttonSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 110</value>
+    <value>391, 110</value>
   </data>
   <data name="buttonSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>19, 20</value>
@@ -208,10 +208,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 111</value>
+    <value>112, 111</value>
   </data>
   <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 20</value>
+    <value>273, 20</value>
   </data>
   <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -259,10 +259,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 58</value>
+    <value>112, 58</value>
   </data>
   <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 20</value>
+    <value>298, 20</value>
   </data>
   <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -310,10 +310,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 6</value>
+    <value>112, 6</value>
   </data>
   <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 20</value>
+    <value>298, 20</value>
   </data>
   <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -322,7 +322,7 @@
     <value>textBoxSyncServer</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
     <value>tabPageSync</value>
@@ -364,10 +364,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 32</value>
+    <value>112, 32</value>
   </data>
   <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 20</value>
+    <value>298, 20</value>
   </data>
   <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -448,7 +448,7 @@
     <value>6, 165</value>
   </data>
   <data name="groupStability.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 46</value>
+    <value>394, 46</value>
   </data>
   <data name="groupStability.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -478,7 +478,7 @@
     <value>6, 19</value>
   </data>
   <data name="timespanFreshness.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 29</value>
+    <value>382, 29</value>
   </data>
   <data name="timespanFreshness.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -487,7 +487,7 @@
     <value>timespanFreshness</value>
   </data>
   <data name="&gt;&gt;timespanFreshness.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.TimeSpanControl, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.TimeSpanControl, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;timespanFreshness.Parent" xml:space="preserve">
     <value>groupFreshness</value>
@@ -499,7 +499,7 @@
     <value>6, 105</value>
   </data>
   <data name="groupFreshness.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 54</value>
+    <value>394, 54</value>
   </data>
   <data name="groupFreshness.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -607,7 +607,7 @@
     <value>6, 6</value>
   </data>
   <data name="groupNetworkUse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 93</value>
+    <value>394, 93</value>
   </data>
   <data name="groupNetworkUse.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -634,7 +634,7 @@
     <value>3, 3, 9, 3</value>
   </data>
   <data name="tabPageUpdates.Size" type="System.Drawing.Size, System.Drawing">
-    <value>402, 252</value>
+    <value>412, 252</value>
   </data>
   <data name="tabPageUpdates.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -667,7 +667,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemoveImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 211</value>
+    <value>296, 211</value>
   </data>
   <data name="buttonRemoveImplDir.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -700,7 +700,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGoToImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 211</value>
+    <value>120, 211</value>
   </data>
   <data name="buttonGoToImplDir.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -730,7 +730,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAddImplDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 211</value>
+    <value>208, 211</value>
   </data>
   <data name="buttonAddImplDir.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -760,7 +760,7 @@
     <value>6, 19</value>
   </data>
   <data name="listBoxImplDirs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 186</value>
+    <value>372, 186</value>
   </data>
   <data name="listBoxImplDirs.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -781,7 +781,7 @@
     <value>6, 6</value>
   </data>
   <data name="groupImplDirs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 240</value>
+    <value>384, 240</value>
   </data>
   <data name="groupImplDirs.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -808,7 +808,7 @@
     <value>3, 3, 9, 3</value>
   </data>
   <data name="tabPageStorage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>402, 252</value>
   </data>
   <data name="tabPageStorage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -871,7 +871,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemoveCatalogSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 211</value>
+    <value>296, 211</value>
   </data>
   <data name="buttonRemoveCatalogSource.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -904,7 +904,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGoToCatalogSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 211</value>
+    <value>120, 211</value>
   </data>
   <data name="buttonGoToCatalogSource.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -934,7 +934,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonAddCatalogSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 211</value>
+    <value>208, 211</value>
   </data>
   <data name="buttonAddCatalogSource.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -964,7 +964,7 @@
     <value>6, 19</value>
   </data>
   <data name="listBoxCatalogSources.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 186</value>
+    <value>372, 186</value>
   </data>
   <data name="listBoxCatalogSources.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -985,7 +985,7 @@
     <value>6, 6</value>
   </data>
   <data name="groupCatalogSources.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 240</value>
+    <value>384, 240</value>
   </data>
   <data name="groupCatalogSources.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1009,7 +1009,7 @@
     <value>4, 22</value>
   </data>
   <data name="tabPageCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>402, 252</value>
   </data>
   <data name="tabPageCatalog.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1069,7 +1069,7 @@
     <value>6, 19</value>
   </data>
   <data name="panelTrustedKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 158</value>
+    <value>372, 158</value>
   </data>
   <data name="panelTrustedKeys.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1096,7 +1096,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonRemoveTrustedKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 183</value>
+    <value>296, 183</value>
   </data>
   <data name="buttonRemoveTrustedKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 23</value>
@@ -1123,7 +1123,7 @@
     <value>6, 6</value>
   </data>
   <data name="groupTrustedKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 212</value>
+    <value>384, 212</value>
   </data>
   <data name="groupTrustedKeys.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1150,7 +1150,7 @@
     <value>3, 3, 9, 3</value>
   </data>
   <data name="tabPageTrust.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>402, 252</value>
   </data>
   <data name="tabPageTrust.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1177,7 +1177,7 @@
     <value>3, 3, 9, 3</value>
   </data>
   <data name="tabPageSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>422, 252</value>
   </data>
   <data name="tabPageSync.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1207,7 +1207,7 @@
     <value>6, 44</value>
   </data>
   <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 205</value>
+    <value>390, 205</value>
   </data>
   <data name="labelLanguage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1240,7 +1240,7 @@ Notes:
     <value>6, 10</value>
   </data>
   <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 21</value>
+    <value>390, 21</value>
   </data>
   <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1264,7 +1264,7 @@ Notes:
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>402, 252</value>
   </data>
   <data name="tabPageLanguage.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1288,7 +1288,7 @@ Notes:
     <value>Top</value>
   </data>
   <data name="buttonAdvancedShow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 61</value>
+    <value>108, 61</value>
   </data>
   <data name="buttonAdvancedShow.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 23</value>
@@ -1318,7 +1318,7 @@ Notes:
     <value>6, 20</value>
   </data>
   <data name="labelAdvancedWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 29</value>
+    <value>390, 29</value>
   </data>
   <data name="labelAdvancedWarning.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1345,7 +1345,7 @@ Notes:
     <value>3, 3</value>
   </data>
   <data name="propertyGridAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>386, 246</value>
+    <value>396, 246</value>
   </data>
   <data name="propertyGridAdvanced.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1357,7 +1357,7 @@ Notes:
     <value>propertyGridAdvanced</value>
   </data>
   <data name="&gt;&gt;propertyGridAdvanced.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.ResettablePropertyGrid, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.ResettablePropertyGrid, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;propertyGridAdvanced.Parent" xml:space="preserve">
     <value>tabPageAdvanced</value>
@@ -1372,7 +1372,7 @@ Notes:
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 252</value>
+    <value>402, 252</value>
   </data>
   <data name="tabPageAdvanced.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1396,7 +1396,7 @@ Notes:
     <value>12, 12</value>
   </data>
   <data name="tabOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 278</value>
+    <value>430, 278</value>
   </data>
   <data name="tabOptions.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1426,7 +1426,7 @@ Notes:
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>434, 331</value>
+    <value>454, 331</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2546,6 +2546,6 @@ Notes:
     <value>ConfigDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.11.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

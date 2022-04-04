@@ -133,6 +133,7 @@ public sealed partial class SelectionsControl : UserControl
     private TaskControl CreateTaskControls(string tag)
     {
         var trackingControl = new TaskControl {Dock = DockStyle.Fill};
+        trackingControl.Margin += new Padding(trackingControl.Margin.Left, 0, 0, 0);
         trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
 
         int index = _selections!.Implementations.FindIndex(x => x.ManifestDigest.Best == tag);

@@ -27,17 +27,26 @@ public sealed partial class AppPopup : Form
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
+
         Deactivate += delegate { Close(); };
-
-        _interfaceUri = interfaceUri;
-        _machineWide = machineWide;
-        _status = status;
-
         HandleCreated += delegate
         {
             DpiScalingWorkaround();
             RefreshStatus();
         };
+
+        _interfaceUri = interfaceUri;
+        _machineWide = machineWide;
+        _status = status;
+
+    }
+
+    private void DpiScalingWorkaround()
+    {
+        var scale = this.GetScaleFactor();
+        iconStatus.Location -= new Size(
+            (int)Math.Ceiling((scale.Width - 1) * 4),
+            (int)Math.Ceiling(scale.Height - 1));
     }
 
     /// <summary>
@@ -47,18 +56,6 @@ public sealed partial class AppPopup : Form
     {
         Location = control.PointToScreen(new(control.Width - Width, 0));
         Show(control);
-    }
-
-    private void DpiScalingWorkaround()
-    {
-        iconStatus.Location -= this.GetScaleFactor().Width switch
-        {
-            2f => new(4, 2),
-            1.75f => new(4, 1),
-            1.5f => new(1, 1),
-            1.25f => new(2, 1),
-            _ => new()
-        };
     }
 
     private void RefreshStatus()

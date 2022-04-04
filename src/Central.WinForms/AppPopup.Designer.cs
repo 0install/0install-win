@@ -43,15 +43,16 @@ namespace ZeroInstall.Central.WinForms
             this.labelBorder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelBorder.Location = new System.Drawing.Point(0, 0);
             this.labelBorder.Name = "labelBorder";
-            this.labelBorder.Size = new System.Drawing.Size(240, 120);
+            this.labelBorder.Size = new System.Drawing.Size(260, 120);
             this.labelBorder.TabIndex = 0;
             // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelStatus.AutoEllipsis = true;
             this.labelStatus.Location = new System.Drawing.Point(12, 9);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(173, 33);
+            this.labelStatus.Size = new System.Drawing.Size(192, 33);
             this.labelStatus.TabIndex = 2;
             this.labelStatus.Text = "(Status)";
             // 
@@ -62,7 +63,7 @@ namespace ZeroInstall.Central.WinForms
             this.buttonIntegrate.Location = new System.Drawing.Point(12, 50);
             this.buttonIntegrate.Name = "buttonIntegrate";
             this.buttonIntegrate.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.buttonIntegrate.Size = new System.Drawing.Size(216, 26);
+            this.buttonIntegrate.Size = new System.Drawing.Size(236, 26);
             this.buttonIntegrate.TabIndex = 4;
             this.buttonIntegrate.Text = "(Integrate)";
             this.buttonIntegrate.UseVisualStyleBackColor = true;
@@ -76,7 +77,7 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRemove.Location = new System.Drawing.Point(12, 82);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.buttonRemove.Size = new System.Drawing.Size(216, 26);
+            this.buttonRemove.Size = new System.Drawing.Size(236, 26);
             this.buttonRemove.TabIndex = 5;
             this.buttonRemove.Text = "(Remove)";
             this.buttonRemove.UseVisualStyleBackColor = true;
@@ -89,7 +90,7 @@ namespace ZeroInstall.Central.WinForms
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Location = new System.Drawing.Point(217, 0);
+            this.buttonClose.Location = new System.Drawing.Point(237, 0);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(23, 23);
             this.buttonClose.TabIndex = 3;
@@ -101,7 +102,7 @@ namespace ZeroInstall.Central.WinForms
             // iconStatus
             // 
             this.iconStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconStatus.Location = new System.Drawing.Point(191, 4);
+            this.iconStatus.Location = new System.Drawing.Point(206, 4);
             this.iconStatus.Name = "iconStatus";
             this.iconStatus.Size = new System.Drawing.Size(16, 16);
             this.iconStatus.TabIndex = 1;
@@ -111,7 +112,7 @@ namespace ZeroInstall.Central.WinForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
-            this.ClientSize = new System.Drawing.Size(240, 120);
+            this.ClientSize = new System.Drawing.Size(260, 120);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonIntegrate);

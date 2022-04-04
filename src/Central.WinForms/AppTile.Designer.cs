@@ -50,9 +50,10 @@ namespace ZeroInstall.Central.WinForms
             this.labelName.AutoSize = true;
             this.labelName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
-            this.labelName.Location = new System.Drawing.Point(60, 6);
+            this.labelName.Location = new System.Drawing.Point(60, 4);
+            this.labelName.Margin = new System.Windows.Forms.Padding(0);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(0, 18);
+            this.labelName.Size = new System.Drawing.Size(0, 20);
             this.labelName.TabIndex = 0;
             this.labelName.Click += new System.EventHandler(this.LinkClicked);
             // 
@@ -61,6 +62,7 @@ namespace ZeroInstall.Central.WinForms
             this.labelSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Location = new System.Drawing.Point(60, 24);
+            this.labelSummary.Margin = new System.Windows.Forms.Padding(0);
             this.labelSummary.Name = "labelSummary";
             this.labelSummary.Size = new System.Drawing.Size(264, 31);
             this.labelSummary.TabIndex = 1;
@@ -72,10 +74,10 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.DropDownMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRun.Location = new System.Drawing.Point(330, 6);
+            this.buttonRun.Location = new System.Drawing.Point(326, 6);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.ShowSplit = true;
-            this.buttonRun.Size = new System.Drawing.Size(63, 23);
+            this.buttonRun.Size = new System.Drawing.Size(68, 23);
             this.buttonRun.TabIndex = 3;
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
@@ -120,10 +122,10 @@ namespace ZeroInstall.Central.WinForms
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonIntegrate.Location = new System.Drawing.Point(330, 32);
+            this.buttonIntegrate.Location = new System.Drawing.Point(326, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";
             this.buttonIntegrate.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.buttonIntegrate.Size = new System.Drawing.Size(63, 23);
+            this.buttonIntegrate.Size = new System.Drawing.Size(68, 23);
             this.buttonIntegrate.TabIndex = 4;
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);
