@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Otra app</value>
+    <value>Otras apps</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -137,7 +137,7 @@ en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... ¡y ejecútelo!</value>
+    <value>¡... y ejecutarlo!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
@@ -186,12 +186,12 @@ en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Ejecutar</value>
-    <comment>Automatically translated.</comment>
+    <value>Lanzar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Ejecutar con opciones</value>
-    <comment>Automatically translated.</comment>
+    <value>Lanzar con &amp;opciones</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>¿Desea guardar los cambios realizados?</value>
@@ -265,7 +265,7 @@ Las conexiones cifradas utilizan un prefijo https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Esto eliminará automáticamente las implementaciones de la caché que ya no sean necesarias después de la actualización. ¿Continuar?
-Importante: Las aplicaciones que hayas "ejecutado" anteriormente sin añadirlas a "Mis apps" también se eliminarán de la caché.  Tendrás que estar conectado si decides ejecutarlas de nuevo.</value>
+Importante: Las aplicaciones que hayas ejecutado anteriormente sin añadirlas a "Mis apps" también se eliminarán de la caché.  Tendrás que estar conectado si decides ejecutarlas de nuevo.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

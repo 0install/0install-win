@@ -63,95 +63,95 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Digite a URL de um feed (um único aplicativo)</value>
-    <comment>Automatically translated.</comment>
+    <value>Digite o URL de um &amp;feed (aplicativo único)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>Linha de comando</value>
-    <comment>Automatically translated.</comment>
+    <value>Linha de c&amp;omando</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDocumentation.Text" xml:space="preserve">
-    <value>Documentação</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Documentação</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
     <value>Use ferramentas de publicação para empacotar um novo aplicativo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
-    <value>Ajuda</value>
-    <comment>Automatically translated.</comment>
+    <value>A&amp;juda</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>Vídeo de apresentação</value>
-    <comment>Automatically translated.</comment>
+    <value>Vídeo de &amp;introdução</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>Mais aplicações</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Mais aplicativos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
-    <value>Opções</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Opções</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
     <value>Criador portátil</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Lista de atualização</value>
-    <comment>Automatically translated.</comment>
+    <value>Atualiza&amp;r lista</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Executar uma pesquisa por palavra-chave</value>
-    <comment>Automatically translated.</comment>
+    <value>Executar pesquisa por palavra-chave</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Gerenciamento de cache</value>
-    <comment>Automatically translated.</comment>
+    <value>Gerenciar &amp;cache</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Sincronia</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Sincronizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
-    <value>Sincronia</value>
-    <comment>Automatically translated.</comment>
+    <value>Sincronizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Configuração</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Configurar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>Solução de problemas</value>
-    <comment>Automatically translated.</comment>
+    <value>Solução de &amp;problemas</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
-    <value>Ferramentas</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Ferramentas</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Atualizar todos</value>
-    <comment>Automatically translated.</comment>
+    <value>At&amp;ualizar todos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
     <value>Atualizar todos</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Atualizar tudo e limpar</value>
-    <comment>Automatically translated.</comment>
+    <value>Atualizar todos e &amp;limpar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Carregando catálogo a partir do servidor...</value>
-    <comment>Automatically translated.</comment>
+    <value>Carregando catálogo do servidor...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Minhas aplicações</value>
-    <comment>Automatically translated.</comment>
+    <value>Meus aplicativos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Catálogo</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

@@ -59,27 +59,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
-    <value>Personalizar versão</value>
-    <comment>Automatically translated.</comment>
+    <value>Personalizar &amp;versão</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>Atualização</value>
-    <comment>Automatically translated.</comment>
+    <value>Atuali&amp;zar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Linha de comando equivalente</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
-    <value>Argumentos:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Argumentos:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>Comando:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Comando:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
     <value>Opções:</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

@@ -59,27 +59,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Começando</value>
-    <comment>Automatically translated.</comment>
+    <value>Vamos começar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
-    <value>Fechar</value>
-    <comment>Automatically translated.</comment>
+    <value>Fe&amp;char</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonReplay.Text" xml:space="preserve">
-    <value>Reproduzir novamente</value>
-    <comment>Automatically translated.</comment>
+    <value>Reproduzir &amp;de novo</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelVideo.Text" xml:space="preserve">
-    <value>Um pequeno vídeo de introdução</value>
-    <comment>Automatically translated.</comment>
+    <value>Vídeo curto de introdução</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Minhas aplicações</value>
-    <comment>Automatically translated.</comment>
+    <value>Meus aplicativos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Catálogo</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
 </root>
