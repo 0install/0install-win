@@ -127,8 +127,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
-    <value>Senha:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Senha:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
     <value>Clique no link a seguir para criar uma nova conta Sync em seu navegador:</value>
@@ -188,8 +188,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
-    <value>Nome de usuário:</value>
-    <comment>Automatically translated.</comment>
+    <value>Nome de &amp;usuário:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
     <value>Como eu monto meu próprio servidor Sync?</value>

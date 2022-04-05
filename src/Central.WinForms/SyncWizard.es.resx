@@ -152,7 +152,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Está a punto de sustituir los datos almacenados en el servidor de sincronización por su lista de aplicaciones local. Cualquier cambio que haya realizado en otros ordenadores pero que aún no se haya sincronizado con este se perderá</value>
+    <value>Está a punto de sustituir los datos almacenados en el servidor de sincronización por su lista de aplicaciones local. Cualquier cambio que haya realizado en otros ordenadores pero que aún no se haya sincronizado con éste se perderá</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">

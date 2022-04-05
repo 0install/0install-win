@@ -259,7 +259,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
-    <value>Sync Sunucusu</value>
+    <value>Sync sunucusu</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">

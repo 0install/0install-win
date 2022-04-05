@@ -59,36 +59,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Integrar aplicação</value>
-    <comment>Automatically translated.</comment>
+    <value>Integrar aplicativo</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>Configurações avançadas</value>
-    <comment>Automatically translated.</comment>
+    <value>Configurações a&amp;vançadas</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
-    <value>Configurações básicas</value>
-    <comment>Automatically translated.</comment>
+    <value>Configurações &amp;básicas</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Alias de linha de comando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Selecione todos</value>
-    <comment>Automatically translated.</comment>
+    <value>Selecionar &amp;todos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>AutoPlay</value>
-    <comment>Automatically translated.</comment>
+    <value>Reprodução automática</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>Partida automática</value>
-    <comment>Automatically translated.</comment>
+    <value>Início automático</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Atualização automática</value>
-    <comment>Automatically translated.</comment>
+    <value>At&amp;ualização automática</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
     <value>Inclui esta aplicação nas verificações "Update all" (Atualizar tudo).</value>
@@ -103,152 +103,152 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Selecione todos</value>
-    <comment>Automatically translated.</comment>
+    <value>Selecionar &amp;todos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
     <value>Menu de contexto</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Selecione todos</value>
-    <comment>Automatically translated.</comment>
+    <value>Selecionar &amp;todos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
     <value>Programa padrão</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
-    <value>Desktop</value>
-    <comment>Automatically translated.</comment>
+    <value>Área de trabalho</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Selecione todos</value>
-    <comment>Automatically translated.</comment>
+    <value>Selecionar &amp;todos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
     <value>Tipos de arquivo</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
     <value>Enviar para</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Menu inicial</value>
-    <comment>Automatically translated.</comment>
+    <value>Menu iniciar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Selecione todos</value>
-    <comment>Automatically translated.</comment>
+    <value>Selecionar &amp;todos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Protocolos URL</value>
-    <comment>Automatically translated.</comment>
+    <value>Protocolos do URL</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Automatically translated.</comment>
+    <value>Padrão</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
     <value>Eventos</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
     <value>Habilitado</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Nome de entrada</value>
-    <comment>Automatically translated.</comment>
+    <value>Nome da entrada</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Automatically translated.</comment>
+    <value>Padrão</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
     <value>Serviço</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Automatically translated.</comment>
+    <value>Padrão</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
     <value>Extensões</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
     <value>Categoria</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
     <value>Comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Automatically translated.</comment>
+    <value>Padrão</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
     <value>Protocolos</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Linha de comando equivalente</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Acesso a partir da interface de linha de comando</value>
@@ -271,20 +271,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
-    <value>Um ícone na área de trabalho</value>
-    <comment>Automatically translated.</comment>
+    <value>Ícone na área de trabalho</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
     <value>Manipulador padrão para tipos de arquivos suportados ("Abrir com" funciona sem isso também)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Uma entrada no menu "Enviar para"</value>
-    <comment>Automatically translated.</comment>
+    <value>Entrada no menu "Enviar para"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Uma ou mais entradas no menu inicial</value>
-    <comment>Automatically translated.</comment>
+    <value>Uma ou mais entradas no menu iniciar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
     <value>Manipulador padrão para protocolos URL suportados ("Abrir com" funciona sem isso também)</value>
@@ -295,39 +295,39 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>AutoPlay</value>
-    <comment>Automatically translated.</comment>
+    <value>Reprodução automática</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>Partida automática</value>
-    <comment>Automatically translated.</comment>
+    <value>Início automático</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
     <value>Menu de contexto</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
     <value>Programas padrão</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
-    <value>Desktop</value>
-    <comment>Automatically translated.</comment>
+    <value>Área de trabalho</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
     <value>Tipos de arquivo</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
     <value>Enviar para</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Menu inicial</value>
-    <comment>Automatically translated.</comment>
+    <value>Menu iniciar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>Protocolos URL</value>
-    <comment>Automatically translated.</comment>
+    <value>Protocolos do URL</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

@@ -60,216 +60,216 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digite '0install --help' para ver uma lista de comandos disponíveis.</value>
-    <comment>Automatically translated.</comment>
+    <value>Digite '{0}' para ver a lista de comandos disponíveis.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Clique para configurar Zero Instalar neste computador...</value>
-    <comment>Automatically translated.</comment>
+    <value>Clique para configurar o Zero Install neste computador...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Por favor, digite aqui o URL de um feed de instalação zero:</value>
-    <comment>Automatically translated.</comment>
+    <value>Digite o URL de um feed do Zero Install aqui:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
     <value>Para todos os usuários</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
     <value>Para o usuário atual</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorando a entrada duplicada do aplicativo para '{0}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>Ignorando entrada de aplicativo duplicado para '{0}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Integrar (menu inicial, etc.)</value>
-    <comment>Automatically translated.</comment>
+    <value>Integrar (menu iniciar, etc.)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>Aplicação comum</value>
-    <comment>Automatically translated.</comment>
+    <value>Aplicativo comum</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>faz as coisas do costume</value>
-    <comment>Automatically translated.</comment>
+    <value>faz as coisas normais</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Aplicação legal</value>
-    <comment>Automatically translated.</comment>
+    <value>Aplicativo legal</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
     <value>faz algo legal</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
     <value>Outro aplicativo</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>faz algo mais</value>
-    <comment>Automatically translated.</comment>
+    <value>faz outra coisa</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Se você gosta de um aplicativo,
-adicioná-lo a "Meus aplicativos".</value>
-    <comment>Automatically translated.</comment>
+    <value>Se você gostar de um aplicativo,
+adicione-o em "Meus aplicativos"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Procure por um aplicativo no "Catálogo"...</value>
-    <comment>Automatically translated.</comment>
+    <value>Pesquise por um aplicativo no "Catálogo"...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>"Integrar" um aplicativo para colocá-lo
-no menu inicial ou na área de trabalho.</value>
-    <comment>Automatically translated.</comment>
+no menu iniciar ou área de trabalho.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Você pode gerenciar sua lista de aplicativos favoritos aqui.</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... e administre-o!</value>
-    <comment>Automatically translated.</comment>
+    <value>... e executá-los!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
     <value>Divirta-se!</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Com Zero Install você não precisa instalar aplicativos.</value>
-    <comment>Automatically translated.</comment>
+    <value>Com o Zero Install, você não precisa instalar aplicativos.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Modo de máquina</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Modificar a integração</value>
-    <comment>Automatically translated.</comment>
+    <value>Modificar integração</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Acrescentar a "Meus aplicativos".</value>
-    <comment>Automatically translated.</comment>
+    <value>Adicionar aos "Meus aplicativos"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Acrescentado a "Meus aplicativos".</value>
-    <comment>Automatically translated.</comment>
+    <value>Adicionado aos "Meus aplicativos".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Adicionado a "Meus aplicativos" e integrado no ambiente de trabalho.</value>
-    <comment>Automatically translated.</comment>
+    <value>Adicionado aos "Meus aplicativos " e integrado ao ambiente da área de trabalho.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>O diretório '{0}' não está vazio.
-Você tem certeza de que quer colocar uma versão portátil de Zero Install lá?</value>
-    <comment>Automatically translated.</comment>
+    <value>A pasta '{0}' não está vazia.
+Você tem certeza que deseja colocar uma versão portátil do Zero Install aqui?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Modo Portátil</value>
-    <comment>Automatically translated.</comment>
+    <value>Modo portátil</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remover</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Remover</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Você deseja remover as entradas selecionadas {0} da lista?</value>
-    <comment>Automatically translated.</comment>
+    <value>Deseja remover as {0} entradas selecionadas da lista?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Rodar</value>
-    <comment>Automatically translated.</comment>
+    <value>Executar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Funciona com opções</value>
-    <comment>Automatically translated.</comment>
+    <value>Executar com &amp;opções</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Você deseja salvar alguma mudança feita?</value>
-    <comment>Automatically translated.</comment>
+    <value>Deseja salvar quaisquer alterações feitas?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Não
-Mudanças de descarte</value>
-    <comment>Automatically translated.</comment>
+Descartar alterações</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>Sim
-Salvar mudanças</value>
-    <comment>Automatically translated.</comment>
+Salvar alterações</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Busca</value>
-    <comment>Automatically translated.</comment>
+    <value>Pesquisar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Clique para atualizar para Zero Install v{0}...</value>
-    <comment>Automatically translated.</comment>
+    <value>Clique para atualizar para o Zero Install v{0}...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Você precisa completar primeiro o Sync Setup.</value>
-    <comment>Automatically translated.</comment>
+    <value>Você precisa concluir a configuração de sincronização primeiro.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>O nome de usuário e/ou senha que você inseriu estão incorretos.</value>
-    <comment>Automatically translated.</comment>
+    <value>O nome de usuário e/ou senha digitado está incorreto.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>A chave Crypto que você inseriu está incorreta.</value>
-    <comment>Automatically translated.</comment>
+    <value>A chave de criptografia digitada está incorreta.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Você deseja redefinir as configurações do Sync e começar do zero?</value>
-    <comment>Automatically translated.</comment>
+    <value>Deseja redefinir as configurações de sincronização e começar do zero?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Não
 editar as configurações existentes</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Sim
 começar do zero</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Os dados atualmente armazenados no servidor Sync estão danificados.
-Você pode substituir os dados armazenados no servidor escolhendo que você não se lembre da chave Crypto.</value>
-    <comment>Automatically translated.</comment>
+    <value>Os dados armazenados no servidor de sincronização estão danificados.
+Você pode substituir os dados armazenados no servidor, escolhendo que você não lembra a chave de criptografa.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Não é possível fazer o download do catálogo de aplicações.</value>
-    <comment>Automatically translated.</comment>
+    <value>Não foi possível baixar o catálogo de aplicativos.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Incapaz de carregar alimentação para a entrada do aplicativo '{0}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>Não foi possível carregar o feed da entrada do aplicativo '{0}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Você tem certeza de que quer usar uma conexão não criptografada a um servidor Sync?
-Conexões criptografadas usam um prefixo https://.</value>
-    <comment>Automatically translated.</comment>
+    <value>Deseja realmente usar uma conexão não criptografada com o servidor de sincronização?
+Conexões criptografadas usam o prefixo https://.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Atualização</value>
-    <comment>Automatically translated.</comment>
+    <value>At&amp;ualizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Isto removerá automaticamente as implementações do cache que não são mais necessárias após a atualização. Continuar?
-Importante: As implementações que você tem "Executar" anteriormente sem adicioná-las a "Meus aplicativos" também serão removidas do cache.  Você precisará estar online se decidir executá-los novamente.</value>
-    <comment>Automatically translated.</comment>
+    <value>Isto irá automaticamente remover implementações do cache não mais necessárias após a atualização. Continuar?
+Importante: Aplicativos anteriormente "Executados" sem adicioná-los em "Meus aplicativos" também serão removidos do cache. Você precisará estar on-line se decidir executá-los novamente.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Trabalhando...</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

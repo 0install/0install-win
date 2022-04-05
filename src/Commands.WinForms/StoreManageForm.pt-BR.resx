@@ -59,43 +59,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Gerenciamento do cache de instalação zero</value>
-    <comment>Automatically translated.</comment>
+    <value>Gerenciar cache do Zero Install</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
     <value>Fechar</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>Atualização</value>
-    <comment>Automatically translated.</comment>
+    <value>Atuali&amp;zar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>Remover</value>
-    <comment>Automatically translated.</comment>
+    <value>Re&amp;mover</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
-    <value>Funciona como administrador</value>
-    <comment>Automatically translated.</comment>
+    <value>Executar como Administrador</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>Verifique</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Verificar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Tamanho das entradas verificadas:</value>
-    <comment>Automatically translated.</comment>
+    <value>Tamanho das entradas marcadas:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Tamanho de entrada atual:</value>
-    <comment>Automatically translated.</comment>
+    <value>Tamanho da entrada atual:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
     <value>Carregando...</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
     <value>Tamanho total:</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

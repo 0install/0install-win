@@ -63,40 +63,40 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Acrescentar a "Meus aplicativos".</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Adicionar a "Meus aplicativos"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
-    <value>Detalhes</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Detalhes</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
     <value>Integração de configuração</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Rodar</value>
-    <comment>Automatically translated.</comment>
+    <value>E&amp;xecutar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
     <value>Categorias</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="columnName.HeaderText" xml:space="preserve">
     <value>Nome</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Fósforo (%)</value>
-    <comment>Automatically translated.</comment>
+    <value>Corresponder (%)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
-    <value>Sumário</value>
-    <comment>Automatically translated.</comment>
+    <value>Resumo</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
     <value>URI</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Estes resultados de busca são fornecidos pelo servidor espelho. Observe que o servidor espelho padrão indexa todos os feeds conhecidos, independentemente da qualidade; você deve decidir se deve confiar nos programas antes de executá-los.</value>
@@ -104,6 +104,6 @@
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
     <value>Palavras-chave</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
 </root>
