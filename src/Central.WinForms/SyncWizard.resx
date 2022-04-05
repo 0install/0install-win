@@ -415,7 +415,7 @@
     <value>textBoxCustomServer</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Parent" xml:space="preserve">
     <value>groupCustomServer</value>
@@ -526,7 +526,7 @@
     <value>textBoxFileShare</value>
   </data>
   <data name="&gt;&gt;textBoxFileShare.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.11.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxFileShare.Parent" xml:space="preserve">
     <value>groupFileShare</value>

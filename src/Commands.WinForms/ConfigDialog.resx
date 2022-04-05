@@ -322,7 +322,7 @@
     <value>textBoxSyncServer</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=2.11.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
     <value>tabPageSync</value>
@@ -487,7 +487,7 @@
     <value>timespanFreshness</value>
   </data>
   <data name="&gt;&gt;timespanFreshness.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.TimeSpanControl, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.TimeSpanControl, NanoByte.Common.WinForms, Version=2.11.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;timespanFreshness.Parent" xml:space="preserve">
     <value>groupFreshness</value>
@@ -1357,7 +1357,7 @@ Notes:
     <value>propertyGridAdvanced</value>
   </data>
   <data name="&gt;&gt;propertyGridAdvanced.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.ResettablePropertyGrid, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.ResettablePropertyGrid, NanoByte.Common.WinForms, Version=2.11.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;propertyGridAdvanced.Parent" xml:space="preserve">
     <value>tabPageAdvanced</value>
@@ -2546,6 +2546,6 @@ Notes:
     <value>ConfigDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.11.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.11.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
