@@ -682,7 +682,6 @@ namespace ZeroInstall.Commands.WinForms
             this.checkBoxCapabilities.Name = "checkBoxCapabilities";
             this.toolTip.SetToolTip(this.checkBoxCapabilities, resources.GetString("checkBoxCapabilities.ToolTip"));
             this.checkBoxCapabilities.UseVisualStyleBackColor = true;
-            this.checkBoxCapabilities.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // checkBoxAutoUpdate
             // 
@@ -735,7 +734,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxStartMenuSimple, "checkBoxStartMenuSimple");
             this.checkBoxStartMenuSimple.Name = "checkBoxStartMenuSimple";
             this.checkBoxStartMenuSimple.UseVisualStyleBackColor = true;
-            this.checkBoxStartMenuSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelStartMenuSimple
             // 
@@ -747,7 +745,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxDesktopSimple, "checkBoxDesktopSimple");
             this.checkBoxDesktopSimple.Name = "checkBoxDesktopSimple";
             this.checkBoxDesktopSimple.UseVisualStyleBackColor = true;
-            this.checkBoxDesktopSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelDesktopSimple
             // 
@@ -759,7 +756,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxSendToSimple, "checkBoxSendToSimple");
             this.checkBoxSendToSimple.Name = "checkBoxSendToSimple";
             this.checkBoxSendToSimple.UseVisualStyleBackColor = true;
-            this.checkBoxSendToSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelSendToSimple
             // 
@@ -771,7 +767,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxAliasesSimple, "checkBoxAliasesSimple");
             this.checkBoxAliasesSimple.Name = "checkBoxAliasesSimple";
             this.checkBoxAliasesSimple.UseVisualStyleBackColor = true;
-            this.checkBoxAliasesSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelAliasesSimple
             // 
@@ -783,7 +778,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxAutoStartSimple, "checkBoxAutoStartSimple");
             this.checkBoxAutoStartSimple.Name = "checkBoxAutoStartSimple";
             this.checkBoxAutoStartSimple.UseVisualStyleBackColor = true;
-            this.checkBoxAutoStartSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelAutoStartSimple
             // 
@@ -795,7 +789,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxFileTypesSimple, "checkBoxFileTypesSimple");
             this.checkBoxFileTypesSimple.Name = "checkBoxFileTypesSimple";
             this.checkBoxFileTypesSimple.UseVisualStyleBackColor = true;
-            this.checkBoxFileTypesSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelFileTypesSimple
             // 
@@ -807,7 +800,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxUrlProtocolsSimple, "checkBoxUrlProtocolsSimple");
             this.checkBoxUrlProtocolsSimple.Name = "checkBoxUrlProtocolsSimple";
             this.checkBoxUrlProtocolsSimple.UseVisualStyleBackColor = true;
-            this.checkBoxUrlProtocolsSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelUrlProtocolsSimple
             // 
@@ -819,7 +811,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxAutoPlaySimple, "checkBoxAutoPlaySimple");
             this.checkBoxAutoPlaySimple.Name = "checkBoxAutoPlaySimple";
             this.checkBoxAutoPlaySimple.UseVisualStyleBackColor = true;
-            this.checkBoxAutoPlaySimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelAutoPlaySimple
             // 
@@ -831,7 +822,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxContextMenuSimple, "checkBoxContextMenuSimple");
             this.checkBoxContextMenuSimple.Name = "checkBoxContextMenuSimple";
             this.checkBoxContextMenuSimple.UseVisualStyleBackColor = true;
-            this.checkBoxContextMenuSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelContextMenuSimple
             // 
@@ -843,7 +833,6 @@ namespace ZeroInstall.Commands.WinForms
             resources.ApplyResources(this.checkBoxDefaultProgramsSimple, "checkBoxDefaultProgramsSimple");
             this.checkBoxDefaultProgramsSimple.Name = "checkBoxDefaultProgramsSimple";
             this.checkBoxDefaultProgramsSimple.UseVisualStyleBackColor = true;
-            this.checkBoxDefaultProgramsSimple.CheckedChanged += new System.EventHandler(this.UpdateCommandLine);
             // 
             // labelDefaultProgramsSimple
             // 
@@ -893,7 +882,6 @@ namespace ZeroInstall.Commands.WinForms
             this.MinimizeBox = true;
             this.Name = "IntegrateAppForm";
             this.ShowInTaskbar = true;
-            this.Load += new System.EventHandler(this.IntegrateAppForm_Load);
             this.Controls.SetChildIndex(this.buttonBasicMode, 0);
             this.Controls.SetChildIndex(this.checkBoxCapabilities, 0);
             this.Controls.SetChildIndex(this.checkBoxAutoUpdate, 0);

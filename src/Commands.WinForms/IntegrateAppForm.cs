@@ -27,30 +27,22 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
-        Shown += UpdateCommandLine;
 
         _state = state ?? throw new ArgumentNullException(nameof(state));
-    }
-
-    #region Startup
-    /// <summary>
-    /// Loads the <see cref="Capability"/>s into the controls of this form.
-    /// </summary>
-    private void IntegrateAppForm_Load(object sender, EventArgs e)
-    {
-        this.SetForegroundWindow();
-
         Text = string.Format(Resources.Integrate, _state.AppEntry.Name);
 
         checkBoxAutoUpdate.Checked = _state.AppEntry.AutoUpdate;
         checkBoxCapabilities.Visible = (_state.AppEntry.CapabilityLists.Count != 0);
         checkBoxCapabilities.Checked = _state.CapabilityRegistration;
 
+        SetupCategory(CapabilityRegistration.TagName, checkBoxCapabilities);
         SetupCommandAccessPoints();
         SetupDefaultAccessPoints();
+        _standardCategories = CategoryIntegrationManager.StandardCategories.Where(_categories.ContainsKey).ToList();
+
         _switchToBasicMode?.Invoke();
+        _initialCategories.AddRange(_categories.Where(x => x.Value()).Select(x => x.Key));
     }
-    #endregion
 
     #region Event handlers
     /// <summary>
@@ -90,14 +82,49 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     /// <remarks>Users create <see cref="CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
     private void SetupCommandAccessPoints()
     {
-        SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _state.MenuEntries, () => Suggest.MenuEntries(_state.Feed));
-        SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _state.DesktopIcons, () => Suggest.DesktopIcons(_state.Feed));
-        SetupCommandAccessPoint(checkBoxSendToSimple, labelSendToSimple, _state.SendTo, () => Suggest.SendTo(_state.Feed));
-        SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _state.Aliases, () => Suggest.Aliases(_state.Feed));
-        SetupCommandAccessPoint(checkBoxAutoStartSimple, labelAutoStartSimple, _state.AutoStarts, () => Suggest.AutoStart(_state.Feed));
+        SetupCommandAccessPoint(MenuEntry.TagName, checkBoxStartMenuSimple, labelStartMenuSimple, _state.MenuEntries, () => Suggest.MenuEntries(_state.Feed));
+        SetupCommandAccessPoint(DesktopIcon.TagName, checkBoxDesktopSimple, labelDesktopSimple, _state.DesktopIcons, () => Suggest.DesktopIcons(_state.Feed));
+        SetupCommandAccessPoint(SendTo.TagName, checkBoxSendToSimple, labelSendToSimple, _state.SendTo, () => Suggest.SendTo(_state.Feed));
+        SetupCommandAccessPoint(AppAlias.TagName, checkBoxAliasesSimple, labelAliasesSimple, _state.Aliases, () => Suggest.Aliases(_state.Feed));
+        SetupCommandAccessPoint(AutoStart.TagName, checkBoxAutoStartSimple, labelAutoStartSimple, _state.AutoStarts, () => Suggest.AutoStart(_state.Feed));
 
         SetupCommandComboBoxes();
         ShowCommandAccessPoints();
+    }
+
+    /// <summary>
+    /// Hooks up event handlers for a specific category of <see cref="CommandAccessPoint"/>s.
+    /// </summary>
+    /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
+    /// <param name="category">The name of the access point category.</param>
+    /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
+    /// <param name="labelSimple">A simple mode description for this type of <see cref="CommandAccessPoint"/>.</param>
+    /// <param name="accessPoints">A list of applied <see cref="CommandAccessPoint"/>.</param>
+    /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
+    private void SetupCommandAccessPoint<T>(string category, CheckBox checkBoxSimple, Label labelSimple, ICollection<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
+        where T : CommandAccessPoint
+    {
+        var suggestions = getSuggestions().ToList();
+        if (suggestions.Count == 0)
+        {
+            labelSimple.Visible = checkBoxSimple.Visible = false;
+            return;
+        }
+
+        SetupCategory(category, checkBoxSimple);
+        _switchToBasicMode += () => checkBoxSimple.Checked = accessPoints.Any();
+        _switchToAdvancedMode += () =>
+        {
+            if (checkBoxSimple.Checked)
+            {
+                if (accessPoints.Count == 0)
+                {
+                    foreach (var entry in suggestions)
+                        accessPoints.Add(entry);
+                }
+            }
+            else accessPoints.Clear();
+        };
     }
 
     /// <summary>
@@ -129,24 +156,11 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         dataGridAliases.DataSource = _state.Aliases;
         dataGridAutoStart.DataSource = _state.AutoStarts;
     }
-
-    /// <summary>
-    /// Hooks up event handlers for <see cref="CommandAccessPoint"/>s.
-    /// </summary>
-    /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
-    /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="CommandAccessPoint"/>.</param>
-    /// <param name="labelSimple">A simple mode description for this type of <see cref="CommandAccessPoint"/>.</param>
-    /// <param name="accessPoints">A list of applied <see cref="CommandAccessPoint"/>.</param>
-    /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
-    private void SetupCommandAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, ICollection<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
-        where T : CommandAccessPoint
-    {
-        _switchToBasicMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, labelSimple, accessPoints, getSuggestions);
-        _switchToAdvancedMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, accessPoints, getSuggestions);
-    }
     #endregion
 
     #region Default access points
+    private readonly List<CheckBox> _defaultAccessPointCheckBoxes = new();
+
     /// <summary>
     /// Sets up the UI elements for configuring <see cref="DefaultAccessPoint"/>s.
     /// </summary>
@@ -158,6 +172,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         SetupDefaultAccessPoint(checkBoxAutoPlaySimple, labelAutoPlaySimple, checkBoxAutoPlayAll, _state.AutoPlay);
         SetupDefaultAccessPoint(checkBoxContextMenuSimple, labelContextMenuSimple, checkBoxContextMenuAll, _state.ContextMenu);
         SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, labelDefaultProgramsSimple, checkBoxDefaultProgramsAll, _state.DefaultProgram);
+        SetupCategory(DefaultAccessPoint.TagName, _defaultAccessPointCheckBoxes.ToArray());
 
         // File type associations cannot be set programmatically on Windows 8, so hide the option
         _switchToBasicMode += () =>
@@ -179,16 +194,22 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
         where T : CapabilityModel
     {
-        bool suppressEvent = false;
-        checkBoxSelectAll.CheckedChanged += delegate
+        if (!model.Any())
         {
-            if (!suppressEvent) model.SetAllUse(checkBoxSelectAll.Checked);
-        };
+            labelSimple.Visible = checkBoxSimple.Visible = false;
+            return;
+        }
 
-        _switchToBasicMode += () => SetDefaultAccessPointCheckBox(checkBoxSimple, labelSimple, model);
+        _defaultAccessPointCheckBoxes.Add(checkBoxSimple);
+
+        _switchToBasicMode += () => checkBoxSimple.Checked = model.Any(element => element.Use);
+
+        bool suppressEvent = false;
+        checkBoxSelectAll.CheckedChanged += delegate { if (!suppressEvent) model.SetAllUse(checkBoxSelectAll.Checked); };
         _switchToAdvancedMode += () =>
         {
-            SetDefaultAccessPointCheckBox(checkBoxSimple, model);
+            if (!checkBoxSimple.Checked) model.SetAllUse(false);
+            else if (!model.Any(element => element.Use)) model.SetAllUse(true);
 
             suppressEvent = true;
             checkBoxSelectAll.Checked = model.All(element => element.Use);
@@ -230,52 +251,58 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     }
 
     /// <summary>
-    /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="CommandAccessPoint"/> configuration.
+    /// A map from category names to functions indicating whether that category is currently selected.
     /// </summary>
-    /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
-    /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
-    /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-    /// <param name="accessPoints">The currently applied <see cref="CommandAccessPoint"/>.</param>
-    /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
-    private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, Label label, IEnumerable<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
-        where T : CommandAccessPoint
+    private readonly Dictionary<string, Func<bool>> _categories = new();
+
+    /// <summary>
+    /// The <see cref="CategoryIntegrationManager.StandardCategories"/> that are also in <see cref="_categories"/>.
+    /// </summary>
+    private readonly IReadOnlyCollection<string> _standardCategories;
+
+    /// <summary>
+    /// The categories that where selected when the window was loaded.
+    /// </summary>
+    private readonly List<string> _initialCategories = new();
+
+    /// <summary>
+    /// Registers the association between a category and one or more checkboxes.
+    /// </summary>
+    private void SetupCategory(string name, params CheckBox[] checkBoxes)
     {
-        checkBox.Checked = accessPoints.Any();
-        label.Visible = checkBox.Visible = getSuggestions().Any();
+        foreach (var checkBox in checkBoxes)
+            checkBox.CheckStateChanged += UpdateCommandLine;
+
+        if (checkBoxes.Length != 0)
+            _categories.Add(name, () => checkBoxes.All(x => x.Checked));
     }
 
     /// <summary>
-    /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="DefaultAccessPoint"/> configuration.
+    /// Updates the equivalent command-line for the currently selected categories.
     /// </summary>
-    /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
-    /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
-    /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-    /// <param name="model">A model representing the underlying <see cref="DefaultCapability"/>s and their selection states.</param>
-    private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, Label label, BindingList<T> model)
-        where T : CapabilityModel
-    {
-        checkBox.Checked = model.Any(element => element.Use);
-        label.Visible = checkBox.Visible = model.Any();
-    }
-
     private void UpdateCommandLine(object sender, EventArgs e)
     {
         if (_state.Feed.Uri == null) return;
 
         var commandLine = new List<string> {"0install", "integrate", _state.Feed.Uri.ToStringRfc()};
 
-        void AddIfChecked(CheckBox checkBox, string category)
+        if (_categories.All(x => x.Value()))
+            commandLine.Add("--add-all");
+        else if (_categories.All(x => !x.Value()))
+            commandLine.Add("--remove-all");
+        else
         {
-            if (checkBox.Checked)
-                commandLine.Add("--add=" + category);
-        }
+            var selectedCategories = _categories.Where(x => x.Value()).Select(x => x.Key).ToList();
+            if (_standardCategories.All(selectedCategories.Contains))
+            {
+                commandLine.Add("--add-standard");
+                selectedCategories.RemoveRange(_standardCategories);
+            }
+            commandLine.AddRange(selectedCategories.Select(x => "--add=" + x));
 
-        AddIfChecked(checkBoxCapabilities, CapabilityRegistration.TagName);
-        AddIfChecked(checkBoxStartMenuSimple, MenuEntry.TagName);
-        AddIfChecked(checkBoxDesktopSimple, DesktopIcon.TagName);
-        AddIfChecked(checkBoxSendToSimple, SendTo.TagName);
-        AddIfChecked(checkBoxAliasesSimple, AppAlias.TagName);
-        AddIfChecked(checkBoxAutoStartSimple, AutoStart.TagName);
+            var notSelectedCategories = _categories.Where(x => !x.Value()).Select(x => x.Key);
+            commandLine.AddRange(notSelectedCategories.Where(_initialCategories.Contains).Select(x => "--remove=" + x));
+        }
 
         textBoxCommandLine.Text = commandLine.JoinEscapeArguments();
     }
@@ -294,46 +321,6 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
 
         buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
         buttonAdvancedMode.Visible = panelBasic.Visible = groupBoxCommandLine.Visible = false;
-    }
-
-    /// <summary>
-    /// Sets the state of a <see cref="CheckBox"/> for simple <see cref="CommandAccessPoint"/> configuration.
-    /// </summary>
-    /// <typeparam name="T">The specific kind of <see cref="CommandAccessPoint"/> to handle.</typeparam>
-    /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-    /// <param name="current">The currently applied <see cref="CommandAccessPoint"/>.</param>
-    /// <param name="getSuggestions">Retrieves a list of default <see cref="CommandAccessPoint"/> suggested by the system.</param>
-    private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
-        where T : CommandAccessPoint
-    {
-        if (!checkBox.Visible) return;
-
-        if (checkBox.Checked)
-        {
-            if (current.Count == 0)
-            {
-                foreach (var entry in getSuggestions())
-                    current.Add(entry);
-            }
-        }
-        else current.Clear();
-    }
-
-    /// <summary>
-    /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="DefaultAccessPoint"/> configuration.
-    /// </summary>
-    /// <typeparam name="T">The specific kind of <see cref="DefaultAccessPoint"/> to handle.</typeparam>
-    /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-    /// <param name="model">A model representing the underlying <see cref="DefaultCapability"/>s and their selection states.</param>
-    private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
-        where T : CapabilityModel
-    {
-        if (!checkBox.Visible) return;
-        if (checkBox.Checked)
-        {
-            if (!model.Any(element => element.Use)) model.SetAllUse(true);
-        }
-        else model.SetAllUse(false);
     }
     #endregion
 }
