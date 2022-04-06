@@ -17,13 +17,6 @@ public sealed partial class MainForm : Form
         InitializeComponent();
         Font = DefaultFonts.Modern;
 
-        try
-        {
-            Icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-        }
-        catch (ArgumentException) // Running from network path, can't extract icon
-        {}
-
         var embeddedConfig = EmbeddedConfig.Load();
         if (embeddedConfig.AppName != null)
         {
