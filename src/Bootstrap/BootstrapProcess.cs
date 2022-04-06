@@ -355,9 +355,14 @@ public sealed class BootstrapProcess : ServiceProvider
             }
         }
 
-        var startInfo = ZeroInstall(args.ToArray());
-        Handler.Dispose(); // Close Bootstrap UI
-        return (ExitCode)startInfo.Run();
+        var process = ZeroInstall(args.ToArray()).Start();
+
+        // Close window after a short delay (for a smoother visual transition)
+        if (_gui) Thread.Sleep(2000);
+        Handler.Dispose();
+
+        process.WaitForExit();
+        return (ExitCode)process.ExitCode;
     }
 
     /// <summary>
