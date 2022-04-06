@@ -42,5 +42,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  
+  <!-- WinForms localization resources -->
+  <ItemGroup>
+    <EmbeddedResource Update="IntroDialog.*.resx">
+      <DependentUpon>IntroDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MainForm.*.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PortableCreatorDialog.*.resx">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SelectCommandDialog.*.resx">
+      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SyncWizard.*.resx">
+      <DependentUpon>SyncWizard.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>

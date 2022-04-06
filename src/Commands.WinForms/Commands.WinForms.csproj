@@ -36,4 +36,23 @@
     <Reference Include="Windows.UI" />
   </ItemGroup>
 
+  <!-- WinForms localization resources -->
+  <ItemGroup>
+    <EmbeddedResource Update="ConfigDialog.*.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="FeedSearchDialog.*.resx">
+      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="IntegrateAppForm.*.resx">
+      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="InterfaceDialog.*.resx">
+      <DependentUpon>InterfaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="StoreManageForm.*.resx">
+      <DependentUpon>StoreManageForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
