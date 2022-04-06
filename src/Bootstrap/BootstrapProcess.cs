@@ -361,8 +361,7 @@ public sealed class BootstrapProcess : ServiceProvider
         if (_gui) Thread.Sleep(2000);
         Handler.Dispose();
 
-        process.WaitForExit();
-        return (ExitCode)process.ExitCode;
+        return (ExitCode)process.WaitForExitCode();
     }
 
     /// <summary>
