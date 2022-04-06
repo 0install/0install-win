@@ -40,7 +40,7 @@ public sealed partial class ProgressForm : Form
         if (branding.Icon != null) Icon = branding.Icon;
         if (branding.SplashScreen != null)
         {
-            ShowIcon = false;
+            ControlBox = false;
             pictureBoxSplashScreen.Show();
             pictureBoxSplashScreen.Image = branding.SplashScreen;
             var offset = new Size(width: 0, height: pictureBoxSplashScreen.Height);
