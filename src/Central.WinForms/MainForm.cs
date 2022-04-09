@@ -319,7 +319,7 @@ internal sealed partial class MainForm : Form
     protected override void WndProc(ref Message m)
     {
         if (m.Msg == IntegrationManager.ChangedWindowMessageID)
-            this.BeginInvoke(_tileManagement.UpdateMyApps);
+            BeginInvoke(_tileManagement.UpdateMyApps);
         else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
             tabControlApps.SelectedTab = tabPageAppList;
 

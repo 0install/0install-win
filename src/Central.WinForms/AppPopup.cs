@@ -38,7 +38,6 @@ public sealed partial class AppPopup : Form
         _interfaceUri = interfaceUri;
         _machineWide = machineWide;
         _status = status;
-
     }
 
     private void DpiScalingWorkaround()
