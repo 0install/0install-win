@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digita '0install --help' per vedere una lista di comandi disponibili.</value>
+    <value>Digita '{0}' per vedere una lista di comandi disponibili.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Per l'utente corrente</value>
+    <value>Per l'utente attuale</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorare la voce di app duplicata per '{0}'.</value>
+    <value>Ignorando la voce di app duplicata per '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">

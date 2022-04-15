@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>输入'0install --help'可以看到可用的命令列表。</value>
+    <value>输入'{0}'，可以看到可用的命令列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -145,7 +145,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>使用 "零安装"，你不必安装应用程序。</value>
+    <value>有了 "零安装"，你就不必再安装应用程序。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">

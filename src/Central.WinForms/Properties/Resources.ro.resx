@@ -63,15 +63,15 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduceți "0install --help" pentru a vedea o listă de comenzi disponibile.</value>
+    <value>Introduceți '{0}' pentru a vedea o listă de comenzi disponibile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continuați</value>
+    <value>Continuă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Faceți clic pentru a configura Zero Install on this computer...</value>
+    <value>Faceți clic pentru a configura Zero Install pe acest computer...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">

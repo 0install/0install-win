@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Введите '0install --help', чтобы увидеть список доступных команд.</value>
+    <value>Введите '{0}', чтобы увидеть список доступных команд.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

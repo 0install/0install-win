@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>Użytkownik '{0}' pomyślnie dodał implementację '{1}' do '{2}'.</value>
+    <value>Użytkownik '{0}' pomyślnie dodał wdrożenie '{1}' do '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

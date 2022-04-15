@@ -71,8 +71,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Alias de linha de comando</value>
-    <comment>Automatically translated.</comment>
+    <value>Aliases da linha de comando</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
     <value>Selecionar &amp;todos</value>
@@ -91,16 +91,16 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Inclui esta aplicação nas verificações "Update all" (Atualizar tudo).</value>
-    <comment>Automatically translated.</comment>
+    <value>Inclui este aplicativo nas verificações "Atualizar tudo".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Capacidades de registro</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Registrar recursos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Informa o sistema operacional sobre as capacidades da aplicação, tais como os tipos de arquivo que ela pode tratar.</value>
-    <comment>Automatically translated.</comment>
+    <value>Informa o sistema operacional sobre os recursos do aplicativo, como os tipos de arquivo que ele pode manipular.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
     <value>Selecionar &amp;todos</value>
@@ -252,31 +252,31 @@
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Acesso a partir da interface de linha de comando</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Lançamento automático quando a mídia adequada (DVD, unidade USB, etc.) é inserida</value>
-    <comment>Automatically translated.</comment>
+    <value>Iniciar automaticamente quando a mídia adequada (DVD, unidade USB, etc.) for inserida</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Iniciar o programa automaticamente quando o usuário faz o login</value>
-    <comment>Automatically translated.</comment>
+    <value>Iniciar programa automaticamente quando o usuário efetuar login</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Entradas do menu de contexto no Windows Explorer</value>
-    <comment>Automatically translated.</comment>
+    <value>Entradas no menu de contexto do Windows Explorer</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programa padrão para tarefas como navegador web ou cliente de e-mail</value>
-    <comment>Automatically translated.</comment>
+    <value>Programa padrão para tarefas como navegador da web ou cliente de e-mail</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
     <value>Ícone na área de trabalho</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Manipulador padrão para tipos de arquivos suportados ("Abrir com" funciona sem isso também)</value>
-    <comment>Automatically translated.</comment>
+    <value>Manipulador padrão para tipos de arquivos suportados ("Abrir com" também funciona sem isso)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
     <value>Entrada no menu "Enviar para"</value>
@@ -287,12 +287,12 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manipulador padrão para protocolos URL suportados ("Abrir com" funciona sem isso também)</value>
-    <comment>Automatically translated.</comment>
+    <value>Manipulador padrão para protocolos de URL suportados ("Abrir com" também funciona sem isso)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Alias de linha de comando</value>
-    <comment>Automatically translated.</comment>
+    <value>Aliases da linha de comando</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
     <value>Reprodução automática</value>

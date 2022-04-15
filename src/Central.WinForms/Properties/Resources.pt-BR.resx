@@ -149,8 +149,8 @@ no menu iniciar ou área de trabalho.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Modo de máquina</value>
-    <comment>Automatically translated.</comment>
+    <value>Modo máquina inteira</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
     <value>Modificar integração</value>

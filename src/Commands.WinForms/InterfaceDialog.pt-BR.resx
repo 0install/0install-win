@@ -67,8 +67,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Adiciona uma nova fonte de implementações para esta interface</value>
-    <comment>Automatically translated.</comment>
+    <value>Adiciona uma fonte de implementações para esta interface</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
     <value>Aplicar</value>
@@ -80,7 +80,7 @@
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
     <value>Remove uma fonte de implementações para esta interface</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
     <value>Mostrar todas as &amp;versões</value>
