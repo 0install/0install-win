@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selecteer of maak een map om als implementatie-cache te gebruiken.</value>
+    <value>Selecteer of maak een map om te gebruiken als implementatie cache.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">

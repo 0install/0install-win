@@ -77,8 +77,8 @@
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Stocke la configuration de Zero Install et les applications mises en cache dans un seul répertoire.
 - Ne rend pas automatiquement portables les applications lancées via Zero Install.
-- Les versions portables de Zero Install ne peuvent pas effectuer l'intégration au bureau (par exemple, créer des entrées de menu de démarrage).
-- Pensez à utiliser Zero Install sur plusieurs ordinateurs avec Zero Install Sync à la place.</value>
+- Les versions portables de Zero Install ne peuvent pas s'intégrer au bureau (par exemple, créer des entrées de menu de démarrage).
+- Il est préférable d'utiliser Zero Install sur plusieurs ordinateurs avec Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

@@ -144,7 +144,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>L'elenco delle applicazioni locali viene resettato. Ora puoi continuare a usare Zero Install.</value>
+    <value>L'elenco delle applicazioni locali viene resettato. Ora puoi continuare ad usare Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -168,7 +168,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de fornisce account gratuiti per memorizzare i dati di sincronizzazione. Tutti i dati sono criptati localmente prima di essere trasmessi al server. Puoi invece usare il tuo server per l'archiviazione se lo desideri.</value>
+    <value>0install.de fornisce account gratuiti per memorizzare i dati di sincronizzazione. Tutti i dati sono criptati localmente prima di essere trasmessi al server. Puoi invece usare il tuo server per l'archiviazione, se lo desideri.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Wpisz '0install --help', aby wyświetlić listę dostępnych poleceń.</value>
+    <value>Wpisz '{0}', aby wyświetlić listę dostępnych poleceń.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

@@ -180,7 +180,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync est maintenant configuré et prêt à être utilisé. Exécutez cet assistant sur tous les autres ordinateurs que vous souhaitez garder synchronisés avec celui-ci.</value>
+    <value>Zero Install Sync est maintenant configuré et prêt à être utilisé. Lancez cet assistant sur tous les autres ordinateurs que vous souhaitez synchroniser avec celui-ci.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

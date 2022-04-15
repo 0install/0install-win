@@ -168,7 +168,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de fornece contas grátis para o armazenamento de dados Sync. Todos os dados são encriptados localmente antes de serem transmitidos para o servidor. Pode utilizar o seu próprio servidor para armazenamento em vez disso, se desejar.</value>
+    <value>0install.de fornece contas grátis para o armazenamento de dados Sync. Todos os dados são encriptados localmente antes de serem transmitidos para o servidor. Pode utilizar o seu próprio servidor para armazenamento, se assim o desejar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

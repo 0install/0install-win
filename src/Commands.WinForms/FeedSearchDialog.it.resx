@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Questi risultati di ricerca sono forniti dal server mirror. Nota che il server mirror di default indicizza tutti i feed conosciuti, indipendentemente dalla qualità; devi decidere se fidarti dei programmi prima di eseguirli.</value>
+    <value>Questi risultati di ricerca sono forniti dal server mirror. Nota che il server mirror predefinito indicizza tutti i feed conosciuti, indipendentemente dalla qualità; devi decidere se fidarti dei programmi prima di eseguirli.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
