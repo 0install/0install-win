@@ -64,7 +64,7 @@ namespace ZeroInstall.Central.WinForms
             this.labelSummary.Location = new System.Drawing.Point(60, 24);
             this.labelSummary.Margin = new System.Windows.Forms.Padding(0);
             this.labelSummary.Name = "labelSummary";
-            this.labelSummary.Size = new System.Drawing.Size(264, 31);
+            this.labelSummary.Size = new System.Drawing.Size(267, 31);
             this.labelSummary.TabIndex = 1;
             // 
             // buttonRun
@@ -74,10 +74,10 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRun.ContextMenuStrip = this.contextMenuRun;
             this.buttonRun.DropDownMenuStrip = this.contextMenuRun;
             this.buttonRun.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRun.Location = new System.Drawing.Point(326, 6);
+            this.buttonRun.Location = new System.Drawing.Point(330, 6);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.ShowSplit = true;
-            this.buttonRun.Size = new System.Drawing.Size(68, 23);
+            this.buttonRun.Size = new System.Drawing.Size(64, 23);
             this.buttonRun.TabIndex = 3;
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
@@ -120,12 +120,13 @@ namespace ZeroInstall.Central.WinForms
             // buttonIntegrate
             // 
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonIntegrate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonIntegrate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonIntegrate.FlatAppearance.BorderSize = 0;
+            this.buttonIntegrate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonIntegrate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonIntegrate.Location = new System.Drawing.Point(326, 32);
+            this.buttonIntegrate.Location = new System.Drawing.Point(371, 32);
             this.buttonIntegrate.Name = "buttonIntegrate";
-            this.buttonIntegrate.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.buttonIntegrate.Size = new System.Drawing.Size(68, 23);
+            this.buttonIntegrate.Size = new System.Drawing.Size(22, 22);
             this.buttonIntegrate.TabIndex = 4;
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Click += new System.EventHandler(this.buttonIntegrate_Click);

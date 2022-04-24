@@ -2,7 +2,7 @@
 
 namespace ZeroInstall.Central.WinForms
 {
-    partial class AppPopup
+    partial class AppDropDown
     {
         /// <summary>
         /// Required designer variable.
@@ -29,22 +29,10 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelBorder = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
             this.buttonIntegrate = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.iconStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // labelBorder
-            // 
-            this.labelBorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelBorder.Location = new System.Drawing.Point(0, 0);
-            this.labelBorder.Name = "labelBorder";
-            this.labelBorder.Size = new System.Drawing.Size(260, 120);
-            this.labelBorder.TabIndex = 0;
             // 
             // labelStatus
             // 
@@ -52,8 +40,8 @@ namespace ZeroInstall.Central.WinForms
             this.labelStatus.AutoEllipsis = true;
             this.labelStatus.Location = new System.Drawing.Point(12, 9);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(192, 33);
-            this.labelStatus.TabIndex = 2;
+            this.labelStatus.Size = new System.Drawing.Size(216, 33);
+            this.labelStatus.TabIndex = 0;
             this.labelStatus.Text = "(Status)";
             // 
             // buttonIntegrate
@@ -63,8 +51,8 @@ namespace ZeroInstall.Central.WinForms
             this.buttonIntegrate.Location = new System.Drawing.Point(12, 50);
             this.buttonIntegrate.Name = "buttonIntegrate";
             this.buttonIntegrate.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.buttonIntegrate.Size = new System.Drawing.Size(236, 26);
-            this.buttonIntegrate.TabIndex = 4;
+            this.buttonIntegrate.Size = new System.Drawing.Size(216, 26);
+            this.buttonIntegrate.TabIndex = 1;
             this.buttonIntegrate.Text = "(Integrate)";
             this.buttonIntegrate.UseVisualStyleBackColor = true;
             this.buttonIntegrate.Visible = false;
@@ -77,62 +65,28 @@ namespace ZeroInstall.Central.WinForms
             this.buttonRemove.Location = new System.Drawing.Point(12, 82);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.buttonRemove.Size = new System.Drawing.Size(236, 26);
-            this.buttonRemove.TabIndex = 5;
+            this.buttonRemove.Size = new System.Drawing.Size(216, 26);
+            this.buttonRemove.TabIndex = 2;
             this.buttonRemove.Text = "(Remove)";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Visible = false;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
-            // buttonClose
-            // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Location = new System.Drawing.Point(237, 0);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(23, 23);
-            this.buttonClose.TabIndex = 3;
-            this.buttonClose.TabStop = false;
-            this.buttonClose.Text = "X";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // iconStatus
-            // 
-            this.iconStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconStatus.Location = new System.Drawing.Point(206, 4);
-            this.iconStatus.Name = "iconStatus";
-            this.iconStatus.Size = new System.Drawing.Size(16, 16);
-            this.iconStatus.TabIndex = 1;
-            // 
-            // AppPopup
+            // AppDropDown
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonClose;
-            this.ClientSize = new System.Drawing.Size(260, 120);
-            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonIntegrate);
-            this.Controls.Add(this.iconStatus);
             this.Controls.Add(this.labelStatus);
-            this.Controls.Add(this.labelBorder);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AppPopup";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Name = "AppDropDown";
+            this.Size = new System.Drawing.Size(240, 120);
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Label labelBorder;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.Label iconStatus;
         private System.Windows.Forms.Button buttonIntegrate;
         private System.Windows.Forms.Button buttonRemove;
-        private System.Windows.Forms.Button buttonClose;
-
         #endregion
     }
 }

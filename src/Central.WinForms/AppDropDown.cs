@@ -9,9 +9,9 @@ using ZeroInstall.DesktopIntegration;
 namespace ZeroInstall.Central.WinForms;
 
 /// <summary>
-/// Popup window for adding/removing/integrating an app.
+/// Drop-down for adding/removing/integrating an app.
 /// </summary>
-public sealed partial class AppPopup : Form
+public sealed partial class AppDropDown : DropDownContainer
 {
     private readonly FeedUri _interfaceUri;
     private readonly bool _machineWide;
@@ -23,38 +23,16 @@ public sealed partial class AppPopup : Form
     /// <param name="interfaceUri">The interface URI of the application.</param>
     /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
     /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-    public AppPopup(FeedUri interfaceUri, AppTileStatus status, bool machineWide)
+    public AppDropDown(FeedUri interfaceUri, AppTileStatus status, bool machineWide)
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
 
-        Deactivate += delegate { Close(); };
-        HandleCreated += delegate
-        {
-            DpiScalingWorkaround();
-            RefreshStatus();
-        };
+        HandleCreated += delegate { RefreshStatus(); };
 
         _interfaceUri = interfaceUri;
         _machineWide = machineWide;
         _status = status;
-    }
-
-    private void DpiScalingWorkaround()
-    {
-        var scale = this.GetScaleFactor();
-        iconStatus.Location -= new Size(
-            (int)Math.Ceiling((scale.Width - 1) * 4),
-            (int)Math.Ceiling(scale.Height - 1));
-    }
-
-    /// <summary>
-    /// Shows the popup at the screen coordinates of the specified <paramref name="control"/>.
-    /// </summary>
-    public void ShowAt(Control control)
-    {
-        Location = control.PointToScreen(new(control.Width - Width, 0));
-        Show(control);
     }
 
     private void RefreshStatus()
@@ -66,9 +44,7 @@ public sealed partial class AppPopup : Form
             buttonIntegrate.Image = AppResources.IntegratedImage.Get(scale);
             buttonRemove.Image = AppResources.CandidateImage.Get(scale);
             buttonRemove.Show();
-            if (Locations.IsPortable)
-                buttonClose.Focus();
-            else
+            if (!Locations.IsPortable)
             {
                 buttonIntegrate.Show();
                 buttonIntegrate.Focus();
@@ -79,11 +55,9 @@ public sealed partial class AppPopup : Form
         {
             case AppTileStatus.Candidate:
                 AddApp();
-                iconStatus.Image = AppResources.CandidateImage.Get(scale);
                 break;
 
             case AppTileStatus.Added:
-                iconStatus.Image = AppResources.AddedImage.Get(scale);
                 labelStatus.Text = AppResources.AddedText;
                 buttonIntegrate.Text = AppResources.IntegrateText;
                 buttonRemove.Text = AppResources.RemoveText;
@@ -91,7 +65,6 @@ public sealed partial class AppPopup : Form
                 break;
 
             case AppTileStatus.Integrated:
-                iconStatus.Image = AppResources.IntegratedImage.Get(scale);
                 labelStatus.Text = AppResources.IntegratedText;
                 buttonIntegrate.Text = AppResources.ModifyText;
                 buttonRemove.Text = AppResources.RemoveText;
@@ -133,10 +106,5 @@ public sealed partial class AppPopup : Form
     {
         if (_machineWide) args = args.Append("--machine");
         return CommandUtils.RunAsync(args);
-    }
-
-    private void buttonClose_Click(object sender, EventArgs e)
-    {
-        Close();
     }
 }

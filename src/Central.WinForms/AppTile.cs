@@ -128,8 +128,8 @@ public sealed partial class AppTile : UserControl
             _ => throw new InvalidOperationException()
         });
 
+        buttonIntegrate.BackgroundImage = image.Get(this.GetScaleFactor());
         buttonIntegrate.AccessibleName = text;
-        buttonIntegrate.Image = image.Get(this.GetScaleFactor());
         toolTip.SetToolTip(buttonIntegrate, text);
     }
 
@@ -170,7 +170,7 @@ public sealed partial class AppTile : UserControl
     private void buttonIntegrate_Click(object sender, EventArgs e)
     {
         if (InterfaceUri.IsFake) return;
-        new AppPopup(InterfaceUri, Status, _machineWide)
-           .ShowAt(buttonIntegrate);
+        new AppDropDown(InterfaceUri, Status, _machineWide)
+           .Show(buttonIntegrate);
     }
 }
