@@ -256,7 +256,7 @@
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Вы уверены, что хотите использовать незашифрованное соединение с сервером синхронизации?
-В зашифрованных соединениях используется префикс https://.</value>
+Зашифрованные соединения используют префикс https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">

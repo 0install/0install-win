@@ -152,7 +152,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Stai per sostituire i dati memorizzati sul server Sync con la tua lista di applicazioni locali. Qualsiasi modifica fatta su altri computer ma non ancora sincronizzata con questo sarà persa!</value>
+    <value>Stai per sostituire i dati memorizzati sul server Sync con la tua lista di applicazioni locali. Tutte le modifiche che hai fatto su altri computer ma non ancora sincronizzate con questo saranno perse!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">

@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Criador portátil</value>
-    <comment>Automatically translated.</comment>
+    <value>Criador de portátil</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancelar</value>
@@ -75,11 +75,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Lojas Zero Instalar configuração e aplicações em cache dentro de um único diretório.
-- Não faz com que as aplicações lançadas via Zero Install também sejam automaticamente portáteis.
-- Versões portáteis de Zero Install não podem realizar a integração da área de trabalho (por exemplo, criar entradas no menu iniciar).
-- Considere o uso regular de Zero Install em vários computadores com Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>- Armazena as configurações do Zero Install e aplicativos em cache em uma única pasta.
+- Não torna portátil os aplicativos executados pelo Zero Install.
+- As versões portáteis do Zero Install não podem realizar a integração da área de trabalho (por exemplo, criar entradas do menu Iniciar).
+- Considere usar o Zero Install regular em vários computadores com o Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
     <value>Pasta de destino</value>

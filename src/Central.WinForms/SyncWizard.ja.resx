@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>他のコンピュータでは、「オプション」ウィンドウを使ってキーを入力します。このウィザードは、最初の変更にのみ必要ですので、そこでは使用しないでください。</value>
+    <value>他のコンピュータでは、「オプション」ウィンドウを使用してキーを入力します。このウィザードは、最初の変更にのみ必要ですので、そこでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -119,11 +119,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーは、データをサーバーに送信する前にローカルで暗号化するために使用されます。推奨されるものを書き留めるか、自分で選んでください。</value>
+    <value>暗号鍵は、サーバーに送信する前にローカルでデータを暗号化するために使用されます。推奨されるものを書き留めるか、自分で選んでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>この鍵は秘密にし、パスワードは別のものを使用します。こうすることで、万が一サーバーに侵入されたとしても、誰もあなたのデータにアクセスすることができなくなります。</value>
+    <value>この鍵は秘密にし、パスワードには別のものを使用してください。こうすることで、万が一サーバーに侵入されたとしても、誰もあなたのデータにアクセスすることができなくなります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -152,7 +152,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Syncサーバーに保存されているデータを、ローカルのアプリケーションリストと入れ替えるところです。他のコンピュータで行った変更で、まだこのコンピュータと同期していないものはすべて失われます</value>
+    <value>Sync サーバーに保存されているデータを、ローカルのアプリケーションリストと置き換えるところです。他のコンピュータで行った変更で、まだこのコンピュータと同期していないものはすべて失われます</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -168,7 +168,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de では、Sync データを保存するためのアカウントを無料で提供しています。データはすべてローカルで暗号化されてからサーバーに転送されます。ご希望であれば、ご自身のサーバーをストレージとして使用することも可能です。</value>
+    <value>0install.de では、Sync データを保存するためのアカウントを無料で提供しています。すべてのデータは、サーバーに転送される前にローカルで暗号化されます。ご希望であれば、ご自身のサーバーをストレージとして使用することも可能です。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
