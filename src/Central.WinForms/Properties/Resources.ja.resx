@@ -120,7 +120,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>気に入ったアプリがあれば
-My apps」に追加する。</value>
+My apps "に追加してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
@@ -128,8 +128,8 @@ My apps」に追加する。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>アプリを "統合 "することで
-をスタートメニューやデスクトップに表示させることができます。</value>
+    <value>アプリを "統合 "して、スタートメニューやデスクトップに
+スタートメニューやデスクトップに表示させることができます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
@@ -165,7 +165,7 @@ My apps」に追加する。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>マイアプリに追加し、デスクトップ環境に統合しました。</value>
+    <value>マイアプリに追加し、デスクトップ環境にも統合。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -204,7 +204,7 @@ My apps」に追加する。</value>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>はい
-変更内容を保存する</value>
+変更の保存</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
@@ -238,11 +238,11 @@ My apps」に追加する。</value>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>はい
-一から始める</value>
+ゼロから始める</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>現在Syncサーバーに保存されているデータが破損している。
+    <value>現在Syncサーバーに保存されているデータが破損しています。
 暗号鍵を覚えていないことを選択することで、サーバーに保存されているデータを交換することができます。</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -255,7 +255,7 @@ My apps」に追加する。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Syncサーバーへの接続は、本当に暗号化されていないもので良いのでしょうか？
+    <value>Sync サーバーへの接続に暗号化されていないものを使用したいのですが？
 暗号化された接続は、https:// プレフィックスを使用します。</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -264,8 +264,8 @@ My apps」に追加する。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>これにより、アップデート後に不要となった実装が自動的にキャッシュから削除されます。続行しますか？
-重要：以前、「マイアプリケーション」に追加せずに「実行」したアプリケーションもキャッシュから削除されます。  再び実行する場合は、オンラインである必要があります。</value>
+    <value>これにより、アップデート後に不要になった実装がキャッシュから自動的に削除されます。続行しますか？
+重要: 以前に「マイアプリケーション」に追加せずに「実行」したアプリケーションもキャッシュから削除されます。  再び実行する場合は、オンラインである必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

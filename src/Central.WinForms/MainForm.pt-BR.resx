@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Insira a URL de um catálogo (uma coleção de feeds)</value>
-    <comment>Automatically translated.</comment>
+    <value>Entre o URL de um &amp;catálogo (coleção de feeds)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>Digite o URL de um &amp;feed (aplicativo único)</value>
@@ -75,8 +75,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Use ferramentas de publicação para empacotar um novo aplicativo</value>
-    <comment>Automatically translated.</comment>
+    <value>Usar &amp;Publishing Tools para empacotar um novo aplicativo</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>A&amp;juda</value>
@@ -95,8 +95,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Criador portátil</value>
-    <comment>Automatically translated.</comment>
+    <value>Criador de &amp;portátil</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
     <value>Atualiza&amp;r lista</value>

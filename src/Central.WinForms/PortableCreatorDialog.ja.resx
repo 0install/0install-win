@@ -76,8 +76,8 @@
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Zero Installの設定とキャッシュされたアプリケーションを1つのディレクトリに保存します。
-- Zero Installで起動したアプリケーションを自動的にポータブルにすることはできません。
-- ポータブル版の Zero Install はデスクトップ統合を実行できません (スタートメニューの作成など)。
+- Zero Install で起動したアプリケーションを自動的にポータブルにすることはできません。
+- ポータブルバージョンの Zero Install では、デスクトップ統合 (スタートメニューエントリの作成など) を実行できません。
 - 代わりに、Zero Install Sync を使用して、複数のコンピューターで通常の Zero Install を使用することを検討してください。</value>
     <comment>Automatically translated.</comment>
   </data>

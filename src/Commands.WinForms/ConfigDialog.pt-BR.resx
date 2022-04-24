@@ -99,8 +99,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprovar automaticamente novas chaves (se conhecidas pelo servidor de chaves)</value>
-    <comment>Automatically translated.</comment>
+    <value>A&amp;utomaticamente aprovar novas chaves (se conhecidas pelo servidor de chaves)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
     <value>A&amp;jude a testar novas versões</value>
@@ -115,8 +115,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Cache de implementação de diretórios</value>
-    <comment>Automatically translated.</comment>
+    <value>Pastas de cache de &amp;implementação</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Uso de rede</value>

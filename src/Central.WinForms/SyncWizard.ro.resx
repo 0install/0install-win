@@ -140,7 +140,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Sunteți pe cale să înlocuiți lista de aplicații locale cu datele stocate pe serverul Sync. Orice modificări pe care le-ați făcut la nivel local, dar care nu au fost încă sincronizate, vor fi pierdute!</value>
+    <value>Sunteți pe cale să înlocuiți lista de aplicații locale cu datele stocate pe serverul Sync. Orice modificări pe care le-ați făcut local, dar care nu au fost încă sincronizate, vor fi pierdute!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">

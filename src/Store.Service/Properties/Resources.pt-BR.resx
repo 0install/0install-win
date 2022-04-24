@@ -59,27 +59,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>O usuário '{0}' não adicionou a implementação '{1}' a '{2}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>O usuário '{0}' falhou ao adicionar a implementação '{1}' em '{2}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Falha em criar um diretório temporário para o usuário '{0}' em '{1}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>Falha ao criar pasta temporária para o usuário '{0}' em '{1}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Falha na remoção do diretório temporário '{1}' (criado para o usuário '{0}').</value>
-    <comment>Automatically translated.</comment>
+    <value>Falha ao remover a pasta temporária '{1}' (criada para o usuário '{0}').</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>O serviço não pode funcionar no modo portátil!</value>
-    <comment>Automatically translated.</comment>
+    <value>O serviço não pode ser executado no modo portátil!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Definição de permissões de arquivo</value>
-    <comment>Automatically translated.</comment>
+    <value>Configurando permissões de arquivo</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>O usuário '{0}' acrescentou com sucesso a implementação '{1}' a '{2}'.</value>
-    <comment>Automatically translated.</comment>
+    <value>O usuário '{0}' adicionou com sucesso a implementação '{1}' em '{2}'.</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

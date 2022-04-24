@@ -59,224 +59,224 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Eu quero mudar minha chave criptográfica</value>
-    <comment>Automatically translated.</comment>
+    <value>Eu quero &amp;mudar minha chave de criptografia</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Chave esquecida</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Esqueci a chave</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>Quero substituir meus dados locais</value>
-    <comment>Automatically translated.</comment>
+    <value>Eu quero substituir meus dados &amp;locais</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Os dados armazenados no servidor estão danificados</value>
-    <comment>Automatically translated.</comment>
+    <value>Os dados armazenados no &amp;servidor estão corrompidos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>Sim, este é o primeiro computador</value>
-    <comment>Automatically translated.</comment>
+    <value>Sim, este é o &amp;primeiro computador</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Não, eu já instalei outros computadores</value>
-    <comment>Automatically translated.</comment>
+    <value>Não, eu já configurei &amp;outros computadores</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Você não deve executar o sincronismo de instalação zero em outros computadores enquanto este processo estiver em execução.</value>
-    <comment>Automatically translated.</comment>
+    <value>Você não deve executar o Zero Install Sync em outros computadores enquanto este processo está em execução.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Por favor, digite abaixo suas credenciais de login para o servidor Sync:</value>
-    <comment>Automatically translated.</comment>
+    <value>Entre as suas credenciais de login para o servidor de sincronização abaixo:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Chave criptográfica:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Chave de criptografia:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>Nova chave criptográfica:</value>
-    <comment>Automatically translated.</comment>
+    <value>Nova &amp;chave de criptografia:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>A chave criptográfica foi alterada. Agora você precisará digitar a nova chave em todos os outros computadores que você já configurou para o Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>A chave de criptografia foi alterada. Agora você irá precisar entrar a nova chave em todos os outros computadores em que já configurou o Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Digite a chave em outros computadores usando a janela 'Opções'. Não utilize este assistente ali, pois ele só é necessário para realizar a mudança inicial.</value>
-    <comment>Automatically translated.</comment>
+    <value>Entre a chave nos outros computadores usando a janela 'Opções'. Não use esta assistente, pois ele é necessário somente para configurar as alterações iniciais.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Chave criptográfica:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Chave de criptografia:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>Nova chave criptográfica:</value>
-    <comment>Automatically translated.</comment>
+    <value>Nova &amp;chave de criptografia:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Por favor, digite a chave criptográfica que você usou anteriormente neste e/ou em outros computadores:</value>
-    <comment>Automatically translated.</comment>
+    <value>Entre a chave de criptografia usada anteriormente neste e/ou outros computadores:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>A chave criptográfica é usada para criptografar seus dados localmente antes de transmiti-los para o servidor. Escreva a sugerida ou escolha a sua própria.</value>
-    <comment>Automatically translated.</comment>
+    <value>A chave de criptografia é usada para criptografar o seus dados locais antes de transmiti-los para o servidor. Anote a chave sugerida ou escolha a sua própria. </value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Mantenha esta chave em segredo e use algo diferente para sua senha. Assim, ninguém poderá acessar seus dados, mesmo que o servidor seja comprometido.</value>
-    <comment>Automatically translated.</comment>
+    <value>Mantenha esta chave secreta e use algo diferente como sua senha. Desta maneira, ninguém poderá acessar os seus dados, mesmo se o servidor for comprometido.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
     <value>&amp;Senha:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Clique no link a seguir para criar uma nova conta Sync em seu navegador:</value>
-    <comment>Automatically translated.</comment>
+    <value>Clique no link a seguir para criar uma nova conta de sincronização no seu navegador:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Depois de criar uma conta, verificar seu endereço de e-mail e anotar suas credenciais de login, clique em 'Próximo'.
+    <value>Depois de criar uma conta, verificar o seu endereço de e-mail e salvar as credencias de login, clique em 'Avançar'.
 </value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Você está prestes a substituir sua lista de aplicações local com os dados armazenados no servidor Sync. Quaisquer mudanças que você tenha feito localmente, mas ainda não sincronizadas, serão perdidas!</value>
-    <comment>Automatically translated.</comment>
+    <value>Você está prestes a substituir sua lista de aplicativos locais pelos dados armazenados no servidor de sincronização. Quaisquer alterações feitas localmente, mas ainda não sincronizadas, serão perdidas!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>A lista de aplicações locais está sendo redefinida. Agora você pode continuar usando Zero Install.</value>
-    <comment>Automatically translated.</comment>
+    <value>A lista de aplicativos locais está sendo redefinida. Agora você pode continuar usando o Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Quaisquer mudanças que você tenha feito em outros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
-    <comment>Automatically translated.</comment>
+    <value>Quaisquer alterações feitas em outros computadores, mas ainda não sincronizadas com este serão perdidas!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Você está prestes a substituir os dados armazenados no servidor Sync por sua lista de aplicativos local. Quaisquer mudanças que você tenha feito em outros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
-    <comment>Automatically translated.</comment>
+    <value>Você está prestes a substituir os dados armazenados no servidor de sincronização pela sua lista de aplicativos locais. Quaisquer alterações feitas em outros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Os dados do servidor estão sendo reinicializados. Agora você pode continuar usando Zero Install.</value>
-    <comment>Automatically translated.</comment>
+    <value>Os dados do servidor estão sendo redefinidos. Agora você pode continuar usando o Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Você também pode desejar redefinir os dados locais em outros computadores nos quais você está usando o Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>Você também pode redefinir os dados locais em outros computadores nos quais você está usando o Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Este assistente pode ajudá-lo a resolver uma série de possíveis problemas de Sincronização. Que problema você deseja resolver?</value>
-    <comment>Automatically translated.</comment>
+    <value>Este assistente pode ajudar a solucionar vários possíveis problemas de sincronização. Qual problema gostaria de resolver?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de fornece contas gratuitas para o armazenamento de dados Sync. Todos os dados são criptografados localmente antes de serem transmitidos para o servidor. Você pode usar seu próprio servidor para armazenamento em seu lugar se desejar.</value>
-    <comment>Automatically translated.</comment>
+    <value>0install.de fornece contas gratuitas para armazenar os dados de sincronização. Todos os dados são criptografados localmente antes de serem transmitidos ao servidor. Você pode usar o seu próprio servidor para armazenamento, se assim desejar.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
-    <value>Qual servidor você quer usar?</value>
-    <comment>Automatically translated.</comment>
+    <value>Qual servidor você deseja usar?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Este é o primeiro computador que você está instalando para o Zero Install Sync?</value>
-    <comment>Automatically translated.</comment>
+    <value>Este é o primeiro computador em que está configurando o Zero Install Sync?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync está agora configurado e pronto para ser usado. Execute este assistente em qualquer outro computador que você deseje manter sincronizado com este.</value>
-    <comment>Automatically translated.</comment>
+    <value>O Zero Install Sync está configurado e pronto para usar. Execute o assistente em qualquer outro computador que desejar manter sincronizado com este aqui.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync pega sua lista de aplicações e integrações de desktop e as transfere automaticamente para seus outros computadores.</value>
-    <comment>Automatically translated.</comment>
+    <value>O Zero Install Sync pega sua lista de aplicativos e integrações da área de trabalho e as transfere automaticamente para seus outros computadores.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
     <value>Nome de &amp;usuário:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Como eu monto meu próprio servidor Sync?</value>
-    <comment>Automatically translated.</comment>
+    <value>Como configuro meu próprio servidor para sincronização?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Registre-se</value>
-    <comment>Automatically translated.</comment>
+    <value>Registrar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Use um servidor personalizado:</value>
-    <comment>Automatically translated.</comment>
+    <value>Usar um servidor &amp;personalizado:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Use um compartilhamento de arquivos do Windows:</value>
-    <comment>Automatically translated.</comment>
+    <value>Usar um &amp;compartilhamento de arquivos do Windows:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Use o servidor 0install.de (recomendado)</value>
-    <comment>Automatically translated.</comment>
+    <value>Usar o servidor &amp;0install.de (recomendado)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Mudar a chave criptográfica</value>
-    <comment>Automatically translated.</comment>
+    <value>Mudar chave de criptografia</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Conta de sincronização</value>
-    <comment>Automatically translated.</comment>
+    <value>Sincronizar conta</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>A chave criptográfica mudou</value>
-    <comment>Automatically translated.</comment>
+    <value>Chave de criptografia alterada</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Chave criptográfica</value>
-    <comment>Automatically translated.</comment>
+    <value>Chave de criptografia</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Chave criptográfica</value>
-    <comment>Automatically translated.</comment>
+    <value>Chave de criptografia</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Conta de sincronização</value>
-    <comment>Automatically translated.</comment>
+    <value>Sincronizar conta</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Redefinir dados locais</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
     <value>Redefinir dados locais</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Chave criptográfica de reinicialização</value>
-    <comment>Automatically translated.</comment>
+    <value>Redefinir chave de criptografia</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Reiniciar o servidor Sync</value>
-    <comment>Automatically translated.</comment>
+    <value>Redefinir servidor de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Reiniciar o servidor Sync</value>
-    <comment>Automatically translated.</comment>
+    <value>Redefinir servidor de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
     <value>Solução de problemas de sincronização</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
-    <value>Servidor de Sincronização</value>
-    <comment>Automatically translated.</comment>
+    <value>Servidor de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Configuração de sincronização completa</value>
-    <comment>Automatically translated.</comment>
+    <value>Configuração da sincronização concluída</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Configuração de Sincronização</value>
-    <comment>Automatically translated.</comment>
+    <value>Configurar sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>Servidor URI</value>
-    <comment>Automatically translated.</comment>
+    <value>URI do servidor</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Caminho de diretório</value>
-    <comment>Automatically translated.</comment>
+    <value>Caminho da pasta</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>
