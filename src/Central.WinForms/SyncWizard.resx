@@ -598,8 +598,7 @@
     <value>2</value>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Once you have created an account, verified your e-mail address and noted your login credentials, click on 'Next'.
-</value>
+    <value>Once you have created an account, verified your e-mail address and noted your login credentials, click on 'Next'.</value>
   </data>
   <data name="&gt;&gt;labelRegister2.Name" xml:space="preserve">
     <value>labelRegister2</value>
