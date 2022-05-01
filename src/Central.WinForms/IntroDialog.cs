@@ -51,7 +51,7 @@ public sealed partial class IntroDialog : Form
 
         tabControlApps.Hide();
         labelVideo.Hide();
-        buttonReplay.Hide();
+        buttonReplay.Show();
         buttonClose.Show();
     }
 
