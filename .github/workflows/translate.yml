@@ -5,7 +5,9 @@ on:
     - cron: '0 6 15 * *'
   push:
     branches: [master]
-    paths: ['**.resx']
+    paths:
+      - '**/*.resx'
+      - '!**/*.*.resx' # Don't trigger again for updated translations
 
 jobs:
   translate:
