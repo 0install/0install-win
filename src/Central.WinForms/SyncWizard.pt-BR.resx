@@ -135,8 +135,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Depois de criar uma conta, verificar o seu endereço de e-mail e salvar as credencias de login, clique em 'Avançar'.
-</value>
+    <value>Depois de criar uma conta, verificar o seu endereço de e-mail e salvar as credencias de login, clique em 'Avançar'.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">

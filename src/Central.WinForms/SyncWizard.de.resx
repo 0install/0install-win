@@ -135,8 +135,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Sobald Sie ein Konto erstellt, Ihre E-Mail-Adresse verifiziert und Ihre Anmeldedaten notiert haben, klicken Sie auf "Fortsetzen".
-</value>
+    <value>Sobald Sie ein Konto erstellt, Ihre E-Mail-Adresse verifiziert und Ihre Anmeldedaten notiert haben, klicken Sie auf "Fortsetzen".</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">

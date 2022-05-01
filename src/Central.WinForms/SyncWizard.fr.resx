@@ -67,11 +67,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>Je veux remplacer mes &amp;données locales. </value>
+    <value>Je veux remplacer mes &amp;données locales.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Les données enregistrées sur le serveur sont endommagées. </value>
+    <value>Les données enregistrées sur le serveur sont endommagées.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Lors de ce processus, ne lancez pas Zero Install Sync sur d'autres ordinateurs. </value>
+    <value>Lors de ce processus, ne lancez pas Zero Install Sync sur d'autres ordinateurs.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -135,8 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Une fois le compte créé, e-mail vérifié et données d'accès au compte enregistrées, cliquer sur 'Next'
-</value>
+    <value>Une fois le compte créé, e-mail vérifié et données d'accès au compte enregistrées, cliquer sur 'Suivant'.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -156,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Les données du serveur sont remis à zéro. Vous pouvez continuer d'utiliser Zero Install. </value>
+    <value>Les données du serveur sont remis à zéro. Vous pouvez continuer d'utiliser Zero Install.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
@@ -168,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de vous fournit des comptes gratuits pour sauvegarder vos données de synchronisation. Toutes les données sont cryptées localement avant d'être transmises au serveur. Si vous voulez, vous pouvez utiliser votre propre serveur aux fins de stockage. </value>
+    <value>0install.de vous fournit des comptes gratuits pour sauvegarder vos données de synchronisation. Toutes les données sont cryptées localement avant d'être transmises au serveur. Si vous voulez, vous pouvez utiliser votre propre serveur aux fins de stockage.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -176,7 +175,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Est-ce le premier ordinateur que vous configurer pour Zero Install Sync? </value>
+    <value>Est-ce le premier ordinateur que vous configurer pour Zero Install Sync?</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
@@ -192,7 +191,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Comment configurer son propre serveur de synchronisation? </value>
+    <value>Comment configurer son propre serveur de synchronisation?</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -256,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Résolution de problèmes de synchronisation. </value>
+    <value>Résolution de problèmes de synchronisation</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">

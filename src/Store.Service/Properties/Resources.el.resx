@@ -71,7 +71,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Η υπηρεσία δεν μπορεί να εκτελεστεί σε φορητή λειτουργία!.</value>
+    <value>Η υπηρεσία δεν μπορεί να εκτελεστεί σε φορητή λειτουργία!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
