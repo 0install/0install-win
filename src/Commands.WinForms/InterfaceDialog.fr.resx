@@ -91,8 +91,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Détermine la cote de stabilité qui sera considérée comme la "meilleure".</value>
-    <comment>Automatically translated.</comment>
+    <value>Détermine la cote de stabilité qui sera considérée comme la "meilleure"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
     <value>Architecture</value>
@@ -123,7 +123,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>&amp;Stabilité préférée</value>
+    <value>&amp;Stabilité préférée:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">

@@ -71,7 +71,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Cliquez pour installer Zero Install sur cet ordinateur</value>
+    <value>Cliquez pour installer Zero Install sur cet ordinateur...</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Intégrer (menu de démarrage, etc.)</value>
+    <value>Intégrer (menu démarrer, etc.)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
@@ -161,7 +161,7 @@ dans le menu démarrer ou sur le bureau.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Ajouté à "mes apps"</value>
+    <value>Ajouté à "mes apps".</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
@@ -170,11 +170,11 @@ dans le menu démarrer ou sur le bureau.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Le dossier '{0}' n'est pas vide.
-Etes-vous sûr d'y vouloir enregistrer la version  portable du Zero Install?</value>
+Etes-vous sûr d'y vouloir enregistrer la version  portable du Zero Install ?</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Mode portable.</value>
+    <value>Mode portable</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
@@ -212,11 +212,11 @@ Enregistrer les modifications</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Cliquer pour mettre à jour Zero Install v {0}</value>
+    <value>Cliquer pour mettre à jour Zero Install v{0}...</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Vous devez d'abord finir la synchronisation de l'installation.</value>
+    <value>Vous devez d'abord finir l'installation de Sync.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -260,7 +260,7 @@ Les connexions chiffrées utilisent le préfixe https://.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Mettre à jour</value>
+    <value>Mettre à &amp;jour</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">

@@ -95,7 +95,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Επαναφορά </value>
+    <value>Επαναφορά</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>καταλόγος μνήμης cache </value>
+    <value>καταλόγος μνήμης cache</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">

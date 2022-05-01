@@ -259,7 +259,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Ξεκινήστε το πρόγραμμα αυτόματα όταν ο χρήστης συνδέεται </value>
+    <value>Ξεκινήστε το πρόγραμμα αυτόματα όταν ο χρήστης συνδέεται</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">

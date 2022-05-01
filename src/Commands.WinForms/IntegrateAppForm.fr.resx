@@ -255,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Lancer automatiquement quand un support adéquat (DVD, disque dur USB, etc.) est inséré </value>
+    <value>Lancer automatiquement quand un support adéquat (DVD, disque dur USB, etc.) est inséré</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">

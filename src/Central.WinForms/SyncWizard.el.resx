@@ -159,7 +159,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Μπορεί επίσης να θέλετε να επαναφέρετε τα τοπικά δεδομένα σε άλλους υπολογιστές που χρησιμοποιείτε το Zero Install Sync </value>
+    <value>Μπορεί επίσης να θέλετε να επαναφέρετε τα τοπικά δεδομένα σε άλλους υπολογιστές που χρησιμοποιείτε το Zero Install Sync.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Λογαριασμός συγχρονισμού </value>
+    <value>Λογαριασμός συγχρονισμού</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Λογαριασμός συγχρονισμού </value>
+    <value>Λογαριασμός συγχρονισμού</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">

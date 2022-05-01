@@ -67,7 +67,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>Ανανέωση </value>
+    <value>Ανανέωση</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
-    <value>Εκτέλεση ως διαχειριστής...</value>
+    <value>Εκτέλεση ως διαχειριστής</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">

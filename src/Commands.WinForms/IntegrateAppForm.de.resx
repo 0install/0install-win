@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Teilt dem Betriebsystem die Fähigeit der Anwendung mit, z.B. die Dateitypen die sie verarbeiten kann</value>
+    <value>Informiert das Betriebssystem über die Fähigkeiten der Anwendung, z. B. über die Dateitypen, die sie verarbeiten kann.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
