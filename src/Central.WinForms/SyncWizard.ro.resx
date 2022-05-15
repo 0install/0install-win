@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Nu trebuie să rulați Zero Install Sync pe alte computere în timp ce acest proces este în desfășurare.</value>
+    <value>Nu trebuie să rulați Zero Install Sync pe alte calculatoare în timp ce acest proces este în desfășurare.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -135,12 +135,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>După ce v-ați creat un cont, v-ați verificat adresa de e-mail și v-ați notat datele de autentificare, faceți clic pe "Next" (Următorul).
-</value>
+    <value>După ce v-ați creat un cont, v-ați verificat adresa de e-mail și v-ați notat datele de autentificare, faceți clic pe "Next" (Următorul).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Sunteți pe cale să înlocuiți lista de aplicații locale cu datele stocate pe serverul Sync. Orice modificări pe care le-ați făcut local, dar care nu au fost încă sincronizate, vor fi pierdute!</value>
+    <value>Sunteți pe cale să înlocuiți lista de aplicații locale cu datele stocate pe serverul Sync. Orice modificări pe care le-ați făcut la nivel local, dar care nu au fost încă sincronizate, vor fi pierdute!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -220,7 +219,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cheie criptografică schimbată</value>
+    <value>Cheia criptografică a fost schimbată</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">

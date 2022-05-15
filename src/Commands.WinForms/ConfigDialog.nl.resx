@@ -131,11 +131,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selecteer of maak een map om als implementatie-cache te gebruiken.</value>
+    <value>Selecteer of maak een map om te gebruiken als implementatie cache.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Waarschuwing: Het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet correct werkt.</value>
+    <value>Waarschuwing: Het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet meer correct werkt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">

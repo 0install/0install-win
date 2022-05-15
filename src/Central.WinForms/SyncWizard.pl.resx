@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Klucz kryptograficzny jest używany do lokalnego szyfrowania danych przed przesłaniem ich na serwer. Zapisz sugerowany klucz lub wybierz własny.</value>
+    <value>Klucz kryptograficzny jest używany do lokalnego szyfrowania danych przed przesłaniem ich na serwer. Zapisz sugerowany klucz lub wybierz swój własny.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -135,8 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Po utworzeniu konta, zweryfikowaniu adresu e-mail i wprowadzeniu danych do logowania należy kliknąć przycisk "Dalej".
-</value>
+    <value>Po utworzeniu konta, zweryfikowaniu adresu e-mail i wprowadzeniu danych do logowania należy kliknąć przycisk "Dalej".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -204,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Użyj udziału plików systemu Windows:</value>
+    <value>Użyj udziału w plikach systemu Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
