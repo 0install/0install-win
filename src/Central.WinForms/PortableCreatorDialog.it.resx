@@ -71,14 +71,14 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Qui potete creare una versione portatile di Zero Install, ad esempio per l'uso su una chiavetta USB. La destinazione deve essere formattata NTFS.</value>
+    <value>Qui è possibile creare una versione portatile di Zero Install, ad esempio da utilizzare su una chiavetta USB. La destinazione deve essere formattata in NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Memorizza la configurazione di Zero Install e le applicazioni nella cache in una singola directory.
-- Non rende automaticamente portatili anche le applicazioni lanciate tramite Zero Install.
-- Le versioni portatili di Zero Install non possono eseguire l'integrazione del desktop (ad esempio creare voci del menu start).
-- Considera invece di usare Zero Install normale su più computer con Zero Install Sync.</value>
+    <value>- Memorizza la configurazione di Zero Install e le applicazioni memorizzate nella cache in un'unica directory.
+- Non rende automaticamente portatili le applicazioni avviate tramite Zero Install.
+- Le versioni portatili di Zero Install non possono eseguire l'integrazione con il desktop (ad esempio, creare voci del menu di avvio).
+- Considerate invece l'uso di Zero Install normale su più computer con Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

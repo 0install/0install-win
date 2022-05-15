@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Введите свои учетные данные для входа на сервер синхронизации ниже:</value>
+    <value>Введите учетные данные для входа на сервер синхронизации ниже:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Введите криптографический ключ, который вы использовали ранее на этом и/или других компьютерах:</value>
+    <value>Пожалуйста, введите криптографический ключ, который вы использовали ранее на этом и/или других компьютерах:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
@@ -135,8 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>После того, как вы создали учетную запись, проверили свой адрес электронной почты и отметили учетные данные для входа, нажмите "Далее".
-</value>
+    <value>После того, как вы создали учетную запись, проверили свой адрес электронной почты и отметили учетные данные для входа, нажмите "Далее".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -168,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед передачей на сервер. При желании вы можете использовать свой собственный сервер для хранения данных.</value>
+    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед передачей на сервер. При желании вы можете использовать для хранения данных собственный сервер.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

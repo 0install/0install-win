@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Ricerca di feed zero install</value>
+    <value>Ricerca feed a installazione zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Aggiungi a "Le mie app"</value>
+    <value>Aggiungi a "Le mie applicazioni"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integrazione del setup</value>
+    <value>Integrazione della configurazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Esegui</value>
+    <value>Correre</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Partita (%)</value>
+    <value>Corrispondenza (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
-    <value>Riassunto</value>
+    <value>Sintesi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Questi risultati di ricerca sono forniti dal server mirror. Nota che il server mirror di default indicizza tutti i feed conosciuti, indipendentemente dalla qualità; devi decidere se fidarti dei programmi prima di eseguirli.</value>
+    <value>I risultati della ricerca sono forniti dal server mirror. Si noti che il server mirror predefinito indicizza tutti i feed conosciuti, indipendentemente dalla qualità; è necessario decidere se fidarsi dei programmi prima di eseguirli.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

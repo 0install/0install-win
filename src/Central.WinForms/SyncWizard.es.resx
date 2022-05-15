@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>La clave criptográfica ha sido cambiada. Ahora tendrá que introducir la nueva clave en todos los demás equipos que ya haya configurado para Zero Install Sync.</value>
+    <value>La clave criptográfica ha sido cambiada. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -135,8 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Una vez que haya creado una cuenta, verificado su dirección de correo electrónico y anotado sus credenciales de acceso, haga clic en "Siguiente".
-</value>
+    <value>Una vez que haya creado una cuenta, verificado su dirección de correo electrónico y anotado sus credenciales de acceso, haga clic en "Siguiente".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
