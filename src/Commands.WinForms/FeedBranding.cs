@@ -22,6 +22,11 @@ public class FeedBranding : IDisposable
     public string? Name { get; }
 
     /// <summary>
+    /// The Application User Model ID.
+    /// </summary>
+    public string? AppId { get; }
+
+    /// <summary>
     /// The icon of the app.
     /// </summary>
     public SystemIcon? Icon { get; }
@@ -40,6 +45,7 @@ public class FeedBranding : IDisposable
         var feed = feedUri?.To(feedCache.GetFeed);
 
         Name = feed?.Name;
+        AppId = feed?.GetEntryPoint(Command.NameRun)?.AppId;
 
         var iconStore = IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false);
         Icon = feed

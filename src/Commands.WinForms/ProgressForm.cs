@@ -27,7 +27,6 @@ public sealed partial class ProgressForm : Form
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
-        this.PreventPinningIfNotIntegrated();
 
         MinimumSize = new Size(350, 150).ApplyScale(this);
         buttonCustomizeSelectionsDone.Text = Resources.Done;
@@ -55,6 +54,14 @@ public sealed partial class ProgressForm : Form
 
         notifyIcon.Text = Text;
         notifyIcon.Icon = Icon;
+
+        HandleCreated += delegate
+        {
+            if (ZeroInstallInstance.IsLibraryMode && branding.AppId != null)
+                WindowsTaskbar.SetWindowAppID(Handle, branding.AppId);
+            else if (!ZeroInstallInstance.IsIntegrated)
+                WindowsTaskbar.PreventPinning(Handle);
+        };
 
         Shown += delegate { this.SetForegroundWindow(); };
     }
