@@ -218,9 +218,20 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     private void ShowNotification(string title, string message, ToolTipIcon icon = ToolTipIcon.Info)
     {
         if (WindowsUtils.IsWindows10 && ZeroInstallInstance.IsIntegrated)
-            ShowNotificationModern(title, message);
+        {
+            try
+            {
+                ShowNotificationModern(title, message);
+            }
+            catch
+            {
+                ShowNotificationClassic(title, message, icon);
+            }
+        }
         else
+        {
             ShowNotificationClassic(title, message, icon);
+        }
     }
 
     private void ShowNotificationClassic(string title, string message, ToolTipIcon icon)
