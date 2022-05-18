@@ -27,6 +27,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        this.PreventPinningIfNotIntegrated();
 
         _state = state ?? throw new ArgumentNullException(nameof(state));
         Text = string.Format(Resources.Integrate, _state.AppEntry.Name);

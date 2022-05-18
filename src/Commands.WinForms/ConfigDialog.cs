@@ -24,12 +24,9 @@ public sealed partial class ConfigDialog : OKCancelDialog
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        this.PreventPinningIfNotIntegrated();
 
         if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-        HandleCreated += delegate
-        {
-            if (!ZeroInstallInstance.IsDeployed) WindowsTaskbar.PreventPinning(Handle);
-        };
 
         _config = config;
         ConfigToControls();

@@ -27,6 +27,8 @@ public sealed partial class ProgressForm : Form
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        this.PreventPinningIfNotIntegrated();
+
         MinimumSize = new Size(350, 150).ApplyScale(this);
         buttonCustomizeSelectionsDone.Text = Resources.Done;
         buttonHide.Text = Resources.Hide;

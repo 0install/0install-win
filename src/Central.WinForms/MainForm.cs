@@ -60,7 +60,7 @@ internal sealed partial class MainForm : Form
     #region Form
     private void MainForm_HandleCreated(object sender, EventArgs e)
     {
-        if (ZeroInstallInstance.IsDeployed)
+        if (ZeroInstallInstance.IsIntegrated)
         {
             string exePath = Path.Combine(Locations.InstallBase, "ZeroInstall.exe");
             string commandsExe = Path.Combine(Locations.InstallBase, "0install-win.exe");

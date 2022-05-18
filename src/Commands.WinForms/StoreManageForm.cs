@@ -37,14 +37,11 @@ public sealed partial class StoreManageForm : Form
         InitializeComponent();
         Font = DefaultFonts.Modern;
         buttonRunAsAdmin.AddShieldIcon();
+        this.PreventPinningIfNotIntegrated();
 
-        HandleCreated += delegate
-        {
-            if (!ZeroInstallInstance.IsDeployed) WindowsTaskbar.PreventPinning(Handle);
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-            if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
-            else if (WindowsUtils.HasUac) buttonRunAsAdmin.Show();
-        };
+        if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+        if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
+        else if (WindowsUtils.HasUac) buttonRunAsAdmin.Show();
 
         Shown += async delegate { await RefreshListAsync(); };
 

@@ -25,6 +25,7 @@ public sealed partial class FeedSearchDialog : Form
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        this.PreventPinningIfNotIntegrated();
 
         textKeywords.Text = keywords ?? "";
         textKeywords.TextChanged += textKeywords_TextChanged;
