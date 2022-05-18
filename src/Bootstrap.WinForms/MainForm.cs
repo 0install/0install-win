@@ -1,6 +1,8 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using NanoByte.Common.Native;
+
 namespace ZeroInstall;
 
 /// <summary>
@@ -16,6 +18,7 @@ public sealed partial class MainForm : Form
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
         var embeddedConfig = EmbeddedConfig.Load();
         if (embeddedConfig.AppName != null)
