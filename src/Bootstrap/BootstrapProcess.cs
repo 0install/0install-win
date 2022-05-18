@@ -29,9 +29,6 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <summary>The command-line argument parser used to evaluate user input.</summary>
     private readonly OptionSet _options;
 
-    /// <summary>The path of a Zero Install instance already deployed on this machine, if any.</summary>
-    private string? _deployedInstance = WindowsUtils.IsWindows ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation") : null;
-
     /// <summary>A specific version of Zero Install to download.</summary>
     private VersionRange? _version;
 
@@ -122,21 +119,10 @@ public sealed class BootstrapProcess : ServiceProvider
                 }
             },
             {
-                "no-existing", () => "Do not detect and use existing Zero Install instances. Always use downloaded and cached instance.", _ => _deployedInstance = null
+                "version=", () => "Use a specific {VERSION} of Zero Install.", (VersionRange range) => _version = range
             },
             {
-                "version=", () => "Select a specific {VERSION} of Zero Install. Implies --no-existing.", (VersionRange range) =>
-                {
-                    _version = range;
-                    _deployedInstance = null;
-                }
-            },
-            {
-                "feed=", () => "Specify an alternative {FEED} for Zero Install. Must be an absolute URI. Implies --no-existing.", feed =>
-                {
-                    Config.SelfUpdateUri = new(feed);
-                    _deployedInstance = null;
-                }
+                "feed=", () => "Specify an alternative {FEED} for Zero Install.", feed => Config.SelfUpdateUri = new(feed)
             },
             {
                 "content-dir=", () => "Specifies a {DIRECTORY} to search for feeds and archives to import. The default is a directory called 'content'.", path =>
@@ -188,7 +174,7 @@ public sealed class BootstrapProcess : ServiceProvider
         if (_embeddedConfig.SelfUpdateUri == null)
             Config.SelfUpdateUri = new FeedUri(Config.DefaultSelfUpdateUri);
         // Only apply custom self-update URI if 0install isn't deployed yet and the URI hasn't already been customized
-        else if (Config.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri) && _deployedInstance == null)
+        else if (Config.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri) && GetDeployedInstance() == null)
             Config.SelfUpdateUri = _embeddedConfig.SelfUpdateUri;
 
         // Write potentially customized config to the user profile
@@ -388,14 +374,18 @@ public sealed class BootstrapProcess : ServiceProvider
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
     {
-        if (!string.IsNullOrEmpty(_deployedInstance))
-        {
-            string launchAssembly = _gui ? "0install-win" : "0install";
-            if (File.Exists(Path.Combine(_deployedInstance, launchAssembly + ".exe")))
-                return ProcessUtils.Assembly(Path.Combine(_deployedInstance, launchAssembly), args);
-        }
-        return null;
+        if (_version != null) return null;
+
+        var deployedInstance = GetDeployedInstance();
+        if (string.IsNullOrEmpty(deployedInstance)) return null;
+
+        string launchAssembly = _gui ? "0install-win" : "0install";
+        if (!File.Exists(Path.Combine(deployedInstance, launchAssembly + ".exe"))) return null;
+
+        return ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args);
     }
+
+    private static string? GetDeployedInstance() => WindowsUtils.IsWindows ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation") : null;
 
     private Requirements? _requirements;
     private Selections? _selections;
