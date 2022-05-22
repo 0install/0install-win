@@ -86,7 +86,7 @@ internal sealed partial class MainForm : Form
         bool firstRun = OnFirstRun();
         if (_tileManagement.IsMyAppsEmpty)
         {
-            if (firstRun)
+            if (firstRun && !Locations.IsPortable)
             {
                 using var dialog = new IntroDialog();
                 dialog.ShowDialog(this);
@@ -96,7 +96,7 @@ internal sealed partial class MainForm : Form
             tabControlApps.SelectTab(tabPageCatalog);
         }
 
-        if (!ZeroInstallInstance.IsIntegrated) ShowDeployNotification();
+        if (!ZeroInstallInstance.IsIntegrated && !Locations.IsPortable) ShowDeployNotification();
         if (ZeroInstallInstance.IsDeployed) SelfUpdateCheck();
     }
 
