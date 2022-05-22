@@ -40,7 +40,7 @@ public sealed partial class PortableCreatorDialog : Form
         }
 
         Enabled = false;
-        await CommandUtils.RunAsync(Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text);
+        await CommandUtils.RunAsync(Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text, "--restart-central");
         Close();
     }
 
