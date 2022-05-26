@@ -51,13 +51,25 @@ public class FeedBranding : IDisposable
         Icon = feed
              ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
              ?.To(iconStore.GetCached)
-             ?.To(path => new SystemIcon(path))
+             ?.To(TryParseIcon)
             ?? GetDefaultIcon();
 
         SplashScreen = feed
                      ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
                      ?.To(iconStore.GetCached)
                      ?.To(Image.FromFile);
+    }
+
+    private static SystemIcon? TryParseIcon(string path)
+    {
+        try
+        {
+            return new(path);
+        }
+        catch (Exception ex) when (ex is ArgumentException or Win32Exception)
+        {
+            return null;
+        }
     }
 
     private static SystemIcon? GetDefaultIcon()
