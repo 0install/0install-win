@@ -172,7 +172,7 @@
     <value>buttonUpdateAll</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.11.6.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.12.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -241,7 +241,7 @@
     <value>buttonSync</value>
   </data>
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.11.6.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.12.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -501,7 +501,7 @@
     <value>buttonMoreApps</value>
   </data>
   <data name="&gt;&gt;buttonMoreApps.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.11.6.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.DropDownButton, NanoByte.Common.WinForms, Version=2.12.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonMoreApps.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
