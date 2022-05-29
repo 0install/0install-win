@@ -71,21 +71,9 @@ public sealed partial class SyncWizard : Form
             _config = Config.Load();
         }
         #region Error handling
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException)
         {
-            Log.Error(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            Close();
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            Log.Error(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            Close();
-        }
-        catch (InvalidDataException ex)
-        {
-            Log.Error(ex);
+            Log.Error("Error loading config", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
             Close();
         }
@@ -100,21 +88,9 @@ public sealed partial class SyncWizard : Form
             return true;
         }
         #region Error handling
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException)
         {
-            Log.Error(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            return false;
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            Log.Error(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            return false;
-        }
-        catch (InvalidDataException ex)
-        {
-            Log.Error(ex);
+            Log.Error("Error saving config", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
             return false;
         }
@@ -255,7 +231,7 @@ public sealed partial class SyncWizard : Form
         #region Error handling
         catch (WebException ex)
         {
-            Log.Warn(ex);
+            Log.Warn("Sync credentials check failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             e.Cancel = true;
             return;
@@ -315,15 +291,9 @@ public sealed partial class SyncWizard : Form
             handler.RunTask(new SimpleTask(Text, CheckCryptoKey));
         }
         #region Error handling
-        catch (WebException ex)
+        catch (Exception ex) when (ex is WebException or InvalidDataException)
         {
-            Log.Warn(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-            e.Cancel = true;
-        }
-        catch (InvalidDataException ex)
-        {
-            Log.Warn(ex);
+            Log.Warn("Sync crypto key check failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             e.Cancel = true;
         }
@@ -381,16 +351,9 @@ public sealed partial class SyncWizard : Form
             Sync(SyncResetMode.Server);
         }
         #region Error handling
-        catch (WebException ex)
+        catch (Exception ex) when (ex is WebException or InvalidDataException)
         {
-            Log.Warn(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-            e.Cancel = true;
-            return;
-        }
-        catch (InvalidDataException ex)
-        {
-            Log.Warn(ex);
+            Log.Warn("Sync crypto key reset failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             e.Cancel = true;
             return;
@@ -478,7 +441,7 @@ public sealed partial class SyncWizard : Form
         void Error(Exception ex)
         {
             Rollback();
-            Log.Warn(ex);
+            Log.Warn("Sync crypto key change failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
         }
 

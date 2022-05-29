@@ -114,7 +114,7 @@ public sealed partial class AppTile : UserControl
         }
         catch (Exception ex)
         {
-            Log.Error(ex);
+            Log.Error($"Failed to load icon from '{path}'", ex);
         }
     }
 

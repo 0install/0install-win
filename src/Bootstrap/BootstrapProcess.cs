@@ -234,7 +234,7 @@ public sealed class BootstrapProcess : ServiceProvider
         #region Error handling
         catch (Exception ex)
         {
-            Log.Error(ex);
+            Log.Error("Failed to add key to trust database", ex);
         }
         #endregion
     }
@@ -407,8 +407,7 @@ public sealed class BootstrapProcess : ServiceProvider
             }
             catch (WebException ex)
             {
-                Log.Warn("Unable to check for updates");
-                Log.Warn(ex);
+                Log.Warn("Unable to check for updates", ex);
             }
         }
 
@@ -418,8 +417,7 @@ public sealed class BootstrapProcess : ServiceProvider
         }
         catch (WebException ex)
         {
-            Log.Warn("Unable to download updates, try to find older version");
-            Log.Warn(ex);
+            Log.Warn("Unable to download updates, try to find older version", ex);
             SolveOffline();
             Fetch();
         }

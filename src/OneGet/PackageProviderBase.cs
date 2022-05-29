@@ -17,8 +17,7 @@ public abstract class PackageProviderBase
 
     public void OnUnhandledException(string methodName, Exception exception)
     {
-        Log.Error("Unexpected exception thrown in " + PackageProviderName + "::" + methodName);
-        Log.Error(exception);
+        Log.Error($"Unexpected exception thrown in {PackageProviderName}::{methodName}", exception);
     }
 
     public void InitializeProvider(Request request) => request.Debug("Calling '{0}::InitializeProvider'", PackageProviderName);

@@ -320,9 +320,10 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     /// </summary>
     /// <param name="severity">The type/severity of the entry.</param>
     /// <param name="message">The message text of the entry.</param>
-    protected override void LogHandler(LogSeverity severity, string message)
+    /// <param name="exception">An optional exception associated with the entry.</param>
+    protected override void LogHandler(LogSeverity severity, string message, Exception? exception)
     {
-        base.LogHandler(severity, message);
+        base.LogHandler(severity, message, exception);
 
         // Avoid dead-lock
         if (!_branding.IsValueCreated) return;
@@ -336,7 +337,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
                 LogSeverity.Info => ToolTipIcon.Info,
                 LogSeverity.Warn => ToolTipIcon.Warning,
                 LogSeverity.Error => ToolTipIcon.Error,
-                _ =>ToolTipIcon.None
+                _ => ToolTipIcon.None
             });
         }
     }

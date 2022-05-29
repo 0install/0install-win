@@ -113,13 +113,9 @@ internal sealed partial class MainForm : Form
             FileUtils.Touch(firstRunFlag);
         }
         #region Error handling
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            Log.Error(ex);
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            Log.Error(ex);
+            Log.Error("Failed to first-run flag file", ex);
         }
         #endregion
 
@@ -408,7 +404,7 @@ internal sealed partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            Log.Error(ex);
+            Log.Error("Failed to update catalog", ex);
             labelLastCatalogError.Text = ex.Message;
             labelLastCatalogError.Show();
         }

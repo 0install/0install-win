@@ -36,21 +36,15 @@ public static class Program
             Application.Run(new MainForm(machineWide: args.Contains("-m") || args.Contains("--machine")));
         }
         #region Error handling
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            Log.Error(ex);
-            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-            return -1;
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            Log.Error(ex);
+            Log.Error("Central startup failed", ex);
             Msg.Inform(null, ex.Message, MsgSeverity.Error);
             return -1;
         }
         catch (InvalidDataException ex)
         {
-            Log.Error(ex);
+            Log.Error("Central startup failed", ex);
             Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
             return -1;
         }

@@ -48,13 +48,9 @@ public sealed partial class StoreService : ServiceBase
             Log.Handler += LogHandler;
         }
         #region Sanity checks
-        catch (SecurityException ex)
+        catch (Exception ex) when (ex is SecurityException or InvalidOperationException)
         {
-            Log.Error(ex);
-        }
-        catch (InvalidOperationException ex)
-        {
-            Log.Error(ex);
+            Log.Error("Failed to set up event source logging", ex);
         }
         #endregion
 
@@ -145,7 +141,8 @@ public sealed partial class StoreService : ServiceBase
     /// </summary>
     /// <param name="severity">The type/severity of the entry.</param>
     /// <param name="message">The message text of the entry.</param>
-    private void LogHandler(LogSeverity severity, string message)
+    /// <param name="exception">An optional exception associated with the entry.</param>
+    private void LogHandler(LogSeverity severity, string message, Exception? exception)
     {
         var entryType = GetEntryType(severity);
         if (!entryType.HasValue) return;

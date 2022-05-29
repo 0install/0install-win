@@ -111,8 +111,7 @@ public class AppTileManagement
                 }
                 catch (Exception ex) when (ex is UriFormatException or IOException or WebException or WebException or UnauthorizedAccessException or SignatureException or InvalidDataException)
                 {
-                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, tile.InterfaceUri));
-                    Log.Warn(ex);
+                    Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, tile.InterfaceUri), ex);
                     return null;
                 }
                 #endregion
@@ -227,13 +226,13 @@ public class AppTileManagement
                     {}
                     catch (WebException ex)
                     {
-                        Log.Info(ex);
+                        Log.Info(ex.Message, ex);
                     }
                     catch (InvalidOperationException) // AppTile already disposed
                     {}
                     catch (Exception ex)
                     {
-                        Log.Warn(ex);
+                        Log.Warn($"Failed to update tile icon for {tile.InterfaceUri}", ex);
                     }
                     #endregion
                 });
@@ -245,11 +244,11 @@ public class AppTileManagement
         {}
         catch (WebException ex)
         {
-            Log.Info(ex);
+            Log.Info(ex.Message, ex);
         }
         catch (Exception ex)
         {
-            Log.Warn(ex);
+            Log.Warn($"Failed to set tile icon for {tile.InterfaceUri}", ex);
         }
         finally
         {
