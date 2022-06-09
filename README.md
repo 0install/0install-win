@@ -15,6 +15,18 @@ The source code does not contain version numbers. Instead the version is determi
 To build install [Visual Studio 2022 or newer](https://www.visualstudio.com/downloads/) and run `.\build.ps1`.  
 If you wish to deploy the build after compilation as the default Zero Install instance in your user profile run `.\build.ps1 -Deploy`. To deploy it for all users use `.\build.ps1 -Deploy -Machine`.
 
+## Integration tests
+
+The PowerShell scripts in [`tests/`](tests/) are integration tests.
+
+You can run them individually. They will then use the version of Zero Install found in your current `PATH`.
+
+You can also run them all against:
+- your latest build, with `.\test.ps1`
+- a temporarily deployed copy of your latest build, with `.\test.ps1 -Deploy`
+- a temporarily deployed machine-wide copy of your latest build, with `.\test.ps1 -Deploy -Machine`
+- a temporarily deployed portable copy of your latest build, with `.\test.ps1 -Deploy -Portable`
+
 ## Contributing
 
 We welcome contributions to this project such as bug reports, recommendations, pull requests and [translations](https://www.transifex.com/eicher/0install-win/). If you have any questions feel free to pitch in on our [friendly mailing list](https://0install.net/support.html#lists).

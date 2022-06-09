@@ -7,10 +7,13 @@ before_build:
   - powershell .\0install.ps1 run --batch https://apps.0install.net/devel/gitversion.xml /l console /output buildserver
 
 build_script:
-  - powershell src\build.ps1 %GitVersion_NuGetVersion%
+  - powershell .\build.ps1 %GitVersion_NuGetVersion%
 
-after_build:
-  - artifacts\Release\net472\win\0install.exe self deploy --batch
+test_script:
+  - powershell .\test.ps1
+  - powershell .\test.ps1 -Deploy
+  - powershell .\test.ps1 -Deploy -Machine
+  - powershell .\test.ps1 -Deploy -Portable
 
 artifacts:
   - path: artifacts
