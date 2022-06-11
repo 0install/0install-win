@@ -170,12 +170,22 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <returns>The exit status code to end the process with.</returns>
     public ExitCode Execute(IEnumerable<string> args)
     {
-        // Aggressively restore default self-update URI (e.g., to "fix" broken deployments)
+        // Aggressively restore default self-update URI (e.g., to allow users to "reinstall" to fix broken config)
         if (_embeddedConfig.SelfUpdateUri == null)
+        {
             Config.SelfUpdateUri = new FeedUri(Config.DefaultSelfUpdateUri);
-        // Only apply custom self-update URI if 0install isn't deployed yet and the URI hasn't already been customized
-        else if (Config.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri) && GetDeployedInstance() == null)
+            Config.FeedMirror ??= new FeedUri(Config.DefaultFeedMirror);
+        }
+
+        // Read from .exe.config file if present
+        Config.ReadFromAppSettings();
+
+        // Only apply custom self-update URI if Zero Install isn't deployed yet and the URI hasn't already been customized
+        if (_embeddedConfig.SelfUpdateUri != null && GetDeployedInstance() == null && Config.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri))
+        {
             Config.SelfUpdateUri = _embeddedConfig.SelfUpdateUri;
+            Config.FeedMirror = null; // Deployments with custom self-update URIs may not want to use the feed mirror for privacy reasons
+        }
 
         // Write potentially customized config to the user profile
         // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
