@@ -291,7 +291,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
 
         // The progress form and integration form take turns in being visible
         Background = true;
-        var result = _wrapper.Post(_ => new IntegrateAppForm(state).ShowDialog());
+        var result = _wrapper.Post(new IntegrateAppForm(state).ShowDialog);
         Background = false;
 
         if (result == DialogResult.OK) _wrapper.Post(form => form.Show());
