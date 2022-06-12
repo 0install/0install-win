@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>これらの検索結果は、ミラーサーバによって提供されます。デフォルトのミラーサーバは、品質に関係なくすべての既知のフィードをインデックス化することに注意してください。プログラムを実行する前に、信頼するかどうかを決定する必要があります。</value>
+    <value>これらの検索結果は、ミラーサーバによって提供されます。デフォルトのミラーサーバは、品質に関係なく、すべての既知のフィードをインデックス化することに注意してください。プログラムを実行する前に、信頼するかどうかを決定する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

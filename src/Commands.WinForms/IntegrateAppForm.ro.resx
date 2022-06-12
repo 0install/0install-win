@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program implicit pentru sarcini precum browser web sau client de e-mail</value>
+    <value>Program implicit pentru sarcini precum browserul web sau clientul de e-mail</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -287,7 +287,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manipulator implicit pentru protocoalele URL acceptate ("Open with" funcționează și fără acest lucru)</value>
+    <value>Manipulator implicit pentru protocoalele URL acceptate ("Deschide cu" funcționează și fără acest lucru)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
