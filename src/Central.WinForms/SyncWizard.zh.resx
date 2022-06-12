@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>你在其他电脑上所做的但尚未与这台电脑同步的任何修改都会丢失</value>
+    <value>你在其他电脑上所做的、但尚未与这台电脑同步的任何修改都会丢失！你可以在这台电脑上进行修改。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>零安装同步系统将你的应用程序列表和桌面整合，并自动将它们转移到你的其他计算机上。</value>
+    <value>零安装同步系统将你的应用程序列表和桌面整合，并自动将它们转移到你的其他电脑上。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
