@@ -6,6 +6,7 @@ using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands.WinForms;
 
@@ -114,10 +115,10 @@ public sealed partial class InterfaceDialog : OKCancelDialog
         {
             _candidates = Enumerable.Empty<SelectionCandidate>();
         }
-        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException or WebException)
+        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
         {
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            _candidates = Enumerable.Empty<SelectionCandidate>();
+            DialogResult = DialogResult.None;  // Prevent "OK" button from closing dialog
         }
         #endregion
 
