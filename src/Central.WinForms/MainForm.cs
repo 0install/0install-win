@@ -42,7 +42,7 @@ internal sealed partial class MainForm : Form
         Font = DefaultFonts.Modern;
 
         if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-        if (_machineWide) Text += @" - " + Resources.MachineWideMode;
+        if (machineWide) Text += @" - " + Resources.MachineWideMode;
         labelVersion.Text = @"v" + ZeroInstallInstance.Version;
 
         HandleCreated += MainForm_HandleCreated;
