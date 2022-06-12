@@ -57,6 +57,14 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
 
         this.CenterOnParent();
 
+        comboBoxVersion.Items.AddRange(
+            _target.Feed.Implementations
+                   .Select(x => x.Version)
+                   .WhereNotNull()
+                   .Distinct()
+                   .OrderByDescending(x => x)
+                   .Cast<object>().ToArray());
+
         foreach (var entryPoint in _target.Feed.EntryPoints)
             comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, entryPoint));
 
@@ -75,7 +83,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     private void buttonCancel_Click(object sender, EventArgs e)
         => Close();
 
-    private void UpdateDescription(object sender, EventArgs e)
+    private void Update(object sender, EventArgs e)
     {
         labelSummary.Text = (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetSummary();
         textBoxCommandLine.Text = GetArgs().Except("--no-wait").Prepend("0install").JoinEscapeArguments();
@@ -86,6 +94,13 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         yield return "run";
         yield return "--no-wait";
 
+        string version = comboBoxVersion.SelectedItem?.ToString() ?? comboBoxVersion.Text;
+        if (!string.IsNullOrEmpty(version))
+        {
+            yield return "--version";
+            yield return version;
+        }
+
         string command = (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetCommand() ?? comboBoxCommand.Text;
         if (!string.IsNullOrEmpty(command) && command != Command.NameRun)
         {
@@ -93,7 +108,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
             yield return command;
         }
 
-        if (checkBoxCustomizeVersion.Checked)
+        if (checkBoxCustomize.Checked)
             yield return "--customize";
 
         if (checkBoxRefresh.Checked)
