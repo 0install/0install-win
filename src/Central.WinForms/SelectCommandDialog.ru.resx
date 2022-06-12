@@ -58,8 +58,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="checkBoxCustomizeVersion.Text" xml:space="preserve">
-    <value>Настроить версию</value>
+  <data name="checkBoxCustomize.Text" xml:space="preserve">
+    <value>Настроить</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -80,6 +80,10 @@
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
     <value>Опции:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelVersion.Text" xml:space="preserve">
+    <value>Версия:</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>
