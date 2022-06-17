@@ -10,15 +10,9 @@
   <feed-for interface="https://apps.0install.net/0install/0install-win.xml"/>
 
   <group license="LGPL v3 (GNU Lesser General Public License)">
-    <command name="run" path="0install.exe">
-      <runner command="run" interface="https://apps.0install.net/dotnet/clr.xml" version="4.7.2.."/>
-    </command>
-    <command name="run-gui" path="0install-win.exe">
-      <runner command="run-gui" interface="https://apps.0install.net/dotnet/clr.xml" version="4.7.2.."/>
-    </command>
-    <command name="central" path="ZeroInstall.exe">
-      <runner command="run-gui" interface="https://apps.0install.net/dotnet/clr.xml" version="4.7.2.."/>
-    </command>
+    <command name="run" path="0install.exe"/>
+    <command name="run-gui" path="0install-win.exe"/>
+    <command name="central" path="ZeroInstall.exe"/>
 
     <!-- Use very high version number to treat local build as newer than any public version. -->
     <implementation id="./artifacts/Release/net472/win" version="100-pre"/>
