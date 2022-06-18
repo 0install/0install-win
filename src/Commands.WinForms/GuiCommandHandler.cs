@@ -215,7 +215,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     /// <param name="title">The title of the message.</param>
     /// <param name="message">The message text.</param>
     /// <param name="icon">The icon to display next to the notification.</param>
-    private void ShowNotification(string title, string message, ToolTipIcon icon = ToolTipIcon.Info)
+    private void ShowNotification(string title, string message, ToolTipIcon icon = ToolTipIcon.None)
     {
         if (WindowsUtils.IsWindows10 && ZeroInstallInstance.IsIntegrated)
         {
@@ -328,17 +328,21 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
         // Avoid dead-lock
         if (!_branding.IsValueCreated) return;
 
-        if (severity == LogSeverity.Debug && Verbosity >= Verbosity.Debug
-         || severity == LogSeverity.Info && Verbosity >= Verbosity.Verbose
-         || severity >= LogSeverity.Warn)
+        string title = Branding.Name ?? "Zero Install";
+        switch (severity)
         {
-            ShowNotification(Branding.Name ?? "Zero Install", message, severity switch
-            {
-                LogSeverity.Info => ToolTipIcon.Info,
-                LogSeverity.Warn => ToolTipIcon.Warning,
-                LogSeverity.Error => ToolTipIcon.Error,
-                _ => ToolTipIcon.None
-            });
+            case LogSeverity.Debug when Verbosity >= Verbosity.Debug:
+                ShowNotification(title, message);
+                break;
+            case LogSeverity.Info when Verbosity >= Verbosity.Verbose:
+                ShowNotification(title, message, ToolTipIcon.Info);
+                break;
+            case LogSeverity.Warn:
+                ShowNotification(title, message, ToolTipIcon.Warning);
+                break;
+            case LogSeverity.Error:
+                ShowNotification(title, message, ToolTipIcon.Error);
+                break;
         }
     }
     #endregion
