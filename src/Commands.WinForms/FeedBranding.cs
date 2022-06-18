@@ -57,7 +57,7 @@ public class FeedBranding : IDisposable
         SplashScreen = feed
                      ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
                      ?.To(iconStore.GetCached)
-                     ?.To(Image.FromFile);
+                     ?.To(TryParseImage);
     }
 
     private static SystemIcon? TryParseIcon(string path)
@@ -66,8 +66,9 @@ public class FeedBranding : IDisposable
         {
             return new(path);
         }
-        catch (Exception ex) when (ex is ArgumentException or Win32Exception)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or Win32Exception)
         {
+            Log.Warn($"Failed to parse icon '{path}'", ex);
             return null;
         }
     }
@@ -78,8 +79,22 @@ public class FeedBranding : IDisposable
         {
             return SystemIcon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
-        catch (ArgumentException) // Running from network path, can't extract icon
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or Win32Exception)
         {
+            Log.Warn("Failed to load default icon", ex);
+            return null;
+        }
+    }
+
+    private static Image? TryParseImage(string path)
+    {
+        try
+        {
+            return Image.FromFile(path);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or OutOfMemoryException)
+        {
+            Log.Warn($"Failed to parse image '{path}'", ex);
             return null;
         }
     }
