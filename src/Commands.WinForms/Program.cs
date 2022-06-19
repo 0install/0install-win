@@ -6,7 +6,7 @@ using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
 
 ProgramUtils.Init();
-if (ZeroInstallInstance.IsIntegrated) WindowsUtils.SetCurrentProcessAppID("ZeroInstall");
+WindowsUtils.SetCurrentProcessAppID(ZeroInstallInstance.IsIntegrated ? "ZeroInstall" : "ZeroInstall.NotIntegrated");
 Application.EnableVisualStyles();
 Application.SetCompatibleTextRenderingDefault(false);
 ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));

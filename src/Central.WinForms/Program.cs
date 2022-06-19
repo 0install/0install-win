@@ -18,7 +18,7 @@ public static class Program
     private static int Main(string[] args)
     {
         ProgramUtils.Init();
-        if (ZeroInstallInstance.IsIntegrated) WindowsUtils.SetCurrentProcessAppID("ZeroInstall");
+        WindowsUtils.SetCurrentProcessAppID(ZeroInstallInstance.IsIntegrated ? "ZeroInstall" : "ZeroInstall.NotIntegrated");
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));
