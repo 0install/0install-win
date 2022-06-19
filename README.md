@@ -5,7 +5,7 @@ This is the Windows version of Zero Install. It extends the cross-platform core 
 
 Zero Install is a decentralized cross-platform software installation system. You can learn more at [0install.net](https://0install.net/).
 
-**[Download Zero Install for Windows](https://0install.net/injector.html#windows)**
+**[Download Zero Install for Windows](https://get.0install.net/#windows)**
 
 ## Building
 
