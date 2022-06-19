@@ -5,7 +5,7 @@ using NanoByte.Common.Native;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic.Exporters;
-using ZeroInstall.Commands.Desktop.SelfManagement;
+using ZeroInstall.Commands.Desktop;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model.Preferences;
