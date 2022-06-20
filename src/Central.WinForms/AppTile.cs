@@ -107,16 +107,7 @@ public sealed partial class AppTile : UserControl
     /// Shows an icon on the tile loaded from a file on disk.
     /// </summary>
     public void SetIcon(string path)
-    {
-        try
-        {
-            pictureBoxIcon.LoadAsync(path);
-        }
-        catch (Exception ex)
-        {
-            Log.Error($"Failed to load icon from '{path}'", ex);
-        }
-    }
+        => pictureBoxIcon.LoadAsync(path);
 
     private void RefreshStatus()
     {

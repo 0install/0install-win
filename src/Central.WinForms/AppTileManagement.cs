@@ -210,50 +210,69 @@ public class AppTileManagement
 
             if (stale)
             {
-                // Copy icon into memory to avoid conflicts with background update
-                tile.SetIcon(await Task.Run(() => Image.FromStream(new MemoryStream(File.ReadAllBytes(path)))));
+                // Avoid open file lock that could prevent background update
+                tile.SetIcon(await Task.Run(() => CopyImageToMemory(path)));
 
-                _iconUpdateQueue.Enqueue(() =>
-                {
-                    try
-                    {
-                        tile.BeginInvoke(
-                            (Action<string>)tile.SetIcon,
-                            _iconStore.GetFresh(icon));
-                    }
-                    #region Error handling
-                    catch (OperationCanceledException)
-                    {}
-                    catch (WebException ex)
-                    {
-                        Log.Info(ex.Message, ex);
-                    }
-                    catch (InvalidOperationException) // AppTile already disposed
-                    {}
-                    catch (Exception ex)
-                    {
-                        Log.Warn($"Failed to update tile icon for {tile.InterfaceUri}", ex);
-                    }
-                    #endregion
-                });
+                EnqueueIconUpdate(tile, icon);
             }
             else tile.SetIcon(path);
         }
         #region Error handling
         catch (OperationCanceledException)
         {}
-        catch (WebException ex)
+        catch (Exception ex) when (ex is WebException or InvalidDataException)
         {
             Log.Info(ex.Message, ex);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            Log.Warn($"Failed to set tile icon for {tile.InterfaceUri}", ex);
+            Log.Warn(ex.Message, ex);
         }
+        #endregion
         finally
         {
             _iconDownloadSemaphore.Release();
         }
+    }
+
+    private static Image CopyImageToMemory(string path)
+    {
+        try
+        {
+            return Image.FromStream(new MemoryStream(File.ReadAllBytes(path)));
+        }
+        #region Error handling
+        catch (ArgumentException ex)
+        {
+            // Wrap exception since only certain exception types are allowed
+            throw new InvalidDataException(ex.Message, ex);
+        }
         #endregion
+    }
+
+    private void EnqueueIconUpdate(AppTile tile, Icon icon)
+    {
+        _iconUpdateQueue.Enqueue(() =>
+        {
+            try
+            {
+                string path = _iconStore.GetFresh(icon);
+                tile.BeginInvoke(new Action<string>(tile.SetIcon), path);
+            }
+            #region Error handling
+            catch (InvalidOperationException) // AppTile already disposed
+            {}
+            catch (OperationCanceledException)
+            {}
+            catch (Exception ex) when (ex is WebException or InvalidDataException)
+            {
+                Log.Info(ex.Message, ex);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                Log.Warn(ex.Message, ex);
+            }
+            #endregion
+        });
     }
 }

@@ -51,50 +51,50 @@ public class FeedBranding : IDisposable
         Icon = feed
              ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
              ?.To(iconStore.GetCached)
-             ?.To(TryParseIcon)
-            ?? GetDefaultIcon();
+             ?.To(LoadIcon)
+            ?? LoadDefaultIcon();
 
         SplashScreen = feed
                      ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
                      ?.To(iconStore.GetCached)
-                     ?.To(TryParseImage);
+                     ?.To(LoadSplashScreen);
     }
 
-    private static SystemIcon? TryParseIcon(string path)
+    private static SystemIcon? LoadIcon(string path)
     {
         try
         {
             return new(path);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or Win32Exception)
+        catch (Exception ex)
         {
-            Log.Warn($"Failed to parse icon '{path}'", ex);
+            Log.Warn($"Failed to load icon '{path}'", ex);
             return null;
         }
     }
 
-    private static SystemIcon? GetDefaultIcon()
+    private static SystemIcon? LoadDefaultIcon()
     {
         try
         {
             return SystemIcon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or Win32Exception)
+        catch (Exception ex)
         {
             Log.Warn("Failed to load default icon", ex);
             return null;
         }
     }
 
-    private static Image? TryParseImage(string path)
+    private static Image? LoadSplashScreen(string path)
     {
         try
         {
             return Image.FromFile(path);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or OutOfMemoryException)
+        catch (Exception ex)
         {
-            Log.Warn($"Failed to parse image '{path}'", ex);
+            Log.Warn($"Failed to load splash screen '{path}'", ex);
             return null;
         }
     }
