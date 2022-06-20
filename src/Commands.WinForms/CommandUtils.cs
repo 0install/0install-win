@@ -19,13 +19,9 @@ public class CommandUtils
     /// <param name="args">Command name with arguments to execute.</param>
     public static void Start(params string?[] args)
     {
-        args = args.WhereNotNull().ToArray();
-
-        Log.Debug($"Starting {ExeName} {args.JoinEscapeArguments()}");
-
         try
         {
-            ProcessUtils.Assembly(ExeName, args).Start();
+            ProcessUtils.Assembly(ExeName, args.WhereNotNull().ToArray()).Start();
         }
         #region Error handling
         catch (IOException ex)
