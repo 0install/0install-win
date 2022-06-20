@@ -170,22 +170,10 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <returns>The exit status code to end the process with.</returns>
     public ExitCode Execute(IEnumerable<string> args)
     {
-        // Aggressively restore default self-update URI (e.g., to allow users to "reinstall" to fix broken config)
-        if (_embeddedConfig.SelfUpdateUri == null)
-        {
-            Config.SelfUpdateUri = new FeedUri(Config.DefaultSelfUpdateUri);
-            Config.FeedMirror ??= new FeedUri(Config.DefaultFeedMirror);
-        }
+        UpdateSelfUpdateUri();
 
-        // Read from .exe.config file if present
+        // Read settings from .exe.config file, if present
         Config.ReadFromAppSettings();
-
-        // Only apply custom self-update URI if Zero Install isn't deployed yet and the URI hasn't already been customized
-        if (_embeddedConfig.SelfUpdateUri != null && GetDeployedInstance() == null && Config.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri))
-        {
-            Config.SelfUpdateUri = _embeddedConfig.SelfUpdateUri;
-            Config.FeedMirror = null; // Deployments with custom self-update URIs may not want to use the feed mirror for privacy reasons
-        }
 
         // Write potentially customized config to the user profile
         // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
@@ -199,6 +187,32 @@ public sealed class BootstrapProcess : ServiceProvider
 
         var exitCode = RunZeroInstallIntegrate();
         return exitCode == ExitCode.OK ? RunZeroInstall() : exitCode;
+    }
+
+    /// <summary>
+    /// Updates <see cref="Config.SelfUpdateUri"/>.
+    /// </summary>
+    private void UpdateSelfUpdateUri()
+    {
+        if (_embeddedConfig.SelfUpdateUri == null || _embeddedConfig.SelfUpdateUri == new FeedUri(Config.DefaultSelfUpdateUri))
+        {
+            if (Config.SelfUpdateUri != new FeedUri(Config.DefaultSelfUpdateUri))
+            {
+                Log.Warn($"Resetting self-update URI from {Config.SelfUpdateUri} back to default");
+                Config.SelfUpdateUri = new(Config.DefaultSelfUpdateUri);
+            }
+        }
+        else if (_embeddedConfig.SelfUpdateUri != Config.SelfUpdateUri && GetDeployedInstance() == null)
+        {
+            Log.Info($"Setting self-update URI to {_embeddedConfig.SelfUpdateUri}");
+            Config.SelfUpdateUri = _embeddedConfig.SelfUpdateUri;
+
+            if (Config.FeedMirror == new FeedUri(Config.DefaultFeedMirror))
+            {
+                Log.Info("Disabling feed mirror");
+                Config.FeedMirror = null;
+            }
+        }
     }
 
     /// <summary>
