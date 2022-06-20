@@ -63,7 +63,11 @@ public sealed partial class ProgressForm : Form
                 WindowsTaskbar.PreventPinning(Handle);
         };
 
-        Shown += delegate { this.SetForegroundWindow(); };
+        Shown += delegate
+        {
+            Log.Debug("Progress form shown");
+            this.SetForegroundWindow();
+        };
     }
     #endregion
 
