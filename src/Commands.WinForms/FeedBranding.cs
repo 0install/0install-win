@@ -90,7 +90,9 @@ public class FeedBranding : IDisposable
     {
         try
         {
-            return Image.FromFile(path);
+            // Not using Image.FromFile() to ensure eager file validation
+            using var stream = File.OpenRead(path);
+            return Image.FromStream(stream);
         }
         catch (Exception ex)
         {

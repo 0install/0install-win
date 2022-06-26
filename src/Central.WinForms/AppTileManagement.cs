@@ -210,9 +210,7 @@ public class AppTileManagement
 
             if (stale)
             {
-                // Avoid open file lock that could prevent background update
-                tile.SetIcon(await Task.Run(() => CopyImageToMemory(path)));
-
+                tile.SetIcon(await Task.Run(() => LoadImageWithoutKeepingFileLock(path)));
                 EnqueueIconUpdate(tile, icon);
             }
             else tile.SetIcon(path);
@@ -235,14 +233,15 @@ public class AppTileManagement
         }
     }
 
-    private static Image CopyImageToMemory(string path)
+    private static Image LoadImageWithoutKeepingFileLock(string path)
     {
         try
         {
-            return Image.FromStream(new MemoryStream(File.ReadAllBytes(path)));
+            using var stream = File.OpenRead(path);
+            return Image.FromStream(stream);
         }
         #region Error handling
-        catch (ArgumentException ex)
+        catch (Exception ex) when (ex is ArgumentException or Win32Exception)
         {
             // Wrap exception since only certain exception types are allowed
             throw new InvalidDataException(ex.Message, ex);
