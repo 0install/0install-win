@@ -21,12 +21,12 @@
     <!-- Deploy native libs to output -->
     <RuntimeIdentifier>win</RuntimeIdentifier>
 
-    <!-- Dummy version number, overridden by GitVersion -->
+    <!-- Dummy version number, overriddenby GitVersion -->
     <Version>1.0.0-pre</Version>
 
     <!-- Dependency versions -->
-    <NanoByteCommonVersion>2.12.4</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.23.6</ZeroInstallVersion>
+    <NanoByteCommonVersion>2.12.5</NanoByteCommonVersion>
+    <ZeroInstallVersion>2.23.7</ZeroInstallVersion>
   </PropertyGroup>
 
   <!-- Global usings -->
