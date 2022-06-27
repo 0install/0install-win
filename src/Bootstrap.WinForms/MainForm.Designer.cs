@@ -35,7 +35,7 @@ namespace ZeroInstall
             // 
             // pictureBoxSplashScreen
             // 
-            this.pictureBoxSplashScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxSplashScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSplashScreen.BackgroundImage = global::ZeroInstall.Properties.Resources.SplashScreen;
             this.pictureBoxSplashScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxSplashScreen.Location = new System.Drawing.Point(0, 0);
@@ -75,6 +75,7 @@ namespace ZeroInstall
             this.Controls.Add(this.pictureBoxSplashScreen);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(370, 270);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
