@@ -303,6 +303,15 @@ public sealed class BootstrapProcess : ServiceProvider
                 #endregion
             }
         }
+
+        string iconsDir = _machine
+            ? Locations.GetSaveSystemConfigPath("0install.net", isFile: false, "desktop-integration", "icons")
+            : Locations.GetSaveConfigPath("0install.net", isFile: false, "desktop-integration", "icons");
+        foreach (string path in Directory.GetFiles(_contentDir, "*.png").Concat(Directory.GetFiles(_contentDir, "*.ico")))
+        {
+            Log.Info($"Importing desktop integration icon from {path}");
+            File.Copy(path, Path.Combine(iconsDir, Path.GetFileName(path)), overwrite: true);
+        }
     }
 
     /// <summary>
