@@ -45,7 +45,7 @@ public sealed class BootstrapProcess : ServiceProvider
     private bool _noIntegrate;
 
     /// <summary>Integrate the application machine-wide (for the entire computer) instead of just for the current user.</summary>
-    private bool _machine;
+    private bool _machineWide;
 
     private string HelpText
     {
@@ -148,7 +148,7 @@ public sealed class BootstrapProcess : ServiceProvider
             {
                 _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
                 if (!_embeddedConfig.IntegrateArgs.Contains("--machine"))
-                    _options.Add("machine", () => $"Integrate {_embeddedConfig.AppName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machine = true);
+                    _options.Add("machine", () => $"Integrate {_embeddedConfig.AppName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
             }
         }
 
@@ -185,8 +185,8 @@ public sealed class BootstrapProcess : ServiceProvider
         TrustKeys();
         ImportContent();
 
-        var exitCode = RunZeroInstallIntegrate();
-        return exitCode == ExitCode.OK ? RunZeroInstall() : exitCode;
+        var exitCode = ExecuteIntegrate();
+        return exitCode == ExitCode.OK ? ExecuteRun() : exitCode;
     }
 
     /// <summary>
@@ -304,7 +304,7 @@ public sealed class BootstrapProcess : ServiceProvider
             }
         }
 
-        string iconsDir = _machine
+        string iconsDir = _machineWide
             ? Locations.GetSaveSystemConfigPath("0install.net", isFile: false, "desktop-integration", "icons")
             : Locations.GetSaveConfigPath("0install.net", isFile: false, "desktop-integration", "icons");
         foreach (string path in Directory.GetFiles(_contentDir, "*.png").Concat(Directory.GetFiles(_contentDir, "*.ico")))
@@ -317,28 +317,22 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <summary>
     /// Runs <c>0install integrate</c> if requested by <see cref="_embeddedConfig"/>.
     /// </summary>
-    private ExitCode RunZeroInstallIntegrate()
+    private ExitCode ExecuteIntegrate()
     {
         if (_noIntegrate || _embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
             return ExitCode.OK;
 
         var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc()};
-        if (_machine) args.Add("--machine");
+        if (_machineWide) args.Add("--machine");
         args.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
 
-        var startInfo = ZeroInstall(args.ToArray());
-
-        var exitCode = ExitCode.UserCanceled;
-        Handler.RunTask(new SimpleTask(
-            $"Integrating {_embeddedConfig.AppName}",
-            () => exitCode = (ExitCode)startInfo.Run()));
-        return exitCode;
+        return RunZeroInstall(args.ToArray());
     }
 
     /// <summary>
     /// Runs <c>0install</c> with <c>run</c>, <c>central</c> or other user-provided arguments.
     /// </summary>
-    private ExitCode RunZeroInstall()
+    private ExitCode ExecuteRun()
     {
         var args = new List<string>();
 
@@ -374,7 +368,30 @@ public sealed class BootstrapProcess : ServiceProvider
             }
         }
 
-        var process = ZeroInstall(args.ToArray()).Start();
+        return SwitchToZeroInstall(args.ToArray());
+    }
+
+    /// <summary>
+    /// Runs Zero Install as an <see cref="ITask"/>.
+    /// </summary>
+    private ExitCode RunZeroInstall(params string[] args)
+    {
+        var startInfo = ZeroInstall(args);
+
+        var exitCode = ExitCode.UserCanceled;
+        Handler.RunTask(new SimpleTask(
+            $"Integrating {_embeddedConfig.AppName}",
+            () => exitCode = (ExitCode)startInfo.Run()));
+
+        return exitCode;
+    }
+
+    /// <summary>
+    /// Runs Zero Install and hides the Bootstrap GUI.
+    /// </summary>
+    private ExitCode SwitchToZeroInstall(params string[] args)
+    {
+        var process = ZeroInstall(args).Start();
 
         // Close window after a short delay (for a smoother visual transition)
         if (_gui) Thread.Sleep(2000);
@@ -386,7 +403,7 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <summary>
     /// Returns process start information for an instance of Zero Install.
     /// </summary>
-    private ProcessStartInfo ZeroInstall(params string[] args)
+    private ProcessStartInfo ZeroInstall(string[] args)
     {
         // Forwards bootstrapper arguments that are also applicable to 0install
         args = Handler.Verbosity switch
