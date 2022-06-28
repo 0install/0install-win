@@ -38,6 +38,9 @@ public sealed class BootstrapProcess : ServiceProvider
     /// <summary>Arguments passed through to the target process.</summary>
     private readonly List<string> _userArgs = new();
 
+    /// <summary>Download all files required to run off-line later.</summary>
+    private bool _prepareOffline;
+
     /// <summary>Do not run the application after downloading it.</summary>
     private bool _noRun;
 
@@ -133,6 +136,9 @@ public sealed class BootstrapProcess : ServiceProvider
             },
             {
                 "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
+            },
+            {
+                "prepare-offline", () => "Download all files required to run off-line later.", _ => _prepareOffline = true
             }
         };
 
@@ -184,6 +190,13 @@ public sealed class BootstrapProcess : ServiceProvider
 
         TrustKeys();
         ImportContent();
+
+        if (_prepareOffline)
+        {
+            return _embeddedConfig.AppUri == null
+                ? SwitchToZeroInstall("export", Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri, Locations.InstallBase)
+                : SwitchToZeroInstall("export", "--include-zero-install", _embeddedConfig.AppUri.ToStringRfc(), Locations.InstallBase);
+        }
 
         var exitCode = ExecuteIntegrate();
         return exitCode == ExitCode.OK ? ExecuteRun() : exitCode;
