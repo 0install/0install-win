@@ -46,6 +46,8 @@ public sealed partial class ProgressForm : Form
             pictureBoxSplashScreen.Image = branding.SplashScreen;
             var offset = new Size(width: 0, height: pictureBoxSplashScreen.Height);
             MinimumSize += offset;
+            panelProgress.Location += offset;
+            panelProgress.Size -= offset;
             selectionsControl.Location += offset;
             selectionsControl.Size -= offset;
         }
