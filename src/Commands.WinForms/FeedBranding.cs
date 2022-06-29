@@ -41,23 +41,42 @@ public class FeedBranding : IDisposable
     /// </summary>
     public FeedBranding(FeedUri? feedUri)
     {
-        var feedCache = FeedCaches.Default(OpenPgp.Verifying());
-        var feed = feedUri?.To(feedCache.GetFeed);
-
+        var feed = feedUri?.To(LoadFeed);
         Name = feed?.Name;
         AppId = feed?.GetEntryPoint(Command.NameRun)?.AppId;
 
-        var iconStore = IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false);
-        Icon = feed
-             ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
-             ?.To(iconStore.GetCached)
-             ?.To(LoadIcon)
-            ?? LoadDefaultIcon();
+        try
+        {
+            var iconStore = IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false);
 
-        SplashScreen = feed
-                     ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
-                     ?.To(iconStore.GetCached)
-                     ?.To(LoadSplashScreen);
+            Icon = feed
+                 ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
+                 ?.To(iconStore.GetCached)
+                 ?.To(LoadIcon)
+                ?? LoadDefaultIcon();
+
+            SplashScreen = feed
+                         ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
+                         ?.To(iconStore.GetCached)
+                         ?.To(LoadSplashScreen);
+        }
+        catch (Exception ex)
+        {
+            Log.Warn("Error while loading icons", ex);
+        }
+    }
+
+    private static Feed? LoadFeed(FeedUri feedUri)
+    {
+        try
+        {
+            return FeedCaches.Default(OpenPgp.Verifying()).GetFeed(feedUri);
+        }
+        catch (Exception ex)
+        {
+            Log.Warn($"Failed to feed {feedUri}", ex);
+            return null;
+        }
     }
 
     private static SystemIcon? LoadIcon(string path)
