@@ -406,8 +406,16 @@ public sealed class BootstrapProcess : ServiceProvider
     {
         var process = ZeroInstall(args).Start();
 
-        // Close window after a short delay (for a smoother visual transition)
-        if (_gui) Thread.Sleep(2000);
+        if (_gui && WindowsUtils.IsWindows)
+        {
+            // Wait for 0install window to become visible before closing bootstrapper window (for a smoother visual transition)
+            try
+            {
+                process.WaitForInputIdle(milliseconds: 5000);
+            }
+            catch (InvalidOperationException)
+            {}
+        }
         Handler.Dispose();
 
         return (ExitCode)process.WaitForExitCode();
