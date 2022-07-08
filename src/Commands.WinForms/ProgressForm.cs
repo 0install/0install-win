@@ -318,5 +318,16 @@ public sealed partial class ProgressForm : Form
     #endregion
 
     private void linkPoweredBy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        => Process.Start("https://0install.net/");
+    {
+        try
+        {
+            Process.Start("https://0install.net/");
+        }
+        #region Error handling
+        catch (Exception ex)
+        {
+            Msg.Inform(this, ex.Message, MsgSeverity.Error);
+        }
+        #endregion
+    }
 }
