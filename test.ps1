@@ -1,4 +1,4 @@
-Param ([Switch]$Deploy, [Switch]$Machine, [Switch]$Portable)
+Param ([Switch]$Deploy, [Switch]$Machine, [Switch]$Portable, [Switch]$Purge)
 $ErrorActionPreference = "Stop"
 
 $previousPath = $env:PATH
@@ -24,6 +24,11 @@ if ($Deploy) {
 foreach ($script in Get-ChildItem "$PSScriptRoot\tests" -Filter "*.ps1") {
   Write-Output $script.Name
   & $script.FullName
+}
+
+if ($Purge) {
+  0install store purge --batch
+  if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 }
 
 if ($Deploy) {

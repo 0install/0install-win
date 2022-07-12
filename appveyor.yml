@@ -10,10 +10,10 @@ build_script:
   - powershell .\build.ps1 %GitVersion_NuGetVersion%
 
 test_script:
-  - powershell .\test.ps1
-  - powershell .\test.ps1 -Deploy
-  - powershell .\test.ps1 -Deploy -Machine
-  - powershell .\test.ps1 -Deploy -Portable
+  - powershell .\test.ps1 -Purge
+  - powershell .\test.ps1 -Deploy -Purge
+  - powershell .\test.ps1 -Deploy -Machine -Purge
+  - powershell .\test.ps1 -Deploy -Portable -Purge
 
 artifacts:
   - path: artifacts
