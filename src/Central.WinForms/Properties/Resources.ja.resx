@@ -165,12 +165,12 @@ My apps "に追加してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>マイアプリに追加し、デスクトップ環境にも統合。</value>
+    <value>マイアプリに追加し、デスクトップ環境に統合しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>ディレクトリ '{0}' は空ではありません。
-本当にZero Installのポータブル版をそこに置くのですか？</value>
+本当にZero Installのポータブルバージョンをそこに置くのですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -255,7 +255,7 @@ My apps "に追加してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Sync サーバーへの接続に暗号化されていないものを使用したいのですが？
+    <value>Syncサーバーへの接続に暗号化されていないものを使用したいのですが、本当にそうでしょうか？
 暗号化された接続は、https:// プレフィックスを使用します。</value>
     <comment>Automatically translated.</comment>
   </data>

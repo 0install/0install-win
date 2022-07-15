@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Konfiguracja instalacji zerowej</value>
+    <value>Konfiguracja Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -75,11 +75,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Przejdź do</value>
+    <value>Idź do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Przejdź do</value>
+    <value>Idź do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Resetuj</value>
+    <value>Reset</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Automatycznie zatwierdzaj nowe klucze (jeśli są znane serwerowi kluczy)</value>
+    <value>Automatyczne zatwierdzanie nowych kluczy (jeśli są znane przez serwer kluczy)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Korzystanie z sieci</value>
+    <value>Użytkowanie sieci</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Należy wybrać lub utworzyć katalog, który będzie używany jako pamięć podręczna do wdrażania.</value>
+    <value>Proszę wybrać lub utworzyć katalog, który będzie używany jako pamięć podręczna wdrożenia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>To kontroluje język:
+    <value>To kontroluje język z:
 - Samej instalacji Zero Install oraz
 - aplikacji pobieranych przez Zero Install.
 
@@ -169,11 +169,11 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Pełna (normalne korzystanie z sieci)</value>
+    <value>Pełna (normalne użytkowanie sieci)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimalne (preferuj wersje w pamięci podręcznej)</value>
+    <value>Minimalne (preferuj wersje buforowane)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">

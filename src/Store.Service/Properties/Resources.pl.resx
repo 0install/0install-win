@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>Użytkownikowi '{0}' nie udało się dodać implementacji '{1}' do '{2}'.</value>
+    <value>Użytkownikowi '{0}' nie udało się dodać wdrożenia '{1}' do '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Nie udało się utworzyć katalogu tymczasowego dla użytkownika '{0}' w katalogu '{1}'.</value>
+    <value>Nie udało się utworzyć katalogu tymczasowego dla użytkownika '{0}' w '{1}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">

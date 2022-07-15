@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーです。</value>
+    <value>暗号キー。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>これでZero Install Syncのセットアップが完了し、すぐに使用できるようになりました。このコンピュータと同期させたい他のコンピュータでも、このウィザードを実行してください。</value>
+    <value>これでZero Install Syncのセットアップが完了し、すぐに使用できるようになりました。このウィザードを、このコンピュータと同期させたい他のコンピュータで実行してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
