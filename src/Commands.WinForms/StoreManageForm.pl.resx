@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zarządzanie pamięcią podręczną "zero instalacji</value>
+    <value>Zarządzanie pamięcią podręczną Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Sprawdzono rozmiar wpisów:</value>
+    <value>Sprawdzono wielkość wpisów:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>Rozmiar całkowity:</value>
+    <value>Całkowity rozmiar:</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>
