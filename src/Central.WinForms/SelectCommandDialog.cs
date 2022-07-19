@@ -57,13 +57,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
 
         this.CenterOnParent();
 
-        comboBoxVersion.Items.AddRange(
-            _target.Feed.Implementations
-                   .Select(x => x.Version)
-                   .WhereNotNull()
-                   .Distinct()
-                   .OrderByDescending(x => x)
-                   .Cast<object>().ToArray());
+        comboBoxVersion.Items.AddRange(GetVersions().Cast<object>().ToArray());
 
         foreach (var entryPoint in _target.Feed.EntryPoints)
             comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, entryPoint));
@@ -72,6 +66,15 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
             comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, Command.NameRun));
 
         comboBoxCommand.SelectedIndex = 0;
+    }
+
+    private IEnumerable<ImplementationVersion> GetVersions()
+    {
+        return _target.Feed.Implementations
+               .Select(x => x.Version)
+               .WhereNotNull()
+               .Distinct()
+               .OrderByDescending(x => x);
     }
 
     private void buttonOK_Click(object sender, EventArgs e)
