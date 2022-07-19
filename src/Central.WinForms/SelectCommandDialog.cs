@@ -3,6 +3,9 @@
 
 using NanoByte.Common.Native;
 using ZeroInstall.Commands.WinForms;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms;
 
@@ -70,7 +73,15 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
 
     private IEnumerable<ImplementationVersion> GetVersions()
     {
+        var feedCache = FeedCaches.Default(OpenPgp.Verifying());
+        var additionalFeeds =
+            InterfacePreferences.LoadForSafe(_target.Uri)
+                                .Feeds
+                                .TrySelect(x => feedCache.GetFeed(x.Source), (Exception ex) => Log.Warn("Failed to load feed from cache", ex))
+                                .WhereNotNull();
+
         return _target.Feed.Implementations
+               .Concat(additionalFeeds.SelectMany(x => x.Implementations))
                .Select(x => x.Version)
                .WhereNotNull()
                .Distinct()
