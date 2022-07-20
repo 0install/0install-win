@@ -42,7 +42,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         _standardCategories = CategoryIntegrationManager.StandardCategories.Where(_categories.ContainsKey).ToList();
 
         _switchToBasicMode?.Invoke();
-        _initialCategories.AddRange(_categories.Where(x => x.Value()).Select(x => x.Key));
+        _initialCategories.Add(_categories.Where(x => x.Value()).Select(x => x.Key));
     }
 
     #region Event handlers
@@ -139,11 +139,11 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
                              .WhereNotNull().Distinct()
                              .Cast<object>().ToArray();
 
-        dataGridStartMenuColumnCommand.Items.AddRange(commands);
-        dataGridDesktopColumnCommand.Items.AddRange(commands);
-        dataGridSendToColumnCommand.Items.AddRange(commands);
-        dataGridAliasesColumnCommand.Items.AddRange(commands);
-        dataGridAutoStartColumnCommand.Items.AddRange(commands);
+        dataGridStartMenuColumnCommand.Items.Add(commands);
+        dataGridDesktopColumnCommand.Items.Add(commands);
+        dataGridSendToColumnCommand.Items.Add(commands);
+        dataGridAliasesColumnCommand.Items.Add(commands);
+        dataGridAutoStartColumnCommand.Items.Add(commands);
     }
 
     /// <summary>
@@ -299,10 +299,10 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
                 commandLine.Add("--add-standard");
                 selectedCategories.Remove(_standardCategories);
             }
-            commandLine.AddRange(selectedCategories.Select(x => "--add=" + x));
+            commandLine.Add(selectedCategories.Select(x => "--add=" + x));
 
             var notSelectedCategories = _categories.Where(x => !x.Value()).Select(x => x.Key);
-            commandLine.AddRange(notSelectedCategories.Where(_initialCategories.Contains).Select(x => "--remove=" + x));
+            commandLine.Add(notSelectedCategories.Where(_initialCategories.Contains).Select(x => "--remove=" + x));
         }
 
         textBoxCommandLine.Text = commandLine.JoinEscapeArguments();

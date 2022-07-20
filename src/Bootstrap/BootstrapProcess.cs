@@ -185,7 +185,7 @@ public sealed class BootstrapProcess : ServiceProvider
         // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
         Config.Save();
 
-        _userArgs.AddRange(_options.Parse(args));
+        _userArgs.Add(_options.Parse(args));
         if (_embeddedConfig.AppUri == null) ShareArgsWithZeroInstall();
 
         TrustKeys();
@@ -337,7 +337,7 @@ public sealed class BootstrapProcess : ServiceProvider
 
         var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc()};
         if (_machineWide) args.Add("--machine");
-        args.AddRange(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
+        args.Add(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
 
         return RunZeroInstall(args.ToArray());
     }
@@ -353,7 +353,7 @@ public sealed class BootstrapProcess : ServiceProvider
         {
             string appUri = _embeddedConfig.AppUri.ToStringRfc();
             if (_noRun)
-                args.AddRange(new[] {"download", appUri});
+                args.Add(new[] {"download", appUri});
             else
             {
                 args.Add("run");
@@ -364,12 +364,12 @@ public sealed class BootstrapProcess : ServiceProvider
                 if (appArgs.Length != 0)
                 {
                     args.Add("--");
-                    args.AddRange(appArgs);
+                    args.Add(appArgs);
                 }
             }
         }
 
-        args.AddRange(_userArgs);
+        args.Add(_userArgs);
 
         if (args.Count == 0)
         {
