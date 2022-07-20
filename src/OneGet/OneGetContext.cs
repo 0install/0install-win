@@ -170,9 +170,15 @@ public sealed class OneGetContext : ScopedOperation, IOneGetContext
         foreach (var implementation in SelectionsManager.GetUncachedImplementations(selections))
             Fetcher.Fetch(implementation);
 
-        var exporter = new Exporter(selections, requirements, location);
+        var exporter = new Exporter(selections, requirements.Architecture, location);
         exporter.ExportFeeds(FeedCache, OpenPgp);
         exporter.ExportImplementations(ImplementationStore, Handler);
+        if (FeedCache.GetFeed(requirements.InterfaceUri) is {} feed)
+        {
+            exporter.ExportIcons(
+                feed.Icons.Concat(feed.SplashScreens),
+                IconStores.DesktopIntegration(Config, Handler, machineWide: false));
+        }
         exporter.DeployImportScript();
         exporter.DeployBootstrapIntegrate(Handler);
 

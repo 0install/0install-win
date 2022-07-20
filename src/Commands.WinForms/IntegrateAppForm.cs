@@ -297,7 +297,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
             if (_standardCategories.All(selectedCategories.Contains))
             {
                 commandLine.Add("--add-standard");
-                selectedCategories.RemoveRange(_standardCategories);
+                selectedCategories.Remove(_standardCategories);
             }
             commandLine.AddRange(selectedCategories.Select(x => "--add=" + x));
 
