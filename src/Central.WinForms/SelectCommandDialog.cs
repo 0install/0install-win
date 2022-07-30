@@ -40,7 +40,9 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     }
     #endregion
 
-    private readonly FeedTarget _target;
+    private readonly IFeedCache _feedCache = FeedCaches.Default(OpenPgp.Verifying());
+    private readonly FeedUri _feedUri;
+    private readonly Feed _feed;
 
     /// <summary>
     /// Creates a dialog box for asking the the user to select an <see cref="Command"/>.
@@ -48,7 +50,8 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     /// <param name="target">The application to be launched.</param>
     public SelectCommandDialog(FeedTarget target)
     {
-        _target = target;
+        _feedUri = target.Uri;
+        _feed = _feedCache.GetFeed(target.Uri) ?? target.Feed;
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
@@ -56,31 +59,30 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
 
     private void SelectCommandDialog_Load(object sender, EventArgs e)
     {
-        Text = Resources.Run + @" " + _target.Feed.Name;
+        Text = Resources.Run + @" " + _feed.Name;
 
         this.CenterOnParent();
 
         comboBoxVersion.Items.AddRange(GetVersions().Cast<object>().ToArray());
 
-        foreach (var entryPoint in _target.Feed.EntryPoints)
-            comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, entryPoint));
+        foreach (var entryPoint in _feed.EntryPoints)
+            comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, entryPoint));
 
         if (comboBoxCommand.Items.Count == 0)
-            comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, Command.NameRun));
+            comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, Command.NameRun));
 
         comboBoxCommand.SelectedIndex = 0;
     }
 
     private IEnumerable<ImplementationVersion> GetVersions()
     {
-        var feedCache = FeedCaches.Default(OpenPgp.Verifying());
         var additionalFeeds =
-            InterfacePreferences.LoadForSafe(_target.Uri)
+            InterfacePreferences.LoadForSafe(_feedUri)
                                 .Feeds
-                                .TrySelect(x => feedCache.GetFeed(x.Source), (Exception ex) => Log.Warn("Failed to load feed from cache", ex))
+                                .TrySelect(x => _feedCache.GetFeed(x.Source), (Exception ex) => Log.Warn("Failed to load feed from cache", ex))
                                 .WhereNotNull();
 
-        return _target.Feed.Implementations
+        return _feed.Implementations
                .Concat(additionalFeeds.SelectMany(x => x.Implementations))
                .Select(x => x.Version)
                .WhereNotNull()
@@ -128,7 +130,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         if (checkBoxRefresh.Checked)
             yield return "--refresh";
 
-        yield return _target.Uri.ToStringRfc();
+        yield return _feedUri.ToStringRfc();
 
         if (!string.IsNullOrEmpty(textBoxArgs.Text))
         {
