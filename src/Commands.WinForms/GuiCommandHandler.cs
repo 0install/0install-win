@@ -217,31 +217,35 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     /// <param name="icon">The icon to display next to the notification.</param>
     private void ShowNotification(string title, string message, ToolTipIcon icon = ToolTipIcon.None)
     {
-        if (WindowsUtils.IsWindows10 && ZeroInstallInstance.IsIntegrated)
+        void Classic()
+            => new NotifyIcon {Visible = true, Text = Branding.Name ?? "Zero Install", Icon = Branding.Icon}
+               .ShowBalloonTip(10000, title, message, icon);
+
+        void Modern(string appId)
         {
             try
             {
-                ShowNotificationModern(title, message);
+                ShowNotificationModern(title, message, appId);
             }
             catch
             {
-                ShowNotificationClassic(title, message, icon);
+                Classic();
             }
         }
-        else
-        {
-            ShowNotificationClassic(title, message, icon);
-        }
-    }
 
-    private void ShowNotificationClassic(string title, string message, ToolTipIcon icon)
-    {
-        new NotifyIcon {Visible = true, Text = Branding.Name ?? "Zero Install", Icon = Branding.Icon}
-           .ShowBalloonTip(10000, title, message, icon);
+        if (WindowsUtils.IsWindows10)
+        {
+            if (ZeroInstallInstance.IsIntegrated)
+                Modern(appId: "ZeroInstall");
+            else if (ZeroInstallInstance.IsLibraryMode && !string.IsNullOrEmpty(Branding.AppId))
+                Modern(Branding.AppId);
+            else Classic();
+        }
+        else Classic();
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void ShowNotificationModern(string title, string message)
+    private static void ShowNotificationModern(string title, string message, string appId)
     {
         var doc = new XmlDocument();
 
@@ -268,7 +272,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
             })
         }));
 
-        ToastNotificationManager.CreateToastNotifier("ZeroInstall")
+        ToastNotificationManager.CreateToastNotifier(appId)
                                 .Show(new ToastNotification(doc));
     }
 
