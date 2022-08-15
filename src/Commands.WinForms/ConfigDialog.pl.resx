@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Proszę wybrać lub utworzyć katalog, który będzie używany jako pamięć podręczna wdrożenia.</value>
+    <value>Proszę wybrać lub utworzyć katalog, aby użyć go jako pamięci podręcznej do wdrożenia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">

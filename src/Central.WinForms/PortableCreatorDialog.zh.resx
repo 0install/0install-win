@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>在这里你可以创建一个 "零安装 "的便携版本，例如在USB拇指驱动器上使用。目标必须是NTFS格式的。</value>
+    <value>在这里你可以创建一个 "零安装 "的便携版本，例如在USB优盘上使用。目标必须是NTFS格式的。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
