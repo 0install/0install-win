@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙是用来在本地加密你的数据，然后再传输到服务器。写下建议的密钥或选择你自己的。</value>
+    <value>密码钥匙用于在本地加密你的数据，然后传输到服务器。写下建议的密钥或选择你自己的。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>你在其他电脑上所做的、但尚未与这台电脑同步的任何修改都会丢失！你可以在这台电脑上进行修改。</value>
+    <value>你在其他电脑上所做的但尚未与这台电脑同步的任何修改都会丢失</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -159,7 +159,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>你也可能希望在你使用Zero Install Sync的其他电脑上重置本地数据。</value>
+    <value>你也可能希望在你使用零点安装同步系统的其他电脑上重置本地数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">

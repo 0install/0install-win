@@ -78,7 +78,7 @@
     <value>- Хранит конфигурацию Zero Install и кэшированные приложения в одном каталоге.
 - Не делает приложения, запущенные через Zero Install, автоматически переносимыми.
 - Портативные версии Zero Install не могут выполнять интеграцию с рабочим столом (например, создавать пункты меню Пуск).
-- Вместо этого используйте обычную Zero Install на нескольких компьютерах с помощью Zero Install Sync.</value>
+- Вместо этого используйте обычный Zero Install на нескольких компьютерах с помощью Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

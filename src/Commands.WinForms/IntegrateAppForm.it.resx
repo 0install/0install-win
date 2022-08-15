@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Linea di comando equivalente</value>
+    <value>Equivalente a riga di comando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programma predefinito per attività quali il browser web o il client di posta elettronica</value>
+    <value>Programma predefinito per attività come il browser web o il client di posta elettronica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
