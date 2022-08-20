@@ -167,6 +167,7 @@ public sealed partial class ProgressForm : Form
             Dock = DockStyle.Top
         };
         panelProgress.Controls.Add(taskControl);
+        panelProgress.Controls.SetChildIndex(taskControl, 0);
         return taskControl;
     }
 
