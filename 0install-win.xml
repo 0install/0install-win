@@ -3,8 +3,8 @@
   <name>Zero Install for Windows</name>
   <summary>Windows version of 0install, the decentralized installation system</summary>
   <description>This is the Windows version of Zero Install. Zero Install is a cross-platform, decentralized installation system. Instead of having a central repository in which all software is placed under a naming scheme managed by some central authority, programs and libraries in Zero Install are identified by URIs. Anyone who can create a web-page can publish software. Anyone can install software (not just administrators).</description>
-  <icon href="https://raw.githubusercontent.com/0install/0install-win/master/icon.png" type="image/png"/>
-  <icon href="https://raw.githubusercontent.com/0install/0install-win/master/icon.ico" type="image/vnd.microsoft.icon"/>
+  <icon href="https://apps.0install.net/0install/0install.png" type="image/png"/>
+  <icon href="https://apps.0install.net/0install/0install.ico" type="image/vnd.microsoft.icon"/>
   <homepage>https://0install.net/</homepage>
 
   <feed-for interface="https://apps.0install.net/0install/0install-win.xml"/>
