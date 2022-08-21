@@ -73,12 +73,8 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
 
         Log.Debug("Task: " + task.Name);
 
-        var progress = _wrapper.Post(form => (task.Tag is string tag)
-            ? form.AddProgressControl(task.Name, tag)
-            : form.AddProgressControl(task.Name));
-
+        var progress = _wrapper.Post(form => form.AddProgressControl(task.Name, task.Tag as string));
         task.Run(CancellationToken, CredentialProvider, progress);
-
         _wrapper.Post(form => form.RemoveProgressControl(progress));
     }
     #endregion

@@ -145,55 +145,40 @@ public sealed partial class ProgressForm : Form
 
     #region Task tracking
     /// <summary>
-    /// Adds a GUI element for reporting progress of a generic <see cref="ITask"/>. Should only be one running at a time.
+    /// Adds a GUI element for reporting progress of a <see cref="ITask"/>. May run multiple in parallel.
     /// </summary>
     /// <param name="taskName">The name of the task to be tracked.</param>
+    /// <param name="tag">An optional digest used to associate the task with a specific implementation.</param>
     /// <remarks>This method must not be called from a background thread.</remarks>
-    public IProgress<TaskSnapshot> AddProgressControl(string taskName)
+    public IProgress<TaskSnapshot> AddProgressControl(string taskName, string? tag = null)
     {
         #region Sanity checks
         if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
         if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
         #endregion
 
-        panelProgress.Show();
-
-        // Hide other stuff
-        if (_selectionsShown) selectionsControl.Hide();
-
-        var taskControl = new TaskControl
+        if (_selectionsShown && tag != null)
         {
-            TaskName = taskName,
-            Dock = DockStyle.Top
-        };
-        panelProgress.Controls.Add(taskControl);
-        panelProgress.Controls.SetChildIndex(taskControl, 0);
-        return taskControl;
-    }
+            panelProgress.Hide();
 
-    /// <summary>
-    /// Adds a GUI element for reporting progress of a <see cref="ITask"/> for a specific implementation. May run multiple in parallel.
-    /// </summary>
-    /// <param name="taskName">The name of the task to be tracked.</param>
-    /// <param name="tag">A digest used to associate the task with a specific implementation.</param>
-    /// <remarks>This method must not be called from a background thread.</remarks>
-    public IProgress<TaskSnapshot> AddProgressControl(string taskName, string tag)
-    {
-        #region Sanity checks
-        if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
-        if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-        #endregion
-
-        // Hide other stuff
-        panelProgress.Hide();
-
-        if (_selectionsShown)
-        {
             var control = selectionsControl.TaskControls[tag];
             control.TaskName = taskName;
             return control;
         }
-        else return AddProgressControl(taskName);
+        else
+        {
+            selectionsControl.Hide();
+            panelProgress.Show();
+
+            var taskControl = new TaskControl
+            {
+                TaskName = taskName,
+                Dock = DockStyle.Top
+            };
+            panelProgress.Controls.Add(taskControl);
+            panelProgress.Controls.SetChildIndex(taskControl, 0);
+            return taskControl;
+        }
     }
 
     /// <summary>
