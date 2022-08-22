@@ -85,4 +85,8 @@
     <value>Zielverzeichnis</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Entsprechende Befehlszeile</value>
+    <comment>Manually overriden.</comment>
+  </data>
 </root>

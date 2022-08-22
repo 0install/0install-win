@@ -34,6 +34,9 @@ namespace ZeroInstall.Central.WinForms
             this.buttonDeploy = new System.Windows.Forms.Button();
             this.buttonSelectTarget = new System.Windows.Forms.Button();
             this.labelInfo2 = new System.Windows.Forms.Label();
+            this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
+            this.textBoxCommandLine = new System.Windows.Forms.TextBox();
+            this.groupBoxCommandLine.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -74,12 +77,26 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.labelInfo2, "labelInfo2");
             this.labelInfo2.Name = "labelInfo2";
             // 
+            // groupBoxCommandLine
+            // 
+            resources.ApplyResources(this.groupBoxCommandLine, "groupBoxCommandLine");
+            this.groupBoxCommandLine.Controls.Add(this.textBoxCommandLine);
+            this.groupBoxCommandLine.Name = "groupBoxCommandLine";
+            this.groupBoxCommandLine.TabStop = false;
+            // 
+            // textBoxCommandLine
+            // 
+            resources.ApplyResources(this.textBoxCommandLine, "textBoxCommandLine");
+            this.textBoxCommandLine.Name = "textBoxCommandLine";
+            this.textBoxCommandLine.ReadOnly = true;
+            // 
             // PortableCreatorDialog
             // 
             this.AcceptButton = this.buttonDeploy;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.groupBoxCommandLine);
             this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.buttonSelectTarget);
             this.Controls.Add(this.buttonDeploy);
@@ -93,6 +110,8 @@ namespace ZeroInstall.Central.WinForms
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.PortableCreatorDialog_Load);
+            this.groupBoxCommandLine.ResumeLayout(false);
+            this.groupBoxCommandLine.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -105,5 +124,7 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Button buttonDeploy;
         private System.Windows.Forms.Button buttonSelectTarget;
         private System.Windows.Forms.Label labelInfo2;
+        private System.Windows.Forms.GroupBox groupBoxCommandLine;
+        private System.Windows.Forms.TextBox textBoxCommandLine;
     }
 }
