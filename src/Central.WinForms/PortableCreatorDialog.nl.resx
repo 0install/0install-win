@@ -70,6 +70,10 @@
     <value>Zet  in</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Gelijkwaardige command-line</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Hier kunt u een draagbare versie van Zero Install maken, b.v. voor gebruik op een USB-stick. Het doel moet NTFS geformatteerd zijn.</value>
     <comment>Automatically translated.</comment>

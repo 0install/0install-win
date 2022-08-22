@@ -70,6 +70,10 @@
     <value>Implementați</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linie de comandă echivalentă</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Aici puteți crea o versiune portabilă a programului Zero Install, de exemplu, pentru a o utiliza pe o unitate USB. Ținta trebuie să fie formatată NTFS.</value>
     <comment>Automatically translated.</comment>

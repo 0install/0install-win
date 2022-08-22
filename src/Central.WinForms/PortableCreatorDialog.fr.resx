@@ -70,6 +70,10 @@
     <value>Déployer</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Ligne de commande équivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Ici vous pouvez créer une version portable de Zero Install, c'est-à-dire pour l'usage sur une clé USB. Celle-ci doit être formatée sous NTFS.</value>
     <comment>Manually overriden.</comment>
