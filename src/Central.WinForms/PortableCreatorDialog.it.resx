@@ -70,6 +70,10 @@
     <value>Distribuire</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Equivalente a riga di comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Qui è possibile creare una versione portatile di Zero Install, ad esempio da utilizzare su una chiavetta USB. La destinazione deve essere formattata in NTFS.</value>
     <comment>Automatically translated.</comment>

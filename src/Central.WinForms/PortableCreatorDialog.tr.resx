@@ -70,6 +70,10 @@
     <value>&amp;Hazırla</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Eşdeğer komut satırı</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Bu bölümden Zero Install uygulamasını USB disk sürücü gibi taşınabilir bir ortama kuralbilirsiniz. Hedef sürücü NTFS biçiminde olmalıdır.</value>
     <comment>Manually overriden.</comment>

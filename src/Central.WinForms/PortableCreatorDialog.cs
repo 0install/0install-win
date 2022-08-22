@@ -29,7 +29,18 @@ public sealed partial class PortableCreatorDialog : Form
     }
 
     private void textBoxTarget_TextChanged(object sender, EventArgs e)
-        => buttonDeploy.Enabled = !string.IsNullOrEmpty(textBoxTarget.Text);
+    {
+        if (string.IsNullOrEmpty(textBoxTarget.Text))
+        {
+            buttonDeploy.Enabled = false;
+            textBoxCommandLine.Text = "";
+        }
+        else
+        {
+            buttonDeploy.Enabled = true;
+            textBoxCommandLine.Text = new[] {"0install", Self.Name, Self.Deploy.Name, "--portable", textBoxTarget.Text}.JoinEscapeArguments();
+        }
+    }
 
     private async void buttonDeploy_Click(object sender, EventArgs e)
     {

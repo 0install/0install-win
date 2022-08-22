@@ -70,6 +70,10 @@
     <value>Implementar</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Aqui pode criar uma versão portátil de Zero Install, por exemplo, para utilização numa unidade USB. O alvo deve ser formatado em NTFS.</value>
     <comment>Automatically translated.</comment>

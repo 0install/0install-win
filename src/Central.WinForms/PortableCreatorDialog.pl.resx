@@ -70,6 +70,10 @@
     <value>Wdrażanie</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Odpowiednik wiersza poleceń</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Tutaj możesz utworzyć przenośną wersję Zero Install, np. do użytku na dysku USB. Miejsce docelowe musi być sformatowane w systemie NTFS.</value>
     <comment>Automatically translated.</comment>

@@ -70,6 +70,10 @@
     <value>&amp;Implementar</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Aqui você pode criar uma versão portátil do Zero Install, por exemplo,  para usar em um pen drive. O destino precisa estar formatado em NTFS.</value>
     <comment>Manually overriden.</comment>

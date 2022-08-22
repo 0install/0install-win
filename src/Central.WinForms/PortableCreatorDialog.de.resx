@@ -70,6 +70,10 @@
     <value>&amp;Erstellen</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Entsprechende Befehlszeile</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Hier können Sie eine portable Version von Zero Install erstellen, z. B. für die Verwendung auf einem USB-Stick. Das Ziel muss NTFS-formatiert sein.</value>
     <comment>Manually overriden.</comment>

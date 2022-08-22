@@ -126,7 +126,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>364, 230</value>
+    <value>296, 256</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="labelInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -157,7 +157,7 @@
     <value>12, 9</value>
   </data>
   <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 32</value>
+    <value>440, 32</value>
   </data>
   <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -175,7 +175,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelInfo.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="textBoxTarget.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -187,7 +187,7 @@
     <value>12, 44</value>
   </data>
   <data name="textBoxTarget.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 20</value>
+    <value>405, 20</value>
   </data>
   <data name="textBoxTarget.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -196,25 +196,28 @@
     <value>textBoxTarget</value>
   </data>
   <data name="&gt;&gt;textBoxTarget.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.12.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.HintTextBox, NanoByte.Common.WinForms, Version=2.12.7.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxTarget.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxTarget.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="buttonDeploy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="buttonDeploy.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="buttonDeploy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 72</value>
+    <value>377, 256</value>
   </data>
   <data name="buttonDeploy.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="buttonDeploy.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
     <value>&amp;Deploy</value>
@@ -229,7 +232,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonDeploy.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="buttonSelectTarget.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -238,7 +241,7 @@
     <value>NoControl</value>
   </data>
   <data name="buttonSelectTarget.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 42</value>
+    <value>423, 42</value>
   </data>
   <data name="buttonSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
     <value>29, 23</value>
@@ -259,7 +262,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonSelectTarget.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="labelInfo2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -268,13 +271,13 @@
     <value>NoControl</value>
   </data>
   <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 110</value>
+    <value>12, 80</value>
   </data>
   <data name="labelInfo2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 108</value>
+    <value>440, 118</value>
   </data>
   <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Stores Zero Install configuration and cached applications within a single directory.
@@ -292,6 +295,57 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelInfo2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="textBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>428, 20</value>
+  </data>
+  <data name="textBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.Name" xml:space="preserve">
+    <value>textBoxCommandLine</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.Parent" xml:space="preserve">
+    <value>groupBoxCommandLine</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 201</value>
+  </data>
+  <data name="groupBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>440, 49</value>
+  </data>
+  <data name="groupBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Equivalent command-line</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.Name" xml:space="preserve">
+    <value>groupBoxCommandLine</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -301,7 +355,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>451, 265</value>
+    <value>464, 291</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

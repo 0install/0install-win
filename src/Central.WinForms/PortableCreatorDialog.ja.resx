@@ -70,6 +70,10 @@
     <value>デプロイ</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>相当するコマンドライン</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>ここでは、USBメモリなどで使用するポータブル版のZero Installを作成することができます。ターゲットはNTFSでフォーマットされている必要があります。</value>
     <comment>Automatically translated.</comment>
