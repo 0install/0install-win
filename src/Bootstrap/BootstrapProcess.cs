@@ -301,8 +301,8 @@ public sealed class BootstrapProcess : ServiceProvider
         foreach (string path in Directory.GetFiles(_contentDir))
         {
             var manifestDigest = new ManifestDigest();
-            manifestDigest.ParseID(Path.GetFileNameWithoutExtension(path));
-            if (manifestDigest.Best != null)
+            manifestDigest.TryParse(Path.GetFileNameWithoutExtension(path));
+            if (manifestDigest.AvailableDigests.Any())
             {
                 Log.Info($"Importing implementation {manifestDigest.Best} from {path}");
                 try

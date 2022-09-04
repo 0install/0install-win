@@ -20,12 +20,9 @@ public class OneGetHandler : CliTaskHandler
     }
 
     /// <summary>
-    /// Outputs <see cref="Log"/> messages using the OneGet <see cref="Request"/> object.
+    /// Displays <see cref="Log"/> entries using the OneGet <see cref="Request"/> object.
     /// </summary>
-    /// <param name="severity">The type/severity of the entry.</param>
-    /// <param name="message">The message text of the entry.</param>
-    /// <param name="exception">An optional exception associated with the entry.</param>
-    protected override void LogHandler(LogSeverity severity, string message, Exception? exception)
+    protected override void DisplayLogEntry(LogSeverity severity, string message)
     {
         switch (severity)
         {

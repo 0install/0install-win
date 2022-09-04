@@ -307,36 +307,25 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
     }
     #endregion
 
-    #region Log handler
+    #region Display log event
     /// <summary>
-    /// Outputs <see cref="Log"/> messages as balloon tips based on their <see cref="LogSeverity"/> and the current <see cref="Verbosity"/> level.
+    /// Displays <see cref="Log"/> entries as notification messages detached from the main GUI.
     /// </summary>
-    /// <param name="severity">The type/severity of the entry.</param>
-    /// <param name="message">The message text of the entry.</param>
-    /// <param name="exception">An optional exception associated with the entry.</param>
-    protected override void LogHandler(LogSeverity severity, string message, Exception? exception)
+    protected override void DisplayLogEntry(LogSeverity severity, string message)
     {
-        base.LogHandler(severity, message, exception);
-
         // Avoid dead-lock
         if (!_branding.IsValueCreated) return;
 
-        string title = Branding.Name ?? "Zero Install";
-        switch (severity)
-        {
-            case LogSeverity.Debug when Verbosity >= Verbosity.Debug:
-                ShowNotification(title, message);
-                break;
-            case LogSeverity.Info when Verbosity >= Verbosity.Verbose:
-                ShowNotification(title, message, ToolTipIcon.Info);
-                break;
-            case LogSeverity.Warn:
-                ShowNotification(title, message, ToolTipIcon.Warning);
-                break;
-            case LogSeverity.Error:
-                ShowNotification(title, message, ToolTipIcon.Error);
-                break;
-        }
+        ShowNotification(
+            title: Branding.Name ?? "Zero Install",
+            message,
+            icon: severity switch
+            {
+                LogSeverity.Info => ToolTipIcon.Info,
+                LogSeverity.Warn => ToolTipIcon.Warning,
+                LogSeverity.Error => ToolTipIcon.Error,
+                _ => ToolTipIcon.None
+            });
     }
     #endregion
 }
