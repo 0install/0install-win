@@ -20,6 +20,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 components.Dispose();
             }
+            _trayIcon.Dispose();
             base.Dispose(disposing);
         }
 
@@ -32,7 +33,6 @@ namespace ZeroInstall.Commands.WinForms
         {
             this.components = new System.ComponentModel.Container();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
             this.pictureBoxSplashScreen = new System.Windows.Forms.PictureBox();
             this.panelProgress = new System.Windows.Forms.Panel();
@@ -53,11 +53,6 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonCancel.Text = "(Cancel)";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // notifyIcon
-            // 
-            this.notifyIcon.BalloonTipClicked += new System.EventHandler(this.notifyIcon_BalloonTipClicked);
-            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // buttonHide
             // 
@@ -156,7 +151,6 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonCustomizeSelectionsDone;
         private System.Windows.Forms.Button buttonHide;
-        private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.PictureBox pictureBoxSplashScreen;
         private System.Windows.Forms.Panel panelProgress;
         private ZeroInstall.Commands.WinForms.SelectionsControl selectionsControl;

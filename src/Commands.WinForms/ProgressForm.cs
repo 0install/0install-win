@@ -28,37 +28,13 @@ public sealed partial class ProgressForm : Form
         _branding = branding ?? throw new ArgumentNullException(nameof(branding));
         _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
-        InitializeComponent();
-        Font = DefaultFonts.Modern;
-
-        MinimumSize = new Size(350, 150).ApplyScale(this);
-        buttonCustomizeSelectionsDone.Text = Resources.Done;
-        buttonHide.Text = Resources.Hide;
-        buttonCancel.Text = Resources.Cancel;
-
-        if (branding.Name != null)
+        _trayIcon = new()
         {
-            Text = branding.Name;
-            linkPoweredBy.Show();
-        }
-        if (branding.Icon != null) Icon = branding.Icon;
-        if (branding.SplashScreen != null)
-        {
-            ControlBox = false;
-            pictureBoxSplashScreen.Show();
-            pictureBoxSplashScreen.Image = branding.SplashScreen;
-            var offset = new Size(width: 0, height: pictureBoxSplashScreen.Bottom);
-            MinimumSize += offset;
-            panelProgress.Location += offset;
-            panelProgress.Size -= offset;
-            selectionsControl.Location += offset;
-            selectionsControl.Size -= offset;
-        }
-
-        if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-
-        notifyIcon.Text = Text;
-        notifyIcon.Icon = Icon;
+            Text = branding.Name ?? "Zero Install",
+            Icon = branding.Icon
+        };
+        _trayIcon.BalloonTipClicked += trayIcon_BalloonTipClicked;
+        _trayIcon.MouseClick += trayIcon_MouseClick;
     }
 
     protected override void OnHandleCreated(EventArgs e)
@@ -69,6 +45,66 @@ public sealed partial class ProgressForm : Form
             WindowsTaskbar.PreventPinning(Handle);
     }
 
+    protected override void SetVisibleCore(bool value)
+    {
+        if (value && components == null)
+        {
+            Log.Debug("Initializing progress form");
+            InitializeComponent();
+            Font = DefaultFonts.Modern;
+
+            try
+            {
+                MinimumSize = new Size(350, 150).ApplyScale(this);
+            }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                Log.Debug(ex);
+            }
+            #endregion
+
+            buttonCustomizeSelectionsDone.Text = Resources.Done;
+            buttonHide.Text = Resources.Hide;
+            buttonCancel.Text = Resources.Cancel;
+
+            Text = _branding.Name ?? "Zero Install";
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+            if (_branding.Icon != null) Icon = _branding.Icon;
+            if (_branding.Name != null) linkPoweredBy.Show();
+            if (_branding.SplashScreen != null)
+            {
+                ControlBox = false;
+                pictureBoxSplashScreen.Show();
+                pictureBoxSplashScreen.Image = _branding.SplashScreen;
+
+                try
+                {
+                    var offset = new Size(width: 0, height: pictureBoxSplashScreen.Bottom);
+                    MinimumSize += offset;
+                    panelProgress.Location += offset;
+                    panelProgress.Size -= offset;
+                    selectionsControl.Location += offset;
+                    selectionsControl.Size -= offset;
+                }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    Log.Debug(ex);
+                }
+                #endregion
+            }
+
+            ShowSelectionsControls();
+
+            foreach (var (task, progress) in _deferredProgress)
+                progress.SetTarget(AddTaskControl(task));
+            _deferredProgress.Clear();
+        }
+
+        base.SetVisibleCore(value);
+    }
+
     protected override void OnShown(EventArgs e)
     {
         Log.Debug("Progress form shown");
@@ -77,8 +113,8 @@ public sealed partial class ProgressForm : Form
     #endregion
 
     #region Selections UI
-    /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
-    private bool _selectionsShown;
+    private Selections? _selections;
+    private IFeedManager? _feedManager;
 
     /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="CustomizeSelectionsAsync"/>.</summary>
     private TaskCompletionSource<bool>? _customizeSelectionsComplete;
@@ -93,10 +129,18 @@ public sealed partial class ProgressForm : Form
     /// <remarks>This must be called on the GUI thread.</remarks>
     public void ShowSelections(Selections selections, IFeedManager feedManager)
     {
-        _selectionsShown = true;
+        _selections = selections;
+        _feedManager = feedManager;
+        if (components != null) ShowSelectionsControls();
+    }
+
+    private void ShowSelectionsControls()
+    {
+        if (_selections == null || _feedManager == null) return;
+
         panelProgress.Hide();
         selectionsControl.Show();
-        selectionsControl.SetSelections(selections, feedManager);
+        selectionsControl.SetSelections(_selections, _feedManager);
     }
 
     /// <summary>
@@ -109,7 +153,7 @@ public sealed partial class ProgressForm : Form
     public async Task CustomizeSelectionsAsync(Func<Selections> solveCallback)
     {
         Visible = true;
-        notifyIcon.Visible = false;
+        _trayIcon.Visible = false;
 
         // Show "modify selections" UI
         selectionsControl.BeginCustomizeSelections(solveCallback);
@@ -134,6 +178,8 @@ public sealed partial class ProgressForm : Form
     #endregion
 
     #region Task tracking
+    private readonly List<(ITask task, DeferredProgress<TaskSnapshot> progress)> _deferredProgress = new();
+
     /// <summary>
     /// Adds a GUI element for reporting progress of a task. Multiple tasks may be run in parallel.
     /// </summary>
@@ -142,7 +188,21 @@ public sealed partial class ProgressForm : Form
     /// <remarks>This must be called on the GUI thread.</remarks>
     public IProgress<TaskSnapshot> AddProgressFor(ITask task)
     {
-        if (_selectionsShown && task.Tag is string tag)
+        if (components == null)
+        {
+            var progress = new DeferredProgress<TaskSnapshot>();
+            _deferredProgress.Add((task, progress));
+            return progress;
+        }
+
+        var control = AddTaskControl(task);
+        control.Refresh();
+        return control;
+    }
+
+    private TaskControl AddTaskControl(ITask task)
+    {
+        if (_selections != null && task.Tag is string tag)
         {
             panelProgress.Hide();
 
@@ -155,15 +215,15 @@ public sealed partial class ProgressForm : Form
             selectionsControl.Hide();
             panelProgress.Show();
 
-            var taskControl = new TaskControl
+            var control = new TaskControl
             {
                 TaskName = task.Name,
                 Dock = DockStyle.Top,
                 Tag = task
             };
-            panelProgress.Controls.Add(taskControl);
-            panelProgress.Controls.SetChildIndex(taskControl, 0);
-            return taskControl;
+            panelProgress.Controls.Add(control);
+            panelProgress.Controls.SetChildIndex(control, 0);
+            return control;
         }
     }
 
@@ -174,10 +234,13 @@ public sealed partial class ProgressForm : Form
     /// <remarks>This must be called on the GUI thread.</remarks>
     public void RemoveProgressFor(ITask task)
     {
+        _deferredProgress.RemoveAll(x => x.task == task);
+        if (components == null) return;
+
         if (panelProgress.Controls.Cast<Control>().FirstOrDefault(x => x.Tag == task) is {} toRemove)
             panelProgress.Controls.Remove(toRemove);
 
-        if (panelProgress.Controls.Count == 0 && _selectionsShown)
+        if (panelProgress.Controls.Count == 0 && _selections != null)
         {
             panelProgress.Hide();
             selectionsControl.Show();
@@ -227,6 +290,8 @@ public sealed partial class ProgressForm : Form
     #endregion
 
     #region Tray icon
+    private readonly NotifyIcon _trayIcon;
+
     /// <summary>
     /// Shows the tray icon.
     /// </summary>
@@ -234,20 +299,21 @@ public sealed partial class ProgressForm : Form
     /// <remarks>This must be called on the GUI thread.</remarks>
     public void ShowTrayIcon(string? notificationMessage = null)
     {
-        notifyIcon.Visible = true;
-        if (!string.IsNullOrEmpty(notificationMessage)) notifyIcon.ShowBalloonTip(7500, Text, notificationMessage, ToolTipIcon.Info);
+        _trayIcon.Visible = true;
+        if (!string.IsNullOrEmpty(notificationMessage))
+            _trayIcon.ShowBalloonTip(7500, Text, notificationMessage, ToolTipIcon.Info);
     }
 
-    private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+    private void trayIcon_MouseClick(object sender, MouseEventArgs e)
     {
         Visible = true;
-        notifyIcon.Visible = false;
+        _trayIcon.Visible = false;
     }
 
-    private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
+    private void trayIcon_BalloonTipClicked(object sender, EventArgs e)
     {
         Visible = true;
-        notifyIcon.Visible = false;
+        _trayIcon.Visible = false;
     }
 
     private void buttonHide_Click(object sender, EventArgs e)
@@ -279,7 +345,7 @@ public sealed partial class ProgressForm : Form
     private void Cancel()
     {
         Visible = false;
-        notifyIcon.Visible = false;
+        _trayIcon.Visible = false;
 
         _cancellationTokenSource.Cancel();
 
