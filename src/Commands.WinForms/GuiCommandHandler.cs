@@ -73,18 +73,14 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
 
         Log.Debug("Task: " + task.Name);
 
-        var progress = _wrapper.Post(form => form.AddProgressControl(task.Name, task.Tag as string));
-        task.Run(CancellationToken, CredentialProvider, progress);
-        _wrapper.Post(form => form.RemoveProgressControl(progress));
+        task.Run(CancellationToken, CredentialProvider, _wrapper.Post(form => form.AddProgressFor(task)));
+        _wrapper.Post(form => form.RemoveProgressFor(task));
     }
     #endregion
 
     #region UI control
     /// <inheritdoc/>
-    public void DisableUI()
-    {
-        _wrapper.SendLow(x => x.Enabled = false);
-    }
+    public void DisableUI() => _wrapper.SendLow(x => x.Enabled = false);
 
     /// <inheritdoc/>
     public void CloseUI() => _wrapper.Close();
@@ -165,10 +161,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
         DisableUI();
 
         if (Background)
-        {
-            string message = StringUtils.Join(Environment.NewLine, data.Select(x => x?.ToString() ?? ""));
-            ShowNotification(title, message);
-        }
+            ShowNotification(title, string.Join(Environment.NewLine, data.Select(x => x?.ToString() ?? "")));
         else
         {
             switch (data)

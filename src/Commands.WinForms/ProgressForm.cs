@@ -15,7 +15,9 @@ namespace ZeroInstall.Commands.WinForms;
 /// </summary>
 public sealed partial class ProgressForm : Form
 {
-    #region Constructor
+    #region Init
+    private readonly FeedBranding _branding;
+
     /// <summary>
     /// Creates a new progress tracking window.
     /// </summary>
@@ -23,6 +25,7 @@ public sealed partial class ProgressForm : Form
     /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
     public ProgressForm(FeedBranding branding, CancellationTokenSource cancellationTokenSource)
     {
+        _branding = branding ?? throw new ArgumentNullException(nameof(branding));
         _cancellationTokenSource = cancellationTokenSource ?? throw new ArgumentNullException(nameof(cancellationTokenSource));
 
         InitializeComponent();
@@ -56,24 +59,22 @@ public sealed partial class ProgressForm : Form
 
         notifyIcon.Text = Text;
         notifyIcon.Icon = Icon;
+    }
 
-        HandleCreated += delegate
-        {
-            if (ZeroInstallInstance.IsLibraryMode && branding.AppId != null)
-                WindowsTaskbar.SetWindowAppID(Handle, branding.AppId);
-            else if (!ZeroInstallInstance.IsIntegrated)
-                WindowsTaskbar.PreventPinning(Handle);
-        };
+    protected override void OnHandleCreated(EventArgs e)
+    {
+        if (ZeroInstallInstance.IsLibraryMode && _branding.AppId != null)
+            WindowsTaskbar.SetWindowAppID(Handle, _branding.AppId);
+        else if (!ZeroInstallInstance.IsIntegrated)
+            WindowsTaskbar.PreventPinning(Handle);
+    }
 
-        Shown += delegate
-        {
-            Log.Debug("Progress form shown");
-            this.SetForegroundWindow();
-        };
+    protected override void OnShown(EventArgs e)
+    {
+        Log.Debug("Progress form shown");
+        this.SetForegroundWindow();
     }
     #endregion
-
-    //--------------------//
 
     #region Selections UI
     /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
@@ -89,15 +90,9 @@ public sealed partial class ProgressForm : Form
     /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
     /// <param name="feedManager">The feed manager used to retrieve feeds for additional information about implementations.</param>
     /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
-    /// <remarks>This method must not be called from a background thread.</remarks>
+    /// <remarks>This must be called on the GUI thread.</remarks>
     public void ShowSelections(Selections selections, IFeedManager feedManager)
     {
-        #region Sanity checks
-        if (selections == null) throw new ArgumentNullException(nameof(selections));
-        if (feedManager == null) throw new ArgumentNullException(nameof(feedManager));
-        if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-        #endregion
-
         _selectionsShown = true;
         panelProgress.Hide();
         selectionsControl.Show();
@@ -110,14 +105,9 @@ public sealed partial class ProgressForm : Form
     /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
     /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
     /// <returns>A task that completes once the user has finished customization the selections.</returns>
-    /// <remarks>This method must not be called from a background thread.</remarks>
+    /// <remarks>This must be called on the GUI thread.</remarks>
     public async Task CustomizeSelectionsAsync(Func<Selections> solveCallback)
     {
-        #region Sanity checks
-        if (solveCallback == null) throw new ArgumentNullException(nameof(solveCallback));
-        if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-        #endregion
-
         Visible = true;
         notifyIcon.Visible = false;
 
@@ -145,24 +135,19 @@ public sealed partial class ProgressForm : Form
 
     #region Task tracking
     /// <summary>
-    /// Adds a GUI element for reporting progress of a <see cref="ITask"/>. May run multiple in parallel.
+    /// Adds a GUI element for reporting progress of a task. Multiple tasks may be run in parallel.
     /// </summary>
-    /// <param name="taskName">The name of the task to be tracked.</param>
-    /// <param name="tag">An optional digest used to associate the task with a specific implementation.</param>
-    /// <remarks>This method must not be called from a background thread.</remarks>
-    public IProgress<TaskSnapshot> AddProgressControl(string taskName, string? tag = null)
+    /// <param name="task">The task to create the GUI element for.</param>
+    /// <returns>The GUI element that the task can send progress reports to.</returns>
+    /// <remarks>This must be called on the GUI thread.</remarks>
+    public IProgress<TaskSnapshot> AddProgressFor(ITask task)
     {
-        #region Sanity checks
-        if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException(nameof(taskName));
-        if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-        #endregion
-
-        if (_selectionsShown && tag != null)
+        if (_selectionsShown && task.Tag is string tag)
         {
             panelProgress.Hide();
 
             var control = selectionsControl.TaskControls[tag];
-            control.TaskName = taskName;
+            control.TaskName = task.Name;
             return control;
         }
         else
@@ -172,8 +157,9 @@ public sealed partial class ProgressForm : Form
 
             var taskControl = new TaskControl
             {
-                TaskName = taskName,
-                Dock = DockStyle.Top
+                TaskName = task.Name,
+                Dock = DockStyle.Top,
+                Tag = task
             };
             panelProgress.Controls.Add(taskControl);
             panelProgress.Controls.SetChildIndex(taskControl, 0);
@@ -182,11 +168,14 @@ public sealed partial class ProgressForm : Form
     }
 
     /// <summary>
-    /// Removes a progress control from the GUI.
+    /// Removes a GUI element previously added by <see cref="AddProgressFor"/>.
     /// </summary>
-    public void RemoveProgressControl(IProgress<TaskSnapshot> control)
+    /// <param name="task">The task the GUI element was created for.</param>
+    /// <remarks>This must be called on the GUI thread.</remarks>
+    public void RemoveProgressFor(ITask task)
     {
-        panelProgress.Controls.Remove((Control)control);
+        if (panelProgress.Controls.Cast<Control>().FirstOrDefault(x => x.Tag == task) is {} toRemove)
+            panelProgress.Controls.Remove(toRemove);
 
         if (panelProgress.Controls.Count == 0 && _selectionsShown)
         {
@@ -242,13 +231,9 @@ public sealed partial class ProgressForm : Form
     /// Shows the tray icon.
     /// </summary>
     /// <param name="notificationMessage">An optional notification message to associate with the tray icon.</param>
-    /// <remarks>This method must not be called from a background thread.</remarks>
+    /// <remarks>This must be called on the GUI thread.</remarks>
     public void ShowTrayIcon(string? notificationMessage = null)
     {
-        #region Sanity checks
-        if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-        #endregion
-
         notifyIcon.Visible = true;
         if (!string.IsNullOrEmpty(notificationMessage)) notifyIcon.ShowBalloonTip(7500, Text, notificationMessage, ToolTipIcon.Info);
     }
@@ -303,6 +288,7 @@ public sealed partial class ProgressForm : Form
     }
     #endregion
 
+    #region Link
     private void linkPoweredBy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         try
@@ -316,4 +302,5 @@ public sealed partial class ProgressForm : Form
         }
         #endregion
     }
+    #endregion
 }
