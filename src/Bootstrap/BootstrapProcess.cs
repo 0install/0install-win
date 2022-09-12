@@ -466,6 +466,9 @@ public sealed class BootstrapProcess : ServiceProvider
     /// </summary>
     public ProcessStartInfo ZeroInstallCached(params string[] args)
     {
+        // To keep things simple, we never try to use the external solver to get Zero Install itself
+        Config.ExternalSolverUri = null;
+
         _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _gui ? Command.NameRunGui : Command.NameRun);
         if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
@@ -488,7 +491,7 @@ public sealed class BootstrapProcess : ServiceProvider
         }
         catch (WebException ex)
         {
-            Log.Warn("Unable to download updates, try to find older version", ex);
+            Log.Warn("Unable to download updates, try to find already cached version", ex);
             SolveOffline();
             Fetch();
         }
