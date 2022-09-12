@@ -139,11 +139,11 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
                              .WhereNotNull().Distinct()
                              .Cast<object>().ToArray();
 
-        dataGridStartMenuColumnCommand.Items.Add(commands);
-        dataGridDesktopColumnCommand.Items.Add(commands);
-        dataGridSendToColumnCommand.Items.Add(commands);
-        dataGridAliasesColumnCommand.Items.Add(commands);
-        dataGridAutoStartColumnCommand.Items.Add(commands);
+        dataGridStartMenuColumnCommand.Items.AddRange(commands);
+        dataGridDesktopColumnCommand.Items.AddRange(commands);
+        dataGridSendToColumnCommand.Items.AddRange(commands);
+        dataGridAliasesColumnCommand.Items.AddRange(commands);
+        dataGridAutoStartColumnCommand.Items.AddRange(commands);
     }
 
     /// <summary>
