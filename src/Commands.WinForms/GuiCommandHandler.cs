@@ -73,8 +73,30 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
 
         Log.Debug("Task: " + task.Name);
 
-        task.Run(CancellationToken, CredentialProvider, _wrapper.Post(form => form.AddProgressFor(task)));
-        _wrapper.Post(form => form.RemoveProgressFor(task));
+        IProgress<TaskSnapshot>? progress = null;
+        try
+        {
+            progress = _wrapper.Post(form => form.AddProgressFor(task));
+        }
+        #region Error handling
+        catch (Win32Exception ex)
+        {
+            Log.Debug($"Problem showing GUI progress control for {task.Name}", ex);
+        }
+        #endregion
+
+        task.Run(CancellationToken, CredentialProvider, progress);
+
+        try
+        {
+            _wrapper.Post(form => form.RemoveProgressFor(task));
+        }
+        #region Error handling
+        catch (Win32Exception ex)
+        {
+            Log.Debug($"Problem removing GUI progress control for {task.Name}", ex);
+        }
+        #endregion
     }
     #endregion
 
