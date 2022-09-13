@@ -20,8 +20,7 @@ public sealed partial class MainForm : Form
         Font = DefaultFonts.Modern;
         HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
-        var embeddedConfig = EmbeddedConfig.Load();
-        if (embeddedConfig.AppName != null)
+        if (EmbeddedConfig.Load() is {AppName: not null} embeddedConfig)
         {
             Text = embeddedConfig.AppName;
             labelAppName.Text = embeddedConfig.AppName;

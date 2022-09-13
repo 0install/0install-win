@@ -45,8 +45,8 @@ public sealed class StoreManageNode : INamed, IContextMenu
 
         if (BackingNode is StoreNode storeNode)
         {
-            if (storeNode.Path != null)
-                menu.Items.Add(Resources.OpenInFileManager, null, delegate { Process.Start(storeNode.Path); });
+            if (storeNode.Path is {} path)
+                menu.Items.Add(Resources.OpenInFileManager, null, delegate { Process.Start(path); });
 
             if (storeNode is ImplementationNode implementationNode)
             {

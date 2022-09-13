@@ -71,8 +71,8 @@ public class AppTileManagement
                     newTiles.Add(tile);
 
                     // Update "added" status of tile in catalog list
-                    var catalogTile = _tileListCatalog.GetTile(entry.InterfaceUri);
-                    if (catalogTile != null) catalogTile.Status = tile.Status;
+                    if (_tileListCatalog.GetTile(entry.InterfaceUri) is {} catalogTile)
+                        catalogTile.Status = tile.Status;
                 }
                 #region Error handling
                 catch (KeyNotFoundException)
@@ -90,8 +90,8 @@ public class AppTileManagement
                 _tileListMyApps.RemoveTile(entry.InterfaceUri);
 
                 // Update "added" status of tile in catalog list
-                var catalogTile = _tileListCatalog.GetTile(entry.InterfaceUri);
-                if (catalogTile != null) catalogTile.Status = AppTileStatus.Candidate;
+                if (_tileListCatalog.GetTile(entry.InterfaceUri) is {} catalogTile)
+                    catalogTile.Status = AppTileStatus.Candidate;
             });
         _tileListMyApps.AddQueuedTiles();
         _appList = newAppList;
