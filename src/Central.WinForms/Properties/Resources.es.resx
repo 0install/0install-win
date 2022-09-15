@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduce '{0}' para ver una lista de comandos disponibles.</value>
+    <value>Introduzca '{0}' para ver una lista de comandos disponibles.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -208,7 +208,7 @@ Guardar los cambios</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Busque en</value>
+    <value>Buscar en</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">

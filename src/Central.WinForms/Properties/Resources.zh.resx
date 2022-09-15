@@ -186,7 +186,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>运行</value>
+    <value>运转</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>无法为应用程序条目'{0}'加载饲料。</value>
+    <value>无法为应用程序条目 "{0}"加载饲料。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">

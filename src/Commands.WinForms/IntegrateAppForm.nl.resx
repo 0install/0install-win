@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Opdrachtregel aliassen</value>
+    <value>Command-line aliassen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Kies alle</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -91,11 +91,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Neemt deze toepassing op in "Alles bijwerken"-controles.</value>
+    <value>Neemt deze toepassing op in "Alles bijwerken" controles.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Register mogelijkheden</value>
+    <value>Registreer mogelijkheden</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -103,15 +103,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Kies alle</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
-    <value>Context menu</value>
+    <value>Contextmenu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Kies alle</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Kies alle</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>Bestandstypes</value>
+    <value>Bestandstypen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
@@ -135,19 +135,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Start menu</value>
+    <value>Startmenu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Kies alle</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>URL-protocollen</value>
+    <value>URL protocollen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
-    <value>Opdracht</value>
+    <value>Commando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
-    <value>Opdracht</value>
+    <value>Commando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Naam ingang</value>
+    <value>Naam vermelding</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
@@ -191,11 +191,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
-    <value>Dienst</value>
+    <value>Service</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
-    <value>Opdracht</value>
+    <value>Commando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
-    <value>Opdracht</value>
+    <value>Commando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
-    <value>Opdracht</value>
+    <value>Commando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
@@ -247,19 +247,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Gelijkwaardige command-line</value>
+    <value>Gelijkwaardige opdrachtregel</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Toegang via de command-line interface</value>
+    <value>Toegang vanaf de opdrachtregelinterface</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Start automatisch op wanneer een geschikt medium (DVD, USB-stick, enz.) wordt geplaatst</value>
+    <value>Automatisch starten wanneer geschikte media (DVD, USB-station, enz.) worden geplaatst</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Programma start automatisch wanneer de gebruiker inlogt</value>
+    <value>Programma automatisch starten wanneer de gebruiker inlogt</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Standaardprogramma voor taken zoals webbrowser of e-mailclient</value>
+    <value>Standaardprogramma voor taken als webbrowser of e-mailclient</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -275,11 +275,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Standaard handler voor ondersteunde bestandstypes ("Openen met" werkt ook zonder dit)</value>
+    <value>Standaard handler voor ondersteunde bestandstypen ("Openen met" werkt ook zonder dit)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Een item in het "Verzenden naar" menu</value>
+    <value>Een vermelding in het menu "Verzenden naar&amp;quot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -287,11 +287,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Standaard handler voor ondersteunde URL protocollen ("Openen met" werkt ook zonder dit)</value>
+    <value>Standaard handler voor ondersteunde URL-protocollen ("Openen met" werkt ook zonder dit)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Opdrachtregel aliassen</value>
+    <value>Command-line aliassen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
@@ -303,7 +303,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Context menu</value>
+    <value>Contextmenu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>Bestandstypes</value>
+    <value>Bestandstypen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
@@ -323,11 +323,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Start menu</value>
+    <value>Startmenu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>URL-protocollen</value>
+    <value>URL protocollen</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

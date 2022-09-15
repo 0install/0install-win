@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>La clave criptográfica ha sido cambiada. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para Zero Install Sync.</value>
+    <value>La clave criptográfica ha sido cambiada. Ahora tendrá que introducir la nueva clave en todos los demás equipos que ya haya configurado para Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Está a punto de sustituir su lista de aplicaciones local por los datos almacenados en el servidor de sincronización. Cualquier cambio que haya realizado localmente pero que aún no se haya sincronizado se perderá</value>
+    <value>Está a punto de sustituir su lista de aplicaciones local por los datos almacenados en el servidor de sincronización. Cualquier cambio que haya hecho localmente pero que aún no se haya sincronizado se perderá</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Está a punto de sustituir los datos almacenados en el servidor de sincronización por su lista de aplicaciones local. Cualquier cambio que haya realizado en otros ordenadores pero que aún no se haya sincronizado con éste se perderá</value>
+    <value>Está a punto de sustituir los datos almacenados en el servidor de sincronización por su lista de aplicaciones local. Cualquier cambio que haya realizado en otros ordenadores pero que aún no se haya sincronizado con este se perderá</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">

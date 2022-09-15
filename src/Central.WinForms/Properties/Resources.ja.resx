@@ -170,7 +170,7 @@ My apps "に追加してください。</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>ディレクトリ '{0}' は空ではありません。
-本当にZero Installのポータブル版をそこに置くのですか？</value>
+本当にZero Installのポータブルバージョンをそこに置くのですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">

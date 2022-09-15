@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
-    <value>Sluiten</value>
+    <value>Sluit</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
@@ -79,11 +79,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>Verifieer</value>
+    <value>Controleer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>De grootte van de invoer is gecontroleerd:</value>
+    <value>Gecontroleerde ingangsgrootte:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
