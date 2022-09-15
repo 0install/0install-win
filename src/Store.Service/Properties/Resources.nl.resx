@@ -59,23 +59,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>De gebruiker '{0}' is er niet in geslaagd om de implementatie '{1}' toe te voegen aan '{2}'.</value>
+    <value>De gebruiker '{0}' is er niet in geslaagd de implementatie '{1}' toe te voegen aan '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Mislukt bij het aanmaken van een tijdelijke map voor de gebruiker '{0}' in '{1}'.</value>
+    <value>Mislukt om een tijdelijke directory aan te maken voor de gebruiker '{0}' in '{1}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Kan de tijdelijke map '{1}' (aangemaakt voor de gebruiker '{0}') niet verwijderen.</value>
+    <value>De tijdelijke directory '{1}' (aangemaakt voor de gebruiker '{0}') is niet verwijderd.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>De service kan niet in portable mode draaien!</value>
+    <value>De dienst kan niet in draagbare modus draaien!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Bestandsmachtigingen instellen</value>
+    <value>Bestandsrechten instellen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">

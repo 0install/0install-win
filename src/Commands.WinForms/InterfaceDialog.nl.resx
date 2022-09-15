@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
-    <value>Solliciteer</value>
+    <value>Toepassen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.Text" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Toon versies die niet op dit systeem worden ondersteund</value>
+    <value>Toon versies die niet worden ondersteund op dit systeem</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Bepaalt welke stabiliteitsbeoordeling als de "beste" wordt beschouwd</value>
+    <value>Bepaalt welke stabiliteitsklasse als de "beste" wordt beschouwd.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Voeders</value>
+    <value>Voedingen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

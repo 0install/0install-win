@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Voer de URL van een catalogus in (een verzameling feeds)</value>
+    <value>Voer de URL in van een catalogus (een verzameling feeds)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>Opdrachtregel</value>
+    <value>Command-line</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDocumentation.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Gebruik de publicatietools om een nieuwe app te verpakken</value>
+    <value>Gebruik Publishing Tools om een nieuwe app te verpakken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -131,11 +131,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Update alle</value>
+    <value>Alles bijwerken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Update alle</value>
+    <value>Alles bijwerken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Laden catalogus van server...</value>
+    <value>Catalogus laden van server...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
