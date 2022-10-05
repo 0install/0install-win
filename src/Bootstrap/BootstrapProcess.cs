@@ -22,10 +22,9 @@ namespace ZeroInstall;
 public sealed class BootstrapProcess : ServiceProvider
 {
     private readonly EmbeddedConfig _embeddedConfig = EmbeddedConfig.Load();
+    private readonly IBootstrapHandler _handler;
 
     #region Command-line options
-    private readonly bool _gui;
-
     /// <summary>The command-line argument parser used to evaluate user input.</summary>
     private readonly OptionSet _options;
 
@@ -92,33 +91,32 @@ public sealed class BootstrapProcess : ServiceProvider
     /// Creates a new bootstrap process.
     /// </summary>
     /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-    /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
-    public BootstrapProcess(ITaskHandler handler, bool gui)
+    public BootstrapProcess(IBootstrapHandler handler)
         : base(handler)
     {
-        _gui = gui;
+        _handler = handler;
 
         _options = new OptionSet
         {
             {
                 "?|h|help", () => "Show the built-in help text.", _ =>
                 {
-                    Handler.Output("Help", HelpText);
+                    _handler.Output("Help", HelpText);
                     throw new OperationCanceledException(); // Don't handle any of the other arguments
                 }
             },
             {
                 "batch", () => "Automatically answer questions with defaults when possible. Avoid unnecessary console output (e.g. progress bars).", _ =>
                 {
-                    if (Handler.Verbosity >= Verbosity.Verbose) throw new OptionException("Cannot combine --batch and --verbose", "verbose");
-                    Handler.Verbosity = Verbosity.Batch;
+                    if (_handler.Verbosity >= Verbosity.Verbose) throw new OptionException("Cannot combine --batch and --verbose", "verbose");
+                    _handler.Verbosity = Verbosity.Batch;
                 }
             },
             {
                 "v|verbose", () => "More verbose output. Use twice for even more verbose output.", _ =>
                 {
-                    if (Handler.Verbosity == Verbosity.Batch) throw new OptionException("Cannot combine --batch and --verbose", "batch");
-                    Handler.Verbosity++;
+                    if (_handler.Verbosity == Verbosity.Batch) throw new OptionException("Cannot combine --batch and --verbose", "batch");
+                    _handler.Verbosity++;
                 }
             },
             {
@@ -148,7 +146,7 @@ public sealed class BootstrapProcess : ServiceProvider
             _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
             {
                 _noRun = true;
-                Handler.Verbosity = Verbosity.Batch;
+                _handler.Verbosity = Verbosity.Batch;
             });
             if (_embeddedConfig.IntegrateArgs != null)
             {
@@ -238,10 +236,10 @@ public sealed class BootstrapProcess : ServiceProvider
             switch (arg)
             {
                 case "--batch":
-                    Handler.Verbosity = Verbosity.Batch;
+                    _handler.Verbosity = Verbosity.Batch;
                     break;
                 case "--verbose" or "-v":
-                    Handler.Verbosity = Verbosity.Verbose;
+                    _handler.Verbosity = Verbosity.Verbose;
                     break;
                 case "--offline" or "-o":
                     Config.NetworkUse = NetworkLevel.Offline;
@@ -308,7 +306,7 @@ public sealed class BootstrapProcess : ServiceProvider
                 try
                 {
                     var extractor = ArchiveExtractor.For(Archive.GuessMimeType(path), Handler);
-                    ImplementationStore.Add(manifestDigest, builder => Handler.RunTask(new ReadFile(path, stream => extractor.Extract(builder, stream))));
+                    ImplementationStore.Add(manifestDigest, builder => _handler.RunTask(new ReadFile(path, stream => extractor.Extract(builder, stream))));
                 }
                 #region Error handling
                 catch (ImplementationAlreadyInStoreException)
@@ -357,7 +355,7 @@ public sealed class BootstrapProcess : ServiceProvider
             else
             {
                 args.Add("run");
-                if (_gui) args.Add("--no-wait");
+                if (_handler.IsGui) args.Add("--no-wait");
                 args.Add(appUri);
 
                 string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
@@ -373,10 +371,10 @@ public sealed class BootstrapProcess : ServiceProvider
 
         if (args.Count == 0)
         {
-            if (_gui) args.Add("central");
+            if (_handler.IsGui) args.Add("central");
             else
             {
-                Handler.Output("Help", HelpText);
+                _handler.Output("Help", HelpText);
                 return ExitCode.UserCanceled;
             }
         }
@@ -392,7 +390,7 @@ public sealed class BootstrapProcess : ServiceProvider
         var startInfo = ZeroInstall(args);
 
         var exitCode = ExitCode.UserCanceled;
-        Handler.RunTask(new SimpleTask(
+        _handler.RunTask(new SimpleTask(
             $"Integrating {_embeddedConfig.AppName}",
             () => exitCode = (ExitCode)startInfo.Run()));
 
@@ -406,7 +404,7 @@ public sealed class BootstrapProcess : ServiceProvider
     {
         var process = ZeroInstall(args).Start();
 
-        if (_gui && WindowsUtils.IsWindows)
+        if (_handler.IsGui && WindowsUtils.IsWindows)
         {
             // Wait for 0install window to become visible before closing bootstrapper window (for a smoother visual transition)
             try
@@ -416,7 +414,7 @@ public sealed class BootstrapProcess : ServiceProvider
             catch (InvalidOperationException)
             {}
         }
-        Handler.Dispose();
+        _handler.Dispose();
 
         return (ExitCode)process.WaitForExitCode();
     }
@@ -427,7 +425,7 @@ public sealed class BootstrapProcess : ServiceProvider
     private ProcessStartInfo ZeroInstall(string[] args)
     {
         // Forwards bootstrapper arguments that are also applicable to 0install
-        args = Handler.Verbosity switch
+        args = _handler.Verbosity switch
         {
             Verbosity.Batch => args.Prepend("--batch"),
             Verbosity.Verbose => args.Prepend("--verbose"),
@@ -450,7 +448,7 @@ public sealed class BootstrapProcess : ServiceProvider
         var deployedInstance = GetDeployedInstance();
         if (string.IsNullOrEmpty(deployedInstance)) return null;
 
-        string launchAssembly = _gui ? "0install-win" : "0install";
+        string launchAssembly = _handler.IsGui ? "0install-win" : "0install";
         if (!File.Exists(Path.Combine(deployedInstance, launchAssembly + ".exe"))) return null;
 
         return ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args);
@@ -469,7 +467,7 @@ public sealed class BootstrapProcess : ServiceProvider
         // To keep things simple, we never try to use the external solver to get Zero Install itself
         Config.ExternalSolverUri = null;
 
-        _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _gui ? Command.NameRunGui : Command.NameRun);
+        _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
         if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
         Solve();

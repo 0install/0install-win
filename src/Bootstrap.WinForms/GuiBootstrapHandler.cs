@@ -6,14 +6,14 @@ using NanoByte.Common.Threading;
 namespace ZeroInstall;
 
 /// <summary>
-/// Uses <see cref="MainForm"/> to show <see cref="ITask"/> progress.
+/// Uses <see cref="MainForm"/> to show <see cref="ITask"/> progress during the bootstrap process.
 /// </summary>
 /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-public class GuiTaskHandler : GuiTaskHandlerBase
+public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
 {
     private readonly AsyncFormWrapper<MainForm> _wrapper;
 
-    public GuiTaskHandler()
+    public GuiBootstrapHandler()
     {
         _wrapper = new AsyncFormWrapper<MainForm>(delegate
         {
@@ -34,6 +34,9 @@ public class GuiTaskHandler : GuiTaskHandlerBase
             base.Dispose();
         }
     }
+
+    /// <inheritdoc/>
+    public bool IsGui => true;
 
     /// <inheritdoc/>
     public override void RunTask(ITask task)

@@ -1,0 +1,18 @@
+﻿// Copyright Bastian Eicher et al.
+// Licensed under the GNU Lesser Public License
+
+using PackageManagement.Sdk;
+
+namespace ZeroInstall.OneGet;
+
+/// <summary>
+/// Manages communication between <see cref="ITask"/>s and a OneGet <see cref="Request"/> during the bootstrap process.
+/// </summary>
+public class OneGetBootstrapHandler : OneGetHandler, IBootstrapHandler
+{
+    public OneGetBootstrapHandler(Request request) : base(request)
+    {}
+
+    /// <inheritdoc/>
+    public bool IsGui => false;
+}

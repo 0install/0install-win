@@ -68,8 +68,8 @@ public class OneGetContextInterceptor : IInterceptor
     /// <returns>The full path of the directory containing the provider assembly.</returns>
     private string GetProviderDirectory()
     {
-        using var handler = new OneGetHandler(_request);
-        var bootstrap = new BootstrapProcess(handler, gui: false);
+        using var handler = new OneGetBootstrapHandler(_request);
+        var bootstrap = new BootstrapProcess(handler);
         var startInfo = bootstrap.ZeroInstallDeployed() ?? bootstrap.ZeroInstallCached();
         return Path.GetDirectoryName(startInfo.FileName)!;
     }

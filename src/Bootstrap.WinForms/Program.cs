@@ -7,5 +7,5 @@ Application.SetCompatibleTextRenderingDefault(false);
 
 ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));
 
-using var handler = new GuiTaskHandler();
-return (int)ProgramUtils.Run(args, handler, gui: true);
+using var handler = new GuiBootstrapHandler();
+return (int)ProgramUtils.Run(args, handler);

@@ -29,13 +29,12 @@ public static class ProgramUtils
     /// </summary>
     /// <param name="args">The command-line arguments to handle.</param>
     /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-    /// <param name="gui"><c>true</c> if the application was launched in GUI mode; <c>false</c> if it was launched in command-line mode.</param>
     /// <returns>The exit status code to end the process with.</returns>
-    public static ExitCode Run(string[] args, ITaskHandler handler, bool gui)
+    public static ExitCode Run(string[] args, IBootstrapHandler handler)
     {
         try
         {
-            return new BootstrapProcess(handler, gui).Execute(args);
+            return new BootstrapProcess(handler).Execute(args);
         }
         #region Error handling
         catch (OperationCanceledException)
