@@ -41,20 +41,8 @@ public sealed partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        // Never allow the user to directly close the window
         e.Cancel = true;
-
-        // Start proper cancellation instead
-        Cancel();
-    }
-
-    /// <summary>
-    /// Hides the window and then starts canceling the current process asynchronously.
-    /// </summary>
-    private void Cancel()
-    {
         Hide();
-
         _cancellationTokenSource.Cancel();
     }
 }
