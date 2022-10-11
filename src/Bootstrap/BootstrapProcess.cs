@@ -470,12 +470,13 @@ public sealed class BootstrapProcess : ServiceProvider
         _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
         if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
-        Solve();
+        _selections = Solver.Solve(_requirements!);
         if (FeedManager.ShouldRefresh)
         {
             try
             {
-                SolveRefresh();
+                FeedManager.Refresh = true;
+                _selections = Solver.Solve(_requirements!);
             }
             catch (WebException ex)
             {
@@ -489,38 +490,14 @@ public sealed class BootstrapProcess : ServiceProvider
         }
         catch (WebException ex)
         {
-            Log.Warn("Unable to download updates, try to find already cached version", ex);
-            SolveOffline();
-            Fetch();
+            Log.Warn("Unable to download updates, trying to find already cached version", ex);
+            _selections = TrySolveOffline(_requirements!);
+            if (_selections == null) throw;
         }
 
         return Executor.Inject(_selections!)
                        .AddArguments(args)
                        .ToStartInfo();
-    }
-
-    /// <summary>
-    /// Runs the Solver to select a version of Zero Install.
-    /// </summary>
-    private void Solve() => _selections = Solver.Solve(_requirements!);
-
-    /// <summary>
-    /// Runs the Solver in refresh mode (re-download all feeds).
-    /// </summary>
-    private void SolveRefresh()
-    {
-        FeedManager.Refresh = true;
-        Solve();
-    }
-
-    /// <summary>
-    /// Runs the Solver in offline mode.
-    /// </summary>
-    private void SolveOffline()
-    {
-        FeedManager.Refresh = false;
-        Config.NetworkUse = NetworkLevel.Offline;
-        Solve();
     }
 
     /// <summary>
