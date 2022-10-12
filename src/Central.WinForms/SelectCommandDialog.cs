@@ -3,8 +3,9 @@
 
 using NanoByte.Common.Native;
 using ZeroInstall.Commands.WinForms;
-using ZeroInstall.Model.Preferences;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Model.Selection;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms;
@@ -29,7 +30,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         public EntryPointWrapper(Feed feed, string commandName)
         {
             _feed = feed;
-            _entryPoint = new EntryPoint {Command = commandName};
+            _entryPoint = new() {Command = commandName};
         }
 
         public string? GetSummary() => _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
@@ -40,9 +41,9 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     }
     #endregion
 
-    private readonly IFeedCache _feedCache = FeedCaches.Default(OpenPgp.Verifying());
     private readonly FeedUri _feedUri;
-    private readonly Feed _feed;
+    private Feed _feed;
+    private Selections? _selections;
 
     /// <summary>
     /// Creates a dialog box for asking the the user to select an <see cref="Command"/>.
@@ -51,43 +52,76 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     public SelectCommandDialog(FeedTarget target)
     {
         _feedUri = target.Uri;
-        _feed = _feedCache.GetFeed(target.Uri) ?? target.Feed;
+        _feed = target.Feed;
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        Text = Resources.Run + @" " + _feed.Name;
     }
 
-    private void SelectCommandDialog_Load(object sender, EventArgs e)
+    private async void SelectCommandDialog_Load(object sender, EventArgs e)
     {
-        Text = Resources.Run + @" " + _feed.Name;
-
         this.CenterOnParent();
 
-        comboBoxVersion.Items.AddRange(GetVersions().Cast<object>().ToArray());
+        try
+        {
+            await SolveAsync(refresh: false);
+        }
+        #region Error handling
+        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
+        {
+            Log.Info($"Failed to run Solver to show Run options for ${_feed}", ex);
+        }
+        catch (OperationCanceledException)
+        {}
+        #endregion
 
-        foreach (var entryPoint in _feed.EntryPoints)
-            comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, entryPoint));
+        UpdateComboBoxes();
+    }
 
-        if (comboBoxCommand.Items.Count == 0)
-            comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, Command.NameRun));
+    private async void buttonRefresh_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            await SolveAsync(refresh: true);
+            UpdateComboBoxes();
+        }
+        #region Error handling
+        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
+        {
+            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+        }
+        catch (OperationCanceledException)
+        {}
+        #endregion
 
+        comboBoxVersion.Focus();
+    }
+
+    private async Task SolveAsync(bool refresh)
+    {
+        using var handler = new DialogTaskHandler(this);
+        var services = new ServiceProvider(handler) {FeedManager = { Refresh = refresh}};
+        _selections = await Task.Run(() => services.Solver.Solve(_feedUri));
+        _feed = services.FeedCache.GetFeed(_feedUri) ?? _feed;
+    }
+
+    private void UpdateComboBoxes()
+    {
+        comboBoxVersion.Items.Clear();
+        if (_selections?.MainImplementation.Candidates?.GetSuitableVersions() is {} versions)
+            comboBoxVersion.Items.AddRange(versions.Cast<object>().ToArray());
+
+        comboBoxCommand.Items.Clear();
+        if (_feed.EntryPoints.Count == 0) comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, Command.NameRun));
+        else comboBoxCommand.Items.AddRange(_feed.EntryPoints.Select(entryPoint => new EntryPointWrapper(_feed, entryPoint)).Cast<object>().ToArray());
         comboBoxCommand.SelectedIndex = 0;
     }
 
-    private IEnumerable<ImplementationVersion> GetVersions()
+    private void UpdateLabels(object sender, EventArgs e)
     {
-        var additionalFeeds =
-            InterfacePreferences.LoadForSafe(_feedUri)
-                                .Feeds
-                                .TrySelect(x => _feedCache.GetFeed(x.Source), (Exception ex) => Log.Warn("Failed to load feed from cache", ex))
-                                .WhereNotNull();
-
-        return _feed.Implementations
-               .Concat(additionalFeeds.SelectMany(x => x.Implementations))
-               .Select(x => x.Version)
-               .WhereNotNull()
-               .Distinct()
-               .OrderByDescending(x => x);
+        labelSummary.Text = (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetSummary();
+        textBoxCommandLine.Text = GetArgs().Except("--no-wait").Prepend("0install").JoinEscapeArguments();
     }
 
     private void buttonOK_Click(object sender, EventArgs e)
@@ -97,12 +131,8 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     }
 
     private void buttonCancel_Click(object sender, EventArgs e)
-        => Close();
-
-    private void Update(object sender, EventArgs e)
     {
-        labelSummary.Text = (comboBoxCommand.SelectedItem as EntryPointWrapper)?.GetSummary();
-        textBoxCommandLine.Text = GetArgs().Except("--no-wait").Prepend("0install").JoinEscapeArguments();
+        Close();
     }
 
     private IEnumerable<string> GetArgs()

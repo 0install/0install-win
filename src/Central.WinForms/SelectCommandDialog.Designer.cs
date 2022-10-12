@@ -41,6 +41,7 @@ namespace ZeroInstall.Central.WinForms
             this.panelOptions = new System.Windows.Forms.FlowLayoutPanel();
             this.comboBoxVersion = new System.Windows.Forms.ComboBox();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.groupBoxCommandLine.SuspendLayout();
             this.panelOptions.SuspendLayout();
             this.SuspendLayout();
@@ -67,8 +68,8 @@ namespace ZeroInstall.Central.WinForms
             this.comboBoxCommand.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCommand.FormattingEnabled = true;
             this.comboBoxCommand.Name = "comboBoxCommand";
-            this.comboBoxCommand.SelectedIndexChanged += new System.EventHandler(this.Update);
-            this.comboBoxCommand.TextChanged += new System.EventHandler(this.Update);
+            this.comboBoxCommand.SelectedIndexChanged += new System.EventHandler(this.UpdateLabels);
+            this.comboBoxCommand.TextChanged += new System.EventHandler(this.UpdateLabels);
             // 
             // labelSummary
             // 
@@ -86,14 +87,14 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.checkBoxCustomize, "checkBoxCustomize");
             this.checkBoxCustomize.Name = "checkBoxCustomize";
             this.checkBoxCustomize.UseVisualStyleBackColor = true;
-            this.checkBoxCustomize.CheckedChanged += new System.EventHandler(this.Update);
+            this.checkBoxCustomize.CheckedChanged += new System.EventHandler(this.UpdateLabels);
             // 
             // checkBoxRefresh
             // 
             resources.ApplyResources(this.checkBoxRefresh, "checkBoxRefresh");
             this.checkBoxRefresh.Name = "checkBoxRefresh";
             this.checkBoxRefresh.UseVisualStyleBackColor = true;
-            this.checkBoxRefresh.CheckedChanged += new System.EventHandler(this.Update);
+            this.checkBoxRefresh.CheckedChanged += new System.EventHandler(this.UpdateLabels);
             // 
             // labelArgs
             // 
@@ -104,7 +105,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             resources.ApplyResources(this.textBoxArgs, "textBoxArgs");
             this.textBoxArgs.Name = "textBoxArgs";
-            this.textBoxArgs.TextChanged += new System.EventHandler(this.Update);
+            this.textBoxArgs.TextChanged += new System.EventHandler(this.UpdateLabels);
             // 
             // groupBoxCommandLine
             // 
@@ -133,18 +134,26 @@ namespace ZeroInstall.Central.WinForms
             this.comboBoxVersion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxVersion.FormattingEnabled = true;
             this.comboBoxVersion.Name = "comboBoxVersion";
-            this.comboBoxVersion.SelectedIndexChanged += new System.EventHandler(this.Update);
-            this.comboBoxVersion.TextChanged += new System.EventHandler(this.Update);
+            this.comboBoxVersion.SelectedIndexChanged += new System.EventHandler(this.UpdateLabels);
+            this.comboBoxVersion.TextChanged += new System.EventHandler(this.UpdateLabels);
             // 
             // labelVersion
             // 
             resources.ApplyResources(this.labelVersion, "labelVersion");
             this.labelVersion.Name = "labelVersion";
             // 
+            // buttonRefresh
+            // 
+            resources.ApplyResources(this.buttonRefresh, "buttonRefresh");
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
             // SelectCommandDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.comboBoxVersion);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.panelOptions);
@@ -170,6 +179,7 @@ namespace ZeroInstall.Central.WinForms
             this.Controls.SetChildIndex(this.panelOptions, 0);
             this.Controls.SetChildIndex(this.labelVersion, 0);
             this.Controls.SetChildIndex(this.comboBoxVersion, 0);
+            this.Controls.SetChildIndex(this.buttonRefresh, 0);
             this.groupBoxCommandLine.ResumeLayout(false);
             this.groupBoxCommandLine.PerformLayout();
             this.panelOptions.ResumeLayout(false);
@@ -180,6 +190,7 @@ namespace ZeroInstall.Central.WinForms
 
         #endregion
 
+        private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.ComboBox comboBoxVersion;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelCommand;

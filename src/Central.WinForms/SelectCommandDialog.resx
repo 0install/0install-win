@@ -131,7 +131,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>348, 226</value>
@@ -146,7 +146,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelCommand.AutoSize" type="System.Boolean, mscorlib">
@@ -174,7 +174,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelCommand.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="comboBoxCommand.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -184,10 +184,10 @@
     <value>94, 39</value>
   </data>
   <data name="comboBoxCommand.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 21</value>
+    <value>290, 21</value>
   </data>
   <data name="comboBoxCommand.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;comboBoxCommand.Name" xml:space="preserve">
     <value>comboBoxCommand</value>
@@ -199,7 +199,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxCommand.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="labelSummary.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -214,7 +214,7 @@
     <value>328, 50</value>
   </data>
   <data name="labelSummary.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;labelSummary.Name" xml:space="preserve">
     <value>labelSummary</value>
@@ -226,7 +226,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelSummary.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="labelOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -244,7 +244,7 @@
     <value>46, 13</value>
   </data>
   <data name="labelOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
     <value>Options:</value>
@@ -259,7 +259,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelOptions.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="checkBoxCustomize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -349,7 +349,7 @@
     <value>60, 13</value>
   </data>
   <data name="labelArgs.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>&amp;Arguments:</value>
@@ -364,7 +364,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelArgs.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="textBoxArgs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -376,7 +376,7 @@
     <value>328, 20</value>
   </data>
   <data name="textBoxArgs.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;textBoxArgs.Name" xml:space="preserve">
     <value>textBoxArgs</value>
@@ -388,7 +388,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxArgs.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -424,7 +424,7 @@
     <value>410, 49</value>
   </data>
   <data name="groupBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Equivalent command-line</value>
@@ -439,7 +439,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBoxCommandLine.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="panelOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -451,7 +451,7 @@
     <value>328, 18</value>
   </data>
   <data name="panelOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;panelOptions.Name" xml:space="preserve">
     <value>panelOptions</value>
@@ -463,7 +463,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panelOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="comboBoxVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -472,7 +472,7 @@
     <value>94, 12</value>
   </data>
   <data name="comboBoxVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 21</value>
+    <value>290, 21</value>
   </data>
   <data name="comboBoxVersion.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -487,7 +487,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBoxVersion.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="labelVersion.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -517,7 +517,37 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="buttonRefresh.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonRefresh.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt</value>
+  </data>
+  <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
+    <value>390, 12</value>
+  </data>
+  <data name="buttonRefresh.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 50</value>
+  </data>
+  <data name="buttonRefresh.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="buttonRefresh.Text" xml:space="preserve">
+    <value>⟳</value>
+  </data>
+  <data name="&gt;&gt;buttonRefresh.Name" xml:space="preserve">
+    <value>buttonRefresh</value>
+  </data>
+  <data name="&gt;&gt;buttonRefresh.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRefresh.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -538,6 +568,6 @@
     <value>SelectCommandDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.12.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
