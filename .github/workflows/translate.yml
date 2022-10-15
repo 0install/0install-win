@@ -29,9 +29,9 @@ jobs:
       - name: Transifex Push
         run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} push --source
       - name: Transifex Pull (fully translated)
-        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --mode translator --all --minimum-perc 100
+        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --translations --mode translator --all --minimum-perc 100
       - name: Transifex Pull (partially translated) # Only languages that can be completed with Machine Translation
-        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --mode translator --languages el,es,fr,it,ja,nl,pl,pt_PT,ro,ru,zh
+        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --translations --mode translator --languages el,es,fr,it,ja,nl,pl,pt_PT,ro,ru,zh
 
       - name: DeepL Cache
         uses: actions/cache@v3
