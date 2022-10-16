@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед передачей на сервер. При желании вы можете использовать собственный сервер для хранения данных.</value>
+    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед передачей на сервер. При желании вы можете использовать свой собственный сервер для хранения данных.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
