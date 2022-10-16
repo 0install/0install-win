@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Negeren van dubbele app vermelding voor '{0}'.</value>
+    <value>Negeer dubbele app vermelding voor '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -220,7 +220,7 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>De gebruikersnaam en/of het wachtwoord dat u heeft ingevoerd zijn onjuist.</value>
+    <value>De gebruikersnaam en/of het wachtwoord dat u hebt ingevoerd zijn onjuist.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">

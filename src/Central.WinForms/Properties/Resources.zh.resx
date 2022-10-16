@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>点击在此电脑上设置零点安装...</value>
+    <value>点击设置 "零 "安装在此计算机上...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>运转</value>
+    <value>运行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>无法为应用程序条目 "{0}"加载饲料。</value>
+    <value>无法为应用程序条目'{0}'加载饲料。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
@@ -265,7 +265,7 @@
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
-重要的是：你以前 "运行 "过的应用程序，没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
+重要提示：你以前 "运行 "过的应用程序，如果没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

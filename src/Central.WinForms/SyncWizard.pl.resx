@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Zamierzasz zastąpić lokalną listę aplikacji danymi przechowywanymi na serwerze Sync. Wszelkie zmiany, które zostały wprowadzone lokalnie, ale nie zostały jeszcze zsynchronizowane, zostaną utracone!</value>
+    <value>Zamierzasz zastąpić lokalną listę aplikacji danymi przechowywanymi na serwerze Sync. Wszelkie zmiany dokonane lokalnie, które nie zostały jeszcze zsynchronizowane, zostaną utracone!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">

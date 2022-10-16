@@ -255,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Lançamento automático quando é inserido um suporte adequado (DVD, unidade USB, etc.)</value>
+    <value>Lançamento automático quando são inseridos suportes adequados (DVD, unidade USB, etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Programas predefinidos</value>
+    <value>Programas por defeito</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">

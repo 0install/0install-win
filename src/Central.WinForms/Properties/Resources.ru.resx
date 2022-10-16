@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>делает что-то другое</value>
+    <value>делает что-то ещё</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
@@ -128,7 +128,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Интегрировать" приложение, чтобы поместить его
+    <value>"Интегрируйте" приложение, чтобы поместить его
 в стартовое меню или на рабочий стол.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -256,7 +256,7 @@
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Вы уверены, что хотите использовать незашифрованное соединение с сервером синхронизации?
-В зашифрованных соединениях используется префикс https://.</value>
+Зашифрованные соединения используют префикс https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
