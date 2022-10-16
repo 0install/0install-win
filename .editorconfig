@@ -20,7 +20,7 @@ indent_size = 2
 charset = latin1
 end_of_line = crlf
 
-[*.{ps1,psd1}]
+[*.{ps1,psd1,txt}]
 end_of_line = crlf
 
 [*.sln]
