@@ -157,7 +157,7 @@ public sealed partial class InterfaceDialog : OKCancelDialog
 
     private SelectionCandidate GenerateDummyCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation)
         => new(feedUri, feedPreferences, implementation,
-            new Requirements(_interfaceUri, "", new Architecture(Architecture.CurrentSystem.OS, Cpu.All)));
+            new Requirements(_interfaceUri, "", new Architecture(Architecture.CurrentSystem.OS)));
 
     /// <summary>
     /// Gets a list of <see cref="SelectionCandidate"/>s from the <see cref="ISolver"/> to populate <see cref="dataGridVersions"/>.
@@ -250,15 +250,15 @@ public sealed partial class InterfaceDialog : OKCancelDialog
         }
         else
         {
-            Feed feed = null;
+            Feed feed = default!;
             try
             {
                 using var handler = new DialogTaskHandler(this);
-                handler.RunTask(new SimpleTask(Resources.CheckingFeed,
-                    delegate
+                handler.RunTask(new DownloadFile(feedUri,
+                    stream =>
                     {
-                        using var webClient = new WebClientTimeout();
-                        feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedUri));
+                        feed = XmlStorage.LoadXml<Feed>(stream);
+                        feed.Normalize(feedUri);
                     }));
             }
             #region Error handling
