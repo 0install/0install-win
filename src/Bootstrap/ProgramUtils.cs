@@ -41,12 +41,7 @@ public static class ProgramUtils
         {
             return ExitCode.UserCanceled;
         }
-        catch (OptionException ex)
-        {
-            handler.Error(ex);
-            return ExitCode.InvalidArguments;
-        }
-        catch (FormatException ex)
+        catch (Exception ex) when (ex is OptionException or FormatException)
         {
             handler.Error(ex);
             return ExitCode.InvalidArguments;

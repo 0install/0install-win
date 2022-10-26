@@ -266,22 +266,7 @@ public sealed partial class InterfaceDialog : OKCancelDialog
             {
                 return;
             }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (WebException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or WebException or NotSupportedException or InvalidDataException)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;

@@ -251,27 +251,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
         #region Error handling
         catch (OperationCanceledException)
         {}
-        catch (ArgumentException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-        }
-        catch (UriFormatException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-        }
-        catch (WebException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-        }
-        catch (SignatureException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-        }
-        catch (IOException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-        }
-        catch (InvalidDataException ex)
+        catch (Exception ex) when (ex is ArgumentException or UriFormatException or WebException or SignatureException or IOException or NotSupportedException or InvalidDataException)
         {
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
         }
