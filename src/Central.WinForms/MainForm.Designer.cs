@@ -337,6 +337,7 @@ namespace ZeroInstall.Central.WinForms
             this.Controls.Add(this.labelNotificationBar);
             this.Controls.Add(this.rootTable);
             this.Name = "MainForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
