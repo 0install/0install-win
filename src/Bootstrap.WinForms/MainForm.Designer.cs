@@ -40,7 +40,7 @@ namespace ZeroInstall
             this.pictureBoxSplashScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxSplashScreen.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxSplashScreen.Name = "pictureBoxSplashScreen";
-            this.pictureBoxSplashScreen.Size = new System.Drawing.Size(560, 250);
+            this.pictureBoxSplashScreen.Size = new System.Drawing.Size(560, 200);
             this.pictureBoxSplashScreen.TabIndex = 0;
             this.pictureBoxSplashScreen.TabStop = false;
             // 
