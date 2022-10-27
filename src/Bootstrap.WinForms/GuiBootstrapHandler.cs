@@ -36,6 +36,13 @@ public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
     }
 
     /// <inheritdoc/>
+    public override void Error(Exception exception)
+    {
+        _wrapper.SendLow(x => x.Enabled = false);
+        base.Error(exception);
+    }
+
+    /// <inheritdoc/>
     public bool IsGui => true;
 
     /// <inheritdoc/>
