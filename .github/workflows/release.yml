@@ -19,7 +19,7 @@ jobs:
       - name: Create archives
         run: |
           pushd Release/net472/win
-          tar -czf ../../../0install-win-${{steps.download.outputs.version}}.tar.gz --exclude '*.pdb' *
+          tar -czf ../../../0install-win-${{steps.download.outputs.version}}.tar.gz *
           popd
           pushd Bootstrap
           zip -9 ../0install.zip 0install.*
