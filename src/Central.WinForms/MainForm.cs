@@ -3,7 +3,6 @@
 
 using System.Diagnostics;
 using NanoByte.Common.Native;
-using NanoByte.Common.Net;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
@@ -81,7 +80,8 @@ internal sealed partial class MainForm : Form
 
         _tileManagement.UpdateMyApps();
         _tileManagement.LoadCachedCatalog();
-        if (NetUtils.IsInternetConnected) LoadCatalogAsync();
+        if (Config.LoadSafe().EffectiveNetworkUse == NetworkLevel.Full)
+            LoadCatalogAsync();
 
         bool firstRun = OnFirstRun();
         if (_tileManagement.IsMyAppsEmpty)

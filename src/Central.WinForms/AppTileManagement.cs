@@ -205,10 +205,10 @@ public class AppTileManagement
         await _iconDownloadSemaphore.WaitAsync();
         try
         {
-            bool stale = false;
-            string path = await Task.Run(() => _iconStore.Get(icon, out stale));
+            bool shouldRefresh = false;
+            string path = await Task.Run(() => _iconStore.Get(icon, out shouldRefresh));
 
-            if (stale)
+            if (shouldRefresh)
             {
                 tile.SetIcon(await Task.Run(() => LoadImageWithoutKeepingFileLock(path)));
                 EnqueueIconUpdate(tile, icon);
