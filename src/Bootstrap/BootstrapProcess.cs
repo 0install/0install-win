@@ -136,6 +136,9 @@ public sealed class BootstrapProcess : ServiceProvider
                 "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
             },
             {
+                "r|refresh", () => "Fetch fresh copies of all used feeds.", _ => FeedManager.Refresh = true
+            },
+            {
                 "prepare-offline", () => "Download all files required to run off-line later.", _ => _prepareOffline = true
             }
         };
@@ -243,6 +246,9 @@ public sealed class BootstrapProcess : ServiceProvider
                     break;
                 case "--offline" or "-o":
                     Config.NetworkUse = NetworkLevel.Offline;
+                    break;
+                case "--refresh" or "-r":
+                    FeedManager.Refresh = true;
                     break;
             }
         }
@@ -432,8 +438,11 @@ public sealed class BootstrapProcess : ServiceProvider
             Verbosity.Debug => args.Prepend("--verbose").Prepend("--verbose"),
             _ => args
         };
-        if (Config.NetworkUse == NetworkLevel.Offline)
-            args = args.Prepend("--offline");
+        if (args.FirstOrDefault() != "central")
+        {
+            if (Config.NetworkUse == NetworkLevel.Offline) args = args.Prepend("--offline");
+            if (FeedManager.Refresh) args = args.Prepend("--refresh");
+        }
 
         return ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
     }
