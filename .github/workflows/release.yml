@@ -16,26 +16,25 @@ jobs:
           unzip artifacts.zip
           echo "::set-output name=version::$(cat VERSION)"
 
-      - name: Create archives
+      - name: Create Release archives
         run: |
-          pushd Release/net472/win
-          tar -czf ../../../0install-win-${{steps.download.outputs.version}}.tar.gz *
-          popd
-          pushd Bootstrap
-          zip -9 ../0install.zip 0install.*
-          zip -9 ../zero-install.zip zero-install.*
-          popd
+          cd Release/net472/win
+          tar -czf ../../0install-win-${{steps.download.outputs.version}}.tar.gz *
+
+      - name: Create Bootstrap archives
+        run: |
+          cd Bootstrap
+          zip -9 0install.zip 0install.exe*
+          zip -9 zero-install.zip zero-install.exe*
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{steps.download.outputs.version}}
           files: |
-            0install-win-${{steps.download.outputs.version}}.tar.gz
-            0install.zip
-            zero-install.zip
-            Bootstrap/0install.exe
-            Bootstrap/zero-install.exe
+            Release/*.tar.gz
+            Bootstrap/*.zip
+            Bootstrap/*.exe
           body: |
             **[Download Zero Install for Windows](https://get.0install.net/#windows)**
 
