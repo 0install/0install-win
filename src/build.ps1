@@ -39,7 +39,6 @@ SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "M
 Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
 rm ..\artifacts\Release\net472\win\*.xml -Exclude ZeroInstall.VisualElementsManifest.xml
-rm ..\artifacts\Release\net472\win\*.pdb
 
 # Generate bootstrap package for PowerShell Gallery (OneGet)
 $env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64"
