@@ -7,7 +7,6 @@ using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Net;
 using ZeroInstall.Commands.Desktop;
-using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;

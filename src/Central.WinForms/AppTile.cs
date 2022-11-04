@@ -3,7 +3,6 @@
 
 using System.Diagnostics;
 using ZeroInstall.Commands.Basic;
-using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms;

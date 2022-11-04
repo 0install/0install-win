@@ -3,7 +3,6 @@
 
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Desktop;
-using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms;
@@ -77,8 +76,7 @@ public sealed partial class AppDropDown : DropDownContainer
     {
         labelStatus.Text = AppResources.Working;
 
-        var exitCode = await RunCommandAsync(Commands.Desktop.AddApp.Name, "--background", _interfaceUri.ToStringRfc());
-        if (exitCode == ExitCode.OK)
+        if (await RunCommandAsync(Commands.Desktop.AddApp.Name, "--background") == ExitCode.OK)
         {
             _status = AppTileStatus.Added;
             RefreshStatus();
@@ -90,7 +88,7 @@ public sealed partial class AppDropDown : DropDownContainer
     {
         labelStatus.Text = AppResources.Working;
         Enabled = false;
-        await RunCommandAsync(IntegrateApp.Name, _interfaceUri.ToStringRfc());
+        await RunCommandAsync(IntegrateApp.Name);
         Close();
     }
 
@@ -98,13 +96,13 @@ public sealed partial class AppDropDown : DropDownContainer
     {
         labelStatus.Text = AppResources.Working;
         Enabled = false;
-        await RunCommandAsync(RemoveApp.Name, _interfaceUri.ToStringRfc());
+        await RunCommandAsync(RemoveApp.Name);
         Close();
     }
 
     private Task<ExitCode> RunCommandAsync(params string[] args)
     {
         if (_machineWide) args = args.Append("--machine");
-        return CommandUtils.RunAsync(args);
+        return CommandUtils.RunAsync(args.Append(_interfaceUri.ToStringRfc()));
     }
 }

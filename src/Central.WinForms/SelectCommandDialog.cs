@@ -2,7 +2,6 @@
 // Licensed under the GNU Lesser Public License
 
 using NanoByte.Common.Native;
-using ZeroInstall.Commands.WinForms;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;

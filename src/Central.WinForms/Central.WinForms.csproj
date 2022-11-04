@@ -26,11 +26,9 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <ProjectReference Include="..\Commands.WinForms\Commands.WinForms.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="AeroWizard" Version="2.3.1" />
-    <PackageReference Include="ZeroInstall.Model" Version="$(ZeroInstallVersion)" />
+    <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
+    <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" PrivateAssets="None" />
   </ItemGroup>
 
   <!-- Start menu tile -->
@@ -42,7 +40,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  
+
   <!-- WinForms localization resources -->
   <ItemGroup>
     <EmbeddedResource Update="IntroDialog.*.resx">

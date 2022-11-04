@@ -3,7 +3,6 @@
 
 using NanoByte.Common.Native;
 using ZeroInstall.Commands.Desktop;
-using ZeroInstall.Commands.WinForms;
 
 namespace ZeroInstall.Central.WinForms;
 

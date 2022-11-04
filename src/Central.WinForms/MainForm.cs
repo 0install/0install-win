@@ -6,7 +6,6 @@ using NanoByte.Common.Native;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Basic;
 using ZeroInstall.Commands.Desktop;
-using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Configuration;
 
@@ -143,7 +142,7 @@ internal sealed partial class MainForm : Form
         bool added = false;
 
         async Task AddAsync(string interfaceUri)
-            => added |= await RunCommandAsync(AddApp.Name, interfaceUri) == ExitCode.OK;
+            => added |= await RunAppCommandAsync(AddApp.Name, interfaceUri) == ExitCode.OK;
 
         if (e.Data.GetDataPresent(DataFormats.FileDrop))
         {
@@ -220,7 +219,7 @@ internal sealed partial class MainForm : Form
     #region Buttons
     private void buttonSync_Click(object sender, EventArgs e)
     {
-        if (Config.LoadSafe().IsSyncConfigured) RunCommandAsync(SyncApps.Name);
+        if (Config.LoadSafe().IsSyncConfigured) RunAppCommandAsync(SyncApps.Name);
         else SyncWizard.Setup(_machineWide, this);
     }
 
@@ -245,12 +244,12 @@ internal sealed partial class MainForm : Form
     }
 
     private void buttonUpdateAll_Click(object sender, EventArgs e)
-        => RunCommandAsync(UpdateApps.Name);
+        => RunAppCommandAsync(UpdateApps.Name);
 
     private void buttonUpdateAllClean_Click(object sender, EventArgs e)
     {
         if (Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel))
-            RunCommandAsync(UpdateApps.Name, "--clean");
+            RunAppCommandAsync(UpdateApps.Name, "--clean");
     }
 
     private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -262,7 +261,7 @@ internal sealed partial class MainForm : Form
     private void buttonAddFeed_Click(object sender, EventArgs e)
     {
         string interfaceUri = InputBox.Show(this, Text, Resources.EnterFeedUrl);
-        if (!string.IsNullOrEmpty(interfaceUri)) RunCommandAsync(AddApp.Name, interfaceUri);
+        if (!string.IsNullOrEmpty(interfaceUri)) RunAppCommandAsync(AddApp.Name, interfaceUri);
     }
 
     private void buttonAddCatalog_Click(object sender, EventArgs e)
@@ -414,9 +413,6 @@ internal sealed partial class MainForm : Form
     }
     #endregion
 
-    private Task<ExitCode> RunCommandAsync(params string[] args)
-    {
-        if (_machineWide) args = args.Append("--machine");
-        return CommandUtils.RunAsync(args);
-    }
+    private Task<ExitCode> RunAppCommandAsync(params string[] args)
+        => CommandUtils.RunAsync(_machineWide ? args.Append("--machine") : args);
 }

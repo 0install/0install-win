@@ -118,19 +118,7 @@ public sealed partial class StoreManageForm : Form
 
     private void buttonRunAsAdmin_Click(object? sender, EventArgs e)
     {
-        try
-        {
-            ProcessUtils.Assembly(CommandUtils.ExeName, StoreMan.Name, "manage").AsAdmin().Start();
-        }
-        catch (PlatformNotSupportedException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            return;
-        }
-        catch (OperationCanceledException)
-        {
-            return;
-        }
+        CommandUtils.StartAsAdmin(StoreMan.Name, "manage");
         Close();
     }
 

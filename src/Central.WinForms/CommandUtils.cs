@@ -2,14 +2,17 @@
 // Licensed under the GNU Lesser Public License
 
 using System.Diagnostics;
+using ZeroInstall.Commands;
 
-namespace ZeroInstall.Commands.WinForms;
+namespace ZeroInstall.Central.WinForms;
 
 /// <summary>
 /// Helpers for running 0install-win commands.
 /// </summary>
 public class CommandUtils
 {
+    private const string ExeName = "0install-win";
+
     /// <summary>
     /// Starts a 0install-win command and does not wait for it to complete.
     /// </summary>
@@ -18,7 +21,7 @@ public class CommandUtils
     {
         try
         {
-            GetStartInfo(args).Start();
+           GetStartInfo(args).Start();
         }
         #region Error handling
         catch (IOException ex)
@@ -29,20 +32,21 @@ public class CommandUtils
     }
 
     /// <summary>
-    /// Starts a 0install-win command elevated as Administrator and does not wait for it to complete.
+    /// Runs a 0install-win command and waits for it to complete.
     /// </summary>
     /// <param name="args">Command name with arguments to execute.</param>
-    public static void StartAsAdmin(params string?[] args)
+    /// <returns>The command's exit code.</returns>
+    public static async Task<ExitCode> RunAsync(params string?[] args)
     {
         try
         {
-            GetStartInfo(args).AsAdmin().Start();
+            return await Task.Run(() => (ExitCode)GetStartInfo(args).Run());
         }
         #region Error handling
-        catch (OperationCanceledException) {}
         catch (IOException ex)
         {
             Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            return (ExitCode)(-1);
         }
         #endregion
     }
