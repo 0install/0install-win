@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using NanoByte.Common.Native;
@@ -80,7 +81,7 @@ public sealed class GuiCommandHandler : GuiTaskHandlerBase, ICommandHandler
                 return _wrapper.Post(form => form.AddProgressFor(task));
             }
             #region Error handling
-            catch (Win32Exception ex)
+            catch (Exception ex) when (ex is Win32Exception or ExternalException)
             {
                 Log.Debug($"Problem showing GUI progress control for {task.Name}", ex);
                 return null;
