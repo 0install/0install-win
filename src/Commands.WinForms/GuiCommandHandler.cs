@@ -7,7 +7,6 @@ using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms;
 
@@ -148,10 +147,6 @@ public sealed partial class GuiCommandHandler : GuiTaskHandlerBase, ICommandHand
         if (SwitchToDialog(() => new IntegrateAppForm(state)) != DialogResult.OK)
             throw new OperationCanceledException();
     }
-
-    /// <inheritdoc/>
-    public void ManageStore(IImplementationStore implementationStore, IFeedCache feedCache)
-        => SwitchToDialog(() => new StoreManageForm(implementationStore, feedCache));
 
     /// <inheritdoc/>
     public override void Error(Exception exception)

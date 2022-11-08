@@ -18,15 +18,12 @@
     <Copyright>Copyright Bastian Eicher et al.</Copyright>
     <RepositoryUrl>https://github.com/0install/0install-win</RepositoryUrl>
 
-    <!-- Deploy native libs to output -->
-    <RuntimeIdentifier>win</RuntimeIdentifier>
-
     <!-- Dummy version number, overriddenby GitVersion -->
     <Version>1.0.0-pre</Version>
 
     <!-- Dependency versions -->
-    <NanoByteCommonVersion>2.13.5</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.23.14</ZeroInstallVersion>
+    <NanoByteCommonVersion>2.14.1</NanoByteCommonVersion>
+    <ZeroInstallVersion>2.24.0</ZeroInstallVersion>
   </PropertyGroup>
 
   <!-- Global usings -->

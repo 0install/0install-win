@@ -18,7 +18,7 @@ jobs:
 
       - name: Create Release archives
         run: |
-          cd Release/net472/win
+          cd Release/net472
           tar -czf ../../0install-win-${{steps.download.outputs.version}}.tar.gz --exclude '*.pdb' *
           tar -czf ../../0install-win-${{steps.download.outputs.version}}-debug-symbols.tar.gz *.pdb
 

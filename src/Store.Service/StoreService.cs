@@ -82,9 +82,10 @@ public sealed partial class StoreService : ServiceBase
 
             ChannelServices.RegisterChannel(_serverChannel, ensureSecurity: false);
             ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
-            _store = new CompositeImplementationStore(
+            _store = new CompositeImplementationSink(
                 ImplementationStores.GetDirectories(serviceMode: true)
-                                    .Select(path => new ImplementationStore(path)));
+                                    .Select(path => new ImplementationSink(path))
+                                    .ToList());
             _objRef = RemotingServices.Marshal(_store, nameof(IImplementationSink), typeof(IImplementationSink));
 
             // Prevent the service from expiring on Windows 10

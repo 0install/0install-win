@@ -28,7 +28,7 @@
   <ItemGroup>
     <PackageReference Include="AeroWizard" Version="2.3.1" />
     <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
-    <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" PrivateAssets="None" />
+    <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
 
   <!-- Start menu tile -->

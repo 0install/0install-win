@@ -38,13 +38,13 @@ SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "M
 # Compile source code
 Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
-rm ..\artifacts\Release\net472\win\*.xml -Exclude ZeroInstall.VisualElementsManifest.xml
+rm ..\artifacts\Release\net472\*.xml -Exclude ZeroInstall.VisualElementsManifest.xml
 
 # Generate bootstrap package for PowerShell Gallery (OneGet)
 $env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64"
 if (Get-Command mt -ErrorAction SilentlyContinue) {
-    Add-Manifest OneGet\provider.manifest ..\artifacts\Release\net472\win\ZeroInstall.OneGet.dll
-    Add-Manifest OneGet\provider.manifest OneGet.Bootstrap\bin\Release\net472\win\0install.dll
+    Add-Manifest OneGet\provider.manifest ..\artifacts\Release\net472\ZeroInstall.OneGet.dll
+    Add-Manifest OneGet\provider.manifest OneGet.Bootstrap\bin\Release\net472\0install.dll
 
     ..\0install.ps1 run --batch https://apps.0install.net/dotnet/nuget.xml pack OneGet.Bootstrap\PowerShell.nuspec -NoPackageAnalysis -Properties Version=$Version -OutputDirectory ..\artifacts
     move -Force ..\artifacts\0install.$Version.nupkg ..\artifacts\0install.powershell.$Version.nupkg

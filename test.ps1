@@ -2,7 +2,7 @@ Param ([Switch]$Deploy, [Switch]$Machine, [Switch]$Portable, [Switch]$Purge)
 $ErrorActionPreference = "Stop"
 
 $previousPath = $env:PATH
-$env:PATH = "$PSScriptRoot\artifacts\Release\net472\win;$env:PATH"
+$env:PATH = "$PSScriptRoot\artifacts\Release\net472;$env:PATH"
 if ($Deploy) {
   if ($Portable) {
     Write-Output "Deploying portable instance for integration tests"

@@ -10,6 +10,15 @@ namespace ZeroInstall.Commands.WinForms;
 
 partial class GuiCommandHandler
 {
+    /// <inheritdoc/>
+    protected override void LogHandler(LogSeverity severity, string? message, Exception? exception)
+    {
+        // Do not bother user with connectivity errors for background update checks
+        if (Background && exception is WebException) return;
+
+        base.LogHandler(severity, message, exception);
+    }
+
     /// <summary>
     /// Displays <see cref="Log"/> entries as notification messages detached from the main GUI.
     /// </summary>
