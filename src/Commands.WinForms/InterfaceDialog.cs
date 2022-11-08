@@ -23,9 +23,6 @@ public sealed partial class InterfaceDialog : OKCancelDialog
     /// <summary>The feed loaded from <see cref="_interfaceUri"/>.</summary>
     private readonly Feed _mainFeed;
 
-    /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>
-    private readonly IFeedManager _feedManager;
-
     /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
     private readonly Func<Selections> _solveCallback;
 
@@ -61,7 +58,6 @@ public sealed partial class InterfaceDialog : OKCancelDialog
         _interfaceUri = interfaceUri;
         _mainFeed = feedManager[_interfaceUri];
         _solveCallback = solveCallback;
-        _feedManager = feedManager;
         _interfacePreferences = InterfacePreferences.LoadForSafe(_interfaceUri);
     }
 
@@ -109,7 +105,7 @@ public sealed partial class InterfaceDialog : OKCancelDialog
     {
         try
         {
-            _candidates = _solveCallback()[_interfaceUri].Candidates ?? GenerateDummyCandidates();
+            _candidates = _solveCallback()[_interfaceUri].Candidates ?? Enumerable.Empty<SelectionCandidate>();
         }
         #region Error handling
         catch (Exception ex) when (ex is KeyNotFoundException or OperationCanceledException)
@@ -125,40 +121,6 @@ public sealed partial class InterfaceDialog : OKCancelDialog
 
         UpdateDataGridVersions();
     }
-
-    /// <summary>
-    /// Generates <see cref="SelectionCandidate"/>s using minimalistic dummy <see cref="Requirements"/>.
-    /// </summary>
-    private IEnumerable<SelectionCandidate> GenerateDummyCandidates()
-    {
-        // ReSharper disable once InvokeAsExtensionMethod
-        var feedUris = Enumerable.Concat(
-            listBoxFeeds.Items.OfType<FeedUri>(),
-            listBoxFeeds.Items.OfType<FeedReference>().Select(x => x.Source));
-        return feedUris.SelectMany(GenerateDummyCandidates).ToList();
-    }
-
-    private IEnumerable<SelectionCandidate> GenerateDummyCandidates(FeedUri feedUri)
-    {
-        if (feedUri.IsFromDistribution) return Enumerable.Empty<SelectionCandidate>();
-
-        try
-        {
-            var feed = _feedManager[feedUri];
-            var feedPreferences = _feedManager.GetPreferences(feedUri);
-            return feed.Implementations.Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
-        }
-        #region Error handling
-        catch (KeyNotFoundException)
-        {
-            return Enumerable.Empty<SelectionCandidate>();
-        }
-        #endregion
-    }
-
-    private SelectionCandidate GenerateDummyCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation)
-        => new(feedUri, feedPreferences, implementation,
-            new Requirements(_interfaceUri, "", new Architecture(Architecture.CurrentSystem.OS)));
 
     /// <summary>
     /// Gets a list of <see cref="SelectionCandidate"/>s from the <see cref="ISolver"/> to populate <see cref="dataGridVersions"/>.
