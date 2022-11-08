@@ -246,6 +246,15 @@ public sealed partial class ProgressForm : Form
             selectionsControl.Show();
         }
     }
+
+    /// <summary>
+    /// Disables the form but leaves it visible.
+    /// </summary>
+    public void Disable()
+    {
+        Enabled = false;
+        WindowsTaskbar.SetProgressState(Handle, WindowsTaskbar.ProgressBarState.NoProgress);
+    }
     #endregion
 
     #region Question
