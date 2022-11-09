@@ -7,6 +7,7 @@ using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.WinForms;
 
@@ -104,6 +105,10 @@ public sealed partial class GuiCommandHandler : GuiTaskHandlerBase, ICommandHand
                 SwitchToDialog(() => new FeedSearchDialog(title, results));
                 break;
 
+            case IEnumerable<CacheNode> nodes:
+                SwitchToDialog(() => new StoreManageForm(nodes.ToList()));
+                break;
+
             case Config config:
                 if (SwitchToDialog(() => new ConfigDialog(config)) == DialogResult.OK) config.Save();
                 else throw new OperationCanceledException();
@@ -119,8 +124,17 @@ public sealed partial class GuiCommandHandler : GuiTaskHandlerBase, ICommandHand
     /// <inheritdoc/>
     public override void Output<T>(string title, NamedCollection<T> data)
     {
-        DisableUI();
-        base.Output(title, data);
+        switch (data)
+        {
+            case NamedCollection<CacheNode> nodes:
+                SwitchToDialog(() => new StoreManageForm(nodes));
+                break;
+
+            default:
+                DisableUI();
+                base.Output(title, data);
+                break;
+        }
     }
 
     /// <inheritdoc/>

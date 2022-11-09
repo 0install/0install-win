@@ -3,6 +3,7 @@
 
 using NanoByte.Common.Native;
 using ZeroInstall.Commands.Basic;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.ViewModel;
@@ -15,25 +16,19 @@ namespace ZeroInstall.Commands.WinForms;
 [SuppressMessage("ReSharper", "AsyncVoidLambda")]
 public sealed partial class StoreManageForm : Form
 {
-    #region Variables
-    private readonly IImplementationStore _store;
-    private readonly IFeedCache _feedCache;
-
     // Don't use WinForms designer for this, since it doesn't understand generics
-    private readonly FilteredTreeView<StoreManageNode> _treeView = new() {CheckBoxes = true, Dock = DockStyle.Fill};
-    #endregion
+    private readonly FilteredTreeView<CacheNodeWithContextMenu> _treeView = new() {CheckBoxes = true, Dock = DockStyle.Fill};
 
-    #region Constructor
+    internal ServiceProvider Services { get; }
+
     /// <summary>
     /// Creates a new store management window.
     /// </summary>
-    /// <param name="store">The <see cref="IImplementationStore"/> to manage.</param>
-    /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
-    public StoreManageForm(IImplementationStore store, IFeedCache feedCache)
+    /// <param name="nodes">The initial nodes to show.</param>
+    /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
+    /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
+    public StoreManageForm(IReadOnlyList<CacheNode> nodes)
     {
-        _store = store ?? throw new ArgumentNullException(nameof(store));
-        _feedCache = feedCache ?? throw new ArgumentNullException(nameof(feedCache));
-
         InitializeComponent();
         Font = DefaultFonts.Modern;
         buttonRunAsAdmin.AddShieldIcon();
@@ -43,59 +38,46 @@ public sealed partial class StoreManageForm : Form
         if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
         else if (WindowsUtils.HasUac) buttonRunAsAdmin.Show();
 
-        Shown += async delegate { await RefreshListAsync(); };
+        Shown += delegate { RefreshList(nodes); };
 
         _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
         _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
         splitContainer.Panel1.Controls.Add(_treeView);
+
+        Services = new ServiceProvider(new DialogTaskHandler(this));
     }
-    #endregion
 
-    //--------------------//
-
-    #region Build tree list
     /// <summary>
     /// Fills the <see cref="_treeView"/> with entries.
     /// </summary>
-    internal async Task RefreshListAsync()
+    internal void RefreshList(IReadOnlyList<CacheNode>? nodes = null)
     {
-        buttonRefresh.Enabled = false;
         labelLoading.Show();
 
         try
         {
-            var nodeBuilder = await Task.Run(() =>
-            {
-                var builder = new CacheNodeBuilder(_store, _feedCache);
-                builder.Run();
-                return builder;
-            });
-
-            var nodes = nodeBuilder.Nodes!.Select(x => new StoreManageNode(x, this));
-            _treeView.Nodes = new NamedCollection<StoreManageNode>(nodes);
-            textTotalSize.Text = nodeBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
+            nodes ??= new CacheNodeBuilder(Services.Handler, Services.FeedCache, Services.ImplementationStore).Build();
+            _treeView.Nodes = new NamedCollection<CacheNodeWithContextMenu>(nodes.Select(x => new CacheNodeWithContextMenu(this, x)));
+            textTotalSize.Text = nodes.Sum(x => x.Size).FormatBytes(CultureInfo.CurrentCulture);
 
             OnCheckedEntriesChanged(null, EventArgs.Empty);
         }
-        catch (Exception ex)
+        #region Error handling
+        catch (OperationCanceledException) {}
+        catch (Exception ex) when (ex is ImplementationNotFoundException or IOException or UnauthorizedAccessException)
         {
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            Msg.Inform(null, ex.Message, MsgSeverity.Error);
         }
+        #endregion
 
         labelLoading.Hide();
-        buttonRefresh.Enabled = true;
     }
-    #endregion
 
-    #region Event handlers
     private void OnSelectedEntryChanged(object? sender, EventArgs e)
     {
-        var node = _treeView.SelectedEntry?.BackingNode;
+        var node = _treeView.SelectedEntry?.InnerNode;
         propertyGrid.SelectedObject = node;
-
-        // Update current entry size
-        var implementationEntry = node as ImplementationNode;
-        textCurrentSize.Text = implementationEntry?.Size.FormatBytes(CultureInfo.CurrentCulture) ?? "-";
+        textCurrentSize.Text = node?.Size.FormatBytes(CultureInfo.CurrentCulture) ?? "-";
     }
 
     private void OnCheckedEntriesChanged(object? sender, EventArgs e)
@@ -108,11 +90,10 @@ public sealed partial class StoreManageForm : Form
         else
         {
             buttonVerify.Enabled = buttonRemove.Enabled = true;
-
-            // Update selected entries size
-            var nodes = _treeView.CheckedEntries.Select(x => x.BackingNode);
-            long totalSize = nodes.OfType<ImplementationNode>().Sum(x => x.Size);
-            textCheckedSize.Text = totalSize.FormatBytes(CultureInfo.CurrentCulture);
+            textCheckedSize.Text = _treeView.CheckedEntries
+                                            .Select(x => x.InnerNode)
+                                            .Sum(x => x.Size)
+                                            .FormatBytes(CultureInfo.CurrentCulture);
         }
     }
 
@@ -122,68 +103,33 @@ public sealed partial class StoreManageForm : Form
         Close();
     }
 
-    private async void buttonRemove_Click(object? sender, EventArgs e)
+    private void buttonRemove_Click(object? sender, EventArgs e)
     {
         if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Count), MsgSeverity.Warn))
         {
             try
             {
-                using var handler = new DialogTaskHandler(this);
-                foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
-                    node.Delete(handler);
+                foreach (var node in _treeView.CheckedEntries)
+                    node.Remove();
             }
-            #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (KeyNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-            }
-            #endregion
-
-            finally
-            {
-                await RefreshListAsync();
-            }
+            catch (OperationCanceledException) {}
+            finally { RefreshList(); }
         }
     }
 
-    private async void buttonVerify_Click(object? sender, EventArgs e)
+    private void buttonVerify_Click(object? sender, EventArgs e)
     {
         try
         {
-            using var handler = new DialogTaskHandler(this);
-            foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
-                entry.Verify(handler);
+            foreach (var entry in _treeView.CheckedEntries)
+                entry.Verify();
         }
-        #region Error handling
-        catch (OperationCanceledException)
-        {}
-        catch (IOException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-        }
-        #endregion
-
-        await RefreshListAsync();
+        catch (OperationCanceledException) {}
     }
 
-    private async void buttonRefresh_Click(object sender, EventArgs e)
-        => await RefreshListAsync();
+    private void buttonRefresh_Click(object sender, EventArgs e)
+        => RefreshList();
 
     private void buttonClose_Click(object sender, EventArgs e)
         => Close();
-    #endregion
 }
