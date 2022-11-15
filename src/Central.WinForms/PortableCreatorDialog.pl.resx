@@ -82,7 +82,7 @@
     <value>- Przechowuje konfigurację Zero Install i zbuforowane aplikacje w jednym katalogu.
 - Nie powoduje, że aplikacje uruchamiane za pomocą Zero Install stają się automatycznie również przenośne.
 - Przenośne wersje Zero Install nie mogą wykonywać integracji pulpitu (np. tworzyć wpisów w menu start).
-- Rozważ użycie zwykłego Zero Install na wielu komputerach z Zero Install Sync zamiast tego.</value>
+- Rozważ użycie regularnego Zero Install na wielu komputerach z Zero Install Sync zamiast tego.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

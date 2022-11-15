@@ -275,7 +275,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Domyślny handler dla obsługiwanych typów plików ("Otwórz za pomocą" działa również bez tego)</value>
+    <value>Domyślny handler dla obsługiwanych typów plików ("Otwórz z" działa również bez tego)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">

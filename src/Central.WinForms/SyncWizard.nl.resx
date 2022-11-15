@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>U staat op het punt uw lokale applicatielijst te vervangen door de gegevens die op de Sync-server zijn opgeslagen. Alle wijzigingen die u lokaal hebt aangebracht, maar nog niet hebt gesynchroniseerd, gaan verloren!</value>
+    <value>U staat op het punt uw lokale toepassingslijst te vervangen door de gegevens die op de Sync-server zijn opgeslagen. Alle wijzigingen die u lokaal hebt aangebracht, maar nog niet hebt gesynchroniseerd, gaan verloren!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">

@@ -259,7 +259,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>ユーザーがログインすると自動的にプログラムを開始する</value>
+    <value>ユーザーがログインしたときに自動的にプログラムを起動する</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
