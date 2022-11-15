@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Negeer dubbele app vermelding voor '{0}'.</value>
+    <value>Negeren van dubbele app vermelding voor '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -120,7 +120,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Als je een app leuk vindt,
-voeg hem dan toe aan "Mijn apps".</value>
+voeg het dan toe aan "Mijn apps".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">

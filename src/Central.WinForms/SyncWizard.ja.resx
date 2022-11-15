@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>この鍵は秘密にし、パスワードには別のものを使用してください。こうすることで、万が一サーバーに侵入されたとしても、誰もあなたのデータにアクセスすることができなくなります。</value>
+    <value>この鍵は秘密にし、パスワードには別のものを使用してください。こうすることで、万が一、サーバーに侵入されたとしても、誰もあなたのデータにアクセスすることができなくなります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

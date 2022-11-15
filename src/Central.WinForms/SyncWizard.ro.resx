@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Nu trebuie să rulați Zero Install Sync pe alte computere în timp ce acest proces este în desfășurare.</value>
+    <value>Nu trebuie să rulați Zero Install Sync pe alte calculatoare în timp ce acest proces este în desfășurare.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Cheia criptografică este utilizată pentru a vă cripta datele la nivel local înainte de a le transmite către server. Scrieți-o pe cea sugerată sau alegeți-o pe a dumneavoastră.</value>
+    <value>Cheia de criptare este utilizată pentru a vă cripta datele la nivel local înainte de a le transmite către server. Scrieți-o pe cea sugerată sau alegeți-o pe a dumneavoastră.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cheie criptografică schimbată</value>
+    <value>Cheia criptografică a fost schimbată</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">

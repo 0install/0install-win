@@ -75,12 +75,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>在这里你可以创建一个 "零安装 "的便携版本，例如在USB优盘上使用。目标必须是NTFS格式的。</value>
+    <value>在这里你可以创建一个 "零安装 "的便携版本，例如在USB拇指驱动器上使用。目标必须是NTFS格式的。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- 将 "零安装 "配置和缓存的应用程序存储在一个单一目录中。
-- 不会自动使通过 "零点安装 "启动的应用程序也变得可移植。
+- 不会自动使通过 "零安装 "启动的应用程序也具有可移植性。
 - 便携式版本的 "零点安装 "不能进行桌面整合（例如，创建开始菜单条目）。
 - 考虑在多台电脑上使用常规的 "零点安装"，用 "零点安装 "同步代替。</value>
     <comment>Automatically translated.</comment>
