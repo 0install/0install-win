@@ -1,6 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using System.Security;
 using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Services.Executors;
@@ -61,7 +62,7 @@ public static class ProgramUtils
             handler.Error(ex);
             return ExitCode.IOError;
         }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is UnauthorizedAccessException or SecurityException)
         {
             handler.Error(ex);
             return ExitCode.AccessDenied;

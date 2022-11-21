@@ -1,6 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using System.Security;
 using NanoByte.Common.Net;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
@@ -198,7 +199,7 @@ public sealed partial class InterfaceDialog : OKCancelDialog
         {
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
         }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is UnauthorizedAccessException or SecurityException)
         {
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
         }
