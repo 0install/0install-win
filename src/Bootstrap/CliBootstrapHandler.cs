@@ -11,4 +11,7 @@ public class CliBootstrapHandler : CliTaskHandler, IBootstrapHandler
 {
     /// <inheritdoc/>
     public bool IsGui => false;
+
+    /// <inheritdoc/>
+    public bool Background { get => false; set {} }
 }

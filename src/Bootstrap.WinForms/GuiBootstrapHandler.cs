@@ -46,6 +46,9 @@ public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
     public bool IsGui => true;
 
     /// <inheritdoc/>
+    public bool Background { get; set; }
+
+    /// <inheritdoc/>
     public override void RunTask(ITask task)
     {
         #region Sanity checks
@@ -53,7 +56,7 @@ public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
         #endregion
 
         Log.Debug("Task: " + task.Name);
-        var progress = _wrapper.Post(form => form.GetProgressControl(task.Name));
+        var progress = Background ? null : _wrapper.Post(form => form.GetProgressControl(task.Name));
         task.Run(CancellationToken, CredentialProvider, progress);
     }
 }

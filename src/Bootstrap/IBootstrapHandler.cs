@@ -13,4 +13,9 @@ public interface IBootstrapHandler : ITaskHandler
     /// Indicates whether this handler is a GUI.
     /// </summary>
     bool IsGui { get; }
+
+    /// <summary>
+    /// Hides the GUI. Has no effect when <see cref="IsGui"/> is <c>false</c>.
+    /// </summary>
+    bool Background { get; set; }
 }

@@ -15,4 +15,7 @@ public class OneGetBootstrapHandler : OneGetHandler, IBootstrapHandler
 
     /// <inheritdoc/>
     public bool IsGui => false;
+
+    /// <inheritdoc/>
+    public bool Background { get => false; set {} }
 }

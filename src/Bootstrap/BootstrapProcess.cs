@@ -142,6 +142,8 @@ public sealed class BootstrapProcess : ServiceProvider
                 "prepare-offline", () => "Download all files required to run off-line later.", _ => _prepareOffline = true
             }
         };
+        if (handler.IsGui)
+            _options.Add("background", () => "Hide the graphical user interface.", _ => _handler.Background = true);
 
         if (_embeddedConfig is {AppUri: not null, AppName: not null})
         {
@@ -151,6 +153,15 @@ public sealed class BootstrapProcess : ServiceProvider
                 _noRun = true;
                 _handler.Verbosity = Verbosity.Batch;
             });
+            if (handler.IsGui)
+            {
+                _options.Add("S|verysilent", () => "Equivalent to --no-run --batch --background.", _ =>
+                {
+                    _noRun = true;
+                    _handler.Verbosity = Verbosity.Batch;
+                    _handler.Background = true;
+                });
+            }
             if (_embeddedConfig.IntegrateArgs != null)
             {
                 _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
@@ -243,6 +254,9 @@ public sealed class BootstrapProcess : ServiceProvider
                     break;
                 case "--verbose" or "-v":
                     _handler.Verbosity = Verbosity.Verbose;
+                    break;
+                case "--background":
+                    _handler.Background = true;
                     break;
                 case "--offline" or "-o":
                     Config.NetworkUse = NetworkLevel.Offline;
@@ -440,6 +454,7 @@ public sealed class BootstrapProcess : ServiceProvider
         };
         if (args.FirstOrDefault() != "central")
         {
+            if (_handler.Background) args = args.Prepend("--background");
             if (Config.NetworkUse == NetworkLevel.Offline) args = args.Prepend("--offline");
             if (FeedManager.Refresh) args = args.Prepend("--refresh");
         }
