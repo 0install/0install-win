@@ -120,7 +120,7 @@ public sealed class BootstrapProcess : ServiceProvider
                 }
             },
             {
-                "version=", () => "Use a specific {VERSION} of Zero Install.", (VersionRange range) => _version = range
+                "version=", () => $"Use a specific {{VERSION}} of {_embeddedConfig.AppName ?? "Zero Install"}.", (VersionRange range) => _version = range
             },
             {
                 "feed=", () => "Specify an alternative {FEED} for Zero Install.", feed => Config.SelfUpdateUri = new(feed)
@@ -369,15 +369,18 @@ public sealed class BootstrapProcess : ServiceProvider
 
         if (_embeddedConfig is {AppUri: not null, AppName: not null})
         {
-            string appUri = _embeddedConfig.AppUri.ToStringRfc();
-            if (_noRun)
-                args.Add(new[] {"download", appUri});
-            else
-            {
-                args.Add("run");
-                if (_handler.IsGui) args.Add("--no-wait");
-                args.Add(appUri);
+            args.Add(_noRun ? "download" : "run");
 
+            if (!_noRun)
+            {
+                if (_version != null) args.Add(new [] {"--version", _version.ToString()});
+                if (_handler.IsGui) args.Add("--no-wait");
+            }
+
+            args.Add(_embeddedConfig.AppUri.ToStringRfc());
+
+            if (!_noRun)
+            {
                 string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
                 if (appArgs.Length != 0)
                 {
@@ -467,7 +470,7 @@ public sealed class BootstrapProcess : ServiceProvider
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
     {
-        if (_version != null) return null;
+        if (_embeddedConfig.AppName == null && _version != null) return null;
 
         var deployedInstance = GetDeployedInstance();
         if (string.IsNullOrEmpty(deployedInstance)) return null;
@@ -491,8 +494,9 @@ public sealed class BootstrapProcess : ServiceProvider
         // To keep things simple, we never try to use the external solver to get Zero Install itself
         Config.ExternalSolverUri = null;
 
-        _requirements = new Requirements(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
-        if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
+        _requirements = new(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
+        if (_embeddedConfig.AppName == null && _version != null)
+            _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
         _selections = Solver.Solve(_requirements!);
         if (FeedManager.ShouldRefresh)
