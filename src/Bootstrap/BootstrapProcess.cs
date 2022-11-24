@@ -353,7 +353,7 @@ public sealed class BootstrapProcess : ServiceProvider
         if (_noIntegrate || _embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
             return ExitCode.OK;
 
-        var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc()};
+        var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc(), "--no-download"};
         if (_machineWide) args.Add("--machine");
         args.Add(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
 
