@@ -14,7 +14,7 @@ jobs:
         run: |
           curl -sSf -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
           unzip -q artifacts.zip
-          echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
+          echo "version=$(cat VERSION | tr -d '\n')" >> $GITHUB_OUTPUT
 
       - name: Create Release archives
         run: |
