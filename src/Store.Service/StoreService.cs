@@ -89,10 +89,6 @@ public sealed partial class StoreService : ServiceBase
                                     .Select(path => new ImplementationSink(path))
                                     .ToList());
             _objRef = RemotingServices.Marshal(_store, nameof(IImplementationSink), typeof(IImplementationSink));
-
-            // Prevent the service from expiring on Windows 10
-            var lease = (ILease)RemotingServices.GetLifetimeService(_store);
-            lease.Renew(TimeSpan.FromDays(365));
         }
         #region Error handling
         catch (IOException ex)
