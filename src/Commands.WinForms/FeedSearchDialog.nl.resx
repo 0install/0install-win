@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Deze zoekresultaten worden geleverd door de spiegelserver. Merk op dat de standaard spiegelserver alle bekende feeds indexeert, ongeacht de kwaliteit; u moet beslissen of u de programma's vertrouwt voordat u ze uitvoert.</value>
+    <value>Deze zoekresultaten worden verstrekt door de spiegelserver. Merk op dat de standaard spiegelserver alle bekende feeds indexeert, ongeacht de kwaliteit; u moet beslissen of u de programma's vertrouwt voordat u ze uitvoert.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

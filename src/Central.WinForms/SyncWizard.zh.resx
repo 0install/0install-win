@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙用于在本地对你的数据进行加密，然后再传输到服务器。写下建议的密钥或选择你自己的。</value>
+    <value>密码钥匙用于在本地加密你的数据，然后传输到服务器。写下建议的密钥或选择你自己的。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>你即将用存储在同步服务器上的数据替换你的本地应用程序列表。你在本地所做的但尚未同步的任何修改都会丢失</value>
+    <value>你将要用存储在同步服务器上的数据来替换你的本地应用程序列表。你在本地所做的但尚未同步的任何修改都会丢失</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de提供免费账户用于存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
+    <value>0install.de提供免费账户来存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

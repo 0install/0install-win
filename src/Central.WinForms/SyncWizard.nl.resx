@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>De cryptosleutel wordt gebruikt om uw gegevens lokaal te versleutelen voordat ze naar de server worden verzonden. Schrijf de voorgestelde sleutel op of kies uw eigen sleutel.</value>
+    <value>De cryptosleutel wordt gebruikt om uw gegevens lokaal te versleutelen alvorens ze naar de server te sturen. Schrijf de voorgestelde sleutel op of kies uw eigen sleutel.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
