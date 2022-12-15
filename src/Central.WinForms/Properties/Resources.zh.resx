@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>输入'{0}'，可以看到可用的命令列表。</value>
+    <value>输入'{0}'，查看可用的命令列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Cómo empezar</value>
+    <value>Para empezar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonReplay.Text" xml:space="preserve">
-    <value>Volver a jugar</value>
+    <value>Reproducir de nuevo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVideo.Text" xml:space="preserve">
-    <value>Un breve vídeo de presentación</value>
+    <value>Breve vídeo de presentación</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

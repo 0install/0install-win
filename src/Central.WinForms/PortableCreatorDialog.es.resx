@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Creador portátil</value>
+    <value>Creador portable</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
@@ -75,14 +75,14 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una unidad USB. El destino debe estar formateado en NTFS.</value>
+    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una memoria USB. El destino debe tener formato NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Almacena la configuración de Zero Install y las aplicaciones en caché en un único directorio.
-- No hace que las aplicaciones lanzadas a través de la Zero Install sean automáticamente también portables.
-- Las versiones portátiles de Zero Install no pueden realizar la integración en el escritorio (por ejemplo, crear entradas en el menú de inicio).
-- Considere la posibilidad de utilizar la Zero Install normal en varios ordenadores con la Zero Install Sync.</value>
+    <value>- Almacena la configuración de Zero Install y las aplicaciones almacenadas en caché en un único directorio.
+- No convierte automáticamente en portables las aplicaciones lanzadas a través de Zero Install.
+- Las versiones portables de Zero Install no pueden realizar la integración en el escritorio (por ejemplo, crear entradas en el menú de inicio).
+- Considere la posibilidad de utilizar la Zero Install normal en varios ordenadores con Zero Install Sync en su lugar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

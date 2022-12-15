@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reiniciar</value>
+    <value>Restablecer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprobar automáticamente las nuevas claves (si las conoce el servidor de claves)</value>
+    <value>Aprobar automáticamente nuevas claves (si el servidor de claves las conoce)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Fuentes del catálogo</value>
+    <value>Catálogo de fuentes</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementación de directorios de caché</value>
+    <value>Implementación de directorios caché</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -135,13 +135,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Advertencia: El cambio de estas opciones puede impedir que la Zero Install funcione correctamente.</value>
+    <value>Advertencia: Cambiar estas opciones puede impedir que Zero Install funcione correctamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Esto controla el idioma de:
-- La propia Zero Install y
-- las aplicaciones descargadas por la Zero Install.
+- La propia Zero Install y las
+- aplicaciones descargadas por Zero Install.
 
 Notas:
 - Las traducciones no están disponibles para todos los idiomas.
@@ -153,7 +153,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Clave criptográfica:</value>
+    <value>Llave criptográfica:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -165,7 +165,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Gestionar la cuenta</value>
+    <value>Gestionar cuenta</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -173,11 +173,11 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Mínimo (prefiere las versiones en caché)</value>
+    <value>Mínimo (prefiera las versiones en caché)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Fuera de línea (no utilizar la red)</value>
+    <value>Desconectado (no utilizar la red)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -197,7 +197,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sincronización</value>
+    <value>Sincroniza</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">

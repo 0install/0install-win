@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>Configuración avanzada</value>
+    <value>Ajustes avanzados</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Alias de la línea de comandos</value>
+    <value>Alias de línea de comandos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
@@ -255,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Se inicia automáticamente cuando se insertan los medios adecuados (DVD, unidad USB, etc.)</value>
+    <value>Se inicia automáticamente al insertar un soporte adecuado (DVD, unidad USB, etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programa por defecto para tareas como el navegador web o el cliente de correo electrónico</value>
+    <value>Programa predeterminado para tareas como navegador web o cliente de correo electrónico</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -275,23 +275,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Manejador por defecto para los tipos de archivo soportados ("Abrir con" también funciona sin esto)</value>
+    <value>Gestor por defecto para los tipos de archivo admitidos ("Abrir con" también funciona sin esto)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Una entrada en el menú "Enviar a&amp;quot</value>
+    <value>Una entrada en el menú "Enviar a</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Una o más entradas en el menú de inicio</value>
+    <value>Una o varias entradas en el menú de inicio</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manejador por defecto para los protocolos de URL soportados ("Abrir con" también funciona sin esto)</value>
+    <value>Gestor por defecto para los protocolos URL compatibles ("Abrir con" también funciona sin esto)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Alias de la línea de comandos</value>
+    <value>Alias de línea de comandos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
