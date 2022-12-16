@@ -59,4 +59,14 @@ public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
         var progress = Background ? null : _wrapper.Post(form => form.GetProgressControl(task.Name));
         task.Run(CancellationToken, CredentialProvider, progress);
     }
+
+    /// <inheritdoc/>
+    public string? GetCustomPath(bool machineWide, string? currentPath)
+    {
+        if (!IsInteractive) return currentPath;
+
+        string? result = _wrapper.Post(form => form.GetCustomPath(machineWide, currentPath)).Result;
+        CancellationToken.ThrowIfCancellationRequested();
+        return result;
+    }
 }

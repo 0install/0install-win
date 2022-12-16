@@ -18,4 +18,7 @@ public class OneGetBootstrapHandler : OneGetHandler, IBootstrapHandler
 
     /// <inheritdoc/>
     public bool Background { get => false; set {} }
+
+    /// <inheritdoc/>
+    public string? GetCustomPath(bool machineWide, string? currentPath) => currentPath;
 }

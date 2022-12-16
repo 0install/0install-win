@@ -16,7 +16,8 @@ namespace ZeroInstall;
 /// <param name="AppName">The name of the target application to bootstrap.</param>
 /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
 /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> or empty to not call <c>0install integrate</c> at all.</param>
-public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs)
+/// <param name="CustomizablePath">Controls whether the user is offered to choose a custom path for storing implementations.</param>
+public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs, bool CustomizablePath = false)
 {
     /// <summary>
     /// Loads the embedded configuration.
@@ -50,7 +51,8 @@ public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, Fee
             AppUri: ReadConfig("app_uri", lineNumber: 2, nameof(AppUri))?.To(x => new FeedUri(x)),
             AppName: ReadConfig("app_name", lineNumber: 3, placeholder: nameof(AppName)),
             AppArgs: ReadConfig("app_args", lineNumber: 4, placeholder: nameof(AppArgs)),
-            IntegrateArgs: ReadConfig("integrate_args", lineNumber: 5, placeholder: nameof(IntegrateArgs))
+            IntegrateArgs: ReadConfig("integrate_args", lineNumber: 5, placeholder: nameof(IntegrateArgs)),
+            CustomizablePath: ReadConfig("customizable_path", lineNumber: 6, placeholder: nameof(CustomizablePath)) == "true"
         );
     }
 }

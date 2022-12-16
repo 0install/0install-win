@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using ZeroInstall.Store.Configuration;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall;
@@ -34,6 +35,25 @@ partial class BootstrapProcess
                 Config.FeedMirror = null;
             }
         }
+    }
+
+    /// <summary>
+    /// Asks the user to provide a custom path for storing implementations.
+    /// </summary>
+    private void CustomizePath()
+    {
+        var paths = (_machineWide
+            ? ImplementationStores.GetMachineWideDirectories()
+            : ImplementationStores.GetUserDirectories()).ToList();
+        if (paths.Count > 1) return;
+
+        string? path = paths.FirstOrDefault();
+        path = _handler.GetCustomPath(_machineWide, path);
+        paths = new();
+        if (!string.IsNullOrEmpty(path)) paths.Add(path);
+
+        if (_machineWide) ImplementationStores.SetMachineWideDirectories(paths);
+        else ImplementationStores.SetUserDirectories(paths);
     }
 
     /// <summary>

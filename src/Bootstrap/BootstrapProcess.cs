@@ -32,6 +32,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         _userArgs.Add(_options.Parse(args));
         if (_embeddedConfig.AppUri == null) ShareArgsWithZeroInstall();
+        if (_embeddedConfig.CustomizablePath) CustomizePath();
 
         TrustKeys();
         ImportContent();
