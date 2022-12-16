@@ -60,4 +60,12 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <!-- .NET Core MSBuild does not support legacy ResGen -->
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)'=='Core'">
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildRuntimeType)'=='Core'">
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+  </ItemGroup>
+
 </Project>
