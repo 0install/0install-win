@@ -58,23 +58,20 @@ public sealed partial class IntroDialog : Form
     private void SetupTiles()
     {
         tileListCatalog.Clear();
-        tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Candidate)
-                       .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}})
-                       .SetIcon(ImageResources.AppIcon);
-        tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppTileStatus.Candidate)
-                       .SetFeed(new() {Summaries = {Resources.IntroCommonAppSummary}})
-                       .SetIcon(ImageResources.AppIcon);
-        tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppTileStatus.Candidate)
-                       .SetFeed(new() {Summaries = {Resources.IntroOtherAppSummary}})
-                       .SetIcon(ImageResources.AppIcon);
+        QueueNewTile(tileListCatalog, _coolApp, Resources.IntroCoolApp, Resources.IntroCoolAppSummary);
+        QueueNewTile(tileListCatalog, _commonApp, Resources.IntroCommonApp, Resources.IntroCommonAppSummary);
+        QueueNewTile(tileListCatalog, _otherApp, Resources.IntroOtherApp, Resources.IntroOtherAppSummary);
         tileListCatalog.AddQueuedTiles();
 
         tileListMyApps.Clear();
-        tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppTileStatus.Added)
-                      .SetFeed(new() {Summaries = {Resources.IntroCoolAppSummary}})
-                      .SetIcon(ImageResources.AppIcon);
+        QueueNewTile(tileListMyApps, _coolApp, Resources.IntroCoolApp, Resources.IntroCoolAppSummary, AppTileStatus.Added);
         tileListMyApps.AddQueuedTiles();
     }
+
+    private static void QueueNewTile(AppTileList list, FeedUri interfaceUri, string name, string summary, AppTileStatus status = AppTileStatus.Candidate)
+        => list.QueueNewTile(interfaceUri, name, status)
+               .SetFeed(new() {Name = name, Summaries = {summary}})
+               .SetIcon(ImageResources.AppIcon);
 
     private async Task PlayWelcome()
     {
