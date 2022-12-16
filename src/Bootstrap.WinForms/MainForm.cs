@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using NanoByte.Common.Native;
+using NanoByte.Common.Streams;
 
 namespace ZeroInstall;
 
@@ -19,6 +20,7 @@ public sealed partial class MainForm : Form
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
+        pictureBoxSplashScreen.BackgroundImage = Image.FromStream(typeof(MainForm).GetEmbeddedStream("SplashScreen.png"));
         HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
         Text = string.Format(LocalizableStrings.Title, _embeddedConfig.AppName ?? "Zero Install");
