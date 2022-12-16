@@ -230,7 +230,7 @@ public sealed class OneGetContext : ScopedOperation, IOneGetContext
     {
         var selections = Solver.Solve(requirements);
 
-        if (FeedManager.ShouldRefresh || SelectionsManager.GetUncachedSelections(selections).Any())
+        if (FeedManager.ShouldRefresh || SelectionsManager.GetUncached(selections.Implementations).Any())
         {
             FeedManager.Stale = false;
             FeedManager.Refresh = true;

@@ -22,8 +22,8 @@
     <Version>1.0.0-pre</Version>
 
     <!-- Dependency versions -->
-    <NanoByteCommonVersion>2.14.1</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.24.0</ZeroInstallVersion>
+    <NanoByteCommonVersion>2.15.0</NanoByteCommonVersion>
+    <ZeroInstallVersion>2.24.1</ZeroInstallVersion>
   </PropertyGroup>
 
   <!-- Global usings -->
