@@ -32,16 +32,14 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="Mono.Posix">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <!-- Merge DLLs into EXEs -->
-  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
-  <PropertyGroup>
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" /><!-- Delay importing SDK as workaround for issue with post-build events -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <PostBuildEvent>set ARTIFACT_DIR=$(ProjectDir)\..\..\artifacts\Bootstrap
 mkdir "%ARTIFACT_DIR%"
 

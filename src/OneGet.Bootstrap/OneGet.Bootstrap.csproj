@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <!-- Merge DLLs into EXEs -->
-  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
-  <PropertyGroup>
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" /><!-- Delay importing SDK as workaround for issue with post-build events -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <PostBuildEvent>pushd "$(OutDir)"
 "$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"$(TargetDir)0install.dll" "$(TargetPath)" 0install.exe ZeroInstall.*.dll Generator.Equals.Runtime.dll NanoByte.Common.dll System.Buffers.dll System.Memory.dll System.Runtime.*.dll System.Threading.*.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll LinFu.DynamicProxy.dll
 popd</PostBuildEvent>

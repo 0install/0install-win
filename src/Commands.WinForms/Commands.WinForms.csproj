@@ -30,8 +30,6 @@
     <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="Windows.Data" />
     <Reference Include="Windows.UI" />
   </ItemGroup>

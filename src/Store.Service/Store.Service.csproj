@@ -8,7 +8,6 @@
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.service.manifest</ApplicationManifest>
-    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\App.config" />
