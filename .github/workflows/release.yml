@@ -14,13 +14,13 @@ jobs:
         run: |
           curl -sSf -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
           unzip -q artifacts.zip
-          echo "version=$(cat VERSION | tr -d '\n')" >> $GITHUB_OUTPUT
+          echo "version=$(cat VERSION | tr -d '\r\n')" >> $GITHUB_OUTPUT
 
       - name: Create Release archives
         run: |
           cd Release/net472
-          tar -czf ../../0install-win-${{steps.download.outputs.version}}.tar.gz --exclude '*.pdb' *
-          tar -czf ../../0install-win-${{steps.download.outputs.version}}-debug-symbols.tar.gz *.pdb
+          tar -czf ../0install-win-${{steps.download.outputs.version}}.tar.gz --exclude '*.pdb' *
+          tar -czf ../0install-win-${{steps.download.outputs.version}}-debug-symbols.tar.gz *.pdb
 
       - name: Create Bootstrap archives
         run: |
