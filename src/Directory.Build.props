@@ -23,7 +23,7 @@
 
     <!-- Dependency versions -->
     <NanoByteCommonVersion>2.15.0</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.24.1</ZeroInstallVersion>
+    <ZeroInstallVersion>2.24.2</ZeroInstallVersion>
   </PropertyGroup>
 
   <!-- Global usings -->
