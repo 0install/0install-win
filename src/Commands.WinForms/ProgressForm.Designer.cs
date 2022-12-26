@@ -16,11 +16,11 @@ namespace ZeroInstall.Commands.WinForms
         [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_pendingResult", Justification = "Is owned and disposed by external caller.")]
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                _trayIcon?.Dispose();
+                components?.Dispose();
             }
-            _trayIcon.Dispose();
             base.Dispose(disposing);
         }
 
