@@ -1,7 +1,9 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using System.Diagnostics;
 using System.Security;
+using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Services.Executors;
@@ -52,6 +54,23 @@ public static class ProgramUtils
             handler.Error(ex);
             return ExitCode.WebError;
         }
+        catch (NotAdminException) when (WindowsUtils.HasUac && handler.IsGui)
+        {
+            Log.Info("Elevating to admin");
+            try
+            {
+                return (ExitCode)GetStartInfo(args).AsAdmin().Run();
+            }
+            catch (IOException ex)
+            {
+                handler.Error(ex);
+                return ExitCode.IOError;
+            }
+            catch (OperationCanceledException)
+            {
+                return ExitCode.UserCanceled;
+            }
+        }
         catch (NotSupportedException ex)
         {
             handler.Error(ex);
@@ -95,4 +114,7 @@ public static class ProgramUtils
         }
         #endregion
     }
+
+    public static ProcessStartInfo GetStartInfo(params string[] args)
+        => ProcessUtils.Assembly(Path.GetFileNameWithoutExtension(Process.GetCurrentProcess().MainModule!.FileName), args);
 }
