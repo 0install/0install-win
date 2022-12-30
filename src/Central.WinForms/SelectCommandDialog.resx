@@ -519,34 +519,34 @@
   <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="buttonRefresh.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonReload.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="buttonRefresh.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonReload.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 12pt</value>
   </data>
-  <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonReload.Location" type="System.Drawing.Point, System.Drawing">
     <value>390, 12</value>
   </data>
-  <data name="buttonRefresh.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonReload.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 50</value>
   </data>
-  <data name="buttonRefresh.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonReload.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="buttonRefresh.Text" xml:space="preserve">
+  <data name="buttonReload.Text" xml:space="preserve">
     <value>⟳</value>
   </data>
-  <data name="&gt;&gt;buttonRefresh.Name" xml:space="preserve">
-    <value>buttonRefresh</value>
+  <data name="&gt;&gt;buttonReload.Name" xml:space="preserve">
+    <value>buttonReload</value>
   </data>
-  <data name="&gt;&gt;buttonRefresh.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonReload.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonRefresh.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonReload.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonRefresh.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonReload.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

@@ -234,34 +234,34 @@
   <data name="&gt;&gt;buttonDeploy.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="buttonSelectTarget.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="buttonBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="buttonSelectTarget.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonBrowse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelectTarget.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonBrowse.Location" type="System.Drawing.Point, System.Drawing">
     <value>423, 42</value>
   </data>
-  <data name="buttonSelectTarget.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonBrowse.Size" type="System.Drawing.Size, System.Drawing">
     <value>29, 23</value>
   </data>
-  <data name="buttonSelectTarget.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonBrowse.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="buttonSelectTarget.Text" xml:space="preserve">
+  <data name="buttonBrowse.Text" xml:space="preserve">
     <value>...</value>
   </data>
-  <data name="&gt;&gt;buttonSelectTarget.Name" xml:space="preserve">
-    <value>buttonSelectTarget</value>
+  <data name="&gt;&gt;buttonBrowse.Name" xml:space="preserve">
+    <value>buttonBrowse</value>
   </data>
-  <data name="&gt;&gt;buttonSelectTarget.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonBrowse.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSelectTarget.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonBrowse.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonSelectTarget.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonBrowse.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="labelInfo2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">

@@ -78,7 +78,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         UpdateComboBoxes();
     }
 
-    private async void buttonRefresh_Click(object sender, EventArgs e)
+    private async void buttonReload_Click(object sender, EventArgs e)
     {
         try
         {
