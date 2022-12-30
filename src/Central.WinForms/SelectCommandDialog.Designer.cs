@@ -41,7 +41,7 @@ namespace ZeroInstall.Central.WinForms
             this.panelOptions = new System.Windows.Forms.FlowLayoutPanel();
             this.comboBoxVersion = new System.Windows.Forms.ComboBox();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonReload = new System.Windows.Forms.Button();
             this.groupBoxCommandLine.SuspendLayout();
             this.panelOptions.SuspendLayout();
             this.SuspendLayout();
@@ -142,18 +142,18 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.labelVersion, "labelVersion");
             this.labelVersion.Name = "labelVersion";
             // 
-            // buttonRefresh
+            // buttonReload
             // 
-            resources.ApplyResources(this.buttonRefresh, "buttonRefresh");
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            resources.ApplyResources(this.buttonReload, "buttonReload");
+            this.buttonReload.Name = "buttonReload";
+            this.buttonReload.UseVisualStyleBackColor = true;
+            this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
             // 
             // SelectCommandDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonRefresh);
+            this.Controls.Add(this.buttonReload);
             this.Controls.Add(this.comboBoxVersion);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.panelOptions);
@@ -179,7 +179,7 @@ namespace ZeroInstall.Central.WinForms
             this.Controls.SetChildIndex(this.panelOptions, 0);
             this.Controls.SetChildIndex(this.labelVersion, 0);
             this.Controls.SetChildIndex(this.comboBoxVersion, 0);
-            this.Controls.SetChildIndex(this.buttonRefresh, 0);
+            this.Controls.SetChildIndex(this.buttonReload, 0);
             this.groupBoxCommandLine.ResumeLayout(false);
             this.groupBoxCommandLine.PerformLayout();
             this.panelOptions.ResumeLayout(false);
@@ -190,7 +190,7 @@ namespace ZeroInstall.Central.WinForms
 
         #endregion
 
-        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.ComboBox comboBoxVersion;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelCommand;

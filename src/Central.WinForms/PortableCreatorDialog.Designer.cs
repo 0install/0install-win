@@ -32,7 +32,7 @@ namespace ZeroInstall.Central.WinForms
             this.labelInfo = new System.Windows.Forms.Label();
             this.textBoxTarget = new NanoByte.Common.Controls.HintTextBox();
             this.buttonDeploy = new System.Windows.Forms.Button();
-            this.buttonSelectTarget = new System.Windows.Forms.Button();
+            this.buttonBrowse = new System.Windows.Forms.Button();
             this.labelInfo2 = new System.Windows.Forms.Label();
             this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
             this.textBoxCommandLine = new System.Windows.Forms.TextBox();
@@ -65,12 +65,12 @@ namespace ZeroInstall.Central.WinForms
             this.buttonDeploy.UseVisualStyleBackColor = true;
             this.buttonDeploy.Click += new System.EventHandler(this.buttonDeploy_Click);
             // 
-            // buttonSelectTarget
+            // buttonBrowse
             // 
-            resources.ApplyResources(this.buttonSelectTarget, "buttonSelectTarget");
-            this.buttonSelectTarget.Name = "buttonSelectTarget";
-            this.buttonSelectTarget.UseVisualStyleBackColor = true;
-            this.buttonSelectTarget.Click += new System.EventHandler(this.buttonSelectTarget_Click);
+            resources.ApplyResources(this.buttonBrowse, "buttonBrowse");
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
             // labelInfo2
             // 
@@ -98,7 +98,7 @@ namespace ZeroInstall.Central.WinForms
             this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.groupBoxCommandLine);
             this.Controls.Add(this.labelInfo2);
-            this.Controls.Add(this.buttonSelectTarget);
+            this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.buttonDeploy);
             this.Controls.Add(this.textBoxTarget);
             this.Controls.Add(this.labelInfo);
@@ -122,7 +122,7 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Label labelInfo;
         private NanoByte.Common.Controls.HintTextBox textBoxTarget;
         private System.Windows.Forms.Button buttonDeploy;
-        private System.Windows.Forms.Button buttonSelectTarget;
+        private System.Windows.Forms.Button buttonBrowse;
         private System.Windows.Forms.Label labelInfo2;
         private System.Windows.Forms.GroupBox groupBoxCommandLine;
         private System.Windows.Forms.TextBox textBoxCommandLine;

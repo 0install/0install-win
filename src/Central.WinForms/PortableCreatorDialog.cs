@@ -16,7 +16,7 @@ public sealed partial class PortableCreatorDialog : Form
 
     private void PortableCreatorDialog_Load(object sender, EventArgs e) => this.CenterOnParent();
 
-    private void buttonSelectTarget_Click(object sender, EventArgs e)
+    private void buttonBrowse_Click(object sender, EventArgs e)
     {
         using (var folderBrowserDialog = new FolderBrowserDialog {SelectedPath = textBoxTarget.Text})
         {
