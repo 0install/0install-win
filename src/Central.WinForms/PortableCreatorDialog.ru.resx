@@ -62,6 +62,10 @@
     <value>Портативный создатель</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Просмотреть</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Отмена</value>
     <comment>Automatically translated.</comment>
@@ -83,6 +87,10 @@
 - Не делает приложения, запущенные через Zero Install, автоматически переносимыми.
 - Портативные версии Zero Install не могут выполнять интеграцию с рабочим столом (например, создавать пункты меню Пуск).
 - Вместо этого используйте обычный Zero Install на нескольких компьютерах с помощью Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Эквивалент командной строки</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

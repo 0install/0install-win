@@ -70,6 +70,46 @@
     <value>基本设置</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>帮助</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>命令行别名</value>
     <comment>Automatically translated.</comment>
@@ -95,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>注册能力</value>
+    <value>登记能力</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -328,6 +368,10 @@
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>URL协议</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>相等的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

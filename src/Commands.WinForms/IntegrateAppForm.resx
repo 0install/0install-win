@@ -152,6 +152,9 @@
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="buttonHelpStartMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="&gt;&gt;tabPageStartMenu.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="buttonHelpDesktop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -338,6 +344,9 @@
   </data>
   <data name="&gt;&gt;tabPageDesktop.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="buttonHelpSendTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -429,6 +438,9 @@
   <data name="&gt;&gt;tabPageSendTo.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="buttonHelpAliases.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -519,6 +531,9 @@
   <data name="&gt;&gt;tabPageAliases.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="buttonHelpAutoStart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -608,6 +623,9 @@
   </data>
   <data name="&gt;&gt;tabPageAutoStart.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="buttonHelpFileTypes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -741,6 +759,9 @@
   <data name="&gt;&gt;tabPageFileTypes.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="buttonHelpUrlProtocols.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -872,6 +893,9 @@
   </data>
   <data name="&gt;&gt;tabPageUrlProtocols.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="buttonHelpAutoPlay.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1005,6 +1029,9 @@
   <data name="&gt;&gt;tabPageAutoPlay.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="buttonHelpContextMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -1127,6 +1154,9 @@
   </data>
   <data name="&gt;&gt;tabPageContextMenu.ZOrder" xml:space="preserve">
     <value>8</value>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="buttonHelpDefaultPrograms.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -2171,6 +2201,9 @@
   </data>
   <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Equivalent command-line</value>
   </data>
   <data name="textBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>

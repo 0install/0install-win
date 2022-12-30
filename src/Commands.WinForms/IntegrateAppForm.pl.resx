@@ -70,6 +70,46 @@
     <value>Ustawienia podstawowe</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>Pomoc</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Aliasy wiersza poleceń</value>
     <comment>Automatically translated.</comment>
@@ -251,7 +291,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Dostęp z poziomu interfejsu wiersza poleceń</value>
+    <value>Dostęp z poziomu interfejsu linii poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
@@ -328,6 +368,10 @@
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>Protokoły URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

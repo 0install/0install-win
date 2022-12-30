@@ -62,6 +62,10 @@
     <value>ポータブルクリエーター</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>ブラウズ</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>キャンセル</value>
     <comment>Automatically translated.</comment>
@@ -83,6 +87,10 @@
 - Zero Install で起動したアプリケーションを自動的にポータブルにすることはできません。
 - ポータブルバージョンの Zero Install では、デスクトップ統合 (スタートメニューエントリの作成など) を実行できません。
 - 代わりに、Zero Install Sync を使用して、複数のコンピューターで通常の Zero Install を使用することを検討してください。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>相当するコマンドライン</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

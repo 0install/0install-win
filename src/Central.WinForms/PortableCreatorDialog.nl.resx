@@ -62,6 +62,10 @@
     <value>Draagbare schepper</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Bladeren op</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Annuleren</value>
     <comment>Automatically translated.</comment>
@@ -83,6 +87,10 @@
 - Maakt de via Zero Install gelanceerde applicaties niet automatisch ook draagbaar.
 - Draagbare versies van Zero Install kunnen geen desktop integratie uitvoeren (bijv. start menu entries aanmaken).
 - Overweeg in plaats daarvan gewone Zero Install te gebruiken op meerdere computers met Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Gelijkwaardige opdrachtregel</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

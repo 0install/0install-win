@@ -62,6 +62,10 @@
     <value>便携式创建者</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>浏览</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>取消</value>
     <comment>Automatically translated.</comment>
@@ -83,6 +87,10 @@
 - 不会自动使通过 "零安装 "启动的应用程序也具有可移植性。
 - 便携式版本的 "零点安装 "不能进行桌面整合（例如，创建开始菜单条目）。
 - 考虑在多台电脑上使用常规的 "零点安装"，用 "零点安装 "同步代替。</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>相等的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
