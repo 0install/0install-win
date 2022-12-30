@@ -1,7 +1,7 @@
 image: Visual Studio 2022
 
 cache:
-  - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
+  - '%USERPROFILE%\.nuget\packages -> **\*.csproj,**\*.targets,**\*.props'
 
 before_build:
   - powershell .\0install.ps1 run --batch https://apps.0install.net/devel/gitversion.xml /l console /output buildserver
