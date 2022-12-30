@@ -119,6 +119,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // buttonIntegrate
             // 
+            this.buttonIntegrate.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
             this.buttonIntegrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIntegrate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonIntegrate.FlatAppearance.BorderSize = 0;

@@ -104,6 +104,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // arrowMyApps
             // 
+            this.arrowMyApps.AccessibleRole = System.Windows.Forms.AccessibleRole.Animation;
             this.arrowMyApps.Image = global::ZeroInstall.Central.WinForms.Properties.ImageResources.ArrowDown;
             resources.ApplyResources(this.arrowMyApps, "arrowMyApps");
             this.arrowMyApps.Name = "arrowMyApps";
@@ -111,6 +112,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             // arrowSearch
             // 
+            this.arrowSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.Animation;
             this.arrowSearch.Image = global::ZeroInstall.Central.WinForms.Properties.ImageResources.ArrowRight;
             resources.ApplyResources(this.arrowSearch, "arrowSearch");
             this.arrowSearch.Name = "arrowSearch";

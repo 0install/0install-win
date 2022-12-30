@@ -72,6 +72,7 @@ namespace ZeroInstall
             // 
             // textPath
             // 
+            this.textPath.AccessibleName = "Path";
             this.textPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.textPath.Location = new System.Drawing.Point(12, 19);
             this.textPath.Name = "textPath";

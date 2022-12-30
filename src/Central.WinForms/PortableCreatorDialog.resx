@@ -234,6 +234,9 @@
   <data name="&gt;&gt;buttonDeploy.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Browse</value>
+  </data>
   <data name="buttonBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Equivalent command-line</value>
   </data>
   <data name="textBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>

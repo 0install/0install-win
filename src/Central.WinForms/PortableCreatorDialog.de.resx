@@ -89,4 +89,12 @@
     <value>Zielverzeichnis</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Dursuchen</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Entsprechende Befehlszeile</value>
+    <comment>Manually overriden.</comment>
+  </data>
 </root>
