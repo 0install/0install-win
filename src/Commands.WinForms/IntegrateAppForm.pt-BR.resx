@@ -70,6 +70,46 @@
     <value>Configurações &amp;básicas</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Aliases da linha de comando</value>
     <comment>Manually overriden.</comment>
@@ -328,6 +368,10 @@
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>Protocolos do URL</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
     <comment>Manually overriden.</comment>
   </data>
 </root>

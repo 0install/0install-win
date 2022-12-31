@@ -62,6 +62,10 @@
     <value>Przenośny kreator</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Przeglądaj</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Anuluj</value>
     <comment>Automatically translated.</comment>
@@ -83,6 +87,10 @@
 - Nie powoduje, że aplikacje uruchamiane za pomocą Zero Install stają się automatycznie również przenośne.
 - Przenośne wersje Zero Install nie mogą wykonywać integracji pulpitu (np. tworzyć wpisów w menu start).
 - Rozważ użycie regularnego Zero Install na wielu komputerach z Zero Install Sync zamiast tego.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

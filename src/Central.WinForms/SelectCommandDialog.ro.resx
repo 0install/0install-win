@@ -58,6 +58,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonReload.AccessibleName" xml:space="preserve">
+    <value>Reîncărcare</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
     <value>Personalizați</value>
     <comment>Automatically translated.</comment>
@@ -82,8 +86,16 @@
     <value>Opțiuni:</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="labelSummary.AccessibleName" xml:space="preserve">
+    <value>Descrierea comenzii</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>Versiunea:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Linie de comandă echivalentă</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

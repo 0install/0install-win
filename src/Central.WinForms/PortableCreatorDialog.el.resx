@@ -62,6 +62,10 @@
     <value>Φορητός δημιουργός</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Περιήγηση στο</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Ακύρωση</value>
     <comment>Manually overriden.</comment>
@@ -83,6 +87,10 @@
 - Δεν καθιστά αυτόματα φορητές και τις εφαρμογές που εκκινούνται μέσω του Zero Install.
 - Οι φορητές εκδόσεις του Zero Install δεν μπορούν να πραγματοποιήσουν ενσωμάτωση στην επιφάνεια εργασίας (π.χ. να δημιουργήσουν καταχωρήσεις στο μενού έναρξης).
 - Εξετάστε το ενδεχόμενο να χρησιμοποιήσετε το κανονικό Zero Install σε πολλούς υπολογιστές με το Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Ισοδύναμη γραμμή εντολών</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

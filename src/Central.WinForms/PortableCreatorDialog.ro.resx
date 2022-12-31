@@ -62,6 +62,10 @@
     <value>Creator portabil</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Răsfoiți</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Anulare</value>
     <comment>Manually overriden.</comment>
@@ -83,6 +87,10 @@
 - Nu face automat ca aplicațiile lansate prin Zero Install să fie și ele portabile.
 - Versiunile portabile ale Zero Install nu pot efectua integrarea pe desktop (de exemplu, crearea de intrări în meniul Start).
 - Luați în considerare, în schimb, posibilitatea de a utiliza Zero Install obișnuit pe mai multe calculatoare cu Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Linie de comandă echivalentă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

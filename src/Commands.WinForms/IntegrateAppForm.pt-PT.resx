@@ -70,6 +70,46 @@
     <value>Configurações básicas</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>Ajuda</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Pseudónimos de linha de comando</value>
     <comment>Automatically translated.</comment>
@@ -255,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Lançamento automático quando é inserido um suporte adequado (DVD, unidade USB, etc.)</value>
+    <value>Lançamento automático quando são inseridos suportes adequados (DVD, unidade USB, etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -307,7 +347,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Programas por defeito</value>
+    <value>Programas predefinidos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
@@ -328,6 +368,10 @@
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>Protocolos URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

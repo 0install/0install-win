@@ -62,6 +62,10 @@
     <value>Creatore portatile</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Sfogliare</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Annulla</value>
     <comment>Manually overriden.</comment>
@@ -83,6 +87,10 @@
 - Non rende automaticamente portatili le applicazioni avviate tramite Zero Install.
 - Le versioni portatili di Zero Install non possono eseguire l'integrazione con il desktop (ad esempio, creare voci del menu di avvio).
 - Considerate invece l'uso di Zero Install normale su più computer con Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Linea di comando equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

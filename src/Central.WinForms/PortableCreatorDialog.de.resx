@@ -62,6 +62,10 @@
     <value>Portable Ersteller</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Durchsuchen</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
     <comment>Manually overriden.</comment>
@@ -85,16 +89,12 @@
 - Ziehen Sie stattdessen die Verwendung des regulären Zero Install auf mehreren Computern mit Zero Install Sync in Betracht.</value>
     <comment>Manually overriden.</comment>
   </data>
-  <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Zielverzeichnis</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Dursuchen</value>
-    <comment>Manually overriden.</comment>
-  </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
     <value>Entsprechende Befehlszeile</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="textBoxTarget.HintText" xml:space="preserve">
+    <value>Zielverzeichnis</value>
     <comment>Manually overriden.</comment>
   </data>
 </root>

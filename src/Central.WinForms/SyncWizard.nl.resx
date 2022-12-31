@@ -119,11 +119,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>De cryptosleutel wordt gebruikt om uw gegevens lokaal te versleutelen alvorens ze naar de server te sturen. Schrijf de voorgestelde sleutel op of kies uw eigen sleutel.</value>
+    <value>De cryptosleutel wordt gebruikt om uw gegevens lokaal te versleutelen voordat ze naar de server worden verzonden. Schrijf de voorgestelde sleutel op of kies uw eigen sleutel.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Houd deze sleutel geheim en gebruik iets anders voor uw wachtwoord. Zo heeft niemand toegang tot uw gegevens, zelfs niet als de server wordt gecompromitteerd.</value>
+    <value>Houd deze sleutel geheim en gebruik iets anders voor uw wachtwoord. Zo heeft niemand toegang tot uw gegevens, zelfs niet als de server gecompromitteerd zou worden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

@@ -70,6 +70,46 @@
     <value>&amp;Basiseinstellungen</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Befehlszeilen-Aliase</value>
     <comment>Manually overriden.</comment>
@@ -328,46 +368,6 @@
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>URL-Protokolle</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
-    <value>Hilfe</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

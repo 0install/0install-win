@@ -62,6 +62,10 @@
     <value>Creador portable</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Visite</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancelar</value>
     <comment>Automatically translated.</comment>
@@ -75,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una memoria USB. El destino debe tener formato NTFS.</value>
+    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una memoria USB. El destino debe estar formateado en NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
@@ -83,6 +87,10 @@
 - No convierte automáticamente en portables las aplicaciones lanzadas a través de Zero Install.
 - Las versiones portables de Zero Install no pueden realizar la integración en el escritorio (por ejemplo, crear entradas en el menú de inicio).
 - Considere la posibilidad de utilizar la Zero Install normal en varios ordenadores con Zero Install Sync en su lugar.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Línea de comandos equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

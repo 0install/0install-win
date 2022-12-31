@@ -62,6 +62,10 @@
     <value>Créateur portable</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonBrowse.AccessibleName" xml:space="preserve">
+    <value>Parcourir</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Annuler</value>
     <comment>Manually overriden.</comment>
@@ -83,6 +87,10 @@
 - Ne rend pas automatiquement portables les applications lancées via Zero Install.
 - Les versions portables de Zero Install ne peuvent pas s'intégrer au bureau (par exemple, créer des entrées de menu de démarrage).
 - Il est préférable d'utiliser Zero Install sur plusieurs ordinateurs avec Zero Install Sync.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Ligne de commande équivalente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

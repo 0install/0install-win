@@ -70,6 +70,46 @@
     <value>Основные настройки</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>Помощь</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Псевдонимы командной строки</value>
     <comment>Automatically translated.</comment>
@@ -328,6 +368,10 @@
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>Протоколы URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Эквивалент командной строки</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

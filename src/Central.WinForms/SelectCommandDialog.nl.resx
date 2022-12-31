@@ -58,6 +58,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonReload.AccessibleName" xml:space="preserve">
+    <value>Herladen</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
     <value>Aanpassen</value>
     <comment>Automatically translated.</comment>
@@ -82,8 +86,16 @@
     <value>Opties:</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="labelSummary.AccessibleName" xml:space="preserve">
+    <value>Beschrijving van het commando</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>Versie:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Gelijkwaardige opdrachtregel</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

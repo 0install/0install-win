@@ -58,6 +58,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonReload.AccessibleName" xml:space="preserve">
+    <value>リロード</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
     <value>カスタマイズ</value>
     <comment>Automatically translated.</comment>
@@ -82,8 +86,16 @@
     <value>オプションです。</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="labelSummary.AccessibleName" xml:space="preserve">
+    <value>コマンドの説明</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>バージョン</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>相当するコマンドライン</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

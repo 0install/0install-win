@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>输入'{0}'，查看可用的命令列表。</value>
+    <value>输入'{0}'，可以看到可用的命令列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>运行</value>
+    <value>运转</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -255,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>你确定你要使用一个未加密的连接到同步服务器吗？
+    <value>你确定你要使用未加密的连接到同步服务器吗？
 加密连接使用一个https:// 前缀。</value>
     <comment>Automatically translated.</comment>
   </data>
