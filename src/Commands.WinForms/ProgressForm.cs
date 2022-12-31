@@ -35,6 +35,8 @@ public sealed partial class ProgressForm : Form
         };
         _trayIcon.BalloonTipClicked += trayIcon_BalloonTipClicked;
         _trayIcon.MouseClick += trayIcon_MouseClick;
+
+        StartPosition = FormStartPosition.CenterScreen;
     }
 
     protected override void OnHandleCreated(EventArgs e)

@@ -138,7 +138,6 @@ namespace ZeroInstall.Commands.WinForms
             this.MaximizeBox = false;
             this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.ProgressForm_VisibleChanged);
