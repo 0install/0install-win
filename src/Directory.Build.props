@@ -43,7 +43,7 @@
 
   <!-- Build-time dependencies -->
   <ItemGroup>
-    <PackageReference Include="Generator.Equals" Version="2.7.1" PrivateAssets="All" />
+    <PackageReference Include="Generator.Equals" Version="2.7.2" PrivateAssets="All" />
     <PackageReference Include="PrimaryConstructor" Version="1.4.0" PrivateAssets="All" />
   </ItemGroup>
 
