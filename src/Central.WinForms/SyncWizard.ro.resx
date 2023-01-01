@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Nu trebuie să rulați Zero Install Sync pe alte calculatoare în timp ce acest proces este în desfășurare.</value>
+    <value>Nu trebuie să rulați Zero Install Sync pe alte computere în timp ce acest proces este în desfășurare.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduceți cheia pe alte computere folosind fereastra "Options" (Opțiuni). Nu folosiți acest asistent acolo, deoarece este necesar doar pentru a efectua modificarea inițială.</value>
+    <value>Introduceți cheia pe alte calculatoare folosind fereastra "Options" (Opțiuni). Nu folosiți acest asistent acolo, deoarece este necesar doar pentru a efectua modificarea inițială.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">

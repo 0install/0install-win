@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>你将要用存储在同步服务器上的数据来替换你的本地应用程序列表。你在本地所做的但尚未同步的任何修改都会丢失</value>
+    <value>你即将用存储在同步服务器上的数据替换你的本地应用程序列表。你在本地所做的但尚未同步的任何修改都会丢失</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>你在其他电脑上所做的、但尚未与这台电脑同步的任何修改都会丢失!</value>
+    <value>你在其他电脑上所做的、但尚未与这台电脑同步的任何修改都会丢失！你可以在这台电脑上进行修改。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
