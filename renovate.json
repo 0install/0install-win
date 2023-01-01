@@ -4,6 +4,12 @@
   "ignoreDeps": ["System.Resources.Extensions"],
   "packageRules": [
     {
+      "matchPackagePatterns": ["^Generator\\.Equals"],
+      "groupName": "Generator.Equals",
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
       "matchPackagePatterns": ["AeroWizard"],
       "automerge": true,
       "automergeType": "branch"
