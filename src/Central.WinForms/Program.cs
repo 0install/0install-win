@@ -22,30 +22,16 @@ public static class Program
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));
-        return Run(args);
-    }
 
-    /// <summary>
-    /// Runs the application (called by main method or by embedding process).
-    /// </summary>
-    [STAThread] // Required for WinForms
-    public static int Run(string[] args)
-    {
         try
         {
             Application.Run(new MainForm(machineWide: args.Contains("-m") || args.Contains("--machine")));
         }
         #region Error handling
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException)
         {
             Log.Error("Central startup failed", ex);
-            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-            return -1;
-        }
-        catch (InvalidDataException ex)
-        {
-            Log.Error("Central startup failed", ex);
-            Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : Environment.NewLine + ex.InnerException.Message), MsgSeverity.Error);
+            Msg.Inform(null, ex.GetMessageWithInner(), MsgSeverity.Error);
             return -1;
         }
         #endregion
