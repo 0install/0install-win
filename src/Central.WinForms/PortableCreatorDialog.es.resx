@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una memoria USB. El destino debe estar formateado en NTFS.</value>
+    <value>Aquí puede crear una versión portable de Zero Install, por ejemplo, para utilizarla en una memoria USB. El destino debe tener formato NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
