@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Añadir</value>
+    <value>Añada</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
@@ -173,7 +173,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Mínimo (prefiera las versiones en caché)</value>
+    <value>Mínimo (prefiera versiones en caché)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">

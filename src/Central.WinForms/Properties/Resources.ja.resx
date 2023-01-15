@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>{0}' の重複するアプリケーションエントリを無視します。</value>
+    <value>{0}' の重複するアプリのエントリーを無視します。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -165,7 +165,7 @@ My apps "に追加してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>マイアプリに追加し、デスクトップ環境に統合しました。</value>
+    <value>マイアプリに追加し、デスクトップ環境にも統合。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -255,7 +255,7 @@ My apps "に追加してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Sync サーバーへの接続に暗号化されていないものを使用したいのですが？
+    <value>Syncサーバーへの接続に暗号化されていないものを使用したいのですが、本当にそうでしょうか？
 暗号化された接続は、https:// プレフィックスを使用します。</value>
     <comment>Automatically translated.</comment>
   </data>
