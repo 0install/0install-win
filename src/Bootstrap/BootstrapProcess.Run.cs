@@ -76,7 +76,7 @@ partial class BootstrapProcess
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
     {
-        if (_embeddedConfig.AppName == null && _version != null) return null;
+        if (_version != null) return null;
 
         var deployedInstance = GetDeployedInstance();
         if (string.IsNullOrEmpty(deployedInstance)) return null;
@@ -101,8 +101,7 @@ partial class BootstrapProcess
         Config.ExternalSolverUri = null;
 
         _requirements = new(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
-        if (_embeddedConfig.AppName == null && _version != null)
-            _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
+        if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
         _selections = Solver.Solve(_requirements!);
         if (FeedManager.ShouldRefresh)

@@ -16,6 +16,9 @@ partial class BootstrapProcess
     /// <summary>A specific version of Zero Install to download.</summary>
     private VersionRange? _version;
 
+    /// <summary>A specific version of the target application to download.</summary>
+    private VersionRange? _appVersion;
+
     /// <summary>Arguments passed through to the target process.</summary>
     private readonly List<string> _userArgs = new();
 
@@ -102,9 +105,6 @@ partial class BootstrapProcess
                 }
             },
             {
-                "version=", () => $"Use a specific {{VERSION}} of {_embeddedConfig.AppName ?? "Zero Install"}.", (VersionRange range) => _version = range
-            },
-            {
                 "feed=", () => "Specify an alternative {FEED} for Zero Install.", feed => Config.SelfUpdateUri = new(feed)
             },
             {
@@ -129,6 +129,8 @@ partial class BootstrapProcess
 
         if (_embeddedConfig is {AppUri: not null, AppName: not null})
         {
+            _options.Add("zero-install-version=", () => $"Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
+            _options.Add("version=", () => $"Use a specific {{VERSION}} of {_embeddedConfig.AppName}.", (VersionRange range) => _appVersion = range);
             _options.Add("no-run", () => $"Do not run {_embeddedConfig.AppName} after downloading it.", _ => _noRun = true);
             _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
             {
@@ -150,6 +152,10 @@ partial class BootstrapProcess
                 if (!_embeddedConfig.IntegrateArgs.Contains("--machine"))
                     _options.Add("machine", () => $"Integrate {_embeddedConfig.AppName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
             }
+        }
+        else
+        {
+            _options.Add("version=", () => $"Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
         }
 
         // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)

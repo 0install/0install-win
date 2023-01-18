@@ -77,7 +77,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
             if (!_noRun)
             {
-                if (_version != null) args.Add(new [] {"--version", _version.ToString()});
+                if (_appVersion != null) args.Add(new [] {"--version", _appVersion.ToString()});
                 if (_handler.IsGui) args.Add("--no-wait");
             }
 
