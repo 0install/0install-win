@@ -5,6 +5,7 @@ using System.Diagnostics;
 using NanoByte.Common.Native;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Configuration;
 
 namespace ZeroInstall;
@@ -103,27 +104,32 @@ partial class BootstrapProcess
         _requirements = new(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
         if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
-        _selections = Solver.Solve(_requirements!);
-        if (FeedManager.ShouldRefresh)
+        try
         {
-            try
+            _selections = Solver.Solve(_requirements!);
+
+            if (FeedManager.ShouldRefresh)
             {
+                Log.Info("Found solution, but cache is stale; trying refresh");
                 FeedManager.Refresh = true;
-                _selections = Solver.Solve(_requirements!);
+                if (Solver.TrySolve(_requirements!) is {} selections) _selections = selections;
+                else Log.Warn("Continuing with stale solution");
             }
-            catch (WebException ex)
-            {
-                Log.Warn("Unable to check for updates", ex);
-            }
+        }
+        catch (SolverException ex) when (_version != null && !FeedManager.Refresh)
+        {
+            Log.Info($"Solving for version {_version} failed, possibly because feed is outdated; trying refresh", ex);
+            FeedManager.Refresh = true;
+            _selections = Solver.Solve(_requirements!);
         }
 
         try
         {
             Fetch();
         }
-        catch (WebException ex)
+        catch (WebException ex) when (_version == null)
         {
-            Log.Warn("Unable to download updates, trying to find already cached version", ex);
+            Log.Warn("Unable to download selected version, trying to find cached version", ex);
             _selections = TrySolveOffline(_requirements!);
             if (_selections == null) throw;
         }
