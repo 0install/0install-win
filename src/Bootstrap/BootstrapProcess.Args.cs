@@ -195,4 +195,37 @@ partial class BootstrapProcess
             }
         }
     }
+
+    /// <summary>
+    /// Handles arguments passed to the bootstrapper that are also applicable to 0install.
+    /// </summary>
+    private string[] ShareArgsWithZeroInstall(string[] args)
+    {
+        void AddArg(string arg)
+        {
+            if (!args.Contains(arg)) args = args.Prepend(arg);
+        }
+
+        switch (_handler.Verbosity)
+        {
+            case Verbosity.Batch when !args.Contains("-v") && !args.Contains("--verbose"):
+                AddArg("--batch");
+                break;
+            case Verbosity.Verbose when !args.Contains("--batch"):
+                AddArg("--verbose");
+                break;
+            case Verbosity.Debug when !args.Contains("--batch"):
+                args = args.Prepend("--verbose").Prepend("--verbose");
+                break;
+        }
+
+        if (args.FirstOrDefault() != "central")
+        {
+            if (_handler.Background) AddArg("--background");
+            if (Config.NetworkUse == NetworkLevel.Offline) AddArg("--offline");
+            if (FeedManager.Refresh) AddArg("--refresh");
+        }
+
+        return args;
+    }
 }

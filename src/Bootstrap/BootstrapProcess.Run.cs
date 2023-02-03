@@ -54,21 +54,7 @@ partial class BootstrapProcess
     /// </summary>
     private ProcessStartInfo ZeroInstall(string[] args)
     {
-        // Forwards bootstrapper arguments that are also applicable to 0install
-        args = _handler.Verbosity switch
-        {
-            Verbosity.Batch => args.Prepend("--batch"),
-            Verbosity.Verbose => args.Prepend("--verbose"),
-            Verbosity.Debug => args.Prepend("--verbose").Prepend("--verbose"),
-            _ => args
-        };
-        if (args.FirstOrDefault() != "central")
-        {
-            if (_handler.Background) args = args.Prepend("--background");
-            if (Config.NetworkUse == NetworkLevel.Offline) args = args.Prepend("--offline");
-            if (FeedManager.Refresh) args = args.Prepend("--refresh");
-        }
-
+        args = ShareArgsWithZeroInstall(args);
         return ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
     }
 
@@ -77,18 +63,18 @@ partial class BootstrapProcess
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
     {
-        if (_version != null) return null;
-
-        var deployedInstance = GetDeployedInstance();
-        if (string.IsNullOrEmpty(deployedInstance)) return null;
+        if (_version != null || GetDeployedInstance() is not {Length: > 0} deployedInstance) return null;
 
         string launchAssembly = _handler.IsGui ? "0install-win" : "0install";
-        if (!File.Exists(Path.Combine(deployedInstance, launchAssembly + ".exe"))) return null;
-
-        return ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args);
+        return File.Exists(Path.Combine(deployedInstance, launchAssembly + ".exe"))
+            ? ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args)
+            : null;
     }
 
-    private static string? GetDeployedInstance() => WindowsUtils.IsWindows ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation") : null;
+    private static string? GetDeployedInstance()
+        => WindowsUtils.IsWindows
+            ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation")
+            : null;
 
     private Requirements? _requirements;
     private Selections? _selections;
