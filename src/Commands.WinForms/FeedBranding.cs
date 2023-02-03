@@ -44,28 +44,15 @@ public class FeedBranding : IDisposable
         var feed = feedUri?.To(LoadFeed);
         Name = feed?.Name;
         AppId = feed?.GetEntryPoint(Command.NameRun)?.AppId;
-
-        try
-        {
-            var iconStore = IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false);
-
-            Icon = feed
-                 ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
-                 ?.To(iconStore.GetCached)
-                 ?.To(LoadIcon)
-                ?? LoadDefaultIcon();
-
-            SplashScreen = feed
-                         ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
-                         ?.To(iconStore.GetCached)
-                         ?.To(LoadSplashScreen);
-        }
-        #region Error handling
-        catch (Exception ex)
-        {
-            Log.Warn("Error while loading icons", ex);
-        }
-        #endregion
+        Icon = feed
+             ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
+             ?.To(GetIconPath)
+             ?.To(LoadIcon)
+            ?? LoadDefaultIcon();
+        SplashScreen = feed
+                     ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
+                     ?.To(GetIconPath)
+                     ?.To(LoadSplashScreen);
     }
 
     private static Feed? LoadFeed(FeedUri feedUri)
@@ -78,6 +65,22 @@ public class FeedBranding : IDisposable
         catch (Exception ex)
         {
             Log.Warn($"Failed to feed {feedUri}", ex);
+            return null;
+        }
+        #endregion
+    }
+
+    private static string? GetIconPath(Model.Icon icon)
+    {
+        try
+        {
+            return IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false).GetCached(icon)
+                ?? IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: true).GetCached(icon);
+        }
+        #region Error handling
+        catch (Exception ex)
+        {
+            Log.Warn($"Failed to get path for {icon}", ex);
             return null;
         }
         #endregion
