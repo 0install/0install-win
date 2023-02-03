@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedConfig.txt" />
+    <EmbeddedResource Include="content\*" />
   </ItemGroup>
 
   <!-- Merge DLLs into EXEs -->

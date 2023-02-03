@@ -14,3 +14,6 @@
 /artifacts/
 /feed/*.xml
 /feed/*.tar.gz
+
+# Embedded content
+/src/Bootstrap/content/*

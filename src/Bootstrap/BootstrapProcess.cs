@@ -37,6 +37,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         TrustKeys();
 
+        ImportEmbedded(prefix: "ZeroInstall.content.");
         if (_contentDir != null) ImportDirectory(_contentDir);
         else
         {
