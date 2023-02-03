@@ -36,7 +36,13 @@ public sealed partial class BootstrapProcess : ServiceProvider
         if (_embeddedConfig.CustomizablePath) CustomizePath();
 
         TrustKeys();
-        ImportContent();
+
+        if (_contentDir != null) ImportDirectory(_contentDir);
+        else
+        {
+            string defaultContentDir = Path.Combine(Locations.InstallBase, "content");
+            if (Directory.Exists(defaultContentDir)) ImportDirectory(defaultContentDir);
+        }
 
         if (_prepareOffline)
         {

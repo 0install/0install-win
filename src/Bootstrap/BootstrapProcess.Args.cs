@@ -34,6 +34,9 @@ partial class BootstrapProcess
     /// <summary>Integrate the application machine-wide (for the entire computer) instead of just for the current user.</summary>
     private bool _machineWide;
 
+    /// <summary>A directory to search for feeds and archives to import.</summary>
+    private string? _contentDir;
+
     private string HelpText
     {
         get
