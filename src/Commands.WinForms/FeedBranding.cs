@@ -60,10 +60,12 @@ public class FeedBranding : IDisposable
                          ?.To(iconStore.GetCached)
                          ?.To(LoadSplashScreen);
         }
+        #region Error handling
         catch (Exception ex)
         {
             Log.Warn("Error while loading icons", ex);
         }
+        #endregion
     }
 
     private static Feed? LoadFeed(FeedUri feedUri)
@@ -72,11 +74,13 @@ public class FeedBranding : IDisposable
         {
             return FeedCaches.Default(OpenPgp.Verifying()).GetFeed(feedUri);
         }
+        #region Error handling
         catch (Exception ex)
         {
             Log.Warn($"Failed to feed {feedUri}", ex);
             return null;
         }
+        #endregion
     }
 
     private static SystemIcon? LoadIcon(string path)
@@ -85,11 +89,13 @@ public class FeedBranding : IDisposable
         {
             return new(path);
         }
+        #region Error handling
         catch (Exception ex)
         {
             Log.Warn($"Failed to load icon '{path}'", ex);
             return null;
         }
+        #endregion
     }
 
     private static SystemIcon? LoadDefaultIcon()
@@ -98,11 +104,13 @@ public class FeedBranding : IDisposable
         {
             return SystemIcon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
+        #region Error handling
         catch (Exception ex)
         {
             Log.Warn("Failed to load default icon", ex);
             return null;
         }
+        #endregion
     }
 
     private static Image? LoadSplashScreen(string path)
@@ -113,11 +121,13 @@ public class FeedBranding : IDisposable
             using var stream = File.OpenRead(path);
             return Image.FromStream(stream);
         }
+        #region Error handling
         catch (Exception ex)
         {
             Log.Warn($"Failed to load splash screen '{path}'", ex);
             return null;
         }
+        #endregion
     }
 
     /// <inheritdoc/>
