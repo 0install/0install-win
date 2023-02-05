@@ -48,8 +48,8 @@ public sealed partial class BootstrapProcess : ServiceProvider
         if (_prepareOffline)
         {
             return _embeddedConfig.AppUri == null
-                ? SwitchToZeroInstall("export", Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri, Locations.InstallBase)
-                : SwitchToZeroInstall("export", "--include-zero-install", _embeddedConfig.AppUri.ToStringRfc(), Locations.InstallBase);
+                ? SwitchToZeroInstall("export", "--refresh", Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri, Locations.InstallBase)
+                : SwitchToZeroInstall("export", "--refresh", "--include-zero-install", _embeddedConfig.AppUri.ToStringRfc(), Locations.InstallBase);
         }
 
         var exitCode = ExecuteIntegrate();
