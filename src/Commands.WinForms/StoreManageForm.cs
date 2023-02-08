@@ -65,7 +65,7 @@ public sealed partial class StoreManageForm : Form
         catch (OperationCanceledException) {}
         catch (Exception ex) when (ex is ImplementationNotFoundException or IOException or UnauthorizedAccessException)
         {
-            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            Msg.Inform(this, ex.Message, MsgSeverity.Error);
         }
         #endregion
 

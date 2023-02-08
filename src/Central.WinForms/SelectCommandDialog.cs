@@ -88,7 +88,8 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         #region Error handling
         catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
         {
-            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            if (!IsDisposed) // Window might have been closed in the meantime
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
         }
         catch (OperationCanceledException)
         {}
