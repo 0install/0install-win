@@ -29,13 +29,12 @@ public sealed partial class BootstrapProcess : ServiceProvider
         // Write potentially customized config to the user profile
         // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
         Config.Save();
+        TrustKeys();
 
         _userArgs.Add(_options.Parse(args));
         if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException("You must be an administrator to perform machine-wide operations.");
         if (_embeddedConfig.AppUri == null) ShareArgsWithZeroInstall();
         if (_embeddedConfig.CustomizablePath) CustomizePath();
-
-        TrustKeys();
 
         ImportEmbedded(prefix: "ZeroInstall.content.");
         if (_contentDir != null) ImportDirectory(_contentDir);
