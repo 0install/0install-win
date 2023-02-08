@@ -11,7 +11,6 @@ namespace ZeroInstall.Commands.WinForms;
 /// Wraps a <see cref="CacheNode"/> and adds a context menu.
 /// </summary>
 [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
-[SuppressMessage("ReSharper", "AsyncVoidLambda")]
 [PrimaryConstructor]
 internal sealed partial class CacheNodeWithContextMenu : INamed, IContextMenu
 {

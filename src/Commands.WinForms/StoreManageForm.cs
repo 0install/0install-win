@@ -13,7 +13,6 @@ namespace ZeroInstall.Commands.WinForms;
 /// <summary>
 /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IImplementationStore"/>) in a combined tree view.
 /// </summary>
-[SuppressMessage("ReSharper", "AsyncVoidLambda")]
 public sealed partial class StoreManageForm : Form
 {
     // Don't use WinForms designer for this, since it doesn't understand generics
