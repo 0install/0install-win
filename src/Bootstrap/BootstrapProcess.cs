@@ -79,24 +79,15 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         if (_embeddedConfig is {AppUri: not null, AppName: not null})
         {
-            args.Add(_noRun ? "download" : "run");
-
-            if (!_noRun)
+            if (_noRun)
+                args.Add(new[] {"download", _embeddedConfig.AppUri.ToStringRfc()});
+            else
             {
+                args.Add("run");
                 if (_appVersion != null) args.Add(new [] {"--version", _appVersion.ToString()});
                 if (_handler.IsGui) args.Add("--no-wait");
-            }
-
-            args.Add(_embeddedConfig.AppUri.ToStringRfc());
-
-            if (!_noRun)
-            {
-                string[] appArgs = WindowsUtils.SplitArgs(_embeddedConfig.AppArgs);
-                if (appArgs.Length != 0)
-                {
-                    args.Add("--");
-                    args.Add(appArgs);
-                }
+                args.Add(_embeddedConfig.AppUri.ToStringRfc());
+                args.Add(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
             }
         }
 
