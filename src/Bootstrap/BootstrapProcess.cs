@@ -60,11 +60,13 @@ public sealed partial class BootstrapProcess : ServiceProvider
         if (_embeddedConfig.AppUri is {} appUri)
         {
             args.Add(appUri.ToStringRfc());
+            if (_appVersion != null) args.Add($"--version={_appVersion}");
             args.Add("--include-zero-install");
         }
         else
         {
             args.Add(Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri);
+            if (_version != null) args.Add($"--version={_version}");
         }
         args.Add(Locations.InstallBase);
 
