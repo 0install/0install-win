@@ -15,7 +15,7 @@ partial class BootstrapProcess
     /// <summary>
     /// Runs Zero Install as an <see cref="ITask"/>.
     /// </summary>
-    private ExitCode RunZeroInstall(params string[] args)
+    private ExitCode RunZeroInstall(IList<string> args)
     {
         var startInfo = ZeroInstall(args);
 
@@ -30,7 +30,7 @@ partial class BootstrapProcess
     /// <summary>
     /// Runs Zero Install and hides the Bootstrap GUI.
     /// </summary>
-    private ExitCode SwitchToZeroInstall(params string[] args)
+    private ExitCode SwitchToZeroInstall(IList<string> args)
     {
         var process = ZeroInstall(args).Start();
 
@@ -52,22 +52,22 @@ partial class BootstrapProcess
     /// <summary>
     /// Returns process start information for an instance of Zero Install.
     /// </summary>
-    private ProcessStartInfo ZeroInstall(string[] args)
+    private ProcessStartInfo ZeroInstall(IList<string> args)
     {
-        args = ShareArgsWithZeroInstall(args);
+        ShareArgsWithZeroInstall(args);
         return ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
     }
 
     /// <summary>
     /// Returns process start information for a deployed instance of Zero Install.
     /// </summary>
-    public ProcessStartInfo? ZeroInstallDeployed(params string[] args)
+    public ProcessStartInfo? ZeroInstallDeployed(IEnumerable<string> args)
     {
         if (_version != null || GetDeployedInstance() is not {Length: > 0} deployedInstance) return null;
 
         string launchAssembly = _handler.IsGui ? "0install-win" : "0install";
         return File.Exists(Path.Combine(deployedInstance, launchAssembly + ".exe"))
-            ? ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args)
+            ? ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args.ToArray())
             : null;
     }
 
@@ -82,7 +82,7 @@ partial class BootstrapProcess
     /// <summary>
     /// Returns process start information for a cached (downloaded) instance of Zero Install.
     /// </summary>
-    public ProcessStartInfo ZeroInstallCached(params string[] args)
+    public ProcessStartInfo ZeroInstallCached(IEnumerable<string> args)
     {
         // To keep things simple, we never try to use the external solver to get Zero Install itself
         Config.ExternalSolverUri = null;
@@ -121,7 +121,7 @@ partial class BootstrapProcess
         }
 
         return Executor.Inject(_selections!)
-                       .AddArguments(args)
+                       .AddArguments(args.ToArray())
                        .ToStartInfo();
     }
 

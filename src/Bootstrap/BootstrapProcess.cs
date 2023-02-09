@@ -44,15 +44,31 @@ public sealed partial class BootstrapProcess : ServiceProvider
             if (Directory.Exists(defaultContentDir)) ImportDirectory(defaultContentDir);
         }
 
-        if (_prepareOffline)
-        {
-            return _embeddedConfig.AppUri == null
-                ? SwitchToZeroInstall("export", "--refresh", Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri, Locations.InstallBase)
-                : SwitchToZeroInstall("export", "--refresh", "--include-zero-install", _embeddedConfig.AppUri.ToStringRfc(), Locations.InstallBase);
-        }
+        if (_prepareOffline) return ExecuteExport();
 
         var exitCode = ExecuteIntegrate();
         return exitCode == ExitCode.OK ? ExecuteRun() : exitCode;
+    }
+
+    /// <summary>
+    /// Runs <c>0install export</c>.
+    /// </summary>
+    private ExitCode ExecuteExport()
+    {
+        var args = new List<string> {"export", "--refresh"};
+
+        if (_embeddedConfig.AppUri is {} appUri)
+        {
+            args.Add(appUri.ToStringRfc());
+            args.Add("--include-zero-install");
+        }
+        else
+        {
+            args.Add(Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri);
+        }
+        args.Add(Locations.InstallBase);
+
+        return SwitchToZeroInstall(args);
     }
 
     /// <summary>
@@ -67,7 +83,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
         if (_machineWide) args.Add("--machine");
         args.Add(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
 
-        return RunZeroInstall(args.ToArray());
+        return RunZeroInstall(args);
     }
 
     /// <summary>
@@ -103,6 +119,6 @@ public sealed partial class BootstrapProcess : ServiceProvider
             }
         }
 
-        return SwitchToZeroInstall(args.ToArray());
+        return SwitchToZeroInstall(args);
     }
 }

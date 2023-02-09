@@ -200,13 +200,14 @@ partial class BootstrapProcess
     }
 
     /// <summary>
-    /// Handles arguments passed to the bootstrapper that are also applicable to 0install.
+    /// Adds arguments passed to the bootstrapper that are also applicable to 0install to <paramref name="args"/>.
     /// </summary>
-    private string[] ShareArgsWithZeroInstall(string[] args)
+    private void ShareArgsWithZeroInstall(IList<string> args)
     {
-        void AddArg(string arg)
+        void AddArg(string arg, bool allowDuplicate = false)
         {
-            if (!args.Contains(arg)) args = args.Prepend(arg);
+            if (allowDuplicate || !args.Contains(arg))
+                args.Insert(0, arg);
         }
 
         switch (_handler.Verbosity)
@@ -218,17 +219,16 @@ partial class BootstrapProcess
                 AddArg("--verbose");
                 break;
             case Verbosity.Debug when !args.Contains("--batch"):
-                args = args.Prepend("--verbose").Prepend("--verbose");
+                AddArg("--verbose");
+                AddArg("--verbose", allowDuplicate: true);
                 break;
         }
 
-        if (args.FirstOrDefault() != "central")
+        if (!args.Contains("central"))
         {
             if (_handler.Background) AddArg("--background");
             if (Config.NetworkUse == NetworkLevel.Offline) AddArg("--offline");
             if (FeedManager.Refresh) AddArg("--refresh");
         }
-
-        return args;
     }
 }
