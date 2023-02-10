@@ -14,7 +14,9 @@
     <command name="run-gui" path="0install-win.exe"/>
     <command name="central" path="ZeroInstall.exe"/>
 
-    <!-- Use very high version number to treat local build as newer than any public version. -->
-    <implementation id="local" version="100-pre" stability="developer" local-path="artifacts/Release/net472"/>
+    <implementation version="{version}" local-path="artifacts/Release/net472">
+      <manifest-digest/>
+      <archive href="0install-win-{version}.tar.gz"/>
+    </implementation>
   </group>
 </interface>

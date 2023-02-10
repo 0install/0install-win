@@ -4,27 +4,27 @@ on:
     inputs:
       signing_request_id:
         required: true
+        description: Signing request ID
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Download signed artifacts
         id: download
         run: |
-          curl -sSf -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{github.event.inputs.signing_request_id}}/SignedArtifact
-          unzip -q artifacts.zip
-          echo "version=$(cat VERSION | tr -d '\r\n')" >> $GITHUB_OUTPUT
+          curl -sSf -H "Authorization: Bearer ${{secrets.SIGNPATH_API_KEY}}" -o artifacts.zip https://app.signpath.io/API/v1/0e70cf92-49a1-4427-a800-b6bc5b497936/SigningRequests/${{inputs.signing_request_id}}/SignedArtifact
+          mkdir artifacts
+          unzip -q artifacts.zip -d artifacts
+          echo "version=$(cat artifacts/VERSION | tr -d '\r\n')" >> $GITHUB_OUTPUT
 
-      - name: Create Release archives
+      - name: Create archives
         run: |
-          cd Release/net472
-          tar -czf ../0install-win-${{steps.download.outputs.version}}.tar.gz --exclude '*.pdb' *
-          tar -czf ../0install-win-${{steps.download.outputs.version}}-debug-symbols.tar.gz *.pdb
+          ./0install.sh run https://apps.0install.net/0install/0template.xml 0install-win.xml.template version=${{steps.download.outputs.version}}
 
-      - name: Create Bootstrap archives
-        run: |
-          cd Bootstrap
+          cd artifacts/Bootstrap
           zip -9 0install.zip 0install.exe*
           zip -9 zero-install.zip zero-install.exe*
 
@@ -33,9 +33,9 @@ jobs:
         with:
           tag_name: ${{steps.download.outputs.version}}
           files: |
-            Release/*.tar.gz
-            Bootstrap/*.zip
-            Bootstrap/*.exe
+            0install-win-${{steps.download.outputs.version}}.*
+            artifacts/Bootstrap/*.zip
+            artifacts/Bootstrap/*.exe
           body: |
             **[Download Zero Install for Windows](https://get.0install.net/#windows)**
 
@@ -43,16 +43,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{github.token}}
 
-      - name: Trigger feed update
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          repo: 0install/apps
-          ref: refs/heads/master
-          workflow: Update
-          token: ${{secrets.PERSONAL_TOKEN}}
+      - name: Publish feed
+        env:
+          GH_TOKEN: ${{secrets.PERSONAL_TOKEN}}
+        run: >
+          gh workflow run --repo=0install/apps Incoming
+          -f feed_url=https://github.com/${{github.repository}}/releases/download/${{steps.download.outputs.version}}/0install-win-${{steps.download.outputs.version}}.xml
+          -f archive_url=https://github.com/${{github.repository}}/releases/download/${{steps.download.outputs.version}}/0install-win-${{steps.download.outputs.version}}.tar.gz
 
       - name: Push Chocolatey package
-        run: dotnet nuget push 0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
+        run: dotnet nuget push artifacts/0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
 
       - name: Push PowerShell Gallery package
-        run: dotnet nuget push 0install.powershell.*.nupkg --source https://www.powershellgallery.com/ --api-key ${{secrets.POWERSHELL_GALLERY_API_KEY}}
+        run: dotnet nuget push artifacts/0install.powershell.*.nupkg --source https://www.powershellgallery.com/ --api-key ${{secrets.POWERSHELL_GALLERY_API_KEY}}

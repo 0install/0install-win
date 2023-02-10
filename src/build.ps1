@@ -1,4 +1,4 @@
-Param ($Version = "1.0.0-pre")
+Param ([String]$Version = "1.0.0-pre")
 $ErrorActionPreference = "Stop"
 pushd $PSScriptRoot
 
@@ -36,7 +36,7 @@ SearchAndReplace $AssemblyVersion OneGet.Bootstrap\0install.psd1 -PatternLeft "M
 # Compile source code
 Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
-rm ..\artifacts\Release\net472\*.xml -Exclude ZeroInstall.VisualElementsManifest.xml
+Remove-Item ..\artifacts\Release\net472\* -Include *.xml,*.pdb -Exclude ZeroInstall.VisualElementsManifest.xml
 
 # Generate bootstrap package for PowerShell Gallery (OneGet)
 $env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64"

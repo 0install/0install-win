@@ -12,8 +12,8 @@
 
 # Output
 /artifacts/
-/feed/*.xml
-/feed/*.tar.gz
+/0install-win-*.xml
+/0install-win-*.tar.gz
 
 # Embedded content
 /src/Bootstrap/content/*
