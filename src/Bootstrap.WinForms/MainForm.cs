@@ -84,25 +84,25 @@ public sealed partial class MainForm : Form
 
     private bool IsPathOK()
     {
-        const string testFileName = "_test_file.tmp";
         try
         {
-            if (!_machineWide)
+            if (FileUtils.DetermineTimeAccuracy(folderBrowserDialog.SelectedPath) != 0)
             {
-                string testFile = Path.Combine(folderBrowserDialog.SelectedPath, testFileName);
-                FileUtils.Touch(testFile);
-                File.Delete(testFile);
+                Log.Error($"Time accuracy at '{folderBrowserDialog.SelectedPath}' is insufficient; probably FAT32 filesystem");
+                Msg.Inform(this, string.Format(LocalizableStrings.FolderNotNtfs, folderBrowserDialog.SelectedPath), MsgSeverity.Warn);
+                return false;
             }
-
-            return Directory.GetFileSystemEntries(folderBrowserDialog.SelectedPath).Length == 0
-                || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, folderBrowserDialog.SelectedPath), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
         }
         catch (Exception ex)
         {
             Log.Error(ex);
-            Msg.Inform(this, ex.Message.Replace(testFileName, ""), MsgSeverity.Error);
+            Msg.Inform(this, ex.Message, MsgSeverity.Error);
             return false;
         }
+
+        return Directory.GetFileSystemEntries(folderBrowserDialog.SelectedPath).Length == 0
+            || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, folderBrowserDialog.SelectedPath), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
+
     }
 
     private void buttonContinue_Click(object sender, EventArgs e)

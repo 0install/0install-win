@@ -86,6 +86,22 @@ public static class LocalizableStrings
         {"zh", "选择你想安装{0}的位置："}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
 
+    public static string FolderNotNtfs => new LocalizableStringCollection
+    {
+        {"en", "'{0}' is not on an NTFS-formatted disk.\nPlease choose another installation location."},
+        {"de", "'{0}' befindet sich nicht auf einem NTFS-formatierten Datenträger.\nBitte wählen Sie einen anderen Installationsort."},
+        {"es", "'{0}' no está en un disco con formato NTFS.\nPor favor, elija otro lugar de instalación."},
+        {"fr", "'{0}' ne se trouve pas sur un disque formaté en NTFS.\nVeuillez choisir un autre emplacement d'installation."},
+        {"it", "'{0}' non si trova su un disco formattato con NTFS.\nScegliere un'altra posizione di installazione."},
+        {"ja", "{0}はNTFSでフォーマットされたディスクにありません。\n他のインストール先を選択してください。"},
+        {"nl", "'{0}' staat niet op een NTFS-geformatteerde schijf. Kies een andere installatielocatie."},
+        {"pl", "'{0}' nie znajduje się na dysku sformatowanym w systemie NTFS.\nProszę wybrać inną lokalizację instalacji."},
+        {"pt-BR", "'{0}' não está localizado em uma unidade formatada em NTFS.\nPor favor, escolha um local de instalação diferente."},
+        {"pt-PT", "'{0}' não está localizado numa unidade em formato NTFS.\nPor favor, escolha um local de instalação diferente."},
+        {"ru", "'{0}' не находится на диске, отформатированном в NTFS.\nПожалуйста, выберите другое место установки."},
+        {"zh", "{0}不在一个以NTFS格式化的驱动器上。\n请选择另一个安装地点。"}
+    }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
+
     public static string FolderNotEmpty => new LocalizableStringCollection
     {
         {"en", "'{0}' is already in use.\nWe recommend you choose another installation location."},
