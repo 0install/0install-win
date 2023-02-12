@@ -45,7 +45,7 @@ public static class LocalizableStrings
         {"en", "Install here:"},
         {"de", "Hier installieren:"},
         {"es", "Instalar aquí:"},
-        {"fr", "Emplacement :"},
+        {"fr", "Emplacement:"},
         {"it", "Installa qui:"},
         {"ja", "インストール先"},
         {"nl", "{0} hier installeren:"},
@@ -75,7 +75,7 @@ public static class LocalizableStrings
         {"en", "Select where to install {0}:"},
         {"de", "Wählen Sie einen Speicherort für {0}:"},
         {"es", "Selecciona dónde quieres instalar {0}:"},
-        {"fr", "Sélectionnez l’emplacement où {0} devrait être installé :"},
+        {"fr", "Sélectionnez l’emplacement où {0} devrait être installé:"},
         {"it", "Seleziona dove installare {0}:"},
         {"ja", "{0}のインストール先を選んでください。"},
         {"nl", "Waar wilt u {0} installeren?"},
@@ -88,18 +88,18 @@ public static class LocalizableStrings
 
     public static string FolderNotEmpty => new LocalizableStringCollection
     {
-        {"en", "'{0}' is already in use\nWe recommend you choose another installation location."},
-        {"de", "'{0}' wird bereits verwendet\nWir empfehlen Ihnen, einen anderen Installationsspeicherort zu wählen."},
-        {"es", "'{0}' ya está en uso\nTe recomendamos cambiar la ubicación de la instalación."},
-        {"fr", "'{0}' déjà utilisé\nNous vous conseillons d’installer dans un autre emplacement."},
+        {"en", "'{0}' is already in use.\nWe recommend you choose another installation location."},
+        {"de", "'{0}' wird bereits verwendet.\nWir empfehlen Ihnen, einen anderen Installationsort zu wählen."},
+        {"es", "'{0}' ya está en uso.\nTe recomendamos cambiar la ubicación de la instalación."},
+        {"fr", "'{0}' déjà utilisé.\nNous vous conseillons d’installer dans un autre emplacement."},
         {"it", "'{0}' è già in uso.\nSi consiglia di installare l'applicazione in un altro percorso."},
-        {"ja", "'{0}'は使用中です\n別の場所へのインストールが推奨されます。"},
-        {"nl", "De map '{0}' is al in gebruik\nWij raden u aan om in een andere map te installeren."},
-        {"pl", "Folder '{0}' jest już w użyciu\nZalecamy zainstalowanie w innym folderze."},
-        {"pt-BR", "A pasta '{0}' já está sendo utilizada\nRecomendamos que você selecione outro local de instalação."},
-        {"pt-PT", "'{0}' já está a ser utilizado\nRecomendamos que escolha outro local de instalação."},
-        {"ru", "'{0}' уже используется\nМы рекомендуем вам выбрать другую папку для установки."},
-        {"zh", "{0}已在使用\n我们建议你选择其他安装位置。"}
+        {"ja", "{0}は使用中です\n別の場所へのインストールが推奨されます。"},
+        {"nl", "De map '{0}' is al in gebruik.\nWij raden u aan om in een andere map te installeren."},
+        {"pl", "Folder '{0}' jest już w użyciu.\nZalecamy zainstalowanie w innym folderze."},
+        {"pt-BR", "A pasta '{0}' já está sendo utilizada.\nRecomendamos que você selecione outro local de instalação."},
+        {"pt-PT", "'{0}' já está a ser utilizado.\nRecomendamos que escolha outro local de instalação."},
+        {"ru", "'{0}' уже используется.\nМы рекомендуем вам выбрать другую папку для установки."},
+        {"zh", "{0}已在使用。\n我们建议你选择其他安装位置。"}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
 
     public static string UseAnyway => new LocalizableStringCollection
