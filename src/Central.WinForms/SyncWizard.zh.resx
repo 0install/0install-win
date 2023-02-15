@@ -159,7 +159,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>你也可能希望在你使用零点安装同步系统的其他电脑上重置本地数据。</value>
+    <value>你也可能希望在你使用Zero Install Sync的其他电脑上重置本地数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">

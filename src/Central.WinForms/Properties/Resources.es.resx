@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continúe en</value>
+    <value>Continuar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -255,7 +255,7 @@ Puede reemplazar los datos almacenados en el servidor eligiendo que no recuerda 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>¿Está seguro de que desea utilizar una conexión no cifrada con un servidor Sync?
+    <value>¿Está seguro de que desea utilizar una conexión no cifrada a un servidor Sync?
 Las conexiones cifradas utilizan un prefijo https://.</value>
     <comment>Automatically translated.</comment>
   </data>

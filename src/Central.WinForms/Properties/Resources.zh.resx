@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>输入'{0}'，可以看到可用的命令列表。</value>
+    <value>输入'{0}'，查看可用的命令列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -255,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>你确定你要使用未加密的连接到同步服务器吗？
+    <value>你确定你要使用一个未加密的连接到同步服务器吗？
 加密连接使用一个https:// 前缀。</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -265,7 +265,7 @@
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
-重要的是：你以前 "运行 "过的应用程序，没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
+重要提示：你以前 "运行 "过的应用程序，如果没有把它们添加到 "我的应用程序 "中，也将从缓存中删除。  如果你决定再次运行它们，你将需要在线。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
