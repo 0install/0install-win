@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Se perderán todos los cambios que hayas hecho en otros ordenadores pero que aún no se hayan sincronizado con éste</value>
+    <value>Se perderán todos los cambios que hayas realizado en otros ordenadores pero que aún no se hayan sincronizado con éste</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -159,7 +159,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Es posible que también desee restablecer los datos locales en otros equipos en los que está utilizando Zero Install Sync.</value>
+    <value>Es posible que también desee restablecer los datos locales en otros equipos en los que esté utilizando Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">

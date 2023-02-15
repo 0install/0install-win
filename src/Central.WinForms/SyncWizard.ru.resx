@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Введите свои учетные данные для входа на сервер синхронизации ниже:</value>
+    <value>Пожалуйста, введите учетные данные для входа на сервер синхронизации ниже:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">

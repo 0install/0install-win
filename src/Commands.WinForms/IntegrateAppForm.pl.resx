@@ -291,7 +291,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Dostęp z poziomu interfejsu linii poleceń</value>
+    <value>Dostęp z poziomu interfejsu wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Domyślny handler dla obsługiwanych typów plików ("Otwórz z" działa również bez tego)</value>
+    <value>Domyślny handler dla obsługiwanych typów plików ("Otwórz za pomocą" działa również bez tego)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
