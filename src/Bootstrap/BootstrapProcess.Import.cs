@@ -5,6 +5,7 @@ using NanoByte.Common.Streams;
 using ZeroInstall.Archives.Extractors;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.FileSystem;
+using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall;
@@ -18,28 +19,22 @@ partial class BootstrapProcess
     private void ImportEmbedded(string prefix)
     {
         var assembly = GetType().Assembly;
-        var files = assembly.GetManifestResourceNames().Where(x => x.StartsWith(prefix)).Select(x => x[prefix.Length..]).ToList();
-        if (files.Count == 0) return;
-
-        void WriteToFile(string resourceName, string path)
-        {
-            using var stream = assembly.GetManifestResourceStream(prefix + resourceName)!;
-            stream.CopyToFile(path);
-        }
-
-        // First populate a directory with all embedded GPG files, because they may be needed for feed imports to succeed in the next step
-        using var feedDirectory = new TemporaryDirectory("0install-embedded-feeds");
-        foreach (string name in files.Where(x => x.EndsWithIgnoreCase(".gpg")))
-            WriteToFile(name, Path.Combine(feedDirectory, name));
-
-        foreach (string name in files)
+        foreach (string name in assembly.GetManifestResourceNames().Where(x => x.StartsWith(prefix)).Select(x => x[prefix.Length..]))
         {
             if (name.EndsWithIgnoreCase(".xml"))
             {
                 Log.Info($"Importing embedded feed {name}");
-                string path = Path.Combine(feedDirectory, FeedUri.Escape(name));
-                WriteToFile(name, path);
-                ImportFeed(path);
+                using var stream = assembly.GetManifestResourceStream(prefix + name)!;
+                try
+                {
+                    FeedManager.ImportFeed(stream, keyCallback: id =>
+                    {
+                        using var keyStream = assembly.GetManifestResourceStream(prefix + name);
+                        return keyStream?.ReadAll();
+                    });
+                }
+                catch (ReplayAttackException) // Newer version already in cache
+                {}
             }
             else if (name.EndsWithIgnoreCase(".png") || name.EndsWithIgnoreCase(".ico"))
             {
@@ -51,11 +46,11 @@ partial class BootstrapProcess
             {
                 Log.Info($"Importing embedded implementation {name}");
                 var extractor = ArchiveExtractor.For(Archive.GuessMimeType(name), Handler);
-                ImportImplementation(manifestDigest, builder => Handler.RunTask(new SimpleTask("Extracting files", () =>
+                ImportImplementation(manifestDigest, builder =>
                 {
                     using var stream = assembly.GetManifestResourceStream(prefix + name)!;
-                    extractor.Extract(builder, stream);
-                })));
+                    Handler.RunTask(new ReadStream($"Extracting embedded archive {name}", stream, x => extractor.Extract(builder, x)));
+                });
             }
         }
     }
@@ -70,7 +65,12 @@ partial class BootstrapProcess
             if (path.EndsWithIgnoreCase(".xml"))
             {
                 Log.Info($"Importing feed from {path}");
-                ImportFeed(path);
+                try
+                {
+                    FeedManager.ImportFeed(path);
+                }
+                catch (ReplayAttackException) // Newer version already in cache
+                {}
             }
             else if (path.EndsWithIgnoreCase(".png") || path.EndsWithIgnoreCase(".ico"))
             {
@@ -87,25 +87,12 @@ partial class BootstrapProcess
         }
     }
 
-    private void ImportFeed(string path)
-    {
-        try
-        {
-            FeedManager.ImportFeed(path);
-        }
-        catch (ReplayAttackException) // Newer version already in cache
-        {}
-    }
-
     private void ImportIcon(FeedUri uri, Stream stream)
     {
-        string iconsDirectory = _machineWide
+        var store = new IconStore(_machineWide
             ? Locations.GetSaveSystemConfigPath("0install.net", isFile: false, "desktop-integration", "icons")
-            : Locations.GetSaveConfigPath("0install.net", isFile: false, "desktop-integration", "icons");
-
-        using var atomic = new AtomicWrite(Path.Combine(iconsDirectory, uri.Escape()));
-        stream.CopyToFile(atomic.WritePath);
-        atomic.Commit();
+            : Locations.GetSaveConfigPath("0install.net", isFile: false, "desktop-integration", "icons"), Config, Handler);
+        store.Import(new() {Href = uri}, stream);
     }
 
     private static ManifestDigest? TryParseDigest(string path)
