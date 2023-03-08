@@ -29,7 +29,8 @@ partial class BootstrapProcess
                 {
                     FeedManager.ImportFeed(stream, keyCallback: id =>
                     {
-                        using var keyStream = assembly.GetManifestResourceStream(prefix + name);
+                        Log.Info($"Reading embedded OpenPGP key {id}");
+                        using var keyStream = assembly.GetManifestResourceStream(prefix + id + ".gpg");
                         return keyStream?.ReadAll();
                     });
                 }
