@@ -103,7 +103,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
             {
                 args.Add("run");
                 if (_appVersion != null) args.Add(new [] {"--version", _appVersion.ToString()});
-                if (_handler.IsGui) args.Add("--no-wait");
+                if (_handler.IsGui && !_wait) args.Add("--no-wait");
                 args.Add(_embeddedConfig.AppUri.ToStringRfc());
                 args.Add(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
             }

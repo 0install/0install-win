@@ -28,6 +28,9 @@ partial class BootstrapProcess
     /// <summary>Do not run the application after downloading it.</summary>
     private bool _noRun;
 
+    /// <summary>Wait for the application to exit after running it.</summary>
+    private bool _wait;
+
     /// <summary>Do not integrate the application into the desktop environment.</summary>
     private bool _noIntegrate;
 
@@ -132,7 +135,7 @@ partial class BootstrapProcess
 
         if (_embeddedConfig is {AppUri: not null, AppName: not null})
         {
-            _options.Add("zero-install-version=", () => $"Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
+            _options.Add("zero-install-version=", () => "Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
             _options.Add("version=", () => $"Use a specific {{VERSION}} of {_embeddedConfig.AppName}.", (VersionRange range) => _appVersion = range);
             _options.Add("no-run", () => $"Do not run {_embeddedConfig.AppName} after downloading it.", _ => _noRun = true);
             _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
@@ -148,6 +151,7 @@ partial class BootstrapProcess
                     _handler.Verbosity = Verbosity.Batch;
                     _handler.Background = true;
                 });
+                _options.Add("wait", () => "Wait for {_embeddedConfig.AppName} to exit after running it.", _ => _wait = true);
             }
             if (_embeddedConfig.IntegrateArgs != null)
             {
