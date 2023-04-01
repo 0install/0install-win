@@ -54,7 +54,7 @@ partial class BootstrapProcess
     /// </summary>
     private ProcessStartInfo ZeroInstall(IList<string> args)
     {
-        ShareArgsWithZeroInstall(args);
+        AddSharedOptions(args);
         return ZeroInstallDeployed(args) ?? ZeroInstallCached(args);
     }
 

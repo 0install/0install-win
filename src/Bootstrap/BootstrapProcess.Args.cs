@@ -176,9 +176,9 @@ partial class BootstrapProcess
     }
 
     /// <summary>
-    /// Handles arguments passed to 0install that are also applicable to the bootstrapper.
+    /// Handles 0install command-line options that are also applicable to the bootstrapper.
     /// </summary>
-    private void ShareArgsWithZeroInstall()
+    private void ApplySharedOptions()
     {
         foreach (string arg in _userArgs)
         {
@@ -204,9 +204,9 @@ partial class BootstrapProcess
     }
 
     /// <summary>
-    /// Adds arguments passed to the bootstrapper that are also applicable to 0install to <paramref name="args"/>.
+    /// Adds bootstrapper command-line options that are also applicable to 0install to <paramref name="args"/>.
     /// </summary>
-    private void ShareArgsWithZeroInstall(IList<string> args)
+    private void AddSharedOptions(IList<string> args)
     {
         void AddArg(string arg, bool allowDuplicate = false)
         {
@@ -228,9 +228,11 @@ partial class BootstrapProcess
                 break;
         }
 
-        if (!args.Contains("central"))
+        if (_handler.Background && !args.Contains("central"))
+            AddArg("--background");
+
+        if (args.Intersect(new[] {"select", "download", "run", "add", "integrate"}).Any())
         {
-            if (_handler.Background) AddArg("--background");
             if (Config.NetworkUse == NetworkLevel.Offline) AddArg("--offline");
             if (FeedManager.Refresh) AddArg("--refresh");
         }

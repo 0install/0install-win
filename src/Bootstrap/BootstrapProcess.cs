@@ -33,7 +33,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         _userArgs.Add(_options.Parse(args));
         if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException("You must be an administrator to perform machine-wide operations.");
-        if (_embeddedConfig.AppUri == null) ShareArgsWithZeroInstall();
+        if (_embeddedConfig.AppUri == null) ApplySharedOptions();
         if (_embeddedConfig.CustomizablePath) CustomizePath();
 
         ImportEmbedded(prefix: "ZeroInstall.content.");
