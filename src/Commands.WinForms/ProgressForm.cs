@@ -37,6 +37,12 @@ public sealed partial class ProgressForm : Form
         _trayIcon.MouseClick += trayIcon_MouseClick;
 
         StartPosition = FormStartPosition.CenterScreen;
+
+        Shown += delegate
+        {
+            Log.Debug("Progress form shown");
+            this.SetForegroundWindow();
+        };
     }
 
     protected override void OnHandleCreated(EventArgs e)
@@ -105,12 +111,6 @@ public sealed partial class ProgressForm : Form
         }
 
         base.SetVisibleCore(value);
-    }
-
-    protected override void OnShown(EventArgs e)
-    {
-        Log.Debug("Progress form shown");
-        this.SetForegroundWindow();
     }
     #endregion
 
