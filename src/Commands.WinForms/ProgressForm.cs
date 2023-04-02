@@ -59,6 +59,12 @@ public sealed partial class ProgressForm : Form
         base.SetVisibleCore(value);
     }
 
+    protected override void OnPaintBackground(PaintEventArgs e)
+    {
+        InitializeLazy(); // Initialize form before processing paint window messages
+        base.OnPaintBackground(e);
+    }
+
     private void InitializeLazy()
     {
         if (components != null) return;
