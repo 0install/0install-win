@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using NanoByte.Common.Native;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
@@ -62,7 +63,17 @@ public sealed partial class ProgressForm : Form
     protected override void OnPaintBackground(PaintEventArgs e)
     {
         InitializeLazy(); // Initialize form before processing paint window messages
-        base.OnPaintBackground(e);
+
+        try
+        {
+            base.OnPaintBackground(e);
+        }
+        catch (ExternalException ex) when (pictureBoxSplashScreen != null)
+        {
+            Log.Debug("Problem painting progress form background, trying again without splash screen", ex);
+            Controls.Remove(pictureBoxSplashScreen);
+            base.OnPaintBackground(e);
+        }
     }
 
     private void InitializeLazy()
