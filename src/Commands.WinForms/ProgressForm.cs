@@ -55,15 +55,51 @@ public sealed partial class ProgressForm : Form
 
     protected override void SetVisibleCore(bool value)
     {
-        if (value && components == null)
+        if (value) InitializeLazy(); // Initialize form before making it visible
+        base.SetVisibleCore(value);
+    }
+
+    private void InitializeLazy()
+    {
+        if (components != null) return;
+
+        Log.Debug("Starting lazy initialization of progress form");
+        InitializeComponent();
+        Font = DefaultFonts.Modern;
+
+        try
         {
-            Log.Debug("Initializing progress form");
-            InitializeComponent();
-            Font = DefaultFonts.Modern;
+            MinimumSize = new Size(350, 150).ApplyScale(this);
+        }
+        #region Error handling
+        catch (ArgumentException ex)
+        {
+            Log.Debug(ex);
+        }
+        #endregion
+
+        buttonCustomizeSelectionsDone.Text = Resources.Done;
+        buttonHide.Text = Resources.Hide;
+        buttonCancel.Text = Resources.Cancel;
+
+        Text = _branding.Name ?? "Zero Install";
+        if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+        if (_branding.Icon != null) Icon = _branding.Icon;
+        if (_branding.Name != null) linkPoweredBy.Show();
+        if (_branding.SplashScreen != null)
+        {
+            ControlBox = false;
+            pictureBoxSplashScreen.Show();
+            pictureBoxSplashScreen.Image = _branding.SplashScreen;
 
             try
             {
-                MinimumSize = new Size(350, 150).ApplyScale(this);
+                var offset = new Size(width: 0, height: pictureBoxSplashScreen.Bottom);
+                MinimumSize += offset;
+                panelProgress.Location += offset;
+                panelProgress.Size -= offset;
+                selectionsControl.Location += offset;
+                selectionsControl.Size -= offset;
             }
             #region Error handling
             catch (ArgumentException ex)
@@ -71,46 +107,13 @@ public sealed partial class ProgressForm : Form
                 Log.Debug(ex);
             }
             #endregion
-
-            buttonCustomizeSelectionsDone.Text = Resources.Done;
-            buttonHide.Text = Resources.Hide;
-            buttonCancel.Text = Resources.Cancel;
-
-            Text = _branding.Name ?? "Zero Install";
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-            if (_branding.Icon != null) Icon = _branding.Icon;
-            if (_branding.Name != null) linkPoweredBy.Show();
-            if (_branding.SplashScreen != null)
-            {
-                ControlBox = false;
-                pictureBoxSplashScreen.Show();
-                pictureBoxSplashScreen.Image = _branding.SplashScreen;
-
-                try
-                {
-                    var offset = new Size(width: 0, height: pictureBoxSplashScreen.Bottom);
-                    MinimumSize += offset;
-                    panelProgress.Location += offset;
-                    panelProgress.Size -= offset;
-                    selectionsControl.Location += offset;
-                    selectionsControl.Size -= offset;
-                }
-                #region Error handling
-                catch (ArgumentException ex)
-                {
-                    Log.Debug(ex);
-                }
-                #endregion
-            }
-
-            ShowSelectionsControls();
-
-            foreach (var (task, progress) in _deferredProgress)
-                progress.SetTarget(AddTaskControl(task));
-            _deferredProgress.Clear();
         }
 
-        base.SetVisibleCore(value);
+        ShowSelectionsControls();
+
+        foreach (var (task, progress) in _deferredProgress)
+            progress.SetTarget(AddTaskControl(task));
+        _deferredProgress.Clear();
     }
     #endregion
 
