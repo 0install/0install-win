@@ -2,29 +2,25 @@ mode: ContinuousDeployment
 
 # Generate 0install-compatible version numbers
 branches:
+  # Mainline branches
+  main:
+    tag: rc-pre
+  develop:
+    tag: pre
+    increment: patch
+
   # Stabilization branches
   release:
     tag: rc
   hotfix:
     tag: rc
 
-  # Mainline branches
-  master:
-    tag: rc-pre
-  develop:
-    tag: pre
-    increment: patch
-
   # Topic branches
   feature:
     tag: pre-pre
   pull-request:
     tag: pre-pre
-  renovate:
-    regex: renovate?[/-]
-    source-branches: ['master']
-    tag: pre-pre
-  translate:
-    regex: translate
-    source-branches: ['master']
+  fallback:
+    source-branches: [main]
+    regex: ^(?!main|master|develop|release|hotfix|feature|pull|pr)
     tag: pre-pre
