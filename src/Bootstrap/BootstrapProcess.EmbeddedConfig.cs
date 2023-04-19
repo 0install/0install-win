@@ -42,18 +42,22 @@ partial class BootstrapProcess
     /// </summary>
     private void CustomizePath()
     {
-        var paths = (_machineWide
+        var currentPaths = (_machineWide
             ? ImplementationStores.GetMachineWideDirectories()
             : ImplementationStores.GetUserDirectories()).ToList();
-        if (paths.Count > 1) return;
+        if (currentPaths.Count > 1)
+        {
+            Log.Info("Refusing to customize path, because multiple custom implementation directories are already configured");
+            return;
+        }
+        string? currentPath = currentPaths.FirstOrDefault();
 
-        string? path = paths.FirstOrDefault();
-        path = _handler.GetCustomPath(_machineWide, path);
-        paths = new();
-        if (!string.IsNullOrEmpty(path)) paths.Add(path);
+        string? newPath = _handler.GetCustomPath(_machineWide, currentPath);
+        var newPaths = new List<string>();
+        if (!string.IsNullOrEmpty(newPath)) newPaths.Add(newPath);
 
-        if (_machineWide) ImplementationStores.SetMachineWideDirectories(paths);
-        else ImplementationStores.SetUserDirectories(paths);
+        if (_machineWide) ImplementationStores.SetMachineWideDirectories(newPaths);
+        else ImplementationStores.SetUserDirectories(newPaths);
     }
 
     /// <summary>
