@@ -52,7 +52,7 @@ partial class BootstrapProcess
         }
         string? currentPath = currentPaths.FirstOrDefault();
 
-        string? newPath = _handler.GetCustomPath(_machineWide, currentPath);
+        string? newPath = _installDir ?? _handler.GetCustomPath(_machineWide, currentPath);
         var newPaths = new List<string>();
         if (!string.IsNullOrEmpty(newPath)) newPaths.Add(newPath);
 

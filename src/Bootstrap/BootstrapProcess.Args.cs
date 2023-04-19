@@ -31,6 +31,9 @@ partial class BootstrapProcess
     /// <summary>Wait for the application to exit after running it.</summary>
     private bool _wait;
 
+    /// <summary>Custom location to install the application to.</summary>
+    private string? _installDir;
+
     /// <summary>Do not integrate the application into the desktop environment.</summary>
     private bool _noIntegrate;
 
@@ -147,6 +150,8 @@ partial class BootstrapProcess
                 });
                 _options.Add("wait", () => "Wait for {_embeddedConfig.AppName} to exit after running it.", _ => _wait = true);
             }
+            if (_embeddedConfig.CustomizablePath)
+                _options.Add("install-dir=", () => $"Custom location to install {_embeddedConfig.AppName} to.", x => _installDir = x);
             if (_embeddedConfig.IntegrateArgs != null)
             {
                 _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
