@@ -120,15 +120,9 @@ partial class BootstrapProcess
                     _contentDir = path;
                 }
             },
-            {
-                "o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline
-            },
-            {
-                "r|refresh", () => "Fetch fresh copies of all used feeds.", _ => FeedManager.Refresh = true
-            },
-            {
-                "prepare-offline", () => "Download all files required to run off-line later.", _ => _prepareOffline = true
-            }
+            {"o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline},
+            {"r|refresh", () => "Fetch fresh copies of all used feeds.", _ => FeedManager.Refresh = true},
+            {"prepare-offline", () => "Download all files required to run off-line later.", _ => _prepareOffline = true}
         };
         if (handler.IsGui)
             _options.Add("background", () => "Hide the graphical user interface.", _ => _handler.Background = true);
