@@ -83,7 +83,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc(), "--no-download"};
         if (_machineWide) args.Add("--machine");
-        args.Add(WindowsUtils.SplitArgs(_embeddedConfig.IntegrateArgs));
+        args.Add(WindowsUtils.SplitArgs(_integrateArgs ?? _embeddedConfig.IntegrateArgs));
 
         return RunZeroInstall(args);
     }

@@ -37,6 +37,9 @@ partial class BootstrapProcess
     /// <summary>Do not integrate the application into the desktop environment.</summary>
     private bool _noIntegrate;
 
+    /// <summary>Override command-line arguments for '0install integrate'.</summary>
+    private string? _integrateArgs;
+
     /// <summary>Integrate the application machine-wide (for the entire computer) instead of just for the current user.</summary>
     private bool _machineWide;
 
@@ -155,6 +158,7 @@ partial class BootstrapProcess
             if (_embeddedConfig.IntegrateArgs != null)
             {
                 _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
+                _options.Add("integrate-args=", () => "Override command-line arguments for '0install integrate'.", x => _integrateArgs = x);
                 if (!_embeddedConfig.IntegrateArgs.Contains("--machine"))
                     _options.Add("machine", () => $"Integrate {_embeddedConfig.AppName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
             }
