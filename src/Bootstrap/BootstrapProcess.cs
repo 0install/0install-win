@@ -26,14 +26,12 @@ public sealed partial class BootstrapProcess : ServiceProvider
         // Read settings from .exe.config file, if present
         Config.ReadFromAppSettings();
 
-        // Write potentially customized config to the user profile
-        // NOTE: This must be done before parsing command-line options, since that may apply non-persistent modifications to the config.
         Config.Save();
         TrustKeys();
 
         _userArgs.Add(_options.Parse(args));
         if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException("You must be an administrator to perform machine-wide operations.");
-        if (_embeddedConfig.AppUri == null) ApplySharedOptions();
+
         if (_embeddedConfig.CustomizablePath) CustomizePath();
 
         ImportEmbedded(prefix: "ZeroInstall.content.");
@@ -44,8 +42,10 @@ public sealed partial class BootstrapProcess : ServiceProvider
             if (Directory.Exists(defaultContentDir)) ImportDirectory(defaultContentDir);
         }
 
-        if (_prepareOffline) return ExecuteExport();
+        if (_embeddedConfig.AppUri == null) ApplySharedOptions();
+        if (_offline) Config.NetworkUse = NetworkLevel.Offline;
 
+        if (_prepareOffline) return ExecuteExport();
         var exitCode = ExecuteIntegrate();
         return exitCode == ExitCode.OK ? ExecuteRun() : exitCode;
     }

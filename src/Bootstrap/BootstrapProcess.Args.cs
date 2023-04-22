@@ -4,7 +4,6 @@
 using System.Reflection;
 using NanoByte.Common.Streams;
 using NDesk.Options;
-using ZeroInstall.Store.Configuration;
 
 namespace ZeroInstall;
 
@@ -21,6 +20,9 @@ partial class BootstrapProcess
 
     /// <summary>Arguments passed through to the target process.</summary>
     private readonly List<string> _userArgs = new();
+
+    /// <summary>Run in off-line mode, not downloading anything.</summary>
+    private bool _offline;
 
     /// <summary>Download all files required to run off-line later.</summary>
     private bool _prepareOffline;
@@ -126,7 +128,7 @@ partial class BootstrapProcess
                     _contentDir = path;
                 }
             },
-            {"o|offline", () => "Run in off-line mode, not downloading anything.", _ => Config.NetworkUse = NetworkLevel.Offline},
+            {"o|offline", () => "Run in off-line mode, not downloading anything.", _ => _offline = true},
             {"r|refresh", () => "Fetch fresh copies of all used feeds.", _ => FeedManager.Refresh = true},
             {"prepare-offline", () => "Download all files required to run off-line later.", _ => _prepareOffline = true}
         };
@@ -197,7 +199,7 @@ partial class BootstrapProcess
                     _handler.Background = true;
                     break;
                 case "--offline" or "-o":
-                    Config.NetworkUse = NetworkLevel.Offline;
+                    _offline = true;
                     break;
                 case "--refresh" or "-r":
                     FeedManager.Refresh = true;
@@ -236,7 +238,7 @@ partial class BootstrapProcess
 
         if (args.Intersect(new[] {"select", "download", "run", "add", "integrate"}).Any())
         {
-            if (Config.NetworkUse == NetworkLevel.Offline) AddArg("--offline");
+            if (_offline) AddArg("--offline");
             if (FeedManager.Refresh) AddArg("--refresh");
         }
     }
