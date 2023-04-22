@@ -1,7 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System.Configuration;
 using NanoByte.Common.Streams;
 
 namespace ZeroInstall;
@@ -28,13 +27,6 @@ public record EmbeddedConfig(FeedUri? SelfUpdateUri, string? KeyFingerprint, Fee
 
         string? ReadConfig(string key, int lineNumber, string placeholder)
         {
-            string setting = ConfigurationManager.AppSettings[key];
-            if (!string.IsNullOrEmpty(setting))
-            {
-                Log.Info($"AppSettings config: {key}: {setting}");
-                return setting;
-            }
-
             string line = lines[lineNumber].TrimEnd();
             if (!string.IsNullOrEmpty(line) && !(line.Contains(placeholder) && line.StartsWith("--") && line.EndsWith("--")))
             {

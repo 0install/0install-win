@@ -23,9 +23,6 @@ public sealed partial class BootstrapProcess : ServiceProvider
     {
         UpdateSelfUpdateUri();
 
-        // Read settings from .exe.config file, if present
-        Config.ReadFromAppSettings();
-
         Config.Save();
         TrustKeys();
 

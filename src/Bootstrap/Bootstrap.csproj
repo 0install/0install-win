@@ -18,7 +18,6 @@
     <PackageReference Include="ZeroInstall.Services" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration" />
     <Reference Include="Mono.Posix">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
