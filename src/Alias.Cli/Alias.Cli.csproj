@@ -9,9 +9,6 @@
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\App.config" />
-  </ItemGroup>
 
   <!-- Dependencies -->
   <ItemGroup>
