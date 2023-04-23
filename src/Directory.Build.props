@@ -23,7 +23,7 @@
 
     <!-- Dependency versions -->
     <NanoByteCommonVersion>2.15.3</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.24.7</ZeroInstallVersion>
+    <ZeroInstallVersion>2.24.8-rc-pre0006</ZeroInstallVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\App.config" />

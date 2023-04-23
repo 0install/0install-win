@@ -10,6 +10,23 @@ namespace ZeroInstall;
 partial class BootstrapProcess
 {
     /// <summary>
+    /// Persists potentially customized Zero Install configuration.
+    /// </summary>
+    private void SaveConfig()
+    {
+        Config.Save();
+
+        if (_machineWide)
+        {
+            Log.Info("Saving config in machine-wide location");
+            var machineConfig = new Config();
+            machineConfig.ReadFromFiles(machineWideOnly: true);
+            machineConfig.SelfUpdateUri = Config.SelfUpdateUri;
+            machineConfig.Save(machineWide: true);
+        }
+    }
+
+    /// <summary>
     /// Asks the user to provide a custom path for storing implementations.
     /// </summary>
     private void CustomizePath()

@@ -21,13 +21,13 @@ public sealed partial class BootstrapProcess : ServiceProvider
     /// <returns>The exit status code to end the process with.</returns>
     public ExitCode Execute(IEnumerable<string> args)
     {
-        Config.Save();
-        TrustKeys();
-
         _userArgs.Add(_options.Parse(args));
         if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException("You must be an administrator to perform machine-wide operations.");
 
         if (BootstrapConfig.Instance.CustomizablePath) CustomizePath();
+
+        SaveConfig();
+        TrustKeys();
 
         ImportEmbedded();
         ImportDirectory();
