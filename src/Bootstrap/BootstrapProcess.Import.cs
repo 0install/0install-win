@@ -13,12 +13,13 @@ namespace ZeroInstall;
 partial class BootstrapProcess
 {
     /// <summary>
-    /// Imports files embedded as resources into Zero Install.
+    /// Imports files embedded in the bootstrapper into Zero Install.
     /// </summary>
-    /// <param name="prefix">The resource prefix/namespace of the files to import.</param>
-    private void ImportEmbedded(string prefix)
+    private void ImportEmbedded()
     {
+        const string prefix = "ZeroInstall.content.";
         var assembly = GetType().Assembly;
+
         foreach (string name in assembly.GetManifestResourceNames().Where(x => x.StartsWith(prefix)).Select(x => x[prefix.Length..]))
         {
             if (name.EndsWithIgnoreCase(".xml"))
@@ -59,9 +60,13 @@ partial class BootstrapProcess
     /// <summary>
     /// Imports files from a directory into Zero Install.
     /// </summary>
-    private void ImportDirectory(string directoryPath)
+    private void ImportDirectory()
     {
-        foreach (string path in Directory.GetFiles(directoryPath))
+        string defaultContentDir = Path.Combine(Locations.InstallBase, "content");
+        string? contentDir = _contentDir ?? (Directory.Exists(defaultContentDir) ? defaultContentDir : null);
+        if (contentDir == null) return;
+
+        foreach (string path in Directory.GetFiles(contentDir))
         {
             if (path.EndsWithIgnoreCase(".xml"))
             {

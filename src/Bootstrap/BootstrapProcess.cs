@@ -29,13 +29,8 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         if (BootstrapConfig.Instance.CustomizablePath) CustomizePath();
 
-        ImportEmbedded(prefix: "ZeroInstall.content.");
-        if (_contentDir != null) ImportDirectory(_contentDir);
-        else
-        {
-            string defaultContentDir = Path.Combine(Locations.InstallBase, "content");
-            if (Directory.Exists(defaultContentDir)) ImportDirectory(defaultContentDir);
-        }
+        ImportEmbedded();
+        ImportDirectory();
 
         if (BootstrapConfig.Instance.AppUri == null) ApplySharedOptions();
         if (_offline) Config.NetworkUse = NetworkLevel.Offline;
