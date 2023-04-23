@@ -135,6 +135,9 @@ partial class BootstrapProcess
         if (handler.IsGui)
             _options.Add("background", () => "Hide the graphical user interface.", _ => _handler.Background = true);
 
+        if (BootstrapConfig.Instance.CustomizablePath)
+            _options.Add("install-dir=", () => $"Custom location to install {BootstrapConfig.Instance.AppName ?? "Zero Install"} to.", x => _installDir = x);
+
         if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
         {
             _options.Add("0install-version=", () => "Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
@@ -155,8 +158,6 @@ partial class BootstrapProcess
                 });
                 _options.Add("wait", () => "Wait for {_embeddedConfig.AppName} to exit after running it.", _ => _wait = true);
             }
-            if (BootstrapConfig.Instance.CustomizablePath)
-                _options.Add("install-dir=", () => $"Custom location to install {appName} to.", x => _installDir = x);
             if (BootstrapConfig.Instance.IntegrateArgs is {} integrateArgs)
             {
                 _options.Add("no-integrate", () => $"Do not integrate {appName} into the desktop environment.", _ => _noIntegrate = true);
