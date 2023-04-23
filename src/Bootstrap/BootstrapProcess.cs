@@ -21,15 +21,13 @@ public sealed partial class BootstrapProcess : ServiceProvider
     /// <returns>The exit status code to end the process with.</returns>
     public ExitCode Execute(IEnumerable<string> args)
     {
-        UpdateSelfUpdateUri();
-
         Config.Save();
         TrustKeys();
 
         _userArgs.Add(_options.Parse(args));
         if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException("You must be an administrator to perform machine-wide operations.");
 
-        if (_embeddedConfig.CustomizablePath) CustomizePath();
+        if (BootstrapConfig.Instance.CustomizablePath) CustomizePath();
 
         ImportEmbedded(prefix: "ZeroInstall.content.");
         if (_contentDir != null) ImportDirectory(_contentDir);
@@ -39,7 +37,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
             if (Directory.Exists(defaultContentDir)) ImportDirectory(defaultContentDir);
         }
 
-        if (_embeddedConfig.AppUri == null) ApplySharedOptions();
+        if (BootstrapConfig.Instance.AppUri == null) ApplySharedOptions();
         if (_offline) Config.NetworkUse = NetworkLevel.Offline;
 
         if (_prepareOffline) return ExecuteExport();
@@ -54,7 +52,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
     {
         var args = new List<string> {"export", "--refresh"};
 
-        if (_embeddedConfig.AppUri is {} appUri)
+        if (BootstrapConfig.Instance.AppUri is {} appUri)
         {
             args.Add(appUri.ToStringRfc());
             if (_appVersion != null) args.Add($"--version={_appVersion}");
@@ -71,18 +69,20 @@ public sealed partial class BootstrapProcess : ServiceProvider
     }
 
     /// <summary>
-    /// Runs <c>0install integrate</c> if requested by <see cref="_embeddedConfig"/>.
+    /// Runs <c>0install integrate</c> if requested by <see cref="BootstrapConfig"/>.
     /// </summary>
     private ExitCode ExecuteIntegrate()
     {
-        if (_noIntegrate || _embeddedConfig is {AppUri: null} or {IntegrateArgs: null})
-            return ExitCode.OK;
+        if (BootstrapConfig.Instance is {AppUri: {} appUri, IntegrateArgs: {} integrateArgs} && !_noIntegrate)
+        {
+            var args = new List<string> { "integrate", appUri.ToStringRfc(), "--no-download" };
+            if (_machineWide) args.Add("--machine");
+            args.Add(WindowsUtils.SplitArgs(_integrateArgs ?? integrateArgs));
 
-        var args = new List<string> {"integrate", _embeddedConfig.AppUri.ToStringRfc(), "--no-download"};
-        if (_machineWide) args.Add("--machine");
-        args.Add(WindowsUtils.SplitArgs(_integrateArgs ?? _embeddedConfig.IntegrateArgs));
+            return RunZeroInstall(args);
+        }
 
-        return RunZeroInstall(args);
+        return ExitCode.OK;
     }
 
     /// <summary>
@@ -92,17 +92,17 @@ public sealed partial class BootstrapProcess : ServiceProvider
     {
         var args = new List<string>();
 
-        if (_embeddedConfig is {AppUri: not null, AppName: not null})
+        if (BootstrapConfig.Instance is {AppUri: {} appUri, AppArgs: var appArgs})
         {
             if (_noRun)
-                args.Add(new[] {"download", _embeddedConfig.AppUri.ToStringRfc()});
+                args.Add(new[] {"download", appUri.ToStringRfc()});
             else
             {
                 args.Add("run");
                 if (_appVersion != null) args.Add(new [] {"--version", _appVersion.ToString()});
                 if (_handler.IsGui && !_wait) args.Add("--no-wait");
-                args.Add(_embeddedConfig.AppUri.ToStringRfc());
-                args.Add(WindowsUtils.SplitArgs(_embeddedConfig.AppArgs));
+                args.Add(appUri.ToStringRfc());
+                args.Add(WindowsUtils.SplitArgs(appArgs));
             }
         }
 

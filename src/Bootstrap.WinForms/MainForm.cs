@@ -11,7 +11,6 @@ namespace ZeroInstall;
 /// </summary>
 public sealed partial class MainForm : Form
 {
-    private readonly EmbeddedConfig _embeddedConfig = EmbeddedConfig.Load();
     private readonly CancellationTokenSource _cancellationTokenSource;
 
     public MainForm(CancellationTokenSource cancellationTokenSource)
@@ -23,15 +22,15 @@ public sealed partial class MainForm : Form
         pictureBoxSplashScreen.BackgroundImage = Image.FromStream(typeof(MainForm).GetEmbeddedStream("SplashScreen.png"));
         HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
-        Text = string.Format(LocalizableStrings.Title, _embeddedConfig.AppName ?? "Zero Install");
+        Text = string.Format(LocalizableStrings.Title, BootstrapConfig.Instance.AppName ?? "Zero Install");
         buttonContinue.Text = LocalizableStrings.Continue;
         buttonCancel.Text = LocalizableStrings.Cancel;
-        groupPath.Text = string.Format(LocalizableStrings.DestinationFolder, _embeddedConfig.AppName ?? "Zero Install");
+        groupPath.Text = string.Format(LocalizableStrings.DestinationFolder, BootstrapConfig.Instance.AppName ?? "Zero Install");
         buttonChangePath.Text = LocalizableStrings.Change;
 
-        if (_embeddedConfig.AppName != null)
+        if (BootstrapConfig.Instance.AppName is {} appName)
         {
-            labelAppName.Text = _embeddedConfig.AppName;
+            labelAppName.Text = appName;
             Size += new Size(0, 50).ApplyScale(this);
         }
     }
@@ -55,7 +54,7 @@ public sealed partial class MainForm : Form
         _machineWide = machineWide;
 
         folderBrowserDialog.SelectedPath = currentPath;
-        folderBrowserDialog.Description = string.Format(LocalizableStrings.ChoosePath, _embeddedConfig.AppName ?? "Zero Install apps");
+        folderBrowserDialog.Description = string.Format(LocalizableStrings.ChoosePath, BootstrapConfig.Instance.AppName ?? "Zero Install apps");
         UpdatePath();
 
         return _customPathResult.Task;

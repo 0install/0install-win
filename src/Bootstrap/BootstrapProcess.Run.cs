@@ -21,7 +21,7 @@ partial class BootstrapProcess
 
         var exitCode = ExitCode.UserCanceled;
         _handler.RunTask(new SimpleTask(
-            $"Integrating {_embeddedConfig.AppName}",
+            $"Integrating {BootstrapConfig.Instance.AppName}",
             () => exitCode = (ExitCode)startInfo.Run()));
 
         return exitCode;

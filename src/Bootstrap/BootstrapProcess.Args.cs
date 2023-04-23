@@ -56,16 +56,16 @@ partial class BootstrapProcess
 
             using var buffer = new MemoryStream();
             var writer = new StreamWriter(buffer);
-            if (_embeddedConfig is {AppUri: not null, AppName: not null})
+            if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
             {
-                writer.WriteLine("This bootstrapper downloads and {0} {1} using Zero Install.", _embeddedConfig.IntegrateArgs == null ? "runs" : "integrates", _embeddedConfig.AppName);
+                writer.WriteLine("This bootstrapper downloads and {0} {1} using Zero Install.", BootstrapConfig.Instance.IntegrateArgs == null ? "runs" : "integrates", appName);
                 writer.WriteLine("Usage: {0} [OPTIONS] [[--] APP-ARGS]", exeName);
                 writer.WriteLine();
                 writer.WriteLine("Samples:");
-                writer.WriteLine("  {0}               Run {1}.", exeName, _embeddedConfig.AppName);
-                writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, _embeddedConfig.AppName);
-                writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, _embeddedConfig.AppName);
-                writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, _embeddedConfig.AppName);
+                writer.WriteLine("  {0}               Run {1}.", exeName, appName);
+                writer.WriteLine("  {0} --offline     Run {1} without downloading anything.", exeName, appName);
+                writer.WriteLine("  {0} -x            Run {1} with argument '-x'.", exeName, appName);
+                writer.WriteLine("  {0} -- --offline  Run {1} with argument '--offline'.", exeName, appName);
             }
             else
             {
@@ -135,11 +135,11 @@ partial class BootstrapProcess
         if (handler.IsGui)
             _options.Add("background", () => "Hide the graphical user interface.", _ => _handler.Background = true);
 
-        if (_embeddedConfig is {AppUri: not null, AppName: not null})
+        if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
         {
             _options.Add("0install-version=", () => "Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
-            _options.Add("version=", () => $"Use a specific {{VERSION}} of {_embeddedConfig.AppName}.", (VersionRange range) => _appVersion = range);
-            _options.Add("no-run", () => $"Do not run {_embeddedConfig.AppName} after downloading it.", _ => _noRun = true);
+            _options.Add("version=", () => $"Use a specific {{VERSION}} of {appName}.", (VersionRange range) => _appVersion = range);
+            _options.Add("no-run", () => $"Do not run {appName} after downloading it.", _ => _noRun = true);
             _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
             {
                 _noRun = true;
@@ -155,14 +155,14 @@ partial class BootstrapProcess
                 });
                 _options.Add("wait", () => "Wait for {_embeddedConfig.AppName} to exit after running it.", _ => _wait = true);
             }
-            if (_embeddedConfig.CustomizablePath)
-                _options.Add("install-dir=", () => $"Custom location to install {_embeddedConfig.AppName} to.", x => _installDir = x);
-            if (_embeddedConfig.IntegrateArgs != null)
+            if (BootstrapConfig.Instance.CustomizablePath)
+                _options.Add("install-dir=", () => $"Custom location to install {appName} to.", x => _installDir = x);
+            if (BootstrapConfig.Instance.IntegrateArgs is {} integrateArgs)
             {
-                _options.Add("no-integrate", () => $"Do not integrate {_embeddedConfig.AppName} into the desktop environment.", _ => _noIntegrate = true);
+                _options.Add("no-integrate", () => $"Do not integrate {appName} into the desktop environment.", _ => _noIntegrate = true);
                 _options.Add("integrate-args=", () => "Override command-line arguments for '0install integrate'.", x => _integrateArgs = x);
-                if (!_embeddedConfig.IntegrateArgs.Contains("--machine"))
-                    _options.Add("machine", () => $"Integrate {_embeddedConfig.AppName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
+                if (!integrateArgs.Contains("--machine"))
+                    _options.Add("machine", () => $"Integrate {appName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
             }
         }
         else
