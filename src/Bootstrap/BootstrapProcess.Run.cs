@@ -63,16 +63,16 @@ partial class BootstrapProcess
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(IEnumerable<string> args)
     {
-        if (_version != null || GetDeployedInstance() is not {Length: > 0} deployedInstance) return null;
+        if (_version != null || string.IsNullOrEmpty(_deployedInstance)) return null;
 
         string launchAssembly = _handler.IsGui ? "0install-win" : "0install";
-        return File.Exists(Path.Combine(deployedInstance, launchAssembly + ".exe"))
-            ? ProcessUtils.Assembly(Path.Combine(deployedInstance, launchAssembly), args.ToArray())
+        return File.Exists(Path.Combine(_deployedInstance, launchAssembly + ".exe"))
+            ? ProcessUtils.Assembly(Path.Combine(_deployedInstance, launchAssembly), args.ToArray())
             : null;
     }
 
-    private static string? GetDeployedInstance()
-        => WindowsUtils.IsWindows
+    private readonly string? _deployedInstance
+        = WindowsUtils.IsWindows
             ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation")
             : null;
 
