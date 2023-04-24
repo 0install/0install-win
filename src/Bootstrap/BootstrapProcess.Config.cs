@@ -10,6 +10,16 @@ namespace ZeroInstall;
 partial class BootstrapProcess
 {
     /// <summary>
+    /// Loads configuration, applying bundled defaults.
+    /// </summary>
+    private void LoadConfig()
+    {
+        Config.ReadFromFiles();
+        if (string.IsNullOrEmpty(_deployedInstance)) Config.ReadFromBootstrapConfig();
+        Config.ReadFromGroupPolicy();
+    }
+
+    /// <summary>
     /// Persists potentially customized Zero Install configuration.
     /// </summary>
     private void SaveConfig()
@@ -20,9 +30,17 @@ partial class BootstrapProcess
         {
             Log.Info("Saving config in machine-wide location");
             var machineConfig = new Config();
+            machineConfig.ReadFromBootstrapConfig();
             machineConfig.ReadFromFiles(machineWideOnly: true);
+            if (string.IsNullOrEmpty(_deployedInstance)) machineConfig.ReadFromBootstrapConfig();
             machineConfig.SelfUpdateUri = Config.SelfUpdateUri;
             machineConfig.Save(machineWide: true);
+        }
+
+        if (BootstrapConfig.Instance.CatalogUri is {} catalogUri && string.IsNullOrEmpty(_deployedInstance))
+        {
+            Log.Info($"Setting custom catalog source: {catalogUri}");
+            Services.Feeds.CatalogManager.SetSources(new[] {catalogUri}, _machineWide);
         }
     }
 

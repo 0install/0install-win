@@ -25,8 +25,8 @@ jobs:
           ./0install.sh run https://apps.0install.net/0install/0template.xml 0install-win.xml.template version=${{steps.download.outputs.version}}
 
           cd artifacts/Bootstrap
-          zip -9 0install.zip 0install.exe*
-          zip -9 zero-install.zip zero-install.exe*
+          zip -9 0install.zip 0install.*
+          zip -9 zero-install.zip zero-install.*
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
