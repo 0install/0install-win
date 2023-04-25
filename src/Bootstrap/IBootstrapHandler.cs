@@ -25,5 +25,5 @@ public interface IBootstrapHandler : ITaskHandler
     /// <param name="machineWide">Ask for a path for machine-wide deployment instead of just for the current user.</param>
     /// <param name="currentPath">The currently set custom path for storing implementations; <c>null</c> if using default location.</param>
     /// <returns>The path to a directory; <c>null</c> or empty to use the default location.</returns>
-    string? GetCustomPath(bool machineWide, string? currentPath);
+    string? GetCustomStorePath(bool machineWide, string? currentPath);
 }

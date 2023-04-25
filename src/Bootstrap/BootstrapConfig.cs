@@ -22,8 +22,8 @@ namespace ZeroInstall;
 /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
 /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> to not call <c>0install integrate</c> at all.</param>
 /// <param name="CatalogUri">The URI of the catalog to replace the default catalog. Only applies if Zero Install is not already deployed.</param>
-/// <param name="CustomizablePath">Offer the user to choose a custom path for storing implementations.</param>
-public record BootstrapConfig(IniData IniData, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs, FeedUri? CatalogUri, bool CustomizablePath)
+/// <param name="CustomizableStorePath">Offer the user to choose a custom path for storing implementations.</param>
+public record BootstrapConfig(IniData IniData, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs, FeedUri? CatalogUri, bool CustomizableStorePath)
 {
     /// <summary>
     /// Provides a single instance of the <see cref="BootstrapConfig"/> loaded from an embedded or bundled file.
@@ -58,7 +58,7 @@ public record BootstrapConfig(IniData IniData, string? KeyFingerprint, FeedUri? 
                 AppArgs: GetOption("app_args"),
                 IntegrateArgs: GetOption("integrate_args"),
                 CatalogUri: GetOption("catalog_uri")?.To(x => new FeedUri(x)),
-                CustomizablePath: string.Equals(GetOption("customizable_path"), "true", StringComparison.OrdinalIgnoreCase)
+                CustomizableStorePath: string.Equals(GetOption("customizable_store_path"), "true", StringComparison.OrdinalIgnoreCase)
             );
         }
         #region Error handling

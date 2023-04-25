@@ -61,7 +61,7 @@ public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
     }
 
     /// <inheritdoc/>
-    public string? GetCustomPath(bool machineWide, string? currentPath)
+    public string? GetCustomStorePath(bool machineWide, string? currentPath)
     {
         if (!IsInteractive) return currentPath;
 

@@ -33,8 +33,8 @@ partial class BootstrapProcess
     /// <summary>Wait for the application to exit after running it.</summary>
     private bool _wait;
 
-    /// <summary>Custom location to install the application to.</summary>
-    private string? _installDir;
+    /// <summary>Custom path for storing implementations.</summary>
+    private string? _storePath;
 
     /// <summary>Do not integrate the application into the desktop environment.</summary>
     private bool _noIntegrate;
@@ -135,8 +135,8 @@ partial class BootstrapProcess
         if (handler.IsGui)
             _options.Add("background", () => "Hide the graphical user interface.", _ => _handler.Background = true);
 
-        if (BootstrapConfig.Instance.CustomizablePath)
-            _options.Add("install-dir=", () => $"Custom location to install {BootstrapConfig.Instance.AppName ?? "Zero Install"} to.", x => _installDir = x);
+        if (BootstrapConfig.Instance.CustomizableStorePath)
+            _options.Add("store-path=", () => $"Custom path for storing implementations.", x => _storePath = x);
 
         if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
         {

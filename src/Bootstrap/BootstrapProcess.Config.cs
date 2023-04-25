@@ -47,7 +47,7 @@ partial class BootstrapProcess
     /// <summary>
     /// Asks the user to provide a custom path for storing implementations.
     /// </summary>
-    private void CustomizePath()
+    private void CustomizeStorePath()
     {
         var currentPaths = (_machineWide
             ? ImplementationStores.GetMachineWideDirectories()
@@ -59,7 +59,7 @@ partial class BootstrapProcess
         }
         string? currentPath = currentPaths.FirstOrDefault();
 
-        string? newPath = _installDir ?? _handler.GetCustomPath(_machineWide, currentPath);
+        string? newPath = _storePath ?? _handler.GetCustomStorePath(_machineWide, currentPath);
         var newPaths = new List<string>();
         if (!string.IsNullOrEmpty(newPath)) newPaths.Add(newPath);
 
