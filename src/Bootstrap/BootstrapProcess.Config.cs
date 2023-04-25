@@ -1,6 +1,7 @@
 ﻿// Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using NanoByte.Common.Native;
 using ZeroInstall.Store.Configuration;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
@@ -58,14 +59,22 @@ partial class BootstrapProcess
             return;
         }
         string? currentPath = currentPaths.FirstOrDefault();
-
         string? newPath = _storePath ?? _handler.GetCustomStorePath(_machineWide, currentPath);
-        var newPaths = new List<string>();
-        if (!string.IsNullOrEmpty(newPath)) newPaths.Add(newPath);
 
+        if (newPath != null && IsMachineWidePath(newPath))
+        {
+            if (!WindowsUtils.IsAdministrator) throw new NotAdminException();
+            _machineWide = true;
+        }
+
+        var newPaths = string.IsNullOrEmpty(newPath) ? Array.Empty<string>() : new[] {newPath};
         if (_machineWide) ImplementationStores.SetMachineWideDirectories(newPaths);
         else ImplementationStores.SetUserDirectories(newPaths);
     }
+
+    private static bool IsMachineWidePath(string path)
+        => path.StartsWithIgnoreCase(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles))
+        || path.StartsWithIgnoreCase(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
 
     /// <summary>
     /// Adds keys for Zero Install (and optionally an app) to the <see cref="TrustDB"/>.

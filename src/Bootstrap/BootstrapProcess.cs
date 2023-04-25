@@ -23,7 +23,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
     {
         LoadConfig();
         _userArgs.Add(_options.Parse(args));
-        if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException("You must be an administrator to perform machine-wide operations.");
+        if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
         if (BootstrapConfig.Instance.CustomizableStorePath) CustomizeStorePath();
 
