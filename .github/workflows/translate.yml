@@ -50,7 +50,7 @@ jobs:
           excludes-regex: .*ImageResources.*
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@main
+        uses: peter-evans/create-pull-request@v5
         with:
           branch: translate
           commit-message: Update translations
