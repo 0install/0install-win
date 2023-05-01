@@ -4,7 +4,7 @@ cache:
   - '%USERPROFILE%\.nuget\packages -> **\*.csproj,**\*.targets,**\*.props'
 
 before_build:
-  - powershell .\0install.ps1 run --batch https://apps.0install.net/devel/gitversion.xml /l console /output buildserver
+  - powershell .\0install.ps1 run --batch https://apps.0install.net/devel/gitversion.xml /verbosity quiet /output buildserver
 
 build_script:
   - powershell .\src\build.ps1 %GitVersion_NuGetVersion%
