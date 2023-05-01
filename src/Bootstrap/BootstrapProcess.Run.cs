@@ -102,7 +102,7 @@ partial class BootstrapProcess
                 else Log.Warn("Continuing with stale solution");
             }
         }
-        catch (SolverException ex) when (_version != null && !FeedManager.Refresh)
+        catch (SolverException ex) when (_version != null && !FeedManager.Refresh && Config.NetworkUse != NetworkLevel.Offline)
         {
             Log.Info($"Solving for version {_version} failed, possibly because feed is outdated; trying refresh", ex);
             FeedManager.Refresh = true;
