@@ -71,15 +71,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>詳細オプションを表示する</value>
+    <value>高度なオプションを表示する</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>次のページへ</value>
+    <value>に進む</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>次のページへ</value>
+    <value>に進む</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>新しい鍵の自動承認（キーサーバーが知っている場合）</value>
+    <value>新しい鍵を自動的に承認する（鍵サーバーが知っている場合）。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>カタログの出典</value>
+    <value>カタログソース</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>実装キャッシュディレクトリ</value>
+    <value>実装キャッシュ・ディレクトリー</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -139,9 +139,9 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>の言語を制御するものです。
-- ゼロインストール自身と
-- ゼロインストールでダウンロードされるアプリケーションの言語を制御します。
+    <value>の言語を制御します：
+- Zero Install自体および
+- Zero Installによってダウンロードされたアプリケーションの言語を制御します。
 
 注意事項
 - すべての言語で翻訳が利用できるわけではありません。
@@ -149,11 +149,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>サーバーです。</value>
+    <value>サーバーです：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>暗号キー。</value>
+    <value>暗号キーです：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -161,7 +161,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>ユーザー名</value>
+    <value>ユーザー名です：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
@@ -169,11 +169,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>フル（通常のネットワーク利用）</value>
+    <value>フル（通常のネットワーク利用時）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>最小限のもの（キャッシュされたものを優先）</value>
+    <value>最小限（キャッシュされたものを優先）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
@@ -181,7 +181,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>アドバンスト</value>
+    <value>アドバンスド</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
@@ -201,11 +201,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>信頼</value>
+    <value>トラスト</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>更新情報</value>
+    <value>アップデート情報</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

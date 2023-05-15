@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Zapomniałem klucza</value>
+    <value>Zapomniałeś klucza</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Proszę wprowadzić klucz kryptograficzny, który był używany wcześniej na tym i/lub innych komputerach:</value>
+    <value>Proszę wprowadzić klucz kryptograficzny używany wcześniej na tym i/lub innych komputerach:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Zamierzasz zastąpić dane przechowywane na serwerze Sync swoją lokalną listą aplikacji. Wszelkie zmiany, których dokonałeś na innych komputerach, a które nie zostały jeszcze zsynchronizowane z tym jednym, zostaną utracone!</value>
+    <value>Zamierzasz zastąpić dane przechowywane na serwerze Sync swoją lokalną listą aplikacji. Wszelkie zmiany, które zostały wprowadzone na innych komputerach, ale nie zostały jeszcze zsynchronizowane z tym jednym, zostaną utracone!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">

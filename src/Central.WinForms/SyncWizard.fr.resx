@@ -79,7 +79,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Non, j'ai déjà configuré d'autres ordinateurs</value>
+    <value>Non, j'ai déjà installé d'autres ordinateurs</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Veuillez entrer vos identifiants de connexion au serveur Sync ci-dessous :</value>
+    <value>Veuillez saisir ci-dessous vos identifiants de connexion au serveur Sync :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>La clé cryptographique a été modifiée. Vous devez maintenant entrer la nouvelle clé sur tous les autres ordinateurs que vous avez déjà configurés pour Zero Install Sync.</value>
+    <value>La clé cryptographique a été modifiée. Vous devez maintenant saisir la nouvelle clé sur tous les autres ordinateurs que vous avez déjà configurés pour Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Entrez la clé sur les autres ordinateurs en utilisant la fenêtre "Options". N'utilisez pas cet assistant à cet endroit car il n'est nécessaire que pour effectuer le changement initial.</value>
+    <value>Saisissez la clé sur d'autres ordinateurs à l'aide de la fenêtre "Options". N'utilisez pas cet assistant, car il n'est nécessaire que pour effectuer le changement initial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -115,15 +115,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Veuillez saisir la clé cryptographique que vous avez utilisée précédemment sur cet ordinateur et/ou d'autres ordinateurs :</value>
+    <value>Veuillez saisir la clé cryptographique que vous avez utilisée précédemment sur cet ordinateur et/ou sur d'autres ordinateurs :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>La clé cryptographique est utilisée pour chiffrer vos données localement avant de les transmettre au serveur. Notez celle qui vous est proposée ou choisissez la vôtre.</value>
+    <value>La clé cryptographique est utilisée pour crypter vos données localement avant de les transmettre au serveur. Notez la clé proposée ou choisissez la vôtre.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Gardez cette clé secrète et utilisez un mot de passe différent. Ainsi, personne ne pourra accéder à vos données, même si le serveur est compromis.</value>
+    <value>Gardez cette clé secrète et utilisez un autre mot de passe. De cette manière, personne ne peut accéder à vos données, même si le serveur est compromis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Vous êtes sur le point de remplacer votre liste d'applications locales par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
+    <value>Vous êtes sur le point de remplacer votre liste d'applications locale par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Vous êtes sur le point de remplacer les données stockées sur le serveur Sync par votre liste d'applications locales. Toutes les modifications que vous avez apportées sur d'autres ordinateurs mais qui n'ont pas encore été synchronisées avec celui-ci seront perdues !</value>
+    <value>Vous êtes sur le point de remplacer les données stockées sur le serveur Sync par votre liste d'applications locale. Toutes les modifications que vous avez apportées sur d'autres ordinateurs mais qui n'ont pas encore été synchronisées avec celui-ci seront perdues !</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Cet assistant peut vous aider à résoudre un certain nombre de problèmes de synchronisation possibles. Quel est le problème que vous souhaitez résoudre ?</value>
+    <value>Cet assistant peut vous aider à résoudre un certain nombre de problèmes de synchronisation. Quel problème souhaitez-vous résoudre ?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -199,11 +199,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Utilisez un serveur personnalisé :</value>
+    <value>Utiliser un serveur personnalisé :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Utilisez un partage de fichiers Windows :</value>
+    <value>Utiliser un partage de fichiers Windows :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -211,7 +211,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Changer la clé cryptographique</value>
+    <value>Modifier la clé cryptographique</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Clé cryptographique modifiée</value>
+    <value>Modification de la clé cryptographique</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Réinitialisation du serveur de synchronisation</value>
+    <value>Réinitialiser le serveur Sync</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
@@ -263,7 +263,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Configuration de la synchronisation terminée</value>
+    <value>Sync Setup complete</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Chemin du répertoire</value>
+    <value>Chemin d'accès au répertoire</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

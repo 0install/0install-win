@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>点击在此电脑上设置零点安装...</value>
+    <value>点击在这台电脑上设置零度安装...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>请在此输入 "零安装 "的URL。</value>
+    <value>请在此输入 "零安装 "的URL：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>如果你喜欢一个应用程序。
+    <value>如果你喜欢一个应用程序、
 把它添加到 "我的应用程序"。</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -186,7 +186,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>运行</value>
+    <value>运转</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">

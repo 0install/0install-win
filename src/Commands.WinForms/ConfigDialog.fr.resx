@@ -99,11 +99,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Approuver automatiquement les nouvelles clés (si elles sont connues par le serveur de clés)</value>
+    <value>Approuver automatiquement les nouvelles clés (si elles sont connues du serveur de clés)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Aidez à tester les nouvelles versions</value>
+    <value>Aider à tester les nouvelles versions</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Répertoires de cache de l'implémentation</value>
+    <value>Mise en œuvre des répertoires de cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -139,8 +139,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Cela contrôle la langue de :
-- Zero Install lui-même et des
+    <value>Cela permet de contrôler la langue de :
+- Zero Install lui-même et
 - des applications téléchargées par Zero Install.
 
 Remarques :

@@ -79,15 +79,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>验证</value>
+    <value>核实</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>检查了条目大小。</value>
+    <value>检查了条目大小：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>目前的参赛规模。</value>
+    <value>目前的参赛规模：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>总规模。</value>
+    <value>总规模：</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

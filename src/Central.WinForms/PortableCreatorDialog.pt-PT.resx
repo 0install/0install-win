@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Implementar</value>
+    <value>Implantar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -79,14 +79,14 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aqui pode criar uma versão portátil de Zero Install, por exemplo, para utilização numa unidade USB. O alvo deve ser formatado em NTFS.</value>
+    <value>Aqui pode criar uma versão portátil do Zero Install, por exemplo, para utilizar numa pen USB. O destino deve ser formatado em NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Lojas Zero Instalar configuração e aplicações em cache dentro de um único directório.
-- Não torna automaticamente as aplicações lançadas através de Zero Install portáteis também.
-- As versões portáteis de Zero Install não podem realizar a integração do ambiente de trabalho (por exemplo, criar entradas de menu de arranque).
-- Considere o uso de Zero Install regular em vários computadores com Zero Install Sync.</value>
+    <value>- Armazena a configuração da Instalação Zero e as aplicações em cache num único directório.
+- Não torna automaticamente as aplicações iniciadas através da Instalação Zero também portáteis.
+- As versões portáteis do Zero Install não podem executar a integração do ambiente de trabalho (por exemplo, criar entradas no menu Iniciar).
+- Considere usar o Zero Install regular em vários computadores com o Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

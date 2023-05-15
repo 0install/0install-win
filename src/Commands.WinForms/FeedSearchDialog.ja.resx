@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install フィード検索</value>
+    <value>ゼロインストールフィード検索</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>実行</value>
+    <value>走る</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>これらの検索結果は、ミラーサーバによって提供されます。デフォルトのミラーサーバは、品質に関係なく、すべての既知のフィードをインデックス化することに注意してください。プログラムを実行する前に、信頼するかどうかを決定する必要があります。</value>
+    <value>これらの検索結果は、ミラーサーバーから提供されます。デフォルトのミラーサーバーは、品質に関係なく、すべての既知のフィードをインデックス化することに注意してください。プログラムを実行する前に、信頼するかどうかを決定する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

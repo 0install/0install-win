@@ -135,33 +135,33 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>警告。改变这些选项可能会使 "零点安装 "无法正常工作。</value>
+    <value>警告：改变这些选项可能会使 "零点安装 "无法正常工作。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>这控制了以下的语言。
+    <value>这可以控制以下语言：
 - 零点安装 "本身和
 - 零安装 "下载的应用程序。
 
-注意。
+注意：
 - 并非所有语言都有翻译。
 - 你需要重新启动 "零点安装 "才能使语言变化生效。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>服务器。</value>
+    <value>服务器：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙。</value>
+    <value>密码钥匙：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>密码。</value>
+    <value>密码：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>用户名。</value>
+    <value>用户名：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">

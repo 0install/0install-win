@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>ユーザー '{0}' のための一時ディレクトリを '{1}' に作成することに失敗しました。</value>
+    <value>{1}' にユーザー '{0}' の一時ディレクトリを作成するのに失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>ポータブルモードでサービスを実行することはできません</value>
+    <value>ポータブルモードではサービスを実行できません！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
