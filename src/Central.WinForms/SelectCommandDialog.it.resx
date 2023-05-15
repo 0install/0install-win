@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
-    <value>Personalizzazione</value>
+    <value>Personalizzare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Equivalente a riga di comando</value>
+    <value>Linea di comando equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

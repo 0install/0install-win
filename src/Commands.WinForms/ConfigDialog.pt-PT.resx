@@ -63,11 +63,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Acrescentar</value>
+    <value>Adicionar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Acrescentar</value>
+    <value>Adicionar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reinicialização</value>
+    <value>Reiniciar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Ajuda para testar novas versões</value>
+    <value>Ajudar a testar novas versões</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Cache de implementação de directórios</value>
+    <value>Directórios de cache de implementação</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -127,25 +127,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Chaves fidedignas</value>
+    <value>Chaves de confiança</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Por favor, seleccione ou crie um directório para utilizar como cache de implementação.</value>
+    <value>Seleccione ou crie um directório para utilizar como cache de implementação.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Advertência: A alteração destas opções pode impedir que a Instalação Zero funcione correctamente.</value>
+    <value>Aviso: Alterar estas opções pode impedir que a Instalação Zero funcione correctamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Isto controla a linguagem de:
-- Zero Instala-se a si próprio e
-- aplicações descarregadas por Zero Install.
+    <value>Isto controla o idioma do:
+- Zero Install propriamente dito e
+- aplicações descarregadas pelo Zero Install.
 
 Notas:
-- As traduções não estão disponíveis para todas as línguas.
-- É necessário reiniciar a Instalação Zero para que as alterações de língua produzam efeito.</value>
+- As traduções não estão disponíveis para todos os idiomas.
+- É necessário reiniciar o Zero Install para que as alterações de idioma tenham efeito.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -165,7 +165,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Gerir conta</value>
+    <value>Gerir a conta</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -189,7 +189,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>Idioma</value>
+    <value>Língua</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
@@ -197,7 +197,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sincronia</value>
+    <value>Sincronização</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">

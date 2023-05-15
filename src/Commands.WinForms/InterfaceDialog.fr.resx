@@ -115,7 +115,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Remplacer</value>
+    <value>Annulation</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">

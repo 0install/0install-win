@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Pesquisa de alimentação de instalação zero</value>
+    <value>Pesquisa de feeds de instalação zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integração de configuração</value>
+    <value>Configurar a integração</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Corre</value>
+    <value>Correr</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Estes resultados de pesquisa são fornecidos pelo servidor espelho. Note que o servidor espelho padrão indexa todos os feeds conhecidos, independentemente da qualidade; deve decidir se deve confiar nos programas antes de os executar.</value>
+    <value>Estes resultados de pesquisa são fornecidos pelo servidor espelho. Note que o servidor espelho predefinido indexa todos os feeds conhecidos, independentemente da qualidade; tem de decidir se confia nos programas antes de os executar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

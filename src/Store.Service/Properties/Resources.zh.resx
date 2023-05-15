@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>用户 '{0}' 成功地将实现 '{1}' 添加到 '{2}' 。</value>
+    <value>用户 '{0}' 成功地将实现 '{1}' 添加到 '{2}'。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -59,19 +59,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>O utilizador '{0}' não acrescentou a implementação '{1}' a '{2}'.</value>
+    <value>O utilizador '{0}' não conseguiu adicionar a implementação '{1}' a '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Não conseguiu criar um directório temporário para o utilizador '{0}' em '{1}'.</value>
+    <value>Falha ao criar um directório temporário para o utilizador '{0}' em '{1}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Falha na remoção do directório temporário '{1}' (criado para o utilizador '{0}').</value>
+    <value>Falha ao remover o directório temporário '{1}' (criado para o utilizador '{0}').</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>O serviço não pode funcionar em modo portátil!</value>
+    <value>O serviço não pode ser executado em modo portátil!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>O utilizador '{0}' acrescentou com sucesso a implementação '{1}' a '{2}'.</value>
+    <value>O utilizador '{0}' adicionou com sucesso a implementação '{1}' a '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

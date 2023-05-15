@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Indique au système d'exploitation les capacités de l'application, comme les types de fichiers qu'elle peut traiter.</value>
+    <value>Indique au système d'exploitation les capacités de l'application, telles que les types de fichiers qu'elle peut traiter.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Nom de l'entrée</value>
+    <value>Nom d'entrée</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
@@ -303,7 +303,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Entrées du menu contextuel dans l'Explorateur Windows</value>
+    <value>Entrées du menu contextuel dans l'explorateur Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
@@ -315,11 +315,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les types de fichiers supportés ("Ouvrir avec" fonctionne aussi sans cela)</value>
+    <value>Gestionnaire par défaut pour les types de fichiers pris en charge ("Ouvrir avec" fonctionne également sans cela)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Une entrée dans le menu "Envoyer à"</value>
+    <value>Une entrée dans le menu "Envoyer à</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -327,11 +327,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les protocoles d'URL supportés ("Ouvrir avec" fonctionne aussi sans cela)</value>
+    <value>Gestionnaire par défaut pour les protocoles URL pris en charge ("Ouvrir avec" fonctionne également sans cela)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Alias de la ligne de commande</value>
+    <value>Les alias de la ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
