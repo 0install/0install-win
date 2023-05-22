@@ -80,7 +80,7 @@ internal sealed partial class MainForm : Form
         _tileManagement.UpdateMyApps();
         _tileManagement.LoadCachedCatalog();
         if (Config.LoadSafe().EffectiveNetworkUse == NetworkLevel.Full)
-            LoadCatalogAsync();
+            _ = LoadCatalogAsync();
 
         bool firstRun = OnFirstRun();
         if (_tileManagement.IsMyAppsEmpty)
@@ -252,8 +252,8 @@ internal sealed partial class MainForm : Form
             RunAppCommandAsync(UpdateApps.Name, "--clean");
     }
 
-    private void buttonRefreshCatalog_Click(object sender, EventArgs e)
-        => LoadCatalogAsync();
+    private async void buttonRefreshCatalog_Click(object sender, EventArgs e)
+        => await LoadCatalogAsync();
 
     private void buttonSearch_Click(object sender, EventArgs e)
         => CommandUtils.Start(Search.Name);
@@ -391,7 +391,7 @@ internal sealed partial class MainForm : Form
     /// <summary>
     /// Loads the "new applications" catalog in the background and displays it.
     /// </summary>
-    private async void LoadCatalogAsync()
+    private async Task LoadCatalogAsync()
     {
         buttonRefreshCatalog.Hide();
         labelLoadingCatalog.Show();
