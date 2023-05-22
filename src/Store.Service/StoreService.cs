@@ -69,16 +69,16 @@ public sealed partial class StoreService : ServiceBase
             _serverChannel = new IpcServerChannel(
                 new Hashtable
                 {
-                    {"name", ServiceImplementationStore.IpcPort},
-                    {"portName", ServiceImplementationStore.IpcPort},
-                    {"secure", true},
+                    ["name"] = ServiceImplementationStore.IpcPort,
+                    ["portName"] = ServiceImplementationStore.IpcPort,
+                    ["secure"] = true
                 },
                 new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
                 ServiceImplementationStore.IpcAcl);
             _clientChannel = new IpcClientChannel(
                 new Hashtable
                 {
-                    {"name", ServiceImplementationStore.IpcCallbackPort}
+                    ["name"] = ServiceImplementationStore.IpcCallbackPort
                 },
                 new BinaryClientFormatterSinkProvider());
 
@@ -89,6 +89,8 @@ public sealed partial class StoreService : ServiceBase
                                     .Select(path => new ImplementationSink(path))
                                     .ToList());
             _objRef = RemotingServices.Marshal(_store, nameof(IImplementationSink), typeof(IImplementationSink));
+
+            (RemotingServices.GetLifetimeService(_store) as ILease)?.Renew(TimeSpan.FromDays(365));
         }
         #region Error handling
         catch (IOException ex)
