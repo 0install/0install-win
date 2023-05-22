@@ -264,14 +264,20 @@ internal sealed partial class MainForm : Form
         if (!string.IsNullOrEmpty(interfaceUri)) RunAppCommandAsync(AddApp.Name, interfaceUri);
     }
 
-    private void buttonAddCatalog_Click(object sender, EventArgs e)
-        => CommandUtils.Start(Configure.Name, "--tab=catalog");
+    private async void buttonAddCatalog_Click(object sender, EventArgs e)
+    {
+        if (await CommandUtils.RunAsync(Configure.Name, "--tab=catalog") == ExitCode.OK)
+            await LoadCatalogAsync();
+    }
 
     private void buttonFeedEditor_Click(object sender, EventArgs e)
         => CommandUtils.Start(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
 
-    private void buttonOptions_Click(object sender, EventArgs e)
-        => CommandUtils.Start(Configure.Name);
+    private async void buttonOptions_Click(object sender, EventArgs e)
+    {
+        if (await CommandUtils.RunAsync(Configure.Name) == ExitCode.OK)
+            await LoadCatalogAsync();
+    }
 
     private void buttonStoreManage_Click(object sender, EventArgs e)
         => CommandUtils.Start(StoreMan.Name, "manage");
