@@ -62,19 +62,21 @@ partial class BootstrapProcess
     /// Returns process start information for a deployed instance of Zero Install.
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(IEnumerable<string> args)
-    {
-        if (_version != null || string.IsNullOrEmpty(_deployedInstance)) return null;
-
-        string launchAssembly = _handler.IsGui ? "0install-win" : "0install";
-        return File.Exists(Path.Combine(_deployedInstance, launchAssembly + ".exe"))
-            ? ProcessUtils.Assembly(Path.Combine(_deployedInstance, launchAssembly), args.ToArray())
+        => _version == null
+        && DeployedInstance is {Length: >0} deployedInstance
+        && File.Exists(Path.Combine(deployedInstance, LaunchAssembly + ".exe"))
+            ? ProcessUtils.Assembly(Path.Combine(deployedInstance, LaunchAssembly), args.ToArray())
             : null;
-    }
 
-    private readonly string? _deployedInstance
-        = WindowsUtils.IsWindows
+    /// <summary>
+    /// The path of a deployed instance of Zero Install. <c>null</c> if there is no deployed instance.
+    /// </summary>
+    private static string? DeployedInstance
+        => WindowsUtils.IsWindows
             ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation")
             : null;
+
+    private string LaunchAssembly => _handler.IsGui ? "0install-win" : "0install";
 
     private Requirements? _requirements;
     private Selections? _selections;

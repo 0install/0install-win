@@ -16,7 +16,7 @@ partial class BootstrapProcess
     private void LoadConfig()
     {
         Config.ReadFromFiles();
-        if (string.IsNullOrEmpty(_deployedInstance)) Config.ReadFromBootstrapConfig();
+        if (string.IsNullOrEmpty(DeployedInstance)) Config.ReadFromBootstrapConfig();
         Config.ReadFromGroupPolicy();
     }
 
@@ -33,12 +33,12 @@ partial class BootstrapProcess
             var machineConfig = new Config();
             machineConfig.ReadFromBootstrapConfig();
             machineConfig.ReadFromFiles(machineWideOnly: true);
-            if (string.IsNullOrEmpty(_deployedInstance)) machineConfig.ReadFromBootstrapConfig();
+            if (string.IsNullOrEmpty(DeployedInstance)) machineConfig.ReadFromBootstrapConfig();
             machineConfig.SelfUpdateUri = Config.SelfUpdateUri;
             machineConfig.Save(machineWide: true);
         }
 
-        if (BootstrapConfig.Instance.CatalogUri is {} catalogUri && string.IsNullOrEmpty(_deployedInstance))
+        if (BootstrapConfig.Instance.CatalogUri is {} catalogUri && string.IsNullOrEmpty(DeployedInstance))
         {
             Log.Info($"Setting custom catalog source: {catalogUri}");
             Services.Feeds.CatalogManager.SetSources(new[] {catalogUri}, _machineWide);
