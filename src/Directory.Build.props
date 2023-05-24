@@ -22,8 +22,8 @@
     <Version>1.0.0-pre</Version>
 
     <!-- Dependency versions -->
-    <NanoByteCommonVersion>2.15.3</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.24.9</ZeroInstallVersion>
+    <NanoByteCommonVersion>2.16.1</NanoByteCommonVersion>
+    <ZeroInstallVersion>2.24.10</ZeroInstallVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\App.config" />
