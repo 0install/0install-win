@@ -16,6 +16,7 @@
 
   <!-- Global usings -->
   <ItemGroup>
+    <Reference Include="System.Net.Http" />
     <Using Include="NanoByte.Common.Controls" />
     <Using Include="NanoByte.Common.Drawing" />
     <Using Include="ZeroInstall.Central.WinForms.Properties" />

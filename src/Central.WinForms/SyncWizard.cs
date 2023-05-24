@@ -2,7 +2,6 @@
 // Licensed under the GNU Lesser Public License
 
 using System.Diagnostics;
-using System.Net.Cache;
 using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Net;
@@ -95,6 +94,17 @@ public sealed partial class SyncWizard : Form
         }
         #endregion
     }
+
+    private HttpClient BuildHttpClient() => new()
+    {
+        BaseAddress = _config.SyncServer,
+        DefaultRequestHeaders =
+        {
+            Authorization = new NetworkCredential(_config.SyncServerUsername, _config.SyncServerPassword).ToBasicAuth(),
+            CacheControl = new() {NoCache = true}
+        },
+        Timeout = TimeSpan.FromSeconds(20)
+    };
     #endregion
 
     #region pageSetupWelcome
@@ -230,7 +240,6 @@ public sealed partial class SyncWizard : Form
         #region Error handling
         catch (WebException ex)
         {
-            Log.Warn("Sync credentials check failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             e.Cancel = true;
             return;
@@ -247,24 +256,18 @@ public sealed partial class SyncWizard : Form
 
     private void CheckCredentials()
     {
-        var appListUri = new Uri(_config.SyncServer!, new Uri("app-list", UriKind.Relative));
-
-        var request = WebRequest.Create(appListUri);
-        request.Method = "HEAD";
-        request.Credentials = new NetworkCredential(_config.SyncServerUsername, _config.SyncServerPassword);
-        request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-        request.Timeout = WebClientTimeout.DefaultTimeout;
-
+        using var httpClient = BuildHttpClient();
         try
         {
-            request.GetResponse();
+            using var response = httpClient.Send(new(HttpMethod.Head, "app-list"));
+            if (response.StatusCode == HttpStatusCode.Unauthorized) throw new WebException(Resources.SyncCredentialsInvalid);
+            response.EnsureSuccessStatusCode();
         }
         #region Error handling
-        catch (WebException ex)
-            when (ex.Status == WebExceptionStatus.ProtocolError && (ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.Unauthorized)
+        catch (HttpRequestException ex)
         {
-            // Wrap exception to add context information
-            throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
+            // Convert exception since only certain exception types are allowed
+            throw ex.AsWebException();
         }
         #endregion
     }
@@ -292,7 +295,6 @@ public sealed partial class SyncWizard : Form
         #region Error handling
         catch (Exception ex) when (ex is WebException or InvalidDataException)
         {
-            Log.Warn("Sync crypto key check failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             e.Cancel = true;
         }
@@ -307,22 +309,20 @@ public sealed partial class SyncWizard : Form
 
     private void CheckCryptoKey()
     {
-        var appListUri = new Uri(_config.SyncServer!, new Uri("app-list", UriKind.Relative));
-
-        using var webClient = new WebClientTimeout
-        {
-            Credentials = new NetworkCredential(_config.SyncServerUsername, _config.SyncServerPassword),
-            CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
-        };
+        using var httpClient = BuildHttpClient();
         try
         {
-            AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), _config.SyncCryptoKey);
+            using var response = httpClient.Send(new(HttpMethod.Get, "app-list"), HttpCompletionOption.ResponseHeadersRead);
+            if (response.StatusCode == HttpStatusCode.Unauthorized) throw new WebException(Resources.SyncCredentialsInvalid);
+            response.EnsureSuccessStatusCode();
+
+            AppList.LoadXmlZip(response.EnsureSuccessStatusCode().Content.ReadAsStream(), _config.SyncCryptoKey);
         }
         #region Error handling
-        catch (WebException ex) when (ex.Response is HttpWebResponse {StatusCode: HttpStatusCode.Unauthorized})
+        catch (HttpRequestException ex)
         {
-            // Wrap exception to add context information
-            throw new WebException(Resources.SyncCredentialsInvalid, ex, ex.Status, ex.Response);
+            // Convert exception since only certain exception types are allowed
+            throw ex.AsWebException();
         }
         catch (ZipException ex)
         {
