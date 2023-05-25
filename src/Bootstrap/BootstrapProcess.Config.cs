@@ -16,7 +16,7 @@ partial class BootstrapProcess
     private void LoadConfig()
     {
         Config.ReadFromFiles();
-        if (!IsIntegrated) Config.ReadFromBootstrapConfig();
+        if (ApplyBootstrapConfig) Config.ReadFromBootstrapConfig();
         Config.ReadFromGroupPolicy();
     }
 
@@ -33,12 +33,12 @@ partial class BootstrapProcess
             var machineConfig = new Config();
             machineConfig.ReadFromBootstrapConfig();
             machineConfig.ReadFromFiles(machineWideOnly: true);
-            if (!IsIntegrated) machineConfig.ReadFromBootstrapConfig();
+            if (ApplyBootstrapConfig) machineConfig.ReadFromBootstrapConfig();
             machineConfig.SelfUpdateUri = Config.SelfUpdateUri;
             machineConfig.Save(machineWide: true);
         }
 
-        if (!IsIntegrated && BootstrapConfig.Instance.CatalogUri is {} catalogUri)
+        if (ApplyBootstrapConfig && BootstrapConfig.Instance.CatalogUri is {} catalogUri)
         {
             Log.Info($"Setting custom catalog source: {catalogUri}");
             Services.Feeds.CatalogManager.SetSources(new[] {catalogUri}, _machineWide);
@@ -46,11 +46,12 @@ partial class BootstrapProcess
     }
 
     /// <summary>
-    /// Indicates whether there is a deployed instance of Zero Install that is integrated in the desktop environment (not library-mode).
+    /// Indicates whether to apply options bundled together with the <see cref="BootstrapConfig"/>,
+    /// potentially overwriting existing configuration.
     /// </summary>
-    private static bool IsIntegrated
-        => !string.IsNullOrEmpty(DeployedInstance)
-        || RegistryUtils.GetSoftwareString("Zero Install", "LibraryMode") != "1";
+    private static bool ApplyBootstrapConfig
+        => string.IsNullOrEmpty(DeployedInstance)
+        || RegistryUtils.GetSoftwareString("Zero Install", "LibraryMode") == "1";
 
     /// <summary>
     /// Asks the user to provide a custom path for storing implementations.

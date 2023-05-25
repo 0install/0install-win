@@ -7,6 +7,9 @@ namespace ZeroInstall;
 
 public static class ConfigExtensions
 {
+    /// <summary>
+    /// Reads options bundled together with the <see cref="BootstrapConfig"/>.
+    /// </summary>
     public static void ReadFromBootstrapConfig(this Config config)
         => config.ReadFrom(BootstrapConfig.Instance.IniData);
 }
