@@ -312,7 +312,7 @@ public sealed partial class SyncWizard : Form
         using var httpClient = BuildHttpClient();
         try
         {
-            using var response = httpClient.Send(new(HttpMethod.Get, "app-list"), HttpCompletionOption.ResponseHeadersRead);
+            using var response = httpClient.Send(new(HttpMethod.Get, "app-list"));
             if (response.StatusCode == HttpStatusCode.Unauthorized) throw new WebException(Resources.SyncCredentialsInvalid);
             response.EnsureSuccessStatusCode();
 
