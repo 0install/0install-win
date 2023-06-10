@@ -83,12 +83,14 @@ public sealed partial class MainForm : Form
 
     private bool IsPathOK()
     {
+        string path = folderBrowserDialog.SelectedPath;
+
         try
         {
-            if (FileUtils.DetermineTimeAccuracy(folderBrowserDialog.SelectedPath) != 0)
+            if (FileUtils.DetermineTimeAccuracy(path) != 0)
             {
-                Log.Error($"Time accuracy at '{folderBrowserDialog.SelectedPath}' is insufficient; probably FAT32 filesystem");
-                Msg.Inform(this, string.Format(LocalizableStrings.FolderNotNtfs, folderBrowserDialog.SelectedPath), MsgSeverity.Warn);
+                Log.Error($"Time accuracy at '{path}' is insufficient; probably FAT32 filesystem");
+                Msg.Inform(this, string.Format(LocalizableStrings.FolderNotNtfs, path), MsgSeverity.Warn);
                 return false;
             }
         }
@@ -99,9 +101,8 @@ public sealed partial class MainForm : Form
             return false;
         }
 
-        return Directory.GetFileSystemEntries(folderBrowserDialog.SelectedPath).Length == 0
-            || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, folderBrowserDialog.SelectedPath), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
-
+        return Directory.GetFileSystemEntries(path).Length == 0
+            || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, path), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
     }
 
     private void buttonContinue_Click(object sender, EventArgs e)
