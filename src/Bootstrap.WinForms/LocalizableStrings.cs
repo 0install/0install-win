@@ -102,6 +102,22 @@ public static class LocalizableStrings
         {"zh", "{0}不在一个以NTFS格式化的驱动器上。\n请选择另一个安装地点。"}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
 
+    public static string FolderNotSupported => new LocalizableStringCollection
+    {
+        {"en", "'{0}' is not a supported location for installing software.\nPlease choose another installation location."},
+        {"de", "'{0}' ist kein unterstützter Ort um Software zu installieren.\nBitte wählen Sie einen anderen Installationsort."},
+        {"es", "'{0}' no es una ubicación admitida para instalar software.\nPor favor, elija otro lugar de instalación."},
+        {"fr", "'{0}' n'est pas un emplacement pris en charge pour l'installation de logiciels.\nVeuillez choisir un autre emplacement d'installation."},
+        {"it", "'{0}' non è una posizione supportata per l'installazione del software.\nScegliere un'altra posizione di installazione."},
+        {"ja", "{0}はソフトウェアをインストールするためにサポートされている場所ではない。\n他のインストール先を選択してください。"},
+        {"nl", "'{0}' is geen ondersteunde locatie voor het installeren van software.\nKies een andere installatielocatie."},
+        {"pl", "'{0}' nie jest obsługiwaną lokalizacją do instalacji oprogramowania.\nProszę wybrać inną lokalizację instalacji."},
+        {"pt-BR", "'{0}' não é um local suportado para instalação de software.\nPor favor, escolha um local de instalação diferente."},
+        {"pt-PT", "'{0}' não é uma localização suportada para a instalação de software.\nPor favor, escolha um local de instalação diferente."},
+        {"ru", "'{0}' не является поддерживаемым местом для установки программного обеспечения.\nПожалуйста, выберите другое место установки."},
+        {"zh", "{0}不是一个支持安装软件的位置。\n请选择另一个安装地点。"}
+    }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
+
     public static string FolderNotEmpty => new LocalizableStringCollection
     {
         {"en", "'{0}' is already in use.\nWe recommend you use an empty folder."},

@@ -87,6 +87,39 @@ public sealed partial class MainForm : Form
 
         try
         {
+            if (path.Length < 4
+             || new[] {Environment.SpecialFolder.UserProfile, Environment.SpecialFolder.ProgramFiles, Environment.SpecialFolder.ProgramFilesX86}.Any(PathEquals)
+             || new[]
+                {
+                    Environment.SpecialFolder.StartMenu, Environment.SpecialFolder.CommonStartMenu,
+                    Environment.SpecialFolder.Desktop, Environment.SpecialFolder.CommonDesktopDirectory,
+                    Environment.SpecialFolder.MyDocuments, Environment.SpecialFolder.CommonDocuments,
+                    Environment.SpecialFolder.MyPictures, Environment.SpecialFolder.CommonPictures,
+                    Environment.SpecialFolder.MyMusic, Environment.SpecialFolder.CommonMusic,
+                    Environment.SpecialFolder.MyVideos, Environment.SpecialFolder.CommonVideos,
+                    Environment.SpecialFolder.Windows
+                }.Any(PathIsIn))
+            {
+                Msg.Inform(this, string.Format(LocalizableStrings.FolderNotSupported, path), MsgSeverity.Error);
+                return false;
+            }
+
+            bool PathEquals(Environment.SpecialFolder folder)
+                => StringUtils.EqualsIgnoreCase(path, Environment.GetFolderPath(folder));
+
+            bool PathIsIn(Environment.SpecialFolder folder)
+                => PathEquals(folder)
+                || path.StartsWithIgnoreCase(Environment.GetFolderPath(folder) + Path.DirectorySeparatorChar);
+        }
+        #region Error handling
+        catch (ArgumentException ex)
+        {
+            Log.Warn($"Failed to get path for special folder", ex);
+        }
+        #endregion
+
+        try
+        {
             if (FileUtils.DetermineTimeAccuracy(path) != 0)
             {
                 Log.Error($"Time accuracy at '{path}' is insufficient; probably FAT32 filesystem");
