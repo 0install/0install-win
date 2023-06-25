@@ -62,11 +62,14 @@ public sealed partial class MainForm : Form
 
     private void UpdatePath(bool visible = true)
     {
-        textPath.Text = string.IsNullOrEmpty(folderBrowserDialog.SelectedPath)
-            ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
-            : folderBrowserDialog.SelectedPath;
         groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = visible;
-        if (visible) buttonContinue.Focus();
+        if (visible)
+        {
+            textPath.Text = string.IsNullOrEmpty(folderBrowserDialog.SelectedPath)
+                ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
+                : folderBrowserDialog.SelectedPath;
+            buttonContinue.Focus();
+        }
     }
 
     private void buttonChangePath_Click(object sender, EventArgs e)
