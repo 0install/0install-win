@@ -235,7 +235,7 @@ public sealed partial class SyncWizard : Form
         try
         {
             using var handler = new DialogTaskHandler(this);
-            handler.RunTask(new SimpleTask(Text, CheckCredentials));
+            handler.RunTask(new ActionTask(Text, CheckCredentials));
         }
         #region Error handling
         catch (WebException ex)
@@ -290,7 +290,7 @@ public sealed partial class SyncWizard : Form
         try
         {
             using var handler = new DialogTaskHandler(this);
-            handler.RunTask(new SimpleTask(Text, CheckCryptoKey));
+            handler.RunTask(new ActionTask(Text, CheckCryptoKey));
         }
         #region Error handling
         catch (Exception ex) when (ex is WebException or InvalidDataException)

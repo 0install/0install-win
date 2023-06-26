@@ -20,7 +20,7 @@ partial class BootstrapProcess
         var startInfo = ZeroInstall(args);
 
         var exitCode = ExitCode.UserCanceled;
-        _handler.RunTask(new SimpleTask(
+        _handler.RunTask(new ActionTask(
             $"Integrating {BootstrapConfig.Instance.AppName}",
             () => exitCode = (ExitCode)startInfo.Run()));
 
