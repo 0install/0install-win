@@ -129,6 +129,9 @@ public sealed partial class MainForm : Form
                 Msg.Inform(this, string.Format(LocalizableStrings.FolderNotNtfs, path), MsgSeverity.Warn);
                 return false;
             }
+
+            return Directory.GetFileSystemEntries(path).Length == 0
+                || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, path), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
         }
         catch (Exception ex)
         {
@@ -136,9 +139,6 @@ public sealed partial class MainForm : Form
             Msg.Inform(this, ex.Message, MsgSeverity.Error);
             return false;
         }
-
-        return Directory.GetFileSystemEntries(path).Length == 0
-            || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, path), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
     }
 
     private void buttonContinue_Click(object sender, EventArgs e)
