@@ -5,6 +5,7 @@ using System.Diagnostics;
 using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Net;
+using NanoByte.Common.Streams;
 using ZeroInstall.Commands.Desktop;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
@@ -293,7 +294,7 @@ public sealed partial class SyncWizard : Form
             handler.RunTask(new ActionTask(Text, CheckCryptoKey));
         }
         #region Error handling
-        catch (Exception ex) when (ex is WebException or InvalidDataException)
+        catch (Exception ex) when (ex is WebException or IOException or UnauthorizedAccessException or InvalidDataException)
         {
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             e.Cancel = true;
@@ -309,6 +310,26 @@ public sealed partial class SyncWizard : Form
 
     private void CheckCryptoKey()
     {
+        using var stream = GetAppListStream();
+        try
+        {
+            AppList.LoadXmlZip(stream, _config.SyncCryptoKey);
+        }
+        #region Error handling
+        catch (ZipException ex)
+        {
+            // Wrap exception to add context information
+            if (ex.Message == "Invalid password for AES") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
+            else throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
+        }
+        #endregion
+    }
+
+    private Stream GetAppListStream()
+    {
+        if (_config.SyncServer is {IsFile: true, LocalPath: var path})
+            return File.OpenRead(Path.Combine(path, "app-list"));
+
         using var httpClient = BuildHttpClient();
         try
         {
@@ -316,19 +337,13 @@ public sealed partial class SyncWizard : Form
             if (response.StatusCode == HttpStatusCode.Unauthorized) throw new WebException(Resources.SyncCredentialsInvalid);
             response.EnsureSuccessStatusCode();
 
-            AppList.LoadXmlZip(response.EnsureSuccessStatusCode().Content.ReadAsStream(), _config.SyncCryptoKey);
+            return response.EnsureSuccessStatusCode().Content.ReadAsStream().ToMemory();
         }
         #region Error handling
         catch (HttpRequestException ex)
         {
             // Convert exception since only certain exception types are allowed
             throw ex.AsWebException();
-        }
-        catch (ZipException ex)
-        {
-            // Wrap exception to add context information
-            if (ex.Message == "Invalid password for AES") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
-            else throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
         }
         #endregion
     }
@@ -350,7 +365,7 @@ public sealed partial class SyncWizard : Form
             Sync(SyncResetMode.Server);
         }
         #region Error handling
-        catch (Exception ex) when (ex is WebException or InvalidDataException)
+        catch (Exception ex) when (ex is WebException or IOException or UnauthorizedAccessException or InvalidDataException)
         {
             Log.Warn("Sync crypto key reset failed", ex);
             Msg.Inform(this, ex.Message, MsgSeverity.Warn);
