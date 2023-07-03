@@ -11,7 +11,7 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn><!-- Missing XML comments -->
-    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
+    <ApplicationIcon>$(MSBuildThisFileDirectory)..\icon.ico</ApplicationIcon>
 
     <!-- Metadata -->
     <Product>Zero Install</Product>
@@ -26,7 +26,7 @@
     <ZeroInstallVersion>2.25.0</ZeroInstallVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\App.config" />
+    <None Include="$(MSBuildThisFileDirectory)App.config" />
   </ItemGroup>
 
   <!-- Global usings -->
