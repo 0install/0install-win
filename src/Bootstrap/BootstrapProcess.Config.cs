@@ -16,7 +16,10 @@ partial class BootstrapProcess
     private void LoadConfig()
     {
         Config.ReadFromFiles();
+
         if (ApplyBootstrapConfig) Config.ReadFromBootstrapConfig();
+        else Log.Info("Ignoring bootstrap config due to existing Zero Install deployment");
+
         Config.ReadFromGroupPolicy();
     }
 
