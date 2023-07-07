@@ -60,16 +60,14 @@ public sealed partial class MainForm : Form
         return _customPathResult.Task;
     }
 
-    private void UpdatePath(bool visible = true)
+    private void UpdatePath()
     {
-        groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = visible;
-        if (visible)
-        {
-            textPath.Text = string.IsNullOrEmpty(folderBrowserDialog.SelectedPath)
-                ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
-                : folderBrowserDialog.SelectedPath;
-            buttonContinue.Focus();
-        }
+        textPath.Text = string.IsNullOrEmpty(folderBrowserDialog.SelectedPath)
+            ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
+            : folderBrowserDialog.SelectedPath;
+
+        groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = true;
+        buttonContinue.Focus();
     }
 
     private void buttonChangePath_Click(object sender, EventArgs e)
@@ -143,7 +141,7 @@ public sealed partial class MainForm : Form
 
     private void buttonContinue_Click(object sender, EventArgs e)
     {
-        UpdatePath(visible: false);
+        groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = false;
         _customPathResult.SetResult(folderBrowserDialog.SelectedPath);
     }
 
