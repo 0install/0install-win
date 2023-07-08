@@ -48,8 +48,17 @@ partial class GuiCommandHandler
     private void ShowNotification(string title, string message, ToolTipIcon icon = ToolTipIcon.None)
     {
         void Classic()
-            => new NotifyIcon {Visible = true, Text = Branding.Name ?? "Zero Install", Icon = Branding.Icon}
-               .ShowBalloonTip(10000, title, message, icon);
+        {
+            try
+            {
+                new NotifyIcon {Visible = true, Text = Branding.Name ?? "Zero Install", Icon = Branding.Icon}
+                   .ShowBalloonTip(10000, title, message, icon);
+            }
+            catch (Win32Exception)
+            {
+                // Notifications are only shown with best effort
+            }
+        }
 
         void Modern(string appId)
         {
