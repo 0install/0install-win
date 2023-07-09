@@ -74,6 +74,8 @@ namespace ZeroInstall.Central.WinForms
             this.labelCryptoKeyNew = new System.Windows.Forms.Label();
             this.labelNewCryptoKey = new System.Windows.Forms.Label();
             this.pageSetupFinished = new AeroWizard.WizardPage();
+            this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
+            this.textBoxCommandLine = new System.Windows.Forms.TextBox();
             this.labelSetupFinished = new System.Windows.Forms.Label();
             this.pageResetWelcome = new AeroWizard.WizardPage();
             this.buttonResetClient = new System.Windows.Forms.Button();
@@ -105,6 +107,7 @@ namespace ZeroInstall.Central.WinForms
             this.pageCryptoKeyChanged.SuspendLayout();
             this.pageNewCryptoKey.SuspendLayout();
             this.pageSetupFinished.SuspendLayout();
+            this.groupBoxCommandLine.SuspendLayout();
             this.pageResetWelcome.SuspendLayout();
             this.pageChangeCryptoKey.SuspendLayout();
             this.pageResetServer.SuspendLayout();
@@ -443,11 +446,26 @@ namespace ZeroInstall.Central.WinForms
             // 
             // pageSetupFinished
             // 
+            this.pageSetupFinished.Controls.Add(this.groupBoxCommandLine);
             this.pageSetupFinished.Controls.Add(this.labelSetupFinished);
             this.pageSetupFinished.IsFinishPage = true;
             this.pageSetupFinished.Name = "pageSetupFinished";
             resources.ApplyResources(this.pageSetupFinished, "pageSetupFinished");
             this.pageSetupFinished.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(this.pageSetupFinished_Commit);
+            this.pageSetupFinished.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.pageSetupFinished_Initialize);
+            // 
+            // groupBoxCommandLine
+            // 
+            resources.ApplyResources(this.groupBoxCommandLine, "groupBoxCommandLine");
+            this.groupBoxCommandLine.Controls.Add(this.textBoxCommandLine);
+            this.groupBoxCommandLine.Name = "groupBoxCommandLine";
+            this.groupBoxCommandLine.TabStop = false;
+            // 
+            // textBoxCommandLine
+            // 
+            resources.ApplyResources(this.textBoxCommandLine, "textBoxCommandLine");
+            this.textBoxCommandLine.Name = "textBoxCommandLine";
+            this.textBoxCommandLine.ReadOnly = true;
             // 
             // labelSetupFinished
             // 
@@ -607,6 +625,8 @@ namespace ZeroInstall.Central.WinForms
             this.pageNewCryptoKey.ResumeLayout(false);
             this.pageNewCryptoKey.PerformLayout();
             this.pageSetupFinished.ResumeLayout(false);
+            this.groupBoxCommandLine.ResumeLayout(false);
+            this.groupBoxCommandLine.PerformLayout();
             this.pageResetWelcome.ResumeLayout(false);
             this.pageChangeCryptoKey.ResumeLayout(false);
             this.pageChangeCryptoKey.PerformLayout();
@@ -684,5 +704,7 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.RadioButton optionFileShare;
         private System.Windows.Forms.GroupBox groupCustomServer;
         private System.Windows.Forms.GroupBox groupFileShare;
+        private System.Windows.Forms.GroupBox groupBoxCommandLine;
+        private System.Windows.Forms.TextBox textBoxCommandLine;
     }
 }

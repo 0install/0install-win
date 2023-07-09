@@ -2,6 +2,7 @@
 // Licensed under the GNU Lesser Public License
 
 using System.Diagnostics;
+using System.Text;
 using AeroWizard;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Net;
@@ -412,6 +413,14 @@ public sealed partial class SyncWizard : Form
     #endregion
 
     #region pageSetupFinished
+    private void pageSetupFinished_Initialize(object sender, WizardPageInitEventArgs e)
+    {
+        var commandLine = new StringBuilder();
+        foreach (var (key, value) in _config.Where(x => x.Key.StartsWith("sync_") && !string.IsNullOrEmpty(x.Value)))
+            commandLine.AppendLine(new[] {"0install", "config", key, value}.JoinEscapeArguments());
+        textBoxCommandLine.Text = commandLine.ToString().TrimEnd('\n');
+    }
+
     private void pageSetupFinished_Commit(object sender, WizardPageConfirmEventArgs e)
     {
         if (!SaveConfig())

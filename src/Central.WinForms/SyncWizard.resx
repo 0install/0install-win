@@ -1251,6 +1251,63 @@
   <data name="&gt;&gt;labelNewCryptoKey.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="groupBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>Equivalent command-line</value>
+  </data>
+  <data name="textBoxCommandLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="textBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="textBoxCommandLine.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>465, 70</value>
+  </data>
+  <data name="textBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.Name" xml:space="preserve">
+    <value>textBoxCommandLine</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.Parent" xml:space="preserve">
+    <value>groupBoxCommandLine</value>
+  </data>
+  <data name="&gt;&gt;textBoxCommandLine.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 81</value>
+  </data>
+  <data name="groupBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 99</value>
+  </data>
+  <data name="groupBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Equivalent command-line</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.Name" xml:space="preserve">
+    <value>groupBoxCommandLine</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.Parent" xml:space="preserve">
+    <value>pageSetupFinished</value>
+  </data>
+  <data name="&gt;&gt;groupBoxCommandLine.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="labelSetupFinished.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -1261,7 +1318,7 @@
     <value>3, 9</value>
   </data>
   <data name="labelSetupFinished.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 81</value>
+    <value>477, 69</value>
   </data>
   <data name="labelSetupFinished.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1279,7 +1336,7 @@
     <value>pageSetupFinished</value>
   </data>
   <data name="&gt;&gt;labelSetupFinished.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="pageSetupFinished.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 261</value>
