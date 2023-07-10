@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Para o utilizador actual</value>
+    <value>Para o utilizador atual</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
@@ -169,8 +169,8 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>O directório '{0}' não está vazio.
-Tem a certeza que quer colocar aí uma versão portátil do Zero Install?</value>
+    <value>O diretório '{0}' não está vazio.
+Tem a certeza de que pretende colocar aí uma versão portátil do Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -212,7 +212,7 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Clique para actualizar para Zero Install v{0}...</value>
+    <value>Clique para atualizar para Zero Install v{0}...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
@@ -242,7 +242,7 @@ começar do zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Os dados actualmente armazenados no servidor de sincronização estão danificados.
+    <value>Os dados atualmente armazenados no servidor de sincronização estão danificados.
 Pode substituir os dados armazenados no servidor, optando por não se lembrar da chave criptográfica.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -260,11 +260,11 @@ As ligações encriptadas utilizam um prefixo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Actualização</value>
+    <value>Atualização</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Isto irá remover automaticamente da cache as implementações que já não são necessárias após a actualização. Continuar?
+    <value>Isto irá remover automaticamente da cache as implementações que já não são necessárias após a atualização. Continuar?
 Importante: as aplicações que tiver "Executar" anteriormente sem as adicionar a "As minhas aplicações" também serão removidas da cache.  Terá de estar online se decidir executá-las novamente.</value>
     <comment>Automatically translated.</comment>
   </data>

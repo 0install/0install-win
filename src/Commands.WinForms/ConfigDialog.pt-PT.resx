@@ -131,11 +131,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Seleccione ou crie um directório para utilizar como cache de implementação.</value>
+    <value>Seleccione ou crie um diretório para utilizar como cache de implementação.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Aviso: Alterar estas opções pode impedir que a Instalação Zero funcione correctamente.</value>
+    <value>Aviso: Alterar estas opções pode impedir que a Instalação Zero funcione corretamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">

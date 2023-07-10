@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Draagbare schepper</value>
+    <value>Draagbare maker</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Bladeren op</value>
+    <value>Blader door</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Zet  in</value>
+    <value>Installeer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -79,14 +79,14 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Hier kunt u een draagbare versie van Zero Install maken, bijvoorbeeld voor gebruik op een USB-stick. Het doel moet NTFS geformatteerd zijn.</value>
+    <value>Hier kun je een draagbare versie van Zero Install maken, bijvoorbeeld voor gebruik op een USB-stick. Het doel moet NTFS geformatteerd zijn.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Slaat Zero Install-configuratie en in de cache geplaatste applicaties op in één map.
-- Maakt de via Zero Install gelanceerde applicaties niet automatisch ook draagbaar.
-- Draagbare versies van Zero Install kunnen geen desktop integratie uitvoeren (bijv. start menu entries aanmaken).
-- Overweeg in plaats daarvan gewone Zero Install te gebruiken op meerdere computers met Zero Install Sync.</value>
+    <value>- Slaat Zero Install configuratie en gecachede applicaties op in één map.
+- Maakt de applicaties die gestart worden via Zero Install niet automatisch ook draagbaar.
+- Draagbare versies van Zero Install kunnen geen desktop integratie uitvoeren (bijv. startmenu-items aanmaken).
+- Overweeg in plaats daarvan het gebruik van reguliere Zero Install op meerdere computers met Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

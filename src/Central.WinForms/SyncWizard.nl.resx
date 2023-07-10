@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Ik wil mijn cryptosleutel veranderen</value>
+    <value>Ik wil mijn cryptosleutel wijzigen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
@@ -82,12 +82,16 @@
     <value>Nee, ik heb al andere computers ingesteld</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Gelijkwaardige opdrachtregel</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>U mag Zero Install Sync niet op andere computers uitvoeren terwijl dit proces loopt.</value>
+    <value>Je mag Zero Install Sync niet op andere computers uitvoeren terwijl dit proces loopt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Voer hieronder uw inloggegevens voor de Sync-server in:</value>
+    <value>Voer hieronder uw aanmeldingsgegevens voor de Sync-server in:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -99,11 +103,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>De cryptosleutel is gewijzigd. Nu moet u de nieuwe sleutel invoeren op alle andere computers die u al hebt ingesteld voor Zero Install Sync.</value>
+    <value>De cryptosleutel is gewijzigd. Nu moet je de nieuwe sleutel invoeren op alle andere computers die je al hebt ingesteld voor Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Voer de sleutel op andere computers in via het venster "Opties". Gebruik deze wizard daar niet, omdat hij alleen nodig is voor de eerste wijziging.</value>
+    <value>Voer de sleutel op andere computers in via het venster 'Opties'. Gebruik deze wizard daar niet omdat deze alleen nodig is om de eerste wijziging uit te voeren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -119,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>De cryptosleutel wordt gebruikt om uw gegevens lokaal te versleutelen voordat ze naar de server worden verzonden. Schrijf de voorgestelde sleutel op of kies uw eigen sleutel.</value>
+    <value>De cryptosleutel wordt gebruikt om je gegevens lokaal te versleutelen voordat ze naar de server worden verzonden. Schrijf de voorgestelde sleutel op of kies je eigen sleutel.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Houd deze sleutel geheim en gebruik iets anders voor uw wachtwoord. Zo heeft niemand toegang tot uw gegevens, zelfs niet als de server wordt gecompromitteerd.</value>
+    <value>Houd deze sleutel geheim en gebruik iets anders voor je wachtwoord. Op deze manier heeft niemand toegang tot je gegevens, zelfs niet als de server wordt gecompromitteerd.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -131,59 +135,59 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Klik op de volgende link om een nieuwe Sync-account aan te maken in uw browser:</value>
+    <value>Klik op de volgende link om een nieuwe Sync-account aan te maken in je browser:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Zodra u een account hebt aangemaakt, uw e-mailadres hebt geverifieerd en uw inloggegevens hebt genoteerd, klikt u op "Volgende".</value>
+    <value>Zodra je een account hebt aangemaakt, je e-mailadres hebt geverifieerd en je inloggegevens hebt genoteerd, klik je op 'Volgende'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>U staat op het punt uw lokale toepassingslijst te vervangen door de gegevens die op de Sync-server zijn opgeslagen. Alle wijzigingen die u lokaal hebt aangebracht, maar nog niet hebt gesynchroniseerd, gaan verloren!</value>
+    <value>Je staat op het punt om je lokale applicatielijst te vervangen door de gegevens die zijn opgeslagen op de Sync-server. Alle wijzigingen die je lokaal hebt gemaakt maar nog niet hebt gesynchroniseerd, gaan verloren!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>De lokale applicatielijst wordt opnieuw ingesteld. U kunt nu doorgaan met het gebruik van Zero Install.</value>
+    <value>De lokale applicatielijst wordt gereset. Je kunt nu doorgaan met Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Alle wijzigingen die u op andere computers hebt aangebracht maar nog niet met deze computer hebt gesynchroniseerd, gaan verloren!</value>
+    <value>Alle wijzigingen die je op andere computers hebt gemaakt, maar nog niet met deze computer hebt gesynchroniseerd, gaan verloren!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>U staat op het punt de op de Sync-server opgeslagen gegevens te vervangen door uw lokale toepassingslijst. Alle wijzigingen die u op andere computers hebt aangebracht, maar nog niet met deze computer hebt gesynchroniseerd, gaan verloren!</value>
+    <value>Je staat op het punt om de gegevens die zijn opgeslagen op de Sync-server te vervangen door je lokale applicatielijst. Alle wijzigingen die je op andere computers hebt gemaakt, maar nog niet met deze computer hebt gesynchroniseerd, gaan verloren!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>De servergegevens worden gereset. U kunt nu doorgaan met het gebruik van Zero Install.</value>
+    <value>De servergegevens worden gereset. Je kunt nu doorgaan met het gebruik van Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Mogelijk wilt u ook de lokale gegevens op andere computers waarop u Zero Install Sync gebruikt opnieuw instellen.</value>
+    <value>Misschien wil je ook de lokale gegevens resetten op andere computers waarop je Zero Install Sync gebruikt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Deze wizard kan u helpen een aantal mogelijke Sync-problemen op te lossen. Welk probleem wilt u oplossen?</value>
+    <value>Deze wizard kan je helpen bij het oplossen van een aantal mogelijke Sync-problemen. Welk probleem wil je oplossen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de biedt gratis accounts voor het opslaan van Sync-gegevens. Alle gegevens worden lokaal gecodeerd voordat ze naar de server worden verzonden. U kunt desgewenst uw eigen server gebruiken voor de opslag.</value>
+    <value>0install.de biedt gratis accounts voor het opslaan van Sync-gegevens. Alle gegevens worden lokaal versleuteld voordat ze naar de server worden verzonden. Je kunt desgewenst je eigen server gebruiken voor de opslag.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
-    <value>Welke server wilt u gebruiken?</value>
+    <value>Welke server wil je gebruiken?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Is dit de eerste computer die u instelt voor Zero Install Sync?</value>
+    <value>Is dit de eerste computer die je instelt voor Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync is nu ingesteld en klaar voor gebruik. Voer deze wizard uit op andere computers die u met deze computer gesynchroniseerd wilt houden.</value>
+    <value>Zero Install Sync is nu ingesteld en klaar voor gebruik. Voer deze wizard uit op andere computers die je met deze computer gesynchroniseerd wilt houden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync neemt uw toepassingslijst en desktop-integraties en brengt ze automatisch over naar uw andere computers.</value>
+    <value>Zero Install Sync neemt je applicatielijst en desktopintegraties en zet ze automatisch over naar je andere computers.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -191,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Hoe zet ik mijn eigen Sync-server op?</value>
+    <value>Hoe stel ik mijn eigen Sync-server in?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -203,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Gebruik een Windows file share:</value>
+    <value>Gebruik een Windows-bestandsshare:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -215,7 +219,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sync-account</value>
+    <value>Synchroniseer account</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
@@ -231,7 +235,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sync-account</value>
+    <value>Synchroniseer account</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
@@ -243,19 +247,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Cryptosleutel opnieuw instellen</value>
+    <value>Cryptosleutel resetten</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Reset Sync-server</value>
+    <value>Synchronisatieserver resetten</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Reset Sync-server</value>
+    <value>Synchronisatieserver resetten</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Probleemoplossing voor synchronisatie</value>
+    <value>Problemen met synchroniseren oplossen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
@@ -267,7 +271,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Synchronisatie-instelling</value>
+    <value>Synchronisatie-instellingen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
@@ -275,7 +279,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Directory pad</value>
+    <value>Pad naar directory</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

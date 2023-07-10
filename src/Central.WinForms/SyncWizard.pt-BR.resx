@@ -82,6 +82,10 @@
     <value>Não, eu já configurei &amp;outros computadores</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Você não deve executar o Zero Install Sync em outros computadores enquanto este processo está em execução.</value>
     <comment>Manually overriden.</comment>

@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install feed search</value>
+    <value>Wyszukiwanie kanałów Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Dodaj do "Moich aplikacji"</value>
+    <value>Dodaj do "Moje aplikacje"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integracja ustawień</value>
+    <value>Integracja konfiguracji</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Uruchom</value>
+    <value>Bieg</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Te wyniki wyszukiwania są dostarczane przez serwer lustrzany. Zauważ, że domyślny serwer lustrzany indeksuje wszystkie znane kanały, niezależnie od jakości; musisz zdecydować, czy zaufać programom przed ich uruchomieniem.</value>
+    <value>Wyniki wyszukiwania są dostarczane przez serwer lustrzany. Należy pamiętać, że domyślny serwer lustrzany indeksuje wszystkie znane kanały, niezależnie od jakości; przed uruchomieniem programów należy zdecydować, czy im zaufać.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Voer '{0}' in om een lijst van beschikbare commando's te zien.</value>
+    <value>Voer '{0}' in om een lijst met beschikbare commando's te zien.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Klik om Zero Install op deze computer in te stellen...</value>
+    <value>Klik om Zero Installeren op deze computer in te stellen...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Voor de huidige gebruiker</value>
+    <value>Voor huidige gebruiker</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Negeren van dubbele app vermelding voor '{0}'.</value>
+    <value>Dubbele app-invoer voor '{0}' negeren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>Gemeenschappelijke app</value>
+    <value>Algemene app</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Coole app</value>
+    <value>Leuke app</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
@@ -128,16 +128,16 @@ voeg hem dan toe aan "Mijn apps".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integreer" een app om het
+    <value>een app "integreren" om deze
 in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>U kunt uw lijst met favoriete apps hier beheren.</value>
+    <value>Je kunt je lijst met favoriete apps hier beheren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>...en het uitvoeren!</value>
+    <value>... en voer het uit!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
@@ -157,7 +157,7 @@ in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Toevoegen aan "Mijn apps".</value>
+    <value>Toevoegen aan "Mijn apps</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
@@ -169,8 +169,8 @@ in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>De directory '{0}' is niet leeg.
-Weet u zeker dat u daar een draagbare versie van Zero Install wilt plaatsen?</value>
+    <value>De map '{0}' is niet leeg.
+Weet je zeker dat je daar een draagbare versie van Zero Install wilt plaatsen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -194,7 +194,7 @@ Weet u zeker dat u daar een draagbare versie van Zero Install wilt plaatsen?</va
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Wilt u de aangebrachte wijzigingen opslaan?</value>
+    <value>Wilt u de gemaakte wijzigingen opslaan?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
@@ -220,15 +220,15 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>De gebruikersnaam en/of het wachtwoord dat u hebt ingevoerd zijn onjuist.</value>
+    <value>De gebruikersnaam en/of het wachtwoord dat u hebt opgegeven zijn onjuist.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>De Cryptosleutel die u heeft ingevoerd is onjuist.</value>
+    <value>De ingevoerde cryptosleutel is onjuist.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Wilt u de Sync-instellingen opnieuw instellen en opnieuw beginnen?</value>
+    <value>Wilt u de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
@@ -238,25 +238,25 @@ de bestaande instellingen bewerken</value>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Ja
-opnieuw beginnen</value>
+vanaf nul beginnen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>De gegevens die momenteel zijn opgeslagen op de Sync-server zijn beschadigd.
-U kunt de op de server opgeslagen gegevens vervangen door te kiezen dat u de Cryptosleutel niet meer weet.</value>
+U kunt de gegevens die op de server zijn opgeslagen vervangen door te kiezen dat u de cryptosleutel niet meer weet.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Kan toepassingscatalogus niet downloaden.</value>
+    <value>Kan applicatiecatalogus niet downloaden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Kan feed niet laden voor app item '{0}'.</value>
+    <value>Kan feed voor app-item '{0}' niet laden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Weet u zeker dat u een niet-versleutelde verbinding met een Sync-server wilt gebruiken?
-Gecodeerde verbindingen gebruiken een https:// prefix.</value>
+    <value>Weet je zeker dat je een niet-versleutelde verbinding met een Sync-server wilt gebruiken?
+Versleutelde verbindingen gebruiken een https:// prefix.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
@@ -264,8 +264,8 @@ Gecodeerde verbindingen gebruiken een https:// prefix.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Hierdoor worden automatisch implementaties uit de cache verwijderd die na de update niet meer nodig zijn. Doorgaan?
-Belangrijk: Toepassingen die u eerder hebt "uitgevoerd" zonder ze toe te voegen aan "Mijn apps" worden ook uit de cache verwijderd.  U moet online zijn als u besluit ze opnieuw uit te voeren.</value>
+    <value>Hierdoor worden implementaties die na de update niet meer nodig zijn automatisch uit de cache verwijderd. Doorgaan?
+Belangrijk: Toepassingen die je eerder hebt "uitgevoerd" zonder ze toe te voegen aan "Mijn apps" worden ook uit de cache verwijderd.  Je moet online zijn als je besluit ze opnieuw uit te voeren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

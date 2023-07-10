@@ -307,7 +307,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Web tarayıcı ya da e-posta istemcisi gibi görevler için varsayılan uygulama</value>
+    <value>Tarayıcı ya da e-posta istemcisi gibi görevler için varsayılan uygulama</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">

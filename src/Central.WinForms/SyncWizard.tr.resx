@@ -82,6 +82,10 @@
     <value>Hayır, diğer bilgisayarlarda zaten ayarlamıştım</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Eşdeğer komut satırı</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Bu işlem yapılırken diğer bilgisayarlarda Zero Install Sync çalışmamalıdır.</value>
     <comment>Manually overriden.</comment>
@@ -131,7 +135,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Web tarayıcınızdan yeni bir Sync hesabı oluşturmak için şu bağlantıya tıklayın:</value>
+    <value>Tarayıcınızdan yeni bir Sync hesabı oluşturmak için şu bağlantıya tıklayın:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">

@@ -75,23 +75,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Idź do</value>
+    <value>Przejdź do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Idź do</value>
+    <value>Przejdź do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usunąć</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usunąć</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usunąć</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Automatyczne zatwierdzanie nowych kluczy (jeśli są znane przez serwer kluczy)</value>
+    <value>Automatyczne zatwierdzanie nowych kluczy (jeśli są znane serwerowi kluczy)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -115,11 +115,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Katalogi pamięci podręcznej wdrożenia</value>
+    <value>Wdrożenie katalogów pamięci podręcznej</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Użytkowanie sieci</value>
+    <value>Korzystanie z sieci</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Proszę wybrać lub utworzyć katalog, aby użyć go jako pamięci podręcznej do wdrożenia.</value>
+    <value>Wybierz lub utwórz katalog, który będzie używany jako pamięć podręczna implementacji.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Ostrzeżenie: Zmiana tych opcji może uniemożliwić prawidłowe działanie programu Zero Install.</value>
+    <value>Ostrzeżenie: Zmiana tych opcji może uniemożliwić prawidłowe działanie Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>To kontroluje język z:
-- Samej instalacji Zero Install oraz
-- aplikacji pobieranych przez Zero Install.
+    <value>Kontroluje to język:
+- Samego Zero Install i
+- aplikacji pobranych przez Zero Install.
 
 Uwagi:
 - Tłumaczenia nie są dostępne dla wszystkich języków.
-- Aby zmiany językowe zaczęły obowiązywać, należy ponownie uruchomić program Zero Install.</value>
+- Aby zmiany językowe zaczęły obowiązywać, należy ponownie uruchomić aplikację Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -169,19 +169,19 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Pełna (normalne użytkowanie sieci)</value>
+    <value>Pełny (normalne korzystanie z sieci)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimalne (preferuj wersje buforowane)</value>
+    <value>Minimalne (preferowane wersje buforowane)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (nie korzystaj z sieci)</value>
+    <value>Offline (nie używaj sieci)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Zaawansowane</value>
+    <value>Zaawansowany</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">

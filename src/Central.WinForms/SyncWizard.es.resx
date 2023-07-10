@@ -82,6 +82,10 @@
     <value>No, ya he configurado otros ordenadores</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Línea de comandos equivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>No debe ejecutar Zero Install Sync en otros ordenadores mientras se ejecuta este proceso.</value>
     <comment>Automatically translated.</comment>
@@ -159,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Es posible que también desee restablecer los datos locales en otros equipos en los que esté utilizando Zero Install Sync.</value>
+    <value>Es posible que también desee restablecer los datos locales en otros equipos en los que está utilizando Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">

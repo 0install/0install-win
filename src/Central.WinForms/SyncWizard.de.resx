@@ -82,6 +82,10 @@
     <value>Nein, ich habe bereits &amp;andere Computer eingerichtet</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Entsprechende Befehlszeile</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Sie sollten Zero Install Sync nicht auf anderen Computern ausführen, während dieser Prozess läuft.</value>
     <comment>Manually overriden.</comment>
@@ -268,10 +272,6 @@
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
     <value>Sync einrichten</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Entsprechende Befehlszeile</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
