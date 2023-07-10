@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>ゼロインストール構成</value>
+    <value>ゼロインストール設定</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -71,15 +71,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>高度なオプションを表示する</value>
+    <value>詳細オプションを表示する</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>に進む</value>
+    <value>こちらへ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>に進む</value>
+    <value>こちらへ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>新しい鍵を自動的に承認する（鍵サーバーが知っている場合）。</value>
+    <value>新しい鍵の自動承認（鍵サーバーが知っている場合）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -107,15 +107,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>カタログソース</value>
+    <value>カタログ情報</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>鮮度</value>
+    <value>新鮮さ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>実装キャッシュ・ディレクトリー</value>
+    <value>実装キャッシュ・ディレクトリ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -135,25 +135,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>警告これらのオプションを変更すると、Zero Installが正しく動作しなくなる場合があります。</value>
+    <value>警告これらのオプションを変更すると、Zero Installが正しく動作しなくなる可能性があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>の言語を制御します：
-- Zero Install自体および
-- Zero Installによってダウンロードされたアプリケーションの言語を制御します。
+- これは、次の言語を制御します。
+- の言語を制御します。
 
 注意事項
-- すべての言語で翻訳が利用できるわけではありません。
+- 翻訳はすべての言語で利用できるわけではありません。
 - 言語の変更を有効にするには、Zero Installを再起動する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>サーバーです：</value>
+    <value>サーバー</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーです：</value>
+    <value>暗号キー：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -161,7 +161,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>ユーザー名です：</value>
+    <value>ユーザー名</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
@@ -169,11 +169,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>フル（通常のネットワーク利用時）</value>
+    <value>フル（通常のネットワーク使用）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>最小限（キャッシュされたものを優先）</value>
+    <value>最小限（キャッシュされたバージョンを好む）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
@@ -181,7 +181,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>アドバンスド</value>
+    <value>上級</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
@@ -197,15 +197,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>シンク</value>
+    <value>同期</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>トラスト</value>
+    <value>信頼</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>アップデート情報</value>
+    <value>更新情報</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

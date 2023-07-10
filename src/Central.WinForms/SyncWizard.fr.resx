@@ -82,6 +82,10 @@
     <value>Non, j'ai déjà installé d'autres ordinateurs</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Ligne de commande équivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Lors de ce processus, ne lancez pas Zero Install Sync sur d'autres ordinateurs.</value>
     <comment>Manually overriden.</comment>
@@ -247,11 +251,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Réinitialisation du serveur de synchronisation</value>
+    <value>Réinitialisation du serveur Sync</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Réinitialiser le serveur Sync</value>
+    <value>Réinitialisation du serveur de synchronisation</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">

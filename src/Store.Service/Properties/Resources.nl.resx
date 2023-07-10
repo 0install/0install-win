@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Mislukt om een tijdelijke directory aan te maken voor de gebruiker '{0}' in '{1}'.</value>
+    <value>Mislukt bij het maken van een tijdelijke map voor de gebruiker '{0}' in '{1}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>De dienst kan niet in draagbare modus draaien!</value>
+    <value>De service kan niet worden uitgevoerd in draagbare modus!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">

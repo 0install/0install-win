@@ -82,6 +82,10 @@
     <value>Não, já configurei outros computadores</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linha de comando equivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Não deve executar o Zero Install Sync noutros computadores enquanto este processo estiver a decorrer.</value>
     <comment>Automatically translated.</comment>
@@ -103,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduza a chave noutros computadores utilizando a janela "Opções". Não utilize este assistente, uma vez que só é necessário para efectuar a alteração inicial.</value>
+    <value>Introduza a chave noutros computadores utilizando a janela "Opções". Não utilize este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -135,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Depois de ter criado uma conta, verificado o seu endereço de correio electrónico e anotado as suas credenciais de início de sessão, clique em "Seguinte".</value>
+    <value>Depois de ter criado uma conta, verificado o seu endereço de correio eletrónico e anotado as suas credenciais de início de sessão, clique em "Seguinte".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -275,7 +279,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Caminho do directório</value>
+    <value>Caminho do diretório</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

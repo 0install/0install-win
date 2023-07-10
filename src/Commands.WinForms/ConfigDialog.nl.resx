@@ -59,19 +59,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install configuratie</value>
+    <value>Zero Install-configuratie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Toevoegen</value>
+    <value>Voeg  toe</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Toevoegen</value>
+    <value>Voeg  toe</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Toon geavanceerde opties</value>
+    <value>Geavanceerde opties weergeven</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementatie cache-mappen</value>
+    <value>Implementatie cache mappen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selecteer of maak een map om als implementatiecache te gebruiken.</value>
+    <value>Selecteer of maak een map om te gebruiken als implementatiecache.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Waarschuwing: Het wijzigen van deze opties kan voorkomen dat Zero Install correct werkt.</value>
+    <value>Waarschuwing: Het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet correct werkt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Dit regelt de taal van:
 - Zero Install zelf en
-- toepassingen die door Zero Install worden gedownload.
+- applicaties die gedownload worden door Zero Install.
 
 Opmerkingen:
 - Vertalingen zijn niet voor alle talen beschikbaar.
-- U moet Zero Install opnieuw opstarten om taalwijzigingen van kracht te laten worden.</value>
+- Je moet Zero Install opnieuw opstarten om de taalwijzigingen door te voeren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -173,11 +173,11 @@ Opmerkingen:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimaal (voorkeur voor cache-versies)</value>
+    <value>Minimaal (voorkeur voor cacheversies)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (geen gebruik maken van het netwerk)</value>
+    <value>Offline (het netwerk niet gebruiken)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">

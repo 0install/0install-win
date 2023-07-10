@@ -82,12 +82,16 @@
     <value>Нет, я уже настроил другие компьютеры</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Эквивалент командной строки</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Во время выполнения этого процесса не следует запускать Zero Install Sync на других компьютерах.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Пожалуйста, введите учетные данные для входа на сервер синхронизации ниже:</value>
+    <value>Введите свои учетные данные для входа на сервер синхронизации ниже:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">

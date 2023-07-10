@@ -82,6 +82,10 @@
     <value>Όχι, δεν έχω συστήσει σε άλλους υπολογιστές</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Ισοδύναμη γραμμή εντολών</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Δεν πρέπει να εκτελέσετε το Zero Install Sync σε άλλους υπολογιστές, ενώ η διαδικασία αυτή βρίσκεται σε λειτουργία.</value>
     <comment>Manually overriden.</comment>

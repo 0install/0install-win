@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Armazena a configuração da Instalação Zero e as aplicações em cache num único directório.
+    <value>- Armazena a configuração da Instalação Zero e as aplicações em cache num único diretório.
 - Não torna automaticamente as aplicações iniciadas através da Instalação Zero também portáteis.
 - As versões portáteis do Zero Install não podem executar a integração do ambiente de trabalho (por exemplo, criar entradas no menu Iniciar).
 - Considere usar o Zero Install regular em vários computadores com o Zero Install Sync.</value>
@@ -94,7 +94,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Directório de destino</value>
+    <value>Diretório de destino</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

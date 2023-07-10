@@ -59,19 +59,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に追加することに失敗しました。</value>
+    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に追加できませんでした。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>{1}' にユーザー '{0}' の一時ディレクトリを作成するのに失敗しました。</value>
+    <value>{1}' 内のユーザー '{0}' の一時ディレクトリの作成に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>一時ディレクトリ '{1}' (ユーザー '{0}' のために作成された) の削除に失敗しました。</value>
+    <value>一時ディレクトリ '{1}' (ユーザー '{0}' 用に作成されました) の削除に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>ポータブルモードではサービスを実行できません！</value>
+    <value>サービスはポータブルモードでは実行できない！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に追加することに成功しました。</value>
+    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に正常に追加しました。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

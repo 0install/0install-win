@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Seleccionar tudo</value>
+    <value>Selecionar tudo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -127,11 +127,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Actualização automática</value>
+    <value>Atualização automática</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Inclui esta aplicação nas verificações "Actualizar tudo".</value>
+    <value>Inclui esta aplicação nas verificações "Atualizar tudo".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Seleccionar tudo</value>
+    <value>Selecionar tudo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Seleccionar tudo</value>
+    <value>Selecionar tudo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Seleccionar tudo</value>
+    <value>Selecionar tudo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Seleccionar tudo</value>
+    <value>Selecionar tudo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
-    <value>Activado</value>
+    <value>Ativado</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programa predefinido para tarefas como o navegador Web ou o cliente de correio electrónico</value>
+    <value>Programa predefinido para tarefas como o navegador Web ou o cliente de correio eletrónico</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">

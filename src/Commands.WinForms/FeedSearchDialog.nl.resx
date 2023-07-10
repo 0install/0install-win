@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install feed zoeken</value>
+    <value>Zero Installeer feed zoeken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Toevoegen aan "Mijn apps".</value>
+    <value>Toevoegen aan "Mijn apps</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Deze zoekresultaten worden verstrekt door de spiegelserver. Merk op dat de standaard spiegelserver alle bekende feeds indexeert, ongeacht de kwaliteit; u moet beslissen of u de programma's vertrouwt voordat u ze uitvoert.</value>
+    <value>Deze zoekresultaten worden geleverd door de spiegelserver. Merk op dat de standaard spiegelserver alle bekende feeds indexeert, ongeacht de kwaliteit; je moet beslissen of je de programma's vertrouwt voordat je ze uitvoert.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

@@ -82,6 +82,10 @@
     <value>不，我已经设置了其他电脑</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>相等的命令行</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>当这个过程运行时，你不应该在其他电脑上运行 "零安装同步"。</value>
     <comment>Automatically translated.</comment>
@@ -91,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙：</value>
+    <value>加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">

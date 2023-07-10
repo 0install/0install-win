@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>这可以控制以下语言：
+    <value>这控制了以下的语言：
 - 零点安装 "本身和
 - 零安装 "下载的应用程序。
 
@@ -153,7 +153,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙：</value>
+    <value>加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">

@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>Odśwież</value>
+    <value>Odświeżanie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usunąć</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
@@ -79,15 +79,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>Zweryfikuj</value>
+    <value>Weryfikacja</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Sprawdzono wielkość wpisów:</value>
+    <value>Sprawdzony rozmiar wpisów:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Aktualna wielkość wpisu:</value>
+    <value>Aktualny rozmiar wpisu:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">

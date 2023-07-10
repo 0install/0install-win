@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continúe en</value>
+    <value>Continuar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -265,7 +265,7 @@ Las conexiones cifradas utilizan un prefijo https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Esto eliminará automáticamente de la caché las implementaciones que ya no sean necesarias tras la actualización. ¿Continuar?
-Importante: Las aplicaciones que hayas "ejecutado" anteriormente sin añadirlas a "Mis apps" también se eliminarán de la caché.  Tendrás que estar conectado si decides volver a ejecutarlas.</value>
+Importante: Las aplicaciones que hayas "ejecutado" anteriormente sin añadirlas a "Mis apps" también se eliminarán de la caché.  Tendrás que estar conectado si decides ejecutarlas de nuevo.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

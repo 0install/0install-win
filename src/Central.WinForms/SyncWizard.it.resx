@@ -82,6 +82,10 @@
     <value>No, ho già configurato altri computer</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Linea di comando equivalente</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Non si deve eseguire Zero Install Sync su altri computer mentre questo processo è in corso.</value>
     <comment>Automatically translated.</comment>
@@ -159,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Si consiglia di reimpostare i dati locali anche su altri computer sui quali si utilizza Zero Install Sync.</value>
+    <value>Si consiglia di reimpostare i dati locali anche sugli altri computer su cui si utilizza Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -179,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync è ora configurato e pronto all'uso. Eseguire questa procedura guidata su tutti gli altri computer che si desidera mantenere sincronizzati con questo.</value>
+    <value>Zero Install Sync è ora configurato e pronto all'uso. Eseguite questa procedura guidata su tutti gli altri computer che desiderate mantenere sincronizzati con questo.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

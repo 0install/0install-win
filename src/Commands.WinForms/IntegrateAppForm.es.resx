@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>Ajustes avanzados</value>
+    <value>Configuración avanzada</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>Tipos de ficheros</value>
+    <value>Tipos de archivos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">

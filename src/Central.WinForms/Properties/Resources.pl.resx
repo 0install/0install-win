@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Wpisz '{0}', aby zobaczyć listę dostępnych poleceń.</value>
+    <value>Wpisz '{0}', aby wyświetlić listę dostępnych poleceń.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Proszę wpisać tutaj adres URL kanału Zero Install:</value>
+    <value>Wprowadź tutaj adres URL kanału Zero Install:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -83,15 +83,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Dla aktualnego użytkownika</value>
+    <value>Dla bieżącego użytkownika</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorowanie zduplikowanego wpisu aplikacji dla '{0}'.</value>
+    <value>Ignorowanie zduplikowanego wpisu aplikacji dla "{0}".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Zintegrować (menu startowe, itp.)</value>
+    <value>Integracja (menu start itp.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Jeśli podoba ci się jakaś aplikacja,
+    <value>Jeśli podoba Ci się jakaś aplikacja,
 dodaj ją do "Moich aplikacji".</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -128,20 +128,20 @@ dodaj ją do "Moich aplikacji".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Zintegrować" aplikację, aby umieścić ją
-w menu startowym lub na pulpicie.</value>
+    <value>"Zintegruj" aplikację, aby umieścić ją
+w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Tutaj możesz zarządzać swoją listą ulubionych aplikacji.</value>
+    <value>Listą ulubionych aplikacji można zarządzać tutaj.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>...i uruchomić go!</value>
+    <value>... i uruchom go!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Bawcie się dobrze!</value>
+    <value>Miłej zabawy!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
@@ -149,7 +149,7 @@ w menu startowym lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Tryb obejmujący całą maszynę</value>
+    <value>Tryb dla całej maszyny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -157,11 +157,11 @@ w menu startowym lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Dodaj do "Moich aplikacji"</value>
+    <value>Dodaj do "Moje aplikacje"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Dodano do "Moich aplikacji".</value>
+    <value>Dodano do "Moje aplikacje".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
@@ -178,7 +178,7 @@ Czy na pewno chcesz umieścić tam przenośną wersję Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Usunąć</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
@@ -186,7 +186,7 @@ Czy na pewno chcesz umieścić tam przenośną wersję Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Uruchom</value>
+    <value>Bieg</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -208,7 +208,7 @@ Zapisz zmiany</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Szukaj</value>
+    <value>Wyszukiwanie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
@@ -216,7 +216,7 @@ Zapisz zmiany</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Najpierw należy zakończyć konfigurację synchronizacji.</value>
+    <value>Najpierw należy ukończyć konfigurację synchronizacji.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -224,26 +224,26 @@ Zapisz zmiany</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Wprowadzony klucz Crypto jest nieprawidłowy.</value>
+    <value>Wprowadzony klucz kryptograficzny jest nieprawidłowy.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Czy chcesz zresetować ustawienia Sync i zacząć od nowa?</value>
+    <value>Czy chcesz zresetować ustawienia synchronizacji i zacząć od początku?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Nie
-edytować istniejące ustawienia</value>
+edycja istniejących ustawień</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Tak
-zaczynać od zera</value>
+zacznij od zera</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Dane aktualnie przechowywane na serwerze Sync są uszkodzone.
-Możesz zastąpić dane przechowywane na serwerze, wybierając, że nie pamiętasz klucza Crypto.</value>
+Dane przechowywane na serwerze można zastąpić, wybierając opcję niepamiętania klucza Crypto.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -265,7 +265,7 @@ Połączenia szyfrowane używają prefiksu https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Spowoduje to automatyczne usunięcie implementacji z pamięci podręcznej, które nie są już potrzebne po aktualizacji. Kontynuować?
-Ważne: Aplikacje, które wcześniej "Uruchomiłeś" bez dodawania ich do "Moich aplikacji" również zostaną usunięte z pamięci podręcznej.  Będziesz musiał być online, jeśli zdecydujesz się uruchomić je ponownie.</value>
+Ważne: Aplikacje, które zostały wcześniej uruchomione bez dodania ich do "Moich aplikacji", również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, będziesz musiał być online.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
