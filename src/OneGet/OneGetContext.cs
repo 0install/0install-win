@@ -197,7 +197,7 @@ public sealed class OneGetContext : ScopedOperation, IOneGetContext
         }
         catch (UnsuitableInstallBaseException ex)
         {
-            string installLocation = ZeroInstallInstance.FindOther(ex.NeedsMachineWide)
+            string installLocation = ZeroInstallDeployment.FindOther(ex.NeedsMachineWide)
                                   ?? DeployInstance(ex.NeedsMachineWide);
 
             // Since we cannot another copy of Zero Install from a different location into the same AppDomain, simply pretend we are running from a different source

@@ -73,7 +73,7 @@ partial class BootstrapProcess
     /// </summary>
     private static string? DeployedInstance
         => WindowsUtils.IsWindows
-            ? RegistryUtils.GetSoftwareString("Zero Install", "InstallLocation")
+            ? ZeroInstallDeployment.FindOther()
             : null;
 
     private string LaunchAssembly => _handler.IsGui ? "0install-win" : "0install";

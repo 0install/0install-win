@@ -52,9 +52,9 @@ partial class BootstrapProcess
     /// Indicates whether to apply options bundled together with the <see cref="BootstrapConfig"/>,
     /// potentially overwriting existing configuration.
     /// </summary>
-    private static bool ApplyBootstrapConfig
+    private bool ApplyBootstrapConfig
         => string.IsNullOrEmpty(DeployedInstance)
-        || RegistryUtils.GetSoftwareString("Zero Install", "LibraryMode") == "1";
+        || ZeroInstallDeployment.IsLibraryMode(_machineWide);
 
     /// <summary>
     /// Asks the user to provide a custom path for storing implementations.
