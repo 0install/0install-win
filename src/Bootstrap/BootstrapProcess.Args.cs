@@ -193,16 +193,16 @@ partial class BootstrapProcess
                 case "--batch":
                     _handler.Verbosity = Verbosity.Batch;
                     break;
-                case "--verbose" or "-v":
+                case "--verbose":
                     _handler.Verbosity = Verbosity.Verbose;
                     break;
                 case "--background":
                     _handler.Background = true;
                     break;
-                case "--offline" or "-o":
+                case "--offline":
                     _offline = true;
                     break;
-                case "--refresh" or "-r":
+                case "--refresh":
                     FeedManager.Refresh = true;
                     break;
             }
