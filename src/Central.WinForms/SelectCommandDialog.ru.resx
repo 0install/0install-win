@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
-    <value>Настроить</value>
+    <value>Настройка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -79,11 +79,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>Командуйте:</value>
+    <value>Командировка:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
-    <value>Опции:</value>
+    <value>Варианты:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">

@@ -128,7 +128,7 @@ voeg hem dan toe aan "Mijn apps".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>een app "integreren" om deze
+    <value>een app "integreren" om hem
 in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -228,7 +228,7 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Wilt u de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
+    <value>Wil je de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">

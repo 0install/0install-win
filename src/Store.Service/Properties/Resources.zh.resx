@@ -59,19 +59,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>用户 '{0}' 未能将实现 '{1}' 添加到 '{2}' 中。</value>
+    <value>用户 "{0}"未能将执行 "{1}"添加到 "{2}"。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>在'{1}'为用户'{0}'创建临时目录失败。</value>
+    <value>在 "{1}"中为用户 "{0}"创建临时目录失败。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>删除临时目录'{1}'（为用户'{0}'创建）失败。</value>
+    <value>删除临时目录 "{1}"（为用户 "{0}"创建）失败。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>该服务不能在可移植模式下运行!</value>
+    <value>服务无法以便携模式运行！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>用户 '{0}' 成功地将实现 '{1}' 添加到 '{2}'。</value>
+    <value>用户 "{0}"成功地将执行 "{1}"添加到了 "{2}"。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>
