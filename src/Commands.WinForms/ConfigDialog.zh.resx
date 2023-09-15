@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>复位</value>
+    <value>重置</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>自动批准新的钥匙（如果被钥匙服务器知道）。</value>
+    <value>自动批准新密钥（如果密钥服务器已知）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>新鲜感</value>
+    <value>新鲜度</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
@@ -127,25 +127,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>受信任的钥匙</value>
+    <value>可信钥匙</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>请选择或创建一个目录，作为执行缓存使用。</value>
+    <value>请选择或创建一个目录作为实施缓存。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>警告：改变这些选项可能会使 "零点安装 "无法正常工作。</value>
+    <value>警告：更改这些选项可能会导致 Zero Install 无法正常工作。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>这控制了以下的语言：
-- 零点安装 "本身和
-- 零安装 "下载的应用程序。
+    <value>这将控制语言：
+- 零安装本身和
+- 零安装下载的应用程序。
 
 注意：
 - 并非所有语言都有翻译。
-- 你需要重新启动 "零点安装 "才能使语言变化生效。</value>
+- 您需要重新启动 Zero Install 才能使语言更改生效。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -157,11 +157,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>密码：</value>
+    <value>密码</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>用户名：</value>
+    <value>用户名</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
@@ -169,15 +169,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>完全（正常网络使用）</value>
+    <value>满格（正常网络使用）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>最低限度（喜欢缓存的版本）</value>
+    <value>最小化（首选缓存版本）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>离线（不使用网络）</value>
+    <value>脱机（不使用网络）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -193,7 +193,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>储存</value>
+    <value>存储</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

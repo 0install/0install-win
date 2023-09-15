@@ -220,7 +220,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>入力したユーザー名またはパスワードが間違っています。</value>
+    <value>入力されたユーザー名またはパスワードが間違っています。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
@@ -264,7 +264,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>これにより、アップデート後に不要となった実装がキャッシュから自動的に削除されます。続行しますか？
+    <value>これにより、アップデート後に不要になった実装がキャッシュから自動的に削除されます。続行しますか？
 重要：以前に「マイアプリケーション」に追加せずに「実行」したアプリケーションもキャッシュから削除されます。  再度実行する場合は、オンラインである必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>

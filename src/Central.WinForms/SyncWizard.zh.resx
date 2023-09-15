@@ -59,23 +59,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>我想改变我的加密密钥</value>
+    <value>我想更改我的加密密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>忘了带钥匙</value>
+    <value>忘记带钥匙</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>我想替换我的本地数据</value>
+    <value>我想替换本地数据</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>存储在服务器上的数据被损坏</value>
+    <value>服务器上存储的数据已损坏</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>是的，这是第一台电脑</value>
+    <value>是的，这是第一台计算机</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
@@ -83,15 +83,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>相等的命令行</value>
+    <value>等效命令行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>当这个过程运行时，你不应该在其他电脑上运行 "零安装同步"。</value>
+    <value>运行此进程时，不应在其他计算机上运行 Zero Install Sync。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>请在下面输入你的同步服务器的登录凭证：</value>
+    <value>请在下面输入同步服务器的登录凭证：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -99,103 +99,103 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>新的加密密钥：</value>
+    <value>新加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>密码钥匙已经被改变。现在你需要在你已经为 "零安装同步 "设置的所有其他计算机上输入新的密钥。</value>
+    <value>加密密钥已更改。现在，您需要在已为零安装同步设置的所有其他计算机上输入新密钥。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>在其他计算机上使用 "选项 "窗口输入密钥。不要在那里使用这个向导，因为它只需要执行最初的更改。</value>
+    <value>在其他计算机上使用 "选项 "窗口输入密钥。请勿在此处使用该向导，因为它仅用于执行初始更改。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>密码钥匙：</value>
+    <value>加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>新的加密密钥：</value>
+    <value>新加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>请输入你以前在这台和/或其他电脑上使用的加密密钥：</value>
+    <value>请输入您以前在这台和/或其他电脑上使用过的加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙用于在本地加密你的数据，然后传输到服务器。写下建议的密钥或选择你自己的。</value>
+    <value>加密密钥用于在将数据传输到服务器之前对本地数据进行加密。请写下建议的密钥或选择自己的密钥。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>保持这个密钥的秘密，并使用不同的东西作为你的密码。这样，即使服务器被破坏，也没有人可以访问你的数据。</value>
+    <value>将此密钥保密，并使用不同的密码。这样，即使服务器遭到破坏，也不会有人访问您的数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
-    <value>密码：</value>
+    <value>密码</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>点击以下链接，在你的浏览器中创建一个新的Sync账户：</value>
+    <value>点击以下链接，在浏览器中创建新的同步账户：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>一旦你创建了一个账户，验证了你的电子邮件地址并注意到你的登录凭证，点击 "下一步"。</value>
+    <value>创建账户、验证电子邮件地址和登录凭证后，点击 "下一步"。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>你即将用存储在同步服务器上的数据替换你的本地应用程序列表。你在本地所做的但尚未同步的任何修改都会丢失</value>
+    <value>您即将用同步服务器上存储的数据替换本地应用程序列表。您在本地进行但尚未同步的任何更改都将丢失！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>本地应用程序列表正在被重置。你现在可以继续使用 "零安装"。</value>
+    <value>本地应用程序列表正在重置。现在您可以继续使用零安装。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>你在其他电脑上所做的、但尚未与这台电脑同步的任何修改都会丢失！你可以在这台电脑上进行修改！</value>
+    <value>您在其他电脑上所做的但尚未与这台电脑同步的任何更改都将丢失！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>你即将用你的本地应用程序列表替换存储在同步服务器上的数据。你在其他电脑上所做的但尚未与这台电脑同步的任何修改都会丢失</value>
+    <value>您即将用本地应用程序列表替换同步服务器上存储的数据。您在其他电脑上所做的但尚未与本机同步的任何更改都将丢失！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>服务器数据正在被重置。你现在可以继续使用 "零安装"。</value>
+    <value>服务器数据正在重置。现在您可以继续使用零安装。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>你也可能希望在你使用Zero Install Sync的其他电脑上重置本地数据。</value>
+    <value>您可能还希望重置正在使用 Zero Install Sync 的其他计算机上的本地数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>这个向导可以帮助你解决一些可能的同步问题。你希望解决什么问题？</value>
+    <value>该向导可以帮助您解决许多可能的同步问题。您希望解决什么问题？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de提供免费账户来存储同步数据。所有数据在传输到服务器之前都在本地进行了加密。如果你愿意，你可以使用你自己的服务器来代替存储。</value>
+    <value>0install.de 提供用于存储同步数据的免费账户。所有数据在传输到服务器之前都在本地进行了加密。如果您愿意，也可以使用自己的服务器存储数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
-    <value>你想使用哪个服务器？</value>
+    <value>您想使用哪个服务器？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>这是你为零安装同步设置的第一台电脑吗？</value>
+    <value>这是您为零安装同步设置的第一台计算机吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>零安装同步现在已经设置好，可以使用了。在你希望与这台电脑保持同步的任何其他电脑上运行这个向导。</value>
+    <value>现在，零安装同步已设置完毕，随时可以使用。请在希望与这台电脑保持同步的其他电脑上运行该向导。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>零安装同步系统将你的应用程序列表和桌面整合，并自动将它们转移到你的其他电脑上。</value>
+    <value>Zero Install Sync 可获取你的应用程序列表和桌面集成，并自动将它们传输到你的其他电脑上。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
-    <value>用户名：</value>
+    <value>用户名</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>如何设置我自己的同步服务器？</value>
+    <value>如何设置自己的同步服务器？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -203,15 +203,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>使用一个自定义的服务器：</value>
+    <value>使用自定义服务器：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>使用一个Windows文件共享：</value>
+    <value>使用 Windows 文件共享：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>使用0install.de服务器（推荐）。</value>
+    <value>使用 0install.de 服务器（推荐）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
@@ -223,15 +223,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>加密密钥改变</value>
+    <value>加密密钥已更改</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙</value>
+    <value>加密密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>密码钥匙</value>
+    <value>加密密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>服务器URI</value>
+    <value>服务器 URI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

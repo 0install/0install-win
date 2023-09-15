@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Интегрировать приложение</value>
+    <value>Интеграция приложения</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -71,43 +71,43 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Включает это приложение в проверки "Обновить все".</value>
+    <value>Включает данное приложение в проверку "Обновить все".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Сообщает операционной системе о возможностях приложения, например, о типах файлов, которые оно может обрабатывать.</value>
+    <value>Сообщает операционной системе о возможностях приложения, например, о типах файлов, с которыми оно может работать.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -171,11 +171,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Отправить на</value>
+    <value>Отправить по адресу</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Стартовое меню</value>
+    <value>Меню Пуск</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
@@ -191,7 +191,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
@@ -211,7 +211,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
@@ -239,7 +239,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
@@ -259,7 +259,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
@@ -271,7 +271,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Автоматический запуск при подключении подходящего носителя (DVD, USB-накопитель и т.д.)</value>
+    <value>Автоматический запуск при установке соответствующего носителя (DVD, USB и т.д.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -303,7 +303,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Элементы контекстного меню в проводнике Windows</value>
+    <value>Записи контекстного меню в Проводнике Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
@@ -323,11 +323,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Один или несколько пунктов в стартовом меню</value>
+    <value>Одна или несколько записей в стартовом меню</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Обработчик по умолчанию для поддерживаемых протоколов URL ("Открыть с помощью" работает и без этого)</value>
+    <value>Обработчик по умолчанию для поддерживаемых протоколов URL ("Открыть с" работает и без этого)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -359,11 +359,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Отправить на</value>
+    <value>Отправить по адресу</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Стартовое меню</value>
+    <value>Меню Пуск</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">

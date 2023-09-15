@@ -63,15 +63,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>添加到 "我的应用程序"</value>
+    <value>添加到 "我的应用程序 "中</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
-    <value>详细内容</value>
+    <value>详细信息</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>设置整合</value>
+    <value>设置集成</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnName.HeaderText" xml:space="preserve">
-    <value>命名</value>
+    <value>名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>匹配（%）。</value>
+    <value>匹配 (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
-    <value>URI</value>
+    <value>通用资源识别号</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>这些搜索结果是由镜像服务器提供的。注意，默认的镜像服务器索引所有已知的饲料，无论质量如何；你必须在运行这些程序之前决定是否信任它们。</value>
+    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的供稿，无论其质量如何；您必须在运行这些程序之前决定是否信任它们。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
