@@ -43,7 +43,7 @@ public class CommandUtils
             return await Task.Run(() => (ExitCode)GetStartInfo(args).Run());
         }
         #region Error handling
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or NotAdminException)
         {
             Msg.Inform(null, ex.Message, MsgSeverity.Error);
             return (ExitCode)(-1);
