@@ -37,6 +37,9 @@ public static class ProgramUtils
     {
         try
         {
+            if (RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\461808", "Install") != 1)
+                throw new IOException("Please download and install .NET Framework 4.7.2 or later: https://dotnet.microsoft.com/en-us/download/dotnet-framework");
+
             return new BootstrapProcess(handler).Execute(args);
         }
         #region Error handling
