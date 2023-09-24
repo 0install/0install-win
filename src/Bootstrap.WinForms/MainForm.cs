@@ -3,6 +3,8 @@
 
 using NanoByte.Common.Native;
 using NanoByte.Common.Streams;
+using static System.Environment;
+using static System.Environment.SpecialFolder;
 
 namespace ZeroInstall;
 
@@ -89,28 +91,28 @@ public sealed partial class MainForm : Form
         try
         {
             if (path.Length < 4
-             || new[] {Environment.SpecialFolder.UserProfile, Environment.SpecialFolder.ProgramFiles, Environment.SpecialFolder.ProgramFilesX86}.Any(PathEquals)
+             || new[] {UserProfile, ProgramFiles, ProgramFilesX86}.Any(PathEquals)
              || new[]
                 {
-                    Environment.SpecialFolder.StartMenu, Environment.SpecialFolder.CommonStartMenu,
-                    Environment.SpecialFolder.Desktop, Environment.SpecialFolder.CommonDesktopDirectory,
-                    Environment.SpecialFolder.MyDocuments, Environment.SpecialFolder.CommonDocuments,
-                    Environment.SpecialFolder.MyPictures, Environment.SpecialFolder.CommonPictures,
-                    Environment.SpecialFolder.MyMusic, Environment.SpecialFolder.CommonMusic,
-                    Environment.SpecialFolder.MyVideos, Environment.SpecialFolder.CommonVideos,
-                    Environment.SpecialFolder.Windows
+                    StartMenu, CommonStartMenu,
+                    DesktopDirectory, CommonDesktopDirectory,
+                    MyDocuments, CommonDocuments,
+                    MyPictures, CommonPictures,
+                    MyMusic, CommonMusic,
+                    MyVideos, CommonVideos,
+                    Windows
                 }.Any(PathIsIn))
             {
                 Msg.Inform(this, string.Format(LocalizableStrings.FolderNotSupported, path), MsgSeverity.Error);
                 return false;
             }
 
-            bool PathEquals(Environment.SpecialFolder folder)
-                => StringUtils.EqualsIgnoreCase(path, Environment.GetFolderPath(folder));
+            bool PathEquals(SpecialFolder folder)
+                => StringUtils.EqualsIgnoreCase(path, GetFolderPath(folder));
 
-            bool PathIsIn(Environment.SpecialFolder folder)
+            bool PathIsIn(SpecialFolder folder)
                 => PathEquals(folder)
-                || path.StartsWithIgnoreCase(Environment.GetFolderPath(folder) + Path.DirectorySeparatorChar);
+                || path.StartsWithIgnoreCase(GetFolderPath(folder) + Path.DirectorySeparatorChar);
         }
         #region Error handling
         catch (ArgumentException ex)
