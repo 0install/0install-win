@@ -290,8 +290,8 @@ public sealed class OneGetContext : ScopedOperation, IOneGetContext
     private string DeployInstance(bool machineWide)
     {
         string programFiles = machineWide
-            ? Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
-            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Programs");
+            ? WindowsUtils.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
+            : Path.Combine(WindowsUtils.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Programs");
         string installLocation = Path.Combine(programFiles, "Zero Install");
 
         Log.Info("Deploying Zero Install to " + installLocation);

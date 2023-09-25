@@ -84,8 +84,8 @@ partial class BootstrapProcess
     }
 
     private static bool IsMachineWidePath(string path)
-        => path.StartsWithIgnoreCase(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles))
-        || path.StartsWithIgnoreCase(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
+        => path.StartsWithIgnoreCase(WindowsUtils.GetFolderPath(Environment.SpecialFolder.ProgramFiles))
+        || path.StartsWithIgnoreCase(WindowsUtils.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
 
     /// <summary>
     /// Adds keys for Zero Install (and optionally an app) to the <see cref="TrustDB"/>.

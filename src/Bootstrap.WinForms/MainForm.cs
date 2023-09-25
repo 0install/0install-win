@@ -108,11 +108,11 @@ public sealed partial class MainForm : Form
             }
 
             bool PathEquals(SpecialFolder folder)
-                => StringUtils.EqualsIgnoreCase(path, GetFolderPath(folder));
+                => StringUtils.EqualsIgnoreCase(path, WindowsUtils.GetFolderPath(folder));
 
             bool PathIsIn(SpecialFolder folder)
                 => PathEquals(folder)
-                || path.StartsWithIgnoreCase(GetFolderPath(folder) + Path.DirectorySeparatorChar);
+                || path.StartsWithIgnoreCase(WindowsUtils.GetFolderPath(folder) + Path.DirectorySeparatorChar);
         }
         #region Error handling
         catch (ArgumentException ex)
