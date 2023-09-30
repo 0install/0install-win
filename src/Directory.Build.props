@@ -12,6 +12,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn><!-- Missing XML comments -->
     <ApplicationIcon>$(MSBuildThisFileDirectory)..\icon.ico</ApplicationIcon>
+    <SatelliteResourceLanguages>es;el;fr;it;ja;nl;pt-BR;pt-PT;ro;ru;tr;zh;zh-Hant</SatelliteResourceLanguages>
 
     <!-- Metadata -->
     <Product>Zero Install</Product>
