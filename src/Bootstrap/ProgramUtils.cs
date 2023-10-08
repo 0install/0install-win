@@ -37,8 +37,10 @@ public static class ProgramUtils
     {
         try
         {
+#if NETFRAMEWORK
             if (RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", "Release") < 461808)
                 throw new IOException("Please download and install .NET Framework 4.7.2 or later: https://dotnet.microsoft.com/en-us/download/dotnet-framework");
+#endif
 
             return new BootstrapProcess(handler).Execute(args);
         }
