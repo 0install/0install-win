@@ -24,7 +24,7 @@ public sealed partial class MainForm : Form
         pictureBoxSplashScreen.BackgroundImage = Image.FromStream(typeof(MainForm).GetEmbeddedStream("SplashScreen.png"));
         HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
-        Text = string.Format(LocalizableStrings.Title, BootstrapConfig.Instance.AppName ?? "Zero Install");
+        Text = BootstrapConfig.Instance.AppName ?? "Zero Install";
         buttonContinue.Text = LocalizableStrings.Continue;
         buttonCancel.Text = LocalizableStrings.Cancel;
         groupPath.Text = string.Format(LocalizableStrings.DestinationFolder, BootstrapConfig.Instance.AppName ?? "Zero Install");

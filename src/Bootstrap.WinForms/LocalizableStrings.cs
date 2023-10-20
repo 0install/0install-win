@@ -5,11 +5,6 @@ namespace ZeroInstall;
 
 public static class LocalizableStrings
 {
-    public static string Title => new LocalizableStringCollection
-    {
-        {"en", "{0}"}
-    }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
-
     public static string Continue => new LocalizableStringCollection
     {
         {"en", "Install"},
