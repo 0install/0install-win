@@ -25,7 +25,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
         _userArgs.Add(_options.Parse(args));
         if (_machineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-        if (BootstrapConfig.Instance.CustomizableStorePath) CustomizeStorePath();
+        if (BootstrapConfig.Instance.CustomizableStorePath && !_prepareOffline) CustomizeStorePath();
 
         SaveConfig();
         TrustKeys();
