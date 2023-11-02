@@ -115,9 +115,9 @@ public sealed partial class MainForm : Form
                 || path.StartsWithIgnoreCase(WindowsUtils.GetFolderPath(folder) + Path.DirectorySeparatorChar);
         }
         #region Error handling
-        catch (ArgumentException ex)
+        catch (IOException ex)
         {
-            Log.Warn($"Failed to get path for special folder", ex);
+            Log.Warn("Failed to get path for special folder", ex);
         }
         #endregion
 
