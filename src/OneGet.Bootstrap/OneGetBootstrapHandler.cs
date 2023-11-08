@@ -8,11 +8,8 @@ namespace ZeroInstall.OneGet;
 /// <summary>
 /// Manages communication between <see cref="ITask"/>s and a OneGet <see cref="Request"/> during the bootstrap process.
 /// </summary>
-public class OneGetBootstrapHandler : OneGetHandler, IBootstrapHandler
+public class OneGetBootstrapHandler(Request request) : OneGetHandler(request), IBootstrapHandler
 {
-    public OneGetBootstrapHandler(Request request) : base(request)
-    {}
-
     /// <inheritdoc/>
     public bool IsGui => false;
 

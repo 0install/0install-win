@@ -10,19 +10,9 @@ namespace ZeroInstall.OneGet;
 /// <summary>
 /// Forwards requests to an <see cref="IOneGetContext"/> implementation from a deployed or cached Zero Install instance.
 /// </summary>
-public class OneGetContextInterceptor : IInterceptor
+/// <param name="request">The OneGet request interface to pass to the constructor of the target <see cref="IOneGetContext"/> implementation.</param>
+public class OneGetContextInterceptor(Request request) : IInterceptor
 {
-    private readonly Request _request;
-
-    /// <summary>
-    /// Creates a new <see cref="IOneGetContext"/> interceptor.
-    /// </summary>
-    /// <param name="request">The OneGet request interface to pass to the constructor of the target <see cref="IOneGetContext"/> implementation.</param>
-    public OneGetContextInterceptor(Request request)
-    {
-        _request = request ?? throw new ArgumentNullException(nameof(request));
-    }
-
     private object? _context;
 
     // NOTE: Static/shared lock, to avoid multiple deployments being started in parallel
@@ -43,7 +33,7 @@ public class OneGetContextInterceptor : IInterceptor
             }
         }
 
-        _request.Debug("Forwarding to other Zero Install instance: {0}", info.TargetMethod.Name);
+        request.Debug("Forwarding to other Zero Install instance: {0}", info.TargetMethod.Name);
         return DuckType(_context, info);
     }
 
@@ -53,11 +43,11 @@ public class OneGetContextInterceptor : IInterceptor
     private object InitExternalContext()
     {
         string providerDirectory = GetProviderDirectory();
-        _request.Verbose("Loading Zero Install OneGet provider from {0}", providerDirectory);
+        request.Verbose("Loading Zero Install OneGet provider from {0}", providerDirectory);
 
         var assembly = Assembly.LoadFrom(Path.Combine(providerDirectory, "ZeroInstall.OneGet.dll"));
         var requestType = assembly.GetType("PackageManagement.Sdk.Request", throwOnError: true);
-        var requestProxy = new ProxyFactory().CreateProxy(requestType, new RequestInterceptor(_request));
+        var requestProxy = new ProxyFactory().CreateProxy(requestType, new RequestInterceptor(request));
         var contextType = assembly.GetType("ZeroInstall.OneGet.OneGetContext", throwOnError: true);
         return Activator.CreateInstance(contextType, requestProxy);
     }
@@ -68,7 +58,7 @@ public class OneGetContextInterceptor : IInterceptor
     /// <returns>The full path of the directory containing the provider assembly.</returns>
     private string GetProviderDirectory()
     {
-        using var handler = new OneGetBootstrapHandler(_request);
+        using var handler = new OneGetBootstrapHandler(request);
         var bootstrap = new BootstrapProcess(handler);
         var startInfo = bootstrap.ZeroInstallDeployed(Array.Empty<string>()) ?? bootstrap.ZeroInstallCached(Array.Empty<string>());
         return Path.GetDirectoryName(startInfo.FileName)!;

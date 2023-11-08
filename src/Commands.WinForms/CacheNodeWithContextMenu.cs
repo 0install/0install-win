@@ -10,23 +10,15 @@ namespace ZeroInstall.Commands.WinForms;
 /// <summary>
 /// Wraps a <see cref="CacheNode"/> and adds a context menu.
 /// </summary>
+/// <param name="form">The form this cache node is displayed on.</param>
+/// <param name="innerNode">The underlying <see cref="CacheNode"/> containing the cache information.</param>
 [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
-internal sealed class CacheNodeWithContextMenu : INamed, IContextMenu
+internal sealed class CacheNodeWithContextMenu(StoreManageForm form, CacheNode innerNode) : INamed, IContextMenu
 {
-    private readonly StoreManageForm _form;
-
     /// <summary>
     /// The underlying <see cref="CacheNode"/> containing the cache information.
     /// </summary>
-    public CacheNode InnerNode { get; }
-
-    /// <param name="form">The form this cache node is displayed on.</param>
-    /// <param name="innerNode">The underlying <see cref="CacheNode"/> containing the cache information.</param>
-    public CacheNodeWithContextMenu(StoreManageForm form, CacheNode innerNode)
-    {
-        _form = form;
-        InnerNode = innerNode;
-    }
+    public CacheNode InnerNode { get; } = innerNode;
 
     /// <summary>
     /// The UI path name of this node.
@@ -49,11 +41,11 @@ internal sealed class CacheNodeWithContextMenu : INamed, IContextMenu
                 {
                     Resources.Remove, null, delegate
                     {
-                        if (Msg.YesNo(_form, Resources.DeleteEntry, MsgSeverity.Warn))
+                        if (Msg.YesNo(form, Resources.DeleteEntry, MsgSeverity.Warn))
                         {
                             try { Remove(); }
                             catch (OperationCanceledException) {}
-                            _form.RefreshList();
+                            form.RefreshList();
                         }
                     }
                 }
@@ -76,7 +68,7 @@ internal sealed class CacheNodeWithContextMenu : INamed, IContextMenu
     {
         try
         {
-            InnerNode.Remove(_form.Services.FeedCache, _form.Services.ImplementationStore);
+            InnerNode.Remove(form.Services.FeedCache, form.Services.ImplementationStore);
         }
         #region Error handling
         catch (Exception ex) when (ex is ImplementationNotFoundException or IOException or UnauthorizedAccessException)
@@ -90,7 +82,7 @@ internal sealed class CacheNodeWithContextMenu : INamed, IContextMenu
     {
         try
         {
-            (InnerNode as ImplementationNode)?.Verify(_form.Services.ImplementationStore);
+            (InnerNode as ImplementationNode)?.Verify(form.Services.ImplementationStore);
         }
         #region Error handling
         catch (Exception ex) when (ex is ImplementationNotFoundException or IOException or UnauthorizedAccessException)

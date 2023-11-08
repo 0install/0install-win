@@ -20,28 +20,17 @@ namespace ZeroInstall.OneGet;
 /// <summary>
 /// Provides an execution context for handling a single OneGet <see cref="Request"/>.
 /// </summary>
-public sealed class OneGetContext : ScopedOperation, IOneGetContext
+/// <param name="request">The OneGet request callback object.</param>
+public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetHandler(request)), IOneGetContext
 {
-    private readonly Request _request;
-
-    /// <summary>
-    /// Creates a new OneGet command.
-    /// </summary>
-    /// <param name="request">The OneGet request callback object.</param>
-    public OneGetContext(Request request)
-        : base(new OneGetHandler(request))
-    {
-        _request = request;
-    }
-
     /// <inheritdoc/>
     public void Dispose() => Handler.Dispose();
 
-    private bool Refresh => _request.OptionKeys.Contains("Refresh");
-    private bool AllVersions => _request.OptionKeys.Contains("AllVersions");
-    private bool GlobalSearch => _request.OptionKeys.Contains("GlobalSearch");
-    private bool DeferDownload => _request.OptionKeys.Contains("DeferDownload");
-    private bool MachineWide => StringUtils.EqualsIgnoreCase(_request.GetOptionValue("Scope"), "AllUsers");
+    private bool Refresh => request.OptionKeys.Contains("Refresh");
+    private bool AllVersions => request.OptionKeys.Contains("AllVersions");
+    private bool GlobalSearch => request.OptionKeys.Contains("GlobalSearch");
+    private bool DeferDownload => request.OptionKeys.Contains("DeferDownload");
+    private bool MachineWide => StringUtils.EqualsIgnoreCase(request.GetOptionValue("Scope"), "AllUsers");
 
     public void AddPackageSource(string uri)
     {
@@ -67,18 +56,18 @@ public sealed class OneGetContext : ScopedOperation, IOneGetContext
     {
         var registeredSources = Services.Feeds.CatalogManager.GetSources();
 
-        if (_request.Sources.Any())
+        if (request.Sources.Any())
         {
-            foreach (var uri in _request.Sources.TrySelect(x => new FeedUri(x), (UriFormatException _) => {}))
+            foreach (var uri in request.Sources.TrySelect(x => new FeedUri(x), (UriFormatException _) => {}))
             {
                 bool isRegistered = registeredSources.Contains(uri);
-                _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: isRegistered, isRegistered: isRegistered, isValidated: false);
+                request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: isRegistered, isRegistered: isRegistered, isValidated: false);
             }
         }
         else
         {
             foreach (var uri in registeredSources)
-                _request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: true, isRegistered: true, isValidated: false);
+                request.YieldPackageSource(uri.ToStringRfc(), uri.ToStringRfc(), isTrusted: true, isRegistered: true, isValidated: false);
         }
     }
 
@@ -331,7 +320,7 @@ public sealed class OneGetContext : ScopedOperation, IOneGetContext
         feed ??= FeedManager[requirements.InterfaceUri];
 
         var sourceUri = feed.CatalogUri ?? feed.Uri;
-        _request.YieldSoftwareIdentity(
+        request.YieldSoftwareIdentity(
             fastPath: requirements.ToJsonString(),
             name: feed.Name,
             version: implementation?.Version?.ToString(),
