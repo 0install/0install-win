@@ -77,8 +77,17 @@ public sealed partial class MainForm : Form
         while (true)
         {
             if (folderBrowserDialog.ShowDialog(this) != DialogResult.OK) break;
-            if (IsPathOK()) break;
-            else folderBrowserDialog.SelectedPath = null;
+
+            try
+            {
+                if (IsPathOK()) break;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            folderBrowserDialog.SelectedPath = null;
         }
 
         UpdatePath();
@@ -121,24 +130,15 @@ public sealed partial class MainForm : Form
         }
         #endregion
 
-        try
+        if (FileUtils.DetermineTimeAccuracy(path) != 0)
         {
-            if (FileUtils.DetermineTimeAccuracy(path) != 0)
-            {
-                Log.Error($"Time accuracy at '{path}' is insufficient; probably FAT32 filesystem");
-                Msg.Inform(this, string.Format(LocalizableStrings.FolderNotNtfs, path), MsgSeverity.Warn);
-                return false;
-            }
-
-            return Directory.GetFileSystemEntries(path).Length == 0
-                || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, path), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex);
-            Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            Log.Error($"Time accuracy at '{path}' is insufficient; probably FAT32 filesystem");
+            Msg.Inform(this, string.Format(LocalizableStrings.FolderNotNtfs, path), MsgSeverity.Warn);
             return false;
         }
+
+        return Directory.GetFileSystemEntries(path).Length == 0
+            || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, path), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
     }
 
     private void buttonContinue_Click(object sender, EventArgs e)
