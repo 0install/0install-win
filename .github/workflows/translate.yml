@@ -34,7 +34,7 @@ jobs:
       - name: Transifex Pull (fully translated)
         run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --translations --mode translator --all --minimum-perc 100
       - name: Transifex Pull (partially translated) # Only languages that can be completed with Machine Translation
-        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --translations --mode translator --languages el,es,fr,it,ja,nl,pl,pt_PT,ro,ru,zh
+        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} pull --translations --mode translator --languages cs,el,es,fr,id,it,ja,ko,nl,pl,pt_PT,ro,ru,zh
 
       - name: DeepL Cache
         uses: actions/cache@v3
@@ -48,7 +48,7 @@ jobs:
         with:
           auth: ${{secrets.DEEPL_API_KEY}}
           source-lang: en
-          localization-filter: el;es;fr;it;ja;nl;pl;pt-PT;ro;ru;zh
+          localization-filter: cs;el;es;fr;id;it;ja;ko;nl;pl;pt-PT;ro;ru;zh
           glossary-name: Zero Install
           excludes-regex: .*ImageResources.*
 
