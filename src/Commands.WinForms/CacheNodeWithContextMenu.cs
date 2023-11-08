@@ -11,8 +11,7 @@ namespace ZeroInstall.Commands.WinForms;
 /// Wraps a <see cref="CacheNode"/> and adds a context menu.
 /// </summary>
 [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
-[PrimaryConstructor]
-internal sealed partial class CacheNodeWithContextMenu : INamed, IContextMenu
+internal sealed class CacheNodeWithContextMenu : INamed, IContextMenu
 {
     private readonly StoreManageForm _form;
 
@@ -20,6 +19,14 @@ internal sealed partial class CacheNodeWithContextMenu : INamed, IContextMenu
     /// The underlying <see cref="CacheNode"/> containing the cache information.
     /// </summary>
     public CacheNode InnerNode { get; }
+
+    /// <param name="form">The form this cache node is displayed on.</param>
+    /// <param name="innerNode">The underlying <see cref="CacheNode"/> containing the cache information.</param>
+    public CacheNodeWithContextMenu(StoreManageForm form, CacheNode innerNode)
+    {
+        _form = form;
+        InnerNode = innerNode;
+    }
 
     /// <summary>
     /// The UI path name of this node.
