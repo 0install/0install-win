@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>このコンピュータおよび/または他のコンピュータで以前に使用した暗号鍵を入力してください：</value>
+    <value>このコンピュータまたは他のコンピュータで以前に使用した暗号鍵を入力してください：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">

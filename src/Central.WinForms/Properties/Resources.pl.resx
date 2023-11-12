@@ -60,14 +60,14 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Wpisz '{0}', aby wyświetlić listę dostępnych poleceń.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Kontynuuj</value>
+    <value>Kontynuować</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -233,7 +233,7 @@ Zapisz zmiany</value>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Nie
-edycja istniejących ustawień</value>
+edytuj istniejące ustawienia</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">

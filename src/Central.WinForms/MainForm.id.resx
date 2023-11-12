@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Masukkan URL katalog (kumpulan feed)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>Masukkan URL feed (satu aplikasi)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>Baris perintah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonDocumentation.Text" xml:space="preserve">
+    <value>Dokumentasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonFeedEditor.Text" xml:space="preserve">
+    <value>Gunakan Alat Penerbitan untuk mengemas aplikasi baru</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>Bantuan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonIntro.Text" xml:space="preserve">
+    <value>Video Pengantar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>Lebih banyak aplikasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>Pilihan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonPortableCreator.Text" xml:space="preserve">
+    <value>Pencipta portabel</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
+    <value>Menyegarkan daftar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Jalankan pencarian kata kunci</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonStoreManage.Text" xml:space="preserve">
+    <value>Manajemen cache</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSync2.Text" xml:space="preserve">
+    <value>Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
+    <value>Pengaturan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
+    <value>Pemecahan masalah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonTools.Text" xml:space="preserve">
+    <value>Peralatan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Perbarui semua</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAll2.Text" xml:space="preserve">
+    <value>Perbarui semua</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Perbarui semua dan bersihkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Memuat katalog dari server...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Aplikasi saya</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

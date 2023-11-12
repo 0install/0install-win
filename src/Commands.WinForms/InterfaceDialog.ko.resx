@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>인터페이스 속성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>추가</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.ToolTip" xml:space="preserve">
+    <value>이 인터페이스에 대한 새로운 구현 소스를 추가합니다</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonApply.Text" xml:space="preserve">
+    <value>신청하기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveFeed.Text" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
+    <value>이 인터페이스의 구현 소스를 제거합니다</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
+    <value>모든 버전 보기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
+    <value>이 시스템에서 지원되지 않는 버전 표시</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="comboBoxStability.ToolTip" xml:space="preserve">
+    <value>어떤 안정성 등급을 "최고"로 간주할지 결정합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
+    <value>아키텍처</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnNotes.HeaderText" xml:space="preserve">
+    <value>참고</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnReleased.HeaderText" xml:space="preserve">
+    <value>출시</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnSource.HeaderText" xml:space="preserve">
+    <value>출처</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnStability.HeaderText" xml:space="preserve">
+    <value>안정성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
+    <value>오버라이드</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataColumnVersion.HeaderText" xml:space="preserve">
+    <value>버전</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStability.Text" xml:space="preserve">
+    <value>안정성을 선호합니다:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFeeds.Text" xml:space="preserve">
+    <value>피드</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageVersions.Text" xml:space="preserve">
+    <value>버전</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

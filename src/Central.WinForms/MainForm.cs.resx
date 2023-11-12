@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonAddCatalog.Text" xml:space="preserve">
+    <value>Zadejte adresu URL katalogu (kolekce kanálů)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddFeed.Text" xml:space="preserve">
+    <value>Zadejte adresu URL kanálu (jedné aplikace)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonCommandLine.Text" xml:space="preserve">
+    <value>Příkazový řádek</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonDocumentation.Text" xml:space="preserve">
+    <value>Dokumentace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonFeedEditor.Text" xml:space="preserve">
+    <value>Použití nástrojů pro publikování k zabalení nové aplikace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>Nápověda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonIntro.Text" xml:space="preserve">
+    <value>Úvodní video</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>Další aplikace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>Možnosti</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonPortableCreator.Text" xml:space="preserve">
+    <value>Přenosný tvůrce</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRefreshCatalog.Text" xml:space="preserve">
+    <value>Obnovit seznam</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSearch.Text" xml:space="preserve">
+    <value>Spustit vyhledávání podle klíčových slov</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonStoreManage.Text" xml:space="preserve">
+    <value>Správa mezipaměti</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>Synchronizace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSync2.Text" xml:space="preserve">
+    <value>Synchronizace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSyncSetup.Text" xml:space="preserve">
+    <value>Nastavení</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
+    <value>Řešení problémů</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonTools.Text" xml:space="preserve">
+    <value>Nástroje</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Aktualizovat vše</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAll2.Text" xml:space="preserve">
+    <value>Aktualizovat vše</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Aktualizovat vše a vyčistit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Načítání katalogu ze serveru...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Moje aplikace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>Katalog</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

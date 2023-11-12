@@ -68,7 +68,7 @@
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancelar</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
     <value>Implantar</value>

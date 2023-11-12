@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>На других компьютерах введите ключ, используя окно "Параметры". Не используйте там этот мастер, поскольку он требуется только для выполнения первоначального изменения.</value>
+    <value>На других компьютерах введите ключ с помощью окна 'Options'. Не используйте там этот мастер, так как он требуется только для выполнения первоначального изменения.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Все изменения, сделанные на других компьютерах, но еще не синхронизированные с этим компьютером, будут потеряны!</value>
+    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Все изменения, сделанные на других компьютерах, но еще не синхронизированные с этим, будут потеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
