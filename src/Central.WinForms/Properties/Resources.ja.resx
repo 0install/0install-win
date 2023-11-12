@@ -60,7 +60,7 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>{0}' と入力すると、利用可能なコマンドのリストが表示されます。</value>
@@ -220,7 +220,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>入力されたユーザー名またはパスワードが間違っています。</value>
+    <value>入力したユーザー名またはパスワードが間違っています。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">

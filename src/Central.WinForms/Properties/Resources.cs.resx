@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Zadejte '{0}' a zobrazí se seznam dostupných příkazů.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Pokračovat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Klikněte na tlačítko pro nastavení Zero Install on this computer...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Zde zadejte adresu URL kanálu Zero Install:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Pro všechny uživatele</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Pro aktuálního uživatele</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Ignorování duplicitní položky aplikace pro '{0}'.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integrace (nabídka Start atd.)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Společná aplikace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>dělá obvyklé věci</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Skvělá aplikace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>dělá něco skvělého</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Další aplikace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>dělá něco jiného</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Pokud se vám aplikace líbí,
+přidejte ji do sekce "Moje aplikace".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Vyhledejte aplikaci v "Katalogu"...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Integrovat" aplikaci, aby ji
+do nabídky Start nebo na plochu.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Seznam oblíbených aplikací můžete spravovat zde.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... a spusťte ji!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Bavte se!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>S aplikací Zero Install nemusíte instalovat aplikace.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Režim pro celý stroj</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Úprava integrace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Přidat do "Moje aplikace"</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Přidáno do sekce "Moje aplikace".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Přidáno do sekce "Moje aplikace" a integrováno do prostředí pracovní plochy.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Adresář '{0}' není prázdný.
+Jste si jisti, že tam chcete umístit přenosnou verzi Zero Install?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Přenosný režim</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Odstranění stránky</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Chcete odstranit vybrané položky {0} ze seznamu?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Spustit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Spustit s možnostmi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Přejete si uložit provedené změny?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Ne
+Vyřazení změn</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ano
+Uložení změn</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Vyhledávání</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Kliknutím aktualizujete na verzi Zero Install v{0}...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Nejprve je třeba dokončit nastavení synchronizace.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Zadané uživatelské jméno a/nebo heslo je nesprávné.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Zadaný šifrovací klíč je nesprávný.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Chcete obnovit nastavení synchronizace a začít od začátku?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Ne
+upravit stávající nastavení</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Ano
+začít od nuly</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Data aktuálně uložená na serveru Sync jsou poškozená.
+Data uložená na serveru můžete nahradit volbou, že si nepamatujete šifrovací klíč.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Nelze stáhnout katalog aplikací.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Nelze načíst kanál pro položku aplikace '{0}'.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Jste si jisti, že chcete použít nešifrované připojení k serveru Sync?
+Šifrovaná připojení používají předponu https://.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Aktualizace</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Tím se z mezipaměti automaticky odstraní implementace, které po aktualizaci již nejsou potřeba. Pokračovat?
+Důležité: Aplikace, které jste dříve "Spustili", aniž byste je přidali do "Mých aplikací", budou rovněž odstraněny z mezipaměti.  Pokud se je rozhodnete znovu spustit, budete muset být online.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Pracuje...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

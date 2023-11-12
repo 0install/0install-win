@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>애플리케이션 통합</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdvancedMode.Text" xml:space="preserve">
+    <value>고급 설정</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonBasicMode.Text" xml:space="preserve">
+    <value>기본 설정</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoPlay.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpAutoStart.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpContextMenu.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDefaultPrograms.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpDesktop.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpFileTypes.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpSendTo.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpStartMenu.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonHelpUrlProtocols.AccessibleName" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
+    <value>명령줄 별칭</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
+    <value>자동 재생</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>자동 시작</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
+    <value>자동 업데이트</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>"모두 업데이트" 확인에 이 애플리케이션을 포함합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.Text" xml:space="preserve">
+    <value>등록 기능</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>운영 체제에 처리할 수 있는 파일 형식 등 애플리케이션의 기능에 대해 알려줍니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
+    <value>컨텍스트 메뉴</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>기본 프로그램</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
+    <value>데스크톱</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
+    <value>파일 유형</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>다음 주소로 보내기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
+    <value>시작 메뉴</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>URL 프로토콜</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
+    <value>명령</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
+    <value>이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
+    <value>기본값</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
+    <value>설명</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
+    <value>이벤트</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>명령</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>활성화됨</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
+    <value>항목 이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
+    <value>기본값</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
+    <value>설명</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
+    <value>서비스</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
+    <value>명령</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
+    <value>이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
+    <value>기본값</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
+    <value>설명</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
+    <value>확장 기능</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>명령</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
+    <value>카테고리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
+    <value>명령</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
+    <value>이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
+    <value>기본값</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
+    <value>설명</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
+    <value>프로토콜</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>동등한 명령줄</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAliasesSimple.Text" xml:space="preserve">
+    <value>명령줄 인터페이스에서 액세스</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoPlaySimple.Text" xml:space="preserve">
+    <value>적합한 미디어(DVD, USB 드라이브 등)를 삽입하면 자동으로 실행됩니다</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>사용자가 로그인하면 자동으로 프로그램 시작</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelContextMenuSimple.Text" xml:space="preserve">
+    <value>Windows 탐색기의 컨텍스트 메뉴 항목</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
+    <value>웹 브라우저 또는 이메일 클라이언트와 같은 작업을 위한 기본 프로그램</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelDesktopSimple.Text" xml:space="preserve">
+    <value>바탕화면의 아이콘</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelFileTypesSimple.Text" xml:space="preserve">
+    <value>지원되는 파일 형식의 기본 처리기('다음으로 열기'는 이 기능 없이도 작동)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>'받는 사람' 메뉴의 항목</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelStartMenuSimple.Text" xml:space="preserve">
+    <value>시작 메뉴에 있는 하나 이상의 항목</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
+    <value>지원되는 URL 프로토콜의 기본 처리기('연결 프로그램'은 이 기능이 없어도 작동)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAliases.Text" xml:space="preserve">
+    <value>명령줄 별칭</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoPlay.Text" xml:space="preserve">
+    <value>자동 재생</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>자동 시작</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageContextMenu.Text" xml:space="preserve">
+    <value>컨텍스트 메뉴</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
+    <value>기본 프로그램</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageDesktop.Text" xml:space="preserve">
+    <value>데스크톱</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageFileTypes.Text" xml:space="preserve">
+    <value>파일 유형</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>다음 주소로 보내기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageStartMenu.Text" xml:space="preserve">
+    <value>시작 메뉴</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageUrlProtocols.Text" xml:space="preserve">
+    <value>URL 프로토콜</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
+    <value>동등한 명령줄</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

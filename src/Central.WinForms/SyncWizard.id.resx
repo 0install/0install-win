@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
+    <value>Saya ingin mengubah kunci kripto saya</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>Lupa kunci</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonResetClient.Text" xml:space="preserve">
+    <value>Saya ingin mengganti data lokal saya</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonResetServer.Text" xml:space="preserve">
+    <value>Data yang disimpan di server rusak</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSetupFirst.Text" xml:space="preserve">
+    <value>Ya, ini adalah komputer pertama</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonSetupSubsequent.Text" xml:space="preserve">
+    <value>Tidak, saya sudah menyiapkan komputer lain</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupBoxCommandLine.Text" xml:space="preserve">
+    <value>Baris perintah yang setara</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelChangeCryptoKey.Text" xml:space="preserve">
+    <value>Anda tidak boleh menjalankan Sinkronisasi Pemasangan Nol pada komputer lain saat proses ini berjalan.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCredentials.Text" xml:space="preserve">
+    <value>Masukkan kredensial login Anda untuk server Sinkronisasi di bawah ini:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKey.Text" xml:space="preserve">
+    <value>Kunci Crypto:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyChange.Text" xml:space="preserve">
+    <value>Kunci kripto baru:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Kunci kripto telah diubah. Sekarang Anda harus memasukkan kunci baru di semua komputer lain yang telah Anda siapkan untuk Sinkronisasi Pemasangan Nol.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
+    <value>Masukkan kunci di komputer lain menggunakan jendela 'Opsi'. Jangan gunakan wizard ini di sana karena hanya diperlukan untuk melakukan perubahan awal.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyNew.Text" xml:space="preserve">
+    <value>Kunci Crypto:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelCryptoKeyReset.Text" xml:space="preserve">
+    <value>Kunci kripto baru:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelExistingCryptoKey.Text" xml:space="preserve">
+    <value>Masukkan kunci kripto yang Anda gunakan sebelumnya di komputer ini dan/atau komputer lain:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelNewCryptoKey.Text" xml:space="preserve">
+    <value>Kunci kripto digunakan untuk mengenkripsi data Anda secara lokal sebelum mengirimkannya ke server. Tuliskan kunci yang disarankan atau pilih kunci Anda sendiri.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
+    <value>Rahasiakan kunci ini dan gunakan sesuatu yang berbeda untuk kata sandi Anda. Dengan cara ini tidak ada yang bisa mengakses data Anda, bahkan jika servernya dibobol.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelPassword.Text" xml:space="preserve">
+    <value>Kata sandi:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelRegister.Text" xml:space="preserve">
+    <value>Klik tautan berikut untuk membuat akun Sinkronisasi baru di browser Anda:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelRegister2.Text" xml:space="preserve">
+    <value>Setelah Anda membuat akun, memverifikasi alamat email Anda dan mencatat kredensial login Anda, klik 'Berikutnya'.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetClient.Text" xml:space="preserve">
+    <value>Anda akan mengganti daftar aplikasi lokal Anda dengan data yang disimpan di server Sinkronisasi. Setiap perubahan yang telah Anda buat secara lokal namun belum disinkronkan akan hilang!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetClientFinished.Text" xml:space="preserve">
+    <value>Daftar aplikasi lokal sedang diatur ulang. Anda sekarang dapat melanjutkan menggunakan Zero Install.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetCryptoKey.Text" xml:space="preserve">
+    <value>Perubahan apa pun yang telah Anda buat di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetServer.Text" xml:space="preserve">
+    <value>Anda akan mengganti data yang tersimpan di server Sinkronisasi dengan daftar aplikasi lokal. Perubahan apa pun yang telah Anda buat di komputer lain namun belum disinkronkan dengan komputer ini akan hilang!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetServerFinished.Text" xml:space="preserve">
+    <value>Data server sedang diatur ulang. Anda sekarang dapat melanjutkan menggunakan Zero Install.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
+    <value>Anda mungkin juga ingin mengatur ulang data lokal di komputer lain yang menggunakan Sinkronisasi Pemasangan Nol.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelResetWelcome.Text" xml:space="preserve">
+    <value>Wizard ini dapat membantu Anda menyelesaikan sejumlah masalah Sinkronisasi yang mungkin terjadi. Masalah apa yang ingin Anda selesaikan?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>0install.de menyediakan akun gratis untuk menyimpan data Sinkronisasi. Semua data dienkripsi secara lokal sebelum dikirim ke server. Anda bisa menggunakan server Anda sendiri untuk penyimpanan jika Anda mau.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelServerType.Text" xml:space="preserve">
+    <value>Server mana yang ingin Anda gunakan?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSetup.Text" xml:space="preserve">
+    <value>Apakah ini komputer pertama yang Anda siapkan untuk Sinkronisasi Instalasi Nol?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSetupFinished.Text" xml:space="preserve">
+    <value>Sinkronisasi Pemasangan Nol sekarang sudah diatur dan siap digunakan. Jalankan wizard ini di komputer lain yang ingin Anda sinkronkan dengan komputer ini.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSetupWelcome.Text" xml:space="preserve">
+    <value>Zero Install Sync mengambil daftar aplikasi dan integrasi desktop Anda dan secara otomatis mentransfernya ke komputer Anda yang lain.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelUsername.Text" xml:space="preserve">
+    <value>Nama pengguna:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="linkCustomServer.Text" xml:space="preserve">
+    <value>Bagaimana cara mengatur server Sinkronisasi saya sendiri?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="linkRegister.Text" xml:space="preserve">
+    <value>Daftar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="optionCustomServer.Text" xml:space="preserve">
+    <value>Gunakan server khusus:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="optionFileShare.Text" xml:space="preserve">
+    <value>Gunakan berbagi file Windows:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="optionOfficialServer.Text" xml:space="preserve">
+    <value>Gunakan server 0install.de (disarankan)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageChangeCryptoKey.Text" xml:space="preserve">
+    <value>Mengubah kunci kripto</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageCredentials.Text" xml:space="preserve">
+    <value>Sinkronisasi akun</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
+    <value>Kunci kripto diubah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageExistingCryptoKey.Text" xml:space="preserve">
+    <value>Kunci kripto</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageNewCryptoKey.Text" xml:space="preserve">
+    <value>Kunci kripto</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageRegister.Text" xml:space="preserve">
+    <value>Sinkronisasi akun</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetClient.Text" xml:space="preserve">
+    <value>Mengatur ulang data lokal</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetClientFinished.Text" xml:space="preserve">
+    <value>Mengatur ulang data lokal</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetCryptoKey.Text" xml:space="preserve">
+    <value>Setel ulang kunci kripto</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetServer.Text" xml:space="preserve">
+    <value>Setel ulang server Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetServerFinished.Text" xml:space="preserve">
+    <value>Setel ulang server Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageResetWelcome.Text" xml:space="preserve">
+    <value>Pemecahan masalah sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageServer.Text" xml:space="preserve">
+    <value>Server Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageSetupFinished.Text" xml:space="preserve">
+    <value>Penyiapan Sinkronisasi selesai</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="pageSetupWelcome.Text" xml:space="preserve">
+    <value>Pengaturan Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>URI server</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="textBoxFileShare.HintText" xml:space="preserve">
+    <value>Jalur direktori</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

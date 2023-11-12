@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>服务器上存储的数据已损坏</value>
+    <value>服务器上存储的数据受损</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>运行此进程时，不应在其他计算机上运行 Zero Install Sync。</value>
+    <value>运行此程序时，不应在其他计算机上运行 Zero Install Sync。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">

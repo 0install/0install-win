@@ -68,7 +68,7 @@
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>取消</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
     <value>部署</value>
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- 将零安装配置和缓存的应用程序存储在一个目录中。
+    <value>- 将零安装配置和缓存的应用程序存储在单个目录中。
 - 不会自动使通过 Zero Install 启动的应用程序也可移植。
 - 便携版 Zero Install 无法执行桌面整合（如创建开始菜单条目）。
 - 请考虑在多台计算机上使用常规的 Zero Install，并用 Zero Install Sync 代替。</value>

@@ -60,7 +60,7 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Introduza '{0}' para ver uma lista de comandos disponíveis.</value>
@@ -243,7 +243,7 @@ começar do zero</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Os dados atualmente armazenados no servidor de sincronização estão danificados.
-Pode substituir os dados armazenados no servidor, optando por não se lembrar da chave criptográfica.</value>
+Pode substituir os dados armazenados no servidor escolhendo que não se lembra da chave criptográfica.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -264,7 +264,7 @@ As ligações encriptadas utilizam um prefixo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Isto irá remover automaticamente da cache as implementações que já não são necessárias após a atualização. Continuar?
+    <value>Isto irá remover automaticamente as implementações da cache que já não são necessárias após a atualização. Continuar?
 Importante: as aplicações que tiver "Executar" anteriormente sem as adicionar a "As minhas aplicações" também serão removidas da cache.  Terá de estar online se decidir executá-las novamente.</value>
     <comment>Automatically translated.</comment>
   </data>

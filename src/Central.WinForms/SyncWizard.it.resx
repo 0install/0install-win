@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Inserire di seguito le credenziali di accesso al server Sync:</value>
+    <value>Inserire di seguito le credenziali di accesso al server di sincronizzazione:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Mantenete questa chiave segreta e utilizzate una password diversa. In questo modo nessuno potrà accedere ai vostri dati, anche se il server dovesse essere compromesso.</value>
+    <value>Mantenete segreta questa chiave e utilizzate una password diversa. In questo modo nessuno potrà accedere ai vostri dati, anche se il server dovesse essere compromesso.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

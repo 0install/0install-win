@@ -60,7 +60,7 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Voer '{0}' in om een lijst met beschikbare commando's te zien.</value>
@@ -228,7 +228,7 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Wil je de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
+    <value>Wilt u de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">

@@ -251,11 +251,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Réinitialisation du serveur de synchronisation</value>
+    <value>Réinitialisation du serveur Sync</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Réinitialisation du serveur Sync</value>
+    <value>Réinitialiser le serveur Sync</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
