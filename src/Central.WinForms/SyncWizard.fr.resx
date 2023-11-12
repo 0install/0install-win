@@ -67,11 +67,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>Je veux remplacer mes &amp;données locales.</value>
+    <value>Je veux remplacer mes &amp;données locales</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Les données enregistrées sur le serveur sont endommagées.</value>
+    <value>Les données enregistrées sur le serveur sont endommagées</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
