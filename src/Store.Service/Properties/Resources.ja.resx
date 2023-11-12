@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>一時ディレクトリ '{1}' (ユーザー '{0}' 用に作成されました) の削除に失敗しました。</value>
+    <value>一時ディレクトリ '{1}' (ユーザー '{0}' 用に作成された) の削除に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">

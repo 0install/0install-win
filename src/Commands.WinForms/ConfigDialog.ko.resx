@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>제로 설치 구성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddCatalogSource.Text" xml:space="preserve">
+    <value>추가</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAddImplDir.Text" xml:space="preserve">
+    <value>추가</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonAdvancedShow.Text" xml:space="preserve">
+    <value>고급 옵션 표시</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>이동</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonGoToImplDir.Text" xml:space="preserve">
+    <value>이동</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveImplDir.Text" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="buttonResetCatalogSources.Text" xml:space="preserve">
+    <value>초기화</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
+    <value>새 키를 자동으로 승인합니다(키 서버에서 알고 있는 경우)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
+    <value>새 버전 테스트 도움말</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupCatalogSources.Text" xml:space="preserve">
+    <value>카탈로그 소스</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupFreshness.Text" xml:space="preserve">
+    <value>신선도</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupImplDirs.Text" xml:space="preserve">
+    <value>구현 캐시 디렉터리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupNetworkUse.Text" xml:space="preserve">
+    <value>네트워크 사용</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupStability.Text" xml:space="preserve">
+    <value>안정성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="groupTrustedKeys.Text" xml:space="preserve">
+    <value>신뢰할 수 있는 키</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="implDirBrowserDialog.Description" xml:space="preserve">
+    <value>구현 캐시로 사용할 디렉터리를 선택하거나 생성하세요.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelAdvancedWarning.Text" xml:space="preserve">
+    <value>경고: 이러한 옵션을 변경하면 제로 설치가 제대로 작동하지 않을 수 있습니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>이것은 언어를 제어합니다:
+- 제로 인스톨 자체 및
+- 제로 인스톨이 다운로드하는 애플리케이션의 언어를 제어합니다.
+
+참고:
+- 모든 언어에 번역을 사용할 수 있는 것은 아닙니다.
+- 언어 변경 사항을 적용하려면 제로 설치를 다시 시작해야 합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>서버:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSyncCryptoKey.Text" xml:space="preserve">
+    <value>암호화 키:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSyncPassword.Text" xml:space="preserve">
+    <value>비밀번호:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="labelSyncUsername.Text" xml:space="preserve">
+    <value>사용자 이름:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="linkSyncAccount.Text" xml:space="preserve">
+    <value>계정 관리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="radioNetworkUseFull.Text" xml:space="preserve">
+    <value>가득 차 있음(일반 네트워크 사용)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
+    <value>최소(캐시된 버전 선호)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="radioNetworkUseOffline.Text" xml:space="preserve">
+    <value>오프라인(네트워크 사용 안 함)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageAdvanced.Text" xml:space="preserve">
+    <value>고급</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageCatalog.Text" xml:space="preserve">
+    <value>카탈로그</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageLanguage.Text" xml:space="preserve">
+    <value>언어</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageStorage.Text" xml:space="preserve">
+    <value>스토리지</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>동기화</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageTrust.Text" xml:space="preserve">
+    <value>신뢰</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>업데이트</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

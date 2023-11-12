@@ -60,7 +60,7 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Introduce '{0}' para ver la lista de comandos disponibles.</value>

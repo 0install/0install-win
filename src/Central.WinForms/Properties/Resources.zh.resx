@@ -60,7 +60,7 @@
   </resheader>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>输入 '{0}' 查看可用命令列表。</value>

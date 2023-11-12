@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batal</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CommandLineHint" xml:space="preserve">
+    <value>Masukkan '{0}' untuk melihat daftar perintah yang tersedia.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Lanjutkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DeployNotification" xml:space="preserve">
+    <value>Klik untuk mengatur Zero Install di komputer ini...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Silakan masukkan URL feed Zero Install di sini:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForAllUsers" xml:space="preserve">
+    <value>Untuk semua pengguna</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ForCurrentUser" xml:space="preserve">
+    <value>Untuk pengguna saat ini</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Mengabaikan entri aplikasi duplikat untuk '{0}'.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Mengintegrasikan (menu mulai, dll.)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Aplikasi umum</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>melakukan hal-hal yang biasa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Aplikasi keren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>melakukan sesuatu yang keren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Aplikasi lain</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>melakukan sesuatu yang lain</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Jika Anda menyukai sebuah aplikasi,
+tambahkan ke "Aplikasi saya".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Cari aplikasi di "Katalog"...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Mengintegrasikan" aplikasi untuk meletakkannya
+di menu mulai atau di desktop.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Anda dapat mengelola daftar aplikasi favorit Anda di sini.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... dan jalankan!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Bersenang-senanglah!</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Dengan Zero Install, Anda tidak perlu menginstal aplikasi.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Mode seluruh alat berat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ModifyIntegration" xml:space="preserve">
+    <value>Memodifikasi integrasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAdd" xml:space="preserve">
+    <value>Tambahkan ke "Aplikasi saya"</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAdded" xml:space="preserve">
+    <value>Ditambahkan ke "Aplikasi saya".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
+    <value>Ditambahkan ke "Aplikasi saya" dan diintegrasikan dalam lingkungan desktop.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableDirNotEmptyAsk" xml:space="preserve">
+    <value>Direktori '{0}' tidak kosong.
+Apakah Anda yakin ingin menempatkan versi portabel Zero Install di sana?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Mode portabel</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Menghapus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Apakah Anda ingin menghapus entri yang dipilih {0} dari daftar?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Jalankan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunWithOptions" xml:space="preserve">
+    <value>Jalankan dengan opsi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Apakah Anda ingin menyimpan perubahan yang dibuat?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Tidak
+Buang perubahan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ya
+Menyimpan perubahan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pencarian</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelfUpdateNotification" xml:space="preserve">
+    <value>Klik untuk memperbarui ke Zero Install v{0}...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Anda harus menyelesaikan Penyiapan Sinkronisasi terlebih dahulu.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Nama pengguna dan/atau kata sandi yang Anda masukkan salah.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Kunci Crypto yang Anda masukkan salah.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigAsk" xml:space="preserve">
+    <value>Apakah Anda ingin mengatur ulang pengaturan Sinkronisasi dan memulai dari awal?</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigNo" xml:space="preserve">
+    <value>Tidak
+mengedit pengaturan yang ada</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncReplaceConfigYes" xml:space="preserve">
+    <value>Ya
+mulai dari awal</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Data yang saat ini tersimpan di server Sinkronisasi rusak.
+Anda dapat mengganti data yang tersimpan di server dengan memilih bahwa Anda tidak mengingat kunci Crypto.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Tidak dapat mengunduh katalog aplikasi.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Tidak dapat memuat feed untuk entri aplikasi '{0}'.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menggunakan koneksi yang tidak terenkripsi ke server Sinkronisasi?
+Koneksi terenkripsi menggunakan awalan https://.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Memperbarui</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Ini akan secara otomatis menghapus implementasi dari cache yang tidak lagi diperlukan setelah pembaruan. Lanjutkan?
+Penting: Aplikasi yang telah Anda "Jalankan" sebelumnya tanpa menambahkannya ke "Aplikasi saya" juga akan dihapus dari cache.  Anda harus online jika ingin menjalankannya kembali.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Bekerja...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+</root>

@@ -123,7 +123,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>A chave de criptografia é usada para criptografar o seus dados locais antes de transmiti-los para o servidor. Anote a chave sugerida ou escolha a sua própria. </value>
+    <value>A chave de criptografia é usada para criptografar o seus dados locais antes de transmiti-los para o servidor. Anote a chave sugerida ou escolha a sua própria.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
