@@ -16,7 +16,7 @@
 
   <!-- Global usings -->
   <ItemGroup>
-    <Reference Include="System.Net.Http" />
+    <Using Include="System.Net.Http" />
     <Using Include="NanoByte.Common.Controls" />
     <Using Include="NanoByte.Common.Drawing" />
     <Using Include="ZeroInstall.Central.WinForms.Properties" />
@@ -24,6 +24,7 @@
 
   <!-- Dependencies -->
   <ItemGroup>
+    <Reference Include="System.Net.Http" />
     <PackageReference Include="AeroWizard" Version="2.3.1" />
     <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
     <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
