@@ -23,8 +23,8 @@
     <Version>1.0.0-pre</Version>
 
     <!-- Dependency versions -->
-    <NanoByteCommonVersion>2.17.4</NanoByteCommonVersion>
-    <ZeroInstallVersion>2.25.2</ZeroInstallVersion>
+    <NanoByteCommonVersion>2.17.5</NanoByteCommonVersion>
+    <ZeroInstallVersion>2.25.3-rc-pre0031</ZeroInstallVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)App.config" />
