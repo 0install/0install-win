@@ -81,7 +81,7 @@ public static class ProgramUtils
             handler.Error(ex);
             return ExitCode.NotSupported;
         }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or Win32Exception)
         {
             handler.Error(ex);
             return ExitCode.IOError;
