@@ -158,12 +158,11 @@ partial class BootstrapProcess
                 });
                 _options.Add("wait", () => "Wait for {_embeddedConfig.AppName} to exit after running it.", _ => _wait = true);
             }
-            if (BootstrapConfig.Instance.IntegrateArgs is {} integrateArgs)
+            if (BootstrapConfig.Instance.IntegrateArgs != null)
             {
                 _options.Add("no-integrate", () => $"Do not integrate {appName} into the desktop environment.", _ => _noIntegrate = true);
                 _options.Add("integrate-args=", () => "Override command-line arguments for '0install integrate'.", x => _integrateArgs = x);
-                if (!integrateArgs.Contains("--machine"))
-                    _options.Add("machine", () => $"Integrate {appName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
+                _options.Add("machine", () => $"Integrate {appName} machine-wide (for the entire computer) instead of just for the current user.", _ => _machineWide = true);
             }
         }
         else
