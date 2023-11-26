@@ -57,6 +57,8 @@ public sealed partial class MainForm : Form
 
         folderBrowserDialog.SelectedPath = currentPath;
         folderBrowserDialog.Description = string.Format(LocalizableStrings.ChoosePath, BootstrapConfig.Instance.AppName ?? "Zero Install apps");
+
+        groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = true;
         UpdatePath();
 
         return _customPathResult.Task;
@@ -68,7 +70,6 @@ public sealed partial class MainForm : Form
             ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
             : folderBrowserDialog.SelectedPath;
 
-        groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = true;
         buttonContinue.Focus();
     }
 
