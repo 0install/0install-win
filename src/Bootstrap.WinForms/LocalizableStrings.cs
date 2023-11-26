@@ -7,15 +7,15 @@ public static class LocalizableStrings
 {
     public static string Continue => new LocalizableStringCollection
     {
-        {"en", "Install"},
-        {"de", "Installieren"},
-        {"es", "Instalar"},
-        {"fr", "Installer"},
-        {"it", "Installa"},
+        {"en", "&Install"},
+        {"de", "&Installieren"},
+        {"es", "&Instalar"},
+        {"fr", "&Installer"},
+        {"it", "&Installa"},
         {"ja", "インストール"},
-        {"nl", "Installeren"},
+        {"nl", "&Installeren"},
         {"pl", "Zainstaluj"},
-        {"pt", "Instalar"},
+        {"pt", "&Instalar"},
         {"ru", "Установить"},
         {"zh", "安装"}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
@@ -52,10 +52,10 @@ public static class LocalizableStrings
 
     public static string Change => new LocalizableStringCollection
     {
-        {"en", "Change"},
-        {"de", "Ändern"},
-        {"es", "Cambiar"},
-        {"fr", "Modifier"},
+        {"en", "&Change"},
+        {"de", "Ä&ndern"},
+        {"es", "&Cambiar"},
+        {"fr", "&Modifier"},
         {"it", "Sfoglia"},
         {"ja", "変更"},
         {"nl", "Wijzigen"},
