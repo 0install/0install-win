@@ -36,6 +36,7 @@ namespace ZeroInstall
             this.buttonContinue = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupPath = new System.Windows.Forms.GroupBox();
+            this.buttonMachineWide = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSplashScreen)).BeginInit();
             this.groupPath.SuspendLayout();
             this.SuspendLayout();
@@ -101,7 +102,7 @@ namespace ZeroInstall
             this.buttonContinue.Location = new System.Drawing.Point(342, 262);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(100, 37);
-            this.buttonContinue.TabIndex = 3;
+            this.buttonContinue.TabIndex = 4;
             this.buttonContinue.Text = "(Continue)";
             this.buttonContinue.UseVisualStyleBackColor = true;
             this.buttonContinue.Visible = false;
@@ -114,7 +115,7 @@ namespace ZeroInstall
             this.buttonCancel.Location = new System.Drawing.Point(448, 262);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 37);
-            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "(Cancel)";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Visible = false;
@@ -133,6 +134,18 @@ namespace ZeroInstall
             this.groupPath.Text = "(DestinationFolder)";
             this.groupPath.Visible = false;
             // 
+            // buttonMachineWide
+            // 
+            this.buttonMachineWide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMachineWide.Location = new System.Drawing.Point(12, 262);
+            this.buttonMachineWide.Name = "buttonMachineWide";
+            this.buttonMachineWide.Size = new System.Drawing.Size(100, 37);
+            this.buttonMachineWide.TabIndex = 3;
+            this.buttonMachineWide.Text = "(Machine Wide)";
+            this.buttonMachineWide.UseVisualStyleBackColor = true;
+            this.buttonMachineWide.Visible = false;
+            this.buttonMachineWide.Click += new System.EventHandler(this.buttonMachineWide_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonContinue;
@@ -141,6 +154,7 @@ namespace ZeroInstall
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(560, 311);
+            this.Controls.Add(this.buttonMachineWide);
             this.Controls.Add(this.groupPath);
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.buttonCancel);
@@ -166,6 +180,7 @@ namespace ZeroInstall
         private System.Windows.Forms.PictureBox pictureBoxSplashScreen;
         private NanoByte.Common.Controls.TaskControl taskControl;
         private System.Windows.Forms.Label labelAppName;
+        private System.Windows.Forms.Button buttonMachineWide;
         private System.Windows.Forms.GroupBox groupPath;
         private System.Windows.Forms.TextBox textPath;
         private System.Windows.Forms.Button buttonChangePath;

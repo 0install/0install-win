@@ -5,6 +5,21 @@ namespace ZeroInstall;
 
 public static class LocalizableStrings
 {
+    public static string MachineWide => new LocalizableStringCollection
+    {
+        {"en", "For &all users"},
+        {"de", "Für &alle Benutzer"},
+        {"es", "Para &todos os utilizadores"},
+        {"fr", "Pour &tous les utilisateurs"},
+        {"it", "Per &tutti gli utenti"},
+        {"ja", "すべてのユーザー"},
+        {"nl", "Voor &alle gebruikers"},
+        {"pl", "Dla &wszystkich użytkowników"},
+        {"pt", "Para &todos os utilizadores"},
+        {"ru", "Для всех пользователей"},
+        {"zh", "面向所有用户"}
+    }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
+
     public static string Continue => new LocalizableStringCollection
     {
         {"en", "&Install"},

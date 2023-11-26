@@ -25,6 +25,7 @@ public sealed partial class MainForm : Form
         HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
         Text = BootstrapConfig.Instance.AppName ?? "Zero Install";
+        buttonMachineWide.Text = LocalizableStrings.MachineWide;
         buttonContinue.Text = LocalizableStrings.Continue;
         buttonCancel.Text = LocalizableStrings.Cancel;
         groupPath.Text = string.Format(LocalizableStrings.DestinationFolder, BootstrapConfig.Instance.AppName ?? "Zero Install");
@@ -59,6 +60,11 @@ public sealed partial class MainForm : Form
         folderBrowserDialog.Description = string.Format(LocalizableStrings.ChoosePath, BootstrapConfig.Instance.AppName ?? "Zero Install apps");
 
         groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = true;
+        if (BootstrapConfig.Instance.IntegrateArgs != null && !machineWide)
+        {
+            buttonMachineWide.AddShieldIcon();
+            buttonMachineWide.Visible = true;
+        }
         UpdatePath();
 
         return _customPathResult.Task;
@@ -142,9 +148,27 @@ public sealed partial class MainForm : Form
             || Msg.OkCancel(this, string.Format(LocalizableStrings.FolderNotEmpty, path), MsgSeverity.Warn, LocalizableStrings.UseAnyway, LocalizableStrings.ChooseDifferent);
     }
 
+    private void buttonMachineWide_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            ProgramUtils.GetStartInfo(GetCommandLineArgs().Skip(1).Prepend("--machine").ToArray())
+                        .AsAdmin().Start();
+            Cancel();
+        }
+        #region Error handling
+        catch (OperationCanceledException)
+        {}
+        catch (IOException ex)
+        {
+            Msg.Inform(this, ex.Message, MsgSeverity.Error);
+        }
+        #endregion
+    }
+
     private void buttonContinue_Click(object sender, EventArgs e)
     {
-        groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = false;
+        buttonMachineWide.Visible = groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = false;
         _customPathResult.SetResult(folderBrowserDialog.SelectedPath);
     }
 
