@@ -81,7 +81,7 @@ public record BootstrapConfig(IniData IniData, string? KeyFingerprint, FeedUri? 
         else
         {
             Log.Debug($"Loading embedded bootstrap config");
-            return typeof(BootstrapProcess).GetEmbeddedStream("config.ini");
+            return typeof(BootstrapProcess).GetEmbeddedStream("BootstrapConfig.ini");
         }
     }
 }
