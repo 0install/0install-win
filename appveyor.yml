@@ -5,6 +5,7 @@ cache:
 
 before_build:
   - powershell .\0install.ps1 run --batch https://apps.0install.net/devel/gitversion.xml /verbosity quiet /output buildserver
+  - dotnet tool install --global wix
 
 build_script:
   - powershell .\src\build.ps1 %GitVersion_NuGetVersion%

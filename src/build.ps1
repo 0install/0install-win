@@ -39,6 +39,15 @@ Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
 Remove-Item ..\artifacts\Release\net472\* -Include *.xml,*.pdb -Exclude ZeroInstall.VisualElementsManifest.xml
 Remove-Item ..\artifacts\Release\net472\*\Microsoft.CodeAnalysis*.resources.dll
 
+# Build Windows Installer package
+if (Get-Command wix -ErrorAction SilentlyContinue) {
+    pushd Bootstrap.WinForms
+    wix build zero-install.wsx -o ..\..\artifacts\Bootstrap\zero-install.msi -pdbtype none
+    popd
+} else {
+    Write-Warning "You need wix (dotnet tool install --global wix) to build the Windows Installer package"
+}
+
 # Generate bootstrap package for PowerShell Gallery (OneGet)
 $env:PATH = "$env:PATH;${env:ProgramFiles(x86)}\Windows Kits\10\bin\x64;${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x64"
 if (Get-Command mt -ErrorAction SilentlyContinue) {

@@ -1,0 +1,30 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package Name="Zero Install" Manufacturer="0install.net" Version="1.0.0.0" Scope="perUserOrMachine" UpgradeCode="6E81083D-C99E-4CC5-A522-5C7DEA8239AF" ProductCode="2EBFC5A4-AA36-40F7-BC06-C27E7A3051E1" InstallerVersion="500" Language="0" Codepage="0">
+
+    <!-- We need a component and feature, or msiexec will refuse to load us. -->
+    <StandardDirectory Id="TempFolder">
+      <Component Id="EmptyComponent" Guid="67D47F7B-84E1-48C3-A7A3-B77E182EAE3D">
+        <CreateFolder />
+      </Component>
+    </StandardDirectory>
+    
+    <!-- Setting the feature to level 0 marks it hidden, so it can't be installed. That prevents getting this MSI registered as an installed product, because it has no features of its own to install. -->
+    <Feature Id="EmptyFeature" Level="0">
+      <ComponentRef Id="EmptyComponent" />
+    </Feature>
+
+    <!-- Embed the installer we want to run directly into the MSI database. -->
+    <Binary Id="WrappedExe" SourceFile="..\..\artifacts\Bootstrap\zero-install.exe" />
+
+    <!-- Run installer with different command-line arguments and either impersonated or not based on install context (per-use or machine-wide). -->
+    <CustomAction Id="InstallPerUser" Execute="deferred" HideTarget="no" BinaryRef="WrappedExe" Impersonate="yes" ExeCommand="self deploy --batch" />
+    <CustomAction Id="InstallMachineWide" Execute="deferred" HideTarget="no" BinaryRef="WrappedExe" Impersonate="no" ExeCommand="self deploy --batch --machine" />
+    <InstallExecuteSequence>
+      <Custom Action="InstallPerUser" After="ProcessComponents" Condition="NOT ALLUSERS" />
+      <Custom Action="InstallMachineWide" After="ProcessComponents" Condition="ALLUSERS" />
+    </InstallExecuteSequence>
+
+  </Package>
+
+</Wix>
