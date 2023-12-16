@@ -28,8 +28,8 @@ jobs:
           ./0install.sh run https://apps.0install.net/0install/0template.xml 0install-win.xml.template version=${{steps.download.outputs.version}}
 
           cd artifacts/Bootstrap
-          zip -9 0install.zip 0install.*
-          zip -9 zero-install.zip zero-install.*
+          zip -9 0install.zip 0install.exe 0install.exe.config 0install.ini
+          zip -9 zero-install.zip zero-install.exe zero-install.exe.config zero-install.ini
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -37,8 +37,9 @@ jobs:
           tag_name: ${{steps.download.outputs.version}}
           files: |
             0install-win-${{steps.download.outputs.version}}.*
-            artifacts/Bootstrap/*.zip
             artifacts/Bootstrap/*.exe
+            artifacts/Bootstrap/*.zip
+            artifacts/Bootstrap/*.msi
           body: |
             **[Download Zero Install for Windows](https://get.0install.net/#windows)**
 
