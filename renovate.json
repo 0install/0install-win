@@ -10,7 +10,7 @@
       "automergeType": "branch"
     },
     {
-      "matchPackagePatterns": ["AeroWizard"],
+      "matchPackagePatterns": ["wix", "AeroWizard"],
       "automerge": true,
       "automergeType": "branch"
     }
