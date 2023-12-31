@@ -7,4 +7,4 @@ using ZeroInstall.Commands.Basic;
 ProgramUtils.Init();
 
 using var handler = new CliCommandHandler();
-return (int)ProgramUtils.Run("0install", args.Prepend(Run.Name), handler);
+return (int)ProgramUtils.Run("0install", [Run.Name, ..args], handler);

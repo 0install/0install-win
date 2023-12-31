@@ -136,7 +136,7 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
             Log.Info("Searching for partial match in Catalog: " + query);
             return CatalogManager.GetCachedSafe().Search(query);
         }
-        else return new[] {feed};
+        else return [feed];
     }
 
     public void FindPackageBy(string identifier)
@@ -165,7 +165,7 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
         if (FeedCache.GetFeed(requirements.InterfaceUri) is {} feed)
         {
             exporter.ExportIcons(
-                feed.Icons.Concat(feed.SplashScreens),
+                [..feed.Icons, ..feed.SplashScreens],
                 IconStores.DesktopIntegration(Config, Handler, machineWide: false));
         }
         exporter.DeployImportScript();

@@ -44,7 +44,7 @@ partial class BootstrapProcess
         if (ApplyBootstrapConfig && BootstrapConfig.Instance.CatalogUri is {} catalogUri)
         {
             Log.Info($"Setting custom catalog source: {catalogUri}");
-            Services.Feeds.CatalogManager.SetSources(new[] {catalogUri}, _machineWide);
+            Services.Feeds.CatalogManager.SetSources([catalogUri], _machineWide);
         }
     }
 
@@ -78,7 +78,7 @@ partial class BootstrapProcess
             _machineWide = true;
         }
 
-        var newPaths = string.IsNullOrEmpty(newPath) ? Array.Empty<string>() : new[] {newPath};
+        string[] newPaths = string.IsNullOrEmpty(newPath) ? [] : [newPath];
         if (_machineWide) ImplementationStores.SetMachineWideDirectories(newPaths);
         else ImplementationStores.SetUserDirectories(newPaths);
     }

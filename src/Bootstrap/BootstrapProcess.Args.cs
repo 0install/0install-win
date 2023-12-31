@@ -19,7 +19,7 @@ partial class BootstrapProcess
     private VersionRange? _appVersion;
 
     /// <summary>Arguments passed through to the target process.</summary>
-    private readonly List<string> _userArgs = new();
+    private readonly List<string> _userArgs = [];
 
     /// <summary>Run in off-line mode, not downloading anything.</summary>
     private bool _offline;
@@ -236,7 +236,7 @@ partial class BootstrapProcess
         if (_handler.Background && !args.Contains("central"))
             AddArg("--background");
 
-        if (args.Intersect(new[] {"select", "download", "run", "add", "integrate"}).Any())
+        if (args.Intersect(["select", "download", "run", "add", "integrate"]).Any())
         {
             if (_offline) AddArg("--offline");
             if (FeedManager.Refresh) AddArg("--refresh");

@@ -39,7 +39,7 @@ public sealed partial class StoreService : ServiceBase
 
     private const int IncorrectFunction = 1, AccessDenied = 5, InvalidHandle = 6, UnableToWriteToDevice = 29;
 
-    public void Start() => OnStart(Array.Empty<string>());
+    public void Start() => OnStart([]);
 
     protected override void OnStart(string[] args)
     {

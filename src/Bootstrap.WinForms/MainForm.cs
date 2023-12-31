@@ -152,7 +152,7 @@ public sealed partial class MainForm : Form
     {
         try
         {
-            ProgramUtils.GetStartInfo(GetCommandLineArgs().Skip(1).Prepend("--machine").ToArray())
+            ProgramUtils.GetStartInfo(["--machine", ..GetCommandLineArgs().Skip(1)])
                         .AsAdmin().Start();
             Cancel();
         }

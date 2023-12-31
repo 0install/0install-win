@@ -17,6 +17,6 @@ if (args.Contains("--debug"))
     service.Start();
     Thread.Sleep(int.MaxValue);
 }
-else ServiceBase.Run(new ServiceBase[] {new StoreService()});
+else ServiceBase.Run([new StoreService()]);
 
 return 0;

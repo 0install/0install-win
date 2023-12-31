@@ -28,8 +28,8 @@ public abstract class PackageProviderBase
         request.Debug("Calling '{0}::GetFeatures'", PackageProviderName);
         request.Yield(new Dictionary<string, string[]>
         {
-            [Constants.Features.SupportedExtensions] = new[] {"xml"},
-            [Constants.Features.SupportedSchemes] = new[] {"http", "https", "file"}
+            [Constants.Features.SupportedExtensions] = ["xml"],
+            [Constants.Features.SupportedSchemes] = ["http", "https", "file"]
         });
     }
 

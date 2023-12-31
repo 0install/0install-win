@@ -63,12 +63,11 @@ internal sealed partial class MainForm : Form
             string exePath = Path.Combine(Locations.InstallBase, "ZeroInstall.exe");
             string commandsExe = Path.Combine(Locations.InstallBase, "0install-win.exe");
             WindowsTaskbar.SetWindowAppID(Handle, "ZeroInstall", exePath.EscapeArgument(), exePath, "Zero Install");
-            WindowsTaskbar.AddTaskLinks("ZeroInstall", new[]
-            {
+            WindowsTaskbar.AddTaskLinks("ZeroInstall", [
                 new WindowsTaskbar.ShellLink(buttonSync.Text.Replace("&", ""), commandsExe, SyncApps.Name),
                 new WindowsTaskbar.ShellLink(buttonUpdateAll.Text.Replace("&", ""), commandsExe, UpdateApps.Name),
                 new WindowsTaskbar.ShellLink(buttonStoreManage.Text.Replace("&", ""), commandsExe, StoreMan.Name + " manage")
-            });
+            ]);
         }
         else WindowsTaskbar.PreventPinning(Handle);
     }
@@ -361,8 +360,8 @@ internal sealed partial class MainForm : Form
             }
 
             CommandUtils.Start(machineWide
-                ? new[] {Self.Name, Self.Deploy.Name, "--batch", "--restart-central", "--machine"}
-                : new[] {Self.Name, Self.Deploy.Name, "--batch", "--restart-central"});
+                ? [Self.Name, Self.Deploy.Name, "--batch", "--restart-central", "--machine"]
+                : [Self.Name, Self.Deploy.Name, "--batch", "--restart-central"]);
             Close();
         });
     }
@@ -420,5 +419,5 @@ internal sealed partial class MainForm : Form
     #endregion
 
     private Task<ExitCode> RunAppCommandAsync(params string[] args)
-        => CommandUtils.RunAsync(_machineWide ? args.Append("--machine") : args);
+        => CommandUtils.RunAsync(_machineWide ? [..args, "--machine"] : args);
 }

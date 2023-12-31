@@ -91,7 +91,7 @@ partial class GuiCommandHandler
         XmlElement Element(string tagName, IEnumerable<IXmlNode>? children = null, IDictionary<string, string>? attributes = null, string? innerText = null)
         {
             var element = doc.CreateElement(tagName);
-            foreach (var child in children ?? Enumerable.Empty<IXmlNode>())
+            foreach (var child in children ?? [])
                 element.AppendChild(child);
             foreach ((string key, string value) in attributes ?? new Dictionary<string, string>())
                 element.SetAttribute(key, value);
@@ -99,17 +99,14 @@ partial class GuiCommandHandler
             return element;
         }
 
-        doc.AppendChild(Element("toast", new[]
-        {
-            Element("visual", new[]
-            {
-                Element("binding", new[]
-                {
+        doc.AppendChild(Element("toast", [
+            Element("visual", [
+                Element("binding", [
                     Element("text", innerText: title),
                     Element("text", innerText: message)
-                }, new Dictionary<string, string> {["template"] = "ToastGeneric"})
-            })
-        }));
+                ], new Dictionary<string, string> {["template"] = "ToastGeneric"})
+            ])
+        ]));
 
         ToastNotificationManager.CreateToastNotifier(appId)
                                 .Show(new ToastNotification(doc));

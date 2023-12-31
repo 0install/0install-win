@@ -200,7 +200,7 @@ public sealed partial class ProgressForm : Form
     #endregion
 
     #region Task tracking
-    private readonly List<(ITask task, DeferredProgress<TaskSnapshot> progress)> _deferredProgress = new();
+    private readonly List<(ITask task, DeferredProgress<TaskSnapshot> progress)> _deferredProgress = [];
 
     /// <summary>
     /// Adds a GUI element for reporting progress of a task. Multiple tasks may be run in parallel.

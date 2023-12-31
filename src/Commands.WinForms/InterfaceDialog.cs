@@ -30,7 +30,7 @@ public sealed partial class InterfaceDialog : OKCancelDialog
     private readonly InterfacePreferences _interfacePreferences;
 
     /// <summary>The last implementation selected for this interface.</summary>
-    private IEnumerable<SelectionCandidate> _candidates = Enumerable.Empty<SelectionCandidate>();
+    private IEnumerable<SelectionCandidate> _candidates = [];
     #endregion
 
     #region Constructor
@@ -52,7 +52,7 @@ public sealed partial class InterfaceDialog : OKCancelDialog
         Font = DefaultFonts.Modern;
         this.PreventPinningIfNotIntegrated();
 
-        comboBoxStability.Items.AddRange(new object[] {Resources.UseDefaultSetting, Stability.Stable, Stability.Testing, Stability.Developer});
+        comboBoxStability.Items.AddRange([Resources.UseDefaultSetting, Stability.Stable, Stability.Testing, Stability.Developer]);
         dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Stable, Stability.Testing, Stability.Developer, Stability.Buggy, Stability.Insecure);
 
         _interfaceUri = interfaceUri;
@@ -105,12 +105,12 @@ public sealed partial class InterfaceDialog : OKCancelDialog
     {
         try
         {
-            _candidates = _solveCallback()[_interfaceUri].Candidates ?? Enumerable.Empty<SelectionCandidate>();
+            _candidates = _solveCallback()[_interfaceUri].Candidates ?? [];
         }
         #region Error handling
         catch (Exception ex) when (ex is KeyNotFoundException or OperationCanceledException)
         {
-            _candidates = Enumerable.Empty<SelectionCandidate>();
+            _candidates = [];
         }
         catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
         {

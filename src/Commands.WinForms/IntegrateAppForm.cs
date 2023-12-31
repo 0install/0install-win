@@ -160,7 +160,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     #endregion
 
     #region Default access points
-    private readonly List<CheckBox> _defaultAccessPointCheckBoxes = new();
+    private readonly List<CheckBox> _defaultAccessPointCheckBoxes = [];
 
     /// <summary>
     /// Sets up the UI elements for configuring <see cref="DefaultAccessPoint"/>s.
@@ -254,7 +254,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     /// <summary>
     /// A map from category names to functions indicating whether that category is currently selected.
     /// </summary>
-    private readonly Dictionary<string, Func<bool>> _categories = new();
+    private readonly Dictionary<string, Func<bool>> _categories = [];
 
     /// <summary>
     /// The <see cref="CategoryIntegrationManager.StandardCategories"/> that are also in <see cref="_categories"/>.
@@ -264,7 +264,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     /// <summary>
     /// The categories that where selected when the window was loaded.
     /// </summary>
-    private readonly List<string> _initialCategories = new();
+    private readonly List<string> _initialCategories = [];
 
     /// <summary>
     /// Registers the association between a category and one or more checkboxes.

@@ -511,7 +511,7 @@ public sealed partial class SyncWizard : Form
 
     private void ResetSync(string target)
         => CommandUtils.Start(_machineWide
-            ? new[] {SyncApps.Name, $"--reset={target}", "--machine"}
-            : new[] {SyncApps.Name, $"--reset={target}"});
+            ? [SyncApps.Name, $"--reset={target}", "--machine"]
+            : [SyncApps.Name, $"--reset={target}"]);
     #endregion
 }

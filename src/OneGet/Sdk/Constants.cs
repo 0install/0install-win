@@ -94,7 +94,7 @@ namespace PackageManagement.Sdk {
             public const string Cab = "4D534346";
             public const string OleCompoundDocument = "D0CF11E0A1B11AE1";
             public const string Zip = "504b0304";
-            public static string[] ZipVariants = new[] {Zip, /* should have EXEs? */};
+            public static string[] ZipVariants = [Zip /* should have EXEs? */];
         }
 
         public static partial class SwidTag {

@@ -101,8 +101,7 @@ public sealed partial class AppDropDown : DropDownContainer
     }
 
     private Task<ExitCode> RunCommandAsync(params string[] args)
-    {
-        if (_machineWide) args = args.Append("--machine");
-        return CommandUtils.RunAsync(args.Append(_interfaceUri.ToStringRfc()));
-    }
+        => CommandUtils.RunAsync(_machineWide
+            ? [..args, "--machine", _interfaceUri.ToStringRfc()]
+            : [..args, _interfaceUri.ToStringRfc()]);
 }

@@ -60,7 +60,7 @@ public class OneGetContextInterceptor(Request request) : IInterceptor
     {
         using var handler = new OneGetBootstrapHandler(request);
         var bootstrap = new BootstrapProcess(handler);
-        var startInfo = bootstrap.ZeroInstallDeployed(Array.Empty<string>()) ?? bootstrap.ZeroInstallCached(Array.Empty<string>());
+        var startInfo = bootstrap.ZeroInstallDeployed([]) ?? bootstrap.ZeroInstallCached([]);
         return Path.GetDirectoryName(startInfo.FileName)!;
     }
 
