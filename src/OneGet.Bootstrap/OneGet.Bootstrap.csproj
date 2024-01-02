@@ -15,7 +15,7 @@
     <ProjectReference Include="..\Bootstrap\Bootstrap.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ILRepack" Version="2.0.21" />
+    <PackageReference Include="ILRepack" Version="2.0.22" />
     <PackageReference Include="LinFu.DynamicProxy.OfficialRelease" Version="1.0.5" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
   </ItemGroup>

@@ -13,7 +13,7 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <PackageReference Include="ILRepack" Version="2.0.21" />
+    <PackageReference Include="ILRepack" Version="2.0.22" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
     <PackageReference Include="ZeroInstall.Services" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
