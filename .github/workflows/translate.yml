@@ -50,6 +50,7 @@ jobs:
           source-lang: en
           localization-filter: cs;el;es;fr;id;it;ja;ko;nl;pl;pt-PT;ro;ru;zh
           glossary-name: Zero Install
+          context: User interface for software installation with menus, buttons and progress bars. Downloads files from the internet and runs apps.
           excludes-regex: .*ImageResources.*
 
       - name: Create Pull Request
