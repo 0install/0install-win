@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
-    <value>신청하기</value>
+    <value>적용</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
-    <value>출시</value>
+    <value>출시됨</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>안정성을 선호합니다:</value>
+    <value>선호되는 안정성:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">

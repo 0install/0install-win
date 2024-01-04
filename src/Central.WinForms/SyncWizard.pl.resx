@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Chcę zmienić mój klucz kryptograficzny</value>
+    <value>Chcę zmienić klucz kryptograficzny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Zapomniałem klucza</value>
+    <value>Zapomniany klucz</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>Chcę zastąpić moje dane lokalne</value>
+    <value>Chcę zastąpić moje lokalne dane</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Odpowiednik w wierszu poleceń</value>
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Podczas trwania tego procesu nie należy uruchamiać Zero Install Sync na innych komputerach.</value>
+    <value>Nie należy uruchamiać Zero Install Sync na innych komputerach, gdy ten proces jest uruchomiony.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Klucz kryptograficzny został zmieniony. Teraz należy wprowadzić nowy klucz na wszystkich innych komputerach, na których skonfigurowano już Zero Install Sync.</value>
+    <value>Klucz kryptograficzny został zmieniony. Teraz konieczne będzie wprowadzenie nowego klucza na wszystkich innych komputerach, na których skonfigurowano już Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Klucz kryptograficzny służy do lokalnego szyfrowania danych przed przesłaniem ich na serwer. Zapisz sugerowany klucz lub wybierz własny.</value>
+    <value>Klucz kryptograficzny służy do lokalnego szyfrowania danych przed przesłaniem ich na serwer. Zapisz sugerowany lub wybierz własny.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Po utworzeniu konta, zweryfikowaniu adresu e-mail i zanotowaniu danych logowania, kliknij "Dalej".</value>
+    <value>Po utworzeniu konta, zweryfikowaniu adresu e-mail i zanotowaniu danych logowania, kliknij przycisk "Dalej".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Możesz także zresetować dane lokalne na innych komputerach, na których używasz Zero Install Sync.</value>
+    <value>Możesz także zresetować lokalne dane na innych komputerach, na których używasz Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -171,19 +171,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de oferuje darmowe konta do przechowywania danych Sync. Wszystkie dane są szyfrowane lokalnie, zanim zostaną przesłane na serwer. Jeśli chcesz, możesz użyć własnego serwera do przechowywania danych.</value>
+    <value>0install.de zapewnia bezpłatne konta do przechowywania danych synchronizacji. Wszystkie dane są szyfrowane lokalnie, zanim zostaną przesłane na serwer. Jeśli chcesz, możesz użyć własnego serwera do przechowywania danych.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
-    <value>Którego serwera chcesz używać?</value>
+    <value>Którego serwera chcesz użyć?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Czy jest to pierwszy komputer, na którym konfigurujesz Zero Install Sync?</value>
+    <value>Czy to pierwszy komputer, na którym konfigurujesz Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync jest teraz skonfigurowany i gotowy do użycia. Uruchom ten kreator na wszystkich innych komputerach, które chcesz zsynchronizować z tym.</value>
+    <value>Zero Install Sync jest teraz skonfigurowany i gotowy do użycia. Uruchom ten kreator na innych komputerach, które chcesz zsynchronizować z tym.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -199,15 +199,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Rejestr</value>
+    <value>Zarejestruj się</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Użyj niestandardowego serwera:</value>
+    <value>Używa niestandardowego serwera:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Użyj udziału plików systemu Windows:</value>
+    <value>Korzystanie z udziału plików systemu Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Zmieniono klucz kryptograficzny</value>
+    <value>Zmiana klucza kryptograficznego</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
@@ -263,7 +263,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
-    <value>Serwer synchronizacji</value>
+    <value>Sync Server</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">

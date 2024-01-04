@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>내 암호화 키를 변경하고 싶습니다</value>
+    <value>암호화 키를 변경하고 싶습니다</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>아래에 동기화 서버의 로그인 자격 증명을 입력하세요:</value>
+    <value>아래에 동기화 서버에 대한 로그인 자격 증명을 입력하세요:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>새 암호화 키:</value>
+    <value>새로운 암호화 키:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>새 암호화 키:</value>
+    <value>새로운 암호화 키:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>암호화 키는 데이터를 서버로 전송하기 전에 로컬에서 암호화하는 데 사용됩니다. 제안된 키를 적어 두거나 직접 선택하세요.</value>
+    <value>암호화 키는 데이터를 서버로 전송하기 전에 로컬에서 암호화하는 데 사용됩니다. 제안된 키를 적어두거나 직접 선택하세요.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>계정을 생성하고 이메일 주소를 인증한 후 로그인 자격 증명을 입력했으면 '다음'을 클릭합니다.</value>
+    <value>계정을 만들고 이메일 주소를 인증하고 로그인 자격 증명을 기록했으면 '다음'을 클릭합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>로컬 애플리케이션 목록이 재설정되고 있습니다. 이제 제로 설치를 계속 사용할 수 있습니다.</value>
+    <value>로컬 애플리케이션 목록이 재설정 중입니다. 이제 제로 인스톨을 계속 사용할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -159,11 +159,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>서버 데이터가 재설정 중입니다. 이제 제로 설치를 계속 사용할 수 있습니다.</value>
+    <value>서버 데이터가 재설정 중입니다. 이제 제로 인스톨을 계속 사용할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>제로 설치 동기화를 사용 중인 다른 컴퓨터의 로컬 데이터를 재설정할 수도 있습니다.</value>
+    <value>제로 인스톨 동기화를 사용 중인 다른 컴퓨터의 로컬 데이터를 초기화할 수도 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>제로 인스톨 동기화는 애플리케이션 목록과 데스크톱 통합을 가져와서 다른 컴퓨터로 자동으로 전송합니다.</value>
+    <value>제로 인스톨 동기화는 애플리케이션 목록과 데스크톱 통합을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -199,11 +199,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>등록하기</value>
+    <value>등록</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>사용자 지정 서버를 사용합니다:</value>
+    <value>사용자 지정 서버 사용:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">

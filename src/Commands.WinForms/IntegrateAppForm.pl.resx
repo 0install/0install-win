@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Uwzględnia tę aplikację w kontrolach "Aktualizuj wszystko".</value>
+    <value>Obejmuje tę aplikację w kontrolach "Aktualizuj wszystko".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program domyślny</value>
+    <value>Domyślny program</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
-    <value>Usługa</value>
+    <value>Obsługa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Domyślny</value>
+    <value>Domyślne</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
@@ -287,7 +287,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Odpowiednik w wierszu poleceń</value>
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Automatyczne uruchamianie po włożeniu odpowiedniego nośnika (DVD, dysk USB itp.)</value>
+    <value>Automatyczne uruchamianie po włożeniu odpowiedniego nośnika (DVD, napęd USB itp.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -303,7 +303,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Wpisy menu kontekstowego w Eksploratorze Windows</value>
+    <value>Pozycje menu kontekstowego w Eksploratorze Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
@@ -315,19 +315,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Domyślna obsługa obsługiwanych typów plików (opcja "Otwórz za pomocą" działa również bez niej)</value>
+    <value>Domyślna obsługa obsługiwanych typów plików ("Otwórz za pomocą" działa również bez tego)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Pozycja w menu "Wyślij do&amp;quot</value>
+    <value>Wpis w menu "Wyślij do&amp;quot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Jeden lub więcej wpisów w menu Start</value>
+    <value>Jeden lub więcej wpisów w menu start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Domyślna obsługa dla obsługiwanych protokołów URL ("Otwórz za pomocą" działa również bez tego)</value>
+    <value>Domyślna obsługa obsługiwanych protokołów URL ("Otwórz za pomocą" działa również bez tego)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -347,7 +347,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Programy domyślne</value>
+    <value>Domyślne programy</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Odpowiednik w wierszu poleceń</value>
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

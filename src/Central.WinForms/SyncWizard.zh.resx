@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>我想更改我的加密密钥</value>
+    <value>我想更改加密密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>忘记带钥匙</value>
+    <value>忘记密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>服务器上存储的数据受损</value>
+    <value>服务器上存储的数据会受损</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>是的，这是第一台计算机</value>
+    <value>是的，这是第一台电脑</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>运行此程序时，不应在其他计算机上运行 Zero Install Sync。</value>
+    <value>运行此程序时，不得在其他电脑上运行 Zero Install Sync。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -99,15 +99,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>新加密密钥：</value>
+    <value>新的加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>加密密钥已更改。现在，您需要在已为零安装同步设置的所有其他计算机上输入新密钥。</value>
+    <value>加密密钥已更改。现在，您需要在已为 Zero Install Sync 设置的所有其他电脑上输入新密钥。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>在其他计算机上使用 "选项 "窗口输入密钥。请勿在此处使用该向导，因为它仅用于执行初始更改。</value>
+    <value>在其他电脑上使用 "选项 "窗口输入密钥。请勿在此处使用该向导，因为它仅用于执行初始更改。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -115,19 +115,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>新加密密钥：</value>
+    <value>新的加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>请输入您以前在这台和/或其他电脑上使用过的加密密钥：</value>
+    <value>请输入您以前在本电脑和/或其他电脑上使用过的加密密钥：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>加密密钥用于在将数据传输到服务器之前对本地数据进行加密。请写下建议的密钥或选择自己的密钥。</value>
+    <value>加密密钥用于在将数据传输到服务器之前对本地数据进行加密。请写下建议的密钥或选择您自己的密钥。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>将此密钥保密，并使用不同的密码。这样，即使服务器遭到破坏，也不会有人访问您的数据。</value>
+    <value>请将此密钥保密，并使用不同的密码。这样，即使服务器遭到破坏，也不会有人访问你的数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -147,27 +147,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>本地应用程序列表正在重置。现在您可以继续使用零安装。</value>
+    <value>本地应用程序列表正在重置。现在您可以继续使用 Zero Install。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>您在其他电脑上所做的但尚未与这台电脑同步的任何更改都将丢失！</value>
+    <value>您在其他电脑上所做的任何更改，如果尚未与这台电脑同步，都将丢失！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>您即将用本地应用程序列表替换同步服务器上存储的数据。您在其他电脑上所做的但尚未与本机同步的任何更改都将丢失！</value>
+    <value>您即将用本地应用程序列表替换同步服务器上存储的数据。您在其他电脑上所做的任何更改，如果尚未与本机同步，都将丢失！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>服务器数据正在重置。现在您可以继续使用零安装。</value>
+    <value>服务器数据正在重置。现在您可以继续使用 Zero Install。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>您可能还希望重置正在使用 Zero Install Sync 的其他计算机上的本地数据。</value>
+    <value>您可能还希望重置正在使用 Zero Install Sync 的其他电脑上的本地数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>该向导可以帮助您解决许多可能的同步问题。您希望解决什么问题？</value>
+    <value>该向导可帮助您解决许多可能的同步问题。您希望解决什么问题？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -179,11 +179,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>这是您为零安装同步设置的第一台计算机吗？</value>
+    <value>这是您为零安装同步设置的第一台电脑吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>现在，零安装同步已设置完毕，随时可以使用。请在希望与这台电脑保持同步的其他电脑上运行该向导。</value>
+    <value>现在，Zero Install Sync 已设置完毕，可以随时使用。在你希望与这台电脑保持同步的任何其他电脑上运行该向导。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -191,7 +191,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
-    <value>用户名</value>
+    <value>用户名：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>加密密钥已更改</value>
+    <value>更换加密密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>ポータブル・クリエーター</value>
+    <value>ポータブルクリエーター</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
@@ -79,12 +79,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>ここでは、USBメモリなどで使用するポータブル版のゼロインストールを作成できます。ターゲットはNTFSフォーマットされている必要があります。</value>
+    <value>ここでは、USBメモリなどで使用するポータブル版のZero Installを作成できます。ターゲットがNTFSフォーマットされている必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Zero Install 設定とキャッシュされたアプリケーションを 1 つのディレクトリに格納します。
-- Zero Install で起動したアプリケーションは自動的にポータブルにはなりません。
+    <value>- Zero Install 設定とキャッシュされたアプリケーションを 1 つのディレクトリに保存します。
+- Zero Install で起動したアプリケーションは、自動的にポータブルにもなりません。
 - ポータブルバージョンの Zero Install では、デスクトップ統合 (スタートメニューエントリの作成など) を実行できません。
 - 代わりに、Zero Install Sync を使用して、複数のコンピュータで通常の Zero Install を使用することを検討してください。</value>
     <comment>Automatically translated.</comment>
@@ -94,7 +94,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>対象ディレクトリ</value>
+    <value>ターゲットディレクトリ</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

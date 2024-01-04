@@ -95,15 +95,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reiniciar</value>
+    <value>Repor</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprovar automaticamente novas chaves (se conhecidas pelo servidor de chaves)</value>
+    <value>Aprova automaticamente novas chaves (se conhecidas pelo servidor de chaves)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Ajudar a testar novas versões</value>
+    <value>Ajuda a testar novas versões</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,11 +115,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Directórios de cache de implementação</value>
+    <value>Implementação de directórios de cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Utilização da rede</value>
+    <value>Utilização em rede</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
@@ -135,13 +135,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Aviso: Alterar estas opções pode impedir que a Instalação Zero funcione corretamente.</value>
+    <value>Aviso: Alterar estas opções pode impedir que o Zero Install funcione corretamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Isto controla o idioma do:
-- Zero Install propriamente dito e
-- aplicações descarregadas pelo Zero Install.
+- Zero Install propriamente dita e
+- aplicações descarregadas pela Zero Install.
 
 Notas:
 - As traduções não estão disponíveis para todos os idiomas.
@@ -165,7 +165,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Gerir a conta</value>
+    <value>Gerir conta</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -185,7 +185,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Catálogo</value>
+    <value>Catálogo de produtos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
@@ -197,7 +197,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sincronizar</value>
+    <value>Sincronização</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">

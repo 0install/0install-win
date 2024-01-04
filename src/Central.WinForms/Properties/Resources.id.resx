@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Silakan masukkan URL feed Zero Install di sini:</value>
+    <value>Masukkan URL feed Zero Install di sini:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>melakukan hal-hal yang biasa</value>
+    <value>melakukan hal-hal biasa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
@@ -124,7 +124,7 @@ tambahkan ke "Aplikasi saya".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Cari aplikasi di "Katalog"...</value>
+    <value>Mencari aplikasi dalam "Katalog"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
@@ -133,15 +133,15 @@ di menu mulai atau di desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Anda dapat mengelola daftar aplikasi favorit Anda di sini.</value>
+    <value>Anda dapat mengelola daftar aplikasi favorit di sini.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... dan jalankan!</value>
+    <value>... dan menjalankannya!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Bersenang-senanglah!</value>
+    <value>Selamat bersenang-senang!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
@@ -149,7 +149,7 @@ di menu mulai atau di desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Mode seluruh alat berat</value>
+    <value>Mode seluruh mesin</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -157,7 +157,7 @@ di menu mulai atau di desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Tambahkan ke "Aplikasi saya"</value>
+    <value>Menambahkan ke "Aplikasi saya"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
@@ -186,7 +186,7 @@ Apakah Anda yakin ingin menempatkan versi portabel Zero Install di sana?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Jalankan</value>
+    <value>Menjalankan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -199,7 +199,7 @@ Apakah Anda yakin ingin menempatkan versi portabel Zero Install di sana?</value>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Tidak
-Buang perubahan</value>
+Membuang perubahan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -269,7 +269,7 @@ Penting: Aplikasi yang telah Anda "Jalankan" sebelumnya tanpa menambahkannya ke 
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Bekerja...</value>
+    <value>Bekerja</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

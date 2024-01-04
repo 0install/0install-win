@@ -63,11 +63,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Aggiungi</value>
+    <value>Aggiungere</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Aggiungi</value>
+    <value>Aggiungere</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reset</value>
+    <value>Azzeramento</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Contribuire a testare le nuove versioni</value>
+    <value>Aiuta a testare le nuove versioni</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementazione delle directory della cache</value>
+    <value>Implementazione delle directory di cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Questo controlla la lingua di:
+    <value>Controlla la lingua di:
 - Zero Install stesso e
 - applicazioni scaricate da Zero Install.
 
@@ -169,7 +169,7 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Pieno (uso normale della rete)</value>
+    <value>Completo (uso normale della rete)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
@@ -177,7 +177,7 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (non utilizzare la rete)</value>
+    <value>Offline (non utilizza la rete)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -193,7 +193,7 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Immagazzinamento</value>
+    <value>Archiviazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

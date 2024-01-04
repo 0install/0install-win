@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>Reîmprospătare</value>
+    <value>Actualizare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
-    <value>Rulați ca administrator</value>
+    <value>Rulare ca administrator</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>A verificat dimensiunea intrărilor:</value>
+    <value>Verifică dimensiunea intrărilor:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Dimensiunea curentă a intrării:</value>
+    <value>Dimensiunea intrării curente:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>Dimensiunea totală:</value>
+    <value>Dimensiune totală:</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

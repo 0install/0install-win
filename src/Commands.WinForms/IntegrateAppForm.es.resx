@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Integrar la aplicación</value>
+    <value>Integra aplicaciones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
-    <value>Ajustes básicos</value>
+    <value>Configuración básica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>Selecciona todos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>Arranque automático</value>
+    <value>Inicio automático</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Capacidades de registro</value>
+    <value>Funciones de registro</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>Selecciona todos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>Selecciona todos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>Selecciona todos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>Selecciona todos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
-    <value>Activado</value>
+    <value>Habilitado</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
@@ -299,11 +299,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Iniciar el programa automáticamente cuando el usuario se conecta</value>
+    <value>Inicia el programa automáticamente cuando el usuario inicia sesión</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Entradas del menú contextual en el Explorador de Windows</value>
+    <value>Entradas del menú contextual del Explorador de Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestor por defecto para los tipos de archivo admitidos ("Abrir con" también funciona sin esto)</value>
+    <value>Gestor predeterminado para los tipos de archivo compatibles ("Abrir con" también funciona sin él)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestor por defecto para los protocolos de URL compatibles ("Abrir con" también funciona sin esto)</value>
+    <value>Gestor predeterminado para los protocolos de URL compatibles ("Abrir con" también funciona sin él)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -339,7 +339,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>Arranque automático</value>
+    <value>Inicio automático</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
@@ -347,7 +347,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Programas por defecto</value>
+    <value>Programas predeterminados</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
@@ -355,7 +355,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>Tipos de ficheros</value>
+    <value>Tipos de archivos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">

@@ -131,15 +131,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Sertakan aplikasi ini dalam pemeriksaan "Perbarui semua".</value>
+    <value>Memasukkan aplikasi ini ke dalam pemeriksaan "Perbarui semua".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Mendaftarkan kemampuan</value>
+    <value>Kemampuan mendaftar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Memberitahu sistem operasi tentang kemampuan aplikasi, seperti jenis file yang dapat ditangani.</value>
+    <value>Memberitahukan sistem operasi tentang kemampuan aplikasi, seperti jenis file yang dapat ditangani.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -295,11 +295,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Secara otomatis diluncurkan ketika media yang sesuai (DVD, drive USB, dll.) dimasukkan</value>
+    <value>Meluncurkan secara otomatis ketika media yang sesuai (DVD, drive USB, dll.) dimasukkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Memulai program secara otomatis saat pengguna masuk</value>
+    <value>Memulai program secara otomatis ketika pengguna masuk</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Penangan default untuk protokol URL yang didukung ("Open with" juga dapat digunakan tanpa ini)</value>
+    <value>Penangan default untuk protokol URL yang didukung ("Buka dengan" juga dapat digunakan tanpa ini)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

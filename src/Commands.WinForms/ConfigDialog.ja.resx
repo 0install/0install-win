@@ -71,15 +71,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>詳細オプションを表示する</value>
+    <value>高度なオプションを表示</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>こちらへ</value>
+    <value>次のページへ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>こちらへ</value>
+    <value>次のページへ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -99,23 +99,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>新しい鍵の自動承認（鍵サーバーが知っている場合）</value>
+    <value>新しいキーを自動的に承認（キーサーバーが知っている場合）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>新バージョンのテストに協力する</value>
+    <value>新バージョンのテストを支援</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>カタログ情報</value>
+    <value>カタログソース</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>新鮮さ</value>
+    <value>フレッシュネス</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>実装キャッシュ・ディレクトリ</value>
+    <value>実装キャッシュディレクトリ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -140,7 +140,7 @@
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>の言語を制御します：
-- これは、次の言語を制御します。
+- Zero Install 自体と
 - の言語を制御します。
 
 注意事項
@@ -149,7 +149,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>サーバー</value>
+    <value>サーバー：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
@@ -181,7 +181,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>上級</value>
+    <value>高度な</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
@@ -205,7 +205,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>更新情報</value>
+    <value>アップデート</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

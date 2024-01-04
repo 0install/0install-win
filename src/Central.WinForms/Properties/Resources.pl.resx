@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Kontynuować</value>
+    <value>Kontynuuj</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>Wspólna aplikacja</value>
+    <value>Zwykła aplikacja</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Inna aplikacja</value>
+    <value>Inne aplikacje</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -124,7 +124,7 @@ dodaj ją do "Moich aplikacji".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Wyszukaj aplikację w "Katalogu"...</value>
+    <value>Wyszukiwanie aplikacji w "Katalogu"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
@@ -133,11 +133,11 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Listą ulubionych aplikacji można zarządzać tutaj.</value>
+    <value>Tutaj można zarządzać listą ulubionych aplikacji.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... i uruchom go!</value>
+    <value>... i uruchamiaj je!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
@@ -149,7 +149,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Tryb dla całej maszyny</value>
+    <value>Tryb obejmujący całą maszynę</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -165,7 +165,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Dodano do "Moich aplikacji" i zintegrowano ze środowiskiem pulpitu.</value>
+    <value>Dodano do "Moje aplikacje" i zintegrowano ze środowiskiem pulpitu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -178,7 +178,7 @@ Czy na pewno chcesz umieścić tam przenośną wersję Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Usunąć</value>
+    <value>Usuń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
@@ -186,11 +186,11 @@ Czy na pewno chcesz umieścić tam przenośną wersję Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Bieg</value>
+    <value>Uruchom</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Uruchom z opcjami</value>
+    <value>Uruchamianie z opcjami</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -204,7 +204,7 @@ Odrzuć zmiany</value>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>Tak
-Zapisz zmiany</value>
+Zapisywanie zmian</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
@@ -216,7 +216,7 @@ Zapisz zmiany</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Najpierw należy ukończyć konfigurację synchronizacji.</value>
+    <value>Najpierw należy ukończyć konfigurację Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -228,17 +228,17 @@ Zapisz zmiany</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Czy chcesz zresetować ustawienia synchronizacji i zacząć od początku?</value>
+    <value>Czy chcesz zresetować ustawienia Sync i zacząć od zera?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Nie
-edytuj istniejące ustawienia</value>
+edycja istniejących ustawień</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Tak
-zacznij od zera</value>
+start od zera</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">

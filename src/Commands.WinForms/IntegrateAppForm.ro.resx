@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Aliasurile din linia de comandă</value>
+    <value>Aliasuri pentru linia de comandă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
-    <value>Meniul contextual</value>
+    <value>Meniu contextual</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Numele intrării</value>
+    <value>Denumire intrare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
@@ -263,7 +263,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
-    <value>Categoria</value>
+    <value>Categorie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
@@ -295,11 +295,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Se lansează automat atunci când este introdus un suport adecvat (DVD, unitate USB etc.)</value>
+    <value>Lansare automată la introducerea unui suport adecvat (DVD, unitate USB etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Lansarea automată a programului atunci când utilizatorul se conectează</value>
+    <value>Pornește programul automat atunci când utilizatorul se conectează</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program implicit pentru sarcini precum browser web sau client de e-mail</value>
+    <value>Program implicit pentru sarcini precum browserul web sau clientul de e-mail</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,23 +315,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Manipulator implicit pentru tipurile de fișiere acceptate ("Deschidere cu" funcționează și fără acest lucru)</value>
+    <value>Manipulator implicit pentru tipurile de fișiere acceptate ("Open with" funcționează și fără acesta)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>O intrare în meniul "Trimite la&amp;quot</value>
+    <value>O intrare în meniul "Send to" (Trimite la)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Una sau mai multe intrări în meniul de start</value>
+    <value>Una sau mai multe intrări în meniul Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manipulator implicit pentru protocoalele URL acceptate ("Open with" funcționează și fără acest lucru)</value>
+    <value>Manipulator implicit pentru protocoalele URL acceptate ("Open with" funcționează și fără acesta)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Aliasurile din linia de comandă</value>
+    <value>Aliasuri pentru linia de comandă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
@@ -343,7 +343,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Meniul contextual</value>
+    <value>Meniu contextual</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Installeer feed zoeken</value>
+    <value>Zero Install feed zoeken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integratie instellen</value>
+    <value>Integratie van instellingen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Ren</value>
+    <value>Uitvoeren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Overeenstemming (%)</value>
+    <value>Wedstrijd (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">

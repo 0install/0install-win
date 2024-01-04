@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Автоматическое утверждение новых ключей (если они известны серверу ключей)</value>
+    <value>Автоматическое одобрение новых ключей (если они известны серверу ключей)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Справочники кэша реализации</value>
+    <value>Директории кэша реализации</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Выберите или создайте каталог для использования в качестве кэша реализации.</value>
+    <value>Пожалуйста, выберите или создайте каталог для использования в качестве кэша внедрения.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>При этом контролируется язык:
+    <value>Здесь контролируется язык:
 - Самой программы Zero Install и
 - приложений, загружаемых Zero Install.
 
@@ -165,15 +165,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Управление счетом</value>
+    <value>Управление учетной записью</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Полный (нормальное использование сети)</value>
+    <value>Полная версия (обычное использование сети)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Минимальные (предпочитают кэшированные версии)</value>
+    <value>Минимальный (предпочитает кэшированные версии)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
@@ -193,19 +193,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Хранение</value>
+    <value>Хранилище</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Сайт</value>
+    <value>Синхронизация</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Доверие</value>
+    <value>Доверяйте</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Обновления</value>
+    <value>Обновление</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

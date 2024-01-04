@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Applicatie integreren</value>
+    <value>Toepassing integreren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -111,11 +111,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Commandoregel-aliassen</value>
+    <value>Commandoregel aliassen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Alles selecteren</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -135,15 +135,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Mogelijkheden registreren</value>
+    <value>Registreer mogelijkheden</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Vertelt het besturingssysteem over de mogelijkheden van de applicatie, zoals de bestandstypen die het kan verwerken.</value>
+    <value>Vertelt het besturingssysteem over de mogelijkheden van de toepassing, zoals de bestandstypen die het kan verwerken.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Alles selecteren</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,11 +151,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Alles selecteren</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Standaardprogramma</value>
+    <value>Standaard programma</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Alles selecteren</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Stuur naar</value>
+    <value>Verzenden naar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Alles selecteren</value>
+    <value>Selecteer alle</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
-    <value>Evenementen</value>
+    <value>Gebeurtenissen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
@@ -291,15 +291,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Toegang via de opdrachtregelinterface</value>
+    <value>Toegang vanaf de opdrachtregelinterface</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Automatisch starten wanneer geschikte media (DVD, USB-station, enz.) worden geplaatst</value>
+    <value>Automatisch starten wanneer geschikte media (dvd, USB-station, enz.) worden geplaatst</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Programma automatisch starten wanneer de gebruiker inlogt</value>
+    <value>Start programma automatisch wanneer de gebruiker inlogt</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
@@ -331,7 +331,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Commandoregel-aliassen</value>
+    <value>Commandoregel aliassen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Stuur naar</value>
+    <value>Verzenden naar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">

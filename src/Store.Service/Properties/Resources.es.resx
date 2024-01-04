@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>El usuario '{0}' no ha podido añadir la implementación '{1}' a '{2}'.</value>
+    <value>El usuario '{0}' no ha podido añadir la aplicación '{1}' a '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
@@ -75,11 +75,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Establecer permisos de archivos</value>
+    <value>Configuración de permisos de archivos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>El usuario '{0}' ha añadido correctamente la implementación '{1}' a '{2}'.</value>
+    <value>El usuario '{0}' ha añadido correctamente la aplicación '{1}' a '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

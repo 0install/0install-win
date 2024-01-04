@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>输入 '{0}' 查看可用命令列表。</value>
+    <value>输入 "{0}"可查看可用命令列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,43 +71,43 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>单击在此计算机上设置零安装...</value>
+    <value>点击在此电脑上设置零安装...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>请在此处输入零安装馈送的 URL：</value>
+    <value>请在此处输入 Zero Install feed 的 URL：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>面向所有用户</value>
+    <value>适用于所有用户</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>当前用户</value>
+    <value>针对当前用户</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>忽略重复的应用程序条目 "{0}"。</value>
+    <value>忽略 "{0}"的重复应用程序条目。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>整合（开始菜单等）</value>
+    <value>集成（开始菜单等）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>通用应用程序</value>
+    <value>普通应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>做老本行</value>
+    <value>执行常规操作</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>酷炫应用程序</value>
+    <value>酷应用</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>做一些很酷的事情</value>
+    <value>做一些很酷的事</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
@@ -115,11 +115,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>干别的</value>
+    <value>做其他事情</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>如果您喜欢某个应用程序、
+    <value>如果你喜欢某个应用程序、
 添加到 "我的应用程序 "中。</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -128,12 +128,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"集成 "一个应用程序，将其
-开始菜单或桌面上。</value>
+    <value>"整合 "应用程序，将其放在开始菜单或桌面上。
+到开始菜单或桌面上。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>您可以在此管理您的收藏夹应用程序列表。</value>
+    <value>你可以在这里管理你最喜欢的应用程序列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -145,7 +145,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>使用零安装功能，你无需安装应用程序。</value>
+    <value>使用 Zero Install，你无需安装应用程序。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -157,7 +157,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>添加到 "我的应用程序 "中</value>
+    <value>添加到 "我的应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
@@ -165,12 +165,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>已添加到 "我的应用程序"，并集成到桌面环境中。</value>
+    <value>添加到 "我的应用程序"，并集成到桌面环境中。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>{0} 目录不是空的。
-您确定要将便携版 Zero Install 放在那里吗？</value>
+您确定要将便携版 Zero Install 放在此处吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -178,11 +178,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>移除</value>
+    <value>删除</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>您想从列表中删除{0} 选定的条目吗？</value>
+    <value>要从列表中删除{0} 选定的条目吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -190,11 +190,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>使用选项运行</value>
+    <value>带选项运行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>您是否希望保存所做的任何更改？</value>
+    <value>您希望保存所做的任何更改吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
@@ -212,11 +212,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>单击更新至 Zero Install v{0}...</value>
+    <value>点击更新至 Zero Install v{0}...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>您需要先完成同步设置。</value>
+    <value>您需要先完成同步安装。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -237,13 +237,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
-    <value>是的
+    <value>是
 从头开始</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>当前存储在同步服务器上的数据已损坏。
-您可以选择不记住加密密钥来替换服务器上存储的数据。</value>
+您可以选择不记得加密密钥来替换服务器上存储的数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>无法为应用程序条目 "{0}"加载 feed。</value>
+    <value>无法加载应用程序条目 "{0}"的源文件。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
@@ -264,8 +264,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
-重要： 之前 "运行 "但未添加到 "我的应用程序 "中的应用程序也将从缓存中删除。  如果您决定再次运行它们，则需要在线。</value>
+    <value>这将自动从缓存中删除更新后不再需要的实现。继续运行？
+重要提示：以前 "运行 "过但未添加到 "我的应用程序 "中的应用程序也会从缓存中删除。  如果您决定再次运行它们，则需要联网。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

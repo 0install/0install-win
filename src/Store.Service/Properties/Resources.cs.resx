@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Nepodařilo se vytvořit dočasný adresář pro uživatele '{0}' v adresáři '{1}'.</value>
+    <value>Nepodařilo se vytvořit dočasný adresář pro uživatele '{0}' v '{1}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">

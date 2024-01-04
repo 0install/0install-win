@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Zobrazit rozšířené možnosti</value>
+    <value>Zobrazení pokročilých možností</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
@@ -83,15 +83,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Odstranění stránky</value>
+    <value>Odstranit</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Odstranění adresy</value>
+    <value>Odstranit</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Odstranění stránky</value>
+    <value>Odstranit</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
@@ -99,15 +99,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Automatické schvalování nových klíčů (pokud je server klíčů zná)</value>
+    <value>Automaticky schvaluje nové klíče (pokud je server klíčů zná)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Pomozte testovat nové verze</value>
+    <value>Pomáhá testovat nové verze</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Katalogové zdroje</value>
+    <value>Katalog zdrojů</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Používání sítě</value>
+    <value>Použití v síti</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Důvěryhodné klíče</value>
+    <value>Důvěryhodné klávesy</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
@@ -135,12 +135,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Varování: Změna těchto možností může zabránit správné funkci Zero Install.</value>
+    <value>Upozornění: Změna těchto možností může zabránit správné funkci programu Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Tím se ovládá jazyk:
-- Samotnou instalaci a
+- Instalace Zero Install sama o sobě a
 - aplikací stažených nástrojem Zero Install.
 
 Poznámky:
@@ -169,19 +169,19 @@ Poznámky:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Plný (běžné používání sítě)</value>
+    <value>Plný (běžné síťové použití)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimální (upřednostňují verze v mezipaměti)</value>
+    <value>Minimální (upřednostňuje verze v mezipaměti)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (nepoužívejte síť)</value>
+    <value>Offline (nepoužívá síť)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Pokročilé</value>
+    <value>Pokročilý</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">

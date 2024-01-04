@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Bieg</value>
+    <value>Uruchom</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Dopasowanie (%)</value>
+    <value>Match (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">

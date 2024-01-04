@@ -83,15 +83,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Usunąć</value>
+    <value>Usuń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Usunąć</value>
+    <value>Usuń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Usunąć</value>
+    <value>Usuń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Źródła katalogowe</value>
+    <value>Źródła katalogów</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Wdrożenie katalogów pamięci podręcznej</value>
+    <value>Wdrażanie katalogów pamięci podręcznej</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Wybierz lub utwórz katalog, który będzie używany jako pamięć podręczna implementacji.</value>
+    <value>Wybierz lub utwórz katalog, który będzie używany jako pamięć podręczna wdrożenia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Kontroluje to język:
+    <value>To kontroluje język:
 - Samego Zero Install i
 - aplikacji pobranych przez Zero Install.
 
@@ -165,7 +165,7 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Zarządzaj kontem</value>
+    <value>Zarządzanie kontem</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -173,15 +173,15 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimalne (preferowane wersje buforowane)</value>
+    <value>Minimalny (preferowane wersje buforowane)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (nie używaj sieci)</value>
+    <value>Offline (nie korzysta z sieci)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Zaawansowany</value>
+    <value>Zaawansowane</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
@@ -193,7 +193,7 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Przechowywanie</value>
+    <value>Pamięć masowa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

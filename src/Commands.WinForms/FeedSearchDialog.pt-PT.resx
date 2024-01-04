@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Pesquisa de feeds de instalação zero</value>
+    <value>Pesquisa de feeds Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Configurar a integração</value>
+    <value>Integração da configuração</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Correr</value>
+    <value>Executar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnName.HeaderText" xml:space="preserve">
-    <value>Nome</value>
+    <value>Nome do utilizador</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Estes resultados de pesquisa são fornecidos pelo servidor espelho. Note que o servidor espelho predefinido indexa todos os feeds conhecidos, independentemente da qualidade; tem de decidir se confia nos programas antes de os executar.</value>
+    <value>Estes resultados de pesquisa são fornecidos pelo servidor espelho. Note que o servidor espelho predefinido indexa todos os feeds conhecidos, independentemente da qualidade; deve decidir se confia nos programas antes de os executar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

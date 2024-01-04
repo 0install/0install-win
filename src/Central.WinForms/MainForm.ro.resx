@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Utilizați Instrumente de publicare pentru a împacheta o nouă aplicație</value>
+    <value>Utilizați instrumentele de publicare pentru a împacheta o nouă aplicație</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -99,15 +99,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Actualizați lista</value>
+    <value>Actualizare listă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Efectuați o căutare prin cuvinte cheie</value>
+    <value>Execută o căutare prin cuvinte cheie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Gestionarea cache-ului</value>
+    <value>Gestionarea memoriei cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Configurare</value>
+    <value>Instalare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
@@ -127,19 +127,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
-    <value>Unelte</value>
+    <value>Instrumente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Actualizați toate</value>
+    <value>Actualizează toate</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Actualizați toate</value>
+    <value>Actualizează toate</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Actualizați totul și curățați</value>
+    <value>Actualizează totul și curăță</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

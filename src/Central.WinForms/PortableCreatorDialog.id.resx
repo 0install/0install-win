@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Jelajahi</value>
+    <value>Menjelajah</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
@@ -85,7 +85,7 @@
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Menyimpan konfigurasi Zero Install dan aplikasi yang di-cache dalam satu direktori.
 - Tidak secara otomatis membuat aplikasi yang diluncurkan melalui Zero Install menjadi portabel.
-- Versi portabel Zero Install tidak dapat melakukan integrasi desktop (misalnya, membuat entri menu mulai).
+- Versi portabel Zero Install tidak dapat melakukan integrasi desktop (misalnya membuat entri menu mulai).
 - Pertimbangkan untuk menggunakan Zero Install biasa di beberapa komputer dengan Sinkronisasi Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
