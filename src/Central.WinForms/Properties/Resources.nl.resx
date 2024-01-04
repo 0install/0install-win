@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Voer '{0}' in om een lijst met beschikbare commando's te zien.</value>
+    <value>Voer '{0}' in om een lijst met beschikbare opdrachten te zien.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Leuke app</value>
+    <value>Coole app</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
@@ -128,12 +128,12 @@ voeg hem dan toe aan "Mijn apps".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>een app "integreren" om hem
+    <value>een app "integreren" om deze
 in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Je kunt je lijst met favoriete apps hier beheren.</value>
+    <value>Je kunt hier je lijst met favoriete apps beheren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -149,7 +149,7 @@ in het startmenu of op het bureaublad te zetten.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Machinebrede modus</value>
+    <value>Machine-brede modus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -182,11 +182,11 @@ Weet je zeker dat je daar een draagbare versie van Zero Install wilt plaatsen?</
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Wilt u de {0} geselecteerde items uit de lijst verwijderen?</value>
+    <value>Wil je de {0} geselecteerde items uit de lijst verwijderen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Ren</value>
+    <value>Uitvoeren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -194,12 +194,12 @@ Weet je zeker dat je daar een draagbare versie van Zero Install wilt plaatsen?</
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Wilt u de gemaakte wijzigingen opslaan?</value>
+    <value>Wilt u gemaakte wijzigingen opslaan?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Geen
-Wijzigingen weggooien</value>
+Wijzigingen verwijderen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -208,7 +208,7 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Zoek op</value>
+    <value>Zoeken op</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
@@ -216,7 +216,7 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>U moet eerst Sync Setup voltooien.</value>
+    <value>Je moet eerst Sync Setup voltooien.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -228,12 +228,12 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Wilt u de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
+    <value>Wil je de Sync-instellingen resetten en helemaal opnieuw beginnen?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Geen
-de bestaande instellingen bewerken</value>
+bestaande instellingen bewerken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
@@ -243,7 +243,7 @@ vanaf nul beginnen</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>De gegevens die momenteel zijn opgeslagen op de Sync-server zijn beschadigd.
-U kunt de gegevens die op de server zijn opgeslagen vervangen door te kiezen dat u de cryptosleutel niet meer weet.</value>
+Je kunt de gegevens die op de server zijn opgeslagen vervangen door te kiezen dat je de cryptosleutel niet meer weet.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">

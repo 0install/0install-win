@@ -63,15 +63,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>{1}' 内のユーザー '{0}' の一時ディレクトリの作成に失敗しました。</value>
+    <value>{1}' のユーザー '{0}' のテンポラリディレクトリの作成に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>一時ディレクトリ '{1}' (ユーザー '{0}' 用に作成された) の削除に失敗しました。</value>
+    <value>一時ディレクトリ '{1}' (ユーザー '{0}' 用に作成) の削除に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>サービスはポータブルモードでは実行できない！</value>
+    <value>ポータブルモードでは実行できません！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に正常に追加しました。</value>
+    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に追加することに成功しました。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

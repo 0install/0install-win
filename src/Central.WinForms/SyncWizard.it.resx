@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Equivalente a riga di comando</value>
+    <value>Linea di comando equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Inserire di seguito le credenziali di accesso al server di sincronizzazione:</value>
+    <value>Inserire le credenziali di accesso al server Sync qui sotto:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>La chiave crittografica viene utilizzata per crittografare i dati localmente prima di trasmetterli al server. Scrivete quella suggerita o sceglietene una vostra.</value>
+    <value>La chiave crittografica viene utilizzata per crittografare i dati in locale prima di trasmetterli al server. Scrivete quella suggerita o scegliete la vostra.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Mantenete segreta questa chiave e utilizzate una password diversa. In questo modo nessuno potrà accedere ai vostri dati, anche se il server dovesse essere compromesso.</value>
+    <value>Mantenete questa chiave segreta e utilizzate una password diversa. In questo modo nessuno potrà accedere ai vostri dati, anche se il server dovesse essere compromesso.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Una volta creato un account, verificato l'indirizzo e-mail e annotato le credenziali di accesso, fare clic su "Avanti".</value>
+    <value>Dopo aver creato un account, verificato l'indirizzo e-mail e annotato le credenziali di accesso, fare clic su "Avanti".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Si stanno per sostituire i dati memorizzati sul server Sync con l'elenco delle applicazioni locali. Tutte le modifiche apportate su altri computer, ma non ancora sincronizzate con questo, andranno perse!</value>
+    <value>Si sta per sostituire i dati memorizzati sul server Sync con l'elenco delle applicazioni locali. Tutte le modifiche apportate su altri computer, ma non ancora sincronizzate con questo, andranno perse!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Si consiglia di reimpostare i dati locali anche su altri computer sui quali si utilizza Zero Install Sync.</value>
+    <value>È possibile che si desideri ripristinare i dati locali su altri computer su cui si utilizza Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -179,11 +179,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>È il primo computer che si sta configurando per Zero Install Sync?</value>
+    <value>È il primo computer che state configurando per Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync è ora configurato e pronto all'uso. Eseguire questa procedura guidata su tutti gli altri computer che si desidera mantenere sincronizzati con questo.</value>
+    <value>Zero Install Sync è ora configurato e pronto all'uso. Eseguite questa procedura guidata su tutti gli altri computer che desiderate mantenere sincronizzati con questo.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Come posso impostare il mio server di sincronizzazione?</value>
+    <value>Come posso configurare il mio server Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Utilizzare una condivisione di file di Windows:</value>
+    <value>Utilizza una condivisione di file di Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Modifica della chiave crittografica</value>
+    <value>Cambiare la chiave crittografica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
@@ -239,11 +239,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
-    <value>Azzeramento dei dati locali</value>
+    <value>Ripristino dei dati locali</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Azzeramento dei dati locali</value>
+    <value>Ripristino dei dati locali</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
@@ -267,11 +267,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Impostazione della sincronizzazione completata</value>
+    <value>Configurazione completa della sincronizzazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>Impostazione della sincronizzazione</value>
+    <value>Configurazione della sincronizzazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">

@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>Usunąć</value>
+    <value>Usuń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
-    <value>Uruchom jako administrator</value>
+    <value>Działa jako administrator</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Sprawdzony rozmiar wpisów:</value>
+    <value>Sprawdzanie rozmiaru wpisów:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">

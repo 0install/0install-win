@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install-configuratie</value>
+    <value>Zero Install configuratie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Voeg  toe</value>
+    <value>Toevoegen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Voeg  toe</value>
+    <value>Toevoegen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Nieuwe sleutels automatisch goedkeuren (indien bekend bij de keyserver)</value>
+    <value>Keurt automatisch nieuwe sleutels goed (indien bekend bij de keyserver)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Nieuwe versies helpen testen</value>
+    <value>Help bij het testen van nieuwe versies</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Vertrouwde sleutels</value>
+    <value>Vertrouwde toetsen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
@@ -177,7 +177,7 @@ Opmerkingen:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (het netwerk niet gebruiken)</value>
+    <value>Offline (gebruik het netwerk niet)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -197,11 +197,11 @@ Opmerkingen:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sync</value>
+    <value>Synchroniseer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Vertrouwen</value>
+    <value>Vertrouw op</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">

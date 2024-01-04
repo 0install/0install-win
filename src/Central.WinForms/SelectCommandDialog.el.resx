@@ -87,7 +87,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
-    <value>Περιγραφή εντολής</value>
+    <value>Περιγραφή εντολών</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Wprowadź adres URL katalogu (zbioru kanałów)</value>
+    <value>Wprowadzanie adresu URL katalogu (zbioru kanałów)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Odśwież listę</value>
+    <value>Odświeżanie listy</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Uruchom wyszukiwanie słów kluczowych</value>
+    <value>Wyszukiwanie słów kluczowych</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
@@ -131,15 +131,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Zaktualizuj wszystko</value>
+    <value>Aktualizuj wszystko</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Zaktualizuj wszystko</value>
+    <value>Aktualizuj wszystko</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Zaktualizuj wszystko i wyczyść</value>
+    <value>Aktualizuj wszystko i czyść</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

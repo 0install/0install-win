@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>移除</value>
+    <value>删除</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>目前的参赛人数：</value>
+    <value>当前条目大小：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>总面积</value>
+    <value>总大小</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>이 컴퓨터에 제로 설치를 설정하려면 클릭합니다...</value>
+    <value>이 컴퓨터에서 제로 설치를 설정하려면 클릭...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>멋진 일을합니다</value>
+    <value>멋진 작업을 수행합니다</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>앱이 마음에 들면
+    <value>앱이 마음에 들면,
 "내 앱"에 추가합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -128,12 +128,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"앱을 '통합'하여 시작 메뉴나 데스크톱에
-앱을 시작 메뉴나 바탕화면에 배치합니다.</value>
+    <value>"앱을 '통합'하여 시작 메뉴나
+시작 메뉴 또는 바탕화면에 배치합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>여기에서 즐겨 찾는 앱 목록을 관리할 수 있습니다.</value>
+    <value>여기에서 즐겨찾는 앱 목록을 관리할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -141,7 +141,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>즐거운 시간 보내세요!</value>
+    <value>즐겨보세요!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
@@ -165,12 +165,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>'내 앱'에 추가되고 데스크톱 환경에 통합됩니다.</value>
+    <value>'내 앱'에 추가되어 데스크톱 환경에 통합됩니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>'{0}' 디렉토리가 비어 있지 않습니다.
-이 디렉터리에 제로 인스톨의 휴대용 버전을 설치하시겠습니까?</value>
+여기에 제로 인스톨의 휴대용 버전을 배치하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -199,7 +199,7 @@
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>아니요
-변경 사항 삭제</value>
+변경 내용 삭제</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -212,7 +212,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>제로 설치로 업데이트하려면 클릭{0}...</value>
+    <value>제로 인스톨로 업데이트하려면 클릭{0}...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
@@ -243,7 +243,7 @@
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>현재 동기화 서버에 저장된 데이터가 손상되었습니다.
-암호화 키가 기억나지 않는다고 선택하면 서버에 저장된 데이터를 대체할 수 있습니다.</value>
+암호화 키가 기억나지 않음을 선택하면 서버에 저장된 데이터를 교체할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">

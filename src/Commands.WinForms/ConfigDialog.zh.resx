@@ -83,19 +83,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>移除</value>
+    <value>删除</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>移除</value>
+    <value>删除</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>移除</value>
+    <value>删除</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>重置</value>
+    <value>重新设置</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>请选择或创建一个目录作为实施缓存。</value>
+    <value>请选择或创建一个目录作为执行缓存。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>这将控制语言：
+    <value>这可以控制软件的语言：
 - 零安装本身和
 - 零安装下载的应用程序。
 
@@ -149,7 +149,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>服务器：</value>
+    <value>服务器</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
@@ -161,7 +161,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>用户名</value>
+    <value>用户名：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
@@ -169,7 +169,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>满格（正常网络使用）</value>
+    <value>全功能（正常网络使用）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
@@ -177,7 +177,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>脱机（不使用网络）</value>
+    <value>离线（不使用网络）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">

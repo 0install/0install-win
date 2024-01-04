@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Aider à tester les nouvelles versions</value>
+    <value>Aide à tester les nouvelles versions</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Mise en œuvre des répertoires de cache</value>
+    <value>Mise en œuvre de répertoires de cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Veuillez sélectionner ou créer un répertoire à utiliser comme cache de mise en œuvre.</value>
+    <value>Veuillez sélectionner ou créer un répertoire à utiliser comme cache d'implémentation.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">

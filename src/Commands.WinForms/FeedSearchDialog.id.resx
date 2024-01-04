@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Tambahkan ke "Aplikasi saya"</value>
+    <value>Menambahkan ke "Aplikasi saya"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Jalankan</value>
+    <value>Menjalankan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">

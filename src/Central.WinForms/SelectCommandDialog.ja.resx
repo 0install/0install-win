@@ -75,11 +75,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
-    <value>論拠：</value>
+    <value>引数：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>命令だ：</value>
+    <value>コマンド</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">

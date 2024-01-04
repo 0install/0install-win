@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Gestione della cache Zero Install</value>
+    <value>Gestione della cache di Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
-    <value>Eseguire come amministratore</value>
+    <value>Esecuzione come amministratore</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Controllo delle dimensioni delle voci:</value>
+    <value>Dimensioni delle voci controllate:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">

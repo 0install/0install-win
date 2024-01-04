@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Správa mezipaměti Zero Install</value>
+    <value>Správa vyrovnávací paměti při nulové instalaci</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>Odstranění adresy</value>
+    <value>Odstranit</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Zkontrolovaná velikost záznamů:</value>
+    <value>Kontroluje velikost položek:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">

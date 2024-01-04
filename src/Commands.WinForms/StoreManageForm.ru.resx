@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Проверяется размер записей:</value>
+    <value>Проверяет размер записей:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Текущий размер входа:</value>
+    <value>Текущий размер записи:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">

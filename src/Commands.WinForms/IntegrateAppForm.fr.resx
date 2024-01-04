@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Intégrer l'application</value>
+    <value>Intégrer une application</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Les alias de la ligne de commande</value>
+    <value>Alias de la ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
@@ -135,7 +135,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Capacités du registre</value>
+    <value>Capacités d'enregistrement</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Nom d'entrée</value>
+    <value>Nom de l'entrée</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
@@ -315,23 +315,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les types de fichiers pris en charge ("Ouvrir avec" fonctionne également sans cela)</value>
+    <value>Gestionnaire par défaut pour les types de fichiers pris en charge (la fonction "Ouvrir avec" fonctionne également sans cela)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Une entrée dans le menu "Envoyer à</value>
+    <value>Une entrée dans le menu "Envoyer à"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Une ou plusieurs entrées dans le menu de démarrage</value>
+    <value>Une ou plusieurs entrées dans le menu Démarrer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les protocoles URL pris en charge ("Ouvrir avec" fonctionne également sans cela)</value>
+    <value>Gestionnaire par défaut pour les protocoles URL pris en charge (la fonction "Ouvrir avec" fonctionne également sans cela)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Les alias de la ligne de commande</value>
+    <value>Alias de la ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">

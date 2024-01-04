@@ -79,13 +79,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Здесь можно создать портативную версию Zero Install, например, для использования на USB-накопителе. Целевой диск должен быть отформатирован в NTFS.</value>
+    <value>Здесь вы можете создать портативную версию Zero Install, например, для использования на USB-накопителе. Диск должен быть отформатирован в NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Хранит конфигурацию Zero Install и кэшированные приложения в одном каталоге.
-- Не делает автоматически переносимыми и приложения, запускаемые через Zero Install.
-- Портативные версии Zero Install не могут выполнять интеграцию с рабочим столом (например, создавать пункты меню Пуск).
+- Не делает приложения, запущенные через Zero Install, автоматически портативными.
+- Портативные версии Zero Install не могут выполнять интеграцию с рабочим столом (например, создавать пункты меню "Пуск").
 - Вместо этого используйте обычную Zero Install на нескольких компьютерах с помощью Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>

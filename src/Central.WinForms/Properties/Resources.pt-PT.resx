@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduza '{0}' para ver uma lista de comandos disponíveis.</value>
+    <value>Introduzir '{0}' para ver uma lista de comandos disponíveis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Clique para configurar Zero Install on this computer...</value>
+    <value>Clique para configurar o Zero Install neste computador...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Introduza aqui o URL de um feed Zero Install:</value>
+    <value>Introduza aqui o URL de um feed de Instalação zero:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>faz as coisas do costume</value>
+    <value>faz as coisas habituais</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
@@ -124,7 +124,7 @@ adicione-a a "As minhas aplicações".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Procurar uma aplicação no "Catálogo"...</value>
+    <value>Procura uma aplicação no "Catálogo"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
@@ -141,11 +141,11 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Divirtam-se!</value>
+    <value>Diverte-te!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Com o Zero Install, não tem de instalar aplicações.</value>
+    <value>Com o Zero Install, não é necessário instalar aplicações.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -153,7 +153,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Modificar a integração</value>
+    <value>Modificar integração</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
@@ -186,7 +186,7 @@ Tem a certeza de que pretende colocar aí uma versão portátil do Zero Install?
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Correr</value>
+    <value>Executar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
@@ -199,7 +199,7 @@ Tem a certeza de que pretende colocar aí uma versão portátil do Zero Install?
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Não
-Rejeitar alterações</value>
+Descartar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -208,7 +208,7 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Pesquisar</value>
+    <value>Pesquisa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
@@ -216,7 +216,7 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Primeiro, é necessário concluir a configuração da sincronização.</value>
+    <value>É necessário concluir primeiro a configuração da sincronização.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -242,8 +242,8 @@ começar do zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Os dados atualmente armazenados no servidor de sincronização estão danificados.
-Pode substituir os dados armazenados no servidor escolhendo que não se lembra da chave criptográfica.</value>
+    <value>Os dados atualmente armazenados no servidor Sync estão danificados.
+Pode substituir os dados armazenados no servidor, optando por não se lembrar da chave criptográfica.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -264,12 +264,12 @@ As ligações encriptadas utilizam um prefixo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Isto irá remover automaticamente as implementações da cache que já não são necessárias após a atualização. Continuar?
-Importante: as aplicações que tiver "Executar" anteriormente sem as adicionar a "As minhas aplicações" também serão removidas da cache.  Terá de estar online se decidir executá-las novamente.</value>
+    <value>Isto irá remover automaticamente da cache as implementações que já não são necessárias após a atualização. Continuar?
+Importante: As aplicações que tenha "Executar" anteriormente sem as adicionar a "As minhas aplicações" também serão removidas da cache.  Terá de estar online se decidir executá-las novamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Trabalhar...</value>
+    <value>Funcionamento...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

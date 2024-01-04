@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Vyberte vše</value>
+    <value>Vyberte všechny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -139,11 +139,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Informuje operační systém o schopnostech aplikace, například o typech souborů, které dokáže zpracovávat.</value>
+    <value>Informuje operační systém o možnostech aplikace, například o typech souborů, které dokáže zpracovat.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Vyberte vše</value>
+    <value>Vyberte všechny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Vyberte vše</value>
+    <value>Vyberte všechny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -159,11 +159,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
-    <value>Stolní počítač</value>
+    <value>Pracovní plocha</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Vyberte vše</value>
+    <value>Vyberte všechny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Odeslat na adresu</value>
+    <value>Odesílání do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Vyberte vše</value>
+    <value>Vyberte všechny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Automatické spuštění po vložení vhodného média (DVD, USB disk atd.)</value>
+    <value>Automatické spuštění po vložení vhodného média (DVD, jednotka USB atd.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Výchozí obslužný program pro podporované protokoly URL ("Otevřít s" funguje i bez této funkce)</value>
+    <value>Výchozí obslužný program pro podporované protokoly URL ("Otevřít s" funguje i bez něj)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -351,7 +351,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
-    <value>Stolní počítač</value>
+    <value>Pracovní plocha</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Odeslat na adresu</value>
+    <value>Odesílání do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">

@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>服务无法以便携模式运行！</value>
+    <value>该服务无法在便携模式下运行！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>用户 "{0}"成功地将执行 "{1}"添加到了 "{2}"。</value>
+    <value>用户 "{0}"成功地将执行程序 "{1}"添加到了 "{2}"。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Aggiungi</value>
+    <value>Aggiungere</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Annullamento</value>
+    <value>Sovrascrivere</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">

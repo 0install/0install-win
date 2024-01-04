@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Nulová instalace vyhledávání krmiva</value>
+    <value>Vyhledávání v kanálu Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
-    <value>Podrobnosti na</value>
+    <value>Podrobnosti</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Nastavení integrace</value>
+    <value>Integrace nastavení</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
-    <value>Souhrn</value>
+    <value>Shrnutí</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">

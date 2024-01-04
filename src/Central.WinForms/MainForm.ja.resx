@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>フィード（単一のアプリ）のURLを入力する</value>
+    <value>フィード（単一アプリ）のURLを入力</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDocumentation.Text" xml:space="preserve">
-    <value>ドキュメンテーション</value>
+    <value>ドキュメント</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>パブリッシングツールを使って新しいアプリをパッケージ化する</value>
+    <value>パブリッシングツールを使って新しいアプリをパッケージ化</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>ポータブル・クリエーター</value>
+    <value>ポータブルクリエーター</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>リフレッシュリスト</value>
+    <value>リストの更新</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
@@ -131,19 +131,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>すべて更新</value>
+    <value>すべてのアップデート</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>すべて更新</value>
+    <value>すべてのアップデート</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>すべてを更新し、きれいにする</value>
+    <value>すべての更新とクリーン</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>サーバーからカタログをロードしています...</value>
+    <value>サーバーからカタログをロード...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

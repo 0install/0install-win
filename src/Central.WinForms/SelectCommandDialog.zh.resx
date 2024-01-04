@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
-    <value>定制</value>
+    <value>自定义</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -75,15 +75,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
-    <value>论据：</value>
+    <value>参数</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>命令：</value>
+    <value>指令</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
-    <value>选项：</value>
+    <value>选项</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
-    <value>版本：</value>
+    <value>版本</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

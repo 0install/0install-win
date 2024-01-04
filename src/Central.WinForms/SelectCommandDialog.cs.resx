@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
-    <value>Přizpůsobení</value>
+    <value>Přizpůsobení stránek</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>Příkaz:</value>
+    <value>Příkazy:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
-    <value>Popis příkazu</value>
+    <value>Popis příkazů</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">

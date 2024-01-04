@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>La clé cryptographique est utilisée pour crypter vos données localement avant de les transmettre au serveur. Notez la clé proposée ou choisissez la vôtre.</value>
+    <value>La clé cryptographique est utilisée pour crypter vos données localement avant de les transmettre au serveur. Notez celle qui vous est proposée ou choisissez la vôtre.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Gardez cette clé secrète et utilisez un autre mot de passe. De cette manière, personne ne peut accéder à vos données, même si le serveur est compromis.</value>
+    <value>Gardez cette clé secrète et utilisez un mot de passe différent. Ainsi, personne ne peut accéder à vos données, même si le serveur est compromis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -143,11 +143,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Vous êtes sur le point de remplacer votre liste d'applications locale par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
+    <value>Vous êtes sur le point de remplacer votre liste d'applications locales par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>La liste des applications locales est en cours de réinitialisation. Vous pouvez maintenant continuer à utiliser Zero Install.</value>
+    <value>La liste des applications locales est en train d'être réinitialisée. Vous pouvez maintenant continuer à utiliser Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync prend votre liste d'applications et vos intégrations de bureau et les transfère automatiquement vers vos autres ordinateurs.</value>
+    <value>Zero Install Sync prend votre liste d'applications et vos intégrations de bureau et les transfère automatiquement sur vos autres ordinateurs.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Utiliser un partage de fichiers Windows :</value>
+    <value>Utilisation d'un partage de fichiers Windows :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Modifier la clé cryptographique</value>
+    <value>Changer la clé cryptographique</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Modification de la clé cryptographique</value>
+    <value>Changement de clé cryptographique</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
@@ -255,7 +255,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Réinitialiser le serveur Sync</value>
+    <value>Réinitialisation du serveur Sync</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">

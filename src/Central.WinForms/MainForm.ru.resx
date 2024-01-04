@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Использование средств публикации для упаковки нового приложения</value>
+    <value>Используйте инструменты публикации для упаковки нового приложения</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>Вводное видео</value>
+    <value>Вступительное видео</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>Другие приложения</value>
+    <value>Больше приложений</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
@@ -103,27 +103,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Выполнить поиск по ключевым словам</value>
+    <value>Запуск поиска по ключевым словам</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Управление кэш-памятью</value>
+    <value>Управление кэшем</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Сайт</value>
+    <value>Синхронизация</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
-    <value>Сайт</value>
+    <value>Синхронизация</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Настройка</value>
+    <value>Установка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>Поиск и устранение неисправностей</value>
+    <value>Устранение неполадок</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
@@ -131,15 +131,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Обновить все</value>
+    <value>Обновление всех</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Обновить все</value>
+    <value>Обновление всех</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Обновить все и очистить</value>
+    <value>Обновление всех и очистка</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

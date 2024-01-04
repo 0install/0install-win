@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Ricerca di feed di installazione</value>
+    <value>Ricerca del feed di Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integrazione della configurazione</value>
+    <value>Integrazione delle impostazioni</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Correre</value>
+    <value>Eseguire</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">

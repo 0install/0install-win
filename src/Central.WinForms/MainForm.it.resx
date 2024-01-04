@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Inserire l'URL di un catalogo (una raccolta di feed)</value>
+    <value>Immissione dell'URL di un catalogo (una raccolta di feed)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Inserire l'URL di un feed (una singola applicazione)</value>
+    <value>Immettere l'URL di un feed (una singola app)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Aggiornare l'elenco</value>
+    <value>Aggiorna l'elenco</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Impostazione</value>
+    <value>Installazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
@@ -131,19 +131,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Aggiornare tutti</value>
+    <value>Aggiorna tutti</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Aggiornare tutti</value>
+    <value>Aggiorna tutti</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Aggiornare tutto e pulire</value>
+    <value>Aggiorna tutto e pulisci</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Caricamento catalogo dal server...</value>
+    <value>Caricamento del catalogo dal server...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

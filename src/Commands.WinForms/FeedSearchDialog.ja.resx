@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>ゼロインストール・フィード検索</value>
+    <value>ゼロインストールフィード検索</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>マイアプリに追加</value>
+    <value>"マイアプリ "に追加</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>統合の設定</value>
+    <value>セットアップの統合</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>走る</value>
+    <value>実行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>一致率(%)</value>
+    <value>マッチ (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
-    <value>ユーアールアイ</value>
+    <value>URI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>これらの検索結果は、ミラーサーバーによって提供される。デフォルトのミラーサーバーは、品質に関係なくすべての既知のフィードをインデックス化することに注意してください。</value>
+    <value>これらの検索結果は、ミラーサーバーによって提供されます。デフォルトのミラーサーバーは、品質に関係なく、すべての既知のフィードをインデックス化することに注意してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

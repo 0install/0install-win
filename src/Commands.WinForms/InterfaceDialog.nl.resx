@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Interface-eigenschappen</value>
+    <value>Eigenschappen interface</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Voeg  toe</value>
+    <value>Toevoegen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
-    <value>Toon alle versies</value>
+    <value>Alle versies weergeven</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Bepaalt welke stabiliteitsclassificatie als de "beste" wordt beschouwd</value>
+    <value>Bepaalt welke stabiliteitsbeoordeling als de "beste" wordt beschouwd</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Opheffen</value>
+    <value>Overschrijf</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">

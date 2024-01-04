@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Zadejte adresu URL kanálu (jedné aplikace)</value>
+    <value>Zadejte adresu URL kanálu (jednotlivé aplikace)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Použití nástrojů pro publikování k zabalení nové aplikace</value>
+    <value>K vytvoření balíčku nové aplikace použijte nástroje pro publikování</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Obnovit seznam</value>
+    <value>Obnovení seznamu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Spustit vyhledávání podle klíčových slov</value>
+    <value>Spustí vyhledávání podle klíčových slov</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
@@ -131,15 +131,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Aktualizovat vše</value>
+    <value>Aktualizace všech</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Aktualizovat vše</value>
+    <value>Aktualizace všech</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Aktualizovat vše a vyčistit</value>
+    <value>Aktualizuje všechny a čistí</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

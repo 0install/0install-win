@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>임시 디렉터리 '{1}'(사용자 '{0}' 용으로 생성됨)를 제거하지 못했습니다.</value>
+    <value>임시 디렉토리 '{1}'(사용자 '{0}' 용으로 생성됨)를 제거하지 못했습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>사용자 '{0}' 는 '{1}' 구현을 '{2}' 에 성공적으로 추가했습니다.</value>
+    <value>사용자 '{0}' 가 '{1}' 구현을 '{2}' 에 성공적으로 추가했습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digitare '{0}' per visualizzare l'elenco dei comandi disponibili.</value>
+    <value>Digitare '{0}' per visualizzare un elenco dei comandi disponibili.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Fare clic per impostare Zero Install su questo computer...</value>
+    <value>Fare clic per configurare Zero Install su questo computer...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Integrare (menu di avvio, ecc.)</value>
+    <value>Integrazione (menu di avvio, ecc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Altra applicazione</value>
+    <value>Altre applicazioni</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -120,11 +120,11 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Se vi piace un'applicazione,
-aggiungerla a "Le mie app".</value>
+aggiungerla a "Le mie applicazioni".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Cercare un'applicazione nel "Catalogo"...</value>
+    <value>Ricerca di un'applicazione nel "Catalogo"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
@@ -133,11 +133,11 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Qui è possibile gestire l'elenco delle app preferite.</value>
+    <value>È possibile gestire l'elenco delle applicazioni preferite.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... e correre!</value>
+    <value>... ed eseguirlo!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
@@ -145,7 +145,7 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Con Zero Install non è necessario installare applicazioni.</value>
+    <value>Con Zero Install non è necessario installare le applicazioni.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -182,15 +182,15 @@ Siete sicuri di voler inserire lì una versione portatile di Zero Install?</valu
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Si desidera rimuovere dall'elenco le voci selezionate da {0}?</value>
+    <value>Volete rimuovere le voci selezionate da {0} dall'elenco?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Correre</value>
+    <value>Eseguire</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Eseguire con le opzioni</value>
+    <value>Esecuzione con opzioni</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -199,7 +199,7 @@ Siete sicuri di voler inserire lì una versione portatile di Zero Install?</valu
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>No
-Scartare le modifiche</value>
+Scarta le modifiche</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -216,7 +216,7 @@ Salva le modifiche</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>È necessario completare prima l'impostazione della sincronizzazione.</value>
+    <value>È necessario completare prima Sync Setup.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -228,7 +228,7 @@ Salva le modifiche</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Si desidera ripristinare le impostazioni di sincronizzazione e ripartire da zero?</value>
+    <value>Desiderate ripristinare le impostazioni di sincronizzazione e ripartire da zero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
@@ -242,7 +242,7 @@ iniziare da zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>I dati attualmente memorizzati sul server di sincronizzazione sono danneggiati.
+    <value>I dati attualmente memorizzati sul server Sync sono danneggiati.
 È possibile sostituire i dati memorizzati sul server scegliendo di non ricordare la chiave crittografica.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -256,7 +256,7 @@ iniziare da zero</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Siete sicuri di voler utilizzare una connessione non criptata a un server Sync?
-Le connessioni criptate utilizzano un prefisso https://.</value>
+Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
@@ -265,11 +265,11 @@ Le connessioni criptate utilizzano un prefisso https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Questo rimuoverà automaticamente dalla cache le implementazioni che non sono più necessarie dopo l'aggiornamento. Continuare?
-Importante: anche le applicazioni che avete "eseguito" in precedenza senza aggiungerle a "Le mie app" verranno rimosse dalla cache.  Se si decide di eseguirle di nuovo, è necessario essere online.</value>
+Importante: anche le applicazioni che avete "eseguito" in precedenza senza aggiungerle a "Le mie applicazioni" verranno rimosse dalla cache.  Se si decide di eseguirle di nuovo, è necessario essere online.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Lavorare...</value>
+    <value>Funziona...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -63,11 +63,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Añadir</value>
+    <value>Añade</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Añadir</value>
+    <value>Añade</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprobar automáticamente nuevas claves (si el servidor de claves las conoce)</value>
+    <value>Aprueba automáticamente nuevas claves (si las conoce el servidor de claves)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Ayudar a probar nuevas versiones</value>
+    <value>Ayuda a probar nuevas versiones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementación de directorios caché</value>
+    <value>Implementación de directorios de caché</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -127,11 +127,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Llaves de confianza</value>
+    <value>Teclas de confianza</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Seleccione o cree un directorio para utilizarlo como caché de implementación.</value>
+    <value>Selecciona o crea un directorio para utilizarlo como caché de aplicación.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -140,8 +140,8 @@
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Esto controla el idioma de:
-- La propia Zero Install y las
-- aplicaciones descargadas por Zero Install.
+- Zero Install en sí y
+- las aplicaciones descargadas por Zero Install.
 
 Notas:
 - Las traducciones no están disponibles para todos los idiomas.
@@ -173,11 +173,11 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Mínimo (prefiera las versiones en caché)</value>
+    <value>Mínimo (prefiere versiones en caché)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Desconectado (no utiliza la red)</value>
+    <value>Offline (no utiliza la red)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -201,11 +201,11 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Confíe en</value>
+    <value>Confía en</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Actualizaciones</value>
+    <value>Actualiza</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

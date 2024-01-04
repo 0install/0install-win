@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Linha de comando equivalente</value>
+    <value>Linha de comandos equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Linha de comando equivalente</value>
+    <value>Linha de comandos equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

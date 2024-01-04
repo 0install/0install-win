@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>添加到 "我的应用程序 "中</value>
+    <value>添加到 "我的应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnName.HeaderText" xml:space="preserve">
-    <value>名称</value>
+    <value>软件名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
@@ -95,15 +95,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
-    <value>通用资源识别号</value>
+    <value>URI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的供稿，无论其质量如何；您必须在运行这些程序之前决定是否信任它们。</value>
+    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的源文件，无论其质量如何；在运行这些程序之前，您必须决定是否信任它们。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
-    <value>关键词</value>
+    <value>关键字</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

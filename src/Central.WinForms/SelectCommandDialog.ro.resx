@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>Reîmprospătare</value>
+    <value>Actualizare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
-    <value>Descrierea comenzii</value>
+    <value>Descriere comandă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
-    <value>Versiunea:</value>
+    <value>Versiune:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

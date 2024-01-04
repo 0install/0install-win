@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.Text" xml:space="preserve">
-    <value>Usunąć</value>
+    <value>Usuń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Pokaż wersje, które nie są obsługiwane przez ten system</value>
+    <value>Pokazuje wersje, które nie są obsługiwane przez ten system</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
-    <value>Zwolniony</value>
+    <value>Wydano</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Nadpisanie</value>
+    <value>Override</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">

@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Procházet</value>
+    <value>Procházet stránky</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
@@ -79,13 +79,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Zde můžete vytvořit přenosnou verzi programu Zero Install, například pro použití na USB flash disku. Cíl musí být naformátován na NTFS.</value>
+    <value>Zde můžete vytvořit přenosnou verzi Zero Install, např. pro použití na USB flash disku. Cíl musí být naformátován na NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Ukládá konfiguraci nulové instalace a aplikace uložené v mezipaměti do jediného adresáře.
-- Nezajišťuje automatické přenášení aplikací spuštěných prostřednictvím služby Zero Install.
-- Přenosné verze aplikace Zero Install nemohou provádět integraci na plochu (např. vytvářet položky nabídky Start).
+    <value>- Ukládá konfiguraci Zero Install a aplikace uložené v mezipaměti do jediného adresáře.
+- Nezajišťuje automatické přenášení aplikací spuštěných prostřednictvím aplikace Zero Install stejně jako přenosné aplikace.
+- Přenosné verze aplikace Zero Install nemohou provádět integraci s pracovní plochou (např. vytvářet položky nabídky Start).
 - Zvažte místo toho použití běžné verze Zero Install na více počítačích s funkcí Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>

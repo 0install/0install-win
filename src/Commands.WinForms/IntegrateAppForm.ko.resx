@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>"모두 업데이트" 확인에 이 애플리케이션을 포함합니다.</value>
+    <value>'모두 업데이트' 검사에 이 애플리케이션을 포함합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>운영 체제에 처리할 수 있는 파일 형식 등 애플리케이션의 기능에 대해 알려줍니다.</value>
+    <value>운영 체제에 처리할 수 있는 파일 형식 등 애플리케이션의 기능을 알려줍니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>다음 주소로 보내기</value>
+    <value>보내기</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>확장 기능</value>
+    <value>확장 프로그램</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>지원되는 파일 형식의 기본 처리기('다음으로 열기'는 이 기능 없이도 작동)</value>
+    <value>지원되는 파일 형식의 기본 처리기('연결 프로그램'은 이 기능이 없어도 작동)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>다음 주소로 보내기</value>
+    <value>보내기</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">

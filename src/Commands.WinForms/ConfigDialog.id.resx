@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Konfigurasi Instalasi Nol</value>
+    <value>Konfigurasi Penginstalan Nol</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -131,11 +131,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Pilih atau buat direktori yang akan digunakan sebagai cache implementasi.</value>
+    <value>Pilih atau buat direktori untuk digunakan sebagai cache implementasi.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Peringatan: Mengubah opsi ini dapat mencegah Zero Install bekerja dengan benar.</value>
+    <value>Peringatan: Mengubah opsi-opsi ini dapat menyebabkan Zero Install tidak bekerja dengan benar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
@@ -153,7 +153,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Kunci Crypto:</value>
+    <value>Kunci kripto:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -165,7 +165,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Kelola akun</value>
+    <value>Mengelola akun</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -181,7 +181,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Lanjutan</value>
+    <value>Tingkat Lanjut</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">

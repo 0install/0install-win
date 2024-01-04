@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>输入一个 feed 的 URL（单个应用程序）</value>
+    <value>输入 feed 的 URL（单个应用程序）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDocumentation.Text" xml:space="preserve">
-    <value>文件</value>
+    <value>文档</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>使用发布工具打包新应用程序</value>
+    <value>使用发布工具打包新的应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>更多应用</value>
+    <value>更多应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>设置</value>
+    <value>安装</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
@@ -131,11 +131,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>全部更新</value>
+    <value>更新所有</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>全部更新</value>
+    <value>更新所有</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">

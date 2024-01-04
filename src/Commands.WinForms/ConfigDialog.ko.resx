@@ -95,11 +95,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>초기화</value>
+    <value>리셋</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>새 키를 자동으로 승인합니다(키 서버에서 알고 있는 경우)</value>
+    <value>새 키를 자동으로 승인(키 서버에서 알고 있는 경우)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -135,16 +135,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>경고: 이러한 옵션을 변경하면 제로 설치가 제대로 작동하지 않을 수 있습니다.</value>
+    <value>경고: 이 옵션을 변경하면 제로 인스톨이 제대로 작동하지 않을 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>이것은 언어를 제어합니다:
+    <value>언어를 제어합니다:
 - 제로 인스톨 자체 및
-- 제로 인스톨이 다운로드하는 애플리케이션의 언어를 제어합니다.
+- 제로 인스톨로 다운로드한 애플리케이션의 언어를 제어합니다.
 
 참고:
-- 모든 언어에 번역을 사용할 수 있는 것은 아닙니다.
+- 일부 언어에는 번역이 제공되지 않습니다.
 - 언어 변경 사항을 적용하려면 제로 설치를 다시 시작해야 합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -169,7 +169,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>가득 차 있음(일반 네트워크 사용)</value>
+    <value>전체(일반 네트워크 사용)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">

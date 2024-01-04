@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
-    <value>Linha de comando</value>
+    <value>Linha de comandos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDocumentation.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Utilizar as Ferramentas de Publicação para empacotar uma nova aplicação</value>
+    <value>Utilizar ferramentas de publicação para empacotar uma nova aplicação</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -103,15 +103,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Efetuar uma pesquisa por palavra-chave</value>
+    <value>Executar uma pesquisa por palavra-chave</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Gestão da cache</value>
+    <value>Gestão de cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Sincronizar</value>
+    <value>Sincronização</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Carregando o catálogo do servidor...</value>
+    <value>Carregamento do catálogo do servidor...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Catálogo</value>
+    <value>Catálogo de produtos</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

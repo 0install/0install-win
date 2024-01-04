@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Configurar la integración</value>
+    <value>Integración de la instalación</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Estos resultados de búsqueda son proporcionados por el servidor espejo. Tenga en cuenta que el servidor espejo por defecto indexa todos los feeds conocidos, independientemente de su calidad; debe decidir si confiar en los programas antes de ejecutarlos.</value>
+    <value>Los resultados de la búsqueda los proporciona el servidor espejo. Tenga en cuenta que el servidor espejo por defecto indexa todos los feeds conocidos, independientemente de su calidad; debe decidir si confía en los programas antes de ejecutarlos.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

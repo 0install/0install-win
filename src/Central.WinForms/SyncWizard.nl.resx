@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>De gegevens op de server zijn beschadigd</value>
+    <value>De gegevens die op de server zijn opgeslagen, worden beschadigd</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Je mag Zero Install Sync niet op andere computers uitvoeren terwijl dit proces loopt.</value>
+    <value>Je mag Zero Install Sync niet op andere computers uitvoeren terwijl dit proces actief is.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Houd deze sleutel geheim en gebruik iets anders voor je wachtwoord. Op deze manier heeft niemand toegang tot je gegevens, zelfs niet als de server wordt gecompromitteerd.</value>
+    <value>Houd deze sleutel geheim en gebruik iets anders als wachtwoord. Zo heeft niemand toegang tot je gegevens, zelfs niet als de server gecompromitteerd zou worden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Zodra je een account hebt aangemaakt, je e-mailadres hebt geverifieerd en je inloggegevens hebt genoteerd, klik je op 'Volgende'.</value>
+    <value>Nadat je een account hebt aangemaakt, je e-mailadres hebt geverifieerd en je inloggegevens hebt genoteerd, klik je op 'Volgende'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>De lokale applicatielijst wordt gereset. Je kunt nu doorgaan met Zero Install.</value>
+    <value>De lokale applicatielijst wordt gereset. Je kunt nu doorgaan met het gebruik van Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Misschien wil je ook de lokale gegevens resetten op andere computers waarop je Zero Install Sync gebruikt.</value>
+    <value>Mogelijk wil je ook de lokale gegevens resetten op andere computers waarop je Zero Install Sync gebruikt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync neemt je applicatielijst en desktopintegraties en zet ze automatisch over naar je andere computers.</value>
+    <value>Zero Install Sync neemt je applicatielijst en desktop integraties en brengt ze automatisch over naar je andere computers.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Registreer</value>
+    <value>Registreren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Gebruik een Windows-bestandsshare:</value>
+    <value>Gebruik een Windows bestandsdeling:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Sync Setup voltooid</value>
+    <value>Synchronisatie-instelling voltooid</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
@@ -279,7 +279,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Pad naar directory</value>
+    <value>Directory-pad</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

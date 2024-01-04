@@ -83,15 +83,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Invoergrootte gecontroleerd:</value>
+    <value>Controleert de grootte van ingangen:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Huidige ingangsgrootte:</value>
+    <value>Huidige invoergrootte:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
-    <value>Aan het laden...</value>
+    <value>Laden...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">

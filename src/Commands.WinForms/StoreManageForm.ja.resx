@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>ゼロインストール・キャッシュ管理</value>
+    <value>ゼロインストールキャッシュ管理</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
@@ -75,19 +75,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
-    <value>管理者として実行する</value>
+    <value>管理者として実行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>ベリファイ</value>
+    <value>検証</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>エントリーサイズをチェック：</value>
+    <value>エントリーのサイズをチェック：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>現在のエントリーサイズ</value>
+    <value>現在のエントリサイズ：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>総面積：</value>
+    <value>合計サイズ：</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>
