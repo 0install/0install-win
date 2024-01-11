@@ -44,8 +44,6 @@ jobs:
             **[Download Zero Install for Windows](https://get.0install.net/#windows)**
 
             Based on [Zero Install .NET ${{steps.download.outputs.version}}](https://github.com/0install/0install-dotnet/releases/${{steps.download.outputs.version}}).
-        env:
-          GITHUB_TOKEN: ${{github.token}}
 
       - name: Publish feed
         env:
