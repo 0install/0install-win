@@ -37,6 +37,8 @@ namespace ZeroInstall
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupPath = new System.Windows.Forms.GroupBox();
             this.buttonMachineWide = new System.Windows.Forms.Button();
+            this.labelSpaceRequired = new System.Windows.Forms.Label();
+            this.labelSpaceAvailable = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSplashScreen)).BeginInit();
             this.groupPath.SuspendLayout();
             this.SuspendLayout();
@@ -102,7 +104,7 @@ namespace ZeroInstall
             this.buttonContinue.Location = new System.Drawing.Point(342, 262);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(100, 37);
-            this.buttonContinue.TabIndex = 4;
+            this.buttonContinue.TabIndex = 6;
             this.buttonContinue.Text = "(Continue)";
             this.buttonContinue.UseVisualStyleBackColor = true;
             this.buttonContinue.Visible = false;
@@ -115,7 +117,7 @@ namespace ZeroInstall
             this.buttonCancel.Location = new System.Drawing.Point(448, 262);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 37);
-            this.buttonCancel.TabIndex = 5;
+            this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "(Cancel)";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Visible = false;
@@ -140,11 +142,37 @@ namespace ZeroInstall
             this.buttonMachineWide.Location = new System.Drawing.Point(211, 262);
             this.buttonMachineWide.Name = "buttonMachineWide";
             this.buttonMachineWide.Size = new System.Drawing.Size(125, 37);
-            this.buttonMachineWide.TabIndex = 3;
+            this.buttonMachineWide.TabIndex = 5;
             this.buttonMachineWide.Text = "(Machine Wide)";
             this.buttonMachineWide.UseVisualStyleBackColor = true;
             this.buttonMachineWide.Visible = false;
             this.buttonMachineWide.Click += new System.EventHandler(this.buttonMachineWide_Click);
+            // 
+            // labelSpaceRequired
+            // 
+            this.labelSpaceRequired.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSpaceRequired.AutoEllipsis = true;
+            this.labelSpaceRequired.BackColor = System.Drawing.Color.Transparent;
+            this.labelSpaceRequired.Location = new System.Drawing.Point(24, 262);
+            this.labelSpaceRequired.Name = "labelSpaceRequired";
+            this.labelSpaceRequired.Size = new System.Drawing.Size(181, 14);
+            this.labelSpaceRequired.TabIndex = 3;
+            this.labelSpaceRequired.Text = "(SpaceRequired)";
+            this.labelSpaceRequired.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.labelSpaceRequired.Visible = false;
+            // 
+            // labelSpaceAvailable
+            // 
+            this.labelSpaceAvailable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSpaceAvailable.AutoEllipsis = true;
+            this.labelSpaceAvailable.BackColor = System.Drawing.Color.Transparent;
+            this.labelSpaceAvailable.Location = new System.Drawing.Point(24, 282);
+            this.labelSpaceAvailable.Name = "labelSpaceAvailable";
+            this.labelSpaceAvailable.Size = new System.Drawing.Size(181, 14);
+            this.labelSpaceAvailable.TabIndex = 4;
+            this.labelSpaceAvailable.Text = "(SpaceAvailable)";
+            this.labelSpaceAvailable.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.labelSpaceAvailable.Visible = false;
             // 
             // MainForm
             // 
@@ -155,6 +183,8 @@ namespace ZeroInstall
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(560, 311);
             this.Controls.Add(this.buttonMachineWide);
+            this.Controls.Add(this.labelSpaceAvailable);
+            this.Controls.Add(this.labelSpaceRequired);
             this.Controls.Add(this.groupPath);
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.buttonCancel);
@@ -185,6 +215,8 @@ namespace ZeroInstall
         private System.Windows.Forms.TextBox textPath;
         private System.Windows.Forms.Button buttonChangePath;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.Label labelSpaceRequired;
+        private System.Windows.Forms.Label labelSpaceAvailable;
         private System.Windows.Forms.Button buttonContinue;
         private System.Windows.Forms.Button buttonCancel;
     }

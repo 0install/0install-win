@@ -174,4 +174,36 @@ public static class LocalizableStrings
         {"ru", "Выбрать другую папку"},
         {"zh", "选择其他位置"}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
+
+    public static string SpaceRequired => new LocalizableStringCollection
+    {
+        {"en", "Space required: ~{0}"},
+        {"de", "Erforderlicher Speicherplatz: ~{0}"},
+        {"es", "Espacio necesario: ~{0}"},
+        {"fr", "Espace nécessaire: environ {0}"},
+        {"it", "Spazio necessario: ~{0}"},
+        {"ja", "必要な容量：~{0}"},
+        {"nl", "Vereiste ruimte: ~{0}"},
+        {"pl", "Wymagane miejsce na dysku: ~{0}"},
+        {"pt-BR", "Espaço necessário: ~{0}"},
+        {"pt-PT", "Espaço necessário: ~{0}"},
+        {"ru", "Требуется места: ~{0}"},
+        {"zh", "占用空间：~{0}"}
+    }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
+
+    public static string SpaceAvailable => new LocalizableStringCollection
+    {
+        {"en", "Space available: {0}"},
+        {"de", "Verfügbarer Speicherplatz: {0}"},
+        {"es", "Espacio disponible: {0}"},
+        {"fr", "Espace disponible: {0}"},
+        {"it", "Spazio disponibile: {0}"},
+        {"ja", "空き容量：{0}"},
+        {"nl", "Beschikbare ruimte: {0}"},
+        {"pl", "Dostępne miejsce na dysku: {0}"},
+        {"pt-BR", "Espaço disponível: {0}"},
+        {"pt-PT", "Espaço disponível: {0}"},
+        {"ru", "Доступно: {0}"},
+        {"zh", "可用空间：{0}"}
+    }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
 }

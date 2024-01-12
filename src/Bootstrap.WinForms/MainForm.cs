@@ -76,7 +76,31 @@ public sealed partial class MainForm : Form
             ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
             : folderBrowserDialog.SelectedPath;
 
-        buttonContinue.Focus();
+        if (BootstrapConfig.Instance.EstimatedRequiredSpace is {} requiredSpace
+         && DetermineSpaceAvailable(textPath.Text) is {} availableSpace)
+        {
+            labelSpaceRequired.Text = string.Format(LocalizableStrings.SpaceRequired, requiredSpace.FormatBytes());
+            labelSpaceAvailable.Text = string.Format(LocalizableStrings.SpaceAvailable, availableSpace.FormatBytes());
+            labelSpaceRequired.Visible = labelSpaceAvailable.Visible = true;
+            buttonContinue.Enabled = requiredSpace <= availableSpace;
+        }
+
+        if (buttonContinue.Enabled) buttonContinue.Focus();
+    }
+
+    private static long? DetermineSpaceAvailable(string path)
+    {
+        try
+        {
+            return new DriveInfo(Path.GetPathRoot(path)).AvailableFreeSpace;
+        }
+        #region Error handling
+        catch (Exception ex)
+        {
+            Log.Error($"Could not determine the available disk space from '{path}'", ex);
+            return null;
+        }
+        #endregion
     }
 
     private void buttonChangePath_Click(object sender, EventArgs e)
@@ -168,7 +192,7 @@ public sealed partial class MainForm : Form
 
     private void buttonContinue_Click(object sender, EventArgs e)
     {
-        buttonMachineWide.Visible = groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = false;
+        buttonMachineWide.Visible = groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = labelSpaceRequired.Visible = labelSpaceAvailable.Visible = false;
         _customPathResult.SetResult(folderBrowserDialog.SelectedPath);
     }
 
