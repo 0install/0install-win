@@ -9,13 +9,13 @@ public static class LocalizableStrings
     {
         {"en", "For &all users"},
         {"de", "Für &alle Benutzer"},
-        {"es", "Para &todos os utilizadores"},
-        {"fr", "Pour &tous les utilisateurs"},
+        {"es", "&Todos los usuarios"},
+        {"fr", "&Tous les utilisateurs"},
         {"it", "Per &tutti gli utenti"},
         {"ja", "すべてのユーザー"},
         {"nl", "Voor &alle gebruikers"},
-        {"pl", "Dla &wszystkich użytkowników"},
-        {"pt", "Para &todos os utilizadores"},
+        {"pl", "&Wszyscy użytkownicy"},
+        {"pt", "&Todos os utilizadores"},
         {"ru", "Для всех пользователей"},
         {"zh", "面向所有用户"}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;

@@ -137,9 +137,9 @@ namespace ZeroInstall
             // buttonMachineWide
             // 
             this.buttonMachineWide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMachineWide.Location = new System.Drawing.Point(12, 262);
+            this.buttonMachineWide.Location = new System.Drawing.Point(211, 262);
             this.buttonMachineWide.Name = "buttonMachineWide";
-            this.buttonMachineWide.Size = new System.Drawing.Size(100, 37);
+            this.buttonMachineWide.Size = new System.Drawing.Size(125, 37);
             this.buttonMachineWide.TabIndex = 3;
             this.buttonMachineWide.Text = "(Machine Wide)";
             this.buttonMachineWide.UseVisualStyleBackColor = true;
