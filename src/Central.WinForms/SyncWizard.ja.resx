@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>暗号キーが変更されました。Zero Install Sync用に設定済みの他のすべてのコンピュータに新しいキーを入力する必要があります。</value>
+    <value>暗号キーが変更されました。Zero Install Sync用に設定済みの他のすべてのコンピューターに新しいキーを入力する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーは、サーバーに送信する前にローカルでデータを暗号化するために使用されます。提案されたものを書き留めるか、自分で選んでください。</value>
+    <value>暗号キーは、サーバーに送信する前にローカルでデータを暗号化するために使用されます。推奨されるものをメモするか、自分で選んでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>このウィザードは、シンクに関する様々な問題を解決するのに役立ちます。解決したい問題は何ですか？</value>
+    <value>このウィザードは、シンクに関する様々な問題を解決するのに役立ちます。どのような問題を解決したいですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync は、アプリケーションリストとデスクトップ統合を取得し、他のコンピュータに自動的に転送します。</value>
+    <value>Zero Install Sync は、アプリケーションリストとデスクトップ統合を取得し、他のコンピューターに自動的に転送します。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>独自のSyncサーバーをセットアップするには？</value>
+    <value>独自のSyncサーバーを設定するには？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">

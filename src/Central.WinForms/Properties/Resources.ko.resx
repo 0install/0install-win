@@ -182,7 +182,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>{0} 선택한 항목을 목록에서 제거하시겠습니까?</value>
+    <value>목록에서 {0} 선택한 항목을 제거하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">

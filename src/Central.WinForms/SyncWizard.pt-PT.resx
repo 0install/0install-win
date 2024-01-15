@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Os dados armazenados no servidor são danificados</value>
+    <value>Os dados armazenados no servidor estão danificados</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduzir a chave noutros computadores utilizando a janela "Opções". Não utilizar este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
+    <value>Introduzir a chave noutros computadores utilizando a janela "Opções". Não utilize este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir ao servidor. Escreva a chave sugerida ou escolha a sua própria.</value>
+    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir ao servidor. Anote a chave sugerida ou escolha a sua própria.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Está prestes a substituir a sua lista de aplicações locais pelos dados armazenados no servidor Sync. Todas as alterações efectuadas localmente, mas ainda não sincronizadas, perder-se-ão!</value>
+    <value>Está prestes a substituir a sua lista de aplicações locais pelos dados armazenados no servidor Sync. As alterações efectuadas localmente e ainda não sincronizadas perder-se-ão!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Quaisquer alterações efectuadas noutros computadores que não tenham sido sincronizadas com este serão perdidas!</value>
+    <value>Todas as alterações efectuadas noutros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Este é o primeiro computador que está a configurar para a sincronização de instalação zero?</value>
+    <value>Este é o primeiro computador que está a configurar para a Sincronização de Instalação Zero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
