@@ -47,7 +47,7 @@
 
   <!-- Build-time dependencies -->
   <ItemGroup>
-    <PackageReference Include="Generator.Equals" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="Generator.Equals" Version="3.0.1" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
