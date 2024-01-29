@@ -62,8 +62,9 @@ public sealed partial class MainForm : Form
         groupPath.Visible = buttonContinue.Visible = buttonCancel.Visible = true;
         if (BootstrapConfig.Instance.IntegrateArgs != null && !machineWide)
         {
-            buttonMachineWide.AddShieldIcon();
-            buttonMachineWide.Visible = true;
+            if (!WindowsUtils.IsAdministrator && WindowsUtils.HasUac)
+                buttonMachineWide.AddShieldIcon();
+            buttonMachineWide.Show();
         }
         UpdatePath();
 
@@ -176,8 +177,12 @@ public sealed partial class MainForm : Form
     {
         try
         {
-            ProgramUtils.GetStartInfo(["--machine", ..GetCommandLineArgs().Skip(1)])
-                        .AsAdmin().Start();
+            var startInfo = ProgramUtils.GetStartInfo(["--machine", ..GetCommandLineArgs().Skip(1)]);
+            if (!WindowsUtils.IsAdministrator && WindowsUtils.HasUac)
+                startInfo.AsAdmin();
+            startInfo.Start();
+
+            // Close this instance to let the machine-wide one take over
             Cancel();
         }
         #region Error handling
