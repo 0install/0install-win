@@ -30,12 +30,15 @@ public sealed partial class StoreManageForm : Form
     {
         InitializeComponent();
         Font = DefaultFonts.Modern;
-        buttonRunAsAdmin.AddShieldIcon();
         this.PreventPinningIfNotIntegrated();
 
         if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
         if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
-        else if (WindowsUtils.HasUac) buttonRunAsAdmin.Show();
+        else if (WindowsUtils.HasUac)
+        {
+            buttonRunAsAdmin.AddShieldIcon();
+            buttonRunAsAdmin.Show();
+        }
 
         Shown += delegate { RefreshList(nodes); };
 
