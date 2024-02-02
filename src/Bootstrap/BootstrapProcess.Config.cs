@@ -94,7 +94,9 @@ partial class BootstrapProcess
     {
         try
         {
-            var trust = TrustDB.Load();
+            var trust = _machineWide
+                ? TrustDB.LoadMachineWide()
+                : TrustDB.Load();
             trust.TrustKey("88C8A1F375928691D7365C0259AA3927C24E4E1E", new("apps.0install.net"));
             if (BootstrapConfig.Instance.KeyFingerprint is {} fingerprint)
             {
