@@ -111,19 +111,16 @@ public sealed partial class ProgressForm : Form
 
             try
             {
-                var offset = new Size(width: 0, height: pictureBoxSplashScreen.Bottom);
-                MinimumSize += offset;
-                panelProgress.Location += offset;
-                panelProgress.Size -= offset;
-                selectionsControl.Location += offset;
-                selectionsControl.Size -= offset;
+                MinimumSize += new Size(width: 0, height: pictureBoxSplashScreen.Bottom);
             }
             #region Error handling
             catch (ArgumentException ex)
             {
-                Log.Debug(ex);
+                Log.Debug("Failed to adjust minimum size of window", ex);
             }
             #endregion
+
+            AddToSelectionsHeight(-pictureBoxSplashScreen.Bottom);
         }
 
         ShowSelectionsControls();
@@ -152,8 +149,35 @@ public sealed partial class ProgressForm : Form
     public void ShowSelections(Selections selections, IFeedManager feedManager)
     {
         _selections = selections;
+
+        // Overlap selections with splash screen if more than one component
+        if (pictureBoxSplashScreen.Visible && _selections.Implementations.Count > 1)
+            AddToSelectionsHeight(pictureBoxSplashScreen.Height / 4);
+
         _feedManager = feedManager;
         if (components != null) ShowSelectionsControls();
+    }
+
+    private void AddToSelectionsHeight(int height)
+    {
+        var offset = new Size(0, height);
+
+        try
+        {
+            // Grow up instead of down
+            panelProgress.Location -= offset;
+            selectionsControl.Location -= offset;
+
+            panelProgress.Size += offset;
+            selectionsControl.Size += offset;
+        }
+
+        #region Error handling
+        catch (ArgumentException ex)
+        {
+            Log.Debug("Failed to adjust size of selections", ex);
+        }
+        #endregion
     }
 
     private void ShowSelectionsControls()
