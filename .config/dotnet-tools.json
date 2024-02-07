@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "wix": {
-      "version": "4.0.3",
+      "version": "4.0.4",
       "commands": [
         "wix"
       ]
