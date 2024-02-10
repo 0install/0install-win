@@ -312,6 +312,8 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
 
     private void Yield(Requirements requirements, Feed? feed = null, ImplementationBase? implementation = null)
     {
+        EnsureAllowed(requirements.InterfaceUri);
+
         if (implementation == null)
         {
             var selections = Solver.TrySolve(requirements);

@@ -76,15 +76,20 @@ internal sealed partial class MainForm : Form
     {
         WindowsUtils.RegisterApplicationRestart(_machineWide ? "--restart --machine" : "--restart");
 
+        var config = Config.LoadSafe();
+
+        if (config.KioskMode)
+            buttonSync.Visible = buttonMoreApps.Visible = buttonOptions.Visible = buttonPortableCreator.Visible = buttonCommandLine.Visible = false;
+
         _tileManagement.UpdateMyApps();
         _tileManagement.LoadCachedCatalog();
-        if (Config.LoadSafe().EffectiveNetworkUse == NetworkLevel.Full)
+        if (config.EffectiveNetworkUse == NetworkLevel.Full)
             _ = LoadCatalogAsync();
 
         bool firstRun = OnFirstRun();
         if (_tileManagement.IsMyAppsEmpty)
         {
-            if (firstRun && !Locations.IsPortable)
+            if (firstRun && !Locations.IsPortable && !config.KioskMode)
             {
                 using var dialog = new IntroDialog();
                 dialog.ShowDialog(this);
@@ -94,7 +99,7 @@ internal sealed partial class MainForm : Form
             tabControlApps.SelectTab(tabPageCatalog);
         }
 
-        if (!ZeroInstallInstance.IsIntegrated && !Locations.IsPortable) ShowDeployNotification();
+        if (!ZeroInstallInstance.IsIntegrated && !Locations.IsPortable && !config.KioskMode) ShowDeployNotification();
         if (ZeroInstallInstance.IsDeployed) SelfUpdateCheck();
     }
 
