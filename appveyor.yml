@@ -1,3 +1,6 @@
+branches:
+  except: [translate]
+
 image: Visual Studio 2022
 
 environment:
