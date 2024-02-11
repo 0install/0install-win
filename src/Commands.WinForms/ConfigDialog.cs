@@ -187,7 +187,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
     private void LoadCatalogSources()
     {
         listBoxCatalogSources.Items.Clear();
-        listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources().Cast<object>().ToArray());
+        listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources(preferMachineWide: false).Cast<object>().ToArray());
     }
 
     private void SaveCatalogSources() => CatalogManager.SetSources(
@@ -273,7 +273,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
         => treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
 
     private void SaveTrust()
-        => treeViewTrustedKeys.Nodes!.ToTrustDB().Save(TrustDB.DefaultLocation);
+        => treeViewTrustedKeys.Nodes!.ToTrustDB().Save();
 
     private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
         => buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);

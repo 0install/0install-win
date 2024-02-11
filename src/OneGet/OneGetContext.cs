@@ -54,7 +54,7 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
 
     public void ResolvePackageSources()
     {
-        var registeredSources = Services.Feeds.CatalogManager.GetSources();
+        var registeredSources = CatalogManager.GetSources();
 
         if (request.Sources.Any())
         {
