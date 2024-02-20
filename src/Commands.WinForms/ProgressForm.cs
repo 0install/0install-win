@@ -149,13 +149,16 @@ public sealed partial class ProgressForm : Form
     public void ShowSelections(Selections selections, IFeedManager feedManager)
     {
         _selections = selections;
-
-        // Overlap selections with splash screen if more than one component
-        if (pictureBoxSplashScreen.Visible && _selections.Implementations.Count > 1)
-            AddToSelectionsHeight(pictureBoxSplashScreen.Height / 4);
-
         _feedManager = feedManager;
-        if (components != null) ShowSelectionsControls();
+
+        if (components != null)
+        {
+            ShowSelectionsControls();
+
+            // Overlap selections with splash screen if more than one component
+            if (_selections.Implementations.Count > 1 && pictureBoxSplashScreen.Visible)
+                AddToSelectionsHeight(pictureBoxSplashScreen.Height / 4);
+        }
     }
 
     private void AddToSelectionsHeight(int height)
