@@ -137,7 +137,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
                              .Select(entryPoint => entryPoint.Command)
                              .Append(Command.NameRun)
                              .WhereNotNull().Distinct()
-                             .Cast<object>().ToArray();
+                             .ToArray<object>();
 
         dataGridStartMenuColumnCommand.Items.AddRange(commands);
         dataGridDesktopColumnCommand.Items.AddRange(commands);

@@ -32,7 +32,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
         ConfigToControls();
 
         var allImplDirs = ImplementationStores.GetDirectories().ToList();
-        listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
+        listBoxImplDirs.Items.AddRange(allImplDirs.ToArray<object>());
         _lockedImplDirs = allImplDirs.Except(ImplementationStores.GetUserDirectories()).ToList();
 
         LoadCatalogSources();
@@ -187,7 +187,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
     private void LoadCatalogSources()
     {
         listBoxCatalogSources.Items.Clear();
-        listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources(preferMachineWide: false).Cast<object>().ToArray());
+        listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources(preferMachineWide: false).ToArray<object>());
     }
 
     private void SaveCatalogSources() => CatalogManager.SetSources(
@@ -363,7 +363,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
     private void LoadLanguages()
     {
         comboBoxLanguage.Items.Add(Resources.UseSystemLanguage);
-        comboBoxLanguage.Items.AddRange(Languages.AllKnown.Select(x => new LanguageWrapper(x)).Cast<object>().ToArray());
+        comboBoxLanguage.Items.AddRange(Languages.AllKnown.Select(x => new LanguageWrapper(x)).ToArray<object>());
         if (ProgramUtils.UILanguage == null) comboBoxLanguage.SelectedIndex = 0;
         else comboBoxLanguage.SelectedItem = new LanguageWrapper(ProgramUtils.UILanguage);
     }

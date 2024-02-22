@@ -110,11 +110,11 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     {
         comboBoxVersion.Items.Clear();
         if (_selections?.MainImplementation.Candidates?.GetSuitableVersions() is {} versions)
-            comboBoxVersion.Items.AddRange(versions.Cast<object>().ToArray());
+            comboBoxVersion.Items.AddRange(versions.ToArray<object>());
 
         comboBoxCommand.Items.Clear();
         if (_feed.EntryPoints.Count == 0) comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, Command.NameRun));
-        else comboBoxCommand.Items.AddRange(_feed.EntryPoints.Select(entryPoint => new EntryPointWrapper(_feed, entryPoint)).Cast<object>().ToArray());
+        else comboBoxCommand.Items.AddRange(_feed.EntryPoints.Select(entryPoint => new EntryPointWrapper(_feed, entryPoint)).ToArray<object>());
         comboBoxCommand.SelectedIndex = 0;
     }
 
