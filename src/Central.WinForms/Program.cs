@@ -25,10 +25,16 @@ public static class Program
 
         try
         {
-            Application.Run(new MainForm(machineWide: args.Contains("-m") || args.Contains("--machine")));
+            Application.Run(args switch
+            {
+                [] => new MainForm(machineWide: false),
+                ["-m"] or ["--machine"] => new MainForm(machineWide: true),
+                [var uri] => new SelectCommandDialog(new(uri)),
+                _ => throw new FormatException("Unknown command-line arguments.")
+            });
         }
         #region Error handling
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException or FormatException)
         {
             Log.Error("Central startup failed", ex);
             Msg.Inform(null, ex.GetMessageWithInner(), MsgSeverity.Error);
