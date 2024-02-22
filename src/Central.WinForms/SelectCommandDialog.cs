@@ -14,32 +14,6 @@ namespace ZeroInstall.Central.WinForms;
 /// </summary>
 public sealed partial class SelectCommandDialog : OKCancelDialog
 {
-    #region Inner class
-    private class EntryPointWrapper
-    {
-        private readonly Feed _feed;
-        private readonly EntryPoint _entryPoint;
-
-        public EntryPointWrapper(Feed feed, EntryPoint entryPoint)
-        {
-            _feed = feed;
-            _entryPoint = entryPoint;
-        }
-
-        public EntryPointWrapper(Feed feed, string commandName)
-        {
-            _feed = feed;
-            _entryPoint = new() {Command = commandName};
-        }
-
-        public string? GetSummary() => _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
-
-        public override string ToString() => _feed.GetBestName(CultureInfo.CurrentUICulture, _entryPoint.Command);
-
-        public string GetCommand() => _entryPoint.Command;
-    }
-    #endregion
-
     private readonly FeedUri _feedUri;
     private Feed _feed;
     private Selections? _selections;
@@ -167,5 +141,18 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
             foreach (string arg in WindowsUtils.SplitArgs(textBoxArgs.Text))
                 yield return arg;
         }
+    }
+
+    private class EntryPointWrapper(Feed feed, EntryPoint entryPoint)
+    {
+        public EntryPointWrapper(Feed feed, string commandName)
+            : this(feed, new EntryPoint {Command = commandName})
+        {}
+
+        public string? GetSummary() => feed.GetBestSummary(CultureInfo.CurrentUICulture, entryPoint.Command);
+
+        public override string ToString() => feed.GetBestName(CultureInfo.CurrentUICulture, entryPoint.Command);
+
+        public string GetCommand() => entryPoint.Command;
     }
 }
