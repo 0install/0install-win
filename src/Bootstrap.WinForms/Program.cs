@@ -8,4 +8,15 @@ Application.SetCompatibleTextRenderingDefault(false);
 ErrorReportForm.SetupMonitoring(new("https://0install.de/error-report/"));
 
 using var handler = new GuiBootstrapHandler();
-return (int)ProgramUtils.Run(args, handler);
+
+try
+{
+    return (int)ProgramUtils.Run(args, handler);
+}
+#region Error handling
+catch (Win32Exception ex) // Commonly caused by GDI object exhaustion
+{
+    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+    return -1;
+}
+#endregion

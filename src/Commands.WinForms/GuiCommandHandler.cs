@@ -38,7 +38,7 @@ public sealed partial class GuiCommandHandler : GuiTaskHandlerBase, ICommandHand
                 return ShowForm(form => form.AddProgressFor(task));
             }
             #region Error handling
-            catch (Exception ex) when (ex is Win32Exception or ExternalException)
+            catch (Exception ex) when (ex is Win32Exception or ExternalException) // Commonly caused by GDI object exhaustion
             {
                 Log.Debug($"Problem showing GUI progress control for {task.Name}", ex);
                 return null;
