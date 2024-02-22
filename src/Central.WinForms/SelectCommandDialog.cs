@@ -15,21 +15,16 @@ namespace ZeroInstall.Central.WinForms;
 public sealed partial class SelectCommandDialog : OKCancelDialog
 {
     private readonly FeedUri _feedUri;
-    private Feed _feed;
-    private Selections? _selections;
 
-    /// <summary>
-    /// Creates a dialog box for asking the the user to select an <see cref="Command"/>.
-    /// </summary>
-    /// <param name="target">The application to be launched.</param>
-    public SelectCommandDialog(FeedTarget target)
+    public SelectCommandDialog(FeedUri feedUri)
     {
-        _feedUri = target.Uri;
-        _feed = target.Feed;
+        _feedUri = feedUri;
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
-        Text = Resources.Run + @" " + _feed.Name;
+        Text = Resources.Run;
+
+        UpdateLabels(new(), EventArgs.Empty);
     }
 
     private async void SelectCommandDialog_Load(object sender, EventArgs e)
@@ -43,13 +38,11 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         #region Error handling
         catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
         {
-            Log.Info($"Failed to run Solver to show Run options for ${_feed}", ex);
+            Log.Info($"Failed to run Solver to show Run options for ${_feedUri}", ex);
         }
         catch (OperationCanceledException)
         {}
         #endregion
-
-        UpdateComboBoxes();
     }
 
     private async void buttonReload_Click(object sender, EventArgs e)
@@ -57,7 +50,6 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         try
         {
             await SolveAsync(refresh: true);
-            UpdateComboBoxes();
         }
         #region Error handling
         catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
@@ -75,20 +67,20 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
     private async Task SolveAsync(bool refresh)
     {
         using var handler = new DialogTaskHandler(this);
-        var services = new ServiceProvider(handler) {FeedManager = { Refresh = refresh}};
-        _selections = await Task.Run(() => services.Solver.Solve(_feedUri));
-        _feed = services.FeedCache.GetFeed(_feedUri) ?? _feed;
-    }
+        var services = new ServiceProvider(handler) {FeedManager = {Refresh = refresh}};
+        var selections = await Task.Run(() => services.Solver.Solve(_feedUri));
+        var feed = services.FeedCache.GetFeed(_feedUri);
+        if (feed == null) return;
 
-    private void UpdateComboBoxes()
-    {
+        Text = Resources.Run + @" " + feed.Name;
+
         comboBoxVersion.Items.Clear();
-        if (_selections?.MainImplementation.Candidates?.GetSuitableVersions() is {} versions)
+        if (selections.MainImplementation.Candidates?.GetSuitableVersions() is {} versions)
             comboBoxVersion.Items.AddRange(versions.ToArray<object>());
 
         comboBoxCommand.Items.Clear();
-        if (_feed.EntryPoints.Count == 0) comboBoxCommand.Items.Add(new EntryPointWrapper(_feed, Command.NameRun));
-        else comboBoxCommand.Items.AddRange(_feed.EntryPoints.Select(entryPoint => new EntryPointWrapper(_feed, entryPoint)).ToArray<object>());
+        if (feed.EntryPoints.Count == 0) comboBoxCommand.Items.Add(new EntryPointWrapper(feed, Command.NameRun));
+        else comboBoxCommand.Items.AddRange(feed.EntryPoints.Select(entryPoint => new EntryPointWrapper(feed, entryPoint)).ToArray<object>());
         comboBoxCommand.SelectedIndex = 0;
     }
 

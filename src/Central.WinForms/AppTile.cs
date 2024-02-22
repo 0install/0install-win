@@ -76,15 +76,12 @@ public sealed partial class AppTile : UserControl
         CreateHandle();
     }
 
-    private Feed? _feed;
-
     /// <summary>
     /// Sets the <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries.
     /// Should only be called once.
     /// </summary>
     public AppTile SetFeed(Feed? feed)
     {
-        _feed = feed;
         if (feed == null) return this;
 
         labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
@@ -154,8 +151,8 @@ public sealed partial class AppTile : UserControl
 
     private void buttonRunWithOptions_Click(object sender, EventArgs e)
     {
-        if (InterfaceUri.IsFake || _feed == null) return;
-        new SelectCommandDialog(new(InterfaceUri, _feed)).Show(this);
+        if (InterfaceUri.IsFake) return;
+        new SelectCommandDialog(InterfaceUri).Show(this);
     }
 
     private void buttonUpdate_Click(object sender, EventArgs e)
