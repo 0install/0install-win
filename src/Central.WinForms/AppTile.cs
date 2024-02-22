@@ -80,19 +80,27 @@ public sealed partial class AppTile : UserControl
 
     /// <summary>
     /// Sets the <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries.
+    /// Should only be called once.
     /// </summary>
     public AppTile SetFeed(Feed? feed)
     {
         _feed = feed;
-        if (feed == null)
+        if (feed == null) return this;
+
+        labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
+        buttonRunWithOptions.Visible = true;
+
+        if (feed.NeedsTerminal)
         {
-            buttonRunWithOptions.Visible = false;
+            // Map "Run" to "Run with options"
+            buttonRun.Click -= buttonRun_Click;
+            buttonRun.Click += buttonRunWithOptions_Click;
+
+            // Hide "Run" in drop-down menu and make "Run with options" default instead
+            buttonRun2.Visible = false;
+            buttonRunWithOptions.Font = new(buttonRunWithOptions.Font, FontStyle.Bold);
         }
-        else
-        {
-            buttonRunWithOptions.Visible = true;
-            labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
-        }
+
         return this;
     }
 
@@ -141,8 +149,7 @@ public sealed partial class AppTile : UserControl
     private void buttonRun_Click(object sender, EventArgs e)
     {
         if (InterfaceUri.IsFake) return;
-        if (_feed is {NeedsTerminal: true}) new SelectCommandDialog(new(InterfaceUri, _feed)).Show(this);
-        else CommandUtils.Start(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
+        CommandUtils.Start(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
     }
 
     private void buttonRunWithOptions_Click(object sender, EventArgs e)
