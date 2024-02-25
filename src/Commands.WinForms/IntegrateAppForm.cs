@@ -106,7 +106,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         where T : CommandAccessPoint
     {
         var suggestions = getSuggestions().ToList();
-        if (suggestions.Count == 0)
+        if (suggestions is [])
         {
             labelSimple.Visible = checkBoxSimple.Visible = false;
             return;

@@ -79,7 +79,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
             comboBoxVersion.Items.AddRange(versions.ToArray<object>());
 
         comboBoxCommand.Items.Clear();
-        if (feed.EntryPoints.Count == 0) comboBoxCommand.Items.Add(new EntryPointWrapper(feed, Command.NameRun));
+        if (feed.EntryPoints is []) comboBoxCommand.Items.Add(new EntryPointWrapper(feed, Command.NameRun));
         else comboBoxCommand.Items.AddRange(feed.EntryPoints.Select(entryPoint => new EntryPointWrapper(feed, entryPoint)).ToArray<object>());
         comboBoxCommand.SelectedIndex = 0;
     }

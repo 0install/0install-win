@@ -104,7 +104,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         args.Add(_userArgs);
 
-        if (args.Count == 0)
+        if (args is [])
         {
             if (_handler.IsGui) args.Add("central");
             else

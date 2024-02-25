@@ -289,7 +289,7 @@ public sealed partial class ProgressForm : Form
         if (panelProgress.Controls.Cast<Control>().FirstOrDefault(x => x.Tag == task) is {} toRemove)
             panelProgress.Controls.Remove(toRemove);
 
-        if (panelProgress.Controls.Count == 0 && _selections != null)
+        if (panelProgress.Controls is [] && _selections != null)
         {
             panelProgress.Hide();
             selectionsControl.Show();

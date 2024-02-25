@@ -47,7 +47,7 @@ public class AppTileManagement
     /// <summary>
     /// Indicates whether the <see cref="AppList"/> currently contains no elements.
     /// </summary>
-    public bool IsMyAppsEmpty => _appList.Entries.Count == 0;
+    public bool IsMyAppsEmpty => _appList.Entries is [];
 
     /// <summary>
     /// Loads the current <see cref="AppList"/> from the disk and updates the "My Apps" <see cref="AppTileList"/>.
