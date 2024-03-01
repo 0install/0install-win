@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitions revision="1.0" schemaVersion="1.0">
+  <policyNamespaces>
+    <target prefix="0install" namespace="ZeroInstall.Policies" />
+    <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+  </policyNamespaces>
+  <resources minRequiredRevision="1.0" />
+  <categories>
+    <category name="0install" displayName="$(string.0install)" explainText="$(string.0install_Help)" />
+    <category name="Policy" displayName="$(string.Policy)" explainText="$(string.Policy_Help)">
+      <parentCategory ref="0install" />
+    </category>
+    <category name="Fetcher" displayName="$(string.Fetcher)" explainText="$(string.Fetcher_Help)">
+      <parentCategory ref="0install" />
+    </category>
+    <category name="Sources" displayName="$(string.Sources)" explainText="$(string.Sources_Help)">
+      <parentCategory ref="0install" />
+    </category>
+    <category name="Sync" displayName="$(string.Sync)" explainText="$(string.Sync_Help)">
+      <parentCategory ref="0install" />
+    </category>
+    <category name="Restrictions" displayName="$(string.Restrictions)" explainText="$(string.Restrictions_Help)">
+      <parentCategory ref="0install" />
+    </category>
+  </categories>
+  <policies>
+    <policy name="Freshness" class="Both" displayName="$(string.Freshness)" explainText="$(string.Freshness_Help)" presentation="$(presentation.Freshness)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Policy" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <decimal id="Freshness_DecimalTextBox" valueName="freshness" minValue="1" maxValue="8640000" />
+      </elements>
+    </policy>
+    <policy name="HelpWithTesting" class="Both" displayName="$(string.HelpWithTesting)" explainText="$(string.HelpWithTesting_Help)" key="SOFTWARE\Policies\Zero Install" valueName="help_with_testing">
+      <parentCategory ref="Policy" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+    <policy name="NetworkUse" class="Both" displayName="$(string.NetworkUse)" explainText="$(string.NetworkUse_Help)" presentation="$(presentation.NetworkUse)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Policy" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <enum id="NetworkUse_DropdownList" valueName="network_use">
+          <item displayName="$(string.NetworkLevel_Full)">
+            <value>
+              <string>full</string>
+            </value>
+          </item>
+          <item displayName="$(string.NetworkLevel_Minimal)">
+            <value>
+              <string>minimal</string>
+            </value>
+          </item>
+          <item displayName="$(string.NetworkLevel_Offline)">
+            <value>
+              <string>off-line</string>
+            </value>
+          </item>
+        </enum>
+      </elements>
+    </policy>
+    <policy name="AutoApproveKeys" class="Both" displayName="$(string.AutoApproveKeys)" explainText="$(string.AutoApproveKeys_Help)" key="SOFTWARE\Policies\Zero Install" valueName="auto_approve_keys">
+      <parentCategory ref="Policy" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+    <policy name="MaxParallelDownloads" class="Both" displayName="$(string.MaxParallelDownloads)" explainText="$(string.MaxParallelDownloads_Help)" presentation="$(presentation.MaxParallelDownloads)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Fetcher" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <decimal id="MaxParallelDownloads_DecimalTextBox" valueName="max_parallel_downloads" minValue="1" maxValue="128" />
+      </elements>
+    </policy>
+    <policy name="FeedMirror" class="Both" displayName="$(string.FeedMirror)" explainText="$(string.FeedMirror_Help)" presentation="$(presentation.FeedMirror)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sources" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="FeedMirror_TextBox" valueName="feed_mirror" />
+      </elements>
+    </policy>
+    <policy name="KeyInfoServer" class="Both" displayName="$(string.KeyInfoServer)" explainText="$(string.KeyInfoServer_Help)" presentation="$(presentation.KeyInfoServer)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sources" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="KeyInfoServer_TextBox" valueName="key_info_server" />
+      </elements>
+    </policy>
+    <policy name="SelfUpdateUri" class="Both" displayName="$(string.SelfUpdateUri)" explainText="$(string.SelfUpdateUri_Help)" presentation="$(presentation.SelfUpdateUri)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sources" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="SelfUpdateUri_TextBox" valueName="self_update_uri" />
+      </elements>
+    </policy>
+    <policy name="ExternalSolverUri" class="Both" displayName="$(string.ExternalSolverUri)" explainText="$(string.ExternalSolverUri_Help)" presentation="$(presentation.ExternalSolverUri)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sources" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="ExternalSolverUri_TextBox" valueName="external_solver_uri" />
+      </elements>
+    </policy>
+    <policy name="SyncServer" class="Both" displayName="$(string.SyncServer)" explainText="$(string.SyncServer_Help)" presentation="$(presentation.SyncServer)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sync" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="SyncServer_TextBox" valueName="sync_server" />
+      </elements>
+    </policy>
+    <policy name="SyncServerCredentials" class="Both" displayName="$(string.SyncServerCredentials)" explainText="$(string.SyncServerCredentials_Help)" presentation="$(presentation.SyncServerCredentials)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sync" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="SyncServerUsername_TextBox" valueName="sync_server_user" />
+        <text id="SyncServerPassword_TextBox" valueName="sync_server_pw" />
+      </elements>
+    </policy>
+    <policy name="SyncCryptoKey" class="Both" displayName="$(string.SyncCryptoKey)" explainText="$(string.SyncCryptoKey_Help)" presentation="$(presentation.SyncCryptoKey)" key="SOFTWARE\Policies\Zero Install">
+      <parentCategory ref="Sync" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="SyncCryptoKey_TextBox" valueName="sync_crypto_key" />
+      </elements>
+    </policy>
+    <policy name="KioskMode" class="Both" displayName="$(string.KioskMode)" explainText="$(string.KioskMode_Help)" key="SOFTWARE\Policies\Zero Install" valueName="kiosk_mode">
+      <parentCategory ref="Restrictions" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+  </policies>
+</policyDefinitions>

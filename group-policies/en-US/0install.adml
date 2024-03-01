@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources revision="1.0" schemaVersion="1.0">
+  <displayName>
+  </displayName>
+  <description>
+  </description>
+  <resources>
+    <stringTable>
+      <string id="0install">Zero Install</string>
+      <string id="0install_Help">This allows you to set configuration options for Zero Install. Options set here cannot be modified by users using "0install config" or the"Options" GUI.</string>
+      <string id="Policy">Policy</string>
+      <string id="Policy_Help">Options that control Zero Install's behavior when selecting and downloading implementations.</string>
+      <string id="Freshness">Freshness</string>
+      <string id="Freshness_Help">The maximum age a cached feed may have until it is considered stale (needs to be updated).</string>
+      <string id="HelpWithTesting">Help with testing</string>
+      <string id="HelpWithTesting_Help">Always prefer the newest versions, even if they have not been marked as stable yet.</string>
+      <string id="NetworkUse">Network use</string>
+      <string id="NetworkUse_Help">Controls how liberally network access is attempted.</string>
+      <string id="NetworkLevel_Offline">Offline (Do not access network at all)</string>
+      <string id="NetworkLevel_Minimal">Minimal (Only access network when there are no safe implementations available)</string>
+      <string id="NetworkLevel_Full">Full (Always use network to get the newest available versions)</string>
+      <string id="AutoApproveKeys">Auto approve keys</string>
+      <string id="AutoApproveKeys_Help">Automatically approve keys known by the key info server and seen the first time a feed is fetched.</string>
+      <string id="Fetcher">Fetcher</string>
+      <string id="Fetcher_Help">Configuration for how Zero Install downloads files.</string>
+      <string id="MaxParallelDownloads">Maximum parallel downloads</string>
+      <string id="MaxParallelDownloads_Help">Maximum number of implementations to download in parallel.</string>
+      <string id="Sources">Sources</string>
+      <string id="Sources_Help">URIs for external services that Zero Instal uses.</string>
+      <string id="FeedMirror">Feed mirror</string>
+      <string id="FeedMirror_Help">The mirror server used to provide feeds when the original server is unavailable.
+Set to empty to deactivate use of feed mirror.</string>
+      <string id="KeyInfoServer">Key info server</string>
+      <string id="KeyInfoServer_Help">The key information server used to get information about who signed a feed.
+Set to empty to deactivate use of key information server.</string>
+      <string id="SelfUpdateUri">Self-update URI</string>
+      <string id="SelfUpdateUri_Help">The feed URI used to search for updates for Zero Install itself.
+Set to empty to deactivate self-update.</string>
+      <string id="ExternalSolverUri">External Solver URI</string>
+      <string id="ExternalSolverUri_Help">The feed URI used to get the external solver.
+Set to empty to deactivate use of external solver.</string>
+      <string id="Sync">Sync</string>
+      <string id="Sync_Help">Settings for synchronizing app lists between multiple computers.</string>
+      <string id="SyncServer">Server</string>
+      <string id="SyncServer_Help">The sync server used to synchronize your app list between multiple computers.</string>
+      <string id="SyncServerCredentials">Server credentials</string>
+      <string id="SyncServerCredentials_Help">The credentials to authenticate with against the sync server.</string>
+      <string id="SyncCryptoKey">Crypto key</string>
+      <string id="SyncCryptoKey_Help">The local key used to encrypt data before sending it to the sync server.</string>
+      <string id="Restrictions">Restrictions</string>
+      <string id="Restrictions_Help">Settings for restricting what users can do with Zero Install.</string>
+      <string id="KioskMode">Kiosk mode</string>
+      <string id="KioskMode_Help">Restrict usage to feeds specified in the catalog.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="Freshness">
+        <decimalTextBox refId="Freshness_DecimalTextBox" defaultValue="604800" spinStep="1">Seconds</decimalTextBox>
+      </presentation>
+      <presentation id="NetworkUse">
+        <dropdownList refId="NetworkUse_DropdownList" noSort="true" defaultItem="0">Network use</dropdownList>
+      </presentation>
+      <presentation id="MaxParallelDownloads">
+        <decimalTextBox refId="MaxParallelDownloads_DecimalTextBox" defaultValue="4" spinStep="1">Maximum parallel downloads</decimalTextBox>
+      </presentation>
+      <presentation id="FeedMirror">
+        <textBox refId="FeedMirror_TextBox">
+          <label>URI</label>
+          <defaultValue>https://roscidus.com/0mirror</defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="KeyInfoServer">
+        <textBox refId="KeyInfoServer_TextBox">
+          <label>URI</label>
+          <defaultValue>https://keylookup.0install.net/</defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SelfUpdateUri">
+        <textBox refId="SelfUpdateUri_TextBox">
+          <label>URI</label>
+          <defaultValue>https://apps.0install.net/0install/0install-win.xmls</defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="ExternalSolverUri">
+        <textBox refId="ExternalSolverUri_TextBox">
+          <label>URI</label>
+          <defaultValue>https://apps.0install.net/0install/0install-ocaml.xml</defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SyncServer">
+        <textBox refId="SyncServer_TextBox">
+          <label>URI</label>
+          <defaultValue>https://0install.de/sync/</defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SyncServerCredentials">
+        <textBox refId="SyncServerUsername_TextBox">
+          <label>Username</label>
+        </textBox>
+        <textBox refId="SyncServerPassword_TextBox">
+          <label>Password</label>
+        </textBox>
+      </presentation>
+      <presentation id="SyncCryptoKey">
+        <textBox refId="SyncCryptoKey_TextBox">
+          <label>Crypto key</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>
