@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>새 버전 테스트 도움말</value>
+    <value>새 버전 테스트 지원</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>경고: 이 옵션을 변경하면 제로 인스톨이 제대로 작동하지 않을 수 있습니다.</value>
+    <value>경고: 이러한 옵션을 변경하면 제로 인스톨이 제대로 작동하지 않을 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
