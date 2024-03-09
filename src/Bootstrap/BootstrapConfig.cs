@@ -24,7 +24,16 @@ namespace ZeroInstall;
 /// <param name="CatalogUri">The URI of the catalog to replace the default catalog. Only applies if Zero Install is not already deployed.</param>
 /// <param name="CustomizableStorePath">Offer the user to choose a custom path for storing implementations.</param>
 /// <param name="EstimatedRequiredSpace">Show the estimated disk space required (in bytes). Only works when <see cref="CustomizableStorePath"/> is <c>true</c>.</param>
-public record BootstrapConfig(IniData IniData, string? KeyFingerprint, FeedUri? AppUri, string? AppName, string? AppArgs, string? IntegrateArgs, FeedUri? CatalogUri, bool CustomizableStorePath, long? EstimatedRequiredSpace)
+public record BootstrapConfig(
+    IniData IniData,
+    string? KeyFingerprint,
+    FeedUri? AppUri,
+    string? AppName,
+    string? AppArgs,
+    string? IntegrateArgs,
+    FeedUri? CatalogUri,
+    bool CustomizableStorePath,
+    long? EstimatedRequiredSpace)
 {
     /// <summary>
     /// Provides a single instance of the <see cref="BootstrapConfig"/> loaded from an embedded or bundled file.
