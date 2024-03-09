@@ -52,15 +52,15 @@ public static class LocalizableStrings
 
     public static string DestinationFolder => new LocalizableStringCollection
     {
-        {"en", "Install here:"},
-        {"de", "Hier installieren:"},
-        {"es", "Instalar aquí:"},
-        {"fr", "Emplacement:"},
-        {"it", "Installa qui:"},
+        {"en", "Install {0} here:"},
+        {"de", "{0} hier installieren:"},
+        {"es", "Instalar {0} aquí:"},
+        {"fr", "Installer {0} ici :"},
+        {"it", "Installa {0} qui:"},
         {"ja", "インストール先"},
         {"nl", "{0} hier installeren:"},
         {"pl", "Zainstaluj {0} tutaj:"},
-        {"pt", "Instalar aqui:"},
+        {"pt", "Instalar {0} aqui:"},
         {"ru", "Папка для установки:"},
         {"zh", "安装位置："}
     }.GetBestLanguage(CultureInfo.CurrentUICulture)!;
