@@ -31,7 +31,7 @@ public sealed partial class MainForm : Form
         groupPath.Text = string.Format(LocalizableStrings.DestinationFolder, BootstrapConfig.Instance.AppName ?? "Zero Install");
         buttonChangePath.Text = LocalizableStrings.Change;
 
-        if (BootstrapConfig.Instance.AppName is {} appName)
+        if (BootstrapConfig.Instance is {ShowAppNameBelowSplashScreen: true, AppName: {} appName})
         {
             labelAppName.Text = appName;
             Size += new Size(0, 50).ApplyScale(this);
