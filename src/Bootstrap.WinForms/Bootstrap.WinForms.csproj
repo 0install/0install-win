@@ -29,12 +29,6 @@
     <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Configuration" />
-    <Reference Include="Mono.Posix">
-      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="SplashScreen.png" />

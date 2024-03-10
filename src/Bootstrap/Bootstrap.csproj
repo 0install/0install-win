@@ -16,11 +16,6 @@
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
     <PackageReference Include="ZeroInstall.Services" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Mono.Posix">
-      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="BootstrapConfig.ini" CopyToOutputDirectory="Always" />
