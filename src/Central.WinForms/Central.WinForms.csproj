@@ -7,7 +7,6 @@
     <Description>The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
-    <ApplicationManifest>..\app.winforms.manifest</ApplicationManifest>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

@@ -7,7 +7,6 @@
     <Description>A shorcut for '0install run'.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
-    <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <!-- Dependencies -->

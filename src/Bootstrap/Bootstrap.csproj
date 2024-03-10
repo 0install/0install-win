@@ -8,7 +8,6 @@
     <Description>Downloads and runs Zero Install.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-    <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <!-- Dependencies -->

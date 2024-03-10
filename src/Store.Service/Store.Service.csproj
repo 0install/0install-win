@@ -7,7 +7,7 @@
     <Description>Windows service for managing a Zero Install implementation cache shared between all users.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
-    <ApplicationManifest>..\app.service.manifest</ApplicationManifest>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <!-- Dependencies -->

@@ -7,7 +7,6 @@
     <Description>A shortcut for '0install add-alias'.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
-    <ApplicationManifest>..\app.cli.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <!-- Dependencies -->
