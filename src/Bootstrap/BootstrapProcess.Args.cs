@@ -136,7 +136,7 @@ partial class BootstrapProcess
             _options.Add("background", () => "Hide the graphical user interface.", _ => _handler.Background = true);
 
         if (BootstrapConfig.Instance.CustomizableStorePath)
-            _options.Add("store-path=", () => $"Custom path for storing implementations.", x => _storePath = x);
+            _options.Add("store-path=", () => "Custom {PATH} for storing implementations.", x => _storePath = x);
 
         if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
         {
