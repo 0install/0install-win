@@ -275,7 +275,7 @@ internal sealed partial class MainForm : Form
     }
 
     private void buttonFeedEditor_Click(object sender, EventArgs e)
-        => CommandUtils.Start(Run.Name, "https://apps.0install.net/0install/0publish-win.xml");
+        => CommandUtils.Start(Run.Name, "https://apps.0install.net/0install/0publish-gui.xml");
 
     private async void buttonOptions_Click(object sender, EventArgs e)
     {
