@@ -35,7 +35,7 @@ partial class BootstrapProcess
             Log.Info("Saving config in machine-wide location");
             var machineConfig = new Config();
             machineConfig.ReadFromBootstrapConfig();
-            machineConfig.ReadFromFiles(machineWideOnly: true);
+            machineConfig.ReadFromFilesMachineWideOnly();
             if (ApplyBootstrapConfig) machineConfig.ReadFromBootstrapConfig();
             machineConfig.SelfUpdateUri = Config.SelfUpdateUri;
             machineConfig.Save(machineWide: true);
