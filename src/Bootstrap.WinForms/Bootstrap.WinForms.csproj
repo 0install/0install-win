@@ -25,7 +25,7 @@
     <ProjectReference Include="..\Bootstrap\Bootstrap.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ILRepack" Version="2.0.28" />
+    <PackageReference Include="ILRepack" Version="2.0.29" />
     <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
     <PackageReference Include="NDesk.Options.Patched" Version="0.3.2" />
   </ItemGroup>
