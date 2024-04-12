@@ -6,6 +6,7 @@
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>zero-install</AssemblyName>
     <Description>Downloads and runs Zero Install optionally showing a GUI.</Description>
+    <Copyright></Copyright>
     <OutputType>WinExe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <UseWindowsForms>True</UseWindowsForms>

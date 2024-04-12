@@ -6,6 +6,7 @@
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>0install</AssemblyName>
     <Description>Downloads and runs Zero Install.</Description>
+    <Copyright></Copyright>
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
