@@ -471,7 +471,7 @@
     <value>327, 22</value>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Use &amp;Publishing Tools to package a new app</value>
+    <value>Use Feed &amp;Editor to package a new app</value>
   </data>
   <data name="menuMoreApps.Size" type="System.Drawing.Size, System.Drawing">
     <value>328, 92</value>
