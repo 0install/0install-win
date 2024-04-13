@@ -29,7 +29,7 @@ public static class Program
             {
                 [] => new MainForm(machineWide: false),
                 ["-m"] or ["--machine"] => new MainForm(machineWide: true),
-                [var uri] => new SelectCommandDialog(new(uri)),
+                [var uri] => new SelectCommandDialog(new(uri)) {ShowInTaskbar = true},
                 _ => throw new FormatException("Unknown command-line arguments.")
             });
         }
