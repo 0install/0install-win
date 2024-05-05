@@ -36,7 +36,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
             await SolveAsync(refresh: false);
         }
         #region Error handling
-        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
+        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or InvalidDataException or SignatureException or SolverException)
         {
             Log.Info($"Failed to run Solver to show Run options for ${_feedUri}", ex);
         }
@@ -52,7 +52,7 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
             await SolveAsync(refresh: true);
         }
         #region Error handling
-        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or SignatureException or SolverException)
+        catch (Exception ex) when (ex is IOException or WebException or UnauthorizedAccessException or InvalidDataException or SignatureException or SolverException)
         {
             if (!IsDisposed) // Window might have been closed in the meantime
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
