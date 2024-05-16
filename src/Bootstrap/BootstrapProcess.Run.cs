@@ -63,17 +63,9 @@ partial class BootstrapProcess
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(IEnumerable<string> args)
         => _version == null
-        && DeployedInstance is {Length: >0} deployedInstance
+        && ZeroInstallDeployment.FindOther() is {Length: >0} deployedInstance
         && File.Exists(Path.Combine(deployedInstance, LaunchAssembly + ".exe"))
             ? ProcessUtils.Assembly(Path.Combine(deployedInstance, LaunchAssembly), args.ToArray())
-            : null;
-
-    /// <summary>
-    /// The path of a deployed instance of Zero Install. <c>null</c> if there is no deployed instance.
-    /// </summary>
-    private static string? DeployedInstance
-        => WindowsUtils.IsWindows
-            ? ZeroInstallDeployment.FindOther()
             : null;
 
     private string LaunchAssembly => _handler.IsGui ? "0install-win" : "0install";
