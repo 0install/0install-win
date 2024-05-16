@@ -53,7 +53,7 @@ partial class BootstrapProcess
     /// potentially overwriting existing configuration.
     /// </summary>
     private bool ApplyBootstrapConfig
-        => ZeroInstallDeployment.FindOther() == null // No existing deployment...
+        => ZeroInstallDeployment.GetPath(_machineWide) == null // No existing deployment...
         || ZeroInstallDeployment.IsLibraryMode(_machineWide); // ... or existing deployment is in library-mode
 
     /// <summary>
