@@ -1,7 +1,6 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using NanoByte.Common.Native;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.ViewModel;
@@ -174,12 +173,6 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         SetupDefaultAccessPoint(checkBoxContextMenuSimple, labelContextMenuSimple, checkBoxContextMenuAll, _state.ContextMenu);
         SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, labelDefaultProgramsSimple, checkBoxDefaultProgramsAll, _state.DefaultProgram);
         SetupCategory(DefaultAccessPoint.TagName, _defaultAccessPointCheckBoxes.ToArray());
-
-        // File type associations cannot be set programmatically on Windows 8, so hide the option
-        _switchToBasicMode += () =>
-        {
-            if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false;
-        };
 
         SetDefaultAccessPoints();
     }

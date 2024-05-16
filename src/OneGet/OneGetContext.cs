@@ -126,7 +126,7 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
         if (string.IsNullOrEmpty(query))
         {
             Log.Info("Returning entire catalog");
-            return GetCatalog().Feeds;
+            return (CatalogManager.GetCached() ?? CatalogManager.GetOnlineSafe()).Feeds;
         }
 
         Log.Info("Searching for short-name match in Catalog: " + query);
@@ -169,7 +169,6 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
                 IconStores.DesktopIntegration(Config, Handler, machineWide: false));
         }
         exporter.DeployImportScript();
-        exporter.DeployBootstrapIntegrate(Handler);
 
         Yield(requirements);
 
