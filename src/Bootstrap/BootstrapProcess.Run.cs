@@ -63,7 +63,7 @@ partial class BootstrapProcess
     /// </summary>
     public ProcessStartInfo? ZeroInstallDeployed(IEnumerable<string> args)
         => _version == null
-        && ZeroInstallDeployment.FindOther() is {Length: >0} deployedInstance
+        && ZeroInstallDeployment.FindOther(_machineWide) is {Length: >0} deployedInstance
         && File.Exists(Path.Combine(deployedInstance, LaunchAssembly + ".exe"))
             ? ProcessUtils.Assembly(Path.Combine(deployedInstance, LaunchAssembly), args.ToArray())
             : null;
