@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Tento klíč udržujte v tajnosti a pro heslo používejte něco jiného. Takto se k vašim datům nikdo nedostane, ani kdyby došlo k napadení serveru.</value>
+    <value>Tento klíč udržujte v tajnosti a pro heslo používejte něco jiného. Tímto způsobem se k vašim datům nikdo nedostane, ani kdyby došlo ke kompromitaci serveru.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Obnovení kryptografického klíče</value>
+    <value>Obnovení šifrovacího klíče</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
