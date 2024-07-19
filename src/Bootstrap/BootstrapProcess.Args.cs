@@ -140,7 +140,7 @@ partial class BootstrapProcess
 
         if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
         {
-            _options.Add("0install-version=", () => "Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
+            _options.Add("0install-version=", () => "Use a specific {VERSION} of Zero Install.", (VersionRange range) => _version = range);
             _options.Add("version=", () => $"Use a specific {{VERSION}} of {appName}.", (VersionRange range) => _appVersion = range);
             _options.Add("no-run", () => $"Do not run {appName} after downloading it.", _ => _noRun = true);
             _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
