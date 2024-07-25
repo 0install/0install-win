@@ -75,7 +75,10 @@ public sealed partial class BootstrapProcess : ServiceProvider
             if (_machineWide) args.Add("--machine");
             args.Add(WindowsUtils.SplitArgs(_integrateArgs ?? integrateArgs));
 
-            return RunZeroInstall(args);
+            var startInfo = ZeroInstall(args);
+            return _handler.RunTaskAndReturn(ResultTask.Create(
+                $"Integrating {BootstrapConfig.Instance.AppName}",
+                () => (ExitCode)startInfo.Run()));
         }
 
         return ExitCode.OK;

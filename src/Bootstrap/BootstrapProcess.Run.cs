@@ -13,21 +13,6 @@ namespace ZeroInstall;
 partial class BootstrapProcess
 {
     /// <summary>
-    /// Runs Zero Install as an <see cref="ITask"/>.
-    /// </summary>
-    private ExitCode RunZeroInstall(IList<string> args)
-    {
-        var startInfo = ZeroInstall(args);
-
-        var exitCode = ExitCode.UserCanceled;
-        _handler.RunTask(new ActionTask(
-            $"Integrating {BootstrapConfig.Instance.AppName}",
-            () => exitCode = (ExitCode)startInfo.Run()));
-
-        return exitCode;
-    }
-
-    /// <summary>
     /// Runs Zero Install and hides the Bootstrap GUI.
     /// </summary>
     private ExitCode SwitchToZeroInstall(IList<string> args)
