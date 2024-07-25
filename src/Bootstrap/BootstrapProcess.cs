@@ -1,6 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using System.Diagnostics;
 using NanoByte.Common.Native;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Configuration;
@@ -75,6 +76,9 @@ public sealed partial class BootstrapProcess : ServiceProvider
             if (_machineWide) args.Add("--machine");
             args.Add(WindowsUtils.SplitArgs(_integrateArgs ?? integrateArgs));
 
+            if (ZeroInstallDeployment.FindOther(_machineWide) is {} deployedInstance)
+                EnsureRequestedZeroInstallVersion(deployedInstance);
+
             var startInfo = ZeroInstall(args);
             return _handler.RunTaskAndReturn(ResultTask.Create(
                 $"Integrating {BootstrapConfig.Instance.AppName}",
@@ -82,6 +86,25 @@ public sealed partial class BootstrapProcess : ServiceProvider
         }
 
         return ExitCode.OK;
+    }
+
+    /// <summary>
+    /// Checks if a deployed instance of Zero Install matches the requested <see cref="_version"/> and updates it if not.
+    /// </summary>
+    private void EnsureRequestedZeroInstallVersion(string path)
+    {
+        if (_version == null) return;
+
+        string versionFile = Path.Combine(path, "0install.exe");
+        if (!File.Exists(versionFile)) return;
+
+        var deployedVersion = new ImplementationVersion(FileVersionInfo.GetVersionInfo(versionFile).ProductVersion.GetLeftPartAtFirstOccurrence('+'));
+        if (!_version.Match(deployedVersion))
+        {
+            Log.Info($"Zero Install instance deployed at {path} has version {deployedVersion} that does not match desired version {_version}");
+            var startInfo = ZeroInstallCached(["self", "deploy", "--batch", path]);
+            _handler.RunTask(new ActionTask("Updating Zero Install", () => startInfo.Run()));
+        }
     }
 
     /// <summary>
