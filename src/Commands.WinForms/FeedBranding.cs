@@ -46,12 +46,12 @@ public class FeedBranding : IDisposable
         AppId = feed?.GetEntryPoint(Command.NameRun)?.AppId;
         Icon = feed
              ?.Icons.GetIcon(ModelIcon.MimeTypeIco)
-             ?.To(GetIconPath)
+             ?.To(TryGetIconPath)
              ?.To(LoadIcon)
             ?? LoadDefaultIcon();
         SplashScreen = feed
                      ?.SplashScreens.GetIcon(ModelIcon.MimeTypePng)
-                     ?.To(GetIconPath)
+                     ?.To(TryGetIconPath)
                      ?.To(LoadSplashScreen);
     }
 
@@ -70,12 +70,12 @@ public class FeedBranding : IDisposable
         #endregion
     }
 
-    private static string? GetIconPath(Model.Icon icon)
+    private static string? TryGetIconPath(Model.Icon icon)
     {
         try
         {
-            return IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false).GetCached(icon)
-                ?? IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: true).GetCached(icon);
+            return IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: false).TryGetCached(icon)
+                ?? IconStores.DesktopIntegration(Config.LoadSafe(), new SilentTaskHandler(), machineWide: true).TryGetCached(icon);
         }
         #region Error handling
         catch (Exception ex)

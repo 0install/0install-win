@@ -39,7 +39,7 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
         CatalogManager.DownloadCatalog(feedUri);
 
         if (CatalogManager.AddSource(feedUri))
-            CatalogManager.GetOnlineSafe();
+            CatalogManager.TryGetOnline();
         else
             Log.Warn(string.Format(Resources.CatalogAlreadyRegistered, feedUri.ToStringRfc()));
     }
@@ -126,17 +126,14 @@ public sealed class OneGetContext(Request request) : ScopedOperation(new OneGetH
         if (string.IsNullOrEmpty(query))
         {
             Log.Info("Returning entire catalog");
-            return (CatalogManager.GetCached() ?? CatalogManager.GetOnlineSafe()).Feeds;
+            return CatalogManager.Get().Feeds;
         }
 
         Log.Info("Searching for short-name match in Catalog: " + query);
-        var feed = FindByShortName(query);
-        if (feed == null)
-        {
-            Log.Info("Searching for partial match in Catalog: " + query);
-            return CatalogManager.GetCachedSafe().Search(query);
-        }
-        else return [feed];
+        if (FindByShortName(query) is {} feed) return [feed];
+
+        Log.Info("Searching for partial match in Catalog: " + query);
+        return CatalogManager.Get().Search(query);
     }
 
     public void FindPackageBy(string identifier)

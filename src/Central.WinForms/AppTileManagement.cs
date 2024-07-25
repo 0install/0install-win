@@ -132,7 +132,10 @@ public class AppTileManagement
     /// Loads a cached version of the catalog from the disk.
     /// </summary>
     public void LoadCachedCatalog()
-        => SetCatalog(_catalogManager.GetCachedSafe());
+    {
+        if (_catalogManager.TryGetCached() is {} catalog)
+            SetCatalog(catalog);
+    }
 
     /// <summary>
     /// Updates the catalog from the web.
