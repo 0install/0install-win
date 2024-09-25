@@ -1,0 +1,31 @@
+name: Translate Upload
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [master]
+    paths:
+      - '**/*.resx'
+      - '!**/*.*.resx'
+
+jobs:
+  translate-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          show-progress: false
+
+      - name: Filter non-localizable WinForms resources
+        shell: pwsh
+        run: |
+          foreach ($file in (Get-ChildItem src -Recurse -Filter "*Form.resx") + (Get-ChildItem src -Recurse -Filter "*Dialog.resx") + (Get-ChildItem src -Recurse -Filter "*Wizard.resx")) {
+            [xml]$localized = Get-Content $file.FullName.Replace(".resx", ".de.resx")
+            [xml]$source = Get-Content $file.FullName
+            $source.root.assembly + $source.root.metadata + ($source.root.data | where { !$localized.root.data.name.Contains($_.name) }) | foreach { $source.root.RemoveChild($_) } | Out-Null
+            $source.Save($file.FullName)
+            git update-index --assume-unchanged $file.FullName
+          }
+
+      - name: Transifex Push
+        run: ./0install.sh run https://apps.0install.net/devel/transifex-cli.xml --token ${{secrets.TRANSIFEX_API_KEY}} push --source
