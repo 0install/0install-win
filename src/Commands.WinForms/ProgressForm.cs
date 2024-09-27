@@ -37,8 +37,6 @@ public sealed partial class ProgressForm : Form
         _trayIcon.BalloonTipClicked += trayIcon_BalloonTipClicked;
         _trayIcon.MouseClick += trayIcon_MouseClick;
 
-        StartPosition = FormStartPosition.CenterScreen;
-
         Shown += delegate
         {
             Log.Debug("Progress form shown");
@@ -128,6 +126,8 @@ public sealed partial class ProgressForm : Form
         foreach (var (task, progress) in _deferredProgress)
             progress.SetTarget(AddTaskControl(task));
         _deferredProgress.Clear();
+
+        CenterToScreen();
     }
     #endregion
 
