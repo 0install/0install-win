@@ -15,13 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Cli", "Sto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Service", "Store.Service\Store.Service.csproj", "{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGet", "OneGet\OneGet.csproj", "{2FCB7FA5-41A2-42B6-8825-F3A8194DB306}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap", "Bootstrap\Bootstrap.csproj", "{4B47068C-73D3-4F2F-BC96-8FE2B8FA4A7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap.WinForms", "Bootstrap.WinForms\Bootstrap.WinForms.csproj", "{C2FAC835-333A-4219-9872-50B1172167E5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneGet.Bootstrap", "OneGet.Bootstrap\OneGet.Bootstrap.csproj", "{187CD9C1-DD75-49E8-AEBB-F73D8E4F9BE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FF4B5DDF-618F-4D5A-82CF-A41C13740BEB}"
 ProjectSection(SolutionItems) = preProject
