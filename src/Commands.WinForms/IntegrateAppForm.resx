@@ -1318,7 +1318,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxCapabilities.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 14</value>
+    <value>180, 14</value>
   </data>
   <data name="checkBoxCapabilities.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 17</value>
@@ -1363,7 +1363,7 @@
     <value>0</value>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Auto &amp;Update</value>
+    <value>Include in "&amp;Update All"</value>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
     <value>Includes this application in "Update all" checks.</value>
