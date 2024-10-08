@@ -27,9 +27,6 @@
     <NanoByteCommonVersion>2.18.7</NanoByteCommonVersion>
     <ZeroInstallVersion>2.25.12</ZeroInstallVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)App.config" />
-  </ItemGroup>
 
   <!-- Global usings -->
   <ItemGroup>
