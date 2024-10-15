@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>자동 업데이트</value>
+    <value>"모두 업데이트"에 포함</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>운영 체제에 처리할 수 있는 파일 형식 등 애플리케이션의 기능을 알려줍니다.</value>
+    <value>처리할 수 있는 파일 형식 등 애플리케이션의 기능에 대해 운영 체제에 알려줍니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>지원되는 파일 형식의 기본 처리기('연결 프로그램'은 이 기능이 없어도 작동)</value>
+    <value>지원되는 파일 형식에 대한 기본 핸들러('연결 프로그램'은 이 기능 없이도 작동)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -323,11 +323,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>시작 메뉴에 있는 하나 이상의 항목</value>
+    <value>시작 메뉴에 하나 이상의 항목이 있습니다</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>지원되는 URL 프로토콜의 기본 처리기('연결 프로그램'은 이 기능이 없어도 작동)</value>
+    <value>지원되는 URL 프로토콜의 기본 핸들러('연결 프로그램'은 이 기능이 없어도 작동)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

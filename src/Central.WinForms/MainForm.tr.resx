@@ -75,7 +75,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Y&amp;eni bir akış oluşturmak için akış düzenleyicisini kullanın</value>
+    <value>Y&amp;eni bir uygulama oluşturmak için akış düzenleyicisini kullanın</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">

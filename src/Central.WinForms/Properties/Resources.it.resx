@@ -133,7 +133,7 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>È possibile gestire l'elenco delle applicazioni preferite.</value>
+    <value>Qui è possibile gestire l'elenco delle applicazioni preferite.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -256,7 +256,7 @@ iniziare da zero</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Siete sicuri di voler utilizzare una connessione non criptata a un server Sync?
-Le connessioni criptate utilizzano il prefisso https://.</value>
+Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">

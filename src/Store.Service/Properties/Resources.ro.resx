@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>Utilizatorul '{0}' nu a reușit să adauge implementarea '{1}' la '{2}'.</value>
+    <value>Utilizatorul "{0}" nu a reușit să adauge implementarea "{1}" la "{2}".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Nu a reușit să elimine directorul temporar '{1}' (creat pentru utilizatorul '{0}').</value>
+    <value>Nu s-a reușit eliminarea directorului temporar '{1}' (creat pentru utilizatorul '{0}').</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Serviciul nu poate funcționa în modul portabil!</value>
+    <value>Serviciul nu poate rula în modul portabil!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">

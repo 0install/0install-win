@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementação de directórios de cache</value>
+    <value>Implementação de diretórios de cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Seleccione ou crie um diretório para utilizar como cache de implementação.</value>
+    <value>Selecione ou crie um diretório para utilizar como cache de implementação.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -140,7 +140,7 @@
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Isto controla o idioma do:
-- Da própria Zero Install e
+- Zero Install propriamente dita e
 - aplicações descarregadas pela Zero Install.
 
 Notas:

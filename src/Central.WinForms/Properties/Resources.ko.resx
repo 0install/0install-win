@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>'{0}'을 입력하여 사용 가능한 명령어 목록을 확인합니다.</value>
+    <value>'{0}'을 입력하면 사용 가능한 명령어 목록을 볼 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>이 컴퓨터에서 제로 설치를 설정하려면 클릭...</value>
+    <value>이 컴퓨터에 제로 설치를 설정하려면 클릭하세요...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>모든 사용자 대상</value>
+    <value>모든 사용자</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
@@ -120,7 +120,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>앱이 마음에 들면,
-"내 앱"에 추가합니다.</value>
+'내 앱'에 추가합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
@@ -128,12 +128,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"앱을 '통합'하여 시작 메뉴나
+    <value>"앱을 '통합'하여 시작 메뉴 또는 데스크톱에
 시작 메뉴 또는 바탕화면에 배치합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>여기에서 즐겨찾는 앱 목록을 관리할 수 있습니다.</value>
+    <value>여기에서 즐겨 찾는 앱 목록을 관리할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -161,11 +161,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>"내 앱"에 추가되었습니다.</value>
+    <value>'내 앱'에 추가됩니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>'내 앱'에 추가되어 데스크톱 환경에 통합됩니다.</value>
+    <value>'내 앱'에 추가되고 데스크톱 환경에 통합됩니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>목록에서 {0} 선택한 항목을 제거하시겠습니까?</value>
+    <value>{0} 선택한 항목을 목록에서 제거하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -199,7 +199,7 @@
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>아니요
-변경 내용 삭제</value>
+변경 사항 삭제</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -212,7 +212,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>제로 인스톨로 업데이트하려면 클릭{0}...</value>
+    <value>제로 설치로 업데이트하려면 클릭{0}...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
@@ -243,7 +243,7 @@
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>현재 동기화 서버에 저장된 데이터가 손상되었습니다.
-암호화 키가 기억나지 않음을 선택하면 서버에 저장된 데이터를 교체할 수 있습니다.</value>
+암호화 키가 기억나지 않는다고 선택하면 서버에 저장된 데이터를 대체할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -264,7 +264,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>이렇게 하면 업데이트 후 더 이상 필요하지 않은 구현이 캐시에서 자동으로 제거됩니다. 계속하시겠습니까?
+    <value>업데이트 후 더 이상 필요하지 않은 구현은 캐시에서 자동으로 제거됩니다. 계속하시겠습니까?
 중요: 이전에 '내 앱'에 추가하지 않고 '실행'한 애플리케이션도 캐시에서 제거됩니다.  다시 실행하려면 온라인 상태여야 합니다.</value>
     <comment>Automatically translated.</comment>
   </data>

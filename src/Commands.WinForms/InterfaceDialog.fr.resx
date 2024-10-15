@@ -67,7 +67,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Ajoute une nouvelle source d'implémentations pour cette interface</value>
+    <value>Ajout d'une nouvelle source d'implémentations pour cette interface</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">

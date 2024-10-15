@@ -163,11 +163,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>È possibile che si desideri ripristinare i dati locali su altri computer su cui si utilizza Zero Install Sync.</value>
+    <value>È possibile che si desideri reimpostare i dati locali su altri computer su cui si utilizza Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Questa procedura guidata può aiutarvi a risolvere una serie di possibili problemi di sincronizzazione. Quale problema desiderate risolvere?</value>
+    <value>Questa procedura guidata può aiutare a risolvere una serie di possibili problemi di sincronizzazione. Quale problema desiderate risolvere?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Cambiare la chiave crittografica</value>
+    <value>Modifica della chiave crittografica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cambio della chiave crittografica</value>
+    <value>Chiave crittografica modificata</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">

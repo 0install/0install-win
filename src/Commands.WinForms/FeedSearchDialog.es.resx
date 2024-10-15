@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install feed search</value>
+    <value>Búsqueda de fuentes Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Añadir a "Mis apps"</value>
+    <value>Añadir a "Mis aplicaciones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Los resultados de la búsqueda los proporciona el servidor espejo. Tenga en cuenta que el servidor espejo por defecto indexa todos los feeds conocidos, independientemente de su calidad; debe decidir si confía en los programas antes de ejecutarlos.</value>
+    <value>Los resultados de la búsqueda los proporciona el servidor espejo. Tenga en cuenta que el servidor espejo por defecto indexa todas las fuentes conocidas, independientemente de su calidad; debe decidir si confía en los programas antes de ejecutarlos.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

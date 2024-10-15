@@ -127,8 +127,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Αυτόματη ενημέρωση</value>
-    <comment>Manually overriden.</comment>
+    <value>Συμπεριλαμβάνεται στην "Ενημέρωση όλων".</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
     <value>Περιλαμβάνει αυτή η εφαρμογή "Ενημέρωση όλων" ελέγχων.</value>

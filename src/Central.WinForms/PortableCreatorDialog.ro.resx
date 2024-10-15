@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Răsfoiți</value>
+    <value>Navigare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Deploy</value>
+    <value>Implementare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -79,14 +79,14 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aici puteți crea o versiune portabilă a programului Zero Install, de exemplu, pentru a fi utilizată pe o unitate USB. Ținta trebuie să fie formatată NTFS.</value>
+    <value>Aici puteți crea o versiune portabilă a Zero Install, de exemplu, pentru utilizare pe o unitate USB. Ținta trebuie să fie formatată NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Stochează configurația Zero Install și aplicațiile din memoria cache într-un singur director.
-- Nu face automat portabile și aplicațiile lansate prin Zero Install.
-- Versiunile portabile ale Zero Install nu pot efectua integrarea pe desktop (de exemplu, crearea de intrări în meniul Start).
-- Luați în considerare, în schimb, posibilitatea de a utiliza Zero Install obișnuit pe mai multe calculatoare cu Zero Install Sync.</value>
+    <value>- Stochează configurația Zero Install și aplicațiile în cache într-un singur director.
+- Nu face automat ca aplicațiile lansate prin Zero Install să fie și portabile.
+- Versiunile portabile ale Zero Install nu pot efectua integrarea pe desktop (de exemplu, nu pot crea intrări în meniul Start).
+- Luați în considerare utilizarea Zero Install obișnuită pe mai multe computere cu Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>어떤 안정성 등급을 "최고"로 간주할지 결정합니다.</value>
+    <value>"최고"로 간주할 안정성 등급을 결정합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
