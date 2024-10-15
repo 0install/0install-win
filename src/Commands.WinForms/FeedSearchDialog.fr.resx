@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Ces résultats de recherche sont fournis par le serveur miroir. Notez que le serveur miroir par défaut indexe tous les flux connus, quelle que soit leur qualité ; vous devez décider si vous faites confiance aux programmes avant de les lancer.</value>
+    <value>Ces résultats de recherche sont fournis par le serveur miroir. Notez que le serveur miroir par défaut indexe tous les flux connus, quelle que soit leur qualité ; vous devez décider si vous faites confiance aux programmes avant de les exécuter.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

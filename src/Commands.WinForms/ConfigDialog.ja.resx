@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>警告これらのオプションを変更すると、ゼロインストールが正しく動作しなくなる場合があります。</value>
+    <value>警告これらのオプションを変更すると、Zero Installが正しく動作しなくなる可能性があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">

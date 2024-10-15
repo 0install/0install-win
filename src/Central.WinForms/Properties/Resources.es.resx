@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Haz clic para configurar Zero Install en este ordenador...</value>
+    <value>Haz clic para configurar Instalación Cero en este ordenador...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Introduzca aquí la URL de un feed de Zero Install:</value>
+    <value>Introduzca aquí la URL de un feed de Instalación Cero:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignora la entrada de app duplicada para '{0}'.</value>
+    <value>Ignorando la entrada de aplicaciones duplicadas para '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>App común</value>
+    <value>Aplicación común</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Una app genial</value>
+    <value>Una aplicación genial</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Otras apps</value>
+    <value>Otras aplicaciones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -119,12 +119,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Si te gusta una app,
-añádela a "Mis apps".</value>
+    <value>Si te gusta una app
+añádela a "Mis aplicaciones".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Busca una app en el "Catálogo"...</value>
+    <value>Busca una aplicación en el "Catálogo"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
@@ -133,7 +133,7 @@ en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Aquí puedes gestionar tu lista de apps favoritas.</value>
+    <value>Aquí puedes gestionar tu lista de aplicaciones favoritas.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -145,7 +145,7 @@ en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Con Zero Install no tienes que instalar apps.</value>
+    <value>Con Zero Install no tienes que instalar aplicaciones.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -157,15 +157,15 @@ en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Añadir a "Mis apps"</value>
+    <value>Añadir a "Mis aplicaciones</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Añadido a "Mis apps".</value>
+    <value>Añadido a "Mis aplicaciones".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Añadida a "Mis apps" e integrada en el entorno de escritorio.</value>
+    <value>Añadido a "Mis aplicaciones" e integrado en el entorno de escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -174,7 +174,7 @@ en el menú de inicio o en el escritorio.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Modo portable</value>
+    <value>Modo portátil</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
@@ -224,7 +224,7 @@ Guardar cambios</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>La clave criptográfica que ha introducido es incorrecta.</value>
+    <value>La clave criptográfica introducida es incorrecta.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
@@ -251,7 +251,7 @@ Puede reemplazar los datos almacenados en el servidor eligiendo que no recuerda 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>No se puede cargar el feed para la entrada de app '{0}'.</value>
+    <value>No se puede cargar el feed para la entrada de la app '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
@@ -265,7 +265,7 @@ Las conexiones cifradas utilizan un prefijo https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Esto eliminará automáticamente de la caché las aplicaciones que ya no sean necesarias tras la actualización. ¿Continuar?
-Importante: Las aplicaciones que hayas "ejecutado" anteriormente sin añadirlas a "Mis apps" también se eliminarán de la caché.  Tendrás que estar conectado si decides ejecutarlas de nuevo.</value>
+Importante: Las aplicaciones que hayas "Ejecutado" anteriormente sin añadirlas a "Mis aplicaciones" también se eliminarán de la caché.  Tendrás que estar conectado si decides volver a ejecutarlas.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

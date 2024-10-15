@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Căutarea feed-ului Zero Install</value>
+    <value>Zero Install căutare feed</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integrare de instalare</value>
+    <value>Integrare configurare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aceste rezultate ale căutării sunt furnizate de serverul oglindă. Rețineți că serverul oglindă implicit indexează toate fluxurile cunoscute, indiferent de calitate; trebuie să decideți dacă aveți încredere în programe înainte de a le rula.</value>
+    <value>Aceste rezultate ale căutării sunt furnizate de serverul oglindă. Rețineți că serverul oglindă implicit indexează toate fluxurile cunoscute, indiferent de calitate; trebuie să decideți dacă să aveți încredere în programe înainte de a le rula.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

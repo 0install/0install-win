@@ -75,7 +75,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>&amp;Publishing Tools verwenden um einen neue App zu paketieren</value>
+    <value>Feed &amp;Editor verwenden, um eine neue Anwendung zu paketieren</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">

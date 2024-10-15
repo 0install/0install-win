@@ -127,7 +127,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>&amp;Güvenilir anahtarlar</value>
+    <value>&amp;Güvenilen anahtarlar</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
@@ -201,7 +201,7 @@ Notlar:
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Güven</value>
+    <value>Güvenilirlik</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">

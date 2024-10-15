@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Os dados armazenados no servidor estão danificados</value>
+    <value>Os dados armazenados no servidor são danificados</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduzir a chave noutros computadores utilizando a janela "Opções". Não utilize este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
+    <value>Introduzir a chave noutros computadores utilizando a janela "Opções". Não utilizar este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>O Zero Install Sync está agora configurado e pronto a ser utilizado. Execute este assistente em qualquer outro computador que pretenda manter sincronizado com este.</value>
+    <value>O Zero Install Sync está agora configurado e pronto a ser utilizado. Execute este assistente em quaisquer outros computadores que pretenda manter sincronizados com este.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

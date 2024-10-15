@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>No debe ejecutar Zero Install Sync en otros ordenadores mientras se ejecuta este proceso.</value>
+    <value>No debe ejecutar Zero Install Sync en otros ordenadores mientras se esté ejecutando este proceso.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Se ha cambiado la clave criptográfica. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para Zero Install Sync.</value>
+    <value>Se ha cambiado la clave criptográfica. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para la Sincronización de la Instalación Cero.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>La lista de aplicaciones locales se restablece. Ahora puede seguir utilizando Zero Install.</value>
+    <value>La lista de aplicaciones locales se restablece. Ahora puede seguir utilizando la Instalación Cero.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -159,7 +159,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Los datos del servidor se están restableciendo. Ahora puede seguir utilizando Zero Install.</value>
+    <value>Los datos del servidor se están restableciendo. Ahora puede seguir utilizando la Instalación Cero.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>¿Es el primer ordenador que configura para Zero Install Sync?</value>
+    <value>¿Es éste el primer ordenador que está configurando para la Sincronización con Instalación Cero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">

@@ -127,8 +127,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Mise à jour &amp;automatique</value>
-    <comment>Manually overriden.</comment>
+    <value>Inclure dans "Tout mettre à jour"</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
     <value>Inclure cette application dans les contrôles « Mettre à jour tout ».</value>

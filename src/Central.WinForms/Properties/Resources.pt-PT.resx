@@ -182,7 +182,7 @@ Tem a certeza de que pretende colocar aí uma versão portátil do Zero Install?
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Pretende remover as entradas {0} seleccionadas da lista?</value>
+    <value>Pretende remover as entradas {0} selecionadas da lista?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">

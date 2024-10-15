@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Voer de cryptosleutel in die u eerder op deze en/of andere computers hebt gebruikt:</value>
+    <value>Voer de cryptosleutel in die je eerder op deze en/of andere computers hebt gebruikt:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync neemt je applicatielijst en desktop integraties en zet ze automatisch over naar je andere computers.</value>
+    <value>Zero Install Sync neemt je applicatielijst en desktop integraties en brengt ze automatisch over naar je andere computers.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
