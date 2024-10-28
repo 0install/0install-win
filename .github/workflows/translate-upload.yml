@@ -3,9 +3,7 @@ on:
   workflow_dispatch: {}
   push:
     branches: [master]
-    paths:
-      - '**/*.resx'
-      - '!**/*.*.resx'
+    paths: ['**/*.resx', '!**/*.*.resx'] # non-localized resource files
 
 jobs:
   translate-upload:
