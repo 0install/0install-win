@@ -9,6 +9,7 @@
     <Copyright></Copyright>
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects><!-- Not needed due to ILRepack -->
   </PropertyGroup>
 
   <!-- Dependencies -->

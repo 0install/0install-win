@@ -10,6 +10,7 @@
     <OutputType>WinExe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <UseWindowsForms>True</UseWindowsForms>
+    <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects><!-- Not needed due to ILRepack -->
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DefineConstants>ERROR_REPORT</DefineConstants>
