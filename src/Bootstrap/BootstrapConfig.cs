@@ -22,7 +22,6 @@ namespace ZeroInstall;
 /// <param name="AppArgs">Additional command-line arguments to pass to the application.</param>
 /// <param name="IntegrateArgs">Command-line arguments to pass to <c>0install integrate</c>. <c>null</c> to not call <c>0install integrate</c> at all.</param>
 /// <param name="CatalogUri">The URI of the catalog to replace the default catalog. Only applies if Zero Install is not already deployed.</param>
-/// <param name="ShowAppNameBelowSplashScreen">Show the app name below the splash screen.</param>
 /// <param name="CustomizableStorePath">Offer the user to choose a custom path for storing implementations.</param>
 /// <param name="EstimatedRequiredSpace">Show the estimated disk space required (in bytes). Only works when <see cref="CustomizableStorePath"/> is <c>true</c>.</param>
 public record BootstrapConfig(
@@ -33,7 +32,6 @@ public record BootstrapConfig(
     string? AppArgs,
     string? IntegrateArgs,
     FeedUri? CatalogUri,
-    bool ShowAppNameBelowSplashScreen,
     bool CustomizableStorePath,
     long? EstimatedRequiredSpace)
 {
@@ -70,7 +68,6 @@ public record BootstrapConfig(
                 AppArgs: GetOption("app_args"),
                 IntegrateArgs: GetOption("integrate_args"),
                 CatalogUri: GetOption("catalog_uri")?.To(x => new FeedUri(x)),
-                ShowAppNameBelowSplashScreen: !string.Equals(GetOption("show_app_name_below_splash_screen"), "false", StringComparison.OrdinalIgnoreCase),
                 CustomizableStorePath: string.Equals(GetOption("customizable_store_path"), "true", StringComparison.OrdinalIgnoreCase),
                 EstimatedRequiredSpace: GetOption("estimated_required_space")?.To(long.Parse)
             );
