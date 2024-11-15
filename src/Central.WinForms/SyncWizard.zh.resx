@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>请将此密钥保密，并使用不同的密码。这样，即使服务器受到威胁，也不会有人访问你的数据。</value>
+    <value>请将此密钥保密，并使用不同的密码。这样，即使服务器遭到破坏，也不会有人访问你的数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

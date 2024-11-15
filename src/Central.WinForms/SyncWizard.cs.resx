@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Tento klíč udržujte v tajnosti a pro heslo používejte něco jiného. Tímto způsobem se k vašim datům nikdo nedostane, ani kdyby došlo ke kompromitaci serveru.</value>
+    <value>Tento klíč udržujte v tajnosti a pro heslo používejte něco jiného. Takto se k vašim datům nikdo nedostane, ani kdyby byl server napaden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Používání sdílení souborů systému Windows:</value>
+    <value>Používá sdílení souborů systému Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Obnovení šifrovacího klíče</value>
+    <value>Obnovení kryptografického klíče</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">

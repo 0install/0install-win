@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>支持的文件类型的默认处理程序（"用......打开 "在不使用此功能的情况下也能正常工作）</value>
+    <value>支持的文件类型的默认处理程序（"用......打开 "在不使用该程序的情况下也能正常工作）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
