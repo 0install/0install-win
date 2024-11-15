@@ -31,11 +31,13 @@ public sealed partial class MainForm : Form
         groupPath.Text = string.Format(LocalizableStrings.DestinationFolder, BootstrapConfig.Instance.AppName ?? "Zero Install");
         buttonChangePath.Text = LocalizableStrings.Change;
 
-        if (BootstrapConfig.Instance is {AppName: {} appName, CustomizableStorePath: false})
-        {
-            labelAppName.Text = appName;
+        // Show app name below logo, unless it is already shown as part of the path picker
+        if (BootstrapConfig.Instance is {AppName: not null, CustomizableStorePath: false})
+            labelAppName.Text = BootstrapConfig.Instance.AppName;
+
+        // App name or path picker need extra space
+        if (BootstrapConfig.Instance is {AppName: not null} or {CustomizableStorePath: true})
             Size += new Size(0, 50).ApplyScale(this);
-        }
     }
 
     public IProgress<TaskSnapshot> GetProgressControl(string taskName)

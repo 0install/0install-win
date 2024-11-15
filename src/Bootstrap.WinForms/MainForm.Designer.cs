@@ -45,11 +45,11 @@ namespace ZeroInstall
             // 
             // pictureBoxSplashScreen
             // 
-            this.pictureBoxSplashScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxSplashScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSplashScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxSplashScreen.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxSplashScreen.Name = "pictureBoxSplashScreen";
-            this.pictureBoxSplashScreen.Size = new System.Drawing.Size(560, 200);
+            this.pictureBoxSplashScreen.Size = new System.Drawing.Size(560, 250);
             this.pictureBoxSplashScreen.TabIndex = 0;
             this.pictureBoxSplashScreen.TabStop = false;
             // 
@@ -80,13 +80,13 @@ namespace ZeroInstall
             this.textPath.Location = new System.Drawing.Point(12, 19);
             this.textPath.Name = "textPath";
             this.textPath.ReadOnly = true;
-            this.textPath.Size = new System.Drawing.Size(404, 20);
+            this.textPath.Size = new System.Drawing.Size(428, 20);
             this.textPath.TabIndex = 0;
             // 
             // buttonChangePath
             // 
             this.buttonChangePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonChangePath.Location = new System.Drawing.Point(422, 18);
+            this.buttonChangePath.Location = new System.Drawing.Point(446, 18);
             this.buttonChangePath.Name = "buttonChangePath";
             this.buttonChangePath.Size = new System.Drawing.Size(79, 24);
             this.buttonChangePath.TabIndex = 1;
@@ -128,9 +128,9 @@ namespace ZeroInstall
             this.groupPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.groupPath.Controls.Add(this.textPath);
             this.groupPath.Controls.Add(this.buttonChangePath);
-            this.groupPath.Location = new System.Drawing.Point(24, 190);
+            this.groupPath.Location = new System.Drawing.Point(12, 190);
             this.groupPath.Name = "groupPath";
-            this.groupPath.Size = new System.Drawing.Size(512, 54);
+            this.groupPath.Size = new System.Drawing.Size(536, 54);
             this.groupPath.TabIndex = 2;
             this.groupPath.TabStop = false;
             this.groupPath.Text = "(DestinationFolder)";
