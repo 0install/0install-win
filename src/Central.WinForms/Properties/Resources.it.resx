@@ -145,7 +145,7 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Con Zero Install non è necessario installare le applicazioni.</value>
+    <value>Con Zero Install non è necessario installare applicazioni.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -256,7 +256,7 @@ iniziare da zero</value>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Siete sicuri di voler utilizzare una connessione non criptata a un server Sync?
-Le connessioni crittografate utilizzano il prefisso https://.</value>
+Le connessioni criptate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">

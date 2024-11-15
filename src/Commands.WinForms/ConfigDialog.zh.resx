@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>自动批准新密钥（如果密钥服务器已知）</value>
+    <value>自动批准新密钥（如密钥服务器已知）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">

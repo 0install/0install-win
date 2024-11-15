@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir ao servidor. Anote a chave sugerida ou escolha a sua própria.</value>
+    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir ao servidor. Escreva a chave sugerida ou escolha a sua própria.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Todas as alterações efectuadas noutros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
+    <value>As alterações efectuadas noutros computadores que não tenham sido sincronizadas com este perder-se-ão!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -179,11 +179,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Este é o primeiro computador que está a configurar para a Sincronização de Instalação Zero?</value>
+    <value>Este é o primeiro computador que está a configurar para a sincronização de instalação zero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>O Zero Install Sync está agora configurado e pronto a ser utilizado. Execute este assistente em quaisquer outros computadores que pretenda manter sincronizados com este.</value>
+    <value>O Zero Install Sync está agora configurado e pronto a ser utilizado. Execute este assistente em qualquer outro computador que pretenda manter sincronizado com este.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

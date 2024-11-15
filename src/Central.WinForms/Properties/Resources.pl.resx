@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorowanie zduplikowanego wpisu aplikacji dla "{0}".</value>
+    <value>Ignorowanie zduplikowanego wpisu aplikacji dla '{0}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
