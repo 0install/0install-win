@@ -8,6 +8,9 @@
     <OutputType>Exe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\App.config" />
+  </ItemGroup>
 
   <!-- Dependencies -->
   <ItemGroup>
