@@ -60,6 +60,3 @@ jobs:
 
       - name: Push Chocolatey package
         run: dotnet nuget push artifacts/0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
-
-      - name: Push PowerShell Gallery package
-        run: dotnet nuget push artifacts/0install.powershell.*.nupkg --source https://www.powershellgallery.com/ --api-key ${{secrets.POWERSHELL_GALLERY_API_KEY}}
