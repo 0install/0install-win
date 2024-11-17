@@ -27,26 +27,26 @@ function Add-Manifest($Manifest, $Binary) {
     if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 }
 
-# Inject version number
-SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
-
-# Compile source code
-Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version
+echo "Build binaries"
+if ($env:CI) { $ci = "/p:ContinuousIntegrationBuild=True /terminalLogger:off" }
+Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version $ci
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
 Remove-Item ..\artifacts\Release\net472\* -Include *.xml,*.pdb -Exclude ZeroInstall.VisualElementsManifest.xml
 Remove-Item ..\artifacts\Release\net472\*\Microsoft.CodeAnalysis*.resources.dll
 
-# Build Windows Installer package
+echo "Build Windows Installer package"
 pushd Bootstrap.WinForms
 dotnet tool restore
 dotnet wix build zero-install.wsx -o ..\..\artifacts\Bootstrap\zero-install.msi -pdbtype none
 if ($LASTEXITCODE -ne 0) {throw "Exit Code: $LASTEXITCODE"}
 popd
 
-# Generate bootstrap package for Chocolatey
+echo "Build Chocolatey package"
 if (Get-Command choco -ErrorAction SilentlyContinue) {
+    SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
     choco pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts
     move -Force ..\artifacts\0install.$Version.nupkg ..\artifacts\0install.chocolatey.$Version.nupkg
+    SearchAndReplace "1.0.0-pre" Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
 } else {
     Write-Warning "You need choco.exe to build the 0install Chocolatey package"
 }
