@@ -167,11 +167,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Questa procedura guidata può aiutarvi a risolvere una serie di possibili problemi di sincronizzazione. Quale problema desiderate risolvere?</value>
+    <value>Questa procedura guidata può aiutare a risolvere una serie di possibili problemi di sincronizzazione. Quale problema desiderate risolvere?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de fornisce account gratuiti per la memorizzazione dei dati di sincronizzazione. Tutti i dati vengono crittografati localmente prima di essere trasmessi al server. Se lo si desidera, è possibile utilizzare il proprio server per l'archiviazione.</value>
+    <value>0install.de fornisce account gratuiti per l'archiviazione dei dati di sincronizzazione. Tutti i dati vengono crittografati localmente prima di essere trasmessi al server. Se lo si desidera, è possibile utilizzare il proprio server per l'archiviazione.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cambio della chiave crittografica</value>
+    <value>Chiave crittografica modificata</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
