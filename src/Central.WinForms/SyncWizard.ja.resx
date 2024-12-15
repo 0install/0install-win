@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>オプション」ウィンドウを使用して、他のコンピュータにキーを入力します。このウィザードは最初の変更にのみ必要なので、そこでは使用しないでください。</value>
+    <value>オプション」ウィンドウを使用して、他のコンピュータにキーを入力します。このウィザードは最初の変更にのみ必要なので、ここでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Syncサーバーに保存されているデータをローカルのアプリケーションリストに置き換えます。他のコンピュータで行った変更で、まだこのコンピュータと同期していないものは失われます！</value>
+    <value>Syncサーバーに保存されているデータをローカルのアプリケーションリストに置き換えます。他のコンピューターで行った変更で、まだこのコンピューターと同期していないものはすべて失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>独自のSyncサーバーを設定するには？</value>
+    <value>独自のSyncサーバーをセットアップするには？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">

@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>请在此处输入 Zero Install feed 的 URL：</value>
+    <value>请在此处输入零安装源的 URL：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>您想从列表中删除{0} 选定的条目吗？</value>
+    <value>要从列表中删除{0} 选定的条目吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -265,7 +265,7 @@
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>这将自动从缓存中删除更新后不再需要的实现。继续运行？
-重要提示：之前 "运行 "但未添加到 "我的应用程序 "中的应用程序也将从缓存中删除。  如果您决定再次运行它们，则需要联网。</value>
+重要提示：以前 "运行 "过但未添加到 "我的应用程序 "中的应用程序也会从缓存中删除。  如果您决定再次运行它们，则需要联网。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>サポートされているURLプロトコルのデフォルトハンドラ（"withで開く "はこれなしでも動作します）</value>
+    <value>サポートされているURLプロトコルのデフォルト・ハンドラ（"Open with "はこれなしでも動作します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

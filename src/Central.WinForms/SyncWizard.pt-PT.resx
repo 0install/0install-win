@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduzir a chave noutros computadores utilizando a janela "Opções". Não utilizar este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
+    <value>Introduzir a chave noutros computadores utilizando a janela "Opções". Não utilize este assistente, uma vez que só é necessário para efetuar a alteração inicial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>As alterações efectuadas noutros computadores que não tenham sido sincronizadas com este perder-se-ão!</value>
+    <value>Todas as alterações efectuadas noutros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Este é o primeiro computador que está a configurar para a sincronização de instalação zero?</value>
+    <value>Este é o primeiro computador que está a configurar para a Sincronização de Instalação Zero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
