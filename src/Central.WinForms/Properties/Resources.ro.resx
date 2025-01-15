@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Vă rugăm să introduceți aici URL-ul unui feed Zero Install:</value>
+    <value>Vă rugăm să introduceți aici adresa URL a unui feed Zero Install:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -170,7 +170,7 @@ adăugați-o la "Aplicațiile mele".</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Directorul '{0}' nu este gol.
-Sunteți sigur că doriți să plasați acolo o versiune portabilă a Zero Install?</value>
+Sunteți sigur că doriți să plasați o versiune portabilă a Zero Install acolo?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
