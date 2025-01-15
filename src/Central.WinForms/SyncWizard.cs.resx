@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Obnovení šifrovacího klíče</value>
+    <value>Obnovení kryptografického klíče</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">

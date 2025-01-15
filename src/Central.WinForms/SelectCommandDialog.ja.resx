@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>コマンド</value>
+    <value>コマンド：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
