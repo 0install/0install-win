@@ -4,6 +4,7 @@
 using System.Diagnostics;
 using NanoByte.Common.Native;
 using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Configuration;
 
 namespace ZeroInstall;
