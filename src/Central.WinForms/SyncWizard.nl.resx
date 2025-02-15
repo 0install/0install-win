@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Je mag Zero Install Sync niet op andere computers uitvoeren terwijl dit proces actief is.</value>
+    <value>Je mag Zero Install Sync niet uitvoeren op andere computers terwijl dit proces actief is.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync neemt je applicatielijst en desktop integraties en zet ze automatisch over naar je andere computers.</value>
+    <value>Zero Install Sync neemt je applicatielijst en desktop integraties en brengt ze automatisch over naar je andere computers.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Cryptosleutel resetten</value>
+    <value>Cryptosleutel opnieuw instellen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
