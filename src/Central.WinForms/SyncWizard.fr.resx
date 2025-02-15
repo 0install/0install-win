@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Saisissez la clé sur d'autres ordinateurs à l'aide de la fenêtre "Options". N'utilisez pas cet assistant, car il n'est nécessaire que pour effectuer le changement initial.</value>
+    <value>Saisissez la clé sur d'autres ordinateurs à l'aide de la fenêtre "Options". N'utilisez pas cet assistant car il n'est nécessaire que pour effectuer le changement initial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">

@@ -86,7 +86,7 @@
     <value>- 제로 인스톨 구성 및 캐시된 애플리케이션을 단일 디렉토리에 저장합니다.
 - 제로 인스톨을 통해 실행한 애플리케이션을 자동으로 휴대용으로 만들지는 않습니다.
 - 휴대용 버전의 제로 인스톨은 데스크톱 통합(예: 시작 메뉴 항목 만들기)을 수행할 수 없습니다.
-- 대신 여러 대의 컴퓨터에서 제로 설치 동기화를 통해 일반 제로 설치를 사용하는 것이 좋습니다.</value>
+- 대신 여러 컴퓨터에서 제로 인스톨 동기화 기능을 사용하여 일반 제로 인스톨을 사용하는 것이 좋습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
