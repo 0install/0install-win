@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>'{0}'을 입력하면 사용 가능한 명령어 목록을 볼 수 있습니다.</value>
+    <value>'{0}'를 입력하면 사용 가능한 명령어 목록을 볼 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">

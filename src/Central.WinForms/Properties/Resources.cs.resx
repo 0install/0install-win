@@ -133,7 +133,7 @@ do nabídky Start nebo na plochu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Zde můžete spravovat seznam oblíbených aplikací.</value>
+    <value>Můžete zde spravovat seznam oblíbených aplikací.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -153,7 +153,7 @@ do nabídky Start nebo na plochu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Modifikovat integraci</value>
+    <value>Integrace modifikace</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
