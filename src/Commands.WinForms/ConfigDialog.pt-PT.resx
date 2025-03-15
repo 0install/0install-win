@@ -140,7 +140,7 @@
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Isto controla o idioma do:
-- Da própria Zero Install e
+- Zero Install propriamente dita e
 - aplicações descarregadas pela Zero Install.
 
 Notas:
@@ -189,7 +189,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>Idioma</value>
+    <value>Língua</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
