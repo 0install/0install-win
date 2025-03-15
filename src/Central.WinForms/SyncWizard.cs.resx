@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Používání sdílení souborů systému Windows:</value>
+    <value>Používá sdílení souborů systému Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Obnovení kryptografického klíče</value>
+    <value>Obnovení šifrovacího klíče</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">

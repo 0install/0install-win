@@ -228,7 +228,7 @@ Zapisywanie zmian</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Czy chcesz zresetować ustawienia Sync i zacząć od zera?</value>
+    <value>Czy chcesz zresetować ustawienia synchronizacji i zacząć od zera?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
