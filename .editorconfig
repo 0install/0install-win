@@ -23,11 +23,7 @@ end_of_line = crlf
 [*.{ps1,psd1,txt}]
 end_of_line = crlf
 
-[*.sln]
-end_of_line = crlf
-indent_style = tab
-
-[*.{*proj,config,manifest,props,targets,nuspec}]
+[*.{*proj,slnx,config,manifest,props,targets,nuspec}]
 end_of_line = crlf
 indent_size = 2
 

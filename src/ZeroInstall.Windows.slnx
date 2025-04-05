@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Shared/">
+    <File Path="Directory.Build.props" />
+    <File Path="nuget.config" />
+    <File Path="app.manifest" />
+  </Folder>
+  <Project Path="Commands.WinForms/Commands.WinForms.csproj" />
+  <Project Path="Launcher.Cli/Launcher.Cli.csproj" />
+  <Project Path="Alias.Cli/Alias.Cli.csproj" />
+  <Project Path="Store.Management.Cli/Store.Management.Cli.csproj" />
+  <Project Path="Store.Service/Store.Service.csproj" />
+  <Project Path="Central.WinForms/Central.WinForms.csproj" />
+  <Project Path="Bootstrap/Bootstrap.csproj" />
+  <Project Path="Bootstrap.WinForms/Bootstrap.WinForms.csproj" />
+</Solution>
