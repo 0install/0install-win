@@ -6,7 +6,6 @@
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>0install</AssemblyName>
     <Description>Downloads and runs Zero Install.</Description>
-    <Copyright></Copyright>
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
@@ -19,8 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="BootstrapConfig.ini" CopyToOutputDirectory="Always" />
+    <EmbeddedResource Include="BootstrapConfig.ini" CopyToOutputDirectory="Always" DependentUpon="BootstrapConfig.cs" />
     <EmbeddedResource Include="content\*" />
+    <Compile Update="BootstrapProcess.*.cs" DependentUpon="BootstrapProcess.cs" />
+    <None Update="chocolatey*.ps1" DependentUpon="Chocolatey.nuspec" />
+    <None Update="VERIFICATION.txt" DependentUpon="Chocolatey.nuspec" />
+    <None Update="0install.exe.ignore" DependentUpon="Chocolatey.nuspec" />
   </ItemGroup>
 
   <!-- Merge DLLs into EXEs -->
