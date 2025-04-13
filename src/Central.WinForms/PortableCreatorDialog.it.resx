@@ -86,7 +86,7 @@
     <value>- Memorizza la configurazione di Zero Install e le applicazioni nella cache in un'unica directory.
 - Non rende automaticamente portatili le applicazioni lanciate tramite Zero Install.
 - Le versioni portatili di Zero Install non possono eseguire l'integrazione con il desktop (ad esempio, creare voci del menu di avvio).
-- Considerate invece l'uso di Zero Install normale su più computer con Zero Install Sync.</value>
+- Considerate invece l'utilizzo di Zero Install normale su più computer con Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
