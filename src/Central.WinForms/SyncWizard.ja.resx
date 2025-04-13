@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>ローカルのアプリケーション・リストをシンク・サーバーに保存されたデータに置き換えます。ローカルで行った変更で、まだ同期されていないものは失われます！</value>
+    <value>ローカルのアプリケーションリストをシンクサーバーに保存されたデータに置き換えます。ローカルで行った変更で、まだ同期されていないものは失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
