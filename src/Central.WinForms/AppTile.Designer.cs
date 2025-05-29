@@ -55,6 +55,7 @@ namespace ZeroInstall.Central.WinForms
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(0, 20);
             this.labelName.TabIndex = 0;
+            this.labelName.UseMnemonic = false;
             this.labelName.Click += new System.EventHandler(this.LinkClicked);
             // 
             // labelSummary
@@ -66,6 +67,7 @@ namespace ZeroInstall.Central.WinForms
             this.labelSummary.Name = "labelSummary";
             this.labelSummary.Size = new System.Drawing.Size(267, 31);
             this.labelSummary.TabIndex = 1;
+            this.labelSummary.UseMnemonic = false;
             // 
             // buttonRun
             // 

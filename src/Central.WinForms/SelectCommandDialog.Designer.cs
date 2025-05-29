@@ -76,6 +76,7 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.labelSummary, "labelSummary");
             this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Name = "labelSummary";
+            this.labelSummary.UseMnemonic = false;
             // 
             // labelOptions
             // 

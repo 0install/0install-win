@@ -72,8 +72,8 @@ public sealed partial class SelectionsControl : UserControl
             var feed = _feedManager[implementation.InterfaceUri];
 
             // Display application name and implementation version
-            tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
-            tableLayout.Controls.Add(new Label {Text = implementation.Version.ToString(), Dock = DockStyle.Fill, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
+            tableLayout.Controls.Add(new Label {Text = feed.Name, UseMnemonic = false, Dock = DockStyle.Fill, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
+            tableLayout.Controls.Add(new Label {Text = implementation.Version.ToString(), UseMnemonic = false, Dock = DockStyle.Fill, AutoSize = true, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
         }
 
         tableLayout.ResumeLayout();
