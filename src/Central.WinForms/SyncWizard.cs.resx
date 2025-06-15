@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Aplikace Zero Install Sync je nyní nastavena a připravena k použití. Spusťte tohoto průvodce na všech dalších počítačích, které chcete s tímto počítačem synchronizovat.</value>
+    <value>Aplikace Zero Install Sync je nyní nastavena a připravena k použití. Spusťte tohoto průvodce na všech ostatních počítačích, které chcete s tímto počítačem synchronizovat.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Obnovení kryptografického klíče</value>
+    <value>Obnovení šifrovacího klíče</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
