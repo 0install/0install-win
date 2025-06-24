@@ -72,6 +72,11 @@ partial class BootstrapProcess
             Log.Info($"Importing icon {uri} from {name}");
             ImportIcon(uri, stream);
         }
+        else if (name.EndsWithIgnoreCase(".exe") && Path.GetFileName(name).Split(['_'], count: 2) is [var dir, var file])
+        {
+            Log.Info($"Importing stub EXE {file} from {name}");
+            ImportStubExe(dir, file, stream);
+        }
         else if (TryParseDigest(name) is {} manifestDigest)
         {
             Log.Info($"Importing implementation from {name}");
@@ -89,6 +94,27 @@ partial class BootstrapProcess
             Config, Handler);
 
         store.Import(new() {Href = uri}, stream);
+    }
+
+    private void ImportStubExe(string dir, string file, Stream stream)
+    {
+        string[] resource = ["desktop-integration", "stubs", dir, file];
+        string path = _machineWide
+            ? Locations.GetSaveSystemConfigPath("0install.net", isFile: true, resource)
+            : Locations.GetSaveConfigPath("0install.net", isFile: true, resource);
+
+        try
+        {
+            if (File.Exists(path)) new FileInfo(path).IsReadOnly = false;
+            stream.CopyToFile(path);
+            new FileInfo(path).IsReadOnly = true; // Make read-only to prevent ZeroInstall.DesktopIntegration from overwriting with on-demand generated stub
+        }
+        #region Error handling
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            Log.Warn($"Failed to deploy '{file}' to '{path}'", ex);
+        }
+        #endregion
     }
 
     private static ManifestDigest? TryParseDigest(string path)
