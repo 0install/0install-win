@@ -13,51 +13,6 @@ namespace ZeroInstall;
 partial class BootstrapProcess
 {
     /// <summary>
-    /// Imports files embedded in the bootstrapper into Zero Install.
-    /// </summary>
-    private void ImportEmbedded()
-    {
-        const string prefix = "ZeroInstall.content.";
-        var assembly = GetType().Assembly;
-
-        foreach (string name in assembly.GetManifestResourceNames().Where(x => x.StartsWith(prefix)).Select(x => x[prefix.Length..]))
-        {
-            if (name.EndsWithIgnoreCase(".xml"))
-            {
-                Log.Info($"Importing embedded feed {name}");
-                using var stream = assembly.GetManifestResourceStream(prefix + name)!;
-                try
-                {
-                    FeedManager.ImportFeed(stream, keyCallback: id =>
-                    {
-                        Log.Info($"Reading embedded OpenPGP key {id}");
-                        using var keyStream = assembly.GetManifestResourceStream(prefix + id + ".gpg");
-                        return keyStream?.ReadAll();
-                    });
-                }
-                catch (ReplayAttackException) // Newer version already in cache
-                {}
-            }
-            else if (name.EndsWithIgnoreCase(".png") || name.EndsWithIgnoreCase(".ico"))
-            {
-                Log.Info($"Importing embedded icon {name}");
-                using var stream = assembly.GetManifestResourceStream(prefix + name)!;
-                ImportIcon(new FeedUri(name), stream);
-            }
-            else if (TryParseDigest(name) is {} manifestDigest)
-            {
-                Log.Info($"Importing embedded implementation {name}");
-                var extractor = ArchiveExtractor.For(Archive.GuessMimeType(name), Handler);
-                ImportImplementation(manifestDigest, builder =>
-                {
-                    using var stream = assembly.GetManifestResourceStream(prefix + name)!;
-                    Handler.RunTask(new ReadStream($"Extracting embedded archive {name}", stream, x => extractor.Extract(builder, x)));
-                });
-            }
-        }
-    }
-
-    /// <summary>
     /// Imports files from a directory into Zero Install.
     /// </summary>
     private void ImportDirectory()
@@ -68,36 +23,71 @@ partial class BootstrapProcess
 
         foreach (string path in Directory.GetFiles(contentDir))
         {
-            if (path.EndsWithIgnoreCase(".xml"))
+            using var stream = File.OpenRead(path);
+            ImportFile(Path.GetFileName(path), stream);
+        }
+    }
+
+    /// <summary>
+    /// Imports files embedded in the bootstrapper into Zero Install.
+    /// </summary>
+    private void ImportEmbedded()
+    {
+        const string prefix = "ZeroInstall.content.";
+        var assembly = GetType().Assembly;
+
+        foreach (string name in assembly.GetManifestResourceNames().Where(x => x.StartsWith(prefix)).Select(x => x[prefix.Length..]))
+        {
+            using var stream = assembly.GetManifestResourceStream(prefix + name)!;
+            ImportFile(name, stream, keyCallback: id =>
             {
-                Log.Info($"Importing feed from {path}");
-                try
-                {
-                    FeedManager.ImportFeed(path);
-                }
-                catch (ReplayAttackException) // Newer version already in cache
-                {}
-            }
-            else if (path.EndsWithIgnoreCase(".png") || path.EndsWithIgnoreCase(".ico"))
+                Log.Info($"Reading embedded OpenPGP key {id}");
+                using var keyStream = assembly.GetManifestResourceStream(prefix + id + ".gpg");
+                return keyStream?.ReadAll();
+            });
+        }
+    }
+
+    /// <summary>
+    /// Imports a file into Zero Install.
+    /// </summary>
+    /// <param name="name">The file path or resource name.</param>
+    /// <param name="stream">The contents of the file.</param>
+    /// <param name="keyCallback">Callback for reading a specific OpenPGP public key file.</param>
+    private void ImportFile(string name, Stream stream, OpenPgpKeyCallback? keyCallback = null)
+    {
+        if (name.EndsWithIgnoreCase(".xml"))
+        {
+            Log.Info($"Importing feed from {name}");
+            try
             {
-                Log.Info($"Importing icon from {path}");
-                using var stream = File.OpenRead(path);
-                ImportIcon(FeedUri.Unescape(Path.GetFileName(path)), stream);
+                FeedManager.ImportFeed(stream, keyCallback);
             }
-            else if (TryParseDigest(path) is {} manifestDigest)
-            {
-                Log.Info($"Importing implementation from {path}");
-                var extractor = ArchiveExtractor.For(Archive.GuessMimeType(Path.GetFileName(path)), Handler);
-                ImportImplementation(manifestDigest, builder => _handler.RunTask(new ReadFile(path, stream => extractor.Extract(builder, stream))));
-            }
+            catch (ReplayAttackException) // Newer version already in cache
+            {}
+        }
+        else if (name.EndsWithIgnoreCase(".png") || name.EndsWithIgnoreCase(".ico"))
+        {
+            var uri = File.Exists(name) ? FeedUri.Unescape(Path.GetFileName(name)) : new FeedUri(name);
+            Log.Info($"Importing icon {uri} from {name}");
+            ImportIcon(uri, stream);
+        }
+        else if (TryParseDigest(name) is {} manifestDigest)
+        {
+            Log.Info($"Importing implementation from {name}");
+            var extractor = ArchiveExtractor.For(Archive.GuessMimeType(Path.GetFileName(name)), Handler);
+            ImportImplementation(manifestDigest, builder => Handler.RunTask(new ReadStream($"Extracting archive {name}", stream, x => extractor.Extract(builder, x))));
         }
     }
 
     private void ImportIcon(FeedUri uri, Stream stream)
     {
+        string[] resource = ["desktop-integration", "icons"];
         var store = new IconStore(_machineWide
-            ? Locations.GetSaveSystemConfigPath("0install.net", isFile: false, "desktop-integration", "icons")
-            : Locations.GetSaveConfigPath("0install.net", isFile: false, "desktop-integration", "icons"), Config, Handler);
+                ? Locations.GetSaveSystemConfigPath("0install.net", isFile: false, resource)
+                : Locations.GetSaveConfigPath("0install.net", isFile: false, resource),
+            Config, Handler);
+
         store.Import(new() {Href = uri}, stream);
     }
 
