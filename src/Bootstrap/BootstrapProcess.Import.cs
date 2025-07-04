@@ -110,7 +110,7 @@ partial class BootstrapProcess
             new FileInfo(path).IsReadOnly = true; // Make read-only to prevent ZeroInstall.DesktopIntegration from overwriting with on-demand generated stub
         }
         #region Error handling
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is ArgumentException or IOException or UnauthorizedAccessException)
         {
             Log.Warn($"Failed to deploy '{file}' to '{path}'", ex);
         }
