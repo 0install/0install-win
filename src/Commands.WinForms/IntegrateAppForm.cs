@@ -276,9 +276,10 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     /// </summary>
     private void UpdateCommandLine(object sender, EventArgs e)
     {
-        if (_state.Feed.Uri == null) return;
+        var commandLine = new List<string>();
 
-        var commandLine = new List<string> {"0install", "integrate", _state.Feed.Uri.ToStringRfc()};
+        if (_state.Feed.Uri is {} uri)
+            commandLine.Add(["0install", "integrate", uri.ToStringRfc()]);
 
         if (_categories.All(x => x.Value()))
             commandLine.Add("--add-all");
