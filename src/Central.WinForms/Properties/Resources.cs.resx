@@ -265,7 +265,7 @@ Data uložená na serveru můžete nahradit volbou, že si nepamatujete šifrova
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Automaticky odstraní z mezipaměti implementace, které již nejsou po aktualizaci potřeba. Pokračovat?
-Důležité: Aplikace, které jste dříve "Spustili", aniž byste je přidali do "Mých aplikací", budou rovněž odstraněny z mezipaměti.  Pokud se je rozhodnete znovu spustit, budete muset být online.</value>
+Důležité: Aplikace, které jste dříve "Spustili", aniž byste je přidali do "Mých aplikací", budou také odstraněny z mezipaměti.  Pokud se je rozhodnete znovu spustit, budete muset být online.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

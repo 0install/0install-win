@@ -179,11 +179,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Este é o primeiro computador que está a configurar para a sincronização de instalação zero?</value>
+    <value>Este é o primeiro computador que está a configurar para a Sincronização de Instalação Zero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>O Zero Install Sync está agora configurado e pronto a ser utilizado. Execute este assistente em qualquer outro computador que pretenda manter sincronizado com este.</value>
+    <value>O Zero Install Sync está agora configurado e pronto a ser utilizado. Execute este assistente em quaisquer outros computadores que pretenda manter sincronizados com este.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

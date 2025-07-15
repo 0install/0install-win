@@ -228,7 +228,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Вы хотите сбросить настройки синхронизации и начать все с нуля?</value>
+    <value>Вы хотите сбросить настройки синхронизации и начать с нуля?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
