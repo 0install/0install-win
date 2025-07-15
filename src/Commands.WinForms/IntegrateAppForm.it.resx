@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Si avvia automaticamente quando viene inserito un supporto adatto (DVD, unità USB, ecc.)</value>
+    <value>Avvio automatico all'inserimento di un supporto adatto (DVD, unità USB, ecc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
