@@ -68,11 +68,11 @@ partial class BootstrapProcess
         }
         else if (name.EndsWithIgnoreCase(".png") || name.EndsWithIgnoreCase(".ico"))
         {
-            var uri = File.Exists(name) ? FeedUri.Unescape(Path.GetFileName(name)) : new FeedUri(name);
+            var uri = Uri.IsWellFormedUriString(name, UriKind.Absolute) ? new FeedUri(name) : FeedUri.Unescape(name);
             Log.Info($"Importing icon {uri} from {name}");
             ImportIcon(uri, stream);
         }
-        else if (name.EndsWithIgnoreCase(".exe") && Path.GetFileName(name).Split(['_'], count: 2) is [var dir, var file])
+        else if (name.EndsWithIgnoreCase(".exe") && name.Split(['_'], count: 2) is [var dir, var file])
         {
             Log.Info($"Importing stub EXE {file} from {name}");
             ImportStubExe(dir, file, stream);
@@ -80,7 +80,7 @@ partial class BootstrapProcess
         else if (TryParseDigest(name) is {} manifestDigest)
         {
             Log.Info($"Importing implementation from {name}");
-            var extractor = ArchiveExtractor.For(Archive.GuessMimeType(Path.GetFileName(name)), Handler);
+            var extractor = ArchiveExtractor.For(Archive.GuessMimeType(name), Handler);
             ImportImplementation(manifestDigest, builder => Handler.RunTask(new ReadStream($"Extracting archive {name}", stream, x => extractor.Extract(builder, x))));
         }
     }
