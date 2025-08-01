@@ -203,11 +203,11 @@ public sealed partial class InterfaceDialog : OKCancelDialog
             return;
         }
 
-        if (_interfaceUri.IsFile)
+        if (feedUri.IsFile)
         {
-            if (!File.Exists(_interfaceUri.LocalPath))
+            if (!File.Exists(feedUri.LocalPath))
             {
-                Msg.Inform(this, string.Format(Resources.FileOrDirNotFound, _interfaceUri.LocalPath), MsgSeverity.Warn);
+                Msg.Inform(this, string.Format(Resources.FileOrDirNotFound, feedUri.LocalPath), MsgSeverity.Warn);
                 return;
             }
         }
