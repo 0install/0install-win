@@ -167,7 +167,7 @@ partial class BootstrapProcess
         }
         else
         {
-            _options.Add("version=", () => $"Use a specific {{VERSION}} of Zero Install.", (VersionRange range) => _version = range);
+            _options.Add("version=", () => "Use a specific {VERSION} of Zero Install.", (VersionRange range) => _version = range);
         }
 
         // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
