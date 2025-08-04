@@ -119,9 +119,6 @@ partial class BootstrapProcess
                 }
             },
             {
-                "feed=", () => "Specify an alternative {FEED} for Zero Install.", feed => Config.SelfUpdateUri = new(feed)
-            },
-            {
                 "content-dir=", () => "Specifies a {DIRECTORY} to search for feeds and archives to import. The default is a directory called 'content'.", path =>
                 {
                     if (!Directory.Exists(path)) throw new DirectoryNotFoundException($"Directory '{path}' not found.");
@@ -141,7 +138,9 @@ partial class BootstrapProcess
         if (BootstrapConfig.Instance is {AppUri: not null, AppName: {} appName})
         {
             _options.Add("0install-version=", () => "Use a specific {VERSION} of Zero Install.", (VersionRange range) => _version = range);
+            _options.Add("0install-feed=", () => "Specify an alternative {FEED} for Zero Install.", feed => Config.SelfUpdateUri = new(feed));
             _options.Add("version=", () => $"Use a specific {{VERSION}} of {appName}.", (VersionRange range) => _appVersion = range);
+            _options.Add("feed=", () => $"Specify an alternative {{FEED}} for {appName}.", feed => BootstrapConfig.Instance.AppUri = new(feed));
             _options.Add("no-run", () => $"Do not run {appName} after downloading it.", _ => _noRun = true);
             _options.Add("s|silent", () => "Equivalent to --no-run --batch.", _ =>
             {
@@ -168,6 +167,7 @@ partial class BootstrapProcess
         else
         {
             _options.Add("version=", () => "Use a specific {VERSION} of Zero Install.", (VersionRange range) => _version = range);
+            _options.Add("feed=", () => "Specify an alternative {FEED} for Zero Install.", feed => Config.SelfUpdateUri = new(feed));
         }
 
         // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
