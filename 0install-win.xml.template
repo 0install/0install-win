@@ -14,7 +14,7 @@
     <command name="run-gui" path="0install-win.exe"/>
     <command name="central" path="ZeroInstall.exe"/>
 
-    <implementation version="{version}" local-path="artifacts/Release/net472">
+    <implementation version="{version}" local-path="artifacts/Release/net472/publish">
       <manifest-digest/>
       <archive href="0install-win-{version}.tar.gz"/>
     </implementation>

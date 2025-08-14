@@ -1,7 +1,7 @@
-$digest = 0install digest "$PSScriptRoot\..\artifacts\Release\net472" --algorithm=sha256new --batch
+$digest = 0install digest "$PSScriptRoot\..\artifacts\Release\net472\publish" --algorithm=sha256new --batch
 if ($LASTEXITCODE -ne 0) { throw "Exit Code: $LASTEXITCODE" }
 
-0install store add $digest "$PSScriptRoot\..\artifacts\Release\net472"
+0install store add $digest "$PSScriptRoot\..\artifacts\Release\net472\publish"
 if ($LASTEXITCODE -ne 0) { throw "Exit Code: $LASTEXITCODE" }
 
 0install store find $digest

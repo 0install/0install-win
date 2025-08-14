@@ -12,7 +12,10 @@
     <NoWarn>$(NoWarn);1591</NoWarn><!-- Missing XML comments -->
     <ApplicationIcon>$(MSBuildThisFileDirectory)..\icon.ico</ApplicationIcon>
     <ApplicationManifest>..\app.manifest</ApplicationManifest>
-    <SatelliteResourceLanguages>es;el;fr;it;ja;nl;pt-BR;pt-PT;ro;ru;tr;zh;zh-Hant</SatelliteResourceLanguages>
+
+    <!-- Publish configuration -->
+    <SatelliteResourceLanguages>cs;es;el;fr;id;it;ja;ko;nl;pt-BR;pt-PT;ro;ru;tr;zh;zh-Hant</SatelliteResourceLanguages>
+    <PublishDocumentationFiles>False</PublishDocumentationFiles>
 
     <!-- Metadata -->
     <Product>Zero Install</Product>

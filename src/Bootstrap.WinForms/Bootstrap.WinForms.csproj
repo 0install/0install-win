@@ -8,6 +8,7 @@
     <Description>Downloads and runs Zero Install optionally showing a GUI.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IsPublishable>False</IsPublishable>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

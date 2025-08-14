@@ -8,6 +8,7 @@
     <Description>Downloads and runs Zero Install.</Description>
     <OutputType>Exe</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IsPublishable>False</IsPublishable>
   </PropertyGroup>
 
   <!-- Dependencies -->

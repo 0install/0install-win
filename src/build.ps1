@@ -31,8 +31,11 @@ echo "Build binaries"
 if ($env:CI) { $ci = "/p:ContinuousIntegrationBuild=True /terminalLogger:off" }
 Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version $ci
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
-Remove-Item ..\artifacts\Release\net472\* -Include *.xml,*.pdb -Exclude ZeroInstall.VisualElementsManifest.xml
-Remove-Item ..\artifacts\Release\net472\*\Microsoft.CodeAnalysis*.resources.dll
+
+echo "Prepare binaries for publishing"
+Run-MSBuild /v:Quiet /t:Publish /p:NoBuild=True /p:BuildProjectReferences=False /p:Configuration=Release /p:Version=$Version
+rm ..\artifacts\Release\net472\publish\*.pdb
+rm ..\artifacts\Release\net472\publish\*\Microsoft.CodeAnalysis*.resources.dll
 
 echo "Build Windows Installer package"
 pushd Bootstrap.WinForms
