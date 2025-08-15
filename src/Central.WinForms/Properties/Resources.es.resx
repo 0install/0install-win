@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Haz clic para configurar Instalación Cero en este ordenador...</value>
+    <value>Haga clic para configurar Zero Install en este ordenador...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -255,7 +255,7 @@ Puede reemplazar los datos almacenados en el servidor eligiendo que no recuerda 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>¿Está seguro de que desea utilizar una conexión no cifrada a un servidor Sync?
+    <value>¿Está seguro de que desea utilizar una conexión no cifrada con un servidor Sync?
 Las conexiones cifradas utilizan un prefijo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
