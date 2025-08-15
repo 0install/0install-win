@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de fornisce account gratuiti per l'archiviazione dei dati di sincronizzazione. Tutti i dati vengono crittografati localmente prima di essere trasmessi al server. Se lo si desidera, è possibile utilizzare il proprio server per l'archiviazione.</value>
+    <value>0install.de fornisce account gratuiti per la memorizzazione dei dati di sincronizzazione. Tutti i dati vengono crittografati localmente prima di essere trasmessi al server. Se lo si desidera, è possibile utilizzare il proprio server per l'archiviazione.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Chiave crittografica modificata</value>
+    <value>Cambio della chiave crittografica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">

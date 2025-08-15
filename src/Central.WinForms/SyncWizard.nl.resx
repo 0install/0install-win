@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Je mag Zero Install Sync niet uitvoeren op andere computers terwijl dit proces actief is.</value>
+    <value>Je mag Zero Install Sync niet op andere computers uitvoeren terwijl dit proces actief is.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Voer de cryptosleutel in die u eerder op deze en/of andere computers hebt gebruikt:</value>
+    <value>Voer de cryptosleutel in die je eerder op deze en/of andere computers hebt gebruikt:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">

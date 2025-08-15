@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>ここでは、USBメモリなどで使用するポータブル版のZero Installを作成できます。ターゲットがNTFSフォーマットされている必要があります。</value>
+    <value>ここでは、USBメモリなどで使用するポータブル版のZero Installを作成できます。ターゲットはNTFSフォーマットされている必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
