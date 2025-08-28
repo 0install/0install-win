@@ -24,7 +24,14 @@ partial class BootstrapProcess
         foreach (string path in Directory.GetFiles(contentDir))
         {
             using var stream = File.OpenRead(path);
-            ImportFile(Path.GetFileName(path), stream);
+            ImportFile(Path.GetFileName(path), stream, keyCallback: id =>
+            {
+                string keyPath = Path.Combine(Path.GetDirectoryName(path) ?? "", id + ".gpg");
+                if (!File.Exists(keyPath)) return null;
+
+                Log.Info($"Loading OpenPGP key {id} from {keyPath}");
+                return new(File.ReadAllBytes(keyPath));
+            });
         }
     }
 
@@ -41,9 +48,11 @@ partial class BootstrapProcess
             using var stream = assembly.GetManifestResourceStream(prefix + name)!;
             ImportFile(name, stream, keyCallback: id =>
             {
-                Log.Info($"Reading embedded OpenPGP key {id}");
                 using var keyStream = assembly.GetManifestResourceStream(prefix + id + ".gpg");
-                return keyStream?.ReadAll();
+                if (keyStream == null) return null;
+
+                Log.Info($"Reading embedded OpenPGP key {id}");
+                return keyStream.ReadAll();
             });
         }
     }
@@ -54,7 +63,7 @@ partial class BootstrapProcess
     /// <param name="name">The file path or resource name.</param>
     /// <param name="stream">The contents of the file.</param>
     /// <param name="keyCallback">Callback for reading a specific OpenPGP public key file.</param>
-    private void ImportFile(string name, Stream stream, OpenPgpKeyCallback? keyCallback = null)
+    private void ImportFile(string name, Stream stream, OpenPgpKeyCallback keyCallback)
     {
         if (name.EndsWithIgnoreCase(".xml"))
         {
