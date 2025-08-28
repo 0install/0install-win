@@ -32,8 +32,18 @@ public sealed partial class BootstrapProcess : ServiceProvider
         SaveConfig();
         TrustKeys();
 
-        ImportEmbedded();
-        ImportDirectory();
+        try
+        {
+            ImportEmbedded();
+            ImportDirectory();
+        }
+        #region Error handling
+        catch (ObjectDisposedException ex)
+        {
+            Log.Warn("Stream closed while importing content", ex);
+            return ExitCode.IOError;
+        }
+        #endregion
 
         if (BootstrapConfig.Instance.AppUri == null) ApplySharedOptions();
         if (_offline) Config.NetworkUse = NetworkLevel.Offline;
