@@ -10,11 +10,13 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      # Prepare
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           show-progress: false
 
+      # Artifacts
       - name: Download signed artifacts
         id: download
         run: |
@@ -22,7 +24,6 @@ jobs:
           mkdir artifacts
           unzip -q artifacts.zip -d artifacts
           echo "version=$(cat artifacts/VERSION | tr -d '\r\n')" >> $GITHUB_OUTPUT
-
       - name: Create archives
         run: |
           ./0install.sh run https://apps.0install.net/0install/0template.xml 0install-win.xml.template version=${{steps.download.outputs.version}}
@@ -36,20 +37,33 @@ jobs:
           zip -9 zero-install.zip zero-install.exe zero-install.exe.config zero-install.ini
           popd
 
+      # Release
+      - name: Get tag message
+        id: tag_message
+        run: |
+          {
+            echo "message<<EOF"
+            git fetch -f origin tag ${{steps.download.outputs.version}}
+            git tag -l ${{steps.download.outputs.version}} --format="%(contents)"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{steps.download.outputs.version}}
+          body: |
+            **[Download Zero Install for Windows](https://get.0install.net/#windows)**
+            ## Changes
+            ${{steps.tag_message.outputs.message}}
+
+            Based on [Zero Install .NET ${{steps.download.outputs.version}}](https://github.com/0install/0install-dotnet/releases/${{steps.download.outputs.version}}).
           files: |
             0install-win-${{steps.download.outputs.version}}.*
             artifacts/Bootstrap/*.exe
             artifacts/Bootstrap/*.zip
             artifacts/Bootstrap/*.msi
-          body: |
-            **[Download Zero Install for Windows](https://get.0install.net/#windows)**
 
-            Based on [Zero Install .NET ${{steps.download.outputs.version}}](https://github.com/0install/0install-dotnet/releases/${{steps.download.outputs.version}}).
-
+      # Publish
       - name: Publish feed
         env:
           GH_TOKEN: ${{secrets.PERSONAL_TOKEN}}
@@ -57,6 +71,5 @@ jobs:
           gh workflow run --repo=0install/apps Incoming
           -f feed_url=https://github.com/${{github.repository}}/releases/download/${{steps.download.outputs.version}}/0install-win-${{steps.download.outputs.version}}.xml
           -f archive_url=https://github.com/${{github.repository}}/releases/download/${{steps.download.outputs.version}}/0install-win-${{steps.download.outputs.version}}.tar.gz
-
       - name: Push Chocolatey package
         run: dotnet nuget push artifacts/0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
