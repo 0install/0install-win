@@ -27,6 +27,8 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         toolTip.SetToolTip(comboBoxVersion, Commands.Properties.Resources.OptionVersionRange);
         toolTip.SetToolTip(comboBoxCommand, Commands.Properties.Resources.OptionCommand);
         toolTip.SetToolTip(checkBoxCustomize, Commands.Properties.Resources.OptionCustomize);
+        toolTip.SetToolTip(checkBoxPin, Commands.Properties.Resources.OptionPin);
+        toolTip.SetToolTip(checkBoxUnpin, Commands.Properties.Resources.OptionUnpin);
         toolTip.SetToolTip(checkBoxRefresh, Commands.Properties.Resources.OptionRefresh);
 
         UpdateLabels(new(), EventArgs.Empty);
@@ -95,6 +97,18 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         textBoxCommandLine.Text = GetArgs().Except("--no-wait").Prepend("0install").JoinEscapeArguments();
     }
 
+    private void checkBoxPin_CheckedChanged(object sender, EventArgs e)
+    {
+        if (checkBoxPin.Checked) checkBoxUnpin.Checked = false;
+        UpdateLabels(sender, e);
+    }
+
+    private void checkBoxUnpin_CheckedChanged(object sender, EventArgs e)
+    {
+        if (checkBoxUnpin.Checked) checkBoxPin.Checked = false;
+        UpdateLabels(sender, e);
+    }
+
     private void buttonOK_Click(object sender, EventArgs e)
     {
         CommandUtils.Start(GetArgs().ToArray());
@@ -127,6 +141,12 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
 
         if (checkBoxCustomize.Checked)
             yield return "--customize";
+
+        if (checkBoxPin.Checked)
+            yield return "--pin";
+
+        if (checkBoxUnpin.Checked)
+            yield return "--unpin";
 
         if (checkBoxRefresh.Checked)
             yield return "--refresh";

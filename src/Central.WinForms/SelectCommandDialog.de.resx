@@ -70,6 +70,14 @@
     <value>&amp;Aktualisieren</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>Version &amp;festhalten</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>Version &amp;freigeben</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Entsprechende Befehlszeile</value>
     <comment>Manually overriden.</comment>

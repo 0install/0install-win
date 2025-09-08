@@ -40,6 +40,8 @@ namespace ZeroInstall.Central.WinForms
             this.groupBoxCommandLine = new System.Windows.Forms.GroupBox();
             this.textBoxCommandLine = new System.Windows.Forms.TextBox();
             this.panelOptions = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkBoxPin = new System.Windows.Forms.CheckBox();
+            this.checkBoxUnpin = new System.Windows.Forms.CheckBox();
             this.comboBoxVersion = new System.Windows.Forms.ComboBox();
             this.labelVersion = new System.Windows.Forms.Label();
             this.buttonReload = new System.Windows.Forms.Button();
@@ -127,8 +129,24 @@ namespace ZeroInstall.Central.WinForms
             // 
             resources.ApplyResources(this.panelOptions, "panelOptions");
             this.panelOptions.Controls.Add(this.checkBoxCustomize);
+            this.panelOptions.Controls.Add(this.checkBoxPin);
+            this.panelOptions.Controls.Add(this.checkBoxUnpin);
             this.panelOptions.Controls.Add(this.checkBoxRefresh);
             this.panelOptions.Name = "panelOptions";
+            // 
+            // checkBoxPin
+            // 
+            resources.ApplyResources(this.checkBoxPin, "checkBoxPin");
+            this.checkBoxPin.Name = "checkBoxPin";
+            this.checkBoxPin.UseVisualStyleBackColor = true;
+            this.checkBoxPin.CheckedChanged += new System.EventHandler(this.checkBoxPin_CheckedChanged);
+            // 
+            // checkBoxUnpin
+            // 
+            resources.ApplyResources(this.checkBoxUnpin, "checkBoxUnpin");
+            this.checkBoxUnpin.Name = "checkBoxUnpin";
+            this.checkBoxUnpin.UseVisualStyleBackColor = true;
+            this.checkBoxUnpin.CheckedChanged += new System.EventHandler(this.checkBoxUnpin_CheckedChanged);
             // 
             // comboBoxVersion
             // 
@@ -203,6 +221,8 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Label labelOptions;
         private System.Windows.Forms.FlowLayoutPanel panelOptions;
         private System.Windows.Forms.CheckBox checkBoxCustomize;
+        private System.Windows.Forms.CheckBox checkBoxPin;
+        private System.Windows.Forms.CheckBox checkBoxUnpin;
         private System.Windows.Forms.CheckBox checkBoxRefresh;
         private System.Windows.Forms.Label labelArgs;
         private System.Windows.Forms.TextBox textBoxArgs;

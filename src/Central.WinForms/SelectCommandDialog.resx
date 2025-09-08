@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 226</value>
+    <value>367, 246</value>
   </data>
   <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
     <value>buttonOK</value>
@@ -134,7 +134,7 @@
     <value>12</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>348, 226</value>
+    <value>448, 246</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -184,7 +184,7 @@
     <value>94, 39</value>
   </data>
   <data name="comboBoxCommand.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 21</value>
+    <value>390, 21</value>
   </data>
   <data name="comboBoxCommand.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -214,7 +214,7 @@
     <value>94, 63</value>
   </data>
   <data name="labelSummary.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 50</value>
+    <value>428, 70</value>
   </data>
   <data name="labelSummary.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -241,7 +241,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 118</value>
+    <value>12, 138</value>
   </data>
   <data name="labelOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 13</value>
@@ -310,7 +310,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 0</value>
+    <value>252, 0</value>
   </data>
   <data name="checkBoxRefresh.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 3, 0</value>
@@ -334,7 +334,7 @@
     <value>panelOptions</value>
   </data>
   <data name="&gt;&gt;checkBoxRefresh.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="labelArgs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -346,7 +346,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelArgs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 143</value>
+    <value>12, 163</value>
   </data>
   <data name="labelArgs.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 13</value>
@@ -373,10 +373,10 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="textBoxArgs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 140</value>
+    <value>94, 160</value>
   </data>
   <data name="textBoxArgs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 20</value>
+    <value>428, 20</value>
   </data>
   <data name="textBoxArgs.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -406,7 +406,7 @@
     <value>6, 19</value>
   </data>
   <data name="textBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>398, 20</value>
+    <value>498, 20</value>
   </data>
   <data name="textBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -424,10 +424,10 @@
     <value>0</value>
   </data>
   <data name="groupBoxCommandLine.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 171</value>
+    <value>12, 191</value>
   </data>
   <data name="groupBoxCommandLine.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 49</value>
+    <value>510, 49</value>
   </data>
   <data name="groupBoxCommandLine.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -450,11 +450,83 @@
   <data name="panelOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="checkBoxPin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxPin.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxPin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxPin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 0</value>
+  </data>
+  <data name="checkBoxPin.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
+  </data>
+  <data name="checkBoxPin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 17</value>
+  </data>
+  <data name="checkBoxPin.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>&amp;Pin version</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPin.Name" xml:space="preserve">
+    <value>checkBoxPin</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPin.Parent" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPin.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="checkBoxUnpin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxUnpin.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxUnpin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxUnpin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 0</value>
+  </data>
+  <data name="checkBoxUnpin.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
+  </data>
+  <data name="checkBoxUnpin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 17</value>
+  </data>
+  <data name="checkBoxUnpin.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>&amp;Unpin version</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUnpin.Name" xml:space="preserve">
+    <value>checkBoxUnpin</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUnpin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUnpin.Parent" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;checkBoxUnpin.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="panelOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 116</value>
+    <value>94, 136</value>
   </data>
   <data name="panelOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 18</value>
+    <value>428, 18</value>
   </data>
   <data name="panelOptions.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -478,7 +550,7 @@
     <value>94, 12</value>
   </data>
   <data name="comboBoxVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 21</value>
+    <value>390, 21</value>
   </data>
   <data name="comboBoxVersion.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -535,7 +607,7 @@
     <value>Segoe UI, 12pt</value>
   </data>
   <data name="buttonReload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 12</value>
+    <value>490, 12</value>
   </data>
   <data name="buttonReload.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 50</value>
@@ -568,7 +640,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>434, 261</value>
+    <value>534, 281</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>320, 240</value>
@@ -586,6 +658,6 @@
     <value>SelectCommandDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.13.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=2.20.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
