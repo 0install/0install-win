@@ -27,6 +27,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectCommandDialog));
             this.labelCommand = new System.Windows.Forms.Label();
             this.comboBoxCommand = new System.Windows.Forms.ComboBox();
@@ -42,6 +43,7 @@ namespace ZeroInstall.Central.WinForms
             this.comboBoxVersion = new System.Windows.Forms.ComboBox();
             this.labelVersion = new System.Windows.Forms.Label();
             this.buttonReload = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxCommandLine.SuspendLayout();
             this.panelOptions.SuspendLayout();
             this.SuspendLayout();
@@ -192,6 +194,7 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         private System.Windows.Forms.Button buttonReload;
+        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ComboBox comboBoxVersion;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelCommand;

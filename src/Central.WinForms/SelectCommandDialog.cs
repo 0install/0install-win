@@ -24,6 +24,11 @@ public sealed partial class SelectCommandDialog : OKCancelDialog
         Font = DefaultFonts.Modern;
         Text = Resources.Run;
 
+        toolTip.SetToolTip(comboBoxVersion, Commands.Properties.Resources.OptionVersionRange);
+        toolTip.SetToolTip(comboBoxCommand, Commands.Properties.Resources.OptionCommand);
+        toolTip.SetToolTip(checkBoxCustomize, Commands.Properties.Resources.OptionCustomize);
+        toolTip.SetToolTip(checkBoxRefresh, Commands.Properties.Resources.OptionRefresh);
+
         UpdateLabels(new(), EventArgs.Empty);
     }
 
