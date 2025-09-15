@@ -66,8 +66,16 @@
     <value>Настроить</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>Версия для пинов</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Обновить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>Версия Unpin</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

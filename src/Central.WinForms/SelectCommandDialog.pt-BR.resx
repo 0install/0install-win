@@ -66,8 +66,16 @@
     <value>&amp;Personalizar</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>Fi&amp;xar versão</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Atuali&amp;zar</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>&amp;Desafixar versão</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
