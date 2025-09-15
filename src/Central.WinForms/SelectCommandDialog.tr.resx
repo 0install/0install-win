@@ -66,8 +66,16 @@
     <value>Ö&amp;zelleştir</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>Sürümü &amp;sabitle</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>&amp;Yenile</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>Sürüm sabitlemesini &amp;kaldır</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

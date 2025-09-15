@@ -224,7 +224,7 @@ Guardar cambios</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>La clave criptográfica que ha introducido es incorrecta.</value>
+    <value>La clave criptográfica introducida es incorrecta.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">

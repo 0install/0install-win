@@ -66,8 +66,16 @@
     <value>Aanpassen</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>Pin-versie</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Vernieuw</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>Versie loskoppelen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

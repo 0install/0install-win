@@ -66,12 +66,12 @@
     <value>&amp;Anpassen</value>
     <comment>Manually overriden.</comment>
   </data>
-  <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>&amp;Aktualisieren</value>
-    <comment>Manually overriden.</comment>
-  </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
     <value>Version &amp;festhalten</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="checkBoxRefresh.Text" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">

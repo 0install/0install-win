@@ -66,8 +66,16 @@
     <value>Personalizzare</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>Versione Pin</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Aggiornare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>Versione Unpin</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

@@ -66,8 +66,16 @@
     <value>사용자 지정</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="checkBoxPin.Text" xml:space="preserve">
+    <value>핀 버전</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>새로 고침</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="checkBoxUnpin.Text" xml:space="preserve">
+    <value>언핀 버전</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

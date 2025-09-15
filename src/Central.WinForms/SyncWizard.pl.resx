@@ -175,7 +175,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
-    <value>Którego serwera chcesz użyć?</value>
+    <value>Z którego serwera chcesz korzystać?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Możliwość korzystania z niestandardowego serwera:</value>
+    <value>Używa niestandardowego serwera:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
