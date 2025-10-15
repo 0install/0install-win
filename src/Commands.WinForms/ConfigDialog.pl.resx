@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Automatycznie zatwierdza nowe klucze (jeśli są znane serwerowi kluczy)</value>
+    <value>Automatyczne zatwierdzanie nowych kluczy (jeśli są znane serwerowi kluczy)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Kontroluje to język:
+    <value>To kontroluje język:
 - Samego Zero Install i
 - aplikacji pobranych przez Zero Install.
 

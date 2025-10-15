@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Saisissez la clé sur d'autres ordinateurs à l'aide de la fenêtre "Options". N'utilisez pas cet assistant, car il n'est nécessaire que pour effectuer le changement initial.</value>
+    <value>Saisissez la clé sur d'autres ordinateurs à l'aide de la fenêtre "Options". N'utilisez pas cet assistant car il n'est nécessaire que pour effectuer le changement initial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Vous êtes sur le point de remplacer votre liste d'applications locales par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
+    <value>Vous êtes sur le point de remplacer votre liste d'applications locale par les données stockées sur le serveur Sync. Toutes les modifications que vous avez apportées localement mais qui n'ont pas encore été synchronisées seront perdues !</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
