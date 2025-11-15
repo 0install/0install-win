@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Теперь Zero Install Sync настроена и готова к использованию. Запустите этот мастер на других компьютерах, которые вы хотите синхронизировать с этим.</value>
+    <value>Теперь Zero Install Sync настроен и готов к использованию. Запустите этот мастер на других компьютерах, которые вы хотите синхронизировать с этим.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -259,7 +259,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Устранение неполадок при синхронизации</value>
+    <value>Устранение неполадок с синхронизацией</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
