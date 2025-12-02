@@ -76,7 +76,7 @@ public sealed partial class MainForm : Form
     private void UpdatePath()
     {
         textPath.Text = string.IsNullOrEmpty(folderBrowserDialog.SelectedPath)
-            ? Locations.GetCacheDirPath(".", _machineWide) + "\\..."
+            ? Locations.GetCacheDirPath(@"0install.net\implementations", _machineWide)
             : folderBrowserDialog.SelectedPath;
 
         if (BootstrapConfig.Instance.EstimatedRequiredSpace is {} requiredSpace
