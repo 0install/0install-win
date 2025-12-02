@@ -22,7 +22,7 @@
     <Copyright>Copyright Bastian Eicher et al.</Copyright>
     <RepositoryUrl>https://github.com/0install/0install-win</RepositoryUrl>
 
-    <!-- Dummy version number, overriddenby GitVersion -->
+    <!-- Dummy version number, overridden by GitVersion -->
     <Version>1.0.0-pre</Version>
 
     <!-- Dependency versions -->
