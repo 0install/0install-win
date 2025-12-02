@@ -61,15 +61,8 @@ partial class BootstrapProcess
     /// </summary>
     private void CustomizeStorePath()
     {
-        var currentPaths = (_machineWide
-            ? ImplementationStores.GetMachineWideDirectories()
-            : ImplementationStores.GetUserDirectories()).ToList();
-        if (currentPaths.Count > 1)
-        {
-            Log.Info("Refusing to customize path, because multiple custom implementation directories are already configured");
-            return;
-        }
-        string? currentPath = currentPaths.FirstOrDefault();
+        if (!TryGetCurrentStorePath(out string currentPath)) return;
+
         string? newPath = _storePath ?? _handler.GetCustomStorePath(_machineWide, currentPath);
 
         if (newPath != null && IsMachineWidePath(newPath))
@@ -78,9 +71,31 @@ partial class BootstrapProcess
             _machineWide = true;
         }
 
-        string[] newPaths = string.IsNullOrEmpty(newPath) ? [] : [newPath];
-        if (_machineWide) ImplementationStores.SetMachineWideDirectories(newPaths);
-        else ImplementationStores.SetUserDirectories(newPaths);
+        SetStorePath(newPath);
+    }
+
+    private bool TryGetCurrentStorePath(out string? path)
+    {
+        var paths = (_machineWide
+            ? ImplementationStores.GetMachineWideDirectories()
+            : ImplementationStores.GetUserDirectories()).ToList();
+
+        if (paths.Count > 1)
+        {
+            Log.Info("Refusing to customize path, because multiple custom implementation directories are already configured");
+            path = null;
+            return false;
+        }
+
+        path = paths.FirstOrDefault();
+        return true;
+    }
+
+    private void SetStorePath(string? path)
+    {
+        string[] paths = string.IsNullOrEmpty(path) ? [] : [path];
+        if (_machineWide) ImplementationStores.SetMachineWideDirectories(paths);
+        else ImplementationStores.SetUserDirectories(paths);
     }
 
     private static bool IsMachineWidePath(string path)
