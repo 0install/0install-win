@@ -54,7 +54,7 @@ public sealed partial class MainForm : Form
     private bool _machineWide;
     private readonly TaskCompletionSource<string?> _customPathResult = new();
 
-    public Task<string?> GetCustomPath(bool machineWide, string? currentPath)
+    public Task<string?> GetCustomStorePath(bool machineWide, string? currentPath)
     {
         _machineWide = machineWide;
 

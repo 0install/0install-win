@@ -65,7 +65,7 @@ public class GuiBootstrapHandler : GuiTaskHandlerBase, IBootstrapHandler
     {
         if (!IsInteractive) return currentPath;
 
-        string? result = _wrapper.Post(form => form.GetCustomPath(machineWide, currentPath)).Result;
+        string? result = _wrapper.Post(form => form.GetCustomStorePath(machineWide, currentPath)).Result;
         CancellationToken.ThrowIfCancellationRequested();
         return result;
     }
