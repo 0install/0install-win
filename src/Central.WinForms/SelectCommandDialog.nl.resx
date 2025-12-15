@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Versie verwijderen</value>
+    <value>Versie loskoppelen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Automatycznie zatwierdza nowe klucze (jeśli są znane serwerowi kluczy)</value>
+    <value>Automatyczne zatwierdzanie nowych kluczy (jeśli są znane serwerowi kluczy)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
