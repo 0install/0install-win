@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>로컬 애플리케이션 목록이 재설정 중입니다. 이제 제로 인스톨을 계속 사용할 수 있습니다.</value>
+    <value>로컬 애플리케이션 목록이 초기화 중입니다. 이제 제로 인스톨을 계속 사용할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
