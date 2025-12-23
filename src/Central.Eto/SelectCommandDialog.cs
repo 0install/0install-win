@@ -148,10 +148,25 @@ public sealed class SelectCommandDialog : Dialog<bool>
     {
         try
         {
-            return _resources.GetString(name) ?? name;
+            var value = _resources.GetString(name);
+            if (value == null)
+            {
+                // Log missing resource key (in production, use proper logging)
+                System.Diagnostics.Debug.WriteLine($"Missing resource key: {name}");
+                return name;
+            }
+            return value;
         }
-        catch
+        catch (System.Resources.MissingManifestResourceException ex)
         {
+            // Resource file not found
+            System.Diagnostics.Debug.WriteLine($"Resource file not found: {ex.Message}");
+            return name;
+        }
+        catch (System.Resources.MissingSatelliteAssemblyException ex)
+        {
+            // Satellite assembly not found for current culture
+            System.Diagnostics.Debug.WriteLine($"Satellite assembly not found: {ex.Message}");
             return name;
         }
     }

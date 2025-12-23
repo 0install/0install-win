@@ -8,6 +8,7 @@
     <OutputType>Library</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
     <TargetFramework>net472</TargetFramework>
+    <EtoFormsVersion>2.10.2</EtoFormsVersion>
   </PropertyGroup>
 
   <!-- Global usings -->
@@ -24,8 +25,8 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <PackageReference Include="Eto.Forms" Version="2.10.2" />
-    <PackageReference Include="Eto.Platform.Windows" Version="2.10.2" />
+    <PackageReference Include="Eto.Forms" Version="$(EtoFormsVersion)" />
+    <PackageReference Include="Eto.Platform.Windows" Version="$(EtoFormsVersion)" />
     <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
   </ItemGroup>
 
