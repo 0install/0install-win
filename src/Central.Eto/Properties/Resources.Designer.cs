@@ -55,6 +55,24 @@ namespace ZeroInstall.Central.Eto.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to The directory '{0}' is not empty. Do you want to deploy there anyway?.
         /// </summary>
         internal static string PortableDirNotEmptyAsk {

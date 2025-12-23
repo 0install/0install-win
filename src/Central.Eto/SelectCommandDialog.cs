@@ -83,10 +83,10 @@ public sealed class SelectCommandDialog : Dialog<bool>
         _textBoxCommandLine = new TextBox { ReadOnly = true };
         groupBoxCommandLine.Content = _textBoxCommandLine;
 
-        _buttonOK = new Button { Text = GetString("buttonOK.Text").Replace("&", "") };
+        _buttonOK = new Button { Text = Resources.OK };
         _buttonOK.Click += ButtonOK_Click;
         
-        _buttonCancel = new Button { Text = GetString("buttonCancel.Text") };
+        _buttonCancel = new Button { Text = Resources.Cancel };
         _buttonCancel.Click += (_, _) => Close(false);
 
         // Layout
