@@ -1,5 +1,4 @@
 ---
 uid: ZeroInstall.Launcher.Cli
-summary: *content
+summary: A shortcut for '0install run'.
 ---
-A shortcut for '0install run'.

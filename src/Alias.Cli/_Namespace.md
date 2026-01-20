@@ -1,5 +1,4 @@
 ---
 uid: ZeroInstall.Alias.Cli
-summary: *content
+summary: A shortcut for '0install add-alias'.
 ---
-A shortcut for '0install add-alias'.

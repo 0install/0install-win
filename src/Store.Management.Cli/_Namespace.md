@@ -1,5 +1,4 @@
 ---
 uid: ZeroInstall.Store.Management.Cli
-summary: *content
+summary: A shortcut for '0install store'.
 ---
-A shortcut for '0install store'.

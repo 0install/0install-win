@@ -1,5 +1,4 @@
 ---
 uid: ZeroInstall.Commands.WinForms
-summary: *content
+summary: A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc..
 ---
-A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc..

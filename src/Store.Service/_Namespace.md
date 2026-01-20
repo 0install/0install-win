@@ -1,5 +1,4 @@
 ---
 uid: ZeroInstall.Store.Service
-summary: *content
+summary: Windows service for managing a Zero Install implementation cache shared between all users.
 ---
-Windows service for managing a Zero Install implementation cache shared between all users.
