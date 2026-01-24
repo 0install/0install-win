@@ -3,6 +3,7 @@
 
 using NanoByte.Common.Native;
 using NanoByte.Common.Streams;
+using ZeroInstall.Store.Implementations;
 using static System.Environment;
 using static System.Environment.SpecialFolder;
 
@@ -76,7 +77,7 @@ public sealed partial class MainForm : Form
     private void UpdatePath()
     {
         textPath.Text = string.IsNullOrEmpty(folderBrowserDialog.SelectedPath)
-            ? Locations.GetCacheDirPath(@"0install.net\implementations", _machineWide)
+            ? (_machineWide ? ImplementationStores.TryGetSystemDefaultDirectory() : ImplementationStores.GetUserDefaultDirectory())
             : folderBrowserDialog.SelectedPath;
 
         if (BootstrapConfig.Instance.EstimatedRequiredSpace is {} requiredSpace

@@ -24,7 +24,7 @@ Zero Install also has some [interesting features](https://docs.0install.net/feat
     <copyright>Copyright Bastian Eicher et al.</copyright>
     <tags>0install Zero Install Package Manager</tags>
     <dependencies>
-      <dependency id="dotnetfx" version="4.7.2.20180712"/>
+      <dependency id="dotnetfx" version="4.8.0.20220524"/>
     </dependencies>
   </metadata>
   <files>
