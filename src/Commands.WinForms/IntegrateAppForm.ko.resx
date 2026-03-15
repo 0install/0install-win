@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>지원되는 URL 프로토콜의 기본 핸들러('연결 프로그램'은 이 기능이 없어도 작동)</value>
+    <value>지원되는 URL 프로토콜에 대한 기본 핸들러('연결 프로그램'은 이 없이도 작동)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
