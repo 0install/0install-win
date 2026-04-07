@@ -10,7 +10,13 @@
       "automergeType": "branch"
     },
     {
-      "matchPackagePatterns": ["wix", "ILRepack", "AeroWizard"],
+      "matchPackageNames": ["wix"],
+      "automerge": true,
+      "automergeType": "branch",
+      "allowedVersions": "<7"
+    },
+    {
+      "matchPackageNames": ["ILRepack", "AeroWizard"],
       "automerge": true,
       "automergeType": "branch"
     }
