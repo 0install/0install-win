@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Теперь Zero Install Sync настроена и готова к использованию. Запустите этот мастер на других компьютерах, которые вы хотите синхронизировать с этим.</value>
+    <value>Теперь Zero Install Sync настроен и готов к использованию. Запустите этот мастер на других компьютерах, которые вы хотите синхронизировать с этим.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Изменение криптографического ключа</value>
+    <value>Смена криптографического ключа</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">

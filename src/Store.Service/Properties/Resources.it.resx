@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Impossibile rimuovere la directory temporanea '{1}' (creata per l'utente '{0}').</value>
+    <value>Non è stato possibile rimuovere la directory temporanea '{1}' (creata per l'utente '{0}').</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
