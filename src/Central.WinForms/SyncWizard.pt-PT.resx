@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir ao servidor. Escreva a chave sugerida ou escolha a sua própria.</value>
+    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir ao servidor. Anote a chave sugerida ou escolha a sua própria.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>As alterações efectuadas noutros computadores que não tenham sido sincronizadas com este perder-se-ão!</value>
+    <value>Todas as alterações efectuadas noutros computadores, mas ainda não sincronizadas com este, serão perdidas!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">

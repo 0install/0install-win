@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Se ha cambiado la clave criptográfica. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para la Sincronización de la Instalación Cero.</value>
+    <value>Se ha cambiado la clave criptográfica. Ahora tendrá que introducir la nueva clave en todos los demás ordenadores que ya haya configurado para Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">

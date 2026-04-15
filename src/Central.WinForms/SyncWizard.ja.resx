@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>オプション」ウィンドウを使用して、他のコンピュータにキーを入力します。このウィザードは最初の変更にのみ必要なので、そこでは使用しないでください。</value>
+    <value>オプション」ウィンドウを使用して、他のコンピュータにキーを入力します。このウィザードは最初の変更にのみ必要なので、ここでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
