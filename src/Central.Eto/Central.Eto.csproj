@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Project properties -->
+  <PropertyGroup>
+    <RootNamespace>ZeroInstall.Central.Eto</RootNamespace>
+    <AssemblyName>ZeroInstall.Central.Eto</AssemblyName>
+    <Description>Eto.Forms version of Zero Install Central dialogs (proof of concept)</Description>
+    <OutputType>Library</OutputType>
+    <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
+    <TargetFramework>net472</TargetFramework>
+    <EtoFormsVersion>2.10.2</EtoFormsVersion>
+  </PropertyGroup>
+
+  <!-- Global usings -->
+  <ItemGroup>
+    <Using Include="System.Net.Http" />
+    <Using Include="Eto.Forms" />
+    <Using Include="Eto.Drawing" />
+    <Using Include="NanoByte.Common" />
+    <Using Include="NanoByte.Common.Collections" />
+    <Using Include="NanoByte.Common.Storage" />
+    <Using Include="ZeroInstall" />
+    <Using Include="ZeroInstall.Model" />
+  </ItemGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="$(EtoFormsVersion)" />
+    <PackageReference Include="Eto.Platform.Windows" Version="$(EtoFormsVersion)" />
+    <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
+  </ItemGroup>
+
+  <!-- Localization resources -->
+  <ItemGroup>
+    <EmbeddedResource Update="PortableCreatorDialog.*.resx">
+      <DependentUpon>PortableCreatorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SelectCommandDialog.*.resx">
+      <DependentUpon>SelectCommandDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!-- .NET Core MSBuild does not support legacy ResGen -->
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)'=='Core'">
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildRuntimeType)'=='Core'">
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+  </ItemGroup>
+
+</Project>
