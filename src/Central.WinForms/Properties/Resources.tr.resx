@@ -178,7 +178,7 @@ Bu klasöre Zero Install taşınabilir sürümünü kopyalamak istediğinize emi
     <comment>Manually overriden.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>"Uygulamalarım" içinden kaldı&amp;r</value>
+    <value>Kaldı&amp;r</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
@@ -265,7 +265,7 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Bu işlem, güncelleme sonrasında otomatik olarak artık gerek duyulmayan uyarlamaları ön bellekten siler. Devam etmek ister misiniz?
-Uyarı: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da ön bellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrim içi olmanız gerekecek.</value>
+Önemli: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da ön bellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrim içi olmanız gerekecek.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">

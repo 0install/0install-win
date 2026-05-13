@@ -79,12 +79,12 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Bu bölümden Zero Install uygulamasını USB disk sürücü gibi taşınabilir bir ortama kuralbilirsiniz. Hedef sürücü NTFS biçiminde olmalıdır.</value>
+    <value>Bu bölümden Zero Install uygulamasını USB disk sürücü gibi taşınabilir bir ortama kurabilirsiniz. Hedef sürücü NTFS biçiminde olmalıdır.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Zero Install yapılandırması ile ön bellekteki uygulamaları tek klasörde depolar.
-- Zero Install taşınabilir sürümü, uygulamaları otomatik olarak başlatamaz.
+- Zero Install aracılığıyla başlatılan uygulamaları da otomatik olarak taşınabilir hale getirmez.
 - Zero Install taşınabilir sürümü, masaüstü ile bütünleşemez (başlat menüsü kayıtları oluşturamaz gibi).
 - Farklı bilgisayarlarda kullanmak için taşınabilir sürüm yerine Zero Install Sync özelliğini kullanmayı düşünün.</value>
     <comment>Manually overriden.</comment>
