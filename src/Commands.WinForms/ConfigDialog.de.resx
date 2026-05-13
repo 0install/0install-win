@@ -145,7 +145,7 @@
 
 Hinweise:
 - Übersetzungen sind nicht für alle Sprachen verfügbar.
-- Sie müssen Zero Install nuestarten, damit Sprachänderungen wirksam werden.</value>
+- Sie müssen Zero Install neu starten, damit Sprachänderungen wirksam werden.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

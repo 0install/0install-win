@@ -165,7 +165,7 @@ no menu iniciar ou área de trabalho.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Adicionado aos "Meus aplicativos " e integrado ao ambiente da área de trabalho.</value>
+    <value>Adicionado aos "Meus aplicativos" e integrado ao ambiente da área de trabalho.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -243,7 +243,7 @@ começar do zero</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Os dados armazenados no servidor de sincronização estão danificados.
-Você pode substituir os dados armazenados no servidor, escolhendo que você não lembra a chave de criptografa.</value>
+Você pode substituir os dados armazenados no servidor, escolhendo que você não lembra a chave de criptografia.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">

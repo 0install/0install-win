@@ -265,7 +265,7 @@ Verschlüsselte Verbindungen verwenden ein https://-Präfix.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Dies entfernt automatisch Implementierungen aus dem Cache, die nach der Aktualisierung nicht mehr benötigt werden. Fortfahren?
-Wichtig: Anwendungen, die Sie zuvor mit"Start" aufgerufen haben, ohne sie zu "Meine Apps" hinzuzufügen, werden ebenfalls aus dem Cache entfernt. Wenn Sie sie erneut ausführen möchten, müssen Sie online sein.</value>
+Wichtig: Anwendungen, die Sie zuvor mit "Start" aufgerufen haben, ohne sie zu "Meine Apps" hinzuzufügen, werden ebenfalls aus dem Cache entfernt. Wenn Sie sie erneut ausführen möchten, müssen Sie online sein.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">

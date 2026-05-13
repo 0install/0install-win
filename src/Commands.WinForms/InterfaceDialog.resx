@@ -436,7 +436,7 @@
     <value>&amp;Add</value>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Adds  a new source of implementations for this interface</value>
+    <value>Adds a new source of implementations for this interface</value>
   </data>
   <data name="&gt;&gt;buttonAddFeed.Name" xml:space="preserve">
     <value>buttonAddFeed</value>
