@@ -182,7 +182,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>要从列表中删除{0} 选定的条目吗？</value>
+    <value>您想从列表中删除{0} 选定的条目吗？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">

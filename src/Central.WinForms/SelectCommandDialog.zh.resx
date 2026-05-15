@@ -91,8 +91,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
-    <value>选项</value>
-    <comment>Automatically translated.</comment>
+    <value>选项：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
     <value>命令描述</value>

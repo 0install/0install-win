@@ -67,8 +67,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Προσθέτει μια νέα πηγή εφαρμογών για τη διασύνδεση αυτή</value>
-    <comment>Manually overriden.</comment>
+    <value>Προσθέτει μια νέα πηγή υλοποιήσεων για αυτή τη διεπαφή</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
     <value>Εφαρμογή</value>

@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Gardez cette clé secrète et utilisez un mot de passe différent. Ainsi, personne ne peut accéder à vos données, même si le serveur est compromis.</value>
+    <value>Gardez cette clé secrète et utilisez un mot de passe différent. De cette façon, personne ne peut accéder à vos données, même si le serveur est compromis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

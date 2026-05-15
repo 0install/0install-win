@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーは、サーバーに送信する前にローカルでデータを暗号化するために使用されます。推奨されるものをメモするか、自分で選んでください。</value>
+    <value>暗号キーは、サーバーに送信する前にローカルでデータを暗号化するために使用されます。提案されたものを書き留めるか、自分で選んでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">

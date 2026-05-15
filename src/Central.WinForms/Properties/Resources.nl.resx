@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Voer '{0}' in om een lijst met beschikbare commando's te zien.</value>
+    <value>Voer '{0}' in om een lijst met beschikbare opdrachten te zien.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -208,8 +208,8 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Zoeken op</value>
-    <comment>Automatically translated.</comment>
+    <value>Zoeken</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
     <value>Klik om bij te werken naar Zero Install v{0}...</value>
