@@ -92,7 +92,7 @@
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
     <value>Opties:</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
     <value>Opdrachtbeschrijving</value>

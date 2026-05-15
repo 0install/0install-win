@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Altre applicazioni</value>
+    <value>Altre app</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -145,7 +145,7 @@ nel menu di avvio o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Con Zero Install non è necessario installare le applicazioni.</value>
+    <value>Con Zero Install non è necessario installare applicazioni.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
