@@ -63,9 +63,6 @@ partial class BootstrapProcess
     /// </summary>
     public ProcessStartInfo ZeroInstallCached(IEnumerable<string> args)
     {
-        // To keep things simple, we never try to use the external solver to get Zero Install itself
-        Config.ExternalSolverUri = null;
-
         _requirements = new(Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri), _handler.IsGui ? Command.NameRunGui : Command.NameRun);
         if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
 
