@@ -9,7 +9,7 @@
 
   <feed-for interface="https://apps.0install.net/0install/0install-win.xml"/>
 
-  <group license="LGPL v3 (GNU Lesser General Public License)">
+  <group license="LGPL-3.0-or-later">
     <command name="run" path="0install.exe"/>
     <command name="run-gui" path="0install-win.exe"/>
     <command name="central" path="ZeroInstall.exe"/>
