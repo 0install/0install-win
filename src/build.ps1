@@ -29,7 +29,7 @@ function Add-Manifest($Manifest, $Binary) {
 
 echo "Build binaries"
 if ($env:CI) { $ci = "/p:ContinuousIntegrationBuild=True /terminalLogger:off" }
-Run-MSBuild /v:Quiet /t:Restore /t:Build /p:Configuration=Release /p:Version=$Version $ci
+Run-MSBuild /v:Quiet /Restore /t:Build /p:Configuration=Release /p:Version=$Version $ci
 Out-File ..\artifacts\VERSION -Encoding ASCII -InputObject $Version
 
 echo "Prepare binaries for publishing"
