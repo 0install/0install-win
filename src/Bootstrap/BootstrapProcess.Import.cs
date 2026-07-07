@@ -23,8 +23,7 @@ partial class BootstrapProcess
 
         foreach (string path in Directory.GetFiles(contentDir))
         {
-            using var stream = File.OpenRead(path);
-            ImportFile(Path.GetFileName(path), stream, keyCallback: id =>
+            ImportFile(Path.GetFileName(path), () => File.OpenRead(path), keyCallback: id =>
             {
                 string keyPath = Path.Combine(Path.GetDirectoryName(path) ?? "", id + ".gpg");
                 if (!File.Exists(keyPath)) return null;
@@ -45,8 +44,7 @@ partial class BootstrapProcess
 
         foreach (string name in assembly.GetManifestResourceNames().Where(x => x.StartsWith(prefix)).Select(x => x[prefix.Length..]))
         {
-            using var stream = assembly.GetManifestResourceStream(prefix + name)!;
-            ImportFile(name, stream, keyCallback: id =>
+            ImportFile(name, () => assembly.GetManifestResourceStream(prefix + name)!, keyCallback: id =>
             {
                 using var keyStream = assembly.GetManifestResourceStream(prefix + id + ".gpg");
                 if (keyStream == null) return null;
@@ -61,13 +59,14 @@ partial class BootstrapProcess
     /// Imports a file into Zero Install.
     /// </summary>
     /// <param name="name">The file path or resource name.</param>
-    /// <param name="stream">The contents of the file.</param>
+    /// <param name="openStream">Callback for opening the contents of the file. May be called more than once (e.g. when retrying against a fallback implementation store).</param>
     /// <param name="keyCallback">Callback for reading a specific OpenPGP public key file.</param>
-    private void ImportFile(string name, Stream stream, OpenPgpKeyCallback keyCallback)
+    private void ImportFile(string name, Func<Stream> openStream, OpenPgpKeyCallback keyCallback)
     {
         if (name.EndsWithIgnoreCase(".xml"))
         {
             Log.Info($"Importing feed from {name}");
+            using var stream = openStream();
             try
             {
                 FeedManager.ImportFeed(stream, keyCallback);
@@ -79,18 +78,24 @@ partial class BootstrapProcess
         {
             var uri = Uri.IsWellFormedUriString(name, UriKind.Absolute) ? new FeedUri(name) : FeedUri.Unescape(name);
             Log.Info($"Importing icon {uri} from {name}");
+            using var stream = openStream();
             ImportIcon(uri, stream);
         }
         else if (name.EndsWithIgnoreCase(".exe") && name.Split(['_'], count: 2) is [var dir, var file])
         {
             Log.Info($"Importing stub EXE {file} from {name}");
+            using var stream = openStream();
             ImportStubExe(dir, file, stream);
         }
         else if (TryParseDigest(name) is {} manifestDigest)
         {
             Log.Info($"Importing implementation from {name}");
             var extractor = ArchiveExtractor.For(Archive.GuessMimeType(name), Handler);
-            ImportImplementation(manifestDigest, builder => Handler.RunTask(new ReadStream($"Extracting archive {name}", stream, x => extractor.Extract(builder, x))));
+            ImportImplementation(manifestDigest, builder =>
+            {
+                using var stream = openStream();
+                Handler.RunTask(new ReadStream($"Extracting archive {name}", stream, x => extractor.Extract(builder, x)));
+            });
         }
     }
 
