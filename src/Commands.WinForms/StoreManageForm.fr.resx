@@ -83,7 +83,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Vérification de la taille des entrées :</value>
+    <value>Taille des entrées cochées :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">

@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Voer de URL van een catalogus in (een verzameling feeds)</value>
+    <value>Voer de URL van een catalogus (een verzameling feeds) in</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Voer de URL van een feed in (een enkele app)</value>
+    <value>Voer de URL van een feed (een enkele app) in</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Gebruik Feed Editor om een nieuwe app te verpakken</value>
+    <value>Gebruik Feed Editor om een nieuwe app te bundelen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>Intro video</value>
+    <value>Introductievideo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Draagbare maker</value>
+    <value>Portable Creator</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
@@ -111,15 +111,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Synchroniseer</value>
+    <value>Synchroniseren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
-    <value>Synchroniseer</value>
+    <value>Synchroniseren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Setup</value>
+    <value>Installatie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
@@ -127,15 +127,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">
-    <value>Gereedschap</value>
+    <value>Hulpprogramma's</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Update alle</value>
+    <value>Alles bijwerken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Update alle</value>
+    <value>Alles bijwerken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Catalogus laden van server...</value>
+    <value>Catalogus wordt geladen vanaf de server...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

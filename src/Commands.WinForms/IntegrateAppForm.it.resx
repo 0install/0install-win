@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Integrare l'applicazione</value>
+    <value>Integrazione dell'applicazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -115,11 +115,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Selezionare tutti</value>
+    <value>Seleziona tutto</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+    <value>Riproduzione automatica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Includere in "Aggiorna tutto"</value>
+    <value>Includi in "Aggiorna tutto"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
@@ -139,11 +139,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Indica al sistema operativo le capacità dell'applicazione, ad esempio i tipi di file che può gestire.</value>
+    <value>Fornisce al sistema operativo informazioni sulle funzionalità dell'applicazione, come ad esempio i tipi di file che è in grado di gestire.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Selezionare tutti</value>
+    <value>Seleziona tutto</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Selezionare tutti</value>
+    <value>Seleziona tutto</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Selezionare tutti</value>
+    <value>Seleziona tutto</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -171,15 +171,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Inviare a</value>
+    <value>Invia a</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Menu di avvio</value>
+    <value>Menu Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Selezionare tutti</value>
+    <value>Seleziona tutto</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinito</value>
+    <value>Impostazione predefinita</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinito</value>
+    <value>Impostazione predefinita</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
@@ -243,7 +243,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinito</value>
+    <value>Impostazione predefinita</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Predefinito</value>
+    <value>Impostazione predefinita</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
@@ -287,7 +287,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Linea di comando equivalente</value>
+    <value>Riga di comando equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
@@ -295,19 +295,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Si avvia automaticamente quando viene inserito un supporto adatto (DVD, unità USB, ecc.)</value>
+    <value>Si avvia automaticamente quando viene inserito un supporto compatibile (DVD, chiavetta USB, ecc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Avvio automatico del programma quando l'utente effettua il login</value>
+    <value>Avvia automaticamente il programma all'accesso dell'utente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Voci del menu contestuale di Windows Explorer</value>
+    <value>Voci del menu contestuale in Esplora risorse</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programma predefinito per attività come il browser web o il client di posta elettronica</value>
+    <value>Programma predefinito per attività quali la navigazione sul Web o la posta elettronica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,19 +315,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestore predefinito per i tipi di file supportati ("Apri con" funziona anche senza)</value>
+    <value>Gestore predefinito per i tipi di file supportati (la funzione "Apri con" funziona anche senza questo)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Una voce nel menu "Invia a</value>
+    <value>Una voce nel menu "Invia a"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Una o più voci nel menu di avvio</value>
+    <value>Una o più voci nel menu Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestore predefinito per i protocolli URL supportati ("Apri con" funziona anche senza)</value>
+    <value>Gestore predefinito per i protocolli URL supportati (la funzione "Apri con" funziona anche senza questo)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -335,7 +335,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+    <value>Riproduzione automatica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
@@ -359,11 +359,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Inviare a</value>
+    <value>Invia a</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Menu di avvio</value>
+    <value>Menu Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Linea di comando equivalente</value>
+    <value>Riga di comando equivalente</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

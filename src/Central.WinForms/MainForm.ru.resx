@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Введите URL-адрес каталога (коллекции фидов)</value>
+    <value>Введите URL-адрес каталога (набора каналов)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Введите URL-адрес фида (отдельного приложения)</value>
+    <value>Введите URL-адрес канала (одного приложения)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Используйте редактор Feed Editor для упаковки нового приложения</value>
+    <value>Используйте редактор фидов для создания пакета нового приложения</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -87,15 +87,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>Больше приложений</value>
+    <value>Другие приложения</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
-    <value>Опции</value>
+    <value>Параметры</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Портативный создатель</value>
+    <value>Создатель портативных версий</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Запуск поиска по ключевым словам</value>
+    <value>Выполнить поиск по ключевому слову</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
@@ -131,15 +131,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Обновление всех</value>
+    <value>Обновить всё</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAll2.Text" xml:space="preserve">
-    <value>Обновление всех</value>
+    <value>Обновить всё</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Обновление всех и очистка</value>
+    <value>Обновить всё и очистить</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

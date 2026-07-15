@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>ゼロインストール設定</value>
+    <value>Zero Installの設定</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -71,15 +71,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>高度なオプションを表示</value>
+    <value>詳細オプションを表示</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>次のページへ</value>
+    <value>[移動]</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>次のページへ</value>
+    <value>[移動]</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -99,27 +99,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>新しいキーを自動的に承認（キーサーバーが知っている場合）</value>
+    <value>新しいキーを自動的に承認する（キーサーバーで認識されている場合）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>新バージョンのテストを支援</value>
+    <value>新バージョンのテストにご協力ください</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>カタログソース</value>
+    <value>カタログのソース</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>フレッシュネス</value>
+    <value>最新性</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>実装キャッシュディレクトリ</value>
+    <value>キャッシュディレクトリの実装</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>ネットワーク利用</value>
+    <value>ネットワークの利用</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
@@ -127,25 +127,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>信頼できるキー</value>
+    <value>信頼済みキー</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>実装キャッシュとして使用するディレクトリを選択または作成してください。</value>
+    <value>実装キャッシュとして使用するディレクトリを選択するか、作成してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>警告これらのオプションを変更すると、Zero Installが正しく動作しなくなる可能性があります。</value>
+    <value>警告：これらのオプションを変更すると、Zero Installが正常に動作しなくなる可能性があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>の言語を制御します：
-- Zero Install 自体と
-- の言語を制御します。
+    <value>これは以下の言語設定を制御します：
+- Zero Install 本体、および
+- Zero Install によってダウンロードされたアプリケーション。
 
-注意事項
-- 翻訳はすべての言語で利用できるわけではありません。
-- 言語の変更を有効にするには、Zero Installを再起動する必要があります。</value>
+注意事項：
+- すべての言語の翻訳が用意されているわけではありません。
+- 言語設定の変更を反映させるには、Zero Install を再起動する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -153,27 +153,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>暗号キー：</value>
+    <value>暗号鍵：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>パスワード</value>
+    <value>パスワード：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>ユーザー名</value>
+    <value>ユーザー名：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>アカウント管理</value>
+    <value>アカウントの管理</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>フル（通常のネットワーク使用）</value>
+    <value>フル（通常のネットワーク利用）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>最小限（キャッシュされたバージョンを好む）</value>
+    <value>最小限（キャッシュされたバージョンを優先）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
@@ -181,7 +181,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>高度な</value>
+    <value>上級</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
@@ -205,7 +205,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>アップデート</value>
+    <value>更新</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

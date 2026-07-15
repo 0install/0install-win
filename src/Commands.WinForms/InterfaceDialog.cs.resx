@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>Přidává nový zdroj implementací tohoto rozhraní</value>
+    <value>Přidává nový zdroj implementací pro toto rozhraní</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
-    <value>Odstraní zdroj implementací tohoto rozhraní</value>
+    <value>Odstraňuje zdroj implementací pro toto rozhraní</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Zobrazí verze, které nejsou v tomto systému podporovány</value>
+    <value>Zobrazit verze, které tento systém nepodporuje</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Určuje, které hodnocení stability bude považováno za "nejlepší".</value>
+    <value>Určuje, které hodnocení stability bude považováno za „nejlepší“</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
-    <value>Vydáno na adrese</value>
+    <value>Vydáno</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>Přednostní stabilita:</value>
+    <value>Požadovaná stabilita:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Kanály</value>
+    <value>Zdroje</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Integrați aplicații</value>
+    <value>Integrare aplicație</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -111,15 +111,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Aliasuri de linie de comandă</value>
+    <value>Aliasuri pentru linia de comandă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Selectați toate</value>
+    <value>Selectează tot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+    <value>Redare automată</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
@@ -127,15 +127,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Includeți în "Update All"</value>
+    <value>Include în „Actualizează tot”</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Includeți această aplicație în verificările "Update all".</value>
+    <value>Include această aplicație în verificările „Actualizează tot”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Capacități de înregistrare</value>
+    <value>Funcții de înregistrare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -143,15 +143,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Selectați toate</value>
+    <value>Selectează tot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
-    <value>Meniu contextual</value>
+    <value>Meniul contextual</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Selectați toate</value>
+    <value>Selectează tot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Selectați toate</value>
+    <value>Selectează tot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -171,15 +171,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Trimite la</value>
+    <value>Trimite către</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Meniu Start</value>
+    <value>Meniul Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Selectați toate</value>
+    <value>Selectează tot</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
-    <value>Nume intrare</value>
+    <value>Numele intrării</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
-    <value>Servicii</value>
+    <value>Serviciu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
@@ -291,23 +291,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Acces din interfața de linie de comandă</value>
+    <value>Acces din interfața liniei de comandă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Lansare automată atunci când este introdus suportul adecvat (DVD, unitate USB etc.)</value>
+    <value>Se pornește automat la introducerea unui suport adecvat (DVD, unitate USB etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Pornește programul automat atunci când utilizatorul se conectează</value>
+    <value>Pornește programul automat la autentificarea utilizatorului</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Intrări în meniul contextual în Windows Explorer</value>
+    <value>Opțiuni din meniul contextual din Windows Explorer</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program implicit pentru sarcini precum browser web sau client de e-mail</value>
+    <value>Program implicit pentru activități precum navigarea pe web sau clientul de e-mail</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,11 +315,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Manipulator implicit pentru tipurile de fișiere acceptate ("Deschide cu" funcționează și fără acesta)</value>
+    <value>Handler implicit pentru tipurile de fișiere acceptate (opțiunea „Deschide cu” funcționează și fără acesta)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>O intrare în meniul "Trimite către&amp;quot</value>
+    <value>O opțiune în meniul „Trimite către”</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -327,15 +327,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manipulator implicit pentru protocoalele URL acceptate ("Deschide cu" funcționează și fără acesta)</value>
+    <value>Handler implicit pentru protocoalele URL acceptate (opțiunea „Deschide cu” funcționează și fără acesta)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Aliasuri de linie de comandă</value>
+    <value>Aliasuri pentru linia de comandă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+    <value>Redare automată</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
@@ -343,7 +343,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Meniu contextual</value>
+    <value>Meniul contextual</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
@@ -359,11 +359,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Trimite la</value>
+    <value>Trimite către</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Meniu Start</value>
+    <value>Meniul Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">

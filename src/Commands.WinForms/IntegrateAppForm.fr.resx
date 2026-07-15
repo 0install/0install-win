@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Alias de la ligne de commande</value>
+    <value>Alias de ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Inclure dans "Tout mettre à jour"</value>
+    <value>Inclure dans « Tout mettre à jour »</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
@@ -135,11 +135,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Capacités d'enregistrement</value>
+    <value>Fonctionnalités d'enregistrement</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Indique au système d'exploitation les capacités de l'application, telles que les types de fichiers qu'elle peut traiter.</value>
+    <value>Indique au système d'exploitation les capacités de l'application, telles que les types de fichiers qu'elle peut gérer.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -287,11 +287,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Ligne de commande équivalente</value>
+    <value>Commande équivalente en ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Accès à partir de l'interface de ligne de commande</value>
+    <value>Accès depuis l'interface en ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
@@ -303,7 +303,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Entrées du menu contextuel dans l'explorateur Windows</value>
+    <value>Entrées du menu contextuel dans l'Explorateur Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
@@ -315,11 +315,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les types de fichiers pris en charge (la fonction "Ouvrir avec" fonctionne également sans cela)</value>
+    <value>Gestionnaire par défaut pour les types de fichiers pris en charge (la fonction « Ouvrir avec » fonctionne également sans cela)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Une entrée dans le menu "Envoyer à"</value>
+    <value>Une entrée dans le menu « Envoyer vers »</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -327,11 +327,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les protocoles URL pris en charge (la fonction "Ouvrir avec" fonctionne également sans cela)</value>
+    <value>Gestionnaire par défaut pour les protocoles URL pris en charge (la fonction « Ouvrir avec » fonctionne également sans cela)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Alias de la ligne de commande</value>
+    <value>Alias de ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Ligne de commande équivalente</value>
+    <value>Commande équivalente en ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

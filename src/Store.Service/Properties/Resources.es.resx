@@ -59,27 +59,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>El usuario '{0}' no ha podido añadir la aplicación '{1}' a '{2}'.</value>
+    <value>El usuario «{0} » no ha podido añadir la implementación «{1} » a «{2} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Error al crear un directorio temporal para el usuario '{0}' en '{1}'.</value>
+    <value>No se ha podido crear un directorio temporal para el usuario «{0} » en «{1} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Error al eliminar el directorio temporal '{1}' (creado para el usuario '{0}').</value>
+    <value>No se ha podido eliminar el directorio temporal «{1} » (creado para el usuario «{0} »).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>El servicio no puede ejecutarse en modo portátil</value>
+    <value>¡El servicio no puede ejecutarse en modo portátil!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Configuración de permisos de archivos</value>
+    <value>Configuración de los permisos de los archivos</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>El usuario '{0}' ha añadido correctamente la aplicación '{1}' a '{2}'.</value>
+    <value>El usuario «{0} » ha añadido correctamente la implementación «{1} » a «{2} ».</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

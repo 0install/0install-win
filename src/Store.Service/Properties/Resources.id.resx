@@ -71,15 +71,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Layanan ini tidak dapat berjalan dalam mode portabel!</value>
+    <value>Layanan ini tidak dapat dijalankan dalam mode portabel!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Mengatur izin file</value>
+    <value>Menyetel izin berkas</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>Pengguna '{0}' berhasil menambahkan implementasi '{1}' ke '{2}'.</value>
+    <value>Pengguna '{0}' telah berhasil menambahkan implementasi '{1}' ke '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

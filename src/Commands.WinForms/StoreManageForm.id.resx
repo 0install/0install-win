@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>Menyegarkan</value>
+    <value>Segarkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>Menghapus</value>
+    <value>Hapus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Memeriksa ukuran entri:</value>
+    <value>Ukuran entri yang diperiksa:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
-    <value>Memuat...</value>
+    <value>Sedang dimuat...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">

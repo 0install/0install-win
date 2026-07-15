@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonReload.AccessibleName" xml:space="preserve">
-    <value>リロード</value>
+    <value>再読み込み</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
@@ -67,15 +67,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>ピンバージョン</value>
+    <value>バージョンを固定</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
-    <value>リフレッシュ</value>
+    <value>更新</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>アンピンバージョン</value>
+    <value>ピン留め解除版</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>コマンド</value>
+    <value>コマンド：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
-    <value>オプション</value>
+    <value>オプション：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
-    <value>バージョン</value>
+    <value>バージョン：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

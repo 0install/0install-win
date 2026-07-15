@@ -59,19 +59,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>Uživateli '{0}' se nepodařilo přidat implementaci '{1}' do '{2}'.</value>
+    <value>Uživatelovi „{0} “ se nepodařilo přidat implementaci „{1} “ do „{2} “.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Nepodařilo se vytvořit dočasný adresář pro uživatele '{0}' v '{1}'.</value>
+    <value>Nepodařilo se vytvořit dočasný adresář pro uživatele „{0} “ v adresáři „{1} “.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Nepodařilo se odstranit dočasný adresář '{1}' (vytvořený pro uživatele '{0}').</value>
+    <value>Nepodařilo se odstranit dočasný adresář „{1} “ (vytvořený pro uživatele „{0} “).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Službu nelze spustit v přenosném režimu!</value>
+    <value>Služba nemůže běžet v přenosném režimu!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>Uživatel '{0}' úspěšně přidal implementaci '{1}' do '{2}'.</value>
+    <value>Uživatel „{0} “ úspěšně přidal implementaci „{1} “ do „{2} “.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

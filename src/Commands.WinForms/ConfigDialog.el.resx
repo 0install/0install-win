@@ -111,7 +111,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Φρεσκάδα</value>
+    <value>Επικαιρότητα</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">

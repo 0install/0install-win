@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Proprietăți ale interfeței</value>
+    <value>Proprietățile interfeței</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Adăugați</value>
+    <value>Adăugare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
-    <value>Aplicați</value>
+    <value>Aplică</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.Text" xml:space="preserve">
-    <value>Eliminați</value>
+    <value>Eliminare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
-    <value>Afișați toate versiunile</value>
+    <value>Afișează toate versiunile</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Determină care rating de stabilitate va fi considerat "cel mai bun"</value>
+    <value>Stabilește care rating de stabilitate va fi considerat „cel mai bun”</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
-    <value>Eliberat</value>
+    <value>Lansat</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Suprascriere</value>
+    <value>Suprascrie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Feeds</value>
+    <value>Fluxuri</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

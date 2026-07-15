@@ -59,19 +59,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>De gebruiker '{0}' is er niet in geslaagd de implementatie '{1}' toe te voegen aan '{2}'.</value>
+    <value>De gebruiker '{0}' kon de implementatie '{1}' niet toevoegen aan '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Het is niet gelukt een tijdelijke map aan te maken voor de gebruiker '{0}' in '{1}'.</value>
+    <value>Het is niet gelukt om een tijdelijke map aan te maken voor de gebruiker '{0}' in '{1}'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>De tijdelijke directory '{1}' (gemaakt voor de gebruiker '{0}') is niet verwijderd.</value>
+    <value>Het is niet gelukt om de tijdelijke map '{1}' (aangemaakt voor de gebruiker '{0}') te verwijderen.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>De service kan niet in draagbare modus draaien!</value>
+    <value>De service kan niet in draagbare modus worden uitgevoerd!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>De gebruiker '{0}' heeft met succes de implementatie '{1}' toegevoegd aan '{2}'.</value>
+    <value>De gebruiker '{0}' heeft de implementatie '{1}' met succes toegevoegd aan '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

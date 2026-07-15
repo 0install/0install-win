@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>제로 설치 피드 검색</value>
+    <value>Zero Install 피드 검색</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
-    <value>세부 정보</value>
+    <value>상세 정보</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>설정 통합</value>
+    <value>설치 프로그램 통합</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>일치(%)</value>
+    <value>일치율 (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>이러한 검색 결과는 미러 서버에서 제공합니다. 기본 미러 서버는 품질에 관계없이 알려진 모든 피드를 색인화하므로 프로그램을 실행하기 전에 프로그램을 신뢰할지 여부를 결정해야 합니다.</value>
+    <value>이 검색 결과는 미러 서버에서 제공됩니다. 기본 미러 서버는 품질에 관계없이 알려진 모든 피드를 색인화하므로, 프로그램을 실행하기 전에 신뢰할 수 있는지 여부를 직접 판단해야 합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>제로 설치 캐시 관리</value>
+    <value>Zero Install 캐시 관리</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonClose.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>항목 크기를 확인합니다:</value>
+    <value>확인된 항목의 크기:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
@@ -91,11 +91,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
-    <value>로드 중...</value>
+    <value>로딩 중...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
-    <value>총 크기:</value>
+    <value>총 용량:</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

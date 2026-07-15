@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>用户 "{0}"未能将执行 "{1}"添加到 "{2}"。</value>
+    <value>用户“{0} ”无法将实现“{1} ”添加到“{2} ”中。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>在 "{1}"中为用户 "{0}"创建临时目录失败。</value>
+    <value>无法在“{1} ”中为用户“{0} ”创建临时目录。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>删除临时目录 "{1}"（为用户 "{0}"创建）失败。</value>
+    <value>无法删除临时目录“{1} ”（该目录是为用户“{0} ”创建的）。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>用户 "{0}"成功地将执行程序 "{1}"添加到了 "{2}"。</value>
+    <value>用户“{0} ”已成功将实现“{1} ”添加到“{2} ”。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

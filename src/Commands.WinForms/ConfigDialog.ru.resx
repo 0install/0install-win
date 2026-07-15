@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Конфигурация Zero Install</value>
+    <value>Настройка Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Показать дополнительные опции</value>
+    <value>Показать дополнительные настройки</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
@@ -95,15 +95,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Перезагрузка</value>
+    <value>Сброс</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Автоматическое одобрение новых ключей (если они известны серверу ключей)</value>
+    <value>Автоматически утверждает новые ключи (если они известны серверу ключей)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Помощь в тестировании новых версий</value>
+    <value>Помогите протестировать новые версии</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -111,11 +111,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Свежесть</value>
+    <value>Актуальность</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Директории кэша реализации</value>
+    <value>Каталоги кэша реализации</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Пожалуйста, выберите или создайте каталог для использования в качестве кэша внедрения.</value>
+    <value>Пожалуйста, выберите или создайте каталог, который будет использоваться в качестве кэша реализации.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Внимание: Изменение этих параметров может помешать корректной работе Zero Install.</value>
+    <value>Предупреждение: изменение этих настроек может привести к некорректной работе Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Здесь контролируется язык:
-- Самой программы Zero Install и
-- приложений, загружаемых Zero Install.
+    <value>Этот параметр определяет язык:
+- самой программы Zero Install и
+- приложений, загруженных с помощью Zero Install.
 
 Примечания:
 - Переводы доступны не для всех языков.
-- Чтобы языковые изменения вступили в силу, необходимо перезапустить Zero Install.</value>
+- Для вступления изменений языка в силу необходимо перезапустить Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -165,23 +165,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Управление учетной записью</value>
+    <value>Управление учётной записью</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Полная версия (обычное использование сети)</value>
+    <value>Полный (обычное использование сети)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Минимальный (предпочитает кэшированные версии)</value>
+    <value>Минимальный (предпочтительно использовать версии из кэша)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>В автономном режиме (не использовать сеть)</value>
+    <value>В автономном режиме (без использования сети)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Advanced</value>
+    <value>Расширенный</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
@@ -193,7 +193,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Хранилище</value>
+    <value>Хранение данных</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
@@ -201,11 +201,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Доверяйте</value>
+    <value>Доверие</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Обновление</value>
+    <value>Обновления</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -67,7 +67,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Devam</value>
+    <value>İlerle</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
@@ -264,7 +264,7 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
     <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Bu işlem, güncelleme sonrasında otomatik olarak artık gerek duyulmayan uyarlamaları ön bellekten siler. Devam etmek ister misiniz?
+    <value>Bu işlem, güncelleme sonrasında otomatik olarak artık gerek duyulmayan uyarlamaları ön bellekten siler. İlerlemek istiyor musunuz?
 Önemli: Daha önce "Uygulamalarım" altına eklemeden "Çalıştırdığınız" uygulamalar da ön bellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrim içi olmanız gerekecek.</value>
     <comment>Manually overriden.</comment>
   </data>

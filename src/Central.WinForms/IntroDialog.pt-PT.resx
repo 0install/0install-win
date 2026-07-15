@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonReplay.Text" xml:space="preserve">
-    <value>Reproduzir novamente</value>
+    <value>Repetir</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVideo.Text" xml:space="preserve">
-    <value>Um pequeno vídeo de introdução</value>
+    <value>Um breve vídeo de introdução</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Catálogo de produtos</value>
+    <value>Catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

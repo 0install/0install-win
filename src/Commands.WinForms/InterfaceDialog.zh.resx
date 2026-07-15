@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>为该界面添加新的实现源</value>
+    <value>为该接口添加新的实现源</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
-    <value>删除该界面的一个实现源</value>
+    <value>移除此接口的一个实现源</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
@@ -91,15 +91,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>确定 "最佳 "的稳定性等级</value>
+    <value>确定哪种稳定性评级将被视为“最佳”</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
-    <value>建筑设计</value>
+    <value>架构</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnNotes.HeaderText" xml:space="preserve">
-    <value>注意事项</value>
+    <value>注释</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
-    <value>来源</value>
+    <value>源代码</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnStability.HeaderText" xml:space="preserve">
@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>首选稳定性：</value>
+    <value>期望的稳定性：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>供稿</value>
+    <value>订阅源</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

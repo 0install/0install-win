@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>'{0}'을 입력하면 사용 가능한 명령어 목록을 볼 수 있습니다.</value>
+    <value>사용 가능한 명령어 목록을 보려면 '{0}'를 입력하십시오.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,35 +71,35 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>이 컴퓨터에 제로 설치를 설정하려면 클릭하세요...</value>
+    <value>이 컴퓨터에 Zero Install을 설치하려면 클릭하세요...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>여기에 제로 인스톨 피드의 URL을 입력하세요:</value>
+    <value>여기에 Zero Install 피드의 URL을 입력해 주세요:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>모든 사용자</value>
+    <value>모든 사용자 대상</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>현재 사용자의 경우</value>
+    <value>현재 사용자를 위한</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>'{0}'에 대한 중복 앱 항목 무시.</value>
+    <value>'{0}'에 대한 중복 앱 항목을 무시합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>통합(시작 메뉴 등)</value>
+    <value>통합 (시작 메뉴 등)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>공통 앱</value>
+    <value>일반적인 앱</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>일반적인 작업을 수행합니다</value>
+    <value>일반적인 기능을 수행합니다</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>멋진 작업을 수행합니다</value>
+    <value>멋진 기능을 수행합니다</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
@@ -119,37 +119,37 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>앱이 마음에 들면,
-'내 앱'에 추가합니다.</value>
+    <value>마음에 드는 앱이 있다면,
+"내 앱"에 추가하세요.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>"카탈로그"에서 앱 검색...</value>
+    <value>"카탈로그"에서 앱을 검색하세요...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"앱을 '통합'하여 시작 메뉴 또는 데스크톱에
-시작 메뉴 또는 바탕화면에 배치합니다.</value>
+    <value>앱을 “통합”하여
+시작 메뉴나 바탕 화면에 배치합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>여기에서 즐겨 찾는 앱 목록을 관리할 수 있습니다.</value>
+    <value>여기에서 즐겨찾는 앱 목록을 관리할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... 그리고 실행하세요!</value>
+    <value>... 그리고 실행해 보세요!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>즐겨보세요!</value>
+    <value>즐겁게 사용하세요!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>제로 인스톨을 사용하면 앱을 설치할 필요가 없습니다.</value>
+    <value>Zero Install을 사용하면 앱을 설치할 필요가 없습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>머신 전체 모드</value>
+    <value>전체 시스템 모드</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -161,16 +161,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>'내 앱'에 추가됩니다.</value>
+    <value>"내 앱"에 추가되었습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>'내 앱'에 추가되고 데스크톱 환경에 통합됩니다.</value>
+    <value>"내 앱"에 추가되고 데스크톱 환경에 통합됩니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>'{0}' 디렉토리가 비어 있지 않습니다.
-여기에 제로 인스톨의 휴대용 버전을 배치하시겠습니까?</value>
+    <value>'{0}' 디렉터리가 비어 있지 않습니다.
+이곳에 Zero Install의 휴대용 버전을 저장하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>{0} 선택한 항목을 목록에서 제거하시겠습니까?</value>
+    <value>{0} 에서 선택한 항목을 목록에서 제거하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -190,7 +190,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>옵션으로 실행</value>
+    <value>옵션을 지정하여 실행</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -199,7 +199,7 @@
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>아니요
-변경 사항 삭제</value>
+변경 내용 취소</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -212,7 +212,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>제로 설치로 업데이트하려면 클릭{0}...</value>
+    <value>클릭하여 Zero Install v{0} 로 업데이트하세요...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
@@ -220,20 +220,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>입력한 사용자 이름 및/또는 비밀번호가 올바르지 않습니다.</value>
+    <value>입력하신 사용자 이름 및/또는 비밀번호가 잘못되었습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>입력한 암호화 키가 올바르지 않습니다.</value>
+    <value>입력하신 암호화 키가 잘못되었습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>동기화 설정을 재설정하고 처음부터 다시 시작하시겠습니까?</value>
+    <value>동기화 설정을 초기화하고 처음부터 다시 시작하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>아니요
-기존 설정 편집</value>
+기존 설정 수정</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
@@ -242,8 +242,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>현재 동기화 서버에 저장된 데이터가 손상되었습니다.
-암호화 키가 기억나지 않는다고 선택하면 서버에 저장된 데이터를 대체할 수 있습니다.</value>
+    <value>현재 Sync 서버에 저장된 데이터가 손상되었습니다.
+암호 키를 기억하지 않는다고 선택하면 서버에 저장된 데이터를 교체할 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -251,11 +251,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>앱 항목 '{0}'에 대한 피드를 로드할 수 없습니다.</value>
+    <value>앱 항목 '{0}'의 피드를 불러올 수 없습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>동기화 서버에 암호화되지 않은 연결을 사용하시겠습니까?
+    <value>Sync 서버에 대한 암호화되지 않은 연결을 사용하시겠습니까?
 암호화된 연결은 https:// 접두사를 사용합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -264,12 +264,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>업데이트 후 더 이상 필요하지 않은 구현은 캐시에서 자동으로 제거됩니다. 계속하시겠습니까?
-중요: 이전에 '내 앱'에 추가하지 않고 '실행'한 애플리케이션도 캐시에서 제거됩니다.  다시 실행하려면 온라인 상태여야 합니다.</value>
+    <value>업데이트 후 더 이상 필요하지 않은 구현 항목이 캐시에서 자동으로 제거됩니다. 계속하시겠습니까?
+중요: 이전에 “내 앱”에 추가하지 않고 “실행”했던 애플리케이션도 캐시에서 제거됩니다. 해당 앱을 다시 실행하려면 인터넷에 연결되어 있어야 합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>작업 중...</value>
+    <value>실행 중...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

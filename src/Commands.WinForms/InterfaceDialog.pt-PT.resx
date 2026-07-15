@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Mostrar versões que não são suportadas por este sistema</value>
+    <value>Mostrar versões que não são suportadas neste sistema</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Determina qual a classificação de estabilidade que será considerada a "melhor"</value>
+    <value>Determina qual a classificação de estabilidade que será considerada a «melhor»</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Alimentação</value>
+    <value>Feeds</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

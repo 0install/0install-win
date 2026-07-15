@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Показать версии, которые не поддерживаются в данной системе</value>
+    <value>Показать версии, которые не поддерживаются в этой системе</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Определяет, какой рейтинг стабильности будет считаться "лучшим".</value>
+    <value>Определяет, какой рейтинг стабильности будет считаться «лучшим»</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
-    <value>Источник</value>
+    <value>Исходный код</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnStability.HeaderText" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>Переопределить</value>
+    <value>Переопределение</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">
@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>Предпочтительная стабильность:</value>
+    <value>Желаемый уровень стабильности:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Feeds</value>
+    <value>Ленты</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

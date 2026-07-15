@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Integra aplicaciones</value>
+    <value>Integrar la aplicación</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>Ajustes avanzados</value>
+    <value>Configuración avanzada</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Selecciona todos</value>
+    <value>Seleccionar todo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -127,11 +127,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Incluir en "Actualizar todo"</value>
+    <value>Incluir en «Actualizar todo»</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Incluye esta aplicación en las comprobaciones de "Actualizar todo".</value>
+    <value>Incluye esta aplicación en las comprobaciones de «Actualizar todo».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -139,11 +139,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Indica al sistema operativo las capacidades de la aplicación, como los tipos de archivo que puede manejar.</value>
+    <value>Informa al sistema operativo de las capacidades de la aplicación, como los tipos de archivo que puede gestionar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Selecciona todos</value>
+    <value>Seleccionar todo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,11 +151,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Selecciona todos</value>
+    <value>Seleccionar todo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programa por defecto</value>
+    <value>Programa predeterminado</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
@@ -163,11 +163,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Selecciona todos</value>
+    <value>Seleccionar todo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>Tipos de archivos</value>
+    <value>Tipos de archivo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Selecciona todos</value>
+    <value>Seleccionar todo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -295,19 +295,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Se inicia automáticamente al insertar un soporte adecuado (DVD, unidad USB, etc.)</value>
+    <value>Se inicia automáticamente cuando se inserta un soporte adecuado (DVD, memoria USB, etc.).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Inicia el programa automáticamente cuando el usuario inicia sesión</value>
+    <value>Iniciar el programa automáticamente cuando el usuario inicie sesión</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Entradas del menú contextual del Explorador de Windows</value>
+    <value>Entradas del menú contextual en el Explorador de Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Programa predeterminado para tareas como navegador web o cliente de correo electrónico</value>
+    <value>Programa predeterminado para tareas como el navegador web o el cliente de correo electrónico</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,19 +315,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestor predeterminado para los tipos de archivo compatibles ("Abrir con" también funciona sin él)</value>
+    <value>Gestor predeterminado para los tipos de archivo compatibles (la opción «Abrir con» también funciona sin esto).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Una entrada en el menú "Enviar a</value>
+    <value>Una opción en el menú «Enviar a»</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Una o varias entradas en el menú de inicio</value>
+    <value>Una o más entradas en el menú de inicio</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestor predeterminado para los protocolos de URL compatibles ("Abrir con" también funciona sin él)</value>
+    <value>Manejador predeterminado para los protocolos URL compatibles (la opción «Abrir con» también funciona sin esto).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -355,7 +355,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>Tipos de archivos</value>
+    <value>Tipos de archivo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">

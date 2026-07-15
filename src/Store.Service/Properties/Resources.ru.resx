@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>Пользователю '{0}' не удалось добавить реализацию '{1}' в '{2}'.</value>
+    <value>Пользователю «{0} » не удалось добавить реализацию «{1} » в «{2} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Не удалось создать временный каталог для пользователя '{0}' в '{1}'.</value>
+    <value>Не удалось создать временный каталог для пользователя «{0} » в «{1} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>Не удалось удалить временный каталог '{1}' (созданный для пользователя '{0}').</value>
+    <value>Не удалось удалить временный каталог «{1} » (созданный для пользователя «{0} »).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
@@ -75,11 +75,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Установка прав доступа к файлам</value>
+    <value>Настройка прав доступа к файлам</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>Пользователь '{0}' успешно добавил реализацию '{1}' на '{2}'.</value>
+    <value>Пользователь «{0} » успешно добавил реализацию «{1} » в «{2} ».</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>이 인터페이스에 대한 새로운 구현 소스를 추가합니다</value>
+    <value>이 인터페이스에 대한 새로운 구현 소스를 추가합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveFeed.ToolTip" xml:space="preserve">
-    <value>이 인터페이스의 구현 소스를 제거합니다</value>
+    <value>이 인터페이스에 대한 구현 소스를 제거합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>이 시스템에서 지원되지 않는 버전 표시</value>
+    <value>이 시스템에서 지원되지 않는 버전을 표시합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>"최고"로 간주할 안정성 등급을 결정합니다.</value>
+    <value>어떤 안정성 등급을 “최고”로 간주할지 결정합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnNotes.HeaderText" xml:space="preserve">
-    <value>참고</value>
+    <value>참고 사항</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnUserStability.HeaderText" xml:space="preserve">
-    <value>오버라이드</value>
+    <value>재정의</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnVersion.HeaderText" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStability.Text" xml:space="preserve">
-    <value>선호되는 안정성:</value>
+    <value>권장 안정성 수준:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">

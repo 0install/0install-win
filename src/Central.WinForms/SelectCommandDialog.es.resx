@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonReload.AccessibleName" xml:space="preserve">
-    <value>Recarga</value>
+    <value>Actualizar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCustomize.Text" xml:space="preserve">
-    <value>Personaliza</value>
+    <value>Personalizar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Versión Pin</value>
+    <value>Fijar versión</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Versión Unpin</value>
+    <value>Desanclar versión</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

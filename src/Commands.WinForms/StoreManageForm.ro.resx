@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefresh.Text" xml:space="preserve">
-    <value>Actualizare</value>
+    <value>Reîmprospătează</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemove.Text" xml:space="preserve">
-    <value>Eliminați</value>
+    <value>Eliminare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
@@ -79,19 +79,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>Verificare</value>
+    <value>Verifică</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Verifică dimensiunea intrărilor:</value>
+    <value>Dimensiunea intrărilor verificate:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Dimensiunea intrării curente:</value>
+    <value>Dimensiunea actuală a intrării:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
-    <value>Încărcare...</value>
+    <value>Se încarcă...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">

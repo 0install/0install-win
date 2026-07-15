@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>{0}' と入力すると、利用可能なコマンドの一覧が表示されます。</value>
+    <value>利用可能なコマンドの一覧を表示するには、「{0} 」と入力してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -71,11 +71,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>このコンピューターにゼロインストールをセットアップする...</value>
+    <value>クリックして、このコンピュータにZero Installをセットアップしてください...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Zero InstallフィードのURLをここに入力してください：</value>
+    <value>ここにZero InstallフィードのURLを入力してください：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>現在のユーザー</value>
+    <value>現在のユーザー向け</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>{0}' の重複エントリを無視します。</value>
+    <value>「{0} 」という重複するアプリエントリは無視します。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -95,19 +95,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>一般的なアプリ</value>
+    <value>汎用アプリ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>普通のことをする</value>
+    <value>一般的な操作を行います</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>クールなアプリ</value>
+    <value>かっこいいアプリ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>クールなことをする</value>
+    <value>何かクールなことをする</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
@@ -115,41 +115,41 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>他のことをする</value>
+    <value>他にも何かを行う</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>気に入ったアプリがあれば
-マイアプリ」に追加してください。</value>
+    <value>気に入ったアプリがあれば、
+「マイアプリ」に追加してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>カタログ」でアプリを検索...</value>
+    <value>「カタログ」でアプリを検索...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>「スタートメニューやデスクトップに
-をスタートメニューやデスクトップに配置します。</value>
+    <value>アプリを「統合」して、
+スタートメニューやデスクトップに配置します。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>お気に入りのアプリのリストはここで管理できます。</value>
+    <value>ここでは、お気に入りのアプリの一覧を管理できます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>..！</value>
+    <value>... そして実行しましょう！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>お楽しみください！</value>
+    <value>楽しんでください！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>ゼロインストールを使えば、アプリをインストールする必要はありません。</value>
+    <value>Zero Installを使えば、アプリをインストールする必要はありません。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>マシンワイドモード</value>
+    <value>システム全体モード</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -157,20 +157,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>"マイアプリ "に追加</value>
+    <value>「マイアプリ」に追加</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>My apps "に追加されました。</value>
+    <value>「マイアプリ」に追加されました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>My apps」に追加され、デスクトップ環境に統合。</value>
+    <value>「マイアプリ」に追加され、デスクトップ環境に統合されます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>{0}' ディレクトリは空ではありません。
-ポータブル版の Zero Install をこのディレクトリに配置してもよろしいですか？</value>
+    <value>ディレクトリ「{0} 」にはファイルがあります。
+そこにZero Installのポータブル版を配置してもよろしいですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>{0} 、リストから選択したエントリーを削除しますか？</value>
+    <value>リストから選択した{0} のエントリを削除しますか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -190,21 +190,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>オプションで実行</value>
+    <value>オプションを指定して実行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>変更を保存しますか？</value>
+    <value>変更内容を保存しますか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>いいえ
-変更の破棄</value>
+変更を破棄</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
     <value>はい
-変更の保存</value>
+変更を保存</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
@@ -212,23 +212,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>クリックすると、Zero Install v{0} に更新されます ...</value>
+    <value>クリックして Zero Install v{0} に更新してください...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>最初にSync Setupを完了する必要があります。</value>
+    <value>まず、同期設定を完了する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>入力されたユーザー名またはパスワードが間違っています。</value>
+    <value>入力されたユーザー名および／またはパスワードが間違っています。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>入力された暗号キーが間違っています。</value>
+    <value>入力された暗号鍵が正しくありません。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>同期設定をリセットして最初からやり直したいですか？</value>
+    <value>同期設定をリセットして、最初からやり直しますか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
@@ -238,12 +238,12 @@
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>はい
-ゼロから始める</value>
+一から始める</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Syncサーバーに保存されているデータが破損しています。
-暗号キーを覚えていないことを選択することで、サーバーに保存されているデータを置き換えることができます。</value>
+    <value>現在、Syncサーバーに保存されているデータが破損しています。
+「暗号鍵を覚えていない」を選択することで、サーバーに保存されているデータを上書きできます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -251,25 +251,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>App entry '{0}' のフィードをロードできません。</value>
+    <value>アプリ「{0} 」のフィードを読み込めません。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Syncサーバーに暗号化されていない接続を使用したいですか？
-暗号化された接続では、https:// プレフィックスを使用します。</value>
+    <value>Syncサーバーへの接続に暗号化されていない接続を使用してもよろしいですか？
+暗号化された接続では、https:// というプレフィックスが使用されます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>アップデート</value>
+    <value>更新</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>アップデート後に不要になった実装をキャッシュから自動的に削除します。続行しますか？
-重要: 以前に「マイアプリ」に追加せずに「実行」したアプリケーションもキャッシュから削除されます。  再度実行する場合は、オンラインにする必要があります。</value>
+    <value>これにより、更新後に不要となった実装がキャッシュから自動的に削除されます。続行しますか？
+重要：「マイアプリ」に追加せずに以前に「実行」したアプリも、キャッシュから削除されます。それらを再度実行する場合は、インターネットに接続している必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>作業...</value>
+    <value>処理中...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>
