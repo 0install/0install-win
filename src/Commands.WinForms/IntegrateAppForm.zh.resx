@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>选择所有</value>
+    <value>全选</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -127,11 +127,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>包括在 "全部更新 "中</value>
+    <value>包含在“全部更新”中</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>在 "全部更新 "检查中包含此应用程序。</value>
+    <value>将此应用程序纳入“全部更新”检查范围。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -139,11 +139,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>向操作系统介绍应用程序的功能，如可处理的文件类型。</value>
+    <value>向操作系统告知该应用程序的功能，例如它能够处理的文件类型。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>选择所有</value>
+    <value>全选</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>选择所有</value>
+    <value>全选</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>选择所有</value>
+    <value>全选</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -175,11 +175,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>开始菜单</value>
+    <value>“开始”菜单</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>选择所有</value>
+    <value>全选</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -187,31 +187,31 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
-    <value>指令</value>
+    <value>命令</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
-    <value>软件名称</value>
+    <value>名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>默认设置</value>
+    <value>默认</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
-    <value>说明</value>
+    <value>描述</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
-    <value>活动</value>
+    <value>事件</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
-    <value>指令</value>
+    <value>命令</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
-    <value>软件名称</value>
+    <value>名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
@@ -223,11 +223,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>默认设置</value>
+    <value>默认</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
-    <value>说明</value>
+    <value>描述</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
@@ -235,31 +235,31 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
-    <value>指令</value>
+    <value>命令</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
-    <value>软件名称</value>
+    <value>名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>默认设置</value>
+    <value>默认</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
-    <value>说明</value>
+    <value>描述</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>扩展</value>
+    <value>扩展程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
-    <value>指令</value>
+    <value>命令</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
-    <value>软件名称</value>
+    <value>名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
@@ -267,19 +267,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
-    <value>指令</value>
+    <value>命令</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
-    <value>软件名称</value>
+    <value>名称</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>默认设置</value>
+    <value>默认</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
-    <value>说明</value>
+    <value>描述</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
@@ -287,7 +287,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>等效命令行</value>
+    <value>等效的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>插入合适的媒体（DVD、USB 驱动器等）时自动启动</value>
+    <value>当插入合适的介质（DVD、USB 闪存盘等）时自动启动</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -303,11 +303,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Windows 资源管理器中的上下文菜单条目</value>
+    <value>Windows 资源管理器中的右键菜单选项</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>网络浏览器或电子邮件客户端等任务的默认程序</value>
+    <value>用于执行诸如网页浏览或电子邮件收发等任务的默认程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,19 +315,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>支持的文件类型的默认处理程序（"用......打开 "在不使用此功能的情况下也能正常工作）</value>
+    <value>受支持文件类型的默认处理程序（即使没有此功能，“用…打开”功能也能正常工作）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>发送至 "菜单中的一个条目</value>
+    <value>“发送至”菜单中的一个选项</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>开始菜单中的一个或多个条目</value>
+    <value>开始菜单中包含一个或多个项目</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>支持 URL 协议的默认处理程序（"用......打开 "在不使用此协议时也能正常工作）</value>
+    <value>受支持的 URL 协议的默认处理程序（即使没有此功能，“用…打开”功能也能正常工作）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -363,7 +363,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>开始菜单</value>
+    <value>“开始”菜单</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>等效命令行</value>
+    <value>等效的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

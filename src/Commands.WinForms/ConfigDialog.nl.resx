@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install configuratie</value>
+    <value>Zero Install-configuratie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -83,39 +83,39 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Verwijder</value>
+    <value>Verwijderen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Verwijder</value>
+    <value>Verwijderen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Verwijder</value>
+    <value>Verwijderen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reset</value>
+    <value>Resetten</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Keurt automatisch nieuwe sleutels goed (indien bekend bij de keyserver)</value>
+    <value>Keurt nieuwe sleutels automatisch goed (indien bekend bij de sleutelserver)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Help bij het testen van nieuwe versies</value>
+    <value>Help mee met het testen van nieuwe versies</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Catalogus bronnen</value>
+    <value>Bronnen van de catalogus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Versheid</value>
+    <value>Actualiteit</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementatie cache mappen</value>
+    <value>Implementatie van cachemappen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -127,25 +127,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Vertrouwde toetsen</value>
+    <value>Vertrouwde sleutels</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selecteer of maak een map om te gebruiken als implementatiecache.</value>
+    <value>Selecteer of maak een map aan die als implementatiecache moet worden gebruikt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Waarschuwing: Het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet correct werkt.</value>
+    <value>Waarschuwing: het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet meer correct werkt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Dit regelt de taal van:
+    <value>Hiermee wordt de taal ingesteld voor:
 - Zero Install zelf en
-- applicaties die gedownload worden door Zero Install.
+- applicaties die door Zero Install zijn gedownload.
 
 Opmerkingen:
-- Vertalingen zijn niet voor alle talen beschikbaar.
-- Je moet Zero Install opnieuw opstarten om de taalwijzigingen door te voeren.</value>
+- Er zijn niet voor alle talen vertalingen beschikbaar.
+- U moet Zero Install opnieuw opstarten om de taalwijzigingen door te voeren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -173,11 +173,11 @@ Opmerkingen:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimaal (voorkeur voor cacheversies)</value>
+    <value>Minimaal (bij voorkeur versies uit de cache)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (gebruik het netwerk niet)</value>
+    <value>Offline (geen gebruik van het netwerk)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -197,11 +197,11 @@ Opmerkingen:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Synchroniseer</value>
+    <value>Synchroniseren</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
-    <value>Vertrouw op</value>
+    <value>Vertrouwen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">

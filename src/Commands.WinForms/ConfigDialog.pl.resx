@@ -95,27 +95,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reset</value>
+    <value>Resetuj</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Automatyczne zatwierdzanie nowych kluczy (jeśli są znane serwerowi kluczy)</value>
+    <value>Automatycznie zatwierdza nowe klucze (jeśli są znane serwerowi kluczy)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Pomoc w testowaniu nowych wersji</value>
+    <value>Pomóż w testowaniu nowych wersji</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Źródła katalogów</value>
+    <value>Źródła katalogu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Świeżość</value>
+    <value>Aktualność</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Wdrażanie katalogów pamięci podręcznej</value>
+    <value>Katalogi pamięci podręcznej implementacji</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Wybierz lub utwórz katalog, który będzie używany jako pamięć podręczna wdrożenia.</value>
+    <value>Wybierz lub utwórz katalog, który będzie służył jako pamięć podręczna implementacji.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Ostrzeżenie: Zmiana tych opcji może uniemożliwić prawidłowe działanie Zero Install.</value>
+    <value>Ostrzeżenie: Zmiana tych opcji może uniemożliwić prawidłowe działanie programu Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>To kontroluje język:
-- Samego Zero Install i
+    <value>Służy to do sterowania językiem:
+- samego programu Zero Install oraz
 - aplikacji pobranych przez Zero Install.
 
 Uwagi:
 - Tłumaczenia nie są dostępne dla wszystkich języków.
-- Aby zmiany językowe zaczęły obowiązywać, należy ponownie uruchomić aplikację Zero Install.</value>
+- Aby zmiany języka zaczęły obowiązywać, należy ponownie uruchomić program Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -165,7 +165,7 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Zarządzanie kontem</value>
+    <value>Zarządzaj kontem</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -173,11 +173,11 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimalny (preferowane wersje buforowane)</value>
+    <value>Minimalny (preferowane wersje z pamięci podręcznej)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (nie korzysta z sieci)</value>
+    <value>Tryb offline (bez korzystania z sieci)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -193,7 +193,7 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Pamięć masowa</value>
+    <value>Pamięć</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

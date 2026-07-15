@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>Rozšířená nastavení</value>
+    <value>Pokročilá nastavení</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
@@ -115,11 +115,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Vyberte všechny</value>
+    <value>Vybrat vše</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+    <value>Automatické spouštění</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
@@ -127,31 +127,31 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Zahrnout do "Aktualizovat vše"</value>
+    <value>Zahrnout do „Aktualizovat vše“</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Zahrnuje tuto aplikaci do kontrol "Aktualizovat vše".</value>
+    <value>Zahrnuje tuto aplikaci do kontrol „Aktualizovat vše“.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Možnosti registrace</value>
+    <value>Funkce registrace</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Informuje operační systém o možnostech aplikace, například o typech souborů, které dokáže zpracovat.</value>
+    <value>Informuje operační systém o funkcích aplikace, například o typech souborů, se kterými dokáže pracovat.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Vyberte všechny</value>
+    <value>Vybrat vše</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
-    <value>Kontextová nabídka</value>
+    <value>Kontextové menu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Vyberte všechny</value>
+    <value>Vybrat vše</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -159,11 +159,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
-    <value>Pracovní plocha</value>
+    <value>Plocha</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Vyberte všechny</value>
+    <value>Vybrat vše</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
-    <value>Odesílání do</value>
+    <value>Odeslat do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Vyberte všechny</value>
+    <value>Vybrat vše</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí</value>
+    <value>Výchozí nastavení</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí</value>
+    <value>Výchozí nastavení</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
@@ -243,7 +243,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí</value>
+    <value>Výchozí nastavení</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí</value>
+    <value>Výchozí nastavení</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
@@ -291,23 +291,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>Přístup z rozhraní příkazového řádku</value>
+    <value>Přístup z příkazového řádku</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Automatické spuštění po vložení vhodného média (DVD, jednotka USB atd.)</value>
+    <value>Automaticky se spustí po vložení vhodného média (DVD, USB disk atd.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Automatické spuštění programu po přihlášení uživatele</value>
+    <value>Spustí program automaticky po přihlášení uživatele</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Položky kontextové nabídky v Průzkumníku Windows</value>
+    <value>Položky kontextového menu v Průzkumníku Windows</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Výchozí program pro úlohy, jako je webový prohlížeč nebo e-mailový klient</value>
+    <value>Výchozí program pro úkoly, jako je webový prohlížeč nebo e-mailový klient</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,11 +315,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Výchozí obslužný program pro podporované typy souborů ("Otevřít s" funguje i bez něj)</value>
+    <value>Výchozí program pro podporované typy souborů (funkce „Otevřít v“ funguje i bez něj)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Položka v nabídce "Odeslat do&amp;quot</value>
+    <value>Položka v nabídce „Odeslat do“</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Výchozí obslužný program pro podporované protokoly URL ("Otevřít s" funguje i bez něj)</value>
+    <value>Výchozí obslužná funkce pro podporované protokoly URL (funkce „Otevřít v“ funguje i bez ní)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -335,7 +335,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>AutoPlay</value>
+    <value>Automatické spouštění</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
@@ -343,7 +343,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
-    <value>Kontextová nabídka</value>
+    <value>Kontextové menu</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
@@ -351,7 +351,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
-    <value>Pracovní plocha</value>
+    <value>Plocha</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Odesílání do</value>
+    <value>Odeslat do</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">

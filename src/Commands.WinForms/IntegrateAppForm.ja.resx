@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
-    <value>高度な設定</value>
+    <value>詳細設定</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
@@ -111,39 +111,39 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>コマンドラインエイリアス</value>
+    <value>コマンドラインのエイリアス</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>すべてを選択</value>
+    <value>すべて選択</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>オートプレイ</value>
+    <value>自動再生</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>自動スタート</value>
+    <value>自動起動</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>"すべて更新 "に含める</value>
+    <value>「すべて更新」に含める</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>このアプリケーションは「すべて更新」チェックに含まれます。</value>
+    <value>「すべて更新」のチェック対象にこのアプリケーションを含めます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>登録機能</value>
+    <value>機能の登録</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>処理可能なファイルタイプなど、アプリケーションの機能をオペレーティングシステムに伝えます。</value>
+    <value>アプリケーションが処理できるファイルの種類など、その機能に関する情報をオペレーティングシステムに伝えます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>すべてを選択</value>
+    <value>すべて選択</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,11 +151,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>すべてを選択</value>
+    <value>すべて選択</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>デフォルトプログラム</value>
+    <value>既定のプログラム</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>すべてを選択</value>
+    <value>すべて選択</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>すべてを選択</value>
+    <value>すべて選択</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -191,7 +191,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnName.HeaderText" xml:space="preserve">
-    <value>名称</value>
+    <value>名前</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
@@ -211,11 +211,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
-    <value>名称</value>
+    <value>名前</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
-    <value>使用可能</value>
+    <value>有効</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridContextMenuColumnName.HeaderText" xml:space="preserve">
@@ -239,7 +239,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDesktopColumnName.HeaderText" xml:space="preserve">
-    <value>名称</value>
+    <value>名前</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
@@ -259,11 +259,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
-    <value>名称</value>
+    <value>名前</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCategory.HeaderText" xml:space="preserve">
-    <value>カテゴリー</value>
+    <value>カテゴリ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnCommand.HeaderText" xml:space="preserve">
@@ -271,7 +271,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridStartMenuColumnName.HeaderText" xml:space="preserve">
-    <value>名称</value>
+    <value>名前</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
@@ -291,23 +291,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
-    <value>コマンドラインインターフェイスからのアクセス</value>
+    <value>コマンドラインインターフェースからのアクセス</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>適切なメディア（DVD、USBドライブなど）が挿入されると自動的に起動</value>
+    <value>適切なメディア（DVD、USBメモリなど）が挿入されると自動的に起動する</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>ユーザーがログインすると自動的にプログラムを開始</value>
+    <value>ユーザーがログインした際にプログラムを自動的に起動する</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Windowsエクスプローラのコンテキストメニュー項目</value>
+    <value>Windows エクスプローラーのコンテキストメニュー項目</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>ウェブブラウザや電子メールクライアントなどのタスクのデフォルトプログラム</value>
+    <value>Webブラウザやメールクライアントなどのタスクに使用する既定のプログラム</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,31 +315,31 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>サポートされているファイルタイプのデフォルトハンドラ（"Open with "はこれなしでも動作します）</value>
+    <value>サポートされているファイル形式のデフォルトのハンドラ（これがない場合でも「プログラムで開く」は機能します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>送信先」メニュー</value>
+    <value>「[送信先]」メニューの項目</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>スタートメニューの1つまたは複数のエントリ</value>
+    <value>スタートメニューに1つ以上の項目が表示されます</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>サポートされているURLプロトコルのデフォルト・ハンドラ（"Open with "はこれなしでも動作します）</value>
+    <value>サポートされているURLプロトコル用のデフォルトのハンドラ（これがない場合でも「プログラムで開く」は機能します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>コマンドラインエイリアス</value>
+    <value>コマンドラインのエイリアス</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>オートプレイ</value>
+    <value>自動再生</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>自動スタート</value>
+    <value>自動起動</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
@@ -347,7 +347,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>デフォルトプログラム</value>
+    <value>既定のプログラム</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">

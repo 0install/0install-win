@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>零安装配置</value>
+    <value>Zero Install 配置</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -75,11 +75,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>转到</value>
+    <value>前往</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>转到</value>
+    <value>前往</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>自动批准新密钥（如果密钥服务器已知）</value>
+    <value>自动批准新密钥（如果密钥服务器已识别该密钥）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>帮助测试新版本</value>
+    <value>协助测试新版本</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>执行缓存目录</value>
+    <value>实现缓存目录</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -127,11 +127,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>可信钥匙</value>
+    <value>受信任的密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>请选择或创建一个目录作为执行缓存。</value>
+    <value>请选择或创建一个目录，用作实现缓存。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -139,17 +139,17 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>这可以控制软件的语言：
-- 零安装本身和
-- 零安装下载的应用程序。
+    <value>此设置控制以下内容的语言：
+- Zero Install 本身，以及
+- 由 Zero Install 下载的应用程序。
 
-注意：
-- 并非所有语言都有翻译。
-- 您需要重新启动 Zero Install 才能使语言更改生效。</value>
+注意事项：
+- 并非所有语言都有翻译版本。
+- 语言更改生效后，您需要重新启动 Zero Install。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>服务器</value>
+    <value>服务器：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
@@ -157,7 +157,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
-    <value>密码</value>
+    <value>密码：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
@@ -169,11 +169,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>全功能（正常网络使用）</value>
+    <value>完整版（正常网络使用）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>最小化（首选缓存版本）</value>
+    <value>精简版（优先使用缓存版本）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">

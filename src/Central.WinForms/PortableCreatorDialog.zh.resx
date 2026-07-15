@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>便携式创建器</value>
+    <value>便携版创建工具</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
@@ -75,22 +75,22 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>等效命令行</value>
+    <value>等效的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>在这里，你可以创建一个便携版的 Zero Install，例如在 U 盘上使用。目标必须是 NTFS 格式。</value>
+    <value>在此您可以创建 Zero Install 的便携版，例如用于 USB 闪存盘。目标设备必须格式化为 NTFS 格式。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- 将零安装配置和缓存的应用程序存储在一个目录中。
-- 不会自动使通过 Zero Install 启动的应用程序也具有便携性。
-- 便携版 Zero Install 不能执行桌面整合（如创建开始菜单条目）。
-- 请考虑在多台计算机上使用常规的 Zero Install，并用 Zero Install Sync 代替。</value>
+    <value>- 将 Zero Install 的配置和缓存的应用程序存储在同一个目录中。
+- 不会自动将通过 Zero Install 启动的应用程序也设为便携版。
+- Zero Install 的便携版无法实现桌面集成（例如创建“开始”菜单项）。
+- 建议在多台计算机上使用常规版 Zero Install 并配合 Zero Install Sync 进行同步。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>等效命令行</value>
+    <value>等效的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

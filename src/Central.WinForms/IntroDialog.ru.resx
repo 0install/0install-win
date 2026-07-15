@@ -67,11 +67,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonReplay.Text" xml:space="preserve">
-    <value>Играть заново</value>
+    <value>Повторить</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVideo.Text" xml:space="preserve">
-    <value>Короткий вступительный ролик</value>
+    <value>Краткое вводное видео</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

@@ -63,15 +63,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Aggiungere</value>
+    <value>Aggiungi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Aggiungere</value>
+    <value>Aggiungi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Mostra le opzioni avanzate</value>
+    <value>Mostra opzioni avanzate</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
@@ -83,27 +83,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Rimuovere</value>
+    <value>Rimuovi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Rimuovere</value>
+    <value>Rimuovi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Rimuovere</value>
+    <value>Rimuovi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Azzeramento</value>
+    <value>Reimposta</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Approvazione automatica di nuove chiavi (se conosciute dal server delle chiavi)</value>
+    <value>Approva automaticamente le nuove chiavi (se riconosciute dal server delle chiavi)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Aiuta a testare le nuove versioni</value>
+    <value>Aiutaci a testare le nuove versioni</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -111,11 +111,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Freschezza</value>
+    <value>Aggiornamento</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementazione delle directory di cache</value>
+    <value>Implementazione delle directory della cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -127,25 +127,25 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>Chiavi affidabili</value>
+    <value>Chiavi attendibili</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selezionare o creare una directory da utilizzare come cache di implementazione.</value>
+    <value>Selezionare o creare una cartella da utilizzare come cache di implementazione.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Attenzione: La modifica di queste opzioni può impedire il corretto funzionamento di Zero Install.</value>
+    <value>Attenzione: la modifica di queste opzioni potrebbe impedire il corretto funzionamento di Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Controlla la lingua di:
+    <value>Questo controllo gestisce la lingua di:
 - Zero Install stesso e
-- applicazioni scaricate da Zero Install.
+- delle applicazioni scaricate da Zero Install.
 
 Note:
 - Le traduzioni non sono disponibili per tutte le lingue.
-- Per rendere effettive le modifiche alla lingua, è necessario riavviare Zero Install.</value>
+- È necessario riavviare Zero Install affinché le modifiche alla lingua abbiano effetto.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -165,15 +165,15 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Gestione dell'account</value>
+    <value>Gestisci account</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Completo (uso normale della rete)</value>
+    <value>Completa (utilizzo normale della rete)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimo (preferisce le versioni in cache)</value>
+    <value>Minima (preferire le versioni memorizzate nella cache)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">

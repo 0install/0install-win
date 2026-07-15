@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Wyszukiwanie kanałów Zero Install</value>
+    <value>Wyszukiwanie kanałów w Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Dodaj do "Moje aplikacje"</value>
+    <value>Dodaj do „Moich aplikacji”</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integracja konfiguracji</value>
+    <value>Integracja z programem instalacyjnym</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Match (%)</value>
+    <value>Zgodność (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Wyniki wyszukiwania są dostarczane przez serwer lustrzany. Należy pamiętać, że domyślny serwer lustrzany indeksuje wszystkie znane kanały, niezależnie od jakości; przed uruchomieniem programów należy zdecydować, czy im zaufać.</value>
+    <value>Te wyniki wyszukiwania są dostarczane przez serwer lustrzany. Należy pamiętać, że domyślny serwer lustrzany indeksuje wszystkie znane kanały, niezależnie od ich jakości; przed uruchomieniem programów należy samodzielnie zdecydować, czy można im zaufać.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

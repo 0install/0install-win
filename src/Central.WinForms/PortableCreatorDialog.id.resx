@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Pencipta portabel</value>
+    <value>Pembuat portabel</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Menjelajah</value>
+    <value>Jelajahi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
@@ -71,30 +71,30 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Menyebarkan</value>
+    <value>Menerapkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Baris perintah yang setara</value>
+    <value>Perintah baris perintah yang setara</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Di sini Anda dapat membuat versi portabel dari Zero Install, misalnya untuk digunakan pada flashdisk USB. Target harus diformat NTFS.</value>
+    <value>Di sini Anda dapat membuat versi portabel dari Zero Install, misalnya untuk digunakan pada flashdisk USB. Target harus diformat dengan sistem file NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Menyimpan konfigurasi Zero Install dan aplikasi yang di-cache dalam satu direktori.
-- Tidak secara otomatis membuat aplikasi yang diluncurkan melalui Zero Install menjadi portabel.
-- Versi portabel Zero Install tidak dapat melakukan integrasi desktop (misalnya membuat entri menu mulai).
-- Pertimbangkan untuk menggunakan Zero Install biasa di beberapa komputer dengan Sinkronisasi Zero Install.</value>
+    <value>- Menyimpan konfigurasi Zero Install dan aplikasi yang disimpan dalam cache di dalam satu direktori.
+- Tidak secara otomatis menjadikan aplikasi yang dijalankan melalui Zero Install menjadi portabel juga.
+- Versi portabel Zero Install tidak dapat melakukan integrasi desktop (misalnya, membuat entri menu Start).
+- Pertimbangkan untuk menggunakan Zero Install biasa di beberapa komputer dengan Zero Install Sync sebagai gantinya.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Baris perintah yang setara</value>
+    <value>Perintah baris perintah yang setara</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>Direktori target</value>
+    <value>Direktori tujuan</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

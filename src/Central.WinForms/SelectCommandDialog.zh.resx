@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>图钉版本</value>
+    <value>固定版本</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -75,19 +75,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>解压版本</value>
+    <value>取消固定版本</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>等效命令行</value>
+    <value>等效的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
-    <value>参数</value>
+    <value>参数：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>指令</value>
+    <value>命令：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelOptions.Text" xml:space="preserve">
@@ -95,15 +95,15 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
-    <value>命令描述</value>
+    <value>命令说明</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
-    <value>版本</value>
+    <value>版本：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>等效命令行</value>
+    <value>等效的命令行</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

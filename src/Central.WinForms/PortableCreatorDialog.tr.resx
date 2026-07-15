@@ -83,9 +83,9 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Zero Install yapılandırması ile ön bellekteki uygulamaları tek klasörde depolar.
-- Zero Install aracılığıyla başlatılan uygulamaları da otomatik olarak taşınabilir hale getirmez.
-- Zero Install taşınabilir sürümü, masaüstü ile bütünleşemez (başlat menüsü kayıtları oluşturamaz gibi).
+    <value>- Zero Install yapılandırmasını ve ön bellekteki uygulamaları tek klasörde depolar.
+- Zero Install ile başlatılan uygulamaları da otomatik olarak taşınabilir yapmaz.
+- Zero Install taşınabilir sürümü, masaüstü ile bütünleşemez (örneğin başlat menüsü kayıtları oluşturamaz).
 - Farklı bilgisayarlarda kullanmak için taşınabilir sürüm yerine Zero Install Sync özelliğini kullanmayı düşünün.</value>
     <comment>Manually overriden.</comment>
   </data>

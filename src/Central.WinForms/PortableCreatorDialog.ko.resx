@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>휴대용 크리에이터</value>
+    <value>휴대용 생성기</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
@@ -75,26 +75,26 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>동등한 명령줄</value>
+    <value>이에 상응하는 명령줄</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>여기에서 USB 썸 드라이브에 사용할 수 있는 휴대용 버전의 제로 인스톨을 만들 수 있습니다. 대상은 NTFS 포맷이어야 합니다.</value>
+    <value>여기서 USB 메모리 등에 사용할 수 있는 Zero Install의 휴대용 버전을 만들 수 있습니다. 대상 저장 장치는 NTFS로 포맷되어 있어야 합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- 제로 인스톨 구성 및 캐시된 애플리케이션을 단일 디렉토리에 저장합니다.
-- 제로 인스톨을 통해 실행한 애플리케이션을 자동으로 휴대용으로 만들지는 않습니다.
-- 휴대용 버전의 제로 인스톨은 데스크톱 통합(예: 시작 메뉴 항목 만들기)을 수행할 수 없습니다.
-- 대신 여러 컴퓨터에서 제로 인스톨 동기화를 사용하여 일반 제로 인스톨을 사용하는 것이 좋습니다.</value>
+    <value>- Zero Install 구성 정보와 캐시된 애플리케이션을 단일 디렉터리에 저장합니다.
+- Zero Install을 통해 실행된 애플리케이션이 자동으로 휴대용 버전으로 변환되지는 않습니다.
+- Zero Install의 휴대용 버전은 데스크톱 통합 기능(예: 시작 메뉴 항목 생성)을 수행할 수 없습니다.
+- 대신 Zero Install Sync를 사용하여 여러 대의 컴퓨터에서 일반 Zero Install을 사용하는 것을 고려해 보십시오.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>동등한 명령줄</value>
+    <value>이에 상응하는 명령줄</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
-    <value>대상 디렉토리</value>
+    <value>대상 디렉터리</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

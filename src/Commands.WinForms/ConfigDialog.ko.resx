@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>제로 설치 구성</value>
+    <value>Zero Install 구성</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>새 키를 자동으로 승인(키 서버에서 알고 있는 경우)</value>
+    <value>새로운 키를 자동으로 승인합니다(키 서버에 등록된 경우).</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>새 버전 테스트 도움말</value>
+    <value>새 버전을 테스트하는 데 도움을 주세요</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>신선도</value>
+    <value>최신성</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>구현 캐시로 사용할 디렉터리를 선택하거나 생성하세요.</value>
+    <value>구현 캐시로 사용할 디렉터리를 선택하거나 생성해 주십시오.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>경고: 이러한 옵션을 변경하면 제로 인스톨이 제대로 작동하지 않을 수 있습니다.</value>
+    <value>경고: 이 옵션을 변경하면 Zero Install이 제대로 작동하지 않을 수 있습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>이것은 언어를 제어합니다:
-- 제로 인스톨 자체 및
-- 제로 인스톨로 다운로드한 애플리케이션의 언어를 제어합니다.
+    <value>이 설정은 다음의 언어를 제어합니다:
+- Zero Install 자체 및
+- Zero Install을 통해 다운로드된 애플리케이션.
 
 참고:
-- 일부 언어에는 번역이 제공되지 않습니다.
-- 언어 변경 사항을 적용하려면 제로 설치를 다시 시작해야 합니다.</value>
+- 모든 언어에 대한 번역이 제공되지는 않습니다.
+- 언어 변경 사항을 적용하려면 Zero Install을 다시 시작해야 합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -153,7 +153,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>암호화 키:</value>
+    <value>암호 키:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -169,15 +169,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>전체(일반 네트워크 사용)</value>
+    <value>전체 (일반적인 네트워크 사용)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>최소(캐시된 버전 선호)</value>
+    <value>최소 기능 (캐시된 버전을 우선적으로 사용)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>오프라인(네트워크 사용 안 함)</value>
+    <value>오프라인 (네트워크를 사용하지 않음)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -193,7 +193,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>스토리지</value>
+    <value>저장소</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

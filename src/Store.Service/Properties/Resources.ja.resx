@@ -59,27 +59,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に追加できませんでした。</value>
+    <value>ユーザー「{0} 」は、「{1} 」という実装を「{2} 」に追加できませんでした。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>{1}' のユーザー '{0}' のテンポラリディレクトリの作成に失敗しました。</value>
+    <value>「{1} 」内のユーザー「{0} 」用の一時ディレクトリの作成に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
-    <value>一時ディレクトリ '{1}' (ユーザー '{0}' 用に作成) の削除に失敗しました。</value>
+    <value>一時ディレクトリ「{1} 」（ユーザー「{0} 」用に作成されたもの）の削除に失敗しました。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>ポータブルモードでは実行できません！</value>
+    <value>このサービスはポータブルモードでは実行できません！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>ファイルパーミッションの設定</value>
+    <value>ファイルのアクセス権の設定</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>ユーザー '{0}' は、実装 '{1}' を '{2}' に追加することに成功しました。</value>
+    <value>ユーザー「{0} 」は、「{1} 」という実装を「{2} 」に正常に追加しました。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

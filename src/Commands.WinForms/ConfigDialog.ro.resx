@@ -63,35 +63,35 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Adăugați</value>
+    <value>Adăugare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Adăugați</value>
+    <value>Adăugare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Afișează opțiuni avansate</value>
+    <value>Afișează opțiunile avansate</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Du-te la</value>
+    <value>Accesați</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Du-te la</value>
+    <value>Accesați</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Eliminați</value>
+    <value>Eliminare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Eliminați</value>
+    <value>Eliminare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Eliminați</value>
+    <value>Eliminare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprobă automat cheile noi (dacă sunt cunoscute de serverul de chei)</value>
+    <value>Aprobă automat cheile noi (dacă sunt recunoscute de serverul de chei)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -107,15 +107,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Catalog surse</value>
+    <value>Surse de catalog</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Prospețime</value>
+    <value>Actualitate</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementarea directoarelor cache</value>
+    <value>Implementarea directoarelor de cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,15 +131,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Vă rugăm să selectați sau să creați un director pentru a fi utilizat ca cache de implementare.</value>
+    <value>Vă rugăm să selectați sau să creați un director care să fie utilizat ca memorie cache de implementare.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Avertisment: Modificarea acestor opțiuni poate împiedica Zero Install să funcționeze corect.</value>
+    <value>Atenție: Modificarea acestor opțiuni poate împiedica funcționarea corectă a Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Aceasta controlează limba de:
+    <value>Aceasta controlează limba pentru:
 - Zero Install în sine și
 - aplicațiile descărcate de Zero Install.
 
@@ -161,11 +161,11 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
-    <value>Utilizator:</value>
+    <value>Nume de utilizator:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Gestionați contul</value>
+    <value>Gestionare cont</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -173,11 +173,11 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimal (preferați versiunile în cache)</value>
+    <value>Minimă (preferă versiunile stocate în cache)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (nu utilizați rețeaua)</value>
+    <value>Offline (nu utilizează rețeaua)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -189,7 +189,7 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>Limbaj</value>
+    <value>Limba</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">

@@ -147,7 +147,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>Yerel uygulama listesi sıfırlandı. Zero Install kullanmaya devam edebilirsiniz.</value>
+    <value>Yerel uygulama listesi sıfırlandı. Zero Install kullanmayı sürdürebilirsiniz.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -159,7 +159,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Sunucu verileri sıfırlandı. Zero Install kullanmaya devam edebilirsiniz.</value>
+    <value>Sunucu verileri sıfırlandı. Zero Install kullanmayı sürdürebilirsiniz.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">

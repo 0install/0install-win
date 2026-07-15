@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Configuração de instalação zero</value>
+    <value>Configuração do Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
@@ -95,15 +95,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Repor</value>
+    <value>Reiniciar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprova automaticamente novas chaves (se conhecidas pelo servidor de chaves)</value>
+    <value>Aprova automaticamente novas chaves (se forem reconhecidas pelo servidor de chaves)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Ajuda a testar novas versões</value>
+    <value>Ajude a testar novas versões</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -111,15 +111,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Frescura</value>
+    <value>Atualização</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementação de diretórios de cache</value>
+    <value>Diretórios de cache de implementação</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
-    <value>Utilização em rede</value>
+    <value>Utilização da rede</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupStability.Text" xml:space="preserve">
@@ -135,17 +135,17 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Aviso: Alterar estas opções pode impedir que o Zero Install funcione corretamente.</value>
+    <value>Aviso: alterar estas opções pode impedir que o Zero Install funcione corretamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Isto controla o idioma do:
-- Da própria Zero Install e
-- aplicações descarregadas pela Zero Install.
+- próprio Zero Install e
+- das aplicações descarregadas pelo Zero Install.
 
 Notas:
-- As traduções não estão disponíveis para todos os idiomas.
-- É necessário reiniciar o Zero Install para que as alterações de idioma tenham efeito.</value>
+- Não estão disponíveis traduções para todos os idiomas.
+- É necessário reiniciar o Zero Install para que as alterações de idioma entrem em vigor.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -153,7 +153,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Chave criptográfica:</value>
+    <value>Chave de encriptação:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -173,11 +173,11 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Mínimo (preferir versões em cache)</value>
+    <value>Mínima (dá preferência às versões em cache)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Offline (não utilizar a rede)</value>
+    <value>Offline (não utiliza a rede)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -185,11 +185,11 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Catálogo de produtos</value>
+    <value>Catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>Língua</value>
+    <value>Idioma</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
@@ -197,7 +197,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sincronização</value>
+    <value>Sincronizar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
@@ -205,7 +205,7 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUpdates.Text" xml:space="preserve">
-    <value>Actualizações</value>
+    <value>Atualizações</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

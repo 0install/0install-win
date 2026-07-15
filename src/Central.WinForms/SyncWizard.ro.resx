@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Cheie uitată</value>
+    <value>Am uitat cheia</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Nu, am configurat deja alte computere</value>
+    <value>Nu, am configurat deja alte calculatoare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -87,11 +87,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Nu trebuie să rulați Zero Install Sync pe alte computere în timp ce acest proces rulează.</value>
+    <value>Nu trebuie să rulați Zero Install Sync pe alte computere în timp ce acest proces este în desfășurare.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Vă rugăm să introduceți datele dvs. de autentificare pentru serverul Sync mai jos:</value>
+    <value>Vă rugăm să introduceți mai jos datele de autentificare pentru serverul Sync:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -103,11 +103,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cheia criptografică a fost schimbată. Acum va trebui să introduceți noua cheie pe toate celelalte computere pe care le-ați configurat deja pentru Zero Install Sync.</value>
+    <value>Cheia de criptare a fost modificată. Acum va trebui să introduceți noua cheie pe toate celelalte computere pe care le-ați configurat deja pentru Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduceți cheia pe alte computere utilizând fereastra "Opțiuni". Nu utilizați acest asistent acolo, deoarece este necesar doar pentru a efectua modificarea inițială.</value>
+    <value>Introduceți cheia pe alte computere folosind fereastra „Opțiuni”. Nu utilizați acest asistent pe acele computere, deoarece este necesar doar pentru efectuarea modificării inițiale.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -119,15 +119,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Vă rugăm să introduceți cheia criptografică utilizată anterior pe acest computer și/sau pe alte computere:</value>
+    <value>Vă rugăm să introduceți cheia criptografică pe care ați folosit-o anterior pe acest computer și/sau pe alte computere:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Cheia criptografică este utilizată pentru a vă cripta datele la nivel local înainte de a le transmite către server. Scrieți-o pe cea sugerată sau alegeți-o pe a dumneavoastră.</value>
+    <value>Cheia de criptare este utilizată pentru a cripta datele dvs. la nivel local înainte de a le transmite către server. Notați-o pe cea sugerată sau alegeți-o pe cea dorită.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Păstrați secretă această cheie și folosiți ceva diferit pentru parolă. În acest fel, nimeni nu vă poate accesa datele, chiar dacă serverul ar fi compromis.</value>
+    <value>Păstrați această cheie secretă și folosiți o parolă diferită. Astfel, nimeni nu vă va putea accesa datele, chiar dacă serverul ar fi compromis.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -135,27 +135,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Faceți clic pe următorul link pentru a crea un nou cont Sync în browserul dvs:</value>
+    <value>Faceți clic pe următorul link pentru a crea un cont Sync nou în browserul dvs.:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>După ce v-ați creat un cont, v-ați verificat adresa de e-mail și v-ați notat datele de autentificare, faceți clic pe "Next".</value>
+    <value>După ce v-ați creat un cont, v-ați verificat adresa de e-mail și ați notat datele de autentificare, faceți clic pe „Următorul”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Sunteți pe cale să înlocuiți lista locală de aplicații cu datele stocate pe serverul Sync. Orice modificări pe care le-ați făcut local, dar care nu au fost încă sincronizate, vor fi pierdute!</value>
+    <value>Sunteți pe punctul de a înlocui lista locală de aplicații cu datele stocate pe serverul Sync. Orice modificări pe care le-ați făcut local, dar care nu au fost încă sincronizate, se vor pierde!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>Lista locală de aplicații este resetată. Acum puteți continua să utilizați Zero Install.</value>
+    <value>Lista aplicațiilor locale este resetată. Acum puteți continua să utilizați Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Orice modificări pe care le-ați făcut pe alte computere, dar nu le-ați sincronizat încă cu acesta, vor fi pierdute!</value>
+    <value>Orice modificări pe care le-ați făcut pe alte computere, dar care nu au fost încă sincronizate cu acesta, se vor pierde!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Sunteți pe cale să înlocuiți datele stocate pe serverul Sync cu lista aplicațiilor dvs. locale. Orice modificări pe care le-ați făcut pe alte computere, dar care nu au fost încă sincronizate cu acesta, vor fi pierdute!</value>
+    <value>Sunteți pe punctul de a înlocui datele stocate pe serverul Sync cu lista dvs. locală de aplicații. Orice modificări pe care le-ați făcut pe alte computere, dar care nu au fost încă sincronizate cu acesta, se vor pierde!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -167,11 +167,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Acest asistent vă poate ajuta să rezolvați o serie de posibile probleme de sincronizare. Ce problemă doriți să rezolvați?</value>
+    <value>Acest asistent vă poate ajuta să rezolvați o serie de posibile probleme legate de sincronizare. Ce problemă doriți să rezolvați?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de oferă conturi gratuite pentru stocarea datelor de sincronizare. Toate datele sunt criptate local înainte de a fi transmise către server. Dacă doriți, puteți utiliza în schimb propriul server pentru stocare.</value>
+    <value>0install.de oferă conturi gratuite pentru stocarea datelor de sincronizare. Toate datele sunt criptate local înainte de a fi transmise către server. Dacă doriți, puteți utiliza propriul server pentru stocare.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -179,19 +179,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Acesta este primul computer pe care îl configurați pentru Zero Install Sync?</value>
+    <value>Este acesta primul computer pe care îl configurați pentru Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync este acum configurat și gata de utilizare. Rulați acest asistent pe orice alt computer pe care doriți să îl mențineți sincronizat cu acesta.</value>
+    <value>Zero Install Sync este acum configurat și gata de utilizare. Rulați acest asistent pe orice alt computer pe care doriți să îl sincronizați cu acesta.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync preia lista de aplicații și integrările desktop și le transferă automat pe celelalte computere.</value>
+    <value>Zero Install Sync preia lista de aplicații și integrările de pe desktop și le transferă automat pe celelalte computere ale tale.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
-    <value>Utilizator:</value>
+    <value>Nume de utilizator:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
@@ -215,15 +215,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Modificarea cheii criptografice</value>
+    <value>Schimbă cheia criptografică</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Cont de sincronizare</value>
+    <value>Sincronizare cont</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cheie criptografică schimbată</value>
+    <value>Cheia criptografică a fost modificată</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
@@ -235,31 +235,31 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Cont de sincronizare</value>
+    <value>Sincronizare cont</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
-    <value>Resetează datele locale</value>
+    <value>Resetare date locale</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Resetează datele locale</value>
+    <value>Resetare date locale</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Resetarea cheii criptografice</value>
+    <value>Resetare cheie criptografică</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Resetare server Sync</value>
+    <value>Resetează serverul de sincronizare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Resetare server Sync</value>
+    <value>Resetare server de sincronizare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Rezolvarea problemelor de sincronizare</value>
+    <value>Depanarea sincronizării</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Configurare sincronizare completă</value>
+    <value>Configurarea sincronizării finalizată</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
@@ -275,11 +275,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>Server URI</value>
+    <value>URI-ul serverului</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Calea directorului</value>
+    <value>Calea către director</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

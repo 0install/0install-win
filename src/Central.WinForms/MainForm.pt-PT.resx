@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Introduzir o URL de um catálogo (uma coleção de feeds)</value>
+    <value>Introduza o URL de um catálogo (uma coleção de feeds)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Introduzir o URL de um feed (uma única aplicação)</value>
+    <value>Introduza o URL de um feed (uma única aplicação)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Utilizar o Feed Editor para empacotar uma nova aplicação</value>
+    <value>Utilize o Feed Editor para criar um novo pacote de aplicação</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Executar uma pesquisa por palavra-chave</value>
+    <value>Efetuar uma pesquisa por palavra-chave</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
@@ -111,11 +111,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Sincronização</value>
+    <value>Sincronizar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
-    <value>Sincronização</value>
+    <value>Sincronizar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Carregamento do catálogo do servidor...</value>
+    <value>A carregar o catálogo do servidor...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
-    <value>Catálogo de produtos</value>
+    <value>Catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

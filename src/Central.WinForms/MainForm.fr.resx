@@ -63,7 +63,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Saisir l'URL d'un flux (une seule application)</value>
+    <value>Saisissez l'URL d'un flux (une seule application)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Utiliser l'éditeur de flux pour créer une nouvelle application</value>
+    <value>Utilisez Feed Editor pour créer un nouveau package d'application</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Créateur portable</value>
+    <value>Créateur d'applications portables</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">

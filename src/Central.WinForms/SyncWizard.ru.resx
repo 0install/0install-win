@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Я хочу изменить свой криптографический ключ</value>
+    <value>Я хочу сменить свой криптографический ключ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Забытый ключ</value>
+    <value>Забыли ключ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Данные, хранящиеся на сервере, повреждаются</value>
+    <value>Данные, хранящиеся на сервере, повреждены</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -79,19 +79,19 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Нет, я уже настраивал другие компьютеры</value>
+    <value>Нет, я уже настроил другие компьютеры</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Эквивалент командной строки</value>
+    <value>Эквивалент в командной строке</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Не следует запускать Zero Install Sync на других компьютерах во время работы этого процесса.</value>
+    <value>Не следует запускать Zero Install Sync на других компьютерах, пока этот процесс находится в работе.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Введите учетные данные для входа на сервер синхронизации ниже:</value>
+    <value>Введите ниже свои учетные данные для входа на сервер синхронизации:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -103,11 +103,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Криптографический ключ был изменен. Теперь вам нужно ввести новый ключ на всех других компьютерах, на которых вы уже настроили Zero Install Sync.</value>
+    <value>Криптографический ключ был изменен. Теперь вам необходимо ввести новый ключ на всех остальных компьютерах, на которых вы уже настроили Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Введите ключ на других компьютерах с помощью окна "Параметры". Не используйте этот мастер, так как он нужен только для первоначального изменения.</value>
+    <value>Введите ключ на других компьютерах с помощью окна «Параметры». Не используйте этот мастер на других компьютерах, так как он необходим только для первоначального изменения.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -119,11 +119,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Введите криптографический ключ, который вы использовали ранее на этом и/или других компьютерах:</value>
+    <value>Введите криптографический ключ, который вы ранее использовали на этом и/или других компьютерах:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Криптоключ используется для локального шифрования данных перед передачей их на сервер. Запишите предложенный вариант или выберите свой собственный.</value>
+    <value>Криптографический ключ используется для шифрования ваших данных локально перед их передачей на сервер. Запишите предложенный ключ или выберите свой собственный.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -139,11 +139,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>После создания учетной записи, проверки адреса электронной почты и указания учетных данных для входа в систему нажмите "Далее".</value>
+    <value>После того как вы создали учётную запись, подтвердили свой адрес электронной почты и записали свои учётные данные, нажмите «Далее».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Вы собираетесь заменить локальный список приложений данными, хранящимися на сервере Sync. Все изменения, которые вы сделали локально, но еще не синхронизировали, будут потеряны!</value>
+    <value>Вы собираетесь заменить свой локальный список приложений данными, хранящимися на сервере Sync. Все изменения, внесенные локально, но еще не синхронизированные, будут утеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -151,11 +151,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Все изменения, сделанные на других компьютерах, но не синхронизированные с этим, будут потеряны!</value>
+    <value>Любые изменения, внесенные вами на других компьютерах, но еще не синхронизированные с этим, будут утеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, на локальный список приложений. Все изменения, которые вы внесли на других компьютерах, но еще не синхронизировали с этим, будут потеряны!</value>
+    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Все изменения, внесенные вами на других компьютерах, но еще не синхронизированные с этим, будут утеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Вы также можете сбросить локальные данные на других компьютерах, на которых вы используете Zero Install Sync.</value>
+    <value>Возможно, вам также захочется сбросить локальные данные на других компьютерах, на которых вы используете Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de предоставляет бесплатные аккаунты для хранения данных синхронизации. Все данные шифруются локально перед передачей на сервер. При желании вы можете использовать для хранения данных свой собственный сервер.</value>
+    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед отправкой на сервер. При желании вы можете использовать для хранения данные свой собственный сервер.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -179,15 +179,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Это первый компьютер, который вы настраиваете для Zero Install Sync?</value>
+    <value>Это первый компьютер, на котором вы настраиваете Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Теперь Zero Install Sync настроена и готова к использованию. Запустите этот мастер на других компьютерах, которые вы хотите синхронизировать с этим.</value>
+    <value>Zero Install Sync теперь настроен и готов к использованию. Запустите этот мастер на всех других компьютерах, которые вы хотите синхронизировать с этим.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync берет список приложений и интеграции рабочего стола и автоматически переносит их на другие компьютеры.</value>
+    <value>Zero Install Sync берет ваш список приложений и настройки интеграции с рабочим столом и автоматически переносит их на ваши другие компьютеры.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -199,15 +199,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Зарегистрируйтесь</value>
+    <value>Регистрация</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Используйте собственный сервер:</value>
+    <value>Использование собственного сервера:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Использование общего файлового ресурса Windows:</value>
+    <value>Используйте общий доступ к файлам в Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -215,15 +215,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Изменение криптографического ключа</value>
+    <value>Смена криптографического ключа</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Учетная запись синхронизации</value>
+    <value>Синхронизация учетной записи</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Смена криптографического ключа</value>
+    <value>Криптографический ключ изменен</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
@@ -235,7 +235,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Учетная запись синхронизации</value>
+    <value>Синхронизация учетной записи</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
@@ -251,15 +251,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Сброс сервера синхронизации</value>
+    <value>Сброс настроек сервера синхронизации</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Сброс сервера синхронизации</value>
+    <value>Сброс настроек сервера синхронизации</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Устранение неполадок с синхронизацией</value>
+    <value>Устранение неполадок при синхронизации</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">

@@ -59,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Pencarian umpan Instal Nol Instal</value>
+    <value>Pencarian feed Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Menambahkan ke "Aplikasi saya"</value>
+    <value>Tambahkan ke "Aplikasi Saya"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
-    <value>Detail</value>
+    <value>Rincian</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Menjalankan</value>
+    <value>Jalankan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Kecocokan (%)</value>
+    <value>Kesesuaian (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Hasil pencarian ini disediakan oleh server mirror. Perhatikan bahwa server mirror default mengindeks semua feed yang diketahui, terlepas dari kualitasnya; Anda harus memutuskan apakah akan mempercayai program sebelum menjalankannya.</value>
+    <value>Hasil pencarian ini disediakan oleh server cermin. Perlu diperhatikan bahwa server cermin default mengindeks semua feed yang diketahui, terlepas dari kualitasnya; Anda harus memutuskan apakah akan mempercayai program-program tersebut sebelum menjalankannya.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

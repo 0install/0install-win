@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>キーを忘れた場合</value>
+    <value>パスワードを忘れた</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -71,15 +71,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>サーバーに保存されたデータは破損する</value>
+    <value>サーバーに保存されているデータが破損しています</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>そう、これが最初のコンピューターだ</value>
+    <value>はい、これが最初のコンピュータです</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>いいえ、すでに他のコンピューターをセットアップしています。</value>
+    <value>いいえ、他のコンピュータはすでにセットアップ済みです</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -87,91 +87,91 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>このプロセスの実行中は、他のコンピュータでZero Install Syncを実行しないでください。</value>
+    <value>このプロセスが実行されている間は、他のコンピュータでZero Install Syncを実行しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Sync サーバーへのログイン情報を以下に入力してください：</value>
+    <value>以下に、Syncサーバーのログイン情報を入力してください：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>暗号キー：</value>
+    <value>暗号鍵：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>新しい暗号キー：</value>
+    <value>新しい暗号鍵：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>暗号キーが変更されました。Zero Install Sync用に設定済みの他のすべてのコンピューターに新しいキーを入力する必要があります。</value>
+    <value>暗号化キーが変更されました。これに伴い、Zero Install Syncの設定を済ませている他のすべてのコンピュータで、新しいキーを入力する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>オプション」ウィンドウを使用して、他のコンピュータにキーを入力します。このウィザードは最初の変更にのみ必要なので、ここでは使用しないでください。</value>
+    <value>他のコンピュータでは、「オプション」ウィンドウを使用してキーを入力してください。このウィザードは初期設定の変更にのみ必要であるため、他のコンピュータでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>暗号キー：</value>
+    <value>暗号鍵：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>新しい暗号キー：</value>
+    <value>新しい暗号鍵：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>このコンピュータおよび/または他のコンピュータで以前に使用した暗号キーを入力してください：</value>
+    <value>このコンピュータおよび／または他のコンピュータで以前使用した暗号化キーを入力してください：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーは、サーバーに送信する前にローカルでデータを暗号化するために使用されます。提案されたものを書き留めるか、自分で選んでください。</value>
+    <value>暗号化キーは、データをサーバーに送信する前にローカルで暗号化するために使用されます。提案されたキーを書き留めるか、独自のキーを選択してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>このキーは秘密にしておき、パスワードには別のものを使ってください。こうすることで、万が一サーバーが危険にさらされても、誰もあなたのデータにアクセスできなくなります。</value>
+    <value>このキーは秘密にしておき、パスワードには別のものを使用してください。そうすれば、たとえサーバーが侵害されたとしても、誰もあなたのデータにアクセスすることはできません。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
-    <value>パスワード</value>
+    <value>パスワード：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>以下のリンクをクリックして、ブラウザで新しいSyncアカウントを作成してください：</value>
+    <value>ブラウザで新しいSyncアカウントを作成するには、以下のリンクをクリックしてください：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>アカウントを作成し、電子メールアドレスを確認し、ログイン情報を記載したら、「次へ」をクリックします。</value>
+    <value>アカウントを作成し、メールアドレスの確認を済ませ、ログイン情報を確認したら、「次へ」をクリックしてください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>ローカルのアプリケーションリストをシンクサーバーに保存されたデータに置き換えます。ローカルで行った変更で、まだ同期されていないものは失われます！</value>
+    <value>ローカルのアプリケーション一覧を、Syncサーバーに保存されているデータに置き換えようとしています。ローカルで行った変更のうち、まだ同期されていないものはすべて失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>ローカルのアプリケーションリストはリセットされます。これでZero Installを使い続けることができます。</value>
+    <value>ローカルのアプリケーション一覧がリセットされています。これで、Zero Installを引き続きご利用いただけます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>他のコンピュータで行った変更で、このコンピュータとまだ同期していないものは失われます！</value>
+    <value>他のコンピュータで行った変更で、まだこのコンピュータと同期されていないものはすべて失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Syncサーバーに保存されているデータをローカルのアプリケーションリストに置き換えます。他のコンピューターで行った変更で、まだこのコンピューターと同期していないものはすべて失われます！</value>
+    <value>Syncサーバーに保存されているデータを、ローカルのアプリケーションリストで上書きしようとしています。他のコンピュータで行った変更で、まだこのコンピュータと同期されていないものはすべて失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>サーバーデータはリセットされます。これでゼロインストールを使い続けることができます。</value>
+    <value>サーバーのデータがリセットされています。これで、Zero Installを引き続きご利用いただけます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>また、Zero Install Syncを使用している他のコンピュータのローカルデータをリセットすることもできます。</value>
+    <value>また、Zero Install Sync を使用している他のコンピュータ上のローカルデータをリセットすることも検討してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>このウィザードは、シンクに関する様々な問題を解決するのに役立ちます。どのような問題を解決したいですか？</value>
+    <value>このウィザードは、同期に関するさまざまな問題を解決するのに役立ちます。どのような問題を解決したいですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de は、同期データを保存するための無料アカウントを提供します。すべてのデータは、サーバーに送信される前にローカルで暗号化されます。ご希望であれば、ストレージにご自身のサーバーを使用することもできます。</value>
+    <value>0install.deでは、同期データを保存するための無料アカウントを提供しています。すべてのデータは、サーバーへ送信される前にローカルで暗号化されます。ご希望であれば、代わりにご自身のサーバーを保存先として使用することも可能です。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -179,23 +179,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Zero Install Sync用にセットアップする最初のコンピューターですか？</value>
+    <value>Zero Install Syncの設定を行うのは、これが初めてのコンピュータですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>これでZero Install Syncのセットアップが完了し、使用できるようになりました。このウィザードを、このコンピュータと同期させたい他のコンピュータで実行します。</value>
+    <value>Zero Install Sync の設定が完了し、使用可能な状態になりました。このコンピュータと同期させたい他のコンピュータでも、このウィザードを実行してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync は、アプリケーションリストとデスクトップ統合を取得し、他のコンピューターに自動的に転送します。</value>
+    <value>Zero Install Syncは、アプリケーション一覧やデスクトップ統合設定を取得し、それらを他のコンピュータに自動的に転送します。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
-    <value>ユーザー名</value>
+    <value>ユーザー名：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>独自のSyncサーバーをセットアップするには？</value>
+    <value>独自の同期サーバーを設定するにはどうすればよいですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -203,63 +203,63 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>カスタムサーバーを使用します：</value>
+    <value>カスタムサーバーを使用する場合：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Windowsファイル共有を使用：</value>
+    <value>Windowsのファイル共有を使用する：</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>0install.deサーバーを使用（推奨）</value>
+    <value>0install.de サーバーを使用する（推奨）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーの変更</value>
+    <value>暗号鍵の変更</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>同期アカウント</value>
+    <value>アカウントの同期</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>暗号キーの変更</value>
+    <value>暗号鍵が変更されました</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>暗号キー</value>
+    <value>暗号鍵</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号キー</value>
+    <value>暗号鍵</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>同期アカウント</value>
+    <value>アカウントの同期</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
-    <value>ローカルデータのリセット</value>
+    <value>ローカルデータをリセット</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>ローカルデータのリセット</value>
+    <value>ローカルデータをリセット</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>暗号キーのリセット</value>
+    <value>暗号鍵のリセット</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>同期サーバーのリセット</value>
+    <value>同期サーバーをリセット</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>同期サーバーのリセット</value>
+    <value>同期サーバーをリセット</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>同期のトラブルシューティング</value>
+    <value>同期に関するトラブルシューティング</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
@@ -267,15 +267,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>同期セットアップ完了</value>
+    <value>同期設定が完了しました</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">
-    <value>同期セットアップ</value>
+    <value>同期設定</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>サーバーURI</value>
+    <value>サーバー URI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

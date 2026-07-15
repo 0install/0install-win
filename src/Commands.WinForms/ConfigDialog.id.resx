@@ -59,39 +59,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Konfigurasi Penginstalan Nol</value>
+    <value>Konfigurasi Zero Install</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddCatalogSource.Text" xml:space="preserve">
-    <value>Menambahkan</value>
+    <value>Tambahkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddImplDir.Text" xml:space="preserve">
-    <value>Menambahkan</value>
+    <value>Tambahkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdvancedShow.Text" xml:space="preserve">
-    <value>Menampilkan opsi lanjutan</value>
+    <value>Tampilkan opsi lanjutan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Pergi ke</value>
+    <value>Buka</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Pergi ke</value>
+    <value>Buka</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
-    <value>Menghapus</value>
+    <value>Hapus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveImplDir.Text" xml:space="preserve">
-    <value>Menghapus</value>
+    <value>Hapus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRemoveTrustedKey.Text" xml:space="preserve">
-    <value>Menghapus</value>
+    <value>Hapus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
@@ -99,11 +99,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Secara otomatis menyetujui kunci baru (jika diketahui oleh server kunci)</value>
+    <value>Secara otomatis menyetujui kunci baru (jika dikenal oleh server kunci)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Membantu menguji versi baru</value>
+    <value>Bantu menguji versi baru</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
@@ -111,11 +111,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Kesegaran</value>
+    <value>Keterbaruan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Direktori cache implementasi</value>
+    <value>Implementasi direktori cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Pilih atau buat direktori untuk digunakan sebagai cache implementasi.</value>
+    <value>Silakan pilih atau buat direktori yang akan digunakan sebagai cache implementasi.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Peringatan: Mengubah opsi-opsi ini dapat menyebabkan Zero Install tidak bekerja dengan benar.</value>
+    <value>Peringatan: Mengubah opsi-opsi ini dapat menyebabkan Zero Install tidak berfungsi dengan benar.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Ini mengontrol bahasa:
+    <value>Ini mengontrol bahasa untuk:
 - Zero Install itu sendiri dan
 - aplikasi yang diunduh oleh Zero Install.
 
 Catatan:
 - Terjemahan tidak tersedia untuk semua bahasa.
-- Anda perlu memulai ulang Zero Install agar perubahan bahasa dapat diterapkan.</value>
+- Anda perlu me-restart Zero Install agar perubahan bahasa berlaku.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -153,7 +153,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Kunci kripto:</value>
+    <value>Kunci enkripsi:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
@@ -165,7 +165,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Mengelola akun</value>
+    <value>Kelola akun</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -173,7 +173,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimal (lebih suka versi cache)</value>
+    <value>Minimal (lebih disukai versi yang disimpan dalam cache)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
@@ -181,7 +181,7 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>Tingkat Lanjut</value>
+    <value>Lanjutan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">

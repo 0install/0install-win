@@ -59,11 +59,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Memasukkan URL katalog (kumpulan feed)</value>
+    <value>Masukkan URL katalog (kumpulan feed)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>Memasukkan URL feed (satu aplikasi)</value>
+    <value>Masukkan URL feed (satu aplikasi)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonFeedEditor.Text" xml:space="preserve">
-    <value>Menggunakan Feed Editor untuk mengemas aplikasi baru</value>
+    <value>Gunakan Feed Editor untuk mengemas aplikasi baru</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntro.Text" xml:space="preserve">
-    <value>Video Pengenalan</value>
+    <value>Video Pengantar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonMoreApps.Text" xml:space="preserve">
@@ -91,23 +91,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonOptions.Text" xml:space="preserve">
-    <value>Pilihan</value>
+    <value>Opsi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Pencipta portabel</value>
+    <value>Pembuat portabel</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
-    <value>Menyegarkan daftar</value>
+    <value>Segarkan daftar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSearch.Text" xml:space="preserve">
-    <value>Menjalankan pencarian kata kunci</value>
+    <value>Lakukan pencarian berdasarkan kata kunci</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
-    <value>Manajemen cache</value>
+    <value>Pengelolaan cache</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Memperbarui semua dan membersihkan</value>
+    <value>Perbarui semua dan bersihkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

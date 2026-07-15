@@ -119,27 +119,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
-    <value>Putar Otomatis</value>
+    <value>AutoPlay</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>Mulai otomatis</value>
+    <value>Mulai secara otomatis</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Termasuk dalam "Perbarui Semua"</value>
+    <value>Sertakan dalam "Perbarui Semua"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Memasukkan aplikasi ini ke dalam pemeriksaan "Perbarui semua".</value>
+    <value>Menyertakan aplikasi ini dalam pemeriksaan "Perbarui Semua".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Kemampuan mendaftar</value>
+    <value>Fitur pendaftaran</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Memberitahukan sistem operasi tentang kemampuan aplikasi, seperti jenis file yang dapat ditangani.</value>
+    <value>Memberi tahu sistem operasi mengenai kemampuan aplikasi, seperti jenis file yang dapat ditangani oleh aplikasi tersebut.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
-    <value>Jenis file</value>
+    <value>Jenis berkas</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxSendToSimple.Text" xml:space="preserve">
@@ -175,7 +175,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Menu mulai</value>
+    <value>Menu Mulai</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
-    <value>Acara</value>
+    <value>Peristiwa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
@@ -287,7 +287,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Baris perintah yang setara</value>
+    <value>Perintah baris perintah yang setara</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
@@ -295,11 +295,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Meluncurkan secara otomatis ketika media yang sesuai (DVD, drive USB, dll.) dimasukkan</value>
+    <value>Secara otomatis berjalan saat media yang sesuai (DVD, drive USB, dll.) dimasukkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Memulai program secara otomatis ketika pengguna masuk</value>
+    <value>Menjalankan program secara otomatis saat pengguna masuk</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
@@ -307,27 +307,27 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program default untuk tugas-tugas seperti browser web atau klien email</value>
+    <value>Program bawaan untuk tugas-tugas seperti peramban web atau klien email</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
-    <value>Ikon pada desktop</value>
+    <value>Sebuah ikon di desktop</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Penangan default untuk jenis file yang didukung ("Buka dengan" juga dapat digunakan tanpa ini)</value>
+    <value>Penanganan default untuk jenis berkas yang didukung ("Buka dengan" tetap berfungsi tanpa ini)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Entri dalam menu "Kirim ke&amp;quot</value>
+    <value>Sebuah entri dalam menu "Kirim ke"</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Satu atau beberapa entri di menu mulai</value>
+    <value>Satu atau lebih entri di menu Start</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Penangan default untuk protokol URL yang didukung ("Buka dengan" juga dapat digunakan tanpa ini)</value>
+    <value>Penanganan default untuk protokol URL yang didukung ("Buka dengan" tetap berfungsi tanpa ini)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
@@ -335,11 +335,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoPlay.Text" xml:space="preserve">
-    <value>Putar Otomatis</value>
+    <value>AutoPlay</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>Mulai otomatis</value>
+    <value>Mulai secara otomatis</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
@@ -347,7 +347,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Program default</value>
+    <value>Program bawaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
@@ -355,7 +355,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
-    <value>Jenis file</value>
+    <value>Jenis berkas</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
@@ -363,7 +363,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Menu mulai</value>
+    <value>Menu Mulai</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Baris perintah yang setara</value>
+    <value>Perintah baris perintah yang setara</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>
