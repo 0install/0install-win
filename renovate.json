@@ -4,6 +4,10 @@
   "ignoreDeps": ["System.Resources.Extensions"],
   "packageRules": [
     {
+      "matchPackagePatterns": ["^gittools"],
+      "allowedVersions": "<4"
+    },
+    {
       "matchPackagePatterns": ["^Generator\\.Equals"],
       "groupName": "Generator.Equals",
       "automerge": true,
