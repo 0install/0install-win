@@ -1,6 +1,6 @@
 # Zero Install for Windows
 
-[![Build status](https://img.shields.io/appveyor/ci/0install/0install-win.svg)](https://ci.appveyor.com/project/0install/0install-win)  
+[![Build](https://github.com/0install/0install-win/actions/workflows/build.yml/badge.svg)](https://github.com/0install/0install-win/actions/workflows/build.yml)  
 This is the Windows version of Zero Install. It extends the cross-platform core [Zero Install .NET](https://github.com/0install/0install-dotnet) with a GUI and various OS-specific integrations.
 
 Zero Install is a decentralized cross-platform software installation system. You can learn more at [0install.net](https://0install.net/).
