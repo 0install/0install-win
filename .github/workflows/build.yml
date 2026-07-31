@@ -1,0 +1,102 @@
+name: Build
+on:
+  push:
+    branches-ignore: [translate]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      # Prepare
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          show-progress: false
+      - uses: gittools/actions/gitversion/setup@v3.2.1
+        with:
+          versionSpec: '5.12.x'
+      - uses: gittools/actions/gitversion/execute@v3.2.1
+        id: gitversion
+      - name: Add NuGet package source
+        run: dotnet nuget add source https://nuget.pkg.github.com/${{github.repository_owner}}/index.json --name github --username ${{github.actor}} --password ${{github.token}} --store-password-in-clear-text
+
+      # Build
+      - name: Build
+        run: .\src\build.ps1 ${{steps.gitversion.outputs.nuGetVersion}}
+      - name: Test
+        run: |
+          .\test.ps1 -Purge
+          .\test.ps1 -Deploy -Purge
+          .\test.ps1 -Deploy -Machine -Purge
+          .\test.ps1 -Deploy -Portable -Purge
+
+      # Sign
+      - name: Upload artifacts
+        id: artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          path: artifacts
+      - name: Sign artifacts
+        if: github.ref_type == 'tag'
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{secrets.SIGNPATH_API_KEY}}
+          organization-id: 0e70cf92-49a1-4427-a800-b6bc5b497936
+          project-slug: win
+          signing-policy-slug: release-signing
+          github-artifact-id: ${{steps.artifacts.outputs.artifact-id}}
+          output-artifact-directory: artifacts
+          wait-for-completion-timeout-in-seconds: 3600
+
+      # Package
+      - uses: 0install/github-actions/0template@v1
+        id: feed
+        with:
+          template: 0install-win.xml.template
+          version: ${{steps.gitversion.outputs.legacySemVer}}
+          github-release: ${{github.ref_type == 'tag'}}
+      - name: Create additional archives
+        if: github.ref_type == 'tag'
+        run: |
+          Compress-Archive -Path group-policies\* -DestinationPath artifacts\group-policies.zip
+          Compress-Archive -Path artifacts\Bootstrap\0install.exe, artifacts\Bootstrap\0install.exe.config, artifacts\Bootstrap\0install.ini -DestinationPath artifacts\Bootstrap\0install.zip
+          Compress-Archive -Path artifacts\Bootstrap\zero-install.exe, artifacts\Bootstrap\zero-install.exe.config, artifacts\Bootstrap\zero-install.ini -DestinationPath artifacts\Bootstrap\zero-install.zip
+
+      # Release
+      - name: Get tag message
+        if: github.ref_type == 'tag'
+        id: tag_message
+        run: |
+          "message<<EOF" >> $env:GITHUB_OUTPUT
+          git fetch -f origin tag ${{github.ref_name}}
+          git tag --format="%(contents)" -l ${{github.ref_name}} >> $env:GITHUB_OUTPUT
+          "EOF" >> $env:GITHUB_OUTPUT
+      - name: Create GitHub Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v3
+        with:
+          body: |
+            **[Download Zero Install for Windows](https://get.0install.net/#windows)**
+            ## Changes
+            ${{steps.tag_message.outputs.message}}
+
+            Based on [Zero Install .NET ${{steps.gitversion.outputs.nuGetVersion}}](https://github.com/0install/0install-dotnet/releases/${{steps.gitversion.outputs.nuGetVersion}}).
+          files: |
+            ${{steps.feed.outputs.feed}}
+            ${{steps.feed.outputs.archive}}
+            artifacts/Bootstrap/*.exe
+            artifacts/Bootstrap/*.zip
+            artifacts/Bootstrap/*.msi
+            artifacts/group-policies.zip
+
+      # Publish
+      - uses: 0install/github-actions/0repo-submit@v1
+        if: github.ref_type == 'tag'
+        with:
+          repository: 0install/apps
+          feed-url: ${{steps.feed.outputs.feed}}
+          token: ${{secrets.PERSONAL_TOKEN}}
+      - name: Push Chocolatey package
+        if: github.ref_type == 'tag'
+        run: dotnet nuget push artifacts\0install.chocolatey.*.nupkg --source https://push.chocolatey.org/ --api-key ${{secrets.CHOCOLATEY_API_KEY}}
