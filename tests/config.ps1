@@ -4,7 +4,7 @@ if ($LASTEXITCODE -ne 0) { throw "Exit Code: $LASTEXITCODE" }
 0install config self_update_uri
 if ($LASTEXITCODE -ne 0) { throw "Exit Code: $LASTEXITCODE" }
 
-0install config self_update_uri '""'
+Start-Process 0install.exe -ArgumentList 'config self_update_uri ""' -Wait
 if ($LASTEXITCODE -ne 0) { throw "Exit Code: $LASTEXITCODE" }
 
 Write-Output "Error expected here:"
