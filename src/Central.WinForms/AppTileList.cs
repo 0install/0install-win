@@ -25,14 +25,8 @@ public class AppTileList : UserControl
     /// <summary>Maps interface URIs to <see cref="AppTile"/>s.</summary>
     private readonly Dictionary<FeedUri, AppTile> _tileDictionary = [];
 
-    /// <summary><c>true</c> if the last tile used <see cref="TileColorLight"/>; <c>false</c> if the last tile used <see cref="TileColorDark"/>.</summary>
-    private bool _lastTileLight;
-
     /// <summary><see cref="AppTile"/>s prepared by <see cref="QueueNewTile"/>, waiting to be added to <see cref="_flowLayout"/>.</summary>
     private readonly List<Control> _appTileQueue = [];
-
-    /// <summary>The combined height of all <see cref="AppTile"/>s in <see cref="_appTileQueue"/>.</summary>
-    private int _appTileQueueHeight;
     #endregion
 
     #region Properties
@@ -131,16 +125,7 @@ public class AppTileList : UserControl
         #endregion
 
         var tile = new AppTile(interfaceUri, appName, status, MachineWide) {Width = _flowLayout.Width};
-
-        if (appName.ContainsIgnoreCase(TextSearch.Text))
-        {
-            _appTileQueueHeight += tile.Height;
-
-            // Alternate between light and dark tiles
-            tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
-            _lastTileLight = !_lastTileLight;
-        }
-        else tile.Hide();
+        tile.Hide(); // Shown by RefilterTiles() once Feed data is available
 
         _appTileQueue.Add(tile);
         _tileDictionary.Add(interfaceUri, tile);
@@ -152,8 +137,16 @@ public class AppTileList : UserControl
     /// </summary>
     public void AddQueuedTiles()
     {
-        _flowLayout.Height += _appTileQueueHeight;
-        _appTileQueueHeight = 0;
+        FlushQueue();
+        RefilterTiles();
+    }
+
+    /// <summary>
+    /// Moves all tiles queued by <see cref="AppTileList.QueueNewTile"/> calls into <see cref="_flowLayout"/>.
+    /// </summary>
+    private void FlushQueue()
+    {
+        if (_appTileQueue.Count == 0) return;
 
         _flowLayout.Controls.AddRange(_appTileQueue.ToArray());
         _appTileQueue.Clear();
@@ -197,15 +190,14 @@ public class AppTileList : UserControl
         if (tile == null) throw new ArgumentNullException(nameof(tile));
         #endregion
 
-        // Flush queue first, to allow proper recoloring
-        AddQueuedTiles();
+        // Flush queue first, to avoid adding the disposed tile later
+        FlushQueue();
 
         _flowLayout.Controls.Remove(tile);
-        if (tile.Visible) _flowLayout.Height -= tile.Height;
         _tileDictionary.Remove(tile.InterfaceUri);
         tile.Dispose();
 
-        RecolorTiles();
+        RefilterTiles();
     }
 
     /// <summary>
@@ -214,13 +206,11 @@ public class AppTileList : UserControl
     public void Clear()
     {
         _appTileQueue.Clear();
-        _appTileQueueHeight = 0;
 
         _flowLayout.Controls.Clear();
         _flowLayout.Height = 0;
 
         _tileDictionary.Clear();
-        _lastTileLight = false;
     }
 
     /// <summary>
@@ -232,49 +222,33 @@ public class AppTileList : UserControl
 
     #region Helpers
     /// <summary>
-    /// Applies the search filter to the list of tiles. Should be called after the filter was changed.
+    /// Applies the search filter to the list of tiles and recolors them. Should be called after the filter or the tiles were changed.
     /// </summary>
-    protected virtual void RefilterTiles()
+    private void RefilterTiles()
     {
         _scrollPanel.SuspendLayout();
         _flowLayout.SuspendLayout();
 
-        bool needsRecolor = false;
-        foreach (var tile in _tileDictionary.Values)
+        int height = 0;
+        bool lastTileLight = false;
+        foreach (var tile in _flowLayout.Controls.OfType<AppTile>())
         {
-            // Check if new filter changes visibility
-            bool shouldBeVisible = tile.AppName.ContainsIgnoreCase(TextSearch.Text)
-                                || tile.AppSummary.ContainsIgnoreCase(TextSearch.Text);
-            if (tile.Visible != shouldBeVisible)
+            if (tile.AppName.ContainsIgnoreCase(TextSearch.Text)
+             || tile.AppSummary.ContainsIgnoreCase(TextSearch.Text))
             {
-                // Update list length
-                if (shouldBeVisible) _flowLayout.Height += tile.Height;
-                else _flowLayout.Height -= tile.Height;
+                // Alternate between light and dark tiles
+                tile.BackColor = lastTileLight ? TileColorDark : TileColorLight;
+                lastTileLight = !lastTileLight;
 
-                tile.Visible = shouldBeVisible;
-                needsRecolor = true;
+                height += tile.Height;
+                tile.Visible = true;
             }
+            else tile.Visible = false;
         }
+        _flowLayout.Height = height;
 
-        if (needsRecolor) RecolorTiles();
-
-        _scrollPanel.ResumeLayout();
         _flowLayout.ResumeLayout();
-    }
-
-    /// <summary>
-    /// Colors all application tiles in the list. Should be called after one or more tiles were removed.
-    /// </summary>
-    private void RecolorTiles()
-    {
-        _lastTileLight = false;
-
-        foreach (var tile in _flowLayout.Controls.OfType<AppTile>().Where(tile => tile.Visible))
-        {
-            // Alternate between light and dark tiles
-            tile.BackColor = _lastTileLight ? TileColorDark : TileColorLight;
-            _lastTileLight = !_lastTileLight;
-        }
+        _scrollPanel.ResumeLayout();
     }
     #endregion
 }
