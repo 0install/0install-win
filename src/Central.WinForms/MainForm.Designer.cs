@@ -241,6 +241,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
             this.tileListCatalog.Name = "tileListCatalog";
+            this.tileListCatalog.ShowFilters = true;
             // 
             // panelBottom
             // 

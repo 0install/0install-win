@@ -16,6 +16,15 @@ public class AppTileList : UserControl
     /// </summary>
     public readonly HintTextBox TextSearch;
 
+    /// <summary>Allows the user to filter the <see cref="AppTile"/>s by category.</summary>
+    private readonly ComboBox _comboCategory;
+
+    /// <summary>Contains <see cref="TextSearch"/> and <see cref="_comboCategory"/>.</summary>
+    private readonly Panel _filterPanel;
+
+    /// <summary>Allows the user to include <see cref="AppTile"/>s for applications that require a terminal, reporting how many are hidden.</summary>
+    private readonly CheckBox _checkBoxIncludeTerminal;
+
     /// <summary>Displays <see cref="AppTile"/>s in top-bottom list.</summary>
     private readonly FlowLayoutPanel _flowLayout;
 
@@ -27,6 +36,13 @@ public class AppTileList : UserControl
 
     /// <summary><see cref="AppTile"/>s prepared by <see cref="QueueNewTile"/>, waiting to be added to <see cref="_flowLayout"/>.</summary>
     private readonly List<Control> _appTileQueue = [];
+
+    /// <summary>The category currently selected in <see cref="_comboCategory"/>; <c>null</c> for all categories.</summary>
+    /// <remarks>Kept separate from <see cref="_comboCategory"/> so that the selection survives rebuilds of its item list.</remarks>
+    private string? _selectedCategory;
+
+    /// <summary><c>true</c> while <see cref="UpdateCategories"/> is rebuilding the items in <see cref="_comboCategory"/>.</summary>
+    private bool _updatingCategories;
     #endregion
 
     #region Properties
@@ -51,6 +67,25 @@ public class AppTileList : UserControl
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool MachineWide { get; set; }
+
+    private bool _showFilters;
+
+    /// <summary>
+    /// Show the filters other than the name/summary search.
+    /// </summary>
+    [Category("Behavior"), Description("Show the filters other than the name/summary search.")]
+    [DefaultValue(false)]
+    public bool ShowFilters
+    {
+        get => _showFilters;
+        set
+        {
+            _showFilters = value;
+            _comboCategory.Visible = _checkBoxIncludeTerminal.Visible = value;
+            UpdateFilterPanelHeight();
+            RefilterTiles();
+        }
+    }
     #endregion
 
     #region Constructor
@@ -67,13 +102,40 @@ public class AppTileList : UserControl
 
         TextSearch = new HintTextBox
         {
-            Dock = DockStyle.Top,
-            Height = 20,
+            Dock = DockStyle.Fill,
             HintText = Resources.Search,
             ShowClearButton = true,
             TabIndex = 0
         };
         TextSearch.TextChanged += delegate { RefilterTiles(); };
+
+        // Note: Must set SelectedIndex before subscribing, since the handler uses fields that do not exist yet
+        _comboCategory = new ComboBox
+        {
+            Dock = DockStyle.Right,
+            Width = 120,
+            DropDownWidth = 200,
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            MaxDropDownItems = 16,
+            AccessibleName = Resources.Categories,
+            Visible = false,
+            TabIndex = 1
+        };
+        _comboCategory.Items.Add(Resources.AllCategories);
+        _comboCategory.SelectedIndex = 0;
+        _comboCategory.SelectedIndexChanged += delegate
+        {
+            if (_updatingCategories) return;
+            _selectedCategory = (_comboCategory.SelectedIndex <= 0) ? null : (string)_comboCategory.SelectedItem;
+            RefilterTiles();
+        };
+
+        // Must add fill control first for docking to work correctly
+        _filterPanel = new Panel {Dock = DockStyle.Top, TabIndex = 0, Controls = {TextSearch, _comboCategory}};
+
+        // Text boxes and drop-downs force their own font-derived heights
+        TextSearch.SizeChanged += delegate { UpdateFilterPanelHeight(); };
+        _comboCategory.SizeChanged += delegate { UpdateFilterPanelHeight(); };
 
         _flowLayout = new FlowLayoutPanel
         {
@@ -91,9 +153,24 @@ public class AppTileList : UserControl
             TabIndex = 1
         };
 
+        // Note: Command-line apps are hidden by default; the hidden count keeps them discoverable
+        _checkBoxIncludeTerminal = new CheckBox
+        {
+            Dock = DockStyle.Bottom,
+            Height = 20,
+            Padding = new Padding(left: 4, 0, 0, 0),
+            UseMnemonic = false, // App counts must not be interpreted as access keys
+            Visible = false,
+            TabIndex = 2
+        };
+        _checkBoxIncludeTerminal.CheckedChanged += delegate { RefilterTiles(); };
+
         // Must add scroll panel first for docking to work correctly
         Controls.Add(_scrollPanel);
-        Controls.Add(TextSearch);
+        Controls.Add(_filterPanel);
+        Controls.Add(_checkBoxIncludeTerminal);
+
+        UpdateFilterPanelHeight();
 
         Resize += delegate
         {
@@ -138,6 +215,7 @@ public class AppTileList : UserControl
     public void AddQueuedTiles()
     {
         FlushQueue();
+        UpdateCategories();
         RefilterTiles();
     }
 
@@ -197,6 +275,8 @@ public class AppTileList : UserControl
         _tileDictionary.Remove(tile.InterfaceUri);
         tile.Dispose();
 
+        // Note: Deliberately does not call UpdateCategories(), since a changed app is represented as a removal
+        // followed by an addition and dropping a category in-between would reset the user's selection.
         RefilterTiles();
     }
 
@@ -211,6 +291,8 @@ public class AppTileList : UserControl
         _flowLayout.Height = 0;
 
         _tileDictionary.Clear();
+
+        UpdateCategories();
     }
 
     /// <summary>
@@ -222,7 +304,27 @@ public class AppTileList : UserControl
 
     #region Helpers
     /// <summary>
-    /// Applies the search filter to the list of tiles and recolors them. Should be called after the filter or the tiles were changed.
+    /// Sets the height of <see cref="_filterPanel"/> to fit its content.
+    /// </summary>
+    private void UpdateFilterPanelHeight()
+        => _filterPanel.Height = Math.Max(TextSearch.Height, _showFilters ? _comboCategory.Height : 0);
+
+    /// <summary>
+    /// Checks whether a tile matches the current search and category filters. Ignores <see cref="IsExcludedAsTerminal"/>.
+    /// </summary>
+    private bool IsMatch(AppTile tile)
+        => (tile.AppName.ContainsIgnoreCase(TextSearch.Text) || tile.AppSummary.ContainsIgnoreCase(TextSearch.Text))
+        && (_selectedCategory == null || tile.Categories.Contains(_selectedCategory, StringComparer.OrdinalIgnoreCase));
+
+    /// <summary>
+    /// Checks whether a tile is held back by <see cref="_checkBoxIncludeTerminal"/>.
+    /// </summary>
+    /// <remarks>Kept separate from <see cref="IsMatch"/> so that <see cref="RefilterTiles"/> can count what this hides.</remarks>
+    private bool IsExcludedAsTerminal(AppTile tile)
+        => _showFilters && !_checkBoxIncludeTerminal.Checked && tile.NeedsTerminal;
+
+    /// <summary>
+    /// Applies the filters to the list of tiles and recolors them. Should be called after the filters or the tiles were changed.
     /// </summary>
     private void RefilterTiles()
     {
@@ -231,24 +333,68 @@ public class AppTileList : UserControl
 
         int height = 0;
         bool lastTileLight = false;
+        int hidden = 0;
         foreach (var tile in _flowLayout.Controls.OfType<AppTile>())
         {
-            if (tile.AppName.ContainsIgnoreCase(TextSearch.Text)
-             || tile.AppSummary.ContainsIgnoreCase(TextSearch.Text))
+            bool matches = IsMatch(tile);
+            bool visible = matches && !IsExcludedAsTerminal(tile);
+
+            if (visible)
             {
                 // Alternate between light and dark tiles
                 tile.BackColor = lastTileLight ? TileColorDark : TileColorLight;
                 lastTileLight = !lastTileLight;
 
                 height += tile.Height;
-                tile.Visible = true;
             }
-            else tile.Visible = false;
+            else if (matches) hidden++;
+
+            tile.Visible = visible;
         }
         _flowLayout.Height = height;
 
+        // Report how many tiles the command-line filter is holding back, taking the other filters into account
+        _checkBoxIncludeTerminal.Text = (hidden == 0)
+            ? Resources.IncludeCommandLineApps
+            : string.Format(Resources.IncludeCommandLineAppsHidden, hidden);
+
         _flowLayout.ResumeLayout();
         _scrollPanel.ResumeLayout();
+    }
+
+    /// <summary>
+    /// Rebuilds the list of categories offered for filtering based on the categories the tiles actually have.
+    /// </summary>
+    private void UpdateCategories()
+    {
+        var categories = _flowLayout.Controls.OfType<AppTile>()
+                                    .SelectMany(tile => tile.Categories)
+                                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                                    .OrderBy(x => x, StringComparer.CurrentCultureIgnoreCase)
+                                    .ToList();
+
+        // Avoid closing an open drop-down and flickering when nothing changed
+        if (categories.SequenceEqual(_comboCategory.Items.Cast<string>().Skip(1), StringComparer.Ordinal)) return;
+
+        _updatingCategories = true;
+        _comboCategory.BeginUpdate();
+        try
+        {
+            _comboCategory.Items.Clear();
+            _comboCategory.Items.Add(Resources.AllCategories);
+            foreach (string category in categories)
+                _comboCategory.Items.Add(category);
+
+            // Drop a selection that no longer exists
+            int index = (_selectedCategory == null) ? 0 : _comboCategory.Items.IndexOf(_selectedCategory);
+            if (index < 0) _selectedCategory = null;
+            _comboCategory.SelectedIndex = Math.Max(index, 0);
+        }
+        finally
+        {
+            _comboCategory.EndUpdate();
+            _updatingCategories = false;
+        }
     }
     #endregion
 }

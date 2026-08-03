@@ -30,6 +30,16 @@ public sealed partial class AppTile : UserControl
     /// </summary>
     public string AppSummary => labelSummary.Text;
 
+    /// <summary>
+    /// The categories the application this tile represents belongs to.
+    /// </summary>
+    public IReadOnlyCollection<string> Categories { get; private set; } = [];
+
+    /// <summary>
+    /// Indicates whether the application this tile represents requires a terminal to run.
+    /// </summary>
+    public bool NeedsTerminal { get; private set; }
+
     private AppTileStatus _status;
 
     /// <summary>
@@ -85,6 +95,8 @@ public sealed partial class AppTile : UserControl
         if (feed == null) return this;
 
         labelSummary.Text = feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
+        Categories = feed.Categories.Select(x => x.Name).WhereNotNull().ToList();
+        NeedsTerminal = feed.NeedsTerminal;
         buttonRunWithOptions.Visible = true;
 
         if (feed.NeedsTerminal)

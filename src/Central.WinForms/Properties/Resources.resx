@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All categories</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Enter '{0}' to see a list of available commands.</value>
@@ -140,6 +146,12 @@
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoring duplicate app entry for '{0}'.</value>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Include command-line apps</value>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Include command-line apps ({0} hidden)</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate (start menu, etc.)</value>

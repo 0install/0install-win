@@ -61,11 +61,29 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All categories.
+        /// </summary>
+        internal static string AllCategories {
+            get {
+                return ResourceManager.GetString("AllCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
             }
         }
         
@@ -129,6 +147,24 @@ namespace ZeroInstall.Central.WinForms.Properties {
         internal static string IgnoringDuplicateAppListEntry {
             get {
                 return ResourceManager.GetString("IgnoringDuplicateAppListEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include command-line apps.
+        /// </summary>
+        internal static string IncludeCommandLineApps {
+            get {
+                return ResourceManager.GetString("IncludeCommandLineApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include command-line apps ({0} hidden).
+        /// </summary>
+        internal static string IncludeCommandLineAppsHidden {
+            get {
+                return ResourceManager.GetString("IncludeCommandLineAppsHidden", resourceCulture);
             }
         }
         
