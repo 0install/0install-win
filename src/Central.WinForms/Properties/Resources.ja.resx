@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>すべてのカテゴリ</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>カテゴリ</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>利用可能なコマンドの一覧を表示するには、「{0} 」と入力してください。</value>
@@ -90,6 +98,14 @@
     <value>「{0} 」という重複するアプリエントリは無視します。</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>コマンドラインアプリを含める</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>コマンドラインアプリを含む（{0} は非表示）</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>統合（スタートメニューなど）</value>
     <comment>Automatically translated.</comment>
@@ -99,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>一般的な操作を行います</value>
+    <value>一般的な機能はすべて備えています</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
@@ -212,7 +228,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>クリックして Zero Install v{0} に更新してください...</value>
+    <value>クリックして Zero Install v{0} に更新してください ...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">

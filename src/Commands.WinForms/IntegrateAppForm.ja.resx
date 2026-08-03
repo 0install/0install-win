@@ -135,11 +135,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>機能の登録</value>
+    <value>登録機能</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>アプリケーションが処理できるファイルの種類など、その機能に関する情報をオペレーティングシステムに伝えます。</value>
+    <value>アプリケーションが処理できるファイル形式など、その機能に関する情報をオペレーティングシステムに伝えます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>サポートされているURLプロトコル用のデフォルトのハンドラ（これがない場合でも「プログラムで開く」は機能します）</value>
+    <value>サポートされているURLプロトコル用のデフォルトのハンドラ（これがない場合でも「プログラムで開く」機能は動作します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

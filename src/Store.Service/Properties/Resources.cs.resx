@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="NoPortableMode" xml:space="preserve">
-    <value>Služba nemůže běžet v přenosném režimu!</value>
+    <value>Služba nelze spustit v přenosném režimu!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">

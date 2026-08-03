@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Tutte le categorie</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annulla</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categorie</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Digita "{0}" per visualizzare l'elenco dei comandi disponibili.</value>
@@ -71,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Fai clic qui per configurare Zero Install su questo computer...</value>
+    <value>Clicca qui per configurare Zero Install su questo computer...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -88,6 +96,14 @@
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Si ignora la voce duplicata relativa all'app "{0}".</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Includere le applicazioni a riga di comando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Includere le applicazioni da riga di comando ({0} e nascosta)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -111,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Altre app</value>
+    <value>Altra app</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -128,12 +144,12 @@ aggiungila a "Le mie app".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integra" un'app per inserirla
+    <value>"Integra" un'applicazione per inserirla
 nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Qui puoi gestire l'elenco delle tue app preferite.</value>
+    <value>Qui puoi gestire il tuo elenco di app preferite.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -153,7 +169,7 @@ nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Modifica dell'integrazione</value>
+    <value>Modifica l'integrazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
@@ -255,7 +271,7 @@ partire da zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Sei sicuro di voler utilizzare una connessione non crittografata con un server Sync?
+    <value>Sei sicuro di voler utilizzare una connessione non crittografata a un server Sync?
 Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -264,7 +280,7 @@ Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Questa operazione rimuoverà automaticamente dalla cache le installazioni che non sono più necessarie dopo l'aggiornamento. Continua?
+    <value>Questa operazione rimuoverà automaticamente dalla cache le implementazioni che non sono più necessarie dopo l'aggiornamento. Continuare?
 Importante: anche le applicazioni che hai "Eseguito" in precedenza senza aggiungerle a "Le mie app" verranno rimosse dalla cache.  Dovrai essere online se deciderai di eseguirle nuovamente.</value>
     <comment>Automatically translated.</comment>
   </data>

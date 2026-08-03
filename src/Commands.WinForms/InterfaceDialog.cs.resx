@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Zobrazit verze, které tento systém nepodporuje</value>
+    <value>Zobrazit verze, které nejsou v tomto systému podporovány</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">

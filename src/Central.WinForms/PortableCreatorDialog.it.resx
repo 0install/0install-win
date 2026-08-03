@@ -83,9 +83,9 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Memorizza la configurazione di Zero Install e le applicazioni nella cache all'interno di un'unica directory.
+    <value>- Memorizza la configurazione di Zero Install e le applicazioni memorizzate nella cache all'interno di un'unica directory.
 - Non rende automaticamente portabili anche le applicazioni avviate tramite Zero Install.
-- Le versioni portatili di Zero Install non possono eseguire l'integrazione con il desktop (ad es. creare voci nel menu Start).
+- Le versioni portatili di Zero Install non possono eseguire l'integrazione con il desktop (ad esempio, creare voci nel menu Start).
 - Si consiglia invece di utilizzare la versione standard di Zero Install su più computer con Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>

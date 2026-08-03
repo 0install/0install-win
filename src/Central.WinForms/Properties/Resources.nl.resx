@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Alle categorieën</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categorieën</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Typ '{0}' om een lijst met beschikbare opdrachten te bekijken.</value>
@@ -88,6 +96,14 @@
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Duplicaat van de app '{0}' wordt genegeerd.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Inclusief opdrachtregelprogramma's</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Inclusief opdrachtregelprogramma's ({0} verborgen)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -149,7 +165,7 @@ in het startmenu of op het bureaublad te plaatsen.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Systeemwijde modus</value>
+    <value>Machinebrede modus</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -157,7 +173,7 @@ in het startmenu of op het bureaublad te plaatsen.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>Toevoegen aan "Mijn apps"</value>
+    <value>Toevoegen aan 'Mijn apps'</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
@@ -216,7 +232,7 @@ Wijzigingen opslaan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>U moet eerst de synchronisatie-instellingen voltooien.</value>
+    <value>U moet eerst de synchronisatie instellen.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -255,7 +271,7 @@ U kunt de gegevens op de server vervangen door aan te geven dat u de cryptosleut
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Weet u zeker dat u een niet-versleutelde verbinding met een Sync-server wilt gebruiken?
+    <value>Weet u zeker dat u een onversleutelde verbinding met een Sync-server wilt gebruiken?
 Versleutelde verbindingen gebruiken het voorvoegsel https://.</value>
     <comment>Automatically translated.</comment>
   </data>

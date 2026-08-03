@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Сообщает операционной системе о возможностях приложения, например о типах файлов, с которыми оно может работать.</value>
+    <value>Сообщает операционной системе о возможностях приложения, таких как типы файлов, с которыми оно может работать.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -319,7 +319,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Пункт в меню «Отправить»</value>
+    <value>Пункт в меню «Отправить в»</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">

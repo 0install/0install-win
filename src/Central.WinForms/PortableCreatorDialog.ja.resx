@@ -83,9 +83,9 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Zero Installの設定およびキャッシュされたアプリケーションは、単一のディレクトリ内に保存されます。
+    <value>- Zero Installの設定情報とキャッシュされたアプリケーションは、単一のディレクトリ内に保存されます。
 - Zero Install経由で起動されたアプリケーションは、自動的にポータブル版にはなりません。
-- Zero Installのポータブル版では、デスクトップへの統合（スタートメニュー項目の作成など）を行うことはできません。
+- Zero Installのポータブル版では、デスクトップへの統合（スタートメニューへの登録など）を行うことはできません。
 - 複数のコンピュータで使用する場合は、代わりにZero Install Syncを利用した通常のZero Installの使用をご検討ください。</value>
     <comment>Automatically translated.</comment>
   </data>

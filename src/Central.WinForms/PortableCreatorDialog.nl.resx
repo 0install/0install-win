@@ -83,9 +83,9 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Slaat de Zero Install-configuratie en in de cache opgeslagen applicaties op in één map.
+    <value>- Slaat de Zero Install-configuratie en in de cache opgeslagen applicaties op in één enkele map.
 - Maakt de via Zero Install gestarte applicaties niet automatisch ook draagbaar.
-- Draagbare versies van Zero Install kunnen geen integratie met het bureaublad uitvoeren (bijv. startmenu-items aanmaken).
+- Draagbare versies van Zero Install kunnen geen desktopintegratie uitvoeren (bijv. startmenu-items aanmaken).
 - Overweeg in plaats daarvan het gebruik van de reguliere Zero Install op meerdere computers met Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>

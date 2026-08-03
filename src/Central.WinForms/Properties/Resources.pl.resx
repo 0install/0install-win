@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Wszystkie kategorie</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorie</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Wpisz „{0} ”, aby wyświetlić listę dostępnych poleceń.</value>
@@ -88,6 +96,14 @@
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignorowanie zduplikowanego wpisu aplikacji „{0} ”.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Uwzględnij aplikacje działające z wiersza poleceń</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Uwzględnij aplikacje z wierszem poleceń ({0}, ukryte)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -165,7 +181,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Dodawane do sekcji „Moje aplikacje” i zintegrowane ze środowiskiem graficznym.</value>
+    <value>Dodawane do sekcji „Moje aplikacje” i zintegrowane ze środowiskiem pulpitu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -256,7 +272,7 @@ Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie p
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Czy na pewno chcesz korzystać z niezaszyfrowanego połączenia z serwerem Sync?
-Połączenia szyfrowane wykorzystują prefiks https://.</value>
+Zaszyfrowane połączenia wykorzystują prefiks https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
@@ -264,8 +280,8 @@ Połączenia szyfrowane wykorzystują prefiks https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które nie są już potrzebne po aktualizacji. Kontynuować?
-Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, musisz mieć dostęp do Internetu.</value>
+    <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które po aktualizacji nie są już potrzebne. Kontynuować?
+Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, konieczne będzie połączenie z Internetem.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

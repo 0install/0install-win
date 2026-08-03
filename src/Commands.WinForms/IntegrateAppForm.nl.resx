@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Neemt deze applicatie mee bij controles met de optie 'Alles bijwerken'.</value>
+    <value>Neemt deze applicatie mee bij controles met de optie "Alles bijwerken".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Informeert het besturingssysteem over de mogelijkheden van de applicatie, zoals de bestandstypen die deze kan verwerken.</value>
+    <value>Geeft aan het besturingssysteem informatie over de mogelijkheden van de applicatie, zoals de bestandstypen die deze kan verwerken.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Wordt automatisch gestart wanneer een geschikt medium (dvd, USB-stick, enz.) wordt geplaatst</value>
+    <value>Wordt automatisch gestart wanneer geschikte media (dvd, USB-stick, enz.) worden geplaatst</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">

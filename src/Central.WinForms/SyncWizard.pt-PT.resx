@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Este assistente pode ajudá-lo a resolver vários problemas de sincronização possíveis. Que problema pretende resolver?</value>
+    <value>Este assistente pode ajudá-lo a resolver vários problemas possíveis relacionados com a sincronização. Que problema pretende resolver?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -195,11 +195,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Como posso configurar o meu próprio servidor Sync?</value>
+    <value>Como posso configurar o meu próprio servidor de sincronização?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Registar</value>
+    <value>Registar-se</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Reiniciar chave de encriptação</value>
+    <value>Redefinir chave de encriptação</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">

@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Wybierz lub utwórz katalog, który będzie służył jako pamięć podręczna implementacji.</value>
+    <value>Proszę wybrać lub utworzyć katalog, który będzie służył jako pamięć podręczna implementacji.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -193,7 +193,7 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Pamięć</value>
+    <value>Pamięć masowa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

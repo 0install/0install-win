@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Los datos almacenados en el servidor están dañados</value>
+    <value>Los datos almacenados en el servidor están dañados.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>La clave de cifrado se utiliza para cifrar tus datos localmente antes de transmitirlos al servidor. Anota la clave sugerida o elige la tuya propia.</value>
+    <value>La clave de cifrado se utiliza para cifrar tus datos localmente antes de transmitirlos al servidor. Anota la clave sugerida o elige una propia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Quizá también te interese restablecer los datos locales en otros ordenadores en los que estés utilizando Zero Install Sync.</value>
+    <value>Quizá también te interese restablecer los datos locales en otros ordenadores en los que utilices Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">

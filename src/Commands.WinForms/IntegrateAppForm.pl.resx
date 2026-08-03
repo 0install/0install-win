@@ -287,7 +287,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Odpowiednik w wierszu poleceń</value>
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Domyślny program do zadań takich jak przeglądanie stron internetowych lub korzystanie z poczty elektronicznej</value>
+    <value>Domyślny program do zadań takich jak przeglądanie stron internetowych czy korzystanie z poczty elektronicznej</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Odpowiednik w wierszu poleceń</value>
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

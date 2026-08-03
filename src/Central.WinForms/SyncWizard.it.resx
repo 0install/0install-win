@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
-    <value>Inserisci qui sotto le tue credenziali di accesso al server Sync:</value>
+    <value>Inserisci qui sotto le tue credenziali di accesso per il server Sync:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Dopo aver creato un account, verificato il tuo indirizzo e-mail e annotato le tue credenziali di accesso, clicca su "Avanti".</value>
+    <value>Dopo aver creato un account, verificato il tuo indirizzo e-mail e preso nota delle tue credenziali di accesso, clicca su "Avanti".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync prende l'elenco delle applicazioni e le integrazioni sul desktop e le trasferisce automaticamente sugli altri computer.</value>
+    <value>Zero Install Sync acquisisce l'elenco delle applicazioni e le integrazioni sul desktop e le trasferisce automaticamente sugli altri computer.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">

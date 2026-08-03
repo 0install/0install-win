@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implémentation des répertoires de cache</value>
+    <value>Répertoires de cache d'implémentation</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -144,7 +144,7 @@
 - des applications téléchargées par Zero Install.
 
 Remarques :
-- Les traductions ne sont pas disponibles dans toutes les langues.
+- Les traductions ne sont pas disponibles pour toutes les langues.
 - Vous devez redémarrer Zero Install pour que les changements de langue prennent effet.</value>
     <comment>Automatically translated.</comment>
   </data>

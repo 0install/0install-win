@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>URL 协议</value>
+    <value>URL协议</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
@@ -303,7 +303,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
-    <value>Windows 资源管理器中的右键菜单选项</value>
+    <value>Windows 资源管理器中的右键菜单项</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
@@ -367,7 +367,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
-    <value>URL 协议</value>
+    <value>URL协议</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

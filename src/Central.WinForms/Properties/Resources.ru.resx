@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Все категории</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Введите «{0} », чтобы увидеть список доступных команд.</value>
@@ -90,6 +98,14 @@
     <value>Игнорирование дубликата записи о приложении «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Включить приложения с интерфейсом командной строки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Включить приложения командной строки ({0} скрыто)</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Интеграция (меню «Пуск» и т. д.)</value>
     <comment>Automatically translated.</comment>
@@ -99,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>выполняет стандартные задачи</value>
+    <value>выполняет обычные задачи</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
@@ -128,7 +144,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>«Интегрировать» приложение, чтобы поместить его
+    <value>«Интегрируйте» приложение, чтобы поместить его
 в меню «Пуск» или на рабочий стол.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -220,7 +236,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>Введенное вами имя пользователя и/или пароль неверны.</value>
+    <value>Введенные вами имя пользователя и/или пароль неверны.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
@@ -247,7 +263,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Не удалось загрузить каталог приложений.</value>
+    <value>Не удается загрузить каталог приложений.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
@@ -269,7 +285,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Работает...</value>
+    <value>Выполняется...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

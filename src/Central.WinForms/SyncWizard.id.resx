@@ -139,11 +139,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Setelah Anda membuat akun, memverifikasi alamat email, dan mencatat kredensial login Anda, klik 'Selanjutnya'.</value>
+    <value>Setelah Anda membuat akun, memverifikasi alamat email, dan mencatat kredensial login Anda, klik 'Berikutnya'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Anda akan mengganti daftar aplikasi lokal Anda dengan data yang tersimpan di server Sync. Semua perubahan yang telah Anda buat secara lokal tetapi belum disinkronkan akan hilang!</value>
+    <value>Anda akan mengganti daftar aplikasi lokal Anda dengan data yang tersimpan di server Sync. Setiap perubahan yang telah Anda buat secara lokal namun belum disinkronkan akan hilang!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Anda akan mengganti data yang tersimpan di server Sync dengan daftar aplikasi lokal Anda. Setiap perubahan yang telah Anda lakukan di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
+    <value>Anda akan mengganti data yang tersimpan di server Sync dengan daftar aplikasi lokal Anda. Setiap perubahan yang telah Anda buat di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Pengaturan sinkronisasi selesai</value>
+    <value>Pengaturan Sinkronisasi selesai</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">

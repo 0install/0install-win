@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Chcę zmienić swój klucz kryptograficzny</value>
+    <value>Chcę zmienić mój klucz kryptograficzny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Odpowiednik w wierszu poleceń</value>
+    <value>Odpowiednik wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do wykonania początkowej zmiany.</value>
+    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do przeprowadzenia początkowej zmiany.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Wprowadź klucz kryptograficzny, którego używałeś wcześniej na tym i/lub innych komputerach:</value>
+    <value>Wprowadź klucz kryptograficzny używany wcześniej na tym i/lub innych komputerach:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Za chwilę zastąpisz lokalną listę aplikacji danymi przechowywanymi na serwerze Sync. Wszelkie zmiany wprowadzone lokalnie, ale jeszcze niezsynchronizowane, zostaną utracone!</value>
+    <value>Za chwilę lista aplikacji przechowywana lokalnie zostanie zastąpiona danymi przechowywanymi na serwerze Sync. Wszelkie zmiany wprowadzone lokalnie, ale jeszcze niezsynchronizowane, zostaną utracone!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Czy to pierwszy komputer, na którym konfigurujesz Zero Install Sync?</value>
+    <value>Czy to pierwszy komputer, na którym konfigurujesz usługę Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Korzystanie z serwera niestandardowego:</value>
+    <value>Użyj serwera niestandardowego:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">

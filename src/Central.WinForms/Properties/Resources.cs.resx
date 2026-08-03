@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Všechny kategorie</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Zrušit</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorie</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Zadejte „{0} “, abyste zobrazili seznam dostupných příkazů.</value>
@@ -71,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Klikněte zde pro instalaci Zero Install na tomto počítači...</value>
+    <value>Kliknutím nastavíte Zero Install na tomto počítači...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -88,6 +96,14 @@
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoruje duplicitní záznam aplikace pro „{0} “.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Zahrnuje aplikace pro příkazový řádek</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Zahrnuje aplikace pro příkazový řádek ({0}, skryté)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -120,7 +136,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Pokud se vám aplikace líbí,
-přidejte ji do „Moje aplikace“.</value>
+přidejte ji do složky „Moje aplikace“.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
@@ -165,7 +181,7 @@ v nabídce Start nebo na ploše.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Přidává se do sekce „Moje aplikace“ a integruje se do pracovního prostředí.</value>
+    <value>Přidáno do sekce „Moje aplikace“ a integrováno do desktopového prostředí.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -208,7 +224,7 @@ Uložit změny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Hledat</value>
+    <value>Vyhledávání</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
@@ -264,8 +280,8 @@ Data uložená na serveru můžete nahradit tím, že zvolíte možnost, že si 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Pokračovat?
-Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do „Mých aplikací“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
+    <value>Tímto krokem se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Chcete pokračovat?
+Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do složky „Moje aplikace“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
