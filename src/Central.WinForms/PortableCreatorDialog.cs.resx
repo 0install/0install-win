@@ -84,7 +84,7 @@
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Ukládá konfiguraci Zero Install a aplikace v mezipaměti do jediného adresáře.
-- Aplikace spuštěné přes Zero Install se automaticky nestávají také přenosnými.
+- Aplikace spuštěné prostřednictvím Zero Install se automaticky nestávají také přenosnými.
 - Přenosné verze Zero Install neumožňují integraci do pracovní plochy (např. vytváření položek v nabídce Start).
 - Zvažte místo toho použití běžné verze Zero Install na více počítačích s funkcí Zero Install Sync.</value>
     <comment>Automatically translated.</comment>

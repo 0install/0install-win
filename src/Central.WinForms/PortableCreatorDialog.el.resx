@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Φορητός δημιουργός</value>
+    <value>Δημιουργός φορητών εφαρμογών</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
@@ -71,7 +71,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Εγκατάσταση</value>
+    <value>Ανάπτυξη</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Αποθηκεύει τις ρυθμίσεις του Zero Install και τις εφαρμογές που έχουν αποθηκευτεί στην προσωρινή μνήμη σε έναν ενιαίο κατάλογο.
+    <value>- Αποθηκεύει τη διαμόρφωση του Zero Install και τις εφαρμογές που έχουν αποθηκευτεί στην προσωρινή μνήμη σε έναν ενιαίο κατάλογο.
 - Δεν καθιστά αυτόματα φορητές και τις εφαρμογές που εκκινούνται μέσω του Zero Install.
 - Οι φορητές εκδόσεις του Zero Install δεν μπορούν να πραγματοποιήσουν ενσωμάτωση στην επιφάνεια εργασίας (π.χ. να δημιουργήσουν καταχωρήσεις στο μενού «Έναρξη»).
 - Εξετάστε το ενδεχόμενο να χρησιμοποιήσετε το κανονικό Zero Install σε πολλούς υπολογιστές με το Zero Install Sync.</value>

@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>내 로컬 데이터를 교체하고 싶습니다.</value>
+    <value>로컬 데이터를 교체하고 싶습니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>네, 이것이 최초의 컴퓨터입니다.</value>
+    <value>네, 이것이 바로 최초의 컴퓨터입니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Sync 서버에 저장된 데이터를 로컬 애플리케이션 목록으로 대체하려고 합니다. 다른 컴퓨터에서 변경했지만 아직 이 컴퓨터와 동기화되지 않은 모든 내용은 손실됩니다!</value>
+    <value>Sync 서버에 저장된 데이터를 로컬 애플리케이션 목록으로 대체하려고 합니다. 다른 컴퓨터에서 변경했지만 아직 이 컴퓨터와 동기화되지 않은 내용은 모두 사라집니다!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 바탕화면 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
+    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 바탕 화면 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">

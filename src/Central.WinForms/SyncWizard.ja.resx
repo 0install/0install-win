@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>他のコンピュータでは、「オプション」ウィンドウを使用してキーを入力してください。このウィザードは初期設定の変更にのみ必要であるため、他のコンピュータでは使用しないでください。</value>
+    <value>「オプション」ウィンドウを使用して、他のコンピュータでキーを入力してください。このウィザードは初期設定の変更にのみ必要であるため、他のコンピュータでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>このキーは秘密にしておき、パスワードには別のものを使用してください。そうすれば、たとえサーバーが侵害されたとしても、誰もあなたのデータにアクセスすることはできません。</value>
+    <value>この鍵は秘密にしておき、パスワードには別のものを使用してください。そうすれば、万が一サーバーが侵害されたとしても、誰もあなたのデータにアクセスできなくなります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>また、Zero Install Sync を使用している他のコンピュータ上のローカルデータをリセットすることも検討してください。</value>
+    <value>また、Zero Install Sync を使用している他のコンピューター上のローカルデータをリセットすることも検討してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>サーバー URI</value>
+    <value>サーバーURI</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

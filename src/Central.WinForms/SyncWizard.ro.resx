@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Nu, am configurat deja alte calculatoare</value>
+    <value>Nu, am configurat deja alte computere</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>După ce v-ați creat un cont, v-ați verificat adresa de e-mail și ați notat datele de autentificare, faceți clic pe „Următorul”.</value>
+    <value>După ce v-ați creat un cont, v-ați verificat adresa de e-mail și ați notat datele de autentificare, faceți clic pe „Next”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Cum îmi configurez propriul server Sync?</value>
+    <value>Cum îmi configurez propriul server de sincronizare?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Resetează serverul de sincronizare</value>
+    <value>Resetare server de sincronizare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">

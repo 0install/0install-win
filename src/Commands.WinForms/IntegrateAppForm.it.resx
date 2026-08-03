@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Impostazione predefinita</value>
+    <value>Impostazioni predefinite</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
@@ -243,7 +243,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Impostazione predefinita</value>
+    <value>Impostazioni predefinite</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Impostazione predefinita</value>
+    <value>Impostazioni predefinite</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">

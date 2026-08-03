@@ -58,8 +58,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Toutes les catégories</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Catégories</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
@@ -89,6 +97,14 @@
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignorer le duplicata d'entrée dans la liste d'applications pour '{0}'.</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Inclut les applications en ligne de commande</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Inclut les applications en ligne de commande ({0}, masquées)</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Intégrer (menu démarrer, etc.)</value>

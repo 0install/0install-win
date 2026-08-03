@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>创建账户、验证电子邮箱地址并记录登录凭据后，请点击“下一步”。</value>
+    <value>创建账户、验证电子邮箱地址并记下登录凭据后，请点击“下一步”。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de 提供免费账户用于存储同步数据。所有数据在传输至服务器之前都会在本地进行加密。如果您愿意，也可以使用自己的服务器进行存储。</value>
+    <value>0install.de 提供免费账户用于存储同步数据。所有数据在传输至服务器之前均会在本地进行加密。如果您愿意，也可以使用自己的服务器进行存储。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync 会获取您的应用程序列表和桌面集成设置，并自动将其同步到您的其他计算机上。</value>
+    <value>Zero Install Sync 会将您的应用程序列表和桌面集成设置自动同步到您的其他计算机上。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>同步设置完成</value>
+    <value>同步设置已完成</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">

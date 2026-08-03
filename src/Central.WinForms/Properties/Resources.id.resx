@@ -58,12 +58,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Semua kategori</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Batal</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategori</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Ketik '{0}' untuk melihat daftar perintah yang tersedia.</value>
+    <value>Masukkan '{0}' untuk melihat daftar perintah yang tersedia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -88,6 +96,14 @@
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Mengabaikan entri aplikasi duplikat untuk '{0}'.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Termasuk aplikasi baris perintah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Termasuk aplikasi baris perintah ({0}, tersembunyi)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -265,7 +281,7 @@ Koneksi terenkripsi menggunakan awalan https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Ini akan secara otomatis menghapus implementasi dari cache yang tidak lagi diperlukan setelah pembaruan. Lanjutkan?
-Penting: Aplikasi yang sebelumnya Anda "Jalankan" tanpa menambahkannya ke "Aplikasi Saya" juga akan dihapus dari cache.  Anda harus terhubung ke internet jika ingin menjalankannya kembali.</value>
+Penting: Aplikasi yang sebelumnya Anda "Jalankan" tanpa menambahkannya ke "Aplikasi Saya" juga akan dihapus dari cache. Anda harus terhubung ke internet jika ingin menjalankannya kembali.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

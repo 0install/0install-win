@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>모든 카테고리</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>카테고리</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>사용 가능한 명령어 목록을 보려면 '{0}'를 입력하십시오.</value>
@@ -79,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>모든 사용자 대상</value>
+    <value>모든 사용자용</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
@@ -90,12 +98,20 @@
     <value>'{0}'에 대한 중복 앱 항목을 무시합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>명령줄 앱 포함</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>명령줄 앱 포함 ({0} 는 숨김)</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>통합 (시작 메뉴 등)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>일반적인 앱</value>
+    <value>일반 앱</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -182,7 +198,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>{0} 에서 선택한 항목을 목록에서 제거하시겠습니까?</value>
+    <value>목록에서 선택한 항목 {0} 을 제거하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -233,7 +249,7 @@
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>아니요
-기존 설정 수정</value>
+기존 설정 편집</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">

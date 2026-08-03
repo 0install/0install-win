@@ -165,7 +165,7 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Gestionare cont</value>
+    <value>Gestionarea contului</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
@@ -193,7 +193,7 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">
-    <value>Stocare</value>
+    <value>Spațiu de stocare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">

@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Toate categoriile</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Anulare</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categorii</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Introduceți „{0} ” pentru a vedea o listă a comenzilor disponibile.</value>
@@ -87,7 +95,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Se ignoră intrarea duplicată a aplicației „{0} ”.</value>
+    <value>Se ignoră înregistrarea duplicată a aplicației „{0} ”.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>Include aplicații cu linie de comandă</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>Include aplicații cu linie de comandă ({0} ascunse)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -145,7 +161,7 @@ adaug-o la „Aplicațiile mele”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Cu Zero Install nu mai este nevoie să instalați aplicațiile.</value>
+    <value>Cu Zero Install nu mai este necesar să instalați aplicațiile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -199,7 +215,7 @@ Sunteți sigur că doriți să plasați acolo o versiune portabilă a Zero Insta
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Nu
-Ignoră modificările</value>
+Anulează modificările</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -224,7 +240,7 @@ Salvează modificările</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Cheia Crypto pe care ați introdus-o este incorectă.</value>
+    <value>Cheia criptografică introdusă este incorectă.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
@@ -233,7 +249,7 @@ Salvează modificările</value>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Nu
-editați setările existente</value>
+modifică setările existente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">

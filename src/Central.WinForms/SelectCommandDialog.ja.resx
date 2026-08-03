@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>バージョンを固定</value>
+    <value>ピン留めバージョン</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">

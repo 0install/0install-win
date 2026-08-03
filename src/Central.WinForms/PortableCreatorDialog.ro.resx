@@ -79,13 +79,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aici puteți crea o versiune portabilă a Zero Install, de exemplu pentru a o utiliza pe o unitate USB. Discul țintă trebuie să fie formatat în sistemul de fișiere NTFS.</value>
+    <value>Aici puteți crea o versiune portabilă a Zero Install, de exemplu pentru a fi utilizată pe o memorie USB. Discul țintă trebuie să fie formatat în sistemul de fișiere NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Stochează configurația Zero Install și aplicațiile stocate în cache într-un singur director.
-- Nu face automat ca aplicațiile lansate prin Zero Install să fie și ele portabile.
-- Versiunile portabile ale Zero Install nu pot realiza integrarea cu desktopul (de exemplu, crearea de intrări în meniul Start).
+- Nu face automat ca aplicațiile lansate prin Zero Install să fie și portabile.
+- Versiunile portabile ale Zero Install nu pot realiza integrarea în desktop (de exemplu, crearea de intrări în meniul Start).
 - Luați în considerare utilizarea versiunii obișnuite a Zero Install pe mai multe computere, împreună cu Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>

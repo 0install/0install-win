@@ -58,9 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllCategories" xml:space="preserve">
+    <value>所有分类</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
     <comment>Manually overriden.</comment>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>分类</value>
+    <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>输入“{0} ”以查看可用命令列表。</value>
@@ -90,6 +98,14 @@
     <value>忽略“{0} ”的重复应用条目。</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="IncludeCommandLineApps" xml:space="preserve">
+    <value>包括命令行应用程序</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
+    <value>包括命令行应用程序（{0} 隐藏）</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="Integrate" xml:space="preserve">
     <value>集成（开始菜单等）</value>
     <comment>Automatically translated.</comment>
@@ -115,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>还执行其他操作</value>
+    <value>执行其他操作</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
@@ -129,11 +145,11 @@
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>将应用程序“集成”到
-开始菜单或桌面上。</value>
+“开始”菜单或桌面上。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>您可以在这里管理您的“收藏”应用列表。</value>
+    <value>您可以在这里管理您的收藏应用列表。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -265,7 +281,7 @@
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
-重要提示：您之前曾“运行”过但未将其添加到“我的应用”中的应用程序也将从缓存中删除。如果您决定再次运行它们，则需要连接互联网。</value>
+重要提示：您之前曾“运行”过但未将其添加到“我的应用”中的应用程序也将从缓存中删除。如果您决定再次运行这些应用，则需要连接网络。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
