@@ -197,17 +197,21 @@ internal sealed partial class MainForm : Form
         if (clickHandler == null) throw new ArgumentNullException(nameof(clickHandler));
         #endregion
 
-        var targetLocation = labelNotificationBar.Location;
-        labelNotificationBar.Location -= new Size(0, labelNotificationBar.Height);
-        labelNotificationBar.Text = message;
-        labelNotificationBar.Show();
-        while (labelNotificationBar.Location != targetLocation)
-        {
-            await Task.Delay(10);
-            labelNotificationBar.Location += new Size(0, 1);
-        }
-
+        // Set up front, so clicks during the slide-in are not lost
         _notificationBarClickHandler = clickHandler;
+        labelNotificationBar.Text = message;
+
+        var targetLocation = labelNotificationBar.Location;
+        int height = labelNotificationBar.Height;
+        labelNotificationBar.Location = targetLocation - new Size(0, height);
+        labelNotificationBar.Show();
+
+        const int steps = 8;
+        for (int i = 1; i <= steps; i++)
+        {
+            await Task.Delay(15);
+            labelNotificationBar.Location = targetLocation - new Size(0, height * (steps - i) / steps);
+        }
     }
 
     private Action? _notificationBarClickHandler;
