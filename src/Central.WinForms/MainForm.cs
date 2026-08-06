@@ -132,12 +132,6 @@ internal sealed partial class MainForm : Form
         Hide();
         _handler.Cancel();
     }
-
-    private void MainForm_MouseWheel(object sender, MouseEventArgs e)
-    {
-        if (tabControlApps.SelectedTab == tabPageAppList) tileListMyApps.PerformScroll(e.Delta);
-        else if (tabControlApps.SelectedTab == tabPageCatalog) tileListCatalog.PerformScroll(e.Delta);
-    }
     #endregion
 
     #region Drag and drop handling
@@ -166,26 +160,28 @@ internal sealed partial class MainForm : Form
     #endregion
 
     #region Focus handling
+    /// <summary>
+    /// The <see cref="AppTileList"/> on the currently selected tab.
+    /// </summary>
+    private AppTileList? ActiveTileList
+        => tabControlApps.SelectedTab == tabPageAppList
+            ? tileListMyApps
+            : tabControlApps.SelectedTab == tabPageCatalog
+                ? tileListCatalog
+                : null;
+
     private void tabControlApps_KeyPress(object sender, KeyPressEventArgs e)
     {
-        // Redirect text input to appropriate search box
-        if (tabControlApps.SelectedTab == tabPageAppList)
-        {
-            if (!tileListMyApps.TextSearch.Focused)
-            {
-                tileListMyApps.TextSearch.Focus();
-                SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
-            }
-        }
-        else if (tabControlApps.SelectedTab == tabPageCatalog)
-        {
-            if (!tileListCatalog.TextSearch.Focused)
-            {
-                tileListCatalog.TextSearch.Focus();
-                SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
-            }
-        }
+        // Note: TabControl.ProcessKeyPreview() also routes key presses from controls inside the tabs through here, but AppTileList handles those itself.
+        // Only input while the tab headers have the focus is left over.
+        if (!tabControlApps.Focused) return;
+
+        if (ActiveTileList?.HandleTypedChar(e.KeyChar) == true)
+            e.Handled = true;
     }
+
+    private void MainForm_MouseWheel(object sender, MouseEventArgs e)
+        => ActiveTileList?.PerformScroll(e.Delta);
     #endregion
 
     #region Notification Bar

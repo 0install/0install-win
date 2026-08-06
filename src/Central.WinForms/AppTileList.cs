@@ -43,6 +43,9 @@ public class AppTileList : UserControl
 
     /// <summary><c>true</c> while <see cref="UpdateCategories"/> is rebuilding the items in <see cref="_comboCategory"/>.</summary>
     private bool _updatingCategories;
+
+    /// <summary>Windows message for a character typed on the keyboard.</summary>
+    private const int WmChar = 0x0102;
     #endregion
 
     #region Properties
@@ -300,6 +303,64 @@ public class AppTileList : UserControl
     /// </summary>
     public void PerformScroll(int delta)
         => _scrollPanel.AutoScrollPosition = new Point(-_scrollPanel.AutoScrollPosition.X, -(_scrollPanel.AutoScrollPosition.Y + delta));
+    #endregion
+
+    #region Keyboard input
+    /// <summary>
+    /// Redirects keyboard input to <see cref="TextSearch"/>, so that the user can start typing a search without focusing it first.
+    /// </summary>
+    /// <param name="character">The character that was typed.</param>
+    /// <returns><c>true</c> if the character was consumed and must not be passed on to the focused control.</returns>
+    public bool HandleTypedChar(char character)
+    {
+        switch (character)
+        {
+            case (char)Keys.Escape:
+                // Note: Also applies while TextSearch itself is focused
+                if (TextSearch.TextLength == 0 || _comboCategory.DroppedDown) return false;
+                TextSearch.Clear();
+                TextSearch.Focus();
+                return true;
+
+            case (char)Keys.Back:
+                if (TextSearch.TextLength == 0 || FocusConsumesTypedChars()) return false;
+                TextSearch.Focus();
+                TextSearch.Text = TextSearch.Text.Substring(0, TextSearch.TextLength - 1);
+                TextSearch.SelectionStart = TextSearch.TextLength;
+                return true;
+
+            default:
+                // Note: Whitespace would be useless at the start of a search, but activates buttons and check boxes
+                if (char.IsControl(character) || char.IsWhiteSpace(character) || FocusConsumesTypedChars()) return false;
+                TextSearch.Focus();
+                TextSearch.AppendText(character.ToString());
+                return true;
+        }
+    }
+
+    /// <summary>
+    /// <see cref="TabControl"/> and similar containers only get key events for controls they contain via this method,
+    /// so <see cref="HandleTypedChar"/> must be applied here rather than in a key event handler.
+    /// </summary>
+    protected override bool ProcessKeyPreview(ref Message m)
+        => (m.Msg == WmChar && HandleTypedChar((char)(int)m.WParam))
+        || base.ProcessKeyPreview(ref m);
+
+    /// <summary>
+    /// Checks whether the control that currently has the keyboard focus handles typed characters itself.
+    /// </summary>
+    private bool FocusConsumesTypedChars()
+        => FindFocused(this) is TextBoxBase or ListControl or UpDownBase or DateTimePicker;
+
+    /// <summary>
+    /// Finds the control that currently has the keyboard focus within <paramref name="control"/>; <c>null</c> if the focus is elsewhere.
+    /// </summary>
+    private static Control? FindFocused(Control control)
+        => control.Focused
+            ? control
+            : control.Controls.OfType<Control>().FirstOrDefault(x => x.ContainsFocus) is {} child
+                ? FindFocused(child)
+                : null;
     #endregion
 
     #region Helpers
