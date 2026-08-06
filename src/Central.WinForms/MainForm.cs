@@ -321,10 +321,23 @@ internal sealed partial class MainForm : Form
     //--------------------//
 
     #region Messages
+    private bool _updateMyAppsPending;
+
     protected override void WndProc(ref Message m)
     {
         if (m.Msg == IntegrationManager.ChangedWindowMessageID)
-            BeginInvoke(_tileManagement.UpdateMyApps);
+        {
+            // Coalesce bursts of change notifications
+            if (!_updateMyAppsPending)
+            {
+                _updateMyAppsPending = true;
+                BeginInvoke(new Action(() =>
+                {
+                    _updateMyAppsPending = false;
+                    _tileManagement.UpdateMyApps();
+                }));
+            }
+        }
         else if (m.Msg == AddApp.AddedNonCatalogAppWindowMessageID)
             tabControlApps.SelectedTab = tabPageAppList;
 
