@@ -358,6 +358,15 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ({0} hidden).
+        /// </summary>
+        internal static string HiddenCount {
+            get {
+                return ResourceManager.GetString("HiddenCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignoring duplicate app entry for &apos;{0}&apos;..
         /// </summary>
         internal static string IgnoringDuplicateAppListEntry {

@@ -162,7 +162,6 @@ public class AppTileList : UserControl
             Dock = DockStyle.Bottom,
             Height = 20,
             Padding = new Padding(left: 4, 0, 0, 0),
-            UseMnemonic = false, // App counts must not be interpreted as access keys
             Visible = false,
             TabIndex = 2
         };
@@ -417,7 +416,7 @@ public class AppTileList : UserControl
         // Report how many tiles the command-line filter is holding back, taking the other filters into account
         _checkBoxIncludeTerminal.Text = (hidden == 0)
             ? Resources.IncludeCommandLineApps
-            : string.Format(Resources.IncludeCommandLineAppsHidden, hidden);
+            : $"{Resources.IncludeCommandLineApps} {string.Format(Resources.HiddenCount, hidden)}";
 
         _flowLayout.ResumeLayout();
         _scrollPanel.ResumeLayout();

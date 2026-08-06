@@ -190,16 +190,16 @@
     <value>Para o usuário atual</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} ocultos)</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignorando entrada de aplicativo duplicado para '{0}'.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Incluir aplicativos de linha de comando</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Incluir aplicativos de linha de comando ({0} ocultos)</value>
+    <value>Incluir aplicativos de linha de &amp;comando</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">

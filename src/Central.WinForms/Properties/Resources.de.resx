@@ -190,16 +190,16 @@
     <value>Für aktuellen Benutzer</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} versteckt)</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoriere doppelten App-Eintrag für '{0}'.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Befehlszeilen Apps anzeigen</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Befehlszeilen Apps anzeigen ({0} versteckt)</value>
+    <value>&amp;Befehlszeilen Apps anzeigen</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">

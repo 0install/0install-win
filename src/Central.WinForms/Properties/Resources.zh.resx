@@ -102,10 +102,6 @@
     <value>包括命令行应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>包括命令行应用程序（{0} 隐藏）</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>集成（开始菜单等）</value>
     <comment>Automatically translated.</comment>

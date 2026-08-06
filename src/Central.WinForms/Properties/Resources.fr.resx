@@ -102,10 +102,6 @@
     <value>Inclut les applications en ligne de commande</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Inclut les applications en ligne de commande ({0}, masquées)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Intégrer (menu démarrer, etc.)</value>
     <comment>Manually overriden.</comment>

@@ -190,16 +190,16 @@
     <value>Geçerli kullanıcı için</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} gizli)</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>'{0}' için çift uygulama listesi kaydı yok sayılıyor.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Komut satırı uygulamalarını dahil et</value>
-    <comment>Manually overriden.</comment>
-  </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Komut satırı uygulamalarını dahil et ({0} gizli)</value>
+    <value>&amp;Komut satırı uygulamalarını dahil et</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">

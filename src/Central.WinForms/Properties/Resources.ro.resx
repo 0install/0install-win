@@ -102,10 +102,6 @@
     <value>Include aplicații cu linie de comandă</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Include aplicații cu linie de comandă ({0} ascunse)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrare (meniul Start etc.)</value>
     <comment>Automatically translated.</comment>

@@ -102,10 +102,6 @@
     <value>Περιλαμβάνει εφαρμογές γραμμής εντολών</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Περιλαμβάνει εφαρμογές γραμμής εντολών ({0} κρυφές)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Ενσωμάτωση εγκατάστασης</value>
     <comment>Manually overriden.</comment>

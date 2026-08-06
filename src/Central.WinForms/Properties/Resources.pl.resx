@@ -102,10 +102,6 @@
     <value>Uwzględnij aplikacje działające z wiersza poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Uwzględnij aplikacje z wierszem poleceń ({0}, ukryte)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integracja (menu Start itp.)</value>
     <comment>Automatically translated.</comment>

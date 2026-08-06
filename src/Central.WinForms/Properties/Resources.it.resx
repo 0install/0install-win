@@ -102,10 +102,6 @@
     <value>Includere le applicazioni a riga di comando</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Includere le applicazioni da riga di comando ({0} e nascosta)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrazione (menu Start, ecc.)</value>
     <comment>Automatically translated.</comment>

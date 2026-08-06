@@ -102,10 +102,6 @@
     <value>Inclusief opdrachtregelprogramma's</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Inclusief opdrachtregelprogramma's ({0} verborgen)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integreren (startmenu, enz.)</value>
     <comment>Automatically translated.</comment>

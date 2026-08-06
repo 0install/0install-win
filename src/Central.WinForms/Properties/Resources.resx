@@ -216,14 +216,14 @@
   <data name="ForCurrentUser" xml:space="preserve">
     <value>For current user</value>
   </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} hidden)</value>
+  </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoring duplicate app entry for '{0}'.</value>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Include command-line apps</value>
-  </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Include command-line apps ({0} hidden)</value>
+    <value>Include &amp;command-line apps</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate (start menu, etc.)</value>

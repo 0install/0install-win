@@ -102,10 +102,6 @@
     <value>Zahrnuje aplikace pro příkazový řádek</value>
     <comment>Automatically translated.</comment>
   </data>
-  <data name="IncludeCommandLineAppsHidden" xml:space="preserve">
-    <value>Zahrnuje aplikace pro příkazový řádek ({0}, skryté)</value>
-    <comment>Automatically translated.</comment>
-  </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrace (nabídka Start atd.)</value>
     <comment>Automatically translated.</comment>
