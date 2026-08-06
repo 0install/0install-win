@@ -121,12 +121,12 @@ public class AppTileList : UserControl
             Visible = false,
             TabIndex = 1
         };
-        _comboCategory.Items.Add(Resources.AllCategories);
+        _comboCategory.Items.Add(new CategoryEntry(null, Resources.AllCategories));
         _comboCategory.SelectedIndex = 0;
         _comboCategory.SelectedIndexChanged += delegate
         {
             if (_updatingCategories) return;
-            _selectedCategory = (_comboCategory.SelectedIndex <= 0) ? null : (string)_comboCategory.SelectedItem;
+            _selectedCategory = (_comboCategory.SelectedItem as CategoryEntry)?.Name;
             RefilterTiles();
         };
 
@@ -370,24 +370,29 @@ public class AppTileList : UserControl
         var categories = _flowLayout.Controls.OfType<AppTile>()
                                     .SelectMany(tile => tile.Categories)
                                     .Distinct(StringComparer.OrdinalIgnoreCase)
-                                    .OrderBy(x => x, StringComparer.CurrentCultureIgnoreCase)
+                                    .Select(category => new CategoryEntry(category, LocalizeCategory(category)))
+                                    // Sort by the localized name, so the drop-down reads alphabetically to the user
+                                    .OrderBy(entry => entry.ToString(), StringComparer.CurrentCultureIgnoreCase)
                                     .ToList();
 
         // Avoid closing an open drop-down and flickering when nothing changed
-        if (categories.SequenceEqual(_comboCategory.Items.Cast<string>().Skip(1), StringComparer.Ordinal)) return;
+        if (categories.Select(entry => entry.Name)
+                      .SequenceEqual(_comboCategory.Items.Cast<CategoryEntry>().Skip(1).Select(entry => entry.Name), StringComparer.Ordinal)) return;
 
         _updatingCategories = true;
         _comboCategory.BeginUpdate();
         try
         {
             _comboCategory.Items.Clear();
-            _comboCategory.Items.Add(Resources.AllCategories);
-            foreach (string category in categories)
+            _comboCategory.Items.Add(new CategoryEntry(null, Resources.AllCategories));
+            foreach (var category in categories)
                 _comboCategory.Items.Add(category);
 
             // Drop a selection that no longer exists
-            int index = (_selectedCategory == null) ? 0 : _comboCategory.Items.IndexOf(_selectedCategory);
-            if (index < 0) _selectedCategory = null;
+            int index = (_selectedCategory == null)
+                ? 0
+                : categories.FindIndex(entry => entry.Name == _selectedCategory) + 1; // Offset by the "all categories" entry
+            if (index <= 0) _selectedCategory = null;
             _comboCategory.SelectedIndex = Math.Max(index, 0);
         }
         finally
@@ -395,6 +400,24 @@ public class AppTileList : UserControl
             _comboCategory.EndUpdate();
             _updatingCategories = false;
         }
+    }
+
+    /// <summary>
+    /// Returns a localized name for a category, falling back to the raw name for categories that have no translation.
+    /// </summary>
+    /// <remarks>Categories are free-form, so only the well-known freedesktop.org ones can be translated.</remarks>
+    private static string LocalizeCategory(string category)
+        => Resources.ResourceManager.GetString("Category" + category, Resources.Culture) ?? category;
+
+    /// <summary>
+    /// An entry in <see cref="_comboCategory"/>, shown to the user by its localized name but filtered by its raw name.
+    /// </summary>
+    private sealed class CategoryEntry(string? name, string localizedName)
+    {
+        /// <summary>The raw name as used in <see cref="Feed.Categories"/>; <c>null</c> for all categories.</summary>
+        public string? Name { get; } = name;
+
+        public override string ToString() => localizedName;
     }
     #endregion
 }

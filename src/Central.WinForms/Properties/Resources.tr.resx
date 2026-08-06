@@ -70,6 +70,102 @@
     <value>Kategoriler</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>3B grafikler</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Ses</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Ses ve video</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Ses ve video düzenleme</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Geliştirme</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Eğitim</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>E-posta</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>Dosya araçları</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>Dosya aktarımı</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Oyunlar</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Grafik</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Ağ</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Ofis</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Medya oynatıcılar</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Raster grafikleri</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Tarama</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Bilim</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Ayarlar</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>Sistem</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Araçlar</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Vektör grafikleri</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Video</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Görüntüleyiciler</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Web tarayıcıları</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Kullanılabilecek komutları görmek için '{0}' yazın.</value>
     <comment>Manually overriden.</comment>

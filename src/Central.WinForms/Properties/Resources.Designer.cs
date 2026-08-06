@@ -88,6 +88,222 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 3D graphics.
+        /// </summary>
+        internal static string Category3DGraphics {
+            get {
+                return ResourceManager.GetString("Category3DGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio.
+        /// </summary>
+        internal static string CategoryAudio {
+            get {
+                return ResourceManager.GetString("CategoryAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio &amp; video.
+        /// </summary>
+        internal static string CategoryAudioVideo {
+            get {
+                return ResourceManager.GetString("CategoryAudioVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio &amp; video editing.
+        /// </summary>
+        internal static string CategoryAudioVideoEditing {
+            get {
+                return ResourceManager.GetString("CategoryAudioVideoEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Development.
+        /// </summary>
+        internal static string CategoryDevelopment {
+            get {
+                return ResourceManager.GetString("CategoryDevelopment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Education.
+        /// </summary>
+        internal static string CategoryEducation {
+            get {
+                return ResourceManager.GetString("CategoryEducation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail.
+        /// </summary>
+        internal static string CategoryEmail {
+            get {
+                return ResourceManager.GetString("CategoryEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File tools.
+        /// </summary>
+        internal static string CategoryFileTools {
+            get {
+                return ResourceManager.GetString("CategoryFileTools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File transfer.
+        /// </summary>
+        internal static string CategoryFileTransfer {
+            get {
+                return ResourceManager.GetString("CategoryFileTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games.
+        /// </summary>
+        internal static string CategoryGame {
+            get {
+                return ResourceManager.GetString("CategoryGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graphics.
+        /// </summary>
+        internal static string CategoryGraphics {
+            get {
+                return ResourceManager.GetString("CategoryGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network.
+        /// </summary>
+        internal static string CategoryNetwork {
+            get {
+                return ResourceManager.GetString("CategoryNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Office.
+        /// </summary>
+        internal static string CategoryOffice {
+            get {
+                return ResourceManager.GetString("CategoryOffice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media players.
+        /// </summary>
+        internal static string CategoryPlayer {
+            get {
+                return ResourceManager.GetString("CategoryPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raster graphics.
+        /// </summary>
+        internal static string CategoryRasterGraphics {
+            get {
+                return ResourceManager.GetString("CategoryRasterGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning.
+        /// </summary>
+        internal static string CategoryScanning {
+            get {
+                return ResourceManager.GetString("CategoryScanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Science.
+        /// </summary>
+        internal static string CategoryScience {
+            get {
+                return ResourceManager.GetString("CategoryScience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string CategorySettings {
+            get {
+                return ResourceManager.GetString("CategorySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string CategorySystem {
+            get {
+                return ResourceManager.GetString("CategorySystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utilities.
+        /// </summary>
+        internal static string CategoryUtility {
+            get {
+                return ResourceManager.GetString("CategoryUtility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vector graphics.
+        /// </summary>
+        internal static string CategoryVectorGraphics {
+            get {
+                return ResourceManager.GetString("CategoryVectorGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video.
+        /// </summary>
+        internal static string CategoryVideo {
+            get {
+                return ResourceManager.GetString("CategoryVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewers.
+        /// </summary>
+        internal static string CategoryViewer {
+            get {
+                return ResourceManager.GetString("CategoryViewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web browsers.
+        /// </summary>
+        internal static string CategoryWebBrowser {
+            get {
+                return ResourceManager.GetString("CategoryWebBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter &apos;0install --help&apos; to see a list of available commands..
         /// </summary>
         internal static string CommandLineHint {

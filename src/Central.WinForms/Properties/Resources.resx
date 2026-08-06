@@ -126,6 +126,78 @@
   <data name="Categories" xml:space="preserve">
     <value>Categories</value>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>3D graphics</value>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Audio &amp; video</value>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Audio &amp; video editing</value>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Development</value>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>File tools</value>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>File transfer</value>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Graphics</value>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Office</value>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Media players</value>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Raster graphics</value>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Scanning</value>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Science</value>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Utilities</value>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Vector graphics</value>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Viewers</value>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Web browsers</value>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Enter '{0}' to see a list of available commands.</value>
   </data>

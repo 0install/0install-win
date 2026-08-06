@@ -70,6 +70,102 @@
     <value>Kategorien</value>
     <comment>Manually overriden.</comment>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>3D-Grafik</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Audio</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Audio &amp; Video</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Audio- &amp; Videobearbeitung</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Entwicklung</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Bildung</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>E-Mail</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>Dateiwerkzeuge</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>Dateiübertragung</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Spiele</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Grafik</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Netzwerk</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Büro</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Medienplayer</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Rastergrafik</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Scannen</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Wissenschaft</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Einstellungen</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>System</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Dienstprogramme</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Vektorgrafik</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Video</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Betrachter</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Webbrowser</value>
+    <comment>Manually overriden.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Geben Sie '{0}' ein, um eine Liste der verfügbaren Befehle anzuzeigen.</value>
     <comment>Manually overriden.</comment>
