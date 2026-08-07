@@ -70,6 +70,102 @@
     <value>Kategori</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>Grafik 3D</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Audio</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Audio &amp; video</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Pengeditan audio &amp; video</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Pengembangan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Pendidikan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>Surel</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>Alat berkas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>Transfer file</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Permainan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Grafik</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Jaringan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Office</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Pemutar media</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Grafik raster</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Pemindaian</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Ilmu Pengetahuan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Pengaturan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>Sistem</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Utilitas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Grafik vektor</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Video</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Penampil</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Peramban web</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Masukkan '{0}' untuk melihat daftar perintah yang tersedia.</value>
     <comment>Automatically translated.</comment>
@@ -92,6 +188,10 @@
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
     <value>Untuk pengguna saat ini</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} tersembunyi)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">

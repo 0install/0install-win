@@ -70,6 +70,102 @@
     <value>Kategorie</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>Grafika 3D</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Dźwięk</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Audio i wideo</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Edycja plików audio i wideo</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Rozwój</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Wykształcenie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>E-mail</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>Narzędzia do obsługi plików</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>Przesyłanie plików</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Gry</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Grafika</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Sieć</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Pakiet Office</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Odtwarzacze multimedialne</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Grafika rastrowa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Skanowanie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Nauka</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Ustawienia</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>System</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Narzędzia</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Grafika wektorowa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Wideo</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Przeglądarki</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Przeglądarki internetowe</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Wpisz „{0} ”, aby wyświetlić listę dostępnych poleceń.</value>
     <comment>Automatically translated.</comment>
@@ -92,6 +188,10 @@
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
     <value>Dla bieżącego użytkownika</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} ukryte)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">

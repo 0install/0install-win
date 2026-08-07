@@ -70,6 +70,102 @@
     <value>Категории</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>3D-графика</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Аудио</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Аудио и видео</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Редактирование аудио и видео</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Разработка</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Образование</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>Электронная почта</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>Инструменты для работы с файлами</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>Передача файлов</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Игры</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Графика</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Сеть</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Офис</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Медиаплееры</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Растровая графика</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Сканирование</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Наука</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Настройки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>Система</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Утилиты</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Векторная графика</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Видео</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Просмотрщики</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Веб-браузеры</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Введите «{0} », чтобы увидеть список доступных команд.</value>
     <comment>Automatically translated.</comment>
@@ -92,6 +188,10 @@
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
     <value>Для текущего пользователя</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} скрыто)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">

@@ -70,6 +70,102 @@
     <value>Kategorie</value>
     <comment>Automatically translated.</comment>
   </data>
+  <data name="Category3DGraphics" xml:space="preserve">
+    <value>3D grafika</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudio" xml:space="preserve">
+    <value>Zvuk</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideo" xml:space="preserve">
+    <value>Audio a video</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryAudioVideoEditing" xml:space="preserve">
+    <value>Úprava zvuku a videa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryDevelopment" xml:space="preserve">
+    <value>Vývoj</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEducation" xml:space="preserve">
+    <value>Vzdělání</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryEmail" xml:space="preserve">
+    <value>E-mail</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTools" xml:space="preserve">
+    <value>Nástroje pro práci se soubory</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryFileTransfer" xml:space="preserve">
+    <value>Přenos souborů</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGame" xml:space="preserve">
+    <value>Hry</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryGraphics" xml:space="preserve">
+    <value>Grafika</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryNetwork" xml:space="preserve">
+    <value>Síť</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryOffice" xml:space="preserve">
+    <value>Kancelář</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryPlayer" xml:space="preserve">
+    <value>Přehrávače médií</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryRasterGraphics" xml:space="preserve">
+    <value>Rastrová grafika</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScanning" xml:space="preserve">
+    <value>Skenování</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryScience" xml:space="preserve">
+    <value>Věda</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySettings" xml:space="preserve">
+    <value>Nastavení</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>Systém</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryUtility" xml:space="preserve">
+    <value>Nástroje</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVectorGraphics" xml:space="preserve">
+    <value>Vektorová grafika</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryVideo" xml:space="preserve">
+    <value>Video</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryViewer" xml:space="preserve">
+    <value>Prohlížeče</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CategoryWebBrowser" xml:space="preserve">
+    <value>Webové prohlížeče</value>
+    <comment>Automatically translated.</comment>
+  </data>
   <data name="CommandLineHint" xml:space="preserve">
     <value>Zadejte „{0} “, abyste zobrazili seznam dostupných příkazů.</value>
     <comment>Automatically translated.</comment>
@@ -92,6 +188,10 @@
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
     <value>Pro aktuálního uživatele</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HiddenCount" xml:space="preserve">
+    <value>({0} skryto)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
