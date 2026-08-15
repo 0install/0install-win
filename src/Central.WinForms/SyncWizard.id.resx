@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Anda akan mengganti daftar aplikasi lokal Anda dengan data yang tersimpan di server Sync. Setiap perubahan yang telah Anda buat secara lokal namun belum disinkronkan akan hilang!</value>
+    <value>Anda akan mengganti daftar aplikasi lokal Anda dengan data yang tersimpan di server Sync. Setiap perubahan yang telah Anda buat secara lokal tetapi belum disinkronkan akan hilang!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de menyediakan akun gratis untuk menyimpan data Sync. Semua data dienkripsi secara lokal sebelum dikirim ke server. Anda dapat menggunakan server Anda sendiri untuk penyimpanan jika diinginkan.</value>
+    <value>0install.de menyediakan akun gratis untuk menyimpan data Sync. Semua data dienkripsi secara lokal sebelum dikirim ke server. Anda juga dapat menggunakan server Anda sendiri untuk penyimpanan jika diinginkan.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

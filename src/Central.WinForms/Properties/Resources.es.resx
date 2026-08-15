@@ -376,12 +376,12 @@ Las conexiones cifradas utilizan el prefijo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Esto eliminará automáticamente de la caché las implementaciones que ya no sean necesarias tras la actualización. ¿Deseas continuar?
+    <value>Esto eliminará automáticamente de la caché las implementaciones que ya no sean necesarias tras la actualización. ¿Continuar?
 Importante: Las aplicaciones que hayas «ejecutado» anteriormente sin añadirlas a «Mis aplicaciones» también se eliminarán de la caché.  Tendrás que estar conectado a Internet si decides volver a ejecutarlas.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>En proceso...</value>
+    <value>En funcionamiento...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

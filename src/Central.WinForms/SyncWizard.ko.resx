@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 바탕 화면 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
+    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 바탕화면 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>나만의 동기화 서버를 설정하려면 어떻게 해야 하나요?</value>
+    <value>나만의 Sync 서버를 설정하려면 어떻게 해야 하나요?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">

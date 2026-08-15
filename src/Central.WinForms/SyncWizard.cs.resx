@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Zapomněli jste heslo</value>
+    <value>Zapomněli jste klíč</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de poskytuje bezplatné účty pro ukládání synchronizovaných dat. Veškerá data jsou před odesláním na server lokálně zašifrována. Pokud si přejete, můžete místo toho pro ukládání dat použít svůj vlastní server.</value>
+    <value>0install.de poskytuje bezplatné účty pro ukládání synchronizovaných dat. Veškerá data jsou před odesláním na server lokálně zašifrována. Pokud chcete, můžete místo toho pro ukládání dat použít svůj vlastní server.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">

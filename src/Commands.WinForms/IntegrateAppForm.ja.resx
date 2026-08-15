@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>サポートされているファイル形式のデフォルトのハンドラ（これがない場合でも「プログラムで開く」は機能します）</value>
+    <value>サポートされているファイル形式のデフォルトのハンドラー（これがない場合でも「プログラムで開く」は機能します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">

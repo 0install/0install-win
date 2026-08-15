@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>在此您可以创建 Zero Install 的便携版，例如用于 USB 闪存盘。目标存储设备必须格式化为 NTFS 格式。</value>
+    <value>在此您可以创建 Zero Install 的便携版，例如用于 USB 闪存盘。目标存储设备必须采用 NTFS 格式。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">

@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Wpisz tutaj adres URL kanału Zero Install:</value>
+    <value>W tym miejscu należy wpisać adres URL kanału Zero Install:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -277,7 +277,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Dodawane do sekcji „Moje aplikacje” i zintegrowane ze środowiskiem pulpitu.</value>
+    <value>Dodawane do sekcji „Moje aplikacje” i zintegrowane ze środowiskiem graficznym.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -368,7 +368,7 @@ Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie p
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Czy na pewno chcesz korzystać z niezaszyfrowanego połączenia z serwerem Sync?
-Zaszyfrowane połączenia wykorzystują prefiks https://.</value>
+Połączenia szyfrowane wykorzystują prefiks https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
@@ -377,7 +377,7 @@ Zaszyfrowane połączenia wykorzystują prefiks https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które po aktualizacji nie są już potrzebne. Kontynuować?
-Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, konieczne będzie połączenie z Internetem.</value>
+Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej. Jeśli zdecydujesz się uruchomić je ponownie, konieczne będzie połączenie z Internetem.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
