@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Geeft aan het besturingssysteem informatie over de mogelijkheden van de applicatie, zoals de bestandstypen die deze kan verwerken.</value>
+    <value>Geeft aan het besturingssysteem door wat de mogelijkheden van de applicatie zijn, zoals de bestandstypen die deze kan verwerken.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">

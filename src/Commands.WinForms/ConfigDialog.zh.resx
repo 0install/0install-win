@@ -145,7 +145,7 @@
 
 注意事项：
 - 并非所有语言都提供翻译。
-- 语言更改生效后，您需要重新启动 Zero Install。</value>
+- 语言更改生效后，您需要重启 Zero Install。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

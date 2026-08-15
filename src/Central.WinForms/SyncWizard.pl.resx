@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do przeprowadzenia początkowej zmiany.</value>
+    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do wykonania początkowej zmiany.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">

@@ -363,7 +363,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>アプリ「{0} 」のフィードを読み込めません。</value>
+    <value>アプリ「{0} 」のフィードを読み込めませんでした。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">

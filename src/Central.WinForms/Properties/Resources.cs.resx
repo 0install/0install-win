@@ -232,7 +232,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Pokud se vám aplikace líbí,
-přidejte ji do složky „Moje aplikace“.</value>
+přidejte ji do sekce „Moje aplikace“.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
@@ -294,7 +294,7 @@ Opravdu tam chcete umístit přenosnou verzi Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Chcete odstranit vybrané položky z seznamu „ {0} “?</value>
+    <value>Chcete odstranit vybrané položky {0} ze seznamu?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
