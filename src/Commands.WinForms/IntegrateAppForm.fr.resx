@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Gestionnaire par défaut pour les protocoles URL pris en charge (la fonction « Ouvrir avec » fonctionne également sans cela)</value>
+    <value>Gestionnaire par défaut pour les protocoles URL pris en charge</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

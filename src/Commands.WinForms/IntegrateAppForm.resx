@@ -1897,7 +1897,7 @@
     <value>9</value>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Default handler for supported URL protocols ("Open with" works without this too)</value>
+    <value>Default handler for supported URL protocols</value>
   </data>
   <data name="&gt;&gt;labelUrlProtocolsSimple.Name" xml:space="preserve">
     <value>labelUrlProtocolsSimple</value>

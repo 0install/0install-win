@@ -327,7 +327,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Standardprogramm für unterstützte URL-Protokolle ("Öffnen mit" funktioniert auch ohne diesen)</value>
+    <value>Standardprogramm für unterstützte URL-Protokolle</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

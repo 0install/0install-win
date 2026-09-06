@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manejador predeterminado para los protocolos URL compatibles (la opción «Abrir con» también funciona sin esto).</value>
+    <value>Manejador predeterminado para los protocolos URL compatibles.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

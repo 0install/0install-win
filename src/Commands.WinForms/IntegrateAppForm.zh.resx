@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>受支持的 URL 协议的默认处理程序（即使没有此功能，“用…打开”功能也能正常工作）</value>
+    <value>受支持的 URL 协议的默认处理程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
