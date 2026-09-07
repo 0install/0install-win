@@ -11,6 +11,27 @@ partial class GuiCommandHandler
 
     private FeedBranding Branding => _branding.Value;
 
+    private readonly object _brandingLock = new();
+
+    private bool _brandingDisposed;
+
+    /// <summary>
+    /// Runs <paramref name="action"/> only if <see cref="Branding"/> is safe to access.
+    /// </summary>
+    private void WithBranding(Action action)
+    {
+        lock (_brandingLock)
+        {
+            // Skipped while the branding is still being loaded, because loading it writes to the Log itself and re-entering the Lazy<> from a Log.Handler would dead-lock
+            if (!_branding.IsValueCreated) return;
+
+            // Skipped after disposal, because a Log.Handler may still be running on other threads
+            if (_brandingDisposed) return;
+
+            action();
+        }
+    }
+
     private readonly AsyncFormWrapper<ProgressForm> _form;
 
     private void ShowForm(Action<ProgressForm> action) => _form.Post(form =>
@@ -54,7 +75,12 @@ partial class GuiCommandHandler
         try
         {
             _form.Dispose();
-            if (_branding.IsValueCreated) Branding.Dispose();
+
+            lock (_brandingLock)
+            {
+                _brandingDisposed = true;
+                if (_branding.IsValueCreated) Branding.Dispose();
+            }
         }
         finally
         {

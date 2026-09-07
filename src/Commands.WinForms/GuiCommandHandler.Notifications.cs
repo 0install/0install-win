@@ -23,11 +23,7 @@ partial class GuiCommandHandler
     /// Displays <see cref="Log"/> entries as notification messages detached from the main GUI.
     /// </summary>
     protected override void DisplayLogEntry(LogSeverity severity, string message)
-    {
-        // Avoid dead-lock
-        if (!_branding.IsValueCreated) return;
-
-        ShowNotification(
+        => WithBranding(() => ShowNotification(
             title: Branding.Name ?? "Zero Install",
             message,
             icon: severity switch
@@ -36,8 +32,7 @@ partial class GuiCommandHandler
                 LogSeverity.Warn => ToolTipIcon.Warning,
                 LogSeverity.Error => ToolTipIcon.Error,
                 _ => ToolTipIcon.None
-            });
-    }
+            }));
 
     /// <summary>
     /// Displays a notification message detached from the main GUI. Will stick around even after the process ends.
