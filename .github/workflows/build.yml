@@ -36,7 +36,7 @@ jobs:
           path: artifacts
       - name: Sign artifacts
         if: github.ref_type == 'tag'
-        uses: signpath/github-action-submit-signing-request@v2
+        uses: signpath/github-action-submit-signing-request@v3
         with:
           api-token: ${{secrets.SIGNPATH_API_KEY}}
           organization-id: 0e70cf92-49a1-4427-a800-b6bc5b497936
