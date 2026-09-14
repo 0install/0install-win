@@ -36,15 +36,18 @@ Set to empty to deactivate use of key information server.</string>
       <string id="SelfUpdateUri">Self-update URI</string>
       <string id="SelfUpdateUri_Help">The feed URI used to search for updates for Zero Install itself.
 Set to empty to deactivate self-update.</string>
-      <string id="ExternalSolverUri">External Solver URI</string>
-      <string id="ExternalSolverUri_Help">The feed URI used to get the external solver.
-Set to empty to deactivate use of external solver.</string>
+      <string id="Solver">Solver</string>
+      <string id="Solver_Help">Options that control how Zero Install chooses which versions of a program and its dependencies to use.</string>
+      <string id="PreferSatSolver">Prefer SAT solver</string>
+      <string id="PreferSatSolver_Help">Use the SAT Solver by default instead of trying the Backtracking Solver first.</string>
       <string id="Sync">Sync</string>
       <string id="Sync_Help">Settings for synchronizing app lists between multiple computers.</string>
       <string id="SyncServer">Server</string>
       <string id="SyncServer_Help">The sync server used to synchronize your app list between multiple computers.</string>
       <string id="SyncServerCredentials">Server credentials</string>
       <string id="SyncServerCredentials_Help">The credentials to authenticate with against the sync server.</string>
+      <string id="SyncServerKerberos">Use Kerberos authentication</string>
+      <string id="SyncServerKerberos_Help">Authenticate against the sync server using Kerberos instead of a username and password.</string>
       <string id="SyncCryptoKey">Crypto key</string>
       <string id="SyncCryptoKey_Help">The local key used to encrypt data before sending it to the sync server.</string>
       <string id="Restrictions">Restrictions</string>
@@ -78,12 +81,6 @@ Set to empty to deactivate use of external solver.</string>
         <textBox refId="SelfUpdateUri_TextBox">
           <label>URI</label>
           <defaultValue>https://apps.0install.net/0install/0install-win.xmls</defaultValue>
-        </textBox>
-      </presentation>
-      <presentation id="ExternalSolverUri">
-        <textBox refId="ExternalSolverUri_TextBox">
-          <label>URI</label>
-          <defaultValue>https://apps.0install.net/0install/0install-ocaml.xml</defaultValue>
         </textBox>
       </presentation>
       <presentation id="SyncServer">

@@ -16,6 +16,9 @@
     <category name="Sources" displayName="$(string.Sources)" explainText="$(string.Sources_Help)">
       <parentCategory ref="0install" />
     </category>
+    <category name="Solver" displayName="$(string.Solver)" explainText="$(string.Solver_Help)">
+      <parentCategory ref="0install" />
+    </category>
     <category name="Sync" displayName="$(string.Sync)" explainText="$(string.Sync_Help)">
       <parentCategory ref="0install" />
     </category>
@@ -102,12 +105,15 @@
         <text id="SelfUpdateUri_TextBox" valueName="self_update_uri" />
       </elements>
     </policy>
-    <policy name="ExternalSolverUri" class="Both" displayName="$(string.ExternalSolverUri)" explainText="$(string.ExternalSolverUri_Help)" presentation="$(presentation.ExternalSolverUri)" key="SOFTWARE\Policies\Zero Install">
-      <parentCategory ref="Sources" />
+    <policy name="PreferSatSolver" class="Both" displayName="$(string.PreferSatSolver)" explainText="$(string.PreferSatSolver_Help)" key="SOFTWARE\Policies\Zero Install" valueName="prefer_sat_solver">
+      <parentCategory ref="Solver" />
       <supportedOn ref="windows:SUPPORTED_WindowsVista" />
-      <elements>
-        <text id="ExternalSolverUri_TextBox" valueName="external_solver_uri" />
-      </elements>
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
     </policy>
     <policy name="SyncServer" class="Both" displayName="$(string.SyncServer)" explainText="$(string.SyncServer_Help)" presentation="$(presentation.SyncServer)" key="SOFTWARE\Policies\Zero Install">
       <parentCategory ref="Sync" />
@@ -123,6 +129,16 @@
         <text id="SyncServerUsername_TextBox" valueName="sync_server_user" />
         <text id="SyncServerPassword_TextBox" valueName="sync_server_pw" />
       </elements>
+    </policy>
+    <policy name="SyncServerKerberos" class="Both" displayName="$(string.SyncServerKerberos)" explainText="$(string.SyncServerKerberos_Help)" key="SOFTWARE\Policies\Zero Install" valueName="sync_server_kerberos">
+      <parentCategory ref="Sync" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
     </policy>
     <policy name="SyncCryptoKey" class="Both" displayName="$(string.SyncCryptoKey)" explainText="$(string.SyncCryptoKey_Help)" presentation="$(presentation.SyncCryptoKey)" key="SOFTWARE\Policies\Zero Install">
       <parentCategory ref="Sync" />
