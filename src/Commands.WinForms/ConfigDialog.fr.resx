@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Approuve automatiquement les nouvelles clés (si elles sont reconnues par le serveur de clés)</value>
+    <value>Valide automatiquement les nouvelles clés (si elles sont reconnues par le serveur de clés)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Veuillez sélectionner ou créer un répertoire à utiliser comme cache d'implémentation.</value>
+    <value>Veuillez sélectionner ou créer un répertoire qui servira de cache d'implémentation.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -145,7 +145,7 @@
 
 Remarques :
 - Les traductions ne sont pas disponibles dans toutes les langues.
-- Vous devez redémarrer Zero Install pour que les changements de langue prennent effet.</value>
+- Vous devez redémarrer Zero Install pour que les modifications de langue prennent effet.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

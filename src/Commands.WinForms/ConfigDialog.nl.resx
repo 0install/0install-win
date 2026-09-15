@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Waarschuwing: het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet meer correct werkt.</value>
+    <value>Waarschuwing: als u deze opties wijzigt, kan Zero Install mogelijk niet meer correct werken.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
@@ -145,7 +145,7 @@
 
 Opmerkingen:
 - Er zijn niet voor alle talen vertalingen beschikbaar.
-- U moet Zero Install opnieuw opstarten om de taalwijzigingen door te voeren.</value>
+- Je moet Zero Install opnieuw opstarten om de taalwijzigingen te laten ingaan.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

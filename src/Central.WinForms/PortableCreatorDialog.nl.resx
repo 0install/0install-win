@@ -79,14 +79,14 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Hier kunt u een draagbare versie van Zero Install maken, bijvoorbeeld voor gebruik op een USB-stick. Het doelapparaat moet NTFS-geformatteerd zijn.</value>
+    <value>Hier kunt u een draagbare versie van Zero Install maken, bijvoorbeeld voor gebruik op een USB-stick. Het doelapparaat moet geformatteerd zijn in NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Slaat de Zero Install-configuratie en in de cache opgeslagen applicaties op in één enkele map.
+    <value>- Slaat de Zero Install-configuratie en in de cache opgeslagen applicaties op in één map.
 - Maakt de via Zero Install gestarte applicaties niet automatisch ook draagbaar.
 - Draagbare versies van Zero Install kunnen geen desktopintegratie uitvoeren (bijv. startmenu-items aanmaken).
-- Overweeg in plaats daarvan het gebruik van de reguliere Zero Install op meerdere computers met Zero Install Sync.</value>
+- Overweeg in plaats daarvan om gewone Zero Install op meerdere computers te gebruiken in combinatie met Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">

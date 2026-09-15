@@ -75,22 +75,22 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Odpowiednik wiersza poleceń</value>
+    <value>Odpowiednik w wierszu poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>W tym miejscu można utworzyć przenośną wersję Zero Install, np. do użycia na pendrive'ie. Nośnik docelowy musi być sformatowany w systemie plików NTFS.</value>
+    <value>W tym miejscu można utworzyć wersję przenośną programu Zero Install, np. do użytku na pendrive'ie. Nośnik docelowy musi być sformatowany w systemie plików NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Przechowuje konfigurację Zero Install oraz aplikacje w pamięci podręcznej w jednym katalogu.
 - Nie powoduje automatycznego przekształcania aplikacji uruchamianych za pośrednictwem Zero Install w wersje przenośne.
 - Przenośne wersje Zero Install nie mogą integrować się z pulpitem (np. tworzyć wpisów w menu Start).
-- Zamiast tego warto rozważyć użycie standardowej wersji Zero Install na wielu komputerach z funkcją Zero Install Sync.</value>
+- Zamiast tego warto rozważyć użycie standardowej wersji Zero Install na wielu komputerach wraz z funkcją Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Odpowiednik wiersza poleceń</value>
+    <value>Odpowiednik w wierszu poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

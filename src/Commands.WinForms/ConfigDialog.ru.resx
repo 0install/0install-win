@@ -139,13 +139,13 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Этот параметр определяет язык:
+    <value>Этот параметр управляет языком:
 - самой программы Zero Install и
 - приложений, загруженных с помощью Zero Install.
 
 Примечания:
 - Переводы доступны не для всех языков.
-- Для вступления изменений языка в силу необходимо перезапустить Zero Install.</value>
+- Для того чтобы изменения языка вступили в силу, необходимо перезапустить Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

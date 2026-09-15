@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Contraseña olvidada</value>
+    <value>He olvidado la clave</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>No, ya he configurado otros ordenadores</value>
+    <value>No, ya he configurado otros ordenadores.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>La clave de cifrado se utiliza para cifrar tus datos localmente antes de transmitirlos al servidor. Anota la clave sugerida o elige una propia.</value>
+    <value>La clave de cifrado se utiliza para cifrar tus datos localmente antes de transmitirlos al servidor. Anota la clave sugerida o elige la tuya propia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -147,7 +147,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>Se está restableciendo la lista de aplicaciones locales. Ya puedes seguir utilizando Zero Install.</value>
+    <value>Se está restableciendo la lista de aplicaciones locales. Ahora ya puedes seguir utilizando Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Estás a punto de sustituir los datos almacenados en el servidor de sincronización por tu lista de aplicaciones local. ¡Cualquier cambio que hayas realizado en otros ordenadores y que aún no se haya sincronizado con este se perderá!</value>
+    <value>Estás a punto de sustituir los datos almacenados en el servidor Sync por tu lista de aplicaciones local. ¡Cualquier cambio que hayas realizado en otros ordenadores y que aún no se haya sincronizado con este se perderá!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Este asistente puede ayudarte a resolver varios problemas de sincronización que puedan surgir. ¿Qué problema deseas resolver?</value>
+    <value>Este asistente puede ayudarte a resolver una serie de posibles problemas de sincronización. ¿Qué problema deseas resolver?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

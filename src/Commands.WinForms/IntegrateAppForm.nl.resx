@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Neemt deze applicatie mee bij controles met de optie "Alles bijwerken".</value>
+    <value>Neemt deze applicatie op in de controles van "Alles bijwerken".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Geeft aan het besturingssysteem door wat de mogelijkheden van de applicatie zijn, zoals de bestandstypen die deze kan verwerken.</value>
+    <value>Geeft aan het besturingssysteem informatie over de mogelijkheden van de applicatie, zoals de bestandstypen die deze kan verwerken.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Standaardverwerker voor ondersteunde bestandstypen ("Openen met" werkt ook zonder dit)</value>
+    <value>Standaardverwerker voor ondersteunde bestandstypen („Openen met” werkt ook zonder dit)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">

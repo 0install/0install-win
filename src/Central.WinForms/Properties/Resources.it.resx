@@ -175,7 +175,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Clicca qui per configurare Zero Install su questo computer...</value>
+    <value>Fai clic per configurare Zero Install su questo computer...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -191,7 +191,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} e nascosto)</value>
+    <value>({0} nascosto)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>fa qualcos'altro</value>
+    <value>svolge altre funzioni</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
@@ -245,7 +245,7 @@ nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Qui puoi gestire il tuo elenco di app preferite.</value>
+    <value>Da qui puoi gestire l'elenco delle tue app preferite.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -265,7 +265,7 @@ nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Modifica l'integrazione</value>
+    <value>Modifica dell'integrazione</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
@@ -281,7 +281,7 @@ nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>La directory «{0} » non è vuota.
+    <value>La cartella "{0}" non è vuota.
 Sei sicuro di voler inserire lì una versione portatile di Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -363,11 +363,11 @@ partire da zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Impossibile caricare il feed per la voce dell'app "{0}".</value>
+    <value>Impossibile caricare il feed per la voce dell’app «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Sei sicuro di voler utilizzare una connessione non crittografata a un server Sync?
+    <value>Sei sicuro di voler utilizzare una connessione non crittografata con un server Sync?
 Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -376,7 +376,7 @@ Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Questa operazione rimuoverà automaticamente dalla cache le implementazioni che non sono più necessarie dopo l'aggiornamento. Continuare?
+    <value>Questa operazione rimuoverà automaticamente dalla cache le implementazioni che non sono più necessarie dopo l’aggiornamento. Continuare?
 Importante: anche le applicazioni che hai "Eseguito" in precedenza senza aggiungerle a "Le mie app" verranno rimosse dalla cache.  Dovrai essere online se deciderai di eseguirle nuovamente.</value>
     <comment>Automatically translated.</comment>
   </data>

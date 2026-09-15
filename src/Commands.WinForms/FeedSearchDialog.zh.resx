@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的源，无论其质量如何；在运行程序之前，您必须自行判断是否信任这些程序。</value>
+    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的源，无论其质量如何；在运行这些程序之前，您必须自行判断是否值得信赖。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

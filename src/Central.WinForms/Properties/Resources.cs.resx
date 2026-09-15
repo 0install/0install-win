@@ -175,7 +175,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Kliknutím nastavíte Zero Install na tomto počítači...</value>
+    <value>Klikněte zde pro nastavení Zero Install na tomto počítači...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -232,7 +232,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>Pokud se vám aplikace líbí,
-přidejte ji do sekce „Moje aplikace“.</value>
+přidejte ji do „Moje aplikace“.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
@@ -277,7 +277,7 @@ v nabídce Start nebo na ploše.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Přidáno do sekce „Moje aplikace“ a integrováno do desktopového prostředí.</value>
+    <value>Přidává se do sekce „Moje aplikace“ a integruje se do pracovního prostředí.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -294,7 +294,7 @@ Opravdu tam chcete umístit přenosnou verzi Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Chcete odstranit vybrané položky {0} ze seznamu?</value>
+    <value>Chcete odstranit vybrané položky z seznamu „ {0} “?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -320,7 +320,7 @@ Uložit změny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Vyhledávání</value>
+    <value>Hledat</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
@@ -350,7 +350,7 @@ upravit stávající nastavení</value>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Ano
-začít od začátku</value>
+začít od nuly</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
@@ -376,7 +376,7 @@ Data uložená na serveru můžete nahradit tím, že zvolíte možnost, že si 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Tímto krokem se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Chcete pokračovat?
+    <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Chcete pokračovat?
 Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do složky „Moje aplikace“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
     <comment>Automatically translated.</comment>
   </data>

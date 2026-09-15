@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>W tym miejscu należy wpisać adres URL kanału Zero Install:</value>
+    <value>Wpisz tutaj adres URL kanału Zero Install:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -273,7 +273,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Dodano do „Moich aplikacji”.</value>
+    <value>Dodano do sekcji „Moje aplikacje”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
@@ -355,7 +355,7 @@ zacznij od zera</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Dane obecnie przechowywane na serwerze Sync są uszkodzone.
-Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie pamiętasz klucza kryptograficznego.</value>
+Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie pamiętasz klucza szyfrującego.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -368,7 +368,7 @@ Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie p
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Czy na pewno chcesz korzystać z niezaszyfrowanego połączenia z serwerem Sync?
-Połączenia szyfrowane wykorzystują prefiks https://.</value>
+Zaszyfrowane połączenia wykorzystują prefiks https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
@@ -376,8 +376,8 @@ Połączenia szyfrowane wykorzystują prefiks https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które po aktualizacji nie są już potrzebne. Kontynuować?
-Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej. Jeśli zdecydujesz się uruchomić je ponownie, konieczne będzie połączenie z Internetem.</value>
+    <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które nie są już potrzebne po aktualizacji. Kontynuować?
+Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, musisz mieć połączenie z Internetem.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

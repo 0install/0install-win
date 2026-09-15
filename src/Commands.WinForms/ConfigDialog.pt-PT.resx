@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Aviso: alterar estas opções pode impedir que o Zero Install funcione corretamente.</value>
+    <value>Aviso: Alterar estas opções pode impedir que o Zero Install funcione corretamente.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
@@ -144,7 +144,7 @@
 - das aplicações descarregadas pelo Zero Install.
 
 Notas:
-- Não estão disponíveis traduções para todos os idiomas.
+- As traduções não estão disponíveis para todos os idiomas.
 - É necessário reiniciar o Zero Install para que as alterações de idioma entrem em vigor.</value>
     <comment>Automatically translated.</comment>
   </data>

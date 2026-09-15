@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>アプリケーションが処理できるファイル形式など、その機能に関する情報をオペレーティングシステムに伝えます。</value>
+    <value>アプリケーションが処理できるファイルの種類など、その機能に関する情報をオペレーティングシステムに伝えます。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Webブラウザやメールクライアントなどのタスクに使用する既定のプログラム</value>
+    <value>Webブラウザやメールクライアントなどのタスク用の既定のプログラム</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>サポートされているファイル形式のデフォルトのハンドラー（これがない場合でも「プログラムで開く」は機能します）</value>
+    <value>サポートされているファイル形式のデフォルトのハンドラー（これがない場合でも「プログラムから開く」は機能します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>サポートされているURLプロトコル用のデフォルトのハンドラ</value>
+    <value>サポートされているURLプロトコルのデフォルトのハンドラ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

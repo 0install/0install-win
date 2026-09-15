@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>请将此密钥保密，并设置一个不同的密码。这样，即使服务器遭到入侵，也没有人能访问您的数据。</value>
+    <value>请将此密钥保密，并设置一个不同的密码。这样，即使服务器遭到入侵，任何人也无法访问您的数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>您可能还希望重置其他已安装 Zero Install Sync 的计算机上的本地数据。</value>
+    <value>您可能还希望重置正在使用 Zero Install Sync 的其他计算机上的本地数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de 提供免费账户用于存储同步数据。所有数据在传输至服务器之前均会在本地进行加密。如果您愿意，也可以使用自己的服务器进行存储。</value>
+    <value>0install.de 提供免费账户用于存储同步数据。所有数据在传输至服务器之前都会在本地进行加密。如果您愿意，也可以使用自己的服务器进行存储。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -183,11 +183,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync 现已配置完成，可以开始使用了。请在您希望与本机保持同步的任何其他计算机上运行此向导。</value>
+    <value>Zero Install Sync 现已配置完毕，可以使用了。请在您希望与本机保持同步的其他计算机上运行此向导。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync 会将您的应用程序列表和桌面集成设置自动同步到您的其他计算机上。</value>
+    <value>Zero Install Sync 会获取您的应用程序列表和桌面集成设置，并自动将其同步到您的其他计算机上。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
