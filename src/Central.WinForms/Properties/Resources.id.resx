@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Masukkan '{0}' untuk melihat daftar perintah yang tersedia.</value>
+    <value>Ketik '{0}' untuk melihat daftar perintah yang tersedia.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Integrasi (menu mulai, dll.)</value>
+    <value>Integrasikan (menu mulai, dll.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Jika Anda menyukai sebuah aplikasi,
+    <value>Jika Anda menyukai suatu aplikasi,
 tambahkan ke "Aplikasi Saya".</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -294,7 +294,7 @@ Apakah Anda yakin ingin menempatkan versi portabel Zero Install di sana?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Apakah Anda ingin menghapus entri yang dipilih dari daftar " {0} "?</value>
+    <value>Apakah Anda ingin menghapus entri yang dipilih " {0} " dari daftar?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">

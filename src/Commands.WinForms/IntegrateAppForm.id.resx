@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>Memberi tahu sistem operasi mengenai kemampuan aplikasi, seperti jenis file yang dapat ditangani oleh aplikasi tersebut.</value>
+    <value>Memberi tahu sistem operasi mengenai kemampuan aplikasi, seperti jenis file yang dapat ditangani.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">

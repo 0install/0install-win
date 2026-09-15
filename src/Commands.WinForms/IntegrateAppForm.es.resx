@@ -299,7 +299,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
-    <value>Iniciar el programa automáticamente cuando el usuario inicie sesión.</value>
+    <value>Iniciar el programa automáticamente cuando el usuario inicie sesión</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelContextMenuSimple.Text" xml:space="preserve">
@@ -323,11 +323,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Una o más entradas en el menú de inicio</value>
+    <value>Una o varias entradas en el menú de inicio</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manejador predeterminado para los protocolos URL compatibles.</value>
+    <value>Manejador predeterminado para los protocolos URL compatibles</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

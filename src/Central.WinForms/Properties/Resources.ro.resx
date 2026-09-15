@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduceți „{0} ” pentru a vedea o listă a comenzilor disponibile.</value>
+    <value>Introduceți „{0} ” pentru a vedea o listă cu comenzile disponibile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -257,7 +257,7 @@ adaug-o la „Aplicațiile mele”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Cu Zero Install nu mai este necesar să instalați aplicațiile.</value>
+    <value>Cu Zero Install nu mai este nevoie să instalați aplicațiile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -311,7 +311,7 @@ Sunteți sigur că doriți să plasați acolo o versiune portabilă a Zero Insta
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>Nu
-Anulează modificările</value>
+Ignoră modificările</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChangesYes" xml:space="preserve">
@@ -336,7 +336,7 @@ Salvează modificările</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Cheia criptografică introdusă este incorectă.</value>
+    <value>Cheia Crypto pe care ați introdus-o este incorectă.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
@@ -381,7 +381,7 @@ Important: Aplicațiile pe care le-ați „rulat” anterior fără a le adăuga
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Se execută...</value>
+    <value>Se lucrează...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

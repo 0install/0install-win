@@ -127,11 +127,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupTrustedKeys.Text" xml:space="preserve">
-    <value>受信任的密钥</value>
+    <value>受信任密钥</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>请选择或创建一个目录，用作实现缓存。</value>
+    <value>请选择或创建一个目录作为实现缓存。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -144,8 +144,8 @@
 - 由 Zero Install 下载的应用程序。
 
 注意事项：
-- 并非所有语言都提供翻译。
-- 语言更改生效后，您需要重启 Zero Install。</value>
+- 并非所有语言都有翻译版本。
+- 更改语言后，需要重新启动 Zero Install 才能使更改生效。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

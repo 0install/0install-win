@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>Ano, toto je první počítač</value>
+    <value>Ano, tohle je první počítač</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
@@ -103,11 +103,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Šifrovací klíč byl změněn. Nyní budete muset zadat nový klíč na všech ostatních počítačích, na kterých jste již nastavili Zero Install Sync.</value>
+    <value>Kryptografický klíč byl změněn. Nyní budete muset zadat nový klíč na všech ostatních počítačích, na kterých jste již nastavili Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Zadejte klíč na jiných počítačích pomocí okna „Možnosti“. Nepoužívejte tam tohoto průvodce, protože je potřebný pouze k provedení počáteční změny.</value>
+    <value>Zadejte klíč na jiných počítačích pomocí okna „Možnosti“. Nepoužívejte tam tohoto průvodce, protože je nutný pouze k provedení počáteční změny.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -123,11 +123,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Kryptografický klíč slouží k lokálnímu zašifrování vašich dat před jejich odesláním na server. Zapište si navrhovaný klíč nebo si vyberte vlastní.</value>
+    <value>Kryptografický klíč slouží k lokálnímu šifrování vašich dat před jejich odesláním na server. Zapište si navrhovaný klíč nebo si vyberte vlastní.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Tento klíč uchovávejte v tajnosti a jako heslo použijte něco jiného. Tímto způsobem nikdo nebude mít přístup k vašim datům, ani kdyby došlo k narušení bezpečnosti serveru.</value>
+    <value>Tento klíč udržujte v tajnosti a jako heslo použijte něco jiného. Tímto způsobem nikdo nebude mít přístup k vašim datům, ani kdyby došlo k narušení bezpečnosti serveru.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -147,15 +147,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>Seznam lokálních aplikací se resetuje. Nyní můžete pokračovat v používání Zero Install.</value>
+    <value>Seznam místních aplikací se resetuje. Nyní můžete pokračovat v používání Zero Install.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Veškeré změny, které jste provedli na jiných počítačích, ale které ještě nebyly synchronizovány s tímto počítačem, budou ztraceny!</value>
+    <value>Veškeré změny, které jste provedli na jiných počítačích, ale ještě jste je nesynchronizovali s tímto počítačem, budou ztraceny!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Chystáte se nahradit data uložená na synchronizačním serveru vaším lokálním seznamem aplikací. Veškeré změny, které jste provedli na jiných počítačích, ale které ještě nebyly s tímto počítačem synchronizovány, budou ztraceny!</value>
+    <value>Chystáte se nahradit data uložená na synchronizačním serveru vaším lokálním seznamem aplikací. Veškeré změny, které jste provedli na jiných počítačích, ale ještě nebyly synchronizovány s tímto počítačem, budou ztraceny!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de poskytuje bezplatné účty pro ukládání synchronizovaných dat. Veškerá data jsou před odesláním na server lokálně zašifrována. Pokud chcete, můžete místo toho pro ukládání dat použít svůj vlastní server.</value>
+    <value>0install.de poskytuje bezplatné účty pro ukládání synchronizačních dat. Veškerá data jsou před odesláním na server lokálně zašifrována. Pokud chcete, můžete místo toho pro ukládání použít svůj vlastní server.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Je to první počítač, na kterém nastavujete Zero Install Sync?</value>
+    <value>Je to první počítač, který nastavujete pro Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">

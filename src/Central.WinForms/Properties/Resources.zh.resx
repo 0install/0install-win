@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>常用应用程序</value>
+    <value>通用应用程序</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>执行其他操作</value>
+    <value>还执行其他操作</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
@@ -355,7 +355,7 @@
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>目前存储在同步服务器上的数据已损坏。
-您可以通过选择“不记住加密密钥”来替换服务器上存储的数据。</value>
+您可以选择“不记得加密密钥”来替换服务器上存储的数据。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -377,7 +377,7 @@
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>这将自动从缓存中删除更新后不再需要的实现。继续吗？
-重要提示：您之前曾“运行”过但未将其添加到“我的应用”中的应用程序也将从缓存中删除。如果您决定再次运行这些应用，则需要连接网络。</value>
+重要提示：您之前曾“运行”过但未将其添加到“我的应用”中的应用程序也将从缓存中删除。如果您决定再次运行这些应用程序，则需要连接网络。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

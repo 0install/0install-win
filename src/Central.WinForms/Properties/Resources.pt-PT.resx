@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorando a entrada duplicada da aplicação «{0} ».</value>
+    <value>Ignorar a entrada duplicada da aplicação «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>faz outra coisa</value>
+    <value>faz outras coisas</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
@@ -245,7 +245,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Pode gerir aqui a sua lista de aplicações favoritas.</value>
+    <value>Pode gerir a sua lista de aplicações favoritas aqui.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -253,7 +253,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Diverte-te!</value>
+    <value>Divirta-se!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
@@ -282,7 +282,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>O diretório «{0} » não está vazio.
-Tem a certeza de que quer colocar uma versão portátil do Zero Install nesse diretório?</value>
+Tem a certeza de que pretende colocar aí uma versão portátil do Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">

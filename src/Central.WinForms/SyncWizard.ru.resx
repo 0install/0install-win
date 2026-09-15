@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Я хочу сменить свой криптографический ключ</value>
+    <value>Я хочу изменить свой криптографический ключ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Введите ключ на других компьютерах с помощью окна «Параметры». Не используйте этот мастер на других компьютерах, так как он необходим только для первоначального изменения.</value>
+    <value>Введите ключ на других компьютерах с помощью окна «Параметры». Не используйте этот мастер на других компьютерах, так как он необходим только для выполнения первоначального изменения.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Щелкните по следующей ссылке, чтобы создать новую учетную запись Sync в браузере:</value>
+    <value>Нажмите на следующую ссылку, чтобы создать новую учетную запись Sync в браузере:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Вы собираетесь заменить свой локальный список приложений данными, хранящимися на сервере Sync. Все изменения, внесенные локально, но ещё не синхронизированные, будут утеряны!</value>
+    <value>Вы собираетесь заменить свой локальный список приложений данными, хранящимися на сервере синхронизации. Все изменения, внесенные локально, но еще не синхронизированные, будут утеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -151,11 +151,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Любые изменения, внесенные вами на других компьютерах, но еще не синхронизированные с этим, будут утеряны!</value>
+    <value>Все изменения, которые вы внесли на других компьютерах, но ещё не синхронизировали с этим, будут утрачены!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Все изменения, внесенные вами на других компьютерах, но еще не синхронизированные с этим компьютером, будут утеряны!</value>
+    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Любые изменения, внесенные вами на других компьютерах, но еще не синхронизированные с этим компьютером, будут утеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -167,11 +167,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Этот мастер поможет вам решить ряд возможных проблем с синхронизацией. Какую проблему вы хотите решить?</value>
+    <value>Этот мастер поможет вам решить ряд возможных проблем с синхронизацией. Какую проблему вы хотите устранить?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед отправкой на сервер. При желании вы можете использовать для хранения данные свой собственный сервер.</value>
+    <value>0install.de предоставляет бесплатные учётные записи для хранения данных синхронизации. Все данные шифруются локально перед передачей на сервер. При желании вы можете использовать для хранения данные свой собственный сервер.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Регистрация</value>
+    <value>Зарегистрироваться</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Используйте общий доступ к файлам в Windows:</value>
+    <value>Используйте общий доступ к файлам Windows:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Изменен криптографический ключ</value>
+    <value>Криптографический ключ изменен</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">

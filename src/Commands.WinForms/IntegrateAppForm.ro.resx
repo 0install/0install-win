@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funcționalități de înregistrare</value>
+    <value>Funcții de înregistrare</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Se lansează automat la introducerea unui suport adecvat (DVD, unitate USB etc.)</value>
+    <value>Se pornește automat la introducerea unui suport adecvat (DVD, unitate USB etc.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program implicit pentru activități precum navigarea pe web sau clientul de e-mail</value>
+    <value>Program implicit pentru activități precum navigarea pe internet sau utilizarea clientului de e-mail</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">

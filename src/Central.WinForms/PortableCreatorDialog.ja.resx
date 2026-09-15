@@ -71,7 +71,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>展開</value>
+    <value>デプロイ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -79,11 +79,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>ここでは、USBメモリなどで使用するためのZero Installのポータブル版を作成できます。保存先はNTFS形式でフォーマットされている必要があります。</value>
+    <value>ここでは、USBメモリなどで使用するためのZero Installのポータブル版を作成できます。対象のメディアはNTFS形式でフォーマットされている必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>- Zero Installの設定情報とキャッシュされたアプリケーションは、単一のディレクトリ内に保存されます。
+    <value>- Zero Installの設定とキャッシュされたアプリケーションは、単一のディレクトリ内に保存されます。
 - Zero Install経由で起動されたアプリケーションは、自動的にポータブル版にはなりません。
 - Zero Installのポータブル版では、デスクトップへの統合（スタートメニューへの登録など）を行うことはできません。
 - 複数のコンピュータで使用する場合は、代わりにZero Install Syncを利用した通常のZero Installの使用をご検討ください。</value>

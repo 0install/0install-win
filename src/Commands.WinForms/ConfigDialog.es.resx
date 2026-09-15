@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selecciona o crea un directorio para utilizarlo como caché de implementación.</value>
+    <value>Selecciona o crea una carpeta para utilizarla como caché de implementación.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">

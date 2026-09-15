@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>「オプション」ウィンドウを使用して、他のコンピュータでキーを入力してください。このウィザードは初期設定の変更にのみ必要であるため、他のコンピュータでは使用しないでください。</value>
+    <value>他のコンピュータでは、「オプション」ウィンドウを使用してキーを入力してください。このウィザードは初期設定の変更にのみ必要なため、他のコンピュータでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>この鍵は秘密にしておき、パスワードには別のものを使用してください。そうすれば、万が一サーバーが侵害されたとしても、誰もあなたのデータにアクセスできなくなります。</value>
+    <value>このキーは秘密にしておき、パスワードには別のものを使用してください。そうすれば、たとえサーバーが侵害されたとしても、誰もあなたのデータにアクセスすることはできません。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>ローカルのアプリケーション一覧を、Syncサーバーに保存されているデータに置き換えようとしています。ローカルで行った変更のうち、まだ同期されていないものはすべて失われます！</value>
+    <value>ローカルのアプリケーション一覧を、Syncサーバーに保存されているデータで置き換えようとしています。ローカルで行った変更のうち、まだ同期されていないものはすべて失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Syncサーバーに保存されているデータを、ローカルのアプリケーションリストで上書きしようとしています。他のコンピュータで行った変更で、まだこのコンピュータと同期されていないものはすべて失われます！</value>
+    <value>Syncサーバーに保存されているデータを、ローカルのアプリ一覧で置き換えようとしています。他のコンピュータで行った変更のうち、このコンピュータとまだ同期されていないものはすべて失われます！</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -163,11 +163,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>また、Zero Install Sync を使用している他のコンピューター上のローカルデータをリセットすることも検討してください。</value>
+    <value>また、Zero Install Sync を使用している他のコンピュータ上のローカルデータをリセットすることも検討してください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>このウィザードは、同期に関するさまざまな問題を解決するのに役立ちます。どのような問題を解決したいですか？</value>
+    <value>このウィザードは、同期に関するさまざまな問題の解決に役立ちます。どのような問題を解決したいですか？</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

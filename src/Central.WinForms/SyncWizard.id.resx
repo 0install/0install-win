@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Tidak, saya sudah mengkonfigurasi komputer lain</value>
+    <value>Tidak, saya sudah mengkonfigurasi komputer-komputer lainnya</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Kunci enkripsi:</value>
+    <value>Kunci kriptografi:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Setelah Anda membuat akun, memverifikasi alamat email, dan mencatat kredensial login Anda, klik 'Berikutnya'.</value>
+    <value>Setelah Anda membuat akun, memverifikasi alamat email, dan mencatat kredensial login Anda, klik 'Selanjutnya'.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Anda akan mengganti data yang tersimpan di server Sync dengan daftar aplikasi lokal Anda. Setiap perubahan yang telah Anda buat di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
+    <value>Anda akan mengganti data yang tersimpan di server Sync dengan daftar aplikasi lokal Anda. Setiap perubahan yang telah Anda lakukan di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de menyediakan akun gratis untuk menyimpan data Sync. Semua data dienkripsi secara lokal sebelum dikirim ke server. Anda juga dapat menggunakan server Anda sendiri untuk penyimpanan jika diinginkan.</value>
+    <value>0install.de menyediakan akun gratis untuk menyimpan data Sync. Semua data dienkripsi secara lokal sebelum dikirim ke server. Anda dapat menggunakan server Anda sendiri untuk penyimpanan jika diinginkan.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync kini telah disiapkan dan siap digunakan. Jalankan wizard ini pada komputer lain mana pun yang ingin Anda sinkronkan dengan komputer ini.</value>
+    <value>Zero Install Sync kini telah dikonfigurasi dan siap digunakan. Jalankan wizard ini pada komputer lain mana pun yang ingin Anda sinkronkan dengan komputer ini.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

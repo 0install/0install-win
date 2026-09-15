@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Здесь вы можете создать портативную версию Zero Install, например, для использования на USB-накопителе. Целевой носитель должен быть отформатирован в формате NTFS.</value>
+    <value>Здесь вы можете создать переносную версию Zero Install, например, для использования на USB-накопителе. Целевой носитель должен быть отформатирован в системе файлов NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
@@ -90,7 +90,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Эквивалент в командной строке</value>
+    <value>Эквивалент из командной строки</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">

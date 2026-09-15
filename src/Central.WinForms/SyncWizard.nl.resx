@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Houd deze sleutel geheim en gebruik iets anders als wachtwoord. Op deze manier kan niemand toegang krijgen tot uw gegevens, zelfs niet als de server zou worden gehackt.</value>
+    <value>Houd deze sleutel geheim en gebruik iets anders als wachtwoord. Op die manier kan niemand bij uw gegevens komen, zelfs niet als de server gehackt zou worden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -151,11 +151,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Alle wijzigingen die u op andere computers hebt aangebracht maar die nog niet met deze computer zijn gesynchroniseerd, gaan verloren!</value>
+    <value>Alle wijzigingen die u op andere computers hebt aangebracht maar nog niet met deze computer hebt gesynchroniseerd, gaan verloren!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>U staat op het punt de gegevens die op de Sync-server zijn opgeslagen te vervangen door uw lokale lijst met applicaties. Eventuele wijzigingen die u op andere computers hebt aangebracht maar die nog niet met deze computer zijn gesynchroniseerd, gaan verloren!</value>
+    <value>U staat op het punt de gegevens die op de Sync-server zijn opgeslagen te vervangen door uw lokale lijst met applicaties. Alle wijzigingen die u op andere computers hebt aangebracht maar die nog niet met deze computer zijn gesynchroniseerd, gaan verloren!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Misschien wilt u ook de lokale gegevens resetten op andere computers waarop u Zero Install Sync gebruikt.</value>
+    <value>Mogelijk wilt u ook de lokale gegevens resetten op andere computers waarop u Zero Install Sync gebruikt.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync neemt je lijst met applicaties en desktopintegraties over en zet deze automatisch over naar je andere computers.</value>
+    <value>Zero Install Sync neemt je lijst met applicaties en bureaubladintegraties over en zet deze automatisch over naar je andere computers.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">

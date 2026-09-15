@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>「{1} 」内のユーザー「{0} 」用の一時ディレクトリの作成に失敗しました。</value>
+    <value>「{1} 」で、ユーザー「{0} 」の一時ディレクトリを作成できませんでした。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">
@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>ユーザー「{0} 」は、「{1} 」という実装を「{2} 」に正常に追加しました。</value>
+    <value>ユーザー「{0} 」は、実装「{1} 」を「{2} 」に正常に追加しました。</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

@@ -67,7 +67,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Vastzetten</value>
+    <value>Vastgezette versie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Versie loskoppelen</value>
+    <value>Versie losmaken</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -95,7 +95,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSummary.AccessibleName" xml:space="preserve">
-    <value>Beschrijving van de opdracht</value>
+    <value>Beschrijving van het commando</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelVersion.Text" xml:space="preserve">

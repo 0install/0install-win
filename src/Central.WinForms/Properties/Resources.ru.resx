@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Введите «{0} », чтобы увидеть список доступных команд.</value>
+    <value>Введите «{0} », чтобы просмотреть список доступных команд.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Включить приложения с командной строкой</value>
+    <value>Включить приложения с интерфейсом командной строки</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -211,7 +211,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>выполняет обычные задачи</value>
+    <value>выполняет стандартные задачи</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
@@ -277,12 +277,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Добавляется в раздел «Мои приложения» и интегрируется в рабочий стол.</value>
+    <value>Добавляются в раздел «Мои приложения» и интегрируются в рабочий стол.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Каталог «{0} » не пуст.
-Вы уверены, что хотите разместить там портативную версию Zero Install?</value>
+Вы действительно хотите разместить там портативную версию Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -294,7 +294,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Хотите удалить выбранные записи из списка « {0} »?</value>
+    <value>Хотите удалить из списка выбранные элементы с кодом {0}?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -332,7 +332,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>Введенные вами имя пользователя и/или пароль неверны.</value>
+    <value>Введенное вами имя пользователя и/или пароль неверны.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
@@ -363,7 +363,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Не удалось загрузить фид для записи приложения «{0} ».</value>
+    <value>Не удалось загрузить канал для записи приложения «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
@@ -381,7 +381,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Выполняется...</value>
+    <value>Работает...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

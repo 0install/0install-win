@@ -75,7 +75,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>네, 이것이 바로 최초의 컴퓨터입니다.</value>
+    <value>네, 이것이 최초의 컴퓨터입니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>암호화 키는 데이터를 서버로 전송하기 전에 로컬에서 데이터를 암호화하는 데 사용됩니다. 제안된 키를 기록하거나 직접 키를 선택하십시오.</value>
+    <value>암호화 키는 데이터를 서버로 전송하기 전에 로컬에서 데이터를 암호화하는 데 사용됩니다. 제안된 키를 기록해 두거나 직접 키를 선택하십시오.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>브라우저에서 새로운 Sync 계정을 생성하려면 다음 링크를 클릭하세요:</value>
+    <value>브라우저에서 새로운 Sync 계정을 생성하려면 다음 링크를 클릭하십시오:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>로컬 애플리케이션 목록을 Sync 서버에 저장된 데이터로 대체하려고 합니다. 로컬에서 변경했으나 아직 동기화하지 않은 내용은 모두 사라집니다!</value>
+    <value>로컬 애플리케이션 목록을 Sync 서버에 저장된 데이터로 교체하려고 합니다. 로컬에서 변경했으나 아직 동기화하지 않은 내용은 모두 사라집니다!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>이 마법사를 사용하면 발생할 수 있는 다양한 동기화 문제를 해결하는 데 도움이 됩니다. 어떤 문제를 해결하시겠습니까?</value>
+    <value>이 마법사는 발생할 수 있는 다양한 동기화 문제를 해결하는 데 도움을 드릴 수 있습니다. 어떤 문제를 해결하시겠습니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Zero Install Sync를 위해 설정하는 첫 번째 컴퓨터입니까?</value>
+    <value>Zero Install Sync를 위해 설정하는 컴퓨터가 이번이 처음입니까?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 바탕화면 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
+    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 데스크톱 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>나만의 Sync 서버를 설정하려면 어떻게 해야 하나요?</value>
+    <value>나만의 동기화 서버를 설정하려면 어떻게 해야 하나요?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">

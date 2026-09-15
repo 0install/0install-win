@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Соответствие (%)</value>
+    <value>Совпадение (%)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Эти результаты поиска предоставляются зеркальным сервером. Обратите внимание, что зеркальный сервер по умолчанию индексирует все известные каналы, независимо от их качества; перед запуском программ вам необходимо самостоятельно решить, можно ли им доверять.</value>
+    <value>Эти результаты поиска предоставлены зеркальным сервером. Обратите внимание, что зеркальный сервер по умолчанию индексирует все известные каналы, независимо от их качества; перед запуском программ вам необходимо самостоятельно решить, можно ли им доверять.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

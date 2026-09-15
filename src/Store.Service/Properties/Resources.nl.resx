@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
-    <value>De gebruiker '{0}' heeft de implementatie '{1}' met succes toegevoegd aan '{2}'.</value>
+    <value>De gebruiker '{0}' heeft de implementatie '{1}' succesvol toegevoegd aan '{2}'.</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

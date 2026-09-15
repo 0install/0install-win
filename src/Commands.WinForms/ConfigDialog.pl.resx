@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Proszę wybrać lub utworzyć katalog, który będzie służył jako pamięć podręczna implementacji.</value>
+    <value>Wybierz lub utwórz katalog, który będzie służył jako pamięć podręczna implementacji.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
@@ -173,7 +173,7 @@ Uwagi:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimalny (preferowane wersje z pamięci podręcznej)</value>
+    <value>Minimalny (preferowane są wersje z pamięci podręcznej)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
