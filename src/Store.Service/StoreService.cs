@@ -1,13 +1,7 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-using System.Collections;
 using System.Diagnostics;
-using System.Runtime.Remoting;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Ipc;
-using System.Runtime.Remoting.Lifetime;
-using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.ServiceProcess;
 using ZeroInstall.Store.Implementations;
@@ -25,19 +19,10 @@ public sealed partial class StoreService : ServiceBase
         InitializeComponent();
     }
 
-    /// <summary>IPC channel for providing services to clients.</summary>
-    private IChannelReceiver? _serverChannel;
+    /// <summary>Accepts implementations from clients via a named pipe.</summary>
+    private StoreServiceServer? _server;
 
-    /// <summary>IPC channel for launching callbacks in clients.</summary>
-    private IChannelSender? _clientChannel;
-
-    /// <summary>The store to provide to clients as a service.</summary>
-    private MarshalByRefObject? _store;
-
-    /// <summary>The IPC remoting reference for <see cref="_store"/>.</summary>
-    private ObjRef? _objRef;
-
-    private const int IncorrectFunction = 1, AccessDenied = 5, InvalidHandle = 6, UnableToWriteToDevice = 29;
+    private const int IncorrectFunction = 1, AccessDenied = 5, UnableToWriteToDevice = 29;
 
     public void Start() => OnStart([]);
 
@@ -66,55 +51,26 @@ public sealed partial class StoreService : ServiceBase
 
         try
         {
-            _serverChannel = new IpcServerChannel(
-                new Hashtable
-                {
-                    ["name"] = ServiceImplementationStore.IpcPort,
-                    ["portName"] = ServiceImplementationStore.IpcPort,
-                    ["secure"] = true
-                },
-                new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
-                ServiceImplementationStore.IpcAcl);
-            _clientChannel = new IpcClientChannel(
-                new Hashtable
-                {
-                    ["name"] = ServiceImplementationStore.IpcCallbackPort
-                },
-                new BinaryClientFormatterSinkProvider());
-
-            ChannelServices.RegisterChannel(_serverChannel, ensureSecurity: false);
-            ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
-            _store = new CompositeImplementationSink(
-                ImplementationStores.GetDirectories(serviceMode: true)
-                                    .Select(path => new ImplementationSink(path))
-                                    .ToList());
-            _objRef = RemotingServices.Marshal(_store, nameof(IImplementationSink), typeof(IImplementationSink));
-
-            (RemotingServices.GetLifetimeService(_store) as ILease)?.Renew(TimeSpan.FromDays(365));
+            _server = new StoreServiceServer(ImplementationStores.GetDirectories(serviceMode: true));
+            _server.Start();
         }
         #region Error handling
         catch (IOException ex)
         {
-            Log.Error("Failed to open cache directory:" + Environment.NewLine + ex);
+            Log.Error("Failed to open cache directory or named pipe:" + Environment.NewLine + ex);
             ExitCode = UnableToWriteToDevice;
             Stop();
         }
         catch (UnauthorizedAccessException ex)
         {
-            Log.Error("Failed to open cache directory:" + Environment.NewLine + ex);
+            Log.Error("Failed to open cache directory or named pipe:" + Environment.NewLine + ex);
             ExitCode = AccessDenied;
-            Stop();
-        }
-        catch (RemotingException ex)
-        {
-            Log.Error("Failed to open IPC connection:" + Environment.NewLine + ex);
-            ExitCode = InvalidHandle;
             Stop();
         }
         catch (SecurityException ex)
         {
-            Log.Error("Failed to open IPC connection:" + Environment.NewLine + ex);
-            ExitCode = InvalidHandle;
+            Log.Error("Failed to open cache directory or named pipe:" + Environment.NewLine + ex);
+            ExitCode = AccessDenied;
             Stop();
         }
         #endregion
@@ -122,17 +78,8 @@ public sealed partial class StoreService : ServiceBase
 
     protected override void OnStop()
     {
-        if (_objRef != null) RemotingServices.Unmarshal(_objRef);
-        try
-        {
-            ChannelServices.UnregisterChannel(_clientChannel);
-            ChannelServices.UnregisterChannel(_serverChannel);
-        }
-        catch (RemotingException)
-        {}
-
-        _serverChannel = null;
-        _clientChannel = null;
+        _server?.Dispose();
+        _server = null;
 
         Log.Handler -= LogHandler;
     }
