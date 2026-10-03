@@ -20,7 +20,7 @@ jobs:
 
       # Build
       - name: Build
-        run: .\src\build.ps1 ${{steps.gitversion.outputs.nuGetVersion}}
+        run: src\build.ps1 ${{steps.gitversion.outputs.nuGetVersion}}
       - name: Test
         run: |
           .\test.ps1 -Purge

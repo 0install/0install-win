@@ -1,4 +1,4 @@
-﻿Param ([String]$Version = "1.0.0-pre", [Switch]$Deploy, [Switch]$Machine)
+﻿Param ($Version = "1.0.0-pre", [Switch]$Deploy, [Switch]$Machine)
 $ErrorActionPreference = "Stop"
 pushd $PSScriptRoot
 

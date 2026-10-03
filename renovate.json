@@ -8,6 +8,12 @@
       "allowedVersions": "<4"
     },
     {
+      "matchPackageNames": ["dotnet-sdk"],
+      "matchUpdateTypes": ["patch"],
+      "enabled": false,
+      "description": "Using automatic roll-forward instead of explicit update"
+    },
+    {
       "matchPackagePatterns": ["^Generator\\.Equals"],
       "groupName": "Generator.Equals",
       "automerge": true,
