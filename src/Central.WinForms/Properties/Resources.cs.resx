@@ -191,7 +191,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} skryto)</value>
+    <value>({0} skryté)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
@@ -257,7 +257,7 @@ v nabídce Start nebo na ploše.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Díky Zero Install nemusíte aplikace instalovat.</value>
+    <value>S Zero Install nemusíte aplikace instalovat.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -265,7 +265,7 @@ v nabídce Start nebo na ploše.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Upravit integraci</value>
+    <value>Úprava integrace</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
@@ -340,7 +340,7 @@ Uložit změny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Chcete obnovit nastavení synchronizace a začít od začátku?</value>
+    <value>Chcete resetovat nastavení synchronizace a začít od začátku?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
@@ -350,7 +350,7 @@ upravit stávající nastavení</value>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Ano
-začít od nuly</value>
+začít od začátku</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
@@ -376,8 +376,8 @@ Data uložená na serveru můžete nahradit tím, že zvolíte možnost, že si 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Chcete pokračovat?
-Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do složky „Moje aplikace“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
+    <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Pokračovat?
+Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do „Mých aplikací“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Chcę zmienić swój klucz kryptograficzny</value>
+    <value>Chcę zmienić mój klucz kryptograficzny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Odpowiednik wiersza poleceń</value>
+    <value>Odpowiednik w wierszu poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Nie należy uruchamiać programu Zero Install Sync na innych komputerach, gdy ten proces jest w toku.</value>
+    <value>Nie należy uruchamiać programu Zero Install Sync na innych komputerach podczas trwania tego procesu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -103,11 +103,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Klucz kryptograficzny został zmieniony. Teraz musisz wprowadzić nowy klucz na wszystkich pozostałych komputerach, na których skonfigurowałeś już usługę Zero Install Sync.</value>
+    <value>Klucz kryptograficzny został zmieniony. Teraz konieczne będzie wprowadzenie nowego klucza na wszystkich pozostałych komputerach, na których skonfigurowano już usługę Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do wykonania początkowej zmiany.</value>
+    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do przeprowadzenia początkowej zmiany.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Zachowaj ten klucz w tajemnicy i użyj innego hasła. W ten sposób nikt nie będzie miał dostępu do Twoich danych, nawet gdyby serwer został zhakowany.</value>
+    <value>Zachowaj ten klucz w tajemnicy i użyj innego hasła. Dzięki temu nikt nie będzie miał dostępu do Twoich danych, nawet gdyby serwer został zhakowany.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Za chwilę lista lokalnych aplikacji zostanie zastąpiona danymi przechowywanymi na serwerze Sync. Wszelkie zmiany wprowadzone lokalnie, ale jeszcze niezsynchronizowane, zostaną utracone!</value>
+    <value>Za chwilę lista aplikacji przechowywana lokalnie zostanie zastąpiona danymi przechowywanymi na serwerze Sync. Wszelkie zmiany wprowadzone lokalnie, ale jeszcze niezsynchronizowane, zostaną utracone!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Ten kreator może pomóc w rozwiązaniu wielu potencjalnych problemów związanych z synchronizacją. Który problem chcesz rozwiązać?</value>
+    <value>Ten kreator pomoże Ci rozwiązać wiele potencjalnych problemów związanych z synchronizacją. Który problem chcesz rozwiązać?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -179,11 +179,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Czy jest to pierwszy komputer, na którym konfigurujesz Zero Install Sync?</value>
+    <value>Czy jest to pierwszy komputer, na którym konfigurujesz usługę Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Program Zero Install Sync został skonfigurowany i jest gotowy do użycia. Uruchom tego kreatora na wszystkich innych komputerach, które chcesz zsynchronizować z tym komputerem.</value>
+    <value>Program Zero Install Sync został skonfigurowany i jest gotowy do użycia. Uruchom ten kreator na wszystkich innych komputerach, które chcesz zsynchronizować z tym komputerem.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Korzystanie z serwera niestandardowego:</value>
+    <value>Użyj serwera niestandardowego:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">

@@ -71,7 +71,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>セットアップとの統合</value>
+    <value>セットアップの統合</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>これらの検索結果はミラーサーバーによって提供されています。デフォルトのミラーサーバーは、品質に関わらずすべての既知のフィードをインデックスに登録していることにご注意ください。プログラムを実行する前に、その信頼性を判断する必要があります。</value>
+    <value>これらの検索結果はミラーサーバーによって提供されています。デフォルトのミラーサーバーは、品質に関わらずすべての既知のフィードをインデックス化している点にご注意ください。プログラムを実行する前に、その信頼性を判断する必要があります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

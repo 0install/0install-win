@@ -203,7 +203,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
-    <value>Integrasikan (menu mulai, dll.)</value>
+    <value>Integrasi (menu mulai, dll.)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
@@ -231,7 +231,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Jika Anda menyukai suatu aplikasi,
+    <value>Jika Anda menyukai sebuah aplikasi,
 tambahkan ke "Aplikasi Saya".</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -294,7 +294,7 @@ Apakah Anda yakin ingin menempatkan versi portabel Zero Install di sana?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Apakah Anda ingin menghapus entri yang dipilih " {0} " dari daftar?</value>
+    <value>Apakah Anda ingin menghapus entri yang dipilih dari daftar " {0} "?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">

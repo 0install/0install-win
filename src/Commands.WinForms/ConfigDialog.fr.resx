@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Valide automatiquement les nouvelles clés (si elles sont reconnues par le serveur de clés)</value>
+    <value>Valide automatiquement les nouvelles clés (si elles sont connues du serveur de clés)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
@@ -139,13 +139,13 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Ce paramètre permet de contrôler la langue :
+    <value>Ce paramètre contrôle la langue :
 - de Zero Install lui-même et
 - des applications téléchargées par Zero Install.
 
 Remarques :
 - Les traductions ne sont pas disponibles dans toutes les langues.
-- Vous devez redémarrer Zero Install pour que les modifications de langue prennent effet.</value>
+- Vous devez redémarrer Zero Install pour que les changements de langue prennent effet.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">

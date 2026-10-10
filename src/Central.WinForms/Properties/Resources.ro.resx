@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Introduceți „{0} ” pentru a vedea o listă cu comenzile disponibile.</value>
+    <value>Introduceți „{0} ” pentru a vedea o listă a comenzilor disponibile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -257,7 +257,7 @@ adaug-o la „Aplicațiile mele”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Cu Zero Install nu mai este nevoie să instalați aplicațiile.</value>
+    <value>Cu Zero Install nu mai este necesar să instalați aplicațiile.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
@@ -345,7 +345,7 @@ Salvează modificările</value>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>Nu
-modifică setările existente</value>
+editați setările existente</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
@@ -381,7 +381,7 @@ Important: Aplicațiile pe care le-ați „rulat” anterior fără a le adăuga
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Se lucrează...</value>
+    <value>Se execută...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

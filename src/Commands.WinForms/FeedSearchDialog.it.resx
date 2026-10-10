@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">
-    <value>Riepilogo</value>
+    <value>Sintesi</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="columnUri.HeaderText" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Questi risultati di ricerca sono forniti dal server mirror. Si noti che il server mirror predefinito indicizza tutti i feed conosciuti, indipendentemente dalla qualità; spetta all’utente decidere se fidarsi dei programmi prima di eseguirli.</value>
+    <value>Questi risultati di ricerca sono forniti dal server mirror. Si noti che il server mirror predefinito indicizza tutti i feed conosciuti, indipendentemente dalla qualità; spetta all'utente decidere se fidarsi dei programmi prima di eseguirli.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

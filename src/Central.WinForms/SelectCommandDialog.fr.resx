@@ -75,7 +75,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Version « Détacher »</value>
+    <value>Version « Unpin »</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">

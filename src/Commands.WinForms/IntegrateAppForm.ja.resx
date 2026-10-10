@@ -307,7 +307,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Webブラウザやメールクライアントなどのタスク用の既定のプログラム</value>
+    <value>Webブラウザやメールクライアントなどのタスクに使用する既定のプログラム</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,11 +315,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>サポートされているファイル形式のデフォルトのハンドラー（これがない場合でも「プログラムから開く」は機能します）</value>
+    <value>サポートされているファイル形式のデフォルトのハンドラ（これがない場合でも「プログラムから開く」は機能します）</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>「[送信先]」メニューの項目</value>
+    <value>「[Send to]」メニューの項目</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -327,7 +327,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>サポートされているURLプロトコルのデフォルトのハンドラ</value>
+    <value>サポートされているURLプロトコル用のデフォルトハンドラ</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">

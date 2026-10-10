@@ -87,7 +87,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Não deve executar o Zero Install Sync noutros computadores enquanto este processo estiver em execução.</value>
+    <value>Não deve executar o Zero Install Sync noutros computadores enquanto este processo estiver a decorrer.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
@@ -171,7 +171,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>O 0install.de disponibiliza contas gratuitas para o armazenamento de dados de sincronização. Todos os dados são encriptados localmente antes de serem transmitidos para o servidor. Se preferir, pode utilizar o seu próprio servidor para o armazenamento.</value>
+    <value>O 0install.de disponibiliza contas gratuitas para armazenar dados de sincronização. Todos os dados são encriptados localmente antes de serem transmitidos para o servidor. Se preferir, pode utilizar o seu próprio servidor para armazenamento.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>O Zero Install Sync está agora configurado e pronto a utilizar. Execute este assistente em quaisquer outros computadores que pretenda manter sincronizados com este.</value>
+    <value>O Zero Install Sync já está configurado e pronto a utilizar. Execute este assistente em quaisquer outros computadores que pretenda manter sincronizados com este.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
-    <value>Registar-se</value>
+    <value>Registar</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
@@ -227,11 +227,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Chave de encriptação</value>
+    <value>Chave criptográfica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Chave de encriptação</value>
+    <value>Chave criptográfica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">

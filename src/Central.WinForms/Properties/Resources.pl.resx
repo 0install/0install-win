@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Wpisz tutaj adres URL kanału Zero Install:</value>
+    <value>W tym miejscu należy wprowadzić adres URL kanału Zero Install:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
@@ -261,7 +261,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Tryb obejmujący całą maszynę</value>
+    <value>Tryb obejmujący całe urządzenie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
@@ -277,7 +277,7 @@ w menu Start lub na pulpicie.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Dodawane do sekcji „Moje aplikacje” i zintegrowane ze środowiskiem graficznym.</value>
+    <value>Dodawane do sekcji „Moje aplikacje” i zintegrowane ze środowiskiem pulpitu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -354,8 +354,8 @@ zacznij od zera</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>Dane obecnie przechowywane na serwerze Sync są uszkodzone.
-Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie pamiętasz klucza szyfrującego.</value>
+    <value>Dane przechowywane obecnie na serwerze Sync są uszkodzone.
+Możesz zastąpić dane przechowywane na serwerze, wybierając opcję, że nie pamiętasz klucza kryptograficznego.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
@@ -376,8 +376,8 @@ Zaszyfrowane połączenia wykorzystują prefiks https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które nie są już potrzebne po aktualizacji. Kontynuować?
-Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, musisz mieć połączenie z Internetem.</value>
+    <value>Spowoduje to automatyczne usunięcie z pamięci podręcznej implementacji, które po aktualizacji nie są już potrzebne. Kontynuować?
+Ważne: Aplikacje, które wcześniej „uruchamiałeś” bez dodawania ich do sekcji „Moje aplikacje”, również zostaną usunięte z pamięci podręcznej.  Jeśli zdecydujesz się uruchomić je ponownie, konieczne będzie połączenie z Internetem.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

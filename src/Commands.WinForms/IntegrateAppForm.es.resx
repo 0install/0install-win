@@ -135,7 +135,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funciones de registro</value>
+    <value>Funcionalidades de registro</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Gestor predeterminado para los tipos de archivo compatibles (la opción «Abrir con» también funciona sin esto).</value>
+    <value>Gestor predeterminado para los tipos de archivo compatibles (la opción «Abrir con» también funciona sin esto)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -323,7 +323,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
-    <value>Una o varias entradas en el menú de inicio</value>
+    <value>Una o más entradas en el menú de inicio</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">

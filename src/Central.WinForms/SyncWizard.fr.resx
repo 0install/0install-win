@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Clé de chiffrement :</value>
+    <value>Clé cryptographique :</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>La clé de cryptage a été modifiée. Vous devrez désormais saisir la nouvelle clé sur tous les autres ordinateurs que vous avez déjà configurés pour Zero Install Sync.</value>
+    <value>La clé de chiffrement a été modifiée. Vous devrez désormais saisir la nouvelle clé sur tous les autres ordinateurs que vous avez déjà configurés pour Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
-    <value>Cet assistant peut vous aider à résoudre un certain nombre de problèmes de synchronisation. Quel problème souhaitez-vous résoudre ?</value>
+    <value>Cet assistant peut vous aider à résoudre un certain nombre de problèmes de synchronisation potentiels. Quel problème souhaitez-vous résoudre ?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Clé de chiffrement modifiée</value>
+    <value>Clé de cryptage modifiée</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
