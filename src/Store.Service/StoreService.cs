@@ -69,16 +69,16 @@ public sealed partial class StoreService : ServiceBase
             _serverChannel = new IpcServerChannel(
                 new Hashtable
                 {
-                    ["name"] = ServiceImplementationStore.IpcPort,
-                    ["portName"] = ServiceImplementationStore.IpcPort,
+                    ["name"] = ServiceImplementationSink.IpcPort,
+                    ["portName"] = ServiceImplementationSink.IpcPort,
                     ["secure"] = true
                 },
                 new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full}, // Allow deserialization of custom types
-                ServiceImplementationStore.IpcAcl);
+                ServiceImplementationSink.IpcAcl);
             _clientChannel = new IpcClientChannel(
                 new Hashtable
                 {
-                    ["name"] = ServiceImplementationStore.IpcCallbackPort
+                    ["name"] = ServiceImplementationSink.IpcCallbackPort
                 },
                 new BinaryClientFormatterSinkProvider());
 
