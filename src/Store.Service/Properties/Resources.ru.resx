@@ -63,7 +63,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">
-    <value>Не удалось создать временный каталог для пользователя «{0} » в каталоге «{1} ».</value>
+    <value>Не удалось создать временный каталог для пользователя «{0} » в «{1} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToRemoveTempDir" xml:space="preserve">

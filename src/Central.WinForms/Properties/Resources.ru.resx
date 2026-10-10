@@ -167,7 +167,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Введите «{0} », чтобы просмотреть список доступных команд.</value>
+    <value>Введите «{0} », чтобы увидеть список доступных команд.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
@@ -277,7 +277,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Добавляются в раздел «Мои приложения» и интегрируются в рабочий стол.</value>
+    <value>Добавляется в раздел «Мои приложения» и интегрируется в рабочий стол.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -294,7 +294,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Хотите удалить из списка выбранные элементы с кодом {0}?</value>
+    <value>Хотите удалить выбранные записи из списка « {0} »?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Run" xml:space="preserve">

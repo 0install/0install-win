@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryEducation" xml:space="preserve">
-    <value>Formação</value>
+    <value>Formação académica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryEmail" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorar a entrada duplicada da aplicação «{0} ».</value>
+    <value>Ignorando a entrada duplicada da aplicação «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
@@ -282,7 +282,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>O diretório «{0} » não está vazio.
-Tem a certeza de que pretende colocar aí uma versão portátil do Zero Install?</value>
+Tem a certeza de que pretende colocar uma versão portátil do Zero Install nesse diretório?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
@@ -340,7 +340,7 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Deseja redefinir as definições de sincronização e começar do zero?</value>
+    <value>Deseja repor as definições de sincronização e começar do zero?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
@@ -381,7 +381,7 @@ Importante: As aplicações que já tenha «Executado» anteriormente sem as adi
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>A funcionar...</value>
+    <value>A trabalhar...</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

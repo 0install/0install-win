@@ -111,7 +111,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Kunci enkripsi:</value>
+    <value>Kunci kriptografi:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Anda akan mengganti data yang tersimpan di server Sync dengan daftar aplikasi lokal Anda. Setiap perubahan yang telah Anda lakukan di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
+    <value>Anda akan mengganti data yang tersimpan di server Sync dengan daftar aplikasi lokal Anda. Setiap perubahan yang telah Anda buat di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync kini telah dikonfigurasi dan siap digunakan. Jalankan wizard ini pada komputer lain mana pun yang ingin Anda sinkronkan dengan komputer ini.</value>
+    <value>Zero Install Sync kini telah disiapkan dan siap digunakan. Jalankan wizard ini pada komputer lain mana pun yang ingin Anda sinkronkan dengan komputer ini.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

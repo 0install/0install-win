@@ -83,7 +83,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Velikost zkontrolovaných položek:</value>
+    <value>Zkontrolovaná velikost záznamů:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
@@ -91,7 +91,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
-    <value>Načítá se...</value>
+    <value>Načítání...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">

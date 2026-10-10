@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>자동 실행</value>
+    <value>자동 시작</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
@@ -139,7 +139,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
-    <value>운영 체제에 해당 애플리케이션이 처리할 수 있는 파일 유형 등 애플리케이션의 기능을 알립니다.</value>
+    <value>운영 체제에 해당 애플리케이션이 처리할 수 있는 파일 유형 등 애플리케이션의 기능을 알려줍니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
@@ -207,7 +207,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
-    <value>명령</value>
+    <value>명령어</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>지원되는 파일 형식에 대한 기본 실행 프로그램(이 기능이 없어도 “다른 프로그램으로 열기” 기능은 정상적으로 작동합니다)</value>
+    <value>지원되는 파일 형식에 대한 기본 처리기(이 기능이 없어도 “다른 프로그램으로 열기” 기능은 정상적으로 작동합니다)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -339,7 +339,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>자동 실행</value>
+    <value>자동 시작</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">

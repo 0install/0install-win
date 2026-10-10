@@ -95,7 +95,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Creador portátil</value>
+    <value>Creador de versiones portátiles</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
@@ -123,7 +123,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
-    <value>Solución de problemas</value>
+    <value>Resolución de problemas</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonTools.Text" xml:space="preserve">

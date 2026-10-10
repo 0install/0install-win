@@ -119,7 +119,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryOffice" xml:space="preserve">
-    <value>Office</value>
+    <value>오피스</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryPlayer" xml:space="preserve">
@@ -175,7 +175,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>이 컴퓨터에 Zero Install을 설정하려면 클릭하세요...</value>
+    <value>이 컴퓨터에 Zero Install을 설치하려면 클릭하세요...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
-    <value>모든 사용자 대상</value>
+    <value>모든 사용자용</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
@@ -232,7 +232,7 @@
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
     <value>마음에 드는 앱이 있다면,
-'내 앱'에 추가하세요.</value>
+"내 앱"에 추가하세요.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
@@ -241,7 +241,7 @@
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
     <value>앱을 “통합”하여
-시작 메뉴나 바탕화면에 추가합니다.</value>
+시작 메뉴나 바탕화면에 배치합니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
@@ -249,7 +249,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... 그리고 실행해 보세요!</value>
+    <value>... 그리고 실행하세요!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
@@ -277,7 +277,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>"내 앱"에 추가되며 데스크톱 환경에 통합됩니다.</value>
+    <value>"내 앱"에 추가되고 데스크톱 환경에 통합됩니다.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">

@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Domyślne</value>
+    <value>Domyślnie</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Domyślny program do obsługi obsługiwanych typów plików (funkcja „Otwórz za pomocą” działa również bez tego)</value>
+    <value>Domyślny program do obsługi obsługiwanych typów plików (funkcja „Otwórz za pomocą” działa również bez niego)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
@@ -371,7 +371,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Odpowiednik wiersza poleceń</value>
+    <value>Odpowiednik w wierszu poleceń</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

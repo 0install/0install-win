@@ -79,7 +79,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Aici puteți crea o versiune portabilă a Zero Install, de exemplu pentru a o utiliza pe o unitate USB. Unitatea țintă trebuie să fie formatată în sistemul de fișiere NTFS.</value>
+    <value>Aici puteți crea o versiune portabilă a Zero Install, de exemplu pentru a o utiliza pe o unitate USB. Discul țintă trebuie să fie formatat în sistemul de fișiere NTFS.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">

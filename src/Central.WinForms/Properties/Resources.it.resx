@@ -175,7 +175,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Fai clic per configurare Zero Install su questo computer...</value>
+    <value>Fai clic qui per configurare Zero Install su questo computer...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Si ignora la voce duplicata relativa all'app "{0}".</value>
+    <value>Ignora la voce duplicata relativa all’app «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Altra app</value>
+    <value>Altre app</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -240,7 +240,7 @@ aggiungila a "Le mie app".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integra" un'applicazione per inserirla
+    <value>"Integra" un'app per inserirla
 nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -281,7 +281,7 @@ nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
-    <value>La cartella "{0}" non è vuota.
+    <value>La directory «{0} » non è vuota.
 Sei sicuro di voler inserire lì una versione portatile di Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
@@ -363,7 +363,7 @@ partire da zero</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Impossibile caricare il feed per la voce dell’app «{0} ».</value>
+    <value>Impossibile caricare il feed per la voce dell'app "{0}".</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
