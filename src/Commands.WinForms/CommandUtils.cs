@@ -8,7 +8,7 @@ namespace ZeroInstall.Commands.WinForms;
 /// <summary>
 /// Helpers for running 0install-win commands.
 /// </summary>
-public class CommandUtils
+public static class CommandUtils
 {
     /// <summary>
     /// Starts a 0install-win command and does not wait for it to complete.
