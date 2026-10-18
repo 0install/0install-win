@@ -40,7 +40,7 @@ public static class CommandUtils
         }
         #region Error handling
         catch (OperationCanceledException) {}
-        catch (IOException ex)
+        catch (Exception ex) when (ex is PlatformNotSupportedException or IOException)
         {
             Msg.Inform(null, ex.Message, MsgSeverity.Error);
         }

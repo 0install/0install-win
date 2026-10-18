@@ -59,16 +59,21 @@ public static class ProgramUtils
             handler.Error(ex);
             return ExitCode.WebError;
         }
-        catch (NotAdminException) when (WindowsUtils.HasUac && handler.IsGui)
+        catch (NotAdminException ex) when (WindowsUtils.HasUac && handler.IsGui)
         {
-            Log.Info("Elevating to admin");
+            Log.Info("Elevating to admin", ex);
             try
             {
                 return (ExitCode)GetStartInfo(args).AsAdmin().Run();
             }
-            catch (IOException ex)
-            {
+            catch (PlatformNotSupportedException)
+            { // UAC disabled
                 handler.Error(ex);
+                return ExitCode.IOError;
+            }
+            catch (IOException ex2)
+            {
+                handler.Error(ex2);
                 return ExitCode.IOError;
             }
             catch (OperationCanceledException)
