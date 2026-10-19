@@ -14,7 +14,7 @@
     <ApplicationManifest>..\app.manifest</ApplicationManifest>
 
     <!-- Publish configuration -->
-    <SatelliteResourceLanguages>cs;es;el;fr;id;it;ja;ko;nl;pt-BR;pt-PT;ro;ru;tr;zh;zh-Hant</SatelliteResourceLanguages>
+    <SatelliteResourceLanguages>de;cs;es;el;fr;id;it;ja;ko;nl;pl;pt-BR;pt-PT;ro;ru;tr;zh;zh-Hant</SatelliteResourceLanguages>
     <PublishDocumentationFiles>False</PublishDocumentationFiles>
 
     <!-- Metadata -->
