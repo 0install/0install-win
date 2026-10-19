@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Catalogo &amp;fonti</value>
+    <value>&amp;Fonti del catalogo</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
@@ -115,8 +115,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementazione delle directory della cache</value>
-    <comment>Automatically translated.</comment>
+    <value>Directory della cache delle &amp;implementazioni</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Utilizzo della rete</value>
@@ -131,8 +131,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Selezionare o creare una cartella da utilizzare come cache di implementazione.</value>
-    <comment>Automatically translated.</comment>
+    <value>Seleziona o crea una directory da utilizzare come cache delle implementazioni.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
     <value>Attenzione: la modifica di queste opzioni potrebbe impedire il corretto funzionamento di Zero Install.</value>
@@ -173,8 +173,8 @@ Note:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minima (preferibilmente versioni memorizzate nella cache)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Minima (preferisce le versioni nella cache)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
     <value>Offline (non utilizza la rete)</value>

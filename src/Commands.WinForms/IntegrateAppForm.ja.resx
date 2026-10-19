@@ -135,8 +135,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>登録機能</value>
-    <comment>Automatically translated.</comment>
+    <value>機能を登録(&amp;R)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>アプリケーションが処理できるファイルの種類など、その機能に関する情報をオペレーティングシステムに伝えます。</value>
@@ -251,8 +251,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>拡張機能</value>
-    <comment>Automatically translated.</comment>
+    <value>拡張子</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>コマンド</value>
@@ -319,8 +319,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>「[Send to]」メニューの項目</value>
-    <comment>Automatically translated.</comment>
+    <value>「送信先」メニューの項目</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
     <value>スタートメニューに1つ以上の項目が表示されます</value>

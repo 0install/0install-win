@@ -79,16 +79,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Nu, am configurat deja alte calculatoare</value>
-    <comment>Automatically translated.</comment>
+    <value>Nu, am configurat deja alte &amp;computere</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Linie de comandă echivalentă</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
-    <value>Nu trebuie să rulați Zero Install Sync pe alte computere în timp ce acest proces este în desfășurare.</value>
-    <comment>Automatically translated.</comment>
+    <value>Nu ar trebui să rulați Zero Install Sync pe alte computere în timp ce acest proces este în desfășurare.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCredentials.Text" xml:space="preserve">
     <value>Vă rugăm să introduceți mai jos datele de autentificare pentru serverul Sync:</value>
@@ -103,8 +103,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Cheia de criptare a fost modificată. Acum va trebui să introduceți noua cheie pe toate celelalte computere pe care le-ați configurat deja pentru Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>Cheia criptografică a fost modificată. Acum va trebui să introduceți noua cheie pe toate celelalte computere pe care le-ați configurat deja pentru Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>Introduceți cheia pe alte computere folosind fereastra „Opțiuni”. Nu utilizați acest asistent pe acele computere, deoarece este necesar doar pentru efectuarea modificării inițiale.</value>
@@ -123,8 +123,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Cheia de criptare este utilizată pentru a cripta datele dvs. la nivel local înainte de a le transmite către server. Notați-vă cheia sugerată sau alegeți-vă propria cheie.</value>
-    <comment>Automatically translated.</comment>
+    <value>Cheia criptografică este utilizată pentru a cripta datele dvs. local înainte de a le transmite către server. Notați cheia sugerată sau alegeți una proprie.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
     <value>Păstrați această cheie secretă și folosiți o parolă diferită. Astfel, nimeni nu vă va putea accesa datele, chiar dacă serverul ar fi compromis.</value>
@@ -187,8 +187,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync preia lista de aplicații și integrările de pe desktop și le transferă automat pe celelalte computere ale tale.</value>
-    <comment>Automatically translated.</comment>
+    <value>Zero Install Sync preia lista de aplicații și integrările desktop și le transferă automat pe celelalte computere ale dvs.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
     <value>Nume de utilizator:</value>
@@ -219,8 +219,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sincronizare cont</value>
-    <comment>Automatically translated.</comment>
+    <value>Cont de sincronizare</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Cheia criptografică a fost modificată</value>
@@ -235,8 +235,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sincronizare cont</value>
-    <comment>Automatically translated.</comment>
+    <value>Cont de sincronizare</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Resetare date locale</value>

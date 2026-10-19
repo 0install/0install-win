@@ -91,8 +91,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryEducation" xml:space="preserve">
-    <value>Formação académica</value>
-    <comment>Automatically translated.</comment>
+    <value>Educação</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CategoryEmail" xml:space="preserve">
     <value>E-mail</value>
@@ -167,8 +167,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>Digite «{0} » para ver uma lista dos comandos disponíveis.</value>
-    <comment>Automatically translated.</comment>
+    <value>Introduza «{0}» para ver uma lista dos comandos disponíveis.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
@@ -191,12 +191,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} oculto)</value>
-    <comment>Automatically translated.</comment>
+    <value>({0} oculto(s))</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignorando a entrada duplicada da aplicação «{0} ».</value>
-    <comment>Automatically translated.</comment>
+    <value>A ignorar a entrada duplicada da aplicação «{0}».</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
     <value>Incluir aplicações de linha de comandos</value>
@@ -249,8 +249,8 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... e executa-o!</value>
-    <comment>Automatically translated.</comment>
+    <value>... e execute-a!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
     <value>Divirta-se!</value>
@@ -294,8 +294,8 @@ Tem a certeza de que pretende colocar uma versão portátil do Zero Install ness
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Deseja remover as entradas selecionadas da lista « {0} »?</value>
-    <comment>Automatically translated.</comment>
+    <value>Deseja remover da lista as {0} entradas selecionadas?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Executar</value>
@@ -336,8 +336,8 @@ Guardar alterações</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>A chave de encriptação que introduziu está incorreta.</value>
-    <comment>Automatically translated.</comment>
+    <value>A chave criptográfica que introduziu está incorreta.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
     <value>Deseja repor as definições de sincronização e começar do zero?</value>
@@ -355,12 +355,12 @@ começar do zero</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Os dados atualmente armazenados no servidor Sync estão danificados.
-Pode substituir os dados armazenados no servidor, selecionando a opção de não memorizar a chave de encriptação.</value>
-    <comment>Automatically translated.</comment>
+Pode substituir os dados armazenados no servidor ao selecionar a opção de não se lembrar da chave criptográfica.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Não foi possível descarregar o catálogo de aplicações.</value>
-    <comment>Automatically translated.</comment>
+    <value>Não foi possível transferir o catálogo de aplicações.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Não foi possível carregar o feed para a entrada da aplicação «{0} ».</value>
@@ -372,13 +372,13 @@ As ligações encriptadas utilizam o prefixo https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Atualização</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Atualizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Isto irá remover automaticamente do cache as implementações que já não são necessárias após a atualização. Deseja continuar?
-Importante: As aplicações que já tenha «Executado» anteriormente sem as adicionar a «As minhas aplicações» também serão removidas do cache. Terá de estar ligado à Internet se decidir executá-las novamente.</value>
-    <comment>Automatically translated.</comment>
+    <value>Isto irá remover automaticamente da cache as implementações que já não são necessárias após a atualização. Deseja continuar?
+Importante: As aplicações que já tenha executado anteriormente («Executar») sem as adicionar a «As minhas aplicações» também serão removidas da cache. Terá de estar ligado à Internet se decidir executá-las novamente.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
     <value>A trabalhar...</value>

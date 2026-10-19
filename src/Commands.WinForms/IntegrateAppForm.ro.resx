@@ -135,8 +135,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funcții de înregistrare</value>
-    <comment>Automatically translated.</comment>
+    <value>Înregistrare &amp;capacități</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Informează sistemul de operare cu privire la capacitățile aplicației, cum ar fi tipurile de fișiere pe care le poate gestiona.</value>
@@ -307,8 +307,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program implicit pentru activități precum navigarea pe web sau clientul de e-mail</value>
-    <comment>Automatically translated.</comment>
+    <value>Program implicit pentru sarcini precum browserul web sau clientul de e-mail</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
     <value>O pictogramă pe desktop</value>

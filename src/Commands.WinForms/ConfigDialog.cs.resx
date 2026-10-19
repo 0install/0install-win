@@ -95,8 +95,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Obnovit</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Resetovat</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
     <value>Automaticky schvaluje nové klíče (jsou-li známy klíčovému serveru)</value>
@@ -111,12 +111,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Aktualizace</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Aktuálnost</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Adresáře pro implementační mezipaměť</value>
-    <comment>Automatically translated.</comment>
+    <value>Adresáře &amp;mezipaměti implementací</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Využití sítě</value>
@@ -131,8 +131,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Vyberte nebo vytvořte adresář, který bude sloužit jako mezipaměť pro implementaci.</value>
-    <comment>Automatically translated.</comment>
+    <value>Vyberte nebo vytvořte adresář, který bude sloužit jako mezipaměť implementací.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
     <value>Upozornění: Změna těchto nastavení může způsobit nesprávnou funkci programu Zero Install.</value>
@@ -169,8 +169,8 @@ Poznámky:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Plná verze (běžné používání sítě)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Plné (běžné používání sítě)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
     <value>Minimální (upřednostňuje verze z mezipaměti)</value>

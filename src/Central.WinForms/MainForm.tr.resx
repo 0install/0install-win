@@ -139,7 +139,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Güncelle ve &amp;temizle</value>
+    <value>Tümünü güncelle ve &amp;temizle</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">

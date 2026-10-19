@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Integriere Anwendung</value>
+    <value>Anwendung integrieren</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Nimmt diese Anwendung in "Alle aktualisieren" Durchläufen mit auf.</value>
+    <value>Nimmt diese Anwendung in "Alle aktualisieren"-Durchläufe mit auf.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -251,7 +251,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>Erweiterungen</value>
+    <value>Endungen</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
@@ -319,7 +319,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Ein Eintrag im "Senden an" Menü</value>
+    <value>Ein Eintrag im "Senden an"-Menü</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">

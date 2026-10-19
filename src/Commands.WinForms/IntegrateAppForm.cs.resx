@@ -135,8 +135,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funkce registrace</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Registrovat schopnosti</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Informuje operační systém o schopnostech aplikace, například o typech souborů, se kterými dokáže pracovat.</value>
@@ -195,8 +195,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí nastavení</value>
-    <comment>Automatically translated.</comment>
+    <value>Výchozí</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
     <value>Popis</value>
@@ -223,8 +223,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí nastavení</value>
-    <comment>Automatically translated.</comment>
+    <value>Výchozí</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
     <value>Popis</value>
@@ -243,16 +243,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí nastavení</value>
-    <comment>Automatically translated.</comment>
+    <value>Výchozí</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
     <value>Popis</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>Rozšíření</value>
-    <comment>Automatically translated.</comment>
+    <value>Přípony</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>Příkaz</value>
@@ -275,8 +275,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Výchozí nastavení</value>
-    <comment>Automatically translated.</comment>
+    <value>Výchozí</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
     <value>Popis</value>
@@ -315,8 +315,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Výchozí program pro podporované typy souborů (funkce „Otevřít v“ funguje i bez něj)</value>
-    <comment>Automatically translated.</comment>
+    <value>Výchozí program pro podporované typy souborů („Otevřít pomocí“ funguje i bez toho)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
     <value>Položka v nabídce „Odeslat do“</value>

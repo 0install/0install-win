@@ -71,8 +71,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integratie in het installatieproces</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Integratie instellen</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
     <value>Uitvoeren</value>

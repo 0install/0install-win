@@ -175,7 +175,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="DeployNotification" xml:space="preserve">
-    <value>Klicken um Zero Install auf diesem Rechner einzurichten...</value>
+    <value>Klicken, um Zero Install auf diesem Computer einzurichten...</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
@@ -195,11 +195,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignoriere doppelten App-Eintrag für '{0}'.</value>
+    <value>Doppelter App-Eintrag für '{0}' wird ignoriert.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>&amp;Befehlszeilen Apps anzeigen</value>
+    <value>&amp;Befehlszeilen-Apps anzeigen</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
@@ -249,7 +249,7 @@ um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... und Starten Sie sie!</value>
+    <value>... und starten Sie sie!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
@@ -286,7 +286,7 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
     <comment>Manually overriden.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">
-    <value>Portable Modus</value>
+    <value>Portabler Modus</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Remove" xml:space="preserve">
@@ -324,7 +324,7 @@ Sind Sie sicher, dass Sie eine portable Version von Zero Install dort ablegen m�
     <comment>Manually overriden.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Klicken um auf Zero Install v{0} zu aktualisieren...</value>
+    <value>Klicken, um auf Zero Install v{0} zu aktualisieren...</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
@@ -359,11 +359,11 @@ Sie können die auf dem Server gespeicherten Daten ersetzen, indem Sie auswähle
     <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Konnte Anwendungskatalog nicht herunterladen.</value>
+    <value>Anwendungskatalog konnte nicht heruntergeladen werden.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Konnte Feed für App-Eintrag '{0}' nicht laden.</value>
+    <value>Feed für App-Eintrag '{0}' konnte nicht geladen werden.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
@@ -381,7 +381,7 @@ Wichtig: Anwendungen, die Sie zuvor mit "Start" aufgerufen haben, ohne sie zu "M
     <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Arbeite...</value>
+    <value>Wird ausgeführt...</value>
     <comment>Manually overriden.</comment>
   </data>
 </root>

@@ -67,20 +67,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Version épinglée</value>
-    <comment>Automatically translated.</comment>
+    <value>É&amp;pingler la version</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>&amp;Actualiser</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Version « Unpin »</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Libérer la version</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Commande équivalente en ligne de commande</value>
-    <comment>Automatically translated.</comment>
+    <value>Ligne de commande équivalente</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>Arguments :</value>
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Commande équivalente en ligne de commande</value>
-    <comment>Automatically translated.</comment>
+    <value>Ligne de commande équivalente</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

@@ -71,8 +71,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Implementeren</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Installeren</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Equivalente opdrachtregel</value>

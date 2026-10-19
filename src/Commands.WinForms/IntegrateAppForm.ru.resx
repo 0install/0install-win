@@ -115,16 +115,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Выделить всё</value>
-    <comment>Automatically translated.</comment>
+    <value>Выбрать &amp;всё</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
     <value>Автозапуск</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
-    <value>Автозапуск</value>
-    <comment>Automatically translated.</comment>
+    <value>Автозагрузка</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
     <value>Включить в «Обновить всё»</value>
@@ -135,16 +135,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Возможности регистрации</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Регистрировать возможности</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Сообщает операционной системе о возможностях приложения, например о типах файлов, с которыми оно может работать.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Выделить всё</value>
-    <comment>Automatically translated.</comment>
+    <value>Выбрать &amp;всё</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
     <value>Контекстное меню</value>
@@ -163,8 +163,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Выделить всё</value>
-    <comment>Automatically translated.</comment>
+    <value>Выбрать &amp;всё</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
     <value>Типы файлов</value>
@@ -179,8 +179,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Выделить всё</value>
-    <comment>Automatically translated.</comment>
+    <value>Выбрать &amp;всё</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
     <value>Протоколы URL</value>
@@ -339,8 +339,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAutoStart.Text" xml:space="preserve">
-    <value>Автозапуск</value>
-    <comment>Automatically translated.</comment>
+    <value>Автозагрузка</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
     <value>Контекстное меню</value>

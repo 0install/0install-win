@@ -67,23 +67,23 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Έκδοση Pin</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Καρφίτσωμα έκδοσης</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Ανανέωση</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Αποσύνδεση έκδοσης</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Ξεκαρφίτσωμα έκδοσης</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Ισοδύναμη γραμμή εντολών</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
-    <value>Επιχειρήματα:</value>
+    <value>&amp;Ορίσματα:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">

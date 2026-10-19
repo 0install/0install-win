@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
-    <value>Navegar</value>
-    <comment>Automatically translated.</comment>
+    <value>Procurar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Cancelar</value>

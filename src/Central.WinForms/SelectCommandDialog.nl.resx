@@ -67,16 +67,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Vastgezette versie</value>
-    <comment>Automatically translated.</comment>
+    <value>Versie vast&amp;zetten</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Vernieuwen</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Versie loskoppelen</value>
-    <comment>Automatically translated.</comment>
+    <value>Versie &amp;losmaken</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Equivalente opdrachtregel</value>

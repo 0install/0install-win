@@ -179,8 +179,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Введите здесь URL-адрес канала Zero Install:</value>
-    <comment>Automatically translated.</comment>
+    <value>Введите здесь URL-адрес фида Zero Install:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ForAllUsers" xml:space="preserve">
     <value>Для всех пользователей</value>
@@ -265,8 +265,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
-    <value>Изменение интеграции</value>
-    <comment>Automatically translated.</comment>
+    <value>Изменить интеграцию</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
     <value>Добавить в «Мои приложения»</value>
@@ -277,8 +277,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Добавляется в раздел «Мои приложения» и интегрируется в рабочий стол.</value>
-    <comment>Automatically translated.</comment>
+    <value>Добавлено в «Мои приложения» и интегрировано в рабочую среду.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Каталог «{0} » не пуст.
@@ -294,16 +294,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Хотите удалить выбранные записи из списка « {0} »?</value>
-    <comment>Automatically translated.</comment>
+    <value>Хотите удалить из списка выбранные записи ({0})?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Запустить</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
-    <value>Запуск с параметрами</value>
-    <comment>Automatically translated.</comment>
+    <value>Запустить с &amp;параметрами</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Хотите сохранить внесенные изменения?</value>
@@ -324,8 +324,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>Нажмите, чтобы обновить Zero Install до версии{0}...</value>
-    <comment>Automatically translated.</comment>
+    <value>Нажмите, чтобы обновить Zero Install до версии {0}...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>Сначала необходимо завершить настройку синхронизации.</value>
@@ -363,8 +363,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Не удалось загрузить канал для записи приложения «{0} ».</value>
-    <comment>Automatically translated.</comment>
+    <value>Не удалось загрузить фид для записи приложения «{0}».</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Вы уверены, что хотите использовать незашифрованное соединение с сервером Sync?
@@ -372,8 +372,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Обновление</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Обновить</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Это приведет к автоматическому удалению из кэша реализаций, которые больше не нужны после обновления. Продолжить?
@@ -381,7 +381,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Работает...</value>
-    <comment>Automatically translated.</comment>
+    <value>Выполняется...</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

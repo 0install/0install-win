@@ -59,12 +59,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵を変更したい</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーを変更したい(&amp;C)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>パスワードを忘れた</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーを忘れた(&amp;F)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>ローカルデータを置き換えたい</value>
@@ -95,36 +95,36 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵：</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キー(&amp;K)：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>新しい暗号鍵：</value>
-    <comment>Automatically translated.</comment>
+    <value>新しい暗号キー(&amp;K)：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>暗号化キーが変更されました。これに伴い、Zero Install Syncの設定を済ませている他のすべてのコンピュータで、新しいキーを入力する必要があります。</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーが変更されました。これに伴い、Zero Install Syncの設定を済ませている他のすべてのコンピュータで、新しいキーを入力する必要があります。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>「オプション」ウィンドウを使用して、他のコンピュータでキーを入力してください。このウィザードは初期設定の変更にのみ必要ですので、他のコンピュータでは使用しないでください。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>暗号鍵：</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キー(&amp;K)：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>新しい暗号鍵：</value>
-    <comment>Automatically translated.</comment>
+    <value>新しい暗号キー(&amp;K)：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>このコンピュータおよび／または他のコンピュータで以前使用した暗号化キーを入力してください：</value>
-    <comment>Automatically translated.</comment>
+    <value>このコンピュータおよび／または他のコンピュータで以前使用した暗号キーを入力してください：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号化キーは、データをサーバーに送信する前にローカルで暗号化するために使用されます。提案されたキーを書き留めるか、独自のキーを選択してください。</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーは、データをサーバーに送信する前にローカルで暗号化するために使用されます。提案されたキーを書き留めるか、独自のキーを選択してください。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
     <value>このキーは秘密にしておき、パスワードには別のものを使用してください。そうすれば、たとえサーバーが侵害されたとしても、誰もあなたのデータにアクセスすることはできません。</value>
@@ -139,8 +139,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>アカウントを作成し、メールアドレスの確認を済ませ、ログイン情報を確認したら、「次へ」をクリックしてください。</value>
-    <comment>Automatically translated.</comment>
+    <value>アカウントを作成し、メールアドレスの確認を済ませ、ログイン情報を控えたら、「次へ」をクリックしてください。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
     <value>ローカルのアプリケーション一覧を、Syncサーバーに保存されているデータに置き換えようとしています。ローカルで行った変更のうち、まだ同期されていないものはすべて失われます！</value>
@@ -203,8 +203,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>カスタムサーバーを使用する場合：</value>
-    <comment>Automatically translated.</comment>
+    <value>カスタムサーバーを使用する(&amp;U)：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
     <value>Windowsのファイル共有を使用する：</value>
@@ -215,28 +215,28 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵の変更</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーの変更</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>アカウントの同期</value>
-    <comment>Automatically translated.</comment>
+    <value>同期アカウント</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>暗号鍵が変更されました</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーが変更されました</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キー</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キー</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>アカウントの同期</value>
-    <comment>Automatically translated.</comment>
+    <value>同期アカウント</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>ローカルデータをリセット</value>
@@ -247,8 +247,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵のリセット</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キーのリセット</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
     <value>同期サーバーをリセット</value>

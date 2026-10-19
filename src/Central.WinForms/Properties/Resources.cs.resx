@@ -191,16 +191,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} skryté)</value>
-    <comment>Automatically translated.</comment>
+    <value>(skryto: {0})</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignoruje duplicitní záznam aplikace pro „{0} “.</value>
-    <comment>Automatically translated.</comment>
+    <value>Ignoruje se duplicitní záznam aplikace pro „{0}“.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Zahrnuje aplikace pro příkazový řádek</value>
-    <comment>Automatically translated.</comment>
+    <value>Zahrnout aplikace pro &amp;příkazový řádek</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrace (nabídka Start atd.)</value>
@@ -277,8 +277,8 @@ v nabídce Start nebo na ploše.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Přidává se do sekce „Moje aplikace“ a integruje se do pracovního prostředí.</value>
-    <comment>Automatically translated.</comment>
+    <value>Přidáno do „Moje aplikace“ a integrováno do pracovního prostředí.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Adresář „{0} “ není prázdný.
@@ -294,8 +294,8 @@ Opravdu tam chcete umístit přenosnou verzi Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Chcete odstranit vybrané položky z seznamu „ {0} “?</value>
-    <comment>Automatically translated.</comment>
+    <value>Chcete ze seznamu odstranit vybrané položky (počet: {0})?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Spustit</value>
@@ -363,8 +363,8 @@ Data uložená na serveru můžete nahradit tím, že zvolíte možnost, že si 
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Nelze načíst zdroj pro položku aplikace „{0} “.</value>
-    <comment>Automatically translated.</comment>
+    <value>Nelze načíst kanál pro položku aplikace „{0}“.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Opravdu chcete použít nešifrované připojení k serveru Sync?
@@ -372,8 +372,8 @@ Data uložená na serveru můžete nahradit tím, že zvolíte možnost, že si 
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Aktualizace</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Aktualizovat</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Pokračovat?

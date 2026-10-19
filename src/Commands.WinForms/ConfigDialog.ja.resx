@@ -103,8 +103,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>新バージョンのテストにご協力ください</value>
-    <comment>Automatically translated.</comment>
+    <value>新バージョンのテストに協力する(&amp;H)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
     <value>カタログのソース</value>
@@ -153,8 +153,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>暗号鍵：</value>
-    <comment>Automatically translated.</comment>
+    <value>暗号キー(&amp;C)：</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
     <value>パスワード：</value>
@@ -181,8 +181,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
-    <value>上級</value>
-    <comment>Automatically translated.</comment>
+    <value>詳細設定</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>カタログ</value>

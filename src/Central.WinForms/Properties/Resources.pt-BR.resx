@@ -249,7 +249,7 @@ no menu iniciar ou área de trabalho.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... e executá-los!</value>
+    <value>... e executá-lo!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">

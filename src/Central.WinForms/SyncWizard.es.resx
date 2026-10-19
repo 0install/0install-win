@@ -71,8 +71,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Los datos almacenados en el servidor están dañados.</value>
-    <comment>Automatically translated.</comment>
+    <value>Los datos almacenados en el &amp;servidor están dañados</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
     <value>Sí, este es el primer ordenador</value>
@@ -103,8 +103,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Se ha cambiado la clave de cifrado. Ahora tendrás que introducir la nueva clave en todos los demás ordenadores que ya hayas configurado para Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>Se ha cambiado la clave criptográfica. Ahora tendrás que introducir la nueva clave en todos los demás ordenadores que ya hayas configurado para Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>Introduce la clave en otros ordenadores mediante la ventana «Opciones». No utilices este asistente en esos equipos, ya que solo es necesario para realizar el cambio inicial.</value>
@@ -119,12 +119,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Introduce la clave de cifrado que has utilizado anteriormente en este u otros ordenadores:</value>
-    <comment>Automatically translated.</comment>
+    <value>Introduce la clave criptográfica que has utilizado anteriormente en este u otros ordenadores:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>La clave de cifrado se utiliza para cifrar tus datos localmente antes de transmitirlos al servidor. Anota la clave sugerida o elige una propia.</value>
-    <comment>Automatically translated.</comment>
+    <value>La clave criptográfica se utiliza para cifrar tus datos localmente antes de transmitirlos al servidor. Anota la clave sugerida o elige una propia.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
     <value>Mantén esta clave en secreto y utiliza otra diferente como contraseña. De esta forma, nadie podrá acceder a tus datos, incluso si el servidor se viera comprometido.</value>
@@ -211,16 +211,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Utiliza el servidor 0install.de (recomendado)</value>
-    <comment>Automatically translated.</comment>
+    <value>Utilizar el servidor &amp;0install.de (recomendado)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
     <value>Cambiar clave criptográfica</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sincronizar cuenta</value>
-    <comment>Automatically translated.</comment>
+    <value>Cuenta de sincronización</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Se ha cambiado la clave criptográfica</value>
@@ -235,8 +235,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sincronizar cuenta</value>
-    <comment>Automatically translated.</comment>
+    <value>Cuenta de sincronización</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Restablecer datos locales</value>

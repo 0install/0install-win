@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>界面属性</value>
-    <comment>Automatically translated.</comment>
+    <value>接口属性</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>添加</value>
@@ -107,8 +107,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
-    <value>源代码</value>
-    <comment>Automatically translated.</comment>
+    <value>来源</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataColumnStability.HeaderText" xml:space="preserve">
     <value>稳定性</value>
@@ -127,8 +127,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>订阅源</value>
-    <comment>Automatically translated.</comment>
+    <value>Feed</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">
     <value>版本</value>

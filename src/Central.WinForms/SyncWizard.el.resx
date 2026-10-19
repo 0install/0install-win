@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Θέλω να αλλάχθει το κλειδί Crypto μου</value>
+    <value>Θέλω να &amp;αλλάξω το κλειδί Crypto μου</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
@@ -67,19 +67,19 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
-    <value>Θέλω να αντικαταστήσετε τα τοπικά δεδομένα μου</value>
+    <value>Θέλω να αντικαταστήσω τα &amp;τοπικά δεδομένα μου</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetServer.Text" xml:space="preserve">
-    <value>Τα δεδομένα που αποθηκεύονται στο διακομιστή είναι κατεστραμμένο</value>
+    <value>Τα δεδομένα που είναι αποθηκευμένα στον &amp;διακομιστή είναι κατεστραμμένα</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupFirst.Text" xml:space="preserve">
-    <value>Ναι, αυτό είναι ο πρώτος υπολογιστής</value>
+    <value>Ναι, αυτός είναι ο &amp;πρώτος υπολογιστής</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Όχι, δεν έχω συστήσει σε άλλους υπολογιστές</value>
+    <value>Όχι, έχω ήδη ρυθμίσει &amp;άλλους υπολογιστές</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Φυλάξτε αυτό το βασικό μυστικό και να χρησιμοποιήσετε κάτι διαφορετικό για τον κωδικό πρόσβασής σας. Με αυτό τον τρόπο κανείς δεν μπορεί να έχει πρόσβαση στα δεδομένα σας, ακόμα και αν ο διακομιστής τεθεί σε κίνδυνο.</value>
+    <value>Κρατήστε αυτό το κλειδί μυστικό και χρησιμοποιήστε κάτι διαφορετικό για τον κωδικό πρόσβασής σας. Με αυτόν τον τρόπο κανείς δεν μπορεί να έχει πρόσβαση στα δεδομένα σας, ακόμα και αν ο διακομιστής τεθεί σε κίνδυνο.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
@@ -135,27 +135,27 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister.Text" xml:space="preserve">
-    <value>Κάντε κλικ στον παρακάτω σύνδεσμο για να δημιουργήσετε ένα νέο λογαριασμός συγχρονισμού στο πρόγραμμα περιήγησής σας:</value>
+    <value>Κάντε κλικ στον παρακάτω σύνδεσμο για να δημιουργήσετε έναν νέο λογαριασμό συγχρονισμού στο πρόγραμμα περιήγησής σας:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Αφού έχετε δημιουργήσει ένα λογαριασμό, επαλήθευστε την διεύθυνση του e-mail σας και αφου σημείωσετε τα διαπιστευτήρια της σύνδεσής σας, κάντε κλικ στο 'Επόμενο'.</value>
+    <value>Αφού δημιουργήσετε λογαριασμό, επαληθεύσετε τη διεύθυνση e-mail σας και σημειώσετε τα διαπιστευτήριά σας, κάντε κλικ στο 'Επόμενο'.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Είστε έτοιμοι να αντικαταστήσετε την τοπική λίστα εφαρμογών σας με τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού. Τυχόν αλλαγές που έχετε κάνει σε τοπικό επίπεδο, αλλά δεν συγχρονίστηκαν όμως θα χαθούν!</value>
+    <value>Πρόκειται να αντικαταστήσετε την τοπική λίστα εφαρμογών σας με τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού. Τυχόν αλλαγές που έχετε κάνει τοπικά, αλλά δεν έχουν συγχρονιστεί ακόμα, θα χαθούν!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>Η τοπική λίστα εφαρμογών επαναφέρετε. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
+    <value>Η τοπική λίστα εφαρμογών επαναφέρεται. Τώρα μπορείτε να συνεχίσετε να χρησιμοποιείτε το Zero Install.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
-    <value>Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι με αυτό θα χαθούν!</value>
+    <value>Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν έχουν συγχρονιστεί ακόμα με αυτόν, θα χαθούν!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Είστε έτοιμοι να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού με την τοπική λίστα εφαρμογών σας. Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν είναι συγχρονισμένοι θα χαθούν!</value>
+    <value>Πρόκειται να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή συγχρονισμού με την τοπική λίστα εφαρμογών σας. Τυχόν αλλαγές που έχετε κάνει σε άλλους υπολογιστές, αλλά δεν έχουν συγχρονιστεί ακόμα με αυτόν, θα χαθούν!</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -179,15 +179,15 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Είναι αυτό το πρώτο υπολογιστή που εγκαθίστανται για Zero Install Sync;</value>
+    <value>Είναι αυτός ο πρώτος υπολογιστής που ρυθμίζετε για το Zero Install Sync;</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Το Zero Install Sync τώρα έχει συσταθεί και είναι έτοιμο για χρήση. Εκτέλεση αυτού του οδηγού για τυχόν άλλους υπολογιστές θέλετε να διατηρήσετε συγχρονισμένα με αυτό.</value>
+    <value>Το Zero Install Sync έχει πλέον ρυθμιστεί και είναι έτοιμο για χρήση. Εκτελέστε αυτόν τον οδηγό σε όποιον άλλον υπολογιστή θέλετε να διατηρείτε συγχρονισμένο με αυτόν.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync παίρνει λίστα εφαρμογών σας και του επιτραπέζιου εντάξεις και αυτόματα τα μεταφέρει σε άλλους υπολογιστές σας.</value>
+    <value>Το Zero Install Sync μεταφέρει αυτόματα τη λίστα εφαρμογών και τις ενσωματώσεις επιφάνειας εργασίας σας στους άλλους υπολογιστές σας.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkCustomServer.Text" xml:space="preserve">
-    <value>Πώς μπορώ να δημιουργήσει ένα διακομιστή Sync;</value>
+    <value>Πώς μπορώ να δημιουργήσω έναν δικό μου διακομιστή Sync;</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkRegister.Text" xml:space="preserve">
@@ -203,11 +203,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>χρησιμοποιήστε ένα προσαρμοσμένο διακομιστή:</value>
+    <value>Χρησιμοποιήστε έναν &amp;προσαρμοσμένο διακομιστή:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Windows μερίδιο αρχείο:</value>
+    <value>Χρησιμοποιήστε έναν &amp;κοινόχρηστο φάκελο των Windows:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
@@ -267,7 +267,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
-    <value>Εγκατάσταση συγχρονισμού πλήρη</value>
+    <value>Ολοκλήρωση εγκατάστασης συγχρονισμού</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupWelcome.Text" xml:space="preserve">

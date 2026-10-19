@@ -139,7 +139,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelRegister2.Text" xml:space="preserve">
-    <value>Sobald Sie ein Konto erstellt, Ihre E-Mail-Adresse verifiziert und Ihre Anmeldedaten notiert haben, klicken Sie auf "Fortsetzen".</value>
+    <value>Sobald Sie ein Konto erstellt, Ihre E-Mail-Adresse verifiziert und Ihre Anmeldedaten notiert haben, klicken Sie auf "Weiter".</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
@@ -203,15 +203,15 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Verwende &amp;eigenen Server:</value>
+    <value>&amp;Eigenen Server verwenden:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Verwende Windows &amp;Dateifreigabe:</value>
+    <value>Windows-&amp;Dateifreigabe verwenden:</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Verwende den &amp;0install.de Server (empfohlen)</value>
+    <value>&amp;0install.de-Server verwenden (empfohlen)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sync Konto</value>
+    <value>Sync-Konto</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
@@ -235,7 +235,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sync Konto</value>
+    <value>Sync-Konto</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
@@ -263,7 +263,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">
-    <value>Sync Server</value>
+    <value>Sync-Server</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageSetupFinished.Text" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxCustomServer.HintText" xml:space="preserve">
-    <value>Server URI</value>
+    <value>Server-URI</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">

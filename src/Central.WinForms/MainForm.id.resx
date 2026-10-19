@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Masukkan URL katalog (kumpulan umpan)</value>
-    <comment>Automatically translated.</comment>
+    <value>Masukkan URL &amp;katalog (kumpulan feed)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>Masukkan URL feed (satu aplikasi)</value>

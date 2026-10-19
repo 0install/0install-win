@@ -63,16 +63,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Tambahkan ke "Aplikasi Saya"</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Tambahkan ke "Aplikasi saya"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>Rincian</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integrasi pengaturan</value>
-    <comment>Automatically translated.</comment>
+    <value>Atur &amp;integrasi</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
     <value>Jalankan</value>
@@ -99,8 +99,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Hasil pencarian ini disediakan oleh server cermin. Perlu diperhatikan bahwa server cermin default mengindeks semua umpan yang diketahui, terlepas dari kualitasnya; Anda harus memutuskan apakah akan mempercayai program-program tersebut sebelum menjalankannya.</value>
-    <comment>Automatically translated.</comment>
+    <value>Hasil pencarian ini disediakan oleh server cermin. Perlu diperhatikan bahwa server cermin default mengindeks semua feed yang diketahui, terlepas dari kualitasnya; Anda harus memutuskan apakah akan mempercayai program-program tersebut sebelum menjalankannya.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
     <value>Kata kunci</value>

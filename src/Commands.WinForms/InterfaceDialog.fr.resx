@@ -83,11 +83,11 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
-    <value>Afficher tout les &amp;versions</value>
+    <value>Afficher toutes les &amp;versions</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxShowAllVersions.ToolTip" xml:space="preserve">
-    <value>Afficher les versions qui ne sont pas pris en charge sur ce système</value>
+    <value>Afficher les versions qui ne sont pas prises en charge sur ce système</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Feeds</value>
+    <value>Flux</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">

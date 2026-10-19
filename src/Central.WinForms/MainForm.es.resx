@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Introduce la URL de un catálogo (una colección de fuentes).</value>
-    <comment>Automatically translated.</comment>
+    <value>Introduce la URL de un &amp;catálogo (una colección de feeds)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>Introduce la URL de un feed (una sola aplicación)</value>
@@ -111,12 +111,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Sincronización</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Sincronizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSync2.Text" xml:space="preserve">
-    <value>Sincronización</value>
-    <comment>Automatically translated.</comment>
+    <value>Sincronizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
     <value>Configuración</value>

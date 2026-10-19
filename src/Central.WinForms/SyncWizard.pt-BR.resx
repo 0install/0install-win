@@ -219,7 +219,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sincronizar conta</value>
+    <value>Conta de sincronização</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
@@ -235,7 +235,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sincronizar conta</value>
+    <value>Conta de sincronização</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">

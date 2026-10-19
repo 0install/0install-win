@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Zapomněli jste heslo</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Zapomněli jste klíč</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>Chci nahradit svá lokální data</value>
@@ -79,8 +79,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSetupSubsequent.Text" xml:space="preserve">
-    <value>Ne, už jsem nastavil jiné počítače</value>
-    <comment>Automatically translated.</comment>
+    <value>Ne, &amp;jiné počítače už jsou nastavené</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Ekvivalentní příkazový řádek</value>
@@ -163,8 +163,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Možná budete také chtít obnovit místní data na dalších počítačích, na kterých používáte Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>Možná budete také chtít resetovat místní data na dalších počítačích, na kterých používáte Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
     <value>Tento průvodce vám pomůže vyřešit řadu možných problémů se synchronizací. Jaký problém chcete vyřešit?</value>
@@ -219,8 +219,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Synchronizace účtu</value>
-    <comment>Automatically translated.</comment>
+    <value>Synchronizační účet</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Změna kryptografického klíče</value>
@@ -235,28 +235,28 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Synchronizace účtu</value>
-    <comment>Automatically translated.</comment>
+    <value>Synchronizační účet</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
-    <value>Obnovit místní data</value>
-    <comment>Automatically translated.</comment>
+    <value>Resetovat místní data</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Obnovit místní data</value>
-    <comment>Automatically translated.</comment>
+    <value>Resetovat místní data</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Obnovení kryptografického klíče</value>
-    <comment>Automatically translated.</comment>
+    <value>Resetovat kryptografický klíč</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Obnovit synchronizační server</value>
-    <comment>Automatically translated.</comment>
+    <value>Resetovat synchronizační server</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Obnovit synchronizační server</value>
-    <comment>Automatically translated.</comment>
+    <value>Resetovat synchronizační server</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
     <value>Řešení problémů se synchronizací</value>

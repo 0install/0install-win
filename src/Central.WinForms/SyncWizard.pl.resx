@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Zapomniałem klucza</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Nie pamiętam klucza</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>Chcę zastąpić moje lokalne dane</value>
@@ -187,8 +187,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync pobiera listę aplikacji i integracje pulpitu, a następnie automatycznie przenosi je na inne komputery użytkownika.</value>
-    <comment>Automatically translated.</comment>
+    <value>Zero Install Sync automatycznie przenosi listę aplikacji i integracje z pulpitem na inne komputery użytkownika.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
     <value>Nazwa użytkownika:</value>
@@ -207,20 +207,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Korzystanie z udziału plików w systemie Windows:</value>
-    <comment>Automatically translated.</comment>
+    <value>Użyj udziału &amp;sieciowego systemu Windows:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Korzystaj z serwera 0install.de (zalecane)</value>
-    <comment>Automatically translated.</comment>
+    <value>Użyj serwera &amp;0install.de (zalecane)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
     <value>Zmień klucz kryptograficzny</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Synchronizacja konta</value>
-    <comment>Automatically translated.</comment>
+    <value>Konto Sync</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Zmieniono klucz kryptograficzny</value>
@@ -235,8 +235,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Synchronizacja konta</value>
-    <comment>Automatically translated.</comment>
+    <value>Konto Sync</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Resetuj dane lokalne</value>

@@ -87,7 +87,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="columnScore.HeaderText" xml:space="preserve">
-    <value>Corresponder (%)</value>
+    <value>Correspondência (%)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="columnSummary.HeaderText" xml:space="preserve">

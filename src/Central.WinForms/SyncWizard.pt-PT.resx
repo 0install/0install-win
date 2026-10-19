@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Quero alterar a minha chave de encriptação</value>
-    <comment>Automatically translated.</comment>
+    <value>Quero &amp;alterar a minha chave criptográfica</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
     <value>Esqueci a chave</value>
@@ -95,36 +95,36 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Chave de encriptação:</value>
-    <comment>Automatically translated.</comment>
+    <value>Chave &amp;criptográfica:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>Nova chave de encriptação:</value>
-    <comment>Automatically translated.</comment>
+    <value>Nova chave &amp;criptográfica:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>A chave de encriptação foi alterada. Agora terá de introduzir a nova chave em todos os outros computadores que já tenha configurado para o Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>A chave criptográfica foi alterada. Agora terá de introduzir a nova chave em todos os outros computadores que já tenha configurado para o Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>Introduza a chave noutros computadores através da janela «Opções». Não utilize este assistente nesses computadores, uma vez que só é necessário para efetuar a alteração inicial.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Chave de encriptação:</value>
-    <comment>Automatically translated.</comment>
+    <value>Chave &amp;criptográfica:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>Nova chave de encriptação:</value>
-    <comment>Automatically translated.</comment>
+    <value>Nova chave &amp;criptográfica:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Introduza a chave de encriptação que utilizou anteriormente neste e/ou noutros computadores:</value>
-    <comment>Automatically translated.</comment>
+    <value>Introduza a chave criptográfica que utilizou anteriormente neste e/ou noutros computadores:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>A chave de encriptação é utilizada para encriptar os seus dados localmente antes de os transmitir para o servidor. Anote a chave sugerida ou escolha a sua própria.</value>
-    <comment>Automatically translated.</comment>
+    <value>A chave criptográfica é utilizada para encriptar os seus dados localmente antes de os transmitir para o servidor. Anote a chave sugerida ou escolha a sua própria.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
     <value>Mantenha esta chave em segredo e utilize algo diferente como palavra-passe. Desta forma, ninguém poderá aceder aos seus dados, mesmo que o servidor venha a ser comprometido.</value>
@@ -147,8 +147,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>A lista de aplicações locais está a ser reiniciada. Já pode continuar a utilizar o Zero Install.</value>
-    <comment>Automatically translated.</comment>
+    <value>A lista de aplicações local está a ser reposta. Já pode continuar a utilizar o Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
     <value>Quaisquer alterações que tenha feito noutros computadores, mas que ainda não tenham sido sincronizadas com este, serão perdidas!</value>
@@ -159,8 +159,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Os dados do servidor estão a ser reiniciados. Já pode continuar a utilizar o Zero Install.</value>
-    <comment>Automatically translated.</comment>
+    <value>Os dados do servidor estão a ser repostos. Já pode continuar a utilizar o Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
     <value>Pode também querer repor os dados locais noutros computadores em que esteja a utilizar o Zero Install Sync.</value>
@@ -211,20 +211,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Utilize o servidor 0install.de (recomendado)</value>
-    <comment>Automatically translated.</comment>
+    <value>Utilizar o servidor &amp;0install.de (recomendado)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Alterar chave de encriptação</value>
-    <comment>Automatically translated.</comment>
+    <value>Alterar chave criptográfica</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sincronizar conta</value>
-    <comment>Automatically translated.</comment>
+    <value>Conta de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Chave de encriptação alterada</value>
-    <comment>Automatically translated.</comment>
+    <value>Chave criptográfica alterada</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
     <value>Chave criptográfica</value>
@@ -235,28 +235,28 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sincronizar conta</value>
-    <comment>Automatically translated.</comment>
+    <value>Conta de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
-    <value>Redefinir dados locais</value>
-    <comment>Automatically translated.</comment>
+    <value>Repor dados locais</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClientFinished.Text" xml:space="preserve">
-    <value>Redefinir dados locais</value>
-    <comment>Automatically translated.</comment>
+    <value>Repor dados locais</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Redefinir chave de encriptação</value>
-    <comment>Automatically translated.</comment>
+    <value>Repor chave criptográfica</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
-    <value>Reiniciar o servidor de sincronização</value>
-    <comment>Automatically translated.</comment>
+    <value>Repor servidor de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServerFinished.Text" xml:space="preserve">
-    <value>Reiniciar o servidor de sincronização</value>
-    <comment>Automatically translated.</comment>
+    <value>Repor servidor de sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
     <value>Resolução de problemas de sincronização</value>

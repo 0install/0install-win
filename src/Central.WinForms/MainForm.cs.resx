@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Zadejte URL katalogu (sbírky zdrojů)</value>
-    <comment>Automatically translated.</comment>
+    <value>Zadejte URL &amp;katalogu (sbírky kanálů)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>Zadejte adresu URL kanálu (jedné aplikace)</value>
@@ -119,8 +119,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>Instalace</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Nastavení</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>Řešení problémů</value>

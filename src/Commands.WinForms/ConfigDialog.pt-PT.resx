@@ -95,8 +95,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonResetCatalogSources.Text" xml:space="preserve">
-    <value>Reiniciar</value>
-    <comment>Automatically translated.</comment>
+    <value>Re&amp;por</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
     <value>Aprova automaticamente novas chaves (se forem reconhecidas pelo servidor de chaves)</value>
@@ -139,22 +139,22 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Isto controla o idioma do:
-- próprio Zero Install e
-- das aplicações descarregadas pelo Zero Install.
+    <value>Isto controla o idioma:
+- do próprio Zero Install e
+- das aplicações transferidas pelo Zero Install.
 
 Notas:
 - Não estão disponíveis traduções para todos os idiomas.
 - É necessário reiniciar o Zero Install para que as alterações de idioma entrem em vigor.</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
     <value>Servidor:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Chave de encriptação:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Chave criptográfica:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
     <value>Palavra-passe:</value>
@@ -169,8 +169,8 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Completo (utilização normal da rede)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Completa (utilização normal da rede)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
     <value>Mínima (dá preferência às versões em cache)</value>
@@ -197,8 +197,8 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sincronizar</value>
-    <comment>Automatically translated.</comment>
+    <value>Sincronização</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
     <value>Confiança</value>

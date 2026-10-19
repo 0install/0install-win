@@ -127,16 +127,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Sertakan dalam "Perbarui Semua"</value>
-    <comment>Automatically translated.</comment>
+    <value>Sertakan dalam "&amp;Perbarui semuanya"</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Menyertakan aplikasi ini dalam pemeriksaan "Perbarui Semua".</value>
-    <comment>Automatically translated.</comment>
+    <value>Menyertakan aplikasi ini dalam pemeriksaan "Perbarui semuanya".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Fitur pendaftaran</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Daftarkan kemampuan</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Memberi tahu sistem operasi mengenai kemampuan aplikasi, seperti jenis file yang dapat ditangani oleh aplikasi tersebut.</value>
@@ -175,8 +175,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxStartMenuSimple.Text" xml:space="preserve">
-    <value>Menu Mulai</value>
-    <comment>Automatically translated.</comment>
+    <value>Menu Start</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
     <value>Pilih semua</value>
@@ -287,8 +287,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Akses dari antarmuka baris perintah</value>
@@ -307,16 +307,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Program bawaan untuk tugas-tugas seperti peramban web atau klien email</value>
-    <comment>Automatically translated.</comment>
+    <value>Program default untuk tugas-tugas seperti peramban web atau klien email</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
     <value>Sebuah ikon di desktop</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Penanganan default untuk jenis berkas yang didukung ("Buka dengan" tetap berfungsi tanpa ini)</value>
-    <comment>Automatically translated.</comment>
+    <value>Penangan default untuk jenis berkas yang didukung ("Buka dengan" tetap berfungsi tanpa ini)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
     <value>Sebuah entri dalam menu "Kirim ke"</value>
@@ -327,8 +327,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Penanganan default untuk protokol URL yang didukung</value>
-    <comment>Automatically translated.</comment>
+    <value>Penangan default untuk protokol URL yang didukung</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
     <value>Alias baris perintah</value>
@@ -347,8 +347,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
-    <value>Program bawaan</value>
-    <comment>Automatically translated.</comment>
+    <value>Program default</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
     <value>Desktop</value>
@@ -363,15 +363,15 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">
-    <value>Menu Mulai</value>
-    <comment>Automatically translated.</comment>
+    <value>Menu Start</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>Protokol URL</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

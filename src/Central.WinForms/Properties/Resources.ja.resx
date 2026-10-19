@@ -91,8 +91,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryEducation" xml:space="preserve">
-    <value>学歴</value>
-    <comment>Automatically translated.</comment>
+    <value>教育</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CategoryEmail" xml:space="preserve">
     <value>電子メール</value>
@@ -191,8 +191,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} は非表示)</value>
-    <comment>Automatically translated.</comment>
+    <value>({0}件非表示)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>「{0} 」という重複したアプリエントリは無視します。</value>
@@ -277,8 +277,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>「マイアプリ」に追加され、デスクトップ環境に統合される。</value>
-    <comment>Automatically translated.</comment>
+    <value>「マイアプリ」に追加され、デスクトップ環境に統合されました。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>ディレクトリ「{0} 」にはファイルがあります。
@@ -294,8 +294,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>リストから選択された{0} のエントリを削除しますか？</value>
-    <comment>Automatically translated.</comment>
+    <value>選択された{0}個のエントリをリストから削除しますか？</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>実行</value>
@@ -336,8 +336,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>入力された暗号鍵が正しくありません。</value>
-    <comment>Automatically translated.</comment>
+    <value>入力された暗号キーが正しくありません。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
     <value>同期設定をリセットして、最初からやり直しますか？</value>

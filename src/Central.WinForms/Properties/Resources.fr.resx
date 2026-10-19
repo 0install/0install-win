@@ -71,8 +71,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="Category3DGraphics" xml:space="preserve">
-    <value>Graphismes 3D</value>
-    <comment>Automatically translated.</comment>
+    <value>Graphisme 3D</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CategoryAudio" xml:space="preserve">
     <value>Audio</value>
@@ -91,8 +91,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryEducation" xml:space="preserve">
-    <value>Formation</value>
-    <comment>Automatically translated.</comment>
+    <value>Éducation</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CategoryEmail" xml:space="preserve">
     <value>E-mail</value>
@@ -159,8 +159,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryViewer" xml:space="preserve">
-    <value>Lecteurs</value>
-    <comment>Automatically translated.</comment>
+    <value>Visionneuses</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CategoryWebBrowser" xml:space="preserve">
     <value>Navigateurs Web</value>
@@ -187,27 +187,27 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>Pour les utilisateurs actuels</value>
+    <value>Pour l'utilisateur actuel</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} caché)</value>
-    <comment>Automatically translated.</comment>
+    <value>({0} masquée(s))</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignorer le duplicata d'entrée dans la liste d'applications pour '{0}'.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Inclut les applications en ligne de commande</value>
-    <comment>Automatically translated.</comment>
+    <value>Inclure les applications en ligne de &amp;commande</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Intégrer (menu démarrer, etc.)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonApp" xml:space="preserve">
-    <value>Applications courantes</value>
+    <value>Application courante</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCommonAppSummary" xml:space="preserve">
@@ -215,7 +215,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolApp" xml:space="preserve">
-    <value>Applications sympas</value>
+    <value>Application sympa</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroCoolAppSummary" xml:space="preserve">
@@ -223,7 +223,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Autres applications</value>
+    <value>Autre application</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
@@ -269,15 +269,15 @@ dans le menu démarrer ou sur le bureau.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdd" xml:space="preserve">
-    <value>&amp;Ajouter à "mes apps"</value>
+    <value>Ajouter à "Mes apps"</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAdded" xml:space="preserve">
-    <value>Ajouté à "mes apps".</value>
+    <value>Ajouté à "Mes apps".</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Ajouté à "mes apps" et intégré dans l'environnement de bureau.</value>
+    <value>Ajouté à "Mes apps" et intégré dans l'environnement de bureau.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
@@ -328,7 +328,7 @@ Enregistrer les modifications</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>Vous devez d'abord finir l'installation de Sync.</value>
+    <value>Vous devez d'abord terminer la configuration de Sync.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
@@ -377,7 +377,7 @@ Les connexions chiffrées utilisent le préfixe https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Cela va automatiquement supprimer les implémentations du cache qui ne sont plus nécessaires après la mise à jour. Souhaitez-vous continuer ?
-Attention : les applications que vous avez "Lancer" auparavant sans les ajouter à "Mes apps" seront également supprimées du cache. Vous devrez être connectés afin de pouvoir les lancer à nouveau.</value>
+Attention : les applications que vous avez lancées auparavant sans les ajouter à "Mes apps" seront également supprimées du cache. Vous devrez être connectés afin de pouvoir les lancer à nouveau.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">

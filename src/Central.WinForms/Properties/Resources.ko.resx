@@ -167,8 +167,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CommandLineHint" xml:space="preserve">
-    <value>사용 가능한 명령어 목록을 보려면 '{0}'를 입력하십시오.</value>
-    <comment>Automatically translated.</comment>
+    <value>사용 가능한 명령어 목록을 보려면 '{0}'을(를) 입력하십시오.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>계속</value>
@@ -187,8 +187,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="ForCurrentUser" xml:space="preserve">
-    <value>현재 사용자를 위한</value>
-    <comment>Automatically translated.</comment>
+    <value>현재 사용자용</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
     <value>({0} 숨김)</value>
@@ -277,8 +277,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>"내 앱"에 추가되고 데스크톱 환경에 통합됩니다.</value>
-    <comment>Automatically translated.</comment>
+    <value>"내 앱"에 추가되었으며 데스크톱 환경에 통합되었습니다.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>'{0}' 디렉터리가 비어 있지 않습니다.
@@ -294,8 +294,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>목록에서 선택한 항목 {0} 을 제거하시겠습니까?</value>
-    <comment>Automatically translated.</comment>
+    <value>목록에서 선택한 항목 {0}개를 제거하시겠습니까?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>실행</value>
@@ -324,8 +324,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SelfUpdateNotification" xml:space="preserve">
-    <value>클릭하여 Zero Install v{0} 로 업데이트하세요...</value>
-    <comment>Automatically translated.</comment>
+    <value>클릭하여 Zero Install v{0}(으)로 업데이트하세요...</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>먼저 동기화 설정을 완료해야 합니다.</value>
@@ -355,8 +355,8 @@
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>현재 Sync 서버에 저장된 데이터가 손상되었습니다.
-암호 키를 기억하지 않는다고 선택하면 서버에 저장된 데이터를 교체할 수 있습니다.</value>
-    <comment>Automatically translated.</comment>
+암호화 키를 기억하지 않는다고 선택하면 서버에 저장된 데이터를 교체할 수 있습니다.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>애플리케이션 카탈로그를 다운로드할 수 없습니다.</value>
@@ -381,7 +381,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>실행 중...</value>
-    <comment>Automatically translated.</comment>
+    <value>작업 중...</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

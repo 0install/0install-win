@@ -145,8 +145,8 @@
 
 注意事项：
 - 并非所有语言都提供翻译。
-- 语言更改生效后，您需要重新启动 Zero Install。</value>
-    <comment>Automatically translated.</comment>
+- 更改语言后，您需要重新启动 Zero Install 才能生效。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
     <value>服务器：</value>
@@ -169,12 +169,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>完整版（正常网络使用）</value>
-    <comment>Automatically translated.</comment>
+    <value>完全(&amp;F)（正常使用网络）</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>精简版（优先使用缓存版本）</value>
-    <comment>Automatically translated.</comment>
+    <value>最低限度(&amp;M)（优先使用缓存版本）</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
     <value>离线（不使用网络）</value>

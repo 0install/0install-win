@@ -251,8 +251,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>扩展程序</value>
-    <comment>Automatically translated.</comment>
+    <value>扩展名</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>命令</value>

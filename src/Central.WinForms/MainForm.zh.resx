@@ -59,12 +59,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>输入目录（即订阅源集合）的URL</value>
-    <comment>Automatically translated.</comment>
+    <value>输入目录（feed 集合）的 URL(&amp;C)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
-    <value>输入源的URL（单个应用程序）</value>
-    <comment>Automatically translated.</comment>
+    <value>输入 feed 的 URL（单个应用程序）(&amp;F)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonCommandLine.Text" xml:space="preserve">
     <value>命令行</value>
@@ -119,8 +119,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>安装程序</value>
-    <comment>Automatically translated.</comment>
+    <value>设置(&amp;S)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>故障排除</value>

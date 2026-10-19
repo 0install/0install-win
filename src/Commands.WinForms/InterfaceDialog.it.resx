@@ -107,8 +107,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
-    <value>Codice sorgente</value>
-    <comment>Automatically translated.</comment>
+    <value>Fonte</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataColumnStability.HeaderText" xml:space="preserve">
     <value>Stabilità</value>

@@ -83,8 +83,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Dimensiunea intrărilor verificate:</value>
-    <comment>Automatically translated.</comment>
+    <value>Dimensiunea intrărilor bifate:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
     <value>Dimensiunea actuală a intrării:</value>

@@ -67,8 +67,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonBasicMode.Text" xml:space="preserve">
-    <value>Configurações básicas</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Definições básicas</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonHelpAliases.AccessibleName" xml:space="preserve">
     <value>Ajuda</value>
@@ -135,8 +135,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funcionalidades de registo</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Registar capacidades</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Informa o sistema operativo sobre as capacidades da aplicação, tais como os tipos de ficheiros que esta consegue processar.</value>
@@ -159,8 +159,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
-    <value>Área de trabalho</value>
-    <comment>Automatically translated.</comment>
+    <value>Ambiente de trabalho</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
     <value>Selecionar tudo</value>
@@ -195,8 +195,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDefault.HeaderText" xml:space="preserve">
-    <value>Padrão</value>
-    <comment>Automatically translated.</comment>
+    <value>Predefinido</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoPlayColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
@@ -223,8 +223,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Padrão</value>
-    <comment>Automatically translated.</comment>
+    <value>Predefinido</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridDefaultProgramsColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
@@ -243,8 +243,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnDefault.HeaderText" xml:space="preserve">
-    <value>Padrão</value>
-    <comment>Automatically translated.</comment>
+    <value>Predefinido</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridFileTypesColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
@@ -275,8 +275,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDefault.HeaderText" xml:space="preserve">
-    <value>Padrão</value>
-    <comment>Automatically translated.</comment>
+    <value>Predefinido</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridUrlProtocolsColumnDescription.HeaderText" xml:space="preserve">
     <value>Descrição</value>
@@ -327,8 +327,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manipulador predefinido para protocolos URL suportados</value>
-    <comment>Automatically translated.</comment>
+    <value>Gestor predefinido para os protocolos URL suportados</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
     <value>Aliases da linha de comandos</value>
@@ -351,8 +351,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageDesktop.Text" xml:space="preserve">
-    <value>Área de trabalho</value>
-    <comment>Automatically translated.</comment>
+    <value>Ambiente de trabalho</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageFileTypes.Text" xml:space="preserve">
     <value>Tipos de ficheiros</value>

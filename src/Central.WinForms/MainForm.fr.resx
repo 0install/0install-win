@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Entrez l'URL d'un &amp;catalogue (une collection de feeds)</value>
+    <value>Entrez l'URL d'un &amp;catalogue (une collection de flux)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
@@ -95,8 +95,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>Créateur d'applications portables</value>
-    <comment>Automatically translated.</comment>
+    <value>Créateur de version &amp;portable</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
     <value>&amp;Actualiser la liste</value>
@@ -119,7 +119,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncSetup.Text" xml:space="preserve">
-    <value>&amp;Installer</value>
+    <value>&amp;Configurer</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Téléchargement catalogue à partir de serveur...</value>
+    <value>Chargement du catalogue depuis le serveur...</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

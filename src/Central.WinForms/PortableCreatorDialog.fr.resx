@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Créateur d'applications portables</value>
-    <comment>Automatically translated.</comment>
+    <value>Créateur de version portable</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
     <value>Parcourir</value>
@@ -75,8 +75,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Commande équivalente en ligne de commande</value>
-    <comment>Automatically translated.</comment>
+    <value>Ligne de commande équivalente</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Ici vous pouvez créer une version portable de Zero Install, c'est-à-dire pour l'usage sur une clé USB. Celle-ci doit être formatée sous NTFS.</value>
@@ -85,13 +85,13 @@
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>- Stocke la configuration de Zero Install et les applications mises en cache dans un seul répertoire.
 - Ne rend pas automatiquement portables les applications lancées via Zero Install.
-- Les versions portables de Zero Install ne permettent pas l'intégration au bureau (par exemple, la création d'entrées dans le menu Démarrer).
+- Les versions portables de Zero Install ne permettent pas l'intégration dans le bureau (par exemple, la création d'entrées dans le menu Démarrer).
 - Envisagez plutôt d'utiliser la version standard de Zero Install sur plusieurs ordinateurs avec Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Commande équivalente en ligne de commande</value>
-    <comment>Automatically translated.</comment>
+    <value>Ligne de commande équivalente</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
     <value>Répertoire de destination</value>

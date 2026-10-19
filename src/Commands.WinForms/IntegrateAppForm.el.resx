@@ -115,7 +115,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
+    <value>Επιλογή &amp;όλων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoPlaySimple.Text" xml:space="preserve">
@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Περιλαμβάνει αυτή η εφαρμογή "Ενημέρωση όλων" ελέγχων.</value>
+    <value>Συμπεριλαμβάνει αυτήν την εφαρμογή στους ελέγχους «Ενημέρωση όλων».</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
+    <value>Επιλογή &amp;όλων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxContextMenuSimple.Text" xml:space="preserve">
@@ -151,7 +151,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
+    <value>Επιλογή &amp;όλων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
@@ -163,7 +163,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
+    <value>Επιλογή &amp;όλων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
-    <value>Επιλογη ολων</value>
+    <value>Επιλογή &amp;όλων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxUrlProtocolsSimple.Text" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Ξεκινάει αυτόματα όταν τα κατάλληλα μέσα (DVD, USB drive, κ.λπ.) εισαγθουν</value>
+    <value>Ξεκινάει αυτόματα όταν εισάγονται κατάλληλα μέσα (DVD, USB drive, κ.λπ.)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
@@ -307,7 +307,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelDefaultProgramsSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα για λειτουργίες όπως προγράμμα περιήγησης ή e-mail client</value>
+    <value>Προεπιλεγμένο πρόγραμμα για εργασίες όπως πρόγραμμα περιήγησης ή πρόγραμμα e-mail</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων ("Άνοιγμα με" λειτουργεί χωρίς αυτό το επίσης)</value>
+    <value>Προεπιλεγμένο πρόγραμμα διαχείρισης για τους υποστηριζόμενους τύπους αρχείων (το "Άνοιγμα με" λειτουργεί και χωρίς αυτό)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">

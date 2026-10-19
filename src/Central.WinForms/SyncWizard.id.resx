@@ -59,12 +59,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonChangeCryptoKey.Text" xml:space="preserve">
-    <value>Saya ingin mengubah kunci kriptografi saya</value>
-    <comment>Automatically translated.</comment>
+    <value>Saya ingin &amp;mengubah kunci kripto saya</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>Lupa kata sandi</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Lupa kunci</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>Saya ingin mengganti data lokal saya</value>
@@ -83,8 +83,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelChangeCryptoKey.Text" xml:space="preserve">
     <value>Anda tidak boleh menjalankan Zero Install Sync di komputer lain saat proses ini sedang berjalan.</value>
@@ -95,36 +95,36 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>Kunci kriptografi:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Kunci kripto:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
-    <value>Kunci kriptografi baru:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Kunci kripto baru:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Kunci enkripsi telah diubah. Sekarang Anda perlu memasukkan kunci baru tersebut di semua komputer lain yang telah Anda konfigurasi untuk Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>Kunci kripto telah diubah. Sekarang Anda perlu memasukkan kunci baru tersebut di semua komputer lain yang telah Anda konfigurasi untuk Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>Masukkan kunci tersebut di komputer lain melalui jendela 'Opsi'. Jangan gunakan wizard ini di sana karena wizard ini hanya diperlukan untuk melakukan perubahan awal.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>Kunci kriptografi:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Kunci kripto:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
-    <value>Kunci kriptografi baru:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Kunci kripto baru:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelExistingCryptoKey.Text" xml:space="preserve">
-    <value>Silakan masukkan kunci enkripsi yang sebelumnya Anda gunakan di komputer ini dan/atau komputer lain:</value>
-    <comment>Automatically translated.</comment>
+    <value>Silakan masukkan kunci kripto yang sebelumnya Anda gunakan di komputer ini dan/atau komputer lain:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKey.Text" xml:space="preserve">
-    <value>Kunci enkripsi digunakan untuk mengenkripsi data Anda secara lokal sebelum mengirimkannya ke server. Tuliskan kunci yang disarankan atau pilih kunci Anda sendiri.</value>
-    <comment>Automatically translated.</comment>
+    <value>Kunci kripto digunakan untuk mengenkripsi data Anda secara lokal sebelum mengirimkannya ke server. Tuliskan kunci yang disarankan atau pilih kunci Anda sendiri.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
     <value>Jaga kerahasiaan kunci ini dan gunakan kata sandi yang berbeda. Dengan cara ini, tidak ada yang dapat mengakses data Anda, bahkan jika server diretas.</value>
@@ -147,8 +147,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
-    <value>Daftar aplikasi lokal sedang disetel ulang. Anda sekarang dapat melanjutkan penggunaan Zero Install.</value>
-    <comment>Automatically translated.</comment>
+    <value>Daftar aplikasi lokal sedang diatur ulang. Anda sekarang dapat melanjutkan penggunaan Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetCryptoKey.Text" xml:space="preserve">
     <value>Setiap perubahan yang telah Anda lakukan di komputer lain tetapi belum disinkronkan dengan komputer ini akan hilang!</value>
@@ -159,12 +159,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
-    <value>Data server sedang direset. Anda sekarang dapat melanjutkan penggunaan Zero Install.</value>
-    <comment>Automatically translated.</comment>
+    <value>Data server sedang diatur ulang. Anda sekarang dapat melanjutkan penggunaan Zero Install.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetServerFinishedHint.Text" xml:space="preserve">
-    <value>Anda mungkin juga ingin mereset data lokal pada komputer lain yang Anda gunakan dengan Zero Install Sync.</value>
-    <comment>Automatically translated.</comment>
+    <value>Anda mungkin juga ingin mengatur ulang data lokal pada komputer lain yang Anda gunakan dengan Zero Install Sync.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelResetWelcome.Text" xml:space="preserve">
     <value>Wizard ini dapat membantu Anda mengatasi sejumlah masalah sinkronisasi yang mungkin terjadi. Masalah apa yang ingin Anda selesaikan?</value>
@@ -215,28 +215,28 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
-    <value>Ubah kunci enkripsi</value>
-    <comment>Automatically translated.</comment>
+    <value>Ubah kunci kripto</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Sinkronisasi akun</value>
-    <comment>Automatically translated.</comment>
+    <value>Akun Sinkronisasi</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Kunci enkripsi telah diubah</value>
-    <comment>Automatically translated.</comment>
+    <value>Kunci kripto telah diubah</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageExistingCryptoKey.Text" xml:space="preserve">
-    <value>Kunci kriptografi</value>
-    <comment>Automatically translated.</comment>
+    <value>Kunci kripto</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageNewCryptoKey.Text" xml:space="preserve">
-    <value>Kunci kriptografi</value>
-    <comment>Automatically translated.</comment>
+    <value>Kunci kripto</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Sinkronisasi akun</value>
-    <comment>Automatically translated.</comment>
+    <value>Akun Sinkronisasi</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Atur ulang data lokal</value>
@@ -247,8 +247,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageResetCryptoKey.Text" xml:space="preserve">
-    <value>Atur ulang kunci enkripsi</value>
-    <comment>Automatically translated.</comment>
+    <value>Atur ulang kunci kripto</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetServer.Text" xml:space="preserve">
     <value>Atur ulang server sinkronisasi</value>

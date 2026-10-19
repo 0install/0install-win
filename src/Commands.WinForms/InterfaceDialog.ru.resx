@@ -127,8 +127,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Ленты новостей</value>
-    <comment>Automatically translated.</comment>
+    <value>Фиды</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">
     <value>Версии</value>

@@ -135,13 +135,13 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Warnung: Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren.</value>
+    <value>Warnung: Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern, korrekt zu funktionieren.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
     <value>Dies steuert die Sprache von:
-- Zero Install selber und
-- Anwendungen die von Zero Install heruntergeladen werden.
+- Zero Install selbst und
+- Anwendungen, die von Zero Install heruntergeladen werden.
 
 Hinweise:
 - Übersetzungen sind nicht für alle Sprachen verfügbar.
@@ -165,7 +165,7 @@ Hinweise:
     <comment>Manually overriden.</comment>
   </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
-    <value>Account verwalten</value>
+    <value>Konto verwalten</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">

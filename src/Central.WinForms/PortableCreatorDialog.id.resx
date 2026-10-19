@@ -71,12 +71,12 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Menerapkan</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Pasang</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Di sini Anda dapat membuat versi portabel Zero Install, misalnya untuk digunakan pada flashdisk USB. Media penyimpanan tersebut harus diformat dengan sistem file NTFS.</value>
@@ -90,8 +90,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textBoxTarget.HintText" xml:space="preserve">
     <value>Direktori tujuan</value>

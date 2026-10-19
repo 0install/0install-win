@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Δημιουργός φορητών εφαρμογών</value>
-    <comment>Automatically translated.</comment>
+    <value>Δημιουργός φορητής έκδοσης</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonBrowse.AccessibleName" xml:space="preserve">
     <value>Περιήγηση</value>
@@ -71,8 +71,8 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDeploy.Text" xml:space="preserve">
-    <value>Ανάπτυξη</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Εγκατάσταση</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Ισοδύναμη γραμμή εντολών</value>

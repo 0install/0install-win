@@ -127,16 +127,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
-    <value>Dodaj do „Zaktualizuj wszystko”</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Uwzględnij w „Zaktualizuj wszystko”</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Uwzględnia tę aplikację podczas sprawdzania opcji „Zaktualizuj wszystko”.</value>
-    <comment>Automatically translated.</comment>
+    <value>Uwzględnia tę aplikację podczas sprawdzania aktualizacji w ramach „Zaktualizuj wszystko”.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funkcje rejestracji</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Zarejestruj możliwości</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Informuje system operacyjny o możliwościach aplikacji, takich jak typy plików, które może obsługiwać.</value>

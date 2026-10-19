@@ -135,8 +135,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>Funcionalidades de registro</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Registrar capacidades</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>Informa al sistema operativo de las capacidades de la aplicación, como los tipos de archivo que puede gestionar.</value>
@@ -295,8 +295,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelAutoPlaySimple.Text" xml:space="preserve">
-    <value>Se inicia automáticamente cuando se inserta un soporte adecuado (DVD, memoria USB, etc.).</value>
-    <comment>Automatically translated.</comment>
+    <value>Iniciar automáticamente cuando se inserte un soporte adecuado (DVD, memoria USB, etc.)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelAutoStartSimple.Text" xml:space="preserve">
     <value>Iniciar el programa automáticamente cuando el usuario inicie sesión</value>
@@ -327,8 +327,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelUrlProtocolsSimple.Text" xml:space="preserve">
-    <value>Manejador predeterminado para los protocolos URL compatibles</value>
-    <comment>Automatically translated.</comment>
+    <value>Gestor predeterminado para los protocolos URL compatibles</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
     <value>Alias de línea de comandos</value>

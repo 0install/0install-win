@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>비밀번호를 잊으셨나요?</value>
-    <comment>Automatically translated.</comment>
+    <value>키를 잊으셨나요?(&amp;F)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>내 로컬 데이터를 교체하고 싶습니다.</value>
@@ -95,24 +95,24 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKey.Text" xml:space="preserve">
-    <value>암호 키:</value>
-    <comment>Automatically translated.</comment>
+    <value>암호화 키(&amp;K):</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChange.Text" xml:space="preserve">
     <value>새로운 암호화 키:</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>암호 키가 변경되었습니다. 이제 Zero Install Sync를 이미 설정해 둔 다른 모든 컴퓨터에서 새로운 키를 입력해야 합니다.</value>
-    <comment>Automatically translated.</comment>
+    <value>암호화 키가 변경되었습니다. 이제 Zero Install Sync를 이미 설정해 둔 다른 모든 컴퓨터에서 새로운 키를 입력해야 합니다.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
     <value>'옵션' 창을 사용하여 다른 컴퓨터에서 키를 입력하십시오. 이 마법사는 초기 변경을 수행하는 데만 필요하므로, 다른 컴퓨터에서는 이 마법사를 사용하지 마십시오.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
-    <value>암호 키:</value>
-    <comment>Automatically translated.</comment>
+    <value>암호화 키(&amp;K):</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyReset.Text" xml:space="preserve">
     <value>새로운 암호화 키:</value>
@@ -187,8 +187,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">
-    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 바탕화면 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
-    <comment>Automatically translated.</comment>
+    <value>Zero Install Sync는 사용자의 애플리케이션 목록과 데스크톱 통합 설정을 가져와 다른 컴퓨터로 자동으로 전송합니다.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelUsername.Text" xml:space="preserve">
     <value>사용자 이름:</value>
@@ -219,8 +219,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>계정 동기화</value>
-    <comment>Automatically translated.</comment>
+    <value>동기화 계정</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>암호화 키가 변경되었습니다</value>
@@ -235,8 +235,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>계정 동기화</value>
-    <comment>Automatically translated.</comment>
+    <value>동기화 계정</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>로컬 데이터 초기화</value>

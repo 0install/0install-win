@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="buttonAddCatalog.Text" xml:space="preserve">
-    <value>Introduceți adresa URL a unui catalog (o colecție de fluxuri)</value>
-    <comment>Automatically translated.</comment>
+    <value>Introduceți adresa URL a unui &amp;catalog (o colecție de feed-uri)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAddFeed.Text" xml:space="preserve">
     <value>Introduceți adresa URL a unui feed (o singură aplicație)</value>

@@ -95,7 +95,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonPortableCreator.Text" xml:space="preserve">
-    <value>&amp;Portable Ersteller</value>
+    <value>&amp;Portable Version erstellen</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Katalog vom Server laden...</value>
+    <value>Katalog wird vom Server geladen...</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAppList.Text" xml:space="preserve">

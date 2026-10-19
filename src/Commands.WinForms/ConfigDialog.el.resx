@@ -75,11 +75,11 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
-    <value>Μετάβαση στο</value>
+    <value>&amp;Μετάβαση</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonGoToImplDir.Text" xml:space="preserve">
-    <value>Μετάβαση στο</value>
+    <value>&amp;Μετάβαση</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
@@ -99,15 +99,15 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Αυτόματη έγκριση νέων κλειδιών (αν είναι γνωστή από το κλειδί διακομιστή)</value>
+    <value>&amp;Αυτόματη έγκριση νέων κλειδιών (αν είναι γνωστά στον διακομιστή κλειδιών)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Χρησιμοποιήστε beta εκδόσεις των εφαρμογών όταν είναι διαθέσιμη</value>
+    <value>&amp;Βοήθεια στη δοκιμή νέων εκδόσεων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
-    <value>Κατάλογος και πηγές</value>
+    <value>Πηγές &amp;καταλόγων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
@@ -115,7 +115,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>καταλόγος μνήμης cache</value>
+    <value>&amp;Κατάλογοι μνήμης cache υλοποιήσεων</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
@@ -131,21 +131,21 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
-    <value>Επιλέξτε ή δημιουργήστε ένα κατάλογο που θα χρησιμοποιηθεί σαν κρυφή μνήμη της εφαρμογής.</value>
+    <value>Επιλέξτε ή δημιουργήστε έναν κατάλογο που θα χρησιμοποιηθεί ως μνήμη cache υλοποιήσεων.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelAdvancedWarning.Text" xml:space="preserve">
-    <value>Προσοχή: Η αλλαγή αυτών των επιλογών μπορεί να αποτρέψει Zero Install  την σωστή λειτουργία του.</value>
+    <value>Προσοχή: Η αλλαγή αυτών των επιλογών μπορεί να εμποδίσει τη σωστή λειτουργία του Zero Install.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelLanguage.Text" xml:space="preserve">
-    <value>Αυτό ελέγχει τη γλώσσα του:
-- Zero Install
-- εφαρμογές που έχουν ληφθεί από Zero Install
+    <value>Αυτό ελέγχει τη γλώσσα:
+- του ίδιου του Zero Install και
+- των εφαρμογών που λαμβάνονται από το Zero Install.
 
 Σημειώσεις:
-- μεταφράσεις δεν είναι διαθέσιμη για όλες τις γλώσσες.
-- Πρέπει να ξαναξεκινήσετε Zero Install για γλωσσικές αλλαγές για να εφαρμοστείτε.</value>
+- Δεν υπάρχουν μεταφράσεις για όλες τις γλώσσες.
+- Πρέπει να επανεκκινήσετε το Zero Install για να εφαρμοστούν οι αλλαγές γλώσσας.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
@@ -169,15 +169,15 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
-    <value>Πλήρης λειτουργία (κατεβάστε πάντα την καλύτερη εκδοχή)</value>
+    <value>&amp;Πλήρης (κανονική χρήση του δικτύου)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Ελάχιστη λειτουργία (μόνο λήψη όταν είναι απολύτως απαραίτητη)</value>
+    <value>&amp;Ελάχιστη (προτίμηση αποθηκευμένων εκδόσεων)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Λειτουργία εκτός σύνδεσης (μην κατεβάσετε τίποτα)</value>
+    <value>Εκτός &amp;σύνδεσης (χωρίς χρήση του δικτύου)</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
@@ -189,7 +189,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageLanguage.Text" xml:space="preserve">
-    <value>γλώσσα</value>
+    <value>Γλώσσα</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageStorage.Text" xml:space="preserve">

@@ -99,20 +99,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
-    <value>Aprueba automáticamente las nuevas claves (si el servidor de claves las reconoce).</value>
-    <comment>Automatically translated.</comment>
+    <value>Aprobar a&amp;utomáticamente las nuevas claves (si el servidor de claves las conoce)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
-    <value>Ayúdanos a probar las nuevas versiones</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Ayudar a probar las nuevas versiones</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupCatalogSources.Text" xml:space="preserve">
     <value>Fuentes del catálogo</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupFreshness.Text" xml:space="preserve">
-    <value>Actualización</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Frescura</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
     <value>Directorios de caché de implementación</value>
@@ -177,8 +177,8 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
-    <value>Sin conexión (no utiliza la red)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Sin conexión (no utilizar la red)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Avanzado</value>

@@ -107,8 +107,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Введите ключ на других компьютерах с помощью окна «Параметры». Не используйте этот мастер на других компьютерах, так как он необходим только для первоначального изменения настроек.</value>
-    <comment>Automatically translated.</comment>
+    <value>Введите ключ на других компьютерах с помощью окна «Настройки». Не используйте этот мастер на других компьютерах, так как он необходим только для первоначального изменения настроек.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
     <value>Криптографический ключ:</value>
@@ -171,8 +171,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelServer.Text" xml:space="preserve">
-    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед отправкой на сервер. При желании вы можете использовать для хранения данные свой собственный сервер.</value>
-    <comment>Automatically translated.</comment>
+    <value>0install.de предоставляет бесплатные учетные записи для хранения данных синхронизации. Все данные шифруются локально перед отправкой на сервер. При желании вы можете использовать для хранения свой собственный сервер.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelServerType.Text" xml:space="preserve">
     <value>Какой сервер вы хотите использовать?</value>
@@ -203,24 +203,24 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="optionCustomServer.Text" xml:space="preserve">
-    <value>Использование собственного сервера:</value>
-    <comment>Automatically translated.</comment>
+    <value>Использовать с&amp;обственный сервер:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionFileShare.Text" xml:space="preserve">
-    <value>Используйте общий доступ к файлам в Windows:</value>
-    <comment>Automatically translated.</comment>
+    <value>Использовать &amp;общую папку Windows:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="optionOfficialServer.Text" xml:space="preserve">
-    <value>Используйте сервер 0install.de (рекомендуется)</value>
-    <comment>Automatically translated.</comment>
+    <value>Использовать сервер &amp;0install.de (рекомендуется)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageChangeCryptoKey.Text" xml:space="preserve">
     <value>Смена криптографического ключа</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageCredentials.Text" xml:space="preserve">
-    <value>Синхронизация учетной записи</value>
-    <comment>Automatically translated.</comment>
+    <value>Учетная запись синхронизации</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageCryptoKeyChanged.Text" xml:space="preserve">
     <value>Криптографический ключ изменен</value>
@@ -235,8 +235,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="pageRegister.Text" xml:space="preserve">
-    <value>Синхронизация учетной записи</value>
-    <comment>Automatically translated.</comment>
+    <value>Учетная запись синхронизации</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetClient.Text" xml:space="preserve">
     <value>Сброс локальных данных</value>

@@ -75,8 +75,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="SettingFilePermissions" xml:space="preserve">
-    <value>Configuración de los permisos de los archivos</value>
-    <comment>Automatically translated.</comment>
+    <value>Estableciendo los permisos de los archivos</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SuccessfullyAddedImplementation" xml:space="preserve">
     <value>El usuario «{0} » ha añadido correctamente la implementación «{1} » a «{2} ».</value>

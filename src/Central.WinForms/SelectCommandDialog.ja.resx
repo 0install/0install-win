@@ -75,8 +75,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>ピン留め解除版</value>
-    <comment>Automatically translated.</comment>
+    <value>バージョンの固定を解除(&amp;U)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>同等のコマンドライン</value>

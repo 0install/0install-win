@@ -99,7 +99,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Diese Suchergebnisse werden vom Mirror-Server bereitgestellt. Beachten Sie, dass der Mirror-Server alle bekannten Feeds indiziert, unabhängig von der Qualität. Sie müssen selber entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie ausführen.</value>
+    <value>Diese Suchergebnisse werden vom Mirror-Server bereitgestellt. Beachten Sie, dass der Standard-Mirror-Server alle bekannten Feeds indiziert, unabhängig von der Qualität. Sie müssen selbst entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie ausführen.</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">

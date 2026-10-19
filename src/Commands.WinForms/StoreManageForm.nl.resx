@@ -79,16 +79,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonVerify.Text" xml:space="preserve">
-    <value>Controleer</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Controleren</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Gecontroleerde grootte van de vermeldingen:</value>
-    <comment>Automatically translated.</comment>
+    <value>Grootte van aangevinkte items:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Huidige grootte van de invoer:</value>
-    <comment>Automatically translated.</comment>
+    <value>Grootte van huidig item:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
     <value>Bezig met laden...</value>

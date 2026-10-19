@@ -115,8 +115,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="groupImplDirs.Text" xml:space="preserve">
-    <value>Implementasi direktori cache</value>
-    <comment>Automatically translated.</comment>
+    <value>Direktori cache &amp;implementasi</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Penggunaan jaringan</value>
@@ -153,8 +153,8 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
-    <value>Kunci kriptografi:</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Kunci kripto:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
     <value>Kata sandi:</value>
@@ -173,8 +173,8 @@ Catatan:
     <comment>Automatically translated.</comment>
   </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
-    <value>Minimal (lebih disukai versi yang disimpan dalam cache)</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Minimal (utamakan versi dalam cache)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
     <value>Offline (tidak menggunakan jaringan)</value>

@@ -59,24 +59,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Búsqueda de fuentes en Zero Install</value>
-    <comment>Automatically translated.</comment>
+    <value>Búsqueda de feeds de Zero Install</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
-    <value>Añadir a «Mis aplicaciones»</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Añadir a «Mis apps»</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonDetails.Text" xml:space="preserve">
     <value>Detalles</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>Integración en el proceso de instalación</value>
-    <comment>Automatically translated.</comment>
+    <value>Configurar &amp;integración</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
-    <value>Ejecutar</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Lanzar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="columnCategories.HeaderText" xml:space="preserve">
     <value>Categorías</value>
@@ -99,8 +99,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Estos resultados de búsqueda los proporciona el servidor espejo. Ten en cuenta que el servidor espejo predeterminado indexa todas las fuentes conocidas, independientemente de su calidad; debes decidir si confías en los programas antes de ejecutarlos.</value>
-    <comment>Automatically translated.</comment>
+    <value>Estos resultados de búsqueda los proporciona el servidor espejo. Ten en cuenta que el servidor espejo predeterminado indexa todos los feeds conocidos, independientemente de su calidad; debes decidir si confías en los programas antes de ejecutarlos.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
     <value>Palabras clave</value>

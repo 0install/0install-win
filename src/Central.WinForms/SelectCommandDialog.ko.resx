@@ -75,8 +75,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>고정 해제 버전</value>
-    <comment>Automatically translated.</comment>
+    <value>버전 고정 해제(&amp;U)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>이에 상응하는 명령줄</value>

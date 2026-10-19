@@ -59,8 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Text" xml:space="preserve">
-    <value>Zero Install 源搜索</value>
-    <comment>Automatically translated.</comment>
+    <value>Zero Install feed 搜索</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonAdd.Text" xml:space="preserve">
     <value>添加到“我的应用”</value>
@@ -71,8 +71,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>安装程序集成</value>
-    <comment>Automatically translated.</comment>
+    <value>设置集成(&amp;I)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
     <value>运行</value>
@@ -99,8 +99,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的源，无论其质量如何；在运行程序之前，您必须自行判断是否信任这些程序。</value>
-    <comment>Automatically translated.</comment>
+    <value>这些搜索结果由镜像服务器提供。请注意，默认镜像服务器会索引所有已知的 feed，无论其质量如何；在运行程序之前，您必须自行判断是否信任这些程序。</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="textKeywords.HintText" xml:space="preserve">
     <value>关键词</value>

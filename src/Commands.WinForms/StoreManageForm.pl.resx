@@ -83,12 +83,12 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
-    <value>Sprawdzono rozmiar wpisów:</value>
-    <comment>Automatically translated.</comment>
+    <value>Rozmiar zaznaczonych wpisów:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
-    <value>Aktualna wielkość wpisu:</value>
-    <comment>Automatically translated.</comment>
+    <value>Rozmiar bieżącego wpisu:</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
     <value>Ładowanie...</value>

@@ -67,20 +67,20 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Versi pin</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Sematkan versi</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Segarkan</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Versi lepas pin</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Lepas sematan versi</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="labelArgs.Text" xml:space="preserve">
     <value>Argumen:</value>
@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxCommandLine.AccessibleName" xml:space="preserve">
-    <value>Perintah baris perintah yang setara</value>
-    <comment>Automatically translated.</comment>
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

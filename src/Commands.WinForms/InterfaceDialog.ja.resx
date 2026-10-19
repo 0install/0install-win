@@ -67,8 +67,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonAddFeed.ToolTip" xml:space="preserve">
-    <value>このインターフェースの実装例を新たに追加します</value>
-    <comment>Automatically translated.</comment>
+    <value>このインターフェースの実装ソースを新たに追加します</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonApply.Text" xml:space="preserve">
     <value>適用</value>

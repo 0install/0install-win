@@ -67,16 +67,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxPin.Text" xml:space="preserve">
-    <value>Wersja przypięta</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Przypnij wersję</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxRefresh.Text" xml:space="preserve">
     <value>Odśwież</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxUnpin.Text" xml:space="preserve">
-    <value>Odpinaj wersję</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Odepnij wersję</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="groupBoxCommandLine.Text" xml:space="preserve">
     <value>Odpowiednik w wierszu poleceń</value>

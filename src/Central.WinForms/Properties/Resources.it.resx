@@ -191,16 +191,16 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="HiddenCount" xml:space="preserve">
-    <value>({0} nascosto)</value>
-    <comment>Automatically translated.</comment>
+    <value>(nascosti: {0})</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignora la voce duplicata relativa all’app «{0} ».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IncludeCommandLineApps" xml:space="preserve">
-    <value>Includere le applicazioni a riga di comando</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Includi app a riga di comando</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrazione (menu Start, ecc.)</value>
@@ -261,8 +261,8 @@ nel menu Start o sul desktop.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Modalità a livello di macchina</value>
-    <comment>Automatically translated.</comment>
+    <value>Modalità a livello di sistema</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
     <value>Modifica dell'integrazione</value>
@@ -294,8 +294,8 @@ Sei sicuro di voler inserire lì una versione portatile di Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Vuoi rimuovere le voci selezionate dall'elenco " {0} "?</value>
-    <comment>Automatically translated.</comment>
+    <value>Vuoi rimuovere dall'elenco le {0} voci selezionate?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Esegui</value>
@@ -306,8 +306,8 @@ Sei sicuro di voler inserire lì una versione portatile di Zero Install?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Desidera salvare le modifiche apportate?</value>
-    <comment>Automatically translated.</comment>
+    <value>Vuoi salvare le modifiche apportate?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SaveChangesNo" xml:space="preserve">
     <value>No
@@ -340,13 +340,13 @@ Salva le modifiche</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
-    <value>Desideri ripristinare le impostazioni di sincronizzazione e ricominciare da zero?</value>
-    <comment>Automatically translated.</comment>
+    <value>Desideri reimpostare le impostazioni di sincronizzazione e ricominciare da zero?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigNo" xml:space="preserve">
     <value>No
-modifica delle impostazioni esistenti</value>
-    <comment>Automatically translated.</comment>
+modificare le impostazioni esistenti</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigYes" xml:space="preserve">
     <value>Sì
@@ -355,8 +355,8 @@ partire da zero</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>I dati attualmente memorizzati sul server Sync sono danneggiati.
-È possibile sostituire i dati memorizzati sul server selezionando l'opzione che indica che non si ricorda la chiave crittografica.</value>
-    <comment>Automatically translated.</comment>
+Puoi sostituire i dati memorizzati sul server selezionando l'opzione che indica che non ricordi la chiave crittografica.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Impossibile scaricare il catalogo delle applicazioni.</value>
@@ -372,16 +372,16 @@ Le connessioni crittografate utilizzano il prefisso https://.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Aggiornamento</value>
-    <comment>Automatically translated.</comment>
+    <value>&amp;Aggiorna</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Questa operazione rimuoverà automaticamente dalla cache le implementazioni che non sono più necessarie dopo l’aggiornamento. Continuare?
-Importante: anche le applicazioni che hai "Eseguito" in precedenza senza aggiungerle a "Le mie app" verranno rimosse dalla cache.  Dovrai essere online se deciderai di eseguirle nuovamente.</value>
-    <comment>Automatically translated.</comment>
+Importante: anche le applicazioni che hai avviato in precedenza con "Esegui" senza aggiungerle a "Le mie app" verranno rimosse dalla cache.  Dovrai essere online se deciderai di eseguirle nuovamente.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>In esecuzione...</value>
-    <comment>Automatically translated.</comment>
+    <value>In corso...</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

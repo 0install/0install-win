@@ -223,34 +223,34 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherApp" xml:space="preserve">
-    <value>Alte aplicații</value>
-    <comment>Automatically translated.</comment>
+    <value>Altă aplicație</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
     <value>face și altceva</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Dacă îți place o aplicație,
-adaug-o la „Aplicațiile mele”.</value>
-    <comment>Automatically translated.</comment>
+    <value>Dacă vă place o aplicație,
+adăugați-o la „Aplicațiile mele”.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>Căutați o aplicație în „Catalog”...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>„Integrează” o aplicație pentru a o plasa
+    <value>„Integrați” o aplicație pentru a o plasa
 în meniul Start sau pe desktop.</value>
-    <comment>Automatically translated.</comment>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Aici puteți gestiona lista aplicațiilor preferate.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... și pornește-l!</value>
-    <comment>Automatically translated.</comment>
+    <value>... și rulați-o!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
     <value>Distracție plăcută!</value>
@@ -261,8 +261,8 @@ adaug-o la „Aplicațiile mele”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
-    <value>Modul la nivel de sistem</value>
-    <comment>Automatically translated.</comment>
+    <value>Mod la nivel de sistem</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="ModifyIntegration" xml:space="preserve">
     <value>Modifică integrarea</value>
@@ -277,8 +277,8 @@ adaug-o la „Aplicațiile mele”.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="MyAppsAddedAndIntegrate" xml:space="preserve">
-    <value>Se adaugă la „Aplicațiile mele” și se integrează în mediul de lucru al desktopului.</value>
-    <comment>Automatically translated.</comment>
+    <value>Adăugat la „Aplicațiile mele” și integrat în mediul desktop.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>Directorul „{0} ” nu este gol.
@@ -294,12 +294,12 @@ Sunteți sigur că doriți să plasați acolo o versiune portabilă a Zero Insta
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Doriți să eliminați intrările selectate din lista „ {0} ”?</value>
-    <comment>Automatically translated.</comment>
+    <value>Doriți să eliminați din listă cele {0} intrări selectate?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Executare</value>
-    <comment>Automatically translated.</comment>
+    <value>Rulare</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="RunWithOptions" xml:space="preserve">
     <value>Rulare cu opțiuni</value>
@@ -336,8 +336,8 @@ Salvează modificările</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>Cheia Crypto pe care ați introdus-o este incorectă.</value>
-    <comment>Automatically translated.</comment>
+    <value>Cheia criptografică pe care ați introdus-o este incorectă.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="SyncReplaceConfigAsk" xml:space="preserve">
     <value>Doriți să resetați setările de sincronizare și să începeți de la zero?</value>
@@ -355,16 +355,16 @@ editați setările existente</value>
   </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Datele stocate în prezent pe serverul Sync sunt deteriorate.
-Puteți înlocui datele stocate pe server alegând opțiunea de a nu reține cheia Crypto.</value>
-    <comment>Automatically translated.</comment>
+Puteți înlocui datele stocate pe server alegând opțiunea de a nu reține cheia criptografică.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Nu se poate descărca catalogul de aplicații.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Nu se poate încărca fluxul pentru intrarea aplicației „{0} ”.</value>
-    <comment>Automatically translated.</comment>
+    <value>Nu se poate încărca feed-ul pentru intrarea aplicației „{0}”.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="UnencryptedSyncServer" xml:space="preserve">
     <value>Sunteți sigur că doriți să utilizați o conexiune necriptată la un server Sync?
@@ -381,7 +381,7 @@ Important: Aplicațiile pe care le-ați „rulat” anterior fără a le adăuga
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Se execută...</value>
-    <comment>Automatically translated.</comment>
+    <value>În lucru...</value>
+    <comment>Manually overriden.</comment>
   </data>
 </root>

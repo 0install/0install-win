@@ -91,8 +91,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="CategoryEducation" xml:space="preserve">
-    <value>Opleiding</value>
-    <comment>Automatically translated.</comment>
+    <value>Onderwijs</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="CategoryEmail" xml:space="preserve">
     <value>E-mail</value>
@@ -231,34 +231,34 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>Als je een app leuk vindt,
-voeg deze dan toe aan "Mijn apps".</value>
-    <comment>Automatically translated.</comment>
+    <value>Als u een app leuk vindt,
+voegt u deze toe aan "Mijn apps".</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
     <value>Zoek een app in de "Catalogus"...</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integreer" een app om deze
-in het startmenu of op het bureaublad te plaatsen.</value>
-    <comment>Automatically translated.</comment>
+    <value>Met "Integreren" plaatst u een app
+in het startmenu of op het bureaublad.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
     <value>Hier kunt u uw lijst met favoriete apps beheren.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... en start het op!</value>
-    <comment>Automatically translated.</comment>
+    <value>... en start deze!</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="IntroSubtitlesThanks" xml:space="preserve">
     <value>Veel plezier!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>Met Zero Install hoef je geen apps te installeren.</value>
-    <comment>Automatically translated.</comment>
+    <value>Met Zero Install hoeft u geen apps te installeren.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Machinebrede modus</value>
@@ -294,8 +294,8 @@ Weet u zeker dat u daar een draagbare versie van Zero Install wilt plaatsen?</va
     <comment>Automatically translated.</comment>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Wilt u de geselecteerde items uit de lijst ' {0} ' verwijderen?</value>
-    <comment>Automatically translated.</comment>
+    <value>Wilt u de {0} geselecteerde items uit de lijst verwijderen?</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Uitvoeren</value>
@@ -377,8 +377,8 @@ Versleutelde verbindingen gebruiken het voorvoegsel https://.</value>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Hierdoor worden implementaties die na de update niet langer nodig zijn automatisch uit de cache verwijderd. Doorgaan?
-Belangrijk: Applicaties die u eerder hebt "gestart" zonder ze toe te voegen aan "Mijn apps" worden ook uit de cache verwijderd.  U moet online zijn als u besluit ze opnieuw te starten.</value>
-    <comment>Automatically translated.</comment>
+Belangrijk: applicaties die u eerder hebt "uitgevoerd" zonder ze toe te voegen aan "Mijn apps" worden ook uit de cache verwijderd.  U moet online zijn als u besluit ze opnieuw uit te voeren.</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Bezig...</value>

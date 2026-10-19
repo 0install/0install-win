@@ -135,8 +135,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
-    <value>등록 기능</value>
-    <comment>Automatically translated.</comment>
+    <value>기능 등록(&amp;R)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
     <value>운영 체제에 해당 애플리케이션이 처리할 수 있는 파일 유형 등 애플리케이션의 기능을 알려줍니다.</value>
@@ -207,8 +207,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
-    <value>명령어</value>
-    <comment>Automatically translated.</comment>
+    <value>명령</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
     <value>이름</value>
@@ -251,8 +251,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="dataGridFileTypesColumnExtensions.HeaderText" xml:space="preserve">
-    <value>확장 기능</value>
-    <comment>Automatically translated.</comment>
+    <value>확장자</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
     <value>명령</value>

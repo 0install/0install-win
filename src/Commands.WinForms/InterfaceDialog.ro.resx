@@ -127,8 +127,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageFeeds.Text" xml:space="preserve">
-    <value>Fluxuri</value>
-    <comment>Automatically translated.</comment>
+    <value>Feed-uri</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageVersions.Text" xml:space="preserve">
     <value>Versiuni</value>

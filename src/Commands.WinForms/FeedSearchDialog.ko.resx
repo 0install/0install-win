@@ -71,8 +71,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonIntegrate.Text" xml:space="preserve">
-    <value>설치 프로그램 통합</value>
-    <comment>Automatically translated.</comment>
+    <value>통합 설정(&amp;I)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonRun.Text" xml:space="preserve">
     <value>실행</value>

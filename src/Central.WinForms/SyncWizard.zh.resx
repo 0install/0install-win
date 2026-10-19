@@ -63,8 +63,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="buttonForgotKey.Text" xml:space="preserve">
-    <value>忘记密码</value>
-    <comment>Automatically translated.</comment>
+    <value>忘记密钥(&amp;F)</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="buttonResetClient.Text" xml:space="preserve">
     <value>我想替换我的本地数据</value>
