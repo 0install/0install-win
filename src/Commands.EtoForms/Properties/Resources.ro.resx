@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Adăugare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeed" xml:space="preserve">
+    <value>Adăugare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeedToolTip" xml:space="preserve">
+    <value>Adaugă o nouă sursă de implementări pentru această interfață</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddToMyApps" xml:space="preserve">
+    <value>Adaugă la „Aplicațiile mele”</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Setări avansate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedWarning" xml:space="preserve">
+    <value>Atenție: Modificarea acestor opțiuni poate împiedica funcționarea corectă a Zero Install.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Aliases" xml:space="preserve">
+    <value>Aliasuri pentru linia de comandă</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AliasesDescription" xml:space="preserve">
+    <value>Acces din interfața liniei de comandă</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Aplică</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoApproveKeys" xml:space="preserve">
+    <value>Aprobă automat cheile noi (dacă sunt recunoscute de serverul de chei)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlay" xml:space="preserve">
+    <value>Redare automată</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlayDescription" xml:space="preserve">
+    <value>Se pornește automat la introducerea unui suport adecvat (DVD, unitate USB etc.)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Pornire automată</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStartDescription" xml:space="preserve">
+    <value>Pornește programul automat la autentificarea utilizatorului</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>Setări de bază</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Surse de catalog</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CheckedEntriesSize" xml:space="preserve">
+    <value>Dimensiunea intrărilor bifate:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnArchitecture" xml:space="preserve">
+    <value>Arhitectură</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategories" xml:space="preserve">
+    <value>Categorii</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategory" xml:space="preserve">
+    <value>Categorie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCommand" xml:space="preserve">
+    <value>Comandă</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDefault" xml:space="preserve">
+    <value>Implicit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>Descriere</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEnabled" xml:space="preserve">
+    <value>Activat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEntryName" xml:space="preserve">
+    <value>Numele intrării</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEvents" xml:space="preserve">
+    <value>Evenimente</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnExtensions" xml:space="preserve">
+    <value>Extensii</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Nume</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnNotes" xml:space="preserve">
+    <value>Note</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnProtocols" xml:space="preserve">
+    <value>Protocoale</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnReleased" xml:space="preserve">
+    <value>Lansat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnScore" xml:space="preserve">
+    <value>Potrivire (%)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnService" xml:space="preserve">
+    <value>Serviciu</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSource" xml:space="preserve">
+    <value>Sursă</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnStability" xml:space="preserve">
+    <value>Stabilitate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>Rezumat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUri" xml:space="preserve">
+    <value>URI</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUserStability" xml:space="preserve">
+    <value>Suprascriere</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnVersion" xml:space="preserve">
+    <value>Versiune</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ConfigTitle" xml:space="preserve">
+    <value>Configurație Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenu" xml:space="preserve">
+    <value>Meniul contextual</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenuDescription" xml:space="preserve">
+    <value>Opțiuni din meniul contextual din Windows Explorer</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CurrentEntrySize" xml:space="preserve">
+    <value>Dimensiunea actuală a intrării:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultPrograms" xml:space="preserve">
+    <value>Programe implicite</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultProgramsDescription" xml:space="preserve">
+    <value>Program implicit pentru sarcini precum browserul web sau clientul de e-mail</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DesktopDescription" xml:space="preserve">
+    <value>O pictogramă pe desktop</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalii</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EquivalentCommandLine" xml:space="preserve">
+    <value>Linie de comandă echivalentă</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FeedSearchInfo" xml:space="preserve">
+    <value>Aceste rezultate ale căutării sunt furnizate de serverul oglindă. Rețineți că serverul oglindă implicit indexează toate feed-urile cunoscute, indiferent de calitate; trebuie să decideți dacă aveți încredere în programe înainte de a le rula.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="FeedSearchTitle" xml:space="preserve">
+    <value>Căutare de feed-uri Zero Install</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>Tipuri de fișiere</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypesDescription" xml:space="preserve">
+    <value>Handler implicit pentru tipurile de fișiere acceptate (opțiunea „Deschide cu” funcționează și fără acesta)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Freshness" xml:space="preserve">
+    <value>Actualitate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="GoTo" xml:space="preserve">
+    <value>Accesați</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HelpWithTesting" xml:space="preserve">
+    <value>Ajută la testarea noilor versiuni</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ImplDirs" xml:space="preserve">
+    <value>Directoare de cache pentru implementări</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="IncludeInUpdateAll" xml:space="preserve">
+    <value>Include în „Actualizează tot”</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeInUpdateAllToolTip" xml:space="preserve">
+    <value>Include această aplicație în verificările „Actualizează tot”.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Cuvinte cheie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="LanguageInfo" xml:space="preserve">
+    <value>Aceasta controlează limba pentru:
+- Zero Install în sine și
+- aplicațiile descărcate de Zero Install.
+
+Note:
+- Traducerile nu sunt disponibile pentru toate limbile.
+- Trebuie să reporniți Zero Install pentru ca modificările de limbă să aibă efect.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Se încarcă...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Gestionare cont</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUse" xml:space="preserve">
+    <value>Utilizarea rețelei</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseFull" xml:space="preserve">
+    <value>Complet (utilizare normală a rețelei)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseMinimal" xml:space="preserve">
+    <value>Minimă (preferă versiunile stocate în cache)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseOffline" xml:space="preserve">
+    <value>Offline (nu utilizează rețeaua)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStability" xml:space="preserve">
+    <value>Stabilitate preferată:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStabilityToolTip" xml:space="preserve">
+    <value>Stabilește care rating de stabilitate va fi considerat „cel mai bun”</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Reîmprospătează</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RegisterCapabilities" xml:space="preserve">
+    <value>Înregistrare &amp;capacități</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RegisterCapabilitiesToolTip" xml:space="preserve">
+    <value>Informează sistemul de operare cu privire la capacitățile aplicației, cum ar fi tipurile de fișiere pe care le poate gestiona.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Eliminare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveEntries" xml:space="preserve">
+    <value>Eliminare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeed" xml:space="preserve">
+    <value>Eliminare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeedToolTip" xml:space="preserve">
+    <value>Elimină o sursă de implementări pentru această interfață</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Resetare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>&amp;Rulare</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RunAsAdmin" xml:space="preserve">
+    <value>Rulați ca administrator</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Selectează tot</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectImplDir" xml:space="preserve">
+    <value>Vă rugăm să selectați sau să creați un director de utilizat drept cache pentru implementări.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="SendTo" xml:space="preserve">
+    <value>Trimite către</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendToDescription" xml:space="preserve">
+    <value>O opțiune în meniul „Trimite către”</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SetupIntegration" xml:space="preserve">
+    <value>Configurare &amp;integrare</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ShowAdvanced" xml:space="preserve">
+    <value>Afișează opțiunile avansate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Afișează toate versiunile</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersionsToolTip" xml:space="preserve">
+    <value>Afișează versiunile care nu sunt acceptate pe acest sistem</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>Stabilitate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenu" xml:space="preserve">
+    <value>Meniul Start</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenuDescription" xml:space="preserve">
+    <value>Una sau mai multe intrări în meniul Start</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StoreManageTitle" xml:space="preserve">
+    <value>Gestionarea cache-ului Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKey" xml:space="preserve">
+    <value>Cheie criptografică:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncPassword" xml:space="preserve">
+    <value>Parolă:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServer" xml:space="preserve">
+    <value>Server:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncUsername" xml:space="preserve">
+    <value>Nume de utilizator:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabAdvanced" xml:space="preserve">
+    <value>Avansat</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabCatalog" xml:space="preserve">
+    <value>Catalog</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabFeeds" xml:space="preserve">
+    <value>Feed-uri</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="TabLanguage" xml:space="preserve">
+    <value>Limba</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabStorage" xml:space="preserve">
+    <value>Spațiu de stocare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabSync" xml:space="preserve">
+    <value>Sincronizare</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabTrust" xml:space="preserve">
+    <value>Încredere</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabUpdates" xml:space="preserve">
+    <value>Actualizări</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabVersions" xml:space="preserve">
+    <value>Versiuni</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TotalSize" xml:space="preserve">
+    <value>Dimensiune totală:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TrustedKeys" xml:space="preserve">
+    <value>Chei de încredere</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocols" xml:space="preserve">
+    <value>Protocoale URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocolsDescription" xml:space="preserve">
+    <value>Handler implicit pentru protocoalele URL acceptate</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="VerifyEntries" xml:space="preserve">
+    <value>Verifică</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HideToolTip" xml:space="preserve">
+    <value>Ascunde fereastra și continuă procesul ca pictogramă în bara de sistem</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Afișează</value>
+    <comment>Manually overriden.</comment>
+  </data>
+</root>

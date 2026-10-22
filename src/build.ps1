@@ -36,6 +36,7 @@ echo "Prepare binaries for publishing"
 Run-MSBuild /v:Quiet /t:Publish /p:NoBuild=True /p:BuildProjectReferences=False /p:Configuration=Release /p:Version=$Version
 rm ..\artifacts\Release\net48\publish\*.pdb
 rm ..\artifacts\Release\net48\publish\*\Microsoft.CodeAnalysis*.resources.dll
+rm ..\artifacts\Release\net10.0-windows\publish\*.pdb
 
 echo "Build Windows Installer package"
 pushd Bootstrap.WinForms
