@@ -92,8 +92,9 @@ public sealed partial class ConfigDialog : OKCancelDialog
             NetworkLevel.Offline => radioNetworkUseOffline,
             _ => radioNetworkUseFull
         }).Checked = true;
-        radioNetworkUseFull.Enabled = radioNetworkUseMinimal.Enabled = radioNetworkUseMinimal.Enabled = !Config.IsOptionLocked("network_policy");
+        radioNetworkUseFull.Enabled = radioNetworkUseMinimal.Enabled = radioNetworkUseOffline.Enabled = !Config.IsOptionLocked("network_use");
         timespanFreshness.Value = _config.Freshness;
+        timespanFreshness.Enabled = !Config.IsOptionLocked("freshness");
         checkBoxHelpWithTesting.Checked = _config.HelpWithTesting;
         checkBoxHelpWithTesting.Enabled = !Config.IsOptionLocked("help_with_testing");
         checkBoxAutoApproveKeys.Checked = _config.AutoApproveKeys;
@@ -102,9 +103,9 @@ public sealed partial class ConfigDialog : OKCancelDialog
         textBoxSyncServer.Uri = _config.SyncServer;
         textBoxSyncServer.Enabled = !Config.IsOptionLocked("sync_server");
         textBoxSyncUsername.Text = _config.SyncServerUsername;
-        textBoxSyncUsername.Enabled = !Config.IsOptionLocked("sync_serveR_user");
+        textBoxSyncUsername.Enabled = !Config.IsOptionLocked("sync_server_user");
         textBoxSyncPassword.Text = _config.SyncServerPassword;
-        textBoxSyncPassword.Enabled = !Config.IsOptionLocked("sync_server_password");
+        textBoxSyncPassword.Enabled = !Config.IsOptionLocked("sync_server_pw");
         textBoxSyncCryptoKey.Text = _config.SyncCryptoKey;
         textBoxSyncCryptoKey.Enabled = !Config.IsOptionLocked("sync_crypto_key");
 
