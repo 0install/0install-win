@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeed" xml:space="preserve">
+    <value>Toevoegen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeedToolTip" xml:space="preserve">
+    <value>Voegt een nieuwe bron van implementaties voor deze interface toe</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddToMyApps" xml:space="preserve">
+    <value>Toevoegen aan &quot;Mijn apps&quot;</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Geavanceerde instellingen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedWarning" xml:space="preserve">
+    <value>Waarschuwing: het wijzigen van deze opties kan ervoor zorgen dat Zero Install niet meer correct werkt.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Aliases" xml:space="preserve">
+    <value>Aliassen voor de opdrachtregel</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AliasesDescription" xml:space="preserve">
+    <value>Toegang via de opdrachtregelinterface</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Toepassen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoApproveKeys" xml:space="preserve">
+    <value>Nieuwe sleutels automatisch goedkeuren (indien bekend bij de sleutelserver)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlay" xml:space="preserve">
+    <value>AutoPlay</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlayDescription" xml:space="preserve">
+    <value>Wordt automatisch gestart wanneer een geschikt medium (dvd, USB-stick, enz.) wordt geplaatst</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Automatisch starten</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStartDescription" xml:space="preserve">
+    <value>Start het programma automatisch wanneer de gebruiker inlogt</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>Basisinstellingen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Bronnen van de catalogus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CheckedEntriesSize" xml:space="preserve">
+    <value>Grootte van aangevinkte items:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnArchitecture" xml:space="preserve">
+    <value>Architectuur</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategories" xml:space="preserve">
+    <value>Categorieën</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategory" xml:space="preserve">
+    <value>Categorie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCommand" xml:space="preserve">
+    <value>Commando</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDefault" xml:space="preserve">
+    <value>Standaard</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>Beschrijving</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEnabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEntryName" xml:space="preserve">
+    <value>Naam van het item</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEvents" xml:space="preserve">
+    <value>Gebeurtenissen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnExtensions" xml:space="preserve">
+    <value>Extensies</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Naam</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnNotes" xml:space="preserve">
+    <value>Opmerkingen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnProtocols" xml:space="preserve">
+    <value>Protocollen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnReleased" xml:space="preserve">
+    <value>Uitgebracht</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnScore" xml:space="preserve">
+    <value>Overeenkomst (%)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnService" xml:space="preserve">
+    <value>Service</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSource" xml:space="preserve">
+    <value>Bron</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnStability" xml:space="preserve">
+    <value>Stabiliteit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>Samenvatting</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUri" xml:space="preserve">
+    <value>URI</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUserStability" xml:space="preserve">
+    <value>Overschrijven</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnVersion" xml:space="preserve">
+    <value>Versie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ConfigTitle" xml:space="preserve">
+    <value>Zero Install-configuratie</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenu" xml:space="preserve">
+    <value>Contextmenu</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenuDescription" xml:space="preserve">
+    <value>Items in het contextmenu van Windows Verkenner</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CurrentEntrySize" xml:space="preserve">
+    <value>Grootte van huidig item:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="DefaultPrograms" xml:space="preserve">
+    <value>Standaardprogramma&apos;s</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultProgramsDescription" xml:space="preserve">
+    <value>Standaardprogramma voor taken zoals een webbrowser of e-mailclient</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Bureaublad</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DesktopDescription" xml:space="preserve">
+    <value>Een pictogram op het bureaublad</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EquivalentCommandLine" xml:space="preserve">
+    <value>Equivalente opdrachtregel</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FeedSearchInfo" xml:space="preserve">
+    <value>Deze zoekresultaten worden geleverd door de mirrorserver. Houd er rekening mee dat de standaard mirrorserver alle bekende feeds indexeert, ongeacht de kwaliteit; u moet zelf beslissen of u de programma&apos;s vertrouwt voordat u ze uitvoert.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FeedSearchTitle" xml:space="preserve">
+    <value>Zoeken naar Zero Install-feeds</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>Bestandstypen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypesDescription" xml:space="preserve">
+    <value>Standaardverwerker voor ondersteunde bestandstypen (&quot;Openen met&quot; werkt ook zonder dit)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Freshness" xml:space="preserve">
+    <value>Actualiteit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="GoTo" xml:space="preserve">
+    <value>Ga naar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HelpWithTesting" xml:space="preserve">
+    <value>Help mee met het testen van nieuwe versies</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ImplDirs" xml:space="preserve">
+    <value>Mappen van implementatiecache</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="IncludeInUpdateAll" xml:space="preserve">
+    <value>Opnemen in &quot;Alles bijwerken&quot;</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeInUpdateAllToolTip" xml:space="preserve">
+    <value>Neemt deze applicatie mee bij controles met de optie &apos;Alles bijwerken&apos;.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Trefwoorden</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="LanguageInfo" xml:space="preserve">
+    <value>Hiermee wordt de taal ingesteld voor:
+- Zero Install zelf en
+- applicaties die door Zero Install zijn gedownload.
+
+Opmerkingen:
+- Er zijn niet voor alle talen vertalingen beschikbaar.
+- U moet Zero Install opnieuw opstarten om de taalwijzigingen door te voeren.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Bezig met laden...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Account beheren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUse" xml:space="preserve">
+    <value>Netwerkgebruik</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseFull" xml:space="preserve">
+    <value>Volledig (normaal netwerkgebruik)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseMinimal" xml:space="preserve">
+    <value>Minimaal (bij voorkeur versies uit de cache)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseOffline" xml:space="preserve">
+    <value>Offline (geen gebruik van het netwerk)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStability" xml:space="preserve">
+    <value>Gewenste stabiliteit:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStabilityToolTip" xml:space="preserve">
+    <value>Bepaalt welke stabiliteitsbeoordeling als de &quot;beste&quot; wordt beschouwd</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Vernieuwen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RegisterCapabilities" xml:space="preserve">
+    <value>&amp;Mogelijkheden registreren</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RegisterCapabilitiesToolTip" xml:space="preserve">
+    <value>Informeert het besturingssysteem over de mogelijkheden van de applicatie, zoals de bestandstypen die deze kan verwerken.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveEntries" xml:space="preserve">
+    <value>Verwijderen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeed" xml:space="preserve">
+    <value>Verwijderen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeedToolTip" xml:space="preserve">
+    <value>Verwijdert een implementatiebron voor deze interface</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Resetten</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Uitvoeren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunAsAdmin" xml:space="preserve">
+    <value>Als beheerder uitvoeren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alles selecteren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectImplDir" xml:space="preserve">
+    <value>Selecteer of maak een map aan die als implementatiecache moet worden gebruikt.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendTo" xml:space="preserve">
+    <value>Verzenden naar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendToDescription" xml:space="preserve">
+    <value>Een item in het menu &apos;Verzenden naar&apos;</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SetupIntegration" xml:space="preserve">
+    <value>&amp;Integratie instellen</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ShowAdvanced" xml:space="preserve">
+    <value>Geavanceerde opties weergeven</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Alle versies weergeven</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersionsToolTip" xml:space="preserve">
+    <value>Toon versies die niet worden ondersteund op dit systeem</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>Stabiliteit</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenu" xml:space="preserve">
+    <value>Startmenu</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenuDescription" xml:space="preserve">
+    <value>Een of meer items in het startmenu</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StoreManageTitle" xml:space="preserve">
+    <value>Cachebeheer van Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKey" xml:space="preserve">
+    <value>Cryptosleutel:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncPassword" xml:space="preserve">
+    <value>Wachtwoord:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServer" xml:space="preserve">
+    <value>Server:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncUsername" xml:space="preserve">
+    <value>Gebruikersnaam:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabAdvanced" xml:space="preserve">
+    <value>Geavanceerd</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabCatalog" xml:space="preserve">
+    <value>Catalogus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabFeeds" xml:space="preserve">
+    <value>Feeds</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabLanguage" xml:space="preserve">
+    <value>Taal</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabStorage" xml:space="preserve">
+    <value>Opslag</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabSync" xml:space="preserve">
+    <value>Synchroniseren</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabTrust" xml:space="preserve">
+    <value>Vertrouwen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabUpdates" xml:space="preserve">
+    <value>Updates</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabVersions" xml:space="preserve">
+    <value>Versies</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TotalSize" xml:space="preserve">
+    <value>Totale grootte:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TrustedKeys" xml:space="preserve">
+    <value>Vertrouwde sleutels</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocols" xml:space="preserve">
+    <value>URL-protocollen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocolsDescription" xml:space="preserve">
+    <value>Standaardhandler voor ondersteunde URL-protocollen</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="VerifyEntries" xml:space="preserve">
+    <value>&amp;Controleren</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="HideToolTip" xml:space="preserve">
+    <value>Verbergt het venster en zet het proces voort als pictogram in het systeemvak</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Weergeven</value>
+    <comment>Manually overriden.</comment>
+  </data>
+</root>

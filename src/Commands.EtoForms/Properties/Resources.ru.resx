@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeed" xml:space="preserve">
+    <value>Добавить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeedToolTip" xml:space="preserve">
+    <value>Добавляет новый источник реализаций для этого интерфейса</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddToMyApps" xml:space="preserve">
+    <value>Добавить в «Мои приложения»</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Расширенные настройки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedWarning" xml:space="preserve">
+    <value>Предупреждение: изменение этих настроек может привести к некорректной работе Zero Install.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Aliases" xml:space="preserve">
+    <value>Псевдонимы командной строки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AliasesDescription" xml:space="preserve">
+    <value>Доступ из интерфейса командной строки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Применить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoApproveKeys" xml:space="preserve">
+    <value>&amp;Автоматически одобрять новые ключи (если они известны серверу ключей)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="AutoPlay" xml:space="preserve">
+    <value>Автозапуск</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlayDescription" xml:space="preserve">
+    <value>Автоматический запуск при вставке соответствующего носителя (DVD, USB-накопитель и т. д.)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Автозагрузка</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="AutoStartDescription" xml:space="preserve">
+    <value>Автоматический запуск программы при входе пользователя в систему</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>Основные настройки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Источники каталога</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CheckedEntriesSize" xml:space="preserve">
+    <value>Размер отмеченных записей:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnArchitecture" xml:space="preserve">
+    <value>Архитектура</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategories" xml:space="preserve">
+    <value>Категории</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategory" xml:space="preserve">
+    <value>Категория</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCommand" xml:space="preserve">
+    <value>Команда</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDefault" xml:space="preserve">
+    <value>По умолчанию</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>Описание</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEnabled" xml:space="preserve">
+    <value>Включено</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEntryName" xml:space="preserve">
+    <value>Название записи</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEvents" xml:space="preserve">
+    <value>События</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnExtensions" xml:space="preserve">
+    <value>Расширения</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Название</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnNotes" xml:space="preserve">
+    <value>Примечания</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnProtocols" xml:space="preserve">
+    <value>Протоколы</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnReleased" xml:space="preserve">
+    <value>Выпущено</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnScore" xml:space="preserve">
+    <value>Совпадение (%)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnService" xml:space="preserve">
+    <value>Сервис</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSource" xml:space="preserve">
+    <value>Исходный код</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnStability" xml:space="preserve">
+    <value>Стабильность</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>Описание</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ColumnUri" xml:space="preserve">
+    <value>URI</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUserStability" xml:space="preserve">
+    <value>Переопределение</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnVersion" xml:space="preserve">
+    <value>Версия</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ConfigTitle" xml:space="preserve">
+    <value>Настройка Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenu" xml:space="preserve">
+    <value>Контекстное меню</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenuDescription" xml:space="preserve">
+    <value>Пункты контекстного меню в Проводнике Windows</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CurrentEntrySize" xml:space="preserve">
+    <value>Текущий размер записи:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultPrograms" xml:space="preserve">
+    <value>Программы по умолчанию</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultProgramsDescription" xml:space="preserve">
+    <value>Программа по умолчанию для выполнения таких задач, как работа в веб-браузере или использование почтового клиента</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Рабочий стол</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DesktopDescription" xml:space="preserve">
+    <value>Значок на рабочем столе</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Подробнее</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EquivalentCommandLine" xml:space="preserve">
+    <value>Эквивалент в командной строке</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FeedSearchInfo" xml:space="preserve">
+    <value>Эти результаты поиска предоставляются зеркальным сервером. Обратите внимание, что зеркальный сервер по умолчанию индексирует все известные фиды, независимо от их качества; перед запуском программ вам необходимо самостоятельно решить, можно ли им доверять.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="FeedSearchTitle" xml:space="preserve">
+    <value>Поиск фидов Zero Install</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>Типы файлов</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypesDescription" xml:space="preserve">
+    <value>Обработчик по умолчанию для поддерживаемых типов файлов (функция «Открыть с помощью» работает и без него)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Freshness" xml:space="preserve">
+    <value>Актуальность</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="GoTo" xml:space="preserve">
+    <value>Перейти к</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HelpWithTesting" xml:space="preserve">
+    <value>&amp;Помогать тестировать новые версии</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ImplDirs" xml:space="preserve">
+    <value>Каталоги кэша реализаций</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="IncludeInUpdateAll" xml:space="preserve">
+    <value>Включить в «Обновить всё»</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeInUpdateAllToolTip" xml:space="preserve">
+    <value>Включает это приложение в проверки «Обновить всё».</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Ключевые слова</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="LanguageInfo" xml:space="preserve">
+    <value>Этот параметр определяет язык:
+- самой программы Zero Install и
+- приложений, загруженных с помощью Zero Install.
+
+Примечания:
+- Переводы доступны не для всех языков.
+- Для вступления изменений языка в силу необходимо перезапустить Zero Install.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Загрузка...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Управление учётной записью</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUse" xml:space="preserve">
+    <value>Использование сети</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseFull" xml:space="preserve">
+    <value>Полный (обычное использование сети)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseMinimal" xml:space="preserve">
+    <value>Минимальный (предпочтительно из кэша)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseOffline" xml:space="preserve">
+    <value>В автономном режиме (без использования сети)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStability" xml:space="preserve">
+    <value>Желаемый уровень стабильности:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStabilityToolTip" xml:space="preserve">
+    <value>Определяет, какой рейтинг стабильности будет считаться «лучшим»</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RegisterCapabilities" xml:space="preserve">
+    <value>&amp;Регистрировать возможности</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RegisterCapabilitiesToolTip" xml:space="preserve">
+    <value>Сообщает операционной системе о возможностях приложения, например о типах файлов, с которыми оно может работать.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveEntries" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeed" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeedToolTip" xml:space="preserve">
+    <value>Удаляет источник реализации данного интерфейса</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>&amp;Сбросить</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Запустить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunAsAdmin" xml:space="preserve">
+    <value>Запустить от имени администратора</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Выбрать &amp;всё</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="SelectImplDir" xml:space="preserve">
+    <value>Выберите или создайте каталог, который будет использоваться как кэш реализаций.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="SendTo" xml:space="preserve">
+    <value>Отправить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendToDescription" xml:space="preserve">
+    <value>Пункт в меню «Отправить»</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SetupIntegration" xml:space="preserve">
+    <value>Настроить &amp;интеграцию</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ShowAdvanced" xml:space="preserve">
+    <value>Показать дополнительные настройки</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Показать все версии</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersionsToolTip" xml:space="preserve">
+    <value>Показать версии, которые не поддерживаются в этой системе</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>Стабильность</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenu" xml:space="preserve">
+    <value>Меню «Пуск»</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenuDescription" xml:space="preserve">
+    <value>Одна или несколько записей в меню «Пуск»</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StoreManageTitle" xml:space="preserve">
+    <value>Управление кэшем Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKey" xml:space="preserve">
+    <value>Криптографический ключ:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncPassword" xml:space="preserve">
+    <value>Пароль:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServer" xml:space="preserve">
+    <value>Сервер:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncUsername" xml:space="preserve">
+    <value>Имя пользователя:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabAdvanced" xml:space="preserve">
+    <value>Дополнительно</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="TabCatalog" xml:space="preserve">
+    <value>Каталог</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabFeeds" xml:space="preserve">
+    <value>Фиды</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="TabLanguage" xml:space="preserve">
+    <value>Язык</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabStorage" xml:space="preserve">
+    <value>Хранение данных</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabSync" xml:space="preserve">
+    <value>Синхронизация</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabTrust" xml:space="preserve">
+    <value>Доверие</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabUpdates" xml:space="preserve">
+    <value>Обновления</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabVersions" xml:space="preserve">
+    <value>Версии</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TotalSize" xml:space="preserve">
+    <value>Общий размер:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TrustedKeys" xml:space="preserve">
+    <value>Доверенные ключи</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocols" xml:space="preserve">
+    <value>Протоколы URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocolsDescription" xml:space="preserve">
+    <value>Обработчик по умолчанию для поддерживаемых протоколов URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="VerifyEntries" xml:space="preserve">
+    <value>Проверить</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HideToolTip" xml:space="preserve">
+    <value>Скрывает окно и продолжает выполнение процесса в виде значка в системном трее</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Показать</value>
+    <comment>Manually overriden.</comment>
+  </data>
+</root>

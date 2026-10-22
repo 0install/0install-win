@@ -12,6 +12,10 @@ file_filter = src/Store.Service/Properties/Resources.<lang>.o.resx
 source_file = src/Central.WinForms/Properties/Resources.resx
 file_filter = src/Central.WinForms/Properties/Resources.<lang>.o.resx
 
+[o:eicher:p:0install-win:r:commands-etoforms]
+source_file = src/Commands.EtoForms/Properties/Resources.resx
+file_filter = src/Commands.EtoForms/Properties/Resources.<lang>.o.resx
+
 [o:eicher:p:0install-win:r:window-central_winforms_introdialog]
 source_file = src/Central.WinForms/IntroDialog.resx
 file_filter = src/Central.WinForms/IntroDialog.<lang>.o.resx
