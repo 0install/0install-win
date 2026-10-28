@@ -229,7 +229,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
 
     private void buttonAddCatalogSource_Click(object sender, EventArgs e)
     {
-        string input = InputBox.Show(this, groupCatalogSources.Text, Resources.EnterCatalogUrl);
+        string input = InputBox.Show(this, groupCatalogSources.Text.Replace("&", ""),Resources.EnterCatalogUrl);
         if (!string.IsNullOrEmpty(input)) AddCatalogSource(input);
     }
 
