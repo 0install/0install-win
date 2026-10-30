@@ -21,6 +21,8 @@ jobs:
       # Build
       - name: Build
         run: src\build.ps1 ${{steps.gitversion.outputs.nuGetVersion}}
+      - name: Pre-build app bootstrappers
+        run: bootstrap-apps\build.ps1
       - name: Test
         run: |
           .\test.ps1 -Purge
