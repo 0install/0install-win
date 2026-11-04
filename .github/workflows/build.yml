@@ -27,6 +27,9 @@ jobs:
           .\test.ps1 -Deploy -Purge
           .\test.ps1 -Deploy -Machine -Purge
           .\test.ps1 -Deploy -Portable -Purge
+      - name: Pre-build app bootstrappers
+        if: github.ref_type == 'tag'
+        run: bootstrap-apps\build.ps1
 
       # Sign
       - name: Upload artifacts
