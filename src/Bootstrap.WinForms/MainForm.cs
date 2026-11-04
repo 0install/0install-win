@@ -144,7 +144,7 @@ public sealed partial class MainForm : Form
                     MyPictures, CommonPictures,
                     MyMusic, CommonMusic,
                     MyVideos, CommonVideos,
-                    Windows
+                    SpecialFolder.Windows
                 }.Any(PathIsIn))
             {
                 Msg.Inform(this, string.Format(LocalizableStrings.FolderNotSupported, path), MsgSeverity.Error);
