@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Tambahkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeed" xml:space="preserve">
+    <value>Tambahkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeedToolTip" xml:space="preserve">
+    <value>Menambahkan sumber implementasi baru untuk antarmuka ini</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddToMyApps" xml:space="preserve">
+    <value>&amp;Tambahkan ke &quot;Aplikasi saya&quot;</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Pengaturan lanjutan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedWarning" xml:space="preserve">
+    <value>Peringatan: Mengubah opsi-opsi ini dapat menyebabkan Zero Install tidak berfungsi dengan benar.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Aliases" xml:space="preserve">
+    <value>Alias baris perintah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AliasesDescription" xml:space="preserve">
+    <value>Akses dari antarmuka baris perintah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Terapkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoApproveKeys" xml:space="preserve">
+    <value>Secara otomatis menyetujui kunci baru (jika dikenal oleh server kunci)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlay" xml:space="preserve">
+    <value>AutoPlay</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlayDescription" xml:space="preserve">
+    <value>Secara otomatis berjalan saat media yang sesuai (DVD, drive USB, dll.) dimasukkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Mulai secara otomatis</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStartDescription" xml:space="preserve">
+    <value>Menjalankan program secara otomatis saat pengguna masuk</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>Pengaturan dasar</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>Sumber katalog</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CheckedEntriesSize" xml:space="preserve">
+    <value>Ukuran entri yang dicentang:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnArchitecture" xml:space="preserve">
+    <value>Arsitektur</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategories" xml:space="preserve">
+    <value>Kategori</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategory" xml:space="preserve">
+    <value>Kategori</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCommand" xml:space="preserve">
+    <value>Perintah</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDefault" xml:space="preserve">
+    <value>Default</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>Deskripsi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEnabled" xml:space="preserve">
+    <value>Diaktifkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEntryName" xml:space="preserve">
+    <value>Nama entri</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEvents" xml:space="preserve">
+    <value>Peristiwa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnExtensions" xml:space="preserve">
+    <value>Ekstensi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Nama</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnNotes" xml:space="preserve">
+    <value>Catatan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnProtocols" xml:space="preserve">
+    <value>Protokol</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnReleased" xml:space="preserve">
+    <value>Sudah dirilis</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnScore" xml:space="preserve">
+    <value>Kesesuaian (%)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnService" xml:space="preserve">
+    <value>Layanan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSource" xml:space="preserve">
+    <value>Sumber</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnStability" xml:space="preserve">
+    <value>Stabilitas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>Ringkasan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUri" xml:space="preserve">
+    <value>URI</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUserStability" xml:space="preserve">
+    <value>Timpa</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ColumnVersion" xml:space="preserve">
+    <value>Versi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ConfigTitle" xml:space="preserve">
+    <value>Konfigurasi Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenu" xml:space="preserve">
+    <value>Menu konteks</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenuDescription" xml:space="preserve">
+    <value>Entri menu konteks di Windows Explorer</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CurrentEntrySize" xml:space="preserve">
+    <value>Ukuran entri saat ini:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultPrograms" xml:space="preserve">
+    <value>Program default</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="DefaultProgramsDescription" xml:space="preserve">
+    <value>Program default untuk tugas-tugas seperti peramban web atau klien email</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DesktopDescription" xml:space="preserve">
+    <value>Sebuah ikon di desktop</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Rincian</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EquivalentCommandLine" xml:space="preserve">
+    <value>Baris perintah yang setara</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="FeedSearchInfo" xml:space="preserve">
+    <value>Hasil pencarian ini disediakan oleh server cermin. Perlu diperhatikan bahwa server cermin default mengindeks semua feed yang diketahui, terlepas dari kualitasnya; Anda harus memutuskan apakah akan mempercayai program-program tersebut sebelum menjalankannya.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="FeedSearchTitle" xml:space="preserve">
+    <value>Pencarian feed Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>Jenis berkas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypesDescription" xml:space="preserve">
+    <value>Penangan default untuk jenis berkas yang didukung (&quot;Buka dengan&quot; tetap berfungsi tanpa ini)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Freshness" xml:space="preserve">
+    <value>Keterbaruan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="GoTo" xml:space="preserve">
+    <value>Buka</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HelpWithTesting" xml:space="preserve">
+    <value>Bantu menguji versi baru</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ImplDirs" xml:space="preserve">
+    <value>Direktori cache implementasi</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="IncludeInUpdateAll" xml:space="preserve">
+    <value>Sertakan dalam &quot;&amp;Perbarui semuanya&quot;</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="IncludeInUpdateAllToolTip" xml:space="preserve">
+    <value>Menyertakan aplikasi ini dalam pemeriksaan &quot;Perbarui semuanya&quot;.</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Kata kunci</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="LanguageInfo" xml:space="preserve">
+    <value>Ini mengontrol bahasa untuk:
+- Zero Install itu sendiri dan
+- aplikasi yang diunduh oleh Zero Install.
+
+Catatan:
+- Terjemahan tidak tersedia untuk semua bahasa.
+- Anda perlu me-restart Zero Install agar perubahan bahasa berlaku.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Sedang dimuat...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Kelola akun</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUse" xml:space="preserve">
+    <value>Penggunaan jaringan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseFull" xml:space="preserve">
+    <value>Penuh (penggunaan jaringan normal)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseMinimal" xml:space="preserve">
+    <value>&amp;Minimal (utamakan versi dalam cache)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="NetworkUseOffline" xml:space="preserve">
+    <value>Offline (tidak menggunakan jaringan)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStability" xml:space="preserve">
+    <value>Tingkat stabilitas yang diinginkan:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStabilityToolTip" xml:space="preserve">
+    <value>Menentukan peringkat stabilitas mana yang akan dianggap sebagai yang &quot;terbaik&quot;</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Segarkan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RegisterCapabilities" xml:space="preserve">
+    <value>&amp;Daftarkan kemampuan</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RegisterCapabilitiesToolTip" xml:space="preserve">
+    <value>Memberi tahu sistem operasi mengenai kemampuan aplikasi, seperti jenis file yang dapat ditangani oleh aplikasi tersebut.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Hapus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveEntries" xml:space="preserve">
+    <value>Hapus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeed" xml:space="preserve">
+    <value>Hapus</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeedToolTip" xml:space="preserve">
+    <value>Menghapus sumber implementasi untuk antarmuka ini</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Atur ulang</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Jalankan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunAsAdmin" xml:space="preserve">
+    <value>Jalankan sebagai admin</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Pilih semua</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectImplDir" xml:space="preserve">
+    <value>Silakan pilih atau buat direktori yang akan digunakan sebagai cache implementasi.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendTo" xml:space="preserve">
+    <value>Kirim ke</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendToDescription" xml:space="preserve">
+    <value>Sebuah entri dalam menu &quot;Kirim ke&quot;</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SetupIntegration" xml:space="preserve">
+    <value>Atur &amp;integrasi</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ShowAdvanced" xml:space="preserve">
+    <value>Tampilkan opsi lanjutan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Tampilkan semua versi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersionsToolTip" xml:space="preserve">
+    <value>Tampilkan versi yang tidak didukung pada sistem ini</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>Stabilitas</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenu" xml:space="preserve">
+    <value>Menu Start</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="StartMenuDescription" xml:space="preserve">
+    <value>Satu atau lebih entri di menu Start</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StoreManageTitle" xml:space="preserve">
+    <value>Manajemen cache Zero Install</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKey" xml:space="preserve">
+    <value>Kunci kripto:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="SyncPassword" xml:space="preserve">
+    <value>Kata sandi:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServer" xml:space="preserve">
+    <value>Server:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncUsername" xml:space="preserve">
+    <value>Nama pengguna:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabAdvanced" xml:space="preserve">
+    <value>Lanjutan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabCatalog" xml:space="preserve">
+    <value>Katalog</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabFeeds" xml:space="preserve">
+    <value>Feed</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="TabLanguage" xml:space="preserve">
+    <value>Bahasa</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabStorage" xml:space="preserve">
+    <value>Penyimpanan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabSync" xml:space="preserve">
+    <value>Sinkronisasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabTrust" xml:space="preserve">
+    <value>Kepercayaan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabUpdates" xml:space="preserve">
+    <value>Pembaruan</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabVersions" xml:space="preserve">
+    <value>Versi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TotalSize" xml:space="preserve">
+    <value>Ukuran total:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TrustedKeys" xml:space="preserve">
+    <value>Kunci tepercaya</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocols" xml:space="preserve">
+    <value>Protokol URL</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocolsDescription" xml:space="preserve">
+    <value>Penangan default untuk protokol URL yang didukung</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="VerifyEntries" xml:space="preserve">
+    <value>Verifikasi</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HideToolTip" xml:space="preserve">
+    <value>Menyembunyikan jendela dan melanjutkan proses sebagai ikon baki</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tampilkan</value>
+    <comment>Manually overriden.</comment>
+  </data>
+</root>

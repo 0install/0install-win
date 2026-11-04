@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>추가</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeed" xml:space="preserve">
+    <value>추가</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddFeedToolTip" xml:space="preserve">
+    <value>이 인터페이스에 대한 새로운 구현 소스를 추가합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AddToMyApps" xml:space="preserve">
+    <value>&quot;내 앱&quot;에 추가</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>고급 설정</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AdvancedWarning" xml:space="preserve">
+    <value>경고: 이 옵션을 변경하면 Zero Install이 제대로 작동하지 않을 수 있습니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Aliases" xml:space="preserve">
+    <value>명령줄 별칭</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AliasesDescription" xml:space="preserve">
+    <value>명령줄 인터페이스를 통한 액세스</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>적용</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoApproveKeys" xml:space="preserve">
+    <value>새로운 키를 자동으로 승인합니다(키 서버에 등록된 경우).</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlay" xml:space="preserve">
+    <value>자동 실행</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoPlayDescription" xml:space="preserve">
+    <value>적합한 매체(DVD, USB 드라이브 등)가 삽입되면 자동으로 실행됩니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>자동 시작</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="AutoStartDescription" xml:space="preserve">
+    <value>사용자가 로그인하면 프로그램을 자동으로 시작합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>기본 설정</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CatalogSources" xml:space="preserve">
+    <value>카탈로그 소스</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CheckedEntriesSize" xml:space="preserve">
+    <value>선택된 항목의 크기:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>닫기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnArchitecture" xml:space="preserve">
+    <value>아키텍처</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategories" xml:space="preserve">
+    <value>카테고리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCategory" xml:space="preserve">
+    <value>카테고리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnCommand" xml:space="preserve">
+    <value>명령</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDefault" xml:space="preserve">
+    <value>기본값</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>설명</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEnabled" xml:space="preserve">
+    <value>활성화됨</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEntryName" xml:space="preserve">
+    <value>항목 이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnEvents" xml:space="preserve">
+    <value>이벤트</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnExtensions" xml:space="preserve">
+    <value>확장자</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>이름</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnNotes" xml:space="preserve">
+    <value>참고 사항</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnProtocols" xml:space="preserve">
+    <value>프로토콜</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnReleased" xml:space="preserve">
+    <value>출시됨</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnScore" xml:space="preserve">
+    <value>일치율 (%)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnService" xml:space="preserve">
+    <value>서비스</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSource" xml:space="preserve">
+    <value>출처</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnStability" xml:space="preserve">
+    <value>안정성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>요약</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUri" xml:space="preserve">
+    <value>URI</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnUserStability" xml:space="preserve">
+    <value>재정의</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ColumnVersion" xml:space="preserve">
+    <value>버전</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ConfigTitle" xml:space="preserve">
+    <value>Zero Install 구성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenu" xml:space="preserve">
+    <value>컨텍스트 메뉴</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ContextMenuDescription" xml:space="preserve">
+    <value>Windows 탐색기의 컨텍스트 메뉴 항목</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="CurrentEntrySize" xml:space="preserve">
+    <value>현재 항목 크기:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultPrograms" xml:space="preserve">
+    <value>기본 프로그램</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DefaultProgramsDescription" xml:space="preserve">
+    <value>웹 브라우저나 이메일 클라이언트와 같은 작업을 위한 기본 프로그램</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>데스크톱</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="DesktopDescription" xml:space="preserve">
+    <value>바탕화면의 아이콘</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>상세 정보</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="EquivalentCommandLine" xml:space="preserve">
+    <value>이에 상응하는 명령줄</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FeedSearchInfo" xml:space="preserve">
+    <value>이 검색 결과는 미러 서버에서 제공됩니다. 기본 미러 서버는 품질과 관계없이 알려진 모든 피드를 색인화하므로, 프로그램을 실행하기 전에 신뢰할 수 있는지 여부를 직접 판단해야 합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FeedSearchTitle" xml:space="preserve">
+    <value>Zero Install 피드 검색</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypes" xml:space="preserve">
+    <value>파일 형식</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="FileTypesDescription" xml:space="preserve">
+    <value>지원되는 파일 형식에 대한 기본 처리기(이 기능이 없어도 “다른 프로그램으로 열기” 기능은 정상적으로 작동합니다)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Freshness" xml:space="preserve">
+    <value>최신성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="GoTo" xml:space="preserve">
+    <value>이동</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HelpWithTesting" xml:space="preserve">
+    <value>새 버전을 테스트하는 데 도움을 주세요</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ImplDirs" xml:space="preserve">
+    <value>구현 캐시 디렉터리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeInUpdateAll" xml:space="preserve">
+    <value>&quot;모두 업데이트&quot;에 포함</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="IncludeInUpdateAllToolTip" xml:space="preserve">
+    <value>&quot;모두 업데이트&quot; 확인 대상에 이 애플리케이션을 포함합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>키워드</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="LanguageInfo" xml:space="preserve">
+    <value>이 설정은 다음의 언어를 제어합니다:
+- Zero Install 자체 및
+- Zero Install을 통해 다운로드된 애플리케이션.
+
+참고:
+- 모든 언어에 대한 번역이 제공되지는 않습니다.
+- 언어 변경 사항을 적용하려면 Zero Install을 다시 시작해야 합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>로딩 중...</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>계정 관리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUse" xml:space="preserve">
+    <value>네트워크 사용</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseFull" xml:space="preserve">
+    <value>전체 (일반적인 네트워크 사용)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseMinimal" xml:space="preserve">
+    <value>최소화 (캐시된 버전을 우선적으로 사용)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="NetworkUseOffline" xml:space="preserve">
+    <value>오프라인 (네트워크를 사용하지 않음)</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="PreferredStability" xml:space="preserve">
+    <value>선호 안정성:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="PreferredStabilityToolTip" xml:space="preserve">
+    <value>어떤 안정성 등급을 “최고”로 간주할지 결정합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>새로 고침</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RegisterCapabilities" xml:space="preserve">
+    <value>기능 등록(&amp;R)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="RegisterCapabilitiesToolTip" xml:space="preserve">
+    <value>운영 체제에 해당 애플리케이션이 처리할 수 있는 파일 유형 등 애플리케이션의 기능을 알려줍니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveEntries" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeed" xml:space="preserve">
+    <value>제거</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RemoveFeedToolTip" xml:space="preserve">
+    <value>이 인터페이스에 대한 구현 소스를 제거합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>초기화</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>실행</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="RunAsAdmin" xml:space="preserve">
+    <value>관리자 권한으로 실행</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SelectImplDir" xml:space="preserve">
+    <value>구현 캐시로 사용할 디렉터리를 선택하거나 생성해 주십시오.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendTo" xml:space="preserve">
+    <value>보내기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SendToDescription" xml:space="preserve">
+    <value>&quot;보내기&quot; 메뉴의 항목</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SetupIntegration" xml:space="preserve">
+    <value>통합 설정(&amp;I)</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="ShowAdvanced" xml:space="preserve">
+    <value>고급 옵션 표시</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>모든 버전 보기</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="ShowAllVersionsToolTip" xml:space="preserve">
+    <value>이 시스템에서 지원되지 않는 버전을 표시합니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>안정성</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenu" xml:space="preserve">
+    <value>시작 메뉴</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StartMenuDescription" xml:space="preserve">
+    <value>시작 메뉴에 하나 이상의 항목이 표시됩니다.</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="StoreManageTitle" xml:space="preserve">
+    <value>Zero Install 캐시 관리</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncCryptoKey" xml:space="preserve">
+    <value>암호화 키:</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="SyncPassword" xml:space="preserve">
+    <value>비밀번호:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncServer" xml:space="preserve">
+    <value>서버:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="SyncUsername" xml:space="preserve">
+    <value>사용자 이름:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabAdvanced" xml:space="preserve">
+    <value>고급</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabCatalog" xml:space="preserve">
+    <value>카탈로그</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabFeeds" xml:space="preserve">
+    <value>피드</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabLanguage" xml:space="preserve">
+    <value>언어</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabStorage" xml:space="preserve">
+    <value>저장소</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabSync" xml:space="preserve">
+    <value>동기화</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabTrust" xml:space="preserve">
+    <value>신뢰</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabUpdates" xml:space="preserve">
+    <value>업데이트</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TabVersions" xml:space="preserve">
+    <value>버전</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TotalSize" xml:space="preserve">
+    <value>총 용량:</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="TrustedKeys" xml:space="preserve">
+    <value>신뢰할 수 있는 키</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocols" xml:space="preserve">
+    <value>URL 프로토콜</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="UrlProtocolsDescription" xml:space="preserve">
+    <value>지원되는 URL 프로토콜에 대한 기본 핸들러</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="VerifyEntries" xml:space="preserve">
+    <value>확인</value>
+    <comment>Automatically translated.</comment>
+  </data>
+  <data name="HideToolTip" xml:space="preserve">
+    <value>창을 숨기고 트레이 아이콘으로 프로세스를 계속 실행합니다</value>
+    <comment>Manually overriden.</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>표시</value>
+    <comment>Manually overriden.</comment>
+  </data>
+</root>

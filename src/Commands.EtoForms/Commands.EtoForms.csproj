@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Project properties -->
+  <PropertyGroup>
+    <RootNamespace>ZeroInstall.Commands.EtoForms</RootNamespace>
+    <AssemblyName>0install-gui</AssemblyName>
+    <Description>A cross-platform Eto.Forms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</Description>
+    <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)'=='Windows_NT'">
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework><!-- Windows SDK projections, e.g., for toast notifications -->
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion><!-- Windows 10 APIs are only used after runtime checks -->
+    <UseWindowsForms>True</UseWindowsForms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)'!='Windows_NT'">
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <TargetPlatformVersion></TargetPlatformVersion><!-- Reset Windows-specific value from Directory.Build.props -->
+  </PropertyGroup>
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+    <RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DefineConstants>$(DefineConstants);ERROR_REPORT</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\icon.ico" LogicalName="ZeroInstall.Commands.EtoForms.icon.ico" />
+  </ItemGroup>
+
+  <!-- Global usings -->
+  <ItemGroup>
+    <Using Include="Eto.Drawing" />
+    <Using Include="Eto.Forms" />
+    <Using Include="NanoByte.Common.EtoControls" />
+    <Using Include="ZeroInstall.Commands.EtoForms.Properties" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(OS)'=='Windows_NT'">
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
+  </ItemGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup>
+    <PackageReference Include="NanoByte.Common.EtoForms" Version="$(NanoByteCommonVersion)" />
+    <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(OS)'=='Windows_NT'">
+    <PackageReference Include="Eto.Platform.Windows" Version="2.13.0" />
+  </ItemGroup>
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+    <PackageReference Include="Eto.Platform.Mac64" Version="2.13.0" />
+  </ItemGroup>
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+    <PackageReference Include="Eto.Platform.Gtk" Version="2.13.0" />
+  </ItemGroup>
+
+</Project>
