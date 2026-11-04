@@ -68,7 +68,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
         }
         else
         {
-            args.Add(Config.SelfUpdateUri?.ToStringRfc() ?? Config.DefaultSelfUpdateUri);
+            args.Add(SelfUpdateUri.ToStringRfc());
             if (_version != null) args.Add($"--version={_version}");
         }
         args.Add(Locations.InstallBase);
@@ -90,7 +90,7 @@ public sealed partial class BootstrapProcess : ServiceProvider
             if (ZeroInstallDeployment.FindOther(_machineWide) is {} deployedInstance)
                 EnsureRequestedZeroInstallVersion(deployedInstance);
 
-            var startInfo = ZeroInstall(args);
+            var startInfo = GetStartInfo(args);
             return _handler.RunTaskAndReturn(ResultTask.Create(
                 $"Integrating {BootstrapConfig.Instance.AppName}",
                 () => (ExitCode)startInfo.Run()));

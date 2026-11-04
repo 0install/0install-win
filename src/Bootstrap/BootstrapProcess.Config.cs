@@ -11,6 +11,11 @@ namespace ZeroInstall;
 partial class BootstrapProcess
 {
     /// <summary>
+    /// The feed URI used to download Zero Install itself.
+    /// </summary>
+    private FeedUri SelfUpdateUri => Config.SelfUpdateUri ?? new(Config.DefaultSelfUpdateUri);
+
+    /// <summary>
     /// Loads configuration, applying bundled defaults.
     /// </summary>
     private void LoadConfig()
