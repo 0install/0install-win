@@ -46,10 +46,10 @@ popd
 
 echo "Build Chocolatey package"
 if (Get-Command choco -ErrorAction SilentlyContinue) {
-    SearchAndReplace $Version Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
-    choco pack Bootstrap\Chocolatey.nuspec --version $Version --outdir ..\artifacts
+    SearchAndReplace $Version Bootstrap.Cli\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
+    choco pack Bootstrap.Cli\Chocolatey.nuspec --version $Version --outdir ..\artifacts
     move -Force ..\artifacts\0install.$Version.nupkg ..\artifacts\0install.chocolatey.$Version.nupkg
-    SearchAndReplace "1.0.0-pre" Bootstrap\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
+    SearchAndReplace "1.0.0-pre" Bootstrap.Cli\chocolateyInstall.ps1 -PatternLeft '--version=' -PatternRight ' self'
 } else {
     Write-Warning "You need choco.exe to build the 0install Chocolatey package"
 }

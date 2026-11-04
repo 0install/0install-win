@@ -2,12 +2,11 @@
 // Licensed under the GNU Lesser Public License
 
 using NanoByte.Common.Native;
-using NanoByte.Common.Streams;
 using ZeroInstall.Store.Implementations;
 using static System.Environment;
 using static System.Environment.SpecialFolder;
 
-namespace ZeroInstall;
+namespace ZeroInstall.Bootstrap.WinForms;
 
 /// <summary>
 /// The main GUI for the Bootstrapper.
@@ -22,7 +21,7 @@ public sealed partial class MainForm : Form
 
         InitializeComponent();
         Font = DefaultFonts.Modern;
-        pictureBoxSplashScreen.BackgroundImage = Image.FromStream(typeof(MainForm).GetEmbeddedStream("SplashScreen.png"));
+        pictureBoxSplashScreen.BackgroundImage = Image.FromStream(typeof(MainForm).Assembly.GetManifestResourceStream("ZeroInstall.SplashScreen.png")!);
         HandleCreated += delegate { WindowsTaskbar.PreventPinning(Handle); };
 
         Text = BootstrapConfig.Instance.AppName ?? "Zero Install";

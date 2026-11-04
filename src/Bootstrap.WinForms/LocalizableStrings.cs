@@ -1,7 +1,7 @@
 ﻿// Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
-namespace ZeroInstall;
+namespace ZeroInstall.Bootstrap.WinForms;
 
 public static class LocalizableStrings
 {
