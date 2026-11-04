@@ -4,7 +4,6 @@
 using NanoByte.Common.Streams;
 using ZeroInstall.Archives.Extractors;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store.FileSystem;
 using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Implementations;
 
@@ -90,12 +89,21 @@ partial class BootstrapProcess
         else if (TryParseDigest(name) is {} manifestDigest)
         {
             Log.Info($"Importing implementation from {name}");
-            var extractor = ArchiveExtractor.For(Archive.GuessMimeType(name), Handler);
-            ImportImplementation(manifestDigest, builder =>
+            try
             {
-                using var stream = openStream();
-                Handler.RunTask(new ReadStream($"Extracting archive {name}", stream, x => extractor.Extract(builder, x)));
-            });
+                var extractor = ArchiveExtractor.For(Archive.GuessMimeType(name), Handler);
+                ImplementationStore.Add(manifestDigest, builder =>
+                {
+                    using var stream = openStream();
+                    Handler.RunTask(new ReadStream($"Extracting archive {name}", stream, x => extractor.Extract(builder, x)));
+                });
+            }
+            catch (ImplementationAlreadyInStoreException)
+            {}
+            catch (NotSupportedException ex)
+            {
+                Log.Warn($"Skipping unsupported archive {name}", ex);
+            }
         }
     }
 
@@ -139,15 +147,5 @@ partial class BootstrapProcess
         var manifestDigest = new ManifestDigest();
         manifestDigest.TryParse(fileName.GetLeftPartAtFirstOccurrence('.'));
         return manifestDigest.AvailableDigests.Any() ? manifestDigest : null;
-    }
-
-    private void ImportImplementation(ManifestDigest manifestDigest, Action<IBuilder> action)
-    {
-        try
-        {
-            ImplementationStore.Add(manifestDigest, action);
-        }
-        catch (ImplementationAlreadyInStoreException)
-        {}
     }
 }
