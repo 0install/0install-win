@@ -155,7 +155,7 @@ partial class BootstrapProcess
                     _handler.Verbosity = Verbosity.Batch;
                     _handler.Background = true;
                 });
-                _options.Add("wait", () => "Wait for {_embeddedConfig.AppName} to exit after running it.", _ => _wait = true);
+                _options.Add("wait", () => $"Wait for {appName} to exit after running it.", _ => _wait = true);
             }
             if (BootstrapConfig.Instance.IntegrateArgs != null)
             {
