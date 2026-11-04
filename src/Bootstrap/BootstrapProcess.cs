@@ -127,16 +127,11 @@ public sealed partial class BootstrapProcess : ServiceProvider
 
         if (BootstrapConfig.Instance is {AppUri: {} appUri, AppArgs: var appArgs})
         {
-            if (_noRun)
-                args.AddRange(["download", appUri.ToStringRfc()]);
-            else
-            {
-                args.Add("run");
-                if (_appVersion != null) args.AddRange(["--version", _appVersion.ToString()]);
-                if (_handler.IsGui && !_wait) args.Add("--no-wait");
-                args.Add(appUri.ToStringRfc());
-                args.Add(WindowsUtils.SplitArgs(appArgs));
-            }
+            args.Add(_noRun ? "download" : "run");
+            if (_appVersion != null) args.AddRange(["--version", _appVersion.ToString()]);
+            if (!_noRun && _handler.IsGui && !_wait) args.Add("--no-wait");
+            args.Add(appUri.ToStringRfc());
+            if (!_noRun) args.Add(WindowsUtils.SplitArgs(appArgs));
         }
 
         args.Add(_userArgs);
