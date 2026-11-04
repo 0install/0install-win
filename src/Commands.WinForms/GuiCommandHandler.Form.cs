@@ -57,8 +57,16 @@ partial class GuiCommandHandler
         else form.Show();
     }
 
+    /// <summary>
+    /// Indicates that <see cref="SwitchToDialog"/> has been used. The user is interacting with this process then, so questions should not be deferred to the tray icon.
+    /// </summary>
+    /// <remarks>Only access this on the GUI thread.</remarks>
+    private bool _dialogShown;
+
     private DialogResult SwitchToDialog(Func<Form> buildDialog) => _form.Post(form =>
     {
+        _dialogShown = true;
+
         using var dialog = buildDialog();
         dialog.Shown += delegate { form.Hide(); };
         return dialog.ShowDialog();

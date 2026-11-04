@@ -315,9 +315,10 @@ public sealed partial class ProgressForm : Form
     /// </summary>
     /// <param name="question">The question and comprehensive information to help the user make an informed decision.</param>
     /// <param name="severity">The severity/possible impact of the question.</param>
+    /// <param name="defer"><c>true</c> to wait for the user to open the window via the tray icon if it is currently hidden; <c>false</c> to ask immediately in a separate window.</param>
     /// <returns><c>true</c> if the user answered with 'Yes'; <c>false</c> if the user answered with 'No'.</returns>
     /// <exception cref="OperationCanceledException">The user selected 'Cancel'.</exception>
-    public Task<DialogResult> AskAsync(string question, MsgSeverity severity)
+    public Task<DialogResult> AskAsync(string question, MsgSeverity severity, bool defer = true)
     {
         #region Sanity checks
         if (string.IsNullOrEmpty(question)) throw new ArgumentNullException(nameof(question));
@@ -325,6 +326,8 @@ public sealed partial class ProgressForm : Form
 
         if (Visible)
             return Task.FromResult(Msg.YesNoCancel(this, question, severity));
+        else if (!defer)
+            return Task.FromResult(Msg.YesNoCancel(null, question, severity)); // No owner, because a hidden owner would leave the question without a taskbar button
         else
         {
             _pendingQuestion = question;

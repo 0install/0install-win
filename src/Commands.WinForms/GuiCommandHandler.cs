@@ -64,7 +64,7 @@ public sealed partial class GuiCommandHandler : GuiTaskHandlerBase, ICommandHand
         var severity = defaultAnswer ? MsgSeverity.Info : MsgSeverity.Warn;
 
         Log.Debug("Question: " + question);
-        switch (ShowForm(form => form.AskAsync(question, severity)).Result)
+        switch (ShowForm(form => form.AskAsync(question, severity, defer: !_dialogShown)).Result)
         {
             case DialogResult.Yes:
                 Log.Debug("Answer: Yes");
