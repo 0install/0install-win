@@ -113,7 +113,9 @@ public sealed partial class BootstrapProcess : ServiceProvider
         if (!_version.Match(deployedVersion))
         {
             Log.Info($"Zero Install instance deployed at {path} has version {deployedVersion} that does not match desired version {_version}");
-            var startInfo = ZeroInstallCached(["self", "deploy", "--batch", path]);
+            var startInfo = ZeroInstallCached(IsLibraryMode(path)
+                ? ["self", "deploy", "--batch", "--library", path]
+                : ["self", "deploy", "--batch", path]);
             _handler.RunTask(new ActionTask("Updating Zero Install", () => startInfo.Run()));
         }
     }
