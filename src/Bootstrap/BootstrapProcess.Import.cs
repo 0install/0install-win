@@ -131,10 +131,13 @@ partial class BootstrapProcess
         #endregion
     }
 
-    private static ManifestDigest? TryParseDigest(string path)
+    /// <summary>
+    /// Parses a manifest digest from a file name.
+    /// </summary>
+    internal static ManifestDigest? TryParseDigest(string fileName)
     {
         var manifestDigest = new ManifestDigest();
-        manifestDigest.TryParse(Path.GetFileNameWithoutExtension(path));
+        manifestDigest.TryParse(fileName.GetLeftPartAtFirstOccurrence('.'));
         return manifestDigest.AvailableDigests.Any() ? manifestDigest : null;
     }
 
