@@ -53,7 +53,16 @@ public record BootstrapConfig(
     private static BootstrapConfig Load()
     {
         using var stream = GetStream();
+        return Parse(stream);
+    }
 
+    /// <summary>
+    /// Parses a config file.
+    /// </summary>
+    /// <param name="stream">The contents of the config file.</param>
+    /// <exception cref="InvalidDataException">The file contains invalid config values.</exception>
+    internal static BootstrapConfig Parse(Stream stream)
+    {
         try
         {
             var iniData = new StreamIniDataParser().ReadData(new(stream, Encoding.UTF8));
@@ -74,11 +83,11 @@ public record BootstrapConfig(
                 IntegrateArgs: GetOption("integrate_args"),
                 CatalogUri: GetOption("catalog_uri")?.To(x => new FeedUri(x)),
                 CustomizableStorePath: string.Equals(GetOption("customizable_store_path"), "true", StringComparison.OrdinalIgnoreCase),
-                EstimatedRequiredSpace: GetOption("estimated_required_space")?.To(long.Parse)
+                EstimatedRequiredSpace: GetOption("estimated_required_space")?.To(x => long.Parse(x, CultureInfo.InvariantCulture))
             );
         }
         #region Error handling
-        catch (Exception ex) when (ex is ParsingException or FormatException)
+        catch (Exception ex) when (ex is ParsingException or FormatException or OverflowException)
         {
             // Wrap exception to add context information
             throw new InvalidDataException($"There was a problem parsing the bootstrap config.", ex);
