@@ -308,6 +308,7 @@ public sealed partial class ProgressForm : Form
 
     #region Question
     private string? _pendingQuestion;
+    private MsgSeverity _pendingSeverity;
     private TaskCompletionSource<DialogResult>? _pendingResult;
 
     /// <summary>
@@ -331,6 +332,7 @@ public sealed partial class ProgressForm : Form
         else
         {
             _pendingQuestion = question;
+            _pendingSeverity = severity;
             _pendingResult = new();
 
             ShowTrayIcon(question.GetLeftPartAtFirstOccurrence(Environment.NewLine) + Environment.NewLine + Resources.ClickToChoose);
@@ -349,7 +351,7 @@ public sealed partial class ProgressForm : Form
             _pendingQuestion = null;
             _pendingResult = null;
 
-            result.SetResult(Msg.YesNoCancel(this, question, MsgSeverity.Warn));
+            result.SetResult(Msg.YesNoCancel(this, question, _pendingSeverity));
         }
     }
     #endregion
