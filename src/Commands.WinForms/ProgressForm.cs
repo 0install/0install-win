@@ -343,9 +343,13 @@ public sealed partial class ProgressForm : Form
     {
         if (Visible && _pendingQuestion != null && _pendingResult != null)
         {
-            _pendingResult.SetResult(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
+            // Clear before showing the question, because this event handler and Cancel() can run again while it is open
+            string question = _pendingQuestion;
+            var result = _pendingResult;
             _pendingQuestion = null;
             _pendingResult = null;
+
+            result.SetResult(Msg.YesNoCancel(this, question, MsgSeverity.Warn));
         }
     }
     #endregion
@@ -388,6 +392,13 @@ public sealed partial class ProgressForm : Form
     /// <summary>Signaled when the user wishes to cancel the current process.</summary>
     private readonly CancellationTokenSource _cancellationTokenSource;
 
+    protected override void OnFormClosing(FormClosingEventArgs e)
+    {
+        base.OnFormClosing(e);
+
+        if (_pendingResult != null) Cancel();
+    }
+
     private void ProgressForm_FormClosing(object sender, CancelEventArgs e)
     {
         // Never allow the user to directly close the window
@@ -412,6 +423,9 @@ public sealed partial class ProgressForm : Form
 
         // Unblock any waiting thread
         _customizeSelectionsComplete?.TrySetResult(false);
+        _pendingResult?.TrySetResult(DialogResult.Cancel);
+        _pendingQuestion = null;
+        _pendingResult = null;
     }
     #endregion
 
