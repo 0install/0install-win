@@ -3,7 +3,7 @@
 
   <!-- Project properties -->
   <PropertyGroup>
-    <RootNamespace>ZeroInstall</RootNamespace>
+    <RootNamespace>ZeroInstall.Bootstrap.WinForms</RootNamespace>
     <AssemblyName>zero-install</AssemblyName>
     <Description>Downloads and runs Zero Install optionally showing a GUI.</Description>
     <OutputType>WinExe</OutputType>
@@ -23,16 +23,13 @@
 
   <!-- Dependencies -->
   <ItemGroup>
-    <ProjectReference Include="..\Bootstrap\Bootstrap.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.48" />
     <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
-    <PackageReference Include="NDesk.Options.Patched" Version="0.3.3" />
+    <PackageReference Include="ZeroInstall.Bootstrap" Version="$(ZeroInstallVersion)" GeneratePathProperty="True" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="SplashScreen.png" />
+    <EmbeddedResource Include="SplashScreen.png" LogicalName="ZeroInstall.SplashScreen.png" />
   </ItemGroup>
 
   <!-- Merge DLLs into EXEs -->
@@ -42,9 +39,9 @@
 mkdir "%ARTIFACT_DIR%"
 
 pushd "$(OutDir)"
-"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" 0install.exe ZeroInstall.*.dll Generator.Equals.Runtime.dll NanoByte.*.dll TaskDialog.dll System.Buffers.dll System.Memory.dll System.Numerics.Vectors.dll System.Runtime.*.dll System.Threading.*.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll
+"$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll Generator.Equals.Runtime.dll NanoByte.*.dll TaskDialog.dll System.Buffers.dll System.Memory.dll System.Numerics.Vectors.dll System.Runtime.*.dll System.Threading.*.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll
 copy /y "$(ProjectDir)\App.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
-copy /y BootstrapConfig.ini "%ARTIFACT_DIR%\$(TargetName).ini"
+copy /y "$(PkgZeroInstall_Bootstrap)\BootstrapConfig.ini" "%ARTIFACT_DIR%\$(TargetName).ini"
 popd</PostBuildEvent>
   </PropertyGroup>
 

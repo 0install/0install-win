@@ -1,4 +1,4 @@
-namespace ZeroInstall
+namespace ZeroInstall.Bootstrap.WinForms
 {
     partial class MainForm
     {

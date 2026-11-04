@@ -3,7 +3,7 @@
 
   <!-- Project properties -->
   <PropertyGroup>
-    <RootNamespace>ZeroInstall</RootNamespace>
+    <RootNamespace>ZeroInstall.Bootstrap.Cli</RootNamespace>
     <AssemblyName>0install</AssemblyName>
     <Description>Downloads and runs Zero Install.</Description>
     <OutputType>Exe</OutputType>
@@ -14,14 +14,10 @@
   <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="ILRepack" Version="2.0.48" />
-    <PackageReference Include="NDesk.Options.Patched" Version="0.3.3" />
-    <PackageReference Include="ZeroInstall.Services" Version="$(ZeroInstallVersion)" />
+    <PackageReference Include="ZeroInstall.Bootstrap" Version="$(ZeroInstallVersion)" GeneratePathProperty="True" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="BootstrapConfig.ini" CopyToOutputDirectory="Always" DependentUpon="BootstrapConfig.cs" />
-    <EmbeddedResource Include="content\*" />
-    <Compile Update="BootstrapProcess.*.cs" DependentUpon="BootstrapProcess.cs" />
     <None Update="chocolatey*.ps1" DependentUpon="Chocolatey.nuspec" />
     <None Update="VERIFICATION.txt" DependentUpon="Chocolatey.nuspec" />
     <None Update="0install.exe.ignore" DependentUpon="Chocolatey.nuspec" />
@@ -36,7 +32,7 @@ mkdir "%ARTIFACT_DIR%"
 pushd "$(OutDir)"
 "$(ILRepack)" /targetplatform:v4 /ndebug /union /noRepackRes /wildcards /out:"%ARTIFACT_DIR%\$(TargetName).exe" "$(TargetPath)" ZeroInstall.*.dll Generator.Equals.Runtime.dll NanoByte.*.dll System.Buffers.dll System.Memory.dll System.Numerics.Vectors.dll System.Runtime.*.dll System.Threading.*.dll Microsoft.Bcl.HashCode.dll Newtonsoft.Json.dll INIFileParser.dll BouncyCastle.OpenPgp.dll ICSharpCode.SharpZipLib.dll NDesk.Options.dll
 copy /y "$(ProjectDir)\App.config" "%ARTIFACT_DIR%\$(TargetName).exe.config"
-copy /y BootstrapConfig.ini "%ARTIFACT_DIR%\$(TargetName).ini"
+copy /y "$(PkgZeroInstall_Bootstrap)\BootstrapConfig.ini" "%ARTIFACT_DIR%\$(TargetName).ini"
 popd</PostBuildEvent>
   </PropertyGroup>
 
