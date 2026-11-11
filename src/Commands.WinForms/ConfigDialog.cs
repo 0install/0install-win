@@ -170,7 +170,7 @@ public sealed partial class ConfigDialog : OKCancelDialog
     {
         if (implDirBrowserDialog.ShowDialog(this) != DialogResult.OK) return;
 
-        listBoxImplDirs.Items.Insert(1, implDirBrowserDialog.SelectedPath);
+        listBoxImplDirs.Items.Insert(Math.Min(1, listBoxImplDirs.Items.Count), implDirBrowserDialog.SelectedPath);
     }
 
     private void buttonRemoveImplDir_Click(object sender, EventArgs e)
