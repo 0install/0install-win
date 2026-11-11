@@ -46,7 +46,9 @@ public sealed partial class StoreManageForm : Form
         _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
         splitContainer.Panel1.Controls.Add(_treeView);
 
-        Services = new ServiceProvider(new DialogTaskHandler(this));
+        var handler = new DialogTaskHandler(this);
+        FormClosed += delegate { handler.Dispose(); };
+        Services = new ServiceProvider(handler);
     }
 
     /// <summary>
@@ -111,7 +113,7 @@ public sealed partial class StoreManageForm : Form
         {
             try
             {
-                foreach (var node in _treeView.CheckedEntries)
+                foreach (var node in _treeView.CheckedEntries.ToList())
                     node.Remove();
             }
             catch (OperationCanceledException) {}
@@ -123,7 +125,7 @@ public sealed partial class StoreManageForm : Form
     {
         try
         {
-            foreach (var entry in _treeView.CheckedEntries)
+            foreach (var entry in _treeView.CheckedEntries.ToList())
                 entry.Verify();
         }
         catch (OperationCanceledException) {}
