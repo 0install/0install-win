@@ -222,7 +222,7 @@ public sealed partial class ProgressForm : Form
         selectionsControl.EndCustomizeSelections();
 
         // Signal the waiting thread modification is complete
-        _customizeSelectionsComplete?.SetResult(true);
+        _customizeSelectionsComplete?.TrySetResult(true);
     }
     #endregion
 
