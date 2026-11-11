@@ -31,23 +31,3 @@ file_filter = src/Central.WinForms/SelectCommandDialog.<lang>.o.resx
 [o:eicher:p:0install-win:r:window-central_winforms_syncwizard]
 source_file = src/Central.WinForms/SyncWizard.resx
 file_filter = src/Central.WinForms/SyncWizard.<lang>.o.resx
-
-[o:eicher:p:0install-win:r:window-commands_winforms_configdialog]
-source_file = src/Commands.WinForms/ConfigDialog.resx
-file_filter = src/Commands.WinForms/ConfigDialog.<lang>.o.resx
-
-[o:eicher:p:0install-win:r:window-commands_winforms_feedsearchdialog]
-source_file = src/Commands.WinForms/FeedSearchDialog.resx
-file_filter = src/Commands.WinForms/FeedSearchDialog.<lang>.o.resx
-
-[o:eicher:p:0install-win:r:window-commands_winforms_integrateappform]
-source_file = src/Commands.WinForms/IntegrateAppForm.resx
-file_filter = src/Commands.WinForms/IntegrateAppForm.<lang>.o.resx
-
-[o:eicher:p:0install-win:r:window-commands_winforms_interfacedialog]
-source_file = src/Commands.WinForms/InterfaceDialog.resx
-file_filter = src/Commands.WinForms/InterfaceDialog.<lang>.o.resx
-
-[o:eicher:p:0install-win:r:window-commands_winforms_storemanageform]
-source_file = src/Commands.WinForms/StoreManageForm.resx
-file_filter = src/Commands.WinForms/StoreManageForm.<lang>.o.resx

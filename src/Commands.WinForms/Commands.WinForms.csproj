@@ -4,7 +4,7 @@
   <PropertyGroup>
     <RootNamespace>ZeroInstall.Commands.WinForms</RootNamespace>
     <AssemblyName>0install-win</AssemblyName>
-    <Description>A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</Description>
+    <Description>A GUI for Zero Install, for installing and launching applications, managing caches, etc.</Description>
     <OutputType>WinExe</OutputType>
     <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
     <UseWindowsForms>True</UseWindowsForms>
@@ -18,46 +18,21 @@
 
   <!-- Global usings -->
   <ItemGroup>
-    <Using Include="NanoByte.Common.Controls" />
-    <Using Include="NanoByte.Common.Drawing" />
-    <Using Include="ZeroInstall.Commands.Properties" />
+    <Using Include="Eto.Forms" />
+    <Using Include="NanoByte.Common.EtoControls" />
+    <Using Include="ZeroInstall.Commands.EtoForms" />
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
   </ItemGroup>
 
   <!-- Dependencies -->
   <ItemGroup>
-    <PackageReference Include="NanoByte.Common.WinForms" Version="$(NanoByteCommonVersion)" />
-    <PackageReference Include="ZeroInstall.Commands" Version="$(ZeroInstallVersion)" />
+    <PackageReference Include="ZeroInstall.Commands.EtoForms" Version="$(ZeroInstallVersion)" />
+    <PackageReference Include="Eto.Platform.Windows" Version="2.13.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Windows.Data" />
     <Reference Include="Windows.UI" />
-  </ItemGroup>
-
-  <!-- WinForms localization resources -->
-  <ItemGroup>
-    <EmbeddedResource Update="ConfigDialog.*.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="FeedSearchDialog.*.resx">
-      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="IntegrateAppForm.*.resx">
-      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="InterfaceDialog.*.resx">
-      <DependentUpon>InterfaceDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="StoreManageForm.*.resx">
-      <DependentUpon>StoreManageForm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <!-- .NET Core MSBuild does not support legacy ResGen -->
-  <PropertyGroup Condition="'$(MSBuildRuntimeType)'=='Core'">
-    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
-  </PropertyGroup>
-  <ItemGroup Condition="'$(MSBuildRuntimeType)'=='Core'">
-    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
   </ItemGroup>
 
 </Project>

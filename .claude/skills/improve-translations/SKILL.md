@@ -10,7 +10,7 @@ argument-hint: "[languages...] [resources...]  e.g. fr ja Central.WinForms/MainF
 
 There are two kinds of localized resources:
 - **String resources:** `src/<Project>/Properties/Resources.resx` in `Central.WinForms` and `Store.Service`, used from code as `Resources.<Key>`. Resource name: the project name (e.g. `Central.WinForms`).
-- **WinForms forms:** `src/<Project>/<Form>.resx` for `IntroDialog`, `MainForm`, `PortableCreatorDialog`, `SelectCommandDialog`, `SyncWizard` (`Central.WinForms`) and `ConfigDialog`, `FeedSearchDialog`, `IntegrateAppForm`, `InterfaceDialog`, `StoreManageForm` (`Commands.WinForms`). Keys are `<control>.<Property>` (`buttonHelp.Text`, `columnName.HeaderText`, `checkBoxAutoUpdate.ToolTip`, `$this.Text` for the window title). Resource name: `<Project>/<Form>` (e.g. `Central.WinForms/MainForm`). The source file also contains layout properties and `>>` metadata; only keys present in the localized files are translatable (the translate workflow strips the rest before uploading/translating), and the scripts only show those.
+- **WinForms forms:** `src/Central.WinForms/<Form>.resx` for `IntroDialog`, `MainForm`, `PortableCreatorDialog`, `SelectCommandDialog`, `SyncWizard`. Keys are `<control>.<Property>` (`buttonHelp.Text`, `columnName.HeaderText`, `checkBoxAutoUpdate.ToolTip`, `$this.Text` for the window title). Resource name: `<Project>/<Form>` (e.g. `Central.WinForms/MainForm`). The source file also contains layout properties and `>>` metadata; only keys present in the localized files are translatable (the translate workflow strips the rest before uploading/translating), and the scripts only show those.
 
 For both kinds:
 - The English source (`Resources.resx`, `<Form>.resx`) must never be edited as part of this skill.

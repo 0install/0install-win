@@ -84,7 +84,7 @@ Write a JSON array (UTF-8) to the path given in your prompt:
    "old": "<current translation copied EXACTLY from the context file>", "new": "<proposed>", "reason": "<short English reason>"}
 ]
 ```
-- `project` is the resource name from the `## <resource>: <key>` header, e.g. `Central.WinForms`, `Store.Service` or `Commands.WinForms/ConfigDialog`.
+- `project` is the resource name from the `## <resource>: <key>` header, e.g. `Central.WinForms`, `Store.Service` or `Central.WinForms/MainForm`.
 - `old` must equal the current value exactly, character for character, including trailing line breaks (encode line breaks as `\n` in JSON). For `missing` entries, use `""`.
 - Values are plain text, NOT XML-escaped (write `&Help`, not `&amp;Help`).
 - `new` must differ from `old`. It must keep the same placeholders, the same number of line breaks, the same leading/trailing whitespace and the source's access-key count.
