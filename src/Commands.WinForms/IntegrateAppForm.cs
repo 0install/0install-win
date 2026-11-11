@@ -41,6 +41,7 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
 
         _switchToBasicMode?.Invoke();
         _initialCategories.Add(_categories.Where(x => x.Value()).Select(x => x.Key));
+        UpdateCommandLine(this, EventArgs.Empty);
     }
 
     #region Event handlers
