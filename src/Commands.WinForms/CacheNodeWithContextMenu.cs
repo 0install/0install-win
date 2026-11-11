@@ -35,7 +35,16 @@ internal sealed class CacheNodeWithContextMenu(StoreManageForm form, CacheNode i
                 {
                     Resources.OpenInFileManager, null, delegate
                     {
-                        Process.Start("explorer.exe", (InnerNode is FeedNode ? "/select," : "") + InnerNode.Path.EscapeArgument());
+                        try
+                        {
+                            Process.Start("explorer.exe", (InnerNode is FeedNode ? "/select," : "") + InnerNode.Path.EscapeArgument());
+                        }
+                        #region Error handling
+                        catch (Exception ex)
+                        {
+                            Msg.Inform(form, ex.Message, MsgSeverity.Error);
+                        }
+                        #endregion
                     }
                 },
                 {
@@ -73,7 +82,7 @@ internal sealed class CacheNodeWithContextMenu(StoreManageForm form, CacheNode i
         #region Error handling
         catch (Exception ex) when (ex is ImplementationNotFoundException or IOException or UnauthorizedAccessException)
         {
-            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            Msg.Inform(form, ex.Message, MsgSeverity.Error);
         }
         #endregion
     }
@@ -87,7 +96,7 @@ internal sealed class CacheNodeWithContextMenu(StoreManageForm form, CacheNode i
         #region Error handling
         catch (Exception ex) when (ex is ImplementationNotFoundException or IOException or UnauthorizedAccessException)
         {
-            Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+            Msg.Inform(form, ex.Message, MsgSeverity.Warn);
         }
         #endregion
     }
