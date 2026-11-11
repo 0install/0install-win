@@ -43,6 +43,7 @@ public sealed partial class FeedSearchDialog : Form
         {
             await Task.Delay(200, cancellationToken);
             dataGrid.DataSource = _results = await Task.Run(() => SearchResults.Query(Config.Load(), keywords), cancellationToken);
+            errorProvider.SetError(textKeywords, "");
         }
         catch (OperationCanceledException)
         {}
