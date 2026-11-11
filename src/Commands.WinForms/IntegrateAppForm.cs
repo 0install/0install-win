@@ -32,7 +32,6 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         Text = string.Format(Resources.Integrate, _state.AppEntry.Name);
 
         checkBoxAutoUpdate.Checked = _state.AppEntry.AutoUpdate;
-        checkBoxCapabilities.Visible = (_state.AppEntry.CapabilityLists.Count != 0);
         checkBoxCapabilities.Checked = _state.CapabilityRegistration;
 
         SetupCategory(CapabilityRegistration.TagName, checkBoxCapabilities);
@@ -314,7 +313,8 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
     {
         _switchToAdvancedMode?.Invoke();
 
-        buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = checkBoxCapabilities.Visible = tabControl.Visible = true;
+        buttonBasicMode.Visible = checkBoxAutoUpdate.Visible = tabControl.Visible = true;
+        checkBoxCapabilities.Visible = (_state.AppEntry.CapabilityLists.Count != 0);
         buttonAdvancedMode.Visible = panelBasic.Visible = groupBoxCommandLine.Visible = false;
     }
     #endregion
