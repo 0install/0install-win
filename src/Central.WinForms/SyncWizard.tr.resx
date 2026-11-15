@@ -259,7 +259,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageResetWelcome.Text" xml:space="preserve">
-    <value>Eşitleme sorunlarını gider</value>
+    <value>Sync sorunlarını gider</value>
     <comment>Manually overriden.</comment>
   </data>
   <data name="pageServer.Text" xml:space="preserve">

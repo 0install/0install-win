@@ -107,7 +107,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Introduceți cheia pe alte computere folosind fereastra „Opțiuni”. Nu utilizați acest asistent pe acele computere, deoarece este necesar doar pentru efectuarea modificării inițiale.</value>
+    <value>Introduceți cheia pe alte computere folosind fereastra „Opțiuni”. Nu utilizați acest asistent acolo, deoarece este necesar doar pentru efectuarea modificării inițiale.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -183,7 +183,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">
-    <value>Zero Install Sync este acum configurat și gata de utilizare. Rulați acest asistent pe orice alt computer pe care doriți să îl sincronizați cu acesta.</value>
+    <value>Zero Install Sync este acum configurat și gata de utilizare. Rulați acest asistent pe orice alte computere pe care doriți să le sincronizați cu acesta.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupWelcome.Text" xml:space="preserve">

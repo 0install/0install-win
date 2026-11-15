@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Houd deze sleutel geheim en gebruik iets anders als wachtwoord. Op deze manier kan niemand toegang krijgen tot uw gegevens, zelfs niet als de server zou worden gehackt.</value>
+    <value>Houd deze sleutel geheim en gebruik iets anders als wachtwoord. Op deze manier kan niemand toegang krijgen tot uw gegevens, zelfs niet als de server gehackt zou worden.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

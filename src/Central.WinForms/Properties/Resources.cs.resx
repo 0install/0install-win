@@ -376,8 +376,8 @@ Data uložená na serveru můžete nahradit tím, že zvolíte možnost, že si 
     <comment>Manually overriden.</comment>
   </data>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Pokračovat?
-Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do „Mých aplikací“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
+    <value>Tím se automaticky odstraní z mezipaměti implementace, které po aktualizaci již nejsou potřebné. Chcete pokračovat?
+Důležité: Aplikace, které jste dříve „spustili“, aniž byste je přidali do sekce „Moje aplikace“, budou také odstraněny z mezipaměti.  Pokud se rozhodnete je spustit znovu, budete muset být připojeni k internetu.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="Working" xml:space="preserve">

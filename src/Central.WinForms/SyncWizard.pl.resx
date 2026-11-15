@@ -107,7 +107,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
-    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do przeprowadzenia początkowej zmiany.</value>
+    <value>Wprowadź klucz na innych komputerach, korzystając z okna „Opcje”. Nie używaj tam tego kreatora, ponieważ jest on wymagany wyłącznie do wykonania początkowej zmiany.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyNew.Text" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClient.Text" xml:space="preserve">
-    <value>Za chwilę lista aplikacji przechowywana lokalnie zostanie zastąpiona danymi przechowywanymi na serwerze Sync. Wszelkie zmiany wprowadzone lokalnie, ale jeszcze niezsynchronizowane, zostaną utracone!</value>
+    <value>Za chwilę zastąpisz swoją lokalną listę aplikacji danymi przechowywanymi na serwerze Sync. Wszelkie zmiany wprowadzone lokalnie, ale jeszcze niezsynchronizowane, zostaną utracone!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetClientFinished.Text" xml:space="preserve">
@@ -279,7 +279,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="textBoxFileShare.HintText" xml:space="preserve">
-    <value>Ścieżka do katalogu</value>
+    <value>Ścieżka katalogu</value>
     <comment>Automatically translated.</comment>
   </data>
 </root>

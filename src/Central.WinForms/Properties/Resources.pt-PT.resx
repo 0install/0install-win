@@ -227,7 +227,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>faz outras coisas</value>
+    <value>faz outra coisa</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesAddApp" xml:space="preserve">
@@ -245,7 +245,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>Pode gerir a sua lista de aplicações favoritas aqui.</value>
+    <value>Pode gerir aqui a sua lista de aplicações favoritas.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="IntroSubtitlesRunApp" xml:space="preserve">
@@ -282,7 +282,7 @@ no menu Iniciar ou no ambiente de trabalho.</value>
   </data>
   <data name="PortableDirNotEmptyAsk" xml:space="preserve">
     <value>O diretório «{0} » não está vazio.
-Tem a certeza de que pretende colocar uma versão portátil do Zero Install nesse diretório?</value>
+Tem a certeza de que quer colocar uma versão portátil do Zero Install nesse diretório?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="PortableMode" xml:space="preserve">

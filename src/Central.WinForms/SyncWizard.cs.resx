@@ -103,7 +103,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChanged.Text" xml:space="preserve">
-    <value>Kryptografický klíč byl změněn. Nyní budete muset zadat nový klíč na všech ostatních počítačích, na kterých jste již nastavili Zero Install Sync.</value>
+    <value>Šifrovací klíč byl změněn. Nyní budete muset zadat nový klíč na všech ostatních počítačích, na kterých jste již nastavili Zero Install Sync.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelCryptoKeyChangedHint.Text" xml:space="preserve">
@@ -127,7 +127,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>Tento klíč uchovávejte v tajnosti a jako heslo použijte něco jiného. Tímto způsobem nikdo nebude mít přístup k vašim datům, ani kdyby došlo k narušení bezpečnosti serveru.</value>
+    <value>Tento klíč uchovávejte v tajnosti a jako heslo použijte něco jiného. Tímto způsobem nikdo nezíská přístup k vašim datům, ani kdyby došlo k narušení bezpečnosti serveru.</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">
