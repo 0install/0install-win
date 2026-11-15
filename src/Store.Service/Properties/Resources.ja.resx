@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToAddImplementation" xml:space="preserve">
-    <value>ユーザー「{0} 」は、「{1} 」という実装を「{2} 」に追加できませんでした。</value>
+    <value>ユーザー「{0} 」は、実装「{1} 」を「{2} 」に追加できませんでした。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="FailedToCreateTempDir" xml:space="preserve">

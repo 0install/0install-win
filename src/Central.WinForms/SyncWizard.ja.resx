@@ -127,7 +127,7 @@
     <comment>Manually overriden.</comment>
   </data>
   <data name="labelNewCryptoKeyHint.Text" xml:space="preserve">
-    <value>このキーは秘密にしておき、パスワードには別のものを使用してください。そうすれば、たとえサーバーが侵害されたとしても、誰もあなたのデータにアクセスすることはできません。</value>
+    <value>この鍵は秘密にしておき、パスワードには別のものを使用してください。そうすれば、万が一サーバーが侵害されたとしても、誰もあなたのデータにアクセスできなくなります。</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelPassword.Text" xml:space="preserve">

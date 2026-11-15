@@ -131,7 +131,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
-    <value>Включает это приложение в проверки «Обновить всё».</value>
+    <value>Включает это приложение в проверку «Обновить всё».</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
@@ -151,8 +151,8 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
-    <value>Выбрать всё</value>
-    <comment>Automatically translated.</comment>
+    <value>Выбрать &amp;всё</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="checkBoxDefaultProgramsSimple.Text" xml:space="preserve">
     <value>Программа по умолчанию</value>
@@ -319,7 +319,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
-    <value>Пункт в меню «Отправить»</value>
+    <value>Пункт в меню «Отправить в»</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelStartMenuSimple.Text" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSendTo.Text" xml:space="preserve">
-    <value>Отправить</value>
+    <value>Отправить в</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageStartMenu.Text" xml:space="preserve">

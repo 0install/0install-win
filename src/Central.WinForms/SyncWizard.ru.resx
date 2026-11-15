@@ -155,7 +155,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServer.Text" xml:space="preserve">
-    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Все изменения, внесенные вами на других компьютерах, но ещё не синхронизированные с этим компьютером, будут утеряны!</value>
+    <value>Вы собираетесь заменить данные, хранящиеся на сервере Sync, своим локальным списком приложений. Все изменения, внесенные вами на других компьютерах, но еще не синхронизированные с этим, будут утеряны!</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelResetServerFinished.Text" xml:space="preserve">
@@ -179,7 +179,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetup.Text" xml:space="preserve">
-    <value>Это первый компьютер, который вы настраиваете для Zero Install Sync?</value>
+    <value>Это первый компьютер, на котором вы настраиваете Zero Install Sync?</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSetupFinished.Text" xml:space="preserve">

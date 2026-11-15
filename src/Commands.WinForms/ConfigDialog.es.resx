@@ -197,8 +197,8 @@ Notas:
     <comment>Automatically translated.</comment>
   </data>
   <data name="tabPageSync.Text" xml:space="preserve">
-    <value>Sincronización</value>
-    <comment>Automatically translated.</comment>
+    <value>Sincronizar</value>
+    <comment>Manually overriden.</comment>
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
     <value>Confianza</value>

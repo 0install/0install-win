@@ -315,7 +315,7 @@
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelFileTypesSimple.Text" xml:space="preserve">
-    <value>Domyślny program do obsługi obsługiwanych typów plików (funkcja „Otwórz za pomocą” działa również bez niego)</value>
+    <value>Domyślny program do obsługi obsługiwanych typów plików (funkcja „Otwórz za pomocą” działa również bez tego)</value>
     <comment>Automatically translated.</comment>
   </data>
   <data name="labelSendToSimple.Text" xml:space="preserve">
