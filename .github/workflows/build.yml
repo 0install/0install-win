@@ -10,6 +10,9 @@ jobs:
         with:
           fetch-depth: 0
           show-progress: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
       - uses: gittools/actions/gitversion/setup@v3.2.1
         with:
           versionSpec: '5.12.x'
