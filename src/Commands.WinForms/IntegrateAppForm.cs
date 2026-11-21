@@ -58,6 +58,18 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
 
         _state.CapabilityRegistration = checkBoxCapabilities.Checked;
         _state.AppEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
+
+        try
+        {
+            _state.CheckForConflicts();
+        }
+        #region Error handling
+        catch (Exception ex) when (ex is ConflictException or InvalidDataException)
+        {
+            Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            DialogResult = DialogResult.None; // Prevent "OK" button from closing dialog
+        }
+        #endregion
     }
 
     private void buttonHelpCommandAccessPoint_Click(object sender, EventArgs e)
