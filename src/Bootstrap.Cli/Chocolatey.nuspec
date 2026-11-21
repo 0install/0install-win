@@ -11,7 +11,7 @@
     <projectUrl>https://0install.net/</projectUrl>
     <iconUrl>https://cdn.rawgit.com/dtgm/chocolatey-packages/23daa374e2e649e33d1f4b3ffe2ce07cb1614cd3/icons/0install.png</iconUrl>
     <projectSourceUrl>https://github.com/0install/0install-win</projectSourceUrl>
-    <packageSourceUrl>https://github.com/0install/0install-win/tree/master/src/Bootstrap</packageSourceUrl>
+    <packageSourceUrl>https://github.com/0install/0install-win/tree/master/src/Bootstrap.Cli</packageSourceUrl>
     <docsUrl>https://docs.0install.net/</docsUrl>
     <mailingListUrl>https://0install.net/support.html#lists</mailingListUrl>
     <summary>Decentralized cross-distribution software installation system</summary>

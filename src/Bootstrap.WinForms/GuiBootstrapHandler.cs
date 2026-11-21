@@ -3,7 +3,7 @@
 
 using NanoByte.Common.Threading;
 
-namespace ZeroInstall;
+namespace ZeroInstall.Bootstrap.WinForms;
 
 /// <summary>
 /// Uses <see cref="MainForm"/> to show <see cref="ITask"/> progress during the bootstrap process.

@@ -1,6 +1,9 @@
 // Copyright Bastian Eicher et al.
 // Licensed under the GNU Lesser Public License
 
+using ZeroInstall.Bootstrap;
+using ZeroInstall.Bootstrap.WinForms;
+
 ProgramUtils.Init();
 Application.EnableVisualStyles();
 Application.SetCompatibleTextRenderingDefault(false);
