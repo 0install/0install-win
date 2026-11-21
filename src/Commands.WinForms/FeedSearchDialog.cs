@@ -31,6 +31,7 @@ public sealed partial class FeedSearchDialog : Form
         textKeywords.TextChanged += textKeywords_TextChanged;
 
         dataGrid.AutoGenerateColumns = false;
+        dataGrid.DisableSorting();
         dataGrid.DataSource = _results = results.ToList();
     }
 

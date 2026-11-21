@@ -27,6 +27,8 @@ public sealed partial class IntegrateAppForm : OKCancelDialog
         InitializeComponent();
         Font = DefaultFonts.Modern;
         this.PreventPinningIfNotIntegrated();
+        foreach (var dataGrid in new[] {dataGridStartMenu, dataGridDesktop, dataGridSendTo, dataGridAliases, dataGridAutoStart, dataGridFileTypes, dataGridUrlProtocols, dataGridAutoPlay, dataGridContextMenu, dataGridDefaultPrograms})
+            dataGrid.DisableSorting();
 
         _state = state ?? throw new ArgumentNullException(nameof(state));
         Text = string.Format(Resources.Integrate, _state.AppEntry.Name);
