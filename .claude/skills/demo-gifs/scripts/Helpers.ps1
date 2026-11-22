@@ -19,8 +19,29 @@ public static class Gui
     [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
     [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern IntPtr SendMessage(IntPtr h, uint msg, IntPtr w, string l);
+    [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr h, IntPtr after, int x, int y, int w, int hh, uint flags);
+
+    // Raises a window above all others even if Windows' foreground lock refuses SetForegroundWindow
+    public static void BringToFront(IntPtr h)
+    {
+        const uint flags = 0x0001 | 0x0002 | 0x0040; // SWP_NOSIZE | SWP_NOMOVE | SWP_SHOWWINDOW
+        SetWindowPos(h, new IntPtr(-1), 0, 0, 0, 0, flags); // HWND_TOPMOST
+        SetWindowPos(h, new IntPtr(-2), 0, 0, 0, 0, flags); // HWND_NOTOPMOST (stays on top of the z-order)
+        SetForegroundWindow(h);
+    }
+
+    [DllImport("dwmapi.dll")] static extern int DwmGetWindowAttribute(IntPtr h, int attr, out RECT r, int size);
 
     [StructLayout(LayoutKind.Sequential)] public struct POINT { public int X, Y; }
+    [StructLayout(LayoutKind.Sequential)] public struct RECT { public int Left, Top, Right, Bottom; }
+
+    // Visible window frame, without the invisible resize borders that GetWindowRect/MoveWindow include
+    public static RECT GetFrameBounds(IntPtr h)
+    {
+        RECT r;
+        DwmGetWindowAttribute(h, 9, out r, Marshal.SizeOf(typeof(RECT))); // DWMWA_EXTENDED_FRAME_BOUNDS
+        return r;
+    }
 
     // Moves the cursor with an ease-in-out curve so it looks like a human hand
     public static void MoveTo(int x, int y, int ms)

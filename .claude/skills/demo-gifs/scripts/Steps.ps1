@@ -8,9 +8,9 @@ $SkipSteps = @()
 function Test-Skip([string]$step) { $SkipSteps -contains $step }
 
 #region Stage
-# Returns visible top-level windows (other than the main window) that overlap the canvas and would show up in the recording
-function Get-StageClutter {
-    $c = $Crops.Canvas
+# Returns visible top-level windows (other than the main window) that overlap a crop (default: the canvas) and would show up in the recording
+function Get-StageClutter([string]$Crop = 'Canvas') {
+    $c = $Crops[$Crop]
     Get-TopWindows | Where-Object {
         $r = $_.Current.BoundingRectangle
         $_.Current.NativeWindowHandle -ne $script:MainHandle.ToInt32() -and $_.Current.ClassName -ne 'Progman' -and -not $_.Current.IsOffscreen -and
@@ -94,12 +94,14 @@ function Invoke-RunApp([string]$TileName = $App.TileName, [string]$ProcessName =
     $run = (Get-AppTile $TileName).Run
     ClickAt ([int]($run.X + 22)) ([int]($run.Y + $run.Height / 2)) 'clickRun' # left part of the split button
 
-    # A separate 0install-win process shows a progress window centered on screen (it re-centers itself, so leave it alone)
+    # A separate 0install-win process shows a progress window centered on screen (it re-centers itself, so leave it alone).
+    # Its title varies by version ("Zero Install" up to 2.29, the app's name since 2.30), so find it by process.
     $script:progressHandle = 0
     $script:progressClosed = $false
     $app = Wait-Until {
         if (-not $script:progressHandle) {
-            $progress = Get-TopWindows | Where-Object { $_.Current.Name -eq 'Zero Install' -and $_.Current.NativeWindowHandle -ne $script:MainHandle.ToInt32() } | Select-Object -First 1
+            $helperIds = @(Get-Process -Name '0install-win' -ErrorAction SilentlyContinue | ForEach-Object Id)
+            $progress = Get-TopWindows | Where-Object { $_.Current.ProcessId -in $helperIds -and -not $_.Current.IsOffscreen } | Select-Object -First 1
             if ($progress) { $script:progressHandle = $progress.Current.NativeWindowHandle; Log 'progressShown' }
         }
         elseif (-not $script:progressClosed) {
@@ -108,23 +110,28 @@ function Invoke-RunApp([string]$TileName = $App.TileName, [string]$ProcessName =
         Get-Process -Name $ProcessName -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1
     } $TimeoutSec
 
-    # The app opens wherever it remembers; move it on stage (cut the frames before appShown)
+    # The app opens wherever it remembers; move it on stage (cut the frames before appShown).
+    # After a slow start it may open behind the main window, so raise it.
     [Gui]::MoveWindow($app.MainWindowHandle, $AppWindow.X, $AppWindow.Y, $AppWindow.W, $AppWindow.H, $true) | Out-Null
+    [Gui]::BringToFront($app.MainWindowHandle)
     Log 'appShown'
     [Gui]::MoveTo($AppWindow.X + $AppWindow.W - 180, $AppWindow.Y + $AppWindow.H - 40, 400)
     $script:RunningApp = $app
     $app
 }
 
-# Closes the app started by Invoke-RunApp and refocuses the main window. Events: appClosed
-function Close-App {
+# Closes the app started by Invoke-RunApp by clicking the X in its title bar, then refocuses the main window.
+# Apps like VLC (Qt) expose no title bar buttons via UI Automation, so the X is located from the visible window frame
+# (standard caption buttons: 46 px wide, centered 15 px below the top at 100% scaling). Events: clickCloseMove, clickClose, appClosed
+function Close-App([int]$MoveMs = 700) {
     if ((Test-Skip 'CloseApp') -or -not $script:RunningApp) { return }
-    $script:RunningApp.CloseMainWindow() | Out-Null
+    $frame = [Gui]::GetFrameBounds($script:RunningApp.MainWindowHandle)
+    ClickAt ($frame.Right - 23) ($frame.Top + 15) 'clickClose' $MoveMs
     $id = $script:RunningApp.Id
     Wait-Until { -not (Get-Process -Id $id -ErrorAction SilentlyContinue) } 15 | Out-Null
+    Log 'appClosed'
     [Gui]::SetForegroundWindow($script:MainHandle) | Out-Null
     Start-Sleep -Seconds 1
-    Log 'appClosed'
 }
 
 # Clicks the star on the tile, which adds the app to "My apps" (if needed) and opens a drop-down
@@ -137,20 +144,26 @@ function Open-AppPopup([string]$TileName = $App.TileName) {
     Start-Sleep -Milliseconds 900
 }
 
-# Clicks "Integrate (start menu, etc.)" / "Modify integration" in the popup, then OK (or Cancel) in the Integrate dialog.
-# Events: clickIntegrateMove, clickIntegrate, dialogShown, clickOKMove, clickOK, dialogClosed, integrationDone
-function Invoke-Integrate([switch]$Cancel, [int]$DialogHoldMs = 1500) {
+# Clicks "Integrate (start menu, etc.)" / "Modify integration" in the popup, then toggles the checkboxes named in -Check
+# (e.g., 'Desktop'), then OK (or Cancel) in the Integrate dialog.
+# Events: clickIntegrateMove, clickIntegrate, dialogShown, check<Name>Move, check<Name> (per checkbox), clickOKMove, clickOK, dialogClosed, integrationDone
+function Invoke-Integrate([string[]]$Check = @(), [switch]$Cancel, [int]$DialogHoldMs = 1500) {
     $button = Wait-Until { Get-AllElements $script:Main | Where-Object { $_.Current.Name -match '^(Integrate|Modify integration)' } | Select-Object -First 1 } 10
     $pos = Get-Center $button
     ClickAt $pos.X $pos.Y 'clickIntegrate' 500
 
     $dialog = Wait-Window '^Integrate' 'dialogShown' -Center
     Start-Sleep -Milliseconds $DialogHoldMs
+    foreach ($name in $Check) {
+        Invoke-ClickElement $name "check$($name -replace '\W')" $dialog 500
+        Start-Sleep -Milliseconds 600
+    }
+    $dialogProcessId = $dialog.Current.ProcessId
     Invoke-ClickElement $(if ($Cancel -or $DryRun) { 'Cancel' } else { 'OK' }) 'clickOK' $dialog 700
     Wait-WindowClosed '^Integrate' 'dialogClosed'
 
-    # A short "Applying desktop integration" progress window follows; wait for the 0install-win process to finish
-    Wait-Until { -not (Get-Process -Name '0install-win' -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 }) } 120 | Out-Null
+    # The dialog's process then shows a short "Applying desktop integration" progress window; wait for that process to exit
+    Wait-Until { -not (Get-Process -Id $dialogProcessId -ErrorAction SilentlyContinue) } 120 | Out-Null
     Log 'integrationDone'
 }
 #endregion
@@ -172,6 +185,27 @@ function Search-StartMenu([string]$Query = $App.StartMenuQuery) {
         [Gui]::Key(0x1B) # Escape
         Start-Sleep -Milliseconds 500
     }
+}
+#endregion
+
+#region Desktop
+# Waits for the app's desktop shortcut, then hovers over its icon at $DesktopIcon (no click). Use a separate take, cut with -Crop Desktop.
+# Desktop icons aren't exposed via UI Automation, so the position comes from Config.ps1: the top-left slot, where a new icon
+# lands on an empty desktop. No window may overlap the crop.
+# Events: desktopShown, hoverIconMove, hoverIcon
+function Show-DesktopIcon([string]$Name = $App.TileName) {
+    if (-not $AllowOverlap) {
+        $clutter = @(Get-StageClutter 'Desktop')
+        if ($clutter) { throw "These windows overlap the desktop crop; minimize them or move them to another monitor: " + (($clutter | ForEach-Object { "'$($_.Current.Name)'" }) -join ', ') }
+    }
+    $folders = [Environment]::GetFolderPath('Desktop'), [Environment]::GetFolderPath('CommonDesktopDirectory')
+    Wait-Until { $folders | Where-Object { Test-Path (Join-Path $_ "$Name.lnk") } } 10 | Out-Null
+    Log 'desktopShown'
+    Start-Sleep -Milliseconds 1000
+    Log 'hoverIconMove'
+    [Gui]::MoveTo($DesktopIcon.X, $DesktopIcon.Y, 700)
+    Log 'hoverIcon'
+    Start-Sleep -Milliseconds 2500
 }
 #endregion
 

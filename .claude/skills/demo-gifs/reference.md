@@ -26,10 +26,11 @@ Every take logs `start` and `end`. `ClickAt <x> <y> <label>` logs `<label>Move` 
 | `Search-Catalog [text]` | Clicks the Catalog search box and types | `clickSearchMove`, `clickSearch`, `typed` |
 | `Get-AppTile [name]` | Returns `.Run` (rectangle) and `.Star` (center) of a visible tile | – |
 | `Invoke-RunApp [tile] [process]` | Clicks Run, waits through the download, moves the app window to `$AppWindow`. Returns the process. | `clickRunMove`, `clickRun`, `progressShown`*, `progressClosed`*, `appShown` |
-| `Close-App` | Closes the app from `Invoke-RunApp` and refocuses the main window | `appClosed` |
+| `Close-App [moveMs]` | Clicks the X in the title bar of the app from `Invoke-RunApp` (located from the visible window frame, since Qt apps like VLC expose no title bar via UIA) and refocuses the main window | `clickCloseMove`, `clickClose`, `appClosed` |
 | `Open-AppPopup [tile]` | Clicks the star; for new apps this adds them to "My apps" | `clickStarMove`, `clickStar`, `popupShown` |
-| `Invoke-Integrate [-Cancel]` | Clicks Integrate / Modify integration in the popup, then OK (Cancel with `-Cancel` or `-DryRun`) in the dialog | `clickIntegrateMove`, `clickIntegrate`, `dialogShown`, `clickOKMove`, `clickOK`, `dialogClosed`, `integrationDone` |
+| `Invoke-Integrate [-Check <names>] [-Cancel]` | Clicks Integrate / Modify integration in the popup, toggles the dialog's checkboxes named in `-Check` (e.g., `Desktop`), then OK (Cancel with `-Cancel` or `-DryRun`) | `clickIntegrateMove`, `clickIntegrate`, `dialogShown`, `check<Name>Move`, `check<Name>` (per checkbox), `clickOKMove`, `clickOK`, `dialogClosed`, `integrationDone` |
 | `Search-StartMenu [query]` | Win key, types the query, Escape. Record it in its own take and cut with `-Crop StartMenu`. | `startMenuTyped`, `resultsShown` |
+| `Show-DesktopIcon [name]` | Refuses if windows overlap `$Crops.Desktop`; waits for the desktop shortcut `<name>.lnk`, then moves the cursor onto `$DesktopIcon` (hover highlight, no click). Record it in its own take and cut with `-Crop Desktop`. | `desktopShown`, `hoverIconMove`, `hoverIcon` |
 | `Invoke-ClickElement <name> <label> [root]` | Clicks the first visible UIA element with that name (default root: main window) | `<label>Move`, `<label>` |
 | `Wait-Window <title regex> <label> [-Center]` | Waits for a top-level window; `-Center` moves it to `$DialogCenter`. Logs after the move. Returns the window. | `<label>` |
 | `Wait-WindowClosed <title regex> <label>` | Waits until the window is gone | `<label>` |
@@ -40,25 +41,27 @@ Every take logs `start` and `end`. `ClickAt <x> <y> <label>` logs `<label>Move` 
 
 ## What's known about the GUI
 
-From Zero Install 2.29.3; check again after UI changes.
+From Zero Install 2.30.0; check again after UI changes.
 
 | Element | How it's found / handled |
 |---|---|
-| Main window | Top-level window titled `Zero Install`. It opens centered (`CenterScreen`) on whichever monitor, so `Initialize-Stage` moves it. Default size 540×551. |
+| Main window | Top-level window titled `Zero Install`. It opens centered (`CenterScreen`) on whichever monitor, so `Initialize-Stage` moves it. Default size 540×551, minimum width 450; the flows use 450 to fit the 600 px canvas. The `Run` button and star stay anchored to its right edge (star center 55 px left of the visible right edge). |
 | Tab headers | Not exposed via UIA. Clicked by position: `$Tabs` (relative to the main window). |
 | Catalog search box | Class `EDIT` inside the pane named `Catalog`. Its UIA name is its placeholder `Search` only while empty. Cleared with `WM_SETTEXT`. A `Categories` combo box sits next to it. |
 | App tile | Parent of the text element with the app's name. Children: `Run` split button (64×23; left part runs, right part ~56 px in opens a drop-down), star (22×22, unnamed), icon (48×48), name, summary. The drop-down's item texts are "Run", "Run with options" and "Update" (from `AppResources`; UIA names unverified). |
 | Bottom bar | Buttons `Options`, `Tools` (▾), `Help` (▾) and the version text. Catalog tab: `Refresh list`, `More applications`. My apps tab: `Sync`, `Update all`. |
-| Download progress window | Separate `0install-win` process; top-level window titled `Zero Install`. First a splash, then one progress bar per component. Centered on screen and re-centered after solving, so leave it where it is; the canvas has to contain it (~655×300 around screen center). |
-| Launched app | The app's process main window. It opens wherever it remembers, so `Invoke-RunApp` moves it; 1–2 frames before the move are visible. |
-| Star popup | `ToolStripDropDown` in the main window's UIA tree (not a top-level window). Text "Added to "My apps"." plus buttons `Integrate (start menu, etc.)` and `Remove`; for integrated apps `Modify integration` and `Remove`. It extends ~235 px right of the star. After a click it briefly shows a white or greyed "Working…" state; that's real behavior. |
-| Integrate dialog | Separate `0install-win` process; titled `Integrate <app>`. Opens at `WindowsDefaultLocation`, so it gets centered (one stray frame). Checkboxes Start menu (checked), Desktop, File types, AutoPlay (app-dependent), the equivalent command line, and buttons `Advanced settings`, `OK`, `Cancel`. |
-| After OK | A short "Applying desktop integration" progress window titled with the app name (it may download icons). |
+| Download progress window | Separate `0install-win` process; top-level window titled `Zero Install` up to 2.29, with the app's name (e.g., `VLC media player`) since 2.30, so `Invoke-RunApp` finds it by process. First a splash, then one progress bar per component. Centered on screen and re-centered after solving, so leave it where it is; the canvas has to contain it (560×320 around screen center in 2.30). |
+| Launched app | The app's process main window. It opens wherever it remembers, so `Invoke-RunApp` moves it; 1–2 frames before the move are visible. After a slow start (VLC's first run after a download takes ~27 s) it may open behind the main window, so `Invoke-RunApp` also raises it. |
+| Star popup | `ToolStripDropDown` in the main window's UIA tree (not a top-level window). Text "Added to "My apps"." plus buttons `Integrate (start menu, etc.)` and `Remove`; for integrated apps `Modify integration` and `Remove`. It spans from 11 px left to 229 px right of the star center, i.e., 174 px beyond the main window's visible right edge. After a click it briefly shows a white or greyed "Working…" state; that's real behavior. |
+| Integrate dialog | Separate `0install-win` process; titled `Integrate <app>`. Opens at `WindowsDefaultLocation`, so it gets centered (one stray frame). Checkboxes Start menu (checked), `Desktop`, File types, AutoPlay (app-dependent), the equivalent command line, and buttons `Advanced settings`, `OK`, `Cancel`. |
+| Desktop icon | Shortcut `<feed name>.lnk` (e.g., `VLC media player.lnk`) in the user's Desktop folder. The `FolderView` list below `Progman` exposes no items via UI Automation, so `Show-DesktopIcon` hovers the fixed position `$DesktopIcon`. On an empty desktop the icon lands in the top-left slot (icon 37,30, label down to y≈90 with 48 px icons). If desktop icons are hidden (View → Show desktop icons), the shortcut exists but nothing shows. |
+| After OK | The dialog's process shows a short "Applying desktop integration" progress window titled with the app name (it may download icons), then exits. `Invoke-Integrate` waits for that process. |
+| Catalog | Since 2.30, command-line apps (e.g., 7-Zip) are hidden unless "Include command-line apps" is ticked. Rehearse with GUI apps. |
 | Capabilities-changed prompt | For integrated apps whose feed changed: a task dialog with Yes / No / Cancel. Only press Cancel. |
 
 ## Recording
 
-- ffmpeg `gdigrab` captures `$Capture` (1320×900 at y=140) at 30 fps, losslessly (`libx264rgb -crf 0 -preset ultrafast`), to `recordings\<name>\<take>.mkv`.
+- ffmpeg `gdigrab` captures `$Capture` (1320×1040 at 0,0) at 30 fps, losslessly (`libx264rgb -crf 0 -preset ultrafast`), to `recordings\<name>\<take>.mkv`.
 - `-copyts` keeps gdigrab's wall-clock timestamps. Events are logged as Unix ms (`<take>-events.json`). `Build.ps1` subtracts the first frame's timestamp, so event times are seconds on the take's video.
 - Cursor moves ease in and out. `MoveTo` takes about 1.5× its nominal duration because of the 15.6 ms Windows timer resolution; cuts are relative to `…Move` events, so this doesn't matter.
 - Safety guards: `ClickAt` refuses anything outside `$Crops.Canvas`; `Type-Text` refuses unless the expected window is in the foreground. Without them, a failed lookup could click at (0,0) and send keystrokes to whatever has focus.
@@ -77,17 +80,23 @@ The cuts of the reference flows (`T` = event time):
 
 | Clip | From | To | Speed |
 |---|---|---|---|
-| Search | `clickSearchMove − 0.2` | `typed + 0.3` | 1× |
+| Search | `clickSearchMove − 0.2 − P` | `typed + 0.3 + P` | 1× |
 | Run | `clickRunMove − 0.05` | `progressShown` | 1× |
 | Download | `progressShown` | `progressClosed` (fallback `appShown − 0.15`) | 12× / 16× |
-| Gap | `progressClosed` | `appShown − 0.1` (if > 0.03 s) | 1× |
-| App | `appShown + 0.04` | `appShown + 3.7` / `+ 1.5` | 1× |
-| Star + popup | `clickStarMove − 0.1` | `clickStar + 0.63` | 1× |
+| Gap | `progressClosed` | `min(progressClosed + 0.5, appShown − 0.1)` (if > 0.03 s) | 1× |
+| App | `appShown + 0.04` | `appShown + 3.7` / `+ 1.5 + P` | 1× |
+| Close app | `clickCloseMove − 0.1` | `appClosed + 0.3 + P` | 1× |
+| Star + popup | `clickStarMove − 0.1` | `clickStar + 0.63 + P` | 1× |
 | Integrate click | `clickIntegrateMove − 0.15` | `min(clickIntegrate + 0.54, dialogShown − 0.1)` | 1× |
-| Dialog | `dialogShown + 0.04` | `dialogShown + 0.95` | 1× |
+| Dialog | `dialogShown + 0.04` | `dialogShown + 0.8 + P` | 1× |
+| Tick Desktop | `checkDesktopMove − 0.1` | `checkDesktop + 0.45 + P` | 1× |
 | OK | `clickOKMove − 0.08` | `dialogClosed − 0.015` | 1× |
-| Integrated star | `integrationDone + 0.05` | `integrationDone + 0.75` | 1× |
-| Start menu | `resultsShown − 1.4` | `resultsShown − 0.05`, freeze 1.3 s | 1×, crop `StartMenu` |
+| Integrated star | `integrationDone + 0.05` | `integrationDone + 0.75 + P` | 1× |
+| Desktop icon | `desktopShown + 0.2 − P` | `hoverIcon + 0.3`, freeze 1.5 s | 1×, crop `Desktop` |
+
+`P` is the pause before each step: 0 in `run-app`, `$Pause` (0.4 s) in `run-and-integrate`. Clip ends that include `P` are capped at the next clip's start, so the pause never shows the cursor jump.
+
+The Start menu ending used before (take with `Search-StartMenu`, clip `resultsShown − 1.4` to `resultsShown − 0.05`, freeze 1.3 s, crop `StartMenu`) still works for other flows.
 
 Checking frames around a cut (times in the output GIF):
 
@@ -102,9 +111,11 @@ magick montage check*.png -tile 10x -geometry +1+1 check.png
 |---|---|
 | New Zero Install version | Usually nothing. On a timeout, compare `Show-Elements $script:Main` with the table above. Check window size (`$MainWindow`), tab positions (`$Tabs`), button names, dialog titles, progress window title. |
 | Other app | `$App` in `Config.ps1` or the flow file, or `Record.ps1` overrides. Meet the cache, My apps and first-run prerequisites. Adjust `$AppWindow` for odd window sizes. |
-| Pacing | The flow's `Get-Cuts` (speeds, holds; Build only, no re-recording); `Start-Sleep` in takes; `ClickAt`'s `moveMs`; `Type-Text`'s delay. |
+| Pacing | The flow's `Get-Cuts` (speeds, holds, `$Pause`; Build only, no re-recording, as long as the takes' `Start-Sleep`s leave enough still footage); `Start-Sleep` in takes; `ClickAt`'s `moveMs`; `Type-Text`'s delay. |
 | Resolution / scaling | Update every rectangle in `Config.ps1`. The canvas must contain the main window, the screen-centered progress window, the star popup and centered dialogs. `$Capture` must contain all crops. |
+| GIF width | Keep GIFs at most 600 px wide, preferring cropping and window layout over scaling. The canvas is roughly centered on the screen because the progress window centers itself there. The main window is at its minimum width. Main window + star popup = 608 px, so the canvas keeps a 4 px black margin left of the main window. `-Crop` crops other than `Canvas` are scaled to its size, so they must have its aspect ratio (600:570). |
 | Taskbar centered | Move `$Crops.StartMenu`; keep its aspect ratio equal to the canvas's. |
+| Desktop has icons | The new icon lands in the next free slot. Clear the top-left corner (other monitor, or drag them away), or move `$DesktopIcon` and `$Crops.Desktop` (same aspect ratio as the canvas, outside the main window) to where it lands. |
 | New crop (e.g., a zoom) | Add it to `$Crops` and use `Clip -Crop <name>`. |
 
 Showing the UI tree while writing a flow:
